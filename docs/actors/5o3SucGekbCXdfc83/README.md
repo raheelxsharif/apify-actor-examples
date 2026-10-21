@@ -4,74 +4,108 @@
 
 # Bol.com Product Search, Price & Stock Extractor
 
-Bol.com is the largest online retailer in the Netherlands and Belgium, spanning electronics, books, toys, fashion, and more. This actor reads its product search, category, and promotion pages directly and returns structured product data — price, rating, stock status, and seller — without needing a login or API key.
+Collect live product data from **Bol.com**, the largest online retailer in the Netherlands and Belgium. Search by keyword, browse a category or brand, open a product by URL, EAN barcode, or product ID, or read the current promotions feed. Every record is real data from the public shop — prices, list prices, stock, sellers, ratings, images, and optional specifications and seller offers. No login, API key, or proxy setup is needed.
 
 ## What this actor does
 
-- Searches Bol.com products by keyword, with sorting by price, rating, or recency.
-- Fetches product details directly from one or more product URLs or EAN barcode codes.
-- Browses products within a specific Bol.com category by its category ID.
-- Reads Bol.com's current promotions listing.
-- Looks up products via their EAN-8/EAN-13 barcode when supplied instead of a URL.
-- Any field a product listing doesn't show (such as `seller` when Bol.com sells the item directly) is left out of that record.
+- **Search** one or more keywords with price, rating, condition, stock, and sponsored-product filters.
+- **Browse** category, brand, series, or deals pages, with deep pagination.
+- **Look up products** by direct URL, EAN-8/EAN-13, or Bol.com product ID.
+- **Read promotions** from the deals hub and its category deals pages.
+- **Enrich on demand:** add EAN, full description, specifications, all images, rating distribution, recent reviews, and the first page of seller offers.
+- Supports the **Netherlands and Belgium** marketplaces in **Dutch and French**.
+- Empty fields are omitted from each record rather than written as `null`.
 
 ## Output per product
 
-| Field | Description |
-| --- | --- |
-| `productId` | Bol.com's internal product identifier |
-| `ean` | EAN barcode, when published |
-| `title` | Product title |
-| `shortDescription` | Brief product description or subtitle |
-| `brand` | Brand name |
-| `price` | Current selling price in EUR |
-| `rating` | Average customer rating (0-5) |
-| `reviewCount` | Number of customer reviews behind the rating |
-| `imageUrl` | Product image URL |
-| `productUrl` | Direct link to the product page |
-| `seller` | Name of the seller fulfilling the listing, when shown |
-| `inStock` | Whether the product is currently available to buy |
-| `scrapedAt` | Collection timestamp |
+- `productId` — Bol.com product identifier
+- `ean` — EAN/GTIN barcode when the product page publishes one (details mode)
+- `title`, `shortDescription`, `description`
+- `brand`
+- `price`, `currency`
+- `listPrice` — reference price when Bol.com shows one above the current price
+- `discountAmount`, `discountPercent`
+- `rating`, `reviewCount`
+- `ratingDistribution` — star counts when details are fetched
+- `recentReviews` — up to six recent reviews when details are fetched
+- `imageUrl`, `images[]`
+- `productUrl`
+- `seller`, `sellerId`, `sellerRating`, `soldByBol`
+- `inStock`, `availability`, `condition`
+- `delivery`, `deliveryDate`, `isScarce`
+- `isSponsored`, `sponsor`
+- `promotionLabels[]`
+- `categories[]`
+- `specifications` — grouped key/value specifications when details are fetched
+- `offers[]`, `offerCount` — first page of seller offers, and that page's count, when offers are enabled
+- `marketplace`, `language`, `sourceQuery`
+- `scrapedAt` — collection timestamp
 
 ## Input
 
 | Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `mode` | String (select) | `search` | `search`, `productDetails`, `categoryBrowse`, or `promotions`. |
-| `keyword` | String | `laptop` | Search keyword, used by `search`. |
-| `productUrls` | Array | `[]` | Bol.com product URLs or EAN codes, used by `productDetails`. |
-| `categoryId` | String | – | Bol.com category ID to browse, used by `categoryBrowse`. |
-| `sortBy` | String (select) | `RELEVANCE` | `RELEVANCE`, `PRICE_ASC`, `PRICE_DESC`, `RATING_ASC`, or `NEW`. Applies to `search`. |
-| `maxItems` | Integer | 20 | Maximum number of products to return (1-500). |
+|---|---|---|---|
+| `mode` | string (select) | `search` | `search`, `productDetails`, `categoryBrowse`, or `promotions`. |
+| `searchQueries` | array | `["laptop"]` | Keywords for `search`. |
+| `productUrls` | array | `[]` | Product URLs, EANs, or product IDs for `productDetails`. |
+| `categoryUrls` | array | `[]` | Category, brand, series, or deals URLs, or category IDs, for `categoryBrowse`. |
+| `marketplace` | string (select) | `nl` | `nl` or `be`. |
+| `language` | string (select) | `nl` | `nl` or `fr`. |
+| `sortBy` | string (select) | `RELEVANCE` | `RELEVANCE`, `POPULARITY`, `PRICE_ASC`, `PRICE_DESC`, `RATING_ASC`, `NEW`, or `WISHLIST`. Price sorts use the emitted numeric price; `RATING_ASC` follows Bol's rating score. |
+| `minPrice` | integer | – | Minimum price in EUR. |
+| `maxPrice` | integer | – | Maximum price in EUR. |
+| `minRating` | number | – | Minimum average rating, 0-5. |
+| `condition` | string (select) | `any` | `any`, `new`, `refurbished`, or `secondhand`. |
+| `inStockOnly` | boolean | `false` | Keep only products currently in stock. |
+| `includeSponsored` | boolean | `true` | Keep sponsored search results. |
+| `includeDetails` | boolean | `false` | Fetch product pages for EAN, description, specifications, images, and reviews. |
+| `includeOffers` | boolean | `false` | Fetch the first page of seller offers for each product. |
+| `maxItems` | integer | `20` | Overall product cap (1-10,000). |
+| `maxPages` | integer | `0` | Page limit per query/listing; `0` uses the source's own limit. |
 
-### Example: keyword search sorted by price
+### Example: search with filters
 
 ```json
 {
   "mode": "search",
-  "keyword": "laptop",
+  "searchQueries": ["koptelefoon", "laptop"],
+  "marketplace": "nl",
+  "language": "nl",
+  "minPrice": 50,
+  "maxPrice": 300,
+  "minRating": 4,
+  "condition": "new",
+  "inStockOnly": true,
   "sortBy": "PRICE_ASC",
-  "maxItems": 30
+  "includeDetails": true,
+  "maxItems": 40
 }
 ```
 
-### Example: product lookup by EAN
-
-```json
-{
-  "mode": "productDetails",
-  "productUrls": ["8718951052235"],
-  "maxItems": 10
-}
-```
-
-### Example: browse a category
+### Example: browse a category or brand
 
 ```json
 {
   "mode": "categoryBrowse",
-  "categoryId": "11776",
-  "maxItems": 50
+  "categoryUrls": [
+    "https://www.bol.com/nl/nl/l/laptops/4770/",
+    "https://www.bol.com/be/nl/pb/hp/4997239/"
+  ],
+  "marketplace": "be",
+  "language": "nl",
+  "sortBy": "POPULARITY",
+  "maxItems": 100
+}
+```
+
+### Example: product lookup by EAN or URL
+
+```json
+{
+  "mode": "productDetails",
+  "productUrls": ["0199251730818", "https://www.bol.com/nl/nl/p/hp-omnibook-5-16-ba1751nd-intel-core-i5-i5-1334u-laptop-406-cm-2k-16-gb-lpddr5x-sdram-1-tb-ssd-wi-fi-6-windows-11-home-zilver/9300000230842700/"],
+  "includeOffers": true,
+  "maxItems": 10
 }
 ```
 
@@ -80,37 +114,62 @@ Bol.com is the largest online retailer in the Netherlands and Belgium, spanning 
 ```json
 {
   "mode": "promotions",
-  "maxItems": 40
+  "marketplace": "nl",
+  "language": "nl",
+  "maxItems": 30
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — track how a product's listed price moves over time.
-- **Catalog research** — pull product sets within a category for assortment analysis.
-- **EAN-based lookups** — resolve a list of barcode codes to full product records.
-- **Deal tracking** — scan the promotions feed for discounted items worth monitoring.
-- **Market comparison** — compare ratings, pricing, and stock status across similar products.
+- **Price monitoring** — track current and reference prices for a product set.
+- **Assortment research** — pull a category, brand, or search niche into a clean dataset.
+- **EAN catalog enrichment** — resolve barcodes to titles, brands, images, and specifications.
+- **Stock and seller tracking** — see availability, delivery promises, and who is selling each item.
+- **Promotion analysis** — collect the current deals feed and its category offers.
 
 ## FAQ
 
-**Does this work for both the Netherlands and Belgium?**
-It reads Bol.com's Dutch-language (`.nl`) storefront, which serves both the Dutch and Belgian markets.
+### Where does the data come from?
 
-**Can I look up a product by EAN instead of a URL?**
-Yes — pass an EAN-8 or EAN-13 code in `productUrls` with `mode: productDetails`; the actor resolves it the same way it would a direct product URL.
+It is read from Bol.com's publicly accessible product, search, category, and deals pages at run time. The actor is not affiliated with Bol.com.
 
-**Where do I find a `categoryId`?**
-It's the numeric ID in a Bol.com category page's URL. Copy it from any category page you want to browse.
+### Can I use it for both the Netherlands and Belgium?
 
-**Why is `seller` sometimes missing?**
-It's only included when Bol.com's listing shows a distinct third-party seller name; items sold directly by Bol.com don't carry a separate seller field.
+Yes. Set `marketplace` to `nl` or `be`. Both Dutch and French shop languages are supported.
 
-**What if a search or category returns no live results?**
-If Bol.com's pages don't yield any products for a request, the run still completes with placeholder sample records marked `isSample: true` instead of an empty dataset — treat those as a signal to retry rather than as real catalog data.
+### Why is `ean` missing from my search results?
 
-**How current is the pricing data?**
-Each run reads Bol.com's live pages at request time, so prices and stock status reflect that moment.
+Search result cards do not publish barcodes. Enable `includeDetails` to visit each product page, where the EAN is read when Bol.com publishes it.
 
-**Is this affiliated with Bol.com?**
-No. This actor reads Bol.com's publicly accessible pages and has no affiliation with Bol.com B.V.
+### How many products can one search return?
+
+Bol.com caps a single keyword result list at 10 pages (typically 24-30 products per page, about 250-270 products). For larger runs, the actor automatically splits broad searches into narrower category slices; a category or brand page also goes much deeper.
+
+### Why are some fields absent from a record?
+
+Bol.com does not publish every field for every product — for example, marketplace items may have no EAN or specifications, and new products may have no reviews yet. Absent values are omitted instead of written as null.
+
+### How are results sorted?
+
+`RELEVANCE`, `POPULARITY`, `NEW`, and `WISHLIST` follow Bol.com's own ordering. `RATING_ASC` follows Bol.com's rating score, which can differ from the visible average rating. `PRICE_ASC` and `PRICE_DESC` are sorted on the emitted numeric price after duplicate products are removed.
+
+### Are sponsored products included?
+
+Yes by default, with `isSponsored` and `sponsor` set. Turn `includeSponsored` off to remove them.
+
+### Are all seller offers returned?
+
+Bol.com paginates its offers page. The actor returns the first page of offers for each product (currently up to 10) and `offerCount` is the count on that page, not the total across all pages.
+
+### How current are prices and stock?
+
+Each run reads the live pages, so prices, delivery promises, and availability reflect the moment of collection.
+
+### Do I need a proxy or an account?
+
+No. The actor connects automatically; you do not configure a proxy, cookie, login, or API key.
+
+### Why is the full review list not included?
+
+Bol.com's product pages expose a rating summary and a short sample of recent reviews. The actor returns the rating distribution and up to six recent reviews when details are enabled.

@@ -1,32 +1,134 @@
 {
-  "description": "Search products, get details, browse categories, or find promotions on Bol.com.",
+  "description": "Search, browse, look up products, or read deals from Bol.com in the Netherlands or Belgium.",
   "properties": {
-    "categoryId": {
-      "description": "Bol.com category ID to browse (e.g. 11776).",
-      "editor": "textfield",
-      "title": "Category ID (mode=categoryBrowse)",
+    "categoryUrls": {
+      "default": [],
+      "description": "Bol.com listing links or numeric category IDs (mode=categoryBrowse).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Category, brand, series, or deals URLs",
+      "type": "array"
+    },
+    "condition": {
+      "default": "any",
+      "description": "Only keep products with this offer condition.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "new",
+        "refurbished",
+        "secondhand"
+      ],
+      "enumTitles": [
+        "Any condition",
+        "New",
+        "Refurbished",
+        "Second-hand"
+      ],
+      "prefill": "any",
+      "title": "Condition",
       "type": "string"
     },
-    "keyword": {
-      "default": "laptop",
-      "description": "Product search keyword (mode=search).",
-      "editor": "textfield",
-      "prefill": "laptop",
-      "title": "Search keyword",
+    "inStockOnly": {
+      "default": false,
+      "description": "Only keep products that are currently in stock.",
+      "prefill": false,
+      "title": "In stock only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Visit each product page to add EAN, full description, specifications, all images, rating distribution, and recent reviews. Slower, but more complete.",
+      "prefill": false,
+      "title": "Fetch product details",
+      "type": "boolean"
+    },
+    "includeOffers": {
+      "default": false,
+      "description": "Add the first page of seller offers (price, shipping, condition, seller rating) for each product. Bol.com paginates offers; only the first page is returned.",
+      "prefill": false,
+      "title": "Fetch seller offers",
+      "type": "boolean"
+    },
+    "includeSponsored": {
+      "default": true,
+      "description": "Keep sponsored (advertised) products in search and browse results.",
+      "prefill": true,
+      "title": "Include sponsored products",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "nl",
+      "description": "Shop language for keyword searches and numeric category IDs.",
+      "editor": "select",
+      "enum": [
+        "nl",
+        "fr"
+      ],
+      "enumTitles": [
+        "Dutch",
+        "French"
+      ],
+      "prefill": "nl",
+      "title": "Language",
+      "type": "string"
+    },
+    "marketplace": {
+      "default": "nl",
+      "description": "Which Bol.com shop to use for keyword searches and numeric category IDs.",
+      "editor": "select",
+      "enum": [
+        "nl",
+        "be"
+      ],
+      "enumTitles": [
+        "Netherlands (bol.com/nl)",
+        "Belgium (bol.com/be)"
+      ],
+      "prefill": "nl",
+      "title": "Marketplace",
       "type": "string"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of products to return.",
-      "maximum": 500,
+      "description": "Maximum number of products to return across the whole run.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max items",
+      "prefill": 1,
+      "title": "Max products",
       "type": "integer"
+    },
+    "maxPages": {
+      "default": 0,
+      "description": "Page limit per query or listing. 0 uses the source's own page limit.",
+      "maximum": 500,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max pages per source",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Only keep products at or below this price.",
+      "minimum": 0,
+      "title": "Maximum price (EUR)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Only keep products at or above this price.",
+      "minimum": 0,
+      "title": "Minimum price (EUR)",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only keep products rated at or above this value (0-5).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating",
+      "type": "number"
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch from Bol.com.",
+      "description": "What to collect from Bol.com.",
       "editor": "select",
       "enum": [
         "search",
@@ -36,8 +138,8 @@
       ],
       "enumTitles": [
         "Search products by keyword",
-        "Fetch product details by URL or EAN",
-        "Browse products by category",
+        "Look up products by URL, EAN, or product ID",
+        "Browse a category, brand, series, or deals page",
         "Browse current promotions"
       ],
       "prefill": "search",
@@ -46,29 +148,45 @@
     },
     "productUrls": {
       "default": [],
-      "description": "List of Bol.com product page URLs or EAN codes.",
+      "description": "Bol.com product links, EAN-8/EAN-13 barcodes, or numeric product IDs (mode=productDetails).",
       "editor": "stringList",
       "prefill": [],
-      "title": "Product URLs or EANs (mode=productDetails)",
+      "title": "Product URLs, EANs, or product IDs",
+      "type": "array"
+    },
+    "searchQueries": {
+      "default": [
+        "laptop"
+      ],
+      "description": "One or more keywords to search for (mode=search).",
+      "editor": "stringList",
+      "prefill": [
+        "laptop"
+      ],
+      "title": "Search queries",
       "type": "array"
     },
     "sortBy": {
       "default": "RELEVANCE",
-      "description": "How to sort search results.",
+      "description": "Result ordering for search and browsing. Price sorts use the emitted numeric price; RATING_ASC follows Bol's rating score, not the visible average.",
       "editor": "select",
       "enum": [
         "RELEVANCE",
+        "POPULARITY",
         "PRICE_ASC",
         "PRICE_DESC",
         "RATING_ASC",
-        "NEW"
+        "NEW",
+        "WISHLIST"
       ],
       "enumTitles": [
         "Relevance",
-        "Price: Low to High",
-        "Price: High to Low",
-        "Best rated",
-        "Newest"
+        "Popularity",
+        "Price: low to high",
+        "Price: high to low",
+        "Best rated (Bol score)",
+        "Newest",
+        "Most wanted"
       ],
       "prefill": "RELEVANCE",
       "title": "Sort by",
@@ -79,6 +197,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Bol.com Scraper Input",
+  "title": "Bol.com Product Search, Price & Stock Extractor Input",
   "type": "object"
 }
