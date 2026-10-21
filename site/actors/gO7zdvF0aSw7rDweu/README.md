@@ -1,0 +1,191 @@
+# StockTwits Ticker Sentiment & Trending Symbol Feed
+
+StockTwits is where retail traders post real-time, self-tagged Bullish/Bearish takes on stocks, ETFs, and crypto. This actor reads that public data for any ticker or trader: message streams, aggregate sentiment snapshots, daily sentiment history back to 2018, the full trending-symbols list with prices and fundamentals, current quotes, OHLCV price bars, search results, and reply threads — all without a login or API key.
+
+## What this actor does
+
+- **Nine modes:** ticker messages, trader posts, trending tickers, market-wide posts (trending / suggested / all), ticker sentiment, ticker overview, price history, search, and message threads.
+- **Multi-target inputs:** up to 50 tickers or traders per run, with per-target record limits.
+- **Sentiment:** per-message Bullish/Bearish tags plus StockTwits' own aggregate gauge and historical daily series.
+- **Trending depth:** up to 573 trending instruments (not just the top 30), including price, fundamentals, and trend summaries where StockTwits provides them.
+- **Deep archive:** v2 for recent filtered streams, automatic v3 continuation when the 12-month boundary is reached (AAPL back to 2009 in probes).
+- **Filters:** newest/top/curated-trending sort, links/charts/videos, self-tagged sentiment, and message-ID bounds for incremental runs.
+- **No credentials, no browser, no proxy setup.** Empty fields are omitted from each record.
+
+## Output per record type
+
+Every row has a `recordType` and `scrapedAt`.
+
+### Message (`recordType: "message"`)
+
+- `messageId`, `body`, `createdAt`, `isDiscussion`, `sentiment` — post identity and the author's optional Bullish/Bearish tag
+- `symbol`, `symbols`, `cashtags` — the ticker and every cashtag, with title, exchange, watchlist count, price, sentiment change, and volume change
+- `priceAtPost`, `prices` — price snapshot(s) attached to the post
+- `priceTarget`, `priceTargetDate`, `priceTargetDateTime`, `priceTargetStartingPrice`, `priceTargetCurrentPrice`, `priceTargetPercentChange` — StockTwits' source-reported price prediction, when the author attached one
+- `priceTargetStatus`, `priceTargetSentiment`, `priceTargetType`, `priceTargetIsHit`, `priceTargetAccuracy` — prediction status and outcome metadata
+- `priceTargetFinalPrice`, `priceTargetFinalPriceChange`, `priceTargetFinalPriceChangePercent`, `priceTargetCreatedAt`, `priceTargetSymbol` — final result and provenance
+- `likeCount`, `reshareCount`, `replyCount` — engagement
+- `isReply`, `isReshare`, `conversationParentMessageId`, `conversationInReplyToMessageId`, `isConversationParent`, `conversationRole` — thread context
+- `userId`, `username`, `userDisplayName`, `userFollowers`, `userFollowing`, `userIdeas`, `userJoinDate`, `userOfficial`, `userIdentity`, `userClassification`, `userBadges`, `userHomeCountry`, `userLikeCount`, `userWatchlistCount`, `userTradeStatus` — author details
+- `userAvatarUrl`, `userAvatarUrlOriginal`, `stocktwitsUserUrl`
+- `mediaUrls`, `media`, `chartUrl`, `links`, `mentionedUsers`
+- `resharedMessageId`, `resharedBody`, `resharedUsername`, `resharedCreatedAt`
+- `source`, `sourceUrl`, `stocktwitsUrl`
+
+### Symbol (`recordType: "symbol"`)
+
+- `symbol`, `symbolId`, `symbolDisplay`, `symbolMic`, `title`, `exchange`, `region`, `instrumentClass`, `logoUrl`, `watchlistCount`, `hasPricing`, `tradeStatus`, `liveEvent`, `aliases`, `cusip`, `isin`
+- `sector`, `industry`, `rank`, `isTrending`, `trendingScore`, `trendSummary`, `trendSummaryAt`, `trendRanks`, `features`
+- `priceLast`, `priceChange`, `pricePercentChange`, `priceOpen`, `priceHigh`, `priceLow`, `pricePreviousClose`, `priceVolume`, `priceCurrency`, `priceAsOf`, `extendedHoursPrice`, `extendedHoursChange`, `extendedHoursPercentChange`, `combinedPrice`, `combinedChange`, `combinedPercentChange`
+- `marketCap`, `peRatio`, `eps`, `dividendRate`, `beta`, `sharesOutstanding`, `floatShares`, `revenue`, `grossMargin`, `totalCash`, `totalDebt`, `totalAssets`, `totalLiabilities`, `bookValuePerShare`, `priceToBook`, `revenuePerEmployee`, `revenueToAssets`, `avgDailyVolume1M`, `avgDailyVolume3M`, `high52Week`, `low52Week`, `fiftyDayMovingAverage`, `institutionalOwnership`, `earningsGrowth`, `employees`, `businessDescription`, `fiscalPeriodEnd`, `fundamentalsUpdatedAt`. Monetary fundamentals are in USD; share counts are share counts.
+- `relatedSymbols` (when enabled), `matchedQuery` (search), `stocktwitsUrl`
+
+### Trader (`recordType: "user"`)
+
+`userId`, `username`, `userDisplayName`, `userAvatarUrl`, `userAvatarUrlOriginal`, `userJoinDate`, `userOfficial`, `userIdentity`, `userClassification`, `userBadges`, `userHomeCountry`, `userFollowers`, `userFollowing`, `userIdeas`, `userWatchlistCount`, `userLikeCount`, `userTradeStatus`, optional `pinnedMessageId`/`pinnedMessageBody`/`pinnedMessageCreatedAt`, `stocktwitsUrl`, and search-only `premium`, `verified`, `companyRepresentative`, `matchedQuery`.
+
+### Sentiment snapshot (`recordType: "sentiment"`)
+
+One row per ticker with a `timeframes` object keyed `15m`, `24h`, `now`, `1D`, `1W`, `1M`, `3M`, `6M`, `1Y`, and `ALL`. Each timeframe carries:
+
+- `sentimentValue`, `sentimentLabel`, `sentimentScore`, `sentimentScoreLabel`, `sentimentChange`
+- `messageVolume`, `messageVolumeLabel`, `messageVolumeScore`, `messageVolumeScoreLabel`, `messageVolumeChange`
+- `participationRatio`, `participationLabel`, `participationScore`, `participationScoreLabel`, `participationChange` where available
+
+### Sentiment history (`recordType: "sentimentPoint"`)
+
+One row per date/time: `symbol`, `dateTime`, `sentimentValue`, `sentimentLabel`, `sentimentScore`, `sentimentScoreLabel`, `messageVolume`, `messageVolumeLabel`, `messageVolumeScore`, `messageVolumeScoreLabel`, `participationRatio`, `participationLabel`, `participationScore`, `participationScoreLabel`.
+
+### Price bar (`recordType: "priceBar"`)
+
+`symbol`, `date`, `startTime`, `endTime`, `dateTime`, `open`, `high`, `low`, `close`, `last`, `volume`, `trades`, `vwap`, `twap`, `utcOffset`.
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | string (select) | `symbolMessages` | `symbolMessages`, `userMessages`, `trendingSymbols`, `marketMessages`, `symbolSentiment`, `symbolOverview`, `priceHistory`, `search`, `conversation`. Legacy aliases `trendingMessages` and `symbolSearch` are still accepted. |
+| `symbols` | array | `["AAPL"]` | Tickers for symbol modes. Accepts `AAPL`, `$TSLA`, `BTC.X`, `BRK.B`, `SHOP.TSX`, or symbol URLs. |
+| `usernames` | array | – | Traders for `userMessages`, without `@`; profile URLs accepted. |
+| `searchQueries` | array | – | Names or tickers for `search`. |
+| `searchType` | string (select) | `all` | `all`, `symbols`, or `users`. |
+| `streamFilter` | string (select) | `all` | `all` (newest), `top` (ranked), `trending` (curated top 100 per ticker). |
+| `contentFilter` | string (select) | `all` | `all`, `links`, `charts`, `videos`. |
+| `sentimentFilter` | string (select) | `any` | `any`, `bullish`, `bearish`, `tagged`. |
+| `onlyPriceTargets` | boolean | `false` | Keep only messages with a source-reported price prediction. |
+| `feedType` | string (select) | `trending` | `trending`, `suggested`, or `all` (public market-wide chronological stream). |
+| `trendingAssetClass` | string (select) | `all` | `all`, `stocks`, `etf`, `crypto`, `adr`, `commodity`. |
+| `sentimentRange` | string (select) | `now` | `now`, `1D`, `1W`, `1M`, `3M`, `6M`, `1Y`, `5Y`, `ALL`. |
+| `chartZoom` | string (select) | `1M` | `1D`, `1W`, `1M`, `3M`, `6M`, `YTD`, `1Y`, `5Y`, `ALL`. |
+| `includeUserProfile` | boolean | `false` | Add a trader profile record in `userMessages`. |
+| `includeRelatedSymbols` | boolean | `false` | Add related tickers in `symbolOverview`. |
+| `newerThanMessageId` | integer | – | Keep messages newer than this StockTwits message ID. |
+| `olderThanMessageId` | integer | – | Start at or below this message ID and page further back. |
+| `messageIds` | array | – | Message IDs or URLs for `conversation`. |
+| `maxItems` | integer | `30` | Per ticker/trader/query/thread for target modes; total for feeds; max points/bars for history modes. 1–5000. |
+
+### Example: latest tagged sentiment on several tickers
+
+```json
+{
+  "mode": "symbolMessages",
+  "symbols": ["AAPL", "TSLA", "NVDA"],
+  "streamFilter": "all",
+  "sentimentFilter": "tagged",
+  "maxItems": 50
+}
+```
+
+### Example: daily sentiment history for a watchlist
+
+```json
+{
+  "mode": "symbolSentiment",
+  "symbols": ["AAPL", "MSFT", "SPY", "BTC.X"],
+  "sentimentRange": "ALL",
+  "maxItems": 500
+}
+```
+
+### Example: trending crypto with prices and fundamentals
+
+```json
+{
+  "mode": "trendingSymbols",
+  "trendingAssetClass": "crypto",
+  "maxItems": 74
+}
+```
+
+### Example: quote, fundamentals, and related tickers
+
+```json
+{
+  "mode": "symbolOverview",
+  "symbols": ["NVDA", "AMD", "ASML"],
+  "includeRelatedSymbols": true,
+  "maxItems": 3
+}
+```
+
+### Example: a trader's posts plus their profile
+
+```json
+{
+  "mode": "userMessages",
+  "usernames": ["KirRoyalTrader"],
+  "includeUserProfile": true,
+  "maxItems": 100
+}
+```
+
+### Example: a message thread
+
+```json
+{
+  "mode": "conversation",
+  "messageIds": ["https://stocktwits.com/TalkMarkets/message/666869978"],
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- **Sentiment research** — compare self-tagged Bullish/Bearish posts with StockTwits' aggregate gauge and daily history.
+- **Trading dashboards** — feed message volume, participation, sentiment scores, and trending ranks into a live dashboard.
+- **Scheduled monitoring** — use `newerThanMessageId` to collect only posts published since the last run.
+- **Trend discovery** — scan the full trending list, filter to stocks, ETFs, or crypto, and read StockTwits' why-it-is-trending summaries.
+- **Trader research** — export a public trader's post history, profile stats, and replies for influence analysis.
+- **Quant datasets** — join ticker messages, quotes, fundamentals, and OHLCV bars in one run for model training or backtesting.
+
+## FAQ
+
+**Does this need a StockTwits login or API key?**
+No. It reads the same public JSON endpoints the StockTwits website uses when you browse logged out. No cookies, API key, or proxy setup is required.
+
+**How far back do messages go?**
+Recent filtered streams use StockTwits' 12-month v2 window. When that walk reaches the boundary, the actor continues through StockTwits' v3 stream API: probes reached 2009 for AAPL and 2022 across 38/38 diverse tickers, with user archives varying by account. `streamFilter=top` stays on the recent ranked window; the archive continuation is chronological. Older v3 rows can omit fields the current source no longer serializes (for example `links` or reply context). Sentiment history goes back to 2018, and price bars go back to 2016 where the ticker has data.
+
+**Why is `sentiment` missing from many messages?**
+Tagging a post Bullish or Bearish is optional. Untagged posts simply omit the field. Use `sentimentFilter=tagged`, or use the `symbolSentiment` mode for StockTwits' aggregate gauge, which is not limited to tagged posts.
+
+**What do `sentimentScore` and `sentimentScoreLabel` mean?**
+They are StockTwits' normalized 0–100 score and label (for example "Extremely Bearish"). `sentimentValue` is the underlying raw value, which can be negative. The normalized pair is what the StockTwits website displays. Snapshot mode returns one row per ticker with a `timeframes` object containing all ten timeframes; history mode returns one row per date/time.
+
+**Why are some trending tickers missing prices or fundamentals?**
+StockTwits publishes richer data for equities than for some ETFs and crypto. AI trend summaries are generated by StockTwits only for the top of the trending list, not for every symbol. Fields the source does not provide are omitted rather than filled with placeholder values.
+
+**Does every ticker have price history?**
+Most US, Canadian, ETF, and crypto symbols do. A few valid message-stream symbols — often very thinly traded or foreign listings such as some `.TSX` names — have no chart data; the actor skips them and continues, while `symbolOverview` can still return their quote.
+
+**Can I get more than 30 trending tickers?**
+Yes. The trending mode walks StockTwits' enhanced list, which currently returns up to about 573 instruments (about 74 for crypto). `marketMessages` with `feedType=all` reads the public market-wide stream instead. Search is separate and capped by StockTwits at 12 symbol or 15 user results per query.
+
+**Can I collect messages for a specific trader and ticker together?**
+StockTwits' combined user+ticker endpoint requires authentication, so it is not used. You can fetch a trader's posts and filter the `cashtags`/`symbols` fields client-side.
+
+**Why do links to stocktwits.com sometimes fail in scripts?**
+StockTwits protects its website pages with a browser challenge. The links are valid and open normally in a browser; this affects page navigation, not the actor's data.
+
+**Does the actor invent price targets or text sentiment?**
+No. It returns StockTwits' own source-reported price predictions when an author attached one (`priceTarget*` fields) and never generates targets or model-based text sentiment. Empty fields are omitted rather than returned as `null`.

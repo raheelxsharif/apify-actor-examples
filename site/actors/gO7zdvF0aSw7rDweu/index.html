@@ -1,0 +1,602 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-nzFr7k0u8yEA3MKqOhfzvdz11jz4pe/IxoJZV1Gi9/Q=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>StockTwits Ticker Sentiment &amp; Trending Symbol Feed | Dataspryva</title><meta name="description" content="Reads StockTwits&#x27; public message stream for any ticker or user, the market-wide trending-symbols list with trend summaries, and ticker search, including each post&#x27;s self-tagged sen"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/"><meta property="og:title" content="StockTwits Ticker Sentiment &amp; Trending Symbol Feed | Dataspryva"><meta property="og:description" content="Reads StockTwits&#x27; public message stream for any ticker or user, the market-wide trending-symbols list with trend summaries, and ticker search, including each post&#x27;s self-tagged sen"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#webpage","name":"StockTwits Ticker Sentiment & Trending Symbol Feed","description":"Reads StockTwits' public message stream for any ticker or user, the market-wide trending-symbols list with trend summaries, and ticker search, including each post's self-tagged sentiment.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#article","headline":"StockTwits Ticker Sentiment & Trending Symbol Feed","name":"StockTwits Ticker Sentiment & Trending Symbol Feed","description":"Reads StockTwits' public message stream for any ticker or user, the market-wide trending-symbols list with trend summaries, and ticker search, including each post's self-tagged sentiment.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"StockTwits Ticker Sentiment & Trending Symbol Feed","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/gO7zdvF0aSw7rDweu/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>StockTwits Ticker Sentiment &amp; Trending Symbol Feed</span></div><section id="overview"><h1 class="doc-title">StockTwits Ticker Sentiment &amp; Trending Symbol Feed</h1><p class="lede">Reads StockTwits&#x27; public message stream for any ticker or user, the market-wide trending-symbols list with trend summaries, and ticker search, including each post&#x27;s self-tagged sentiment.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/stocktwits-ticker-sentiment-and-trending-symbol">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/gO7zdvF0aSw7rDweu/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from StockTwits.</td></tr><tr><td><code>symbols</code></td><td>array</td><td>optional</td><td>Tickers to fetch, e.g. AAPL, TSLA, BTC.X, BRK.B, SHOP.TSX. Accepts $cashtags and StockTwits symbol URLs. Use .X for crypto.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>StockTwits usernames without @, or profile URLs, e.g. KirRoyalTrader, https://stocktwits.com/Fibonaccino.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from StockTwits.</td></tr><tr><td><code>symbols</code></td><td>array</td><td>optional</td><td>Tickers to fetch, e.g. AAPL, TSLA, BTC.X, BRK.B, SHOP.TSX. Accepts $cashtags and StockTwits symbol URLs. Use .X for crypto.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>StockTwits usernames without @, or profile URLs, e.g. KirRoyalTrader, https://stocktwits.com/Fibonaccino.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Company names, tickers, or trader names to search for, e.g. tesla, apple, TraderLion.</td></tr><tr><td><code>searchType</code></td><td>string</td><td>optional</td><td>What to return from each query.</td></tr><tr><td><code>streamFilter</code></td><td>string</td><td>optional</td><td>All = newest first, Top = StockTwits ranking, Trending = curated high-engagement posts for the ticker (up to 100).</td></tr><tr><td><code>contentFilter</code></td><td>string</td><td>optional</td><td>Keep only messages with this attachment. Videos are rare; All keeps every message.</td></tr><tr><td><code>sentimentFilter</code></td><td>string</td><td>optional</td><td>Keep posts by the author&#x27;s self-tagged sentiment. Most posts are untagged; Any keeps all.</td></tr><tr><td><code>onlyPriceTargets</code></td><td>boolean</td><td>optional</td><td>Keep only messages where the author attached a StockTwits price prediction (price target).</td></tr><tr><td><code>feedType</code></td><td>string</td><td>optional</td><td>Trending = market-wide trending posts; Suggested = posts from StockTwits&#x27; curated suggested traders; All = public market-wide firehose (deep, chronological).</td></tr><tr><td><code>trendingAssetClass</code></td><td>string</td><td>optional</td><td>Which trending instruments to keep. All includes stocks, ETFs, crypto, ADRs, commodities, and other classes.</td></tr><tr><td><code>sentimentRange</code></td><td>string</td><td>optional</td><td>Now = current sentiment across 15m, 24h, now, 1D–ALL. Other values return the daily/intraday history for that window.</td></tr><tr><td><code>chartZoom</code></td><td>string</td><td>optional</td><td>Intraday windows use 5-minute (1D) or 30-minute (1W) bars; other windows use daily/weekly bars.</td></tr><tr><td><code>includeUserProfile</code></td><td>boolean</td><td>optional</td><td>Add one profile record per username before that trader&#x27;s posts.</td></tr><tr><td><code>includeRelatedSymbols</code></td><td>boolean</td><td>optional</td><td>Add StockTwits&#x27; related-industry tickers to each symbol record.</td></tr><tr><td><code>newerThanMessageId</code></td><td>integer</td><td>optional</td><td>Only keep messages with an ID greater than this. Useful for incremental scheduled runs.</td></tr><tr><td><code>olderThanMessageId</code></td><td>integer</td><td>optional</td><td>Start from messages at or below this ID and page further back.</td></tr><tr><td><code>messageIds</code></td><td>array</td><td>optional</td><td>Message IDs or StockTwits message URLs whose parent + reply thread should be fetched.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Per ticker/username/query/thread for target modes; total for trending and market feeds; max points or bars for history modes.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape StockTwits messages, aggregate sentiment and its history, trending tickers, quotes, fundamentals, price bars, profiles, search, and reply threads.&quot;,
+  &quot;properties&quot;: {
+    &quot;chartZoom&quot;: {
+      &quot;default&quot;: &quot;1M&quot;,
+      &quot;description&quot;: &quot;Intraday windows use 5-minute (1D) or 30-minute (1W) bars; other windows use daily/weekly bars.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;1D&quot;,
+        &quot;1W&quot;,
+        &quot;1M&quot;,
+        &quot;3M&quot;,
+        &quot;6M&quot;,
+        &quot;YTD&quot;,
+        &quot;1Y&quot;,
+        &quot;5Y&quot;,
+        &quot;ALL&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;1 day&quot;,
+        &quot;1 week&quot;,
+        &quot;1 month&quot;,
+        &quot;3 months&quot;,
+        &quot;6 months&quot;,
+        &quot;Year to date&quot;,
+        &quot;1 year&quot;,
+        &quot;5 years&quot;,
+        &quot;All (2016+)&quot;
+      ],
+      &quot;title&quot;: &quot;Price history window (mode=priceHistory)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;contentFilter&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Keep only messages with this attachment. Videos are rare; All keeps every message.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;links&quot;,
+        &quot;charts&quot;,
+        &quot;videos&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All messages&quot;,
+        &quot;With links&quot;,
+        &quot;With charts&quot;,
+        &quot;With videos&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Content filter (message modes)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;feedType&quot;: {
+      &quot;default&quot;: &quot;trending&quot;,
+      &quot;description&quot;: &quot;Trending = market-wide trending posts; Suggested = posts from StockTwits&#x27; curated suggested traders; All = public market-wide firehose (deep, chronological).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;trending&quot;,
+        &quot;suggested&quot;,
+        &quot;all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Trending posts&quot;,
+        &quot;Suggested trader posts&quot;,
+        &quot;All public posts (market-wide, v3)&quot;
+      ],
+      &quot;title&quot;: &quot;Market feed (mode=marketMessages)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeRelatedSymbols&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add StockTwits&#x27; related-industry tickers to each symbol record.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include related tickers (mode=symbolOverview)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeUserProfile&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add one profile record per username before that trader&#x27;s posts.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include trader profile (mode=userMessages)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Per ticker/username/query/thread for target modes; total for trending and market feeds; max points or bars for history modes.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max records&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;messageIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Message IDs or StockTwits message URLs whose parent + reply thread should be fetched.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Message IDs (mode=conversation)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;symbolMessages&quot;,
+      &quot;description&quot;: &quot;What to fetch from StockTwits.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;symbolMessages&quot;,
+        &quot;userMessages&quot;,
+        &quot;trendingSymbols&quot;,
+        &quot;marketMessages&quot;,
+        &quot;symbolSentiment&quot;,
+        &quot;symbolOverview&quot;,
+        &quot;priceHistory&quot;,
+        &quot;search&quot;,
+        &quot;conversation&quot;,
+        &quot;trendingMessages&quot;,
+        &quot;symbolSearch&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Ticker messages&quot;,
+        &quot;Trader posts&quot;,
+        &quot;Trending tickers&quot;,
+        &quot;Market-wide posts&quot;,
+        &quot;Ticker sentiment (now or history)&quot;,
+        &quot;Ticker quote &amp; fundamentals&quot;,
+        &quot;Price history (OHLCV)&quot;,
+        &quot;Search tickers &amp; traders&quot;,
+        &quot;Message thread &amp; replies&quot;,
+        &quot;Market-wide trending posts (legacy alias)&quot;,
+        &quot;Search tickers (legacy alias)&quot;
+      ],
+      &quot;prefill&quot;: &quot;symbolMessages&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;newerThanMessageId&quot;: {
+      &quot;description&quot;: &quot;Only keep messages with an ID greater than this. Useful for incremental scheduled runs.&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Newer than message ID (message modes)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;olderThanMessageId&quot;: {
+      &quot;description&quot;: &quot;Start from messages at or below this ID and page further back.&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Older than message ID (message modes)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;onlyPriceTargets&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only messages where the author attached a StockTwits price prediction (price target).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only price predictions (message modes)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Company names, tickers, or trader names to search for, e.g. tesla, apple, TraderLion.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Search queries (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchType&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;What to return from each query.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;symbols&quot;,
+        &quot;users&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Everything (tickers + traders)&quot;,
+        &quot;Tickers only&quot;,
+        &quot;Traders only&quot;
+      ],
+      &quot;title&quot;: &quot;Search type (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sentimentFilter&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Keep posts by the author&#x27;s self-tagged sentiment. Most posts are untagged; Any keeps all.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;bullish&quot;,
+        &quot;bearish&quot;,
+        &quot;tagged&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any (no filter)&quot;,
+        &quot;Bullish only&quot;,
+        &quot;Bearish only&quot;,
+        &quot;Any tagged sentiment&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Sentiment filter (message modes)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sentimentRange&quot;: {
+      &quot;default&quot;: &quot;now&quot;,
+      &quot;description&quot;: &quot;Now = current sentiment across 15m, 24h, now, 1D–ALL. Other values return the daily/intraday history for that window.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;now&quot;,
+        &quot;1D&quot;,
+        &quot;1W&quot;,
+        &quot;1M&quot;,
+        &quot;3M&quot;,
+        &quot;6M&quot;,
+        &quot;1Y&quot;,
+        &quot;5Y&quot;,
+        &quot;ALL&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Current snapshot (10 timeframes)&quot;,
+        &quot;1 day history&quot;,
+        &quot;1 week history&quot;,
+        &quot;1 month history&quot;,
+        &quot;3 month history&quot;,
+        &quot;6 month history&quot;,
+        &quot;1 year history&quot;,
+        &quot;5 year history&quot;,
+        &quot;All history (2018+)&quot;
+      ],
+      &quot;title&quot;: &quot;Sentiment range (mode=symbolSentiment)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;streamFilter&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;All = newest first, Top = StockTwits ranking, Trending = curated high-engagement posts for the ticker (up to 100).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;top&quot;,
+        &quot;trending&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All (newest first)&quot;,
+        &quot;Top (ranked stream)&quot;,
+        &quot;Trending (curated top 100)&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Message sort (mode=symbolMessages)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;symbols&quot;: {
+      &quot;default&quot;: [
+        &quot;AAPL&quot;
+      ],
+      &quot;description&quot;: &quot;Tickers to fetch, e.g. AAPL, TSLA, BTC.X, BRK.B, SHOP.TSX. Accepts $cashtags and StockTwits symbol URLs. Use .X for crypto.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;AAPL&quot;
+      ],
+      &quot;title&quot;: &quot;Tickers (mode=symbolMessages / symbolSentiment / symbolOverview / priceHistory)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;trendingAssetClass&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Which trending instruments to keep. All includes stocks, ETFs, crypto, ADRs, commodities, and other classes.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;stocks&quot;,
+        &quot;etf&quot;,
+        &quot;crypto&quot;,
+        &quot;adr&quot;,
+        &quot;commodity&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All asset classes&quot;,
+        &quot;Stocks&quot;,
+        &quot;ETFs&quot;,
+        &quot;Crypto&quot;,
+        &quot;ADRs&quot;,
+        &quot;Commodities&quot;
+      ],
+      &quot;title&quot;: &quot;Asset class (mode=trendingSymbols)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;usernames&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;StockTwits usernames without @, or profile URLs, e.g. KirRoyalTrader, https://stocktwits.com/Fibonaccino.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Usernames (mode=userMessages)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;StockTwits Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped StockTwits records, keyed by recordType.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;StockTwits messages, trader profiles, ticker sentiment snapshots and history, trending symbols with prices and fundamentals, quotes, OHLCV bars, search results, and reply threads.&quot;,
+  &quot;properties&quot;: {
+    &quot;records&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped StockTwits records, keyed by recordType.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;StockTwits records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;StockTwits Ticker Sentiment &amp; Trending Symbol Feed Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;StockTwits records&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;symbol&quot;,
+          &quot;title&quot;,
+          &quot;sentiment&quot;,
+          &quot;sentimentScore&quot;,
+          &quot;priceLast&quot;,
+          &quot;pricePercentChange&quot;,
+          &quot;body&quot;,
+          &quot;username&quot;,
+          &quot;rank&quot;,
+          &quot;createdAt&quot;,
+          &quot;stocktwitsUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-stocktwits-ticker-sentiment-trending-symbol-feed">StockTwits Ticker Sentiment &amp; Trending Symbol Feed</h2>
+<p>StockTwits is where retail traders post real-time, self-tagged Bullish/Bearish takes on stocks, ETFs, and crypto. This actor reads that public data for any ticker or trader: message streams, aggregate sentiment snapshots, daily sentiment history back to 2018, the full trending-symbols list with prices and fundamentals, current quotes, OHLCV price bars, search results, and reply threads — all without a login or API key.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Nine modes:</strong> ticker messages, trader posts, trending tickers, market-wide posts (trending / suggested / all), ticker sentiment, ticker overview, price history, search, and message threads.</li>
+<li><strong>Multi-target inputs:</strong> up to 50 tickers or traders per run, with per-target record limits.</li>
+<li><strong>Sentiment:</strong> per-message Bullish/Bearish tags plus StockTwits' own aggregate gauge and historical daily series.</li>
+<li><strong>Trending depth:</strong> up to 573 trending instruments (not just the top 30), including price, fundamentals, and trend summaries where StockTwits provides them.</li>
+<li><strong>Deep archive:</strong> v2 for recent filtered streams, automatic v3 continuation when the 12-month boundary is reached (AAPL back to 2009 in probes).</li>
+<li><strong>Filters:</strong> newest/top/curated-trending sort, links/charts/videos, self-tagged sentiment, and message-ID bounds for incremental runs.</li>
+<li><strong>No credentials, no browser, no proxy setup.</strong> Empty fields are omitted from each record.</li>
+</ul>
+<h2 id="readme-output-per-record-type">Output per record type</h2>
+<p>Every row has a <code>recordType</code> and <code>scrapedAt</code>.</p>
+<h3 id="readme-message-recordtype-message">Message (<code>recordType: &quot;message&quot;</code>)</h3>
+<ul>
+<li><code>messageId</code>, <code>body</code>, <code>createdAt</code>, <code>isDiscussion</code>, <code>sentiment</code> — post identity and the author's optional Bullish/Bearish tag</li>
+<li><code>symbol</code>, <code>symbols</code>, <code>cashtags</code> — the ticker and every cashtag, with title, exchange, watchlist count, price, sentiment change, and volume change</li>
+<li><code>priceAtPost</code>, <code>prices</code> — price snapshot(s) attached to the post</li>
+<li><code>priceTarget</code>, <code>priceTargetDate</code>, <code>priceTargetDateTime</code>, <code>priceTargetStartingPrice</code>, <code>priceTargetCurrentPrice</code>, <code>priceTargetPercentChange</code> — StockTwits' source-reported price prediction, when the author attached one</li>
+<li><code>priceTargetStatus</code>, <code>priceTargetSentiment</code>, <code>priceTargetType</code>, <code>priceTargetIsHit</code>, <code>priceTargetAccuracy</code> — prediction status and outcome metadata</li>
+<li><code>priceTargetFinalPrice</code>, <code>priceTargetFinalPriceChange</code>, <code>priceTargetFinalPriceChangePercent</code>, <code>priceTargetCreatedAt</code>, <code>priceTargetSymbol</code> — final result and provenance</li>
+<li><code>likeCount</code>, <code>reshareCount</code>, <code>replyCount</code> — engagement</li>
+<li><code>isReply</code>, <code>isReshare</code>, <code>conversationParentMessageId</code>, <code>conversationInReplyToMessageId</code>, <code>isConversationParent</code>, <code>conversationRole</code> — thread context</li>
+<li><code>userId</code>, <code>username</code>, <code>userDisplayName</code>, <code>userFollowers</code>, <code>userFollowing</code>, <code>userIdeas</code>, <code>userJoinDate</code>, <code>userOfficial</code>, <code>userIdentity</code>, <code>userClassification</code>, <code>userBadges</code>, <code>userHomeCountry</code>, <code>userLikeCount</code>, <code>userWatchlistCount</code>, <code>userTradeStatus</code> — author details</li>
+<li><code>userAvatarUrl</code>, <code>userAvatarUrlOriginal</code>, <code>stocktwitsUserUrl</code></li>
+<li><code>mediaUrls</code>, <code>media</code>, <code>chartUrl</code>, <code>links</code>, <code>mentionedUsers</code></li>
+<li><code>resharedMessageId</code>, <code>resharedBody</code>, <code>resharedUsername</code>, <code>resharedCreatedAt</code></li>
+<li><code>source</code>, <code>sourceUrl</code>, <code>stocktwitsUrl</code></li>
+</ul>
+<h3 id="readme-symbol-recordtype-symbol">Symbol (<code>recordType: &quot;symbol&quot;</code>)</h3>
+<ul>
+<li><code>symbol</code>, <code>symbolId</code>, <code>symbolDisplay</code>, <code>symbolMic</code>, <code>title</code>, <code>exchange</code>, <code>region</code>, <code>instrumentClass</code>, <code>logoUrl</code>, <code>watchlistCount</code>, <code>hasPricing</code>, <code>tradeStatus</code>, <code>liveEvent</code>, <code>aliases</code>, <code>cusip</code>, <code>isin</code></li>
+<li><code>sector</code>, <code>industry</code>, <code>rank</code>, <code>isTrending</code>, <code>trendingScore</code>, <code>trendSummary</code>, <code>trendSummaryAt</code>, <code>trendRanks</code>, <code>features</code></li>
+<li><code>priceLast</code>, <code>priceChange</code>, <code>pricePercentChange</code>, <code>priceOpen</code>, <code>priceHigh</code>, <code>priceLow</code>, <code>pricePreviousClose</code>, <code>priceVolume</code>, <code>priceCurrency</code>, <code>priceAsOf</code>, <code>extendedHoursPrice</code>, <code>extendedHoursChange</code>, <code>extendedHoursPercentChange</code>, <code>combinedPrice</code>, <code>combinedChange</code>, <code>combinedPercentChange</code></li>
+<li><code>marketCap</code>, <code>peRatio</code>, <code>eps</code>, <code>dividendRate</code>, <code>beta</code>, <code>sharesOutstanding</code>, <code>floatShares</code>, <code>revenue</code>, <code>grossMargin</code>, <code>totalCash</code>, <code>totalDebt</code>, <code>totalAssets</code>, <code>totalLiabilities</code>, <code>bookValuePerShare</code>, <code>priceToBook</code>, <code>revenuePerEmployee</code>, <code>revenueToAssets</code>, <code>avgDailyVolume1M</code>, <code>avgDailyVolume3M</code>, <code>high52Week</code>, <code>low52Week</code>, <code>fiftyDayMovingAverage</code>, <code>institutionalOwnership</code>, <code>earningsGrowth</code>, <code>employees</code>, <code>businessDescription</code>, <code>fiscalPeriodEnd</code>, <code>fundamentalsUpdatedAt</code>. Monetary fundamentals are in USD; share counts are share counts.</li>
+<li><code>relatedSymbols</code> (when enabled), <code>matchedQuery</code> (search), <code>stocktwitsUrl</code></li>
+</ul>
+<h3 id="readme-trader-recordtype-user">Trader (<code>recordType: &quot;user&quot;</code>)</h3>
+<p><code>userId</code>, <code>username</code>, <code>userDisplayName</code>, <code>userAvatarUrl</code>, <code>userAvatarUrlOriginal</code>, <code>userJoinDate</code>, <code>userOfficial</code>, <code>userIdentity</code>, <code>userClassification</code>, <code>userBadges</code>, <code>userHomeCountry</code>, <code>userFollowers</code>, <code>userFollowing</code>, <code>userIdeas</code>, <code>userWatchlistCount</code>, <code>userLikeCount</code>, <code>userTradeStatus</code>, optional <code>pinnedMessageId</code>/<code>pinnedMessageBody</code>/<code>pinnedMessageCreatedAt</code>, <code>stocktwitsUrl</code>, and search-only <code>premium</code>, <code>verified</code>, <code>companyRepresentative</code>, <code>matchedQuery</code>.</p>
+<h3 id="readme-sentiment-snapshot-recordtype-sentiment">Sentiment snapshot (<code>recordType: &quot;sentiment&quot;</code>)</h3>
+<p>One row per ticker with a <code>timeframes</code> object keyed <code>15m</code>, <code>24h</code>, <code>now</code>, <code>1D</code>, <code>1W</code>, <code>1M</code>, <code>3M</code>, <code>6M</code>, <code>1Y</code>, and <code>ALL</code>. Each timeframe carries:</p>
+<ul>
+<li><code>sentimentValue</code>, <code>sentimentLabel</code>, <code>sentimentScore</code>, <code>sentimentScoreLabel</code>, <code>sentimentChange</code></li>
+<li><code>messageVolume</code>, <code>messageVolumeLabel</code>, <code>messageVolumeScore</code>, <code>messageVolumeScoreLabel</code>, <code>messageVolumeChange</code></li>
+<li><code>participationRatio</code>, <code>participationLabel</code>, <code>participationScore</code>, <code>participationScoreLabel</code>, <code>participationChange</code> where available</li>
+</ul>
+<h3 id="readme-sentiment-history-recordtype-sentimentpoint">Sentiment history (<code>recordType: &quot;sentimentPoint&quot;</code>)</h3>
+<p>One row per date/time: <code>symbol</code>, <code>dateTime</code>, <code>sentimentValue</code>, <code>sentimentLabel</code>, <code>sentimentScore</code>, <code>sentimentScoreLabel</code>, <code>messageVolume</code>, <code>messageVolumeLabel</code>, <code>messageVolumeScore</code>, <code>messageVolumeScoreLabel</code>, <code>participationRatio</code>, <code>participationLabel</code>, <code>participationScore</code>, <code>participationScoreLabel</code>.</p>
+<h3 id="readme-price-bar-recordtype-pricebar">Price bar (<code>recordType: &quot;priceBar&quot;</code>)</h3>
+<p><code>symbol</code>, <code>date</code>, <code>startTime</code>, <code>endTime</code>, <code>dateTime</code>, <code>open</code>, <code>high</code>, <code>low</code>, <code>close</code>, <code>last</code>, <code>volume</code>, <code>trades</code>, <code>vwap</code>, <code>twap</code>, <code>utcOffset</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string (select)</td>
+<td><code>symbolMessages</code></td>
+<td><code>symbolMessages</code>, <code>userMessages</code>, <code>trendingSymbols</code>, <code>marketMessages</code>, <code>symbolSentiment</code>, <code>symbolOverview</code>, <code>priceHistory</code>, <code>search</code>, <code>conversation</code>. Legacy aliases <code>trendingMessages</code> and <code>symbolSearch</code> are still accepted.</td>
+</tr>
+<tr>
+<td><code>symbols</code></td>
+<td>array</td>
+<td><code>[&quot;AAPL&quot;]</code></td>
+<td>Tickers for symbol modes. Accepts <code>AAPL</code>, <code>$TSLA</code>, <code>BTC.X</code>, <code>BRK.B</code>, <code>SHOP.TSX</code>, or symbol URLs.</td>
+</tr>
+<tr>
+<td><code>usernames</code></td>
+<td>array</td>
+<td>–</td>
+<td>Traders for <code>userMessages</code>, without <code>@</code>; profile URLs accepted.</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td>–</td>
+<td>Names or tickers for <code>search</code>.</td>
+</tr>
+<tr>
+<td><code>searchType</code></td>
+<td>string (select)</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>symbols</code>, or <code>users</code>.</td>
+</tr>
+<tr>
+<td><code>streamFilter</code></td>
+<td>string (select)</td>
+<td><code>all</code></td>
+<td><code>all</code> (newest), <code>top</code> (ranked), <code>trending</code> (curated top 100 per ticker).</td>
+</tr>
+<tr>
+<td><code>contentFilter</code></td>
+<td>string (select)</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>links</code>, <code>charts</code>, <code>videos</code>.</td>
+</tr>
+<tr>
+<td><code>sentimentFilter</code></td>
+<td>string (select)</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>bullish</code>, <code>bearish</code>, <code>tagged</code>.</td>
+</tr>
+<tr>
+<td><code>onlyPriceTargets</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep only messages with a source-reported price prediction.</td>
+</tr>
+<tr>
+<td><code>feedType</code></td>
+<td>string (select)</td>
+<td><code>trending</code></td>
+<td><code>trending</code>, <code>suggested</code>, or <code>all</code> (public market-wide chronological stream).</td>
+</tr>
+<tr>
+<td><code>trendingAssetClass</code></td>
+<td>string (select)</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>stocks</code>, <code>etf</code>, <code>crypto</code>, <code>adr</code>, <code>commodity</code>.</td>
+</tr>
+<tr>
+<td><code>sentimentRange</code></td>
+<td>string (select)</td>
+<td><code>now</code></td>
+<td><code>now</code>, <code>1D</code>, <code>1W</code>, <code>1M</code>, <code>3M</code>, <code>6M</code>, <code>1Y</code>, <code>5Y</code>, <code>ALL</code>.</td>
+</tr>
+<tr>
+<td><code>chartZoom</code></td>
+<td>string (select)</td>
+<td><code>1M</code></td>
+<td><code>1D</code>, <code>1W</code>, <code>1M</code>, <code>3M</code>, <code>6M</code>, <code>YTD</code>, <code>1Y</code>, <code>5Y</code>, <code>ALL</code>.</td>
+</tr>
+<tr>
+<td><code>includeUserProfile</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add a trader profile record in <code>userMessages</code>.</td>
+</tr>
+<tr>
+<td><code>includeRelatedSymbols</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add related tickers in <code>symbolOverview</code>.</td>
+</tr>
+<tr>
+<td><code>newerThanMessageId</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Keep messages newer than this StockTwits message ID.</td>
+</tr>
+<tr>
+<td><code>olderThanMessageId</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Start at or below this message ID and page further back.</td>
+</tr>
+<tr>
+<td><code>messageIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>Message IDs or URLs for <code>conversation</code>.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>30</code></td>
+<td>Per ticker/trader/query/thread for target modes; total for feeds; max points/bars for history modes. 1–5000.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-latest-tagged-sentiment-on-several-tickers">Example: latest tagged sentiment on several tickers</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;symbolMessages&quot;,
+  &quot;symbols&quot;: [&quot;AAPL&quot;, &quot;TSLA&quot;, &quot;NVDA&quot;],
+  &quot;streamFilter&quot;: &quot;all&quot;,
+  &quot;sentimentFilter&quot;: &quot;tagged&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-daily-sentiment-history-for-a-watchlist">Example: daily sentiment history for a watchlist</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;symbolSentiment&quot;,
+  &quot;symbols&quot;: [&quot;AAPL&quot;, &quot;MSFT&quot;, &quot;SPY&quot;, &quot;BTC.X&quot;],
+  &quot;sentimentRange&quot;: &quot;ALL&quot;,
+  &quot;maxItems&quot;: 500
+}
+</code></pre>
+<h3 id="readme-example-trending-crypto-with-prices-and-fundamentals">Example: trending crypto with prices and fundamentals</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;trendingSymbols&quot;,
+  &quot;trendingAssetClass&quot;: &quot;crypto&quot;,
+  &quot;maxItems&quot;: 74
+}
+</code></pre>
+<h3 id="readme-example-quote-fundamentals-and-related-tickers">Example: quote, fundamentals, and related tickers</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;symbolOverview&quot;,
+  &quot;symbols&quot;: [&quot;NVDA&quot;, &quot;AMD&quot;, &quot;ASML&quot;],
+  &quot;includeRelatedSymbols&quot;: true,
+  &quot;maxItems&quot;: 3
+}
+</code></pre>
+<h3 id="readme-example-a-trader-s-posts-plus-their-profile">Example: a trader's posts plus their profile</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;userMessages&quot;,
+  &quot;usernames&quot;: [&quot;KirRoyalTrader&quot;],
+  &quot;includeUserProfile&quot;: true,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-a-message-thread">Example: a message thread</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;conversation&quot;,
+  &quot;messageIds&quot;: [&quot;https://stocktwits.com/TalkMarkets/message/666869978&quot;],
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Sentiment research</strong> — compare self-tagged Bullish/Bearish posts with StockTwits' aggregate gauge and daily history.</li>
+<li><strong>Trading dashboards</strong> — feed message volume, participation, sentiment scores, and trending ranks into a live dashboard.</li>
+<li><strong>Scheduled monitoring</strong> — use <code>newerThanMessageId</code> to collect only posts published since the last run.</li>
+<li><strong>Trend discovery</strong> — scan the full trending list, filter to stocks, ETFs, or crypto, and read StockTwits' why-it-is-trending summaries.</li>
+<li><strong>Trader research</strong> — export a public trader's post history, profile stats, and replies for influence analysis.</li>
+<li><strong>Quant datasets</strong> — join ticker messages, quotes, fundamentals, and OHLCV bars in one run for model training or backtesting.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Does this need a StockTwits login or API key?</strong>
+No. It reads the same public JSON endpoints the StockTwits website uses when you browse logged out. No cookies, API key, or proxy setup is required.</p>
+<p><strong>How far back do messages go?</strong>
+Recent filtered streams use StockTwits' 12-month v2 window. When that walk reaches the boundary, the actor continues through StockTwits' v3 stream API: probes reached 2009 for AAPL and 2022 across 38/38 diverse tickers, with user archives varying by account. <code>streamFilter=top</code> stays on the recent ranked window; the archive continuation is chronological. Older v3 rows can omit fields the current source no longer serializes (for example <code>links</code> or reply context). Sentiment history goes back to 2018, and price bars go back to 2016 where the ticker has data.</p>
+<p><strong>Why is <code>sentiment</code> missing from many messages?</strong>
+Tagging a post Bullish or Bearish is optional. Untagged posts simply omit the field. Use <code>sentimentFilter=tagged</code>, or use the <code>symbolSentiment</code> mode for StockTwits' aggregate gauge, which is not limited to tagged posts.</p>
+<p><strong>What do <code>sentimentScore</code> and <code>sentimentScoreLabel</code> mean?</strong>
+They are StockTwits' normalized 0–100 score and label (for example &quot;Extremely Bearish&quot;). <code>sentimentValue</code> is the underlying raw value, which can be negative. The normalized pair is what the StockTwits website displays. Snapshot mode returns one row per ticker with a <code>timeframes</code> object containing all ten timeframes; history mode returns one row per date/time.</p>
+<p><strong>Why are some trending tickers missing prices or fundamentals?</strong>
+StockTwits publishes richer data for equities than for some ETFs and crypto. AI trend summaries are generated by StockTwits only for the top of the trending list, not for every symbol. Fields the source does not provide are omitted rather than filled with placeholder values.</p>
+<p><strong>Does every ticker have price history?</strong>
+Most US, Canadian, ETF, and crypto symbols do. A few valid message-stream symbols — often very thinly traded or foreign listings such as some <code>.TSX</code> names — have no chart data; the actor skips them and continues, while <code>symbolOverview</code> can still return their quote.</p>
+<p><strong>Can I get more than 30 trending tickers?</strong>
+Yes. The trending mode walks StockTwits' enhanced list, which currently returns up to about 573 instruments (about 74 for crypto). <code>marketMessages</code> with <code>feedType=all</code> reads the public market-wide stream instead. Search is separate and capped by StockTwits at 12 symbol or 15 user results per query.</p>
+<p><strong>Can I collect messages for a specific trader and ticker together?</strong>
+StockTwits' combined user+ticker endpoint requires authentication, so it is not used. You can fetch a trader's posts and filter the <code>cashtags</code>/<code>symbols</code> fields client-side.</p>
+<p><strong>Why do links to stocktwits.com sometimes fail in scripts?</strong>
+StockTwits protects its website pages with a browser challenge. The links are valid and open normally in a browser; this affects page navigation, not the actor's data.</p>
+<p><strong>Does the actor invent price targets or text sentiment?</strong>
+No. It returns StockTwits' own source-reported price predictions when an author attached one (<code>priceTarget*</code> fields) and never generates targets or model-based text sentiment. Empty fields are omitted rather than returned as <code>null</code>.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/gO7zdvF0aSw7rDweu/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>e7mFmdFkY1PvZoBtw</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

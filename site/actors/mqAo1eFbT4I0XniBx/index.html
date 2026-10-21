@@ -1,0 +1,1417 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-rarj3HVDft512vy1Ns2CVm6Y4KZG7DGrwoYAOUZ3pHA=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Rent the Runway Designer Rental Catalog Extractor | Dataspryva</title><meta name="description" content="Browses or searches Rent the Runway&#x27;s designer rental catalog by category, designer, occasion, color, and price, returning rental price, retail price, sizes in stock, and ratings."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/"><meta property="og:title" content="Rent the Runway Designer Rental Catalog Extractor | Dataspryva"><meta property="og:description" content="Browses or searches Rent the Runway&#x27;s designer rental catalog by category, designer, occasion, color, and price, returning rental price, retail price, sizes in stock, and ratings."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#webpage","name":"Rent the Runway Designer Rental Catalog Extractor","description":"Browses or searches Rent the Runway's designer rental catalog by category, designer, occasion, color, and price, returning rental price, retail price, sizes in stock, and ratings.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#article","headline":"Rent the Runway Designer Rental Catalog Extractor","name":"Rent the Runway Designer Rental Catalog Extractor","description":"Browses or searches Rent the Runway's designer rental catalog by category, designer, occasion, color, and price, returning rental price, retail price, sizes in stock, and ratings.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Rent the Runway Designer Rental Catalog Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/mqAo1eFbT4I0XniBx/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Rent the Runway Designer Rental Catalog Extractor</span></div><section id="overview"><h1 class="doc-title">Rent the Runway Designer Rental Catalog Extractor</h1><p class="lede">Browses or searches Rent the Runway&#x27;s designer rental catalog by category, designer, occasion, color, and price, returning rental price, retail price, sizes in stock, and ratings.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/rent-the-runway-designer-rental-catalog-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mqAo1eFbT4I0XniBx/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. Browse a category, search by keyword and filters, pull one or more designers, or enrich specific product URLs/IDs.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Category to browse in mode=category. In mode=search, set it to limit a keyword search to that category. &quot;All categories&quot; browses the full catalog.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Free-text search in mode=search, e.g. &quot;floral dress&quot;. Optional: leave blank and use filters to browse. Site-wide search is used when no category is selected.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. Browse a category, search by keyword and filters, pull one or more designers, or enrich specific product URLs/IDs.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Category to browse in mode=category. In mode=search, set it to limit a keyword search to that category. &quot;All categories&quot; browses the full catalog.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Free-text search in mode=search, e.g. &quot;floral dress&quot;. Optional: leave blank and use filters to browse. Site-wide search is used when no category is selected.</td></tr><tr><td><code>designers</code></td><td>array</td><td>optional</td><td>Designer names, IDs or designer URLs. Each one is resolved to the site&#x27;s designer ID.</td></tr><tr><td><code>designer</code></td><td>string</td><td>optional</td><td>Filter a category/search run to one designer. Use Custom designer for anyone outside this curated list.</td></tr><tr><td><code>customDesigner</code></td><td>string</td><td>optional</td><td>Any designer name, ID or URL outside the curated list. Overrides the Designer dropdown.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Product page URLs or style IDs, e.g. https://www.renttherunway.com/shop/designers/cult_gaia/cassidy_gown or CULTR24.</td></tr><tr><td><code>occasion</code></td><td>string</td><td>optional</td><td>Where you want to wear it.</td></tr><tr><td><code>color</code></td><td>string</td><td>optional</td><td>Primary color.</td></tr><tr><td><code>embellishment</code></td><td>string</td><td>optional</td><td>Embellishment detail.</td></tr><tr><td><code>neckline</code></td><td>string</td><td>optional</td><td>Neckline style.</td></tr><tr><td><code>stylePersona</code></td><td>string</td><td>optional</td><td>Overall style persona.</td></tr><tr><td><code>print</code></td><td>string</td><td>optional</td><td>Print or pattern.</td></tr><tr><td><code>sleeve</code></td><td>string</td><td>optional</td><td>Sleeve length.</td></tr><tr><td><code>seasonality</code></td><td>string</td><td>optional</td><td>Season the item is intended for.</td></tr><tr><td><code>length</code></td><td>string</td><td>optional</td><td>Garment length.</td></tr><tr><td><code>maternity</code></td><td>string</td><td>optional</td><td>Maternity or bump-friendly fit.</td></tr><tr><td><code>weddingOccasion</code></td><td>string</td><td>optional</td><td>Wedding setting or event.</td></tr><tr><td><code>weddingFormality</code></td><td>string</td><td>optional</td><td>Wedding dress code.</td></tr><tr><td><code>sizes</code></td><td>array</td><td>optional</td><td>Only items available in these sizes. Uses the site&#x27;s universal 0-22 size scale; letter sizes S/M/L are accepted from older saved inputs.</td></tr><tr><td><code>rentalType</code></td><td>string</td><td>optional</td><td>One-off rental uses a date, duration and shipping zip. Subscription modes use the membership closet; Subscription (include sold out) includes unavailable styles.</td></tr><tr><td><code>rentalStartDate</code></td><td>string</td><td>optional</td><td>Start date in YYYY-MM-DD, e.g. 2027-04-17. Leave blank to use the site default (about six months ahead). Sundays are not valid rental start dates.</td></tr><tr><td><code>rentalDuration</code></td><td>string</td><td>optional</td><td>Rental length in days. The site supports 4 and 8 days.</td></tr><tr><td><code>zipCode</code></td><td>string</td><td>optional</td><td>US ZIP code used for availability and delivery-window pricing.</td></tr><tr><td><code>minRentalPrice</code></td><td>number</td><td>optional</td><td>Drop items whose rental price is below this amount.</td></tr><tr><td><code>maxRentalPrice</code></td><td>number</td><td>optional</td><td>Drop items whose rental price is above this amount.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Drop items rated below this on Rent the Runway&#x27;s 0-10 scale.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of results. Price sorts by retail (MSRP) value are server-side; rental-price and rating sorts use the fetched candidate window.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Fetch descriptions, fabric, fit notes, attributes, sizes and images from each product page.</td></tr><tr><td><code>includeAvailability</code></td><td>boolean</td><td>optional</td><td>Check which sizes are actually available for the selected date/scope instead of listing every size the item was made in.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Add up to 40 recent reviews per item, including fit feedback and reviewer measurements when available.</td></tr><tr><td><code>includePriceTiers</code></td><td>boolean</td><td>optional</td><td>Add both rental price tiers for one-off rentals. Uses one extra request per item.</td></tr><tr><td><code>maxReviewsPerProduct</code></td><td>integer</td><td>optional</td><td>Upper bound when Include reviews is on. The actor fetches review pages until this bound or exhaustion. Default 200; max 1000.</td></tr><tr><td><code>onlyNew</code></td><td>boolean</td><td>optional</td><td>Emit only product IDs not seen in a previous run with onlyNew enabled. Uses a persistent key-value store; useful for scheduled price/stock monitors.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted item records. Detail enrichment is practical up to 300 items; larger runs are faster with Include product details off.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Browse or search the Rent the Runway designer rental catalog. Filter by category, designer, occasion, color, style, size, date and price; return rental and retail prices, availability, details and optional reviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;category&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Category to browse in mode=category. In mode=search, set it to limit a keyword search to that category. \&quot;All categories\&quot; browses the full catalog.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;dresses&quot;,
+        &quot;cocktail-dresses&quot;,
+        &quot;formal-dresses&quot;,
+        &quot;bridesmaid-dresses&quot;,
+        &quot;wedding-guest-dresses&quot;,
+        &quot;summer-dresses&quot;,
+        &quot;maternity-clothes&quot;,
+        &quot;tops&quot;,
+        &quot;jumpsuits-rompers&quot;,
+        &quot;skirts&quot;,
+        &quot;pants&quot;,
+        &quot;jeans&quot;,
+        &quot;shorts&quot;,
+        &quot;sweaters&quot;,
+        &quot;jackets-coats&quot;,
+        &quot;handbags&quot;,
+        &quot;jewelry&quot;,
+        &quot;sunglasses&quot;,
+        &quot;gowns&quot;,
+        &quot;all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Dresses&quot;,
+        &quot;Cocktail Dresses&quot;,
+        &quot;Formal Dresses&quot;,
+        &quot;Bridesmaid Dresses&quot;,
+        &quot;Wedding Guest Dresses&quot;,
+        &quot;Summer Dresses&quot;,
+        &quot;Maternity Clothes&quot;,
+        &quot;Tops&quot;,
+        &quot;Jumpsuits &amp; Rompers&quot;,
+        &quot;Skirts&quot;,
+        &quot;Pants&quot;,
+        &quot;Jeans&quot;,
+        &quot;Shorts&quot;,
+        &quot;Sweaters&quot;,
+        &quot;Jackets &amp; Coats&quot;,
+        &quot;Handbags&quot;,
+        &quot;Jewelry&quot;,
+        &quot;Sunglasses&quot;,
+        &quot;Gowns&quot;,
+        &quot;All categories&quot;
+      ],
+      &quot;prefill&quot;: &quot;cocktail-dresses&quot;,
+      &quot;title&quot;: &quot;Category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;color&quot;: {
+      &quot;description&quot;: &quot;Primary color.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;Blue&quot;,
+        &quot;Black&quot;,
+        &quot;Brown&quot;,
+        &quot;Multicolored&quot;,
+        &quot;White&quot;,
+        &quot;OffWhite&quot;,
+        &quot;Green&quot;,
+        &quot;Red&quot;,
+        &quot;Pink&quot;,
+        &quot;Grey&quot;,
+        &quot;Purple&quot;,
+        &quot;Yellow&quot;,
+        &quot;Orange&quot;,
+        &quot;Gold&quot;,
+        &quot;Silver&quot;,
+        &quot;Clear&quot;,
+        &quot;RoseGold&quot;,
+        &quot;black&quot;,
+        &quot;blue&quot;,
+        &quot;brown&quot;,
+        &quot;gold&quot;,
+        &quot;green&quot;,
+        &quot;grey&quot;,
+        &quot;multicolored&quot;,
+        &quot;offwhite&quot;,
+        &quot;orange&quot;,
+        &quot;pink&quot;,
+        &quot;purple&quot;,
+        &quot;red&quot;,
+        &quot;silver&quot;,
+        &quot;white&quot;,
+        &quot;yellow&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Blue&quot;,
+        &quot;Black&quot;,
+        &quot;Brown&quot;,
+        &quot;Multicolored&quot;,
+        &quot;White&quot;,
+        &quot;Off-White&quot;,
+        &quot;Green&quot;,
+        &quot;Red&quot;,
+        &quot;Pink&quot;,
+        &quot;Grey&quot;,
+        &quot;Purple&quot;,
+        &quot;Yellow&quot;,
+        &quot;Orange&quot;,
+        &quot;Gold&quot;,
+        &quot;Silver&quot;,
+        &quot;Clear&quot;,
+        &quot;Rose Gold&quot;,
+        &quot;Black (legacy)&quot;,
+        &quot;Blue (legacy)&quot;,
+        &quot;Brown (legacy)&quot;,
+        &quot;Gold (legacy)&quot;,
+        &quot;Green (legacy)&quot;,
+        &quot;Grey (legacy)&quot;,
+        &quot;Multicolored (legacy)&quot;,
+        &quot;Off-White (legacy)&quot;,
+        &quot;Orange (legacy)&quot;,
+        &quot;Pink (legacy)&quot;,
+        &quot;Purple (legacy)&quot;,
+        &quot;Red (legacy)&quot;,
+        &quot;Silver (legacy)&quot;,
+        &quot;White (legacy)&quot;,
+        &quot;Yellow (legacy)&quot;
+      ],
+      &quot;title&quot;: &quot;Color&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;customDesigner&quot;: {
+      &quot;description&quot;: &quot;Any designer name, ID or URL outside the curated list. Overrides the Designer dropdown.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Custom designer&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;designer&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter a category/search run to one designer. Use Custom designer for anyone outside this curated list.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;derek_lam_10_crosby_x_rtr&quot;,
+        &quot;maje&quot;,
+        &quot;toccin&quot;,
+        &quot;polo_ralph_lauren&quot;,
+        &quot;sandro&quot;,
+        &quot;tanya_taylor&quot;,
+        &quot;alc&quot;,
+        &quot;jason_wu_x_rtr&quot;,
+        &quot;madewell&quot;,
+        &quot;adam_lippes_x_rtr&quot;,
+        &quot;hutch&quot;,
+        &quot;ronny_kobo_x_rtr&quot;,
+        &quot;lauren_ralph_lauren&quot;,
+        &quot;staud&quot;,
+        &quot;joes_jeans&quot;,
+        &quot;veronica_beard&quot;,
+        &quot;boss&quot;,
+        &quot;peter_som_x_rtr&quot;,
+        &quot;31_phillip_lim&quot;,
+        &quot;ulla_johnson&quot;,
+        &quot;sea_new_york&quot;,
+        &quot;rails&quot;,
+        &quot;levis&quot;,
+        &quot;dress_the_population&quot;,
+        &quot;shoshanna&quot;,
+        &quot;rosetta_getty_x_rtr&quot;,
+        &quot;badgley_mischka&quot;,
+        &quot;cece&quot;,
+        &quot;farm_rio&quot;,
+        &quot;marine_layer&quot;,
+        &quot;thakoon_x_rtr&quot;,
+        &quot;dl1961&quot;,
+        &quot;simkhai&quot;,
+        &quot;simonmiller&quot;,
+        &quot;splendid&quot;,
+        &quot;marissa_webb_x_rtr&quot;,
+        &quot;michael_kors&quot;,
+        &quot;ieena_for_mac_duggal&quot;,
+        &quot;derek_lam_10_crosby&quot;,
+        &quot;vince&quot;,
+        &quot;diane_von_furstenberg&quot;,
+        &quot;theory&quot;,
+        &quot;free_people&quot;,
+        &quot;tory_burch&quot;,
+        &quot;tibi&quot;,
+        &quot;bardot&quot;,
+        &quot;likely&quot;,
+        &quot;jason_wu&quot;,
+        &quot;equipment&quot;,
+        &quot;joie&quot;,
+        &quot;cinq_a_sept&quot;,
+        &quot;rachel_zoe&quot;,
+        &quot;milly&quot;,
+        &quot;parker&quot;,
+        &quot;club_monaco&quot;,
+        &quot;mara_hoffman&quot;,
+        &quot;allsaints&quot;,
+        &quot;anine_bing&quot;,
+        &quot;anna_sui&quot;,
+        &quot;altuzarra&quot;,
+        &quot;bcbgmaxazria&quot;,
+        &quot;cecilie_bahnsen&quot;,
+        &quot;nanette_lepore&quot;,
+        &quot;ted_baker&quot;,
+        &quot;amanda_uprichard&quot;,
+        &quot;maggy_london&quot;,
+        &quot;donna_morgan&quot;,
+        &quot;jill_jill_stuart&quot;,
+        &quot;halston&quot;,
+        &quot;watters&quot;,
+        &quot;amsale&quot;,
+        &quot;reformation&quot;,
+        &quot;rachel_antonoff&quot;,
+        &quot;blanknyc&quot;,
+        &quot;black_halo&quot;,
+        &quot;fifteen_twenty&quot;,
+        &quot;marie_oliver&quot;,
+        &quot;misa_los_angeles&quot;,
+        &quot;naadam&quot;,
+        &quot;7_for_all_mankind&quot;,
+        &quot;hudson&quot;,
+        &quot;ganni&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Derek Lam 10 Crosby X RTR&quot;,
+        &quot;Maje&quot;,
+        &quot;Toccin&quot;,
+        &quot;Polo Ralph Lauren&quot;,
+        &quot;Sandro&quot;,
+        &quot;Tanya Taylor&quot;,
+        &quot;A.L.C.&quot;,
+        &quot;Jason Wu x RTR&quot;,
+        &quot;Madewell&quot;,
+        &quot;Adam Lippes x RTR&quot;,
+        &quot;Hutch&quot;,
+        &quot;Ronny Kobo x RTR&quot;,
+        &quot;Lauren Ralph Lauren&quot;,
+        &quot;Staud&quot;,
+        &quot;Joe&#x27;s Jeans&quot;,
+        &quot;Veronica Beard&quot;,
+        &quot;BOSS&quot;,
+        &quot;Peter Som x RTR&quot;,
+        &quot;3.1 Phillip Lim&quot;,
+        &quot;Ulla Johnson&quot;,
+        &quot;Sea New York&quot;,
+        &quot;Rails&quot;,
+        &quot;Levi&#x27;s&quot;,
+        &quot;Dress The Population&quot;,
+        &quot;Shoshanna&quot;,
+        &quot;Rosetta Getty x RTR&quot;,
+        &quot;Badgley Mischka&quot;,
+        &quot;CeCe&quot;,
+        &quot;FARM Rio&quot;,
+        &quot;Marine Layer&quot;,
+        &quot;Thakoon x RTR&quot;,
+        &quot;DL1961&quot;,
+        &quot;SIMKHAI&quot;,
+        &quot;SIMONMILLER&quot;,
+        &quot;Splendid&quot;,
+        &quot;Marissa Webb x RTR&quot;,
+        &quot;MICHAEL KORS&quot;,
+        &quot;Ieena for Mac Duggal&quot;,
+        &quot;Derek Lam 10 Crosby&quot;,
+        &quot;VINCE.&quot;,
+        &quot;Diane von Furstenberg&quot;,
+        &quot;Theory&quot;,
+        &quot;Free People&quot;,
+        &quot;Tory Burch&quot;,
+        &quot;Tibi&quot;,
+        &quot;Bardot&quot;,
+        &quot;LIKELY&quot;,
+        &quot;Jason Wu&quot;,
+        &quot;Equipment&quot;,
+        &quot;Joie&quot;,
+        &quot;Cinq a Sept&quot;,
+        &quot;Rachel Zoe&quot;,
+        &quot;Milly&quot;,
+        &quot;Parker&quot;,
+        &quot;Club Monaco&quot;,
+        &quot;Mara Hoffman&quot;,
+        &quot;AllSaints&quot;,
+        &quot;Anine Bing&quot;,
+        &quot;Anna Sui&quot;,
+        &quot;Altuzarra&quot;,
+        &quot;BCBGMAXAZRIA&quot;,
+        &quot;Cecilie Bahnsen&quot;,
+        &quot;Nanette Lepore&quot;,
+        &quot;Ted Baker&quot;,
+        &quot;Amanda Uprichard&quot;,
+        &quot;Maggy London&quot;,
+        &quot;Donna Morgan&quot;,
+        &quot;Jill Jill Stuart&quot;,
+        &quot;HALSTON&quot;,
+        &quot;WATTERS&quot;,
+        &quot;AMSALE&quot;,
+        &quot;Reformation&quot;,
+        &quot;Rachel Antonoff&quot;,
+        &quot;BLANKNYC&quot;,
+        &quot;Black Halo&quot;,
+        &quot;Fifteen Twenty&quot;,
+        &quot;Marie Oliver&quot;,
+        &quot;MISA Los Angeles&quot;,
+        &quot;NAADAM&quot;,
+        &quot;7 For All Mankind&quot;,
+        &quot;Hudson&quot;,
+        &quot;GANNI&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Designer&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;designers&quot;: {
+      &quot;description&quot;: &quot;Designer names, IDs or designer URLs. Each one is resolved to the site&#x27;s designer ID.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Designers (mode=designer)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;embellishment&quot;: {
+      &quot;description&quot;: &quot;Embellishment detail.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;None&quot;,
+        &quot;Buttons&quot;,
+        &quot;Pockets&quot;,
+        &quot;Belt&quot;,
+        &quot;Collar&quot;,
+        &quot;Pleats&quot;,
+        &quot;Ruffles&quot;,
+        &quot;CutOuts&quot;,
+        &quot;Smocking&quot;,
+        &quot;Embroidered&quot;,
+        &quot;Lace&quot;,
+        &quot;Drawstring&quot;,
+        &quot;Sequins&quot;,
+        &quot;Hardware&quot;,
+        &quot;LayersExtraFabric&quot;,
+        &quot;Sash&quot;,
+        &quot;LurexMetallicThreading&quot;,
+        &quot;MeshOverlay&quot;,
+        &quot;Applique&quot;,
+        &quot;NeckStrap&quot;,
+        &quot;FringeTassles&quot;,
+        &quot;Crochet&quot;,
+        &quot;Jacquard&quot;,
+        &quot;Tentacles&quot;,
+        &quot;RawHem&quot;,
+        &quot;Burnout&quot;,
+        &quot;FurTrim&quot;,
+        &quot;Boning&quot;,
+        &quot;Quilted&quot;,
+        &quot;Hood&quot;,
+        &quot;Beading&quot;,
+        &quot;Grommets&quot;,
+        &quot;Cuff&quot;,
+        &quot;LeatherTrim&quot;,
+        &quot;Rhinestones&quot;,
+        &quot;FrayedEdging&quot;,
+        &quot;MetalDetailing&quot;,
+        &quot;Slip&quot;,
+        &quot;Bandage&quot;,
+        &quot;Bodysuit&quot;,
+        &quot;Beaded&quot;,
+        &quot;Distressed&quot;,
+        &quot;Feathers&quot;,
+        &quot;PomPoms&quot;,
+        &quot;DenimTrim&quot;,
+        &quot;Embossed&quot;,
+        &quot;Pearls&quot;,
+        &quot;Flocked&quot;,
+        &quot;Fringe&quot;,
+        &quot;Studded&quot;,
+        &quot;VintageFaded&quot;,
+        &quot;Yarndye&quot;,
+        &quot;cutouts&quot;,
+        &quot;embroidered&quot;,
+        &quot;lace&quot;,
+        &quot;pleats&quot;,
+        &quot;pockets&quot;,
+        &quot;ruffles&quot;,
+        &quot;sequins&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;None&quot;,
+        &quot;Buttons&quot;,
+        &quot;Pockets&quot;,
+        &quot;Belt&quot;,
+        &quot;Collar&quot;,
+        &quot;Pleats&quot;,
+        &quot;Ruffles&quot;,
+        &quot;Cut-Outs&quot;,
+        &quot;Smocking&quot;,
+        &quot;Embroidered&quot;,
+        &quot;Lace&quot;,
+        &quot;Drawstring&quot;,
+        &quot;Sequins&quot;,
+        &quot;Hardware&quot;,
+        &quot;Layers &amp; Extra Fabric&quot;,
+        &quot;Sash&quot;,
+        &quot;Metallic Threading&quot;,
+        &quot;Mesh Overlay&quot;,
+        &quot;Applique&quot;,
+        &quot;Neck Strap&quot;,
+        &quot;Fringe &amp; Tassels&quot;,
+        &quot;Crochet&quot;,
+        &quot;Jacquard&quot;,
+        &quot;Tentacles&quot;,
+        &quot;Raw Hem&quot;,
+        &quot;Burnout&quot;,
+        &quot;Fur Trim&quot;,
+        &quot;Boning&quot;,
+        &quot;Quilted&quot;,
+        &quot;Hood&quot;,
+        &quot;Beading&quot;,
+        &quot;Grommets&quot;,
+        &quot;Cuff&quot;,
+        &quot;Leather Trim&quot;,
+        &quot;Rhinestones&quot;,
+        &quot;Frayed Edging&quot;,
+        &quot;Metal Detailing&quot;,
+        &quot;Slip&quot;,
+        &quot;Bandage&quot;,
+        &quot;Bodysuit&quot;,
+        &quot;Beaded&quot;,
+        &quot;Distressed&quot;,
+        &quot;Feathers&quot;,
+        &quot;Pom-Poms&quot;,
+        &quot;Denim Trim&quot;,
+        &quot;Embossed&quot;,
+        &quot;Pearls&quot;,
+        &quot;Flocked&quot;,
+        &quot;Fringe&quot;,
+        &quot;Studded&quot;,
+        &quot;Vintage Faded&quot;,
+        &quot;Yarn Dye&quot;,
+        &quot;Cut-Outs (legacy)&quot;,
+        &quot;Embroidered (legacy)&quot;,
+        &quot;Lace (legacy)&quot;,
+        &quot;Pleats (legacy)&quot;,
+        &quot;Pockets (legacy)&quot;,
+        &quot;Ruffles (legacy)&quot;,
+        &quot;Sequins (legacy)&quot;
+      ],
+      &quot;title&quot;: &quot;Embellishment&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeAvailability&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Check which sizes are actually available for the selected date/scope instead of listing every size the item was made in.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include size availability&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch descriptions, fabric, fit notes, attributes, sizes and images from each product page.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include product details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePriceTiers&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add both rental price tiers for one-off rentals. Uses one extra request per item.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include 4-day and 8-day prices&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add up to 40 recent reviews per item, including fit feedback and reviewer measurements when available.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;length&quot;: {
+      &quot;description&quot;: &quot;Garment length.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;Midi&quot;,
+        &quot;Ankle&quot;,
+        &quot;Hip&quot;,
+        &quot;BelowHip&quot;,
+        &quot;MidThigh&quot;,
+        &quot;Floor&quot;,
+        &quot;Mini&quot;,
+        &quot;AboveHip&quot;,
+        &quot;Short&quot;,
+        &quot;Crop&quot;,
+        &quot;Knee&quot;,
+        &quot;HighLow&quot;,
+        &quot;Calf&quot;,
+        &quot;MicroMini&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Midi&quot;,
+        &quot;Ankle&quot;,
+        &quot;Hip&quot;,
+        &quot;Below Hip&quot;,
+        &quot;Mid-Thigh&quot;,
+        &quot;Floor&quot;,
+        &quot;Mini&quot;,
+        &quot;Above Hip&quot;,
+        &quot;Short&quot;,
+        &quot;Crop&quot;,
+        &quot;Knee&quot;,
+        &quot;High-Low&quot;,
+        &quot;Calf&quot;,
+        &quot;Micro Mini&quot;
+      ],
+      &quot;title&quot;: &quot;Length&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maternity&quot;: {
+      &quot;description&quot;: &quot;Maternity or bump-friendly fit.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;NotMaternity&quot;,
+        &quot;MaternityRelevant&quot;,
+        &quot;BumpFriendly&quot;,
+        &quot;TrueMaternity&quot;,
+        &quot;Nursing&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Not Maternity&quot;,
+        &quot;Maternity Relevant&quot;,
+        &quot;Bump Friendly&quot;,
+        &quot;True Maternity&quot;,
+        &quot;Nursing&quot;
+      ],
+      &quot;title&quot;: &quot;Maternity&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Hard cap on emitted item records. Detail enrichment is practical up to 300 items; larger runs are faster with Include product details off.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxRentalPrice&quot;: {
+      &quot;description&quot;: &quot;Drop items whose rental price is above this amount.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max rental price (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxReviewsPerProduct&quot;: {
+      &quot;default&quot;: 200,
+      &quot;description&quot;: &quot;Upper bound when Include reviews is on. The actor fetches review pages until this bound or exhaustion. Default 200; max 1000.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 200,
+      &quot;title&quot;: &quot;Max reviews per product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;description&quot;: &quot;Drop items rated below this on Rent the Runway&#x27;s 0-10 scale.&quot;,
+      &quot;maximum&quot;: 10,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min rating (0-10)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minRentalPrice&quot;: {
+      &quot;description&quot;: &quot;Drop items whose rental price is below this amount.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min rental price (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;category&quot;,
+      &quot;description&quot;: &quot;What to fetch. Browse a category, search by keyword and filters, pull one or more designers, or enrich specific product URLs/IDs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;category&quot;,
+        &quot;search&quot;,
+        &quot;designer&quot;,
+        &quot;productUrls&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Browse a category&quot;,
+        &quot;Search by keyword and filters&quot;,
+        &quot;Browse designers&quot;,
+        &quot;Specific product URLs or IDs&quot;
+      ],
+      &quot;prefill&quot;: &quot;category&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;neckline&quot;: {
+      &quot;description&quot;: &quot;Neckline style.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;CrewNeck&quot;,
+        &quot;VNeck&quot;,
+        &quot;Collared&quot;,
+        &quot;SquareNeck&quot;,
+        &quot;MockNeck&quot;,
+        &quot;Strapless&quot;,
+        &quot;ScoopNeck&quot;,
+        &quot;Sweetheart&quot;,
+        &quot;HalterNeck&quot;,
+        &quot;Turtleneck&quot;,
+        &quot;BoatNeck&quot;,
+        &quot;OneShoulder&quot;,
+        &quot;OffTheShoulder&quot;,
+        &quot;Asymmetric&quot;,
+        &quot;CowlNeck&quot;,
+        &quot;None&quot;,
+        &quot;PlungeNeck&quot;,
+        &quot;TieNeck&quot;,
+        &quot;QuarterZip&quot;,
+        &quot;SplitNeck&quot;,
+        &quot;HighNeck&quot;,
+        &quot;ColdShoulder&quot;,
+        &quot;Henley&quot;,
+        &quot;boatneck&quot;,
+        &quot;collared&quot;,
+        &quot;cowlneck&quot;,
+        &quot;crewneck&quot;,
+        &quot;halterneck&quot;,
+        &quot;highneck&quot;,
+        &quot;mockneck&quot;,
+        &quot;offtheshoulder&quot;,
+        &quot;oneshoulder&quot;,
+        &quot;plungeneck&quot;,
+        &quot;scoopneck&quot;,
+        &quot;squareneck&quot;,
+        &quot;strapless&quot;,
+        &quot;sweetheart&quot;,
+        &quot;turtleneck&quot;,
+        &quot;vneck&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Crew&quot;,
+        &quot;V-Neck&quot;,
+        &quot;Collared&quot;,
+        &quot;Square&quot;,
+        &quot;Mock Neck&quot;,
+        &quot;Strapless&quot;,
+        &quot;Scoop Neck&quot;,
+        &quot;Sweetheart&quot;,
+        &quot;Halter&quot;,
+        &quot;Turtleneck&quot;,
+        &quot;Boat Neck&quot;,
+        &quot;One Shoulder&quot;,
+        &quot;Off the Shoulder&quot;,
+        &quot;Asymmetric&quot;,
+        &quot;Cowl&quot;,
+        &quot;None&quot;,
+        &quot;Plunge Neck&quot;,
+        &quot;Tie Neck&quot;,
+        &quot;Quarter Zip&quot;,
+        &quot;Split Neck&quot;,
+        &quot;High Neck&quot;,
+        &quot;Cold Shoulder&quot;,
+        &quot;Henley&quot;,
+        &quot;Boat Neck (legacy)&quot;,
+        &quot;Collared (legacy)&quot;,
+        &quot;Cowl (legacy)&quot;,
+        &quot;Crew (legacy)&quot;,
+        &quot;Halter (legacy)&quot;,
+        &quot;High Neck (legacy)&quot;,
+        &quot;Mock Neck (legacy)&quot;,
+        &quot;Off the Shoulder (legacy)&quot;,
+        &quot;One Shoulder (legacy)&quot;,
+        &quot;Plunge Neck (legacy)&quot;,
+        &quot;Scoop Neck (legacy)&quot;,
+        &quot;Square (legacy)&quot;,
+        &quot;Strapless (legacy)&quot;,
+        &quot;Sweetheart (legacy)&quot;,
+        &quot;Turtleneck (legacy)&quot;,
+        &quot;V-Neck (legacy)&quot;
+      ],
+      &quot;title&quot;: &quot;Neckline&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;occasion&quot;: {
+      &quot;description&quot;: &quot;Where you want to wear it.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;Weekend&quot;,
+        &quot;Work&quot;,
+        &quot;DateNightOut&quot;,
+        &quot;DaytimeEvent&quot;,
+        &quot;DateNight&quot;,
+        &quot;NightOut&quot;,
+        &quot;Party&quot;,
+        &quot;WeddingGuest&quot;,
+        &quot;Vacation&quot;,
+        &quot;FormalAffair&quot;,
+        &quot;Cocktail&quot;,
+        &quot;BlackTie&quot;,
+        &quot;Athleisure&quot;,
+        &quot;Lounge&quot;,
+        &quot;Bridesmaid&quot;,
+        &quot;MotherOfTheBride&quot;,
+        &quot;ActiveSport&quot;,
+        &quot;ForTheBride&quot;,
+        &quot;FourthOfJuly&quot;,
+        &quot;LaborDayWeekend&quot;,
+        &quot;athleisure&quot;,
+        &quot;formalaffair&quot;,
+        &quot;bridesmaid&quot;,
+        &quot;datenightout&quot;,
+        &quot;daytimeevent&quot;,
+        &quot;weekend&quot;,
+        &quot;forthebride&quot;,
+        &quot;party&quot;,
+        &quot;vacation&quot;,
+        &quot;weddingguest&quot;,
+        &quot;work&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Everyday&quot;,
+        &quot;Work&quot;,
+        &quot;Date &amp; Night Out&quot;,
+        &quot;Elevated Daytime&quot;,
+        &quot;Date Night&quot;,
+        &quot;Night Out&quot;,
+        &quot;Party&quot;,
+        &quot;Wedding Guest&quot;,
+        &quot;Vacation&quot;,
+        &quot;Black Tie&quot;,
+        &quot;Cocktail&quot;,
+        &quot;Black Tie&quot;,
+        &quot;Active &amp; Lounge&quot;,
+        &quot;Lounge&quot;,
+        &quot;Bridesmaid&quot;,
+        &quot;Mother of the Bride&quot;,
+        &quot;Active Sport&quot;,
+        &quot;For the Bride&quot;,
+        &quot;Fourth of July&quot;,
+        &quot;Labor Day Weekend&quot;,
+        &quot;Athleisure (legacy)&quot;,
+        &quot;Formal Affair (legacy)&quot;,
+        &quot;Bridesmaid (legacy)&quot;,
+        &quot;Date Night Out (legacy)&quot;,
+        &quot;Daytime Event (legacy)&quot;,
+        &quot;Weekend (legacy)&quot;,
+        &quot;For the Bride (legacy)&quot;,
+        &quot;Party (legacy)&quot;,
+        &quot;Vacation (legacy)&quot;,
+        &quot;Wedding Guest (legacy)&quot;,
+        &quot;Work (legacy)&quot;
+      ],
+      &quot;title&quot;: &quot;Occasion&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNew&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Emit only product IDs not seen in a previous run with onlyNew enabled. Uses a persistent key-value store; useful for scheduled price/stock monitors.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new items&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;print&quot;: {
+      &quot;description&quot;: &quot;Print or pattern.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;None&quot;,
+        &quot;Floral&quot;,
+        &quot;Stripe&quot;,
+        &quot;PlaidCheck&quot;,
+        &quot;Abstract&quot;,
+        &quot;Graphic&quot;,
+        &quot;Geometric&quot;,
+        &quot;AnimalPrint&quot;,
+        &quot;ColorBlock&quot;,
+        &quot;PolkaDots&quot;,
+        &quot;Logo&quot;,
+        &quot;JacquardBrocade&quot;,
+        &quot;TieDye&quot;,
+        &quot;Ombre&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;None&quot;,
+        &quot;Floral&quot;,
+        &quot;Stripe&quot;,
+        &quot;Plaid &amp; Check&quot;,
+        &quot;Abstract&quot;,
+        &quot;Graphic&quot;,
+        &quot;Geometric&quot;,
+        &quot;Animal Print&quot;,
+        &quot;Color Block&quot;,
+        &quot;Polka Dots&quot;,
+        &quot;Logo&quot;,
+        &quot;Jacquard &amp; Brocade&quot;,
+        &quot;Tie-Dye&quot;,
+        &quot;Ombre&quot;
+      ],
+      &quot;title&quot;: &quot;Print&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;description&quot;: &quot;Product page URLs or style IDs, e.g. https://www.renttherunway.com/shop/designers/cult_gaia/cassidy_gown or CULTR24.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Product URLs or IDs (mode=productUrls)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;rentalDuration&quot;: {
+      &quot;default&quot;: &quot;4&quot;,
+      &quot;description&quot;: &quot;Rental length in days. The site supports 4 and 8 days.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;4&quot;,
+        &quot;8&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;4 days&quot;,
+        &quot;8 days&quot;
+      ],
+      &quot;prefill&quot;: &quot;4&quot;,
+      &quot;title&quot;: &quot;Rental duration (one-off)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;rentalStartDate&quot;: {
+      &quot;description&quot;: &quot;Start date in YYYY-MM-DD, e.g. 2027-04-17. Leave blank to use the site default (about six months ahead). Sundays are not valid rental start dates.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Rental start date (one-off)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;rentalType&quot;: {
+      &quot;default&quot;: &quot;oneTime&quot;,
+      &quot;description&quot;: &quot;One-off rental uses a date, duration and shipping zip. Subscription modes use the membership closet; Subscription (include sold out) includes unavailable styles.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;oneTime&quot;,
+        &quot;subscription&quot;,
+        &quot;subscriptionAll&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;One-off rental (available for my date)&quot;,
+        &quot;Subscription (available now)&quot;,
+        &quot;Subscription (include sold out)&quot;
+      ],
+      &quot;prefill&quot;: &quot;oneTime&quot;,
+      &quot;title&quot;: &quot;Rental type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;description&quot;: &quot;Free-text search in mode=search, e.g. \&quot;floral dress\&quot;. Optional: leave blank and use filters to browse. Site-wide search is used when no category is selected.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;floral dress&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;seasonality&quot;: {
+      &quot;description&quot;: &quot;Season the item is intended for.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;SpringSummer&quot;,
+        &quot;Seasonless&quot;,
+        &quot;FallWinter&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Spring / Summer&quot;,
+        &quot;Seasonless&quot;,
+        &quot;Fall / Winter&quot;
+      ],
+      &quot;title&quot;: &quot;Season&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sizes&quot;: {
+      &quot;description&quot;: &quot;Only items available in these sizes. Uses the site&#x27;s universal 0-22 size scale; letter sizes S/M/L are accepted from older saved inputs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Sizes&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sleeve&quot;: {
+      &quot;description&quot;: &quot;Sleeve length.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;LongSleeve&quot;,
+        &quot;Sleeveless&quot;,
+        &quot;ShortSleeve&quot;,
+        &quot;CapSleeve&quot;,
+        &quot;34Sleeve&quot;,
+        &quot;None&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Long Sleeve&quot;,
+        &quot;Sleeveless&quot;,
+        &quot;Short Sleeve&quot;,
+        &quot;Cap Sleeve&quot;,
+        &quot;3/4 Sleeve&quot;,
+        &quot;None&quot;
+      ],
+      &quot;title&quot;: &quot;Sleeve&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;recommended&quot;,
+      &quot;description&quot;: &quot;Order of results. Price sorts by retail (MSRP) value are server-side; rental-price and rating sorts use the fetched candidate window.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;recommended&quot;,
+        &quot;newest&quot;,
+        &quot;msrpLowToHigh&quot;,
+        &quot;msrpHighToLow&quot;,
+        &quot;priceLowToHigh&quot;,
+        &quot;priceHighToLow&quot;,
+        &quot;ratingHighToLow&quot;,
+        &quot;relevance&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Recommended (site order)&quot;,
+        &quot;Newest arrivals&quot;,
+        &quot;Retail value: low to high&quot;,
+        &quot;Retail value: high to low&quot;,
+        &quot;Rental price: low to high&quot;,
+        &quot;Rental price: high to low&quot;,
+        &quot;Rating: high to low&quot;,
+        &quot;Relevance (legacy)&quot;
+      ],
+      &quot;prefill&quot;: &quot;recommended&quot;,
+      &quot;title&quot;: &quot;Sort by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;stylePersona&quot;: {
+      &quot;description&quot;: &quot;Overall style persona.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;ClassicPreppy&quot;,
+        &quot;FeminineRomantic&quot;,
+        &quot;CasualLaidBack&quot;,
+        &quot;Edgy&quot;,
+        &quot;Minimalist&quot;,
+        &quot;Eclectic&quot;,
+        &quot;BohoChic&quot;,
+        &quot;bohochic&quot;,
+        &quot;casuallaidback&quot;,
+        &quot;eclectic&quot;,
+        &quot;edgy&quot;,
+        &quot;feminineromantic&quot;,
+        &quot;minimalist&quot;,
+        &quot;classicpreppy&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Preppy&quot;,
+        &quot;Feminine&quot;,
+        &quot;Casual&quot;,
+        &quot;Edgy&quot;,
+        &quot;Minimalist&quot;,
+        &quot;Eclectic&quot;,
+        &quot;Bohemian&quot;,
+        &quot;Bohemian (legacy)&quot;,
+        &quot;Casual (legacy)&quot;,
+        &quot;Eclectic (legacy)&quot;,
+        &quot;Edgy (legacy)&quot;,
+        &quot;Feminine (legacy)&quot;,
+        &quot;Minimalist (legacy)&quot;,
+        &quot;Preppy (legacy)&quot;
+      ],
+      &quot;title&quot;: &quot;Style&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;weddingFormality&quot;: {
+      &quot;description&quot;: &quot;Wedding dress code.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;BlackTieOptional&quot;,
+        &quot;Cocktail&quot;,
+        &quot;BlackTie&quot;,
+        &quot;Daytime&quot;,
+        &quot;Outdoor&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;Black Tie Optional&quot;,
+        &quot;Cocktail&quot;,
+        &quot;Black Tie&quot;,
+        &quot;Daytime&quot;,
+        &quot;Outdoor&quot;
+      ],
+      &quot;title&quot;: &quot;Wedding formality&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;weddingOccasion&quot;: {
+      &quot;description&quot;: &quot;Wedding setting or event.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;CityWedding&quot;,
+        &quot;CountryClubWedding&quot;,
+        &quot;NewYearsWedding&quot;,
+        &quot;EngagementParty&quot;,
+        &quot;VineyardWedding&quot;,
+        &quot;BridalShower&quot;,
+        &quot;BacheloretteParty&quot;,
+        &quot;BeachWedding&quot;,
+        &quot;MotherOfTheBride&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any / not filtered&quot;,
+        &quot;City Wedding&quot;,
+        &quot;Country Club Wedding&quot;,
+        &quot;New Year&#x27;s Wedding&quot;,
+        &quot;Engagement Party&quot;,
+        &quot;Vineyard Wedding&quot;,
+        &quot;Bridal Shower&quot;,
+        &quot;Bachelorette Party&quot;,
+        &quot;Beach Wedding&quot;,
+        &quot;Mother of the Bride&quot;
+      ],
+      &quot;title&quot;: &quot;Wedding occasion&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;zipCode&quot;: {
+      &quot;default&quot;: &quot;10001&quot;,
+      &quot;description&quot;: &quot;US ZIP code used for availability and delivery-window pricing.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;10001&quot;,
+      &quot;title&quot;: &quot;Shipping ZIP code&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Rent the Runway Designer Rental Catalog Extractor Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Rent the Runway items.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Rent the Runway items with designer, category, rental, retail and member prices, 4/8-day tiers, size availability, rating source, full product details, gallery images and paginated reviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Rent the Runway items.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Rent the Runway items&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Rent the Runway Designer Rental Catalog Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Items&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;itemName&quot;,
+          &quot;designer&quot;,
+          &quot;rentalPrice&quot;,
+          &quot;retailPrice&quot;,
+          &quot;category&quot;,
+          &quot;rating&quot;,
+          &quot;sizesAvailable&quot;,
+          &quot;inStock&quot;,
+          &quot;detailUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-rent-the-runway-designer-rental-catalog-extractor">Rent the Runway Designer Rental Catalog Extractor</h2>
+<p>Rent the Runway is a designer clothing rental service: each style has a rental price, a retail value, size availability that changes with the delivery date, and sometimes a discounted purchase option. This actor collects that catalog in structured form, including the availability context behind each price.</p>
+<p>It can browse a category, run a keyword search across the catalog, pull every style from one or more designers, or enrich a list of product URLs/IDs. Catalog browsing is HTTP-only and needs no account or proxy.</p>
+<h2 id="readme-modes">Modes</h2>
+<ul>
+<li><strong>Browse a category</strong> — 19 editor-curated categories (dresses, gowns, tops, handbags, jewelry, and more) plus the full catalog.</li>
+<li><strong>Search by keyword and filters</strong> — keyword plus any combination of occasion, color, embellishment, neckline, style, print, sleeve, season, length, maternity and wedding filters.</li>
+<li><strong>Browse designers</strong> — one or more designer names, IDs or designer URLs.</li>
+<li><strong>Specific product URLs or IDs</strong> — paste product links or style IDs (for example <code>CULTR24</code>).</li>
+</ul>
+<h2 id="readme-what-each-item-includes">What each item includes</h2>
+<ul>
+<li><strong>Identity</strong> — <code>productId</code>, <code>itemName</code>, <code>designer</code>, <code>designerId</code>, <code>category</code>, <code>categoryTree</code>, <code>detailUrl</code>.</li>
+<li><strong>Prices</strong> — <code>rentalPrice</code> for the selected rental type/duration, <code>retailPrice</code>, <code>buyPrice</code> when the item can be bought below retail, optional <code>rentalPrice4Day</code> and <code>rentalPrice8Day</code>, plus <code>memberRentalPrice</code>/<code>memberPriceDiscount</code> when a member price is published, in USD.</li>
+<li><strong>Availability</strong> — <code>sizesOffered</code> (all sizes the style was made in), <code>sizesAvailable</code> (actually available for the chosen date/scope), <code>availableSkuCount</code>, <code>availableUnits</code> (units in rotation), <code>availableUnitCount</code> (subscription availability) and <code>inStock</code>.</li>
+<li><strong>Product detail</strong> — <code>description</code>, <code>stylistNotes</code>, <code>fitNotes</code>, <code>fabricComposition</code>, <code>sleeve</code>, <code>lengthInches</code>, <code>occasionTags</code>, <code>color</code>, <code>embellishments</code>, <code>neckline</code>, <code>stylePersonas</code>, <code>maternity</code>, <code>seasonality</code>, <code>programEligibility</code>, <code>publishedDate</code>.</li>
+<li><strong>Media</strong> — <code>imageUrl</code> (lead image) and <code>images</code> (all available angles, at high resolution).</li>
+<li><strong>Reviews</strong> — <code>rating</code> (0-10), <code>ratingSource</code> (<code>catalog-list</code> when approximate, <code>reviews</code> when exact), <code>reviewCount</code>, <code>reviewSummary</code>, and up to <code>maxReviewsPerProduct</code> recent <code>reviews</code> when enabled (default 200).</li>
+<li><strong>Run context</strong> — <code>rentalType</code>, <code>rentalStartDate</code>, <code>rentalDuration</code>, <code>zipCode</code>, <code>recordType</code>, <code>scrapedAt</code>.</li>
+</ul>
+<p>Every field is omitted when the source does not have it; records never contain nulls, empty strings, empty arrays or placeholder text.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>Select</td>
+<td><code>category</code></td>
+<td><code>category</code>, <code>search</code>, <code>designer</code> or <code>productUrls</code>.</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>Select</td>
+<td><code>all</code></td>
+<td>Category for <code>category</code> mode, or an optional category limit for <code>search</code>.</td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>String</td>
+<td>–</td>
+<td>Free-text keyword for <code>search</code>. Optional; filters alone can browse.</td>
+</tr>
+<tr>
+<td><code>designers</code></td>
+<td>String list</td>
+<td>–</td>
+<td>Designer names, IDs or URLs for <code>designer</code> mode.</td>
+</tr>
+<tr>
+<td><code>designer</code></td>
+<td>Select</td>
+<td><code>any</code></td>
+<td>Curated designer filter for category/search runs.</td>
+</tr>
+<tr>
+<td><code>customDesigner</code></td>
+<td>String</td>
+<td>–</td>
+<td>Any designer outside the curated list; overrides <code>designer</code>.</td>
+</tr>
+<tr>
+<td><code>productUrls</code></td>
+<td>String list</td>
+<td>–</td>
+<td>Product URLs or style IDs for <code>productUrls</code> mode.</td>
+</tr>
+<tr>
+<td><code>occasion</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Where you want to wear it.</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Primary color.</td>
+</tr>
+<tr>
+<td><code>embellishment</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Embellishment detail.</td>
+</tr>
+<tr>
+<td><code>neckline</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Neckline style.</td>
+</tr>
+<tr>
+<td><code>stylePersona</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Overall style.</td>
+</tr>
+<tr>
+<td><code>print</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Print or pattern.</td>
+</tr>
+<tr>
+<td><code>sleeve</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Sleeve length.</td>
+</tr>
+<tr>
+<td><code>seasonality</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Intended season.</td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Garment length.</td>
+</tr>
+<tr>
+<td><code>maternity</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Maternity or bump-friendly fit.</td>
+</tr>
+<tr>
+<td><code>weddingOccasion</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Wedding setting or event.</td>
+</tr>
+<tr>
+<td><code>weddingFormality</code></td>
+<td>Select</td>
+<td>–</td>
+<td>Wedding dress code.</td>
+</tr>
+<tr>
+<td><code>sizes</code></td>
+<td>String list</td>
+<td>–</td>
+<td>Universal sizes 0-22; legacy S/M/L inputs are mapped.</td>
+</tr>
+<tr>
+<td><code>rentalType</code></td>
+<td>Select</td>
+<td><code>oneTime</code></td>
+<td>One-off rental, subscription, or subscription including sold-out styles.</td>
+</tr>
+<tr>
+<td><code>rentalStartDate</code></td>
+<td>String</td>
+<td>blank</td>
+<td><code>YYYY-MM-DD</code>; blank uses the site's default window (about six months ahead).</td>
+</tr>
+<tr>
+<td><code>rentalDuration</code></td>
+<td>Select</td>
+<td><code>4</code></td>
+<td>4 or 8 days.</td>
+</tr>
+<tr>
+<td><code>zipCode</code></td>
+<td>String</td>
+<td><code>10001</code></td>
+<td>US ZIP used for availability and delivery pricing.</td>
+</tr>
+<tr>
+<td><code>minRentalPrice</code></td>
+<td>Number</td>
+<td>–</td>
+<td>Drop items below this rental price (USD).</td>
+</tr>
+<tr>
+<td><code>maxRentalPrice</code></td>
+<td>Number</td>
+<td>–</td>
+<td>Drop items above this rental price (USD).</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>Number</td>
+<td>–</td>
+<td>Drop items below this rating (0-10).</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>Select</td>
+<td><code>recommended</code></td>
+<td>Recommended, newest, retail value, rental price or rating.</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Add descriptions, attributes, sizes and images from product pages.</td>
+</tr>
+<tr>
+<td><code>includeAvailability</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Check the sizes actually available for the selected date/scope.</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Add review text/fit data per item.</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerProduct</code></td>
+<td>Integer</td>
+<td><code>200</code></td>
+<td>Review cap when Include reviews is on (1-1000); pages are fetched until this bound or exhaustion.</td>
+</tr>
+<tr>
+<td><code>includePriceTiers</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Add both 4-day and 8-day rental prices.</td>
+</tr>
+<tr>
+<td><code>onlyNew</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Emit only product IDs not seen in a previous <code>onlyNew</code> run; useful for scheduled monitors.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>Integer</td>
+<td><code>50</code></td>
+<td>Record cap (1-10,000). Detail enrichment is practical up to 500 items; list-only runs can go to 10,000.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-wedding-guest-dresses-under-100">Wedding-guest dresses under $100</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;category&quot;,
+  &quot;category&quot;: &quot;wedding-guest-dresses&quot;,
+  &quot;maxRentalPrice&quot;: 100,
+  &quot;minRating&quot;: 8,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-search-for-a-floral-dress-in-size-4-4-day-rental">Search for a floral dress in size 4, 4-day rental</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQuery&quot;: &quot;floral dress&quot;,
+  &quot;sizes&quot;: [&quot;4&quot;],
+  &quot;rentalDuration&quot;: 4,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-every-reformation-style-with-both-price-tiers">Every Reformation style, with both price tiers</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;designer&quot;,
+  &quot;designers&quot;: [&quot;Reformation&quot;],
+  &quot;includePriceTiers&quot;: true,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-enrich-specific-product-links">Enrich specific product links</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;productUrls&quot;,
+  &quot;productUrls&quot;: [
+    &quot;https://www.renttherunway.com/shop/designers/cult_gaia/cassidy_gown&quot;,
+    &quot;MAR123&quot;
+  ],
+  &quot;includeReviews&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Compare rent-versus-buy value across designers and categories.</li>
+<li>Monitor rental and retail prices before wedding or event season.</li>
+<li>Find what is genuinely in stock for a size and delivery date.</li>
+<li>Build style round-ups with high-resolution images and product links.</li>
+<li>Study fit feedback and reviewer measurements from the review data.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need an account, cookie or proxy?</strong>
+No. The catalog, product pages and review endpoints used here are public. The actor connects directly and manages any fallback internally.</p>
+<p><strong>What is the difference between the rental types?</strong>
+<code>oneTime</code> returns styles available for a specific rental date, duration and ZIP, with rental prices. <code>subscription</code> returns styles available in the membership closet; <code>subscriptionAll</code> also includes sold-out styles. Stock is scope-specific: a style can be sold out for subscription but available for a one-off rental.</p>
+<p><strong>Why is <code>sizesAvailable</code> missing on some records?</strong>
+It is only emitted when availability was checked. <code>sizesOffered</code> still lists every size the style was made in. Availability changes by date, duration and ZIP.</p>
+<p><strong>Why do some styles disappear when I change the date?</strong>
+The one-off catalog only includes styles with at least one available size for that date window. Sundays are not valid rental start dates; the actor falls back to the default date and says so in the run message.</p>
+<p><strong>Can I get all reviews for an item?</strong>
+Yes. The public review endpoint is paginated in pages of 40; <code>includeReviews</code> follows pages until exhaustion or <code>maxReviewsPerProduct</code> (default 200, max 1000). The total <code>reviewCount</code> is always reported.</p>
+<p><strong>What does the rating scale mean?</strong>
+Ratings are on Rent the Runway's 0-10 scale. <code>ratingScale</code> is included so the value is unambiguous.</p>
+<p><strong>How do I get both 4-day and 8-day prices?</strong>
+Set <code>includePriceTiers</code> to <code>true</code>. Each selected product is read separately.</p>
+<p><strong>Can I get more than 10,000 items?</strong>
+A single unfiltered search is capped at 10,000. Browse individual categories instead, or split the request by designer, occasion or other filters.</p>
+<p><strong>How do I run a scheduled monitor for only new items?</strong>
+Set <code>onlyNew</code> to <code>true</code>. The actor stores seen product IDs in a persistent key-value store and skips them on later runs, so each run returns only new styles.</p>
+<p><strong>Is this affiliated with Rent the Runway?</strong>
+No. This is an independent data extraction tool with no affiliation to Rent the Runway, Inc.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>Availability is a snapshot for the selected date, duration and ZIP; it changes as inventory moves.</li>
+<li>One-off rental results exclude sold-out styles by design.</li>
+<li><code>maxReviewsPerProduct</code> bounds review text (default 200, max 1000); the total review count is always reported.</li>
+<li>Care instructions, designer biographies and per-item membership rental prices are not exposed by the public payloads used here.</li>
+<li>Reserve availability reports which sizes are available, not how many units back each size.</li>
+<li>The default shipping ZIP is 10001 (New York); availability and delivery windows change with the ZIP.</li>
+<li>Very large runs with <code>includeDetails</code> enabled are slower because each item needs a compact product-detail request, a reviews page for the exact rating and a member-price request. 500 detailed rows are practical; list-only runs reach 10,000.</li>
+<li><code>onlyNew</code> tracks the last 50,000 emitted IDs; older IDs are forgotten and may appear again.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/mqAo1eFbT4I0XniBx/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>QDzhClJRP5uK5f5Qp</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,100 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "full": {
+      "display": {
+        "component": "table"
+      },
+      "title": "Complete Business Data",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "name",
+          "categoryName",
+          "categories",
+          "totalScore",
+          "reviewsCount",
+          "address",
+          "phone",
+          "website",
+          "placeId",
+          "featureId",
+          "kgmid",
+          "plusCode",
+          "location",
+          "timezone",
+          "countryCode",
+          "priceLevel",
+          "hours",
+          "hoursStatus",
+          "isOpenNow",
+          "isPermanentlyClosed",
+          "isTemporarilyClosed",
+          "ratingHistogram",
+          "photoCount",
+          "photosSample",
+          "rankInCell",
+          "googleMapsUrl",
+          "sourceUrl",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "address": {
+            "format": "text",
+            "label": "Address"
+          },
+          "categoryName": {
+            "format": "text",
+            "label": "Category"
+          },
+          "name": {
+            "format": "text",
+            "label": "Name"
+          },
+          "phone": {
+            "format": "text",
+            "label": "Phone"
+          },
+          "reviewsCount": {
+            "format": "number",
+            "label": "Reviews"
+          },
+          "totalScore": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "website": {
+            "format": "link",
+            "label": "Website"
+          }
+        }
+      },
+      "title": "Business Overview",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "name",
+          "categoryName",
+          "totalScore",
+          "reviewsCount",
+          "address",
+          "phone",
+          "website",
+          "placeId",
+          "featureId",
+          "kgmid",
+          "googleMapsUrl",
+          "location",
+          "rankInCell",
+          "sourceUrl",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

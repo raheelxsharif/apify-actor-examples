@@ -1,0 +1,180 @@
+# ZipRecruiter Jobs with Full Description Extractor
+
+Scrape **ZipRecruiter** job postings with their **complete description text** — not just the search-card snippet. Search by keyword across as many locations as you need, paste any search or job URL, apply ZipRecruiter's own filters (job type, workplace, experience, posted date, salary, 1-Click Apply), and get one flat row per posting with salary, company profile, benefits, workplace type, posting dates and apply links.
+
+## What this actor does
+
+- **Full descriptions:** every job's complete description text and HTML, fetched per posting — the search results page only shows a teaser.
+- **Two ways to start:** keyword queries × locations, or any ZipRecruiter search URL / job URL / company page URL you already have.
+- **Company-scoped search:** set `companyName` (or paste a `/co/<company>/Jobs` URL) to get only that employer's postings — combine it with a keyword or leave the queries empty to browse everything the company has open.
+- **ZipRecruiter's own filters:** employment type, remote / hybrid / on-site, experience level, posted within N days, search radius, minimum salary, 1-Click Apply only.
+- **Rich per-job data:** structured salary (min / max, interval, currency, annualized values, provided vs estimated), benefits, workplace types, poster dates, company size / industry / website / headquarters, external apply links.
+- **Cards-only mode:** switch off `fetchDescriptions` for faster runs with search-card fields only.
+- **Empty fields are omitted** — a value ZipRecruiter does not show for a job is left out of that row rather than sent as `null`.
+
+## Output per job
+
+Identity:
+
+- `type` — always `job_ziprecruiter`
+- `id`, `listingKey` — ZipRecruiter's stable listing key for the posting
+- `jid` — ZipRecruiter's job (open seat) id, matching the `jid=` in job URLs
+- `matchId` — ZipRecruiter's internal match id
+- `url` — canonical job posting URL
+- `title` — job title
+
+Company:
+
+- `company`, `companyId`, `companyUrl`, `companyLogo`
+- `companySize`, `companyIndustries[]`, `companyWebsite`, `companyFoundedYear`, `companyHqLocation`
+
+Location:
+
+- `location` — display location, e.g. `Chicago, IL`
+- `city`, `state`, `country`, `countryCode`, `postalCode`, `county`
+- `workplaceTypes[]` — `Remote`, `Hybrid`, `On-site`, `Remote optional`
+- `isRemote`, `isHybrid`
+
+Pay:
+
+- `salary` — the salary text shown on the posting, e.g. `$34 - $41.56/hr`
+- `salaryMin`, `salaryMax` — numeric bounds in the given period
+- `salaryPeriod` — `hour`, `day`, `week`, `month` or `year`
+- `salaryCurrency` — e.g. `USD`
+- `salaryMinAnnual`, `salaryMaxAnnual` — annualized bounds
+- `salarySource` — `provided`, `parsed` or `estimated` (estimated pay is flagged, never mixed with real numbers)
+
+Details:
+
+- `description` — full description as plain text
+- `descriptionHtml` — the same description as HTML
+- `descriptionFetchFailed` — `true` when a job's detail data could not be fetched; the row is kept from search-card data
+- `employmentTypes[]` — e.g. `Full-time`, `Contract`
+- `benefits[]` — e.g. `Medical`, `Dental`, `Paid time off`
+- `postedAt`, `rollingPostedAt` — ISO 8601 timestamps
+- `postedAgo` — human label, e.g. `3 days ago`
+- `isActive` — whether the listing is active
+- `educationLevels[]`, `experienceMonths`
+- `shortDescription` — search-card teaser
+
+Applying & sharing:
+
+- `applyUrl` — apply link; for off-site applications this is the external apply URL
+- `applyType` — `external`, `quick-apply` or `internal`
+- `directApply` — `true` when 1-Click Apply is available
+- `shareUrl` — short share link
+
+Metadata:
+
+- `inputUrl` — the search URL (or job URL) that produced this row
+- `searchQuery` — the keyword that produced this row
+- `scrapedAt` — ISO 8601 timestamp
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `startUrls` | Array of strings | – | ZipRecruiter search URLs or job URLs. Filters already in a search URL are honored. |
+| `searchQueries` | Array of strings | – | Keywords to search, e.g. `registered nurse`. Each query is searched in every location. |
+| `locations` | Array of strings | – | Cities, states or `United States`. Empty = whole United States. |
+| `companyName` | String | – | Only jobs from this company (resolved on ZipRecruiter). Works with or without Search queries; company page URLs in `startUrls` do the same. |
+| `jobType` | String (select) | `any` | `any`, `full_time`, `part_time`, `contract`, `contract_to_hire`, `temporary`, `as_needed`, `other`, `internship` |
+| `workplace` | String (select) | `any` | `any`, `remote`, `hybrid`, `onsite` |
+| `remoteOnly` | Boolean | `false` | Legacy shortcut for `workplace: "remote"` |
+| `experienceLevels` | Multi-select | – | `no_experience`, `junior`, `mid`, `senior` |
+| `daysPosted` | Integer | `0` | Posted within the last N days (0–30). 0 = any time. |
+| `radiusMiles` | Integer | `0` | Search radius around the location (0–100 miles). 0 = default. |
+| `salaryMin` | Integer | `0` | Lower bound of the pay range: only jobs whose annual pay reaches at least this amount. 0 = no lower bound. |
+| `salaryMax` | Integer | `0` | Upper bound of the pay range: only jobs whose annual pay stays at or below this amount. 0 = no upper bound. |
+| `quickApplyOnly` | Boolean | `false` | Only jobs with 1-Click Apply |
+| `fetchDescriptions` | Boolean | `true` | Off = cards-only mode (faster; no full description) |
+| `maxItems` | Integer | `50` | Maximum jobs to return (1–10000) |
+| `maxSearches` | Integer | `100` | Cap on query × location combinations |
+
+### Example: keyword search with filters
+
+```json
+{
+    "searchQueries": ["registered nurse"],
+    "locations": ["Chicago, IL"],
+    "jobType": "full_time",
+    "daysPosted": 7,
+    "maxItems": 50
+}
+```
+
+### Example: remote senior roles in several states
+
+```json
+{
+    "searchQueries": ["data engineer", "analytics engineer"],
+    "locations": ["Texas", "Florida"],
+    "workplace": "remote",
+    "experienceLevels": ["senior"],
+    "salaryMin": 120000,
+    "maxItems": 200
+}
+```
+
+### Example: a search URL you already built
+
+```json
+{
+    "startUrls": [
+        "https://www.ziprecruiter.com/jobs-search?search=fire+alarm+technician&location=New+York%2C+NY&days=7"
+    ],
+    "maxItems": 100
+}
+```
+
+### Example: enrich specific job links
+
+```json
+{
+    "startUrls": [
+        "https://www.ziprecruiter.com/c/Company/Job/Title/-in-Chicago,IL?jid=abcdef1234567890"
+    ],
+    "fetchDescriptions": true
+}
+```
+
+## Use cases
+
+- **Talent intelligence:** follow hiring volume and role mix for a company, city or industry over time.
+- **Compensation research:** aggregate `salaryMin` / `salaryMax` / `salaryMinAnnual` by title, state and workplace type; separate provided pay from estimates with `salarySource`.
+- **Recruiting pipelines:** build clean candidate-facing lists with real apply links (`applyUrl`, `directApply`).
+- **Skills and text mining:** run NLP or skill extraction over the complete description, not a teaser.
+- **Remote-work tracking:** monitor `workplaceTypes` mixes nationwide or per employer.
+- **Job-board products:** keep an internal board fresh with scheduled runs and deduplicate on `jid`.
+
+## FAQ
+
+**Do I need a ZipRecruiter account, cookies or a proxy?**
+No. The actor reads public job data only and configures its own proxy automatically — there is nothing to set up. It deliberately fetches a small data payload per job instead of downloading each job page, which keeps runs fast and light.
+
+**Why do some rows have no salary, and how does the salary range filter work?**
+ZipRecruiter only publishes pay for part of its listings. When the employer does not disclose pay and ZipRecruiter cannot parse it from the text, the salary fields are simply absent from that row instead of being guessed; when ZipRecruiter shows an estimated range, the numbers are omitted and `salarySource` is `estimated`. `salaryMin` and `salaryMax` map to ZipRecruiter's own bounds — a job is kept only when its advertised annual pay reaches `salaryMin` (when set) and stays at or below `salaryMax` (when set). Jobs without any disclosed pay may still appear, because the source does not know their pay and cannot filter them out.
+
+**Can I get results in a specific order (newest first, highest paid)?**
+No — ZipRecruiter's public search does not expose a sort order; results always arrive in ZipRecruiter's own relevance order. Use `daysPosted` to restrict recency, or sort the dataset yourself after the run (for example by `postedAt` or `salaryMaxAnnual`).
+
+**Why are there no GPS coordinates?**
+ZipRecruiter's public job data does not include latitude/longitude. The actor delivers `city`, `state`, `postalCode`, `county`, `countryCode` and the display location, which geocode accurately in any mapping tool.
+
+**Which countries are supported?**
+United States and Canada (Canadian jobs appear on ziprecruiter.com with Canadian locations). The United Kingdom and Ireland run separate ZipRecruiter sites with their own legacy job pages; this actor covers the US/Canada data source.
+
+**What does `descriptionFetchFailed: true` mean, and can I skip descriptions?**
+It means the job's detail data could not be fetched (for example, the site asked for verification mid-run); the row is still delivered from search-card data and flagged so you can re-run those jobs later. Rows that load fine but genuinely have no description are not flagged. To skip detail fetching entirely, set `fetchDescriptions` to `false` — you get search-card fields only (title, company, location, pay, workplace, posting date, apply link), which is significantly faster.
+
+**How do I get only one company's jobs?**
+Set `companyName` (for example `Visa`) and either add keywords to `searchQueries` or leave them empty to browse all of that company's open roles. Pasting a company page URL such as `https://www.ziprecruiter.com/co/Visa/Jobs` into `startUrls` works the same way. The company name is resolved on ZipRecruiter before the search runs; if it cannot be found, the actor says so in the status message and falls back to a normal keyword search when you provided one.
+
+**How many results can one search return, and why can the same job appear twice later?**
+ZipRecruiter caps a single search at about 10,000 results; for broader coverage, split your topic into several queries or locations. Within a single run the actor deduplicates by ZipRecruiter's own job id, so a job found by several of your searches is only delivered once. If you run the same search again later, ZipRecruiter has re-ranked and reposted listings in the meantime, so some rows may differ.
+
+**What does `applyType: "external"` mean?**
+The application continues on the employer's own site. `applyUrl` points to that flow. `quick-apply` means the job supports ZipRecruiter's 1-Click Apply, and `internal` means the application is completed on ZipRecruiter.
+
+**Is this affiliated with ZipRecruiter?**
+No. This actor is an independent tool that reads ZipRecruiter's public job data and is not affiliated with or endorsed by ZipRecruiter.

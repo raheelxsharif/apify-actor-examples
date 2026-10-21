@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Public Handshake job listings with structured pay, locations, dates and descriptions, plus public employer profiles with industry, size and reviews.",
+  "properties": {
+    "employers": {
+      "description": "Dataset containing all scraped public Handshake employer profiles.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Handshake employers",
+      "type": "string"
+    },
+    "jobs": {
+      "description": "Dataset containing all scraped public Handshake job listings.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Handshake jobs",
+      "type": "string"
+    }
+  },
+  "title": "Handshake Campus Jobs & Employer Showcase Extractor Output"
+}

@@ -1,0 +1,179 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "authorName": {
+        "description": "Reviewer name",
+        "type": "string"
+      },
+      "authorRole": {
+        "description": "Reviewer role (User, Administrator, etc.)",
+        "type": "string"
+      },
+      "categories": {
+        "description": "All G2 categories",
+        "type": "array"
+      },
+      "category": {
+        "description": "Primary G2 category",
+        "type": "string"
+      },
+      "companySize": {
+        "description": "Reviewer company size segment",
+        "type": "string"
+      },
+      "competitorName": {
+        "description": "Competitor product name",
+        "type": "string"
+      },
+      "competitorSlug": {
+        "description": "Competitor G2 slug",
+        "type": "string"
+      },
+      "competitorUrl": {
+        "description": "Competitor G2 reviews URL",
+        "type": "string"
+      },
+      "cons": {
+        "description": "What the reviewer disliked",
+        "type": "string"
+      },
+      "description": {
+        "description": "Product or competitor summary",
+        "type": "string"
+      },
+      "imageUrl": {
+        "description": "Product image URL",
+        "type": "string"
+      },
+      "pricing": {
+        "description": "Pricing plans ({plan, price, currency})",
+        "type": "array"
+      },
+      "productName": {
+        "description": "Software product name",
+        "type": "string"
+      },
+      "productSlug": {
+        "description": "G2 product slug",
+        "type": "string"
+      },
+      "productUrl": {
+        "description": "G2 product reviews URL",
+        "type": "string"
+      },
+      "pros": {
+        "description": "What the reviewer liked",
+        "type": "string"
+      },
+      "publishDate": {
+        "description": "Review publish date",
+        "type": "string"
+      },
+      "rating": {
+        "description": "Star value (0-5)",
+        "type": "number"
+      },
+      "recordType": {
+        "description": "review, product or competitor",
+        "type": "string"
+      },
+      "reviewCount": {
+        "description": "Number of reviews",
+        "type": "integer"
+      },
+      "reviewId": {
+        "description": "Unique G2 review ID",
+        "type": "string"
+      },
+      "reviewTitle": {
+        "description": "Review headline",
+        "type": "string"
+      },
+      "reviewUrl": {
+        "description": "Direct review URL",
+        "type": "string"
+      },
+      "scrapedAt": {
+        "description": "Scrape timestamp (ISO 8601)",
+        "type": "string"
+      },
+      "sourceProduct": {
+        "description": "Slug of the compared product",
+        "type": "string"
+      },
+      "starRating": {
+        "description": "Star bucket (1-5)",
+        "type": "integer"
+      },
+      "useCase": {
+        "description": "Problems the product solves",
+        "type": "string"
+      },
+      "vendorName": {
+        "description": "Product vendor (seller) name",
+        "type": "string"
+      },
+      "vendorUrl": {
+        "description": "Vendor seller page on G2",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "G2 Records",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "authorName": {
+            "format": "text",
+            "label": "Author"
+          },
+          "cons": {
+            "format": "text",
+            "label": "Cons"
+          },
+          "productName": {
+            "format": "text",
+            "label": "Product"
+          },
+          "pros": {
+            "format": "text",
+            "label": "Pros"
+          },
+          "publishDate": {
+            "format": "text",
+            "label": "Date"
+          },
+          "rating": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "reviewTitle": {
+            "format": "text",
+            "label": "Title"
+          },
+          "starRating": {
+            "format": "number",
+            "label": "Stars"
+          }
+        }
+      },
+      "title": "Reviews",
+      "transformation": {
+        "fields": [
+          "productName",
+          "starRating",
+          "rating",
+          "authorName",
+          "reviewTitle",
+          "pros",
+          "cons",
+          "publishDate"
+        ]
+      }
+    }
+  }
+}

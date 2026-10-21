@@ -1,0 +1,205 @@
+# Handshake Campus Jobs & Employer Showcase Extractor
+
+Scrape **Handshake** — the early-career network used by universities and employers — without a student account. This actor reads Handshake's public job pages and employer showcase: search jobs by keyword, role, city or direct URL, then export title, employer, structured pay, locations, dates, full descriptions and employer profiles. It also builds an employer list from Handshake's public directory, including industry, company size, website and recent reviews.
+
+## What this actor does
+
+- **Five modes:** `searchJobs`, `byJobUrls`, `bySearchUrls`, `bySitemap`, `employers`.
+- **Public job catalog:** 62 role categories, 94 city pages and 720 published city+role combinations, plus a separate **`/internships/` family** (189 pages, 5,883 internship IDs, 24 internship roles, 27 city pages + remote). The sitemap mode scans the 156,110-URL public jobs sitemap newest-first for listings outside the SEO index.
+- **Full job detail:** structured pay with a pay period, employment type, remote/hybrid/on-site, all locations, dates and the complete description.
+- **Employer showcase:** 40,000+ public employer profiles with about, industry, size, ownership, address, website, logo and recent reviews (paginated up to your limit).
+- **Direct lookups:** paste public Handshake job URLs or numeric job IDs when you already know what you need.
+- **Incremental runs:** `onlyNewJobs` returns only IDs not seen in previous scheduled runs, with a reset toggle.
+- **Empty fields are omitted** from each record rather than returned as null or blank.
+
+## Output per job
+
+- `jobId`, `title`, `jobUrl` — Handshake identity and canonical public page.
+- `company`, `employerId`, `employerWebsite`, `employerLogoUrl`, `employerDescription`, `employerProfileUrl` — employer identity and public links.
+- `location`, `locations[]`, `remote`, `workplace` — primary location, every published site, and remote/hybrid/on-site.
+- `employmentType`, `postingType`, `jobType` — full-time/part-time, Job/Internship, and the normalized legacy type.
+- `salary`, `salaryMin`, `salaryMax`, `salaryCurrency`, `paySchedule`, `salaryType` — pay as published, plus the structured range and period.
+- `postedDate`, `applicationDeadline`, `isExpired` — posting date, expiry and expiry status.
+- `descriptionHtml`, `description` — full description (when descriptions are enabled).
+- `industry`, `roleGroups[]` — employer industry and role groups when Handshake publishes them.
+- `sourceSearchUrl`, `recordType`, `scrapedAt` — provenance and metadata.
+
+## Output per employer
+
+- `name`, `employerId`, `profileUrl`, `companyUrl` — employer identity and public profile.
+- `website`, `logoUrl` — the employer's own site and logo.
+- `description` — the public “About” text.
+- `industry`, `companySize`, `ownershipType`, `address` — public overview fields (ownership is not published for every employer).
+- `reviewCount`, `questionCount`, `reviews[]` — public review/Q&A counts (0 when the profile shows none) and review cards with title, date, location, text, pros, cons and advice.
+- `recordType`, `scrapedAt`.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `searchJobs` | `searchJobs`, `byJobUrls`, `bySearchUrls`, `bySitemap` or `employers`. Legacy `internships` and `companyListings` are accepted and mapped. |
+| `searchQuery` | string | – | Words matched against job titles and descriptions. |
+| `jobRole` | string | `any` | One of 62 published find-jobs role categories. |
+| `internshipRole` | string | `any` | One of 24 internship role categories; selecting one implies `internshipsOnly`. |
+| `location` | string | `any` | One of 94 published city pages. |
+| `workplace` | string | `any` | `any`, `remote`, `hybrid` or `on-site`. |
+| `employmentType` | string | `any` | `any`, `full-time` or `part-time`. |
+| `internshipsOnly` | boolean | false | Keep internships and co-ops. |
+| `postedWithinDays` | integer | – | Keep jobs posted in the last 1–365 days. |
+| `companyFilter` | string | – | Keep jobs whose employer name contains this text. |
+| `minSalary` | integer | – | Keep jobs whose published maximum pay is at least this amount. |
+| `salaryPeriod` | string | `any` | `any`, `year`, `month` or `hour`. |
+| `jobIds` | array | `[]` | Numeric Handshake job IDs (`mode=byJobUrls`). |
+| `jobUrls` | array | `[]` | Public job or share-preview URLs (`mode=byJobUrls`). |
+| `searchUrls` | array | `[]` | Public `joinhandshake.com/find-jobs/...` URLs (`mode=bySearchUrls`). |
+| `employerQuery` | string | – | Employer-name filter (`mode=employers`). |
+| `includeProfiles` | boolean | true | Fetch full employer profiles (`mode=employers`). |
+| `includeReviews` | boolean | true | Add recent review cards to employer records. |
+| `includeDescriptions` | boolean | true | Add `descriptionHtml` and `description` to job records. |
+| `maxItems` | integer | 50 | Maximum job records (1–1000). |
+| `maxEmployers` | integer | 100 | Maximum employer records (1–50,000). |
+| `maxReviewsPerEmployer` | integer | 5 | Maximum recent reviews per employer (1–100). |
+| `onlyNewJobs` | boolean | false | Return only job IDs not seen in previous runs (`searchJobs`/`bySearchUrls`/`bySitemap`). |
+| `resetMonitoringState` | boolean | false | Clear the saved seen-job list before this run. |
+
+### Example: software engineering jobs
+
+```json
+{
+  "mode": "searchJobs",
+  "jobRole": "software-engineering",
+  "workplace": "remote",
+  "postedWithinDays": 14,
+  "maxItems": 50
+}
+```
+
+### Example: finance internships in Boston
+
+```json
+{
+  "mode": "searchJobs",
+  "internshipRole": "finance",
+  "location": "boston-ma",
+  "maxItems": 50
+}
+```
+
+### Example: nursing jobs in Boston
+
+```json
+{
+  "mode": "searchJobs",
+  "jobRole": "nursing",
+  "location": "boston-ma",
+  "employmentType": "full-time",
+  "maxItems": 100
+}
+```
+
+### Example: direct job URLs
+
+```json
+{
+  "mode": "byJobUrls",
+  "jobUrls": [
+    { "url": "https://app.joinhandshake.com/public/jobs/11693959" },
+    { "url": "https://app.joinhandshake.com/public/jobs/11693995" }
+  ],
+  "includeDescriptions": true
+}
+```
+
+### Example: public search pages
+
+```json
+{
+  "mode": "bySearchUrls",
+  "searchUrls": [
+    { "url": "https://joinhandshake.com/find-jobs/remote/software-engineering/" }
+  ],
+  "maxItems": 100
+}
+```
+
+### Example: employer showcase
+
+```json
+{
+  "mode": "employers",
+  "employerQuery": "engineering",
+  "includeProfiles": true,
+  "includeReviews": true,
+  "maxReviewsPerEmployer": 10,
+  "maxEmployers": 50
+}
+```
+
+### Example: sitemap scan and incremental monitoring
+
+```json
+{
+  "mode": "bySitemap",
+  "searchQuery": "nurse",
+  "onlyNewJobs": true,
+  "maxItems": 100
+}
+```
+
+## Use cases
+
+- **Campus recruiting** — see which employers are hiring students and recent graduates by city and role.
+- **Salary benchmarking** — compare published pay ranges and periods across roles, cities and employers.
+- **Employer research** — build a shortlist with industry, size, website and employee reviews.
+- **Job-board aggregation** — feed public early-career listings into your own board or newsletter.
+- **Labor-market analysis** — track posting volume, locations and hiring dates over time.
+
+## FAQ
+
+### Do I need a Handshake student account?
+
+No. The actor reads Handshake's public job pages, public search pages and public employer directory. It never asks for a login, cookies or a student account, and it does not access applications or student profiles.
+
+### How many jobs can it discover?
+
+Handshake's public find-jobs index exposes 29,506 active job IDs across 929 pages, and the separate `/internships/` family adds 5,883 internship IDs (5,763 not in the find-jobs union). Together that is **35,269 SEO-discoverable IDs**. The site reports 52,897 active public jobs, so use `bySitemap` to scan the public 156,110-URL jobs sitemap newest-first (up to `maxItems`), or `jobUrls`/`jobIds` for a known listing. A full 156,110-URL sweep is possible but takes hours and many requests; bounded sitemap runs are the recommended path.
+
+### Are salaries always present?
+
+No. Employers publish pay for most, but not all, listings. When pay is missing, salary fields are omitted. When present, `salaryMin` and `salaryMax` are in the listing's currency and `paySchedule` tells you whether the amount is per year, month or hour.
+
+### Why is `roleGroups` missing on some rows?
+
+Role groups are only published on the 15 rich cards that Handshake renders per search page. The actor harvests them from both find-jobs and internship cards (combined card union: 10,479 IDs). Rows discovered from the other IDs on a page carry every other field but may omit role groups.
+
+### Why is employer ownership or size missing?
+
+Handshake's employer profile publishes size and industry for every profile, but ownership (Public, Private, Nonprofit, Government) is optional and is omitted when the employer does not provide it. Review and Q&A counts are `0` when the public profile shows none.
+
+### How do I search internships?
+
+Use `internshipsOnly: true` for the full `/internships/` family, or pick an `internshipRole` (e.g. `computer-science`, `data-science`, `cybersecurity`, `finance`). The actor reads the public internship city, role and city+role pages; `workplace: "remote"` uses Handshake's remote internship page. Legacy `mode: "internships"` maps to this behavior. `bySearchUrls` also accepts `/internships/` URLs.
+
+### How does `onlyNewJobs` work?
+
+The actor saves the IDs it has already returned in its key-value store. On the next scheduled run, `onlyNewJobs` skips those IDs, so you only receive postings you have not seen. Set `resetMonitoringState` for a one-off full refresh. Direct `byJobUrls` lookups and employer records are always returned.
+
+### Do I need a proxy?
+
+No. The actor connects to Handshake automatically and only uses its built-in fallback when a request is blocked. Just fill in the input and run it.
+
+### Is the data live?
+
+Jobs and employer profiles are read from Handshake's public pages at run time. The public search index is cached by Handshake, so newly posted jobs can take a few days to appear in keyword/role/city discovery; direct job URLs return the current public record.
+
+### Is this affiliated with Handshake?
+
+No. This is an independent third-party actor that reads publicly accessible pages. It is not affiliated with, endorsed by or operated by Handshake.
+
+## Limitations
+
+- Public SEO discovery covers 29,506 of 52,897 active public jobs; `bySitemap` scans the 156,110-URL sitemap newest-first up to `maxItems`, and direct URLs/IDs cover known listings. A full sitemap sweep is not run automatically because it takes hours.
+- Role groups are available only when a job appears in the 15 cards on a search page.
+- Salary, ownership and Q&A counts are conditional on what Handshake publishes.
+- Student-only, personalized and application data is out of scope.
+- The actor does not enrich employer emails, phone numbers or social profiles.

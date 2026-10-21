@@ -1,0 +1,114 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "flatSuggestions": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "cpc": {
+            "format": "number",
+            "label": "CPC (USD)"
+          },
+          "keyword": {
+            "format": "text",
+            "label": "Suggestion"
+          },
+          "language": {
+            "format": "text",
+            "label": "Language"
+          },
+          "paidDifficulty": {
+            "format": "number",
+            "label": "Paid difficulty"
+          },
+          "scrapedAt": {
+            "format": "date",
+            "label": "Scraped at"
+          },
+          "searchIntent": {
+            "format": "array",
+            "label": "Intent"
+          },
+          "searchVolume": {
+            "format": "number",
+            "label": "Search volume"
+          },
+          "seedKeyword": {
+            "format": "text",
+            "label": "Seed keyword"
+          },
+          "seoDifficulty": {
+            "format": "number",
+            "label": "SEO difficulty"
+          }
+        }
+      },
+      "title": "Flat suggestions",
+      "transformation": {
+        "fields": [
+          "seedKeyword",
+          "keyword",
+          "searchVolume",
+          "cpc",
+          "seoDifficulty",
+          "paidDifficulty",
+          "searchIntent",
+          "country",
+          "language",
+          "scrapedAt"
+        ]
+      }
+    },
+    "seedSuggestions": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "keyword": {
+            "format": "text",
+            "label": "Seed keyword"
+          },
+          "language": {
+            "format": "text",
+            "label": "Language"
+          },
+          "scrapedAt": {
+            "format": "date",
+            "label": "Scraped at"
+          },
+          "seedOverview": {
+            "format": "object",
+            "label": "Seed overview"
+          },
+          "suggestions": {
+            "format": "array",
+            "label": "Suggestions"
+          },
+          "type": {
+            "format": "text",
+            "label": "Type"
+          }
+        }
+      },
+      "title": "Seed suggestions",
+      "transformation": {
+        "fields": [
+          "type",
+          "keyword",
+          "country",
+          "language",
+          "suggestions",
+          "seedOverview",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

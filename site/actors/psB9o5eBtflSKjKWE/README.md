@@ -1,0 +1,145 @@
+# Baidu Web, Image & News Results Extractor
+
+Baidu is the dominant search engine for Chinese-language content, and its result pages differ from Google's — different ranking signals, different SERP layouts, and separate verticals for web, image, news, and query suggestions. This actor collects any of those four surfaces as structured rows with real destination URLs, publisher names, dates, original image URLs, and autocomplete suggestions.
+
+## What this actor does
+
+- **Web search** — organic results with title, real destination URL (decoded from Baidu's own result metadata), display domain, snippet, publisher, date text and normalized date, plus thumbnail and inline images when the result carries them. Optionally returns Baidu's answer box, knowledge panel, related searches and related videos as separate `serpFeature` rows.
+- **News search** — articles from Baidu's 资讯 feed with title, URL, summary, publication time, outlet name, site and image. A desktop news result page is used as a fallback when the feed is unavailable.
+- **Image search** — 30 images per page with the **original image URL**, Baidu thumbnail URL, source page URL and domain, pixel dimensions, image format and image id.
+- **Autocomplete** — up to 10 query suggestions per keyword.
+
+Only public pages are read. The actor starts a normal anonymous session on Baidu's homepage (Baidu issues its own session cookies), then requests the selected surface. No account, login, cookie input or proxy configuration is required.
+
+## Output per mode
+
+### Web (`mode: webSearch`)
+
+`query`, `position`, `page`, `resultType` (`organic` or `serpFeature`), `title`, `url`, `displayUrl`, `domain`, `snippet`, `date` / `dateText`, `publishedAt`, `source`, `thumbnailUrl`, `images[{url,width,height}]`, `baiduUrl` (when the page only exposed a redirect link), `scrapedAt`.
+
+With `includeSerpFeatures` enabled, additional rows carry `featureType` (`answerBox`, `knowledgePanel`, `relatedSearches`, `relatedVideos`) and `featureText` (or a `relatedSearches` array).
+
+### News (`mode: newsSearch`)
+
+`query`, `position`, `page`, `resultType: news`, `title`, `url`, `snippet`, `date` / `dateText`, `publishedAt`, `source`, `site`, `imageUrl`, `sourceAvatar` (publisher logo), `scrapedAt`.
+
+### Images (`mode: imageSearch`)
+
+`query`, `position`, `resultType: image`, `title`, `imageUrl` (original), `thumbnailUrl`, `sourceUrl`, `sourceDomain`, `width`, `height`, `imageFormat`, `imageId`, `scrapedAt`.
+
+### Autocomplete (`mode: autocomplete`)
+
+`query`, `position`, `resultType: suggestion`, `suggestion`, `scrapedAt`.
+
+Fields the source does not provide for a particular result are omitted, never sent as `null`.
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | Select | `webSearch` | `webSearch`, `newsSearch`, `imageSearch`, or `autocomplete`. |
+| `queries` | Array | `["人工智能"]` | One or more search terms; each is scraped independently. |
+| `maxResults` | Integer | 50 | Maximum results per query (1–1000). |
+| `timeRange` | Select | `any` | `any`, `day`, `week`, `month`, `year` — web search only. |
+| `dateFrom` | Date | – | Start of a custom publication window (YYYY-MM-DD), web/news only. |
+| `dateTo` | Date | – | End of a custom publication window (YYYY-MM-DD), web/news only. |
+| `fileType` | Select | `any` | `any`, `pdf`, `doc`, `docx`, `xls`, `ppt`, `txt`, `rtf` — web results via Baidu's `filetype:` operator. |
+| `sortBy` | Select | `relevance` | `relevance` or `time` — news search only. |
+| `language` | Select | `any` | `any`, `simplified`, `traditional` — web search only. |
+| `siteRestrict` | Text | – | Restrict results to one domain (`site:` operator). |
+| `exactPhrase` | Text | – | Require this exact phrase in results. |
+| `excludeWords` | Array | `[]` | Words to exclude (`-word`). |
+| `titleOnly` | Boolean | false | Match query terms in page titles only (`intitle:`). |
+| `includeSerpFeatures` | Boolean | false | Add answer box, knowledge panel, related searches and videos as rows. |
+
+### Example: Chinese web results from the last month
+
+```json
+{
+  "mode": "webSearch",
+  "queries": ["人工智能 最新进展"],
+  "maxResults": 50,
+  "timeRange": "month",
+  "language": "simplified"
+}
+```
+
+### Example: original image URLs
+
+```json
+{
+  "mode": "imageSearch",
+  "queries": ["Great Wall of China"],
+  "maxResults": 100
+}
+```
+
+### Example: newest news articles
+
+```json
+{
+  "mode": "newsSearch",
+  "queries": ["technology innovation"],
+  "maxResults": 30,
+  "sortBy": "time"
+}
+```
+
+### Example: query suggestions
+
+```json
+{
+  "mode": "autocomplete",
+  "queries": ["coffee"],
+  "maxResults": 10
+}
+```
+
+## Use cases
+
+- **Baidu SEO tracking** — check where pages rank for target keywords over time.
+- **Competitor and brand monitoring** — see which domains, publishers and content types rank.
+- **Chinese media monitoring** — pull recent news coverage of a topic, brand or event.
+- **Dataset building** — collect original image URLs with their source pages for visual research.
+- **Keyword discovery** — expand a seed term with Baidu's autocomplete suggestions.
+
+## How results are collected
+
+The actor requests Baidu's public result pages directly, reusing only the anonymous session cookies Baidu sets on its own homepage. It paces requests, rotates network exits when Baidu shows a security check, and falls back from the desktop result page to the mobile one when needed. It does not use a browser, so runs stay fast and inexpensive.
+
+## Limits
+
+- A single unfiltered Baidu query serves roughly **10–28 organic rows on page 1** and stops after a few pages. **Partitioning works**: different date windows, `site:`, `filetype:`, script (`language`) and the mobile view each return different pages, and unions of 160–240+ unique URLs per topic are reproducible. Split a broad topic into narrower queries to get deeper coverage.
+- The realtime news feed serves roughly **137–190 articles per query** and then repeats its tail. The **custom date range** and narrower queries expose additional articles (measured +42 % coverage when adding date windows).
+- Image search stops at about **1,446 images per query** regardless of the result-count label Baidu prints.
+- About 60 % of web results show a date and most show a publisher name. Those fields are omitted when Baidu does not display them.
+- English queries return fewer Chinese-news matches than Chinese queries; an empty news result can be a genuine "no coverage" answer.
+
+## FAQ
+
+**Why did a run return fewer rows than `maxResults`?**
+Because Baidu ran out of results for that query, or because its security check blocked the remaining pages. The status message names the affected queries.
+
+**Does the actor need a proxy or cookies?**
+No. It creates an anonymous Baidu session at runtime. Proxy exits are handled automatically when Baidu challenges a request.
+
+**Why does `imageUrl` sometimes equal `thumbnailUrl`?**
+A few source pages block direct hotlinking or do not expose an original URL. In that case the actor returns the Baidu-hosted image so the row still has a working URL.
+
+**What is a `serpFeature` row?**
+Baidu's non-organic modules — direct answers, knowledge panels, related searches and related videos. Enable `includeSerpFeatures` to receive them; they are separate rows and do not reduce the organic result count.
+
+**Can I use a custom date window?**
+Yes — set `dateFrom` and `dateTo` (YYYY-MM-DD). The window overrides `timeRange` and is applied by Baidu itself for web and news results.
+
+**Why is `publishedAt` missing on some rows?**
+Baidu only shows a date on part of its results, and relative dates such as "3天前" are converted to an ISO timestamp. When the page shows no date, both `date` and `publishedAt` are omitted.
+
+**Can I combine `exactPhrase`, `siteRestrict` and `excludeWords`?**
+Yes — these operators are combined into one Baidu query.
+
+**Does `language` translate my query?**
+No. It restricts results to pages written in the chosen Chinese script; it does not translate or rewrite the search term.
+
+**Is this affiliated with Baidu?**
+No. This actor reads public Baidu result pages and is not affiliated with Baidu, Inc.

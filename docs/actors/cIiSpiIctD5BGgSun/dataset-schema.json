@@ -1,0 +1,66 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Match results & odds",
+      "transformation": {
+        "fields": [
+          "homeTeam",
+          "awayTeam",
+          "homeScore",
+          "awayScore",
+          "matchDate",
+          "status",
+          "oddsHome",
+          "oddsDraw",
+          "oddsAway",
+          "bookmakerCount"
+        ]
+      }
+    },
+    "teamProfiles": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Team profiles",
+      "transformation": {
+        "fields": [
+          "teamName",
+          "fullName",
+          "country",
+          "city",
+          "stadium",
+          "coach",
+          "logoUrl",
+          "teamUrl"
+        ]
+      }
+    },
+    "teams": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "League team roster",
+      "transformation": {
+        "fields": [
+          "teamName",
+          "league",
+          "country",
+          "rank",
+          "points",
+          "matchesPlayed",
+          "wins",
+          "draws",
+          "losses",
+          "teamUrl"
+        ]
+      }
+    }
+  }
+}

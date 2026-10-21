@@ -1,0 +1,98 @@
+{
+  "actorSpecification": 1,
+  "title": "Amazon Reviews",
+  "views": {
+    "reviews": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "hasImages": {
+            "format": "boolean",
+            "label": "Has Images"
+          },
+          "helpfulCount": {
+            "format": "number",
+            "label": "Helpful"
+          },
+          "isVerified": {
+            "format": "boolean",
+            "label": "Verified"
+          },
+          "productAsin": {
+            "format": "text",
+            "label": "ASIN"
+          },
+          "ratingScore": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "reviewDate": {
+            "format": "text",
+            "label": "Date"
+          },
+          "reviewId": {
+            "format": "text",
+            "label": "Review ID"
+          },
+          "reviewLocation": {
+            "format": "text",
+            "label": "Location"
+          },
+          "reviewTitle": {
+            "format": "text",
+            "label": "Title"
+          },
+          "sentimentHint": {
+            "format": "text",
+            "label": "Sentiment"
+          },
+          "source": {
+            "format": "text",
+            "label": "Source"
+          },
+          "sourceMarketplace": {
+            "format": "text",
+            "label": "Marketplace"
+          },
+          "wordCount": {
+            "format": "number",
+            "label": "Words"
+          }
+        }
+      },
+      "title": "Reviews",
+      "transformation": {
+        "fields": [
+          "productAsin",
+          "reviewedProductAsin",
+          "ratingScore",
+          "reviewTitle",
+          "reviewDescription",
+          "isVerified",
+          "isVineVoice",
+          "reviewedIn",
+          "reviewReaction",
+          "variant",
+          "reviewImages",
+          "position",
+          "reviewId",
+          "reviewUrl",
+          "helpfulCount",
+          "reviewDate",
+          "reviewLocation",
+          "sentimentHint",
+          "wordCount",
+          "hasImages",
+          "imageCount",
+          "hasVideos",
+          "videoCount",
+          "reviewHash",
+          "source",
+          "sourceMarketplace",
+          "scrapedAt",
+          "sourceUrl"
+        ]
+      }
+    }
+  }
+}

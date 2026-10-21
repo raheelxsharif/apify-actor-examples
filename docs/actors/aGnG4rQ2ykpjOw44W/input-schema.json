@@ -1,0 +1,310 @@
+{
+  "description": "Search Expedia hotels by destination or by hotel/search URL and return live rates, exact star class, guest ratings, review counts, address, amenities, and optional room rates with cancellation policies.",
+  "properties": {
+    "adults": {
+      "default": 2,
+      "description": "Adult guests per room (1-14).",
+      "maximum": 14,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Adults per room",
+      "type": "integer"
+    },
+    "amenities": {
+      "default": [],
+      "description": "Only hotels with all selected amenities. Leave empty for no amenity filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "wifi",
+          "pool",
+          "gym",
+          "parking",
+          "breakfast",
+          "petFriendly",
+          "spa",
+          "restaurant",
+          "airConditioning",
+          "kitchen",
+          "hotTub",
+          "airportShuttle",
+          "washerDryer",
+          "balcony",
+          "evCharging"
+        ],
+        "enumTitles": [
+          "WiFi",
+          "Pool",
+          "Gym",
+          "Parking",
+          "Breakfast",
+          "Pet friendly",
+          "Spa",
+          "Restaurant",
+          "Air conditioning",
+          "Kitchen",
+          "Hot tub",
+          "Airport shuttle",
+          "Washer and dryer",
+          "Balcony",
+          "EV charging"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Amenities",
+      "type": "array"
+    },
+    "availableOnly": {
+      "default": false,
+      "description": "Only return properties with rooms available for the selected dates.",
+      "prefill": false,
+      "title": "Available only",
+      "type": "boolean"
+    },
+    "checkIn": {
+      "default": "",
+      "description": "YYYY-MM-DD. Leave empty to use 30 days from today.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Check-in date",
+      "type": "string"
+    },
+    "checkOut": {
+      "default": "",
+      "description": "YYYY-MM-DD. Leave empty to use 2 nights after check-in.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Check-out date",
+      "type": "string"
+    },
+    "childrenAges": {
+      "default": [],
+      "description": "One age (0-17) per child. Leave empty for no children.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Children ages",
+      "type": "array"
+    },
+    "destination": {
+      "description": "City, area, landmark, airport, or hotel name to search (mode=search). Examples: New York, London, Tokyo, Times Square.",
+      "editor": "textfield",
+      "prefill": "New York",
+      "title": "Destination",
+      "type": "string"
+    },
+    "destinationId": {
+      "description": "Optional Expedia region ID to skip destination lookup (mode=search). Use only if you already know the region ID.",
+      "editor": "textfield",
+      "title": "Destination ID",
+      "type": "string"
+    },
+    "freeCancellationOnly": {
+      "default": false,
+      "description": "Only return properties with a fully refundable rate.",
+      "prefill": false,
+      "title": "Free cancellation only",
+      "type": "boolean"
+    },
+    "includePropertyDetails": {
+      "default": true,
+      "description": "Add exact star class, address, coordinates, full amenities, policies, and gallery images. This fetches one property page per hotel (mode=search).",
+      "prefill": false,
+      "sectionCaption": "Enrichment",
+      "title": "Include property details",
+      "type": "boolean"
+    },
+    "includeRoomRates": {
+      "default": false,
+      "description": "Add room types, live nightly rates, payment policy, and cancellation policy for each hotel. This makes one extra request per hotel.",
+      "prefill": false,
+      "title": "Include room rates",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Hard cap on hotel records (1-1000). Expedia returns up to 500 per request; larger caps use nextSubSet pagination.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 1,
+      "sectionCaption": "Limits",
+      "title": "Maximum hotels",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum nightly price in USD. Hotels without a nightly price are skipped when a price limit is set.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum nightly price",
+      "type": "number"
+    },
+    "minGuestRating": {
+      "default": "any",
+      "description": "Minimum guest review score on Expedia's 10-point scale.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "7+",
+        "8+",
+        "9+"
+      ],
+      "enumTitles": [
+        "Any rating",
+        "7+ (Good)",
+        "8+ (Very good)",
+        "9+ (Wonderful)"
+      ],
+      "prefill": "any",
+      "title": "Minimum guest rating",
+      "type": "string"
+    },
+    "minPrice": {
+      "description": "Minimum nightly price in USD. Hotels without a nightly price are skipped when a price limit is set.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum nightly price",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Search by destination, or scrape Expedia hotel and search URLs/IDs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "urls"
+      ],
+      "enumTitles": [
+        "Search by destination",
+        "Scrape URLs or hotel IDs"
+      ],
+      "prefill": "search",
+      "sectionCaption": "Search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "propertyName": {
+      "description": "Filter by property name, for example Marriott or Hilton.",
+      "editor": "textfield",
+      "title": "Property name",
+      "type": "string"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Restrict results to a type of place.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "hotels",
+        "vacationRentals",
+        "hotel",
+        "motel",
+        "resort",
+        "apartment",
+        "hostel",
+        "bedAndBreakfast",
+        "guesthouse",
+        "villa",
+        "vacationHome",
+        "lodge",
+        "cottage",
+        "cabin"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Hotels",
+        "Vacation rentals",
+        "Hotel",
+        "Motel",
+        "Resort",
+        "Apartment or condo",
+        "Hostel",
+        "Bed & breakfast",
+        "Guesthouse",
+        "Villa",
+        "Vacation home",
+        "Lodge",
+        "Cottage",
+        "Cabin"
+      ],
+      "prefill": "any",
+      "title": "Property type",
+      "type": "string"
+    },
+    "rooms": {
+      "default": 1,
+      "description": "Number of rooms (1-8).",
+      "maximum": 8,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Rooms",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "recommended",
+      "description": "Order of the hotel search results.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "priceLowToHigh",
+        "priceHighToLow",
+        "distance",
+        "guestRating",
+        "starRating"
+      ],
+      "enumTitles": [
+        "Recommended",
+        "Price: low to high",
+        "Price: high to low",
+        "Distance from downtown",
+        "Guest rating",
+        "Star rating"
+      ],
+      "prefill": "recommended",
+      "sectionCaption": "Filters",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "starRatings": {
+      "default": [],
+      "description": "Only these star classes (1-5). Leave empty for all stars.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "enumTitles": [
+          "1 star",
+          "2 stars",
+          "3 stars",
+          "4 stars",
+          "5 stars"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Star ratings",
+      "type": "array"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Expedia hotel pages, Hotel-Search links, share links, or bare hotel IDs such as h17117062 or 17117062 (mode=urls).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Hotel or search URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Expedia Hotel Rate & Guest Rating Finder Input",
+  "type": "object"
+}

@@ -1,0 +1,189 @@
+{
+  "description": "Get a season of match results with scores and 1X2 odds from OddsPortal, a league's team roster with standings, or a team profile by name.",
+  "properties": {
+    "enrichTeams": {
+      "default": true,
+      "description": "In teams and teamSearch modes, open each team's page for its full name, venue, city, country and coach. Adds one request per team.",
+      "prefill": false,
+      "title": "Fetch team profiles",
+      "type": "boolean"
+    },
+    "includeOdds": {
+      "default": true,
+      "description": "Add 1X2 average and maximum odds, bookmaker count and per-bookmaker prices to each result.",
+      "prefill": true,
+      "title": "Include odds",
+      "type": "boolean"
+    },
+    "includeUpcoming": {
+      "default": true,
+      "description": "Keep scheduled and in-progress matches; turn off to get only finished results.",
+      "prefill": true,
+      "title": "Include upcoming matches",
+      "type": "boolean"
+    },
+    "leagueUrls": {
+      "description": "Optional: one or more OddsPortal league or season-results URLs (any sport or league, e.g. https://www.oddsportal.com/football/england/premier-league-2024-2025/results/). Overrides League and Season.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "League URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum records to return (1-10000). The run also stops when the source runs out of pages.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "results",
+      "description": "Season results with odds, a league's team roster, or a team lookup by name.",
+      "editor": "select",
+      "enum": [
+        "results",
+        "teams",
+        "teamSearch"
+      ],
+      "enumTitles": [
+        "Season results & odds",
+        "League team roster",
+        "Find a team by name"
+      ],
+      "prefill": "results",
+      "title": "What to fetch",
+      "type": "string"
+    },
+    "regionalFallback": {
+      "default": true,
+      "description": "When a league-season is empty on the main domain, retry it on the same site's regional edition (a few competitions, e.g. ACB, only publish older seasons there). Only fires on empty results, so it does not change normal runs.",
+      "prefill": true,
+      "title": "Regional edition fallback",
+      "type": "boolean"
+    },
+    "season": {
+      "default": "2024-2025",
+      "description": "Season to fetch. Soccer-style seasons use YYYY-YYYY (a plain YYYY expands to YYYY-YYYY); calendar-year leagues (MLB, MLS, NPB, J1, K League) use YYYY; 'current' is the live season. Used in results and teams modes.",
+      "editor": "select",
+      "enum": [
+        "2022-2023",
+        "2023-2024",
+        "2024-2025",
+        "2025-2026",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "current"
+      ],
+      "enumTitles": [
+        "2022/23",
+        "2023/24",
+        "2024/25",
+        "2025/26",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "Current season"
+      ],
+      "prefill": "2024-2025",
+      "title": "Season",
+      "type": "string"
+    },
+    "sport": {
+      "default": "epl",
+      "description": "Which competition to fetch. Ignored when leagueUrls is set.",
+      "editor": "select",
+      "enum": [
+        "epl",
+        "nfl",
+        "nba",
+        "mlb",
+        "nhl",
+        "mls",
+        "bundesliga",
+        "serie_a",
+        "la_liga",
+        "ligue_1",
+        "champions_league",
+        "europa_league",
+        "conference_league",
+        "eredivisie",
+        "liga_portugal",
+        "super_lig",
+        "championship",
+        "liga_mx",
+        "brasileirao",
+        "argentina_liga",
+        "j1_league",
+        "k_league_1",
+        "saudi_pro_league",
+        "euroleague",
+        "acb",
+        "ncaa_basketball",
+        "khl",
+        "npb",
+        "atp_australian_open",
+        "atp_us_open",
+        "atp_french_open",
+        "atp_wimbledon"
+      ],
+      "enumTitles": [
+        "English Premier League",
+        "NFL (American Football)",
+        "NBA (Basketball)",
+        "MLB (Baseball)",
+        "NHL (Ice Hockey)",
+        "MLS (Soccer)",
+        "Bundesliga (Germany)",
+        "Serie A (Italy)",
+        "La Liga (Spain)",
+        "Ligue 1 (France)",
+        "UEFA Champions League",
+        "UEFA Europa League",
+        "UEFA Conference League",
+        "Eredivisie (Netherlands)",
+        "Liga Portugal",
+        "Super Lig (Turkey)",
+        "EFL Championship",
+        "Liga MX (Mexico)",
+        "Brasileirao Serie A",
+        "Liga Profesional (Argentina)",
+        "J1 League (Japan)",
+        "K League 1 (South Korea)",
+        "Saudi Professional League",
+        "EuroLeague (Basketball)",
+        "ACB (Spain, Basketball)",
+        "NCAA (Basketball)",
+        "KHL (Ice Hockey)",
+        "NPB (Japan, Baseball)",
+        "Australian Open (ATP)",
+        "US Open (ATP)",
+        "French Open (ATP)",
+        "Wimbledon (ATP)"
+      ],
+      "prefill": "epl",
+      "title": "League",
+      "type": "string"
+    },
+    "teamQuery": {
+      "description": "Team to look up by name (teamSearch mode), e.g. Arsenal or Real Madrid.",
+      "editor": "textfield",
+      "prefill": "Arsenal",
+      "title": "Team name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Multi-League Season Results & Team Lookup",
+  "type": "object"
+}

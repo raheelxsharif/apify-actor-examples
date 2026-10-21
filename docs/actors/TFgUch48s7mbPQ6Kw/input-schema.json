@@ -1,0 +1,194 @@
+{
+  "properties": {
+    "bathsMin": {
+      "description": "Only include properties with at least this many bathrooms (decimals allowed, e.g. 1.5). Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Minimum bathrooms",
+      "type": "number"
+    },
+    "bedsMin": {
+      "description": "Only include properties with at least this many bedrooms. Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Minimum bedrooms",
+      "type": "number"
+    },
+    "daysOnZillow": {
+      "default": "any",
+      "description": "Only include listings that have been on Zillow within this window.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "7",
+        "14",
+        "30",
+        "90",
+        "6m",
+        "12m",
+        "24m",
+        "36m"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 24 hours",
+        "Last 7 days",
+        "Last 14 days",
+        "Last 30 days",
+        "Last 90 days",
+        "Last 6 months",
+        "Last 12 months",
+        "Last 24 months",
+        "Last 36 months"
+      ],
+      "title": "Days on Zillow",
+      "type": "string"
+    },
+    "distressTypes": {
+      "description": "Which distressed listing categories to return. Leave empty for all four.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "foreclosure",
+          "preForeclosure",
+          "preMarketForeclosure",
+          "auction",
+          "bankOwned"
+        ],
+        "enumTitles": [
+          "Foreclosures for sale (incl. bank-owned)",
+          "Pre-foreclosures (pre-market)",
+          "Foreclosed, not yet listed (pre-market REO)",
+          "Foreclosure auctions",
+          "Bank-owned (REO) only"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "foreclosure"
+      ],
+      "title": "Distress types",
+      "type": "array"
+    },
+    "homeTypes": {
+      "description": "Limit results to specific property types. Leave empty for all types.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "singleFamily",
+          "condo",
+          "townhouse",
+          "multiFamily",
+          "apartment",
+          "manufactured",
+          "lotLand"
+        ],
+        "enumTitles": [
+          "Houses",
+          "Condos",
+          "Townhouses",
+          "Multi-family",
+          "Apartments",
+          "Manufactured homes",
+          "Lots / land"
+        ],
+        "type": "string"
+      },
+      "title": "Home types",
+      "type": "array"
+    },
+    "includeAuctionDetails": {
+      "default": false,
+      "description": "For auction listings whose page links to auction.com, also read that public page for the auction date/time, occupancy, starting bid and lender/attorney details. Adds one request per linked auction and requires \"Include full property details\".",
+      "prefill": false,
+      "title": "Include auction details (auction.com)",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Open each listing's detail page for the listing agent, photos, description, year built and distress flags. Adds one request per listing; rows still return without it.",
+      "prefill": false,
+      "title": "Include full property details",
+      "type": "boolean"
+    },
+    "locations": {
+      "description": "US locations to search, one per line: a city (\"Austin, TX\"), ZIP code (\"78701\"), neighborhood (\"Hyde Park, Austin, TX\") or county (\"Travis County, TX\").",
+      "editor": "stringList",
+      "prefill": [
+        "Austin, TX"
+      ],
+      "title": "Locations",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of listings to return across all locations and URLs (1–5000).",
+      "editor": "number",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "priceMax": {
+      "description": "Upper bound on the listing price. Leave blank for no maximum.",
+      "editor": "number",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Maximum price ($)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Lower bound on the listing price. Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum price ($)",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order in which Zillow returns the listings.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "priceDesc",
+        "priceAsc",
+        "beds",
+        "baths",
+        "size",
+        "lot",
+        "zestimateDesc",
+        "zestimateAsc"
+      ],
+      "enumTitles": [
+        "Relevance (Zillow's default)",
+        "Newest",
+        "Price: high to low",
+        "Price: low to high",
+        "Bedrooms",
+        "Bathrooms",
+        "Square feet",
+        "Lot size",
+        "Zestimate: high to low",
+        "Zestimate: low to high"
+      ],
+      "title": "Sort by",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Zillow search pages to scrape instead of (or in addition to) locations. The distress filter is layered on top of whatever the URL already filters.",
+      "editor": "requestListSources",
+      "title": "Zillow search URLs",
+      "type": "array"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Zillow Foreclosure Scraper Input",
+  "type": "object"
+}

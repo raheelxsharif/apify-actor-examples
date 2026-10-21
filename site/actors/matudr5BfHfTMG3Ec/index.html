@@ -1,0 +1,1001 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-n1yeat1oof7hh4GZUPi8SkB26ejxcNJWJtsYBKFcRrE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Handshake Campus Jobs &amp; Employer Showcase Extractor | Dataspryva</title><meta name="description" content="Reads Handshake&#x27;s public job explore page for campus internships and entry-level roles, plus the public employer showcase, returning title, company, location, salary, and deadline."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/"><meta property="og:title" content="Handshake Campus Jobs &amp; Employer Showcase Extractor | Dataspryva"><meta property="og:description" content="Reads Handshake&#x27;s public job explore page for campus internships and entry-level roles, plus the public employer showcase, returning title, company, location, salary, and deadline."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#webpage","name":"Handshake Campus Jobs & Employer Showcase Extractor","description":"Reads Handshake's public job explore page for campus internships and entry-level roles, plus the public employer showcase, returning title, company, location, salary, and deadline.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#article","headline":"Handshake Campus Jobs & Employer Showcase Extractor","name":"Handshake Campus Jobs & Employer Showcase Extractor","description":"Reads Handshake's public job explore page for campus internships and entry-level roles, plus the public employer showcase, returning title, company, location, salary, and deadline.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Handshake Campus Jobs & Employer Showcase Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/matudr5BfHfTMG3Ec/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Handshake Campus Jobs &amp; Employer Showcase Extractor</span></div><section id="overview"><h1 class="doc-title">Handshake Campus Jobs &amp; Employer Showcase Extractor</h1><p class="lede">Reads Handshake&#x27;s public job explore page for campus internships and entry-level roles, plus the public employer showcase, returning title, company, location, salary, and deadline.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/handshake-campus-jobs-and-employer-showcase">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/matudr5BfHfTMG3Ec/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Words matched against job titles and descriptions (mode=searchJobs/bySearchUrls). Leave empty to browse.</td></tr><tr><td><code>jobRole</code></td><td>string</td><td>optional</td><td>Handshake role category used for discovery (mode=searchJobs/bySearchUrls).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Words matched against job titles and descriptions (mode=searchJobs/bySearchUrls). Leave empty to browse.</td></tr><tr><td><code>jobRole</code></td><td>string</td><td>optional</td><td>Handshake role category used for discovery (mode=searchJobs/bySearchUrls).</td></tr><tr><td><code>internshipRole</code></td><td>string</td><td>optional</td><td>Internship role category from the public /internships/ pages (implies internshipsOnly; mode=searchJobs).</td></tr><tr><td><code>location</code></td><td>string</td><td>optional</td><td>City with a published Handshake jobs page (mode=searchJobs/bySearchUrls).</td></tr><tr><td><code>workplace</code></td><td>string</td><td>optional</td><td>Remote, hybrid or on-site filter.</td></tr><tr><td><code>employmentType</code></td><td>string</td><td>optional</td><td>Full-time or part-time filter.</td></tr><tr><td><code>internshipsOnly</code></td><td>boolean</td><td>optional</td><td>Keep jobs whose title or description mentions an internship or co-op.</td></tr><tr><td><code>postedWithinDays</code></td><td>integer</td><td>optional</td><td>Keep jobs posted in the last N days (1-365). Leave empty for any date.</td></tr><tr><td><code>companyFilter</code></td><td>string</td><td>optional</td><td>Keep jobs whose employer name contains this text.</td></tr><tr><td><code>minSalary</code></td><td>integer</td><td>optional</td><td>Keep jobs whose published maximum pay is at least this amount. Compare with the pay period selected below.</td></tr><tr><td><code>salaryPeriod</code></td><td>string</td><td>optional</td><td>Restrict to jobs with pay published per year, month or hour.</td></tr><tr><td><code>jobIds</code></td><td>array</td><td>optional</td><td>Handshake numeric job IDs (mode=byJobUrls).</td></tr><tr><td><code>jobUrls</code></td><td>array</td><td>optional</td><td>Public Handshake job or share-preview URLs (mode=byJobUrls).</td></tr><tr><td><code>searchUrls</code></td><td>array</td><td>optional</td><td>Public joinhandshake.com/find-jobs/ or /internships/ listing URLs (mode=bySearchUrls).</td></tr><tr><td><code>employerQuery</code></td><td>string</td><td>optional</td><td>Keep employers whose name contains this text (mode=employers).</td></tr><tr><td><code>includeProfiles</code></td><td>boolean</td><td>optional</td><td>Fetch about, industry, size, ownership, address and reviews for each employer (mode=employers).</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Add recent public review cards to employer profiles (mode=employers).</td></tr><tr><td><code>includeDescriptions</code></td><td>boolean</td><td>optional</td><td>Add the full job description as HTML and plain text.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum job records to return.</td></tr><tr><td><code>onlyNewJobs</code></td><td>boolean</td><td>optional</td><td>Return only job IDs not seen in previous runs (mode=searchJobs/bySearchUrls/bySitemap).</td></tr><tr><td><code>resetMonitoringState</code></td><td>boolean</td><td>optional</td><td>Clear the saved seen-job list before this run.</td></tr><tr><td><code>maxEmployers</code></td><td>integer</td><td>optional</td><td>Maximum employer records to return (mode=employers).</td></tr><tr><td><code>maxReviewsPerEmployer</code></td><td>integer</td><td>optional</td><td>Maximum recent public reviews to keep per employer profile (mode=employers, includeReviews=true).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape public Handshake jobs by keyword, role, city, or URL, plus public employer profiles with industry, size and reviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;companyFilter&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Keep jobs whose employer name contains this text.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Company contains&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;employerQuery&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Keep employers whose name contains this text (mode=employers).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Employer contains&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;employmentType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Full-time or part-time filter.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;full-time&quot;,
+        &quot;part-time&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any employment type&quot;,
+        &quot;Full-time&quot;,
+        &quot;Part-time&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Employment type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeDescriptions&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add the full job description as HTML and plain text.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include job descriptions&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeProfiles&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch about, industry, size, ownership, address and reviews for each employer (mode=employers).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include employer profiles&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add recent public review cards to employer profiles (mode=employers).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include employer reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;internshipRole&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Internship role category from the public /internships/ pages (implies internshipsOnly; mode=searchJobs).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;accounting&quot;,
+        &quot;architecture&quot;,
+        &quot;business&quot;,
+        &quot;computer-science&quot;,
+        &quot;construction-management&quot;,
+        &quot;consulting&quot;,
+        &quot;cybersecurity&quot;,
+        &quot;data-science&quot;,
+        &quot;electrical-engineering&quot;,
+        &quot;engineering&quot;,
+        &quot;finance&quot;,
+        &quot;graphic-design&quot;,
+        &quot;human-resources&quot;,
+        &quot;information-technology&quot;,
+        &quot;interior-design&quot;,
+        &quot;legal&quot;,
+        &quot;marketing&quot;,
+        &quot;mechanical-engineering&quot;,
+        &quot;project-management&quot;,
+        &quot;psychology&quot;,
+        &quot;public-health&quot;,
+        &quot;real-estate&quot;,
+        &quot;sports&quot;,
+        &quot;supply-chain&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any internship role&quot;,
+        &quot;Accounting&quot;,
+        &quot;Architecture&quot;,
+        &quot;Business&quot;,
+        &quot;Computer Science&quot;,
+        &quot;Construction Management&quot;,
+        &quot;Consulting&quot;,
+        &quot;Cybersecurity&quot;,
+        &quot;Data Science&quot;,
+        &quot;Electrical Engineering&quot;,
+        &quot;Engineering&quot;,
+        &quot;Finance&quot;,
+        &quot;Graphic Design&quot;,
+        &quot;HR&quot;,
+        &quot;IT&quot;,
+        &quot;Interior Design&quot;,
+        &quot;Legal&quot;,
+        &quot;Marketing&quot;,
+        &quot;Mechanical Engineering&quot;,
+        &quot;Project Management&quot;,
+        &quot;Psychology&quot;,
+        &quot;Public Health&quot;,
+        &quot;Real Estate&quot;,
+        &quot;Sports&quot;,
+        &quot;Supply Chain&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Internship role&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;internshipsOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep jobs whose title or description mentions an internship or co-op.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Internships &amp; co-ops only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;jobIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Handshake numeric job IDs (mode=byJobUrls).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Job IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;jobRole&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Handshake role category used for discovery (mode=searchJobs/bySearchUrls).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;accounting&quot;,
+        &quot;administrative-support&quot;,
+        &quot;business-consulting&quot;,
+        &quot;childcare&quot;,
+        &quot;civil-engineering&quot;,
+        &quot;clinical-research-coordinator&quot;,
+        &quot;construction-management&quot;,
+        &quot;customer-service&quot;,
+        &quot;customer-success&quot;,
+        &quot;data-analytics&quot;,
+        &quot;early-career-programs&quot;,
+        &quot;education-administration&quot;,
+        &quot;electrical-engineering&quot;,
+        &quot;engineering&quot;,
+        &quot;facilities-maintenance&quot;,
+        &quot;finance&quot;,
+        &quot;food-service&quot;,
+        &quot;graphic-design&quot;,
+        &quot;healthcare-management&quot;,
+        &quot;higher-education-faculty&quot;,
+        &quot;home-health&quot;,
+        &quot;human-resources&quot;,
+        &quot;insurance&quot;,
+        &quot;legal&quot;,
+        &quot;marketing&quot;,
+        &quot;mechanical-engineering&quot;,
+        &quot;medical&quot;,
+        &quot;medical-assistant&quot;,
+        &quot;medical-lab&quot;,
+        &quot;medical-scribe&quot;,
+        &quot;mental-health-counseling&quot;,
+        &quot;nurse-practitioner&quot;,
+        &quot;nursing&quot;,
+        &quot;operations&quot;,
+        &quot;pharmacist&quot;,
+        &quot;pharmacy&quot;,
+        &quot;physician&quot;,
+        &quot;physician-assistant&quot;,
+        &quot;product-management&quot;,
+        &quot;psychiatric-technician&quot;,
+        &quot;public-health&quot;,
+        &quot;public-policy&quot;,
+        &quot;real-estate&quot;,
+        &quot;registered-nurse&quot;,
+        &quot;religious-work&quot;,
+        &quot;retail&quot;,
+        &quot;sales&quot;,
+        &quot;science-research&quot;,
+        &quot;security-public-safety&quot;,
+        &quot;social-work&quot;,
+        &quot;software-engineering&quot;,
+        &quot;special-education&quot;,
+        &quot;sports-recreation&quot;,
+        &quot;student-research&quot;,
+        &quot;supply-chain&quot;,
+        &quot;teaching&quot;,
+        &quot;teaching-assistants&quot;,
+        &quot;therapy-rehab&quot;,
+        &quot;translation&quot;,
+        &quot;travel&quot;,
+        &quot;tutoring&quot;,
+        &quot;web-it&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any role&quot;,
+        &quot;Accounting&quot;,
+        &quot;Administrative Support&quot;,
+        &quot;Business and Consulting&quot;,
+        &quot;Childcare&quot;,
+        &quot;Civil Engineering&quot;,
+        &quot;Clinical Research Coordinator&quot;,
+        &quot;Construction Management&quot;,
+        &quot;Customer Service&quot;,
+        &quot;Customer Success&quot;,
+        &quot;Data Analytics&quot;,
+        &quot;Early Career Programs&quot;,
+        &quot;Education Administration and Student Support&quot;,
+        &quot;Electrical Engineering&quot;,
+        &quot;Engineering&quot;,
+        &quot;Facilities and Maintenance&quot;,
+        &quot;Finance&quot;,
+        &quot;Food Service&quot;,
+        &quot;Graphic Design&quot;,
+        &quot;Healthcare Management&quot;,
+        &quot;Higher Education Faculty&quot;,
+        &quot;Home Health&quot;,
+        &quot;Human Resources&quot;,
+        &quot;Insurance&quot;,
+        &quot;Legal&quot;,
+        &quot;Marketing&quot;,
+        &quot;Mechanical Engineering&quot;,
+        &quot;Medical&quot;,
+        &quot;Medical Assistant&quot;,
+        &quot;Medical Lab and Diagnostics&quot;,
+        &quot;Medical Scribe&quot;,
+        &quot;Mental Health and Counseling&quot;,
+        &quot;Nurse Practitioner&quot;,
+        &quot;Nursing&quot;,
+        &quot;Operations&quot;,
+        &quot;Pharmacist&quot;,
+        &quot;Pharmacy&quot;,
+        &quot;Physician&quot;,
+        &quot;Physician Assistant&quot;,
+        &quot;Product Management&quot;,
+        &quot;Psychiatric Technician&quot;,
+        &quot;Public Health&quot;,
+        &quot;Public Policy&quot;,
+        &quot;Real Estate&quot;,
+        &quot;Registered Nurse&quot;,
+        &quot;Religious Work&quot;,
+        &quot;Retail&quot;,
+        &quot;Sales&quot;,
+        &quot;Science Research&quot;,
+        &quot;Security and Public Safety&quot;,
+        &quot;Social Work&quot;,
+        &quot;Software Engineering&quot;,
+        &quot;Special Education&quot;,
+        &quot;Sports and Recreation&quot;,
+        &quot;Research Assistant and Student Research&quot;,
+        &quot;Supply Chain&quot;,
+        &quot;Teaching&quot;,
+        &quot;Teaching Assistants&quot;,
+        &quot;Therapy and Rehabilitation&quot;,
+        &quot;Translation and Interpretation&quot;,
+        &quot;Travel&quot;,
+        &quot;Tutoring&quot;,
+        &quot;Web and IT&quot;
+      ],
+      &quot;prefill&quot;: &quot;software-engineering&quot;,
+      &quot;title&quot;: &quot;Role&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;jobUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Public Handshake job or share-preview URLs (mode=byJobUrls).&quot;,
+      &quot;editor&quot;: &quot;requestListSources&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;url&quot;: {
+            &quot;description&quot;: &quot;Public URL&quot;,
+            &quot;title&quot;: &quot;URL&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Job URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;location&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;City with a published Handshake jobs page (mode=searchJobs/bySearchUrls).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;akron-oh&quot;,
+        &quot;albany-ny&quot;,
+        &quot;anchorage-ak&quot;,
+        &quot;atlanta-ga&quot;,
+        &quot;augusta-ga&quot;,
+        &quot;austin-tx&quot;,
+        &quot;bakersfield-ca&quot;,
+        &quot;baltimore-md&quot;,
+        &quot;baton-rouge-la&quot;,
+        &quot;bend-or&quot;,
+        &quot;birmingham-al&quot;,
+        &quot;boise-id&quot;,
+        &quot;boston-ma&quot;,
+        &quot;buffalo-ny&quot;,
+        &quot;chapel-hill-nc&quot;,
+        &quot;charleston-sc&quot;,
+        &quot;charlotte-nc&quot;,
+        &quot;chattanooga-tn&quot;,
+        &quot;chicago-il&quot;,
+        &quot;cincinnati-oh&quot;,
+        &quot;cleveland-oh&quot;,
+        &quot;colorado-springs-co&quot;,
+        &quot;columbus-oh&quot;,
+        &quot;corvallis-or&quot;,
+        &quot;dallas-tx&quot;,
+        &quot;dayton-oh&quot;,
+        &quot;denver-co&quot;,
+        &quot;detroit-mi&quot;,
+        &quot;fairbanks-ak&quot;,
+        &quot;fort-worth-tx&quot;,
+        &quot;fresno-ca&quot;,
+        &quot;grand-rapids-mi&quot;,
+        &quot;green-bay-wi&quot;,
+        &quot;greenville-sc&quot;,
+        &quot;greenwood-sc&quot;,
+        &quot;harrisburg-pa&quot;,
+        &quot;hartford-ct&quot;,
+        &quot;houston-tx&quot;,
+        &quot;indianapolis-in&quot;,
+        &quot;irvine-ca&quot;,
+        &quot;jacksonville-fl&quot;,
+        &quot;kansas-city-mo&quot;,
+        &quot;killeen-tx&quot;,
+        &quot;knoxville-tn&quot;,
+        &quot;las-vegas-nv&quot;,
+        &quot;los-angeles-ca&quot;,
+        &quot;louisville-ky&quot;,
+        &quot;memphis-tn&quot;,
+        &quot;miami-fl&quot;,
+        &quot;milwaukee-wi&quot;,
+        &quot;minneapolis-mn&quot;,
+        &quot;monterey-ca&quot;,
+        &quot;naperville-il&quot;,
+        &quot;nashville-tn&quot;,
+        &quot;new-orleans-la&quot;,
+        &quot;new-york-ny&quot;,
+        &quot;newark-de&quot;,
+        &quot;odessa-tx&quot;,
+        &quot;oklahoma-city-ok&quot;,
+        &quot;omaha-ne&quot;,
+        &quot;orlando-fl&quot;,
+        &quot;philadelphia-pa&quot;,
+        &quot;phoenix-az&quot;,
+        &quot;pittsburgh-pa&quot;,
+        &quot;portland-me&quot;,
+        &quot;portland-or&quot;,
+        &quot;providence-ri&quot;,
+        &quot;provo-ut&quot;,
+        &quot;raleigh-nc&quot;,
+        &quot;reno-nv&quot;,
+        &quot;richmond-va&quot;,
+        &quot;riverside-ca&quot;,
+        &quot;rochester-ny&quot;,
+        &quot;sacramento-ca&quot;,
+        &quot;salt-lake-city-ut&quot;,
+        &quot;san-antonio-tx&quot;,
+        &quot;san-diego-ca&quot;,
+        &quot;san-francisco-ca&quot;,
+        &quot;san-jose-ca&quot;,
+        &quot;sarasota-fl&quot;,
+        &quot;savannah-ga&quot;,
+        &quot;seattle-wa&quot;,
+        &quot;st-louis-mo&quot;,
+        &quot;statesboro-ga&quot;,
+        &quot;stony-brook-ny&quot;,
+        &quot;tacoma-wa&quot;,
+        &quot;tampa-fl&quot;,
+        &quot;toledo-oh&quot;,
+        &quot;traverse-city-mi&quot;,
+        &quot;tucson-az&quot;,
+        &quot;virginia-beach-va&quot;,
+        &quot;washington-dc&quot;,
+        &quot;west-palm-beach-fl&quot;,
+        &quot;worcester-ma&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any city&quot;,
+        &quot;Akron, OH&quot;,
+        &quot;Albany, NY&quot;,
+        &quot;Anchorage, AK&quot;,
+        &quot;Atlanta, GA&quot;,
+        &quot;Augusta, GA&quot;,
+        &quot;Austin, TX&quot;,
+        &quot;Bakersfield, CA&quot;,
+        &quot;Baltimore, MD&quot;,
+        &quot;Baton Rouge, LA&quot;,
+        &quot;Bend, OR&quot;,
+        &quot;Birmingham, AL&quot;,
+        &quot;Boise, ID&quot;,
+        &quot;Boston, MA&quot;,
+        &quot;Buffalo, NY&quot;,
+        &quot;Chapel Hill, NC&quot;,
+        &quot;Charleston, SC&quot;,
+        &quot;Charlotte, NC&quot;,
+        &quot;Chattanooga, TN&quot;,
+        &quot;Chicago, IL&quot;,
+        &quot;Cincinnati, OH&quot;,
+        &quot;Cleveland, OH&quot;,
+        &quot;Colorado Springs, CO&quot;,
+        &quot;Columbus, OH&quot;,
+        &quot;Corvallis, OR&quot;,
+        &quot;Dallas, TX&quot;,
+        &quot;Dayton, OH&quot;,
+        &quot;Denver, CO&quot;,
+        &quot;Detroit, MI&quot;,
+        &quot;Fairbanks, AK&quot;,
+        &quot;Fort Worth, TX&quot;,
+        &quot;Fresno, CA&quot;,
+        &quot;Grand Rapids, MI&quot;,
+        &quot;Green Bay, WI&quot;,
+        &quot;Greenville, SC&quot;,
+        &quot;Greenwood, SC&quot;,
+        &quot;Harrisburg, PA&quot;,
+        &quot;Hartford, CT&quot;,
+        &quot;Houston, TX&quot;,
+        &quot;Indianapolis, IN&quot;,
+        &quot;Irvine, CA&quot;,
+        &quot;Jacksonville, FL&quot;,
+        &quot;Kansas City, MO&quot;,
+        &quot;Killeen, TX&quot;,
+        &quot;Knoxville, TN&quot;,
+        &quot;Las Vegas, NV&quot;,
+        &quot;Los Angeles, CA&quot;,
+        &quot;Louisville, KY&quot;,
+        &quot;Memphis, TN&quot;,
+        &quot;Miami, FL&quot;,
+        &quot;Milwaukee, WI&quot;,
+        &quot;Minneapolis, MN&quot;,
+        &quot;Monterey, CA&quot;,
+        &quot;Naperville, IL&quot;,
+        &quot;Nashville, TN&quot;,
+        &quot;New Orleans, LA&quot;,
+        &quot;New York, NY&quot;,
+        &quot;Newark, DE&quot;,
+        &quot;Odessa, TX&quot;,
+        &quot;Oklahoma City, OK&quot;,
+        &quot;Omaha, NE&quot;,
+        &quot;Orlando, FL&quot;,
+        &quot;Philadelphia, PA&quot;,
+        &quot;Phoenix, AZ&quot;,
+        &quot;Pittsburgh, PA&quot;,
+        &quot;Portland, ME&quot;,
+        &quot;Portland, OR&quot;,
+        &quot;Providence, RI&quot;,
+        &quot;Provo, UT&quot;,
+        &quot;Raleigh, NC&quot;,
+        &quot;Reno, NV&quot;,
+        &quot;Richmond, VA&quot;,
+        &quot;Riverside, CA&quot;,
+        &quot;Rochester, NY&quot;,
+        &quot;Sacramento, CA&quot;,
+        &quot;Salt Lake City, UT&quot;,
+        &quot;San Antonio, TX&quot;,
+        &quot;San Diego, CA&quot;,
+        &quot;San Francisco, CA&quot;,
+        &quot;San Jose, CA&quot;,
+        &quot;Sarasota, FL&quot;,
+        &quot;Savannah, GA&quot;,
+        &quot;Seattle, WA&quot;,
+        &quot;St Louis, MO&quot;,
+        &quot;Statesboro, GA&quot;,
+        &quot;Stony Brook, NY&quot;,
+        &quot;Tacoma, WA&quot;,
+        &quot;Tampa, FL&quot;,
+        &quot;Toledo, OH&quot;,
+        &quot;Traverse City, MI&quot;,
+        &quot;Tucson, AZ&quot;,
+        &quot;Virginia Beach, VA&quot;,
+        &quot;Washington, DC&quot;,
+        &quot;West Palm Beach, FL&quot;,
+        &quot;Worcester, MA&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;City&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxEmployers&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Maximum employer records to return (mode=employers).&quot;,
+      &quot;maximum&quot;: 50000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max employers&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum job records to return.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max jobs&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerEmployer&quot;: {
+      &quot;default&quot;: 5,
+      &quot;description&quot;: &quot;Maximum recent public reviews to keep per employer profile (mode=employers, includeReviews=true).&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max reviews per employer&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minSalary&quot;: {
+      &quot;description&quot;: &quot;Keep jobs whose published maximum pay is at least this amount. Compare with the pay period selected below.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum salary&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchJobs&quot;,
+      &quot;description&quot;: &quot;What to scrape.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchJobs&quot;,
+        &quot;byJobUrls&quot;,
+        &quot;bySearchUrls&quot;,
+        &quot;bySitemap&quot;,
+        &quot;employers&quot;,
+        &quot;internships&quot;,
+        &quot;companyListings&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search public jobs&quot;,
+        &quot;Look up job URLs or IDs&quot;,
+        &quot;Scrape find-jobs search URLs&quot;,
+        &quot;Scan the public jobs sitemap&quot;,
+        &quot;Scrape employer showcase&quot;,
+        &quot;Legacy: internships (maps to searchJobs + internshipsOnly)&quot;,
+        &quot;Legacy: company listings (maps to employers)&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchJobs&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNewJobs&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Return only job IDs not seen in previous runs (mode=searchJobs/bySearchUrls/bySitemap).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new jobs&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;postedWithinDays&quot;: {
+      &quot;description&quot;: &quot;Keep jobs posted in the last N days (1-365). Leave empty for any date.&quot;,
+      &quot;maximum&quot;: 365,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Posted within days&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;resetMonitoringState&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Clear the saved seen-job list before this run.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Reset seen-job state&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;salaryPeriod&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Restrict to jobs with pay published per year, month or hour.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;year&quot;,
+        &quot;month&quot;,
+        &quot;hour&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any pay period&quot;,
+        &quot;Per year&quot;,
+        &quot;Per month&quot;,
+        &quot;Per hour&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Pay period&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Words matched against job titles and descriptions (mode=searchJobs/bySearchUrls). Leave empty to browse.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Keyword&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Public joinhandshake.com/find-jobs/ or /internships/ listing URLs (mode=bySearchUrls).&quot;,
+      &quot;editor&quot;: &quot;requestListSources&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;url&quot;: {
+            &quot;description&quot;: &quot;Public URL&quot;,
+            &quot;title&quot;: &quot;URL&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;workplace&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Remote, hybrid or on-site filter.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;remote&quot;,
+        &quot;hybrid&quot;,
+        &quot;on-site&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any workplace&quot;,
+        &quot;Remote only&quot;,
+        &quot;Hybrid only&quot;,
+        &quot;On-site only&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Workplace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Handshake Campus Jobs &amp; Employer Showcase Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>jobs</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped public Handshake job listings.</td></tr><tr><td><code>employers</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped public Handshake employer profiles.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Public Handshake job listings with structured pay, locations, dates and descriptions, plus public employer profiles with industry, size and reviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;employers&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped public Handshake employer profiles.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Handshake employers&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;jobs&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped public Handshake job listings.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Handshake jobs&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Handshake Campus Jobs &amp; Employer Showcase Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;employers&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Employers&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;name&quot;,
+          &quot;industry&quot;,
+          &quot;companySize&quot;,
+          &quot;website&quot;,
+          &quot;reviewCount&quot;,
+          &quot;profileUrl&quot;
+        ]
+      }
+    },
+    &quot;jobs&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Jobs&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;company&quot;,
+          &quot;location&quot;,
+          &quot;employmentType&quot;,
+          &quot;salary&quot;,
+          &quot;postedDate&quot;,
+          &quot;jobUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-handshake-campus-jobs-employer-showcase-extractor">Handshake Campus Jobs &amp; Employer Showcase Extractor</h2>
+<p>Scrape <strong>Handshake</strong> — the early-career network used by universities and employers — without a student account. This actor reads Handshake's public job pages and employer showcase: search jobs by keyword, role, city or direct URL, then export title, employer, structured pay, locations, dates, full descriptions and employer profiles. It also builds an employer list from Handshake's public directory, including industry, company size, website and recent reviews.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Five modes:</strong> <code>searchJobs</code>, <code>byJobUrls</code>, <code>bySearchUrls</code>, <code>bySitemap</code>, <code>employers</code>.</li>
+<li><strong>Public job catalog:</strong> 62 role categories, 94 city pages and 720 published city+role combinations, plus a separate <strong><code>/internships/</code> family</strong> (189 pages, 5,883 internship IDs, 24 internship roles, 27 city pages + remote). The sitemap mode scans the 156,110-URL public jobs sitemap newest-first for listings outside the SEO index.</li>
+<li><strong>Full job detail:</strong> structured pay with a pay period, employment type, remote/hybrid/on-site, all locations, dates and the complete description.</li>
+<li><strong>Employer showcase:</strong> 40,000+ public employer profiles with about, industry, size, ownership, address, website, logo and recent reviews (paginated up to your limit).</li>
+<li><strong>Direct lookups:</strong> paste public Handshake job URLs or numeric job IDs when you already know what you need.</li>
+<li><strong>Incremental runs:</strong> <code>onlyNewJobs</code> returns only IDs not seen in previous scheduled runs, with a reset toggle.</li>
+<li><strong>Empty fields are omitted</strong> from each record rather than returned as null or blank.</li>
+</ul>
+<h2 id="readme-output-per-job">Output per job</h2>
+<ul>
+<li><code>jobId</code>, <code>title</code>, <code>jobUrl</code> — Handshake identity and canonical public page.</li>
+<li><code>company</code>, <code>employerId</code>, <code>employerWebsite</code>, <code>employerLogoUrl</code>, <code>employerDescription</code>, <code>employerProfileUrl</code> — employer identity and public links.</li>
+<li><code>location</code>, <code>locations[]</code>, <code>remote</code>, <code>workplace</code> — primary location, every published site, and remote/hybrid/on-site.</li>
+<li><code>employmentType</code>, <code>postingType</code>, <code>jobType</code> — full-time/part-time, Job/Internship, and the normalized legacy type.</li>
+<li><code>salary</code>, <code>salaryMin</code>, <code>salaryMax</code>, <code>salaryCurrency</code>, <code>paySchedule</code>, <code>salaryType</code> — pay as published, plus the structured range and period.</li>
+<li><code>postedDate</code>, <code>applicationDeadline</code>, <code>isExpired</code> — posting date, expiry and expiry status.</li>
+<li><code>descriptionHtml</code>, <code>description</code> — full description (when descriptions are enabled).</li>
+<li><code>industry</code>, <code>roleGroups[]</code> — employer industry and role groups when Handshake publishes them.</li>
+<li><code>sourceSearchUrl</code>, <code>recordType</code>, <code>scrapedAt</code> — provenance and metadata.</li>
+</ul>
+<h2 id="readme-output-per-employer">Output per employer</h2>
+<ul>
+<li><code>name</code>, <code>employerId</code>, <code>profileUrl</code>, <code>companyUrl</code> — employer identity and public profile.</li>
+<li><code>website</code>, <code>logoUrl</code> — the employer's own site and logo.</li>
+<li><code>description</code> — the public “About” text.</li>
+<li><code>industry</code>, <code>companySize</code>, <code>ownershipType</code>, <code>address</code> — public overview fields (ownership is not published for every employer).</li>
+<li><code>reviewCount</code>, <code>questionCount</code>, <code>reviews[]</code> — public review/Q&amp;A counts (0 when the profile shows none) and review cards with title, date, location, text, pros, cons and advice.</li>
+<li><code>recordType</code>, <code>scrapedAt</code>.</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchJobs</code></td>
+<td><code>searchJobs</code>, <code>byJobUrls</code>, <code>bySearchUrls</code>, <code>bySitemap</code> or <code>employers</code>. Legacy <code>internships</code> and <code>companyListings</code> are accepted and mapped.</td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Words matched against job titles and descriptions.</td>
+</tr>
+<tr>
+<td><code>jobRole</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>One of 62 published find-jobs role categories.</td>
+</tr>
+<tr>
+<td><code>internshipRole</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>One of 24 internship role categories; selecting one implies <code>internshipsOnly</code>.</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>One of 94 published city pages.</td>
+</tr>
+<tr>
+<td><code>workplace</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>remote</code>, <code>hybrid</code> or <code>on-site</code>.</td>
+</tr>
+<tr>
+<td><code>employmentType</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>full-time</code> or <code>part-time</code>.</td>
+</tr>
+<tr>
+<td><code>internshipsOnly</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Keep internships and co-ops.</td>
+</tr>
+<tr>
+<td><code>postedWithinDays</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Keep jobs posted in the last 1–365 days.</td>
+</tr>
+<tr>
+<td><code>companyFilter</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep jobs whose employer name contains this text.</td>
+</tr>
+<tr>
+<td><code>minSalary</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Keep jobs whose published maximum pay is at least this amount.</td>
+</tr>
+<tr>
+<td><code>salaryPeriod</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>year</code>, <code>month</code> or <code>hour</code>.</td>
+</tr>
+<tr>
+<td><code>jobIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Numeric Handshake job IDs (<code>mode=byJobUrls</code>).</td>
+</tr>
+<tr>
+<td><code>jobUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Public job or share-preview URLs (<code>mode=byJobUrls</code>).</td>
+</tr>
+<tr>
+<td><code>searchUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Public <code>joinhandshake.com/find-jobs/...</code> URLs (<code>mode=bySearchUrls</code>).</td>
+</tr>
+<tr>
+<td><code>employerQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Employer-name filter (<code>mode=employers</code>).</td>
+</tr>
+<tr>
+<td><code>includeProfiles</code></td>
+<td>boolean</td>
+<td>true</td>
+<td>Fetch full employer profiles (<code>mode=employers</code>).</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td>true</td>
+<td>Add recent review cards to employer records.</td>
+</tr>
+<tr>
+<td><code>includeDescriptions</code></td>
+<td>boolean</td>
+<td>true</td>
+<td>Add <code>descriptionHtml</code> and <code>description</code> to job records.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td>50</td>
+<td>Maximum job records (1–1000).</td>
+</tr>
+<tr>
+<td><code>maxEmployers</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Maximum employer records (1–50,000).</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerEmployer</code></td>
+<td>integer</td>
+<td>5</td>
+<td>Maximum recent reviews per employer (1–100).</td>
+</tr>
+<tr>
+<td><code>onlyNewJobs</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Return only job IDs not seen in previous runs (<code>searchJobs</code>/<code>bySearchUrls</code>/<code>bySitemap</code>).</td>
+</tr>
+<tr>
+<td><code>resetMonitoringState</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Clear the saved seen-job list before this run.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-software-engineering-jobs">Example: software engineering jobs</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchJobs&quot;,
+  &quot;jobRole&quot;: &quot;software-engineering&quot;,
+  &quot;workplace&quot;: &quot;remote&quot;,
+  &quot;postedWithinDays&quot;: 14,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-finance-internships-in-boston">Example: finance internships in Boston</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchJobs&quot;,
+  &quot;internshipRole&quot;: &quot;finance&quot;,
+  &quot;location&quot;: &quot;boston-ma&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-nursing-jobs-in-boston">Example: nursing jobs in Boston</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchJobs&quot;,
+  &quot;jobRole&quot;: &quot;nursing&quot;,
+  &quot;location&quot;: &quot;boston-ma&quot;,
+  &quot;employmentType&quot;: &quot;full-time&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-direct-job-urls">Example: direct job URLs</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byJobUrls&quot;,
+  &quot;jobUrls&quot;: [
+    { &quot;url&quot;: &quot;https://app.joinhandshake.com/public/jobs/11693959&quot; },
+    { &quot;url&quot;: &quot;https://app.joinhandshake.com/public/jobs/11693995&quot; }
+  ],
+  &quot;includeDescriptions&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-public-search-pages">Example: public search pages</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;bySearchUrls&quot;,
+  &quot;searchUrls&quot;: [
+    { &quot;url&quot;: &quot;https://joinhandshake.com/find-jobs/remote/software-engineering/&quot; }
+  ],
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-employer-showcase">Example: employer showcase</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;employers&quot;,
+  &quot;employerQuery&quot;: &quot;engineering&quot;,
+  &quot;includeProfiles&quot;: true,
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviewsPerEmployer&quot;: 10,
+  &quot;maxEmployers&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-sitemap-scan-and-incremental-monitoring">Example: sitemap scan and incremental monitoring</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;bySitemap&quot;,
+  &quot;searchQuery&quot;: &quot;nurse&quot;,
+  &quot;onlyNewJobs&quot;: true,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Campus recruiting</strong> — see which employers are hiring students and recent graduates by city and role.</li>
+<li><strong>Salary benchmarking</strong> — compare published pay ranges and periods across roles, cities and employers.</li>
+<li><strong>Employer research</strong> — build a shortlist with industry, size, website and employee reviews.</li>
+<li><strong>Job-board aggregation</strong> — feed public early-career listings into your own board or newsletter.</li>
+<li><strong>Labor-market analysis</strong> — track posting volume, locations and hiring dates over time.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-do-i-need-a-handshake-student-account">Do I need a Handshake student account?</h3>
+<p>No. The actor reads Handshake's public job pages, public search pages and public employer directory. It never asks for a login, cookies or a student account, and it does not access applications or student profiles.</p>
+<h3 id="readme-how-many-jobs-can-it-discover">How many jobs can it discover?</h3>
+<p>Handshake's public find-jobs index exposes 29,506 active job IDs across 929 pages, and the separate <code>/internships/</code> family adds 5,883 internship IDs (5,763 not in the find-jobs union). Together that is <strong>35,269 SEO-discoverable IDs</strong>. The site reports 52,897 active public jobs, so use <code>bySitemap</code> to scan the public 156,110-URL jobs sitemap newest-first (up to <code>maxItems</code>), or <code>jobUrls</code>/<code>jobIds</code> for a known listing. A full 156,110-URL sweep is possible but takes hours and many requests; bounded sitemap runs are the recommended path.</p>
+<h3 id="readme-are-salaries-always-present">Are salaries always present?</h3>
+<p>No. Employers publish pay for most, but not all, listings. When pay is missing, salary fields are omitted. When present, <code>salaryMin</code> and <code>salaryMax</code> are in the listing's currency and <code>paySchedule</code> tells you whether the amount is per year, month or hour.</p>
+<h3 id="readme-why-is-rolegroups-missing-on-some-rows">Why is <code>roleGroups</code> missing on some rows?</h3>
+<p>Role groups are only published on the 15 rich cards that Handshake renders per search page. The actor harvests them from both find-jobs and internship cards (combined card union: 10,479 IDs). Rows discovered from the other IDs on a page carry every other field but may omit role groups.</p>
+<h3 id="readme-why-is-employer-ownership-or-size-missing">Why is employer ownership or size missing?</h3>
+<p>Handshake's employer profile publishes size and industry for every profile, but ownership (Public, Private, Nonprofit, Government) is optional and is omitted when the employer does not provide it. Review and Q&amp;A counts are <code>0</code> when the public profile shows none.</p>
+<h3 id="readme-how-do-i-search-internships">How do I search internships?</h3>
+<p>Use <code>internshipsOnly: true</code> for the full <code>/internships/</code> family, or pick an <code>internshipRole</code> (e.g. <code>computer-science</code>, <code>data-science</code>, <code>cybersecurity</code>, <code>finance</code>). The actor reads the public internship city, role and city+role pages; <code>workplace: &quot;remote&quot;</code> uses Handshake's remote internship page. Legacy <code>mode: &quot;internships&quot;</code> maps to this behavior. <code>bySearchUrls</code> also accepts <code>/internships/</code> URLs.</p>
+<h3 id="readme-how-does-onlynewjobs-work">How does <code>onlyNewJobs</code> work?</h3>
+<p>The actor saves the IDs it has already returned in its key-value store. On the next scheduled run, <code>onlyNewJobs</code> skips those IDs, so you only receive postings you have not seen. Set <code>resetMonitoringState</code> for a one-off full refresh. Direct <code>byJobUrls</code> lookups and employer records are always returned.</p>
+<h3 id="readme-do-i-need-a-proxy">Do I need a proxy?</h3>
+<p>No. The actor connects to Handshake automatically and only uses its built-in fallback when a request is blocked. Just fill in the input and run it.</p>
+<h3 id="readme-is-the-data-live">Is the data live?</h3>
+<p>Jobs and employer profiles are read from Handshake's public pages at run time. The public search index is cached by Handshake, so newly posted jobs can take a few days to appear in keyword/role/city discovery; direct job URLs return the current public record.</p>
+<h3 id="readme-is-this-affiliated-with-handshake">Is this affiliated with Handshake?</h3>
+<p>No. This is an independent third-party actor that reads publicly accessible pages. It is not affiliated with, endorsed by or operated by Handshake.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>Public SEO discovery covers 29,506 of 52,897 active public jobs; <code>bySitemap</code> scans the 156,110-URL sitemap newest-first up to <code>maxItems</code>, and direct URLs/IDs cover known listings. A full sitemap sweep is not run automatically because it takes hours.</li>
+<li>Role groups are available only when a job appears in the 15 cards on a search page.</li>
+<li>Salary, ownership and Q&amp;A counts are conditional on what Handshake publishes.</li>
+<li>Student-only, personalized and application data is out of scope.</li>
+<li>The actor does not enrich employer emails, phone numbers or social profiles.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/matudr5BfHfTMG3Ec/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>829lEIaY4rOz0tA3Z</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

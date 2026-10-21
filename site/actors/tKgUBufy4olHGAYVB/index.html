@@ -1,0 +1,736 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-C8bK5kgygd9tI3MefgBERm/C1ux+tMPf11uCcqArOvk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>SimplyHired Job Search &amp; Salary Parser | Dataspryva</title><meta name="description" content="Search SimplyHired by keyword, location, employment type, remote work, and salary, and get parsed salary ranges, benefits, qualifications, and full descriptions for each job."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/"><meta property="og:title" content="SimplyHired Job Search &amp; Salary Parser | Dataspryva"><meta property="og:description" content="Search SimplyHired by keyword, location, employment type, remote work, and salary, and get parsed salary ranges, benefits, qualifications, and full descriptions for each job."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#webpage","name":"SimplyHired Job Search & Salary Parser","description":"Search SimplyHired by keyword, location, employment type, remote work, and salary, and get parsed salary ranges, benefits, qualifications, and full descriptions for each job.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#article","headline":"SimplyHired Job Search & Salary Parser","name":"SimplyHired Job Search & Salary Parser","description":"Search SimplyHired by keyword, location, employment type, remote work, and salary, and get parsed salary ranges, benefits, qualifications, and full descriptions for each job.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"SimplyHired Job Search & Salary Parser","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/tKgUBufy4olHGAYVB/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>SimplyHired Job Search &amp; Salary Parser</span></div><section id="overview"><h1 class="doc-title">SimplyHired Job Search &amp; Salary Parser</h1><p class="lede">Search SimplyHired by keyword, location, employment type, remote work, and salary, and get parsed salary ranges, benefits, qualifications, and full descriptions for each job.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/simplyhired-job-search-and-salary-parser">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/tKgUBufy4olHGAYVB/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: search jobs on SimplyHired, or scrape specific SimplyHired URLs you already have.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more job titles, skills, or keywords. Each entry runs as its own search, e.g. `registered nurse` or `python developer, remote`. Ignored when Search URLs are provided.</td></tr><tr><td><code>searchUrls</code></td><td>array</td><td>optional</td><td>Full SimplyHired search URLs, including any filters and a country domain (e.g. https://www.simplyhired.co.uk/search?q=nurse&amp;l=London). When provided, these are used instead of the query, location and filter fields.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: search jobs on SimplyHired, or scrape specific SimplyHired URLs you already have.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more job titles, skills, or keywords. Each entry runs as its own search, e.g. `registered nurse` or `python developer, remote`. Ignored when Search URLs are provided.</td></tr><tr><td><code>searchUrls</code></td><td>array</td><td>optional</td><td>Full SimplyHired search URLs, including any filters and a country domain (e.g. https://www.simplyhired.co.uk/search?q=nurse&amp;l=London). When provided, these are used instead of the query, location and filter fields.</td></tr><tr><td><code>jobUrls</code></td><td>array</td><td>optional</td><td>SimplyHired job URLs (https://www.simplyhired.com/job/...) or search URLs to scrape directly. Job IDs may also be pasted on their own.</td></tr><tr><td><code>location</code></td><td>string</td><td>optional</td><td>City, state, ZIP code, or `remote`. Leave empty to search nationwide (mode=search).</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Which SimplyHired site to search (mode=search). Choose the country that matches your location.</td></tr><tr><td><code>radius</code></td><td>string</td><td>optional</td><td>Distance around the location (mode=search). Only applies when a location is set.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of the search results (mode=search).</td></tr><tr><td><code>datePosted</code></td><td>string</td><td>optional</td><td>Only include jobs added within this window (mode=search).</td></tr><tr><td><code>employmentType</code></td><td>string</td><td>optional</td><td>Filter by employment type (mode=search).</td></tr><tr><td><code>minSalary</code></td><td>integer</td><td>optional</td><td>Only jobs with pay at or above this amount, in the local currency of the selected country (e.g. 100000 = $100,000 a year on the US site). Leave 0 for no filter.</td></tr><tr><td><code>remoteType</code></td><td>string</td><td>optional</td><td>Filter by remote work arrangement (mode=search).</td></tr><tr><td><code>developerSkill</code></td><td>string</td><td>optional</td><td>Only jobs tagged with this software skill (mode=search). Applies mainly to tech roles; combine several skills with Developer skills below.</td></tr><tr><td><code>developerSkills</code></td><td>array</td><td>optional</td><td>Additional software skills to require together with the Developer skill above (mode=search). Use skill names such as `Python`, `SQL`, `React` (or their codes). Jobs must match every listed skill.</td></tr><tr><td><code>fetchJobDetails</code></td><td>boolean</td><td>optional</td><td>Fetch each job&#x27;s detail payload for the full description, parsed salary, coordinates, qualifications and employer rating. Adds one fast request per job. Turn off for search-card fields only.</td></tr><tr><td><code>enrichCompanyPages</code></td><td>boolean</td><td>optional</td><td>Look up each employer&#x27;s SimplyHired company page (once per employer) and add its address, size, revenue band and industry when the page&#x27;s company name matches the listing. Off by default.</td></tr><tr><td><code>maximizeCoverage</code></td><td>boolean</td><td>optional</td><td>When a search hits SimplyHired&#x27;s per-search result limit, continue with extra facet searches (job types and developer skills) and merge the unique jobs. Slower and uses more requests, but returns more of the matching jobs.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on the number of job records returned.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search SimplyHired (US or any of 23 country sites) by keyword and location or run your own search URLs, and get parsed salary ranges, full descriptions, coordinates and benefits for every job.&quot;,
+  &quot;properties&quot;: {
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;united-states&quot;,
+      &quot;description&quot;: &quot;Which SimplyHired site to search (mode=search). Choose the country that matches your location.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;united-states&quot;,
+        &quot;canada&quot;,
+        &quot;united-kingdom&quot;,
+        &quot;ireland&quot;,
+        &quot;germany&quot;,
+        &quot;france&quot;,
+        &quot;spain&quot;,
+        &quot;italy&quot;,
+        &quot;netherlands&quot;,
+        &quot;belgium&quot;,
+        &quot;austria&quot;,
+        &quot;switzerland&quot;,
+        &quot;portugal&quot;,
+        &quot;sweden&quot;,
+        &quot;india&quot;,
+        &quot;japan&quot;,
+        &quot;south-korea&quot;,
+        &quot;china&quot;,
+        &quot;brazil&quot;,
+        &quot;mexico&quot;,
+        &quot;australia&quot;,
+        &quot;argentina&quot;,
+        &quot;south-africa&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States (simplyhired.com)&quot;,
+        &quot;Canada (simplyhired.ca)&quot;,
+        &quot;United Kingdom (simplyhired.co.uk)&quot;,
+        &quot;Ireland (simplyhired.ie)&quot;,
+        &quot;Germany (simplyhired.de)&quot;,
+        &quot;France (simplyhired.fr)&quot;,
+        &quot;Spain (simplyhired.es)&quot;,
+        &quot;Italy (simplyhired.it)&quot;,
+        &quot;Netherlands (simplyhired.nl)&quot;,
+        &quot;Belgium (simplyhired.be)&quot;,
+        &quot;Austria (simplyhired.at)&quot;,
+        &quot;Switzerland (simplyhired.ch)&quot;,
+        &quot;Portugal (simplyhired.pt)&quot;,
+        &quot;Sweden (simplyhired.se)&quot;,
+        &quot;India (simplyhired.co.in)&quot;,
+        &quot;Japan (simplyhired.jp)&quot;,
+        &quot;South Korea (simplyhired.kr)&quot;,
+        &quot;China (simplyhired.cn)&quot;,
+        &quot;Brazil (simplyhired.com.br)&quot;,
+        &quot;Mexico (simplyhired.mx)&quot;,
+        &quot;Australia (simplyhired.com.au)&quot;,
+        &quot;Argentina (simplyhired.com.ar)&quot;,
+        &quot;South Africa (za.simplyhired.com)&quot;
+      ],
+      &quot;prefill&quot;: &quot;united-states&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;datePosted&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only include jobs added within this window (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;1&quot;,
+        &quot;3&quot;,
+        &quot;7&quot;,
+        &quot;14&quot;,
+        &quot;30&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any time&quot;,
+        &quot;Past 24 hours&quot;,
+        &quot;Past 3 days&quot;,
+        &quot;Past week&quot;,
+        &quot;Past 2 weeks&quot;,
+        &quot;Past month&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Date posted&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;developerSkill&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only jobs tagged with this software skill (mode=search). Applies mainly to tech roles; combine several skills with Developer skills below.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;JB2WC&quot;,
+        &quot;X62BT&quot;,
+        &quot;84K74&quot;,
+        &quot;WD7PP&quot;,
+        &quot;FGY89&quot;,
+        &quot;EVPJU&quot;,
+        &quot;AP3T4&quot;,
+        &quot;6XQ9P&quot;,
+        &quot;6ETQT&quot;,
+        &quot;GJUK3&quot;,
+        &quot;NGEEK&quot;,
+        &quot;U5AXZ&quot;,
+        &quot;6M28R&quot;,
+        &quot;EHNJH&quot;,
+        &quot;XH9RQ&quot;,
+        &quot;FQMG4&quot;,
+        &quot;AGW49&quot;,
+        &quot;JQ94N&quot;,
+        &quot;GKAXA&quot;,
+        &quot;KTEH7&quot;,
+        &quot;5FG4F&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;JavaScript&quot;,
+        &quot;Python&quot;,
+        &quot;React&quot;,
+        &quot;TypeScript&quot;,
+        &quot;SQL&quot;,
+        &quot;Java&quot;,
+        &quot;C#&quot;,
+        &quot;CSS&quot;,
+        &quot;Go&quot;,
+        &quot;C++&quot;,
+        &quot;Angular&quot;,
+        &quot;Swift&quot;,
+        &quot;Node.js&quot;,
+        &quot;.NET&quot;,
+        &quot;Spring framework&quot;,
+        &quot;PHP&quot;,
+        &quot;.NET Core&quot;,
+        &quot;Scala&quot;,
+        &quot;Flutter&quot;,
+        &quot;Perl&quot;,
+        &quot;Dart&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Developer skill&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;developerSkills&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Additional software skills to require together with the Developer skill above (mode=search). Use skill names such as `Python`, `SQL`, `React` (or their codes). Jobs must match every listed skill.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Developer skills (extra, combined with AND)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;employmentType&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Filter by employment type (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;CF3CP&quot;,
+        &quot;NJXCK&quot;,
+        &quot;75GKK&quot;,
+        &quot;4HKF7&quot;,
+        &quot;5QWDV&quot;,
+        &quot;VDTG7&quot;,
+        &quot;7SBAT&quot;,
+        &quot;ZG59D&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Full-time&quot;,
+        &quot;Contract&quot;,
+        &quot;Part-time&quot;,
+        &quot;Temporary&quot;,
+        &quot;Permanent&quot;,
+        &quot;Internship&quot;,
+        &quot;Temp-to-hire&quot;,
+        &quot;Freelance&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Employment type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;enrichCompanyPages&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Look up each employer&#x27;s SimplyHired company page (once per employer) and add its address, size, revenue band and industry when the page&#x27;s company name matches the listing. Off by default.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Enrich employer company pages&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;fetchJobDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch each job&#x27;s detail payload for the full description, parsed salary, coordinates, qualifications and employer rating. Adds one fast request per job. Turn off for search-card fields only.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Fetch full job details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;jobUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;SimplyHired job URLs (https://www.simplyhired.com/job/...) or search URLs to scrape directly. Job IDs may also be pasted on their own.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Specific URLs (mode=byUrl)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;location&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;City, state, ZIP code, or `remote`. Leave empty to search nationwide (mode=search).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;New York&quot;,
+      &quot;title&quot;: &quot;Location&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Hard cap on the number of job records returned.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maximizeCoverage&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When a search hits SimplyHired&#x27;s per-search result limit, continue with extra facet searches (job types and developer skills) and merge the unique jobs. Slower and uses more requests, but returns more of the matching jobs.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Maximize coverage (slower)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;minSalary&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only jobs with pay at or above this amount, in the local currency of the selected country (e.g. 100000 = $100,000 a year on the US site). Leave 0 for no filter.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum salary&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch: search jobs on SimplyHired, or scrape specific SimplyHired URLs you already have.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;byUrl&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search jobs (keyword, location, filters)&quot;,
+        &quot;Scrape specific URLs (searches or jobs)&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;radius&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Distance around the location (mode=search). Only applies when a location is set.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;exact&quot;,
+        &quot;5&quot;,
+        &quot;10&quot;,
+        &quot;15&quot;,
+        &quot;25&quot;,
+        &quot;50&quot;,
+        &quot;100&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Site default (25 miles)&quot;,
+        &quot;Exact location only&quot;,
+        &quot;5 miles&quot;,
+        &quot;10 miles&quot;,
+        &quot;15 miles&quot;,
+        &quot;25 miles&quot;,
+        &quot;50 miles&quot;,
+        &quot;100 miles&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Search radius&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;remoteType&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Filter by remote work arrangement (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;Remote&quot;,
+        &quot;Hybrid work&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Remote only&quot;,
+        &quot;Hybrid&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Remote work&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more job titles, skills, or keywords. Each entry runs as its own search, e.g. `registered nurse` or `python developer, remote`. Ignored when Search URLs are provided.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;software engineer&quot;
+      ],
+      &quot;title&quot;: &quot;Search queries (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Full SimplyHired search URLs, including any filters and a country domain (e.g. https://www.simplyhired.co.uk/search?q=nurse&amp;l=London). When provided, these are used instead of the query, location and filter fields.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;SimplyHired search URLs (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Order of the search results (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;date&quot;,
+        &quot;distance&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Newest first&quot;,
+        &quot;Nearest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Sort results by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;SimplyHired Job Search &amp; Salary Parser Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>jobs</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped SimplyHired job records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;SimplyHired job records from 23 country sites with parsed salary ranges, employment types, remote-work status, coordinates, full descriptions and application links.&quot;,
+  &quot;properties&quot;: {
+    &quot;jobs&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped SimplyHired job records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;SimplyHired job records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;SimplyHired Job Search &amp; Salary Parser Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Jobs&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;company&quot;,
+          &quot;location&quot;,
+          &quot;salary&quot;,
+          &quot;salaryMin&quot;,
+          &quot;salaryMax&quot;,
+          &quot;salaryCurrency&quot;,
+          &quot;employmentType&quot;,
+          &quot;remoteType&quot;,
+          &quot;datePosted&quot;,
+          &quot;jobUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-simplyhired-job-search-salary-parser">SimplyHired Job Search &amp; Salary Parser</h2>
+<p>SimplyHired gathers job postings from employer career sites, staffing agencies, and niche job boards across 23 country markets. This actor turns those postings into structured records: it can run keyword and location searches (or replay search URLs you paste in), or fetch individual job postings you already have, and it returns each listing with its salary parsed into numbers, the full description, coordinates, and application details.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Search any SimplyHired market:</strong> 23 country sites (United States, Canada, United Kingdom, Germany, France, India, Japan, Australia, Brazil, and more), each with keyword, location, and radius search.</li>
+<li><strong>Filter server-side:</strong> date posted, employment type, minimum pay, remote/hybrid, sort order, and developer skills (one or several) are applied by SimplyHired itself, so the result count matches the site.</li>
+<li><strong>Enrich every job, not just the first one:</strong> each record is completed from the posting's own detail data — full description, salary numbers, qualifications, coordinates, employer rating, and application link.</li>
+<li><strong>Parse salaries in local formats:</strong> display text like <code>$140,000 - $180,000 a year</code>, <code>£45,000 - £55,000 a year</code>, <code>80.000 € – 120.000 € pro Jahr</code>, or <code>時給 4,000円</code> becomes numeric <code>salaryMin</code> / <code>salaryMax</code> with the right currency and pay period.</li>
+<li><strong>Maximize coverage on big searches:</strong> SimplyHired serves roughly 900–1,000 results per search. With <code>maximizeCoverage</code> the actor keeps going with extra facet searches (job types, developer skills) and merges the unique postings — 2–2.5x more jobs than a single search in testing.</li>
+<li><strong>Optional employer company pages:</strong> with <code>enrichCompanyPages</code> the actor looks up each employer's SimplyHired company page (once per employer) and adds its address, headcount band, revenue band, and industry — only when the page's own company name matches the listing.</li>
+<li><strong>Feed URLs as well as forms:</strong> paste SimplyHired search URLs or job URLs (or bare job IDs) and let the actor do the pagination.</li>
+<li><strong>Fields a listing doesn't provide are left out of that record</strong> — no empty placeholders.</li>
+</ul>
+<h2 id="readme-output-per-job">Output per job</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jobId</code></td>
+<td>Unique SimplyHired job key.</td>
+</tr>
+<tr>
+<td><code>title</code>, <code>normalizedTitle</code></td>
+<td>Job title as published and its normalized form.</td>
+</tr>
+<tr>
+<td><code>company</code></td>
+<td>Employer name.</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>Location string as shown on the listing.</td>
+</tr>
+<tr>
+<td><code>city</code>, <code>state</code></td>
+<td>City and state/region parsed from the listing.</td>
+</tr>
+<tr>
+<td><code>latitude</code>, <code>longitude</code></td>
+<td>Coordinates of the posting location.</td>
+</tr>
+<tr>
+<td><code>remoteType</code></td>
+<td>Remote or hybrid arrangement, when stated.</td>
+</tr>
+<tr>
+<td><code>employmentType</code></td>
+<td>Primary employment type (Full-time, Contract, Part-time, …).</td>
+</tr>
+<tr>
+<td><code>employmentTypes</code></td>
+<td>Every employment type on the posting, including the listing's localized labels when provided.</td>
+</tr>
+<tr>
+<td><code>salary</code></td>
+<td>Salary text exactly as displayed on the listing.</td>
+</tr>
+<tr>
+<td><code>salaryMin</code>, <code>salaryMax</code></td>
+<td>Parsed pay bounds in full local-currency units.</td>
+</tr>
+<tr>
+<td><code>salaryCurrency</code></td>
+<td>ISO currency code (e.g. <code>USD</code>, <code>GBP</code>, <code>EUR</code>, <code>JPY</code>).</td>
+</tr>
+<tr>
+<td><code>salaryPeriod</code></td>
+<td><code>annual</code>, <code>monthly</code>, <code>weekly</code>, <code>daily</code>, or <code>hourly</code>.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Full job description with HTML tags stripped.</td>
+</tr>
+<tr>
+<td><code>benefits</code></td>
+<td>Benefits listed on the posting.</td>
+</tr>
+<tr>
+<td><code>qualifications</code></td>
+<td>Qualifications extracted by SimplyHired.</td>
+</tr>
+<tr>
+<td><code>requirements</code></td>
+<td>Requirement tags shown on the search card.</td>
+</tr>
+<tr>
+<td><code>datePosted</code></td>
+<td>ISO 8601 UTC timestamp of the posting date.</td>
+</tr>
+<tr>
+<td><code>expirationDate</code></td>
+<td>Listing expiration date, when stated.</td>
+</tr>
+<tr>
+<td><code>jobUrl</code></td>
+<td>SimplyHired listing URL.</td>
+</tr>
+<tr>
+<td><code>applicationUrl</code></td>
+<td>SimplyHired apply/redirect link for the posting.</td>
+</tr>
+<tr>
+<td><code>companyPageUrl</code></td>
+<td>Employer's SimplyHired company page (from the source, or verified by <code>enrichCompanyPages</code>).</td>
+</tr>
+<tr>
+<td><code>companyAddress</code>, <code>companyEmployeeCount</code>, <code>companyRevenue</code>, <code>companyIndustry</code></td>
+<td>Employer profile details from the company page (only with <code>enrichCompanyPages</code>, and only when the page matches the listing's employer).</td>
+</tr>
+<tr>
+<td><code>companyRating</code></td>
+<td>Employer rating, when SimplyHired shows one.</td>
+</tr>
+<tr>
+<td><code>sponsored</code></td>
+<td>Whether the listing is a sponsored placement.</td>
+</tr>
+<tr>
+<td><code>indeedApply</code></td>
+<td>Whether the posting uses the Indeed application flow.</td>
+</tr>
+<tr>
+<td><code>snippet</code></td>
+<td>Short preview text from the search card.</td>
+</tr>
+<tr>
+<td><code>logoUrl</code></td>
+<td>Employer logo image, when available.</td>
+</tr>
+<tr>
+<td><code>sourceDomain</code></td>
+<td>Which SimplyHired site the record came from (e.g. <code>www.simplyhired.co.uk</code>).</td>
+</tr>
+<tr>
+<td><code>searchUrl</code>, <code>searchQuery</code></td>
+<td>The search that produced the record.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>Country market value (e.g. <code>united-kingdom</code>).</td>
+</tr>
+<tr>
+<td><code>sourceUrl</code></td>
+<td>URL the record was scraped from.</td>
+</tr>
+<tr>
+<td><code>recordType</code></td>
+<td>Always <code>&quot;job&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>ISO 8601 UTC timestamp of when this actor fetched the record.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>String (select)</td>
+<td><code>search</code></td>
+<td><code>search</code> (form-driven searches) or <code>byUrl</code> (scrape specific URLs).</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Job titles, skills, or keywords. Each entry runs its own search. Used when <code>mode</code> is <code>search</code> and no search URLs are given.</td>
+</tr>
+<tr>
+<td><code>searchUrls</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Full SimplyHired search URLs (with any filters). They take precedence over the query/location/filter fields.</td>
+</tr>
+<tr>
+<td><code>jobUrls</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Job URLs, job IDs, or search URLs to scrape directly. Used when <code>mode</code> is <code>byUrl</code>.</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>String</td>
+<td>–</td>
+<td>City, state, ZIP, or <code>remote</code>. Leave empty for a nationwide search.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>String (select)</td>
+<td><code>united-states</code></td>
+<td>Which SimplyHired site to search. Pick the country that matches your location.</td>
+</tr>
+<tr>
+<td><code>radius</code></td>
+<td>String (select)</td>
+<td>site default (25 mi)</td>
+<td>Distance around the location: exact, 5, 10, 15, 25, 50, or 100 miles.</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>String (select)</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>date</code> (newest first), or <code>distance</code> (nearest first).</td>
+</tr>
+<tr>
+<td><code>datePosted</code></td>
+<td>String (select)</td>
+<td>any time</td>
+<td>Past 24 hours, 3 days, week, 2 weeks, or month.</td>
+</tr>
+<tr>
+<td><code>employmentType</code></td>
+<td>String (select)</td>
+<td>any</td>
+<td>Full-time, Contract, Part-time, Temporary, Permanent, Internship, Temp-to-hire, or Freelance.</td>
+</tr>
+<tr>
+<td><code>minSalary</code></td>
+<td>Integer</td>
+<td><code>0</code></td>
+<td>Minimum pay in the country's local currency (e.g. <code>100000</code> on the US site = $100,000/year).</td>
+</tr>
+<tr>
+<td><code>remoteType</code></td>
+<td>String (select)</td>
+<td>any</td>
+<td><code>Remote</code> or <code>Hybrid work</code>.</td>
+</tr>
+<tr>
+<td><code>developerSkill</code></td>
+<td>String (select)</td>
+<td>any</td>
+<td>One software skill such as Python, Java, React, SQL, Go, or Swift.</td>
+</tr>
+<tr>
+<td><code>developerSkills</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Extra skills to require together with the single skill above (AND). Accepts names (<code>Python</code>, <code>SQL</code>) or codes.</td>
+</tr>
+<tr>
+<td><code>fetchJobDetails</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Fetch each posting's detail data (description, parsed salary, coordinates, qualifications). Adds one fast request per job.</td>
+</tr>
+<tr>
+<td><code>enrichCompanyPages</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Look up each employer's SimplyHired company page (one request per employer, cached) for address, headcount band, revenue band, and industry. Only matched employers are filled.</td>
+</tr>
+<tr>
+<td><code>maximizeCoverage</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Keep collecting past SimplyHired's per-search result limit using extra facet searches, merged and deduplicated. Slower.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>Integer</td>
+<td><code>20</code></td>
+<td>Hard cap on returned records (1–5000).</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-keyword-search-with-filters">Keyword search with filters</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchQueries&quot;: [&quot;registered nurse&quot;],
+    &quot;location&quot;: &quot;Houston, TX&quot;,
+    &quot;country&quot;: &quot;united-states&quot;,
+    &quot;datePosted&quot;: &quot;7&quot;,
+    &quot;employmentType&quot;: &quot;CF3CP&quot;,
+    &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-remote-jobs-in-canada-above-a-pay-floor">Remote jobs in Canada above a pay floor</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchQueries&quot;: [&quot;customer success manager&quot;],
+    &quot;location&quot;: &quot;remote&quot;,
+    &quot;country&quot;: &quot;canada&quot;,
+    &quot;remoteType&quot;: &quot;Remote&quot;,
+    &quot;minSalary&quot;: 80000,
+    &quot;sortBy&quot;: &quot;date&quot;,
+    &quot;maxItems&quot;: 150
+}
+</code></pre>
+<h3 id="readme-run-prepared-search-urls-any-country">Run prepared search URLs (any country)</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchUrls&quot;: [
+        &quot;https://www.simplyhired.co.uk/search?q=software+engineer&amp;l=London&amp;t=7&quot;,
+        &quot;https://www.simplyhired.de/search?q=entwickler&amp;l=Berlin&quot;
+    ],
+    &quot;maxItems&quot;: 200
+}
+</code></pre>
+<h3 id="readme-scrape-specific-job-urls">Scrape specific job URLs</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;byUrl&quot;,
+    &quot;jobUrls&quot;: [
+        &quot;https://www.simplyhired.com/job/pR885UfXXEquRuih1PVGw9Ujl7fkq-RglEg5fxkaZzhQn1D46UaJzQ&quot;,
+        &quot;https://www.simplyhired.ca/job/MebGsOvO4rbcC1COSt7eX0Ii5i-RX6ItIdOtA-OMQGDW5w024IZ81g&quot;
+    ],
+    &quot;maxItems&quot;: 2
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Pay benchmarking:</strong> aggregate <code>salaryMin</code> / <code>salaryMax</code> by role, city, and employment type within one currency.</li>
+<li><strong>Cross-market hiring research:</strong> compare supply for the same role across the 23 SimplyHired markets in separate runs.</li>
+<li><strong>Recruiting pipelines:</strong> monitor which employers are posting for a role, with coordinates and company ratings attached.</li>
+<li><strong>Job alerting and feeds:</strong> schedule a run per keyword and forward new <code>jobId</code>s to your CRM, sheet, or webhook.</li>
+<li><strong>Skills analysis:</strong> use <code>developerSkill</code> filters and <code>qualifications</code> to track technology demand over time.</li>
+<li><strong>Posting refresh:</strong> feed previously collected <code>jobUrl</code> values back through <code>mode: &quot;byUrl&quot;</code> to re-check status and pay.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-where-does-this-data-come-from">Where does this data come from?</h3>
+<p>Every record comes from SimplyHired's public job pages and the site's own page data, without any login. This actor is an independent tool and is not affiliated with or endorsed by SimplyHired.</p>
+<h3 id="readme-which-countries-are-supported">Which countries are supported?</h3>
+<p>The United States, Canada, the United Kingdom, Ireland, Germany, France, Spain, Italy, the Netherlands, Belgium, Austria, Switzerland, Portugal, Sweden, India, Japan, South Korea, China, Brazil, Mexico, Australia, Argentina, and South Africa. Choose the country in the input, or use a search URL from the market you want.</p>
+<h3 id="readme-why-are-some-salary-fields-missing">Why are some salary fields missing?</h3>
+<p>SimplyHired only shows pay when the employer discloses it. When a listing has no pay information, the salary fields are omitted from that record rather than guessed. <code>salary</code> keeps the exact text; <code>salaryMin</code> / <code>salaryMax</code> are parsed from it (or from SimplyHired's structured pay data on the US site) in the local currency.</p>
+<h3 id="readme-what-s-the-difference-between-salary-and-salarymin-salarymax">What's the difference between <code>salary</code> and <code>salaryMin</code> / <code>salaryMax</code>?</h3>
+<p><code>salary</code> is the display text exactly as shown (e.g. <code>£45,000 - £55,000 a year</code>). <code>salaryMin</code> / <code>salaryMax</code> / <code>salaryCurrency</code> / <code>salaryPeriod</code> are the same value parsed into numbers, a currency code, and a pay period for filtering and aggregation. Use <code>salaryCurrency</code> before comparing values across countries.</p>
+<h3 id="readme-how-many-results-can-one-search-return">How many results can one search return?</h3>
+<p>The actor keeps paging until your <code>maxItems</code> cap or the end of the result set. SimplyHired serves roughly 900–1,000 listings per search, even when it reports a larger match count. For more than that, turn on <code>maximizeCoverage</code>: the actor splits the search into facet sub-searches (employment types and developer skills), merges them and removes duplicates — in testing this returned 2.3x more unique jobs than a single search. You can also split by date window, radius, pay floor, or nearby locations yourself and combine the runs.</p>
+<h3 id="readme-what-do-the-link-fields-point-to">What do the link fields point to?</h3>
+<p><code>applicationUrl</code> is SimplyHired's own apply link for the posting — the same link the Apply button on the listing page uses. Open it from the job listing (or with an active SimplyHired session); it is not a direct employer URL, and the employer's own application page is reached by following that button in your browser. <code>companyPageUrl</code> is present only when SimplyHired includes an employer page for the posting: turn on <code>enrichCompanyPages</code> to look the employer up by name instead, and the actor adds the link (plus the employer's address, size, revenue band and industry) only when the page's own company name matches the listing's employer — mismatches and missing pages are omitted.</p>
+<h3 id="readme-why-is-employmenttype-in-english-while-the-listing-is-in-another-language">Why is <code>employmentType</code> in English while the listing is in another language?</h3>
+<p><code>employmentType</code> reports SimplyHired's own employment-type taxonomy (Full-time, Permanent, Contract, …), which the site uses across all its markets. <code>employmentTypes</code> also includes the listing's localized labels (for example &quot;Festanstellung&quot; or &quot;CDI&quot;) when the posting provides them.</p>
+<h3 id="readme-can-i-mix-several-keywords-or-countries-in-one-run">Can I mix several keywords or countries in one run?</h3>
+<p>Yes. Add multiple <code>searchQueries</code>, or pass several <code>searchUrls</code> from different country markets — each is walked separately and results are deduplicated by <code>jobId</code>.</p>
+<h3 id="readme-do-i-need-an-account-cookies-or-a-proxy">Do I need an account, cookies, or a proxy?</h3>
+<p>No. The actor reads public pages only and connects on its own. Fill in the input and run it.</p>
+<h3 id="readme-how-fresh-is-the-data">How fresh is the data?</h3>
+<p>Each run queries SimplyHired live, so the records reflect the state of the site at run time. Schedule the actor if you want recurring snapshots.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/tKgUBufy4olHGAYVB/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>GlALe8LJK6Pfmj3Te</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

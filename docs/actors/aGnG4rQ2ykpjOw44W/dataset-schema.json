@@ -1,0 +1,422 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "address": {
+        "description": "Property address",
+        "properties": {
+          "city": {
+            "description": "City",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country",
+            "type": "string"
+          },
+          "full": {
+            "description": "Full address as shown by Expedia",
+            "type": "string"
+          },
+          "postalCode": {
+            "description": "Postal code",
+            "type": "string"
+          },
+          "region": {
+            "description": "State, province, or region",
+            "type": "string"
+          },
+          "street": {
+            "description": "Street address",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "adults": {
+        "description": "Adults per room used",
+        "type": "integer"
+      },
+      "amenities": {
+        "description": "Amenity highlights from the property page",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "badges": {
+        "description": "Badges such as VIP Access or member pricing",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "cancellationPolicy": {
+        "description": "Cancellation policy text for the cheapest or first rate",
+        "type": "string"
+      },
+      "checkIn": {
+        "description": "Check-in date used",
+        "type": "string"
+      },
+      "checkInTime": {
+        "description": "Check-in time from the property policies",
+        "type": "string"
+      },
+      "checkOut": {
+        "description": "Check-out date used",
+        "type": "string"
+      },
+      "checkOutTime": {
+        "description": "Check-out time from the property policies",
+        "type": "string"
+      },
+      "childrenAges": {
+        "description": "Children ages used",
+        "items": {
+          "type": "integer"
+        },
+        "type": "array"
+      },
+      "description": {
+        "description": "Short card tagline when Expedia shows one",
+        "type": "string"
+      },
+      "destination": {
+        "description": "Destination text used for the search, or the property destination",
+        "type": "string"
+      },
+      "faqs": {
+        "description": "Frequently asked questions about the property",
+        "items": {
+          "properties": {
+            "answer": {
+              "description": "Answer",
+              "type": "string"
+            },
+            "question": {
+              "description": "Question",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "freeCancellation": {
+        "description": "Whether a free-cancellation rate is available",
+        "type": "boolean"
+      },
+      "guestRating": {
+        "description": "Guest rating on Expedia's 10-point scale",
+        "type": "number"
+      },
+      "guestReviewCount": {
+        "description": "Number of guest reviews behind the rating",
+        "type": "integer"
+      },
+      "hotelId": {
+        "description": "Expedia property identifier",
+        "type": "string"
+      },
+      "imageUrl": {
+        "description": "Main hotel photo URL",
+        "type": "string"
+      },
+      "images": {
+        "description": "Hotel photo URLs",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "importantInfo": {
+        "description": "Fees, deposits, and important guest information",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "isSponsored": {
+        "description": "Whether the card is a sponsored result",
+        "type": "boolean"
+      },
+      "latitude": {
+        "description": "Property latitude",
+        "type": "number"
+      },
+      "longitude": {
+        "description": "Property longitude",
+        "type": "number"
+      },
+      "name": {
+        "description": "Hotel name",
+        "type": "string"
+      },
+      "neighborhood": {
+        "description": "Neighborhood or area shown on the hotel card",
+        "type": "string"
+      },
+      "policies": {
+        "description": "Property policy text",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "price": {
+        "description": "Legacy nightly price display string (e.g. $751 nightly)",
+        "type": "string"
+      },
+      "priceCurrency": {
+        "description": "Currency code for all numeric prices",
+        "type": "string"
+      },
+      "pricePerNight": {
+        "description": "Nightly price in priceCurrency",
+        "type": "number"
+      },
+      "priceStrikethrough": {
+        "description": "Original or crossed-out price when Expedia shows one",
+        "type": "number"
+      },
+      "priceTotal": {
+        "description": "Total stay price including taxes and fees in priceCurrency",
+        "type": "number"
+      },
+      "propertyDescription": {
+        "description": "Property overview or editorial description",
+        "type": "string"
+      },
+      "propertyType": {
+        "description": "Property type when available",
+        "type": "string"
+      },
+      "rating": {
+        "description": "Legacy guest rating display string (0-10)",
+        "type": "string"
+      },
+      "ratingText": {
+        "description": "Guest rating label such as Excellent or Wonderful",
+        "type": "string"
+      },
+      "regionId": {
+        "description": "Expedia region identifier",
+        "type": "string"
+      },
+      "resolvedDestination": {
+        "description": "Destination name resolved by Expedia (mode=search)",
+        "type": "string"
+      },
+      "reviewCount": {
+        "description": "Legacy review count display string",
+        "type": "string"
+      },
+      "roomRates": {
+        "description": "Room types and rate plans with prices and policies",
+        "items": {
+          "properties": {
+            "available": {
+              "description": "Whether the rate is available",
+              "type": "boolean"
+            },
+            "cancellationPolicy": {
+              "description": "Cancellation policy for the rate",
+              "type": "string"
+            },
+            "paymentPolicy": {
+              "description": "Payment timing such as Pay now or Reserve now, pay later",
+              "type": "string"
+            },
+            "priceCurrency": {
+              "description": "Currency code",
+              "type": "string"
+            },
+            "pricePerNight": {
+              "description": "Nightly price",
+              "type": "number"
+            },
+            "priceTotal": {
+              "description": "Total stay price",
+              "type": "number"
+            },
+            "ratePlanId": {
+              "description": "Expedia rate plan identifier",
+              "type": "string"
+            },
+            "refundable": {
+              "description": "Whether the rate is refundable",
+              "type": "boolean"
+            },
+            "roomName": {
+              "description": "Room or unit name",
+              "type": "string"
+            },
+            "roomsLeft": {
+              "description": "Scarcity count when Expedia shows one",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "rooms": {
+        "description": "Number of rooms used",
+        "type": "integer"
+      },
+      "scrapedAt": {
+        "description": "ISO timestamp when the record was collected",
+        "type": "string"
+      },
+      "searchPosition": {
+        "description": "Position in Expedia's result list",
+        "type": "integer"
+      },
+      "searchUrl": {
+        "description": "Search or property URL used",
+        "type": "string"
+      },
+      "starRating": {
+        "description": "Exact star class (1-5, half-stars possible)",
+        "type": "number"
+      },
+      "topAmenities": {
+        "description": "Amenities highlighted on the search card",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "totalPrice": {
+        "description": "Legacy total stay price display string (e.g. $1,833 total)",
+        "type": "string"
+      },
+      "type": {
+        "description": "Record type, always hotel_expedia",
+        "type": "string"
+      },
+      "url": {
+        "description": "Expedia hotel page URL",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Expedia Hotels",
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Detailed",
+      "transformation": {
+        "fields": [
+          "type",
+          "hotelId",
+          "name",
+          "url",
+          "starRating",
+          "guestRating",
+          "ratingText",
+          "guestReviewCount",
+          "price",
+          "totalPrice",
+          "pricePerNight",
+          "priceTotal",
+          "priceCurrency",
+          "priceStrikethrough",
+          "freeCancellation",
+          "cancellationPolicy",
+          "roomRates",
+          "neighborhood",
+          "address",
+          "latitude",
+          "longitude",
+          "amenities",
+          "topAmenities",
+          "imageUrl",
+          "images",
+          "badges",
+          "checkInTime",
+          "checkOutTime",
+          "propertyDescription",
+          "propertyType",
+          "policies",
+          "importantInfo",
+          "faqs",
+          "description",
+          "destination",
+          "resolvedDestination",
+          "regionId",
+          "checkIn",
+          "checkOut",
+          "adults",
+          "rooms",
+          "childrenAges",
+          "searchUrl",
+          "searchPosition",
+          "isSponsored",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "guestRating": {
+            "format": "number",
+            "label": "Guest rating"
+          },
+          "guestReviewCount": {
+            "format": "number",
+            "label": "Reviews"
+          },
+          "name": {
+            "format": "text",
+            "label": "Hotel"
+          },
+          "neighborhood": {
+            "format": "text",
+            "label": "Area"
+          },
+          "priceCurrency": {
+            "format": "text",
+            "label": "Currency"
+          },
+          "pricePerNight": {
+            "format": "number",
+            "label": "Per night"
+          },
+          "priceTotal": {
+            "format": "number",
+            "label": "Total"
+          },
+          "starRating": {
+            "format": "number",
+            "label": "Stars"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "name",
+          "starRating",
+          "guestRating",
+          "guestReviewCount",
+          "pricePerNight",
+          "priceTotal",
+          "priceCurrency",
+          "neighborhood",
+          "url"
+        ]
+      }
+    }
+  }
+}

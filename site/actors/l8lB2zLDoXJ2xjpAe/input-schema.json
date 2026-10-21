@@ -1,0 +1,220 @@
+{
+  "description": "Search Naver Map by keyword (optionally around a map area) or fetch specific places by URL/ID. Get business details, full menus with prices, weekly hours with breaks, photos, and visitor reviews.",
+  "properties": {
+    "category": {
+      "description": "Only keep places whose category contains this text (e.g. `한식`, `카페`, `Cafe`). Leave blank for all categories.",
+      "editor": "textfield",
+      "title": "Category filter",
+      "type": "string"
+    },
+    "emitUnchanged": {
+      "default": false,
+      "description": "In Monitoring mode, also emit places with `changeType: \"UNCHANGED\"` instead of skipping them.",
+      "prefill": false,
+      "title": "Also emit unchanged places",
+      "type": "boolean"
+    },
+    "hasBooking": {
+      "default": false,
+      "description": "Only keep places that support online booking/reservations through Naver.",
+      "prefill": false,
+      "title": "Has online booking only",
+      "type": "boolean"
+    },
+    "hasCoupon": {
+      "default": false,
+      "description": "Only keep places with an active coupon or promotion.",
+      "prefill": false,
+      "title": "Has coupon only",
+      "type": "boolean"
+    },
+    "hasNpay": {
+      "default": false,
+      "description": "Only keep places that accept Naver Pay.",
+      "prefill": false,
+      "title": "Accepts Naver Pay only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Fetch each place's detail page for full weekly hours (breaks, last order, upcoming closures), full menus with prices, facilities, parking, photos, review breakdown and more. Slower but much richer data.",
+      "prefill": true,
+      "title": "Include place details",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Emit real visitor reviews per place as separate `recordType: \"review\"` records (rating, text, dates, keywords, photos, owner replies). Uses Naver's cursor-paginated review API (50 per request) up to Max reviews per place; falls back to the ~20 reviews embedded on the public review page if that API is unavailable. Works in both modes.",
+      "prefill": false,
+      "title": "Include visitor reviews",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Hard cap on total emitted place records across all keywords/URLs (review records are extra).",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxResultsPerKeyword": {
+      "default": 20,
+      "description": "Cap on places emitted per keyword (before filters). First page gives up to 100 places; deeper Naver pages add up to ~300 total per map center, and an area sweep multiplies that per center.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max results per keyword",
+      "type": "integer"
+    },
+    "maxReviewsPerPlace": {
+      "default": 10,
+      "description": "Cap on review records emitted per place when Include visitor reviews is on. Naver serves 50 reviews per request and does not expose a hard cap, so this can go high (e.g. 500); each 50 reviews costs one extra request.",
+      "maximum": 3000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max reviews per place",
+      "type": "integer"
+    },
+    "menuKeyword": {
+      "description": "Only keep places whose menu names or descriptions contain this text (e.g. `피자`). Requires Include place details to be on. Leave blank for all menus.",
+      "editor": "textfield",
+      "title": "Menu keyword filter",
+      "type": "string"
+    },
+    "minVisitorReviewCount": {
+      "description": "Only keep places with at least this many visitor reviews. Leave blank for no filter.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum visitor review count",
+      "type": "integer"
+    },
+    "minVisitorReviewScore": {
+      "description": "Only keep places with a visitor review score at or above this value (0-5). Leave blank for no filter.",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum visitor review score",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch. `search` discovers places by keyword; `byUrls` fetches places you already know (URLs or place IDs).",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Search places by keyword",
+        "Fetch specific places by URL or ID"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "monitoringMode": {
+      "default": false,
+      "description": "Recurring-job mode: remembers each place between runs (in the Actor's key-value store) and emits only places that are new or whose name, category, address, phone, homepage, weekly hours, menus, or amenities changed. Adds `changeType` (NEW/UPDATED/UNCHANGED) and `changedFields` to each emitted place. Review counts and current open/closed status are ignored so runs are not billed for noise.",
+      "prefill": false,
+      "title": "Monitoring mode (only new/changed places)",
+      "type": "boolean"
+    },
+    "monitoringStateKey": {
+      "description": "Optional name for the monitoring state (mode=monitoringMode). Leave blank to derive the key from the run inputs, so the same keywords/URLs always compare against the same memory.",
+      "editor": "textfield",
+      "title": "Monitoring state key",
+      "type": "string"
+    },
+    "newlyOpened": {
+      "default": false,
+      "description": "Only keep places Naver marks as newly opened.",
+      "prefill": false,
+      "title": "Newly opened only",
+      "type": "boolean"
+    },
+    "openNow": {
+      "default": false,
+      "description": "Only keep places currently marked as open by Naver Map.",
+      "prefill": false,
+      "title": "Open now only",
+      "type": "boolean"
+    },
+    "placeUrls": {
+      "default": [],
+      "description": "Naver Map places to fetch directly. Accepts full links (pcmap.place.naver.com, m.place.naver.com, map.naver.com/p/entry/place/...), `naver.me` short links, and bare numeric place IDs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Place URLs or IDs (mode=byUrls)",
+      "type": "array"
+    },
+    "searchCoordinates": {
+      "description": "Map center as `latitude,longitude`, e.g. `37.4979,127.0276` for Gangnam Station. Used to rank results around a point, for distance sorting, and as the center of an area sweep.",
+      "editor": "textfield",
+      "title": "Search coordinates (mode=search)",
+      "type": "string"
+    },
+    "searchKeywords": {
+      "default": [
+        "강남 맛집"
+      ],
+      "description": "Keywords to search on Naver Map, e.g. `강남 맛집` (Gangnam restaurants) or `이태원 카페` (Itaewon cafes). Include a region name for local results. Naver returns up to 100 places per keyword from the first page and up to ~300 via deeper pages; add a map area (Search coordinates + Radius) or narrower keywords for more.",
+      "editor": "stringList",
+      "prefill": [
+        "강남 맛집"
+      ],
+      "title": "Search keywords (mode=search)",
+      "type": "array"
+    },
+    "searchRadiusKm": {
+      "description": "When set together with Search coordinates, the actor sweeps the whole circle (grid of map centers) instead of one center — this is how to collect more than Naver's ~300-per-keyword limit. Needs a broad keyword (e.g. `맛집`).",
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Area radius in km (mode=search)",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How Naver orders search results. `distance` sorting needs Search coordinates.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "popular",
+        "tv",
+        "reviews",
+        "saved",
+        "distance"
+      ],
+      "enumTitles": [
+        "Relevance (Naver default)",
+        "Popular (인기순)",
+        "TV featured first (방영순)",
+        "Most reviewed first",
+        "Most saved/bookmarked first",
+        "Nearest first (needs coordinates)"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order (mode=search)",
+      "type": "string"
+    },
+    "takeout": {
+      "default": false,
+      "description": "Only keep places marked as offering takeout (포장).",
+      "prefill": false,
+      "title": "Offers takeout only",
+      "type": "boolean"
+    },
+    "wheelchairAccessible": {
+      "default": false,
+      "description": "Only keep places with a wheelchair-accessible entrance.",
+      "prefill": false,
+      "title": "Wheelchair accessible only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Naver Map Scraper Input",
+  "type": "object"
+}

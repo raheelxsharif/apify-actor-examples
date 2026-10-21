@@ -1,0 +1,158 @@
+# Crexi Commercial Property Listings & Pricing Extractor
+
+Crexi is one of the largest US marketplaces for commercial real estate. This actor reads Crexi's own public listing APIs and returns for-sale, for-lease and auction properties as clean, structured rows — asking price, cap rate, NOI, building size, year built, lot size, broker contacts, photo galleries and coordinates. No account, cookies or proxy setup are required.
+
+## What this actor does
+
+- **Three marketplaces in one actor:** for-sale listings, for-lease listings and live auctions, with the filters each one actually supports.
+- **Full filter surface:** keywords, states, cities, counties, ZIP codes, 14 property categories, 50 subtypes, building class, asking price, price per square foot, cap rate, building size, lease rate, and Opportunity Zone listings.
+- **Handles Crexi's result window for you.** Crexi's API only returns 1,500 rows per filter combination. When you ask for more, the actor automatically splits the search into price-range partitions and merges the results, deduplicated.
+- **Direct URL mode:** paste any Crexi property link or ID — for-sale or for-lease — and the actor fetches exactly those records.
+- **Optional enrichment:** one toggle adds full broker contacts (name, brokerage website, license, profile), high-resolution gallery photos, investment highlights, the marketing write-up and published fact-sheet values.
+- **Optional comps:** attach up to six similar nearby listings to each record.
+- Fields Crexi does not publish for a listing (for example an undisclosed price) are omitted from that record instead of being written as blank or null.
+
+## Output per listing
+
+- `property_id`, `name`, `property_url`, `record_type: "property"` (property-record rows use `record_type: "property_record"`)
+- `transaction_type` — `sale` or `lease`; `is_auction` and the auction block for auction listings
+- `property_type` (asset class), `subtypes[]`
+- `address`, `city`, `county`, `state`, `zip_code`, `latitude`, `longitude`
+- `price` (formatted) and `price_usd` (number), `price_per_sqft`, `price_per_acre`
+- `square_footage` (formatted) and `building_sqft` (number), `lot_acres`
+- `cap_rate`, `net_operating_income` (formatted) and `noi_usd` (number)
+- `year_built`, `year_renovated`, `class`, `tenancy`, `units`, `stories`
+- `brokerage`, `broker_names[]` — and with enrichment, `brokers[]` with profile, website, license, photo, **phone and email**, plus `broker_phones[]`/`broker_emails[]` and `broker_of_record` (name, license, phone when Crexi publishes it)
+- `listing_status`, `investment_type`, `offers_due_on`, `is_opportunity_zone`
+- Auction rows: `is_auction`, `auction_starting_bid_usd`, `auction_minimum_bid_usd`, `auction_starts_on`, `auction_ends_on`; with enrichment also `auction_status`, `auction_bid_increment_usd`, `auction_reserve_met`, `auction_marketing_starts_on`, `auction_earnest_deposit_usd`/`auction_earnest_deposit_percent`, `auction_deposit_option`, `auction_escrow_period_days`, `auction_participation_deposit_usd`, `auctioneer`, `auction_transaction_fee_percent`, `auction_minimum_fee_usd`, `auction_registered_bidders`, `auction_approved_bidders`, `auction_page_views`
+- `has_om`, `has_flyer`, `has_video`, `has_virtual_tour`
+- `activated_on`, `updated_on`, `days_on_market`
+- `description`; with enrichment also `marketing_description`, `investment_highlights[]`, `details`
+- `images[]` (all gallery photos), `image_count`
+- `source`, `scraped_at`
+- Lease listings add `lease_type`, `rate_type`, `lease_rate_per_sqft_annual`, `lease_rate_monthly_total`, `rentable_sqft_min`, `rentable_sqft_max`, `suites`, `vacant_suites`
+- With similar properties enabled: `similar_properties[]` — id, name, price and link for each comp (Crexi returns up to 500 per listing)
+
+### Output per property record (property-record URL input)
+
+- `property_id`, `name`, `property_url` (`https://www.crexi.com/property-records/...`), `record_type: "property_record"`
+- `apn`, `regrid_path` — parcel identifiers
+- `address`, `city`, `county`, `state`, `zip_code`, `latitude`, `longitude`
+- `property_type`, `subtypes[]`, `class`, `building_sqft`, `buildings`, `units`, `lot_acres`, `lot_sqft`, `year_built`, `tenancy`
+- `days_on_market`, `sale_transaction_type`, `is_sales_comp`, `is_lease_comp`, `sales_comp_type`, `lease_comp_type`, `is_broker_reported_sales_comp`
+- `broker_names[]`, `description`, `images[]`, `image_count`, `activated_on`, `updated_on`
+- `related_sale_listing_ids[]` / `related_lease_listing_ids[]` when Crexi links the record to marketplace listings
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `propertyUrls` | Array | – | Crexi property links, `/lease/properties/...` links, bare IDs, or `property-records/...` links to fetch exact rows. A Crexi search URL is also accepted and its filters are reused. When set, the filter fields below are skipped. |
+| `transactionTypes` | Select (multi) | – | `sale`, `lease` or `auction`. Empty means for-sale only. |
+| `searchTerms` | Array | – | Keywords matched against listing names, descriptions and addresses. |
+| `propertyTypes` | Select (multi) | – | 14 commercial categories. Empty searches every type. |
+| `subtypes` | Select (multi) | – | 50 subtypes such as Shopping Center, Medical Office, Warehouse. Some subtypes exist only for sale or only for lease. |
+| `locations` | Select (multi) | – | US states by two-letter code or full name. Empty searches nationwide. |
+| `cities` | Array | – | City names, e.g. `Austin`. |
+| `counties` | Array | – | County names as Crexi writes them, e.g. `Travis County`. |
+| `zipCodes` | Array | – | US ZIP codes, e.g. `78701`. |
+| `minPrice` / `maxPrice` | Integer | – | Asking-price range in USD (sale and auction listings). |
+| `minPricePerSqft` / `maxPricePerSqft` | Number | – | Price-per-square-foot range (sale listings). |
+| `minCapRate` / `maxCapRate` | Number | – | Cap-rate range in percent (sale listings with a published cap rate). |
+| `minSquareFootage` / `maxSquareFootage` | Integer | – | Building-size range in square feet. |
+| `minRatePerSqftAnnual` / `maxRatePerSqftAnnual` | Number | – | Annual lease-rate range per square foot (lease listings). |
+| `buildingClasses` | Select (multi) | – | `A`, `B` or `C`. |
+| `opportunityZoneOnly` | Boolean | `false` | Only listings in designated Opportunity Zones. |
+| `includeUnpriced` | Boolean | `true` | Keep listings without a public asking price. |
+| `sortBy` | Select | `Rank` | Recommended, price, cap rate, NOI, recently updated, recently listed or newest. |
+| `sortDirection` | Select | `Descending` | Descending or ascending. Lease listings always sort by Crexi's recommended order and skip this. |
+| `scrapeDetails` | Boolean | `false` | Add broker phone/email contacts, high-resolution photos, highlights, marketing text, fact-sheet values and full auction details. |
+| `includeSimilarProperties` | Boolean | `false` | Attach up to 6 similar nearby listings to each record. |
+| `maxProperties` | Integer | `100` | Stop after this many listings (1–100,000). The daily sample uses `5`. |
+
+### Example: multifamily deals in Texas, $2M–$10M, with details
+
+```json
+{
+  "transactionTypes": ["sale"],
+  "propertyTypes": ["Multifamily"],
+  "locations": ["TX"],
+  "minPrice": 2000000,
+  "maxPrice": 10000000,
+  "scrapeDetails": true,
+  "maxProperties": 200
+}
+```
+
+### Example: retail and office space for lease in Austin
+
+```json
+{
+  "transactionTypes": ["lease"],
+  "cities": ["Austin"],
+  "zipCodes": ["78701", "78702"],
+  "maxProperties": 100
+}
+```
+
+### Example: live auctions over $1M
+
+```json
+{
+  "transactionTypes": ["auction"],
+  "minPrice": 1000000,
+  "maxProperties": 50
+}
+```
+
+### Example: fetch specific listings
+
+```json
+{
+  "propertyUrls": [
+    "https://www.crexi.com/properties/2492041/pennsylvania-former-pittsburgh-hospital",
+    "https://www.crexi.com/lease/properties/28945/california-french-valley-village-center"
+  ],
+  "scrapeDetails": true
+}
+```
+
+## Use cases
+
+- **Acquisition sourcing** — build lists of for-sale and for-lease assets that match a buy box of state, city, ZIP, type, size, price and cap rate.
+- **Market research** — compare inventory and asking prices across metros, categories and lease versus sale markets.
+- **Broker outreach** — collect brokerage and broker names, license numbers and profile links tied to active listings.
+- **Underwriting support** — pull NOI, cap rate, year built, lot size and fact-sheet values for first-pass screening.
+- **Auction monitoring** — track live auctions with starting bids and start/end dates before offers close.
+
+## FAQ
+
+**Do I need a Crexi account, cookies or a proxy?**
+No. The actor connects to Crexi automatically; there is nothing to configure.
+
+**Why did I get exactly 1,500 rows for a broad search?**
+Crexi's API returns at most 1,500 rows per filter combination. The actor works around this by splitting large searches into price-range partitions and merging the results; a nationwide request for more than 1,500 rows is collected partition by partition. If a single indivisible slice still exceeds 1,500, the run's status message tells you the site's total and suggests narrowing filters.
+
+**Why is `price` missing on some listings?**
+Some sellers publish a listing without an asking price. Those rows still contain everything else; with `includeUnpriced` off they are excluded entirely — and an active price filter always requires a published price.
+
+**Why are `cap_rate` or `net_operating_income` missing on some rows?**
+Crexi only exposes those figures when the listing publishes them. When they are absent from the source, the fields are omitted rather than estimated.
+
+**What does `scrapeDetails` add?**
+Each listing's detail data: broker phone and email contacts (with brokerage website, license number and profile link), plus `broker_phones[]`/`broker_emails[]` roll-ups; the full gallery in high resolution; investment highlights; the marketing description; published fact-sheet values such as zoning and ownership; the lease rate block for lease listings; and full auction details (deposits, bid increment, reserve status, bidder counts). It takes longer to run, so it is off by default.
+
+**Does this include sold or off-market properties?**
+Crexi's sold prices and sale dates sit behind its paid Intelligence product and are never published anonymously, so the actor cannot return them. It does cover active for-sale, for-lease and auction listings, and it can fetch public property records (parcel data such as APN, lot and building size, class and comp flags) when you paste a `crexi.com/property-records/...` URL into `propertyUrls`.
+
+**Can I filter by year built, NOI or occupancy?**
+Crexi only filters cap rate server-side (the `minCapRate`/`maxCapRate` inputs). Year built and NOI are returned on each record when published but cannot be filtered before download; occupancy is masked for anonymous users on sale listings (for-lease rows expose `vacant_suites`).
+
+**Can I mix sale and lease results in one run?**
+Yes — select both in `transactionTypes` and the actor searches each marketplace and combines the rows into one deduplicated dataset. Crexi's for-sale and for-lease marketplaces use separate ID spaces, so the same `property_id` can appear once per marketplace; `transaction_type` and `property_url` tell the two records apart.
+
+**How fresh is the data?**
+Every run queries Crexi live, so results reflect the marketplace at the moment the run starts.
+
+**Is this actor affiliated with Crexi?**
+No. It is an independent tool that reads Crexi's public listing pages and APIs and is not operated by or affiliated with Crexi.

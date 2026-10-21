@@ -1,0 +1,340 @@
+{
+  "description": "Search SimplyHired (US or any of 23 country sites) by keyword and location or run your own search URLs, and get parsed salary ranges, full descriptions, coordinates and benefits for every job.",
+  "properties": {
+    "country": {
+      "default": "united-states",
+      "description": "Which SimplyHired site to search (mode=search). Choose the country that matches your location.",
+      "editor": "select",
+      "enum": [
+        "united-states",
+        "canada",
+        "united-kingdom",
+        "ireland",
+        "germany",
+        "france",
+        "spain",
+        "italy",
+        "netherlands",
+        "belgium",
+        "austria",
+        "switzerland",
+        "portugal",
+        "sweden",
+        "india",
+        "japan",
+        "south-korea",
+        "china",
+        "brazil",
+        "mexico",
+        "australia",
+        "argentina",
+        "south-africa"
+      ],
+      "enumTitles": [
+        "United States (simplyhired.com)",
+        "Canada (simplyhired.ca)",
+        "United Kingdom (simplyhired.co.uk)",
+        "Ireland (simplyhired.ie)",
+        "Germany (simplyhired.de)",
+        "France (simplyhired.fr)",
+        "Spain (simplyhired.es)",
+        "Italy (simplyhired.it)",
+        "Netherlands (simplyhired.nl)",
+        "Belgium (simplyhired.be)",
+        "Austria (simplyhired.at)",
+        "Switzerland (simplyhired.ch)",
+        "Portugal (simplyhired.pt)",
+        "Sweden (simplyhired.se)",
+        "India (simplyhired.co.in)",
+        "Japan (simplyhired.jp)",
+        "South Korea (simplyhired.kr)",
+        "China (simplyhired.cn)",
+        "Brazil (simplyhired.com.br)",
+        "Mexico (simplyhired.mx)",
+        "Australia (simplyhired.com.au)",
+        "Argentina (simplyhired.com.ar)",
+        "South Africa (za.simplyhired.com)"
+      ],
+      "prefill": "united-states",
+      "title": "Country",
+      "type": "string"
+    },
+    "datePosted": {
+      "default": "",
+      "description": "Only include jobs added within this window (mode=search).",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "3",
+        "7",
+        "14",
+        "30"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Past 24 hours",
+        "Past 3 days",
+        "Past week",
+        "Past 2 weeks",
+        "Past month"
+      ],
+      "prefill": "",
+      "title": "Date posted",
+      "type": "string"
+    },
+    "developerSkill": {
+      "default": "",
+      "description": "Only jobs tagged with this software skill (mode=search). Applies mainly to tech roles; combine several skills with Developer skills below.",
+      "editor": "select",
+      "enum": [
+        "",
+        "JB2WC",
+        "X62BT",
+        "84K74",
+        "WD7PP",
+        "FGY89",
+        "EVPJU",
+        "AP3T4",
+        "6XQ9P",
+        "6ETQT",
+        "GJUK3",
+        "NGEEK",
+        "U5AXZ",
+        "6M28R",
+        "EHNJH",
+        "XH9RQ",
+        "FQMG4",
+        "AGW49",
+        "JQ94N",
+        "GKAXA",
+        "KTEH7",
+        "5FG4F"
+      ],
+      "enumTitles": [
+        "Any",
+        "JavaScript",
+        "Python",
+        "React",
+        "TypeScript",
+        "SQL",
+        "Java",
+        "C#",
+        "CSS",
+        "Go",
+        "C++",
+        "Angular",
+        "Swift",
+        "Node.js",
+        ".NET",
+        "Spring framework",
+        "PHP",
+        ".NET Core",
+        "Scala",
+        "Flutter",
+        "Perl",
+        "Dart"
+      ],
+      "prefill": "",
+      "title": "Developer skill",
+      "type": "string"
+    },
+    "developerSkills": {
+      "default": [],
+      "description": "Additional software skills to require together with the Developer skill above (mode=search). Use skill names such as `Python`, `SQL`, `React` (or their codes). Jobs must match every listed skill.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Developer skills (extra, combined with AND)",
+      "type": "array"
+    },
+    "employmentType": {
+      "default": "",
+      "description": "Filter by employment type (mode=search).",
+      "editor": "select",
+      "enum": [
+        "",
+        "CF3CP",
+        "NJXCK",
+        "75GKK",
+        "4HKF7",
+        "5QWDV",
+        "VDTG7",
+        "7SBAT",
+        "ZG59D"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-time",
+        "Contract",
+        "Part-time",
+        "Temporary",
+        "Permanent",
+        "Internship",
+        "Temp-to-hire",
+        "Freelance"
+      ],
+      "prefill": "",
+      "title": "Employment type",
+      "type": "string"
+    },
+    "enrichCompanyPages": {
+      "default": false,
+      "description": "Look up each employer's SimplyHired company page (once per employer) and add its address, size, revenue band and industry when the page's company name matches the listing. Off by default.",
+      "prefill": false,
+      "title": "Enrich employer company pages",
+      "type": "boolean"
+    },
+    "fetchJobDetails": {
+      "default": true,
+      "description": "Fetch each job's detail payload for the full description, parsed salary, coordinates, qualifications and employer rating. Adds one fast request per job. Turn off for search-card fields only.",
+      "prefill": true,
+      "title": "Fetch full job details",
+      "type": "boolean"
+    },
+    "jobUrls": {
+      "default": [],
+      "description": "SimplyHired job URLs (https://www.simplyhired.com/job/...) or search URLs to scrape directly. Job IDs may also be pasted on their own.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Specific URLs (mode=byUrl)",
+      "type": "array"
+    },
+    "location": {
+      "default": "",
+      "description": "City, state, ZIP code, or `remote`. Leave empty to search nationwide (mode=search).",
+      "editor": "textfield",
+      "prefill": "New York",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Hard cap on the number of job records returned.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maximizeCoverage": {
+      "default": false,
+      "description": "When a search hits SimplyHired's per-search result limit, continue with extra facet searches (job types and developer skills) and merge the unique jobs. Slower and uses more requests, but returns more of the matching jobs.",
+      "prefill": false,
+      "title": "Maximize coverage (slower)",
+      "type": "boolean"
+    },
+    "minSalary": {
+      "default": 0,
+      "description": "Only jobs with pay at or above this amount, in the local currency of the selected country (e.g. 100000 = $100,000 a year on the US site). Leave 0 for no filter.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum salary",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch: search jobs on SimplyHired, or scrape specific SimplyHired URLs you already have.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search jobs (keyword, location, filters)",
+        "Scrape specific URLs (searches or jobs)"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "radius": {
+      "default": "",
+      "description": "Distance around the location (mode=search). Only applies when a location is set.",
+      "editor": "select",
+      "enum": [
+        "",
+        "exact",
+        "5",
+        "10",
+        "15",
+        "25",
+        "50",
+        "100"
+      ],
+      "enumTitles": [
+        "Site default (25 miles)",
+        "Exact location only",
+        "5 miles",
+        "10 miles",
+        "15 miles",
+        "25 miles",
+        "50 miles",
+        "100 miles"
+      ],
+      "prefill": "",
+      "title": "Search radius",
+      "type": "string"
+    },
+    "remoteType": {
+      "default": "",
+      "description": "Filter by remote work arrangement (mode=search).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Remote",
+        "Hybrid work"
+      ],
+      "enumTitles": [
+        "Any",
+        "Remote only",
+        "Hybrid"
+      ],
+      "prefill": "",
+      "title": "Remote work",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "One or more job titles, skills, or keywords. Each entry runs as its own search, e.g. `registered nurse` or `python developer, remote`. Ignored when Search URLs are provided.",
+      "editor": "stringList",
+      "prefill": [
+        "software engineer"
+      ],
+      "title": "Search queries (mode=search)",
+      "type": "array"
+    },
+    "searchUrls": {
+      "default": [],
+      "description": "Full SimplyHired search URLs, including any filters and a country domain (e.g. https://www.simplyhired.co.uk/search?q=nurse&l=London). When provided, these are used instead of the query, location and filter fields.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "SimplyHired search URLs (mode=search)",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order of the search results (mode=search).",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "date",
+        "distance"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Newest first",
+        "Nearest first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort results by",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "SimplyHired Job Search & Salary Parser Input",
+  "type": "object"
+}

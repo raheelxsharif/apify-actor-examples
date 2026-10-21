@@ -1,0 +1,133 @@
+{
+  "description": "Scrape property listings from Property Finder (UAE, Saudi Arabia, Qatar, Bahrain, Egypt). Provide URLs or use city + purpose filters.",
+  "properties": {
+    "city": {
+      "default": "dubai",
+      "description": "City to search in.",
+      "editor": "select",
+      "enum": [
+        "dubai",
+        "abu-dhabi",
+        "sharjah",
+        "ajman",
+        "ras-al-khaimah",
+        "fujairah",
+        "umm-al-quwain",
+        "al-ain",
+        "riyadh",
+        "jeddah",
+        "dammam",
+        "makkah",
+        "madinah",
+        "khobar"
+      ],
+      "enumTitles": [
+        "Dubai",
+        "Abu Dhabi",
+        "Sharjah",
+        "Ajman",
+        "Ras Al Khaimah",
+        "Fujairah",
+        "Umm Al Quwain",
+        "Al Ain",
+        "Riyadh (SA)",
+        "Jeddah (SA)",
+        "Dammam (SA)",
+        "Makkah (SA)",
+        "Madinah (SA)",
+        "Khobar (SA)"
+      ],
+      "title": "City",
+      "type": "string"
+    },
+    "country": {
+      "default": "ae",
+      "description": "Country to search in (used only when no URLs are provided).",
+      "editor": "select",
+      "enum": [
+        "ae",
+        "sa",
+        "bh",
+        "eg",
+        "qa"
+      ],
+      "enumTitles": [
+        "UAE",
+        "Saudi Arabia",
+        "Bahrain",
+        "Egypt",
+        "Qatar"
+      ],
+      "sectionCaption": "Scrape with Filters",
+      "sectionDescription": "Used only when Start URLs are empty.",
+      "title": "Country",
+      "type": "string"
+    },
+    "fetch_full_details": {
+      "default": false,
+      "description": "When enabled, the scraper fetches each listing's detail page to retrieve the complete image gallery, full description, floor plans, and all extended fields. Disables if you only need basic listing info. Adds 1 HTTP request per property.",
+      "prefill": false,
+      "sectionCaption": "General Options",
+      "title": "Fetch Full Details (All Images + Extended Data)",
+      "type": "boolean"
+    },
+    "ignore_url_failures": {
+      "default": true,
+      "description": "Continue running even if some URLs fail after max retries.",
+      "prefill": true,
+      "title": "Ignore URL Failures",
+      "type": "boolean"
+    },
+    "max_items": {
+      "default": 20,
+      "description": "Maximum number of unique properties to scrape.",
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "max_retries": {
+      "default": 2,
+      "description": "Maximum retry attempts for each failed request.",
+      "minimum": 0,
+      "prefill": 2,
+      "title": "Max Retries Per Request",
+      "type": "integer"
+    },
+    "purpose": {
+      "default": "buy",
+      "description": "Listing purpose.",
+      "editor": "select",
+      "enum": [
+        "buy",
+        "rent",
+        "commercial-buy",
+        "commercial-rent"
+      ],
+      "enumTitles": [
+        "For Sale",
+        "For Rent",
+        "Commercial For Sale",
+        "Commercial For Rent"
+      ],
+      "title": "Purpose",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Property Finder URLs to scrape. Supports:\n- SEO landing pages (e.g. /en/buy/dubai/apartments-for-sale-marina.html)\n- Sitemap URLs (e.g. /sitemaps/dubai-buy-0.xml)\n- Sitemap index (/sitemaps/index-sitemap.xml)",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://www.propertyfinder.ae/sitemaps/dubai-buy-0.xml"
+        }
+      ],
+      "sectionCaption": "Scrape with URLs",
+      "sectionDescription": "Enter Property Finder URLs. Leave empty to use city + purpose filters below.",
+      "title": "Start URLs",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Property Finder Scraper",
+  "type": "object"
+}

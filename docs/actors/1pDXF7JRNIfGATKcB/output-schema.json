@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Videos from Snapchat topic and hashtag pages plus the anonymous Spotlight feed, with creator, engagement, AI keywords, hashtags and S2I content tags; plus topic-discovery rows from keyword search.",
+  "properties": {
+    "results": {
+      "description": "Dataset containing Spotlight videos and discovered topic rows.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Snapchat videos and topics",
+      "type": "string"
+    },
+    "topics": {
+      "description": "Topic rows found by keyword search and one-hop related-topic expansion.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=topics",
+      "title": "Discovered topics",
+      "type": "string"
+    }
+  },
+  "title": "Snapchat Topic Spotlight Feed & Content Tag Extractor Output"
+}

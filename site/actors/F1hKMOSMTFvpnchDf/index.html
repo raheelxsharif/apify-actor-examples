@@ -1,0 +1,556 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-BfR7HCqluRwZrWJn/PHS/i/DsCqoxl0zHkC+OqnBPjY=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>OP.GG League of Legends Tier List &amp; Win Rate Tracker | Dataspryva</title><meta name="description" content="Reads OP.GG&#x27;s League of Legends champion tier lists for any lane and returns tier, win rate, pick rate, ban rate, and patch version per champion."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/"><meta property="og:title" content="OP.GG League of Legends Tier List &amp; Win Rate Tracker | Dataspryva"><meta property="og:description" content="Reads OP.GG&#x27;s League of Legends champion tier lists for any lane and returns tier, win rate, pick rate, ban rate, and patch version per champion."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#webpage","name":"OP.GG League of Legends Tier List & Win Rate Tracker","description":"Reads OP.GG's League of Legends champion tier lists for any lane and returns tier, win rate, pick rate, ban rate, and patch version per champion.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#article","headline":"OP.GG League of Legends Tier List & Win Rate Tracker","name":"OP.GG League of Legends Tier List & Win Rate Tracker","description":"Reads OP.GG's League of Legends champion tier lists for any lane and returns tier, win rate, pick rate, ban rate, and patch version per champion.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"OP.GG League of Legends Tier List & Win Rate Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/F1hKMOSMTFvpnchDf/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>OP.GG League of Legends Tier List &amp; Win Rate Tracker</span></div><section id="overview"><h1 class="doc-title">OP.GG League of Legends Tier List &amp; Win Rate Tracker</h1><p class="lede">Reads OP.GG&#x27;s League of Legends champion tier lists for any lane and returns tier, win rate, pick rate, ban rate, and patch version per champion.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/op-gg-league-of-legends-tier-list-and-win-rate">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/F1hKMOSMTFvpnchDf/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: a champion tier list, champion statistics, or every matchup for selected champions. `byPosition` is a legacy alias for a position-scoped tier list.</td></tr><tr><td><code>queueType</code></td><td>string</td><td>optional</td><td>Queue to read. Classic applies to tierList and fullCounters; ARAM applies to championStats.</td></tr><tr><td><code>region</code></td><td>string</td><td>optional</td><td>Server to read. Global combines every server OP.GG tracks.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: a champion tier list, champion statistics, or every matchup for selected champions. `byPosition` is a legacy alias for a position-scoped tier list.</td></tr><tr><td><code>queueType</code></td><td>string</td><td>optional</td><td>Queue to read. Classic applies to tierList and fullCounters; ARAM applies to championStats.</td></tr><tr><td><code>region</code></td><td>string</td><td>optional</td><td>Server to read. Global combines every server OP.GG tracks.</td></tr><tr><td><code>rankTier</code></td><td>string</td><td>optional</td><td>Only include games from this rank. Champion stats mode uses the base tier for plus tiers (e.g. Emerald+ → Emerald).</td></tr><tr><td><code>position</code></td><td>string</td><td>optional</td><td>Lane to read. ALL returns every lane; in fullCounters it uses each champion&#x27;s primary lane.</td></tr><tr><td><code>champions</code></td><td>array</td><td>optional</td><td>Champion names, keys, or OP.GG build URLs to fetch every matchup for (mode=fullCounters). Example: Ahri, jinx, https://op.gg/lol/champions/ahri/build/mid.</td></tr><tr><td><code>patch</code></td><td>string</td><td>optional</td><td>Tier-list and fullCounter patch. OP.GG keeps the latest and previous patch; Classic has no patch history.</td></tr><tr><td><code>minTier</code></td><td>string</td><td>optional</td><td>Tier-list cutoff. OP is the strongest, then 1 through 5. Lower numbers keep stronger champions.</td></tr><tr><td><code>period</code></td><td>string</td><td>optional</td><td>Time window for champion statistics (mode=championStats).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records. OP.GG returns at most 271 tier rows or 173 stat rows per filter.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape OP.GG League of Legends champion tier lists, win rates, counters, and champion statistics by region, rank, queue, lane, and patch.&quot;,
+  &quot;properties&quot;: {
+    &quot;champions&quot;: {
+      &quot;description&quot;: &quot;Champion names, keys, or OP.GG build URLs to fetch every matchup for (mode=fullCounters). Example: Ahri, jinx, https://op.gg/lol/champions/ahri/build/mid.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Champions&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on emitted records. OP.GG returns at most 271 tier rows or 173 stat rows per filter.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minTier&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Tier-list cutoff. OP is the strongest, then 1 through 5. Lower numbers keep stronger champions.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;0&quot;,
+        &quot;1&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;,
+        &quot;4&quot;,
+        &quot;5&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All tiers&quot;,
+        &quot;OP tier&quot;,
+        &quot;1 tier&quot;,
+        &quot;2 tier&quot;,
+        &quot;3 tier&quot;,
+        &quot;4 tier&quot;,
+        &quot;5 tier&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Minimum champion tier&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;tierList&quot;,
+      &quot;description&quot;: &quot;What to fetch: a champion tier list, champion statistics, or every matchup for selected champions. `byPosition` is a legacy alias for a position-scoped tier list.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;tierList&quot;,
+        &quot;championStats&quot;,
+        &quot;fullCounters&quot;,
+        &quot;byPosition&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Champion tier list (win/pick/ban rates, counters, rank movement)&quot;,
+        &quot;Champion statistics (games, KDA, CS, gold)&quot;,
+        &quot;Full counters (every matchup for selected champions)&quot;,
+        &quot;By position (legacy alias)&quot;
+      ],
+      &quot;prefill&quot;: &quot;tierList&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;patch&quot;: {
+      &quot;default&quot;: &quot;latest&quot;,
+      &quot;description&quot;: &quot;Tier-list and fullCounter patch. OP.GG keeps the latest and previous patch; Classic has no patch history.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;latest&quot;,
+        &quot;previous&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Latest patch&quot;,
+        &quot;Previous patch&quot;
+      ],
+      &quot;prefill&quot;: &quot;latest&quot;,
+      &quot;title&quot;: &quot;Patch&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;period&quot;: {
+      &quot;default&quot;: &quot;month&quot;,
+      &quot;description&quot;: &quot;Time window for champion statistics (mode=championStats).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;month&quot;,
+        &quot;week&quot;,
+        &quot;day&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Last month&quot;,
+        &quot;Last 7 days&quot;,
+        &quot;Today&quot;
+      ],
+      &quot;prefill&quot;: &quot;month&quot;,
+      &quot;title&quot;: &quot;Stats period&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;position&quot;: {
+      &quot;default&quot;: &quot;ALL&quot;,
+      &quot;description&quot;: &quot;Lane to read. ALL returns every lane; in fullCounters it uses each champion&#x27;s primary lane.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ALL&quot;,
+        &quot;TOP&quot;,
+        &quot;JUNGLE&quot;,
+        &quot;MID&quot;,
+        &quot;ADC&quot;,
+        &quot;SUPPORT&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All positions&quot;,
+        &quot;Top&quot;,
+        &quot;Jungle&quot;,
+        &quot;Mid&quot;,
+        &quot;ADC / Bot&quot;,
+        &quot;Support&quot;
+      ],
+      &quot;prefill&quot;: &quot;ALL&quot;,
+      &quot;title&quot;: &quot;Position&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;queueType&quot;: {
+      &quot;default&quot;: &quot;ranked&quot;,
+      &quot;description&quot;: &quot;Queue to read. Classic applies to tierList and fullCounters; ARAM applies to championStats.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ranked&quot;,
+        &quot;flex&quot;,
+        &quot;classic&quot;,
+        &quot;aram&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Ranked Solo/Duo&quot;,
+        &quot;Ranked Flex&quot;,
+        &quot;Classic (tierList only)&quot;,
+        &quot;ARAM (championStats only)&quot;
+      ],
+      &quot;prefill&quot;: &quot;ranked&quot;,
+      &quot;title&quot;: &quot;Queue&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;rankTier&quot;: {
+      &quot;default&quot;: &quot;emerald_plus&quot;,
+      &quot;description&quot;: &quot;Only include games from this rank. Champion stats mode uses the base tier for plus tiers (e.g. Emerald+ → Emerald).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;challenger&quot;,
+        &quot;grandmaster&quot;,
+        &quot;master_plus&quot;,
+        &quot;master&quot;,
+        &quot;diamond_plus&quot;,
+        &quot;diamond&quot;,
+        &quot;emerald_plus&quot;,
+        &quot;emerald&quot;,
+        &quot;platinum_plus&quot;,
+        &quot;platinum&quot;,
+        &quot;gold_plus&quot;,
+        &quot;gold&quot;,
+        &quot;silver&quot;,
+        &quot;bronze&quot;,
+        &quot;iron&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All tiers&quot;,
+        &quot;Challenger&quot;,
+        &quot;Grandmaster&quot;,
+        &quot;Master +&quot;,
+        &quot;Master&quot;,
+        &quot;Diamond +&quot;,
+        &quot;Diamond&quot;,
+        &quot;Emerald +&quot;,
+        &quot;Emerald&quot;,
+        &quot;Platinum +&quot;,
+        &quot;Platinum&quot;,
+        &quot;Gold +&quot;,
+        &quot;Gold&quot;,
+        &quot;Silver&quot;,
+        &quot;Bronze&quot;,
+        &quot;Iron&quot;
+      ],
+      &quot;prefill&quot;: &quot;emerald_plus&quot;,
+      &quot;title&quot;: &quot;Player rank&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;region&quot;: {
+      &quot;default&quot;: &quot;global&quot;,
+      &quot;description&quot;: &quot;Server to read. Global combines every server OP.GG tracks.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;global&quot;,
+        &quot;na&quot;,
+        &quot;me&quot;,
+        &quot;euw&quot;,
+        &quot;eune&quot;,
+        &quot;oce&quot;,
+        &quot;kr&quot;,
+        &quot;jp&quot;,
+        &quot;br&quot;,
+        &quot;las&quot;,
+        &quot;lan&quot;,
+        &quot;ru&quot;,
+        &quot;tr&quot;,
+        &quot;sea&quot;,
+        &quot;tw&quot;,
+        &quot;vn&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Servers (Global)&quot;,
+        &quot;North America (NA)&quot;,
+        &quot;Middle East (ME)&quot;,
+        &quot;Europe West (EUW)&quot;,
+        &quot;Europe Nordic &amp; East (EUNE)&quot;,
+        &quot;Oceania (OCE)&quot;,
+        &quot;Korea (KR)&quot;,
+        &quot;Japan (JP)&quot;,
+        &quot;Brazil (BR)&quot;,
+        &quot;Latin America South (LAS)&quot;,
+        &quot;Latin America North (LAN)&quot;,
+        &quot;Russia (RU)&quot;,
+        &quot;Türkiye (TR)&quot;,
+        &quot;Southeast Asia (SEA)&quot;,
+        &quot;Taiwan (TW)&quot;,
+        &quot;Vietnam (VN)&quot;
+      ],
+      &quot;prefill&quot;: &quot;global&quot;,
+      &quot;title&quot;: &quot;Region&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;OP.GG Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>championTiers</code></td><td>string</td><td>optional</td><td>Dataset of champion tier rows with tier, win/pick/ban rates, counters, region, rank, and patch.</td></tr><tr><td><code>championStats</code></td><td>string</td><td>optional</td><td>Dataset of champion statistics with games played, KDA, kills/deaths/assists, CS, gold, and win rates.</td></tr><tr><td><code>fullCounters</code></td><td>string</td><td>optional</td><td>Dataset of every matchup for the selected champions with games, wins, and win rate.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;OP.GG champion tier rows with win/pick/ban rates, counters, and rank movement, plus per-champion KDA, CS, and gold statistics.&quot;,
+  &quot;properties&quot;: {
+    &quot;championStats&quot;: {
+      &quot;description&quot;: &quot;Dataset of champion statistics with games played, KDA, kills/deaths/assists, CS, gold, and win rates.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;OP.GG Champion Statistics&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;championTiers&quot;: {
+      &quot;description&quot;: &quot;Dataset of champion tier rows with tier, win/pick/ban rates, counters, region, rank, and patch.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;OP.GG Champion Tier Rows&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;fullCounters&quot;: {
+      &quot;description&quot;: &quot;Dataset of every matchup for the selected champions with games, wins, and win rate.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;OP.GG Full Counters&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;OP.GG League of Legends Tier List &amp; Win Rate Tracker Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;championStats&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Champion statistics&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;championName&quot;,
+          &quot;position&quot;,
+          &quot;gamesPlayed&quot;,
+          &quot;kda&quot;,
+          &quot;winRate&quot;,
+          &quot;pickRate&quot;,
+          &quot;averageCs&quot;,
+          &quot;averageGold&quot;,
+          &quot;queueType&quot;,
+          &quot;region&quot;,
+          &quot;rankTier&quot;,
+          &quot;period&quot;,
+          &quot;patch&quot;
+        ]
+      }
+    },
+    &quot;fullCounters&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Full counters&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;targetChampionName&quot;,
+          &quot;championName&quot;,
+          &quot;position&quot;,
+          &quot;games&quot;,
+          &quot;wins&quot;,
+          &quot;winRate&quot;,
+          &quot;queueType&quot;,
+          &quot;region&quot;,
+          &quot;rankTier&quot;,
+          &quot;patch&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Champion tier rows&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;championName&quot;,
+          &quot;position&quot;,
+          &quot;tier&quot;,
+          &quot;tierNumber&quot;,
+          &quot;tierRank&quot;,
+          &quot;rankChange&quot;,
+          &quot;winRate&quot;,
+          &quot;pickRate&quot;,
+          &quot;banRate&quot;,
+          &quot;region&quot;,
+          &quot;rankTier&quot;,
+          &quot;queueType&quot;,
+          &quot;patch&quot;,
+          &quot;sourceUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-op-gg-league-of-legends-tier-list-win-rate-tracker">OP.GG League of Legends Tier List &amp; Win Rate Tracker</h2>
+<p>Read live <strong>OP.GG League of Legends</strong> tier lists and champion statistics without an account, API key, or proxy. Pick a server, rank, queue, lane, and patch to get champion tiers with win/pick/ban rates, role share, rank movement, and the three strongest counters — or switch to champion statistics for games played, KDA, CS, and gold.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Three modes:</strong> <code>tierList</code> for OP.GG's ranked champion table, <code>championStats</code> for per-champion performance metrics, and <code>fullCounters</code> for every matchup of selected champions.</li>
+<li><strong>Precise scope:</strong> Global plus 15 servers, 16 player ranks, Ranked Solo/Duo, Ranked Flex, Classic, ARAM statistics, and all five lanes.</li>
+<li><strong>Patch-aware:</strong> read the latest patch or the previous one; Classic returns OP.GG's current Classic table.</li>
+<li><strong>Rich tier rows:</strong> current OP.GG tier (OP, 1–5), position rank, rank change since yesterday and since the previous patch, win/pick/ban/role rates, and top-three counters.</li>
+<li><strong>Champion statistics:</strong> games played, KDA, kills/deaths/assists, average CS, average gold, and win/pick/ban rates for a month, week, or today.</li>
+<li><strong>Filter by champion tier:</strong> keep only OP, 1 tier, or any cutoff down to 5 tier.</li>
+<li><strong>Clean output:</strong> empty fields are omitted, so no <code>null</code> or blank values appear in the dataset.</li>
+</ul>
+<h2 id="readme-output-per-champion-tier-row-mode-tierlist">Output per champion tier row (mode = <code>tierList</code>)</h2>
+<ul>
+<li><code>championName</code>, <code>championKey</code>, <code>championId</code> — champion identity.</li>
+<li><code>position</code> — lane the row applies to (<code>TOP</code>, <code>JUNGLE</code>, <code>MID</code>, <code>ADC</code>, <code>SUPPORT</code>).</li>
+<li><code>tier</code> — current OP.GG tier label: <code>OP</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, or <code>5</code>.</li>
+<li><code>tierNumber</code> — numeric tier (<code>0</code> = OP, <code>1</code>–<code>5</code>).</li>
+<li><code>tierRank</code> — champion's rank within its lane.</li>
+<li><code>rankPrev</code>, <code>rankPrevPatch</code> — rank on the previous day and previous patch.</li>
+<li><code>rankChange</code> — places gained (positive) or lost (negative) since yesterday.</li>
+<li><code>winRate</code>, <code>pickRate</code>, <code>banRate</code> — percentages for the selected scope.</li>
+<li><code>roleRate</code> — share of the champion's games played in this lane.</li>
+<li><code>weakAgainst[]</code> — top three counters, each with <code>championName</code>, <code>championKey</code>, <code>championId</code>, <code>games</code>, <code>wins</code>, and <code>winRate</code>.</li>
+<li><code>roles[]</code> — OP.GG class labels for Classic rows.</li>
+<li><code>patch</code> — patch version behind the statistics.</li>
+<li><code>imageUrl</code>, <code>championUrl</code> — champion portrait and OP.GG build page.</li>
+<li><code>region</code>, <code>rankTier</code>, <code>queueType</code> — the filters that produced the row.</li>
+<li><code>recordType</code> (<code>champion</code>), <code>sourceUrl</code>, <code>scrapedAt</code>.</li>
+</ul>
+<h2 id="readme-output-per-champion-stat-row-mode-championstats">Output per champion stat row (mode = <code>championStats</code>)</h2>
+<ul>
+<li><code>championName</code>, <code>championKey</code> — champion identity.</li>
+<li><code>position</code> — selected lane, or <code>ALL</code>.</li>
+<li><code>gamesPlayed</code> — sample size in the selected period.</li>
+<li><code>kda</code> — average kills + assists divided by deaths.</li>
+<li><code>kills</code>, <code>deaths</code>, <code>assists</code> — totals across the sampled games.</li>
+<li><code>averageCs</code>, <code>averageGold</code> — per-game averages.</li>
+<li><code>winRate</code>, <code>pickRate</code>, <code>banRate</code> — percentages.</li>
+<li>Rows are ordered by games played, most-played first.</li>
+<li><code>queueType</code>, <code>region</code>, <code>rankTier</code>, <code>period</code> — the filters that produced the row.</li>
+<li><code>patch</code>, <code>championUrl</code>, <code>imageUrl</code>, <code>recordType</code> (<code>championStats</code>), <code>sourceUrl</code>, <code>scrapedAt</code>.</li>
+</ul>
+<h2 id="readme-output-per-counter-row-mode-fullcounters">Output per counter row (mode = <code>fullCounters</code>)</h2>
+<ul>
+<li><code>targetChampionName</code>, <code>targetChampionKey</code>, <code>targetChampionId</code> — the champion you asked for.</li>
+<li><code>championName</code>, <code>championKey</code>, <code>championId</code> — the opponent.</li>
+<li><code>position</code> — lane the matchup belongs to.</li>
+<li><code>games</code>, <code>wins</code> — games in the matchup and the target champion's wins.</li>
+<li><code>winRate</code> — target champion's win rate against that opponent.</li>
+<li><code>region</code>, <code>rankTier</code>, <code>queueType</code>, <code>patch</code> — the filters that produced the row.</li>
+<li><code>recordType</code> (<code>counter</code>), <code>sourceUrl</code>, <code>scrapedAt</code>.</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>tierList</code></td>
+<td><code>tierList</code> for champion tiers and counters, <code>championStats</code> for games/KDA/CS/gold; <code>byPosition</code> is a legacy alias for a position-scoped tier list.</td>
+</tr>
+<tr>
+<td><code>queueType</code></td>
+<td>string</td>
+<td><code>ranked</code></td>
+<td><code>ranked</code>, <code>flex</code>, <code>classic</code> (tier list only), or <code>aram</code> (champion stats only).</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>string</td>
+<td><code>global</code></td>
+<td><code>global</code>, <code>na</code>, <code>me</code>, <code>euw</code>, <code>eune</code>, <code>oce</code>, <code>kr</code>, <code>jp</code>, <code>br</code>, <code>las</code>, <code>lan</code>, <code>ru</code>, <code>tr</code>, <code>sea</code>, <code>tw</code>, <code>vn</code>.</td>
+</tr>
+<tr>
+<td><code>rankTier</code></td>
+<td>string</td>
+<td><code>emerald_plus</code></td>
+<td><code>all</code>, <code>challenger</code>, <code>grandmaster</code>, <code>master_plus</code>, <code>master</code>, <code>diamond_plus</code>, <code>diamond</code>, <code>emerald_plus</code>, <code>emerald</code>, <code>platinum_plus</code>, <code>platinum</code>, <code>gold_plus</code>, <code>gold</code>, <code>silver</code>, <code>bronze</code>, <code>iron</code>.</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>string</td>
+<td><code>ALL</code></td>
+<td><code>ALL</code>, <code>TOP</code>, <code>JUNGLE</code>, <code>MID</code>, <code>ADC</code>, <code>SUPPORT</code>. In <code>fullCounters</code>, <code>ALL</code> uses each champion's primary lane.</td>
+</tr>
+<tr>
+<td><code>champions</code></td>
+<td>array</td>
+<td>–</td>
+<td>Champion names, keys, or OP.GG build URLs to fetch every matchup for (mode=fullCounters), e.g. <code>[&quot;Ahri&quot;, &quot;jinx&quot;, &quot;K'Sante&quot;]</code>.</td>
+</tr>
+<tr>
+<td><code>patch</code></td>
+<td>string</td>
+<td><code>latest</code></td>
+<td><code>latest</code> or <code>previous</code> (mode=tierList or fullCounters).</td>
+</tr>
+<tr>
+<td><code>minTier</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td>Keep champions at or above this tier: <code>all</code>, <code>0</code> (OP), <code>1</code>–<code>5</code>.</td>
+</tr>
+<tr>
+<td><code>period</code></td>
+<td>string</td>
+<td><code>month</code></td>
+<td><code>month</code>, <code>week</code>, or <code>day</code> (mode=championStats).</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Hard cap on records (1–1000).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-default-ranked-tier-list">Example: default ranked tier list</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;tierList&quot;,
+  &quot;queueType&quot;: &quot;ranked&quot;,
+  &quot;region&quot;: &quot;global&quot;,
+  &quot;rankTier&quot;: &quot;emerald_plus&quot;,
+  &quot;position&quot;: &quot;ALL&quot;,
+  &quot;patch&quot;: &quot;latest&quot;,
+  &quot;minTier&quot;: &quot;all&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-korea-challenger-mid-lane-previous-patch">Example: Korea Challenger mid lane, previous patch</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;tierList&quot;,
+  &quot;queueType&quot;: &quot;ranked&quot;,
+  &quot;region&quot;: &quot;kr&quot;,
+  &quot;rankTier&quot;: &quot;challenger&quot;,
+  &quot;position&quot;: &quot;MID&quot;,
+  &quot;patch&quot;: &quot;previous&quot;,
+  &quot;minTier&quot;: &quot;2&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-classic-support-tier-list">Example: Classic support tier list</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;tierList&quot;,
+  &quot;queueType&quot;: &quot;classic&quot;,
+  &quot;region&quot;: &quot;global&quot;,
+  &quot;rankTier&quot;: &quot;emerald_plus&quot;,
+  &quot;position&quot;: &quot;SUPPORT&quot;,
+  &quot;minTier&quot;: &quot;all&quot;,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-aram-champion-statistics-for-the-last-week">Example: ARAM champion statistics for the last week</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;championStats&quot;,
+  &quot;queueType&quot;: &quot;aram&quot;,
+  &quot;region&quot;: &quot;global&quot;,
+  &quot;rankTier&quot;: &quot;all&quot;,
+  &quot;position&quot;: &quot;ALL&quot;,
+  &quot;period&quot;: &quot;week&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-every-matchup-for-ahri-and-jinx">Example: every matchup for Ahri and Jinx</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;fullCounters&quot;,
+  &quot;queueType&quot;: &quot;ranked&quot;,
+  &quot;region&quot;: &quot;kr&quot;,
+  &quot;rankTier&quot;: &quot;diamond_plus&quot;,
+  &quot;position&quot;: &quot;MID&quot;,
+  &quot;champions&quot;: [&quot;Ahri&quot;, &quot;https://op.gg/lol/champions/jinx/build/adc&quot;],
+  &quot;maxItems&quot;: 120
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Draft preparation</strong> — pull the strongest picks for a lane and rank before a ranked session.</li>
+<li><strong>Meta tracking</strong> — compare the latest and previous patch, or track daily rank movement.</li>
+<li><strong>Content creation</strong> — build tier-list graphics with win/pick/ban rates and counters.</li>
+<li><strong>Champion research</strong> — inspect KDA, CS, and gold for a champion across servers and ranks.</li>
+<li><strong>Coaching tools</strong> — feed current counters and role rates into pick recommendations.</li>
+<li><strong>Esports analysis</strong> — compare regional metas and lane priorities.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-do-i-need-an-op-gg-account-api-key-or-proxy">Do I need an OP.GG account, API key, or proxy?</h3>
+<p>No. The actor reads OP.GG's public pages and returns data without any credentials or proxy setup.</p>
+<h3 id="readme-what-do-the-tier-labels-mean">What do the tier labels mean?</h3>
+<p>OP.GG now labels the strongest champions <code>OP</code>, followed by <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, and <code>5</code>. Lower numbers are stronger. The older <code>OP+</code>, <code>S+</code>, and <code>A+</code> labels are no longer used by OP.GG. <code>tierNumber</code> is the tier itself; <code>tierRank</code> is the champion's rank within its lane (for example, the 4th-best mid laner).</p>
+<h3 id="readme-why-is-weakagainst-missing-from-some-rows">Why is <code>weakAgainst</code> missing from some rows?</h3>
+<p>OP.GG omits counters when the matchup sample is too small. This is most common on Challenger, Grandmaster, and smaller servers. The rest of the row is still returned. More generally, every field is omitted when OP.GG does not provide it for that row; the actor never emits <code>null</code>, empty strings, or empty arrays.</p>
+<h3 id="readme-why-does-champion-stats-use-emerald-instead-of-emerald">Why does champion stats use Emerald instead of Emerald+?</h3>
+<p>OP.GG's statistics page only supports exact ranks (Emerald, Diamond, Master, and so on), not “plus” ranks. The actor automatically uses the base rank and reports the effective rank in its status message.</p>
+<h3 id="readme-what-is-the-difference-between-tierlist-championstats-and-fullcounters">What is the difference between <code>tierList</code>, <code>championStats</code>, and <code>fullCounters</code>?</h3>
+<p><code>tierList</code> returns one row per champion and lane with OP.GG's tier, win/pick/ban rates, rank movement, and top-three counters. <code>championStats</code> returns one row per champion with games played, KDA, kills/deaths/assists, CS, and gold for the selected queue, region, rank, and period. <code>fullCounters</code> returns every matchup for the champions you list, one row per opponent.</p>
+<h3 id="readme-how-do-i-get-every-matchup-instead-of-just-the-top-three-counters">How do I get every matchup instead of just the top three counters?</h3>
+<p>Use <code>mode=fullCounters</code> and list champions in <code>champions</code>. Each champion is read from OP.GG's counters page for the selected lane, queue, region, rank, and patch. OP.GG does not publish ARAM counters; ranked, flex, and classic are supported. Increase <code>maxItems</code> to keep more matchups.</p>
+<h3 id="readme-can-i-get-aram-or-classic">Can I get ARAM or Classic?</h3>
+<p>Yes. Use <code>mode=championStats</code> with <code>queueType=aram</code> for ARAM statistics. Classic is available in <code>tierList</code> and <code>fullCounters</code>; OP.GG's Classic data is a single global pool and has no patch history, so region and player-rank filters do not change it.</p>
+<h3 id="readme-does-this-actor-return-runes-items-or-skill-order">Does this actor return runes, items, or skill order?</h3>
+<p>No. This actor covers tier lists, champion statistics, and full matchup counters. OP.GG's champion build pages and its official champion-analysis tool provide runes, items, and skill order; those are outside this actor's scope.</p>
+<h3 id="readme-how-current-is-the-data">How current is the data?</h3>
+<p>OP.GG recalculates its tables continuously from recent matches. The actor reads the live page each run; <code>patch</code> shows which game patch the numbers came from. OP.GG keeps only the latest and previous patch, so older patches are not available.</p>
+<h3 id="readme-is-this-affiliated-with-op-gg-or-riot-games">Is this affiliated with OP.GG or Riot Games?</h3>
+<p>No. This is a third-party actor that reads OP.GG's publicly available statistics pages. It is not affiliated with, endorsed by, or sponsored by OP.GG or Riot Games.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/F1hKMOSMTFvpnchDf/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>UmTtJlgFhUiUhdGcN</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

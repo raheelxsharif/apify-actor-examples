@@ -1,0 +1,747 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-hISBAHmm63WeQWKaV7DfFLzw0Int2ERaJBv8YZZzlS4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Amazon Review Aggregates &amp; Extended History Scraper | Dataspryva</title><meta name="description" content="Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional se"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/"><meta property="og:title" content="Amazon Review Aggregates &amp; Extended History Scraper | Dataspryva"><meta property="og:description" content="Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional se"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#webpage","name":"Amazon Review Aggregates & Extended History Scraper","description":"Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional session for deeper review history.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#article","headline":"Amazon Review Aggregates & Extended History Scraper","name":"Amazon Review Aggregates & Extended History Scraper","description":"Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional session for deeper review history.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Amazon Review Aggregates & Extended History Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/OgPzorRclF6tasDvP/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Amazon Review Aggregates &amp; Extended History Scraper</span></div><section id="overview"><h1 class="doc-title">Amazon Review Aggregates &amp; Extended History Scraper</h1><p class="lede">Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional session for deeper review history.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/amazon-review-aggregates-and-extended-history">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/OgPzorRclF6tasDvP/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>List of Amazon product URLs to scrape reviews from. Supports /dp/, /gp/product/, /gp/aw/d/ and /product/ URL formats across 19+ Amazon domains. A bare 10-character ASIN (e.g. &quot;B09X7MPX8L&quot;, no URL) is also accepted -- it is expanded into a full URL using the `country` domain below. Leave empty and use `keywords`/`categoryUrls` instead to discover products automatically.</td></tr><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>Search keywords used to auto-discover products when `productUrls` is empty (e.g. &quot;wireless earbuds&quot;). Fetches Amazon&#x27;s public `/s?k=` search results page for each keyword and reviews up to `maxProductsToDiscover` resulting products.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Advanced mode: supply your own Amazon `/s?...` or `/b?node=...` category/search URL(s) directly (used only when `productUrls` is empty). Products are discovered the same way as `keywords`.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>List of Amazon product URLs to scrape reviews from. Supports /dp/, /gp/product/, /gp/aw/d/ and /product/ URL formats across 19+ Amazon domains. A bare 10-character ASIN (e.g. &quot;B09X7MPX8L&quot;, no URL) is also accepted -- it is expanded into a full URL using the `country` domain below. Leave empty and use `keywords`/`categoryUrls` instead to discover products automatically.</td></tr><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>Search keywords used to auto-discover products when `productUrls` is empty (e.g. &quot;wireless earbuds&quot;). Fetches Amazon&#x27;s public `/s?k=` search results page for each keyword and reviews up to `maxProductsToDiscover` resulting products.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Advanced mode: supply your own Amazon `/s?...` or `/b?node=...` category/search URL(s) directly (used only when `productUrls` is empty). Products are discovered the same way as `keywords`.</td></tr><tr><td><code>maxProductsToDiscover</code></td><td>integer</td><td>optional</td><td>Maximum number of products to discover per run from `keywords`/`categoryUrls`. Ignored when `productUrls` is supplied directly.</td></tr><tr><td><code>extendedHistory</code></td><td>boolean</td><td>optional</td><td>Merge Amazon&#x27;s public extended review feed for each ASIN (no login, no cookie): up to 100 reviews per star/sort bucket, and walking every bucket yields 100-850+ unique reviews for popular US products, deduplicated against the product-page sample. Coverage varies by ASIN (some products expose few or no rows) and the feed carries Amazon.com reviews only; when off, only the ~8-13 product-page top reviews are returned.</td></tr><tr><td><code>mergeMarketplaces</code></td><td>array</td><td>optional</td><td>Additional Amazon marketplaces whose product page is fetched for the same ASIN and whose reviews are merged (deduplicated by review ID and content). Each marketplace typically adds a handful of locally-written reviews. Empty = only the product&#x27;s own marketplace.</td></tr><tr><td><code>includeAggregates</code></td><td>boolean</td><td>optional</td><td>Emit one additional `amazon_review_aggregate` record per product with the product title, average rating, global ratings count, star histogram (plus derived per-star counts), and &quot;Customers say&quot; AI summary with aspects -- parsed from the same page HTML already fetched. These widgets render server-side even when individual review cards are gated, so this record is available more reliably than the reviews themselves.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Amazon country domain to scrape from. URLs from a different domain are honored automatically.</td></tr><tr><td><code>maxReviews</code></td><td>integer</td><td>optional</td><td>Hard cap on the number of reviews returned per product AFTER merging and deduplication (1-2000). The product-page sample alone yields ~8-13; the extended review feed can add 100-850+ for popular US products.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to sort the returned reviews: most helpful first, or most recent first.</td></tr><tr><td><code>filterByStar</code></td><td>string</td><td>optional</td><td>Keep only reviews with this rating. `positive` keeps 4-5 star reviews; `critical` keeps 1-2 star reviews. Applied to the merged set, so narrow filters can legitimately return few or no rows.</td></tr><tr><td><code>verifiedPurchasesOnly</code></td><td>boolean</td><td>optional</td><td>Keep only reviews carrying Amazon&#x27;s Verified Purchase badge. Applied server-side for the extended feed and client-side for product-page rows.</td></tr><tr><td><code>filterKeywords</code></td><td>array</td><td>optional</td><td>Keep only reviews whose title or text contains at least one of these keywords (case-insensitive). Empty = no keyword filter.</td></tr><tr><td><code>reviewsNewerThan</code></td><td>string</td><td>optional</td><td>Keep only reviews dated on or after this date (e.g. 2026-01-15 or any ISO date). Reviews whose localized date cannot be parsed are kept. Empty = no date filter.</td></tr><tr><td><code>mediaReviewsOnly</code></td><td>boolean</td><td>optional</td><td>Keep only reviews that include at least one reviewer-uploaded image or video.</td></tr><tr><td><code>includeImages</code></td><td>boolean</td><td>optional</td><td>Extract images and videos uploaded by reviewers (full-resolution URLs).</td></tr><tr><td><code>includeGdprSensitive</code></td><td>boolean</td><td>optional</td><td>Include reviewer names, profile links, and avatars. Set to false for GDPR compliance.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Collect Amazon customer reviews and rating summaries with no login and no proxy setup. The actor reads the product page&#x27;s inline review block (~8-13 top reviews, retried across desktop and mobile because the wall is probabilistic) and, when `extendedHistory` is on, merges Amazon&#x27;s public extended review feed for the same ASIN (typically 100-850+ unique US reviews). `mergeMarketplaces` adds the product page from other Amazon marketplaces and unions the deduplicated reviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;categoryUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Advanced mode: supply your own Amazon `/s?...` or `/b?node=...` category/search URL(s) directly (used only when `productUrls` is empty). Products are discovered the same way as `keywords`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Category / Search URLs (auto-discover products)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;amazon.com&quot;,
+      &quot;description&quot;: &quot;Amazon country domain to scrape from. URLs from a different domain are honored automatically.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;amazon.com&quot;,
+        &quot;amazon.co.uk&quot;,
+        &quot;amazon.de&quot;,
+        &quot;amazon.fr&quot;,
+        &quot;amazon.it&quot;,
+        &quot;amazon.es&quot;,
+        &quot;amazon.ca&quot;,
+        &quot;amazon.com.au&quot;,
+        &quot;amazon.co.jp&quot;,
+        &quot;amazon.in&quot;,
+        &quot;amazon.com.br&quot;,
+        &quot;amazon.com.mx&quot;,
+        &quot;amazon.nl&quot;,
+        &quot;amazon.sg&quot;,
+        &quot;amazon.ae&quot;,
+        &quot;amazon.sa&quot;,
+        &quot;amazon.pl&quot;,
+        &quot;amazon.se&quot;,
+        &quot;amazon.com.tr&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States (amazon.com)&quot;,
+        &quot;United Kingdom (amazon.co.uk)&quot;,
+        &quot;Germany (amazon.de)&quot;,
+        &quot;France (amazon.fr)&quot;,
+        &quot;Italy (amazon.it)&quot;,
+        &quot;Spain (amazon.es)&quot;,
+        &quot;Canada (amazon.ca)&quot;,
+        &quot;Australia (amazon.com.au)&quot;,
+        &quot;Japan (amazon.co.jp)&quot;,
+        &quot;India (amazon.in)&quot;,
+        &quot;Brazil (amazon.com.br)&quot;,
+        &quot;Mexico (amazon.com.mx)&quot;,
+        &quot;Netherlands (amazon.nl)&quot;,
+        &quot;Singapore (amazon.sg)&quot;,
+        &quot;UAE (amazon.ae)&quot;,
+        &quot;Saudi Arabia (amazon.sa)&quot;,
+        &quot;Poland (amazon.pl)&quot;,
+        &quot;Sweden (amazon.se)&quot;,
+        &quot;Turkey (amazon.com.tr)&quot;
+      ],
+      &quot;prefill&quot;: &quot;amazon.com&quot;,
+      &quot;title&quot;: &quot;Amazon Domain&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;extendedHistory&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Merge Amazon&#x27;s public extended review feed for each ASIN (no login, no cookie): up to 100 reviews per star/sort bucket, and walking every bucket yields 100-850+ unique reviews for popular US products, deduplicated against the product-page sample. Coverage varies by ASIN (some products expose few or no rows) and the feed carries Amazon.com reviews only; when off, only the ~8-13 product-page top reviews are returned.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Extended Review History&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;filterByStar&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Keep only reviews with this rating. `positive` keeps 4-5 star reviews; `critical` keeps 1-2 star reviews. Applied to the merged set, so narrow filters can legitimately return few or no rows.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;1&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;,
+        &quot;4&quot;,
+        &quot;5&quot;,
+        &quot;positive&quot;,
+        &quot;critical&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Stars&quot;,
+        &quot;1 Star&quot;,
+        &quot;2 Stars&quot;,
+        &quot;3 Stars&quot;,
+        &quot;4 Stars&quot;,
+        &quot;5 Stars&quot;,
+        &quot;Positive (4-5 stars)&quot;,
+        &quot;Critical (1-2 stars)&quot;
+      ],
+      &quot;title&quot;: &quot;Filter by Star Rating&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;filterKeywords&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keep only reviews whose title or text contains at least one of these keywords (case-insensitive). Empty = no keyword filter.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Filter by Keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeAggregates&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Emit one additional `amazon_review_aggregate` record per product with the product title, average rating, global ratings count, star histogram (plus derived per-star counts), and \&quot;Customers say\&quot; AI summary with aspects -- parsed from the same page HTML already fetched. These widgets render server-side even when individual review cards are gated, so this record is available more reliably than the reviews themselves.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include Review Aggregates&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeGdprSensitive&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Include reviewer names, profile links, and avatars. Set to false for GDPR compliance.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include GDPR Sensitive Data&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeImages&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Extract images and videos uploaded by reviewers (full-resolution URLs).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;sectionCaption&quot;: &quot;Output Options&quot;,
+      &quot;sectionDescription&quot;: &quot;Toggle which fields are emitted. GDPR-sensitive fields are off by default.&quot;,
+      &quot;title&quot;: &quot;Include Review Images&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;keywords&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Search keywords used to auto-discover products when `productUrls` is empty (e.g. \&quot;wireless earbuds\&quot;). Fetches Amazon&#x27;s public `/s?k=` search results page for each keyword and reviews up to `maxProductsToDiscover` resulting products.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Keywords (auto-discover products)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxProductsToDiscover&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Maximum number of products to discover per run from `keywords`/`categoryUrls`. Ignored when `productUrls` is supplied directly.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 50,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Max Products to Discover&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviews&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on the number of reviews returned per product AFTER merging and deduplication (1-2000). The product-page sample alone yields ~8-13; the extended review feed can add 100-850+ for popular US products.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 15,
+      &quot;sectionCaption&quot;: &quot;Filters &amp; Sorting&quot;,
+      &quot;sectionDescription&quot;: &quot;Limit and shape the merged review set returned per product. All filters below are applied after merging and deduplication.&quot;,
+      &quot;title&quot;: &quot;Max Reviews per Product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mediaReviewsOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only reviews that include at least one reviewer-uploaded image or video.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Media Reviews Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;mergeMarketplaces&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Additional Amazon marketplaces whose product page is fetched for the same ASIN and whose reviews are merged (deduplicated by review ID and content). Each marketplace typically adds a handful of locally-written reviews. Empty = only the product&#x27;s own marketplace.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;amazon.com&quot;,
+          &quot;amazon.co.uk&quot;,
+          &quot;amazon.de&quot;,
+          &quot;amazon.fr&quot;,
+          &quot;amazon.it&quot;,
+          &quot;amazon.es&quot;,
+          &quot;amazon.ca&quot;,
+          &quot;amazon.com.au&quot;,
+          &quot;amazon.co.jp&quot;,
+          &quot;amazon.in&quot;,
+          &quot;amazon.com.br&quot;,
+          &quot;amazon.com.mx&quot;,
+          &quot;amazon.nl&quot;,
+          &quot;amazon.sg&quot;,
+          &quot;amazon.ae&quot;,
+          &quot;amazon.sa&quot;,
+          &quot;amazon.pl&quot;,
+          &quot;amazon.se&quot;,
+          &quot;amazon.com.tr&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;United States (amazon.com)&quot;,
+          &quot;United Kingdom (amazon.co.uk)&quot;,
+          &quot;Germany (amazon.de)&quot;,
+          &quot;France (amazon.fr)&quot;,
+          &quot;Italy (amazon.it)&quot;,
+          &quot;Spain (amazon.es)&quot;,
+          &quot;Canada (amazon.ca)&quot;,
+          &quot;Australia (amazon.com.au)&quot;,
+          &quot;Japan (amazon.co.jp)&quot;,
+          &quot;India (amazon.in)&quot;,
+          &quot;Brazil (amazon.com.br)&quot;,
+          &quot;Mexico (amazon.com.mx)&quot;,
+          &quot;Netherlands (amazon.nl)&quot;,
+          &quot;Singapore (amazon.sg)&quot;,
+          &quot;UAE (amazon.ae)&quot;,
+          &quot;Saudi Arabia (amazon.sa)&quot;,
+          &quot;Poland (amazon.pl)&quot;,
+          &quot;Sweden (amazon.se)&quot;,
+          &quot;Turkey (amazon.com.tr)&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Merge Extra Marketplaces&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;description&quot;: &quot;List of Amazon product URLs to scrape reviews from. Supports /dp/, /gp/product/, /gp/aw/d/ and /product/ URL formats across 19+ Amazon domains. A bare 10-character ASIN (e.g. \&quot;B09X7MPX8L\&quot;, no URL) is also accepted -- it is expanded into a full URL using the `country` domain below. Leave empty and use `keywords`/`categoryUrls` instead to discover products automatically.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;https://www.amazon.com/dp/B09X7MPX8L&quot;
+      ],
+      &quot;sectionCaption&quot;: &quot;Inputs&quot;,
+      &quot;sectionDescription&quot;: &quot;Product URLs whose reviews should be scraped. Any of the supported Amazon country domains is accepted.&quot;,
+      &quot;title&quot;: &quot;Product URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;reviewsNewerThan&quot;: {
+      &quot;description&quot;: &quot;Keep only reviews dated on or after this date (e.g. 2026-01-15 or any ISO date). Reviews whose localized date cannot be parsed are kept. Empty = no date filter.&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Reviews Newer Than&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;helpful&quot;,
+      &quot;description&quot;: &quot;How to sort the returned reviews: most helpful first, or most recent first.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;helpful&quot;,
+        &quot;recent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most Helpful&quot;,
+        &quot;Most Recent&quot;
+      ],
+      &quot;prefill&quot;: &quot;helpful&quot;,
+      &quot;title&quot;: &quot;Sort Reviews By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;verifiedPurchasesOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only reviews carrying Amazon&#x27;s Verified Purchase badge. Applied server-side for the extended feed and client-side for product-page rows.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Verified Purchases Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Amazon Reviews Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>reviews</code></td><td>string</td><td>optional</td><td>Dataset containing all collected Amazon customer reviews and per-product review aggregates.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per collected Amazon customer review — rating, title, body, verified-purchase/Vine flags, helpful-votes count, reviewer location, sentiment hint, images/videos, the pipeline that produced the row (`source`: productPage / extendedHistory / cookieMode), its marketplace, a stable dedup fingerprint, and product/source metadata. One additional `amazon_review_aggregate` record per product carries the product title, average rating, global ratings count, star histogram with derived per-star counts, and Amazon&#x27;s \&quot;Customers say\&quot; summary with aspects. Empty / null fields are dropped at push time, so any field documented below may be absent if the source did not populate it. Records may carry `collectionCompleteness: \&quot;INLINE_SAMPLE\&quot;` when `sourceMode=FULL_PAGE` was requested without a valid `cookieString` and `onAuthRequired=RETURN_PARTIAL` fell back to the cookie-free product-page sample instead of the full paginated set.&quot;,
+  &quot;properties&quot;: {
+    &quot;reviews&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all collected Amazon customer reviews and per-product review aggregates.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Amazon reviews&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Amazon Review Aggregates &amp; Extended History Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;title&quot;: &quot;Amazon Reviews&quot;,
+  &quot;views&quot;: {
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;hasImages&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Has Images&quot;
+          },
+          &quot;helpfulCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Helpful&quot;
+          },
+          &quot;isVerified&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Verified&quot;
+          },
+          &quot;productAsin&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;ASIN&quot;
+          },
+          &quot;ratingScore&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;reviewDate&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Date&quot;
+          },
+          &quot;reviewId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Review ID&quot;
+          },
+          &quot;reviewLocation&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Location&quot;
+          },
+          &quot;reviewTitle&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          },
+          &quot;sentimentHint&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Sentiment&quot;
+          },
+          &quot;source&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Source&quot;
+          },
+          &quot;sourceMarketplace&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Marketplace&quot;
+          },
+          &quot;wordCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Words&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;productAsin&quot;,
+          &quot;reviewedProductAsin&quot;,
+          &quot;ratingScore&quot;,
+          &quot;reviewTitle&quot;,
+          &quot;reviewDescription&quot;,
+          &quot;isVerified&quot;,
+          &quot;isVineVoice&quot;,
+          &quot;reviewedIn&quot;,
+          &quot;reviewReaction&quot;,
+          &quot;variant&quot;,
+          &quot;reviewImages&quot;,
+          &quot;position&quot;,
+          &quot;reviewId&quot;,
+          &quot;reviewUrl&quot;,
+          &quot;helpfulCount&quot;,
+          &quot;reviewDate&quot;,
+          &quot;reviewLocation&quot;,
+          &quot;sentimentHint&quot;,
+          &quot;wordCount&quot;,
+          &quot;hasImages&quot;,
+          &quot;imageCount&quot;,
+          &quot;hasVideos&quot;,
+          &quot;videoCount&quot;,
+          &quot;reviewHash&quot;,
+          &quot;source&quot;,
+          &quot;sourceMarketplace&quot;,
+          &quot;scrapedAt&quot;,
+          &quot;sourceUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-amazon-review-aggregates-extended-history-scraper">Amazon Review Aggregates &amp; Extended History Scraper</h2>
+<p>Collect Amazon customer reviews and rating summaries without a login and without any proxy setup. Point it at product URLs, bare ASINs, or search keywords and it merges three public sources — the product page's own review block (desktop and mobile), Amazon's public extended review feed for the same ASIN, and optionally the same product's pages on other Amazon marketplaces — then deduplicates everything and returns one clean review dataset plus a per-product rating summary.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Extended review history</strong> — the product page alone shows only ~8–13 &quot;top reviews&quot;; the public extended feed adds up to 100 reviews per star/sort bucket, and walking every bucket yields <strong>100–850+ unique reviews</strong> for popular US products (measured maxima: 856), merged and deduplicated by review ID and content fingerprint.</li>
+<li><strong>Multi-marketplace merge</strong> — collect the product page on additional Amazon marketplaces and union the deduplicated reviews, since each storefront carries a different (partially overlapping) set.</li>
+<li><strong>Rating aggregates</strong> — product title, average rating, global ratings count, the full star histogram with derived per-star counts, and Amazon's AI-generated &quot;Customers say&quot; summary with per-aspect sentiment.</li>
+<li><strong>Filters that actually narrow the data</strong> — star (including positive/critical), verified purchases, keywords, date, media-only, plus sort by most helpful or most recent.</li>
+<li><strong>Resilient by design</strong> — the review wall is probabilistic, so every product page is retried across fresh sessions and both desktop/mobile paths; blocked pages escalate to a residential connection automatically.</li>
+<li>Fields a review or product page doesn't provide (no reviewer images, no Vine badge, no helpful votes) are simply left out of that record — empty fields are omitted, never sent as <code>null</code>.</li>
+</ul>
+<h2 id="readme-output-per-review">Output per review</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>productAsin</code></td>
+<td>Amazon ASIN of the requested product.</td>
+</tr>
+<tr>
+<td><code>reviewedProductAsin</code></td>
+<td>Variant ASIN the review was written for, when the page exposes it.</td>
+</tr>
+<tr>
+<td><code>ratingScore</code></td>
+<td>Star rating, 1–5.</td>
+</tr>
+<tr>
+<td><code>reviewTitle</code> / <code>reviewDescription</code></td>
+<td>Review headline and full text.</td>
+</tr>
+<tr>
+<td><code>reviewUrl</code></td>
+<td>Direct link to the individual review, when the source exposes one.</td>
+</tr>
+<tr>
+<td><code>reviewReaction</code></td>
+<td>Raw &quot;N people found this helpful&quot; text, when present.</td>
+</tr>
+<tr>
+<td><code>reviewedIn</code></td>
+<td>Raw &quot;Reviewed in &lt;country&gt; on &lt;date&gt;&quot; text.</td>
+</tr>
+<tr>
+<td><code>isVerified</code></td>
+<td>Verified Purchase flag.</td>
+</tr>
+<tr>
+<td><code>isVineVoice</code></td>
+<td>Amazon Vine reviewer flag, when evidenced.</td>
+</tr>
+<tr>
+<td><code>variant</code></td>
+<td>Product variant reviewed (e.g. size/color), when shown.</td>
+</tr>
+<tr>
+<td><code>reviewImages</code></td>
+<td>Reviewer-uploaded image URLs, when <code>includeImages</code> is on.</td>
+</tr>
+<tr>
+<td><code>reviewVideos</code></td>
+<td>Reviewer-uploaded videos (<code>url</code>, <code>thumbnailUrl</code>), when present.</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>Rank of this review within its product's returned set.</td>
+</tr>
+<tr>
+<td><code>reviewId</code></td>
+<td>Amazon's own review identifier, when the source exposes one.</td>
+</tr>
+<tr>
+<td><code>helpfulCount</code></td>
+<td>Parsed numeric helpful-vote count.</td>
+</tr>
+<tr>
+<td><code>reviewDate</code></td>
+<td>Parsed ISO date.</td>
+</tr>
+<tr>
+<td><code>reviewLocation</code></td>
+<td>Parsed reviewer country/region.</td>
+</tr>
+<tr>
+<td><code>sentimentHint</code></td>
+<td>Derived <code>positive</code> / <code>neutral</code> / <code>negative</code> label.</td>
+</tr>
+<tr>
+<td><code>wordCount</code></td>
+<td>Review length (character count for CJK scripts).</td>
+</tr>
+<tr>
+<td><code>hasImages</code> / <code>imageCount</code> / <code>hasVideos</code> / <code>videoCount</code></td>
+<td>Derived media counts.</td>
+</tr>
+<tr>
+<td><code>reviewHash</code></td>
+<td>Stable content fingerprint used for cross-source deduplication.</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>Which pipeline produced the row: <code>productPage</code> or <code>extendedHistory</code>.</td>
+</tr>
+<tr>
+<td><code>sourceMarketplace</code></td>
+<td>Amazon domain the row came from.</td>
+</tr>
+<tr>
+<td><code>reviewerName</code> / <code>reviewerProfile</code> / <code>reviewerAvatar</code></td>
+<td>Reviewer identity fields, only present when <code>includeGdprSensitive</code> is <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>UTC timestamp of the scrape.</td>
+</tr>
+<tr>
+<td><code>sourceUrl</code></td>
+<td>The product URL that was scraped.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-per-product-rating-aggregate">Output per product (rating aggregate)</h2>
+<p>When <code>includeAggregates</code> is on (default), one additional record per product carries:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>Always <code>&quot;amazon_review_aggregate&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>productAsin</code></td>
+<td>Amazon ASIN.</td>
+</tr>
+<tr>
+<td><code>productTitle</code></td>
+<td>Product title from the same page.</td>
+</tr>
+<tr>
+<td><code>averageRating</code></td>
+<td>Overall star rating shown on the product page.</td>
+</tr>
+<tr>
+<td><code>globalRatingsCount</code></td>
+<td>Total number of ratings, not just the reviews collected.</td>
+</tr>
+<tr>
+<td><code>starsBreakdown</code></td>
+<td>Percentage per star, 5 through 1.</td>
+</tr>
+<tr>
+<td><code>ratingCountByStar</code></td>
+<td>Derived count per star (percentage × <code>globalRatingsCount</code>, rounded).</td>
+</tr>
+<tr>
+<td><code>customersSay</code></td>
+<td>Amazon's AI-generated &quot;Customers say&quot; summary, when Amazon shows one.</td>
+</tr>
+<tr>
+<td><code>customersSayAspects</code></td>
+<td>Per-aspect sentiment breakdown (<code>label</code>, <code>sentiment</code>, <code>mentionCount</code>, <code>summary</code>).</td>
+</tr>
+<tr>
+<td><code>productUrl</code></td>
+<td>Canonical <code>/dp/{ASIN}</code> product URL.</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code> / <code>sourceUrl</code></td>
+<td>Scrape timestamp and source URL.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-status-records">Status records</h3>
+<p>If a run can't return real reviews for a product, the dataset gets one typed status record instead of being left empty, identified by its <code>type</code> value: <code>amazon_reviews_walled_us</code>, <code>amazon_reviews_no_star_match</code>, <code>amazon_reviews_blocked</code>, or <code>amazon_reviews_no_products_discovered</code>. A blocked/checkpointed page is always reported in the run's status message — the actor never fails silently.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>productUrls</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Amazon product URLs, or bare ASINs expanded using <code>country</code>. Leave empty to use <code>keywords</code>/<code>categoryUrls</code> instead.</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>Array of strings</td>
+<td><code>[]</code></td>
+<td>Search keywords to auto-discover products, used only when <code>productUrls</code> is empty.</td>
+</tr>
+<tr>
+<td><code>categoryUrls</code></td>
+<td>Array of strings</td>
+<td><code>[]</code></td>
+<td>Amazon search/category URLs to auto-discover products from, used only when <code>productUrls</code> is empty.</td>
+</tr>
+<tr>
+<td><code>maxProductsToDiscover</code></td>
+<td>Integer</td>
+<td><code>10</code></td>
+<td>Maximum products to discover from <code>keywords</code>/<code>categoryUrls</code> (1–50).</td>
+</tr>
+<tr>
+<td><code>extendedHistory</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Merge Amazon's public extended review feed (typically 100–600+ unique reviews for popular US products) with the product-page sample.</td>
+</tr>
+<tr>
+<td><code>mergeMarketplaces</code></td>
+<td>Array of domains</td>
+<td><code>[]</code></td>
+<td>Extra Amazon marketplaces to fetch the product page from and merge deduplicated reviews.</td>
+</tr>
+<tr>
+<td><code>includeAggregates</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Emit one rating-aggregate record per product.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>String (select)</td>
+<td><code>&quot;amazon.com&quot;</code></td>
+<td>Amazon marketplace domain (19 supported).</td>
+</tr>
+<tr>
+<td><code>maxReviews</code></td>
+<td>Integer</td>
+<td><code>100</code></td>
+<td>Hard cap per product after merging and deduplication (1–2000).</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>String (select)</td>
+<td><code>&quot;helpful&quot;</code></td>
+<td><code>helpful</code> or <code>recent</code>.</td>
+</tr>
+<tr>
+<td><code>filterByStar</code></td>
+<td>String (select)</td>
+<td><code>&quot;&quot;</code> (all)</td>
+<td>Restrict to one star rating (<code>&quot;1&quot;</code>–<code>&quot;5&quot;</code>), <code>positive</code> (4–5), or <code>critical</code> (1–2).</td>
+</tr>
+<tr>
+<td><code>verifiedPurchasesOnly</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Only return Verified Purchase reviews.</td>
+</tr>
+<tr>
+<td><code>filterKeywords</code></td>
+<td>Array of strings</td>
+<td><code>[]</code></td>
+<td>Keep only reviews whose title or text contains at least one keyword.</td>
+</tr>
+<tr>
+<td><code>reviewsNewerThan</code></td>
+<td>String (date)</td>
+<td>–</td>
+<td>Keep only reviews dated on or after this date.</td>
+</tr>
+<tr>
+<td><code>mediaReviewsOnly</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Keep only reviews with at least one image or video.</td>
+</tr>
+<tr>
+<td><code>includeImages</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Extract reviewer-uploaded images and videos.</td>
+</tr>
+<tr>
+<td><code>includeGdprSensitive</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Include reviewer name, profile link, and avatar.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-extended-history-for-one-product">Example: extended history for one product</h3>
+<pre><code class="language-json">{
+    &quot;productUrls&quot;: [&quot;https://www.amazon.com/dp/B09X7MPX8L&quot;],
+    &quot;extendedHistory&quot;: true,
+    &quot;maxReviews&quot;: 300,
+    &quot;sortBy&quot;: &quot;recent&quot;
+}
+</code></pre>
+<h3 id="readme-example-only-critical-reviews-with-images">Example: only critical reviews with images</h3>
+<pre><code class="language-json">{
+    &quot;productUrls&quot;: [&quot;B09X7MPX8L&quot;],
+    &quot;filterByStar&quot;: &quot;critical&quot;,
+    &quot;mediaReviewsOnly&quot;: true,
+    &quot;verifiedPurchasesOnly&quot;: true,
+    &quot;maxReviews&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-merge-several-marketplaces">Example: merge several marketplaces</h3>
+<pre><code class="language-json">{
+    &quot;productUrls&quot;: [&quot;https://www.amazon.de/dp/B09X7MPX8L&quot;],
+    &quot;country&quot;: &quot;amazon.de&quot;,
+    &quot;mergeMarketplaces&quot;: [&quot;amazon.co.uk&quot;, &quot;amazon.fr&quot;, &quot;amazon.it&quot;],
+    &quot;maxReviews&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-keyword-discovery-with-a-date-window">Example: keyword discovery with a date window</h3>
+<pre><code class="language-json">{
+    &quot;keywords&quot;: [&quot;wireless earbuds&quot;],
+    &quot;maxProductsToDiscover&quot;: 5,
+    &quot;reviewsNewerThan&quot;: &quot;2026-01-01&quot;,
+    &quot;filterKeywords&quot;: [&quot;battery&quot;, &quot;sound&quot;],
+    &quot;sortBy&quot;: &quot;recent&quot;
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Voice-of-customer analysis</strong> — pull hundreds of review texts per product line for sentiment, topic, or keyword analysis.</li>
+<li><strong>Competitive benchmarking</strong> — compare <code>averageRating</code>, <code>starsBreakdown</code>, and &quot;Customers say&quot; summaries across competing ASINs.</li>
+<li><strong>Review monitoring</strong> — schedule runs on a watch-list to track new reviews, ratings, and helpful-vote counts over time.</li>
+<li><strong>Trust and quality signals</strong> — surface <code>isVerified</code>/<code>isVineVoice</code> flags and reviewer-uploaded media for product-quality dashboards.</li>
+<li><strong>Localization research</strong> — merge reviews for the same product across marketplaces to compare region-specific feedback.</li>
+<li><strong>Critical-review triage</strong> — filter to <code>critical</code> reviews with media to jump straight to the problems customers photograph.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>How many reviews can I get per product?</strong>
+The product-page block alone shows ~8–13 top reviews. With <code>extendedHistory</code> on (default), the public extended feed adds up to 100 reviews per star/sort bucket; walking all buckets measured 100–856 unique reviews across a 35-ASIN survey (17 ASINs had feed data; the rest fall back to the product-page sample). Set <code>maxReviews</code> high enough (e.g. 500–1000) to receive the full depth, or keep it lower for a fast, cheap run.</p>
+<p><strong>Is a proxy or login required?</strong>
+No. The actor works without any credentials and without any proxy setup; it chooses a working connection automatically and only escalates to a residential connection for a request that Amazon actually blocks. It never uses your Amazon account or cookies.</p>
+<p><strong>Why did one product return only a handful of reviews?</strong>
+The extended feed does not cover every ASIN — in a 35-ASIN survey, 17 had feed data and 18 exposed few or no rows (the feed carries Amazon.com reviews only). When that happens the actor still returns the product-page sample plus the rating aggregates, and the run's status message reports what was collected.</p>
+<p><strong>Why are some fields missing on some reviews?</strong>
+Every source exposes a different subset: the extended feed has no review permalink or review ID (rows are deduplicated by a content fingerprint), some marketplace pages hide reviewer profiles for cross-posted reviews, and Amazon only renders the AI &quot;Customers say&quot; summary on some products and mostly on amazon.com. Missing fields are omitted, never filled with placeholders.</p>
+<p><strong>What does <code>source</code> mean?</strong>
+It tells you which pipeline produced the row: <code>productPage</code> (the product page's inline block) or <code>extendedHistory</code> (the public extended feed). <code>sourceMarketplace</code> tells you which Amazon storefront it came from.</p>
+<p><strong>Is <code>ratingCountByStar</code> exact?</strong>
+It is derived: Amazon publishes the histogram as percentages plus one global ratings count, so the per-star counts are that percentage applied to the total and rounded (validated on 61 live pages: percentages always sum to 100 and the derived counts are within ±1 of the global total). <code>starsBreakdown</code> holds the exact percentages.</p>
+<p><strong>Can I get the complete review history?</strong>
+The actor returns everything Amazon publishes to anonymous visitors: the product page's sample plus the public extended feed (and any merged marketplaces). Amazon keeps the fully paginated list behind a sign-in wall, and this actor never asks for an account, cookie, or password — so it does not read it.</p>
+<p><strong>Do reviewer name, profile, and avatar always appear?</strong>
+No — only when <code>includeGdprSensitive</code> is <code>true</code>. Make sure you have a lawful basis before enabling it.</p>
+<p><strong>Is this affiliated with Amazon?</strong>
+No. This is an independent, third-party actor that reads publicly available Amazon product and review pages and is not operated, endorsed, or sponsored by Amazon.com, Inc.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/OgPzorRclF6tasDvP/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>Jicfk5wuVC0eoCp6J</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

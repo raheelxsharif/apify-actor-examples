@@ -1,0 +1,25 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "OP.GG champion tier rows with win/pick/ban rates, counters, and rank movement, plus per-champion KDA, CS, and gold statistics.",
+  "properties": {
+    "championStats": {
+      "description": "Dataset of champion statistics with games played, KDA, kills/deaths/assists, CS, gold, and win rates.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "OP.GG Champion Statistics",
+      "type": "string"
+    },
+    "championTiers": {
+      "description": "Dataset of champion tier rows with tier, win/pick/ban rates, counters, region, rank, and patch.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "OP.GG Champion Tier Rows",
+      "type": "string"
+    },
+    "fullCounters": {
+      "description": "Dataset of every matchup for the selected champions with games, wins, and win rate.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "OP.GG Full Counters",
+      "type": "string"
+    }
+  },
+  "title": "OP.GG League of Legends Tier List & Win Rate Tracker Output"
+}

@@ -1,0 +1,185 @@
+# Naver Map Business Listings with Menu & Hours Data
+
+Naver Map is where Koreans actually look up local businesses, and Korean listings carry detail Google rarely has: full weekly schedules with break times and last orders, itemized menus with prices and photos, booking and coupon programs, transit exits, and review breakdowns. This actor reads those public pages and turns them into structured records — by keyword, by map area, or from place links/IDs you already have. No Naver account, no API key, no cookies.
+
+## What this actor does
+
+- **Keyword search** — search any Korean keyword (e.g. `강남 맛집`, `부산 해운대 맛집`), with six Naver sort orders (relevance, popular, TV-featured, most reviewed, most saved, nearest).
+- **Area sweep** — give a center (`37.4979,127.0276`) and a radius, and the actor sweeps a grid of map centers, deduplicating results. This is how you collect well past Naver's ~300-results-per-keyword ceiling.
+- **Deep pagination** — beyond the first 100 results, the actor pages through Naver's own internal search endpoint, up to ~300–400 per keyword/center.
+- **Direct place input** — paste desktop/mobile links, `naver.me` short links, `map.naver.com` entry links, or bare numeric place IDs. One extra lookup by the place's name recovers the search-listing fields (`businessCategory`, `commonAddress`, `dbType`, `categoryCodeList`) that the detail page does not carry.
+- **Full menus** — every menu item Naver lists: name, integer KRW price + original text, description, photo(s), badges, set-menu flag, and its menu section.
+- **Weekly hours** — per-day open/close, break windows, last order, next-day closing flags, upcoming irregular closures, regular days off, and a free-text note.
+- **Filters** — category text, minimum review score/count, open now, booking, Naver Pay, coupon, takeout, newly opened, wheelchair entrance, and menu keyword. Server-side where Naver honors it, always re-checked client-side.
+- **Visitor reviews (optional)** — real reviews as separate records: rating, text, visit date, voted keywords, photos, menu ordered, owner reply. Naver's review API is cursor-paginated (50 reviews per page) and has no hard cap, so `maxReviewsPerPlace` can go into the hundreds; if that API is ever unavailable the actor falls back to the ~20 reviews on the public review page.
+- **Monitoring mode (optional)** — recurring jobs remember each place between runs and emit only new or changed places (`changeType` + `changedFields`), ignoring review-count and open/closed noise.
+- **Empty fields are omitted** — a record only contains fields Naver actually returned for that place.
+
+## Output per place
+
+Business basics: `placeId`, `name`, `category`, `businessCategory`, `categoryCodeList`, `dbType`, `roadAddress`, `address`, `commonAddress`, `fullAddress`, `x`, `y`, `distance`, `distanceMeters`, `regionCode`, `placeUrl`, `sourceUrl` (URL mode), `searchKeyword`, `searchRank` (search mode).
+
+Contact & links: `phone`, `virtualPhone`, `hasMobilePhoneNumber`, `talktalkUrl`, `chatBotUrl`, `routeUrl`, `homepageUrl`, `websites[]` (all published links with type + primary flag), `relatedLinks[]`.
+
+Hours: `businessHoursStatus`, `businessHoursDescription`, `businessHoursEndsNextDay`, `businessHours[]` (day, start, end, `breakHours[]`, `lastOrderTime`, note, endsNextDay), `upcomingClosures[]`, `regularClosures`, `hoursFreeText`.
+
+Menus: `menus[]` (name, `price` integer KRW, `priceText`, `currency`, `priceType`, description, `imageUrl`, `images[]`, `badges[]`, `recommend`, `isSetMenu`, `type`, `menuCategory`), `menuCategories[]`, `menuCount`, `menuUpdatedAt`, `menuImageUrls[]` (photos of the printed menu).
+
+Reviews: `visitorReviewCount`, `visitorReviewScore`, `blogCafeReviewCount`, `totalReviewCount`, `saveCount`, `mediaReviewCount`, `reviewStats` (average, total, star distribution, image/author counts), `reviewImageCount`, `reviewAuthorCount`, `reviewThemes[]`, `reviewMenus[]`, `reviewKeywords[]`.
+
+Amenities & programs: `conveniences[]`, `facilities[]`, `keywords[]`, `paymentInfo[]`, `parkingInfo`, `parking` (description/basic/valet), `petFriendly`, `noKidsZone`, `hasBooking`, `bookingUrl`, `bookingBusinessId`, `bookingReviewCount`, `bookingReviewScore`, `naverBookingCategory`, `hasNPay`, `hasCoupon`, `coupons[]`, `couponCount`, `naverOrder` (delivery/table-order/pre-order/pickup flags), `businessToolsUsing[]`, `promotionTitle`, `newOpening`, `hasWheelchairEntrance`, `michelinGuide` + `michelinGuideDetails` (year/star/comment/url/Bib flag), `broadcasts[]` + `tvAppearances[]` (program, channel, menu, date, episode).
+
+Media & location extras: `imageUrl`, `imageUrls[]`, `imageCount`, `detailPhotos[]`, `visitorImages[]`, `totalImageCount`, `panoramaUrl`, `staticMapUrl`, `subwayStations[]`, `busStations[]`.
+
+POS (where the business shares it): `posInsights`, `posSalesCount`, `posPopularDay`, `posAveragePrice`, `posPopularMenus[]`. Beauty listings may also carry `representativePrice`.
+
+Every record ends with `recordType: "place"` and `scrapedAt`.
+
+Review records (`recordType: "review"`): `placeId`, `sourceUrl`, `reviewId`, `content`, `rating`, `createdDate`, `visitedDate`, `visitCount`, `reviewerName`, `reviewerProfileUrl`, `reviewerReviewCount`, `votedKeywords[]`, `photos[]`, `menuItem`, `replyText`, `replyDate`, `originType`, `language`, `translatedText`, `scrapedAt`.
+
+In monitoring mode every place record also carries `changeType` (`NEW`/`UPDATED`/`UNCHANGED`) and, for updates, `changedFields` (e.g. `["phone", "menus"]`).
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` or `byUrls` |
+| `searchKeywords` | array | `["강남 맛집"]` | Keywords (mode=search). Region words narrow results. |
+| `placeUrls` | array | – | Links or bare numeric place IDs (mode=byUrls) |
+| `sortBy` | string | `relevance` | `relevance`, `popular`, `tv`, `reviews`, `saved`, `distance` |
+| `searchCoordinates` | string | – | `"latitude,longitude"` map center |
+| `searchRadiusKm` | int | – | With coordinates: area sweep radius (1–20 km) |
+| `category` | string | – | Keep places whose category contains this text |
+| `menuKeyword` | string | – | Keep places whose menus mention this text (needs details) |
+| `maxResultsPerKeyword` | int | `20` | Cap per keyword (1–5000) |
+| `includeDetails` | bool | `true` | Fetch each place's detail page (hours, menus, amenities, photos) |
+| `includeReviews` | bool | `false` | Emit visitor reviews per place (cursor API, 50/request) |
+| `maxReviewsPerPlace` | int | `10` | Review cap per place (1–3000; each 50 costs one request) |
+| `minVisitorReviewScore` | number | – | Keep places at/above this score (0–5) |
+| `minVisitorReviewCount` | int | – | Keep places with at least this many visitor reviews |
+| `openNow` | bool | `false` | Only places currently open |
+| `hasBooking` | bool | `false` | Only places with Naver booking |
+| `hasNpay` | bool | `false` | Only places accepting Naver Pay |
+| `hasCoupon` | bool | `false` | Only places with an active coupon |
+| `takeout` | bool | `false` | Only places offering takeout (포장) |
+| `newlyOpened` | bool | `false` | Only newly opened places |
+| `wheelchairAccessible` | bool | `false` | Only places with a wheelchair-accessible entrance |
+| `maxItems` | int | `100` | Cap on place records (reviews are extra) |
+| `monitoringMode` | bool | `false` | Emit only new/changed places vs the previous run |
+| `monitoringStateKey` | string | – | Optional name for the monitoring memory |
+| `emitUnchanged` | bool | `false` | Also emit `changeType: "UNCHANGED"` places |
+
+### Example: neighborhood restaurants with full menus
+
+```json
+{
+  "mode": "search",
+  "searchKeywords": ["이태원 맛집"],
+  "maxResultsPerKeyword": 30,
+  "category": "한식",
+  "minVisitorReviewScore": 4.3,
+  "includeDetails": true
+}
+```
+
+### Example: every cafe within 2 km of Gangnam Station
+
+```json
+{
+  "mode": "search",
+  "searchKeywords": ["카페"],
+  "searchCoordinates": "37.4979,127.0276",
+  "searchRadiusKm": 2,
+  "maxResultsPerKeyword": 800,
+  "includeDetails": false,
+  "maxItems": 800
+}
+```
+
+### Example: menu monitoring — who serves pizza in Gangnam
+
+```json
+{
+  "mode": "search",
+  "searchKeywords": ["강남 맛집"],
+  "maxResultsPerKeyword": 100,
+  "menuKeyword": "피자",
+  "includeDetails": true
+}
+```
+
+### Example: daily monitoring — only new or changed places
+
+```json
+{
+  "mode": "search",
+  "searchKeywords": ["성수 카페"],
+  "maxResultsPerKeyword": 100,
+  "monitoringMode": true,
+  "monitoringStateKey": "seongsu-cafes"
+}
+```
+
+### Example: known places with reviews
+
+```json
+{
+  "mode": "byUrls",
+  "placeUrls": [
+    "https://pcmap.place.naver.com/restaurant/2020647783/home",
+    "https://naver.me/FqW0LLx9",
+    "1254234366"
+  ],
+  "includeReviews": true,
+  "maxReviewsPerPlace": 20
+}
+```
+
+## Use cases
+
+- **Restaurant & retail intelligence** — menus with prices, hours with breaks, and amenities across a district, ready for comparison dashboards.
+- **Local SEO & listing audits** — check hours, phone, menus, and review scores for client locations and competitors.
+- **Lead generation** — filter by booking, Naver Pay, coupon, or takeout to build outreach lists for specific business types.
+- **Delivery/ordering analysis** — POS popularity, review menus, and order-program flags show what actually sells.
+- **Travel & guides** — build Korean neighborhood guides with real hours, prices, and transit exits.
+
+## FAQ
+
+**Do I need a Naver account or API key?**
+No. The actor reads the same public pages a browser loads — no login, cookies, or key.
+
+**Why do some places have no `menus`?**
+Naver only serves menu data for businesses that published one. A clinic or convenience store may have none; the field is simply omitted.
+
+**How many results can one keyword return?**
+Naver's own search exposes up to 100 results on the first page and up to ~300–400 through deeper pages per map center. To collect more, add `searchCoordinates` + `searchRadiusKm` (area sweep) or use narrower keywords.
+
+**How does `sortBy: "distance"` work?**
+It needs `searchCoordinates`; Naver then orders results nearest-first from that point.
+
+**How many reviews does `includeReviews` return?**
+As many as you ask for, up to the place's total: the actor pages Naver's review API with the same cursor the website uses (50 reviews per page, no hard cap observed). If that API is ever blocked, it falls back to the ~20 reviews embedded on the public review page and says so in the log.
+
+**Are prices numbers or text?**
+Both: `price` is an integer KRW amount when Naver publishes a fixed price, and `priceText` keeps Naver's original string (useful for "시가"/market price, which has no number).
+
+**How does monitoring mode work?**
+Turn on `monitoringMode` and (optionally) name the memory with `monitoringStateKey`. The actor stores a per-place fingerprint in its key-value store and, on later runs with the same key/inputs, emits only `NEW` or `UPDATED` places, listing what changed. Review counts, review scores and current open/closed status are ignored so runs aren't billed for noise. The search itself still runs in full — you pay for the scrape, not per change.
+
+**Is a proxy required?**
+No. Direct requests work; if Naver starts rate-limiting, the actor automatically retries through an Apify proxy.
+
+**Is this affiliated with Naver?**
+No. This is an independent third-party actor reading public Naver Map pages. It is not affiliated with or endorsed by Naver Corporation.
+
+## Scope / Limitations
+
+- **~300–400 results per keyword per map center** is Naver's own search ceiling; the area sweep multiplies it per center.
+- **Review depth follows Naver's own cursor API** (50 reviews per page). If Naver ever blocks it, the actor falls back to ~20 reviews per place from the public review page and logs a warning.
+- **Monitoring mode compares stable fields only** (name, category, address, phone, homepage, weekly hours, menus, amenities). Review counts/scores and live open status are deliberately ignored; pass `emitUnchanged` to also emit unchanged places.
+- **Hours are taken from the first published schedule** — 0/44 probed places carried multiple schedule variants.
+- **English translations are not available** — Naver's English name/category/address are not served on any cookieless page; Korean values are kept verbatim.
+- **`includeDetails=false` (fast mode)** returns search-level fields only (name, category, address, coordinates, review counts, hours status, coupons, flags) — menus, full hours, and amenities need details.
+- **Some fields are vertical-specific** — POS insights, menus, or representative prices appear only where Naver publishes them for that business type.
+- **`saveCount`** (how many users bookmarked the place) is only served by Naver's category/region listing pages; in URL mode it is omitted. Other search-listing fields (`businessCategory`, `commonAddress`, `dbType`, `categoryCodeList`) are recovered in URL mode with one extra name lookup.
+- **English name/category/address are not available** — Naver does not serve them on any cookieless page (verified against `lang=en`/`locale=en` variants and the internal APIs), so Korean values are kept verbatim.

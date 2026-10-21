@@ -1,0 +1,112 @@
+# Bol.com Product Search, Price & Stock Extractor
+
+Bol.com is the largest online retailer in the Netherlands and Belgium, spanning electronics, books, toys, fashion, and more. This actor reads its product search, category, and promotion pages directly and returns structured product data — price, rating, stock status, and seller — without needing a login or API key.
+
+## What this actor does
+
+- Searches Bol.com products by keyword, with sorting by price, rating, or recency.
+- Fetches product details directly from one or more product URLs or EAN barcode codes.
+- Browses products within a specific Bol.com category by its category ID.
+- Reads Bol.com's current promotions listing.
+- Looks up products via their EAN-8/EAN-13 barcode when supplied instead of a URL.
+- Any field a product listing doesn't show (such as `seller` when Bol.com sells the item directly) is left out of that record.
+
+## Output per product
+
+| Field | Description |
+| --- | --- |
+| `productId` | Bol.com's internal product identifier |
+| `ean` | EAN barcode, when published |
+| `title` | Product title |
+| `shortDescription` | Brief product description or subtitle |
+| `brand` | Brand name |
+| `price` | Current selling price in EUR |
+| `rating` | Average customer rating (0-5) |
+| `reviewCount` | Number of customer reviews behind the rating |
+| `imageUrl` | Product image URL |
+| `productUrl` | Direct link to the product page |
+| `seller` | Name of the seller fulfilling the listing, when shown |
+| `inStock` | Whether the product is currently available to buy |
+| `scrapedAt` | Collection timestamp |
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | String (select) | `search` | `search`, `productDetails`, `categoryBrowse`, or `promotions`. |
+| `keyword` | String | `laptop` | Search keyword, used by `search`. |
+| `productUrls` | Array | `[]` | Bol.com product URLs or EAN codes, used by `productDetails`. |
+| `categoryId` | String | – | Bol.com category ID to browse, used by `categoryBrowse`. |
+| `sortBy` | String (select) | `RELEVANCE` | `RELEVANCE`, `PRICE_ASC`, `PRICE_DESC`, `RATING_ASC`, or `NEW`. Applies to `search`. |
+| `maxItems` | Integer | 20 | Maximum number of products to return (1-500). |
+
+### Example: keyword search sorted by price
+
+```json
+{
+  "mode": "search",
+  "keyword": "laptop",
+  "sortBy": "PRICE_ASC",
+  "maxItems": 30
+}
+```
+
+### Example: product lookup by EAN
+
+```json
+{
+  "mode": "productDetails",
+  "productUrls": ["8718951052235"],
+  "maxItems": 10
+}
+```
+
+### Example: browse a category
+
+```json
+{
+  "mode": "categoryBrowse",
+  "categoryId": "11776",
+  "maxItems": 50
+}
+```
+
+### Example: current promotions
+
+```json
+{
+  "mode": "promotions",
+  "maxItems": 40
+}
+```
+
+## Use cases
+
+- **Price monitoring** — track how a product's listed price moves over time.
+- **Catalog research** — pull product sets within a category for assortment analysis.
+- **EAN-based lookups** — resolve a list of barcode codes to full product records.
+- **Deal tracking** — scan the promotions feed for discounted items worth monitoring.
+- **Market comparison** — compare ratings, pricing, and stock status across similar products.
+
+## FAQ
+
+**Does this work for both the Netherlands and Belgium?**
+It reads Bol.com's Dutch-language (`.nl`) storefront, which serves both the Dutch and Belgian markets.
+
+**Can I look up a product by EAN instead of a URL?**
+Yes — pass an EAN-8 or EAN-13 code in `productUrls` with `mode: productDetails`; the actor resolves it the same way it would a direct product URL.
+
+**Where do I find a `categoryId`?**
+It's the numeric ID in a Bol.com category page's URL. Copy it from any category page you want to browse.
+
+**Why is `seller` sometimes missing?**
+It's only included when Bol.com's listing shows a distinct third-party seller name; items sold directly by Bol.com don't carry a separate seller field.
+
+**What if a search or category returns no live results?**
+If Bol.com's pages don't yield any products for a request, the run still completes with placeholder sample records marked `isSample: true` instead of an empty dataset — treat those as a signal to retry rather than as real catalog data.
+
+**How current is the pricing data?**
+Each run reads Bol.com's live pages at request time, so prices and stock status reflect that moment.
+
+**Is this affiliated with Bol.com?**
+No. This actor reads Bol.com's publicly accessible pages and has no affiliation with Bol.com B.V.

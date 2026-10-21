@@ -1,0 +1,1157 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-ZcaymmHYTuF0e1ecxIS3UixoWEixF/0n6bjrrMa3Gcg=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Ubersuggest Keyword Suggestions by Country &amp; Language | Dataspryva</title><meta name="description" content="Returns related keyword suggestions for a seed keyword or domain, scoped to a chosen country and language, from a public no-login suggestion feed."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/"><meta property="og:title" content="Ubersuggest Keyword Suggestions by Country &amp; Language | Dataspryva"><meta property="og:description" content="Returns related keyword suggestions for a seed keyword or domain, scoped to a chosen country and language, from a public no-login suggestion feed."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#webpage","name":"Ubersuggest Keyword Suggestions by Country & Language","description":"Returns related keyword suggestions for a seed keyword or domain, scoped to a chosen country and language, from a public no-login suggestion feed.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#article","headline":"Ubersuggest Keyword Suggestions by Country & Language","name":"Ubersuggest Keyword Suggestions by Country & Language","description":"Returns related keyword suggestions for a seed keyword or domain, scoped to a chosen country and language, from a public no-login suggestion feed.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Ubersuggest Keyword Suggestions by Country & Language","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/0yCtho2br9zhoWb26/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Ubersuggest Keyword Suggestions by Country &amp; Language</span></div><section id="overview"><h1 class="doc-title">Ubersuggest Keyword Suggestions by Country &amp; Language</h1><p class="lede">Returns related keyword suggestions for a seed keyword or domain, scoped to a chosen country and language, from a public no-login suggestion feed.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/ubersuggest-keyword-suggestions-by-country">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/0yCtho2br9zhoWb26/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>Keywords to expand. Each seed returns its own suggestions. Add several to research a topic.</td></tr><tr><td><code>urls</code></td><td>array</td><td>optional</td><td>Optional domains or URLs converted into rough keyword seeds (make.com becomes make). This is not a domain keyword report; use the keywords field for real research.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Market for the suggestions. `worldwide` returns the global list. Russia and Belarus are not available from the source.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>Keywords to expand. Each seed returns its own suggestions. Add several to research a topic.</td></tr><tr><td><code>urls</code></td><td>array</td><td>optional</td><td>Optional domains or URLs converted into rough keyword seeds (make.com becomes make). This is not a domain keyword report; use the keywords field for real research.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Market for the suggestions. `worldwide` returns the global list. Russia and Belarus are not available from the source.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Language of the suggestions. Leave English with auto-match on to use the market&#x27;s main language automatically.</td></tr><tr><td><code>autoMatchLanguageToCountry</code></td><td>boolean</td><td>optional</td><td>When language is English and the chosen market has another main language, switch to it automatically (Germany to German, Japan to Japanese). Turn off to keep English.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of the suggestion list.</td></tr><tr><td><code>maxSuggestionsPerSeed</code></td><td>integer</td><td>optional</td><td>Maximum suggestions returned for each seed. The default keeps runs fast; raise it for deep keyword lists.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum suggestions across all seeds in one run.</td></tr><tr><td><code>includeSeedOverview</code></td><td>boolean</td><td>optional</td><td>Fetch each seed&#x27;s own metrics: search volume, CPC, competition, difficulty, intent, 4-month trend, global volume and device shares. Adds one request per seed.</td></tr><tr><td><code>outputFormat</code></td><td>string</td><td>optional</td><td>One record per seed with nested suggestions (legacy), or one flat record per suggestion.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Expand seed keywords into Ubersuggest&#x27;s keyword-idea list for a chosen country and language, with search volume, CPC, competition, difficulty and intent.&quot;,
+  &quot;properties&quot;: {
+    &quot;autoMatchLanguageToCountry&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;When language is English and the chosen market has another main language, switch to it automatically (Germany to German, Japan to Japanese). Turn off to keep English.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Auto-match language to country&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;us&quot;,
+      &quot;description&quot;: &quot;Market for the suggestions. `worldwide` returns the global list. Russia and Belarus are not available from the source.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enumSuggestedValues&quot;: [
+        &quot;us&quot;,
+        &quot;gb&quot;,
+        &quot;ca&quot;,
+        &quot;au&quot;,
+        &quot;in&quot;,
+        &quot;de&quot;,
+        &quot;fr&quot;,
+        &quot;es&quot;,
+        &quot;it&quot;,
+        &quot;br&quot;,
+        &quot;jp&quot;,
+        &quot;cn&quot;,
+        &quot;kr&quot;,
+        &quot;nl&quot;,
+        &quot;mx&quot;,
+        &quot;sg&quot;,
+        &quot;hk&quot;,
+        &quot;tw&quot;,
+        &quot;id&quot;,
+        &quot;my&quot;,
+        &quot;ph&quot;,
+        &quot;th&quot;,
+        &quot;vn&quot;,
+        &quot;pk&quot;,
+        &quot;bd&quot;,
+        &quot;ng&quot;,
+        &quot;za&quot;,
+        &quot;eg&quot;,
+        &quot;sa&quot;,
+        &quot;ae&quot;,
+        &quot;il&quot;,
+        &quot;ar&quot;,
+        &quot;cl&quot;,
+        &quot;co&quot;,
+        &quot;pe&quot;,
+        &quot;dk&quot;,
+        &quot;no&quot;,
+        &quot;fi&quot;,
+        &quot;cz&quot;,
+        &quot;gr&quot;,
+        &quot;hu&quot;,
+        &quot;ro&quot;,
+        &quot;ua&quot;,
+        &quot;sk&quot;,
+        &quot;bg&quot;,
+        &quot;hr&quot;,
+        &quot;rs&quot;,
+        &quot;si&quot;,
+        &quot;lt&quot;,
+        &quot;lv&quot;,
+        &quot;ee&quot;,
+        &quot;kz&quot;,
+        &quot;ma&quot;,
+        &quot;ke&quot;,
+        &quot;af&quot;,
+        &quot;al&quot;,
+        &quot;dz&quot;,
+        &quot;as&quot;,
+        &quot;ad&quot;,
+        &quot;ao&quot;,
+        &quot;ai&quot;,
+        &quot;ag&quot;,
+        &quot;am&quot;,
+        &quot;aw&quot;,
+        &quot;at&quot;,
+        &quot;az&quot;,
+        &quot;bh&quot;,
+        &quot;bb&quot;,
+        &quot;be&quot;,
+        &quot;bz&quot;,
+        &quot;bj&quot;,
+        &quot;bm&quot;,
+        &quot;bt&quot;,
+        &quot;bo&quot;,
+        &quot;ba&quot;,
+        &quot;bw&quot;,
+        &quot;io&quot;,
+        &quot;vg&quot;,
+        &quot;bn&quot;,
+        &quot;bf&quot;,
+        &quot;bi&quot;,
+        &quot;kh&quot;,
+        &quot;cm&quot;,
+        &quot;cv&quot;,
+        &quot;bq&quot;,
+        &quot;ky&quot;,
+        &quot;cf&quot;,
+        &quot;td&quot;,
+        &quot;cx&quot;,
+        &quot;cc&quot;,
+        &quot;km&quot;,
+        &quot;ck&quot;,
+        &quot;cr&quot;,
+        &quot;cw&quot;,
+        &quot;cy&quot;,
+        &quot;cd&quot;,
+        &quot;dj&quot;,
+        &quot;dm&quot;,
+        &quot;do&quot;,
+        &quot;ec&quot;,
+        &quot;sv&quot;,
+        &quot;gq&quot;,
+        &quot;er&quot;,
+        &quot;sz&quot;,
+        &quot;et&quot;,
+        &quot;fk&quot;,
+        &quot;fo&quot;,
+        &quot;fm&quot;,
+        &quot;fj&quot;,
+        &quot;gf&quot;,
+        &quot;pf&quot;,
+        &quot;tf&quot;,
+        &quot;ga&quot;,
+        &quot;ge&quot;,
+        &quot;gh&quot;,
+        &quot;gi&quot;,
+        &quot;gl&quot;,
+        &quot;gd&quot;,
+        &quot;gp&quot;,
+        &quot;gu&quot;,
+        &quot;gt&quot;,
+        &quot;gg&quot;,
+        &quot;gn&quot;,
+        &quot;gw&quot;,
+        &quot;gy&quot;,
+        &quot;ht&quot;,
+        &quot;hn&quot;,
+        &quot;is&quot;,
+        &quot;iq&quot;,
+        &quot;ie&quot;,
+        &quot;jm&quot;,
+        &quot;je&quot;,
+        &quot;jo&quot;,
+        &quot;ki&quot;,
+        &quot;kw&quot;,
+        &quot;xk&quot;,
+        &quot;kg&quot;,
+        &quot;la&quot;,
+        &quot;lb&quot;,
+        &quot;ls&quot;,
+        &quot;lr&quot;,
+        &quot;ly&quot;,
+        &quot;li&quot;,
+        &quot;lu&quot;,
+        &quot;mo&quot;,
+        &quot;mg&quot;,
+        &quot;mw&quot;,
+        &quot;mv&quot;,
+        &quot;ml&quot;,
+        &quot;mt&quot;,
+        &quot;mh&quot;,
+        &quot;mq&quot;,
+        &quot;mr&quot;,
+        &quot;mu&quot;,
+        &quot;yt&quot;,
+        &quot;md&quot;,
+        &quot;mc&quot;,
+        &quot;mn&quot;,
+        &quot;me&quot;,
+        &quot;ms&quot;,
+        &quot;mz&quot;,
+        &quot;mm&quot;,
+        &quot;na&quot;,
+        &quot;nr&quot;,
+        &quot;np&quot;,
+        &quot;nc&quot;,
+        &quot;nz&quot;,
+        &quot;ni&quot;,
+        &quot;ne&quot;,
+        &quot;nu&quot;,
+        &quot;nf&quot;,
+        &quot;mk&quot;,
+        &quot;mp&quot;,
+        &quot;om&quot;,
+        &quot;pw&quot;,
+        &quot;ps&quot;,
+        &quot;pa&quot;,
+        &quot;pg&quot;,
+        &quot;py&quot;,
+        &quot;pn&quot;,
+        &quot;pl&quot;,
+        &quot;pt&quot;,
+        &quot;pr&quot;,
+        &quot;qa&quot;,
+        &quot;cg&quot;,
+        &quot;re&quot;,
+        &quot;rw&quot;,
+        &quot;sh&quot;,
+        &quot;kn&quot;,
+        &quot;lc&quot;,
+        &quot;pm&quot;,
+        &quot;vc&quot;,
+        &quot;ws&quot;,
+        &quot;sm&quot;,
+        &quot;st&quot;,
+        &quot;sn&quot;,
+        &quot;sc&quot;,
+        &quot;sl&quot;,
+        &quot;sx&quot;,
+        &quot;sb&quot;,
+        &quot;so&quot;,
+        &quot;lk&quot;,
+        &quot;sr&quot;,
+        &quot;sj&quot;,
+        &quot;se&quot;,
+        &quot;ch&quot;,
+        &quot;tj&quot;,
+        &quot;tz&quot;,
+        &quot;bs&quot;,
+        &quot;gm&quot;,
+        &quot;tl&quot;,
+        &quot;tg&quot;,
+        &quot;tk&quot;,
+        &quot;to&quot;,
+        &quot;tt&quot;,
+        &quot;tn&quot;,
+        &quot;tr&quot;,
+        &quot;tm&quot;,
+        &quot;tc&quot;,
+        &quot;vi&quot;,
+        &quot;ug&quot;,
+        &quot;uy&quot;,
+        &quot;uz&quot;,
+        &quot;vu&quot;,
+        &quot;va&quot;,
+        &quot;ve&quot;,
+        &quot;wf&quot;,
+        &quot;eh&quot;,
+        &quot;ye&quot;,
+        &quot;zm&quot;,
+        &quot;zw&quot;,
+        &quot;worldwide&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Canada&quot;,
+        &quot;Australia&quot;,
+        &quot;India&quot;,
+        &quot;Germany&quot;,
+        &quot;France&quot;,
+        &quot;Spain&quot;,
+        &quot;Italy&quot;,
+        &quot;Brazil&quot;,
+        &quot;Japan&quot;,
+        &quot;China&quot;,
+        &quot;Korea&quot;,
+        &quot;Netherlands&quot;,
+        &quot;Mexico&quot;,
+        &quot;Singapore&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Taiwan&quot;,
+        &quot;Indonesia&quot;,
+        &quot;Malaysia&quot;,
+        &quot;Philippines&quot;,
+        &quot;Thailand&quot;,
+        &quot;Vietnam&quot;,
+        &quot;Pakistan&quot;,
+        &quot;Bangladesh&quot;,
+        &quot;Nigeria&quot;,
+        &quot;South Africa&quot;,
+        &quot;Egypt&quot;,
+        &quot;Saudi Arabia&quot;,
+        &quot;United Arab Emirates&quot;,
+        &quot;Israel&quot;,
+        &quot;Argentina&quot;,
+        &quot;Chile&quot;,
+        &quot;Colombia&quot;,
+        &quot;Peru&quot;,
+        &quot;Denmark&quot;,
+        &quot;Norway&quot;,
+        &quot;Finland&quot;,
+        &quot;Czech Republic&quot;,
+        &quot;Greece&quot;,
+        &quot;Hungary&quot;,
+        &quot;Romania&quot;,
+        &quot;Ukraine&quot;,
+        &quot;Slovakia&quot;,
+        &quot;Bulgaria&quot;,
+        &quot;Croatia&quot;,
+        &quot;Serbia&quot;,
+        &quot;Slovenia&quot;,
+        &quot;Lithuania&quot;,
+        &quot;Latvia&quot;,
+        &quot;Estonia&quot;,
+        &quot;Kazakhstan&quot;,
+        &quot;Morocco&quot;,
+        &quot;Kenya&quot;,
+        &quot;Afghanistan&quot;,
+        &quot;Albania&quot;,
+        &quot;Algeria&quot;,
+        &quot;American Samoa&quot;,
+        &quot;Andorra&quot;,
+        &quot;Angola&quot;,
+        &quot;Anguilla&quot;,
+        &quot;Antigua &amp; Barbuda&quot;,
+        &quot;Armenia&quot;,
+        &quot;Aruba&quot;,
+        &quot;Austria&quot;,
+        &quot;Azerbaijan&quot;,
+        &quot;Bahrain&quot;,
+        &quot;Barbados&quot;,
+        &quot;Belgium&quot;,
+        &quot;Belize&quot;,
+        &quot;Benin&quot;,
+        &quot;Bermuda&quot;,
+        &quot;Bhutan&quot;,
+        &quot;Bolivia&quot;,
+        &quot;Bosnia &amp; Herzegovina&quot;,
+        &quot;Botswana&quot;,
+        &quot;British Indian Ocean Territory&quot;,
+        &quot;British Virgin Islands&quot;,
+        &quot;Brunei&quot;,
+        &quot;Burkina Faso&quot;,
+        &quot;Burundi&quot;,
+        &quot;Cambodia&quot;,
+        &quot;Cameroon&quot;,
+        &quot;Cape Verde&quot;,
+        &quot;Caribbean Netherlands&quot;,
+        &quot;Cayman Islands&quot;,
+        &quot;Central African Republic&quot;,
+        &quot;Chad&quot;,
+        &quot;Christmas Island&quot;,
+        &quot;Cocos (Keeling) Islands&quot;,
+        &quot;Comoros&quot;,
+        &quot;Cook Islands&quot;,
+        &quot;Costa Rica&quot;,
+        &quot;Curacao&quot;,
+        &quot;Cyprus&quot;,
+        &quot;Democratic Republic of The Congo&quot;,
+        &quot;Djibouti&quot;,
+        &quot;Dominica&quot;,
+        &quot;Dominican Republic&quot;,
+        &quot;Ecuador&quot;,
+        &quot;El Salvador&quot;,
+        &quot;Equatorial Guinea&quot;,
+        &quot;Eritrea&quot;,
+        &quot;Eswatini&quot;,
+        &quot;Ethiopia&quot;,
+        &quot;Falkland Islands (Islas Malvinas)&quot;,
+        &quot;Faroe Islands&quot;,
+        &quot;Federated States of Micronesia&quot;,
+        &quot;Fiji&quot;,
+        &quot;French Guiana&quot;,
+        &quot;French Polynesia&quot;,
+        &quot;French Southern and Antarctic Lands&quot;,
+        &quot;Gabon&quot;,
+        &quot;Georgia&quot;,
+        &quot;Ghana&quot;,
+        &quot;Gibraltar&quot;,
+        &quot;Greenland&quot;,
+        &quot;Grenada&quot;,
+        &quot;Guadeloupe&quot;,
+        &quot;Guam&quot;,
+        &quot;Guatemala&quot;,
+        &quot;Guernsey&quot;,
+        &quot;Guinea&quot;,
+        &quot;Guinea-Bissau&quot;,
+        &quot;Guyana&quot;,
+        &quot;Haiti&quot;,
+        &quot;Honduras&quot;,
+        &quot;Iceland&quot;,
+        &quot;Iraq&quot;,
+        &quot;Ireland&quot;,
+        &quot;Jamaica&quot;,
+        &quot;Jersey&quot;,
+        &quot;Jordan&quot;,
+        &quot;Kiribati&quot;,
+        &quot;Kiribati&quot;,
+        &quot;Kosovo&quot;,
+        &quot;Kyrgyzstan&quot;,
+        &quot;Laos&quot;,
+        &quot;Lebanon&quot;,
+        &quot;Lesotho&quot;,
+        &quot;Liberia&quot;,
+        &quot;Libya&quot;,
+        &quot;Liechtenstein&quot;,
+        &quot;Luxembourg&quot;,
+        &quot;Macao&quot;,
+        &quot;Madagascar&quot;,
+        &quot;Malawi&quot;,
+        &quot;Maldives&quot;,
+        &quot;Mali&quot;,
+        &quot;Malta&quot;,
+        &quot;Marshall Islands&quot;,
+        &quot;Martinique&quot;,
+        &quot;Mauritania&quot;,
+        &quot;Mauritius&quot;,
+        &quot;Mayotte&quot;,
+        &quot;Moldova&quot;,
+        &quot;Monaco&quot;,
+        &quot;Mongolia&quot;,
+        &quot;Montenegro&quot;,
+        &quot;Montserrat&quot;,
+        &quot;Mozambique&quot;,
+        &quot;Myanmar (Burma)&quot;,
+        &quot;Namibia&quot;,
+        &quot;Nauru&quot;,
+        &quot;Nepal&quot;,
+        &quot;New Caledonia&quot;,
+        &quot;New Zealand&quot;,
+        &quot;Nicaragua&quot;,
+        &quot;Niger&quot;,
+        &quot;Niue&quot;,
+        &quot;Norfolk Island&quot;,
+        &quot;North Macedonia&quot;,
+        &quot;Northern Mariana Islands&quot;,
+        &quot;Oman&quot;,
+        &quot;Palau&quot;,
+        &quot;Palestinian Territory&quot;,
+        &quot;Panama&quot;,
+        &quot;Papua New Guinea&quot;,
+        &quot;Paraguay&quot;,
+        &quot;Pitcairn Islands&quot;,
+        &quot;Poland&quot;,
+        &quot;Portugal&quot;,
+        &quot;Puerto Rico&quot;,
+        &quot;Qatar&quot;,
+        &quot;Republic of the Congo&quot;,
+        &quot;Reunion&quot;,
+        &quot;Rwanda&quot;,
+        &quot;Saint Helena, Ascension and Tristan da Cunha&quot;,
+        &quot;Saint Kitts and Nevis&quot;,
+        &quot;Saint Lucia&quot;,
+        &quot;Saint Pierre and Miquelon&quot;,
+        &quot;Saint Vincent and The Grenadines&quot;,
+        &quot;Samoa&quot;,
+        &quot;San Marino&quot;,
+        &quot;Sao Tome and Principe&quot;,
+        &quot;Senegal&quot;,
+        &quot;Seychelles&quot;,
+        &quot;Sierra Leone&quot;,
+        &quot;Sint Maarten&quot;,
+        &quot;Solomon Islands&quot;,
+        &quot;Somalia&quot;,
+        &quot;Sri Lanka&quot;,
+        &quot;Suriname&quot;,
+        &quot;Svalbard and Jan Mayen&quot;,
+        &quot;Sweden&quot;,
+        &quot;Switzerland&quot;,
+        &quot;Tajikistan&quot;,
+        &quot;Tanzania&quot;,
+        &quot;The Bahamas&quot;,
+        &quot;The Gambia&quot;,
+        &quot;Timor-Leste&quot;,
+        &quot;Togo&quot;,
+        &quot;Tokelau&quot;,
+        &quot;Tonga&quot;,
+        &quot;Trinidad &amp; Tobago&quot;,
+        &quot;Tunisia&quot;,
+        &quot;Turkey&quot;,
+        &quot;Turkmenistan&quot;,
+        &quot;Turks and Caicos Islands&quot;,
+        &quot;U.S. Virgin Islands&quot;,
+        &quot;Uganda&quot;,
+        &quot;Uruguay&quot;,
+        &quot;Uzbekistan&quot;,
+        &quot;Vanuatu&quot;,
+        &quot;Vatican City&quot;,
+        &quot;Venezuela&quot;,
+        &quot;Wallis and Futuna&quot;,
+        &quot;Western Sahara&quot;,
+        &quot;Yemen&quot;,
+        &quot;Zambia&quot;,
+        &quot;Zimbabwe&quot;,
+        &quot;Worldwide (all locations)&quot;
+      ],
+      &quot;prefill&quot;: &quot;us&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeSeedOverview&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch each seed&#x27;s own metrics: search volume, CPC, competition, difficulty, intent, 4-month trend, global volume and device shares. Adds one request per seed.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include seed metrics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;keywords&quot;: {
+      &quot;description&quot;: &quot;Keywords to expand. Each seed returns its own suggestions. Add several to research a topic.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;coffee&quot;
+      ],
+      &quot;title&quot;: &quot;Seed keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;language&quot;: {
+      &quot;default&quot;: &quot;en&quot;,
+      &quot;description&quot;: &quot;Language of the suggestions. Leave English with auto-match on to use the market&#x27;s main language automatically.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;en&quot;,
+        &quot;af&quot;,
+        &quot;ak&quot;,
+        &quot;sq&quot;,
+        &quot;ach&quot;,
+        &quot;am&quot;,
+        &quot;ar&quot;,
+        &quot;hy&quot;,
+        &quot;az&quot;,
+        &quot;ban&quot;,
+        &quot;lt&quot;,
+        &quot;eu&quot;,
+        &quot;bn&quot;,
+        &quot;bs&quot;,
+        &quot;bg&quot;,
+        &quot;my&quot;,
+        &quot;ca&quot;,
+        &quot;ceb&quot;,
+        &quot;km&quot;,
+        &quot;zh&quot;,
+        &quot;zh_cn&quot;,
+        &quot;zh_tw&quot;,
+        &quot;hr&quot;,
+        &quot;cs&quot;,
+        &quot;da&quot;,
+        &quot;nl&quot;,
+        &quot;et&quot;,
+        &quot;ee&quot;,
+        &quot;fo&quot;,
+        &quot;fil&quot;,
+        &quot;fi&quot;,
+        &quot;fr&quot;,
+        &quot;fy&quot;,
+        &quot;gaa&quot;,
+        &quot;gl&quot;,
+        &quot;lg&quot;,
+        &quot;ka&quot;,
+        &quot;de&quot;,
+        &quot;el&quot;,
+        &quot;gu&quot;,
+        &quot;ht&quot;,
+        &quot;ha&quot;,
+        &quot;he&quot;,
+        &quot;iw&quot;,
+        &quot;hi&quot;,
+        &quot;hu&quot;,
+        &quot;is&quot;,
+        &quot;bem&quot;,
+        &quot;ig&quot;,
+        &quot;id&quot;,
+        &quot;ga&quot;,
+        &quot;it&quot;,
+        &quot;ja&quot;,
+        &quot;kn&quot;,
+        &quot;kk&quot;,
+        &quot;rw&quot;,
+        &quot;kg&quot;,
+        &quot;ko&quot;,
+        &quot;mfe&quot;,
+        &quot;crs&quot;,
+        &quot;kri&quot;,
+        &quot;ckb&quot;,
+        &quot;ky&quot;,
+        &quot;lo&quot;,
+        &quot;lv&quot;,
+        &quot;mk&quot;,
+        &quot;mg&quot;,
+        &quot;tum&quot;,
+        &quot;ms&quot;,
+        &quot;ml&quot;,
+        &quot;mt&quot;,
+        &quot;mi&quot;,
+        &quot;mr&quot;,
+        &quot;mn&quot;,
+        &quot;ne&quot;,
+        &quot;nso&quot;,
+        &quot;nb&quot;,
+        &quot;ny&quot;,
+        &quot;nyn&quot;,
+        &quot;om&quot;,
+        &quot;pa&quot;,
+        &quot;fa&quot;,
+        &quot;pcm&quot;,
+        &quot;pl&quot;,
+        &quot;pt&quot;,
+        &quot;ps&quot;,
+        &quot;qu&quot;,
+        &quot;ro&quot;,
+        &quot;rm&quot;,
+        &quot;rn&quot;,
+        &quot;ru&quot;,
+        &quot;sr&quot;,
+        &quot;sn&quot;,
+        &quot;loz&quot;,
+        &quot;sd&quot;,
+        &quot;si&quot;,
+        &quot;sk&quot;,
+        &quot;sl&quot;,
+        &quot;so&quot;,
+        &quot;st&quot;,
+        &quot;es&quot;,
+        &quot;sw&quot;,
+        &quot;sv&quot;,
+        &quot;tg&quot;,
+        &quot;ta&quot;,
+        &quot;te&quot;,
+        &quot;th&quot;,
+        &quot;ti&quot;,
+        &quot;tl&quot;,
+        &quot;to&quot;,
+        &quot;lua&quot;,
+        &quot;tn&quot;,
+        &quot;tr&quot;,
+        &quot;tk&quot;,
+        &quot;uk&quot;,
+        &quot;ur&quot;,
+        &quot;uz&quot;,
+        &quot;vi&quot;,
+        &quot;wo&quot;,
+        &quot;xh&quot;,
+        &quot;yo&quot;,
+        &quot;zu&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;English&quot;,
+        &quot;Afrikaans&quot;,
+        &quot;Akan&quot;,
+        &quot;Albanian&quot;,
+        &quot;Alur&quot;,
+        &quot;Amharic&quot;,
+        &quot;Arabic&quot;,
+        &quot;Armenian&quot;,
+        &quot;Azerbaijani&quot;,
+        &quot;Balinese&quot;,
+        &quot;Baltic&quot;,
+        &quot;Basque&quot;,
+        &quot;Bengali&quot;,
+        &quot;Bosnian&quot;,
+        &quot;Bulgarian&quot;,
+        &quot;Burmese&quot;,
+        &quot;Catalan - Valencian&quot;,
+        &quot;Cebuano&quot;,
+        &quot;Central Khmer&quot;,
+        &quot;Chinese&quot;,
+        &quot;Chinese (Simplified)&quot;,
+        &quot;Chinese (Traditional)&quot;,
+        &quot;Croatian&quot;,
+        &quot;Czech&quot;,
+        &quot;Danish&quot;,
+        &quot;Dutch&quot;,
+        &quot;Estonian&quot;,
+        &quot;Ewe&quot;,
+        &quot;Faroese&quot;,
+        &quot;Filipino&quot;,
+        &quot;Finnish&quot;,
+        &quot;French&quot;,
+        &quot;Frisian&quot;,
+        &quot;Ga&quot;,
+        &quot;Galician&quot;,
+        &quot;Ganda&quot;,
+        &quot;Georgian&quot;,
+        &quot;German&quot;,
+        &quot;Greek&quot;,
+        &quot;Gujarati&quot;,
+        &quot;Haitian&quot;,
+        &quot;Hausa&quot;,
+        &quot;Hebrew (he)&quot;,
+        &quot;Hebrew (iw)&quot;,
+        &quot;Hindi&quot;,
+        &quot;Hungarian&quot;,
+        &quot;Icelandic&quot;,
+        &quot;IciBemba&quot;,
+        &quot;Igbo&quot;,
+        &quot;Indonesian&quot;,
+        &quot;Irish&quot;,
+        &quot;Italian&quot;,
+        &quot;Japanese&quot;,
+        &quot;Kannada&quot;,
+        &quot;Kazakh&quot;,
+        &quot;Kinyarwanda&quot;,
+        &quot;Kongo&quot;,
+        &quot;Korean&quot;,
+        &quot;Kreol morisien&quot;,
+        &quot;Kreol Seselwa&quot;,
+        &quot;Krio&quot;,
+        &quot;Kurdish&quot;,
+        &quot;Kyrgyz&quot;,
+        &quot;Lao&quot;,
+        &quot;Latvian&quot;,
+        &quot;Macedonian&quot;,
+        &quot;Malagasy&quot;,
+        &quot;Malawi&quot;,
+        &quot;Malay&quot;,
+        &quot;Malayalam&quot;,
+        &quot;Maltese&quot;,
+        &quot;Maori&quot;,
+        &quot;Marathi&quot;,
+        &quot;Mongolian&quot;,
+        &quot;Nepali&quot;,
+        &quot;Northern Sotho&quot;,
+        &quot;Norwegian&quot;,
+        &quot;Nyanja&quot;,
+        &quot;Nyankole&quot;,
+        &quot;Oromo&quot;,
+        &quot;Panjabi&quot;,
+        &quot;Persian&quot;,
+        &quot;Pidgin&quot;,
+        &quot;Polish&quot;,
+        &quot;Portuguese&quot;,
+        &quot;Pushto&quot;,
+        &quot;Quechua&quot;,
+        &quot;Romanian&quot;,
+        &quot;Romansh&quot;,
+        &quot;Rundi&quot;,
+        &quot;Russian&quot;,
+        &quot;Serbian&quot;,
+        &quot;Shona&quot;,
+        &quot;Silozi&quot;,
+        &quot;Sindhi&quot;,
+        &quot;Sinhala&quot;,
+        &quot;Slovak&quot;,
+        &quot;Slovene&quot;,
+        &quot;Somali&quot;,
+        &quot;Southern Sotho&quot;,
+        &quot;Spanish&quot;,
+        &quot;Swahili&quot;,
+        &quot;Swedish&quot;,
+        &quot;Tajik&quot;,
+        &quot;Tamil&quot;,
+        &quot;Telugu&quot;,
+        &quot;Thai&quot;,
+        &quot;Tigrinya&quot;,
+        &quot;tl&quot;,
+        &quot;Tonga (Tonga Islands)&quot;,
+        &quot;Tshiluba&quot;,
+        &quot;Tswana&quot;,
+        &quot;Turkish&quot;,
+        &quot;Turkmen&quot;,
+        &quot;Ukrainian&quot;,
+        &quot;Urdu&quot;,
+        &quot;Uzbek&quot;,
+        &quot;Vietnamese&quot;,
+        &quot;Wolof&quot;,
+        &quot;Xhosa&quot;,
+        &quot;Yoruba&quot;,
+        &quot;Zulu&quot;
+      ],
+      &quot;prefill&quot;: &quot;en&quot;,
+      &quot;title&quot;: &quot;Language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum suggestions across all seeds in one run.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max suggestions in total&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxSuggestionsPerSeed&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Maximum suggestions returned for each seed. The default keeps runs fast; raise it for deep keyword lists.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max suggestions per seed&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;outputFormat&quot;: {
+      &quot;default&quot;: &quot;perSeed&quot;,
+      &quot;description&quot;: &quot;One record per seed with nested suggestions (legacy), or one flat record per suggestion.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;perSeed&quot;,
+        &quot;perSuggestion&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;One record per seed (nested suggestions)&quot;,
+        &quot;One record per suggestion (flat rows)&quot;
+      ],
+      &quot;prefill&quot;: &quot;perSeed&quot;,
+      &quot;title&quot;: &quot;Output format&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;-searchVolume&quot;,
+      &quot;description&quot;: &quot;Order of the suggestion list.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;-searchVolume&quot;,
+        &quot;+searchVolume&quot;,
+        &quot;-cpc&quot;,
+        &quot;+cpc&quot;,
+        &quot;-sd&quot;,
+        &quot;+sd&quot;,
+        &quot;-pd&quot;,
+        &quot;+pd&quot;,
+        &quot;-keyword&quot;,
+        &quot;+keyword&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Highest search volume&quot;,
+        &quot;Lowest search volume&quot;,
+        &quot;Highest CPC&quot;,
+        &quot;Lowest CPC&quot;,
+        &quot;Highest SEO difficulty&quot;,
+        &quot;Lowest SEO difficulty&quot;,
+        &quot;Highest paid difficulty&quot;,
+        &quot;Lowest paid difficulty&quot;,
+        &quot;Keyword Z-A&quot;,
+        &quot;Keyword A-Z&quot;
+      ],
+      &quot;prefill&quot;: &quot;-searchVolume&quot;,
+      &quot;title&quot;: &quot;Sort suggestions by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;urls&quot;: {
+      &quot;description&quot;: &quot;Optional domains or URLs converted into rough keyword seeds (make.com becomes make). This is not a domain keyword report; use the keywords field for real research.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Domains as seeds (legacy)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Ubersuggest Keyword Suggestions Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>keywords</code></td><td>string</td><td>optional</td><td>Dataset containing seed records with nested suggestions, or flat suggestion rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Ubersuggest keyword suggestions with search volume, CPC, competition, difficulty and intent, plus optional seed overviews.&quot;,
+  &quot;properties&quot;: {
+    &quot;keywords&quot;: {
+      &quot;description&quot;: &quot;Dataset containing seed records with nested suggestions, or flat suggestion rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Keyword suggestions&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Ubersuggest Keyword Suggestions by Country Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;flatSuggestions&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;country&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Country&quot;
+          },
+          &quot;cpc&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;CPC (USD)&quot;
+          },
+          &quot;keyword&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Suggestion&quot;
+          },
+          &quot;language&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Language&quot;
+          },
+          &quot;paidDifficulty&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Paid difficulty&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Scraped at&quot;
+          },
+          &quot;searchIntent&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Intent&quot;
+          },
+          &quot;searchVolume&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Search volume&quot;
+          },
+          &quot;seedKeyword&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Seed keyword&quot;
+          },
+          &quot;seoDifficulty&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;SEO difficulty&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Flat suggestions&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;seedKeyword&quot;,
+          &quot;keyword&quot;,
+          &quot;searchVolume&quot;,
+          &quot;cpc&quot;,
+          &quot;seoDifficulty&quot;,
+          &quot;paidDifficulty&quot;,
+          &quot;searchIntent&quot;,
+          &quot;country&quot;,
+          &quot;language&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;seedSuggestions&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;country&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Country&quot;
+          },
+          &quot;keyword&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Seed keyword&quot;
+          },
+          &quot;language&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Language&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Scraped at&quot;
+          },
+          &quot;seedOverview&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Seed overview&quot;
+          },
+          &quot;suggestions&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Suggestions&quot;
+          },
+          &quot;type&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Seed suggestions&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;type&quot;,
+          &quot;keyword&quot;,
+          &quot;country&quot;,
+          &quot;language&quot;,
+          &quot;suggestions&quot;,
+          &quot;seedOverview&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-ubersuggest-keyword-suggestions-by-country-language">Ubersuggest Keyword Suggestions by Country &amp; Language</h2>
+<p>Pull <strong>Ubersuggest</strong>'s keyword-idea list for a seed keyword in the market and language you choose. Suggestions carry search volume, CPC, competition, SEO and paid difficulty, and search intent where Ubersuggest exposes them; the source unlocks full metrics for the first ~19 suggestions in each response. An optional overview adds the seed's own metrics. <strong>231 countries plus worldwide, 122 languages, no login and no cookies.</strong></p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Expand one or many seeds.</strong> Give it <code>coffee</code>, <code>running shoes</code>, or <code>project management software</code>; each seed returns its own suggestion list.</li>
+<li><strong>Choose the market.</strong> 231 countries plus a worldwide option (232 choices). Country changes the suggestions and the metrics, not just a label.</li>
+<li><strong>Choose the language.</strong> 122 languages. With auto-match on, picking Germany, Japan or Brazil switches to the market's main language automatically.</li>
+<li><strong>Get real keyword metrics.</strong> Search volume, CPC in USD and local currency, competition, SEO difficulty, paid difficulty, search intent and the source's freshness date.</li>
+<li><strong>Add a seed overview.</strong> Optionally fetch the seed's own volume, CPC, difficulty, intent, a 4-month volume trend, global volume breakdown, device share and click share.</li>
+<li><strong>Go deep or stay small.</strong> Cursor pagination can return thousands of suggestions per seed; per-seed and whole-run caps keep runs predictable.</li>
+<li><strong>Choose the shape.</strong> Keep the classic one-record-per-seed output with nested suggestions, or switch to one flat record per suggestion.</li>
+<li>Empty fields are omitted; the actor never writes <code>null</code>, empty strings or empty arrays.</li>
+</ul>
+<h2 id="readme-output-per-seed-default">Output per seed (default)</h2>
+<p>Each record is one seed keyword:</p>
+<ul>
+<li><code>type</code> — <code>keyword</code></li>
+<li><code>keyword</code> — the seed you supplied</li>
+<li><code>country</code>, <code>language</code> — the market and language actually used</li>
+<li><code>locationId</code> — Ubersuggest's location id (<code>&quot;0000&quot;</code> for worldwide)</li>
+<li><code>suggestions[]</code> — related keywords, each with:
+<ul>
+<li><code>type</code> — <code>keyword</code></li>
+<li><code>keyword</code></li>
+<li><code>country</code>, <code>language</code></li>
+<li><code>searchVolume</code>, <code>cpc</code>, <code>cpcLocal</code>, <code>currency</code></li>
+<li><code>competition</code>, <code>seoDifficulty</code>, <code>paidDifficulty</code></li>
+<li><code>searchIntent[]</code> — <code>informational</code>, <code>navigational</code>, <code>commercial</code>, <code>transactional</code></li>
+<li><code>dataUpdatedAt</code></li>
+</ul>
+</li>
+<li>Metrics appear only on the rows Ubersuggest unlocks (the first ~19 in each response); the rest carry the identity fields.</li>
+<li><code>seedOverview</code> — present when seed metrics are enabled:
+<ul>
+<li><code>searchVolume</code>, <code>cpc</code>, <code>cpcLocal</code>, <code>currency</code></li>
+<li><code>competition</code>, <code>seoDifficulty</code>, <code>paidDifficulty</code>, <code>searchIntent[]</code></li>
+<li><code>monthlyTrend</code> — 4 monthly volume points</li>
+<li><code>globalSearchVolume</code>, <code>globalVolumeBreakdown</code></li>
+<li><code>desktopShare</code>, <code>mobileShare</code>, <code>clickRate</code>, <code>paidClickShare</code>, <code>organicClickShare</code></li>
+<li><code>dataUpdatedAt</code></li>
+</ul>
+</li>
+<li><code>updated_at</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-suggestion-flat-mode">Output per suggestion (flat mode)</h2>
+<p>Set <code>outputFormat</code> to <code>perSuggestion</code> to get one row per suggestion:</p>
+<ul>
+<li><code>type</code> — <code>keywordSuggestion</code></li>
+<li><code>seedKeyword</code>, <code>keyword</code>, <code>country</code>, <code>language</code>, <code>locationId</code></li>
+<li><code>searchVolume</code>, <code>cpc</code>, <code>cpcLocal</code>, <code>currency</code></li>
+<li><code>competition</code>, <code>seoDifficulty</code>, <code>paidDifficulty</code>, <code>searchIntent[]</code></li>
+<li><code>dataUpdatedAt</code>, <code>scrapedAt</code></li>
+</ul>
+<p>When seed metrics are enabled, a matching <code>type: &quot;keywordOverview&quot;</code> record is added once per seed with the overview fields. This is intentional: flat mode returns the seed row plus one row per suggestion (three suggestions with seed metrics on = four rows). With seed metrics off, flat mode returns only suggestion rows.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keywords</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Seed keywords. Each seed returns its own suggestions.</td>
+</tr>
+<tr>
+<td><code>urls</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Optional domains/URLs converted into keyword seeds. A path URL uses its last usable segment (<code>/blog/coffee-guide</code> → <code>coffee guide</code>); a homepage uses the host label (<code>make.com</code> → <code>make</code>). Not a domain keyword report.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>Select</td>
+<td><code>us</code></td>
+<td>231 countries or <code>worldwide</code> (232 options). Legacy <code>uk</code> is accepted and output as <code>gb</code>; legacy <code>ka</code> maps to <code>la</code>.</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Select</td>
+<td><code>en</code></td>
+<td>122 languages.</td>
+</tr>
+<tr>
+<td><code>autoMatchLanguageToCountry</code></td>
+<td>Boolean</td>
+<td>true</td>
+<td>Switch English to the market's main language when one exists.</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>Select</td>
+<td><code>-searchVolume</code></td>
+<td>Volume, CPC, SEO/paid difficulty or alphabetical.</td>
+</tr>
+<tr>
+<td><code>maxSuggestionsPerSeed</code></td>
+<td>Integer</td>
+<td>100</td>
+<td>Per-seed cap, 1–1000.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>Integer</td>
+<td>1000</td>
+<td>Whole-run suggestion cap, 1–10000.</td>
+</tr>
+<tr>
+<td><code>includeSeedOverview</code></td>
+<td>Boolean</td>
+<td>true</td>
+<td>Add the seed's own metrics, trend, global and device shares.</td>
+</tr>
+<tr>
+<td><code>outputFormat</code></td>
+<td>Select</td>
+<td><code>perSeed</code></td>
+<td>Nested seed records or flat suggestion rows.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Legacy tasks: <code>keyword</code> maps to the seed list; <code>uk: true</code> wins over <code>country</code> and is output as <code>gb</code>; legacy <code>ka</code> maps to <code>la</code>; old <code>include_*</code>/proxy keys are accepted but ignored. Flat mode includes one <code>keywordOverview</code> seed row when <code>includeSeedOverview</code> is on.</p>
+<h3 id="readme-example-default-us-english">Example: default US English</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;coffee&quot;],
+  &quot;country&quot;: &quot;us&quot;,
+  &quot;language&quot;: &quot;en&quot;
+}
+</code></pre>
+<h3 id="readme-example-german-market-with-automatic-language">Example: German market with automatic language</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;Kaffee&quot;],
+  &quot;country&quot;: &quot;de&quot;,
+  &quot;autoMatchLanguageToCountry&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-japanese-seed-and-a-deeper-list">Example: Japanese seed and a deeper list</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;コーヒー&quot;],
+  &quot;country&quot;: &quot;jp&quot;,
+  &quot;language&quot;: &quot;ja&quot;,
+  &quot;maxSuggestionsPerSeed&quot;: 300,
+  &quot;maxItems&quot;: 300
+}
+</code></pre>
+<h3 id="readme-example-flat-rows-with-a-seed-overview">Example: flat rows with a seed overview</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;running shoes&quot;, &quot;trail shoes&quot;],
+  &quot;country&quot;: &quot;gb&quot;,
+  &quot;sortBy&quot;: &quot;-searchVolume&quot;,
+  &quot;maxSuggestionsPerSeed&quot;: 100,
+  &quot;maxItems&quot;: 200,
+  &quot;includeSeedOverview&quot;: true,
+  &quot;outputFormat&quot;: &quot;perSuggestion&quot;
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Keyword research</strong> — expand a seed into the phrasings Ubersuggest actually suggests for a market.</li>
+<li><strong>Content planning</strong> — find question-led and long-tail ideas, then sort by volume or difficulty.</li>
+<li><strong>Paid search</strong> — pull CPC and paid difficulty for ad keyword lists.</li>
+<li><strong>Multi-market SEO</strong> — compare the same seed across countries and languages.</li>
+<li><strong>SEO dashboards</strong> — export flat rows into a warehouse, sheet or BI tool.</li>
+<li><strong>Agency workflows</strong> — batch many client seeds with a predictable per-seed and total cap.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-where-does-the-data-come-from">Where does the data come from?</h3>
+<p>Ubersuggest's public keyword data. The actor reads only keyword suggestions and their metrics; it does not need an Ubersuggest account, cookie or API key.</p>
+<h3 id="readme-are-the-search-volumes-exact">Are the search volumes exact?</h3>
+<p>No. Ubersuggest search volumes are estimates, rounded to practical buckets and refreshed on its own schedule. They are useful for prioritisation and for comparing ideas in the same market; they are not Google Ads' exact figures. CPC is Ubersuggest's advertiser estimate, in USD (<code>cpc</code>) and the market's currency (<code>cpcLocal</code>).</p>
+<h3 id="readme-why-do-some-suggestions-have-no-volume-cpc-or-difficulty">Why do some suggestions have no volume, CPC or difficulty?</h3>
+<p>Ubersuggest exposes full metrics for the first ~19 suggestions in each response. The remaining keywords are still returned with their identity fields, but without volume/CPC/difficulty. Ubersuggest's bulk metrics endpoint repeats the same core fields for up to 10 keywords per request; it adds no new per-suggestion fields, so the actor does not make a separate enrichment pass and never guesses missing values.</p>
+<h3 id="readme-how-many-suggestions-can-i-get-per-seed">How many suggestions can I get per seed?</h3>
+<p>The list is cursor-paginated and can run into the thousands for broad seeds. <code>maxSuggestionsPerSeed</code> and <code>maxItems</code> stop the run; the source can also run out earlier. The actor does not publish a total result count because the source's match count is not the number of returned rows.</p>
+<h3 id="readme-what-is-the-seed-overview">What is the seed overview?</h3>
+<p>It is the metrics for the seed itself, not for a suggestion. It includes volume, CPC, competition, difficulty, intent, a <strong>4-month</strong> volume trend, global volume with a breakdown, and desktop/mobile and click shares. It adds one extra request per seed.</p>
+<h3 id="readme-which-countries-and-languages-are-supported">Which countries and languages are supported?</h3>
+<p>231 countries, 122 languages and <code>worldwide</code> (232 options). Russia and Belarus are not available from Ubersuggest's location data and are intentionally absent. If an old task still asks for one of them, the actor explains the limitation instead of returning wrong data.</p>
+<h3 id="readme-what-does-auto-match-do">What does auto-match do?</h3>
+<p>When <code>language</code> is <code>en</code> and the chosen market has another main language, auto-match switches to it: Germany to German, Japan to Japanese, Brazil to Portuguese, China to Simplified Chinese. Set it to false to keep English suggestions for that market.</p>
+<h3 id="readme-do-i-need-a-login-cookies-or-a-proxy">Do I need a login, cookies or a proxy?</h3>
+<p>No. The actor reads public keyword data without an account, and it chooses its own working connection automatically. Just provide keywords and run it.</p>
+<h3 id="readme-can-i-use-a-domain-instead-of-a-keyword">Can I use a domain instead of a keyword?</h3>
+<p><code>urls</code> is a legacy convenience. A path URL uses its last usable path segment (<code>https://example.com/blog/coffee-guide</code> becomes <code>coffee guide</code>); a homepage or a bare domain uses the host label (<code>make.com</code> becomes <code>make</code>). It does not analyse the domain's rankings, pages or backlinks. For real keyword research, use <code>keywords</code>.</p>
+<h3 id="readme-is-this-affiliated-with-ubersuggest">Is this affiliated with Ubersuggest?</h3>
+<p>No. This is an independent tool that reads publicly available keyword data.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/0yCtho2br9zhoWb26/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>nhx6wb2iZUAMRMRky</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

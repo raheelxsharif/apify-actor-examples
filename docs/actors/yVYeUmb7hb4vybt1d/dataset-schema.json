@@ -1,0 +1,439 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "ageDays": {
+      "description": "Age of the video at collection time, in days.",
+      "title": "Age (Days)",
+      "type": "number"
+    },
+    "appearances": {
+      "description": "Number of collected hashtag rows in which TikTok credited this creator.",
+      "title": "Trend Appearances",
+      "type": "integer"
+    },
+    "author": {
+      "description": "Video author object: id, username, displayName, bio, followerCount and avatarUrl.",
+      "title": "Author",
+      "type": "object"
+    },
+    "avatarUrl": {
+      "description": "Signed TikTok CDN avatar link (temporary).",
+      "title": "Avatar URL",
+      "type": "string"
+    },
+    "avgViewsPerPost": {
+      "description": "vv divided by publishCnt, rounded.",
+      "title": "Average Views per Post",
+      "type": "integer"
+    },
+    "bestRank": {
+      "description": "Creator's best top-creator rank across the collected hashtags.",
+      "title": "Best Rank",
+      "type": "integer"
+    },
+    "caption": {
+      "description": "Video caption text (video rows).",
+      "title": "Caption",
+      "type": "string"
+    },
+    "commentKeywords": {
+      "description": "Keywords TikTok extracted from the video's comments and their mention counts.",
+      "items": {
+        "type": "object"
+      },
+      "title": "Comment Keywords",
+      "type": "array"
+    },
+    "contentTag": {
+      "description": "Content-tag ranking that surfaced this video (11002 Beauty & Care, 11003 Fashion, 11010 Food & Beverage, 11013 Lifestyle & Leisure, 11015 Technology & Finance). Omitted for the unfiltered ranking.",
+      "title": "Content Tag",
+      "type": "string"
+    },
+    "countryCode": {
+      "description": "Creator country code as reported by TikTok.",
+      "title": "Country",
+      "type": "string"
+    },
+    "coverUrl": {
+      "description": "Signed TikTok CDN cover link (temporary, about 48 hours).",
+      "title": "Cover URL",
+      "type": "string"
+    },
+    "createTime": {
+      "description": "Video publish time as a Unix timestamp.",
+      "title": "Create Time (Unix)",
+      "type": "integer"
+    },
+    "createdAt": {
+      "description": "Video publish time in ISO 8601 UTC.",
+      "title": "Created At",
+      "type": "string"
+    },
+    "creatorId": {
+      "description": "TikTok user ID for creator-leader rows.",
+      "title": "Creator ID",
+      "type": "string"
+    },
+    "curveVolatility": {
+      "description": "Population standard deviation of the popularity curve values.",
+      "title": "Curve Volatility",
+      "type": "number"
+    },
+    "dataSource": {
+      "description": "Always 'tiktok-creative-center'.",
+      "title": "Data Source",
+      "type": "string"
+    },
+    "embedUrl": {
+      "description": "Durable cookieless TikTok embed player URL (video rows).",
+      "title": "Embed URL",
+      "type": "string"
+    },
+    "engagementRate": {
+      "description": "TikTok's engagement rate for the video in the observed window.",
+      "title": "Engagement Rate",
+      "type": "number"
+    },
+    "engagementRateLifeTime": {
+      "description": "Lifetime engagement rate reported by TikTok.",
+      "title": "Lifetime Engagement Rate",
+      "type": "number"
+    },
+    "followerCount": {
+      "description": "Highest follower count observed for the creator in the collected rows.",
+      "title": "Followers",
+      "type": "integer"
+    },
+    "handleName": {
+      "description": "Creator username without @ (creator rows).",
+      "title": "Handle",
+      "type": "string"
+    },
+    "hashtagId": {
+      "description": "TikTok's internal hashtag ID (string to preserve 64-bit precision).",
+      "title": "Hashtag ID",
+      "type": "string"
+    },
+    "hashtagName": {
+      "description": "Hashtag text without the leading #.",
+      "title": "Hashtag",
+      "type": "string"
+    },
+    "hashtagUrl": {
+      "description": "Durable TikTok tag page URL.",
+      "title": "Hashtag URL",
+      "type": "string"
+    },
+    "hashtags": {
+      "description": "Hashtag names the creator was credited on (creator rows) or hashtags parsed from a video caption (video rows).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Hashtags",
+      "type": "array"
+    },
+    "industryIds": {
+      "description": "TikTok industry category IDs assigned to this hashtag.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Industry IDs",
+      "type": "array"
+    },
+    "industryNames": {
+      "description": "Human-readable names for the assigned industry categories.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Industries",
+      "type": "array"
+    },
+    "isOverallRanking": {
+      "description": "True when the hashtag appeared on the market's overall chart rather than only an industry chart.",
+      "title": "Overall Chart",
+      "type": "boolean"
+    },
+    "lifetimeViewsShare": {
+      "description": "Window views divided by lifetime views.",
+      "title": "Window Share of Lifetime Views",
+      "type": "number"
+    },
+    "momentumChangePct": {
+      "description": "Change between the mean of the most recent third of the popularity curve and the third before it, as a percentage of TikTok's normalized index.",
+      "title": "Momentum Change (%)",
+      "type": "number"
+    },
+    "nickname": {
+      "description": "Creator display name (creator rows).",
+      "title": "Display Name",
+      "type": "string"
+    },
+    "observedCountries": {
+      "description": "Markets in which the creator appeared (creator rows).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Markets",
+      "type": "array"
+    },
+    "observedCountry": {
+      "description": "ISO country code of the market whose chart produced this row.",
+      "title": "Observed Country",
+      "type": "string"
+    },
+    "observedPeriod": {
+      "description": "Lookback window in days used for this row: 7, 30 or 90 for hashtags; 7 or 30 for videos.",
+      "title": "Observed Period (Days)",
+      "type": "integer"
+    },
+    "observedPeriods": {
+      "description": "Time windows in days in which the creator appeared (creator rows).",
+      "items": {
+        "type": "integer"
+      },
+      "title": "Windows",
+      "type": "array"
+    },
+    "organicViews": {
+      "description": "Organic (non-promoted) views within the observed window.",
+      "title": "Organic Views",
+      "type": "integer"
+    },
+    "organicViewsLifeTime": {
+      "description": "Lifetime organic video views reported by TikTok.",
+      "title": "Lifetime Organic Views",
+      "type": "integer"
+    },
+    "peakDate": {
+      "description": "Date of the highest popularity value in the window.",
+      "title": "Peak Date",
+      "type": "string"
+    },
+    "peakValue": {
+      "description": "Highest popularity value in the window (TikTok's 0-100 index).",
+      "title": "Peak Value",
+      "type": "number"
+    },
+    "popularityCurve": {
+      "description": "Day-by-day TikTok popularity index (0-100) for the observed window: [{date, value}].",
+      "items": {
+        "type": "object"
+      },
+      "title": "Popularity Curve",
+      "type": "array"
+    },
+    "publishCnt": {
+      "description": "Number of posts published with this hashtag during the observed window.",
+      "title": "Post Count",
+      "type": "integer"
+    },
+    "rankIndex": {
+      "description": "1-based position in the overall chart when available, otherwise the best industry-chart position. See isOverallRanking and rankingSlices.",
+      "title": "Rank",
+      "type": "integer"
+    },
+    "rankingKey": {
+      "description": "Provenance of the ranking that produced this row: market:window:sort:weeksBack:tag (tag 'all' = unfiltered).",
+      "title": "Ranking Key",
+      "type": "string"
+    },
+    "rankingSlices": {
+      "description": "Industry chart IDs in which the hashtag also ranked (present when it ranked in at least one industry slice).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Industry Charts",
+      "type": "array"
+    },
+    "rowType": {
+      "description": "Discriminator: 'hashtag' for ranked hashtag rows, 'creator' for the optional creator leaderboard, 'video' for trending-video rows.",
+      "title": "Row Type",
+      "type": "string"
+    },
+    "scrapedAt": {
+      "description": "ISO 8601 UTC datetime when this row was collected.",
+      "title": "Scraped At",
+      "type": "string"
+    },
+    "sixSecondViewRate": {
+      "description": "Share of viewers who watched at least six seconds.",
+      "title": "6-Second View Rate",
+      "type": "number"
+    },
+    "sixSecondViewRateLifeTime": {
+      "description": "Lifetime share of viewers who watched at least six seconds.",
+      "title": "Lifetime 6-Second View Rate",
+      "type": "number"
+    },
+    "topComments": {
+      "description": "Up to 50 most-liked comments on the video (when Include top comments is on).",
+      "items": {
+        "type": "object"
+      },
+      "title": "Top Comments",
+      "type": "array"
+    },
+    "topCreators": {
+      "description": "Creators TikTok credits for this hashtag: rank, ttuid, handleName, nickname, followerCount, countryCode and avatarUrl (signed CDN link).",
+      "items": {
+        "type": "object"
+      },
+      "title": "Top Creators",
+      "type": "array"
+    },
+    "trendDirection": {
+      "description": "rising, steady or falling, derived from momentumChangePct with a +/-10% threshold.",
+      "title": "Trend Direction",
+      "type": "string"
+    },
+    "trendStage": {
+      "description": "breaking, peaking, fading or steady, derived from the curve peak position and recent change.",
+      "title": "Trend Stage",
+      "type": "string"
+    },
+    "videoId": {
+      "description": "TikTok video ID (video rows).",
+      "title": "Video ID",
+      "type": "string"
+    },
+    "videoSortBy": {
+      "description": "Metric used for the video chart: views, engagementRate or sixSecondViewRate.",
+      "title": "Video Ranking Metric",
+      "type": "string"
+    },
+    "videoUrl": {
+      "description": "Durable TikTok video page URL (video rows).",
+      "title": "Video URL",
+      "type": "string"
+    },
+    "views": {
+      "description": "Video views within the observed window.",
+      "title": "Views",
+      "type": "integer"
+    },
+    "viewsLifeTime": {
+      "description": "Lifetime video views reported by TikTok.",
+      "title": "Lifetime Views",
+      "type": "integer"
+    },
+    "viewsPerDay": {
+      "description": "Window views divided by the video's age in days.",
+      "title": "Views per Day",
+      "type": "integer"
+    },
+    "vv": {
+      "description": "Total video views accumulated by posts using this hashtag during the observed window.",
+      "title": "Video Views",
+      "type": "integer"
+    },
+    "weeksBack": {
+      "description": "How many weekly steps back the chart end date was moved for this row (0 = latest).",
+      "title": "Weeks Back",
+      "type": "integer"
+    }
+  },
+  "title": "TikTok Hashtag Trends and Videos",
+  "views": {
+    "overview": {
+      "description": "One row per hashtag, market and window, plus optional creator-leader and trending-video rows in the same dataset (see the rowType field).",
+      "display": {
+        "component": "table",
+        "properties": {
+          "hashtagName": {
+            "format": "text",
+            "label": "Hashtag"
+          },
+          "observedCountry": {
+            "format": "text",
+            "label": "Country"
+          },
+          "observedPeriod": {
+            "format": "number",
+            "label": "Period (Days)"
+          },
+          "publishCnt": {
+            "format": "number",
+            "label": "Post Count"
+          },
+          "rankIndex": {
+            "format": "number",
+            "label": "Rank"
+          },
+          "rowType": {
+            "format": "text",
+            "label": "Row Type"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "vv": {
+            "format": "number",
+            "label": "Video Views"
+          }
+        }
+      },
+      "title": "Hashtags Overview",
+      "transformation": {
+        "fields": [
+          "rowType",
+          "rankIndex",
+          "hashtagName",
+          "publishCnt",
+          "vv",
+          "observedCountry",
+          "observedPeriod",
+          "scrapedAt"
+        ]
+      }
+    },
+    "videos": {
+      "description": "Video rows from the trending-video chart, with author context and engagement metrics.",
+      "display": {
+        "component": "table",
+        "properties": {
+          "author.username": {
+            "format": "text",
+            "label": "Author"
+          },
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "createdAt": {
+            "format": "text",
+            "label": "Created"
+          },
+          "engagementRate": {
+            "format": "number",
+            "label": "Engagement Rate"
+          },
+          "observedCountry": {
+            "format": "text",
+            "label": "Country"
+          },
+          "rowType": {
+            "format": "text",
+            "label": "Row Type"
+          },
+          "views": {
+            "format": "number",
+            "label": "Views"
+          }
+        }
+      },
+      "title": "Trending Videos",
+      "transformation": {
+        "fields": [
+          "rowType",
+          "caption",
+          "views",
+          "engagementRate",
+          "author.username",
+          "observedCountry",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

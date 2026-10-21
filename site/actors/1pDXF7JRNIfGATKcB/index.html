@@ -1,0 +1,604 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-VPRvTjBjthSyEOi34EIZ5Vlgwt7RTpijfRzXjjzbcbw=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Snapchat Topic Spotlight Feed &amp; Content Tag Extractor | Dataspryva</title><meta name="description" content="Reads a Snapchat topic&#x27;s public Spotlight feed and returns each video with creator, engagement counts, AI-generated title/keywords, and related content-classification tags."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/"><meta property="og:title" content="Snapchat Topic Spotlight Feed &amp; Content Tag Extractor | Dataspryva"><meta property="og:description" content="Reads a Snapchat topic&#x27;s public Spotlight feed and returns each video with creator, engagement counts, AI-generated title/keywords, and related content-classification tags."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#webpage","name":"Snapchat Topic Spotlight Feed & Content Tag Extractor","description":"Reads a Snapchat topic's public Spotlight feed and returns each video with creator, engagement counts, AI-generated title/keywords, and related content-classification tags.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#article","headline":"Snapchat Topic Spotlight Feed & Content Tag Extractor","name":"Snapchat Topic Spotlight Feed & Content Tag Extractor","description":"Reads a Snapchat topic's public Spotlight feed and returns each video with creator, engagement counts, AI-generated title/keywords, and related content-classification tags.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Snapchat Topic Spotlight Feed & Content Tag Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/1pDXF7JRNIfGATKcB/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Snapchat Topic Spotlight Feed &amp; Content Tag Extractor</span></div><section id="overview"><h1 class="doc-title">Snapchat Topic Spotlight Feed &amp; Content Tag Extractor</h1><p class="lede">Reads a Snapchat topic&#x27;s public Spotlight feed and returns each video with creator, engagement counts, AI-generated title/keywords, and related content-classification tags.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/snapchat-topic-spotlight-feed-and-content-tag">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/1pDXF7JRNIfGATKcB/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose what to collect: videos for topics/tags, topics for search keywords, or the current Spotlight feed.</td></tr><tr><td><code>topics</code></td><td>array</td><td>optional</td><td>Topic names, hashtags, or Snapchat URLs. Examples: food, #travel, https://www.snapchat.com/tag/food, https://www.snapchat.com/topic/cappuccino-foam-technique.</td></tr><tr><td><code>maxResultsPerTopic</code></td><td>integer</td><td>optional</td><td>Maximum videos to keep for each topic after combining its topic/tag page with Explore results. Snapchat serves 19-32 videos per page and the combined pool is usually 40-54.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose what to collect: videos for topics/tags, topics for search keywords, or the current Spotlight feed.</td></tr><tr><td><code>topics</code></td><td>array</td><td>optional</td><td>Topic names, hashtags, or Snapchat URLs. Examples: food, #travel, https://www.snapchat.com/tag/food, https://www.snapchat.com/topic/cappuccino-foam-technique.</td></tr><tr><td><code>maxResultsPerTopic</code></td><td>integer</td><td>optional</td><td>Maximum videos to keep for each topic after combining its topic/tag page with Explore results. Snapchat serves 19-32 videos per page and the combined pool is usually 40-54.</td></tr><tr><td><code>includeRelatedTags</code></td><td>boolean</td><td>optional</td><td>Include Snapchat&#x27;s scene-to-interest (S2I) tags for each video when the page provides them. Coverage is partial, so the field is omitted when unavailable.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords or phrases used to discover topics, such as coffee, new york, or taylor swift.</td></tr><tr><td><code>maxTopicsPerQuery</code></td><td>integer</td><td>optional</td><td>Maximum topic rows to keep for each search query, including related topics when expansion is enabled.</td></tr><tr><td><code>includeRelatedTopics</code></td><td>boolean</td><td>optional</td><td>Add one hop of related topics found on each discovered topic&#x27;s topic, tag, or Explore page. This follows public page links; it does not recurse further.</td></tr><tr><td><code>enrichVideos</code></td><td>boolean</td><td>optional</td><td>Visit each video&#x27;s Spotlight page to fill missing AI title, comment/recommend counts, language, S2I tags and sound, and each creator&#x27;s profile once for subscriberCount. Cached and bounded; failures keep the original row.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum rows to save across the whole run.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Collect public Snapchat Spotlight videos from topic pages, hashtag feeds and the anonymous Spotlight feed, with creator, engagement, AI keywords, hashtags and S2I content tags. Discover related topics from keyword search.&quot;,
+  &quot;properties&quot;: {
+    &quot;enrichVideos&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Visit each video&#x27;s Spotlight page to fill missing AI title, comment/recommend counts, language, S2I tags and sound, and each creator&#x27;s profile once for subscriberCount. Cached and bounded; failures keep the original row.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Enrich videos with detail pages&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeRelatedTags&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include Snapchat&#x27;s scene-to-interest (S2I) tags for each video when the page provides them. Coverage is partial, so the field is omitted when unavailable.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include S2I content tags&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeRelatedTopics&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add one hop of related topics found on each discovered topic&#x27;s topic, tag, or Explore page. This follows public page links; it does not recurse further.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Expand related topics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum rows to save across the whole run.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxResultsPerTopic&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum videos to keep for each topic after combining its topic/tag page with Explore results. Snapchat serves 19-32 videos per page and the combined pool is usually 40-54.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max videos per topic&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxTopicsPerQuery&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum topic rows to keep for each search query, including related topics when expansion is enabled.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 50,
+      &quot;title&quot;: &quot;Max topics per query&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;topicFeed&quot;,
+      &quot;description&quot;: &quot;Choose what to collect: videos for topics/tags, topics for search keywords, or the current Spotlight feed.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;topicFeed&quot;,
+        &quot;topicSearch&quot;,
+        &quot;spotlightFeed&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Topic or tag videos&quot;,
+        &quot;Find topics by keyword&quot;,
+        &quot;Spotlight trending feed&quot;
+      ],
+      &quot;prefill&quot;: &quot;topicFeed&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords or phrases used to discover topics, such as coffee, new york, or taylor swift.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;sectionCaption&quot;: &quot;Topic discovery&quot;,
+      &quot;sectionDescription&quot;: &quot;Used in Find topics by keyword mode.&quot;,
+      &quot;title&quot;: &quot;Search keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;topics&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Topic names, hashtags, or Snapchat URLs. Examples: food, #travel, https://www.snapchat.com/tag/food, https://www.snapchat.com/topic/cappuccino-foam-technique.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;food&quot;
+      ],
+      &quot;sectionCaption&quot;: &quot;Topic videos&quot;,
+      &quot;sectionDescription&quot;: &quot;Used in Topic or tag videos mode. Each topic is checked on its topic and tag pages, then combined with Explore Spotlight results.&quot;,
+      &quot;title&quot;: &quot;Topics or tags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Snapchat Topic Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing Spotlight videos and discovered topic rows.</td></tr><tr><td><code>topics</code></td><td>string</td><td>optional</td><td>Topic rows found by keyword search and one-hop related-topic expansion.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Videos from Snapchat topic and hashtag pages plus the anonymous Spotlight feed, with creator, engagement, AI keywords, hashtags and S2I content tags; plus topic-discovery rows from keyword search.&quot;,
+  &quot;properties&quot;: {
+    &quot;results&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Spotlight videos and discovered topic rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Snapchat videos and topics&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;topics&quot;: {
+      &quot;description&quot;: &quot;Topic rows found by keyword search and one-hop related-topic expansion.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items?view=topics&quot;,
+      &quot;title&quot;: &quot;Discovered topics&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Snapchat Topic Spotlight Feed &amp; Content Tag Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;caption&quot;: {
+        &quot;description&quot;: &quot;On-screen caption or secondary caption, when provided&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commentCount&quot;: {
+        &quot;description&quot;: &quot;Live public comment/reply count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;compositeStoryId&quot;: {
+        &quot;description&quot;: &quot;Composite story ID with corpus, id and version&quot;,
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;creatorDisplayName&quot;: {
+        &quot;description&quot;: &quot;Creator display name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;creatorFollowerCount&quot;: {
+        &quot;description&quot;: &quot;Legacy field; Snapchat reports 0 on these public surfaces&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;creatorProfileUrl&quot;: {
+        &quot;description&quot;: &quot;Creator profile URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;creatorSubscriberCount&quot;: {
+        &quot;description&quot;: &quot;Creator subscriber count from the public profile page; only with enrichVideos, cached once per creator, and distinct from followerCount&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;creatorUsername&quot;: {
+        &quot;description&quot;: &quot;Creator Snapchat username&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: {
+        &quot;description&quot;: &quot;Original Snapchat caption or description&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;detectedLanguage&quot;: {
+        &quot;description&quot;: &quot;Highest-scoring detected language code&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;durationSeconds&quot;: {
+        &quot;description&quot;: &quot;Video duration in seconds&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;embedUrl&quot;: {
+        &quot;description&quot;: &quot;Embeddable Spotlight URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;hashtags&quot;: {
+        &quot;description&quot;: &quot;Hashtags found on the video&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;height&quot;: {
+        &quot;description&quot;: &quot;Video height in pixels&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;iconUrl&quot;: {
+        &quot;description&quot;: &quot;Topic icon URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;isFeatured&quot;: {
+        &quot;description&quot;: &quot;Legacy field; true when Snapchat marks the video featured&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;latestUpdateAt&quot;: {
+        &quot;description&quot;: &quot;Legacy field; latest story update in ISO 8601 UTC&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;likeCount&quot;: {
+        &quot;description&quot;: &quot;Boost/like count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;llmDescription&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated AI scene description&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;llmKeywords&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated AI keywords&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;llmTitle&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated AI title&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;numSnaps&quot;: {
+        &quot;description&quot;: &quot;Snapchat&#x27;s reported number of snaps for a topic&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;pendingCommentCount&quot;: {
+        &quot;description&quot;: &quot;Pending comment count, when greater than zero&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;rank&quot;: {
+        &quot;description&quot;: &quot;1-based position on the source surface&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;recommendCount&quot;: {
+        &quot;description&quot;: &quot;Recommend count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;recordType&quot;: {
+        &quot;description&quot;: &quot;Row shape: video or topic&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;relatedTags&quot;: {
+        &quot;description&quot;: &quot;S2I content tags with tagName and optional score&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;relatedTo&quot;: {
+        &quot;description&quot;: &quot;Seed topic ID for a one-hop related topic row&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;remainingSpotlightCount&quot;: {
+        &quot;description&quot;: &quot;Legacy field; no longer served by Snapchat&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;remixCount&quot;: {
+        &quot;description&quot;: &quot;Remix count, when greater than zero&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;scrapedAt&quot;: {
+        &quot;description&quot;: &quot;Collection timestamp in ISO 8601 UTC&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;searchQuery&quot;: {
+        &quot;description&quot;: &quot;Search keyword that produced a topic row&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;shareCount&quot;: {
+        &quot;description&quot;: &quot;Share count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;snapId&quot;: {
+        &quot;description&quot;: &quot;Spotlight snap ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;snapUrl&quot;: {
+        &quot;description&quot;: &quot;Public Snapchat Spotlight URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;soundArtist&quot;: {
+        &quot;description&quot;: &quot;Sound artist from a Spotlight context card&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;soundTitle&quot;: {
+        &quot;description&quot;: &quot;Sound title from a Spotlight context card&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;storyId&quot;: {
+        &quot;description&quot;: &quot;Snapchat story ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;storySubtype&quot;: {
+        &quot;description&quot;: &quot;Legacy field; Snapchat story subtype code&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;thumbnailUrl&quot;: {
+        &quot;description&quot;: &quot;Thumbnail image URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicDescription&quot;: {
+        &quot;description&quot;: &quot;Snapchat&#x27;s topic summary, when the topic hub provides one&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicDisplayName&quot;: {
+        &quot;description&quot;: &quot;Human-readable topic or hashtag label&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicId&quot;: {
+        &quot;description&quot;: &quot;Topic or hashtag slug&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicSource&quot;: {
+        &quot;description&quot;: &quot;Surface that supplied the row: tagPage, topicPage, exploreSearch, exploreFallback, relatedTopic or spotlightFeed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicType&quot;: {
+        &quot;description&quot;: &quot;Snapchat topic type code&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;topicUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical Snapchat topic, tag or Explore URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;uploadedAt&quot;: {
+        &quot;description&quot;: &quot;Upload timestamp in ISO 8601 UTC&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoFormat&quot;: {
+        &quot;description&quot;: &quot;Video MIME type from topic JSON-LD&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoUrl&quot;: {
+        &quot;description&quot;: &quot;Direct Snapchat CDN video URL (signed)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoUrlUnwatermarked&quot;: {
+        &quot;description&quot;: &quot;Unwatermarked CDN video URL, when Explore provides it&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;viewCount&quot;: {
+        &quot;description&quot;: &quot;Public view count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;width&quot;: {
+        &quot;description&quot;: &quot;Video width in pixels&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;Snapchat Topic &amp; Spotlight videos&quot;,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;creatorUsername&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Creator&quot;
+          },
+          &quot;snapId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Snap&quot;
+          },
+          &quot;snapUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Spotlight&quot;
+          },
+          &quot;topicId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Topic&quot;
+          },
+          &quot;uploadedAt&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Uploaded&quot;
+          },
+          &quot;viewCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Views&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;topicId&quot;,
+          &quot;snapId&quot;,
+          &quot;creatorUsername&quot;,
+          &quot;viewCount&quot;,
+          &quot;uploadedAt&quot;,
+          &quot;snapUrl&quot;
+        ]
+      }
+    },
+    &quot;topics&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;numSnaps&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Snaps&quot;
+          },
+          &quot;relatedTo&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Related to&quot;
+          },
+          &quot;searchQuery&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Query&quot;
+          },
+          &quot;topicDisplayName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Label&quot;
+          },
+          &quot;topicId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Topic&quot;
+          },
+          &quot;topicUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Topic page&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Topics&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;topicId&quot;,
+          &quot;topicDisplayName&quot;,
+          &quot;numSnaps&quot;,
+          &quot;topicUrl&quot;,
+          &quot;relatedTo&quot;,
+          &quot;searchQuery&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-snapchat-topic-spotlight-feed-content-tag-extractor">Snapchat Topic Spotlight Feed &amp; Content Tag Extractor</h2>
+<p>Collect public Snapchat Spotlight videos from topic pages, hashtag feeds, keyword search and the anonymous Spotlight feed. Every video row carries its creator, engagement counts, duration, captions, Snapchat's AI title/description/keywords, hashtags, detected language and, when Snapchat provides them, S2I content tags.</p>
+<p>Snapchat spreads its public data across several server-rendered pages. This actor reads the surfaces that are actually live today and combines them:</p>
+<ul>
+<li><strong>Topic pages</strong> — long-tail topic hubs such as <code>snapchat.com/topic/cappuccino-foam-technique</code>, with 19-30 videos and a ranked list of related topics.</li>
+<li><strong>Hashtag pages</strong> — <code>snapchat.com/tag/food</code>, with up to 32 Spotlight cards.</li>
+<li><strong>Explore search</strong> — <code>snapchat.com/explore/&lt;query&gt;</code>, with 1-10 topic entities and 11-24 Spotlight cards (including unwatermarked video URLs).</li>
+<li><strong>Spotlight feed</strong> — <code>snapchat.com/spotlight</code>, with the current anonymous feed of about 25 videos.</li>
+</ul>
+<p>There is no public pagination on these surfaces. The actor combines a topic's topic/tag page with its Explore results and de-duplicates by snap ID, which usually produces <strong>40-54 unique videos per topic</strong> instead of 19-32.</p>
+<h2 id="readme-modes">Modes</h2>
+<h3 id="readme-topic-or-tag-videos">Topic or tag videos</h3>
+<p>Paste topic names, hashtags or Snapchat URLs. The actor tries the topic page and the hashtag page, fetches the matching Explore page, and merges the results. Examples:</p>
+<ul>
+<li><code>food</code></li>
+<li><code>#travel</code></li>
+<li><code>https://www.snapchat.com/tag/food</code></li>
+<li><code>https://www.snapchat.com/topic/cappuccino-foam-technique</code></li>
+<li><code>https://www.snapchat.com/explore/viral</code></li>
+</ul>
+<p>Old <code>/topic/food</code> URLs and bare short names keep working: Snapchat retired the generic <code>/topic/&lt;short&gt;</code> pages, so the actor automatically falls back to <code>/tag/food</code> and Explore.</p>
+<h3 id="readme-find-topics-by-keyword">Find topics by keyword</h3>
+<p>Give one or more keywords and get topic rows with the topic slug, display name, Snapchat's reported snap count, thumbnail, icon and rank. Enable <strong>Expand related topics</strong> to add one hop of related topics from each discovered topic's page links.</p>
+<h3 id="readme-spotlight-trending-feed">Spotlight trending feed</h3>
+<p>Fetch the current anonymous Spotlight feed. Snapchat serves about 24-26 videos per request and the order can change between requests; there is no cursor to page further.</p>
+<h2 id="readme-output">Output</h2>
+<p>One row per video, or one row per topic in topic-search mode.</p>
+<p>Video fields:</p>
+<ul>
+<li><code>topicId</code>, <code>topicDisplayName</code>, <code>topicUrl</code>, <code>topicSource</code>, <code>rank</code> — where the video came from and its position on that surface</li>
+<li><code>snapId</code>, <code>storyId</code>, <code>compositeStoryId</code>, <code>snapUrl</code>, <code>embedUrl</code> — Snapchat identifiers and links</li>
+<li><code>videoUrl</code>, <code>videoUrlUnwatermarked</code>, <code>videoFormat</code>, <code>thumbnailUrl</code> — direct CDN media URLs</li>
+<li><code>creatorUsername</code>, <code>creatorDisplayName</code>, <code>creatorProfileUrl</code> — creator identity</li>
+<li><code>creatorSubscriberCount</code> — profile subscriber count, only with <code>enrichVideos</code>; cached once per creator and omitted when the profile does not expose it (distinct from <code>creatorFollowerCount</code>)</li>
+<li><code>viewCount</code>, <code>likeCount</code>, <code>shareCount</code>, <code>commentCount</code>, <code>recommendCount</code>, <code>pendingCommentCount</code>, <code>remixCount</code> — public engagement counts</li>
+<li><code>durationSeconds</code>, <code>width</code>, <code>height</code> — media properties</li>
+<li><code>description</code>, <code>caption</code> — original Snapchat text</li>
+<li><code>llmTitle</code>, <code>llmDescription</code>, <code>llmKeywords</code> — Snapchat's own AI metadata</li>
+<li><code>hashtags</code>, <code>detectedLanguage</code>, <code>relatedTags</code> — hashtags, language and S2I content tags</li>
+<li><code>soundTitle</code>, <code>soundArtist</code> — sound information when the feed/detail surface provides it</li>
+<li><code>uploadedAt</code>, <code>scrapedAt</code> — ISO 8601 UTC timestamps</li>
+</ul>
+<p>Topic fields:</p>
+<ul>
+<li><code>topicId</code>, <code>topicDisplayName</code>, <code>topicUrl</code>, <code>topicSource</code>, <code>rank</code></li>
+<li><code>numSnaps</code>, <code>topicType</code>, <code>thumbnailUrl</code>, <code>iconUrl</code></li>
+<li><code>searchQuery</code>, <code>relatedTo</code></li>
+<li><code>scrapedAt</code></li>
+</ul>
+<p>Fields a surface does not provide are omitted from that row, never written as <code>null</code>. <code>creatorFollowerCount</code> and <code>remainingSpotlightCount</code> remain in the dataset schema for backward compatibility but are not populated because Snapchat no longer exposes them on these pages.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td><code>topicFeed</code></td>
+<td><code>topicFeed</code>, <code>topicSearch</code> or <code>spotlightFeed</code>.</td>
+</tr>
+<tr>
+<td><code>topics</code></td>
+<td><code>[]</code></td>
+<td>Topic names, hashtags or URLs for topic-feed mode.</td>
+</tr>
+<tr>
+<td><code>maxResultsPerTopic</code></td>
+<td><code>50</code></td>
+<td>Maximum videos per topic after merging surfaces.</td>
+</tr>
+<tr>
+<td><code>includeRelatedTags</code></td>
+<td><code>true</code></td>
+<td>Include S2I content tags when the page provides them.</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td><code>[]</code></td>
+<td>Keywords for topic-search mode.</td>
+</tr>
+<tr>
+<td><code>maxTopicsPerQuery</code></td>
+<td><code>50</code></td>
+<td>Maximum topic rows per query, including related topics.</td>
+</tr>
+<tr>
+<td><code>includeRelatedTopics</code></td>
+<td><code>false</code></td>
+<td>Add one hop of related topics.</td>
+</tr>
+<tr>
+<td><code>enrichVideos</code></td>
+<td><code>false</code></td>
+<td>Visit each video page for missing AI title, counts, language, S2I tags and sound, plus each creator profile once for <code>creatorSubscriberCount</code>. Cached, bounded, and distinct from followers.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td><code>1000</code></td>
+<td>Maximum rows across the whole run.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-three-topics">Example: three topics</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;topicFeed&quot;,
+  &quot;topics&quot;: [&quot;food&quot;, &quot;travel&quot;, &quot;#gaming&quot;],
+  &quot;maxResultsPerTopic&quot;: 50,
+  &quot;includeRelatedTags&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-discover-coffee-topics">Example: discover coffee topics</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;topicSearch&quot;,
+  &quot;searchQueries&quot;: [&quot;coffee&quot;, &quot;latte art&quot;],
+  &quot;maxTopicsPerQuery&quot;: 50,
+  &quot;includeRelatedTopics&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-current-spotlight-feed">Example: current Spotlight feed</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;spotlightFeed&quot;,
+  &quot;maxItems&quot;: 25
+}
+</code></pre>
+<h3 id="readme-example-enrich-a-few-videos">Example: enrich a few videos</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;topicFeed&quot;,
+  &quot;topics&quot;: [&quot;cappuccino-foam-technique&quot;],
+  &quot;maxResultsPerTopic&quot;: 5,
+  &quot;enrichVideos&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Trend research</strong> — see which Spotlight videos Snapchat surfaces for a topic today and how they perform.</li>
+<li><strong>Content tagging</strong> — collect Snapchat's AI keywords, hashtags, detected language and S2I tags for a niche.</li>
+<li><strong>Creator discovery</strong> — find creators with strong engagement inside a topic.</li>
+<li><strong>Topic mapping</strong> — start from a keyword, discover topic entities, then expand one hop through related topics.</li>
+<li><strong>Performance tracking</strong> — schedule repeated runs and compare view, like, share, comment and recommend counts over time.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Snapchat account or cookies?</strong>
+No. Every surface used here is public and works without a login, cookie or proxy.</p>
+<p><strong>Why do some tags return no results?</strong>
+Snapchat serves 19-32 videos on a topic or tag page and 11-24 on its Explore page, and the actor merges both. Some slugs in Snapchat's tag sitemap are stale and return 404 on <code>/tag/</code>; the actor retries once, checks the topic page, then uses Explore only when its cards are relevant (an exact topic entity or at least 15% text match). Otherwise the run reports an honest zero-row status. Long non-Latin queries (roughly over 50 percent-encoded bytes) can also return 403 from Snapchat's edge; use a shorter keyword.</p>
+<p><strong>Why is there no next-page option?</strong>
+The public web pages do not expose working pagination. <code>page</code>, <code>cursor</code>, <code>offset</code> and <code>limit</code> parameters are ignored by Snapchat, so a run reports honestly when a source is exhausted. For more coverage, add related topics or run topic search.</p>
+<p><strong>What are S2I content tags?</strong>
+Snapchat's scene-to-interest tags classify what is in a video. They are available on only part of the catalogue, so the <code>relatedTags</code> field is omitted when the page does not include them. AI keywords (<code>llmKeywords</code>) have much better coverage.</p>
+<p><strong>Why do <code>creatorFollowerCount</code> and <code>remainingSpotlightCount</code> not appear?</strong>
+Snapchat reports follower count as <code>0</code> on these public surfaces and no longer serves <code>remainingSpotlightIds</code> on topic pages. The fields stay in the schema for old integrations but are not fabricated. With <code>enrichVideos</code>, <code>creatorSubscriberCount</code> adds the real profile subscriber count when available (up to 200 unique creators per run); it is not the same metric as follower count.</p>
+<p><strong>Why do the video URLs contain long parameters?</strong>
+<code>mo</code> and <code>uc</code> are optional CDN media/context parameters, not signatures or expiry tokens. The bare CDN path also returns the same file: in a 30-URL sample, both the full URL and the URL with the query removed returned 200 <code>video/mp4</code>. The actor therefore does not re-host media. Snapchat can still remove or rotate content, so archive the files if you need permanent copies.</p>
+<p><strong>Can I get the trending feed for a specific country?</strong>
+No. Snapchat's web feed has no working country parameter; <code>country</code>, <code>geo</code>, <code>region</code>, <code>countryCode</code>, locale and country headers all leave the same randomized 24-26 video slice. Use a topic or keyword for targeting instead.</p>
+<p><strong>Can I browse all 643,000 topics from the sitemap?</strong>
+No. The topic sitemap is about 97 MB across 65 unordered shards with no popularity ranking. Keyword search plus one-hop related topics is the useful discovery path.</p>
+<p><strong>What does <code>enrichVideos</code> add?</strong>
+Each video's Spotlight page is read separately, filling missing AI title/description, comment and recommend counts, language, S2I tags and sound. It also fetches each unique creator's profile once (cached, up to 200 per run) for <code>creatorSubscriberCount</code>. That number is a profile metric, not a follower count. Failed detail or profile requests keep the original row unchanged.</p>
+<p><strong>Is this affiliated with Snapchat?</strong>
+No. This actor reads public Snapchat pages and is not affiliated with Snap Inc.</p>
+<h2 id="readme-data-source-and-limitations">Data source and limitations</h2>
+<p>The actor reads <code>snapchat.com</code> server-rendered pages with plain HTTP requests. No browser is required. It does not log in, solve CAPTCHAs, or bypass access controls. Snapchat changes its pages from time to time; the actor falls back between topic, tag and Explore surfaces and reports source exhaustion in the run status.</p>
+<p>Known limits: no surface exposes working pagination, so one topic yields 40-56 unique videos from the merged surfaces; stale tag sitemap slugs return 404; long non-Latin Explore queries can return 403; S2I tags are present on only part of the catalogue; follower counts are always reported as zero on public video pages; and the anonymous Spotlight feed cannot be pinned to a country. Comment text and transcripts are out of scope here; they are covered by the Snapchat comments and video-downloader actors.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/1pDXF7JRNIfGATKcB/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0B1WSna9PhB5LeHFe</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

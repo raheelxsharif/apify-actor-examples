@@ -1,0 +1,242 @@
+{
+  "description": "Scrape OP.GG League of Legends champion tier lists, win rates, counters, and champion statistics by region, rank, queue, lane, and patch.",
+  "properties": {
+    "champions": {
+      "description": "Champion names, keys, or OP.GG build URLs to fetch every matchup for (mode=fullCounters). Example: Ahri, jinx, https://op.gg/lol/champions/ahri/build/mid.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Champions",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Hard cap on emitted records. OP.GG returns at most 271 tier rows or 173 stat rows per filter.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minTier": {
+      "default": "all",
+      "description": "Tier-list cutoff. OP is the strongest, then 1 through 5. Lower numbers keep stronger champions.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "All tiers",
+        "OP tier",
+        "1 tier",
+        "2 tier",
+        "3 tier",
+        "4 tier",
+        "5 tier"
+      ],
+      "prefill": "all",
+      "title": "Minimum champion tier",
+      "type": "string"
+    },
+    "mode": {
+      "default": "tierList",
+      "description": "What to fetch: a champion tier list, champion statistics, or every matchup for selected champions. `byPosition` is a legacy alias for a position-scoped tier list.",
+      "editor": "select",
+      "enum": [
+        "tierList",
+        "championStats",
+        "fullCounters",
+        "byPosition"
+      ],
+      "enumTitles": [
+        "Champion tier list (win/pick/ban rates, counters, rank movement)",
+        "Champion statistics (games, KDA, CS, gold)",
+        "Full counters (every matchup for selected champions)",
+        "By position (legacy alias)"
+      ],
+      "prefill": "tierList",
+      "title": "Mode",
+      "type": "string"
+    },
+    "patch": {
+      "default": "latest",
+      "description": "Tier-list and fullCounter patch. OP.GG keeps the latest and previous patch; Classic has no patch history.",
+      "editor": "select",
+      "enum": [
+        "latest",
+        "previous"
+      ],
+      "enumTitles": [
+        "Latest patch",
+        "Previous patch"
+      ],
+      "prefill": "latest",
+      "title": "Patch",
+      "type": "string"
+    },
+    "period": {
+      "default": "month",
+      "description": "Time window for champion statistics (mode=championStats).",
+      "editor": "select",
+      "enum": [
+        "month",
+        "week",
+        "day"
+      ],
+      "enumTitles": [
+        "Last month",
+        "Last 7 days",
+        "Today"
+      ],
+      "prefill": "month",
+      "title": "Stats period",
+      "type": "string"
+    },
+    "position": {
+      "default": "ALL",
+      "description": "Lane to read. ALL returns every lane; in fullCounters it uses each champion's primary lane.",
+      "editor": "select",
+      "enum": [
+        "ALL",
+        "TOP",
+        "JUNGLE",
+        "MID",
+        "ADC",
+        "SUPPORT"
+      ],
+      "enumTitles": [
+        "All positions",
+        "Top",
+        "Jungle",
+        "Mid",
+        "ADC / Bot",
+        "Support"
+      ],
+      "prefill": "ALL",
+      "title": "Position",
+      "type": "string"
+    },
+    "queueType": {
+      "default": "ranked",
+      "description": "Queue to read. Classic applies to tierList and fullCounters; ARAM applies to championStats.",
+      "editor": "select",
+      "enum": [
+        "ranked",
+        "flex",
+        "classic",
+        "aram"
+      ],
+      "enumTitles": [
+        "Ranked Solo/Duo",
+        "Ranked Flex",
+        "Classic (tierList only)",
+        "ARAM (championStats only)"
+      ],
+      "prefill": "ranked",
+      "title": "Queue",
+      "type": "string"
+    },
+    "rankTier": {
+      "default": "emerald_plus",
+      "description": "Only include games from this rank. Champion stats mode uses the base tier for plus tiers (e.g. Emerald+ → Emerald).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "challenger",
+        "grandmaster",
+        "master_plus",
+        "master",
+        "diamond_plus",
+        "diamond",
+        "emerald_plus",
+        "emerald",
+        "platinum_plus",
+        "platinum",
+        "gold_plus",
+        "gold",
+        "silver",
+        "bronze",
+        "iron"
+      ],
+      "enumTitles": [
+        "All tiers",
+        "Challenger",
+        "Grandmaster",
+        "Master +",
+        "Master",
+        "Diamond +",
+        "Diamond",
+        "Emerald +",
+        "Emerald",
+        "Platinum +",
+        "Platinum",
+        "Gold +",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Iron"
+      ],
+      "prefill": "emerald_plus",
+      "title": "Player rank",
+      "type": "string"
+    },
+    "region": {
+      "default": "global",
+      "description": "Server to read. Global combines every server OP.GG tracks.",
+      "editor": "select",
+      "enum": [
+        "global",
+        "na",
+        "me",
+        "euw",
+        "eune",
+        "oce",
+        "kr",
+        "jp",
+        "br",
+        "las",
+        "lan",
+        "ru",
+        "tr",
+        "sea",
+        "tw",
+        "vn"
+      ],
+      "enumTitles": [
+        "All Servers (Global)",
+        "North America (NA)",
+        "Middle East (ME)",
+        "Europe West (EUW)",
+        "Europe Nordic & East (EUNE)",
+        "Oceania (OCE)",
+        "Korea (KR)",
+        "Japan (JP)",
+        "Brazil (BR)",
+        "Latin America South (LAS)",
+        "Latin America North (LAN)",
+        "Russia (RU)",
+        "Türkiye (TR)",
+        "Southeast Asia (SEA)",
+        "Taiwan (TW)",
+        "Vietnam (VN)"
+      ],
+      "prefill": "global",
+      "title": "Region",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "OP.GG Scraper Input",
+  "type": "object"
+}

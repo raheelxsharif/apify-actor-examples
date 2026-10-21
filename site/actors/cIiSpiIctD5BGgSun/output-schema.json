@@ -1,0 +1,25 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Season match results with scores and 1X2 odds, league team rosters with standings, or team profiles.",
+  "properties": {
+    "results": {
+      "description": "One row per match: teams, scores, kickoff, venue, status and 1X2 odds.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview",
+      "title": "Match results & odds",
+      "type": "string"
+    },
+    "teamProfiles": {
+      "description": "Team identity and venue details: full name, city, stadium, country, coach, logo.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=teamProfiles",
+      "title": "Team profiles",
+      "type": "string"
+    },
+    "teams": {
+      "description": "One row per team: rank, played, wins, draws, losses, goals, points.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=teams",
+      "title": "League team roster",
+      "type": "string"
+    }
+  },
+  "title": "Multi-League Season Results & Team Lookup Output"
+}

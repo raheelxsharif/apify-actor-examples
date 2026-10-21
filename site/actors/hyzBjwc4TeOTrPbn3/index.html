@@ -1,0 +1,524 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-pWEBu9kvoFrXsrS1kOnUkLK3drjWdubhx2sldw2973k=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Unsplash Photo Search by Topic, Collection &amp; Creator | Dataspryva</title><meta name="description" content="Searches Unsplash by keyword or browses a curated topic, numbered collection, or photographer&#x27;s portfolio, returning photo dimensions, orientation, license, and photographer credit"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/"><meta property="og:title" content="Unsplash Photo Search by Topic, Collection &amp; Creator | Dataspryva"><meta property="og:description" content="Searches Unsplash by keyword or browses a curated topic, numbered collection, or photographer&#x27;s portfolio, returning photo dimensions, orientation, license, and photographer credit"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#webpage","name":"Unsplash Photo Search by Topic, Collection & Creator","description":"Searches Unsplash by keyword or browses a curated topic, numbered collection, or photographer's portfolio, returning photo dimensions, orientation, license, and photographer credit.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#article","headline":"Unsplash Photo Search by Topic, Collection & Creator","name":"Unsplash Photo Search by Topic, Collection & Creator","description":"Searches Unsplash by keyword or browses a curated topic, numbered collection, or photographer's portfolio, returning photo dimensions, orientation, license, and photographer credit.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Unsplash Photo Search by Topic, Collection & Creator","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/hyzBjwc4TeOTrPbn3/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Unsplash Photo Search by Topic, Collection &amp; Creator</span></div><section id="overview"><h1 class="doc-title">Unsplash Photo Search by Topic, Collection &amp; Creator</h1><p class="lede">Searches Unsplash by keyword or browses a curated topic, numbered collection, or photographer&#x27;s portfolio, returning photo dimensions, orientation, license, and photographer credit.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/unsplash-photo-search-by-topic-collection">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/hyzBjwc4TeOTrPbn3/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Each mode has its own list field below.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords, e.g. `nature`, `coffee shop`, `minimal workspace`. Each query is searched separately.</td></tr><tr><td><code>topicSlugs</code></td><td>array</td><td>optional</td><td>One or more curated Unsplash photo topics.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Each mode has its own list field below.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords, e.g. `nature`, `coffee shop`, `minimal workspace`. Each query is searched separately.</td></tr><tr><td><code>topicSlugs</code></td><td>array</td><td>optional</td><td>One or more curated Unsplash photo topics.</td></tr><tr><td><code>collectionIds</code></td><td>array</td><td>optional</td><td>Collection IDs or collection URLs, e.g. `1065396` or `https://unsplash.com/collections/1065396/...`.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Photographer usernames with or without `@`, or profile URLs, e.g. `v2osk` or `https://unsplash.com/@v2osk`.</td></tr><tr><td><code>photoIds</code></td><td>array</td><td>optional</td><td>Unsplash photo IDs, slugs, or photo page URLs, e.g. `fWBZ9r4vO9M`. Used as lookup targets in byPhoto and as seed photos in byRelated.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>Any mix of supported Unsplash search, topic, collection, photographer, or photo URLs.</td></tr><tr><td><code>orientation</code></td><td>string</td><td>optional</td><td>Only keep photos of this orientation. The filter is exact and works in every mode.</td></tr><tr><td><code>color</code></td><td>string</td><td>optional</td><td>Filter keyword searches by Unsplash&#x27;s dominant-colour tag. Not supported on topic, collection, or portfolio feeds.</td></tr><tr><td><code>freeOnly</code></td><td>boolean</td><td>optional</td><td>Exclude Unsplash+ (paid/locked) photos. Their full-size files require a separate Unsplash+ plan.</td></tr><tr><td><code>searchOrderBy</code></td><td>string</td><td>optional</td><td>Sort keyword search results by best match or newest first.</td></tr><tr><td><code>userOrderBy</code></td><td>string</td><td>optional</td><td>Sort a photographer&#x27;s photos. Pinned matches the order shown on their Unsplash profile.</td></tr><tr><td><code>includePhotoDetails</code></td><td>boolean</td><td>optional</td><td>Add tags, camera EXIF, geolocation, topics, and view/download counts. Costs extra requests per photo and is slower.</td></tr><tr><td><code>includePhotographerStats</code></td><td>boolean</td><td>optional</td><td>Add each photographer&#x27;s lifetime view and download totals. One extra request per photographer.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted photos across all queries and URLs.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Unsplash photos by keyword, topic, collection, photographer, photo URL, or any supported Unsplash URL.&quot;,
+  &quot;properties&quot;: {
+    &quot;collectionIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Collection IDs or collection URLs, e.g. `1065396` or `https://unsplash.com/collections/1065396/...`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Collections (mode=byCollection)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;color&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter keyword searches by Unsplash&#x27;s dominant-colour tag. Not supported on topic, collection, or portfolio feeds.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;black_and_white&quot;,
+        &quot;black&quot;,
+        &quot;white&quot;,
+        &quot;yellow&quot;,
+        &quot;orange&quot;,
+        &quot;red&quot;,
+        &quot;purple&quot;,
+        &quot;magenta&quot;,
+        &quot;green&quot;,
+        &quot;teal&quot;,
+        &quot;blue&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any colour&quot;,
+        &quot;Black &amp; white&quot;,
+        &quot;Black&quot;,
+        &quot;White&quot;,
+        &quot;Yellow&quot;,
+        &quot;Orange&quot;,
+        &quot;Red&quot;,
+        &quot;Purple&quot;,
+        &quot;Magenta&quot;,
+        &quot;Green&quot;,
+        &quot;Teal&quot;,
+        &quot;Blue&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Dominant colour (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;freeOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Exclude Unsplash+ (paid/locked) photos. Their full-size files require a separate Unsplash+ plan.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Free photos only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePhotoDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add tags, camera EXIF, geolocation, topics, and view/download counts. Costs extra requests per photo and is slower.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include photo details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePhotographerStats&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add each photographer&#x27;s lifetime view and download totals. One extra request per photographer.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include photographer totals&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Hard cap on emitted photos across all queries and URLs.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 2,
+      &quot;title&quot;: &quot;Max photos&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to scrape. Each mode has its own list field below.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;byTopic&quot;,
+        &quot;byCollection&quot;,
+        &quot;byUser&quot;,
+        &quot;byPhoto&quot;,
+        &quot;byRelated&quot;,
+        &quot;byUrls&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search photos by keyword&quot;,
+        &quot;Browse curated topics&quot;,
+        &quot;Browse collections&quot;,
+        &quot;Browse photographer portfolios&quot;,
+        &quot;Look up specific photos&quot;,
+        &quot;Find photos related to a photo&quot;,
+        &quot;Paste any Unsplash URL&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;orientation&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only keep photos of this orientation. The filter is exact and works in every mode.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;landscape&quot;,
+        &quot;portrait&quot;,
+        &quot;squarish&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any orientation&quot;,
+        &quot;Landscape&quot;,
+        &quot;Portrait&quot;,
+        &quot;Squarish&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Orientation&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;photoIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Unsplash photo IDs, slugs, or photo page URLs, e.g. `fWBZ9r4vO9M`. Used as lookup targets in byPhoto and as seed photos in byRelated.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Photo IDs or URLs (mode=byPhoto or byRelated)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchOrderBy&quot;: {
+      &quot;default&quot;: &quot;relevant&quot;,
+      &quot;description&quot;: &quot;Sort keyword search results by best match or newest first.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevant&quot;,
+        &quot;latest&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Best match&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevant&quot;,
+      &quot;title&quot;: &quot;Search order (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [
+        &quot;nature&quot;
+      ],
+      &quot;description&quot;: &quot;One or more keywords, e.g. `nature`, `coffee shop`, `minimal workspace`. Each query is searched separately.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;nature&quot;
+      ],
+      &quot;title&quot;: &quot;Search queries (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;startUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Any mix of supported Unsplash search, topic, collection, photographer, or photo URLs.&quot;,
+      &quot;editor&quot;: &quot;requestListSources&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Unsplash URLs (mode=byUrls)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;topicSlugs&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more curated Unsplash photo topics.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;animals&quot;,
+          &quot;architecture-interior&quot;,
+          &quot;experimental&quot;,
+          &quot;fashion-beauty&quot;,
+          &quot;film&quot;,
+          &quot;Fall&quot;,
+          &quot;nature&quot;,
+          &quot;people&quot;,
+          &quot;travel&quot;,
+          &quot;3d-renders&quot;,
+          &quot;wallpapers&quot;,
+          &quot;textures-patterns&quot;,
+          &quot;street-photography&quot;,
+          &quot;nostalgia&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Animals&quot;,
+          &quot;Architecture&quot;,
+          &quot;Experimental&quot;,
+          &quot;Fashion &amp; Beauty&quot;,
+          &quot;Film&quot;,
+          &quot;Fall&quot;,
+          &quot;Nature&quot;,
+          &quot;People&quot;,
+          &quot;Travel&quot;,
+          &quot;3D Renders&quot;,
+          &quot;Wallpapers&quot;,
+          &quot;Textures &amp; Patterns&quot;,
+          &quot;Street Photography&quot;,
+          &quot;Nostalgia&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Topics (mode=byTopic)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;userOrderBy&quot;: {
+      &quot;default&quot;: &quot;pinned&quot;,
+      &quot;description&quot;: &quot;Sort a photographer&#x27;s photos. Pinned matches the order shown on their Unsplash profile.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;pinned&quot;,
+        &quot;latest&quot;,
+        &quot;oldest&quot;,
+        &quot;popular&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Pinned (profile order)&quot;,
+        &quot;Newest first&quot;,
+        &quot;Oldest first&quot;,
+        &quot;Most popular&quot;
+      ],
+      &quot;prefill&quot;: &quot;pinned&quot;,
+      &quot;title&quot;: &quot;Portfolio order (mode=byUser)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;usernames&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Photographer usernames with or without `@`, or profile URLs, e.g. `v2osk` or `https://unsplash.com/@v2osk`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Photographers (mode=byUser)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Unsplash Photo Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>photos</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Unsplash photos.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Photos from Unsplash with five image sizes, photographer attribution, dimensions, orientation, dominant colour, likes, and optional EXIF, geolocation, tags, topics, and engagement counts.&quot;,
+  &quot;properties&quot;: {
+    &quot;photos&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Unsplash photos.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Unsplash photos&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Unsplash Photo Search by Topic, Collection &amp; Creator Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Photos&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;photographerName&quot;,
+          &quot;orientation&quot;,
+          &quot;width&quot;,
+          &quot;height&quot;,
+          &quot;likes&quot;,
+          &quot;imageUrl&quot;,
+          &quot;sourceUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-unsplash-photo-search-by-topic-collection-creator">Unsplash Photo Search by Topic, Collection &amp; Creator</h2>
+<p>Scrape <strong>Unsplash</strong> photos by keyword, curated topic, collection, photographer, photo ID, or any supported Unsplash URL. Each row returns five image sizes, full photographer attribution, dimensions, orientation, dominant colour, BlurHash, likes, and optional tags, camera EXIF, geolocation, topic memberships, and view/download counts. No API key, login, or proxy setup.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Seven ways to source photos:</strong> keyword search, curated topics, numbered collections, photographer portfolios, specific photos, related photos, or a mixed list of pasted Unsplash URLs.</li>
+<li><strong>Search filters:</strong> orientation, dominant colour, best-match or newest-first ordering, and a free-photos-only switch.</li>
+<li><strong>Portfolio ordering:</strong> pinned (profile order), newest, oldest, or most popular.</li>
+<li><strong>Rich metadata:</strong> five image resolutions, photographer name/username/profile/socials, dimensions, colour, BlurHash, likes, and timestamps on every row.</li>
+<li><strong>Optional detail pass:</strong> adds tags, camera EXIF, place names and coordinates, topic memberships, and real view/download counts for free photos.</li>
+<li><strong>Optional photographer totals:</strong> each photographer's lifetime views and downloads.</li>
+<li><strong>Empty fields are omitted</strong> — a photo without EXIF or a tagged location simply has no such field.</li>
+</ul>
+<h2 id="readme-output-per-photo">Output per photo</h2>
+<p><strong>Identity and content</strong></p>
+<ul>
+<li><code>id</code>, <code>slug</code> — Unsplash photo ID and descriptive slug</li>
+<li><code>title</code>, <code>description</code>, <code>altDescription</code>, <code>shortDescription</code> — captions and alt text when available</li>
+<li><code>width</code>, <code>height</code>, <code>aspectRatio</code>, <code>orientation</code> — native dimensions and <code>landscape</code> / <code>portrait</code> / <code>squarish</code></li>
+<li><code>dominantColor</code>, <code>blurHash</code>, <code>likes</code></li>
+<li><code>isPremium</code>, <code>premium</code>, <code>plus</code> — Unsplash+ flags</li>
+<li><code>datePublished</code>, <code>updatedAt</code>, <code>promotedAt</code></li>
+</ul>
+<p><strong>Images</strong></p>
+<ul>
+<li><code>imageUrl</code> — regular 1080px image</li>
+<li><code>thumbnailUrl</code> — 200px thumbnail</li>
+<li><code>imageUrls.raw</code>, <code>imageUrls.full</code>, <code>imageUrls.regular</code>, <code>imageUrls.small</code>, <code>imageUrls.thumb</code>, <code>imageUrls.smallS3</code> — every size in one object (<code>smallS3</code> is included for premium photos when the S3 copy responds; the actor checks up to 100 premium photos per details run and falls back to the always-present <code>plus.unsplash.com</code> variants when it does not)</li>
+</ul>
+<p><strong>Photographer attribution</strong></p>
+<ul>
+<li><code>photographerId</code>, <code>photographerUsername</code>, <code>photographerName</code>, <code>photographerFirstName</code>, <code>photographerLastName</code></li>
+<li><code>photographerBio</code>, <code>photographerLocation</code>, <code>photographerPortfolioUrl</code>, <code>photographerProfileUrl</code></li>
+<li><code>photographerInstagram</code>, <code>photographerTwitter</code>, <code>photographerForHire</code></li>
+<li><code>photographerTotalPhotos</code>, <code>photographerTotalFreePhotos</code>, <code>photographerTotalLikes</code>, <code>photographerTotalCollections</code>, <code>photographerProfileImageUrl</code></li>
+<li><code>photographerTotalViews</code>, <code>photographerTotalDownloads</code> — when photographer totals are enabled</li>
+</ul>
+<p><strong>Photo details (when enabled)</strong></p>
+<ul>
+<li><code>tags</code> — up to 20 keyword tags</li>
+<li><code>topics</code> — <code>{id, slug, title}</code> memberships</li>
+<li><code>exif.make</code>, <code>exif.model</code>, <code>exif.name</code>, <code>exif.exposureTime</code>, <code>exif.aperture</code>, <code>exif.focalLength</code>, <code>exif.iso</code></li>
+<li><code>location.name</code>, <code>location.city</code>, <code>location.country</code>, <code>location.latitude</code>, <code>location.longitude</code></li>
+<li><code>locationName</code> — the place name as a flat field</li>
+<li><code>views</code>, <code>downloads</code> — free photos only; Unsplash does not publish stats for premium photos</li>
+</ul>
+<p><strong>Licence, downloads, provenance</strong></p>
+<ul>
+<li><code>license</code> — Unsplash License or Unsplash+ License</li>
+<li><code>downloadUrl</code> — a direct CDN image file that opens without a browser session</li>
+<li><code>downloadPageUrl</code> — Unsplash's tracked download page</li>
+<li><code>sourceUrl</code> — the photo's page on unsplash.com</li>
+<li><code>sourceType</code>, <code>sourceValue</code>, <code>sourceTitle</code> — which query, topic, collection, photographer, or photo produced the row</li>
+<li><code>recordType</code> — always <code>photo</code></li>
+<li><code>scrapedAt</code> — collection timestamp</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>String (select)</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>byTopic</code>, <code>byCollection</code>, <code>byUser</code>, <code>byPhoto</code>, <code>byRelated</code>, or <code>byUrls</code>.</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>Array</td>
+<td><code>[&quot;nature&quot;]</code></td>
+<td>Keywords to search (mode=search).</td>
+</tr>
+<tr>
+<td><code>topicSlugs</code></td>
+<td>Array (select)</td>
+<td>–</td>
+<td>Curated topics (mode=byTopic).</td>
+</tr>
+<tr>
+<td><code>collectionIds</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Collection IDs or URLs (mode=byCollection).</td>
+</tr>
+<tr>
+<td><code>usernames</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Photographer usernames or profile URLs (mode=byUser).</td>
+</tr>
+<tr>
+<td><code>photoIds</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Photo IDs, slugs, or photo URLs (mode=byPhoto or byRelated).</td>
+</tr>
+<tr>
+<td><code>startUrls</code></td>
+<td>Array</td>
+<td>–</td>
+<td>Mixed Unsplash search/topic/collection/photographer/photo URLs (mode=byUrls).</td>
+</tr>
+<tr>
+<td><code>orientation</code></td>
+<td>String (select)</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>landscape</code>, <code>portrait</code>, or <code>squarish</code>. Exact filter in every mode.</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>String (select)</td>
+<td><code>any</code></td>
+<td>Dominant colour for keyword searches only.</td>
+</tr>
+<tr>
+<td><code>freeOnly</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>Exclude Unsplash+ photos.</td>
+</tr>
+<tr>
+<td><code>searchOrderBy</code></td>
+<td>String (select)</td>
+<td><code>relevant</code></td>
+<td><code>relevant</code> or <code>latest</code> (mode=search).</td>
+</tr>
+<tr>
+<td><code>userOrderBy</code></td>
+<td>String (select)</td>
+<td><code>pinned</code></td>
+<td><code>pinned</code>, <code>latest</code>, <code>oldest</code>, or <code>popular</code> (mode=byUser).</td>
+</tr>
+<tr>
+<td><code>includePhotoDetails</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>Add tags, EXIF, location, topics, and free-photo stats.</td>
+</tr>
+<tr>
+<td><code>includePhotographerStats</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>Add lifetime views/downloads for each photographer.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>Integer</td>
+<td>20</td>
+<td>Maximum photos across all sources (1-1000).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-keyword-search-with-filters">Example: keyword search with filters</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;mountain sunrise&quot;, &quot;coastal fog&quot;],
+  &quot;orientation&quot;: &quot;landscape&quot;,
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;freeOnly&quot;: true,
+  &quot;searchOrderBy&quot;: &quot;latest&quot;,
+  &quot;maxItems&quot;: 80
+}
+</code></pre>
+<h3 id="readme-example-a-curated-topic-with-details">Example: a curated topic with details</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byTopic&quot;,
+  &quot;topicSlugs&quot;: [&quot;nature&quot;, &quot;wallpapers&quot;],
+  &quot;orientation&quot;: &quot;portrait&quot;,
+  &quot;includePhotoDetails&quot;: true,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-example-a-collection-and-a-photographer-together">Example: a collection and a photographer together</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrls&quot;,
+  &quot;startUrls&quot;: [
+    { &quot;url&quot;: &quot;https://unsplash.com/collections/1065396&quot; },
+    { &quot;url&quot;: &quot;https://unsplash.com/@v2osk&quot; }
+  ],
+  &quot;userOrderBy&quot;: &quot;latest&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-one-photo-with-everything">Example: one photo with everything</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byPhoto&quot;,
+  &quot;photoIds&quot;: [&quot;fWBZ9r4vO9M&quot;],
+  &quot;includePhotoDetails&quot;: true,
+  &quot;includePhotographerStats&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-photos-related-to-a-seed-photo">Example: photos related to a seed photo</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byRelated&quot;,
+  &quot;photoIds&quot;: [&quot;1Z2niiBPg5A&quot;],
+  &quot;orientation&quot;: &quot;landscape&quot;,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Content and design teams</strong> — source on-brand photography in the right orientation and colour.</li>
+<li><strong>ML and computer-vision datasets</strong> — build labelled image sets with captions, tags, EXIF, dimensions, and geodata.</li>
+<li><strong>Photographer research</strong> — track a portfolio's newest work, popular shots, and lifetime reach.</li>
+<li><strong>Visual discovery</strong> — expand a seed photo into Unsplash's related-photo feed.</li>
+<li><strong>Collection monitoring</strong> — keep an audit trail of a curated collection or topic over time.</li>
+<li><strong>Wallpaper and app catalogs</strong> — pull multiple resolutions and BlurHash placeholders in one run.</li>
+<li><strong>Market and trend analysis</strong> — compare likes, views, and downloads across subjects and visual styles.</li>
+</ul>
+<h2 id="readme-data-source-and-licence">Data source and licence</h2>
+<p>This actor reads Unsplash's public website data. It is not affiliated with, endorsed by, or sponsored by Unsplash.</p>
+<p>Photos are covered by the <a href="https://unsplash.com/license">Unsplash License</a>: free for commercial and non-commercial use, no permission needed, and <strong>attribution is appreciated but not required</strong>. You may not sell unmodified photos or compile Unsplash images to replicate a competing image service. Unsplash+ photos are covered by the separate Unsplash+ License and need an Unsplash+ plan for full-size files; their CDN images are watermarked.</p>
+<p>Unsplash's API guidelines ask apps to trigger <code>links.download_location</code> when a user downloads a photo. That endpoint requires Unsplash API credentials. This actor is an independent website scraper: it returns <code>downloadUrl</code> (a direct CDN file) and <code>downloadPageUrl</code> (Unsplash's tracked web download page) instead of calling <code>download_location</code>. If you build a product on the official API, follow its guidelines and use your own credentials.</p>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need an Unsplash API key or account?</strong>
+No. All modes work without an account, API key, login, or cookies.</p>
+<p><strong>How many photos can I get, and can I pass the 4,000-per-query search limit?</strong>
+<code>maxItems</code> caps a run at 1,000 photos. A single keyword search has its own 4,000-row window. To go wider, partition the query: run it separately for landscape / portrait / squarish, for different dominant colours, or for free vs Unsplash+ photos, then combine the rows by <code>id</code>. Topic, collection, photographer, and related feeds can be deeper still.</p>
+<p><strong>Why are <code>views</code> and <code>downloads</code> missing on some rows?</strong>
+Unsplash publishes per-photo stats for free photos only. Premium photo stats are suppressed, so the actor omits them instead of returning a misleading zero. Photographer lifetime totals are still available when enabled.</p>
+<p><strong>Why are EXIF, location, or tags missing?</strong>
+They are photographer-supplied and only present on some photos. The detail pass adds them when Unsplash has them; otherwise the field is omitted.</p>
+<p><strong>Why is there no family-friendly flag?</strong>
+Unsplash's JSON source does not expose it. The flag only appears in the HTML photo page (300-380 KB decompressed, ~70 KB compressed), and a Range request for the JSON-LD window returns HTTP 416, so the actor does not pay an extra full-page read per photo for one low-value boolean.</p>
+<p><strong>Does the actor return illustrations?</strong>
+No. This is a photo actor. Unsplash serves illustrations as a separate asset type; mixing them would change the record schema and the supported filters.</p>
+<p><strong>What is the difference between <code>downloadUrl</code>, <code>downloadPageUrl</code>, and <code>sourceUrl</code>? Does the actor download files?</strong>
+<code>downloadUrl</code> and the <code>imageUrls</code> variants are direct CDN files that work from scripts and integrations. <code>downloadPageUrl</code> and <code>sourceUrl</code> are Unsplash web pages protected by its bot check; they open normally in a browser. The actor returns metadata and URLs, not image binaries — use your own downloader if you need the files.</p>
+<p><strong>Can I use the photos commercially?</strong>
+Yes, under the Unsplash License, including commercial use. Attribution is appreciated but not required. Do not sell unmodified photos or build a competing image service from Unsplash content. Check the licence for every use case.</p>
+<p><strong>Why does a portfolio or topic stop before <code>maxItems</code>?</strong>
+The source may have fewer photos than requested, or a filter (orientation/free-only) removed candidates. The actor only counts photos that pass every filter, so it never returns short by silently including filtered-out rows.</p>
+<p><strong>Do I need to configure a proxy? How fresh is the data?</strong>
+No proxy setup is needed; the actor chooses a working connection automatically. Every run reads Unsplash live, with nothing cached between runs.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/hyzBjwc4TeOTrPbn3/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>cdOIAmh17Gliaabig</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

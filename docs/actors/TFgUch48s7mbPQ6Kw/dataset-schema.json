@@ -1,0 +1,342 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "address": {
+        "description": "Street address",
+        "nullable": true,
+        "type": "string"
+      },
+      "auctionDate": {
+        "description": "Foreclosure auction date (YYYY-MM-DD), from the linked auctioneer page",
+        "nullable": true,
+        "type": "string"
+      },
+      "auctionDateTime": {
+        "description": "Auction sale start date-time (ISO 8601)",
+        "nullable": true,
+        "type": "string"
+      },
+      "auctionEventTitle": {
+        "description": "Auctioneer event title (sale event name)",
+        "nullable": true,
+        "type": "string"
+      },
+      "baths": {
+        "description": "Bathrooms",
+        "nullable": true,
+        "type": "number"
+      },
+      "beds": {
+        "description": "Bedrooms",
+        "nullable": true,
+        "type": "number"
+      },
+      "brokerName": {
+        "description": "Listing brokerage",
+        "nullable": true,
+        "type": "string"
+      },
+      "buyerPremiumAvailable": {
+        "description": "Whether the auction charges a buyer's premium",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "city": {
+        "description": "City",
+        "nullable": true,
+        "type": "string"
+      },
+      "comingSoonDate": {
+        "description": "Date a coming-soon listing goes live (ISO 8601)",
+        "nullable": true,
+        "type": "string"
+      },
+      "daysOnZillow": {
+        "description": "Days on Zillow",
+        "nullable": true,
+        "type": "integer"
+      },
+      "description": {
+        "description": "Listing description",
+        "nullable": true,
+        "type": "string"
+      },
+      "distressType": {
+        "description": "Distress classification: foreclosure, bankOwned, preForeclosure, preMarketForeclosure, auction, comingSoon",
+        "nullable": true,
+        "type": "string"
+      },
+      "foreclosureAttorney": {
+        "description": "Foreclosure attorney / trustee firm handling the sale",
+        "nullable": true,
+        "type": "string"
+      },
+      "foreclosureAttorneyPhone": {
+        "description": "Foreclosure attorney / trustee phone",
+        "nullable": true,
+        "type": "string"
+      },
+      "homeStatus": {
+        "description": "Raw Zillow homeStatus value",
+        "nullable": true,
+        "type": "string"
+      },
+      "isAuction": {
+        "description": "Flagged as a foreclosure auction",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "isBankOwned": {
+        "description": "Flagged as bank-owned (REO)",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "isComingSoon": {
+        "description": "Flagged as coming soon",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "isForeclosure": {
+        "description": "Flagged as an active foreclosure-listed property",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "isPreForeclosure": {
+        "description": "Flagged as pre-foreclosure",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "lastSoldDate": {
+        "description": "Most recent recorded sale date (YYYY-MM-DD)",
+        "nullable": true,
+        "type": "string"
+      },
+      "lastSoldPrice": {
+        "description": "Most recent recorded sale price ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "latitude": {
+        "description": "Latitude",
+        "nullable": true,
+        "type": "number"
+      },
+      "lender": {
+        "description": "Beneficiary (lender) name from the auctioneer's party list",
+        "nullable": true,
+        "type": "string"
+      },
+      "listedDate": {
+        "description": "Date the listing was posted (ISO 8601)",
+        "nullable": true,
+        "type": "string"
+      },
+      "listingAgentName": {
+        "description": "Listing agent name",
+        "nullable": true,
+        "type": "string"
+      },
+      "listingAgentPhone": {
+        "description": "Listing agent phone number",
+        "nullable": true,
+        "type": "string"
+      },
+      "longitude": {
+        "description": "Longitude",
+        "nullable": true,
+        "type": "number"
+      },
+      "lotAreaUnit": {
+        "description": "Lot area unit: sqft or acres",
+        "nullable": true,
+        "type": "string"
+      },
+      "lotAreaValue": {
+        "description": "Lot area size",
+        "nullable": true,
+        "type": "number"
+      },
+      "mlsId": {
+        "description": "MLS listing ID",
+        "nullable": true,
+        "type": "string"
+      },
+      "mlsName": {
+        "description": "MLS name",
+        "nullable": true,
+        "type": "string"
+      },
+      "monthlyHoaFee": {
+        "description": "Monthly HOA fee ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "occupancyStatus": {
+        "description": "Occupancy status reported by the auctioneer (e.g. OCCUPIED, VACANT)",
+        "nullable": true,
+        "type": "string"
+      },
+      "photoCount": {
+        "description": "Number of photos available",
+        "nullable": true,
+        "type": "integer"
+      },
+      "photos": {
+        "description": "Property photo URLs (Zillow photo CDN only)",
+        "nullable": true,
+        "type": "array"
+      },
+      "postingUrl": {
+        "description": "External listing/auction page when Zillow provides one (e.g. auction.com)",
+        "nullable": true,
+        "type": "string"
+      },
+      "price": {
+        "description": "Listing price ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "pricePerSquareFoot": {
+        "description": "Price per square foot ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "principalLoanAmount": {
+        "description": "Original loan principal ($) when the auctioneer publishes it",
+        "nullable": true,
+        "type": "number"
+      },
+      "propertyType": {
+        "description": "Property type (e.g. SINGLE_FAMILY)",
+        "nullable": true,
+        "type": "string"
+      },
+      "rentZestimate": {
+        "description": "Zillow rent estimate ($/month)",
+        "nullable": true,
+        "type": "number"
+      },
+      "scrapedAt": {
+        "description": "ISO 8601 scrape timestamp",
+        "type": "string"
+      },
+      "servicer": {
+        "description": "Loan servicer name from the auctioneer's party list",
+        "nullable": true,
+        "type": "string"
+      },
+      "sqft": {
+        "description": "Living area (sq ft)",
+        "nullable": true,
+        "type": "number"
+      },
+      "startingBid": {
+        "description": "Published starting bid ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "state": {
+        "description": "State abbreviation",
+        "nullable": true,
+        "type": "string"
+      },
+      "statusText": {
+        "description": "Zillow status label (e.g. Foreclosure, Pre-foreclosure, Auction)",
+        "nullable": true,
+        "type": "string"
+      },
+      "taxAssessedValue": {
+        "description": "Tax-assessed value ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "url": {
+        "description": "Zillow property detail page URL",
+        "type": "string"
+      },
+      "yearBuilt": {
+        "description": "Year the property was built",
+        "nullable": true,
+        "type": "integer"
+      },
+      "zestimate": {
+        "description": "Zillow estimate ($)",
+        "nullable": true,
+        "type": "number"
+      },
+      "zipCode": {
+        "description": "ZIP code",
+        "nullable": true,
+        "type": "string"
+      },
+      "zpid": {
+        "description": "Zillow property ID",
+        "nullable": true,
+        "type": "integer"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Zillow Foreclosure Listings",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "address": {
+            "format": "text",
+            "label": "Address"
+          },
+          "baths": {
+            "format": "number",
+            "label": "Baths"
+          },
+          "beds": {
+            "format": "number",
+            "label": "Beds"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "distressType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price $"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Foreclosure Listings Overview",
+      "transformation": {
+        "fields": [
+          "url",
+          "distressType",
+          "address",
+          "city",
+          "state",
+          "price",
+          "beds",
+          "baths",
+          "taxAssessedValue",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

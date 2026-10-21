@@ -1,0 +1,188 @@
+{
+  "description": "Search ZipRecruiter by keyword and location, or paste search and job URLs. Returns each job's full description plus salary, company, location, workplace and apply details.",
+  "properties": {
+    "companyName": {
+      "description": "Only jobs from one company, e.g. `Visa`. The name is resolved on ZipRecruiter. Leave Search queries empty to browse all of the company's jobs.",
+      "editor": "textfield",
+      "title": "Company name",
+      "type": "string"
+    },
+    "daysPosted": {
+      "default": 0,
+      "description": "Only jobs posted within the last N days. 0 = any time.",
+      "maximum": 30,
+      "minimum": 0,
+      "title": "Posted within (days)",
+      "type": "integer"
+    },
+    "experienceLevels": {
+      "default": [],
+      "description": "Restrict to one or more seniority levels. Empty = no filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "no_experience",
+          "junior",
+          "mid",
+          "senior"
+        ],
+        "enumTitles": [
+          "No experience",
+          "Junior",
+          "Mid",
+          "Senior"
+        ],
+        "type": "string"
+      },
+      "title": "Experience levels",
+      "type": "array"
+    },
+    "fetchDescriptions": {
+      "default": true,
+      "description": "When on (recommended), each job's detail data and full description are fetched — the actor's core feature. Turn off for faster, cheaper runs with search-card fields only.",
+      "prefill": true,
+      "title": "Fetch full descriptions",
+      "type": "boolean"
+    },
+    "jobType": {
+      "default": "any",
+      "description": "Employment-type filter, applied to keyword searches.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "full_time",
+        "part_time",
+        "contract",
+        "contract_to_hire",
+        "temporary",
+        "as_needed",
+        "other",
+        "internship"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Contract to hire",
+        "Temporary",
+        "As needed",
+        "Other",
+        "Internship"
+      ],
+      "title": "Job type",
+      "type": "string"
+    },
+    "locations": {
+      "default": [],
+      "description": "Cities, states or `United States` for a national search. Leave empty to search the whole United States. Every query is searched in every location.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Locations",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of job postings to return across all searches.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxSearches": {
+      "default": 100,
+      "description": "Cap on the number of query × location combinations when using Search queries (each combination is one search).",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max searches",
+      "type": "integer"
+    },
+    "quickApplyOnly": {
+      "default": false,
+      "description": "Only jobs that can be applied to on ZipRecruiter with 1-Click Apply.",
+      "prefill": false,
+      "title": "1-Click Apply only",
+      "type": "boolean"
+    },
+    "radiusMiles": {
+      "default": 0,
+      "description": "Distance around the location. 0 = ZipRecruiter's default.",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Search radius (miles)",
+      "type": "integer"
+    },
+    "remoteOnly": {
+      "default": false,
+      "description": "Kept for older tasks: same as setting Workplace type to `Remote`.",
+      "prefill": false,
+      "title": "Remote only (legacy)",
+      "type": "boolean"
+    },
+    "salaryMax": {
+      "default": 0,
+      "description": "Upper bound of the pay range: only jobs whose advertised annual pay stays at or below this amount. 0 = no upper bound.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Maximum salary (annual USD)",
+      "type": "integer"
+    },
+    "salaryMin": {
+      "default": 0,
+      "description": "Lower bound of the pay range: only jobs whose advertised annual pay reaches at least this amount. 0 = no lower bound.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum salary (annual USD)",
+      "type": "integer"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Job keywords to search, e.g. `registered nurse`, `software engineer`. Every query is searched in every location below.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search queries",
+      "type": "array"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "ZipRecruiter search URLs (filters in the URL are honored, e.g. `https://www.ziprecruiter.com/jobs-search?search=software+engineer&location=New+York%2C+NY`) or individual job links like `https://www.ziprecruiter.com/c/Company/Job/Title/-in-City,ST?jid=...`.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.ziprecruiter.com/jobs-search?search=software+engineer&location=New+York%2C+NY"
+      ],
+      "title": "ZipRecruiter URLs",
+      "type": "array"
+    },
+    "workplace": {
+      "default": "any",
+      "description": "Work-arrangement filter (remote includes jobs that offer a remote option).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "remote",
+        "hybrid",
+        "onsite"
+      ],
+      "enumTitles": [
+        "Any",
+        "Remote",
+        "Hybrid",
+        "On-site"
+      ],
+      "title": "Workplace type",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "ZipRecruiter Jobs with Full Description Extractor Input",
+  "type": "object"
+}

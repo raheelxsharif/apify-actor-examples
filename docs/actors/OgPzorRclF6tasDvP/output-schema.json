@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per collected Amazon customer review — rating, title, body, verified-purchase/Vine flags, helpful-votes count, reviewer location, sentiment hint, images/videos, the pipeline that produced the row (`source`: productPage / extendedHistory / cookieMode), its marketplace, a stable dedup fingerprint, and product/source metadata. One additional `amazon_review_aggregate` record per product carries the product title, average rating, global ratings count, star histogram with derived per-star counts, and Amazon's \"Customers say\" summary with aspects. Empty / null fields are dropped at push time, so any field documented below may be absent if the source did not populate it. Records may carry `collectionCompleteness: \"INLINE_SAMPLE\"` when `sourceMode=FULL_PAGE` was requested without a valid `cookieString` and `onAuthRequired=RETURN_PARTIAL` fell back to the cookie-free product-page sample instead of the full paginated set.",
+  "properties": {
+    "reviews": {
+      "description": "Dataset containing all collected Amazon customer reviews and per-product review aggregates.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Amazon reviews",
+      "type": "string"
+    }
+  },
+  "title": "Amazon Review Aggregates & Extended History Scraper Output"
+}

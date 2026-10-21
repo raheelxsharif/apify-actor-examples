@@ -1,0 +1,391 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "applyType": {
+        "description": "external / quick-apply / internal",
+        "type": "string"
+      },
+      "applyUrl": {
+        "description": "Apply URL (external apply flow when available)",
+        "type": "string"
+      },
+      "benefits": {
+        "description": "Listed benefits",
+        "type": "array"
+      },
+      "city": {
+        "description": "City",
+        "type": "string"
+      },
+      "company": {
+        "description": "Hiring company name",
+        "type": "string"
+      },
+      "companyFoundedYear": {
+        "description": "Company founding year",
+        "type": "string"
+      },
+      "companyHqLocation": {
+        "description": "Company headquarters",
+        "type": "string"
+      },
+      "companyId": {
+        "description": "ZipRecruiter company id",
+        "type": "string"
+      },
+      "companyIndustries": {
+        "description": "Company industries",
+        "type": "array"
+      },
+      "companyLogo": {
+        "description": "Company logo image URL",
+        "type": "string"
+      },
+      "companySize": {
+        "description": "Company size band",
+        "type": "string"
+      },
+      "companyUrl": {
+        "description": "Company jobs page URL",
+        "type": "string"
+      },
+      "companyWebsite": {
+        "description": "Company website",
+        "type": "string"
+      },
+      "country": {
+        "description": "Country name",
+        "type": "string"
+      },
+      "countryCode": {
+        "description": "Country code",
+        "type": "string"
+      },
+      "county": {
+        "description": "County",
+        "type": "string"
+      },
+      "description": {
+        "description": "Full job description text",
+        "type": "string"
+      },
+      "descriptionFetchFailed": {
+        "description": "True when the full description could not be fetched",
+        "type": "boolean"
+      },
+      "descriptionHtml": {
+        "description": "Full job description HTML",
+        "type": "string"
+      },
+      "directApply": {
+        "description": "True when 1-Click Apply is available",
+        "type": "boolean"
+      },
+      "educationLevels": {
+        "description": "Education levels mentioned",
+        "type": "array"
+      },
+      "employmentTypes": {
+        "description": "Employment types (Full-time, Part-time, ...)",
+        "type": "array"
+      },
+      "experienceMonths": {
+        "description": "Months of experience mentioned",
+        "type": "integer"
+      },
+      "id": {
+        "description": "Stable ZipRecruiter listing key",
+        "type": "string"
+      },
+      "inputUrl": {
+        "description": "Search URL (or job URL) that produced the record",
+        "type": "string"
+      },
+      "isActive": {
+        "description": "Whether the listing is active",
+        "type": "boolean"
+      },
+      "isHybrid": {
+        "description": "Whether the job is hybrid",
+        "type": "boolean"
+      },
+      "isRemote": {
+        "description": "Whether the job offers remote work",
+        "type": "boolean"
+      },
+      "jid": {
+        "description": "ZipRecruiter job (open seat) id",
+        "type": "string"
+      },
+      "listingKey": {
+        "description": "Stable ZipRecruiter listing key",
+        "type": "string"
+      },
+      "location": {
+        "description": "Display location",
+        "type": "string"
+      },
+      "matchId": {
+        "description": "ZipRecruiter match id",
+        "type": "string"
+      },
+      "postalCode": {
+        "description": "Postal code",
+        "type": "string"
+      },
+      "postedAgo": {
+        "description": "Human recency label, e.g. `3 days ago`",
+        "type": "string"
+      },
+      "postedAt": {
+        "description": "ISO 8601 posting timestamp",
+        "type": "string"
+      },
+      "rollingPostedAt": {
+        "description": "ISO 8601 rolling posting timestamp",
+        "type": "string"
+      },
+      "salary": {
+        "description": "Salary text as shown on ZipRecruiter",
+        "type": "string"
+      },
+      "salaryCurrency": {
+        "description": "Currency code, e.g. USD",
+        "type": "string"
+      },
+      "salaryMax": {
+        "description": "Maximum pay per salaryPeriod",
+        "type": "number"
+      },
+      "salaryMaxAnnual": {
+        "description": "Annualized maximum pay",
+        "type": "number"
+      },
+      "salaryMin": {
+        "description": "Minimum pay per salaryPeriod",
+        "type": "number"
+      },
+      "salaryMinAnnual": {
+        "description": "Annualized minimum pay",
+        "type": "number"
+      },
+      "salaryPeriod": {
+        "description": "hour / day / week / month / year",
+        "type": "string"
+      },
+      "salarySource": {
+        "description": "provided / parsed / estimated",
+        "type": "string"
+      },
+      "scrapedAt": {
+        "description": "ISO 8601 scrape timestamp",
+        "type": "string"
+      },
+      "searchQuery": {
+        "description": "Keyword that produced the record",
+        "type": "string"
+      },
+      "shareUrl": {
+        "description": "Short share URL",
+        "type": "string"
+      },
+      "shortDescription": {
+        "description": "Search-card description snippet",
+        "type": "string"
+      },
+      "state": {
+        "description": "Two-letter state code",
+        "type": "string"
+      },
+      "title": {
+        "description": "Job title",
+        "type": "string"
+      },
+      "type": {
+        "description": "Record type (`job_ziprecruiter`)",
+        "type": "string"
+      },
+      "url": {
+        "description": "Canonical job posting URL",
+        "type": "string"
+      },
+      "validThrough": {
+        "description": "Expiry date when exposed by the source",
+        "type": "string"
+      },
+      "workplaceTypes": {
+        "description": "Workplace types (Remote, Hybrid, On-site, Remote optional)",
+        "type": "array"
+      }
+    },
+    "type": "object"
+  },
+  "title": "ZipRecruiter Jobs",
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "applyUrl": {
+            "format": "link",
+            "label": "Apply"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "company": {
+            "format": "text",
+            "label": "Company"
+          },
+          "companyUrl": {
+            "format": "link",
+            "label": "Company URL"
+          },
+          "employmentTypes": {
+            "format": "text",
+            "label": "Employment"
+          },
+          "id": {
+            "format": "text",
+            "label": "ID"
+          },
+          "isHybrid": {
+            "format": "boolean",
+            "label": "Hybrid"
+          },
+          "isRemote": {
+            "format": "boolean",
+            "label": "Remote"
+          },
+          "jid": {
+            "format": "text",
+            "label": "JID"
+          },
+          "location": {
+            "format": "text",
+            "label": "Location"
+          },
+          "postedAt": {
+            "format": "text",
+            "label": "Posted"
+          },
+          "salary": {
+            "format": "text",
+            "label": "Salary"
+          },
+          "salaryCurrency": {
+            "format": "text",
+            "label": "Currency"
+          },
+          "salaryMax": {
+            "format": "number",
+            "label": "Max"
+          },
+          "salaryMin": {
+            "format": "number",
+            "label": "Min"
+          },
+          "salaryPeriod": {
+            "format": "text",
+            "label": "Period"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped at"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          },
+          "workplaceTypes": {
+            "format": "text",
+            "label": "Workplace"
+          }
+        }
+      },
+      "title": "Detailed Results",
+      "transformation": {
+        "fields": [
+          "id",
+          "jid",
+          "title",
+          "company",
+          "companyUrl",
+          "location",
+          "city",
+          "state",
+          "workplaceTypes",
+          "employmentTypes",
+          "isRemote",
+          "isHybrid",
+          "salary",
+          "salaryMin",
+          "salaryMax",
+          "salaryPeriod",
+          "salaryCurrency",
+          "postedAt",
+          "applyUrl",
+          "url",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "company": {
+            "format": "text",
+            "label": "Company"
+          },
+          "isRemote": {
+            "format": "boolean",
+            "label": "Remote"
+          },
+          "salary": {
+            "format": "text",
+            "label": "Salary"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "title",
+          "company",
+          "city",
+          "state",
+          "salary",
+          "isRemote",
+          "url"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "contacts": {
+      "display": {
+        "component": "table"
+      },
+      "title": "Contacts",
+      "transformation": {
+        "fields": [
+          "title",
+          "agentName",
+          "agentEmail",
+          "agentPhone",
+          "agentWhatsapp",
+          "brokerName",
+          "brokerPhone",
+          "brokerEmail",
+          "url"
+        ]
+      }
+    },
+    "detailed": {
+      "display": {
+        "component": "table"
+      },
+      "title": "Detailed",
+      "transformation": {
+        "fields": [
+          "title",
+          "price",
+          "priceCurrency",
+          "priceDuration",
+          "pricePerArea",
+          "pricePerAreaUnit",
+          "propertyType",
+          "offeringType",
+          "bedrooms",
+          "bathrooms",
+          "size",
+          "sizeUnit",
+          "furnished",
+          "completionStatus",
+          "city",
+          "community",
+          "subCommunity",
+          "tower",
+          "agentName",
+          "brokerName",
+          "isVerified",
+          "isDirectFromDeveloper",
+          "isNewConstruction",
+          "imagesCount",
+          "listedDate",
+          "url"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "bathrooms": {
+            "format": "number",
+            "label": "Baths"
+          },
+          "bedrooms": {
+            "format": "number",
+            "label": "Beds"
+          },
+          "brokerName": {
+            "format": "text",
+            "label": "Broker"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "community": {
+            "format": "text",
+            "label": "Community"
+          },
+          "isVerified": {
+            "format": "boolean",
+            "label": "Verified"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price"
+          },
+          "priceCurrency": {
+            "format": "text",
+            "label": "Currency"
+          },
+          "propertyType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "title",
+          "price",
+          "priceCurrency",
+          "propertyType",
+          "bedrooms",
+          "bathrooms",
+          "city",
+          "community",
+          "brokerName",
+          "isVerified",
+          "url"
+        ]
+      }
+    }
+  }
+}

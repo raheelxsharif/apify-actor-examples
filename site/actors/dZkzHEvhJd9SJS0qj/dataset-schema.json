@@ -1,0 +1,72 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "broker_names": {
+            "format": "text",
+            "label": "Brokers"
+          },
+          "building_sqft": {
+            "format": "text",
+            "label": "Building SqFt"
+          },
+          "cap_rate": {
+            "format": "text",
+            "label": "Cap Rate %"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "name": {
+            "format": "text",
+            "label": "Property Name"
+          },
+          "net_operating_income": {
+            "format": "text",
+            "label": "NOI"
+          },
+          "price": {
+            "format": "text",
+            "label": "Price"
+          },
+          "property_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "property_url": {
+            "format": "link",
+            "label": "URL"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "transaction_type": {
+            "format": "text",
+            "label": "Kind"
+          }
+        }
+      },
+      "title": "Listings",
+      "transformation": {
+        "fields": [
+          "name",
+          "transaction_type",
+          "property_type",
+          "city",
+          "state",
+          "price",
+          "cap_rate",
+          "net_operating_income",
+          "building_sqft",
+          "broker_names",
+          "property_url"
+        ]
+      }
+    }
+  }
+}

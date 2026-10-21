@@ -1,0 +1,151 @@
+# G2 Software Reviews, Product Info & Competitor Extractor
+
+Scrape **G2** — the B2B software marketplace with millions of verified user reviews — for any product. Pull reviews with ratings, pros, cons and reviewer context; collect a product's profile summary (rating, review count, categories, pricing plans); or list the competitors G2 shows for a product. Works from a G2 product URL or just a slug, no account or setup required.
+
+## What this actor does
+
+- **Three modes:** collect reviews, product info, or competitor lists for any G2 product.
+- **Review filters:** star rating, reviewer company size, reviewer role, reviewer region, and publication date range.
+- **Deep review coverage:** goes beyond the handful of reviews G2 shows by default — request hundreds or thousands per product.
+- **Any input shape:** full G2 URLs or bare slugs (`notion`, `slack`, `hubspot-marketing-hub`), mixed freely in one run.
+- Empty fields are omitted — every record only contains values G2 actually provides.
+
+## Output per review (mode = `reviews`)
+
+- `reviewId` — unique G2 review ID
+- `reviewTitle` — headline of the review
+- `reviewUrl` — direct link to the review on G2
+- `rating` — the reviewer's star value on G2's 0–5 scale (halves included)
+- `starRating` — the review's star bucket, 1–5
+- `authorName` — reviewer display name (as published by G2)
+- `authorRole` — reviewer's stated role, e.g. Administrator
+- `companySize` — reviewer's company size segment
+- `publishDate` — publication date from G2
+- `pros`, `cons`, `useCase` — the reviewer's "like best", "dislike" and "problems solved" answers
+- `productName`, `productSlug`, `productUrl` — product identity
+- `recordType: "review"`, `scrapedAt`
+
+## Output per product (mode = `productInfo`)
+
+- `productName`, `productSlug`, `url`
+- `description` — the product summary from its G2 page
+- `rating` — average rating, `reviewCount` — total reviews
+- `category` and `categories[]` — G2 category listings
+- `imageUrl` — product logo
+- `pricing` — array of `{plan, price, currency}` plans G2 publishes
+- `operatingSystem`
+- `vendorName`, `vendorUrl` — the vendor (seller) shown on the product page
+- `recordType: "product"`, `scrapedAt`
+
+## Output per competitor (mode = `competitors`)
+
+- `competitorName`, `competitorSlug`, `competitorUrl`
+- `rating`, `reviewCount` — the competitor's standing on G2
+- `description` — G2's blurb for the competitor
+- `sourceProduct` — slug of the product whose competitor list this came from
+- `recordType: "competitor"`, `scrapedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | string | `reviews` | `reviews`, `productInfo`, or `competitors` |
+| `startUrls` | array | – | G2 product URLs or bare slugs (`notion`, `slack`), one per product. Required. |
+| `maxItems` | integer | 50 | Maximum records per product (1–50,000) |
+| `starRatings` | array | – | Keep reviews with these star ratings (`1`–`5`). (mode=reviews) |
+| `companySizes` | array | – | Keep reviews from these company sizes: `smallBusiness`, `midMarket`, `enterprise`. (mode=reviews) |
+| `reviewerRoles` | array | – | Keep reviews by these reviewer roles, e.g. `administrator`. (mode=reviews) |
+| `reviewerRegions` | array | – | Keep reviews from these regions, e.g. `northAmerica`. (mode=reviews) |
+| `sortBy` | string | `newest` | `newest`, `oldest`, `highestRated`, `lowestRated` |
+| `fromDate` | string | – | Only reviews published on or after this date (YYYY-MM-DD) |
+| `toDate` | string | – | Only reviews published on or before this date (YYYY-MM-DD) |
+
+### Example: recent 5-star reviews
+
+```json
+{
+  "mode": "reviews",
+  "startUrls": ["https://www.g2.com/products/notion/reviews"],
+  "maxItems": 100,
+  "starRatings": [5],
+  "sortBy": "newest"
+}
+```
+
+### Example: deep pull for competitive research
+
+```json
+{
+  "mode": "reviews",
+  "startUrls": ["slack", "microsoft-teams"],
+  "maxItems": 1000,
+  "companySizes": ["enterprise", "midMarket"],
+  "sortBy": "highestRated"
+}
+```
+
+### Example: product profile
+
+```json
+{
+  "mode": "productInfo",
+  "startUrls": ["https://www.g2.com/products/hubspot-marketing-hub"]
+}
+```
+
+### Example: competitor lists for several products
+
+```json
+{
+  "mode": "competitors",
+  "startUrls": ["notion", "asana", "monday-com"],
+  "maxItems": 20
+}
+```
+
+## Use cases
+
+- **Voice-of-customer research** — export raw pros/cons and use cases to feed qualitative analysis.
+- **Competitive battlecards** — pull a product's listed alternatives with their ratings and review counts.
+- **Review monitoring** — schedule runs with `fromDate` to collect only new reviews since the last run.
+- **Vendor shortlisting** — compare profiles and pricing plans side by side before deeper evaluation.
+- **Sentiment slices** — study how enterprise reviewers rate a product versus small-business reviewers.
+- **LLM / RAG pipelines** — structured review text with metadata, ready for indexing.
+
+## FAQ
+
+### Do I need a G2 account or API key?
+
+No. The actor reads pages and feeds G2 already makes public.
+
+### Can I get more than the reviews G2 shows on a product page?
+
+Yes. For `mode=reviews` the actor combines G2's own filter views (stars, company size, role, region) while de-duplicating results, so common products yield hundreds to thousands of distinct reviews per run. `maxItems` caps the output.
+
+### Why are some `companySize` or `authorRole` values missing?
+
+G2 makes reviewer details optional when someone submits a review. Across a 400-review sample, company size is published for about 80% of reviews, and roughly one in four roles is G2's anonymised "G2 User" placeholder rather than a real job role. Missing values are omitted rather than guessed.
+
+### What does `rating` mean next to `starRating`?
+
+`rating` is the exact value G2 publishes on its 0–5 scale (including halves like 4.5). `starRating` is the star bucket (1–5) the review belongs to — useful for grouping. A few reviews legitimately carry a 0.0 rating; that is G2's lowest value, not missing data.
+
+### Does each review include sub-ratings (ease of use, support) or "switched from" data?
+
+No — G2 does not publish per-review sub-ratings, themes, or switching data on any public page; those appear only for signed-in users or through G2's enterprise API. This actor returns the complete public surface: rating, title, pros/cons/problems, reviewer context and dates.
+
+### Can I filter by date range?
+
+Yes — set `fromDate` and/or `toDate` and only matching reviews are returned. Both are inclusive.
+
+### How fresh is the data?
+
+Every run reads G2 live; nothing is cached between runs.
+
+### Do I need to set up a proxy?
+
+No. The actor chooses a working connection to G2 automatically. Just fill in the input and run.
+
+### Is this affiliated with G2?
+
+No. This actor reads publicly available G2 pages and feeds; it is not operated by or affiliated with G2.com.

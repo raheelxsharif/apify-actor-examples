@@ -1,0 +1,171 @@
+# Amazon Review Aggregates & Extended History Scraper
+
+Collect Amazon customer reviews and rating summaries without a login and without any proxy setup. Point it at product URLs, bare ASINs, or search keywords and it merges three public sources — the product page's own review block (desktop and mobile), Amazon's public extended review feed for the same ASIN, and optionally the same product's pages on other Amazon marketplaces — then deduplicates everything and returns one clean review dataset plus a per-product rating summary.
+
+## What this actor does
+
+- **Extended review history** — the product page alone shows only ~8–13 "top reviews"; the public extended feed adds up to 100 reviews per star/sort bucket, and walking every bucket yields **100–850+ unique reviews** for popular US products (measured maxima: 856), merged and deduplicated by review ID and content fingerprint.
+- **Multi-marketplace merge** — collect the product page on additional Amazon marketplaces and union the deduplicated reviews, since each storefront carries a different (partially overlapping) set.
+- **Rating aggregates** — product title, average rating, global ratings count, the full star histogram with derived per-star counts, and Amazon's AI-generated "Customers say" summary with per-aspect sentiment.
+- **Filters that actually narrow the data** — star (including positive/critical), verified purchases, keywords, date, media-only, plus sort by most helpful or most recent.
+- **Resilient by design** — the review wall is probabilistic, so every product page is retried across fresh sessions and both desktop/mobile paths; blocked pages escalate to a residential connection automatically.
+- Fields a review or product page doesn't provide (no reviewer images, no Vine badge, no helpful votes) are simply left out of that record — empty fields are omitted, never sent as `null`.
+
+## Output per review
+
+| Field | Description |
+|---|---|
+| `productAsin` | Amazon ASIN of the requested product. |
+| `reviewedProductAsin` | Variant ASIN the review was written for, when the page exposes it. |
+| `ratingScore` | Star rating, 1–5. |
+| `reviewTitle` / `reviewDescription` | Review headline and full text. |
+| `reviewUrl` | Direct link to the individual review, when the source exposes one. |
+| `reviewReaction` | Raw "N people found this helpful" text, when present. |
+| `reviewedIn` | Raw "Reviewed in \<country\> on \<date\>" text. |
+| `isVerified` | Verified Purchase flag. |
+| `isVineVoice` | Amazon Vine reviewer flag, when evidenced. |
+| `variant` | Product variant reviewed (e.g. size/color), when shown. |
+| `reviewImages` | Reviewer-uploaded image URLs, when `includeImages` is on. |
+| `reviewVideos` | Reviewer-uploaded videos (`url`, `thumbnailUrl`), when present. |
+| `position` | Rank of this review within its product's returned set. |
+| `reviewId` | Amazon's own review identifier, when the source exposes one. |
+| `helpfulCount` | Parsed numeric helpful-vote count. |
+| `reviewDate` | Parsed ISO date. |
+| `reviewLocation` | Parsed reviewer country/region. |
+| `sentimentHint` | Derived `positive` / `neutral` / `negative` label. |
+| `wordCount` | Review length (character count for CJK scripts). |
+| `hasImages` / `imageCount` / `hasVideos` / `videoCount` | Derived media counts. |
+| `reviewHash` | Stable content fingerprint used for cross-source deduplication. |
+| `source` | Which pipeline produced the row: `productPage` or `extendedHistory`. |
+| `sourceMarketplace` | Amazon domain the row came from. |
+| `reviewerName` / `reviewerProfile` / `reviewerAvatar` | Reviewer identity fields, only present when `includeGdprSensitive` is `true`. |
+| `scrapedAt` | UTC timestamp of the scrape. |
+| `sourceUrl` | The product URL that was scraped. |
+
+## Output per product (rating aggregate)
+
+When `includeAggregates` is on (default), one additional record per product carries:
+
+| Field | Description |
+|---|---|
+| `type` | Always `"amazon_review_aggregate"`. |
+| `productAsin` | Amazon ASIN. |
+| `productTitle` | Product title from the same page. |
+| `averageRating` | Overall star rating shown on the product page. |
+| `globalRatingsCount` | Total number of ratings, not just the reviews collected. |
+| `starsBreakdown` | Percentage per star, 5 through 1. |
+| `ratingCountByStar` | Derived count per star (percentage × `globalRatingsCount`, rounded). |
+| `customersSay` | Amazon's AI-generated "Customers say" summary, when Amazon shows one. |
+| `customersSayAspects` | Per-aspect sentiment breakdown (`label`, `sentiment`, `mentionCount`, `summary`). |
+| `productUrl` | Canonical `/dp/{ASIN}` product URL. |
+| `scrapedAt` / `sourceUrl` | Scrape timestamp and source URL. |
+
+### Status records
+
+If a run can't return real reviews for a product, the dataset gets one typed status record instead of being left empty, identified by its `type` value: `amazon_reviews_walled_us`, `amazon_reviews_no_star_match`, `amazon_reviews_blocked`, or `amazon_reviews_no_products_discovered`. A blocked/checkpointed page is always reported in the run's status message — the actor never fails silently.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `productUrls` | Array of strings | – | Amazon product URLs, or bare ASINs expanded using `country`. Leave empty to use `keywords`/`categoryUrls` instead. |
+| `keywords` | Array of strings | `[]` | Search keywords to auto-discover products, used only when `productUrls` is empty. |
+| `categoryUrls` | Array of strings | `[]` | Amazon search/category URLs to auto-discover products from, used only when `productUrls` is empty. |
+| `maxProductsToDiscover` | Integer | `10` | Maximum products to discover from `keywords`/`categoryUrls` (1–50). |
+| `extendedHistory` | Boolean | `true` | Merge Amazon's public extended review feed (typically 100–600+ unique reviews for popular US products) with the product-page sample. |
+| `mergeMarketplaces` | Array of domains | `[]` | Extra Amazon marketplaces to fetch the product page from and merge deduplicated reviews. |
+| `includeAggregates` | Boolean | `true` | Emit one rating-aggregate record per product. |
+| `country` | String (select) | `"amazon.com"` | Amazon marketplace domain (19 supported). |
+| `maxReviews` | Integer | `100` | Hard cap per product after merging and deduplication (1–2000). |
+| `sortBy` | String (select) | `"helpful"` | `helpful` or `recent`. |
+| `filterByStar` | String (select) | `""` (all) | Restrict to one star rating (`"1"`–`"5"`), `positive` (4–5), or `critical` (1–2). |
+| `verifiedPurchasesOnly` | Boolean | `false` | Only return Verified Purchase reviews. |
+| `filterKeywords` | Array of strings | `[]` | Keep only reviews whose title or text contains at least one keyword. |
+| `reviewsNewerThan` | String (date) | – | Keep only reviews dated on or after this date. |
+| `mediaReviewsOnly` | Boolean | `false` | Keep only reviews with at least one image or video. |
+| `includeImages` | Boolean | `true` | Extract reviewer-uploaded images and videos. |
+| `includeGdprSensitive` | Boolean | `false` | Include reviewer name, profile link, and avatar. |
+
+### Example: extended history for one product
+
+```json
+{
+    "productUrls": ["https://www.amazon.com/dp/B09X7MPX8L"],
+    "extendedHistory": true,
+    "maxReviews": 300,
+    "sortBy": "recent"
+}
+```
+
+### Example: only critical reviews with images
+
+```json
+{
+    "productUrls": ["B09X7MPX8L"],
+    "filterByStar": "critical",
+    "mediaReviewsOnly": true,
+    "verifiedPurchasesOnly": true,
+    "maxReviews": 100
+}
+```
+
+### Example: merge several marketplaces
+
+```json
+{
+    "productUrls": ["https://www.amazon.de/dp/B09X7MPX8L"],
+    "country": "amazon.de",
+    "mergeMarketplaces": ["amazon.co.uk", "amazon.fr", "amazon.it"],
+    "maxReviews": 200
+}
+```
+
+### Example: keyword discovery with a date window
+
+```json
+{
+    "keywords": ["wireless earbuds"],
+    "maxProductsToDiscover": 5,
+    "reviewsNewerThan": "2026-01-01",
+    "filterKeywords": ["battery", "sound"],
+    "sortBy": "recent"
+}
+```
+
+## Use cases
+
+- **Voice-of-customer analysis** — pull hundreds of review texts per product line for sentiment, topic, or keyword analysis.
+- **Competitive benchmarking** — compare `averageRating`, `starsBreakdown`, and "Customers say" summaries across competing ASINs.
+- **Review monitoring** — schedule runs on a watch-list to track new reviews, ratings, and helpful-vote counts over time.
+- **Trust and quality signals** — surface `isVerified`/`isVineVoice` flags and reviewer-uploaded media for product-quality dashboards.
+- **Localization research** — merge reviews for the same product across marketplaces to compare region-specific feedback.
+- **Critical-review triage** — filter to `critical` reviews with media to jump straight to the problems customers photograph.
+
+## FAQ
+
+**How many reviews can I get per product?**
+The product-page block alone shows ~8–13 top reviews. With `extendedHistory` on (default), the public extended feed adds up to 100 reviews per star/sort bucket; walking all buckets measured 100–856 unique reviews across a 35-ASIN survey (17 ASINs had feed data; the rest fall back to the product-page sample). Set `maxReviews` high enough (e.g. 500–1000) to receive the full depth, or keep it lower for a fast, cheap run.
+
+**Is a proxy or login required?**
+No. The actor works without any credentials and without any proxy setup; it chooses a working connection automatically and only escalates to a residential connection for a request that Amazon actually blocks. It never uses your Amazon account or cookies.
+
+**Why did one product return only a handful of reviews?**
+The extended feed does not cover every ASIN — in a 35-ASIN survey, 17 had feed data and 18 exposed few or no rows (the feed carries Amazon.com reviews only). When that happens the actor still returns the product-page sample plus the rating aggregates, and the run's status message reports what was collected.
+
+**Why are some fields missing on some reviews?**
+Every source exposes a different subset: the extended feed has no review permalink or review ID (rows are deduplicated by a content fingerprint), some marketplace pages hide reviewer profiles for cross-posted reviews, and Amazon only renders the AI "Customers say" summary on some products and mostly on amazon.com. Missing fields are omitted, never filled with placeholders.
+
+**What does `source` mean?**
+It tells you which pipeline produced the row: `productPage` (the product page's inline block) or `extendedHistory` (the public extended feed). `sourceMarketplace` tells you which Amazon storefront it came from.
+
+**Is `ratingCountByStar` exact?**
+It is derived: Amazon publishes the histogram as percentages plus one global ratings count, so the per-star counts are that percentage applied to the total and rounded (validated on 61 live pages: percentages always sum to 100 and the derived counts are within ±1 of the global total). `starsBreakdown` holds the exact percentages.
+
+**Can I get the complete review history?**
+The actor returns everything Amazon publishes to anonymous visitors: the product page's sample plus the public extended feed (and any merged marketplaces). Amazon keeps the fully paginated list behind a sign-in wall, and this actor never asks for an account, cookie, or password — so it does not read it.
+
+**Do reviewer name, profile, and avatar always appear?**
+No — only when `includeGdprSensitive` is `true`. Make sure you have a lawful basis before enabling it.
+
+**Is this affiliated with Amazon?**
+No. This is an independent, third-party actor that reads publicly available Amazon product and review pages and is not operated, endorsed, or sponsored by Amazon.com, Inc.

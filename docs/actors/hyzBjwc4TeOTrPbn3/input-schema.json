@@ -1,0 +1,246 @@
+{
+  "description": "Search Unsplash photos by keyword, topic, collection, photographer, photo URL, or any supported Unsplash URL.",
+  "properties": {
+    "collectionIds": {
+      "default": [],
+      "description": "Collection IDs or collection URLs, e.g. `1065396` or `https://unsplash.com/collections/1065396/...`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Collections (mode=byCollection)",
+      "type": "array"
+    },
+    "color": {
+      "default": "any",
+      "description": "Filter keyword searches by Unsplash's dominant-colour tag. Not supported on topic, collection, or portfolio feeds.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "black_and_white",
+        "black",
+        "white",
+        "yellow",
+        "orange",
+        "red",
+        "purple",
+        "magenta",
+        "green",
+        "teal",
+        "blue"
+      ],
+      "enumTitles": [
+        "Any colour",
+        "Black & white",
+        "Black",
+        "White",
+        "Yellow",
+        "Orange",
+        "Red",
+        "Purple",
+        "Magenta",
+        "Green",
+        "Teal",
+        "Blue"
+      ],
+      "prefill": "any",
+      "title": "Dominant colour (mode=search)",
+      "type": "string"
+    },
+    "freeOnly": {
+      "default": false,
+      "description": "Exclude Unsplash+ (paid/locked) photos. Their full-size files require a separate Unsplash+ plan.",
+      "prefill": false,
+      "title": "Free photos only",
+      "type": "boolean"
+    },
+    "includePhotoDetails": {
+      "default": false,
+      "description": "Add tags, camera EXIF, geolocation, topics, and view/download counts. Costs extra requests per photo and is slower.",
+      "prefill": false,
+      "title": "Include photo details",
+      "type": "boolean"
+    },
+    "includePhotographerStats": {
+      "default": false,
+      "description": "Add each photographer's lifetime view and download totals. One extra request per photographer.",
+      "prefill": false,
+      "title": "Include photographer totals",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Hard cap on emitted photos across all queries and URLs.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Max photos",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to scrape. Each mode has its own list field below.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byTopic",
+        "byCollection",
+        "byUser",
+        "byPhoto",
+        "byRelated",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Search photos by keyword",
+        "Browse curated topics",
+        "Browse collections",
+        "Browse photographer portfolios",
+        "Look up specific photos",
+        "Find photos related to a photo",
+        "Paste any Unsplash URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "orientation": {
+      "default": "any",
+      "description": "Only keep photos of this orientation. The filter is exact and works in every mode.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "landscape",
+        "portrait",
+        "squarish"
+      ],
+      "enumTitles": [
+        "Any orientation",
+        "Landscape",
+        "Portrait",
+        "Squarish"
+      ],
+      "prefill": "any",
+      "title": "Orientation",
+      "type": "string"
+    },
+    "photoIds": {
+      "default": [],
+      "description": "Unsplash photo IDs, slugs, or photo page URLs, e.g. `fWBZ9r4vO9M`. Used as lookup targets in byPhoto and as seed photos in byRelated.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Photo IDs or URLs (mode=byPhoto or byRelated)",
+      "type": "array"
+    },
+    "searchOrderBy": {
+      "default": "relevant",
+      "description": "Sort keyword search results by best match or newest first.",
+      "editor": "select",
+      "enum": [
+        "relevant",
+        "latest"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Newest first"
+      ],
+      "prefill": "relevant",
+      "title": "Search order (mode=search)",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [
+        "nature"
+      ],
+      "description": "One or more keywords, e.g. `nature`, `coffee shop`, `minimal workspace`. Each query is searched separately.",
+      "editor": "stringList",
+      "prefill": [
+        "nature"
+      ],
+      "title": "Search queries (mode=search)",
+      "type": "array"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Any mix of supported Unsplash search, topic, collection, photographer, or photo URLs.",
+      "editor": "requestListSources",
+      "prefill": [],
+      "title": "Unsplash URLs (mode=byUrls)",
+      "type": "array"
+    },
+    "topicSlugs": {
+      "default": [],
+      "description": "One or more curated Unsplash photo topics.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "animals",
+          "architecture-interior",
+          "experimental",
+          "fashion-beauty",
+          "film",
+          "Fall",
+          "nature",
+          "people",
+          "travel",
+          "3d-renders",
+          "wallpapers",
+          "textures-patterns",
+          "street-photography",
+          "nostalgia"
+        ],
+        "enumTitles": [
+          "Animals",
+          "Architecture",
+          "Experimental",
+          "Fashion & Beauty",
+          "Film",
+          "Fall",
+          "Nature",
+          "People",
+          "Travel",
+          "3D Renders",
+          "Wallpapers",
+          "Textures & Patterns",
+          "Street Photography",
+          "Nostalgia"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Topics (mode=byTopic)",
+      "type": "array"
+    },
+    "userOrderBy": {
+      "default": "pinned",
+      "description": "Sort a photographer's photos. Pinned matches the order shown on their Unsplash profile.",
+      "editor": "select",
+      "enum": [
+        "pinned",
+        "latest",
+        "oldest",
+        "popular"
+      ],
+      "enumTitles": [
+        "Pinned (profile order)",
+        "Newest first",
+        "Oldest first",
+        "Most popular"
+      ],
+      "prefill": "pinned",
+      "title": "Portfolio order (mode=byUser)",
+      "type": "string"
+    },
+    "usernames": {
+      "default": [],
+      "description": "Photographer usernames with or without `@`, or profile URLs, e.g. `v2osk` or `https://unsplash.com/@v2osk`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Photographers (mode=byUser)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Unsplash Photo Scraper Input",
+  "type": "object"
+}

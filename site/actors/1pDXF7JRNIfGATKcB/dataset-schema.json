@@ -1,0 +1,312 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "caption": {
+        "description": "On-screen caption or secondary caption, when provided",
+        "type": "string"
+      },
+      "commentCount": {
+        "description": "Live public comment/reply count",
+        "type": "integer"
+      },
+      "compositeStoryId": {
+        "description": "Composite story ID with corpus, id and version",
+        "type": "object"
+      },
+      "creatorDisplayName": {
+        "description": "Creator display name",
+        "type": "string"
+      },
+      "creatorFollowerCount": {
+        "description": "Legacy field; Snapchat reports 0 on these public surfaces",
+        "type": "integer"
+      },
+      "creatorProfileUrl": {
+        "description": "Creator profile URL",
+        "type": "string"
+      },
+      "creatorSubscriberCount": {
+        "description": "Creator subscriber count from the public profile page; only with enrichVideos, cached once per creator, and distinct from followerCount",
+        "type": "integer"
+      },
+      "creatorUsername": {
+        "description": "Creator Snapchat username",
+        "type": "string"
+      },
+      "description": {
+        "description": "Original Snapchat caption or description",
+        "type": "string"
+      },
+      "detectedLanguage": {
+        "description": "Highest-scoring detected language code",
+        "type": "string"
+      },
+      "durationSeconds": {
+        "description": "Video duration in seconds",
+        "type": "number"
+      },
+      "embedUrl": {
+        "description": "Embeddable Spotlight URL",
+        "type": "string"
+      },
+      "hashtags": {
+        "description": "Hashtags found on the video",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "height": {
+        "description": "Video height in pixels",
+        "type": "integer"
+      },
+      "iconUrl": {
+        "description": "Topic icon URL",
+        "type": "string"
+      },
+      "isFeatured": {
+        "description": "Legacy field; true when Snapchat marks the video featured",
+        "type": "boolean"
+      },
+      "latestUpdateAt": {
+        "description": "Legacy field; latest story update in ISO 8601 UTC",
+        "type": "string"
+      },
+      "likeCount": {
+        "description": "Boost/like count",
+        "type": "integer"
+      },
+      "llmDescription": {
+        "description": "Snapchat-generated AI scene description",
+        "type": "string"
+      },
+      "llmKeywords": {
+        "description": "Snapchat-generated AI keywords",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "llmTitle": {
+        "description": "Snapchat-generated AI title",
+        "type": "string"
+      },
+      "numSnaps": {
+        "description": "Snapchat's reported number of snaps for a topic",
+        "type": "integer"
+      },
+      "pendingCommentCount": {
+        "description": "Pending comment count, when greater than zero",
+        "type": "integer"
+      },
+      "rank": {
+        "description": "1-based position on the source surface",
+        "type": "integer"
+      },
+      "recommendCount": {
+        "description": "Recommend count",
+        "type": "integer"
+      },
+      "recordType": {
+        "description": "Row shape: video or topic",
+        "type": "string"
+      },
+      "relatedTags": {
+        "description": "S2I content tags with tagName and optional score",
+        "items": {
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "relatedTo": {
+        "description": "Seed topic ID for a one-hop related topic row",
+        "type": "string"
+      },
+      "remainingSpotlightCount": {
+        "description": "Legacy field; no longer served by Snapchat",
+        "type": "integer"
+      },
+      "remixCount": {
+        "description": "Remix count, when greater than zero",
+        "type": "integer"
+      },
+      "scrapedAt": {
+        "description": "Collection timestamp in ISO 8601 UTC",
+        "type": "string"
+      },
+      "searchQuery": {
+        "description": "Search keyword that produced a topic row",
+        "type": "string"
+      },
+      "shareCount": {
+        "description": "Share count",
+        "type": "integer"
+      },
+      "snapId": {
+        "description": "Spotlight snap ID",
+        "type": "string"
+      },
+      "snapUrl": {
+        "description": "Public Snapchat Spotlight URL",
+        "type": "string"
+      },
+      "soundArtist": {
+        "description": "Sound artist from a Spotlight context card",
+        "type": "string"
+      },
+      "soundTitle": {
+        "description": "Sound title from a Spotlight context card",
+        "type": "string"
+      },
+      "storyId": {
+        "description": "Snapchat story ID",
+        "type": "string"
+      },
+      "storySubtype": {
+        "description": "Legacy field; Snapchat story subtype code",
+        "type": "integer"
+      },
+      "thumbnailUrl": {
+        "description": "Thumbnail image URL",
+        "type": "string"
+      },
+      "topicDescription": {
+        "description": "Snapchat's topic summary, when the topic hub provides one",
+        "type": "string"
+      },
+      "topicDisplayName": {
+        "description": "Human-readable topic or hashtag label",
+        "type": "string"
+      },
+      "topicId": {
+        "description": "Topic or hashtag slug",
+        "type": "string"
+      },
+      "topicSource": {
+        "description": "Surface that supplied the row: tagPage, topicPage, exploreSearch, exploreFallback, relatedTopic or spotlightFeed",
+        "type": "string"
+      },
+      "topicType": {
+        "description": "Snapchat topic type code",
+        "type": "integer"
+      },
+      "topicUrl": {
+        "description": "Canonical Snapchat topic, tag or Explore URL",
+        "type": "string"
+      },
+      "uploadedAt": {
+        "description": "Upload timestamp in ISO 8601 UTC",
+        "type": "string"
+      },
+      "videoFormat": {
+        "description": "Video MIME type from topic JSON-LD",
+        "type": "string"
+      },
+      "videoUrl": {
+        "description": "Direct Snapchat CDN video URL (signed)",
+        "type": "string"
+      },
+      "videoUrlUnwatermarked": {
+        "description": "Unwatermarked CDN video URL, when Explore provides it",
+        "type": "string"
+      },
+      "viewCount": {
+        "description": "Public view count",
+        "type": "integer"
+      },
+      "width": {
+        "description": "Video width in pixels",
+        "type": "integer"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Snapchat Topic & Spotlight videos",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "creatorUsername": {
+            "format": "text",
+            "label": "Creator"
+          },
+          "snapId": {
+            "format": "text",
+            "label": "Snap"
+          },
+          "snapUrl": {
+            "format": "link",
+            "label": "Spotlight"
+          },
+          "topicId": {
+            "format": "text",
+            "label": "Topic"
+          },
+          "uploadedAt": {
+            "format": "date",
+            "label": "Uploaded"
+          },
+          "viewCount": {
+            "format": "number",
+            "label": "Views"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "topicId",
+          "snapId",
+          "creatorUsername",
+          "viewCount",
+          "uploadedAt",
+          "snapUrl"
+        ]
+      }
+    },
+    "topics": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "numSnaps": {
+            "format": "number",
+            "label": "Snaps"
+          },
+          "relatedTo": {
+            "format": "text",
+            "label": "Related to"
+          },
+          "searchQuery": {
+            "format": "text",
+            "label": "Query"
+          },
+          "topicDisplayName": {
+            "format": "text",
+            "label": "Label"
+          },
+          "topicId": {
+            "format": "text",
+            "label": "Topic"
+          },
+          "topicUrl": {
+            "format": "link",
+            "label": "Topic page"
+          }
+        }
+      },
+      "title": "Topics",
+      "transformation": {
+        "fields": [
+          "topicId",
+          "topicDisplayName",
+          "numSnaps",
+          "topicUrl",
+          "relatedTo",
+          "searchQuery"
+        ]
+      }
+    }
+  }
+}

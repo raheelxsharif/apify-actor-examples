@@ -1,0 +1,183 @@
+{
+  "description": "Extract web, news, image, and autocomplete results from Baidu by keyword.",
+  "properties": {
+    "dateFrom": {
+      "description": "Start of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.",
+      "editor": "datepicker",
+      "title": "From date",
+      "type": "string"
+    },
+    "dateTo": {
+      "description": "End of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.",
+      "editor": "datepicker",
+      "title": "To date",
+      "type": "string"
+    },
+    "exactPhrase": {
+      "description": "Require web results to contain this exact phrase (quoted automatically). Web search only.",
+      "editor": "textfield",
+      "title": "Exact phrase",
+      "type": "string"
+    },
+    "excludeWords": {
+      "default": [],
+      "description": "Words to exclude from web results, one per line. Web search only.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Exclude words",
+      "type": "array"
+    },
+    "fileType": {
+      "default": "any",
+      "description": "Restrict web results to a file format using Baidu's filetype: operator. Web search only.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "pdf",
+        "doc",
+        "docx",
+        "xls",
+        "ppt",
+        "txt",
+        "rtf"
+      ],
+      "enumTitles": [
+        "All file types",
+        "PDF",
+        "Word (doc)",
+        "Word (docx)",
+        "Excel (xls)",
+        "PowerPoint (ppt)",
+        "Text (txt)",
+        "Rich text (rtf)"
+      ],
+      "prefill": "any",
+      "title": "File type",
+      "type": "string"
+    },
+    "includeSerpFeatures": {
+      "default": false,
+      "description": "Also return Baidu's answer box, knowledge panel, related searches and related videos as separate rows. Web search only.",
+      "prefill": false,
+      "title": "Include SERP features",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "any",
+      "description": "Restrict web results to pages written in Simplified or Traditional Chinese. Web search only.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "simplified",
+        "traditional"
+      ],
+      "enumTitles": [
+        "All languages",
+        "Simplified Chinese only",
+        "Traditional Chinese only"
+      ],
+      "prefill": "any",
+      "title": "Chinese script filter",
+      "type": "string"
+    },
+    "maxResults": {
+      "default": 50,
+      "description": "Maximum number of results per query. Practical Baidu ceilings: web about 100, news about 140, images about 1500.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max results per query",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "webSearch",
+      "description": "Which Baidu surface to scrape: web results, news, images, or autocomplete suggestions.",
+      "editor": "select",
+      "enum": [
+        "webSearch",
+        "newsSearch",
+        "imageSearch",
+        "autocomplete"
+      ],
+      "enumTitles": [
+        "Web search (organic results, related searches, SERP features)",
+        "News search (articles with source, date, summary and image)",
+        "Image search (original image URL, thumbnail, source page, dimensions)",
+        "Autocomplete (up to 10 query suggestions per keyword)"
+      ],
+      "prefill": "imageSearch",
+      "title": "Search mode",
+      "type": "string"
+    },
+    "queries": {
+      "default": [
+        "人工智能"
+      ],
+      "description": "One or more search terms. Each query is scraped independently up to maxResults.",
+      "editor": "stringList",
+      "prefill": [
+        "人工智能"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "siteRestrict": {
+      "description": "Limit web results to one website domain, e.g. wikipedia.org (site: operator). Web search only.",
+      "editor": "textfield",
+      "title": "Restrict to domain",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order news results by relevance or by publication time. Applies to news search only.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "time"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Newest first"
+      ],
+      "prefill": "relevance",
+      "title": "News sort order",
+      "type": "string"
+    },
+    "timeRange": {
+      "default": "any",
+      "description": "Restrict web results to a publication window. Applies to web search only; news has its own sort order.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "day",
+        "week",
+        "month",
+        "year"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Past 24 hours",
+        "Past week",
+        "Past month",
+        "Past year"
+      ],
+      "prefill": "any",
+      "title": "Time range",
+      "type": "string"
+    },
+    "titleOnly": {
+      "default": false,
+      "description": "Match the query against page titles only (intitle: operator). Web search only.",
+      "prefill": false,
+      "title": "Search titles only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "schemaVersion": 1,
+  "title": "Baidu Search Scraper Input",
+  "type": "object"
+}

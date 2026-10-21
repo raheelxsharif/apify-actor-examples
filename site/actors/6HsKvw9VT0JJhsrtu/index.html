@@ -1,0 +1,836 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-6ctN8zjowAvW6/WFIHrrKfpFq/RRq/Cdqqn2h4vBCmk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>ZipRecruiter Jobs with Full Description Extractor | Dataspryva</title><meta name="description" content="Search ZipRecruiter by keyword and location, or a direct search URL, and get each job&#x27;s full description text alongside company, location, salary, and remote/hybrid details."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/"><meta property="og:title" content="ZipRecruiter Jobs with Full Description Extractor | Dataspryva"><meta property="og:description" content="Search ZipRecruiter by keyword and location, or a direct search URL, and get each job&#x27;s full description text alongside company, location, salary, and remote/hybrid details."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#webpage","name":"ZipRecruiter Jobs with Full Description Extractor","description":"Search ZipRecruiter by keyword and location, or a direct search URL, and get each job's full description text alongside company, location, salary, and remote/hybrid details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#article","headline":"ZipRecruiter Jobs with Full Description Extractor","name":"ZipRecruiter Jobs with Full Description Extractor","description":"Search ZipRecruiter by keyword and location, or a direct search URL, and get each job's full description text alongside company, location, salary, and remote/hybrid details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"ZipRecruiter Jobs with Full Description Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/6HsKvw9VT0JJhsrtu/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>ZipRecruiter Jobs with Full Description Extractor</span></div><section id="overview"><h1 class="doc-title">ZipRecruiter Jobs with Full Description Extractor</h1><p class="lede">Search ZipRecruiter by keyword and location, or a direct search URL, and get each job&#x27;s full description text alongside company, location, salary, and remote/hybrid details.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/ziprecruiter-jobs-with-full-description-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/6HsKvw9VT0JJhsrtu/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>ZipRecruiter search URLs (filters in the URL are honored, e.g. `https://www.ziprecruiter.com/jobs-search?search=software+engineer&amp;location=New+York%2C+NY`) or individual job links like `https://www.ziprecruiter.com/c/Company/Job/Title/-in-City,ST?jid=...`.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Job keywords to search, e.g. `registered nurse`, `software engineer`. Every query is searched in every location below.</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Cities, states or `United States` for a national search. Leave empty to search the whole United States. Every query is searched in every location.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>ZipRecruiter search URLs (filters in the URL are honored, e.g. `https://www.ziprecruiter.com/jobs-search?search=software+engineer&amp;location=New+York%2C+NY`) or individual job links like `https://www.ziprecruiter.com/c/Company/Job/Title/-in-City,ST?jid=...`.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Job keywords to search, e.g. `registered nurse`, `software engineer`. Every query is searched in every location below.</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Cities, states or `United States` for a national search. Leave empty to search the whole United States. Every query is searched in every location.</td></tr><tr><td><code>companyName</code></td><td>string</td><td>optional</td><td>Only jobs from one company, e.g. `Visa`. The name is resolved on ZipRecruiter. Leave Search queries empty to browse all of the company&#x27;s jobs.</td></tr><tr><td><code>jobType</code></td><td>string</td><td>optional</td><td>Employment-type filter, applied to keyword searches.</td></tr><tr><td><code>workplace</code></td><td>string</td><td>optional</td><td>Work-arrangement filter (remote includes jobs that offer a remote option).</td></tr><tr><td><code>remoteOnly</code></td><td>boolean</td><td>optional</td><td>Kept for older tasks: same as setting Workplace type to `Remote`.</td></tr><tr><td><code>experienceLevels</code></td><td>array</td><td>optional</td><td>Restrict to one or more seniority levels. Empty = no filter.</td></tr><tr><td><code>daysPosted</code></td><td>integer</td><td>optional</td><td>Only jobs posted within the last N days. 0 = any time.</td></tr><tr><td><code>radiusMiles</code></td><td>integer</td><td>optional</td><td>Distance around the location. 0 = ZipRecruiter&#x27;s default.</td></tr><tr><td><code>salaryMin</code></td><td>integer</td><td>optional</td><td>Lower bound of the pay range: only jobs whose advertised annual pay reaches at least this amount. 0 = no lower bound.</td></tr><tr><td><code>salaryMax</code></td><td>integer</td><td>optional</td><td>Upper bound of the pay range: only jobs whose advertised annual pay stays at or below this amount. 0 = no upper bound.</td></tr><tr><td><code>quickApplyOnly</code></td><td>boolean</td><td>optional</td><td>Only jobs that can be applied to on ZipRecruiter with 1-Click Apply.</td></tr><tr><td><code>fetchDescriptions</code></td><td>boolean</td><td>optional</td><td>When on (recommended), each job&#x27;s detail data and full description are fetched — the actor&#x27;s core feature. Turn off for faster, cheaper runs with search-card fields only.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of job postings to return across all searches.</td></tr><tr><td><code>maxSearches</code></td><td>integer</td><td>optional</td><td>Cap on the number of query × location combinations when using Search queries (each combination is one search).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search ZipRecruiter by keyword and location, or paste search and job URLs. Returns each job&#x27;s full description plus salary, company, location, workplace and apply details.&quot;,
+  &quot;properties&quot;: {
+    &quot;companyName&quot;: {
+      &quot;description&quot;: &quot;Only jobs from one company, e.g. `Visa`. The name is resolved on ZipRecruiter. Leave Search queries empty to browse all of the company&#x27;s jobs.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Company name&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;daysPosted&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only jobs posted within the last N days. 0 = any time.&quot;,
+      &quot;maximum&quot;: 30,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Posted within (days)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;experienceLevels&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Restrict to one or more seniority levels. Empty = no filter.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;no_experience&quot;,
+          &quot;junior&quot;,
+          &quot;mid&quot;,
+          &quot;senior&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;No experience&quot;,
+          &quot;Junior&quot;,
+          &quot;Mid&quot;,
+          &quot;Senior&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Experience levels&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;fetchDescriptions&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;When on (recommended), each job&#x27;s detail data and full description are fetched — the actor&#x27;s core feature. Turn off for faster, cheaper runs with search-card fields only.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Fetch full descriptions&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;jobType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Employment-type filter, applied to keyword searches.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;full_time&quot;,
+        &quot;part_time&quot;,
+        &quot;contract&quot;,
+        &quot;contract_to_hire&quot;,
+        &quot;temporary&quot;,
+        &quot;as_needed&quot;,
+        &quot;other&quot;,
+        &quot;internship&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Full-time&quot;,
+        &quot;Part-time&quot;,
+        &quot;Contract&quot;,
+        &quot;Contract to hire&quot;,
+        &quot;Temporary&quot;,
+        &quot;As needed&quot;,
+        &quot;Other&quot;,
+        &quot;Internship&quot;
+      ],
+      &quot;title&quot;: &quot;Job type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;locations&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Cities, states or `United States` for a national search. Leave empty to search the whole United States. Every query is searched in every location.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Locations&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum number of job postings to return across all searches.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxSearches&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Cap on the number of query × location combinations when using Search queries (each combination is one search).&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Max searches&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;quickApplyOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only jobs that can be applied to on ZipRecruiter with 1-Click Apply.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;1-Click Apply only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;radiusMiles&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Distance around the location. 0 = ZipRecruiter&#x27;s default.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Search radius (miles)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;remoteOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Kept for older tasks: same as setting Workplace type to `Remote`.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Remote only (legacy)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;salaryMax&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Upper bound of the pay range: only jobs whose advertised annual pay stays at or below this amount. 0 = no upper bound.&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum salary (annual USD)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;salaryMin&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Lower bound of the pay range: only jobs whose advertised annual pay reaches at least this amount. 0 = no lower bound.&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum salary (annual USD)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Job keywords to search, e.g. `registered nurse`, `software engineer`. Every query is searched in every location below.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;startUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;ZipRecruiter search URLs (filters in the URL are honored, e.g. `https://www.ziprecruiter.com/jobs-search?search=software+engineer&amp;location=New+York%2C+NY`) or individual job links like `https://www.ziprecruiter.com/c/Company/Job/Title/-in-City,ST?jid=...`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;https://www.ziprecruiter.com/jobs-search?search=software+engineer&amp;location=New+York%2C+NY&quot;
+      ],
+      &quot;title&quot;: &quot;ZipRecruiter URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;workplace&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Work-arrangement filter (remote includes jobs that offer a remote option).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;remote&quot;,
+        &quot;hybrid&quot;,
+        &quot;onsite&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Remote&quot;,
+        &quot;Hybrid&quot;,
+        &quot;On-site&quot;
+      ],
+      &quot;title&quot;: &quot;Workplace type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;ZipRecruiter Jobs with Full Description Extractor Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>jobs</code></td><td>string</td><td>optional</td><td>ZipRecruiter Jobs</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Dataset of ZipRecruiter job postings with title, company, location, salary, workplace and employment types, full description text, and apply details.&quot;,
+  &quot;properties&quot;: {
+    &quot;jobs&quot;: {
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;ZipRecruiter Jobs&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;ZipRecruiter Jobs with Full Description Extractor Output&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;applyType&quot;: {
+        &quot;description&quot;: &quot;external / quick-apply / internal&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;applyUrl&quot;: {
+        &quot;description&quot;: &quot;Apply URL (external apply flow when available)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;benefits&quot;: {
+        &quot;description&quot;: &quot;Listed benefits&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;city&quot;: {
+        &quot;description&quot;: &quot;City&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;company&quot;: {
+        &quot;description&quot;: &quot;Hiring company name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyFoundedYear&quot;: {
+        &quot;description&quot;: &quot;Company founding year&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyHqLocation&quot;: {
+        &quot;description&quot;: &quot;Company headquarters&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyId&quot;: {
+        &quot;description&quot;: &quot;ZipRecruiter company id&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyIndustries&quot;: {
+        &quot;description&quot;: &quot;Company industries&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;companyLogo&quot;: {
+        &quot;description&quot;: &quot;Company logo image URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companySize&quot;: {
+        &quot;description&quot;: &quot;Company size band&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyUrl&quot;: {
+        &quot;description&quot;: &quot;Company jobs page URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;companyWebsite&quot;: {
+        &quot;description&quot;: &quot;Company website&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;country&quot;: {
+        &quot;description&quot;: &quot;Country name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;countryCode&quot;: {
+        &quot;description&quot;: &quot;Country code&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;county&quot;: {
+        &quot;description&quot;: &quot;County&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: {
+        &quot;description&quot;: &quot;Full job description text&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;descriptionFetchFailed&quot;: {
+        &quot;description&quot;: &quot;True when the full description could not be fetched&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;descriptionHtml&quot;: {
+        &quot;description&quot;: &quot;Full job description HTML&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;directApply&quot;: {
+        &quot;description&quot;: &quot;True when 1-Click Apply is available&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;educationLevels&quot;: {
+        &quot;description&quot;: &quot;Education levels mentioned&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;employmentTypes&quot;: {
+        &quot;description&quot;: &quot;Employment types (Full-time, Part-time, ...)&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;experienceMonths&quot;: {
+        &quot;description&quot;: &quot;Months of experience mentioned&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;id&quot;: {
+        &quot;description&quot;: &quot;Stable ZipRecruiter listing key&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;inputUrl&quot;: {
+        &quot;description&quot;: &quot;Search URL (or job URL) that produced the record&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;isActive&quot;: {
+        &quot;description&quot;: &quot;Whether the listing is active&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;isHybrid&quot;: {
+        &quot;description&quot;: &quot;Whether the job is hybrid&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;isRemote&quot;: {
+        &quot;description&quot;: &quot;Whether the job offers remote work&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;jid&quot;: {
+        &quot;description&quot;: &quot;ZipRecruiter job (open seat) id&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;listingKey&quot;: {
+        &quot;description&quot;: &quot;Stable ZipRecruiter listing key&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;location&quot;: {
+        &quot;description&quot;: &quot;Display location&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;matchId&quot;: {
+        &quot;description&quot;: &quot;ZipRecruiter match id&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;postalCode&quot;: {
+        &quot;description&quot;: &quot;Postal code&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;postedAgo&quot;: {
+        &quot;description&quot;: &quot;Human recency label, e.g. `3 days ago`&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;postedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 posting timestamp&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;rollingPostedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 rolling posting timestamp&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;salary&quot;: {
+        &quot;description&quot;: &quot;Salary text as shown on ZipRecruiter&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;salaryCurrency&quot;: {
+        &quot;description&quot;: &quot;Currency code, e.g. USD&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;salaryMax&quot;: {
+        &quot;description&quot;: &quot;Maximum pay per salaryPeriod&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;salaryMaxAnnual&quot;: {
+        &quot;description&quot;: &quot;Annualized maximum pay&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;salaryMin&quot;: {
+        &quot;description&quot;: &quot;Minimum pay per salaryPeriod&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;salaryMinAnnual&quot;: {
+        &quot;description&quot;: &quot;Annualized minimum pay&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;salaryPeriod&quot;: {
+        &quot;description&quot;: &quot;hour / day / week / month / year&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;salarySource&quot;: {
+        &quot;description&quot;: &quot;provided / parsed / estimated&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;scrapedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 scrape timestamp&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;searchQuery&quot;: {
+        &quot;description&quot;: &quot;Keyword that produced the record&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;shareUrl&quot;: {
+        &quot;description&quot;: &quot;Short share URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;shortDescription&quot;: {
+        &quot;description&quot;: &quot;Search-card description snippet&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;state&quot;: {
+        &quot;description&quot;: &quot;Two-letter state code&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: {
+        &quot;description&quot;: &quot;Job title&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: {
+        &quot;description&quot;: &quot;Record type (`job_ziprecruiter`)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;url&quot;: {
+        &quot;description&quot;: &quot;Canonical job posting URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;validThrough&quot;: {
+        &quot;description&quot;: &quot;Expiry date when exposed by the source&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;workplaceTypes&quot;: {
+        &quot;description&quot;: &quot;Workplace types (Remote, Hybrid, On-site, Remote optional)&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;ZipRecruiter Jobs&quot;,
+  &quot;views&quot;: {
+    &quot;detailed&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;applyUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Apply&quot;
+          },
+          &quot;city&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;City&quot;
+          },
+          &quot;company&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;companyUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Company URL&quot;
+          },
+          &quot;employmentTypes&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Employment&quot;
+          },
+          &quot;id&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;ID&quot;
+          },
+          &quot;isHybrid&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Hybrid&quot;
+          },
+          &quot;isRemote&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Remote&quot;
+          },
+          &quot;jid&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;JID&quot;
+          },
+          &quot;location&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Location&quot;
+          },
+          &quot;postedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Posted&quot;
+          },
+          &quot;salary&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Salary&quot;
+          },
+          &quot;salaryCurrency&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Currency&quot;
+          },
+          &quot;salaryMax&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Max&quot;
+          },
+          &quot;salaryMin&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Min&quot;
+          },
+          &quot;salaryPeriod&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Period&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Scraped at&quot;
+          },
+          &quot;state&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;State&quot;
+          },
+          &quot;title&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          },
+          &quot;url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;URL&quot;
+          },
+          &quot;workplaceTypes&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Workplace&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Detailed Results&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;id&quot;,
+          &quot;jid&quot;,
+          &quot;title&quot;,
+          &quot;company&quot;,
+          &quot;companyUrl&quot;,
+          &quot;location&quot;,
+          &quot;city&quot;,
+          &quot;state&quot;,
+          &quot;workplaceTypes&quot;,
+          &quot;employmentTypes&quot;,
+          &quot;isRemote&quot;,
+          &quot;isHybrid&quot;,
+          &quot;salary&quot;,
+          &quot;salaryMin&quot;,
+          &quot;salaryMax&quot;,
+          &quot;salaryPeriod&quot;,
+          &quot;salaryCurrency&quot;,
+          &quot;postedAt&quot;,
+          &quot;applyUrl&quot;,
+          &quot;url&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;city&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;City&quot;
+          },
+          &quot;company&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;isRemote&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Remote&quot;
+          },
+          &quot;salary&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Salary&quot;
+          },
+          &quot;state&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;State&quot;
+          },
+          &quot;title&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          },
+          &quot;url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;URL&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;company&quot;,
+          &quot;city&quot;,
+          &quot;state&quot;,
+          &quot;salary&quot;,
+          &quot;isRemote&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-ziprecruiter-jobs-with-full-description-extractor">ZipRecruiter Jobs with Full Description Extractor</h2>
+<p>Scrape <strong>ZipRecruiter</strong> job postings with their <strong>complete description text</strong> — not just the search-card snippet. Search by keyword across as many locations as you need, paste any search or job URL, apply ZipRecruiter's own filters (job type, workplace, experience, posted date, salary, 1-Click Apply), and get one flat row per posting with salary, company profile, benefits, workplace type, posting dates and apply links.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Full descriptions:</strong> every job's complete description text and HTML, fetched per posting — the search results page only shows a teaser.</li>
+<li><strong>Two ways to start:</strong> keyword queries × locations, or any ZipRecruiter search URL / job URL / company page URL you already have.</li>
+<li><strong>Company-scoped search:</strong> set <code>companyName</code> (or paste a <code>/co/&lt;company&gt;/Jobs</code> URL) to get only that employer's postings — combine it with a keyword or leave the queries empty to browse everything the company has open.</li>
+<li><strong>ZipRecruiter's own filters:</strong> employment type, remote / hybrid / on-site, experience level, posted within N days, search radius, minimum salary, 1-Click Apply only.</li>
+<li><strong>Rich per-job data:</strong> structured salary (min / max, interval, currency, annualized values, provided vs estimated), benefits, workplace types, poster dates, company size / industry / website / headquarters, external apply links.</li>
+<li><strong>Cards-only mode:</strong> switch off <code>fetchDescriptions</code> for faster runs with search-card fields only.</li>
+<li><strong>Empty fields are omitted</strong> — a value ZipRecruiter does not show for a job is left out of that row rather than sent as <code>null</code>.</li>
+</ul>
+<h2 id="readme-output-per-job">Output per job</h2>
+<p>Identity:</p>
+<ul>
+<li><code>type</code> — always <code>job_ziprecruiter</code></li>
+<li><code>id</code>, <code>listingKey</code> — ZipRecruiter's stable listing key for the posting</li>
+<li><code>jid</code> — ZipRecruiter's job (open seat) id, matching the <code>jid=</code> in job URLs</li>
+<li><code>matchId</code> — ZipRecruiter's internal match id</li>
+<li><code>url</code> — canonical job posting URL</li>
+<li><code>title</code> — job title</li>
+</ul>
+<p>Company:</p>
+<ul>
+<li><code>company</code>, <code>companyId</code>, <code>companyUrl</code>, <code>companyLogo</code></li>
+<li><code>companySize</code>, <code>companyIndustries[]</code>, <code>companyWebsite</code>, <code>companyFoundedYear</code>, <code>companyHqLocation</code></li>
+</ul>
+<p>Location:</p>
+<ul>
+<li><code>location</code> — display location, e.g. <code>Chicago, IL</code></li>
+<li><code>city</code>, <code>state</code>, <code>country</code>, <code>countryCode</code>, <code>postalCode</code>, <code>county</code></li>
+<li><code>workplaceTypes[]</code> — <code>Remote</code>, <code>Hybrid</code>, <code>On-site</code>, <code>Remote optional</code></li>
+<li><code>isRemote</code>, <code>isHybrid</code></li>
+</ul>
+<p>Pay:</p>
+<ul>
+<li><code>salary</code> — the salary text shown on the posting, e.g. <code>$34 - $41.56/hr</code></li>
+<li><code>salaryMin</code>, <code>salaryMax</code> — numeric bounds in the given period</li>
+<li><code>salaryPeriod</code> — <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code> or <code>year</code></li>
+<li><code>salaryCurrency</code> — e.g. <code>USD</code></li>
+<li><code>salaryMinAnnual</code>, <code>salaryMaxAnnual</code> — annualized bounds</li>
+<li><code>salarySource</code> — <code>provided</code>, <code>parsed</code> or <code>estimated</code> (estimated pay is flagged, never mixed with real numbers)</li>
+</ul>
+<p>Details:</p>
+<ul>
+<li><code>description</code> — full description as plain text</li>
+<li><code>descriptionHtml</code> — the same description as HTML</li>
+<li><code>descriptionFetchFailed</code> — <code>true</code> when a job's detail data could not be fetched; the row is kept from search-card data</li>
+<li><code>employmentTypes[]</code> — e.g. <code>Full-time</code>, <code>Contract</code></li>
+<li><code>benefits[]</code> — e.g. <code>Medical</code>, <code>Dental</code>, <code>Paid time off</code></li>
+<li><code>postedAt</code>, <code>rollingPostedAt</code> — ISO 8601 timestamps</li>
+<li><code>postedAgo</code> — human label, e.g. <code>3 days ago</code></li>
+<li><code>isActive</code> — whether the listing is active</li>
+<li><code>educationLevels[]</code>, <code>experienceMonths</code></li>
+<li><code>shortDescription</code> — search-card teaser</li>
+</ul>
+<p>Applying &amp; sharing:</p>
+<ul>
+<li><code>applyUrl</code> — apply link; for off-site applications this is the external apply URL</li>
+<li><code>applyType</code> — <code>external</code>, <code>quick-apply</code> or <code>internal</code></li>
+<li><code>directApply</code> — <code>true</code> when 1-Click Apply is available</li>
+<li><code>shareUrl</code> — short share link</li>
+</ul>
+<p>Metadata:</p>
+<ul>
+<li><code>inputUrl</code> — the search URL (or job URL) that produced this row</li>
+<li><code>searchQuery</code> — the keyword that produced this row</li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>startUrls</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>ZipRecruiter search URLs or job URLs. Filters already in a search URL are honored.</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Keywords to search, e.g. <code>registered nurse</code>. Each query is searched in every location.</td>
+</tr>
+<tr>
+<td><code>locations</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Cities, states or <code>United States</code>. Empty = whole United States.</td>
+</tr>
+<tr>
+<td><code>companyName</code></td>
+<td>String</td>
+<td>–</td>
+<td>Only jobs from this company (resolved on ZipRecruiter). Works with or without Search queries; company page URLs in <code>startUrls</code> do the same.</td>
+</tr>
+<tr>
+<td><code>jobType</code></td>
+<td>String (select)</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>full_time</code>, <code>part_time</code>, <code>contract</code>, <code>contract_to_hire</code>, <code>temporary</code>, <code>as_needed</code>, <code>other</code>, <code>internship</code></td>
+</tr>
+<tr>
+<td><code>workplace</code></td>
+<td>String (select)</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>remote</code>, <code>hybrid</code>, <code>onsite</code></td>
+</tr>
+<tr>
+<td><code>remoteOnly</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Legacy shortcut for <code>workplace: &quot;remote&quot;</code></td>
+</tr>
+<tr>
+<td><code>experienceLevels</code></td>
+<td>Multi-select</td>
+<td>–</td>
+<td><code>no_experience</code>, <code>junior</code>, <code>mid</code>, <code>senior</code></td>
+</tr>
+<tr>
+<td><code>daysPosted</code></td>
+<td>Integer</td>
+<td><code>0</code></td>
+<td>Posted within the last N days (0–30). 0 = any time.</td>
+</tr>
+<tr>
+<td><code>radiusMiles</code></td>
+<td>Integer</td>
+<td><code>0</code></td>
+<td>Search radius around the location (0–100 miles). 0 = default.</td>
+</tr>
+<tr>
+<td><code>salaryMin</code></td>
+<td>Integer</td>
+<td><code>0</code></td>
+<td>Lower bound of the pay range: only jobs whose annual pay reaches at least this amount. 0 = no lower bound.</td>
+</tr>
+<tr>
+<td><code>salaryMax</code></td>
+<td>Integer</td>
+<td><code>0</code></td>
+<td>Upper bound of the pay range: only jobs whose annual pay stays at or below this amount. 0 = no upper bound.</td>
+</tr>
+<tr>
+<td><code>quickApplyOnly</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Only jobs with 1-Click Apply</td>
+</tr>
+<tr>
+<td><code>fetchDescriptions</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Off = cards-only mode (faster; no full description)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>Integer</td>
+<td><code>50</code></td>
+<td>Maximum jobs to return (1–10000)</td>
+</tr>
+<tr>
+<td><code>maxSearches</code></td>
+<td>Integer</td>
+<td><code>100</code></td>
+<td>Cap on query × location combinations</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-keyword-search-with-filters">Example: keyword search with filters</h3>
+<pre><code class="language-json">{
+    &quot;searchQueries&quot;: [&quot;registered nurse&quot;],
+    &quot;locations&quot;: [&quot;Chicago, IL&quot;],
+    &quot;jobType&quot;: &quot;full_time&quot;,
+    &quot;daysPosted&quot;: 7,
+    &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-remote-senior-roles-in-several-states">Example: remote senior roles in several states</h3>
+<pre><code class="language-json">{
+    &quot;searchQueries&quot;: [&quot;data engineer&quot;, &quot;analytics engineer&quot;],
+    &quot;locations&quot;: [&quot;Texas&quot;, &quot;Florida&quot;],
+    &quot;workplace&quot;: &quot;remote&quot;,
+    &quot;experienceLevels&quot;: [&quot;senior&quot;],
+    &quot;salaryMin&quot;: 120000,
+    &quot;maxItems&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-a-search-url-you-already-built">Example: a search URL you already built</h3>
+<pre><code class="language-json">{
+    &quot;startUrls&quot;: [
+        &quot;https://www.ziprecruiter.com/jobs-search?search=fire+alarm+technician&amp;location=New+York%2C+NY&amp;days=7&quot;
+    ],
+    &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-enrich-specific-job-links">Example: enrich specific job links</h3>
+<pre><code class="language-json">{
+    &quot;startUrls&quot;: [
+        &quot;https://www.ziprecruiter.com/c/Company/Job/Title/-in-Chicago,IL?jid=abcdef1234567890&quot;
+    ],
+    &quot;fetchDescriptions&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Talent intelligence:</strong> follow hiring volume and role mix for a company, city or industry over time.</li>
+<li><strong>Compensation research:</strong> aggregate <code>salaryMin</code> / <code>salaryMax</code> / <code>salaryMinAnnual</code> by title, state and workplace type; separate provided pay from estimates with <code>salarySource</code>.</li>
+<li><strong>Recruiting pipelines:</strong> build clean candidate-facing lists with real apply links (<code>applyUrl</code>, <code>directApply</code>).</li>
+<li><strong>Skills and text mining:</strong> run NLP or skill extraction over the complete description, not a teaser.</li>
+<li><strong>Remote-work tracking:</strong> monitor <code>workplaceTypes</code> mixes nationwide or per employer.</li>
+<li><strong>Job-board products:</strong> keep an internal board fresh with scheduled runs and deduplicate on <code>jid</code>.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a ZipRecruiter account, cookies or a proxy?</strong>
+No. The actor reads public job data only and configures its own proxy automatically — there is nothing to set up. It deliberately fetches a small data payload per job instead of downloading each job page, which keeps runs fast and light.</p>
+<p><strong>Why do some rows have no salary, and how does the salary range filter work?</strong>
+ZipRecruiter only publishes pay for part of its listings. When the employer does not disclose pay and ZipRecruiter cannot parse it from the text, the salary fields are simply absent from that row instead of being guessed; when ZipRecruiter shows an estimated range, the numbers are omitted and <code>salarySource</code> is <code>estimated</code>. <code>salaryMin</code> and <code>salaryMax</code> map to ZipRecruiter's own bounds — a job is kept only when its advertised annual pay reaches <code>salaryMin</code> (when set) and stays at or below <code>salaryMax</code> (when set). Jobs without any disclosed pay may still appear, because the source does not know their pay and cannot filter them out.</p>
+<p><strong>Can I get results in a specific order (newest first, highest paid)?</strong>
+No — ZipRecruiter's public search does not expose a sort order; results always arrive in ZipRecruiter's own relevance order. Use <code>daysPosted</code> to restrict recency, or sort the dataset yourself after the run (for example by <code>postedAt</code> or <code>salaryMaxAnnual</code>).</p>
+<p><strong>Why are there no GPS coordinates?</strong>
+ZipRecruiter's public job data does not include latitude/longitude. The actor delivers <code>city</code>, <code>state</code>, <code>postalCode</code>, <code>county</code>, <code>countryCode</code> and the display location, which geocode accurately in any mapping tool.</p>
+<p><strong>Which countries are supported?</strong>
+United States and Canada (Canadian jobs appear on ziprecruiter.com with Canadian locations). The United Kingdom and Ireland run separate ZipRecruiter sites with their own legacy job pages; this actor covers the US/Canada data source.</p>
+<p><strong>What does <code>descriptionFetchFailed: true</code> mean, and can I skip descriptions?</strong>
+It means the job's detail data could not be fetched (for example, the site asked for verification mid-run); the row is still delivered from search-card data and flagged so you can re-run those jobs later. Rows that load fine but genuinely have no description are not flagged. To skip detail fetching entirely, set <code>fetchDescriptions</code> to <code>false</code> — you get search-card fields only (title, company, location, pay, workplace, posting date, apply link), which is significantly faster.</p>
+<p><strong>How do I get only one company's jobs?</strong>
+Set <code>companyName</code> (for example <code>Visa</code>) and either add keywords to <code>searchQueries</code> or leave them empty to browse all of that company's open roles. Pasting a company page URL such as <code>https://www.ziprecruiter.com/co/Visa/Jobs</code> into <code>startUrls</code> works the same way. The company name is resolved on ZipRecruiter before the search runs; if it cannot be found, the actor says so in the status message and falls back to a normal keyword search when you provided one.</p>
+<p><strong>How many results can one search return, and why can the same job appear twice later?</strong>
+ZipRecruiter caps a single search at about 10,000 results; for broader coverage, split your topic into several queries or locations. Within a single run the actor deduplicates by ZipRecruiter's own job id, so a job found by several of your searches is only delivered once. If you run the same search again later, ZipRecruiter has re-ranked and reposted listings in the meantime, so some rows may differ.</p>
+<p><strong>What does <code>applyType: &quot;external&quot;</code> mean?</strong>
+The application continues on the employer's own site. <code>applyUrl</code> points to that flow. <code>quick-apply</code> means the job supports ZipRecruiter's 1-Click Apply, and <code>internal</code> means the application is completed on ZipRecruiter.</p>
+<p><strong>Is this affiliated with ZipRecruiter?</strong>
+No. This actor is an independent tool that reads ZipRecruiter's public job data and is not affiliated with or endorsed by ZipRecruiter.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/6HsKvw9VT0JJhsrtu/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>8VGgLzspVLnGioOxo</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,305 @@
+{
+  "description": "Scrape StockTwits messages, aggregate sentiment and its history, trending tickers, quotes, fundamentals, price bars, profiles, search, and reply threads.",
+  "properties": {
+    "chartZoom": {
+      "default": "1M",
+      "description": "Intraday windows use 5-minute (1D) or 30-minute (1W) bars; other windows use daily/weekly bars.",
+      "editor": "select",
+      "enum": [
+        "1D",
+        "1W",
+        "1M",
+        "3M",
+        "6M",
+        "YTD",
+        "1Y",
+        "5Y",
+        "ALL"
+      ],
+      "enumTitles": [
+        "1 day",
+        "1 week",
+        "1 month",
+        "3 months",
+        "6 months",
+        "Year to date",
+        "1 year",
+        "5 years",
+        "All (2016+)"
+      ],
+      "title": "Price history window (mode=priceHistory)",
+      "type": "string"
+    },
+    "contentFilter": {
+      "default": "all",
+      "description": "Keep only messages with this attachment. Videos are rare; All keeps every message.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "links",
+        "charts",
+        "videos"
+      ],
+      "enumTitles": [
+        "All messages",
+        "With links",
+        "With charts",
+        "With videos"
+      ],
+      "prefill": "all",
+      "title": "Content filter (message modes)",
+      "type": "string"
+    },
+    "feedType": {
+      "default": "trending",
+      "description": "Trending = market-wide trending posts; Suggested = posts from StockTwits' curated suggested traders; All = public market-wide firehose (deep, chronological).",
+      "editor": "select",
+      "enum": [
+        "trending",
+        "suggested",
+        "all"
+      ],
+      "enumTitles": [
+        "Trending posts",
+        "Suggested trader posts",
+        "All public posts (market-wide, v3)"
+      ],
+      "title": "Market feed (mode=marketMessages)",
+      "type": "string"
+    },
+    "includeRelatedSymbols": {
+      "default": false,
+      "description": "Add StockTwits' related-industry tickers to each symbol record.",
+      "prefill": false,
+      "title": "Include related tickers (mode=symbolOverview)",
+      "type": "boolean"
+    },
+    "includeUserProfile": {
+      "default": false,
+      "description": "Add one profile record per username before that trader's posts.",
+      "prefill": false,
+      "title": "Include trader profile (mode=userMessages)",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Per ticker/username/query/thread for target modes; total for trending and market feeds; max points or bars for history modes.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max records",
+      "type": "integer"
+    },
+    "messageIds": {
+      "default": [],
+      "description": "Message IDs or StockTwits message URLs whose parent + reply thread should be fetched.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Message IDs (mode=conversation)",
+      "type": "array"
+    },
+    "mode": {
+      "default": "symbolMessages",
+      "description": "What to fetch from StockTwits.",
+      "editor": "select",
+      "enum": [
+        "symbolMessages",
+        "userMessages",
+        "trendingSymbols",
+        "marketMessages",
+        "symbolSentiment",
+        "symbolOverview",
+        "priceHistory",
+        "search",
+        "conversation",
+        "trendingMessages",
+        "symbolSearch"
+      ],
+      "enumTitles": [
+        "Ticker messages",
+        "Trader posts",
+        "Trending tickers",
+        "Market-wide posts",
+        "Ticker sentiment (now or history)",
+        "Ticker quote & fundamentals",
+        "Price history (OHLCV)",
+        "Search tickers & traders",
+        "Message thread & replies",
+        "Market-wide trending posts (legacy alias)",
+        "Search tickers (legacy alias)"
+      ],
+      "prefill": "symbolMessages",
+      "title": "Mode",
+      "type": "string"
+    },
+    "newerThanMessageId": {
+      "description": "Only keep messages with an ID greater than this. Useful for incremental scheduled runs.",
+      "minimum": 0,
+      "title": "Newer than message ID (message modes)",
+      "type": "integer"
+    },
+    "olderThanMessageId": {
+      "description": "Start from messages at or below this ID and page further back.",
+      "minimum": 0,
+      "title": "Older than message ID (message modes)",
+      "type": "integer"
+    },
+    "onlyPriceTargets": {
+      "default": false,
+      "description": "Keep only messages where the author attached a StockTwits price prediction (price target).",
+      "prefill": false,
+      "title": "Only price predictions (message modes)",
+      "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Company names, tickers, or trader names to search for, e.g. tesla, apple, TraderLion.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search queries (mode=search)",
+      "type": "array"
+    },
+    "searchType": {
+      "default": "all",
+      "description": "What to return from each query.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "symbols",
+        "users"
+      ],
+      "enumTitles": [
+        "Everything (tickers + traders)",
+        "Tickers only",
+        "Traders only"
+      ],
+      "title": "Search type (mode=search)",
+      "type": "string"
+    },
+    "sentimentFilter": {
+      "default": "any",
+      "description": "Keep posts by the author's self-tagged sentiment. Most posts are untagged; Any keeps all.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "bullish",
+        "bearish",
+        "tagged"
+      ],
+      "enumTitles": [
+        "Any (no filter)",
+        "Bullish only",
+        "Bearish only",
+        "Any tagged sentiment"
+      ],
+      "prefill": "any",
+      "title": "Sentiment filter (message modes)",
+      "type": "string"
+    },
+    "sentimentRange": {
+      "default": "now",
+      "description": "Now = current sentiment across 15m, 24h, now, 1D–ALL. Other values return the daily/intraday history for that window.",
+      "editor": "select",
+      "enum": [
+        "now",
+        "1D",
+        "1W",
+        "1M",
+        "3M",
+        "6M",
+        "1Y",
+        "5Y",
+        "ALL"
+      ],
+      "enumTitles": [
+        "Current snapshot (10 timeframes)",
+        "1 day history",
+        "1 week history",
+        "1 month history",
+        "3 month history",
+        "6 month history",
+        "1 year history",
+        "5 year history",
+        "All history (2018+)"
+      ],
+      "title": "Sentiment range (mode=symbolSentiment)",
+      "type": "string"
+    },
+    "streamFilter": {
+      "default": "all",
+      "description": "All = newest first, Top = StockTwits ranking, Trending = curated high-engagement posts for the ticker (up to 100).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "top",
+        "trending"
+      ],
+      "enumTitles": [
+        "All (newest first)",
+        "Top (ranked stream)",
+        "Trending (curated top 100)"
+      ],
+      "prefill": "all",
+      "title": "Message sort (mode=symbolMessages)",
+      "type": "string"
+    },
+    "symbols": {
+      "default": [
+        "AAPL"
+      ],
+      "description": "Tickers to fetch, e.g. AAPL, TSLA, BTC.X, BRK.B, SHOP.TSX. Accepts $cashtags and StockTwits symbol URLs. Use .X for crypto.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "AAPL"
+      ],
+      "title": "Tickers (mode=symbolMessages / symbolSentiment / symbolOverview / priceHistory)",
+      "type": "array"
+    },
+    "trendingAssetClass": {
+      "default": "all",
+      "description": "Which trending instruments to keep. All includes stocks, ETFs, crypto, ADRs, commodities, and other classes.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "stocks",
+        "etf",
+        "crypto",
+        "adr",
+        "commodity"
+      ],
+      "enumTitles": [
+        "All asset classes",
+        "Stocks",
+        "ETFs",
+        "Crypto",
+        "ADRs",
+        "Commodities"
+      ],
+      "title": "Asset class (mode=trendingSymbols)",
+      "type": "string"
+    },
+    "usernames": {
+      "default": [],
+      "description": "StockTwits usernames without @, or profile URLs, e.g. KirRoyalTrader, https://stocktwits.com/Fibonaccino.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Usernames (mode=userMessages)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "StockTwits Scraper Input",
+  "type": "object"
+}

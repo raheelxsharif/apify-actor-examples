@@ -1,0 +1,185 @@
+{
+  "description": "Scrape G2 software reviews by URL or slug, plus product info and competitor lists.",
+  "properties": {
+    "companySizes": {
+      "default": [],
+      "description": "Keep reviews from companies of the selected sizes. Leave empty for all sizes. (mode=reviews)",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "smallBusiness",
+          "midMarket",
+          "enterprise"
+        ],
+        "enumTitles": [
+          "Small Business (50 or fewer emp.)",
+          "Mid-Market (51-1000 emp.)",
+          "Enterprise (1001+ emp.)"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Reviewer company size",
+      "type": "array"
+    },
+    "fromDate": {
+      "description": "Only keep reviews published on or after this date. (mode=reviews)",
+      "editor": "datepicker",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "title": "Reviews from (optional)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Upper limit of records to collect for each product. (mode=reviews uses filtering to go far beyond G2's default review feed.)",
+      "maximum": 50000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum items per product",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "reviews",
+      "description": "What to collect from G2.",
+      "editor": "select",
+      "enum": [
+        "reviews",
+        "productInfo",
+        "competitors"
+      ],
+      "enumTitles": [
+        "Reviews for products",
+        "Product info & details",
+        "Competitors & alternatives"
+      ],
+      "prefill": "reviews",
+      "title": "Mode",
+      "type": "string"
+    },
+    "reviewerRegions": {
+      "default": [],
+      "description": "Keep reviews from reviewers in the selected regions. Leave empty for all regions. (mode=reviews)",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "northAmerica",
+          "europe",
+          "asia",
+          "anz",
+          "africa",
+          "latinAmerica",
+          "middleEast"
+        ],
+        "enumTitles": [
+          "North America",
+          "Europe",
+          "Asia",
+          "ANZ",
+          "Africa",
+          "Latin America",
+          "Middle East"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Reviewer regions",
+      "type": "array"
+    },
+    "reviewerRoles": {
+      "default": [],
+      "description": "Keep reviews written by reviewers with one of the selected roles. Leave empty for all roles. (mode=reviews)",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "user",
+          "administrator",
+          "executiveSponsor",
+          "internalConsultant",
+          "consultant",
+          "agency",
+          "industryAnalyst"
+        ],
+        "enumTitles": [
+          "User",
+          "Administrator",
+          "Executive Sponsor",
+          "Internal Consultant",
+          "Consultant",
+          "Agency",
+          "Industry Analyst / Tech Writer"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Reviewer roles",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "newest",
+      "description": "Order of the collected reviews. (mode=reviews)",
+      "editor": "select",
+      "enum": [
+        "newest",
+        "oldest",
+        "highestRated",
+        "lowestRated"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Oldest first",
+        "Highest rated first",
+        "Lowest rated first"
+      ],
+      "prefill": "newest",
+      "title": "Sort reviews by",
+      "type": "string"
+    },
+    "starRatings": {
+      "default": [],
+      "description": "Keep reviews with one of the selected star ratings. Leave empty for all ratings. (mode=reviews)",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "enumTitles": [
+          "1 star",
+          "2 stars",
+          "3 stars",
+          "4 stars",
+          "5 stars"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Star ratings",
+      "type": "array"
+    },
+    "startUrls": {
+      "description": "G2 product URLs (e.g. https://www.g2.com/products/notion/reviews) or bare product slugs (e.g. notion). One entry per product.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.g2.com/products/notion/reviews"
+      ],
+      "title": "G2 product URLs or slugs",
+      "type": "array"
+    },
+    "toDate": {
+      "description": "Only keep reviews published on or before this date. (mode=reviews)",
+      "editor": "datepicker",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "title": "Reviews until (optional)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "startUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "G2 Product Scraper Input",
+  "type": "object"
+}

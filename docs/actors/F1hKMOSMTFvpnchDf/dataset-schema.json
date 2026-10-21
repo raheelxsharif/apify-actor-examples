@@ -1,0 +1,75 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "championStats": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Champion statistics",
+      "transformation": {
+        "fields": [
+          "championName",
+          "position",
+          "gamesPlayed",
+          "kda",
+          "winRate",
+          "pickRate",
+          "averageCs",
+          "averageGold",
+          "queueType",
+          "region",
+          "rankTier",
+          "period",
+          "patch"
+        ]
+      }
+    },
+    "fullCounters": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Full counters",
+      "transformation": {
+        "fields": [
+          "targetChampionName",
+          "championName",
+          "position",
+          "games",
+          "wins",
+          "winRate",
+          "queueType",
+          "region",
+          "rankTier",
+          "patch"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Champion tier rows",
+      "transformation": {
+        "fields": [
+          "championName",
+          "position",
+          "tier",
+          "tierNumber",
+          "tierRank",
+          "rankChange",
+          "winRate",
+          "pickRate",
+          "banRate",
+          "region",
+          "rankTier",
+          "queueType",
+          "patch",
+          "sourceUrl"
+        ]
+      }
+    }
+  }
+}

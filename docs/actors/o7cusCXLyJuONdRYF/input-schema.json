@@ -1,0 +1,70 @@
+{
+  "properties": {
+    "includeAnnouncementPost": {
+      "default": true,
+      "description": "Attach the full announcement post (text, author, metrics, media) to every article row.",
+      "prefill": true,
+      "title": "Include announcement post",
+      "type": "boolean"
+    },
+    "includeArticleBody": {
+      "default": true,
+      "description": "Include the complete article text: bodyText, bodyMarkdown, the rich content blocks, inline media and links.",
+      "prefill": true,
+      "title": "Include full article body",
+      "type": "boolean"
+    },
+    "includeAuthorProfile": {
+      "default": true,
+      "description": "Enrich the author with their public profile (follower count, bio, verification, join date) so engagementRate can be computed.",
+      "prefill": true,
+      "title": "Include full author profile",
+      "type": "boolean"
+    },
+    "includeCoverImage": {
+      "default": true,
+      "description": "Include the article's cover image link.",
+      "prefill": true,
+      "title": "Include cover image",
+      "type": "boolean"
+    },
+    "includePreviewText": {
+      "default": true,
+      "description": "Include the short preview text X shows for the article.",
+      "prefill": true,
+      "title": "Include preview text",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 1000,
+      "description": "Stop after this many article rows. Status rows are not counted.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum articles",
+      "type": "integer"
+    },
+    "tweetUrls": {
+      "description": "Paste the post that announces the article (the post whose card opens the article), or the article link itself. For example https://x.com/vxunderground/status/1979885711579865307.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/vxunderground/status/1979885711579865307",
+        "https://x.com/i/article/1979885711579865307",
+        "https://x.com/NASA/status/2075599612610535438"
+      ],
+      "maxItems": 1000,
+      "minItems": 1,
+      "prefill": [
+        "https://x.com/vxunderground/status/1979885711579865307"
+      ],
+      "title": "Article announcement posts or Article links",
+      "type": "array"
+    }
+  },
+  "required": [
+    "tweetUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "Twitter (X) Articles Scraper",
+  "type": "object"
+}

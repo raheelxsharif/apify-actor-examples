@@ -1,0 +1,999 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-XyRjYBWvroA6XgkdgsAmiG/lLFWTKGctWW0N9nsynpg=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>TikTok Hashtag Momentum &amp; Top Creator Tracker | Dataspryva</title><meta name="description" content="Reads TikTok Creative Center&#x27;s trending-hashtag list for any country and returns rank, post and view counts, a day-by-day momentum curve, and top creators behind each trend."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/"><meta property="og:title" content="TikTok Hashtag Momentum &amp; Top Creator Tracker | Dataspryva"><meta property="og:description" content="Reads TikTok Creative Center&#x27;s trending-hashtag list for any country and returns rank, post and view counts, a day-by-day momentum curve, and top creators behind each trend."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#webpage","name":"TikTok Hashtag Momentum & Top Creator Tracker","description":"Reads TikTok Creative Center's trending-hashtag list for any country and returns rank, post and view counts, a day-by-day momentum curve, and top creators behind each trend.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#article","headline":"TikTok Hashtag Momentum & Top Creator Tracker","name":"TikTok Hashtag Momentum & Top Creator Tracker","description":"Reads TikTok Creative Center's trending-hashtag list for any country and returns rank, post and view counts, a day-by-day momentum curve, and top creators behind each trend.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"TikTok Hashtag Momentum & Top Creator Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/yVYeUmb7hb4vybt1d/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>TikTok Hashtag Momentum &amp; Top Creator Tracker</span></div><section id="overview"><h1 class="doc-title">TikTok Hashtag Momentum &amp; Top Creator Tracker</h1><p class="lede">Reads TikTok Creative Center&#x27;s trending-hashtag list for any country and returns rank, post and view counts, a day-by-day momentum curve, and top creators behind each trend.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/tiktok-hashtag-momentum-and-top-creator-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/yVYeUmb7hb4vybt1d/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose &#x27;Trending hashtags&#x27; for TikTok&#x27;s ranked hashtag charts (post/view counts, popularity curve, creators) or &#x27;Trending videos&#x27; for TikTok&#x27;s ranked video charts (views, engagement, author stats).</td></tr><tr><td><code>countries</code></td><td>array</td><td>optional</td><td>(mode=trendingHashtags) One or more markets to read the hashtag chart for. Each market adds its own ranked rows.</td></tr><tr><td><code>periods</code></td><td>array</td><td>optional</td><td>(mode=trendingHashtags) Lookback windows in days. 7 shows recent spikes, 90 shows longer-term trends. Select one or more.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose &#x27;Trending hashtags&#x27; for TikTok&#x27;s ranked hashtag charts (post/view counts, popularity curve, creators) or &#x27;Trending videos&#x27; for TikTok&#x27;s ranked video charts (views, engagement, author stats).</td></tr><tr><td><code>countries</code></td><td>array</td><td>optional</td><td>(mode=trendingHashtags) One or more markets to read the hashtag chart for. Each market adds its own ranked rows.</td></tr><tr><td><code>periods</code></td><td>array</td><td>optional</td><td>(mode=trendingHashtags) Lookback windows in days. 7 shows recent spikes, 90 shows longer-term trends. Select one or more.</td></tr><tr><td><code>includeOverallRanking</code></td><td>boolean</td><td>optional</td><td>(mode=trendingHashtags) Include each market&#x27;s overall top-3 hashtag chart. Turn off to read only the industry charts selected below.</td></tr><tr><td><code>scanAllIndustries</code></td><td>boolean</td><td>optional</td><td>(mode=trendingHashtags) Read all 19 industry charts for every market and window. This widens coverage from 3 to up to 60 hashtags per market and window, because each industry chart is read separately.</td></tr><tr><td><code>industries</code></td><td>array</td><td>optional</td><td>(mode=trendingHashtags) Specific industry charts to read when &#x27;Scan all industries&#x27; is off. Ignored when scanning all industries. 19 public categories are available.</td></tr><tr><td><code>includeCreatorLeaders</code></td><td>boolean</td><td>optional</td><td>(mode=trendingHashtags) Add creator rows that aggregate the creators TikTok credits across the collected hashtags, sorted by how many trends they appear in.</td></tr><tr><td><code>minHashtagAppearances</code></td><td>integer</td><td>optional</td><td>(mode=trendingHashtags, creator leaderboard only) Only list creators credited on at least this many collected hashtag rows.</td></tr><tr><td><code>videoCountries</code></td><td>array</td><td>optional</td><td>(mode=trendingVideos) Markets with a public TikTok trending-video chart. Select one or more.</td></tr><tr><td><code>videoPeriods</code></td><td>array</td><td>optional</td><td>(mode=trendingVideos) Windows in days for the trending-video chart: 7 for videos created in the last week, 30 for the last month.</td></tr><tr><td><code>videoSortBy</code></td><td>string</td><td>optional</td><td>(mode=trendingVideos) Metric used for the video ranking.</td></tr><tr><td><code>videoOrganicOnly</code></td><td>boolean</td><td>optional</td><td>(mode=trendingVideos) Rank only organic (non-promoted) videos. TikTok returns a different ranking for organic-only charts.</td></tr><tr><td><code>videoContentTags</code></td><td>array</td><td>optional</td><td>(mode=trendingVideos) Query TikTok&#x27;s video ranking by content tag and dedupe the videos. Each selected tag is a separate ranking read; &#x27;All tags&#x27; also includes the unfiltered chart, returning up to ~24 videos per market, window and sort instead of 4. Leave empty for the current unfiltered ranking.</td></tr><tr><td><code>weeksBack</code></td><td>integer</td><td>optional</td><td>(mode=trendingVideos) Add past weekly rankings by moving the chart end date back 7 days per step (0-4). Useful for comparing this week with earlier weeks.</td></tr><tr><td><code>includeTopComments</code></td><td>boolean</td><td>optional</td><td>(mode=trendingVideos) Add each video&#x27;s top comments and comment keywords. Each video&#x27;s comments are read separately (up to 100 videos per run).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of data rows to write per run. Creator rows are not counted.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Collect TikTok&#x27;s ranked trending hashtags and trending videos by market, time window and industry, with post/view counts, popularity curves, momentum signals, creator leaders and video engagement metrics. No login, cookies or proxy setup.&quot;,
+  &quot;properties&quot;: {
+    &quot;countries&quot;: {
+      &quot;default&quot;: [
+        &quot;US&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=trendingHashtags) One or more markets to read the hashtag chart for. Each market adds its own ranked rows.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;US&quot;,
+          &quot;GB&quot;,
+          &quot;CA&quot;,
+          &quot;AU&quot;,
+          &quot;DE&quot;,
+          &quot;FR&quot;,
+          &quot;IT&quot;,
+          &quot;ES&quot;,
+          &quot;BR&quot;,
+          &quot;MX&quot;,
+          &quot;AR&quot;,
+          &quot;CO&quot;,
+          &quot;JP&quot;,
+          &quot;KR&quot;,
+          &quot;ID&quot;,
+          &quot;MY&quot;,
+          &quot;PH&quot;,
+          &quot;SG&quot;,
+          &quot;TH&quot;,
+          &quot;VN&quot;,
+          &quot;TW&quot;,
+          &quot;TR&quot;,
+          &quot;SA&quot;,
+          &quot;AE&quot;,
+          &quot;IL&quot;,
+          &quot;EG&quot;,
+          &quot;ZA&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;United States&quot;,
+          &quot;United Kingdom&quot;,
+          &quot;Canada&quot;,
+          &quot;Australia&quot;,
+          &quot;Germany&quot;,
+          &quot;France&quot;,
+          &quot;Italy&quot;,
+          &quot;Spain&quot;,
+          &quot;Brazil&quot;,
+          &quot;Mexico&quot;,
+          &quot;Argentina&quot;,
+          &quot;Colombia&quot;,
+          &quot;Japan&quot;,
+          &quot;South Korea&quot;,
+          &quot;Indonesia&quot;,
+          &quot;Malaysia&quot;,
+          &quot;Philippines&quot;,
+          &quot;Singapore&quot;,
+          &quot;Thailand&quot;,
+          &quot;Vietnam&quot;,
+          &quot;Taiwan&quot;,
+          &quot;Turkey&quot;,
+          &quot;Saudi Arabia&quot;,
+          &quot;United Arab Emirates&quot;,
+          &quot;Israel&quot;,
+          &quot;Egypt&quot;,
+          &quot;South Africa&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;US&quot;
+      ],
+      &quot;title&quot;: &quot;Markets&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeCreatorLeaders&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;(mode=trendingHashtags) Add creator rows that aggregate the creators TikTok credits across the collected hashtags, sorted by how many trends they appear in.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Add Creator Leaderboard&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeOverallRanking&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;(mode=trendingHashtags) Include each market&#x27;s overall top-3 hashtag chart. Turn off to read only the industry charts selected below.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include Overall Chart&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeTopComments&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;(mode=trendingVideos) Add each video&#x27;s top comments and comment keywords. Each video&#x27;s comments are read separately (up to 100 videos per run).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Top Comments&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;industries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;(mode=trendingHashtags) Specific industry charts to read when &#x27;Scan all industries&#x27; is off. Ignored when scanning all industries. 19 public categories are available.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;10000000000&quot;,
+          &quot;11000000000&quot;,
+          &quot;12000000000&quot;,
+          &quot;13000000000&quot;,
+          &quot;14000000000&quot;,
+          &quot;15000000000&quot;,
+          &quot;16000000000&quot;,
+          &quot;17000000000&quot;,
+          &quot;18000000000&quot;,
+          &quot;19000000000&quot;,
+          &quot;20000000000&quot;,
+          &quot;21000000000&quot;,
+          &quot;22000000000&quot;,
+          &quot;23000000000&quot;,
+          &quot;24000000000&quot;,
+          &quot;25000000000&quot;,
+          &quot;27000000000&quot;,
+          &quot;28000000000&quot;,
+          &quot;29000000000&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Education&quot;,
+          &quot;Vehicle &amp; Transportation&quot;,
+          &quot;Baby, Kids &amp; Maternity&quot;,
+          &quot;Financial Services&quot;,
+          &quot;Beauty &amp; Personal Care&quot;,
+          &quot;Tech &amp; Electronics&quot;,
+          &quot;Appliances&quot;,
+          &quot;Travel&quot;,
+          &quot;Household Products&quot;,
+          &quot;Pets&quot;,
+          &quot;Apps&quot;,
+          &quot;Home Improvement&quot;,
+          &quot;Apparel &amp; Accessories&quot;,
+          &quot;News &amp; Entertainment&quot;,
+          &quot;Business Services&quot;,
+          &quot;Games&quot;,
+          &quot;Food &amp; Beverage&quot;,
+          &quot;Sports &amp; Outdoor&quot;,
+          &quot;Health&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Industry Charts&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum number of data rows to write per run. Creator rows are not counted.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Maximum Rows&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minHashtagAppearances&quot;: {
+      &quot;default&quot;: 2,
+      &quot;description&quot;: &quot;(mode=trendingHashtags, creator leaderboard only) Only list creators credited on at least this many collected hashtag rows.&quot;,
+      &quot;maximum&quot;: 10,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 2,
+      &quot;title&quot;: &quot;Minimum Trend Appearances&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;trendingHashtags&quot;,
+      &quot;description&quot;: &quot;Choose &#x27;Trending hashtags&#x27; for TikTok&#x27;s ranked hashtag charts (post/view counts, popularity curve, creators) or &#x27;Trending videos&#x27; for TikTok&#x27;s ranked video charts (views, engagement, author stats).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;trendingHashtags&quot;,
+        &quot;trendingVideos&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Trending hashtags&quot;,
+        &quot;Trending videos&quot;
+      ],
+      &quot;prefill&quot;: &quot;trendingHashtags&quot;,
+      &quot;title&quot;: &quot;What to collect&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;periods&quot;: {
+      &quot;default&quot;: [
+        &quot;7&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=trendingHashtags) Lookback windows in days. 7 shows recent spikes, 90 shows longer-term trends. Select one or more.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;7&quot;,
+          &quot;30&quot;,
+          &quot;90&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Last 7 days&quot;,
+          &quot;Last 30 days&quot;,
+          &quot;Last 90 days&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;7&quot;
+      ],
+      &quot;title&quot;: &quot;Time Windows&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;scanAllIndustries&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;(mode=trendingHashtags) Read all 19 industry charts for every market and window. This widens coverage from 3 to up to 60 hashtags per market and window, because each industry chart is read separately.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Scan All Industries&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;videoContentTags&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;(mode=trendingVideos) Query TikTok&#x27;s video ranking by content tag and dedupe the videos. Each selected tag is a separate ranking read; &#x27;All tags&#x27; also includes the unfiltered chart, returning up to ~24 videos per market, window and sort instead of 4. Leave empty for the current unfiltered ranking.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;all&quot;,
+          &quot;11002&quot;,
+          &quot;11003&quot;,
+          &quot;11010&quot;,
+          &quot;11013&quot;,
+          &quot;11015&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;All tags (unfiltered + 5 tags)&quot;,
+          &quot;Beauty &amp; Care&quot;,
+          &quot;Fashion&quot;,
+          &quot;Food &amp; Beverage&quot;,
+          &quot;Lifestyle &amp; Leisure&quot;,
+          &quot;Technology &amp; Finance&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Video Content Tags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;videoCountries&quot;: {
+      &quot;default&quot;: [
+        &quot;US&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=trendingVideos) Markets with a public TikTok trending-video chart. Select one or more.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;US&quot;,
+          &quot;JP&quot;,
+          &quot;VN&quot;,
+          &quot;TH&quot;,
+          &quot;ID&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;United States&quot;,
+          &quot;Japan&quot;,
+          &quot;Vietnam&quot;,
+          &quot;Thailand&quot;,
+          &quot;Indonesia&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;US&quot;
+      ],
+      &quot;title&quot;: &quot;Video Markets&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;videoOrganicOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;(mode=trendingVideos) Rank only organic (non-promoted) videos. TikTok returns a different ranking for organic-only charts.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Organic Videos Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;videoPeriods&quot;: {
+      &quot;default&quot;: [
+        &quot;7&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=trendingVideos) Windows in days for the trending-video chart: 7 for videos created in the last week, 30 for the last month.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;7&quot;,
+          &quot;30&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Last 7 days&quot;,
+          &quot;Last 30 days&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;7&quot;
+      ],
+      &quot;title&quot;: &quot;Video Time Windows&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;videoSortBy&quot;: {
+      &quot;default&quot;: &quot;views&quot;,
+      &quot;description&quot;: &quot;(mode=trendingVideos) Metric used for the video ranking.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;views&quot;,
+        &quot;engagementRate&quot;,
+        &quot;sixSecondViewRate&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Video views&quot;,
+        &quot;Engagement rate&quot;,
+        &quot;6-second view-through rate&quot;
+      ],
+      &quot;prefill&quot;: &quot;views&quot;,
+      &quot;title&quot;: &quot;Rank Videos By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;weeksBack&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;(mode=trendingVideos) Add past weekly rankings by moving the chart end date back 7 days per step (0-4). Useful for comparing this week with earlier weeks.&quot;,
+      &quot;maximum&quot;: 4,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Extra Weekly Windows&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;TikTok Hashtag Momentum &amp; Top Creator Tracker Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>data</code></td><td>string</td><td>optional</td><td>Dataset containing hashtag rows, optional creator-leader rows, and trending-video rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Trending-hashtag rows with ranks, post and view counts, popularity curves, momentum signals and top creators; optional creator-leader rows; trending-video rows with engagement metrics and author stats.&quot;,
+  &quot;properties&quot;: {
+    &quot;data&quot;: {
+      &quot;description&quot;: &quot;Dataset containing hashtag rows, optional creator-leader rows, and trending-video rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Trending Hashtags and Videos&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;TikTok Hashtag Momentum &amp; Top Creator Tracker Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;ageDays&quot;: {
+      &quot;description&quot;: &quot;Age of the video at collection time, in days.&quot;,
+      &quot;title&quot;: &quot;Age (Days)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;appearances&quot;: {
+      &quot;description&quot;: &quot;Number of collected hashtag rows in which TikTok credited this creator.&quot;,
+      &quot;title&quot;: &quot;Trend Appearances&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;author&quot;: {
+      &quot;description&quot;: &quot;Video author object: id, username, displayName, bio, followerCount and avatarUrl.&quot;,
+      &quot;title&quot;: &quot;Author&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;avatarUrl&quot;: {
+      &quot;description&quot;: &quot;Signed TikTok CDN avatar link (temporary).&quot;,
+      &quot;title&quot;: &quot;Avatar URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;avgViewsPerPost&quot;: {
+      &quot;description&quot;: &quot;vv divided by publishCnt, rounded.&quot;,
+      &quot;title&quot;: &quot;Average Views per Post&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bestRank&quot;: {
+      &quot;description&quot;: &quot;Creator&#x27;s best top-creator rank across the collected hashtags.&quot;,
+      &quot;title&quot;: &quot;Best Rank&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;caption&quot;: {
+      &quot;description&quot;: &quot;Video caption text (video rows).&quot;,
+      &quot;title&quot;: &quot;Caption&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;commentKeywords&quot;: {
+      &quot;description&quot;: &quot;Keywords TikTok extracted from the video&#x27;s comments and their mention counts.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Comment Keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;contentTag&quot;: {
+      &quot;description&quot;: &quot;Content-tag ranking that surfaced this video (11002 Beauty &amp; Care, 11003 Fashion, 11010 Food &amp; Beverage, 11013 Lifestyle &amp; Leisure, 11015 Technology &amp; Finance). Omitted for the unfiltered ranking.&quot;,
+      &quot;title&quot;: &quot;Content Tag&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;countryCode&quot;: {
+      &quot;description&quot;: &quot;Creator country code as reported by TikTok.&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;coverUrl&quot;: {
+      &quot;description&quot;: &quot;Signed TikTok CDN cover link (temporary, about 48 hours).&quot;,
+      &quot;title&quot;: &quot;Cover URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;createTime&quot;: {
+      &quot;description&quot;: &quot;Video publish time as a Unix timestamp.&quot;,
+      &quot;title&quot;: &quot;Create Time (Unix)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;createdAt&quot;: {
+      &quot;description&quot;: &quot;Video publish time in ISO 8601 UTC.&quot;,
+      &quot;title&quot;: &quot;Created At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;creatorId&quot;: {
+      &quot;description&quot;: &quot;TikTok user ID for creator-leader rows.&quot;,
+      &quot;title&quot;: &quot;Creator ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;curveVolatility&quot;: {
+      &quot;description&quot;: &quot;Population standard deviation of the popularity curve values.&quot;,
+      &quot;title&quot;: &quot;Curve Volatility&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;dataSource&quot;: {
+      &quot;description&quot;: &quot;Always &#x27;tiktok-creative-center&#x27;.&quot;,
+      &quot;title&quot;: &quot;Data Source&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;embedUrl&quot;: {
+      &quot;description&quot;: &quot;Durable cookieless TikTok embed player URL (video rows).&quot;,
+      &quot;title&quot;: &quot;Embed URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;engagementRate&quot;: {
+      &quot;description&quot;: &quot;TikTok&#x27;s engagement rate for the video in the observed window.&quot;,
+      &quot;title&quot;: &quot;Engagement Rate&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;engagementRateLifeTime&quot;: {
+      &quot;description&quot;: &quot;Lifetime engagement rate reported by TikTok.&quot;,
+      &quot;title&quot;: &quot;Lifetime Engagement Rate&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;followerCount&quot;: {
+      &quot;description&quot;: &quot;Highest follower count observed for the creator in the collected rows.&quot;,
+      &quot;title&quot;: &quot;Followers&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;handleName&quot;: {
+      &quot;description&quot;: &quot;Creator username without @ (creator rows).&quot;,
+      &quot;title&quot;: &quot;Handle&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hashtagId&quot;: {
+      &quot;description&quot;: &quot;TikTok&#x27;s internal hashtag ID (string to preserve 64-bit precision).&quot;,
+      &quot;title&quot;: &quot;Hashtag ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hashtagName&quot;: {
+      &quot;description&quot;: &quot;Hashtag text without the leading #.&quot;,
+      &quot;title&quot;: &quot;Hashtag&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hashtagUrl&quot;: {
+      &quot;description&quot;: &quot;Durable TikTok tag page URL.&quot;,
+      &quot;title&quot;: &quot;Hashtag URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hashtags&quot;: {
+      &quot;description&quot;: &quot;Hashtag names the creator was credited on (creator rows) or hashtags parsed from a video caption (video rows).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Hashtags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;industryIds&quot;: {
+      &quot;description&quot;: &quot;TikTok industry category IDs assigned to this hashtag.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Industry IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;industryNames&quot;: {
+      &quot;description&quot;: &quot;Human-readable names for the assigned industry categories.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Industries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;isOverallRanking&quot;: {
+      &quot;description&quot;: &quot;True when the hashtag appeared on the market&#x27;s overall chart rather than only an industry chart.&quot;,
+      &quot;title&quot;: &quot;Overall Chart&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;lifetimeViewsShare&quot;: {
+      &quot;description&quot;: &quot;Window views divided by lifetime views.&quot;,
+      &quot;title&quot;: &quot;Window Share of Lifetime Views&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;momentumChangePct&quot;: {
+      &quot;description&quot;: &quot;Change between the mean of the most recent third of the popularity curve and the third before it, as a percentage of TikTok&#x27;s normalized index.&quot;,
+      &quot;title&quot;: &quot;Momentum Change (%)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;nickname&quot;: {
+      &quot;description&quot;: &quot;Creator display name (creator rows).&quot;,
+      &quot;title&quot;: &quot;Display Name&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;observedCountries&quot;: {
+      &quot;description&quot;: &quot;Markets in which the creator appeared (creator rows).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Markets&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;observedCountry&quot;: {
+      &quot;description&quot;: &quot;ISO country code of the market whose chart produced this row.&quot;,
+      &quot;title&quot;: &quot;Observed Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;observedPeriod&quot;: {
+      &quot;description&quot;: &quot;Lookback window in days used for this row: 7, 30 or 90 for hashtags; 7 or 30 for videos.&quot;,
+      &quot;title&quot;: &quot;Observed Period (Days)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;observedPeriods&quot;: {
+      &quot;description&quot;: &quot;Time windows in days in which the creator appeared (creator rows).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;title&quot;: &quot;Windows&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;organicViews&quot;: {
+      &quot;description&quot;: &quot;Organic (non-promoted) views within the observed window.&quot;,
+      &quot;title&quot;: &quot;Organic Views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;organicViewsLifeTime&quot;: {
+      &quot;description&quot;: &quot;Lifetime organic video views reported by TikTok.&quot;,
+      &quot;title&quot;: &quot;Lifetime Organic Views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;peakDate&quot;: {
+      &quot;description&quot;: &quot;Date of the highest popularity value in the window.&quot;,
+      &quot;title&quot;: &quot;Peak Date&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;peakValue&quot;: {
+      &quot;description&quot;: &quot;Highest popularity value in the window (TikTok&#x27;s 0-100 index).&quot;,
+      &quot;title&quot;: &quot;Peak Value&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;popularityCurve&quot;: {
+      &quot;description&quot;: &quot;Day-by-day TikTok popularity index (0-100) for the observed window: [{date, value}].&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Popularity Curve&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;publishCnt&quot;: {
+      &quot;description&quot;: &quot;Number of posts published with this hashtag during the observed window.&quot;,
+      &quot;title&quot;: &quot;Post Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;rankIndex&quot;: {
+      &quot;description&quot;: &quot;1-based position in the overall chart when available, otherwise the best industry-chart position. See isOverallRanking and rankingSlices.&quot;,
+      &quot;title&quot;: &quot;Rank&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;rankingKey&quot;: {
+      &quot;description&quot;: &quot;Provenance of the ranking that produced this row: market:window:sort:weeksBack:tag (tag &#x27;all&#x27; = unfiltered).&quot;,
+      &quot;title&quot;: &quot;Ranking Key&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;rankingSlices&quot;: {
+      &quot;description&quot;: &quot;Industry chart IDs in which the hashtag also ranked (present when it ranked in at least one industry slice).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Industry Charts&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;rowType&quot;: {
+      &quot;description&quot;: &quot;Discriminator: &#x27;hashtag&#x27; for ranked hashtag rows, &#x27;creator&#x27; for the optional creator leaderboard, &#x27;video&#x27; for trending-video rows.&quot;,
+      &quot;title&quot;: &quot;Row Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;scrapedAt&quot;: {
+      &quot;description&quot;: &quot;ISO 8601 UTC datetime when this row was collected.&quot;,
+      &quot;title&quot;: &quot;Scraped At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sixSecondViewRate&quot;: {
+      &quot;description&quot;: &quot;Share of viewers who watched at least six seconds.&quot;,
+      &quot;title&quot;: &quot;6-Second View Rate&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;sixSecondViewRateLifeTime&quot;: {
+      &quot;description&quot;: &quot;Lifetime share of viewers who watched at least six seconds.&quot;,
+      &quot;title&quot;: &quot;Lifetime 6-Second View Rate&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;topComments&quot;: {
+      &quot;description&quot;: &quot;Up to 50 most-liked comments on the video (when Include top comments is on).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Top Comments&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;topCreators&quot;: {
+      &quot;description&quot;: &quot;Creators TikTok credits for this hashtag: rank, ttuid, handleName, nickname, followerCount, countryCode and avatarUrl (signed CDN link).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Top Creators&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;trendDirection&quot;: {
+      &quot;description&quot;: &quot;rising, steady or falling, derived from momentumChangePct with a +/-10% threshold.&quot;,
+      &quot;title&quot;: &quot;Trend Direction&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;trendStage&quot;: {
+      &quot;description&quot;: &quot;breaking, peaking, fading or steady, derived from the curve peak position and recent change.&quot;,
+      &quot;title&quot;: &quot;Trend Stage&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;videoId&quot;: {
+      &quot;description&quot;: &quot;TikTok video ID (video rows).&quot;,
+      &quot;title&quot;: &quot;Video ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;videoSortBy&quot;: {
+      &quot;description&quot;: &quot;Metric used for the video chart: views, engagementRate or sixSecondViewRate.&quot;,
+      &quot;title&quot;: &quot;Video Ranking Metric&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;videoUrl&quot;: {
+      &quot;description&quot;: &quot;Durable TikTok video page URL (video rows).&quot;,
+      &quot;title&quot;: &quot;Video URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;views&quot;: {
+      &quot;description&quot;: &quot;Video views within the observed window.&quot;,
+      &quot;title&quot;: &quot;Views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;viewsLifeTime&quot;: {
+      &quot;description&quot;: &quot;Lifetime video views reported by TikTok.&quot;,
+      &quot;title&quot;: &quot;Lifetime Views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;viewsPerDay&quot;: {
+      &quot;description&quot;: &quot;Window views divided by the video&#x27;s age in days.&quot;,
+      &quot;title&quot;: &quot;Views per Day&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;vv&quot;: {
+      &quot;description&quot;: &quot;Total video views accumulated by posts using this hashtag during the observed window.&quot;,
+      &quot;title&quot;: &quot;Video Views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;weeksBack&quot;: {
+      &quot;description&quot;: &quot;How many weekly steps back the chart end date was moved for this row (0 = latest).&quot;,
+      &quot;title&quot;: &quot;Weeks Back&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;title&quot;: &quot;TikTok Hashtag Trends and Videos&quot;,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;description&quot;: &quot;One row per hashtag, market and window, plus optional creator-leader and trending-video rows in the same dataset (see the rowType field).&quot;,
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;hashtagName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Hashtag&quot;
+          },
+          &quot;observedCountry&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Country&quot;
+          },
+          &quot;observedPeriod&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Period (Days)&quot;
+          },
+          &quot;publishCnt&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Post Count&quot;
+          },
+          &quot;rankIndex&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rank&quot;
+          },
+          &quot;rowType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Row Type&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Scraped At&quot;
+          },
+          &quot;vv&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Video Views&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Hashtags Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;rowType&quot;,
+          &quot;rankIndex&quot;,
+          &quot;hashtagName&quot;,
+          &quot;publishCnt&quot;,
+          &quot;vv&quot;,
+          &quot;observedCountry&quot;,
+          &quot;observedPeriod&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;videos&quot;: {
+      &quot;description&quot;: &quot;Video rows from the trending-video chart, with author context and engagement metrics.&quot;,
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;author.username&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
+          &quot;caption&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Caption&quot;
+          },
+          &quot;createdAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Created&quot;
+          },
+          &quot;engagementRate&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Engagement Rate&quot;
+          },
+          &quot;observedCountry&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Country&quot;
+          },
+          &quot;rowType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Row Type&quot;
+          },
+          &quot;views&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Views&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Trending Videos&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;rowType&quot;,
+          &quot;caption&quot;,
+          &quot;views&quot;,
+          &quot;engagementRate&quot;,
+          &quot;author.username&quot;,
+          &quot;observedCountry&quot;,
+          &quot;createdAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-tiktok-hashtag-momentum-top-creator-tracker">TikTok Hashtag Momentum &amp; Top Creator Tracker</h2>
+<p>Read TikTok's own ranked trending-hashtag and trending-video charts from the public Creative Center. For every market you choose, this actor returns exact post and view counts, a day-by-day popularity curve, a plain-language momentum read (rising, peaking, fading), the creators TikTok credits for each trend, and — when you ask for videos — the engagement metrics behind what is winning right now. No TikTok login, cookies or proxy setup.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Two collections:</strong> <code>trendingHashtags</code> reads TikTok's ranked hashtag charts; <code>trendingVideos</code> reads its ranked trending-video charts.</li>
+<li><strong>27 hashtag markets, 3 windows:</strong> pick any mix of 27 markets and 7/30/90-day windows. The overall chart plus all 19 industry charts are available, widening one market/window from 3 hashtags to up to 60.</li>
+<li><strong>Momentum, not just a snapshot:</strong> every hashtag carries TikTok's daily popularity curve plus a derived momentum score, trend direction, trend stage, peak date and volatility.</li>
+<li><strong>Creator leaders:</strong> every trending hashtag includes TikTok's top-3 credited creators; an optional leaderboard aggregates them across the whole run so you can see who keeps appearing.</li>
+<li><strong>Trending videos:</strong> five markets with public video charts, ranked by views, engagement rate or 6-second view-through rate, with author followers, lifetime metrics and optional top comments. Content-tag rankings (Beauty &amp; Care, Fashion, Food &amp; Beverage, Lifestyle &amp; Leisure, Technology &amp; Finance) can be queried individually or all at once, deduping videos for up to ~24 per market/window/sort instead of 4.</li>
+<li><strong>Honest caps:</strong> TikTok's public charts show 3 hashtags per ranking and 4 videos per video ranking to guests. The actor explains its coverage in the run status instead of implying more.</li>
+<li>Empty fields are omitted — never returned as <code>null</code>, <code>&quot;&quot;</code> or <code>[]</code>.</li>
+</ul>
+<h2 id="readme-output-per-hashtag-rowtype-hashtag">Output per hashtag (<code>rowType: &quot;hashtag&quot;</code>)</h2>
+<ul>
+<li><code>hashtagId</code>, <code>hashtagName</code>, <code>hashtagUrl</code> — identity and the durable tag page link</li>
+<li><code>rankIndex</code>, <code>isOverallRanking</code>, <code>rankingSlices</code> — rank, whether it made the overall chart, and which industry charts it also ranked in</li>
+<li><code>publishCnt</code> — posts published with the hashtag during the window</li>
+<li><code>vv</code> — total video views those posts earned during the window</li>
+<li><code>avgViewsPerPost</code> — views divided by posts</li>
+<li><code>popularityCurve</code> — daily <code>{date, value}</code> points from TikTok's normalized 0–100 index</li>
+<li><code>momentumChangePct</code>, <code>trendDirection</code>, <code>trendStage</code>, <code>peakDate</code>, <code>peakValue</code>, <code>curveVolatility</code> — derived momentum signals</li>
+<li><code>industryIds</code>, <code>industryNames</code> — TikTok's category tags for the hashtag</li>
+<li><code>topCreators[]</code> — TikTok's credited creators (<code>rank</code>, <code>ttuid</code>, <code>handleName</code>, <code>nickname</code>, <code>followerCount</code>, <code>countryCode</code>, <code>avatarUrl</code>)</li>
+<li><code>observedCountry</code>, <code>observedPeriod</code>, <code>scrapedAt</code>, <code>dataSource</code></li>
+</ul>
+<h2 id="readme-output-per-creator-rowtype-creator-optional">Output per creator (<code>rowType: &quot;creator&quot;</code>, optional)</h2>
+<ul>
+<li><code>creatorId</code>, <code>handleName</code>, <code>nickname</code>, <code>followerCount</code>, <code>countryCode</code>, <code>avatarUrl</code></li>
+<li><code>appearances</code> — how many collected hashtag rows credited this creator</li>
+<li><code>hashtags[]</code>, <code>bestRank</code>, <code>observedCountries[]</code>, <code>observedPeriods[]</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-video-rowtype-video">Output per video (<code>rowType: &quot;video&quot;</code>)</h2>
+<ul>
+<li><code>videoId</code>, <code>videoUrl</code>, <code>embedUrl</code>, <code>caption</code>, <code>hashtags[]</code></li>
+<li><code>createTime</code>, <code>createdAt</code>, <code>ageDays</code>, <code>coverUrl</code></li>
+<li><code>author</code> — <code>id</code>, <code>username</code>, <code>displayName</code>, <code>bio</code>, <code>followerCount</code>, <code>avatarUrl</code></li>
+<li><code>views</code>, <code>organicViews</code>, <code>engagementRate</code>, <code>sixSecondViewRate</code> — window metrics</li>
+<li><code>viewsLifeTime</code>, <code>organicViewsLifeTime</code>, <code>engagementRateLifeTime</code>, <code>sixSecondViewRateLifeTime</code> — lifetime metrics</li>
+<li><code>viewsPerDay</code>, <code>lifetimeViewsShare</code> — derived velocity</li>
+<li><code>topComments[]</code>, <code>commentKeywords[]</code> — only with Include top comments</li>
+<li><code>contentTag</code> — the content-tag ranking that surfaced this video (omitted for the unfiltered ranking)</li>
+<li><code>rankingKey</code> — provenance key: <code>market:window:sort:weeksBack:tag</code> (<code>all</code> = unfiltered)</li>
+<li><code>observedCountry</code>, <code>observedPeriod</code>, <code>videoSortBy</code>, <code>weeksBack</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select</td>
+<td><code>trendingHashtags</code></td>
+<td><code>trendingHashtags</code> or <code>trendingVideos</code></td>
+</tr>
+<tr>
+<td><code>countries</code></td>
+<td>multi-select</td>
+<td><code>[&quot;US&quot;]</code></td>
+<td>27 markets for the hashtag chart</td>
+</tr>
+<tr>
+<td><code>periods</code></td>
+<td>multi-select</td>
+<td><code>[&quot;7&quot;]</code></td>
+<td>Hashtag windows: 7 / 30 / 90 days</td>
+</tr>
+<tr>
+<td><code>includeOverallRanking</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include each market's overall top-3 chart</td>
+</tr>
+<tr>
+<td><code>scanAllIndustries</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Read all 19 industry charts (up to 60 hashtags per market/window)</td>
+</tr>
+<tr>
+<td><code>industries</code></td>
+<td>multi-select</td>
+<td><code>[]</code></td>
+<td>Specific industry charts when <code>scanAllIndustries</code> is off</td>
+</tr>
+<tr>
+<td><code>includeCreatorLeaders</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Emit the aggregated creator leaderboard</td>
+</tr>
+<tr>
+<td><code>minHashtagAppearances</code></td>
+<td>integer</td>
+<td><code>2</code></td>
+<td>Minimum trend appearances for a creator row</td>
+</tr>
+<tr>
+<td><code>videoCountries</code></td>
+<td>multi-select</td>
+<td><code>[&quot;US&quot;]</code></td>
+<td>Video chart markets: US, JP, VN, TH, ID</td>
+</tr>
+<tr>
+<td><code>videoPeriods</code></td>
+<td>multi-select</td>
+<td><code>[&quot;7&quot;]</code></td>
+<td>Video windows: 7 / 30 days</td>
+</tr>
+<tr>
+<td><code>videoSortBy</code></td>
+<td>select</td>
+<td><code>views</code></td>
+<td><code>views</code>, <code>engagementRate</code>, <code>sixSecondViewRate</code></td>
+</tr>
+<tr>
+<td><code>videoOrganicOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Rank only organic (non-promoted) videos</td>
+</tr>
+<tr>
+<td><code>videoContentTags</code></td>
+<td>multi-select</td>
+<td><code>[]</code></td>
+<td>Content-tag rankings; each selected tag is a separate ranking read, deduped by video. <code>all</code> = unfiltered + all five tags</td>
+</tr>
+<tr>
+<td><code>weeksBack</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Extra past weekly video rankings (0–4)</td>
+</tr>
+<tr>
+<td><code>includeTopComments</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add top comments and keywords (up to 100 videos)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>1000</code></td>
+<td>Maximum hashtag/video rows per run</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-this-week-s-us-hashtags-every-industry">Example: this week's US hashtags, every industry</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;trendingHashtags&quot;,
+  &quot;countries&quot;: [&quot;US&quot;],
+  &quot;periods&quot;: [&quot;7&quot;],
+  &quot;scanAllIndustries&quot;: true,
+  &quot;includeCreatorLeaders&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-compare-three-markets-over-30-days">Example: compare three markets over 30 days</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;trendingHashtags&quot;,
+  &quot;countries&quot;: [&quot;US&quot;, &quot;GB&quot;, &quot;JP&quot;],
+  &quot;periods&quot;: [&quot;30&quot;],
+  &quot;industries&quot;: [&quot;14000000000&quot;, &quot;27000000000&quot;],
+  &quot;includeOverallRanking&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-trending-videos-in-japan-and-the-us">Example: trending videos in Japan and the US</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;trendingVideos&quot;,
+  &quot;videoCountries&quot;: [&quot;US&quot;, &quot;JP&quot;],
+  &quot;videoPeriods&quot;: [&quot;7&quot;],
+  &quot;videoSortBy&quot;: &quot;engagementRate&quot;,
+  &quot;weeksBack&quot;: 2,
+  &quot;includeTopComments&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Content calendars</strong> — slot a market's current hashtags, with trend stage, into next week's posting plan.</li>
+<li><strong>Trend timing</strong> — separate hashtags that are still breaking from ones that already peaked.</li>
+<li><strong>Creator partnerships</strong> — see which creators TikTok credits across several rising trends before reaching out.</li>
+<li><strong>Market comparison</strong> — run the same window across markets to find local trends rather than global noise.</li>
+<li><strong>Brand and campaign monitoring</strong> — schedule a daily run and watch your tag enter, climb or leave a market's chart.</li>
+<li><strong>Video performance research</strong> — study the engagement rate and 6-second view-through rate of videos TikTok is surfacing right now.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Why does one market return only a few hashtags?</strong>
+TikTok's public Creative Center charts show the top 3 hashtags per ranking to visitors who are not signed in. This actor reads the overall chart plus the 19 industry charts, so a market and window yields up to 60 hashtags in total. There is no public path to a deeper ranking without a TikTok account.</p>
+<p><strong>What does the momentum score mean?</strong>
+<code>momentumChangePct</code> compares the average of the most recent third of the popularity curve with the average of the third before it. It is a percentage of TikTok's normalized 0–100 index, not raw views. Values of +10% or more are labelled rising, -10% or less falling.</p>
+<p><strong>Why are video charts limited to five markets?</strong>
+TikTok publishes trending-video charts publicly for the United States, Japan, Vietnam, Thailand and Indonesia. Hashtag charts cover 27 markets. The input lists exactly the markets that return video data.</p>
+<p><strong>How many videos can one ranking return?</strong>
+The public video chart shows 4 videos per market, window and sort. Adding extra weekly windows or selecting several markets or windows widens coverage; rows are deduplicated by video.</p>
+<p><strong>Why are comments optional?</strong>
+Top comments are read separately for each video, so they are opt-in and capped at 100 videos per run.</p>
+<p><strong>Are the image links permanent?</strong>
+<code>coverUrl</code> and creator <code>avatarUrl</code> are signed TikTok CDN links that expire after about 48 hours. The durable links are <code>videoUrl</code>, <code>embedUrl</code> and <code>hashtagUrl</code>, which always resolve.</p>
+<p><strong>Why do some hashtags have no industry?</strong>
+TikTok assigns industry categories to only some hashtags. When it publishes none, <code>industryIds</code> and <code>industryNames</code> are omitted for that row.</p>
+<p><strong>Does this actor need cookies or a proxy?</strong>
+No. It reads TikTok's public Creative Center data over plain HTTP. There is nothing to log in to and no proxy to configure.</p>
+<p><strong>How fresh is the data?</strong>
+The charts refresh continuously. For trend tracking, schedule one run per market per day; repeated runs at the same time return the same ranking.</p>
+<p><strong>Is this affiliated with TikTok?</strong>
+No. This is a third-party actor that reads publicly available Creative Center trend data; it is not affiliated with TikTok or ByteDance.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/yVYeUmb7hb4vybt1d/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>vB58tHp5oGWTEgfzB</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

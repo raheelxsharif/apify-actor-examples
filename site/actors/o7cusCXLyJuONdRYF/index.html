@@ -1,0 +1,281 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-yEQayhcaRGNhZXshncHplPXFtPTn+1FNgoF1MP3SINI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>X Article Announcement Post Metadata Collector | Dataspryva</title><meta name="description" content="Turn an X (Twitter) Article&#x27;s announcement post or article link into structured metadata: title, preview text, cover image, publish date, and the announcement post with its author."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/"><meta property="og:title" content="X Article Announcement Post Metadata Collector | Dataspryva"><meta property="og:description" content="Turn an X (Twitter) Article&#x27;s announcement post or article link into structured metadata: title, preview text, cover image, publish date, and the announcement post with its author."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#webpage","name":"X Article Announcement Post Metadata Collector","description":"Turn an X (Twitter) Article's announcement post or article link into structured metadata: title, preview text, cover image, publish date, and the announcement post with its author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#article","headline":"X Article Announcement Post Metadata Collector","name":"X Article Announcement Post Metadata Collector","description":"Turn an X (Twitter) Article's announcement post or article link into structured metadata: title, preview text, cover image, publish date, and the announcement post with its author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"X Article Announcement Post Metadata Collector","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/o7cusCXLyJuONdRYF/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>X Article Announcement Post Metadata Collector</span></div><section id="overview"><h1 class="doc-title">X Article Announcement Post Metadata Collector</h1><p class="lede">Turn an X (Twitter) Article&#x27;s announcement post or article link into structured metadata: title, preview text, cover image, publish date, and the announcement post with its author.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/x-article-announcement-post-metadata-collector">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/o7cusCXLyJuONdRYF/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>tweetUrls</code></td><td>array</td><td>required</td><td>Paste the post that announces the article (the post whose card opens the article), or the article link itself. For example https://x.com/vxunderground/status/1979885711579865307.</td></tr><tr><td><code>includeArticleBody</code></td><td>boolean</td><td>optional</td><td>Include the complete article text: bodyText, bodyMarkdown, the rich content blocks, inline media and links.</td></tr><tr><td><code>includeAnnouncementPost</code></td><td>boolean</td><td>optional</td><td>Attach the full announcement post (text, author, metrics, media) to every article row.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>tweetUrls</code></td><td>array</td><td>required</td><td>Paste the post that announces the article (the post whose card opens the article), or the article link itself. For example https://x.com/vxunderground/status/1979885711579865307.</td></tr><tr><td><code>includeArticleBody</code></td><td>boolean</td><td>optional</td><td>Include the complete article text: bodyText, bodyMarkdown, the rich content blocks, inline media and links.</td></tr><tr><td><code>includeAnnouncementPost</code></td><td>boolean</td><td>optional</td><td>Attach the full announcement post (text, author, metrics, media) to every article row.</td></tr><tr><td><code>includeAuthorProfile</code></td><td>boolean</td><td>optional</td><td>Enrich the author with their public profile (follower count, bio, verification, join date) so engagementRate can be computed.</td></tr><tr><td><code>includeCoverImage</code></td><td>boolean</td><td>optional</td><td>Include the article&#x27;s cover image link.</td></tr><tr><td><code>includePreviewText</code></td><td>boolean</td><td>optional</td><td>Include the short preview text X shows for the article.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Stop after this many article rows. Status rows are not counted.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;includeAnnouncementPost&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Attach the full announcement post (text, author, metrics, media) to every article row.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include announcement post&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeArticleBody&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the complete article text: bodyText, bodyMarkdown, the rich content blocks, inline media and links.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include full article body&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeAuthorProfile&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Enrich the author with their public profile (follower count, bio, verification, join date) so engagementRate can be computed.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include full author profile&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeCoverImage&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the article&#x27;s cover image link.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include cover image&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePreviewText&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the short preview text X shows for the article.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include preview text&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Stop after this many article rows. Status rows are not counted.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum articles&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;tweetUrls&quot;: {
+      &quot;description&quot;: &quot;Paste the post that announces the article (the post whose card opens the article), or the article link itself. For example https://x.com/vxunderground/status/1979885711579865307.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://x.com/vxunderground/status/1979885711579865307&quot;,
+        &quot;https://x.com/i/article/1979885711579865307&quot;,
+        &quot;https://x.com/NASA/status/2075599612610535438&quot;
+      ],
+      &quot;maxItems&quot;: 1000,
+      &quot;minItems&quot;: 1,
+      &quot;prefill&quot;: [
+        &quot;https://x.com/vxunderground/status/1979885711579865307&quot;
+      ],
+      &quot;title&quot;: &quot;Article announcement posts or Article links&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;tweetUrls&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Twitter (X) Articles Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>articles</code></td><td>string</td><td>optional</td><td>Collected article rows — full body text and Markdown, announcement post, author and engagement metrics — plus status rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;properties&quot;: {
+    &quot;articles&quot;: {
+      &quot;description&quot;: &quot;Collected article rows — full body text and Markdown, announcement post, author and engagement metrics — plus status rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Articles&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;X Article Announcement Post Metadata Collector Output&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Articles&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;type&quot;,
+          &quot;title&quot;,
+          &quot;author.username&quot;,
+          &quot;articleId&quot;,
+          &quot;bodyAvailable&quot;,
+          &quot;sourceTweetUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-x-article-announcement-post-metadata-collector">X Article Announcement Post Metadata Collector</h2>
+<p>X Articles are long-form posts that live behind a card on a regular post — the &quot;announcement post.&quot; This actor takes that announcement post (or the article's own link) and returns the article's <strong>full text</strong> — as plain text, Markdown, and rich content blocks — plus its title, preview, cover image, dates, inline media, resolved links, and the announcement post with its author and engagement metrics. No login required. Article reading on x.com itself is behind a sign-in wall; this actor reads the public article payload X still serves to logged-out pages.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Full article body:</strong> <code>bodyText</code>, <code>bodyMarkdown</code>, the raw <code>contentBlocks</code> (with headings, lists, quotes, links and inline images), resolved <code>links</code> and inline <code>media</code></li>
+<li><strong>Article lookup by announcement post or article link:</strong> paste the post that opens the article, or an article link</li>
+<li><strong>Public metadata:</strong> <code>articleId</code>, <code>articleUrl</code>, <code>title</code>, <code>previewText</code>, <code>coverImageUrl</code> (with dimensions), <code>publishedAt</code>, <code>modifiedAt</code></li>
+<li><strong>Announcement post:</strong> optional full post row (text, author, metrics, media) attached to each article</li>
+<li><strong>Author and engagement:</strong> the author's public profile with <code>authorFollowers</code>, plus a derived <code>engagementRate</code> and post-level <code>likeCount</code> / <code>replyCount</code> / <code>retweetCount</code> / <code>quoteCount</code> / <code>bookmarkCount</code> / <code>viewCount</code></li>
+<li><strong>Honest provenance:</strong> <code>bodyAvailable</code> and <code>bodySource</code> (<code>x</code> or <code>fxtwitter</code>) tell you exactly whether and where the body came from</li>
+<li><strong>Status rows:</strong> invalid links, deleted posts, posts without an article, raw article links that X cannot map, and body-less articles all produce an explicit <code>status</code> row with a message</li>
+<li><strong>Empty fields are omitted</strong> — the dataset never contains <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code> or <code>{}</code></li>
+</ul>
+<h2 id="readme-output-per-article">Output per article</h2>
+<ul>
+<li><code>articleId</code> — X's article ID</li>
+<li><code>articleUrl</code> — canonical article link (opens for signed-in readers)</li>
+<li><code>title</code> — article title</li>
+<li><code>previewText</code> — the short preview text X shows for the article (omitted when <strong>Include preview text</strong> is off)</li>
+<li><code>coverImageUrl</code>, <code>coverImageWidth</code>, <code>coverImageHeight</code> — cover image and dimensions (omitted when <strong>Include cover image</strong> is off)</li>
+<li><code>bodyAvailable</code> — <code>true</code> when the full body was collected</li>
+<li><code>bodyText</code> — complete article text</li>
+<li><code>bodyMarkdown</code> — the same body converted to Markdown (headings, lists, quotes, links, images)</li>
+<li><code>contentBlocks</code> — the raw rich-text blocks (<code>type</code>, <code>text</code>, ranges) for custom rendering</li>
+<li><code>links[]</code> — <code>{text, url}</code> for every link inside the article</li>
+<li><code>media[]</code> — inline images <code>{url, width, height, mediaId, position}</code></li>
+<li><code>bodySource</code> — <code>x</code> when the body came from X's own article payload, <code>fxtwitter</code> when the public mirror was used</li>
+<li><code>publishedAt</code>, <code>modifiedAt</code> — publication and last-modification timestamps</li>
+<li><code>sourceTweetId</code>, <code>sourceTweetUrl</code> — the announcement post</li>
+<li><code>author</code>, <code>authorFollowers</code> — the author's public profile and follower count</li>
+<li><code>language</code> — post language code</li>
+<li><code>announcementTweet</code> — the full announcement post when <strong>Include announcement post</strong> is on</li>
+<li><code>likeCount</code>, <code>replyCount</code>, <code>retweetCount</code>, <code>quoteCount</code>, <code>bookmarkCount</code>, <code>viewCount</code> — announcement post metrics</li>
+<li><code>engagementRate</code> — derived <code>(likes + retweets + replies) / followers</code> as a percentage; present only when the follower count is known</li>
+<li><code>type: &quot;article&quot;</code>, <code>collectedAt</code></li>
+</ul>
+<h3 id="readme-sample-record">Sample record</h3>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;article&quot;,
+  &quot;articleId&quot;: &quot;1979875955100258304&quot;,
+  &quot;articleUrl&quot;: &quot;https://x.com/i/article/1979875955100258304&quot;,
+  &quot;title&quot;: &quot;Wtf are these Threat Actors doing? XUbuntu malware is dumb and stinky&quot;,
+  &quot;previewText&quot;: &quot;Yesterday night before I went to bed I saw @sysadafterdark write they suspected...&quot;,
+  &quot;coverImageUrl&quot;: &quot;https://pbs.twimg.com/media/G3n2yXwW8AALy8G.jpg&quot;,
+  &quot;bodyAvailable&quot;: true,
+  &quot;bodyText&quot;: &quot;Yesterday night before I went to bed I saw @sysadafterdark write they suspected Xubuntu-dot-org was compromised...&quot;,
+  &quot;bodyMarkdown&quot;: &quot;Yesterday night before I went to bed I saw [@sysadafterdark](https://x.com/sysadafterdark) write...&quot;,
+  &quot;bodySource&quot;: &quot;x&quot;,
+  &quot;publishedAt&quot;: &quot;2025-10-19T12:21:52+00:00&quot;,
+  &quot;sourceTweetId&quot;: &quot;1979885711579865307&quot;,
+  &quot;sourceTweetUrl&quot;: &quot;https://x.com/i/status/1979885711579865307&quot;,
+  &quot;author&quot;: { &quot;username&quot;: &quot;vxunderground&quot;, &quot;name&quot;: &quot;vx-underground&quot;, &quot;followers&quot;: 454667 },
+  &quot;authorFollowers&quot;: 454667,
+  &quot;likeCount&quot;: 554,
+  &quot;engagementRate&quot;: 0.1381,
+  &quot;collectedAt&quot;: &quot;2026-10-17T00:00:00+00:00&quot;
+}
+</code></pre>
+<h2 id="readme-output-per-status-row">Output per status row</h2>
+<p>A <code>status</code> row is emitted when an input cannot be collected (or when a body could not be attached). It always has a <code>message</code>:</p>
+<ul>
+<li><code>type: &quot;status&quot;</code></li>
+<li><code>status</code> — <code>noInput</code>, <code>invalidLink</code>, <code>notFound</code>, <code>articleLinkUnmapped</code>, <code>noArticle</code>, <code>bodyUnavailable</code>, <code>rateLimited</code> or <code>error</code></li>
+<li><code>tweetUrl</code>, <code>tweetId</code> — the input it applies to</li>
+<li><code>collectedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tweetUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td><strong>Required.</strong> Announcement post links (<code>x.com/&lt;user&gt;/status/&lt;id&gt;</code>), post IDs, or article links (<code>x.com/i/article/&lt;id&gt;</code>).</td>
+</tr>
+<tr>
+<td><code>includeArticleBody</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include the full article text, Markdown, rich blocks, links and inline media.</td>
+</tr>
+<tr>
+<td><code>includeAnnouncementPost</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Attach the full announcement post (text, author, metrics, media) to every article row.</td>
+</tr>
+<tr>
+<td><code>includeAuthorProfile</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Enrich the author with their public profile (follower count, bio, verification) so <code>engagementRate</code> can be computed.</td>
+</tr>
+<tr>
+<td><code>includeCoverImage</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include the article's cover image link and dimensions.</td>
+</tr>
+<tr>
+<td><code>includePreviewText</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include X's short preview text for the article.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>1000</code></td>
+<td>Stop after this many article rows (1–1000). Status rows are not counted.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-one-announcement-post">Example: one announcement post</h3>
+<pre><code class="language-json">{
+  &quot;tweetUrls&quot;: [&quot;https://x.com/vxunderground/status/1979885711579865307&quot;]
+}
+</code></pre>
+<h3 id="readme-example-several-articles-metadata-and-body">Example: several articles, metadata and body</h3>
+<pre><code class="language-json">{
+  &quot;tweetUrls&quot;: [
+    &quot;https://x.com/vxunderground/status/1979885711579865307&quot;,
+    &quot;https://x.com/thedankoe/status/2010751592346030461&quot;
+  ],
+  &quot;maxItems&quot;: 10
+}
+</code></pre>
+<h3 id="readme-example-metadata-only-no-body">Example: metadata only, no body</h3>
+<pre><code class="language-json">{
+  &quot;tweetUrls&quot;: [&quot;https://x.com/satyanadella/status/2066182223213293753&quot;],
+  &quot;includeArticleBody&quot;: false,
+  &quot;includeAnnouncementPost&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-article-link-form">Example: article link form</h3>
+<pre><code class="language-json">{
+  &quot;tweetUrls&quot;: [&quot;https://x.com/i/article/1979885711579865307&quot;],
+  &quot;includeAnnouncementPost&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>LLM and RAG pipelines</strong> — feed complete X Articles as Markdown into vector stores, NotebookLM, or chat assistants</li>
+<li><strong>Content intelligence</strong> — track which articles a set of accounts is publishing, with titles, bodies and cover images</li>
+<li><strong>Media monitoring</strong> — collect article announcements alongside their engagement metrics</li>
+<li><strong>Research and archiving</strong> — keep a structured, full-text index of public X Articles and their authors</li>
+<li><strong>Competitive analysis</strong> — compare article output and performance across creators or brands</li>
+<li><strong>Newsroom workflows</strong> — enrich a list of announcement posts with full article text and metadata</li>
+</ul>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li><strong>Raw article links cannot be resolved on their own.</strong> X maps an article to its announcement post only for signed-in readers; for everyone else the article page is a sign-in wall. When you paste <code>x.com/i/article/&lt;id&gt;</code>, the actor returns an <code>articleLinkUnmapped</code> status row and tells you to paste the announcement post instead.</li>
+<li><strong>An account's full article list is not available without signing in.</strong> X's article tab is behind a login and article pages are not indexed by search engines, so paste the announcement links you need (or schedule the actor on the ones you care about).</li>
+<li><strong>The body fallback is a public mirror.</strong> X occasionally withholds an article payload for older posts; the actor then reads the same article from the public FxTwitter mirror and marks the row with <code>bodySource: &quot;fxtwitter&quot;</code> so you always know where the text came from. If every source fails, the row keeps its metadata and a <code>bodyUnavailable</code> status row is added.</li>
+<li><strong>Posts that X removed or editors replaced</strong> can return their newest state only; deleted articles cannot be recovered cookielessly.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Does this actor return the full article text, or just the preview?</strong>  The full text. X still serves the complete article payload to logged-out clients; the actor collects it as <code>bodyText</code>, <code>bodyMarkdown</code> and <code>contentBlocks</code>, and says <code>bodyAvailable: true</code>. The Markdown keeps headings, lists, quotes, links and images, and also renders embedded posts, code blocks and math. If X ever withholds a body, the actor says so via <code>bodyUnavailable</code> instead of guessing.</p>
+<p><strong>What is <code>bodySource</code>?</strong>  Where the body came from. <code>x</code> means X's own public article payload; <code>fxtwitter</code> means the public FxTwitter mirror was used as a fallback because X's payload was unavailable at that moment.</p>
+<p><strong>Which links can I paste?</strong>  The announcement post — <code>https://x.com/&lt;user&gt;/status/&lt;id&gt;</code> — is the reliable input. Raw <code>https://x.com/i/article/&lt;id&gt;</code> links cannot be resolved cookielessly (X maps article IDs to posts only for signed-in readers), so when they cannot be resolved the actor returns an <code>articleLinkUnmapped</code> status row explaining what to paste instead.</p>
+<p><strong>How do I find the announcement post for an article?</strong>  Open the article and use the post whose card opens it; the link is usually shared alongside the article.</p>
+<p><strong>What happens with posts that are not articles?</strong>  You get a <code>noArticle</code> status row. Deleted or private posts return a <code>notFound</code> status row.</p>
+<p><strong>Can I get every article an account published?</strong>  Not cookielessly — X shows an account's article list only to signed-in readers, and article pages are not indexable. Paste the announcement links you need; the actor collects each one.</p>
+<p><strong>Do I need an X account, login or developer key?</strong>  No. The actor reads only public article and post data, and there is no credential input at all.</p>
+<p><strong>How fresh is the data?</strong>  Live — every run reads X at request time. Schedule the actor for daily or weekly refreshes.</p>
+<p><strong>How do I integrate the results?</strong>  Use the dataset from the run page, the Apify API, webhooks, or a no-code connection such as Zapier, Make or Google Sheets.</p>
+<p><strong>Is this affiliated with X?</strong>  No. This is a third-party actor that reads publicly available article and post data and is not affiliated with or endorsed by X Corp.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/o7cusCXLyJuONdRYF/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>KudCUoXaZ0RG342mm</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
