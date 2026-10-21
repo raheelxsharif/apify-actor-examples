@@ -1,127 +1,186 @@
-# Property Finder MENA Listings & Agent Contact Extractor
+# Property Finder MENA Listings & Brokerage Contacts
 
-Property Finder is the leading real estate portal across the UAE, Saudi Arabia, Qatar, Bahrain, and Egypt. This actor reads its listing pages directly — either from URLs you supply or from a city-and-purpose filter — and returns detailed property data: pricing, size, location hierarchy, amenities, and the agent or brokerage behind each listing.
+Property Finder is the leading real-estate portal across the UAE, Saudi Arabia, Qatar, Bahrain and Egypt. This actor turns its public listing pages into structured property records — prices, rooms, size, location, amenities, permits, photos, floor plans and agent profile details — together with the public contact information that the listing publishes: usually the brokerage's switchboard and email, and at smaller agencies an individual broker's line.
+
+It works with a city-and-purpose search, with canonical listing URLs you already have, or with agent and broker profile URLs. No login, cookie, API key or proxy setup is required.
 
 ## What this actor does
 
-- Accepts Property Finder landing-page URLs, sitemap URLs, or a full sitemap index, and expands them into individual listings.
-- Or, with no URLs supplied, searches by country, city, and purpose (for sale, for rent, commercial sale, commercial rent) across any of the 14 supported UAE and Saudi cities.
-- Covers every property type Property Finder lists — apartments, villas, townhouses, penthouses, offices, land, warehouses, and more.
-- Optionally fetches each listing's own detail page for the full photo gallery, complete description, and extended fields like RERA permit number and lead quality score.
-- Deduplicates properties automatically so the same listing never appears twice even if it was reached from more than one landing page.
-- Every field below is always present in each record; when Property Finder doesn't publish a value for a listing (such as `rera` outside the UAE, or `agentWhatsapp` when not provided), it comes back as an empty string, `0`, `false`, or an empty list rather than being omitted.
+- **Search five markets** — the UAE, Saudi Arabia, Qatar, Bahrain and Egypt, each with local currency and city/province slugs.
+- **Filter by intent** — buy, rent, commercial buy, commercial rent; property type; bedrooms; price range; furnishing; and ready/off-plan for residential sales.
+- **Scrape listing or search URLs** — landing pages, individual listing pages, sitemaps, and search URLs you supply. Canonical detail URLs are robots-allowed; Property Finder's robots.txt disallows `/en/search?*` and `/to/*` short links, so prefer canonical detail URLs.
+- **Collect agent and broker profiles** — agent profiles work in the UAE, Qatar and Bahrain; broker/agency profiles work in all five markets. Saudi and Egyptian agent-profile URLs currently return 404 at the source.
+- **Enrich every listing** — the full photo gallery, community and tower images, permit validation link, licences, floor plans, building facts and agent ratings.
+- **Honest contact data** — Property Finder leaves `agent.email` and `agent.phone` empty (0/217 listings and 0/40 details measured). The actor returns the contact published with the listing: broker email/phone plus the listing's WhatsApp relay number (usually Property Finder's market number, not the agent's personal number). At small agencies the broker line or email can be the agent's own (for example a Gmail address matching the agent's name).
+- **Empty fields are omitted** — a missing value is never replaced with `null` or an empty string. Placeholder numbers published by the source are returned as-is.
 
-## Output per listing
+## Output per record
 
-| Field | Description |
-| --- | --- |
-| `id`, `listingId`, `reference`, `rera` | Property Finder's numeric ID, alphanumeric listing ID, agency reference, and RERA permit number |
-| `url` | Canonical link to the listing |
-| `title`, `description` | Listing title and full description |
-| `propertyType`, `propertyTypeId`, `offeringType` | Property category label and ID, and offering label (e.g. "Residential for Sale") |
-| `categoryId` | `1`=Sale, `2`=Rent, `3`=Commercial Sale, `4`=Commercial Rent |
-| `price`, `priceCurrency`, `priceDuration` | Price value, currency (AED/SAR/QAR/BHD/EGP), and billing period for rentals |
-| `pricePerArea`, `pricePerAreaUnit` | Price per unit area and its unit (sqft/sqm) |
-| `bedrooms`, `bathrooms` | Room counts |
-| `size`, `sizeUnit` | Property size and its unit |
-| `furnished`, `completionStatus` | Furnishing status and completion state (completed/off-plan) |
-| `city`, `community`, `subCommunity`, `tower`, `locationFullName` | Location hierarchy and its full combined name |
-| `locationTree` | Full `[{id, name, type, slug, level}]` location breakdown |
-| `latitude`, `longitude` | GPS coordinates |
-| `coverImage`, `images`, `imagesCount`, `communityImages`, `towerImages` | Main photo, all listing photo URLs and count, plus community- and tower-level photos |
-| `amenities`, `amenityNames` | Amenity codes and their human-readable names |
-| `agentName`, `agentEmail`, `agentPhone`, `agentWhatsapp`, `agentImage`, `agentSlug` | Listing agent's contact details and profile slug |
-| `brokerName`, `brokerLogo`, `brokerPhone`, `brokerEmail`, `brokerSlug`, `clientId` | Brokerage/agency details and its account ID |
-| `isVerified`, `isDirectFromDeveloper`, `isNewConstruction`, `isFeatured`, `isPremium`, `isExclusive`, `isPfExclusive`, `isAvailable`, `isNewInsert` | Status flags Property Finder attaches to the listing |
-| `leadValue`, `listingLevel` | Lead quality score and listing tier |
-| `videoUrl`, `has360View` | Video link and whether a 360° view is available |
-| `listedDate` | When the listing went up |
-| `scrapedAt` | Collection timestamp |
+Each record has `recordType`: `listing`, `agent` or `broker`.
+
+### Listing
+
+- `id`, `listingId`, `reference`, `rera` / `permitNumber`, `url`, `title`, `description`
+- `purpose` (`sale` / `rent`), `country`, `sourceDomain`
+- `propertyType`, `propertyTypeId`, `offeringType`, `categoryId`
+- `price`, `priceCurrency`, `priceDuration`, `priceHidden`, `pricePerArea`, `pricePerAreaUnit`
+- `bedrooms`, `bedroomsLabel`, `isStudio`, `bathrooms`, `size`, `sizeUnit`, `sizeSqm`
+- `furnished`, `completionStatus`, `completionStatusRaw`
+- `city`, `community`, `subCommunity`, `tower`, `locationFullName`, `locationId`, `locationPath`, `locationTree`
+- `latitude`, `longitude`
+- `coverImage`, `images`, `imagesCount`, `communityImages`, `towerImages`
+- `amenities`, `amenityNames`, `floorPlans`, `floorPlanCount`
+- `agentId`, `agentName`, `agentProfileUrl`, `agentImage`, `agentSlug`, `agentIsSuperAgent`, `agentLanguages`, `agentPosition`, `agentRating`, `agentReviewCount`, `agentYearsOfExperience`, `agentTotalProperties`, `agentTransactionsCount`, `agentLicenseNumber`
+- `brokerId`, `brokerName`, `brokerProfileUrl`, `brokerLogo`, `brokerEmail`, `brokerPhone`, `brokerWhatsapp`, `brokerAddress`, `brokerLicenseNumber`, `brokerSlug`, `clientId`
+- `contactPhone`, `contactEmail`, `contactWhatsapp`, `contactOptions`
+- `permitValidationUrl`, `permitAuthority`, `permitIssuedLicenseNumber`, `zoneName`, `licenses`
+- `isVerified`, `isDirectFromDeveloper`, `isNewConstruction`, `isFeatured`, `isPremium`, `isExclusive`, `isPfExclusive`, `isAvailable`, `isNewInsert`, `isPriceDrop`, `isGreatValue`, `isHighDemand`, `isLuxe`, `isSpotlight`, `isUnderOffer`
+- `leadValue`, `listingLevel`, `videoUrl`, `view360Url`, `has360View`
+- `serviceChargePerSqft`, `buildingDetails`
+- `listedDate`, `lastRefreshedAt`, `scrapedAt`
+
+`agentEmail`, `agentPhone` and `agentWhatsapp` are retained for compatibility but are only present when the source itself publishes them; in practice those fields are almost always absent.
+
+### Agent
+
+- `agentId`, `agentName`, `agentProfileUrl`, `agentImage`, `agentSlug`
+- `agentIsSuperAgent`, `agentVerified`, `agentLanguages`
+- `agentExperienceSince`, `agentTotalProperties`, `agentRentCount`, `agentSaleCount`, `agentCommercialRentCount`, `agentCommercialSaleCount`
+- `agentAvgWhatsappResponseTime`, `agentRating`, `agentReviewCount`
+- `brokerName`, `brokerEmail`, `brokerPhone`, `brokerWhatsapp`, `brokerProfileUrl`
+- `contactPhone`, `contactWhatsapp`, `contactOptions`, `country`, `sourceDomain`, `scrapedAt`
+
+### Broker
+
+- `brokerId`, `brokerName`, `brokerProfileUrl`, `brokerLogo`, `brokerSlug`
+- `brokerEmail`, `brokerPhone`, `brokerAddress`
+- `brokerLicenseNumber`, `brokerLicenseLabel`, `brokerLocation`, `brokerDescription`, `brokerVerified`
+- `brokerTotalProperties`, `brokerTotalAgents`, `brokerTotalSuperAgents`, `brokerRentCount`, `brokerSaleCount`
+- `contactEmail`, `contactPhone`, `contactOptions`, `country`, `sourceDomain`, `scrapedAt`
 
 ## Input
 
 | Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `startUrls` | Array | – | Property Finder landing pages, sitemap URLs, or a sitemap index. When set, these take priority over the filters below. |
-| `country` | String (select) | `ae` | `ae`, `sa`, `bh`, `eg`, or `qa`. Used only when `startUrls` is empty. |
-| `city` | String (select) | `dubai` | One of 14 supported UAE/Saudi cities. Used only when `startUrls` is empty. |
-| `purpose` | String (select) | `buy` | `buy`, `rent`, `commercial-buy`, or `commercial-rent`. |
-| `fetch_full_details` | Boolean | false | Fetch each listing's detail page for the full image gallery, description, and extended fields — one extra request per property. |
-| `max_items` | Integer | 20 | Maximum number of unique properties to scrape. |
-| `max_retries` | Integer | 2 | Retry attempts for a failed request. |
-| `ignore_url_failures` | Boolean | true | When true, keep going if some URLs fail after retries instead of stopping the run. |
+|---|---|---|---|
+| `mode` | string | `search` | `search`, `listings`, `agents` or `brokers` |
+| `country` | string | `ae` | `ae`, `sa`, `qa`, `bh` or `eg` |
+| `city` | string | `dubai` | City, province or governorate; `all` for a country-wide search |
+| `purpose` | string | `buy` | `buy`, `rent`, `commercial-buy` or `commercial-rent` |
+| `propertyType` | string | `any` | Apartment, villa, townhouse, penthouse, duplex, compound, land, whole building, half floor, office, shop, warehouse, factory or showroom |
+| `bedrooms` | string | `any` | `studio`, 1–6, or `7+`; residential searches only |
+| `priceMin` / `priceMax` | integer | – | Asking price in the market's local currency |
+| `furnishing` | string | `any` | `furnished` or `unfurnished` |
+| `completionStatus` | string | `any` | `completed` or `off_plan`; residential sale searches |
+| `maxItems` | integer | `100` | Maximum records (1–100,000) |
+| `includeDetails` | boolean | `true` | Add the full gallery, permit link, licences, floor plans and agent statistics |
+| `startUrls` | array | – | `[{"url": ...}]` objects for listing, search, short or sitemap URLs in `mode: listings` |
+| `agentUrls` | array | – | Agent profile URLs or numeric IDs for `mode: agents` |
+| `brokerUrls` | array | – | Broker profile URLs or numeric IDs for `mode: brokers` |
 
-### Example: a specific landing page
+
+**Profile records:** full profile URLs use their own market; `country` is only needed for bare numeric IDs. City is ignored in agent/broker modes.
+
+**Older inputs:** `max_items` and `fetch_full_details` are no longer schema fields but are still honoured, and they take precedence over platform-injected `maxItems`/`includeDetails` defaults. A saved input with `startUrls` plus a legacy key automatically uses `mode: listings`, so old sitemap prefills keep working with their original limit. `max_retries` and `ignore_url_failures` are accepted but ignored.
+
+### Example: Dubai apartments for sale
 
 ```json
 {
-  "startUrls": [
-    "https://www.propertyfinder.ae/en/buy/dubai/2-bedroom-apartments-for-sale-dubai-land-ghaf-woods-cilia-at-ghaf-woods-cilia-tower-2.html"
-  ],
-  "max_items": 20
-}
-```
-
-### Example: Dubai apartments for sale, filter mode
-
-```json
-{
+  "mode": "search",
+  "country": "ae",
   "city": "dubai",
   "purpose": "buy",
-  "max_items": 100
+  "propertyType": "apartment",
+  "bedrooms": "2",
+  "priceMin": 1000000,
+  "priceMax": 2500000,
+  "maxItems": 100
 }
 ```
 
-### Example: Saudi Arabia listings
+### Example: furnished Riyadh rentals
 
 ```json
 {
+  "mode": "search",
   "country": "sa",
-  "city": "riyadh",
-  "purpose": "buy",
-  "max_items": 50
+  "city": "ar-riyadh",
+  "purpose": "rent",
+  "propertyType": "apartment",
+  "furnishing": "furnished",
+  "maxItems": 50
 }
 ```
 
-### Example: full sitemap expansion for maximum coverage
+### Example: scrape specific listing URLs
 
 ```json
 {
-  "startUrls": ["https://www.propertyfinder.ae/sitemaps/index-sitemap.xml"],
-  "max_items": 500
+  "mode": "listings",
+  "startUrls": [
+    {"url": "https://www.propertyfinder.ae/en/plp/buy/apartment-for-sale-dubai-downtown-dubai-bellevue-towers-bellevue-tower-2-158222918.html"},
+    {"url": "https://www.propertyfinder.qa/en/rent/doha/apartments-for-rent.html"}
+  ],
+  "maxItems": 20
+}
+```
+
+### Example: collect broker contacts
+
+```json
+{
+  "mode": "brokers",
+  "brokerUrls": ["https://www.propertyfinder.ae/en/broker/betterhomes-business-bay-2593"],
+  "maxItems": 5
 }
 ```
 
 ## Use cases
 
-- **Market analysis** — track price and inventory trends across UAE and Saudi cities over time.
-- **Lead generation** — collect agent and brokerage contact details for outreach.
-- **Price monitoring** — schedule runs to detect price changes on specific listings or areas.
-- **Investment research** — compare listings by location, size, amenities, and RERA status.
-- **Portfolio tracking** — monitor a specific tower or community's active listings.
+- **Property investors** — compare asking prices, size and price per square foot across Dubai, Riyadh, Doha, Manama and Cairo.
+- **Lead-generation teams** — collect the public broker/listing contact published on each listing, alongside the listing agent's name and profile.
+- **PropTech and valuation teams** — build a fresh inventory snapshot with coordinates, amenities, completion status and permit links.
+- **Market researchers** — track new listings, price bands, furnishing and ready/off-plan supply in a specific community.
+- **Agency analysts** — monitor an agency's active inventory and profile statistics.
 
 ## FAQ
 
-**How do I find URLs to paste into `startUrls`?**
-Browse Property Finder normally and copy the address bar URL for a landing page, or use a sitemap/sitemap-index URL to let the actor expand it into many listings automatically.
+### Which countries are supported?
 
-**Can I pull every Dubai listing in one run?**
-Yes — set `startUrls` to the sitemap index (`https://www.propertyfinder.ae/sitemaps/index-sitemap.xml`) and set a high `max_items`.
+The UAE (`propertyfinder.ae`), Saudi Arabia (`.sa`), Qatar (`.qa`), Bahrain (`.bh`) and Egypt (`.eg`). Prices are returned in AED, SAR, QAR, BHD or EGP respectively.
 
-**Is Saudi Arabia supported the same way as the UAE?**
-Yes — set `country: sa` with a Saudi city, or pass a `propertyfinder.sa` URL directly.
+### Does it return agent email addresses and mobile numbers?
 
-**Can I filter by bedrooms, price, or area through the input fields?**
-Not directly — the filter mode only covers city and purpose. For finer filters, apply them on Property Finder's own site and paste the resulting search-result URLs into `startUrls`.
+Not as `agentEmail`/`agentPhone`. Property Finder leaves those source fields empty on listings and public profiles (0/217 listings, 0/40 details and 0/37 agent profiles measured). The actor returns the agent's name, profile and statistics, plus the contact published on the listing: broker email/phone and the listing WhatsApp relay number, which is usually Property Finder's market number rather than the agent's personal number. At small agencies the broker line or email can be the agent's own (for example a Gmail address matching the agent's name). The legacy `agentEmail`/`agentPhone`/`agentWhatsapp` fields are kept for compatibility and omitted when empty.
 
-**What happens if a URL fails to load?**
-The actor logs it and keeps processing the remaining URLs by default. Set `ignore_url_failures` to `false` if you'd rather the run stop at the first failure.
+### Why are some listings missing bedrooms or completion status?
 
-**Does this need a proxy or browser?**
-No — listing pages are read directly without a browser or proxy, so it runs comfortably on any Apify plan.
+Commercial offices, warehouses and land often have no bedroom count, and completion status is primarily relevant to for-sale listings. Empty values are omitted rather than filled with zero or a placeholder; all-zero placeholder phone numbers such as `+0000000000` are also dropped.
 
-**How do I keep only verified listings?**
-Every record includes an `isVerified` boolean; filter on it downstream (spreadsheet, database query, etc.) to keep only verified listings.
+### What permit data is available?
 
-**How current is the data?**
-Each run reads live pages at request time — schedule the actor to run daily if you want to track new listings, price changes, or delistings.
+Saudi listings publish an Elan/REGA permit number and validation link. UAE listings usually publish a Trakheesi validation link and the brokerage licence number, while the permit number itself is less often present. Qatar, Bahrain and Egypt do not publish permit links in the listing payload.
+
+### Can I collect every listing for a city?
+
+Property Finder allows up to 4,000 pages per search, but the last page varies by query: a broad UAE search returned listings on page 4,000, while Dubai apartments for sale ended at page 3,398 on 2026-10-21. Pages carry 25–35 listings. The actor stops at the first 404 or empty page, and an early source cap is not always flagged in the status message, so watch the emitted count. Split by city, property type or bedrooms to cover more; query-string price/furnishing/completion filters are allowed on page 1 only, because adding `page` to those queries is restricted by robots.txt.
+
+### What does `includeDetails` add?
+
+It opens each listing's detail page to add the full photo gallery, community and tower images, the permit validation link, licences, floor plans, building details and agent ratings. Turn it off for a lighter dataset with the core search-page fields.
+
+### Are duplicates removed?
+
+Yes. Listings are deduplicated by Property Finder's numeric listing ID across pages, URLs and sitemaps.
+
+### Do I need a proxy or a Property Finder account?
+
+No. The actor reads public pages with no login, cookie or API key. It chooses a working connection automatically.
+
+### Is this affiliated with Property Finder?
+
+No. This is an independent third-party actor. Property Finder's terms prohibit automated scraping and restrict reuse of the content, and its privacy policy applies to contact data. You are responsible for having a lawful basis and for how you use contact details.
+
+### How fresh is the data?
+
+Each run reads live pages. Schedule the actor daily or weekly to track new listings, price changes and delistings.

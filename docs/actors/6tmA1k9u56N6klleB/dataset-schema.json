@@ -8,14 +8,16 @@
       "title": "Contacts",
       "transformation": {
         "fields": [
+          "recordType",
           "title",
           "agentName",
-          "agentEmail",
-          "agentPhone",
-          "agentWhatsapp",
+          "agentProfileUrl",
           "brokerName",
-          "brokerPhone",
           "brokerEmail",
+          "brokerPhone",
+          "brokerWhatsapp",
+          "contactPhone",
+          "contactWhatsapp",
           "url"
         ]
       }
@@ -28,6 +30,7 @@
       "transformation": {
         "fields": [
           "title",
+          "purpose",
           "price",
           "priceCurrency",
           "priceDuration",
@@ -46,10 +49,15 @@
           "subCommunity",
           "tower",
           "agentName",
+          "agentRating",
           "brokerName",
+          "brokerEmail",
+          "brokerPhone",
+          "brokerWhatsapp",
+          "permitNumber",
+          "permitValidationUrl",
           "isVerified",
-          "isDirectFromDeveloper",
-          "isNewConstruction",
+          "floorPlanCount",
           "imagesCount",
           "listedDate",
           "url"
@@ -70,7 +78,11 @@
           },
           "brokerName": {
             "format": "text",
-            "label": "Broker"
+            "label": "Brokerage"
+          },
+          "brokerPhone": {
+            "format": "text",
+            "label": "Broker phone"
           },
           "city": {
             "format": "text",
@@ -96,6 +108,10 @@
             "format": "text",
             "label": "Type"
           },
+          "purpose": {
+            "format": "text",
+            "label": "Purpose"
+          },
           "title": {
             "format": "text",
             "label": "Title"
@@ -110,6 +126,7 @@
       "transformation": {
         "fields": [
           "title",
+          "purpose",
           "price",
           "priceCurrency",
           "propertyType",
@@ -118,6 +135,7 @@
           "city",
           "community",
           "brokerName",
+          "brokerPhone",
           "isVerified",
           "url"
         ]

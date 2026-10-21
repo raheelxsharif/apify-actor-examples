@@ -1,0 +1,87 @@
+# US Walkability, Transit & Bike Score Extractor
+
+Walk Score rates how walkable, transit-friendly, and bikeable a US location is on a 0-100 scale. This actor looks up those three scores for any US city or street address directly from walkscore.com, with no API key, login, or account needed.
+
+## What this actor does
+
+- Looks up scores by city/state slug (e.g. `Seattle-WA`) or by a full street address (e.g. `123 Main St, Seattle, WA`).
+- Returns the Walk Score, Transit Score, and Bike Score, each on a 0-100 scale with its human-readable rating label.
+- Pulls nearby amenity categories when the page shows them, giving context for why a location scored the way it did.
+- Accepts a list of multiple cities or addresses and processes them in one run.
+- Any score or amenity list the page doesn't have for a given location is left out of that record.
+
+## Output per location
+
+| Field | Description |
+| --- | --- |
+| `address` | The city slug or address you supplied |
+| `walkScore` | Walk Score, 0-100 |
+| `walkDescription` | Walk Score's label, e.g. "Walker's Paradise", "Very Walkable" |
+| `transitScore` | Transit Score, 0-100 |
+| `transitDescription` | Transit Score's label, e.g. "Rider's Paradise", "Excellent Transit" |
+| `bikeScore` | Bike Score, 0-100 |
+| `bikeDescription` | Bike Score's label, e.g. "Very Bikeable", "Bikeable" |
+| `nearbyAmenities` | Categories of nearby amenities shown on the page |
+| `sourceUrl` | The walkscore.com page the record was read from |
+| `recordType` | Always `walk_score` |
+| `scrapedAt` | Collection timestamp |
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | String (select) | `byCity` | `byCity` to look up by city/state slug, or `byAddress` to look up by street address. |
+| `cities` | Array | `["Seattle-WA"]` | City/state slugs to look up, e.g. `Seattle-WA`, `New-York-NY`, `Chicago-IL`. Used by `byCity`. |
+| `addresses` | Array | `[]` | Full US addresses to look up, e.g. `123 Main St, Seattle, WA`. Used by `byAddress`. |
+| `maxItems` | Integer | 50 | Maximum number of records to return (1-500). |
+
+### Example: look up several cities
+
+```json
+{
+  "mode": "byCity",
+  "cities": ["Seattle-WA", "New-York-NY", "Chicago-IL"],
+  "maxItems": 50
+}
+```
+
+### Example: look up specific street addresses
+
+```json
+{
+  "mode": "byAddress",
+  "addresses": ["123 Main St, Seattle, WA", "1 Infinite Loop, Cupertino, CA"],
+  "maxItems": 20
+}
+```
+
+## Use cases
+
+- **Relocation research** — compare walkability and transit access across cities you're considering moving to.
+- **Real estate listings** — attach walkability context to a property address alongside other listing data.
+- **Site selection** — screen candidate addresses for a retail or office location by how walkable and bike-friendly the area is.
+- **Urban planning research** — compare walk/transit/bike scores across neighborhoods or cities at scale.
+- **Content and comparison sites** — build city-ranking content using live Walk Score data.
+
+## FAQ
+
+**Do I need an API key or account?**
+No — this reads walkscore.com's public pages directly.
+
+**What format should a city go in?**
+Use the `CityName-ST` slug format walkscore.com itself uses, e.g. `Los-Angeles-CA` or `Austin-TX`.
+
+**Does this work outside the US?**
+It's built around walkscore.com's US city and address pages; coverage outside the US isn't supported.
+
+**Why is `nearbyAmenities` sometimes missing?**
+It's only included when walkscore.com's page actually lists nearby amenity categories for that location; not every page shows one.
+
+**Can I look up a mix of addresses and cities in one run?**
+Set `mode` to whichever type you mostly need and run it twice if you need both a city list and an address list, since `mode` controls which input field (`cities` or `addresses`) the actor reads.
+
+**How accurate are the scores?**
+The scores come directly from walkscore.com's own methodology, which draws on sources like OpenStreetMap; this actor doesn't recalculate or adjust them.
+
+**Is this affiliated with Walk Score?**
+No. This actor reads walkscore.com's public pages and is not affiliated with Walk Score or Redfin.

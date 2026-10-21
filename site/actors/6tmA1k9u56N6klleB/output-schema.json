@@ -1,13 +1,14 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Dataset of Property Finder real estate listings with price, size, location hierarchy, amenities, and agent or brokerage contact details.",
+  "description": "Dataset of Property Finder listings, agent profiles and brokerages with prices, location, amenities, permit data, media and public broker/listing contact details.",
   "properties": {
     "listings": {
+      "description": "Listing, agent and broker records produced by this run.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Scraped Listings",
+      "title": "Property Finder records",
       "type": "string"
     }
   },
-  "title": "Property Finder MENA Listings & Agent Contact Extractor Output",
+  "title": "Property Finder MENA Listings & Brokerage Contacts Output",
   "type": "object"
 }

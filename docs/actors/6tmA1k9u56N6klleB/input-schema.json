@@ -1,11 +1,62 @@
 {
-  "description": "Scrape property listings from Property Finder (UAE, Saudi Arabia, Qatar, Bahrain, Egypt). Provide URLs or use city + purpose filters.",
+  "description": "Search Property Finder listings across the UAE, Saudi Arabia, Qatar, Bahrain and Egypt, or scrape listing, agent and broker URLs. Returns property details and public brokerage contact data.",
   "properties": {
-    "city": {
-      "default": "dubai",
-      "description": "City to search in.",
+    "agentUrls": {
+      "description": "Property Finder agent profile URLs, or bare numeric agent IDs. Used with mode=agents.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "sectionCaption": "Profiles",
+      "sectionDescription": "Agent and broker profiles return public profile data and the brokerage's published contact details.",
+      "title": "Agent profile URLs or IDs",
+      "type": "array"
+    },
+    "bedrooms": {
+      "default": "any",
+      "description": "Bedroom filter for residential searches. Studio is supported for apartments and mixed-type searches.",
       "editor": "select",
       "enum": [
+        "any",
+        "studio",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7+"
+      ],
+      "enumTitles": [
+        "Any bedrooms",
+        "Studio",
+        "1 bedroom",
+        "2 bedrooms",
+        "3 bedrooms",
+        "4 bedrooms",
+        "5 bedrooms",
+        "6 bedrooms",
+        "7+ bedrooms"
+      ],
+      "prefill": "any",
+      "title": "Bedrooms",
+      "type": "string"
+    },
+    "brokerUrls": {
+      "description": "Property Finder broker/agency profile URLs, or bare numeric broker IDs. Used with mode=brokers.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Broker profile URLs or IDs",
+      "type": "array"
+    },
+    "city": {
+      "default": "dubai",
+      "description": "City, province or governorate to search. Choose All cities for a country-wide search.",
+      "editor": "select",
+      "enum": [
+        "all",
         "dubai",
         "abu-dhabi",
         "sharjah",
@@ -14,89 +65,265 @@
         "fujairah",
         "umm-al-quwain",
         "al-ain",
-        "riyadh",
-        "jeddah",
-        "dammam",
-        "makkah",
-        "madinah",
-        "khobar"
+        "ar-riyadh",
+        "makkah-al-mukarramah",
+        "eastern",
+        "al-madinah-al-munawwarah",
+        "al-qassim",
+        "asir",
+        "tabuk",
+        "hail",
+        "najran",
+        "jazan",
+        "doha",
+        "lusail",
+        "al-wakra",
+        "al-khor",
+        "al-daayen",
+        "al-shamal",
+        "umm-salal-mohammed",
+        "dukhan-highway",
+        "capital-governorate",
+        "northern-governorate",
+        "southern-governorate",
+        "muharraq-governorate",
+        "central-governorate",
+        "cairo",
+        "giza",
+        "alexandria",
+        "north-coast",
+        "new-capital",
+        "asyut",
+        "demyat",
+        "qalyubia",
+        "al-fayum",
+        "red-sea",
+        "south-sainai",
+        "matrouh",
+        "port-saeed",
+        "suez",
+        "sharqia",
+        "el-esmailia",
+        "al-behera",
+        "al-daqahlya",
+        "al-gharbeya",
+        "al-menofeya"
       ],
       "enumTitles": [
-        "Dubai",
-        "Abu Dhabi",
-        "Sharjah",
-        "Ajman",
-        "Ras Al Khaimah",
-        "Fujairah",
-        "Umm Al Quwain",
-        "Al Ain",
+        "All cities (country-wide)",
+        "Dubai (AE)",
+        "Abu Dhabi (AE)",
+        "Sharjah (AE)",
+        "Ajman (AE)",
+        "Ras Al Khaimah (AE)",
+        "Fujairah (AE)",
+        "Umm Al Quwain (AE)",
+        "Al Ain (AE)",
         "Riyadh (SA)",
-        "Jeddah (SA)",
-        "Dammam (SA)",
         "Makkah (SA)",
+        "Eastern Province (SA)",
         "Madinah (SA)",
-        "Khobar (SA)"
+        "Al Qassim (SA)",
+        "Asir (SA)",
+        "Tabuk (SA)",
+        "Hail (SA)",
+        "Najran (SA)",
+        "Jazan (SA)",
+        "Doha (QA)",
+        "Lusail (QA)",
+        "Al Wakrah (QA)",
+        "Al Khor (QA)",
+        "Al Daayen (QA)",
+        "Al Shamal (QA)",
+        "Umm Salal Mohammed (QA)",
+        "Dukhan Highway (QA)",
+        "Capital Governorate (BH)",
+        "Northern Governorate (BH)",
+        "Southern Governorate (BH)",
+        "Muharraq Governorate (BH)",
+        "Central Governorate (BH)",
+        "Cairo (EG)",
+        "Giza (EG)",
+        "Alexandria (EG)",
+        "North Coast (EG)",
+        "New Capital (EG)",
+        "Asyut (EG)",
+        "Damietta (EG)",
+        "Qalyubia (EG)",
+        "Fayoum (EG)",
+        "Red Sea (EG)",
+        "South Sinai (EG)",
+        "Matrouh (EG)",
+        "Port Said (EG)",
+        "Suez (EG)",
+        "Sharqia (EG)",
+        "Ismailia (EG)",
+        "Beheira (EG)",
+        "Dakahlia (EG)",
+        "Gharbia (EG)",
+        "Menofia (EG)"
       ],
-      "title": "City",
+      "prefill": "dubai",
+      "title": "City / province",
+      "type": "string"
+    },
+    "completionStatus": {
+      "default": "any",
+      "description": "Ready or off-plan. Applies to residential for-sale searches; ignored for rentals and commercial searches.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "completed",
+        "off_plan"
+      ],
+      "enumTitles": [
+        "Any completion status",
+        "Ready",
+        "Off-plan"
+      ],
+      "prefill": "any",
+      "title": "Completion status",
       "type": "string"
     },
     "country": {
       "default": "ae",
-      "description": "Country to search in (used only when no URLs are provided).",
+      "description": "Market to search or the country used for bare agent/broker ids.",
       "editor": "select",
       "enum": [
         "ae",
         "sa",
+        "qa",
         "bh",
-        "eg",
-        "qa"
+        "eg"
       ],
       "enumTitles": [
-        "UAE",
+        "United Arab Emirates",
         "Saudi Arabia",
+        "Qatar",
         "Bahrain",
-        "Egypt",
-        "Qatar"
+        "Egypt"
       ],
-      "sectionCaption": "Scrape with Filters",
-      "sectionDescription": "Used only when Start URLs are empty.",
+      "prefill": "ae",
+      "sectionCaption": "Search filters",
+      "sectionDescription": "Used with mode=search. Pick a city that belongs to this country, or choose All cities.",
       "title": "Country",
       "type": "string"
     },
-    "fetch_full_details": {
-      "default": false,
-      "description": "When enabled, the scraper fetches each listing's detail page to retrieve the complete image gallery, full description, floor plans, and all extended fields. Disables if you only need basic listing info. Adds 1 HTTP request per property.",
-      "prefill": false,
-      "sectionCaption": "General Options",
-      "title": "Fetch Full Details (All Images + Extended Data)",
-      "type": "boolean"
+    "furnishing": {
+      "default": "any",
+      "description": "Furnished or unfurnished. Leave on Any furnishing to include both.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "furnished",
+        "unfurnished"
+      ],
+      "enumTitles": [
+        "Any furnishing",
+        "Furnished",
+        "Unfurnished"
+      ],
+      "prefill": "any",
+      "title": "Furnishing",
+      "type": "string"
     },
-    "ignore_url_failures": {
+    "includeDetails": {
       "default": true,
-      "description": "Continue running even if some URLs fail after max retries.",
+      "description": "Open each listing page to add the full photo gallery, permit validation link, licences, floor plans and agent ratings. Turn off for a faster, lighter dataset.",
       "prefill": true,
-      "title": "Ignore URL Failures",
+      "title": "Include full listing details",
       "type": "boolean"
     },
-    "max_items": {
-      "default": 20,
-      "description": "Maximum number of unique properties to scrape.",
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of listings or profiles to return.",
+      "maximum": 100000,
       "minimum": 1,
-      "prefill": 5,
-      "title": "Max Items",
+      "prefill": 2,
+      "sectionCaption": "Output",
+      "sectionDescription": "The run stops at this many records or when the source runs out.",
+      "title": "Max records",
       "type": "integer"
     },
-    "max_retries": {
-      "default": 2,
-      "description": "Maximum retry attempts for each failed request.",
+    "mode": {
+      "default": "search",
+      "description": "What to scrape. Search listings by filters, scrape specific listing URLs, or collect agent/broker profiles.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "listings",
+        "agents",
+        "brokers"
+      ],
+      "enumTitles": [
+        "Search listings by filters",
+        "Scrape listing or search URLs",
+        "Scrape agent profiles",
+        "Scrape broker profiles"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum asking price in the market's local currency.",
+      "maximum": 1000000000,
       "minimum": 0,
-      "prefill": 2,
-      "title": "Max Retries Per Request",
+      "title": "Maximum price",
       "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum asking price in the market's local currency (AED, SAR, QAR, BHD or EGP).",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum price",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Residential types: apartment, villa, townhouse, penthouse, duplex, compound, land, whole building, half floor. Commercial types: office, shop, warehouse, factory, showroom.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "apartment",
+        "villa",
+        "townhouse",
+        "penthouse",
+        "duplex",
+        "compound",
+        "land",
+        "whole-building",
+        "half-floor",
+        "office",
+        "shop",
+        "warehouse",
+        "factory",
+        "showroom"
+      ],
+      "enumTitles": [
+        "Any property type",
+        "Apartment",
+        "Villa",
+        "Townhouse",
+        "Penthouse",
+        "Duplex",
+        "Compound",
+        "Land",
+        "Whole building",
+        "Half floor",
+        "Office",
+        "Shop",
+        "Warehouse",
+        "Factory",
+        "Showroom"
+      ],
+      "prefill": "apartment",
+      "title": "Property type",
+      "type": "string"
     },
     "purpose": {
       "default": "buy",
-      "description": "Listing purpose.",
+      "description": "Buy, rent, or the commercial equivalents.",
       "editor": "select",
       "enum": [
         "buy",
@@ -105,29 +332,28 @@
         "commercial-rent"
       ],
       "enumTitles": [
-        "For Sale",
-        "For Rent",
-        "Commercial For Sale",
-        "Commercial For Rent"
+        "For sale",
+        "For rent",
+        "Commercial for sale",
+        "Commercial for rent"
       ],
+      "prefill": "buy",
       "title": "Purpose",
       "type": "string"
     },
     "startUrls": {
-      "description": "Property Finder URLs to scrape. Supports:\n- SEO landing pages (e.g. /en/buy/dubai/apartments-for-sale-marina.html)\n- Sitemap URLs (e.g. /sitemaps/dubai-buy-0.xml)\n- Sitemap index (/sitemaps/index-sitemap.xml)",
+      "description": "Property Finder landing, search, listing or short URLs. Used with mode=listings. Sitemap and sitemap-index URLs are also accepted.",
       "editor": "requestListSources",
-      "prefill": [
-        {
-          "url": "https://www.propertyfinder.ae/sitemaps/dubai-buy-0.xml"
-        }
-      ],
-      "sectionCaption": "Scrape with URLs",
-      "sectionDescription": "Enter Property Finder URLs. Leave empty to use city + purpose filters below.",
-      "title": "Start URLs",
+      "sectionCaption": "URLs",
+      "sectionDescription": "Use these instead of the search filters when you already have Property Finder links.",
+      "title": "Listing or search URLs",
       "type": "array"
     }
   },
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
-  "title": "Property Finder Scraper",
+  "title": "Property Finder MENA Listings & Brokerage Contacts Input",
   "type": "object"
 }

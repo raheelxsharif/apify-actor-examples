@@ -1,0 +1,58 @@
+{
+  "description": "Scrape Walk Score, Transit Score, and Bike Score for US addresses or cities.",
+  "properties": {
+    "addresses": {
+      "default": [],
+      "description": "List of US addresses to look up. Format: '123 Main St, Seattle, WA'",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Addresses (mode=byAddress)",
+      "type": "array"
+    },
+    "cities": {
+      "default": [
+        "Seattle-WA"
+      ],
+      "description": "List of city/state slugs to look up, e.g. 'Seattle-WA', 'New-York-NY', 'Chicago-IL'.",
+      "editor": "stringList",
+      "prefill": [
+        "Seattle-WA",
+        "New-York-NY",
+        "Chicago-IL"
+      ],
+      "title": "Cities (mode=byCity)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of records to emit.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byCity",
+      "description": "How to look up Walk Scores.",
+      "editor": "select",
+      "enum": [
+        "byAddress",
+        "byCity"
+      ],
+      "enumTitles": [
+        "By address (street + city + state)",
+        "By city/state slug"
+      ],
+      "prefill": "byCity",
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Walk Score Scraper Input",
+  "type": "object"
+}
