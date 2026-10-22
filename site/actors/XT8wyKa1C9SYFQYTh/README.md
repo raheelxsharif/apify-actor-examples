@@ -1,0 +1,109 @@
+# Google Scholar Paper & Citation Search Scraper
+
+Search Google Scholar the way a researcher would — by topic keywords — and get back structured records for every paper, preprint, and citation entry that Scholar returns, including citation counts, attribution strings, and links to PDFs, related articles, and version clusters.
+
+## What this actor does
+
+- Runs one or more keyword searches against Google Scholar and paginates through results automatically up to your requested limit.
+- Splits Scholar's attribution line into separate `authors`, `publication`, `year`, and `source` fields instead of leaving you to parse one string.
+- Lets you restrict results to PDF-only or HTML-only documents, to review articles, and to a custom publication-year window.
+- Distinguishes full `ARTICLE` results (with a working link) from `CITATION`-only entries — older or less accessible works that Scholar lists by reference alone.
+- Every field below is always present in each record; when Scholar doesn't provide a value for a result (such as `documentLink` when no file is attached, or `year` when the attribution line has no date), it comes back as an empty string or `0` rather than being omitted.
+
+## Output per result
+
+- `title` — paper or article title
+- `link` — URL of the main result (abstract page, publisher page, etc.)
+- `documentLink` — direct link to the PDF/HTML file, when Scholar lists one
+- `documentType` — `PDF`, `HTML`, or an empty string if no file is attached
+- `authors` — author list as shown on Scholar
+- `publication` — journal, conference, or venue name
+- `year` — publication year
+- `source` — domain hosting the result (e.g. `nature.com`)
+- `fullAttribution` — the raw attribution line Scholar shows beneath the title
+- `searchMatch` — the search-result snippet/excerpt
+- `citations` — number of times the work has been cited
+- `citationsLink` — link to the list of citing papers on Scholar
+- `relatedArticlesLink` — link to Scholar's "related articles" view
+- `versions` — number of versions Scholar has indexed for this work
+- `versionsLink` — link to the full version cluster
+- `type` — `ARTICLE` (has a direct link) or `CITATION` (reference-only entry)
+- `resultIndex` — position of the result within its search (0-based)
+- `searchQuery` — the query that produced this record
+- `scrapeTimestamp` — ISO 8601 timestamp of when the record was scraped
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `queries` | array | – | Keywords to search on Google Scholar; each entry runs as its own search |
+| `maxItems` | integer | `100` | Maximum results to return per query (1–1000) |
+| `sortBy` | string | `relevance` | `relevance` or `date` |
+| `filter` | string | `all` | `all`, `pdfOnly`, or `htmlOnly` — restrict by document format |
+| `articleType` | string | `any` | `any` or `review` — restrict to review articles |
+| `newerThan` | integer | – | Only include articles published in this year or later |
+| `olderThan` | integer | – | Only include articles published in this year or earlier |
+
+## Example: machine learning papers from the last few years
+
+```json
+{
+    "queries": ["machine learning", "deep learning"],
+    "maxItems": 50,
+    "sortBy": "relevance",
+    "newerThan": 2020
+}
+```
+
+## Example: review articles on a medical topic, PDFs only
+
+```json
+{
+    "queries": ["cancer treatment review"],
+    "maxItems": 30,
+    "articleType": "review",
+    "filter": "pdfOnly"
+}
+```
+
+## Example: newest results on a topic, sorted by date
+
+```json
+{
+    "queries": ["large language models"],
+    "maxItems": 100,
+    "sortBy": "date",
+    "olderThan": 2026
+}
+```
+
+## Use cases
+
+- **Literature reviews** — pull a structured list of papers on a topic instead of copy-pasting from the Scholar UI
+- **Bibliometric analysis** — aggregate citation counts across a field or author's work
+- **Research trend tracking** — compare publication volume across year windows with `newerThan`/`olderThan`
+- **Grant and funding research** — identify highly-cited work in a subject area before writing a proposal
+- **Academic alert feeds** — periodically re-run a query to catch newly indexed papers
+
+## FAQ
+
+**Does this need a Google Scholar account or API key?**
+No. Google Scholar's search results are public, and the actor queries them without signing in.
+
+**Why do some results have `type: "CITATION"` instead of `"ARTICLE"`?**
+Scholar lists some older or less accessible works as citation-only entries — they appear in results but don't link to a readable page, so fields like `link` and `documentLink` won't be meaningful for them.
+
+**What's the difference between `link` and `documentLink`?**
+`link` points to the result's main page (an abstract or publisher page). `documentLink` is a direct link to a downloadable file, and is only present when Scholar actually lists one.
+
+**How many results can I get per query?**
+Up to 1000, set via `maxItems`. Google Scholar serves 10 results per page, and the actor pages through automatically until it reaches your limit or runs out of results.
+
+**Why is the `citations` count different from what I see elsewhere?**
+`citations` reflects whatever Google Scholar reports at scrape time; Scholar's own citation counts can differ from other databases and change as it re-indexes the web.
+
+**Can I combine the year filters with date sorting?**
+Yes, but note that Scholar's own date sort does not always respect a year filter precisely — treat `newerThan`/`olderThan` as the authoritative cutoff.
+
+**Is this affiliated with Google or Google Scholar?**
+No. This is an independent, third-party actor that reads Google Scholar's public search results; it is not operated by or affiliated with Google.

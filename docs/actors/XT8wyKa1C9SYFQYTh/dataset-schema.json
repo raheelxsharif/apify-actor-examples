@@ -1,0 +1,58 @@
+{
+  "actorSpecification": 1,
+  "title": "Scholar Results",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "authors": {
+            "format": "text",
+            "label": "Authors"
+          },
+          "citations": {
+            "format": "number",
+            "label": "Citations"
+          },
+          "documentType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "link": {
+            "format": "link",
+            "label": "Link"
+          },
+          "publication": {
+            "format": "text",
+            "label": "Publication"
+          },
+          "searchQuery": {
+            "format": "text",
+            "label": "Query"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "year": {
+            "format": "number",
+            "label": "Year"
+          }
+        }
+      },
+      "title": "Results",
+      "transformation": {
+        "fields": [
+          "title",
+          "authors",
+          "year",
+          "publication",
+          "citations",
+          "documentType",
+          "link",
+          "searchQuery"
+        ]
+      }
+    }
+  }
+}

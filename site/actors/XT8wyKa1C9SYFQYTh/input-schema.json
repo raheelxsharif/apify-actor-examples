@@ -1,0 +1,93 @@
+{
+  "description": "Scrape academic papers from Google Scholar. Search by keywords with optional filters for year range, document type, and sort order.",
+  "properties": {
+    "articleType": {
+      "default": "any",
+      "description": "Filter by article type.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "review"
+      ],
+      "enumTitles": [
+        "All article types",
+        "Review articles only"
+      ],
+      "title": "Article Type",
+      "type": "string"
+    },
+    "filter": {
+      "default": "all",
+      "description": "Filter results by document format.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "pdfOnly",
+        "htmlOnly"
+      ],
+      "enumTitles": [
+        "All formats",
+        "PDF documents only",
+        "HTML documents only"
+      ],
+      "title": "Document Format",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of articles to scrape per query.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Maximum Results",
+      "type": "integer"
+    },
+    "newerThan": {
+      "description": "Only include articles published from this year onward. Leave empty for no restriction.",
+      "maximum": 2030,
+      "minimum": 1900,
+      "title": "Published After (Year)",
+      "type": "integer"
+    },
+    "olderThan": {
+      "description": "Only include articles published up to this year. Leave empty for no restriction.",
+      "maximum": 2030,
+      "minimum": 1900,
+      "title": "Published Before (Year)",
+      "type": "integer"
+    },
+    "queries": {
+      "description": "Keywords to search on Google Scholar. Each query runs as a separate search.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "machine learning"
+      ],
+      "title": "Search Queries",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How to sort search results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "date"
+      ],
+      "enumTitles": [
+        "Sort by relevance",
+        "Sort by date"
+      ],
+      "title": "Sort By",
+      "type": "string"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "schemaVersion": 1,
+  "title": "Google Scholar Scraper Input",
+  "type": "object"
+}
