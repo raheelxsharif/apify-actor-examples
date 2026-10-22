@@ -1,0 +1,89 @@
+{
+  "description": "Search Florida's Division of Corporations (Sunbiz) registry.",
+  "properties": {
+    "entityStatus": {
+      "default": "any",
+      "description": "Only emit entities with this status. Determined from each entity's detail page.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "active",
+        "inactive"
+      ],
+      "enumTitles": [
+        "Any status",
+        "Active only",
+        "Inactive only"
+      ],
+      "prefill": "any",
+      "title": "Filter by entity status",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Hard cap on emitted records. Each record requires a detail-page fetch, so keep this modest for large name/zip/address searches.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Only used as an automatic fallback if Sunbiz starts blocking datacenter requests. Leave default.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchTerm": {
+      "default": "publix",
+      "description": "The value to search for (entity name, officer/agent name, FEI/EIN digits, document number, ZIP code, street address, trademark name, or trademark owner name depending on `searchType`). Sunbiz performs a starts-with / nearest-alphabetical (or nearest-numerical, for FEI/ZIP) match on every search type EXCEPT `documentNumber`, same as the official site — a term with no exact match returns the closest neighbors in Sunbiz's index rather than zero results. Only `documentNumber` is a true exact-match lookup.",
+      "editor": "textfield",
+      "prefill": "publix",
+      "title": "Search term",
+      "type": "string"
+    },
+    "searchType": {
+      "default": "entityName",
+      "description": "Which Sunbiz search axis to use.",
+      "editor": "select",
+      "enum": [
+        "entityName",
+        "officerOrRegisteredAgent",
+        "registeredAgentName",
+        "feiEinNumber",
+        "documentNumber",
+        "zipCode",
+        "address",
+        "trademarkName",
+        "trademarkOwnerName"
+      ],
+      "enumTitles": [
+        "Entity name",
+        "Officer / Registered Agent name",
+        "Registered Agent name only",
+        "FEI/EIN number",
+        "Document number (exact)",
+        "ZIP code",
+        "Street address",
+        "Trademark name",
+        "Trademark owner name"
+      ],
+      "prefill": "entityName",
+      "title": "Search type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "searchType",
+    "searchTerm"
+  ],
+  "schemaVersion": 1,
+  "title": "Florida Sunbiz Business Entity Search Scraper Input",
+  "type": "object"
+}
