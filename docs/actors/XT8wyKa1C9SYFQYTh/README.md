@@ -4,110 +4,173 @@
 
 # Google Scholar Paper & Citation Search Scraper
 
-Search Google Scholar the way a researcher would — by topic keywords — and get back structured records for every paper, preprint, and citation entry that Scholar returns, including citation counts, attribution strings, and links to PDFs, related articles, and version clusters.
+Search **Google Scholar** for papers, follow their citations, and export public researcher profiles as clean structured data. One actor covers keyword search with year and review filters, citing-paper lists, author metrics such as h-index and i10-index, PDF links, citation styles, and cluster identifiers for follow-up queries. No Google account, API key, or proxy setup is needed.
 
 ## What this actor does
 
-- Runs one or more keyword searches against Google Scholar and paginates through results automatically up to your requested limit.
-- Splits Scholar's attribution line into separate `authors`, `publication`, `year`, and `source` fields instead of leaving you to parse one string.
-- Lets you restrict results to PDF-only or HTML-only documents, to review articles, and to a custom publication-year window.
-- Distinguishes full `ARTICLE` results (with a working link) from `CITATION`-only entries — older or less accessible works that Scholar lists by reference alone.
-- Every field below is always present in each record; when Scholar doesn't provide a value for a result (such as `documentLink` when no file is attached, or `year` when the attribution line has no date), it comes back as an empty string or `0` rather than being omitted.
+- **Three modes:** `search` finds papers by keyword, `citations` lists papers that cite a known article, and `authorProfile` exports a public researcher profile with its publication list.
+- **Paper search filters:** year range, newest-first sorting, review articles only, and client-side PDF/HTML filtering. Optional advanced filters narrow results by author, venue, or title-only matching.
+- **Citing papers:** pass a Scholar cluster ID or a `cites=` URL and receive the citing works with the same paper fields.
+- **Author profiles:** name, affiliation, verified email domain, homepage, research interests, citations, h-index, i10-index (all-time and recent), plus the paginated publication table.
+- **Citation styles:** optionally add MLA, APA, Chicago, Harvard, and Vancouver text for returned results, with a bounded time budget so search rows are still saved if formats are slow.
+- **Honest data:** PDF links point at the file Scholar lists, book and citation-only rows are typed correctly, duplicate rows within each query or citation list are removed, and empty fields are omitted.
 
-## Output per result
+## Output per record
+
+Every record has a `recordType`: `paper`, `citation`, or `author`.
+
+### Paper and citation records
 
 - `title` — paper or article title
-- `link` — URL of the main result (abstract page, publisher page, etc.)
-- `documentLink` — direct link to the PDF/HTML file, when Scholar lists one
-- `documentType` — `PDF`, `HTML`, or an empty string if no file is attached
-- `authors` — author list as shown on Scholar
-- `publication` — journal, conference, or venue name
+- `link` — publisher or landing-page URL
+- `documentLink` — direct PDF or HTML file URL, when Scholar lists one
+- `documentType` — `PDF`, `HTML`, `PS`, or omitted
+- `authors` — author names as shown by Scholar
+- `publication` — journal, conference, or venue text from Scholar (some rows include the publisher or source domain)
 - `year` — publication year
-- `source` — domain hosting the result (e.g. `nature.com`)
-- `fullAttribution` — the raw attribution line Scholar shows beneath the title
-- `searchMatch` — the search-result snippet/excerpt
-- `citations` — number of times the work has been cited
-- `citationsLink` — link to the list of citing papers on Scholar
-- `relatedArticlesLink` — link to Scholar's "related articles" view
-- `versions` — number of versions Scholar has indexed for this work
-- `versionsLink` — link to the full version cluster
-- `type` — `ARTICLE` (has a direct link) or `CITATION` (reference-only entry)
-- `resultIndex` — position of the result within its search (0-based)
-- `searchQuery` — the query that produced this record
-- `scrapeTimestamp` — ISO 8601 timestamp of when the record was scraped
+- `source` — hosting domain, such as `arxiv.org`, when Scholar separates it from the venue
+- `fullAttribution` — the complete attribution line from Scholar
+- `searchMatch` — snippet showing where the query matched
+- `citations` — cited-by count (`0` when Scholar shows none)
+- `citationsLink` — link to the citing-paper list
+- `relatedArticlesLink` — link to related articles
+- `versions` / `versionsLink` — version count and link, when Scholar shows them
+- `type` — `ARTICLE`, `BOOK`, or `CITATION`
+- `resultIndex` — position in the result list (0-based)
+- `clusterId` — Scholar cluster ID, useful for citation lookups
+- `resultId` — Scholar's internal result ID
+- `scholarUrl` — Scholar page for the article cluster
+- `authorIds` / `authorProfileUrls` — linked author profiles
+- `doi` — clean DOI parsed from the result URL when present; Scholar does not expose a DOI field directly
+- `citationFormats` — `mla`, `apa`, `chicago`, `harvard`, `vancouver` when requested
+- `searchQuery` — the query that found the paper (search mode)
+- `citedByOf` — the cluster ID being cited (citations mode)
+- `scrapeTimestamp` — ISO 8601 scrape time
+
+### Author records
+
+- `authorId`, `profileUrl`, `name`, `affiliation`
+- `verifiedEmailDomain`, `homepageUrl`, `interests`, `thumbnailUrl`
+- `citations`, `citationsSince`, `hIndex`, `hIndexSince`, `i10Index`, `i10IndexSince`, `metricsSinceYear`
+- `publications` — title, authors, venue, year, citations, Scholar URL, citation ID, and optional journal/volume/issue/pages/publisher/abstract/publication date/total citations
+- `publicationCount`
+- `scrapeTimestamp`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `queries` | array | – | Keywords to search on Google Scholar; each entry runs as its own search |
-| `maxItems` | integer | `100` | Maximum results to return per query (1–1000) |
+| `mode` | string | `search` | `search`, `citations`, or `authorProfile` |
+| `queries` | array | `["attention is all you need"]` | Search terms for `mode=search` |
+| `clusterIds` | array | – | Cluster IDs or `cites=` URLs for `mode=citations` |
+| `authorIds` | array | – | Author IDs or profile URLs for `mode=authorProfile` |
+| `maxItems` | integer | `100` | Maximum papers per query/cluster, or papers per author (1–1000) |
 | `sortBy` | string | `relevance` | `relevance` or `date` |
-| `filter` | string | `all` | `all`, `pdfOnly`, or `htmlOnly` — restrict by document format |
-| `articleType` | string | `any` | `any` or `review` — restrict to review articles |
-| `newerThan` | integer | – | Only include articles published in this year or later |
-| `olderThan` | integer | – | Only include articles published in this year or earlier |
+| `filter` | string | `all` | `all`, `pdfOnly`, or `htmlOnly` |
+| `articleType` | string | `any` | `any` or `review` |
+| `newerThan` | integer | – | Earliest publication year |
+| `olderThan` | integer | – | Latest publication year |
+| `author` | string | – | Return papers by this author |
+| `publication` | string | – | Return papers from this venue |
+| `titleOnly` | boolean | `false` | Match the query against titles |
+| `includeCitationFormats` | boolean | `false` | Add five citation styles for returned rows within a bounded budget; a slow format lookup never drops the search rows |
+| `includePaperDetails` | boolean | `false` | Add journal, volume, issue, pages, publisher, publication date, abstract, and total citations to author publications |
 
-## Example: machine learning papers from the last few years
+## Examples
 
-```json
-{
-    "queries": ["machine learning", "deep learning"],
-    "maxItems": 50,
-    "sortBy": "relevance",
-    "newerThan": 2020
-}
-```
-
-## Example: review articles on a medical topic, PDFs only
+### Search recent review papers on a medical topic
 
 ```json
 {
-    "queries": ["cancer treatment review"],
+    "mode": "search",
+    "queries": ["cancer immunotherapy"],
     "maxItems": 30,
     "articleType": "review",
-    "filter": "pdfOnly"
+    "newerThan": 2022
 }
 ```
 
-## Example: newest results on a topic, sorted by date
+### Find papers by a specific author in a specific venue
 
 ```json
 {
-    "queries": ["large language models"],
+    "mode": "search",
+    "queries": ["quantum computing"],
+    "author": "Andrew Steane",
+    "publication": "Physical Review",
+    "maxItems": 20
+}
+```
+
+### List papers that cite a known article
+
+```json
+{
+    "mode": "citations",
+    "clusterIds": ["184251978817409129"],
+    "maxItems": 50,
+    "includeCitationFormats": true
+}
+```
+
+### Export an author profile with paper details
+
+```json
+{
+    "mode": "authorProfile",
+    "authorIds": ["https://scholar.google.com/citations?user=-AXbSiwAAAAJ&hl=en"],
     "maxItems": 100,
-    "sortBy": "date",
-    "olderThan": 2026
+    "includePaperDetails": true
 }
 ```
 
 ## Use cases
 
-- **Literature reviews** — pull a structured list of papers on a topic instead of copy-pasting from the Scholar UI
-- **Bibliometric analysis** — aggregate citation counts across a field or author's work
-- **Research trend tracking** — compare publication volume across year windows with `newerThan`/`olderThan`
-- **Grant and funding research** — identify highly-cited work in a subject area before writing a proposal
-- **Academic alert feeds** — periodically re-run a query to catch newly indexed papers
+- **Literature reviews** — collect a structured reading list and follow citation chains without copying rows from Scholar.
+- **Bibliometrics** — track citation counts, h-index, and i10-index for researchers or fields.
+- **Research monitoring** — rerun saved queries to catch new papers in a topic.
+- **Citation analysis** — export citing papers for one or more key articles.
+- **Academic recruiting and grants** — compare public publication records and recent citation metrics.
+- **Data pipelines** — feed clean JSON into a database, spreadsheet, or research assistant.
 
 ## FAQ
 
-**Does this need a Google Scholar account or API key?**
-No. Google Scholar's search results are public, and the actor queries them without signing in.
+### Do I need a Google Scholar account, API key, or proxy?
 
-**Why do some results have `type: "CITATION"` instead of `"ARTICLE"`?**
-Scholar lists some older or less accessible works as citation-only entries — they appear in results but don't link to a readable page, so fields like `link` and `documentLink` won't be meaningful for them.
+No. The actor reads public Scholar pages and selects a working connection automatically. Just provide the input and run it.
 
-**What's the difference between `link` and `documentLink`?**
-`link` points to the result's main page (an abstract or publisher page). `documentLink` is a direct link to a downloadable file, and is only present when Scholar actually lists one.
+### Why do I get fewer results than `maxItems`?
 
-**How many results can I get per query?**
-Up to 1000, set via `maxItems`. Google Scholar serves 10 results per page, and the actor pages through automatically until it reaches your limit or runs out of results.
+Google Scholar serves about 10 search results per page and may return an empty or partial page for deep pagination. The actor retries on a fresh connection and stops with an honest status instead of inventing rows. For broad topics, split the query by year, venue, or author to reach more results.
 
-**Why is the `citations` count different from what I see elsewhere?**
-`citations` reflects whatever Google Scholar reports at scrape time; Scholar's own citation counts can differ from other databases and change as it re-indexes the web.
+### What is a cluster ID and where do I find it?
 
-**Can I combine the year filters with date sorting?**
-Yes, but note that Scholar's own date sort does not always respect a year filter precisely — treat `newerThan`/`olderThan` as the authoritative cutoff.
+A cluster ID identifies one article and all of its known versions on Scholar. It is the number in a `cites=` or `cluster=` URL, and it is also returned as `clusterId` on every search result. Use it as input to `mode=citations` to list citing papers.
 
-**Is this affiliated with Google or Google Scholar?**
-No. This is an independent, third-party actor that reads Google Scholar's public search results; it is not operated by or affiliated with Google.
+### Why is a DOI missing from some records?
+
+Google Scholar does not show a DOI field on search results. The actor adds a DOI only when the result's URL contains one, so many records correctly omit it. It never guesses a DOI. Query strings, fragments, and common suffix paths such as `/meta` or `.html` are removed.
+
+### Which citation styles are supported?
+
+MLA, APA, Chicago, Harvard, and Vancouver are returned as text when `includeCitationFormats` is enabled. The actor looks up each returned result ID, including deeper pages, within a bounded time budget. If Google Scholar is slow or blocks some format lookups, the already-collected paper rows are still saved and the run status reports how many rows received formats. The option adds one request per row, so it is slower than a plain search.
+
+### Why are some PDF links missing?
+
+Scholar only shows a file link when it has indexed a PDF or HTML copy. The actor returns the real file URL and omits `documentLink` when no file is available. `link` still points to the publisher or landing page.
+
+### Why do author profiles not include coauthors?
+
+Coauthor cards are not part of the public profile view; Scholar only exposes them through a signed-in editing dialog. The actor returns the public fields it can verify: affiliation, interests, metrics, and the publication list.
+
+### Can I search for an author by name and get their profile automatically?
+
+Author-name profile search requires a Google sign-in, so the actor does not offer it. If you know the profile URL or user ID, paste it into `authorIds`; author names linked from search results are also returned in `authorIds` and `authorProfileUrls`.
+
+### How are year filters handled with newest-first sorting?
+
+When a year range is set, the actor sends Scholar's server-side `as_ylo`/`as_yhi` bounds (even with `sortBy: "date"`) and verifies the years on the returned rows. Newest-first order is then applied within each page, because Scholar ignores a global date sort when a year range is active. A 2020–2022 range therefore returns matching papers instead of a false empty result.
+
+### Is this affiliated with Google or Google Scholar?
+
+No. This is an independent third-party actor that reads publicly available Google Scholar pages. It is not operated by or endorsed by Google.

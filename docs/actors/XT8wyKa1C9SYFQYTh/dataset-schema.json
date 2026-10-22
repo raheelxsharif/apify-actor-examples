@@ -14,6 +14,14 @@
             "format": "number",
             "label": "Citations"
           },
+          "clusterId": {
+            "format": "text",
+            "label": "Cluster"
+          },
+          "documentLink": {
+            "format": "link",
+            "label": "PDF/HTML"
+          },
           "documentType": {
             "format": "text",
             "label": "Type"
@@ -22,9 +30,21 @@
             "format": "link",
             "label": "Link"
           },
+          "name": {
+            "format": "text",
+            "label": "Author"
+          },
           "publication": {
             "format": "text",
             "label": "Publication"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Record"
+          },
+          "scholarUrl": {
+            "format": "link",
+            "label": "Scholar URL"
           },
           "searchQuery": {
             "format": "text",
@@ -43,13 +63,18 @@
       "title": "Results",
       "transformation": {
         "fields": [
+          "recordType",
           "title",
+          "name",
           "authors",
           "year",
           "publication",
           "citations",
           "documentType",
+          "documentLink",
           "link",
+          "clusterId",
+          "scholarUrl",
           "searchQuery"
         ]
       }

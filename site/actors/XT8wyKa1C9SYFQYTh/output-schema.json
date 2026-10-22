@@ -1,127 +1,14 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per Google Scholar search result, with title, authors, publication venue, year, citation count, and links to the document, citing papers, and version cluster.",
+  "description": "Papers, citing papers, and public author profiles from Google Scholar, with authors, venue, year, citation counts, PDF links, cluster IDs, and researcher metrics.",
   "properties": {
-    "authors": {
-      "description": "Author names",
-      "template": "{{authors}}",
-      "title": "Authors",
-      "type": "string"
-    },
-    "citations": {
-      "description": "Number of citations",
-      "template": "{{citations}}",
-      "title": "Citations",
-      "type": "string"
-    },
-    "citationsLink": {
-      "description": "Link to view citing articles",
-      "template": "{{citationsLink}}",
-      "title": "Citations Link",
-      "type": "string"
-    },
-    "documentLink": {
-      "description": "Link to the document file (PDF or HTML)",
-      "template": "{{documentLink}}",
-      "title": "Document Link",
-      "type": "string"
-    },
-    "documentType": {
-      "description": "Format of the document (PDF, HTML, or empty)",
-      "template": "{{documentType}}",
-      "title": "Document Type",
-      "type": "string"
-    },
-    "fullAttribution": {
-      "description": "Complete attribution line as shown on Google Scholar",
-      "template": "{{fullAttribution}}",
-      "title": "Full Attribution",
-      "type": "string"
-    },
-    "link": {
-      "description": "Direct link to the article",
-      "template": "{{link}}",
-      "title": "Link",
-      "type": "string"
-    },
-    "publication": {
-      "description": "Journal or venue name",
-      "template": "{{publication}}",
-      "title": "Publication",
-      "type": "string"
-    },
-    "relatedArticlesLink": {
-      "description": "Link to related articles",
-      "template": "{{relatedArticlesLink}}",
-      "title": "Related Articles",
-      "type": "string"
-    },
-    "resultIndex": {
-      "description": "Position in search results (0-based)",
-      "template": "{{resultIndex}}",
-      "title": "Position",
-      "type": "string"
-    },
-    "scrapeTimestamp": {
-      "description": "ISO 8601 timestamp when the data was scraped",
-      "template": "{{scrapeTimestamp}}",
-      "title": "Scraped At",
-      "type": "string"
-    },
-    "searchMatch": {
-      "description": "Search result snippet or excerpt",
-      "template": "{{searchMatch}}",
-      "title": "Snippet",
-      "type": "string"
-    },
-    "searchQuery": {
-      "description": "The search query that found this result",
-      "template": "{{searchQuery}}",
-      "title": "Search Query",
-      "type": "string"
-    },
-    "source": {
-      "description": "Source website domain",
-      "template": "{{source}}",
-      "title": "Source",
-      "type": "string"
-    },
-    "title": {
-      "description": "Title of the academic paper or article",
-      "template": "{{title}}",
-      "title": "Title",
-      "type": "string"
-    },
-    "type": {
-      "description": "Type of result: ARTICLE or CITATION",
-      "template": "{{type}}",
-      "title": "Result Type",
-      "type": "string"
-    },
-    "versions": {
-      "description": "Number of available versions",
-      "template": "{{versions}}",
-      "title": "Versions",
-      "type": "string"
-    },
-    "versionsLink": {
-      "description": "Link to all versions",
-      "template": "{{versionsLink}}",
-      "title": "Versions Link",
-      "type": "string"
-    },
-    "year": {
-      "description": "Publication year",
-      "template": "{{year}}",
-      "title": "Year",
+    "results": {
+      "description": "Dataset containing scraped papers, citing papers, or author profiles.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Scholar Results",
       "type": "string"
     }
   },
-  "required": [
-    "title",
-    "searchQuery",
-    "scrapeTimestamp"
-  ],
   "title": "Google Scholar Paper & Citation Search Scraper Output",
   "type": "object"
 }

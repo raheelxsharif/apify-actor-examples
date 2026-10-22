@@ -1,0 +1,181 @@
+{
+  "description": "Search properties on 99acres — India's leading real estate portal.",
+  "properties": {
+    "bedrooms": {
+      "default": "",
+      "description": "Number of bedrooms.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5+"
+      ],
+      "enumTitles": [
+        "Any",
+        "1 BHK",
+        "2 BHK",
+        "3 BHK",
+        "4 BHK",
+        "5+ BHK"
+      ],
+      "prefill": "",
+      "title": "Bedrooms (BHK)",
+      "type": "string"
+    },
+    "city": {
+      "default": "Delhi",
+      "description": "City to search in.",
+      "editor": "select",
+      "enum": [
+        "Delhi",
+        "Mumbai",
+        "Bangalore",
+        "Hyderabad",
+        "Chennai",
+        "Kolkata",
+        "Pune",
+        "Ahmedabad",
+        "Jaipur",
+        "Noida",
+        "Gurugram",
+        "Navi Mumbai",
+        "Thane",
+        "Ghaziabad",
+        "Faridabad",
+        "Lucknow",
+        "Surat",
+        "Indore",
+        "Bhopal",
+        "Nagpur",
+        "Vadodara",
+        "Chandigarh",
+        "Coimbatore",
+        "Kochi",
+        "Visakhapatnam"
+      ],
+      "enumTitles": [
+        "Delhi",
+        "Mumbai",
+        "Bangalore",
+        "Hyderabad",
+        "Chennai",
+        "Kolkata",
+        "Pune",
+        "Ahmedabad",
+        "Jaipur",
+        "Noida",
+        "Gurugram",
+        "Navi Mumbai",
+        "Thane",
+        "Ghaziabad",
+        "Faridabad",
+        "Lucknow",
+        "Surat",
+        "Indore",
+        "Bhopal",
+        "Nagpur",
+        "Vadodara",
+        "Chandigarh",
+        "Coimbatore",
+        "Kochi",
+        "Visakhapatnam"
+      ],
+      "prefill": "Delhi",
+      "title": "City",
+      "type": "string"
+    },
+    "locality": {
+      "description": "Specific locality or neighbourhood within the city.",
+      "editor": "textfield",
+      "title": "Locality",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of property records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchForSale",
+      "description": "What to scrape from 99acres.",
+      "editor": "select",
+      "enum": [
+        "searchProperties",
+        "searchForSale",
+        "searchForRent"
+      ],
+      "enumTitles": [
+        "Search all properties",
+        "Search properties for sale",
+        "Search properties for rent"
+      ],
+      "prefill": "searchForSale",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum property price in Indian Rupees.",
+      "maximum": 999999999,
+      "minimum": 0,
+      "title": "Max price (INR)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum property price in Indian Rupees.",
+      "maximum": 999999999,
+      "minimum": 0,
+      "title": "Min price (INR)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "Residential Apartment",
+      "description": "Type of property to search for.",
+      "editor": "select",
+      "enum": [
+        "Residential Apartment",
+        "Independent House",
+        "Villa",
+        "Residential Plot",
+        "Independent Floor",
+        "Studio Apartment",
+        "Penthouse",
+        "Farm House",
+        "Commercial Office Space",
+        "Commercial Shop",
+        "Commercial Land",
+        "Warehouse"
+      ],
+      "enumTitles": [
+        "Residential Apartment",
+        "Independent House",
+        "Villa",
+        "Residential Plot",
+        "Independent Floor",
+        "Studio Apartment",
+        "Penthouse",
+        "Farm House",
+        "Commercial Office Space",
+        "Commercial Shop",
+        "Commercial Land",
+        "Warehouse / Godown"
+      ],
+      "prefill": "Residential Apartment",
+      "title": "Property type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode",
+    "city"
+  ],
+  "schemaVersion": 1,
+  "title": "99acres Scraper Input",
+  "type": "object"
+}

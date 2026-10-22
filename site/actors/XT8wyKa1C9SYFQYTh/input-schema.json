@@ -1,24 +1,49 @@
 {
-  "description": "Scrape academic papers from Google Scholar. Search by keywords with optional filters for year range, document type, and sort order.",
+  "description": "Search Google Scholar papers, list citing papers, or export public author profiles. No account, API key, or proxy setup is needed.",
   "properties": {
     "articleType": {
       "default": "any",
-      "description": "Filter by article type.",
+      "description": "Return all articles or review articles only (mode=search).",
       "editor": "select",
       "enum": [
         "any",
         "review"
       ],
       "enumTitles": [
-        "All article types",
+        "All articles",
         "Review articles only"
       ],
+      "prefill": "any",
       "title": "Article Type",
       "type": "string"
     },
+    "author": {
+      "description": "Return papers written by this author, e.g. 'Geoffrey Hinton' (mode=search).",
+      "editor": "textfield",
+      "title": "Authored By",
+      "type": "string"
+    },
+    "authorIds": {
+      "description": "Google Scholar author IDs or profile URLs to export (mode=authorProfile).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Author IDs or Profile URLs",
+      "type": "array"
+    },
+    "clusterIds": {
+      "description": "Paper cluster IDs or Google Scholar 'cites=' URLs to list citing papers for (mode=citations).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Cluster IDs or Citing URLs",
+      "type": "array"
+    },
     "filter": {
       "default": "all",
-      "description": "Filter results by document format.",
+      "description": "Keep only PDF or HTML results; applied to returned rows (mode=search).",
       "editor": "select",
       "enum": [
         "all",
@@ -27,66 +52,110 @@
       ],
       "enumTitles": [
         "All formats",
-        "PDF documents only",
-        "HTML documents only"
+        "PDF only",
+        "HTML only"
       ],
+      "prefill": "all",
       "title": "Document Format",
       "type": "string"
     },
+    "includeCitationFormats": {
+      "default": false,
+      "description": "Also return MLA, APA, Chicago, Harvard, and Vancouver citations for returned rows, within a bounded budget (mode=search or citations).",
+      "prefill": false,
+      "title": "Include Citation Formats",
+      "type": "boolean"
+    },
+    "includePaperDetails": {
+      "default": false,
+      "description": "Fetch journal, volume, pages, publisher, and abstract for each author publication (mode=authorProfile).",
+      "prefill": false,
+      "title": "Include Paper Details",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 100,
-      "description": "Maximum number of articles to scrape per query.",
+      "description": "Maximum papers per query or cluster, or papers per author. Google Scholar serves about 10 search results per page.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 100,
+      "prefill": 3,
       "title": "Maximum Results",
       "type": "integer"
     },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch: paper search, citing papers, or public author profiles.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "citations",
+        "authorProfile"
+      ],
+      "enumTitles": [
+        "Search papers",
+        "List citing papers",
+        "Export author profile"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
     "newerThan": {
-      "description": "Only include articles published from this year onward. Leave empty for no restriction.",
+      "description": "Only include papers published in this year or later (mode=search).",
       "maximum": 2030,
       "minimum": 1900,
       "title": "Published After (Year)",
       "type": "integer"
     },
     "olderThan": {
-      "description": "Only include articles published up to this year. Leave empty for no restriction.",
+      "description": "Only include papers published in this year or earlier (mode=search).",
       "maximum": 2030,
       "minimum": 1900,
       "title": "Published Before (Year)",
       "type": "integer"
     },
+    "publication": {
+      "description": "Return papers from this journal or venue, e.g. 'Nature' (mode=search).",
+      "editor": "textfield",
+      "title": "Published In",
+      "type": "string"
+    },
     "queries": {
-      "description": "Keywords to search on Google Scholar. Each query runs as a separate search.",
+      "description": "Keywords or paper titles to search on Google Scholar (mode=search). Each query runs separately.",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "prefill": [
-        "machine learning"
+        "attention is all you need"
       ],
       "title": "Search Queries",
       "type": "array"
     },
     "sortBy": {
       "default": "relevance",
-      "description": "How to sort search results.",
+      "description": "Sort search results by relevance or date (mode=search).",
       "editor": "select",
       "enum": [
         "relevance",
         "date"
       ],
       "enumTitles": [
-        "Sort by relevance",
-        "Sort by date"
+        "Relevance",
+        "Newest first"
       ],
+      "prefill": "relevance",
       "title": "Sort By",
       "type": "string"
+    },
+    "titleOnly": {
+      "default": false,
+      "description": "Match the query against paper titles instead of the full text (mode=search).",
+      "prefill": false,
+      "title": "Search Titles Only",
+      "type": "boolean"
     }
   },
-  "required": [
-    "queries"
-  ],
   "schemaVersion": 1,
   "title": "Google Scholar Scraper Input",
   "type": "object"

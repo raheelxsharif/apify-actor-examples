@@ -1,0 +1,415 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-oMEihVzITah6EoI4uHjdtUoT6fZHnmtWe3mjFJxdldc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>99acres City &amp; BHK Property Listing Scraper | Dataspryva</title><meta name="description" content="Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and po"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/"><meta property="og:title" content="99acres City &amp; BHK Property Listing Scraper | Dataspryva"><meta property="og:description" content="Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and po"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#webpage","name":"99acres City & BHK Property Listing Scraper","description":"Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and poster details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#article","headline":"99acres City & BHK Property Listing Scraper","name":"99acres City & BHK Property Listing Scraper","description":"Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and poster details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"99acres City & BHK Property Listing Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/2TFMROZoJNU2eMqGS/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>99acres City &amp; BHK Property Listing Scraper</span></div><section id="overview"><h1 class="doc-title">99acres City &amp; BHK Property Listing Scraper</h1><p class="lede">Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and poster details.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/99acres-city-and-bhk-property-listing-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/2TFMROZoJNU2eMqGS/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape from 99acres.</td></tr><tr><td><code>city</code></td><td>string</td><td>required</td><td>City to search in.</td></tr><tr><td><code>propertyType</code></td><td>string</td><td>optional</td><td>Type of property to search for.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape from 99acres.</td></tr><tr><td><code>city</code></td><td>string</td><td>required</td><td>City to search in.</td></tr><tr><td><code>propertyType</code></td><td>string</td><td>optional</td><td>Type of property to search for.</td></tr><tr><td><code>bedrooms</code></td><td>string</td><td>optional</td><td>Number of bedrooms.</td></tr><tr><td><code>locality</code></td><td>string</td><td>optional</td><td>Specific locality or neighbourhood within the city.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Minimum property price in Indian Rupees.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Maximum property price in Indian Rupees.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of property records to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search properties on 99acres — India&#x27;s leading real estate portal.&quot;,
+  &quot;properties&quot;: {
+    &quot;bedrooms&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Number of bedrooms.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;1&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;,
+        &quot;4&quot;,
+        &quot;5+&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;1 BHK&quot;,
+        &quot;2 BHK&quot;,
+        &quot;3 BHK&quot;,
+        &quot;4 BHK&quot;,
+        &quot;5+ BHK&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Bedrooms (BHK)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;city&quot;: {
+      &quot;default&quot;: &quot;Delhi&quot;,
+      &quot;description&quot;: &quot;City to search in.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;Delhi&quot;,
+        &quot;Mumbai&quot;,
+        &quot;Bangalore&quot;,
+        &quot;Hyderabad&quot;,
+        &quot;Chennai&quot;,
+        &quot;Kolkata&quot;,
+        &quot;Pune&quot;,
+        &quot;Ahmedabad&quot;,
+        &quot;Jaipur&quot;,
+        &quot;Noida&quot;,
+        &quot;Gurugram&quot;,
+        &quot;Navi Mumbai&quot;,
+        &quot;Thane&quot;,
+        &quot;Ghaziabad&quot;,
+        &quot;Faridabad&quot;,
+        &quot;Lucknow&quot;,
+        &quot;Surat&quot;,
+        &quot;Indore&quot;,
+        &quot;Bhopal&quot;,
+        &quot;Nagpur&quot;,
+        &quot;Vadodara&quot;,
+        &quot;Chandigarh&quot;,
+        &quot;Coimbatore&quot;,
+        &quot;Kochi&quot;,
+        &quot;Visakhapatnam&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Delhi&quot;,
+        &quot;Mumbai&quot;,
+        &quot;Bangalore&quot;,
+        &quot;Hyderabad&quot;,
+        &quot;Chennai&quot;,
+        &quot;Kolkata&quot;,
+        &quot;Pune&quot;,
+        &quot;Ahmedabad&quot;,
+        &quot;Jaipur&quot;,
+        &quot;Noida&quot;,
+        &quot;Gurugram&quot;,
+        &quot;Navi Mumbai&quot;,
+        &quot;Thane&quot;,
+        &quot;Ghaziabad&quot;,
+        &quot;Faridabad&quot;,
+        &quot;Lucknow&quot;,
+        &quot;Surat&quot;,
+        &quot;Indore&quot;,
+        &quot;Bhopal&quot;,
+        &quot;Nagpur&quot;,
+        &quot;Vadodara&quot;,
+        &quot;Chandigarh&quot;,
+        &quot;Coimbatore&quot;,
+        &quot;Kochi&quot;,
+        &quot;Visakhapatnam&quot;
+      ],
+      &quot;prefill&quot;: &quot;Delhi&quot;,
+      &quot;title&quot;: &quot;City&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;locality&quot;: {
+      &quot;description&quot;: &quot;Specific locality or neighbourhood within the city.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Locality&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum number of property records to return.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 50,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchForSale&quot;,
+      &quot;description&quot;: &quot;What to scrape from 99acres.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchProperties&quot;,
+        &quot;searchForSale&quot;,
+        &quot;searchForRent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search all properties&quot;,
+        &quot;Search properties for sale&quot;,
+        &quot;Search properties for rent&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchForSale&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;priceMax&quot;: {
+      &quot;description&quot;: &quot;Maximum property price in Indian Rupees.&quot;,
+      &quot;maximum&quot;: 999999999,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max price (INR)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;priceMin&quot;: {
+      &quot;description&quot;: &quot;Minimum property price in Indian Rupees.&quot;,
+      &quot;maximum&quot;: 999999999,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min price (INR)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;propertyType&quot;: {
+      &quot;default&quot;: &quot;Residential Apartment&quot;,
+      &quot;description&quot;: &quot;Type of property to search for.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;Residential Apartment&quot;,
+        &quot;Independent House&quot;,
+        &quot;Villa&quot;,
+        &quot;Residential Plot&quot;,
+        &quot;Independent Floor&quot;,
+        &quot;Studio Apartment&quot;,
+        &quot;Penthouse&quot;,
+        &quot;Farm House&quot;,
+        &quot;Commercial Office Space&quot;,
+        &quot;Commercial Shop&quot;,
+        &quot;Commercial Land&quot;,
+        &quot;Warehouse&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Residential Apartment&quot;,
+        &quot;Independent House&quot;,
+        &quot;Villa&quot;,
+        &quot;Residential Plot&quot;,
+        &quot;Independent Floor&quot;,
+        &quot;Studio Apartment&quot;,
+        &quot;Penthouse&quot;,
+        &quot;Farm House&quot;,
+        &quot;Commercial Office Space&quot;,
+        &quot;Commercial Shop&quot;,
+        &quot;Commercial Land&quot;,
+        &quot;Warehouse / Godown&quot;
+      ],
+      &quot;prefill&quot;: &quot;Residential Apartment&quot;,
+      &quot;title&quot;: &quot;Property type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;,
+    &quot;city&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;99acres Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>properties</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped 99acres property listings.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per 99acres property listing, with title, price, area, bedroom count, city, locality, property type, poster, and listing URL.&quot;,
+  &quot;properties&quot;: {
+    &quot;properties&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped 99acres property listings.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;99acres property listings&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;99acres City &amp; BHK Property Listing Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Property Listings&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;price&quot;,
+          &quot;area&quot;,
+          &quot;bedrooms&quot;,
+          &quot;city&quot;,
+          &quot;locality&quot;,
+          &quot;propertyType&quot;,
+          &quot;propertyUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-99acres-city-bhk-property-listing-scraper">99acres City &amp; BHK Property Listing Scraper</h2>
+<p>Pull live buy and rent listings from 99acres by picking a city, a property type, and a BHK size — the same filters you'd use on the site itself — and get back structured records instead of a search results page.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches 99acres for sale or for rent across 25 major Indian cities.</li>
+<li>Narrows results by property type (apartment, villa, plot, commercial office, warehouse, and more) and by number of bedrooms (BHK).</li>
+<li>Accepts a free-text locality name plus a minimum/maximum price in INR to tighten a search within a city.</li>
+<li>Returns each listing's title, price, area, bedroom count, location, property type, and the poster's name alongside a direct link to the listing.</li>
+<li>Fields 99acres doesn't show for a given listing (for example <code>postedBy</code> or <code>locality</code> on some ads) are left out of that record rather than filled with a placeholder.</li>
+</ul>
+<h2 id="readme-output-per-property">Output per property</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>String</td>
+<td>Property title / description</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>String</td>
+<td>Asking price as displayed on 99acres (e.g. <code>&quot;75 Lac&quot;</code>, <code>&quot;1.2 Cr&quot;</code>, <code>&quot;25,000/month&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>area</code></td>
+<td>String</td>
+<td>Built-up / carpet / plot area (e.g. <code>&quot;1400 sq.ft&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>bedrooms</code></td>
+<td>Integer</td>
+<td>Number of bedrooms (BHK)</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>String</td>
+<td>City name</td>
+</tr>
+<tr>
+<td><code>locality</code></td>
+<td>String</td>
+<td>Locality / sector / neighbourhood</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>String</td>
+<td>Type of property</td>
+</tr>
+<tr>
+<td><code>postedBy</code></td>
+<td>String</td>
+<td>Owner or agent/dealer name, when shown</td>
+</tr>
+<tr>
+<td><code>propertyUrl</code></td>
+<td>String</td>
+<td>Direct link to the listing on 99acres</td>
+</tr>
+<tr>
+<td><code>sourceUrl</code></td>
+<td>String</td>
+<td>Canonical listing URL (same as <code>propertyUrl</code>)</td>
+</tr>
+<tr>
+<td><code>recordType</code></td>
+<td>String</td>
+<td>Always <code>property</code></td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>String</td>
+<td>ISO 8601 timestamp of when the record was scraped</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchForSale</code></td>
+<td><code>searchProperties</code>, <code>searchForSale</code>, or <code>searchForRent</code> — <code>searchProperties</code> currently behaves the same as <code>searchForSale</code></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td><code>Delhi</code></td>
+<td>City to search (required)</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>string</td>
+<td><code>Residential Apartment</code></td>
+<td>Type of property to search for</td>
+</tr>
+<tr>
+<td><code>bedrooms</code></td>
+<td>string</td>
+<td>– (any)</td>
+<td>Number of bedrooms: <code>1</code>–<code>4</code>, or <code>5+</code></td>
+</tr>
+<tr>
+<td><code>locality</code></td>
+<td>string</td>
+<td>–</td>
+<td>Specific neighbourhood or sector within the city</td>
+</tr>
+<tr>
+<td><code>priceMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum price in Indian Rupees</td>
+</tr>
+<tr>
+<td><code>priceMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum price in Indian Rupees</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Maximum number of property records to return (1–500)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-2-bhk-rentals-in-a-specific-locality">Example: 2 BHK rentals in a specific locality</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForRent&quot;,
+  &quot;city&quot;: &quot;Bangalore&quot;,
+  &quot;propertyType&quot;: &quot;Residential Apartment&quot;,
+  &quot;bedrooms&quot;: &quot;2&quot;,
+  &quot;locality&quot;: &quot;HSR Layout&quot;,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-example-independent-houses-for-sale-within-a-budget">Example: independent houses for sale within a budget</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForSale&quot;,
+  &quot;city&quot;: &quot;Pune&quot;,
+  &quot;propertyType&quot;: &quot;Independent House&quot;,
+  &quot;priceMin&quot;: 5000000,
+  &quot;priceMax&quot;: 15000000,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-a-specific-property-type-in-one-city">Example: a specific property type in one city</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForSale&quot;,
+  &quot;city&quot;: &quot;Mumbai&quot;,
+  &quot;propertyType&quot;: &quot;Villa&quot;,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Market research</strong> — compare asking prices and inventory volume across Indian cities and localities</li>
+<li><strong>Investment screening</strong> — filter by price band and property type before shortlisting areas to study</li>
+<li><strong>Rental tracking</strong> — pull current rental listings with BHK and locality for a neighbourhood</li>
+<li><strong>Lead sourcing</strong> — collect owner/agent names attached to active listings</li>
+<li><strong>Proptech data feeds</strong> — refresh a search UI or dashboard with current 99acres inventory</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a 99acres login to use this?</strong>
+No — every field comes from 99acres' public, unauthenticated search results.</p>
+<p><strong>What's the difference between the three modes?</strong>
+<code>searchForSale</code> returns properties listed for purchase and <code>searchForRent</code> returns rental listings only. <code>searchProperties</code> currently queries the same for-sale listings as <code>searchForSale</code>; run the actor twice with different modes if you need both sale and rental results.</p>
+<p><strong>Why are <code>price</code> and <code>area</code> text instead of numbers?</strong>
+They're returned exactly as 99acres formats them (e.g. <code>&quot;1.2 Cr&quot;</code>, <code>&quot;1400 sq.ft&quot;</code>) because the site mixes units (Lac/Cr, sq.ft/sq.m) that a single numeric field couldn't represent without losing information.</p>
+<p><strong>Why is <code>postedBy</code> or <code>locality</code> missing from some records?</strong>
+99acres doesn't render every field on every listing card. When a value isn't present on the source page, the actor omits the field instead of guessing.</p>
+<p><strong>Can I search for a locality that isn't in a dropdown?</strong>
+Yes — <code>locality</code> is free text, so you can type any neighbourhood or sector name 99acres recognizes within the selected city.</p>
+<p><strong>Does this cover photos or the full listing description?</strong>
+No. Those live on the individual listing page; <code>propertyUrl</code> gives you the direct link to open it on 99acres.</p>
+<p><strong>Why is the actor named &quot;NinetyNineAcresScraper&quot; instead of &quot;99acresScraper&quot;?</strong>
+Folder and code identifiers can't start with a digit, so the site's name is spelled out; the actor itself still targets 99acres.com.</p>
+<p><strong>Is this actor affiliated with 99acres?</strong>
+No. This is an independent, third-party actor that reads 99acres' public listing pages and is not operated by or affiliated with 99acres.com.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/2TFMROZoJNU2eMqGS/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>MM3jdxkcHyoubHW3e</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

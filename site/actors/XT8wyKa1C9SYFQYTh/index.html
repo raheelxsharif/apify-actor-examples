@@ -1,24 +1,49 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-xfwMEXtivcKw0htRFksvut/OW6MZv2ADx2O5NfzF/bU=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Scholar Paper &amp; Citation Search Scraper | Dataspryva</title><meta name="description" content="Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"><meta property="og:title" content="Google Scholar Paper &amp; Citation Search Scraper | Dataspryva"><meta property="og:description" content="Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#webpage","name":"Google Scholar Paper & Citation Search Scraper","description":"Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#article","headline":"Google Scholar Paper & Citation Search Scraper","name":"Google Scholar Paper & Citation Search Scraper","description":"Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Scholar Paper & Citation Search Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Scholar Paper &amp; Citation Search Scraper</span></div><section id="overview"><h1 class="doc-title">Google Scholar Paper &amp; Citation Search Scraper</h1><p class="lede">Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-scholar-paper-and-citation-search-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/XT8wyKa1C9SYFQYTh/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>queries</code></td><td>array</td><td>required</td><td>Keywords to search on Google Scholar. Each query runs as a separate search.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of articles to scrape per query.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to sort search results.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>queries</code></td><td>array</td><td>required</td><td>Keywords to search on Google Scholar. Each query runs as a separate search.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of articles to scrape per query.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to sort search results.</td></tr><tr><td><code>filter</code></td><td>string</td><td>optional</td><td>Filter results by document format.</td></tr><tr><td><code>articleType</code></td><td>string</td><td>optional</td><td>Filter by article type.</td></tr><tr><td><code>newerThan</code></td><td>integer</td><td>optional</td><td>Only include articles published from this year onward. Leave empty for no restriction.</td></tr><tr><td><code>olderThan</code></td><td>integer</td><td>optional</td><td>Only include articles published up to this year. Leave empty for no restriction.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape academic papers from Google Scholar. Search by keywords with optional filters for year range, document type, and sort order.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-xfwMEXtivcKw0htRFksvut/OW6MZv2ADx2O5NfzF/bU=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Scholar Paper &amp; Citation Search Scraper | Dataspryva</title><meta name="description" content="Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"><meta property="og:title" content="Google Scholar Paper &amp; Citation Search Scraper | Dataspryva"><meta property="og:description" content="Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#webpage","name":"Google Scholar Paper & Citation Search Scraper","description":"Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#article","headline":"Google Scholar Paper & Citation Search Scraper","name":"Google Scholar Paper & Citation Search Scraper","description":"Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Scholar Paper & Citation Search Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/XT8wyKa1C9SYFQYTh/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Scholar Paper &amp; Citation Search Scraper</span></div><section id="overview"><h1 class="doc-title">Google Scholar Paper &amp; Citation Search Scraper</h1><p class="lede">Search Google Scholar by keyword and get structured records for papers and citations, with author, venue, year, citation counts, and links to PDFs and related work. Filter by year range, document format, and article type.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-scholar-paper-and-citation-search-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/XT8wyKa1C9SYFQYTh/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to fetch: paper search, citing papers, or public author profiles.</td></tr><tr><td><code>queries</code></td><td>array</td><td>optional</td><td>Keywords or paper titles to search on Google Scholar (mode=search). Each query runs separately.</td></tr><tr><td><code>clusterIds</code></td><td>array</td><td>optional</td><td>Paper cluster IDs or Google Scholar &#x27;cites=&#x27; URLs to list citing papers for (mode=citations).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to fetch: paper search, citing papers, or public author profiles.</td></tr><tr><td><code>queries</code></td><td>array</td><td>optional</td><td>Keywords or paper titles to search on Google Scholar (mode=search). Each query runs separately.</td></tr><tr><td><code>clusterIds</code></td><td>array</td><td>optional</td><td>Paper cluster IDs or Google Scholar &#x27;cites=&#x27; URLs to list citing papers for (mode=citations).</td></tr><tr><td><code>authorIds</code></td><td>array</td><td>optional</td><td>Google Scholar author IDs or profile URLs to export (mode=authorProfile).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum papers per query or cluster, or papers per author. Google Scholar serves about 10 search results per page.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Sort search results by relevance or date (mode=search).</td></tr><tr><td><code>filter</code></td><td>string</td><td>optional</td><td>Keep only PDF or HTML results; applied to returned rows (mode=search).</td></tr><tr><td><code>articleType</code></td><td>string</td><td>optional</td><td>Return all articles or review articles only (mode=search).</td></tr><tr><td><code>newerThan</code></td><td>integer</td><td>optional</td><td>Only include papers published in this year or later (mode=search).</td></tr><tr><td><code>olderThan</code></td><td>integer</td><td>optional</td><td>Only include papers published in this year or earlier (mode=search).</td></tr><tr><td><code>author</code></td><td>string</td><td>optional</td><td>Return papers written by this author, e.g. &#x27;Geoffrey Hinton&#x27; (mode=search).</td></tr><tr><td><code>publication</code></td><td>string</td><td>optional</td><td>Return papers from this journal or venue, e.g. &#x27;Nature&#x27; (mode=search).</td></tr><tr><td><code>titleOnly</code></td><td>boolean</td><td>optional</td><td>Match the query against paper titles instead of the full text (mode=search).</td></tr><tr><td><code>includeCitationFormats</code></td><td>boolean</td><td>optional</td><td>Also return MLA, APA, Chicago, Harvard, and Vancouver citations for returned rows, within a bounded budget (mode=search or citations).</td></tr><tr><td><code>includePaperDetails</code></td><td>boolean</td><td>optional</td><td>Fetch journal, volume, pages, publisher, and abstract for each author publication (mode=authorProfile).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Google Scholar papers, list citing papers, or export public author profiles. No account, API key, or proxy setup is needed.&quot;,
   &quot;properties&quot;: {
     &quot;articleType&quot;: {
       &quot;default&quot;: &quot;any&quot;,
-      &quot;description&quot;: &quot;Filter by article type.&quot;,
+      &quot;description&quot;: &quot;Return all articles or review articles only (mode=search).&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;any&quot;,
         &quot;review&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;All article types&quot;,
+        &quot;All articles&quot;,
         &quot;Review articles only&quot;
       ],
+      &quot;prefill&quot;: &quot;any&quot;,
       &quot;title&quot;: &quot;Article Type&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;author&quot;: {
+      &quot;description&quot;: &quot;Return papers written by this author, e.g. &#x27;Geoffrey Hinton&#x27; (mode=search).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Authored By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;authorIds&quot;: {
+      &quot;description&quot;: &quot;Google Scholar author IDs or profile URLs to export (mode=authorProfile).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Author IDs or Profile URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;clusterIds&quot;: {
+      &quot;description&quot;: &quot;Paper cluster IDs or Google Scholar &#x27;cites=&#x27; URLs to list citing papers for (mode=citations).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Cluster IDs or Citing URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
     &quot;filter&quot;: {
       &quot;default&quot;: &quot;all&quot;,
-      &quot;description&quot;: &quot;Filter results by document format.&quot;,
+      &quot;description&quot;: &quot;Keep only PDF or HTML results; applied to returned rows (mode=search).&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;all&quot;,
@@ -27,194 +52,125 @@
       ],
       &quot;enumTitles&quot;: [
         &quot;All formats&quot;,
-        &quot;PDF documents only&quot;,
-        &quot;HTML documents only&quot;
+        &quot;PDF only&quot;,
+        &quot;HTML only&quot;
       ],
+      &quot;prefill&quot;: &quot;all&quot;,
       &quot;title&quot;: &quot;Document Format&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;includeCitationFormats&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Also return MLA, APA, Chicago, Harvard, and Vancouver citations for returned rows, within a bounded budget (mode=search or citations).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Citation Formats&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePaperDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch journal, volume, pages, publisher, and abstract for each author publication (mode=authorProfile).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Paper Details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 100,
-      &quot;description&quot;: &quot;Maximum number of articles to scrape per query.&quot;,
+      &quot;description&quot;: &quot;Maximum papers per query or cluster, or papers per author. Google Scholar serves about 10 search results per page.&quot;,
       &quot;maximum&quot;: 1000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 100,
+      &quot;prefill&quot;: 3,
       &quot;title&quot;: &quot;Maximum Results&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch: paper search, citing papers, or public author profiles.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;citations&quot;,
+        &quot;authorProfile&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search papers&quot;,
+        &quot;List citing papers&quot;,
+        &quot;Export author profile&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
     &quot;newerThan&quot;: {
-      &quot;description&quot;: &quot;Only include articles published from this year onward. Leave empty for no restriction.&quot;,
+      &quot;description&quot;: &quot;Only include papers published in this year or later (mode=search).&quot;,
       &quot;maximum&quot;: 2030,
       &quot;minimum&quot;: 1900,
       &quot;title&quot;: &quot;Published After (Year)&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;olderThan&quot;: {
-      &quot;description&quot;: &quot;Only include articles published up to this year. Leave empty for no restriction.&quot;,
+      &quot;description&quot;: &quot;Only include papers published in this year or earlier (mode=search).&quot;,
       &quot;maximum&quot;: 2030,
       &quot;minimum&quot;: 1900,
       &quot;title&quot;: &quot;Published Before (Year)&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
+    &quot;publication&quot;: {
+      &quot;description&quot;: &quot;Return papers from this journal or venue, e.g. &#x27;Nature&#x27; (mode=search).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Published In&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
     &quot;queries&quot;: {
-      &quot;description&quot;: &quot;Keywords to search on Google Scholar. Each query runs as a separate search.&quot;,
+      &quot;description&quot;: &quot;Keywords or paper titles to search on Google Scholar (mode=search). Each query runs separately.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
       &quot;prefill&quot;: [
-        &quot;machine learning&quot;
+        &quot;attention is all you need&quot;
       ],
       &quot;title&quot;: &quot;Search Queries&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;sortBy&quot;: {
       &quot;default&quot;: &quot;relevance&quot;,
-      &quot;description&quot;: &quot;How to sort search results.&quot;,
+      &quot;description&quot;: &quot;Sort search results by relevance or date (mode=search).&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;relevance&quot;,
         &quot;date&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Sort by relevance&quot;,
-        &quot;Sort by date&quot;
+        &quot;Relevance&quot;,
+        &quot;Newest first&quot;
       ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
       &quot;title&quot;: &quot;Sort By&quot;,
       &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;titleOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Match the query against paper titles instead of the full text (mode=search).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Search Titles Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
     }
   },
-  &quot;required&quot;: [
-    &quot;queries&quot;
-  ],
   &quot;schemaVersion&quot;: 1,
   &quot;title&quot;: &quot;Google Scholar Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>title</code></td><td>string</td><td>required</td><td>Title of the academic paper or article</td></tr><tr><td><code>link</code></td><td>string</td><td>optional</td><td>Direct link to the article</td></tr><tr><td><code>documentLink</code></td><td>string</td><td>optional</td><td>Link to the document file (PDF or HTML)</td></tr><tr><td><code>documentType</code></td><td>string</td><td>optional</td><td>Format of the document (PDF, HTML, or empty)</td></tr><tr><td><code>authors</code></td><td>string</td><td>optional</td><td>Author names</td></tr><tr><td><code>publication</code></td><td>string</td><td>optional</td><td>Journal or venue name</td></tr><tr><td><code>year</code></td><td>string</td><td>optional</td><td>Publication year</td></tr><tr><td><code>source</code></td><td>string</td><td>optional</td><td>Source website domain</td></tr><tr><td><code>fullAttribution</code></td><td>string</td><td>optional</td><td>Complete attribution line as shown on Google Scholar</td></tr><tr><td><code>searchMatch</code></td><td>string</td><td>optional</td><td>Search result snippet or excerpt</td></tr><tr><td><code>citations</code></td><td>string</td><td>optional</td><td>Number of citations</td></tr><tr><td><code>citationsLink</code></td><td>string</td><td>optional</td><td>Link to view citing articles</td></tr><tr><td><code>relatedArticlesLink</code></td><td>string</td><td>optional</td><td>Link to related articles</td></tr><tr><td><code>versions</code></td><td>string</td><td>optional</td><td>Number of available versions</td></tr><tr><td><code>versionsLink</code></td><td>string</td><td>optional</td><td>Link to all versions</td></tr><tr><td><code>type</code></td><td>string</td><td>optional</td><td>Type of result: ARTICLE or CITATION</td></tr><tr><td><code>resultIndex</code></td><td>string</td><td>optional</td><td>Position in search results (0-based)</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>required</td><td>The search query that found this result</td></tr><tr><td><code>scrapeTimestamp</code></td><td>string</td><td>required</td><td>ISO 8601 timestamp when the data was scraped</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing scraped papers, citing papers, or author profiles.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;One record per Google Scholar search result, with title, authors, publication venue, year, citation count, and links to the document, citing papers, and version cluster.&quot;,
+  &quot;description&quot;: &quot;Papers, citing papers, and public author profiles from Google Scholar, with authors, venue, year, citation counts, PDF links, cluster IDs, and researcher metrics.&quot;,
   &quot;properties&quot;: {
-    &quot;authors&quot;: {
-      &quot;description&quot;: &quot;Author names&quot;,
-      &quot;template&quot;: &quot;{{authors}}&quot;,
-      &quot;title&quot;: &quot;Authors&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;citations&quot;: {
-      &quot;description&quot;: &quot;Number of citations&quot;,
-      &quot;template&quot;: &quot;{{citations}}&quot;,
-      &quot;title&quot;: &quot;Citations&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;citationsLink&quot;: {
-      &quot;description&quot;: &quot;Link to view citing articles&quot;,
-      &quot;template&quot;: &quot;{{citationsLink}}&quot;,
-      &quot;title&quot;: &quot;Citations Link&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;documentLink&quot;: {
-      &quot;description&quot;: &quot;Link to the document file (PDF or HTML)&quot;,
-      &quot;template&quot;: &quot;{{documentLink}}&quot;,
-      &quot;title&quot;: &quot;Document Link&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;documentType&quot;: {
-      &quot;description&quot;: &quot;Format of the document (PDF, HTML, or empty)&quot;,
-      &quot;template&quot;: &quot;{{documentType}}&quot;,
-      &quot;title&quot;: &quot;Document Type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;fullAttribution&quot;: {
-      &quot;description&quot;: &quot;Complete attribution line as shown on Google Scholar&quot;,
-      &quot;template&quot;: &quot;{{fullAttribution}}&quot;,
-      &quot;title&quot;: &quot;Full Attribution&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;link&quot;: {
-      &quot;description&quot;: &quot;Direct link to the article&quot;,
-      &quot;template&quot;: &quot;{{link}}&quot;,
-      &quot;title&quot;: &quot;Link&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;publication&quot;: {
-      &quot;description&quot;: &quot;Journal or venue name&quot;,
-      &quot;template&quot;: &quot;{{publication}}&quot;,
-      &quot;title&quot;: &quot;Publication&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;relatedArticlesLink&quot;: {
-      &quot;description&quot;: &quot;Link to related articles&quot;,
-      &quot;template&quot;: &quot;{{relatedArticlesLink}}&quot;,
-      &quot;title&quot;: &quot;Related Articles&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;resultIndex&quot;: {
-      &quot;description&quot;: &quot;Position in search results (0-based)&quot;,
-      &quot;template&quot;: &quot;{{resultIndex}}&quot;,
-      &quot;title&quot;: &quot;Position&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;scrapeTimestamp&quot;: {
-      &quot;description&quot;: &quot;ISO 8601 timestamp when the data was scraped&quot;,
-      &quot;template&quot;: &quot;{{scrapeTimestamp}}&quot;,
-      &quot;title&quot;: &quot;Scraped At&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;searchMatch&quot;: {
-      &quot;description&quot;: &quot;Search result snippet or excerpt&quot;,
-      &quot;template&quot;: &quot;{{searchMatch}}&quot;,
-      &quot;title&quot;: &quot;Snippet&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;searchQuery&quot;: {
-      &quot;description&quot;: &quot;The search query that found this result&quot;,
-      &quot;template&quot;: &quot;{{searchQuery}}&quot;,
-      &quot;title&quot;: &quot;Search Query&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;source&quot;: {
-      &quot;description&quot;: &quot;Source website domain&quot;,
-      &quot;template&quot;: &quot;{{source}}&quot;,
-      &quot;title&quot;: &quot;Source&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;title&quot;: {
-      &quot;description&quot;: &quot;Title of the academic paper or article&quot;,
-      &quot;template&quot;: &quot;{{title}}&quot;,
-      &quot;title&quot;: &quot;Title&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;type&quot;: {
-      &quot;description&quot;: &quot;Type of result: ARTICLE or CITATION&quot;,
-      &quot;template&quot;: &quot;{{type}}&quot;,
-      &quot;title&quot;: &quot;Result Type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;versions&quot;: {
-      &quot;description&quot;: &quot;Number of available versions&quot;,
-      &quot;template&quot;: &quot;{{versions}}&quot;,
-      &quot;title&quot;: &quot;Versions&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;versionsLink&quot;: {
-      &quot;description&quot;: &quot;Link to all versions&quot;,
-      &quot;template&quot;: &quot;{{versionsLink}}&quot;,
-      &quot;title&quot;: &quot;Versions Link&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;year&quot;: {
-      &quot;description&quot;: &quot;Publication year&quot;,
-      &quot;template&quot;: &quot;{{year}}&quot;,
-      &quot;title&quot;: &quot;Year&quot;,
+    &quot;results&quot;: {
+      &quot;description&quot;: &quot;Dataset containing scraped papers, citing papers, or author profiles.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Scholar Results&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
-  &quot;required&quot;: [
-    &quot;title&quot;,
-    &quot;searchQuery&quot;,
-    &quot;scrapeTimestamp&quot;
-  ],
   &quot;title&quot;: &quot;Google Scholar Paper &amp; Citation Search Scraper Output&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
@@ -234,6 +190,14 @@
             &quot;format&quot;: &quot;number&quot;,
             &quot;label&quot;: &quot;Citations&quot;
           },
+          &quot;clusterId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Cluster&quot;
+          },
+          &quot;documentLink&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;PDF/HTML&quot;
+          },
           &quot;documentType&quot;: {
             &quot;format&quot;: &quot;text&quot;,
             &quot;label&quot;: &quot;Type&quot;
@@ -242,9 +206,21 @@
             &quot;format&quot;: &quot;link&quot;,
             &quot;label&quot;: &quot;Link&quot;
           },
+          &quot;name&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
           &quot;publication&quot;: {
             &quot;format&quot;: &quot;text&quot;,
             &quot;label&quot;: &quot;Publication&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Record&quot;
+          },
+          &quot;scholarUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Scholar URL&quot;
           },
           &quot;searchQuery&quot;: {
             &quot;format&quot;: &quot;text&quot;,
@@ -263,13 +239,18 @@
       &quot;title&quot;: &quot;Results&quot;,
       &quot;transformation&quot;: {
         &quot;fields&quot;: [
+          &quot;recordType&quot;,
           &quot;title&quot;,
+          &quot;name&quot;,
           &quot;authors&quot;,
           &quot;year&quot;,
           &quot;publication&quot;,
           &quot;citations&quot;,
           &quot;documentType&quot;,
+          &quot;documentLink&quot;,
           &quot;link&quot;,
+          &quot;clusterId&quot;,
+          &quot;scholarUrl&quot;,
           &quot;searchQuery&quot;
         ]
       }
@@ -277,36 +258,54 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-scholar-paper-citation-search-scraper">Google Scholar Paper &amp; Citation Search Scraper</h2>
-<p>Search Google Scholar the way a researcher would — by topic keywords — and get back structured records for every paper, preprint, and citation entry that Scholar returns, including citation counts, attribution strings, and links to PDFs, related articles, and version clusters.</p>
+<p>Search <strong>Google Scholar</strong> for papers, follow their citations, and export public researcher profiles as clean structured data. One actor covers keyword search with year and review filters, citing-paper lists, author metrics such as h-index and i10-index, PDF links, citation styles, and cluster identifiers for follow-up queries. No Google account, API key, or proxy setup is needed.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Runs one or more keyword searches against Google Scholar and paginates through results automatically up to your requested limit.</li>
-<li>Splits Scholar's attribution line into separate <code>authors</code>, <code>publication</code>, <code>year</code>, and <code>source</code> fields instead of leaving you to parse one string.</li>
-<li>Lets you restrict results to PDF-only or HTML-only documents, to review articles, and to a custom publication-year window.</li>
-<li>Distinguishes full <code>ARTICLE</code> results (with a working link) from <code>CITATION</code>-only entries — older or less accessible works that Scholar lists by reference alone.</li>
-<li>Every field below is always present in each record; when Scholar doesn't provide a value for a result (such as <code>documentLink</code> when no file is attached, or <code>year</code> when the attribution line has no date), it comes back as an empty string or <code>0</code> rather than being omitted.</li>
+<li><strong>Three modes:</strong> <code>search</code> finds papers by keyword, <code>citations</code> lists papers that cite a known article, and <code>authorProfile</code> exports a public researcher profile with its publication list.</li>
+<li><strong>Paper search filters:</strong> year range, newest-first sorting, review articles only, and client-side PDF/HTML filtering. Optional advanced filters narrow results by author, venue, or title-only matching.</li>
+<li><strong>Citing papers:</strong> pass a Scholar cluster ID or a <code>cites=</code> URL and receive the citing works with the same paper fields.</li>
+<li><strong>Author profiles:</strong> name, affiliation, verified email domain, homepage, research interests, citations, h-index, i10-index (all-time and recent), plus the paginated publication table.</li>
+<li><strong>Citation styles:</strong> optionally add MLA, APA, Chicago, Harvard, and Vancouver text for returned results, with a bounded time budget so search rows are still saved if formats are slow.</li>
+<li><strong>Honest data:</strong> PDF links point at the file Scholar lists, book and citation-only rows are typed correctly, duplicate rows within each query or citation list are removed, and empty fields are omitted.</li>
 </ul>
-<h2 id="readme-output-per-result">Output per result</h2>
+<h2 id="readme-output-per-record">Output per record</h2>
+<p>Every record has a <code>recordType</code>: <code>paper</code>, <code>citation</code>, or <code>author</code>.</p>
+<h3 id="readme-paper-and-citation-records">Paper and citation records</h3>
 <ul>
 <li><code>title</code> — paper or article title</li>
-<li><code>link</code> — URL of the main result (abstract page, publisher page, etc.)</li>
-<li><code>documentLink</code> — direct link to the PDF/HTML file, when Scholar lists one</li>
-<li><code>documentType</code> — <code>PDF</code>, <code>HTML</code>, or an empty string if no file is attached</li>
-<li><code>authors</code> — author list as shown on Scholar</li>
-<li><code>publication</code> — journal, conference, or venue name</li>
+<li><code>link</code> — publisher or landing-page URL</li>
+<li><code>documentLink</code> — direct PDF or HTML file URL, when Scholar lists one</li>
+<li><code>documentType</code> — <code>PDF</code>, <code>HTML</code>, <code>PS</code>, or omitted</li>
+<li><code>authors</code> — author names as shown by Scholar</li>
+<li><code>publication</code> — journal, conference, or venue text from Scholar (some rows include the publisher or source domain)</li>
 <li><code>year</code> — publication year</li>
-<li><code>source</code> — domain hosting the result (e.g. <code>nature.com</code>)</li>
-<li><code>fullAttribution</code> — the raw attribution line Scholar shows beneath the title</li>
-<li><code>searchMatch</code> — the search-result snippet/excerpt</li>
-<li><code>citations</code> — number of times the work has been cited</li>
-<li><code>citationsLink</code> — link to the list of citing papers on Scholar</li>
-<li><code>relatedArticlesLink</code> — link to Scholar's &quot;related articles&quot; view</li>
-<li><code>versions</code> — number of versions Scholar has indexed for this work</li>
-<li><code>versionsLink</code> — link to the full version cluster</li>
-<li><code>type</code> — <code>ARTICLE</code> (has a direct link) or <code>CITATION</code> (reference-only entry)</li>
-<li><code>resultIndex</code> — position of the result within its search (0-based)</li>
-<li><code>searchQuery</code> — the query that produced this record</li>
-<li><code>scrapeTimestamp</code> — ISO 8601 timestamp of when the record was scraped</li>
+<li><code>source</code> — hosting domain, such as <code>arxiv.org</code>, when Scholar separates it from the venue</li>
+<li><code>fullAttribution</code> — the complete attribution line from Scholar</li>
+<li><code>searchMatch</code> — snippet showing where the query matched</li>
+<li><code>citations</code> — cited-by count (<code>0</code> when Scholar shows none)</li>
+<li><code>citationsLink</code> — link to the citing-paper list</li>
+<li><code>relatedArticlesLink</code> — link to related articles</li>
+<li><code>versions</code> / <code>versionsLink</code> — version count and link, when Scholar shows them</li>
+<li><code>type</code> — <code>ARTICLE</code>, <code>BOOK</code>, or <code>CITATION</code></li>
+<li><code>resultIndex</code> — position in the result list (0-based)</li>
+<li><code>clusterId</code> — Scholar cluster ID, useful for citation lookups</li>
+<li><code>resultId</code> — Scholar's internal result ID</li>
+<li><code>scholarUrl</code> — Scholar page for the article cluster</li>
+<li><code>authorIds</code> / <code>authorProfileUrls</code> — linked author profiles</li>
+<li><code>doi</code> — clean DOI parsed from the result URL when present; Scholar does not expose a DOI field directly</li>
+<li><code>citationFormats</code> — <code>mla</code>, <code>apa</code>, <code>chicago</code>, <code>harvard</code>, <code>vancouver</code> when requested</li>
+<li><code>searchQuery</code> — the query that found the paper (search mode)</li>
+<li><code>citedByOf</code> — the cluster ID being cited (citations mode)</li>
+<li><code>scrapeTimestamp</code> — ISO 8601 scrape time</li>
+</ul>
+<h3 id="readme-author-records">Author records</h3>
+<ul>
+<li><code>authorId</code>, <code>profileUrl</code>, <code>name</code>, <code>affiliation</code></li>
+<li><code>verifiedEmailDomain</code>, <code>homepageUrl</code>, <code>interests</code>, <code>thumbnailUrl</code></li>
+<li><code>citations</code>, <code>citationsSince</code>, <code>hIndex</code>, <code>hIndexSince</code>, <code>i10Index</code>, <code>i10IndexSince</code>, <code>metricsSinceYear</code></li>
+<li><code>publications</code> — title, authors, venue, year, citations, Scholar URL, citation ID, and optional journal/volume/issue/pages/publisher/abstract/publication date/total citations</li>
+<li><code>publicationCount</code></li>
+<li><code>scrapeTimestamp</code></li>
 </ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
@@ -320,16 +319,34 @@
 </thead>
 <tbody>
 <tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>citations</code>, or <code>authorProfile</code></td>
+</tr>
+<tr>
 <td><code>queries</code></td>
 <td>array</td>
+<td><code>[&quot;attention is all you need&quot;]</code></td>
+<td>Search terms for <code>mode=search</code></td>
+</tr>
+<tr>
+<td><code>clusterIds</code></td>
+<td>array</td>
 <td>–</td>
-<td>Keywords to search on Google Scholar; each entry runs as its own search</td>
+<td>Cluster IDs or <code>cites=</code> URLs for <code>mode=citations</code></td>
+</tr>
+<tr>
+<td><code>authorIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>Author IDs or profile URLs for <code>mode=authorProfile</code></td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
 <td><code>100</code></td>
-<td>Maximum results to return per query (1–1000)</td>
+<td>Maximum papers per query/cluster, or papers per author (1–1000)</td>
 </tr>
 <tr>
 <td><code>sortBy</code></td>
@@ -341,73 +358,121 @@
 <td><code>filter</code></td>
 <td>string</td>
 <td><code>all</code></td>
-<td><code>all</code>, <code>pdfOnly</code>, or <code>htmlOnly</code> — restrict by document format</td>
+<td><code>all</code>, <code>pdfOnly</code>, or <code>htmlOnly</code></td>
 </tr>
 <tr>
 <td><code>articleType</code></td>
 <td>string</td>
 <td><code>any</code></td>
-<td><code>any</code> or <code>review</code> — restrict to review articles</td>
+<td><code>any</code> or <code>review</code></td>
 </tr>
 <tr>
 <td><code>newerThan</code></td>
 <td>integer</td>
 <td>–</td>
-<td>Only include articles published in this year or later</td>
+<td>Earliest publication year</td>
 </tr>
 <tr>
 <td><code>olderThan</code></td>
 <td>integer</td>
 <td>–</td>
-<td>Only include articles published in this year or earlier</td>
+<td>Latest publication year</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>string</td>
+<td>–</td>
+<td>Return papers by this author</td>
+</tr>
+<tr>
+<td><code>publication</code></td>
+<td>string</td>
+<td>–</td>
+<td>Return papers from this venue</td>
+</tr>
+<tr>
+<td><code>titleOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Match the query against titles</td>
+</tr>
+<tr>
+<td><code>includeCitationFormats</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add five citation styles for returned rows within a bounded budget; a slow format lookup never drops the search rows</td>
+</tr>
+<tr>
+<td><code>includePaperDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add journal, volume, issue, pages, publisher, publication date, abstract, and total citations to author publications</td>
 </tr>
 </tbody>
 </table></div>
-<h2 id="readme-example-machine-learning-papers-from-the-last-few-years">Example: machine learning papers from the last few years</h2>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-search-recent-review-papers-on-a-medical-topic">Search recent review papers on a medical topic</h3>
 <pre><code class="language-json">{
-    &quot;queries&quot;: [&quot;machine learning&quot;, &quot;deep learning&quot;],
-    &quot;maxItems&quot;: 50,
-    &quot;sortBy&quot;: &quot;relevance&quot;,
-    &quot;newerThan&quot;: 2020
-}
-</code></pre>
-<h2 id="readme-example-review-articles-on-a-medical-topic-pdfs-only">Example: review articles on a medical topic, PDFs only</h2>
-<pre><code class="language-json">{
-    &quot;queries&quot;: [&quot;cancer treatment review&quot;],
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;queries&quot;: [&quot;cancer immunotherapy&quot;],
     &quot;maxItems&quot;: 30,
     &quot;articleType&quot;: &quot;review&quot;,
-    &quot;filter&quot;: &quot;pdfOnly&quot;
+    &quot;newerThan&quot;: 2022
 }
 </code></pre>
-<h2 id="readme-example-newest-results-on-a-topic-sorted-by-date">Example: newest results on a topic, sorted by date</h2>
+<h3 id="readme-find-papers-by-a-specific-author-in-a-specific-venue">Find papers by a specific author in a specific venue</h3>
 <pre><code class="language-json">{
-    &quot;queries&quot;: [&quot;large language models&quot;],
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;queries&quot;: [&quot;quantum computing&quot;],
+    &quot;author&quot;: &quot;Andrew Steane&quot;,
+    &quot;publication&quot;: &quot;Physical Review&quot;,
+    &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-list-papers-that-cite-a-known-article">List papers that cite a known article</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;citations&quot;,
+    &quot;clusterIds&quot;: [&quot;184251978817409129&quot;],
+    &quot;maxItems&quot;: 50,
+    &quot;includeCitationFormats&quot;: true
+}
+</code></pre>
+<h3 id="readme-export-an-author-profile-with-paper-details">Export an author profile with paper details</h3>
+<pre><code class="language-json">{
+    &quot;mode&quot;: &quot;authorProfile&quot;,
+    &quot;authorIds&quot;: [&quot;https://scholar.google.com/citations?user=-AXbSiwAAAAJ&amp;hl=en&quot;],
     &quot;maxItems&quot;: 100,
-    &quot;sortBy&quot;: &quot;date&quot;,
-    &quot;olderThan&quot;: 2026
+    &quot;includePaperDetails&quot;: true
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Literature reviews</strong> — pull a structured list of papers on a topic instead of copy-pasting from the Scholar UI</li>
-<li><strong>Bibliometric analysis</strong> — aggregate citation counts across a field or author's work</li>
-<li><strong>Research trend tracking</strong> — compare publication volume across year windows with <code>newerThan</code>/<code>olderThan</code></li>
-<li><strong>Grant and funding research</strong> — identify highly-cited work in a subject area before writing a proposal</li>
-<li><strong>Academic alert feeds</strong> — periodically re-run a query to catch newly indexed papers</li>
+<li><strong>Literature reviews</strong> — collect a structured reading list and follow citation chains without copying rows from Scholar.</li>
+<li><strong>Bibliometrics</strong> — track citation counts, h-index, and i10-index for researchers or fields.</li>
+<li><strong>Research monitoring</strong> — rerun saved queries to catch new papers in a topic.</li>
+<li><strong>Citation analysis</strong> — export citing papers for one or more key articles.</li>
+<li><strong>Academic recruiting and grants</strong> — compare public publication records and recent citation metrics.</li>
+<li><strong>Data pipelines</strong> — feed clean JSON into a database, spreadsheet, or research assistant.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Does this need a Google Scholar account or API key?</strong>
-No. Google Scholar's search results are public, and the actor queries them without signing in.</p>
-<p><strong>Why do some results have <code>type: &quot;CITATION&quot;</code> instead of <code>&quot;ARTICLE&quot;</code>?</strong>
-Scholar lists some older or less accessible works as citation-only entries — they appear in results but don't link to a readable page, so fields like <code>link</code> and <code>documentLink</code> won't be meaningful for them.</p>
-<p><strong>What's the difference between <code>link</code> and <code>documentLink</code>?</strong>
-<code>link</code> points to the result's main page (an abstract or publisher page). <code>documentLink</code> is a direct link to a downloadable file, and is only present when Scholar actually lists one.</p>
-<p><strong>How many results can I get per query?</strong>
-Up to 1000, set via <code>maxItems</code>. Google Scholar serves 10 results per page, and the actor pages through automatically until it reaches your limit or runs out of results.</p>
-<p><strong>Why is the <code>citations</code> count different from what I see elsewhere?</strong>
-<code>citations</code> reflects whatever Google Scholar reports at scrape time; Scholar's own citation counts can differ from other databases and change as it re-indexes the web.</p>
-<p><strong>Can I combine the year filters with date sorting?</strong>
-Yes, but note that Scholar's own date sort does not always respect a year filter precisely — treat <code>newerThan</code>/<code>olderThan</code> as the authoritative cutoff.</p>
-<p><strong>Is this affiliated with Google or Google Scholar?</strong>
-No. This is an independent, third-party actor that reads Google Scholar's public search results; it is not operated by or affiliated with Google.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/XT8wyKa1C9SYFQYTh/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>LhdYcZW5JjXXb28xn</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<h3 id="readme-do-i-need-a-google-scholar-account-api-key-or-proxy">Do I need a Google Scholar account, API key, or proxy?</h3>
+<p>No. The actor reads public Scholar pages and selects a working connection automatically. Just provide the input and run it.</p>
+<h3 id="readme-why-do-i-get-fewer-results-than-maxitems">Why do I get fewer results than <code>maxItems</code>?</h3>
+<p>Google Scholar serves about 10 search results per page and may return an empty or partial page for deep pagination. The actor retries on a fresh connection and stops with an honest status instead of inventing rows. For broad topics, split the query by year, venue, or author to reach more results.</p>
+<h3 id="readme-what-is-a-cluster-id-and-where-do-i-find-it">What is a cluster ID and where do I find it?</h3>
+<p>A cluster ID identifies one article and all of its known versions on Scholar. It is the number in a <code>cites=</code> or <code>cluster=</code> URL, and it is also returned as <code>clusterId</code> on every search result. Use it as input to <code>mode=citations</code> to list citing papers.</p>
+<h3 id="readme-why-is-a-doi-missing-from-some-records">Why is a DOI missing from some records?</h3>
+<p>Google Scholar does not show a DOI field on search results. The actor adds a DOI only when the result's URL contains one, so many records correctly omit it. It never guesses a DOI. Query strings, fragments, and common suffix paths such as <code>/meta</code> or <code>.html</code> are removed.</p>
+<h3 id="readme-which-citation-styles-are-supported">Which citation styles are supported?</h3>
+<p>MLA, APA, Chicago, Harvard, and Vancouver are returned as text when <code>includeCitationFormats</code> is enabled. The actor looks up each returned result ID, including deeper pages, within a bounded time budget. If Google Scholar is slow or blocks some format lookups, the already-collected paper rows are still saved and the run status reports how many rows received formats. The option adds one request per row, so it is slower than a plain search.</p>
+<h3 id="readme-why-are-some-pdf-links-missing">Why are some PDF links missing?</h3>
+<p>Scholar only shows a file link when it has indexed a PDF or HTML copy. The actor returns the real file URL and omits <code>documentLink</code> when no file is available. <code>link</code> still points to the publisher or landing page.</p>
+<h3 id="readme-why-do-author-profiles-not-include-coauthors">Why do author profiles not include coauthors?</h3>
+<p>Coauthor cards are not part of the public profile view; Scholar only exposes them through a signed-in editing dialog. The actor returns the public fields it can verify: affiliation, interests, metrics, and the publication list.</p>
+<h3 id="readme-can-i-search-for-an-author-by-name-and-get-their-profile-automatically">Can I search for an author by name and get their profile automatically?</h3>
+<p>Author-name profile search requires a Google sign-in, so the actor does not offer it. If you know the profile URL or user ID, paste it into <code>authorIds</code>; author names linked from search results are also returned in <code>authorIds</code> and <code>authorProfileUrls</code>.</p>
+<h3 id="readme-how-are-year-filters-handled-with-newest-first-sorting">How are year filters handled with newest-first sorting?</h3>
+<p>When a year range is set, the actor sends Scholar's server-side <code>as_ylo</code>/<code>as_yhi</code> bounds (even with <code>sortBy: &quot;date&quot;</code>) and verifies the years on the returned rows. Newest-first order is then applied within each page, because Scholar ignores a global date sort when a year range is active. A 2020–2022 range therefore returns matching papers instead of a false empty result.</p>
+<h3 id="readme-is-this-affiliated-with-google-or-google-scholar">Is this affiliated with Google or Google Scholar?</h3>
+<p>No. This is an independent third-party actor that reads publicly available Google Scholar pages. It is not operated by or endorsed by Google.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/XT8wyKa1C9SYFQYTh/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>pdUktx8PmbvFPEYYD</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
