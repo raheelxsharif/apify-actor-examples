@@ -1,0 +1,80 @@
+{
+  "description": "Search or browse DeviantArt.com for fan art, digital art, and traditional art via RSS feed.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Filter by art category.",
+      "editor": "select",
+      "enum": [
+        "",
+        "digitalart",
+        "traditional",
+        "photography",
+        "fanart",
+        "literature",
+        "film",
+        "designs"
+      ],
+      "enumTitles": [
+        "Any",
+        "Digital Art",
+        "Traditional Art",
+        "Photography",
+        "Fan Art",
+        "Literature",
+        "Film & Animation",
+        "Designs"
+      ],
+      "prefill": "",
+      "title": "Category filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Maximum number of deviation records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "gallery",
+        "popular"
+      ],
+      "enumTitles": [
+        "Search deviations",
+        "Browse gallery by username",
+        "Browse popular deviations"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "fantasy art",
+      "description": "Search term for deviations (mode=search).",
+      "editor": "textfield",
+      "prefill": "fantasy art",
+      "title": "Search query",
+      "type": "string"
+    },
+    "username": {
+      "description": "DeviantArt username to browse gallery (mode=gallery).",
+      "editor": "textfield",
+      "title": "Username",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "DeviantArt Scraper Input",
+  "type": "object"
+}

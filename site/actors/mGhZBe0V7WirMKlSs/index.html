@@ -1,86 +1,207 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-PSR0srrBdTSNRafkGSTl0NyHcfqYAFGG+l7FdoHVLNE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Wallapop Listings by Keyword, Item &amp; Seller | Dataspryva</title><meta name="description" content="Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"><meta property="og:title" content="Wallapop Listings by Keyword, Item &amp; Seller | Dataspryva"><meta property="og:description" content="Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#webpage","name":"Wallapop Listings by Keyword, Item & Seller","description":"Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller's full listing set, returning price, location, images, and seller details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#article","headline":"Wallapop Listings by Keyword, Item & Seller","name":"Wallapop Listings by Keyword, Item & Seller","description":"Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller's full listing set, returning price, location, images, and seller details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Wallapop Listings by Keyword, Item & Seller","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Wallapop Listings by Keyword, Item &amp; Seller</span></div><section id="overview"><h1 class="doc-title">Wallapop Listings by Keyword, Item &amp; Seller</h1><p class="lede">Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/wallapop-listings-by-keyword-item-and-seller">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mGhZBe0V7WirMKlSs/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Wallapop.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Search keyword (mode=search).</td></tr><tr><td><code>itemUrls</code></td><td>array</td><td>optional</td><td>List of Wallapop item URLs or item IDs.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Wallapop.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Search keyword (mode=search).</td></tr><tr><td><code>itemUrls</code></td><td>array</td><td>optional</td><td>List of Wallapop item URLs or item IDs.</td></tr><tr><td><code>sellerUserId</code></td><td>string</td><td>optional</td><td>Wallapop seller user ID (found in profile URL).</td></tr><tr><td><code>latitude</code></td><td>number</td><td>optional</td><td>Center latitude for location-based search (default: Madrid).</td></tr><tr><td><code>longitude</code></td><td>number</td><td>optional</td><td>Center longitude for location-based search (default: Madrid).</td></tr><tr><td><code>orderBy</code></td><td>string</td><td>optional</td><td>How to sort search results.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Minimum price filter.</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Maximum price filter.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Wallapop category to filter results.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of listings to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search Wallapop listings, get item details, or browse seller listings.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-PSR0srrBdTSNRafkGSTl0NyHcfqYAFGG+l7FdoHVLNE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Wallapop Listings by Keyword, Item &amp; Seller | Dataspryva</title><meta name="description" content="Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"><meta property="og:title" content="Wallapop Listings by Keyword, Item &amp; Seller | Dataspryva"><meta property="og:description" content="Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#webpage","name":"Wallapop Listings by Keyword, Item & Seller","description":"Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller's full listing set, returning price, location, images, and seller details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#article","headline":"Wallapop Listings by Keyword, Item & Seller","name":"Wallapop Listings by Keyword, Item & Seller","description":"Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller's full listing set, returning price, location, images, and seller details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Wallapop Listings by Keyword, Item & Seller","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/mGhZBe0V7WirMKlSs/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Wallapop Listings by Keyword, Item &amp; Seller</span></div><section id="overview"><h1 class="doc-title">Wallapop Listings by Keyword, Item &amp; Seller</h1><p class="lede">Searches Wallapop by keyword and location, fetches a specific item by URL, or pulls a seller&#x27;s full listing set, returning price, location, images, and seller details.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/wallapop-listings-by-keyword-item-and-seller">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mGhZBe0V7WirMKlSs/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Wallapop.</td></tr><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>One or more search phrases. Each keyword is searched separately and results are merged without duplicates (mode=search).</td></tr><tr><td><code>itemUrls</code></td><td>array</td><td>optional</td><td>Wallapop item URLs or raw item IDs (mode=itemDetails).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Wallapop.</td></tr><tr><td><code>keywords</code></td><td>array</td><td>optional</td><td>One or more search phrases. Each keyword is searched separately and results are merged without duplicates (mode=search).</td></tr><tr><td><code>itemUrls</code></td><td>array</td><td>optional</td><td>Wallapop item URLs or raw item IDs (mode=itemDetails).</td></tr><tr><td><code>sellerIds</code></td><td>array</td><td>optional</td><td>Seller IDs, profile URLs or item URLs whose seller should be used (mode=sellerListings and sellerProfile).</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Market centre used when latitude and longitude are empty.</td></tr><tr><td><code>latitude</code></td><td>number</td><td>optional</td><td>Optional search centre latitude. Leave empty to use the country centre.</td></tr><tr><td><code>longitude</code></td><td>number</td><td>optional</td><td>Optional search centre longitude. Leave empty to use the country centre.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Top-level Wallapop category (mode=search).</td></tr><tr><td><code>subcategory</code></td><td>string</td><td>optional</td><td>Optional subcategory. It can be used alone or together with a category (mode=search).</td></tr><tr><td><code>orderBy</code></td><td>string</td><td>optional</td><td>Result order (mode=search).</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Minimum asking price (mode=search).</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Maximum asking price (mode=search).</td></tr><tr><td><code>condition</code></td><td>string</td><td>optional</td><td>Item condition (mode=search).</td></tr><tr><td><code>timeFilter</code></td><td>string</td><td>optional</td><td>Only listings posted within this window (mode=search).</td></tr><tr><td><code>shippableOnly</code></td><td>boolean</td><td>optional</td><td>Only listings whose seller allows shipping (mode=search).</td></tr><tr><td><code>distanceKm</code></td><td>integer</td><td>optional</td><td>Maximum distance from the search centre. Leave empty to use the market default.</td></tr><tr><td><code>includeItemDetails</code></td><td>boolean</td><td>optional</td><td>Fetch full item details such as condition, attributes, views, favorites and conversations (mode=search and sellerListings).</td></tr><tr><td><code>includeSellerDetails</code></td><td>boolean</td><td>optional</td><td>Add seller name, rating, review count and verification to each search result (mode=search).</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Include the seller&#x27;s latest reviews (mode=sellerProfile).</td></tr><tr><td><code>maxReviews</code></td><td>integer</td><td>optional</td><td>Maximum reviews per seller (mode=sellerProfile). Wallapop serves older reviews in pages.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum records to return for search, itemDetails and sellerListings.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Wallapop listings, fetch items, or read seller catalogues and profiles.&quot;,
   &quot;properties&quot;: {
     &quot;category&quot;: {
       &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Wallapop category to filter results.&quot;,
+      &quot;description&quot;: &quot;Top-level Wallapop category (mode=search).&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;&quot;,
-        &quot;15000&quot;,
-        &quot;12465&quot;,
+        &quot;100&quot;,
         &quot;14000&quot;,
         &quot;12800&quot;,
+        &quot;12465&quot;,
+        &quot;200&quot;,
+        &quot;12545&quot;,
+        &quot;16000&quot;,
+        &quot;15000&quot;,
+        &quot;12579&quot;,
+        &quot;17000&quot;,
         &quot;12900&quot;,
-        &quot;13600&quot;,
+        &quot;12467&quot;,
+        &quot;13100&quot;,
+        &quot;12463&quot;,
+        &quot;12461&quot;,
+        &quot;18000&quot;,
+        &quot;19000&quot;,
+        &quot;20000&quot;,
+        &quot;21000&quot;,
         &quot;13200&quot;,
-        &quot;13000&quot;,
-        &quot;100&quot;
+        &quot;12485&quot;
       ],
       &quot;enumTitles&quot;: [
         &quot;All categories&quot;,
-        &quot;Electronics&quot;,
-        &quot;Mobile phones&quot;,
-        &quot;Cars &amp; motorbikes&quot;,
-        &quot;Clothing &amp; accessories&quot;,
+        &quot;Cars&quot;,
+        &quot;Motorbike&quot;,
+        &quot;Motors &amp; accessories&quot;,
+        &quot;Fashion &amp; accessories&quot;,
+        &quot;Real Estate&quot;,
+        &quot;Technology and Electronics&quot;,
+        &quot;Cell Phones &amp; Accessories&quot;,
+        &quot;Computers&quot;,
         &quot;Sports &amp; leisure&quot;,
+        &quot;Bikes&quot;,
+        &quot;Games &amp; Consoles&quot;,
         &quot;Home &amp; garden&quot;,
+        &quot;Appliances&quot;,
         &quot;Movies, books &amp; music&quot;,
-        &quot;Toys &amp; games&quot;,
-        &quot;Jobs&quot;
+        &quot;Baby &amp; child&quot;,
+        &quot;Collectibles &amp; Art&quot;,
+        &quot;Construction&quot;,
+        &quot;Agriculture &amp; industrial&quot;,
+        &quot;Jobs&quot;,
+        &quot;Services&quot;,
+        &quot;Other&quot;
       ],
       &quot;prefill&quot;: &quot;&quot;,
       &quot;title&quot;: &quot;Category&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;itemUrls&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;List of Wallapop item URLs or item IDs.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Item URLs or IDs (mode=itemDetails)&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;keyword&quot;: {
-      &quot;default&quot;: &quot;iPhone&quot;,
-      &quot;description&quot;: &quot;Search keyword (mode=search).&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;iPhone&quot;,
-      &quot;title&quot;: &quot;Keyword&quot;,
+    &quot;condition&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Item condition (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;new&quot;,
+        &quot;in_box&quot;,
+        &quot;un_opened&quot;,
+        &quot;un_worn&quot;,
+        &quot;as_good_as_new&quot;,
+        &quot;good&quot;,
+        &quot;fair&quot;,
+        &quot;has_given_it_all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any condition&quot;,
+        &quot;New&quot;,
+        &quot;New in box&quot;,
+        &quot;Unopened&quot;,
+        &quot;Unworn&quot;,
+        &quot;As good as new&quot;,
+        &quot;Good&quot;,
+        &quot;Fair&quot;,
+        &quot;Has given it all&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Condition&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;ES&quot;,
+      &quot;description&quot;: &quot;Market centre used when latitude and longitude are empty.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ES&quot;,
+        &quot;IT&quot;,
+        &quot;PT&quot;,
+        &quot;FR&quot;,
+        &quot;DE&quot;,
+        &quot;GB&quot;,
+        &quot;CUSTOM&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Spain&quot;,
+        &quot;Italy&quot;,
+        &quot;Portugal&quot;,
+        &quot;France&quot;,
+        &quot;Germany&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Custom coordinates&quot;
+      ],
+      &quot;prefill&quot;: &quot;ES&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;distanceKm&quot;: {
+      &quot;description&quot;: &quot;Maximum distance from the search centre. Leave empty to use the market default.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Max distance (km)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;includeItemDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch full item details such as condition, attributes, views, favorites and conversations (mode=search and sellerListings).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include item details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the seller&#x27;s latest reviews (mode=sellerProfile).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeSellerDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add seller name, rating, review count and verification to each search result (mode=search).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include seller details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;itemUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Wallapop item URLs or raw item IDs (mode=itemDetails).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Item URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;keywords&quot;: {
+      &quot;default&quot;: [
+        &quot;iphone&quot;
+      ],
+      &quot;description&quot;: &quot;One or more search phrases. Each keyword is searched separately and results are merged without duplicates (mode=search).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;iphone&quot;
+      ],
+      &quot;title&quot;: &quot;Keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
     &quot;latitude&quot;: {
-      &quot;default&quot;: 40.4165,
-      &quot;description&quot;: &quot;Center latitude for location-based search (default: Madrid).&quot;,
-      &quot;prefill&quot;: 40.4165,
+      &quot;description&quot;: &quot;Optional search centre latitude. Leave empty to use the country centre.&quot;,
+      &quot;maximum&quot;: 90,
+      &quot;minimum&quot;: -90,
       &quot;title&quot;: &quot;Latitude&quot;,
       &quot;type&quot;: &quot;number&quot;
     },
     &quot;longitude&quot;: {
-      &quot;default&quot;: -3.7026,
-      &quot;description&quot;: &quot;Center longitude for location-based search (default: Madrid).&quot;,
-      &quot;prefill&quot;: -3.7026,
+      &quot;description&quot;: &quot;Optional search centre longitude. Leave empty to use the country centre.&quot;,
+      &quot;maximum&quot;: 180,
+      &quot;minimum&quot;: -180,
       &quot;title&quot;: &quot;Longitude&quot;,
       &quot;type&quot;: &quot;number&quot;
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 20,
-      &quot;description&quot;: &quot;Maximum number of listings to return.&quot;,
-      &quot;maximum&quot;: 500,
+      &quot;description&quot;: &quot;Maximum records to return for search, itemDetails and sellerListings.&quot;,
+      &quot;maximum&quot;: 2000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 20,
+      &quot;prefill&quot;: 1,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;maxPrice&quot;: {
-      &quot;description&quot;: &quot;Maximum price filter.&quot;,
+      &quot;description&quot;: &quot;Maximum asking price (mode=search).&quot;,
       &quot;maximum&quot;: 999999,
       &quot;minimum&quot;: 0,
       &quot;title&quot;: &quot;Max price (EUR)&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
+    &quot;maxReviews&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum reviews per seller (mode=sellerProfile). Wallapop serves older reviews in pages.&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max reviews&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
     &quot;minPrice&quot;: {
-      &quot;description&quot;: &quot;Minimum price filter.&quot;,
+      &quot;description&quot;: &quot;Minimum asking price (mode=search).&quot;,
       &quot;maximum&quot;: 999999,
       &quot;minimum&quot;: 0,
       &quot;title&quot;: &quot;Min price (EUR)&quot;,
@@ -93,41 +214,286 @@
       &quot;enum&quot;: [
         &quot;search&quot;,
         &quot;itemDetails&quot;,
-        &quot;sellerListings&quot;
+        &quot;sellerListings&quot;,
+        &quot;sellerProfile&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Search listings by keyword&quot;,
-        &quot;Fetch single item details by URL or ID&quot;,
-        &quot;Get all listings from a seller&quot;
+        &quot;Search listings by keyword or category&quot;,
+        &quot;Fetch items by URL or ID&quot;,
+        &quot;Get all active listings from sellers&quot;,
+        &quot;Get seller profile, ratings and reviews&quot;
       ],
       &quot;prefill&quot;: &quot;search&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;orderBy&quot;: {
-      &quot;default&quot;: &quot;newest&quot;,
-      &quot;description&quot;: &quot;How to sort search results.&quot;,
+      &quot;default&quot;: &quot;most_relevance&quot;,
+      &quot;description&quot;: &quot;Result order (mode=search).&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
+        &quot;most_relevance&quot;,
         &quot;newest&quot;,
+        &quot;closest&quot;,
         &quot;price_low_to_high&quot;,
-        &quot;price_high_to_low&quot;,
-        &quot;most_relevance&quot;
+        &quot;price_high_to_low&quot;
       ],
       &quot;enumTitles&quot;: [
+        &quot;Most relevant&quot;,
         &quot;Newest first&quot;,
-        &quot;Price: Low to High&quot;,
-        &quot;Price: High to Low&quot;,
-        &quot;Most relevant&quot;
+        &quot;Nearest first&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;
       ],
-      &quot;prefill&quot;: &quot;newest&quot;,
+      &quot;prefill&quot;: &quot;most_relevance&quot;,
       &quot;title&quot;: &quot;Sort order&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;sellerUserId&quot;: {
-      &quot;description&quot;: &quot;Wallapop seller user ID (found in profile URL).&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Seller User ID (mode=sellerListings)&quot;,
+    &quot;sellerIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Seller IDs, profile URLs or item URLs whose seller should be used (mode=sellerListings and sellerProfile).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Seller IDs or URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;shippableOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only listings whose seller allows shipping (mode=search).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Shippable only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;subcategory&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Optional subcategory. It can be used alone or together with a category (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;10167&quot;,
+        &quot;10164&quot;,
+        &quot;10165&quot;,
+        &quot;10168&quot;,
+        &quot;10166&quot;,
+        &quot;11002&quot;,
+        &quot;11003&quot;,
+        &quot;10436&quot;,
+        &quot;10156&quot;,
+        &quot;10437&quot;,
+        &quot;10094&quot;,
+        &quot;10101&quot;,
+        &quot;10096&quot;,
+        &quot;10097&quot;,
+        &quot;10099&quot;,
+        &quot;10095&quot;,
+        &quot;10102&quot;,
+        &quot;10105&quot;,
+        &quot;10100&quot;,
+        &quot;10107&quot;,
+        &quot;10106&quot;,
+        &quot;10098&quot;,
+        &quot;10103&quot;,
+        &quot;10108&quot;,
+        &quot;10109&quot;,
+        &quot;10104&quot;,
+        &quot;10055&quot;,
+        &quot;10058&quot;,
+        &quot;10056&quot;,
+        &quot;10059&quot;,
+        &quot;10057&quot;,
+        &quot;10125&quot;,
+        &quot;10119&quot;,
+        &quot;10120&quot;,
+        &quot;10122&quot;,
+        &quot;10123&quot;,
+        &quot;10124&quot;,
+        &quot;24276&quot;,
+        &quot;10118&quot;,
+        &quot;10111&quot;,
+        &quot;10112&quot;,
+        &quot;10114&quot;,
+        &quot;10113&quot;,
+        &quot;10115&quot;,
+        &quot;10441&quot;,
+        &quot;24003&quot;,
+        &quot;24002&quot;,
+        &quot;24001&quot;,
+        &quot;10178&quot;,
+        &quot;10185&quot;,
+        &quot;10181&quot;,
+        &quot;10177&quot;,
+        &quot;10187&quot;,
+        &quot;10183&quot;,
+        &quot;10182&quot;,
+        &quot;10189&quot;,
+        &quot;10179&quot;,
+        &quot;10188&quot;,
+        &quot;10180&quot;,
+        &quot;10184&quot;,
+        &quot;10186&quot;,
+        &quot;10071&quot;,
+        &quot;10075&quot;,
+        &quot;10081&quot;,
+        &quot;10073&quot;,
+        &quot;10074&quot;,
+        &quot;10072&quot;,
+        &quot;10080&quot;,
+        &quot;10079&quot;,
+        &quot;10083&quot;,
+        &quot;10085&quot;,
+        &quot;10076&quot;,
+        &quot;10078&quot;,
+        &quot;10082&quot;,
+        &quot;10077&quot;,
+        &quot;10086&quot;,
+        &quot;10084&quot;,
+        &quot;10138&quot;,
+        &quot;10149&quot;,
+        &quot;10141&quot;,
+        &quot;10147&quot;,
+        &quot;10143&quot;,
+        &quot;10142&quot;,
+        &quot;10148&quot;,
+        &quot;10144&quot;,
+        &quot;10145&quot;,
+        &quot;10146&quot;,
+        &quot;10128&quot;,
+        &quot;10129&quot;,
+        &quot;10117&quot;,
+        &quot;10116&quot;,
+        &quot;10191&quot;,
+        &quot;10190&quot;,
+        &quot;10195&quot;,
+        &quot;10196&quot;,
+        &quot;10192&quot;,
+        &quot;10194&quot;,
+        &quot;10197&quot;,
+        &quot;10193&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All subcategories&quot;,
+        &quot;Motors &amp; accessories → Car &amp; van spare parts&quot;,
+        &quot;Motors &amp; accessories → GPS &amp; electronics&quot;,
+        &quot;Motors &amp; accessories → Mechanical tools&quot;,
+        &quot;Motors &amp; accessories → Motorbike and four-wheeler spare parts&quot;,
+        &quot;Motors &amp; accessories → Others&quot;,
+        &quot;Fashion &amp; accessories → Women&quot;,
+        &quot;Fashion &amp; accessories → Men&quot;,
+        &quot;Fashion &amp; accessories → Accessories&quot;,
+        &quot;Fashion &amp; accessories → Jewellery&quot;,
+        &quot;Fashion &amp; accessories → Beauty&quot;,
+        &quot;Sports &amp; leisure → Basketball&quot;,
+        &quot;Sports &amp; leisure → Crafts Arts &amp; crafts&quot;,
+        &quot;Sports &amp; leisure → Exercise bikes&quot;,
+        &quot;Sports &amp; leisure → Fitness, running &amp; yoga&quot;,
+        &quot;Sports &amp; leisure → Golf&quot;,
+        &quot;Sports &amp; leisure → Handball&quot;,
+        &quot;Sports &amp; leisure → Mountain &amp; ski&quot;,
+        &quot;Sports &amp; leisure → Others sports&quot;,
+        &quot;Sports &amp; leisure → Recreational &amp; board games&quot;,
+        &quot;Sports &amp; leisure → Rugby&quot;,
+        &quot;Sports &amp; leisure → Scooters &amp; skating&quot;,
+        &quot;Sports &amp; leisure → Soccer&quot;,
+        &quot;Sports &amp; leisure → Swimming &amp; pool accessories&quot;,
+        &quot;Sports &amp; leisure → Tennis &amp; paddle tennis&quot;,
+        &quot;Sports &amp; leisure → Volleyball&quot;,
+        &quot;Sports &amp; leisure → Others&quot;,
+        &quot;Bikes → Bike accessories&quot;,
+        &quot;Bikes → Bike components &amp; spare parts&quot;,
+        &quot;Bikes → Bikes &amp; tricycles&quot;,
+        &quot;Bikes → Protective gear &amp; clothing&quot;,
+        &quot;Bikes → Others&quot;,
+        &quot;Home &amp; garden → Furniture and organization&quot;,
+        &quot;Home &amp; garden → Bathroom and accessories&quot;,
+        &quot;Home &amp; garden → Kitchen&quot;,
+        &quot;Home &amp; garden → Decoration and mirrors&quot;,
+        &quot;Home &amp; garden → Lighting&quot;,
+        &quot;Home &amp; garden → Garden and outdoors&quot;,
+        &quot;Home &amp; garden → Heating and air conditioning&quot;,
+        &quot;Home &amp; garden → Pet supplies&quot;,
+        &quot;Appliances → Kitchen appliances&quot;,
+        &quot;Appliances → Laundry &amp; ironing&quot;,
+        &quot;Appliances → Replacement parts&quot;,
+        &quot;Appliances → Small appliances&quot;,
+        &quot;Appliances → Vitroceramic hobs&quot;,
+        &quot;Appliances → Others&quot;,
+        &quot;Movies, books &amp; music → Books, comics &amp; magazines&quot;,
+        &quot;Movies, books &amp; music → Movies &amp; series&quot;,
+        &quot;Movies, books &amp; music → Music&quot;,
+        &quot;Baby &amp; child → Baby feeding&quot;,
+        &quot;Baby &amp; child → Baby furniture&quot;,
+        &quot;Baby &amp; child → Baby transport&quot;,
+        &quot;Baby &amp; child → Bath accessories&quot;,
+        &quot;Baby &amp; child → Children&#x27;s clothes&quot;,
+        &quot;Baby &amp; child → Children&#x27;s costumes&quot;,
+        &quot;Baby &amp; child → Cots &amp; beds&quot;,
+        &quot;Baby &amp; child → High chairs &amp; baby walkers&quot;,
+        &quot;Baby &amp; child → Maternity&quot;,
+        &quot;Baby &amp; child → Safety &amp; care&quot;,
+        &quot;Baby &amp; child → School supplies&quot;,
+        &quot;Baby &amp; child → Toys, games &amp; teddies&quot;,
+        &quot;Baby &amp; child → Others&quot;,
+        &quot;Collectibles &amp; Art → Antiques&quot;,
+        &quot;Collectibles &amp; Art → Cars &amp; motorbikes&quot;,
+        &quot;Collectibles &amp; Art → Coins &amp; bills&quot;,
+        &quot;Collectibles &amp; Art → Desk supplies&quot;,
+        &quot;Collectibles &amp; Art → Flags&quot;,
+        &quot;Collectibles &amp; Art → Handcrafts &amp; decoration&quot;,
+        &quot;Collectibles &amp; Art → Key holders&quot;,
+        &quot;Collectibles &amp; Art → Magnets&quot;,
+        &quot;Collectibles &amp; Art → Playing cards&quot;,
+        &quot;Collectibles &amp; Art → Postcards &amp; souvenirs&quot;,
+        &quot;Collectibles &amp; Art → Sporting collectibles&quot;,
+        &quot;Collectibles &amp; Art → Stamp collecting&quot;,
+        &quot;Collectibles &amp; Art → Toy collecting&quot;,
+        &quot;Collectibles &amp; Art → Wartime collectibles&quot;,
+        &quot;Collectibles &amp; Art → Watches&quot;,
+        &quot;Collectibles &amp; Art → Others&quot;,
+        &quot;Construction → Balconies&quot;,
+        &quot;Construction → Doors &amp; windows&quot;,
+        &quot;Construction → Electricity &amp; home lighting&quot;,
+        &quot;Construction → Flooring &amp; paving&quot;,
+        &quot;Construction → Hardware&quot;,
+        &quot;Construction → Ladder &amp; scaffoldings&quot;,
+        &quot;Construction → Paints &amp; varnishes&quot;,
+        &quot;Construction → Tools &amp; machinery&quot;,
+        &quot;Construction → Wood &amp; other materials&quot;,
+        &quot;Construction → Others&quot;,
+        &quot;Agriculture &amp; industrial → Agriculture &amp; farming&quot;,
+        &quot;Agriculture &amp; industrial → Industry&quot;,
+        &quot;Jobs → Job offers&quot;,
+        &quot;Jobs → Job seeking&quot;,
+        &quot;Services → Carers &amp; babysitters&quot;,
+        &quot;Services → Classes &amp; lessons&quot;,
+        &quot;Services → Cleaning services&quot;,
+        &quot;Services → Housework services&quot;,
+        &quot;Services → Moving &amp; transport&quot;,
+        &quot;Services → Repairs&quot;,
+        &quot;Services → Therapies &amp; personal growth&quot;,
+        &quot;Services → Others&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Subcategory&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;timeFilter&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only listings posted within this window (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;today&quot;,
+        &quot;lastWeek&quot;,
+        &quot;lastMonth&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any time&quot;,
+        &quot;Today&quot;,
+        &quot;Last 7 days&quot;,
+        &quot;Last 30 days&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Posted within&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -140,7 +506,7 @@
 }
 </code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Wallapop listings.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Listings from Wallapop — Spain&#x27;s largest C2C marketplace. Includes price, location, seller info, images, and more.&quot;,
+  &quot;description&quot;: &quot;Wallapop listings and seller profiles with prices, condition, images, location, shipping, engagement counts and seller reputation.&quot;,
   &quot;properties&quot;: {
     &quot;listings&quot;: {
       &quot;description&quot;: &quot;Dataset containing all scraped Wallapop listings.&quot;,
@@ -165,9 +531,11 @@
           &quot;title&quot;,
           &quot;price&quot;,
           &quot;currency&quot;,
+          &quot;condition&quot;,
           &quot;city&quot;,
           &quot;country&quot;,
           &quot;seller&quot;,
+          &quot;views&quot;,
           &quot;itemUrl&quot;
         ]
       }
@@ -175,86 +543,73 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-wallapop-listings-by-keyword-item-seller">Wallapop Listings by Keyword, Item &amp; Seller</h2>
-<p>Wallapop is one of the largest second-hand marketplaces in Spain, Italy, and Portugal. This actor reads its public listing data three ways: search by keyword near a location, fetch a specific item by URL or ID, or pull every active listing from one seller.</p>
+<p>Scrape <strong>Wallapop</strong> — the large second-hand marketplace in Spain, Italy and Portugal. Search by
+keyword or category, look up an item by its URL or ID, pull every active listing from a seller, or
+read a seller's profile, ratings and reviews. The actor returns prices, condition, photos, location,
+shipping, engagement counts and seller reputation as clean JSON. No login, no cookies, no API key,
+and no proxy setup.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Searches Wallapop listings by keyword, centered on a latitude/longitude point, with sort order, price range, and category filters.</li>
-<li>Fetches full details for one or more specific items by URL or item ID.</li>
-<li>Pulls every listing currently posted by a given seller's user ID.</li>
-<li>Reports distance from your search center for each result, so you can gauge how local a match is.</li>
-<li>Any field a listing doesn't have — such as GPS coordinates when a seller hasn't shared one, or a reserved flag when the item isn't reserved — is left out of that record.</li>
+<li><strong>Four modes:</strong> <code>search</code>, <code>itemDetails</code>, <code>sellerListings</code>, <code>sellerProfile</code>.</li>
+<li><strong>Search by keyword or category:</strong> multiple keywords, all 21 Wallapop categories and 99
+subcategories, with price, condition, posting-date, shipping, distance and sort filters.</li>
+<li><strong>Market-aware:</strong> Spain, Italy, Portugal, France, Germany and the United Kingdom by coordinates,
+with EUR prices and country-local listings.</li>
+<li><strong>Item lookup by URL or ID:</strong> full item detail including condition, attributes, images,
+reserves/sold status, views, favourites and conversations.</li>
+<li><strong>Seller tools:</strong> every active listing from one or more sellers, plus profile stats, rating
+breakdown, public contact details, business legal data and recent reviews.</li>
+<li><strong>Empty fields are omitted:</strong> a missing value is never returned as <code>null</code>, <code>&quot;&quot;</code> or <code>[]</code>.</li>
 </ul>
 <h2 id="readme-output-per-listing">Output per listing</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>itemId</code></td>
-<td>Wallapop's unique identifier for the item</td>
-</tr>
-<tr>
-<td><code>title</code>, <code>description</code></td>
-<td>Listing title and full description</td>
-</tr>
-<tr>
-<td><code>price</code>, <code>currency</code></td>
-<td>Asking price and its currency (usually EUR)</td>
-</tr>
-<tr>
-<td><code>seller</code>, <code>sellerId</code></td>
-<td>Seller's display name and user ID</td>
-</tr>
-<tr>
-<td><code>city</code>, <code>country</code></td>
-<td>Where the item is located</td>
-</tr>
-<tr>
-<td><code>latitude</code>, <code>longitude</code></td>
-<td>Seller's coordinates, when shared</td>
-</tr>
-<tr>
-<td><code>imageUrl</code>, <code>imageUrls</code></td>
-<td>Primary image, and the full list of listing images</td>
-</tr>
-<tr>
-<td><code>itemUrl</code></td>
-<td>Direct link to the listing</td>
-</tr>
-<tr>
-<td><code>categoryId</code></td>
-<td>Wallapop's numeric category ID for the listing</td>
-</tr>
-<tr>
-<td><code>publishedDate</code>, <code>modifiedDate</code></td>
-<td>When the listing was created and last updated (Unix timestamps)</td>
-</tr>
-<tr>
-<td><code>distanceM</code></td>
-<td>Distance from the search center, in meters, for <code>search</code> mode results</td>
-</tr>
-<tr>
-<td><code>reserved</code></td>
-<td><code>true</code> when the item is marked reserved</td>
-</tr>
-<tr>
-<td><code>soldOutside</code></td>
-<td><code>true</code> when the seller marked the item sold outside Wallapop</td>
-</tr>
-<tr>
-<td><code>banned</code></td>
-<td><code>true</code> when Wallapop has flagged the listing as banned</td>
-</tr>
-<tr>
-<td><code>scrapedAt</code></td>
-<td>Collection timestamp</td>
-</tr>
-</tbody>
-</table></div>
+<p>Every listing record has <code>recordType: &quot;listing&quot;</code>.</p>
+<ul>
+<li><code>itemId</code>, <code>title</code>, <code>description</code>, <code>itemUrl</code>, <code>webSlug</code></li>
+<li><code>price</code>, <code>currency</code>, <code>financedPrice</code></li>
+<li><code>condition</code>, <code>conditionText</code></li>
+<li><code>categoryId</code>, <code>categoryName</code>, <code>categoryPath</code></li>
+<li><code>brand</code>, <code>model</code>, <code>attributes</code> — Wallapop's structured item attributes</li>
+<li><code>imageUrl</code>, <code>imageUrls</code></li>
+<li><code>city</code>, <code>country</code>, <code>postalCode</code>, <code>region</code>, <code>latitude</code>, <code>longitude</code>, <code>locationApproximate</code></li>
+<li><code>distanceM</code> — distance from the search centre, in metres (search mode)</li>
+<li><code>publishedDate</code>, <code>modifiedDate</code> — legacy Unix timestamps, when Wallapop provides them</li>
+<li><code>publishedAt</code>, <code>modifiedAt</code> — ISO 8601 versions</li>
+<li><code>reserved</code>, <code>sold</code>, <code>expired</code>, <code>onHold</code>, <code>bumped</code>, <code>bumpType</code></li>
+<li><code>isRefurbished</code>, <code>hasWarranty</code></li>
+<li><code>shippable</code>, <code>shippingAllowed</code></li>
+<li><code>views</code>, <code>favorites</code>, <code>conversations</code></li>
+<li><code>seller</code>, <code>sellerId</code>, <code>sellerRating</code>, <code>sellerReviewCount</code>, <code>sellerVerified</code>, <code>sellerType</code>,
+<code>sellerIsTopProfile</code>, <code>sellerProfileUrl</code>, <code>sellerRegisteredAt</code></li>
+<li><code>sellerContact</code> — public address, phone, website and opening hours (business/pro sellers only)</li>
+<li><code>sellerLegal</code> — public legal name, email, registration number and registry (business sellers only)</li>
+<li><code>scrapedAt</code></li>
+</ul>
+<p>Which optional fields appear depends on the mode and on what Wallapop publishes:</p>
+<ul>
+<li><code>search</code> includes location, dates, reserve/shipping flags and taxonomy out of the box. Condition,
+attributes, views, favourites and conversations require <strong>Include item details</strong>. Seller name,
+rating and verification require <strong>Include seller details</strong>.</li>
+<li><code>itemDetails</code> includes condition, attributes, flags, views, favourites, conversations and seller
+reputation. <code>publishedDate</code>/<code>publishedAt</code> are not available for a single item.</li>
+<li><code>sellerListings</code> includes condition, attributes, shipping, refurbished/warranty and seller fields.
+Location, dates, views and favourites require <strong>Include item details</strong>; published date is not
+available in this mode.</li>
+</ul>
+<h2 id="readme-output-per-seller-profile">Output per seller profile</h2>
+<p><code>sellerProfile</code> returns one record per seller with <code>recordType: &quot;seller&quot;</code>.</p>
+<ul>
+<li><code>sellerId</code>, <code>sellerName</code>, <code>sellerWebSlug</code>, <code>sellerProfileUrl</code></li>
+<li><code>sellerType</code>, <code>sellerVerified</code>, <code>sellerIsTopProfile</code>, <code>sellerIsFeatured</code>, <code>sellerBadge</code></li>
+<li><code>avatarUrl</code>, <code>registeredAt</code>, <code>sellerDescription</code></li>
+<li><code>rating</code>, <code>reviewCount</code>, <code>ratingBreakdown</code></li>
+<li><code>responseRate</code>, <code>scoringStars</code>, <code>activityLevel</code>, <code>validations</code></li>
+<li><code>activeListings</code>, <code>soldCount</code>, <code>purchases</code>, <code>sales</code>, <code>reportsReceived</code>, <code>successfulShipments</code></li>
+<li><code>city</code>, <code>country</code>, <code>postalCode</code>, <code>latitude</code>, <code>longitude</code></li>
+<li><code>website</code>, <code>phone</code>, <code>address</code>, <code>openingHours</code></li>
+<li><code>legalName</code>, <code>legalEmail</code>, <code>registrationNumber</code>, <code>registryName</code>, <code>selfCertification</code></li>
+<li><code>reviews[]</code> — reviews up to <code>maxReviews</code> (1–2000), newest first</li>
+<li><code>scrapedAt</code></li>
+</ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -268,124 +623,231 @@
 <tbody>
 <tr>
 <td><code>mode</code></td>
-<td>String (select)</td>
+<td>string</td>
 <td><code>search</code></td>
-<td><code>search</code>, <code>itemDetails</code>, or <code>sellerListings</code>.</td>
+<td><code>search</code>, <code>itemDetails</code>, <code>sellerListings</code> or <code>sellerProfile</code></td>
 </tr>
 <tr>
-<td><code>keyword</code></td>
-<td>String</td>
-<td><code>iPhone</code></td>
-<td>Search keyword, used by <code>search</code>.</td>
+<td><code>keywords</code></td>
+<td>array</td>
+<td><code>[&quot;iphone&quot;]</code></td>
+<td>Search phrases; each is searched and results are merged without duplicates (mode=search)</td>
 </tr>
 <tr>
 <td><code>itemUrls</code></td>
-<td>Array</td>
-<td><code>[]</code></td>
-<td>Item URLs or item IDs to fetch, used by <code>itemDetails</code>.</td>
+<td>array</td>
+<td>–</td>
+<td>Wallapop item URLs or alphanumeric item IDs such as <code>wzvg1nvq81zl</code>; the numeric suffix at the end of an item URL is not an item ID (mode=itemDetails)</td>
 </tr>
 <tr>
-<td><code>sellerUserId</code></td>
-<td>String</td>
+<td><code>sellerIds</code></td>
+<td>array</td>
 <td>–</td>
-<td>Seller's user ID (from their profile URL), used by <code>sellerListings</code>.</td>
+<td>Seller IDs, profile URLs or item URLs (mode=sellerListings / sellerProfile)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>ES</code></td>
+<td>Market centre: ES, IT, PT, FR, DE, GB or Custom coordinates</td>
 </tr>
 <tr>
 <td><code>latitude</code></td>
-<td>Number</td>
-<td><code>40.4165</code> (Madrid)</td>
-<td>Center latitude for <code>search</code>.</td>
+<td>number</td>
+<td>–</td>
+<td>Optional search centre latitude</td>
 </tr>
 <tr>
 <td><code>longitude</code></td>
-<td>Number</td>
-<td><code>-3.7026</code> (Madrid)</td>
-<td>Center longitude for <code>search</code>.</td>
-</tr>
-<tr>
-<td><code>orderBy</code></td>
-<td>String (select)</td>
-<td><code>newest</code></td>
-<td><code>newest</code>, <code>price_low_to_high</code>, <code>price_high_to_low</code>, or <code>most_relevance</code>.</td>
-</tr>
-<tr>
-<td><code>minPrice</code></td>
-<td>Integer</td>
+<td>number</td>
 <td>–</td>
-<td>Minimum price in EUR.</td>
-</tr>
-<tr>
-<td><code>maxPrice</code></td>
-<td>Integer</td>
-<td>–</td>
-<td>Maximum price in EUR.</td>
+<td>Optional search centre longitude</td>
 </tr>
 <tr>
 <td><code>category</code></td>
-<td>String (select)</td>
+<td>string</td>
 <td>all</td>
-<td>One of Wallapop's category IDs: Electronics, Mobile phones, Cars &amp; motorbikes, Clothing &amp; accessories, Sports &amp; leisure, Home &amp; garden, Movies/books/music, Toys &amp; games, Jobs.</td>
+<td>One of Wallapop's 21 top-level categories</td>
+</tr>
+<tr>
+<td><code>subcategory</code></td>
+<td>string</td>
+<td>all</td>
+<td>One of the 99 subcategories; can be used alone</td>
+</tr>
+<tr>
+<td><code>orderBy</code></td>
+<td>string</td>
+<td><code>most_relevance</code></td>
+<td>Relevance, newest, nearest, price low-to-high or price high-to-low</td>
+</tr>
+<tr>
+<td><code>minPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum asking price in EUR</td>
+</tr>
+<tr>
+<td><code>maxPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum asking price in EUR</td>
+</tr>
+<tr>
+<td><code>condition</code></td>
+<td>string</td>
+<td>any</td>
+<td>New, new in box, unopened, unworn, as good as new, good, fair or has given it all</td>
+</tr>
+<tr>
+<td><code>timeFilter</code></td>
+<td>string</td>
+<td>any</td>
+<td>Today, last 7 days or last 30 days</td>
+</tr>
+<tr>
+<td><code>shippableOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only listings whose seller allows shipping</td>
+</tr>
+<tr>
+<td><code>distanceKm</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum distance from the search centre (1–1000 km)</td>
+</tr>
+<tr>
+<td><code>includeItemDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add condition, attributes, views, favourites and conversations to listings</td>
+</tr>
+<tr>
+<td><code>includeSellerDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add seller name, rating, review count and verification to search results</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include recent reviews in seller profiles</td>
+</tr>
+<tr>
+<td><code>maxReviews</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Maximum reviews per seller (1–2000); fetched in pages of 40</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
-<td>Integer</td>
-<td>20</td>
-<td>Maximum listings to return (1-500).</td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Maximum records for search, itemDetails, sellerListings and sellerProfile (1–2000)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-keyword-search-near-madrid">Example: keyword search near Madrid</h3>
+<h3 id="readme-example-keyword-search-in-madrid">Example: keyword search in Madrid</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
-  &quot;keyword&quot;: &quot;iPhone&quot;,
+  &quot;keywords&quot;: [&quot;iphone 14&quot;, &quot;iphone 15&quot;],
+  &quot;country&quot;: &quot;ES&quot;,
   &quot;orderBy&quot;: &quot;newest&quot;,
-  &quot;maxItems&quot;: 20
-}
-</code></pre>
-<h3 id="readme-example-price-filtered-search-in-a-category">Example: price-filtered search in a category</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;search&quot;,
-  &quot;keyword&quot;: &quot;bicicleta&quot;,
-  &quot;category&quot;: &quot;12900&quot;,
-  &quot;minPrice&quot;: 100,
-  &quot;maxPrice&quot;: 400,
+  &quot;minPrice&quot;: 200,
+  &quot;maxPrice&quot;: 700,
+  &quot;condition&quot;: &quot;good&quot;,
+  &quot;includeItemDetails&quot;: true,
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-specific-item-lookup">Example: specific item lookup</h3>
+<h3 id="readme-example-italian-category-with-a-radius">Example: Italian category with a radius</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;itemDetails&quot;,
-  &quot;itemUrls&quot;: [&quot;https://es.wallapop.com/item/iphone-14-pro-max-123456789&quot;]
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;IT&quot;,
+  &quot;category&quot;: &quot;12465&quot;,
+  &quot;orderBy&quot;: &quot;closest&quot;,
+  &quot;distanceKm&quot;: 50,
+  &quot;shippableOnly&quot;: true,
+  &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-all-listings-from-one-seller">Example: all listings from one seller</h3>
+<h3 id="readme-example-one-item-by-url">Example: one item by URL</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;itemDetails&quot;,
+  &quot;itemUrls&quot;: [&quot;https://es.wallapop.com/item/iphone-11-64gb-rojo-1315331517&quot;]
+}
+</code></pre>
+<h3 id="readme-example-a-seller-s-catalogue-and-profile">Example: a seller's catalogue and profile</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;sellerListings&quot;,
-  &quot;sellerUserId&quot;: &quot;abc123seller&quot;,
-  &quot;maxItems&quot;: 100
+  &quot;sellerIds&quot;: [&quot;https://es.wallapop.com/user/santiagob-407326113&quot;],
+  &quot;includeItemDetails&quot;: true,
+  &quot;maxItems&quot;: 200
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;sellerProfile&quot;,
+  &quot;sellerIds&quot;: [&quot;pj9ygg2gvv6e&quot;],
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviews&quot;: 20
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Price research</strong> — see what similar second-hand items are currently asking in the Spanish, Italian, or Portuguese markets.</li>
-<li><strong>Local inventory monitoring</strong> — track new listings for a specific product near a chosen location.</li>
-<li><strong>Seller auditing</strong> — pull everything a given seller currently has listed.</li>
-<li><strong>Category trend tracking</strong> — compare pricing across a category over repeated runs.</li>
-<li><strong>Lead sourcing</strong> — find sellers currently listing specific items for bulk or resale purchasing.</li>
+<li><strong>Price research:</strong> compare asking prices for the same product across Spanish, Italian and
+Portuguese cities.</li>
+<li><strong>Resale sourcing:</strong> follow a category with a price cap and spot under-priced listings early.</li>
+<li><strong>Seller vetting:</strong> read seller ratings, review history and public business details before buying.</li>
+<li><strong>Catalogue monitoring:</strong> export a shop's full active inventory to a spreadsheet on a schedule.</li>
+<li><strong>Demand analysis:</strong> rank listings by views, favourites and conversations.</li>
+<li><strong>Marketplace analytics:</strong> build a clean dataset of condition, attributes and geography.</li>
+</ul>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li><code>publishedDate</code> is available in keyword/category search only. Wallapop does not expose a creation
+date on item or seller endpoints, so those modes omit it.</li>
+<li>Seller contact details and business legal data are returned only when the seller has made them
+public (business, shop or pro accounts).</li>
+<li>Reviews are fetched newest-first in pages of 40 until <code>maxReviews</code> (default 20, maximum 2,000) or
+the source stops. Verified full collections of 411/411, 1,226/1,226 and 1,714/1,714 reviews for
+sellers of those sizes; the practical ceiling is the seller's public review count.</li>
+<li><code>sellerListings</code> returns active listings only. Sold items are not searchable; an item URL that is
+already sold still works through <code>itemDetails</code>.</li>
+<li><strong>Nearest</strong> uses Wallapop's proximity ranking; the source does not guarantee a strict distance
+order. Sort on <code>distanceM</code> if you need exact ordering.</li>
+<li><code>categoryId</code> is Wallapop's top-level taxonomy id, while <code>categoryName</code> is the leaf name and
+<code>categoryPath</code> is the full hierarchy. Names follow the source locale.</li>
+<li>Italy and Portugal have smaller catalogues. For the largest local result set use <strong>Most relevant</strong>
+or <strong>Nearest</strong>, and a distance that matches the country.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Do I need an account or API key?</strong>
-No — Wallapop's listing data used here is publicly accessible without authentication.</p>
-<p><strong>Which countries does this cover?</strong>
-Primarily Spain, with Italy and Portugal also served by the same underlying marketplace.</p>
-<p><strong>How does location-based search work?</strong>
-<code>search</code> mode centers results on the <code>latitude</code>/<code>longitude</code> you provide (defaulting to Madrid) and reports each result's <code>distanceM</code> from that point.</p>
-<p><strong>How many results can one run return?</strong>
-Up to 500 per run via <code>maxItems</code>; Wallapop's own search pages typically return listings in batches that the actor pages through automatically.</p>
-<p><strong>Why would I see listing IDs starting with <code>sample-</code>?</strong>
-If a request returns no live results at all, the run still finishes with a small set of clearly labeled placeholder records (IDs like <code>sample-001</code>) instead of an empty dataset — treat those as a signal to retry rather than real listings.</p>
-<p><strong>What do <code>category</code> values correspond to?</strong>
-Each option maps to one of Wallapop's own numeric category IDs — Electronics, Mobile phones, Cars &amp; motorbikes, Clothing &amp; accessories, Sports &amp; leisure, Home &amp; garden, Movies/books/music, Toys &amp; games, or Jobs.</p>
+<p><strong>Do I need a Wallapop account, cookies or an API key?</strong>
+No. The actor reads publicly accessible listing and seller data without authentication.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. The actor connects directly to Wallapop; no proxy configuration is required.</p>
+<p><strong>Which countries are supported?</strong>
+Spain, Italy and Portugal are the primary markets. France, Germany and the United Kingdom also
+return local listings when you choose their country or supply coordinates; inventory there is much
+smaller.</p>
+<p><strong>Why are some fields missing from a record?</strong>
+Wallapop omits data for some listings, and some fields are mode-specific. Empty fields are left out
+rather than returned as <code>null</code>. Turn on <strong>Include item details</strong> for condition, attributes, views and
+favourites.</p>
+<p><strong>Why did I get fewer rows than <code>maxItems</code>?</strong>
+Wallapop exhausted the matching results, or the country filter removed cross-border listings. The
+run status reports the requested and returned counts honestly. The actor never fabricates rows.</p>
+<p><strong>Can I get sold items?</strong>
+Only if you already have the item URL. Keyword and category search return active listings, and
+seller catalogues return active listings. <code>itemDetails</code> reports <code>sold: true</code> when Wallapop marks the
+item sold.</p>
+<p><strong>How many reviews can I get?</strong>
+The actor fetches reviews newest-first in pages of 40 until <code>maxReviews</code> is reached or Wallapop
+has no older reviews. Set <code>maxReviews</code> up to 2,000. The run status reports a shortfall if the
+source stops earlier.</p>
+<p><strong>How fresh is the data?</strong>
+Every run reads the live marketplace. Values reflect Wallapop at the moment of collection.</p>
 <p><strong>Is this affiliated with Wallapop?</strong>
-No. This actor reads Wallapop's publicly accessible listing data and has no affiliation with Wallapop.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/mGhZBe0V7WirMKlSs/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>5HtXne967ftovxX3g</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. This is an independent third-party actor using publicly accessible marketplace data.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/mGhZBe0V7WirMKlSs/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>YTSKoUyzDC7iXiO8P</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
