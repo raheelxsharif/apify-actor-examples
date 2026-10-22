@@ -1,0 +1,140 @@
+{
+  "description": "Search Wallapop listings, get item details, or browse seller listings.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Wallapop category to filter results.",
+      "editor": "select",
+      "enum": [
+        "",
+        "15000",
+        "12465",
+        "14000",
+        "12800",
+        "12900",
+        "13600",
+        "13200",
+        "13000",
+        "100"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Electronics",
+        "Mobile phones",
+        "Cars & motorbikes",
+        "Clothing & accessories",
+        "Sports & leisure",
+        "Home & garden",
+        "Movies, books & music",
+        "Toys & games",
+        "Jobs"
+      ],
+      "prefill": "",
+      "title": "Category",
+      "type": "string"
+    },
+    "itemUrls": {
+      "default": [],
+      "description": "List of Wallapop item URLs or item IDs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Item URLs or IDs (mode=itemDetails)",
+      "type": "array"
+    },
+    "keyword": {
+      "default": "iPhone",
+      "description": "Search keyword (mode=search).",
+      "editor": "textfield",
+      "prefill": "iPhone",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "latitude": {
+      "default": 40.4165,
+      "description": "Center latitude for location-based search (default: Madrid).",
+      "prefill": 40.4165,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "default": -3.7026,
+      "description": "Center longitude for location-based search (default: Madrid).",
+      "prefill": -3.7026,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of listings to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum price filter.",
+      "maximum": 999999,
+      "minimum": 0,
+      "title": "Max price (EUR)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Minimum price filter.",
+      "maximum": 999999,
+      "minimum": 0,
+      "title": "Min price (EUR)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from Wallapop.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "itemDetails",
+        "sellerListings"
+      ],
+      "enumTitles": [
+        "Search listings by keyword",
+        "Fetch single item details by URL or ID",
+        "Get all listings from a seller"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "orderBy": {
+      "default": "newest",
+      "description": "How to sort search results.",
+      "editor": "select",
+      "enum": [
+        "newest",
+        "price_low_to_high",
+        "price_high_to_low",
+        "most_relevance"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Most relevant"
+      ],
+      "prefill": "newest",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "sellerUserId": {
+      "description": "Wallapop seller user ID (found in profile URL).",
+      "editor": "textfield",
+      "title": "Seller User ID (mode=sellerListings)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Wallapop Scraper Input",
+  "type": "object"
+}

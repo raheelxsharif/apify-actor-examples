@@ -1,0 +1,687 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "AIGCDescription": {
+      "description": "Description for AI-generated content label",
+      "title": "AIGC Description",
+      "type": "string"
+    },
+    "adLabelVersion": {
+      "description": "Ad label version; non-zero when the post is a sponsored ad",
+      "title": "Ad Label Version",
+      "type": "integer"
+    },
+    "aiContentLabel": {
+      "description": "Human-readable AI label when TikTok exposes one",
+      "title": "AI Content Label",
+      "type": "string"
+    },
+    "author": {
+      "description": "Author/creator information at time of scraping",
+      "properties": {
+        "avatarUrl": {
+          "title": "Avatar URL",
+          "type": "string"
+        },
+        "bio": {
+          "title": "Bio",
+          "type": "string"
+        },
+        "displayName": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "followerCount": {
+          "title": "Followers",
+          "type": "integer"
+        },
+        "followingCount": {
+          "title": "Following",
+          "type": "integer"
+        },
+        "heartCount": {
+          "title": "Hearts/Likes",
+          "type": "integer"
+        },
+        "id": {
+          "title": "User ID",
+          "type": "string"
+        },
+        "privateAccount": {
+          "title": "Private Account",
+          "type": "boolean"
+        },
+        "roomId": {
+          "title": "Live Room ID (non-empty when live)",
+          "type": "string"
+        },
+        "secUid": {
+          "title": "Secure UID",
+          "type": "string"
+        },
+        "username": {
+          "title": "Username",
+          "type": "string"
+        },
+        "verified": {
+          "title": "Verified",
+          "type": "boolean"
+        },
+        "videoCount": {
+          "title": "Videos",
+          "type": "integer"
+        }
+      },
+      "title": "Author",
+      "type": "object"
+    },
+    "caption": {
+      "description": "Post caption/description text including hashtags and mentions",
+      "title": "Caption",
+      "type": "string"
+    },
+    "captionMatch": {
+      "description": "The monitored term appears contiguously in the caption (whole word for single tokens; true phrase for multi-word Latin; substring for non-Latin scripts)",
+      "title": "Caption Match",
+      "type": "boolean"
+    },
+    "collectCount": {
+      "description": "Number of times post was bookmarked/collected",
+      "title": "Collect Count",
+      "type": "integer"
+    },
+    "commentCount": {
+      "description": "Number of comments",
+      "title": "Comment Count",
+      "type": "integer"
+    },
+    "commentStatus": {
+      "description": "Comment permission setting (0=all, 1=friends, 2=none)",
+      "title": "Comment Status",
+      "type": "integer"
+    },
+    "createTime": {
+      "description": "Unix timestamp (seconds) when the post was created",
+      "title": "Create Time (Unix)",
+      "type": "integer"
+    },
+    "createdAt": {
+      "description": "ISO 8601 UTC datetime when the post was created",
+      "title": "Created At",
+      "type": "string"
+    },
+    "duetEnabled": {
+      "description": "Whether the creator allows duets with this video",
+      "title": "Duet Enabled",
+      "type": "boolean"
+    },
+    "firstSeenAt": {
+      "description": "ISO 8601 time this monitor first saw the post",
+      "title": "First Seen At",
+      "type": "string"
+    },
+    "forFriend": {
+      "description": "Whether the post is restricted to friends only",
+      "title": "For Friend",
+      "type": "boolean"
+    },
+    "hashtagMatch": {
+      "description": "A hashtag slug equals the monitored term with whitespace removed (e.g. #nikeshoes for \"nike shoes\"); separate #nike and #shoes do not count",
+      "title": "Hashtag Match",
+      "type": "boolean"
+    },
+    "hashtags": {
+      "description": "Structured hashtags from TikTok metadata; a caption-only tag that matched is in matchedHashtags",
+      "items": {
+        "properties": {
+          "id": {
+            "title": "Hashtag ID",
+            "type": "string"
+          },
+          "isCommerce": {
+            "title": "Is Commerce",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Hashtag Name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Hashtags",
+      "type": "array"
+    },
+    "images": {
+      "description": "Images for slideshow posts (postType='slideshow')",
+      "items": {
+        "properties": {
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "ordinal": {
+            "title": "Index",
+            "type": "integer"
+          },
+          "urlList": {
+            "title": "Image URLs",
+            "type": "array"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Slideshow Images",
+      "type": "array"
+    },
+    "isAd": {
+      "description": "Whether this post is a paid advertisement",
+      "title": "Is Ad",
+      "type": "boolean"
+    },
+    "isAigc": {
+      "description": "True only when TikTok exposes an AI label; omitted when unknown",
+      "title": "AI Generated Content",
+      "type": "boolean"
+    },
+    "isNew": {
+      "description": "New to this monitor (not necessarily new on TikTok)",
+      "title": "Is New",
+      "type": "boolean"
+    },
+    "isPaidPartnership": {
+      "description": "TikTok's paid-partnership label when exposed",
+      "title": "Paid Partnership",
+      "type": "boolean"
+    },
+    "keyword": {
+      "description": "The monitored keyword/brand/hashtag/handle this post primarily matched; a sound-only row uses sound:<musicId>",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "likeCount": {
+      "description": "Number of likes/diggs",
+      "title": "Like Count",
+      "type": "integer"
+    },
+    "matchReason": {
+      "description": "Primary evidence: caption (contiguous phrase), hashtag (slug match), taggedMention (clickable @tag), sound (explicit sound source) or searchResult (weak search hit, allResults only)",
+      "title": "Match Reason",
+      "type": "string"
+    },
+    "matchReasons": {
+      "description": "Every evidence type found across sources",
+      "items": {
+        "type": "string"
+      },
+      "title": "All Match Reasons",
+      "type": "array"
+    },
+    "matchedHashtags": {
+      "description": "Hashtag entries that matched the monitored term",
+      "items": {
+        "type": "object"
+      },
+      "title": "Matched Hashtags",
+      "type": "array"
+    },
+    "matchedKeywords": {
+      "description": "Every monitored keyword that surfaced this post, plus sound:<musicId> for explicit sound sources",
+      "items": {
+        "type": "string"
+      },
+      "title": "Matched Keywords",
+      "type": "array"
+    },
+    "matchedMention": {
+      "description": "The clickable @mention that matched, with real handle and UTF-16 offsets",
+      "title": "Matched Mention",
+      "type": "object"
+    },
+    "matchedTerm": {
+      "description": "The exact search term, related suggestion, source variant or sound ID that surfaced this post",
+      "title": "Matched Term",
+      "type": "string"
+    },
+    "mediaUrlExpiresAt": {
+      "description": "ISO 8601 UTC datetime when signed media URLs (video/cover) expire",
+      "title": "Media URL Expires At",
+      "type": "string"
+    },
+    "mentionInCaption": {
+      "description": "Whether the monitored term appears contiguously in the caption (same as captionMatch; kept for backward compatibility)",
+      "title": "Mention In Caption",
+      "type": "boolean"
+    },
+    "mentions": {
+      "description": "@mentions in the post caption with UTF-16 text offsets",
+      "items": {
+        "properties": {
+          "awemeId": {
+            "title": "Mentioned Post ID (if any)",
+            "type": "string"
+          },
+          "end": {
+            "title": "End Offset",
+            "type": "integer"
+          },
+          "start": {
+            "title": "Start Offset",
+            "type": "integer"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Mentions",
+      "type": "array"
+    },
+    "monitorName": {
+      "description": "Watchlist state name used for onlyNewMentions",
+      "title": "Monitor Name",
+      "type": "string"
+    },
+    "music": {
+      "description": "Sound/music used in the post",
+      "properties": {
+        "album": {
+          "title": "Album",
+          "type": "string"
+        },
+        "authorName": {
+          "title": "Author",
+          "type": "string"
+        },
+        "coverUrl": {
+          "title": "Cover URL",
+          "type": "string"
+        },
+        "dspLinks": {
+          "title": "DSP Links (Spotify, Apple Music, etc.)",
+          "type": "array"
+        },
+        "duration": {
+          "title": "Duration (s)",
+          "type": "integer"
+        },
+        "id": {
+          "title": "Music ID",
+          "type": "string"
+        },
+        "isCommerceMusic": {
+          "title": "Is Commerce Music",
+          "type": "boolean"
+        },
+        "isCopyrighted": {
+          "title": "Is Copyrighted",
+          "type": "boolean"
+        },
+        "isPrivate": {
+          "title": "Is Private Sound",
+          "type": "boolean"
+        },
+        "isUnlimitedMusic": {
+          "title": "Is Unlimited Music",
+          "type": "boolean"
+        },
+        "original": {
+          "title": "Original Sound",
+          "type": "boolean"
+        },
+        "playUrl": {
+          "title": "Play URL",
+          "type": "string"
+        },
+        "shootDuration": {
+          "title": "Shoot Duration (s)",
+          "type": "number"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "title": "Music",
+      "type": "object"
+    },
+    "originalItem": {
+      "description": "Whether this post is an original (non-duet, non-stitch) creation",
+      "title": "Original Item",
+      "type": "boolean"
+    },
+    "playCount": {
+      "description": "Number of video plays",
+      "title": "Play Count",
+      "type": "integer"
+    },
+    "postId": {
+      "description": "TikTok's unique post/video ID (string to preserve 64-bit precision)",
+      "title": "Post ID",
+      "type": "string"
+    },
+    "postType": {
+      "description": "Either 'video' or 'slideshow'",
+      "title": "Post Type",
+      "type": "string"
+    },
+    "postUrl": {
+      "description": "Direct URL to the TikTok post",
+      "title": "Post URL",
+      "type": "string"
+    },
+    "privateItem": {
+      "description": "Whether the post is set to private",
+      "title": "Private Item",
+      "type": "boolean"
+    },
+    "rank": {
+      "description": "Best (lowest) 0-based position this post had across all merged source queries",
+      "title": "Rank",
+      "type": "integer"
+    },
+    "repostCount": {
+      "description": "Number of reposts",
+      "title": "Repost Count",
+      "type": "integer"
+    },
+    "scrapedAt": {
+      "description": "ISO 8601 run timestamp",
+      "title": "Scraped At",
+      "type": "string"
+    },
+    "searchCountry": {
+      "description": "Market code when the run was country-pinned",
+      "title": "Search Country",
+      "type": "string"
+    },
+    "searchUrl": {
+      "description": "The TikTok search or sound page this post came from",
+      "title": "Search URL",
+      "type": "string"
+    },
+    "shareCount": {
+      "description": "Number of shares",
+      "title": "Share Count",
+      "type": "integer"
+    },
+    "shareEnabled": {
+      "description": "Whether sharing is enabled for this post",
+      "title": "Share Enabled",
+      "type": "boolean"
+    },
+    "soundMatch": {
+      "description": "The post came from an explicit sound URL",
+      "title": "Sound Match",
+      "type": "boolean"
+    },
+    "source": {
+      "description": "Primary source for this row: keyword, hashtag, handle, photo, relatedSearch or sound; sources[] lists every merged source",
+      "title": "Source",
+      "type": "string"
+    },
+    "sources": {
+      "description": "Every source that surfaced this post",
+      "items": {
+        "type": "string"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "stitchEnabled": {
+      "description": "Whether the creator allows stitching this video",
+      "title": "Stitch Enabled",
+      "type": "boolean"
+    },
+    "taggedMatch": {
+      "description": "TikTok's clickable @mention for the monitored handle is present; for direct @handle inputs this is the only caption-side match kept in mentionsOnly",
+      "title": "Tagged Mention",
+      "type": "boolean"
+    },
+    "textLanguage": {
+      "description": "Detected language code of the caption text",
+      "title": "Text Language",
+      "type": "string"
+    },
+    "video": {
+      "description": "Video technical metadata and signed play/cover URLs",
+      "properties": {
+        "bitrate": {
+          "title": "Bitrate",
+          "type": "integer"
+        },
+        "bitrateInfo": {
+          "description": "All available quality/bitrate variants with play URLs",
+          "title": "Bitrate Info",
+          "type": "array"
+        },
+        "codecType": {
+          "title": "Codec",
+          "type": "string"
+        },
+        "cover": {
+          "title": "Cover Image URL",
+          "type": "string"
+        },
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "downloadAddr": {
+          "title": "Download URL",
+          "type": "string"
+        },
+        "duration": {
+          "title": "Duration (s)",
+          "type": "integer"
+        },
+        "dynamicCover": {
+          "title": "Dynamic Cover URL",
+          "type": "string"
+        },
+        "format": {
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "title": "Height (px)",
+          "type": "integer"
+        },
+        "originCover": {
+          "title": "Original Cover URL",
+          "type": "string"
+        },
+        "playUrl": {
+          "title": "Play URL",
+          "type": "string"
+        },
+        "ratio": {
+          "title": "Aspect Ratio",
+          "type": "string"
+        },
+        "size": {
+          "title": "File Size (bytes)",
+          "type": "string"
+        },
+        "videoQuality": {
+          "title": "Video Quality Label",
+          "type": "string"
+        },
+        "volumeInfo": {
+          "description": "Audio loudness and peak level metadata",
+          "title": "Volume Info",
+          "type": "object"
+        },
+        "width": {
+          "title": "Width (px)",
+          "type": "integer"
+        }
+      },
+      "title": "Video",
+      "type": "object"
+    }
+  },
+  "title": "TikTok Keyword Mentions",
+  "views": {
+    "matching": {
+      "description": "One row per post with the evidence that caused it to be kept.",
+      "display": {
+        "component": "table",
+        "properties": {
+          "captionMatch": {
+            "format": "boolean",
+            "label": "Caption"
+          },
+          "hashtagMatch": {
+            "format": "boolean",
+            "label": "Hashtag"
+          },
+          "isNew": {
+            "format": "boolean",
+            "label": "New"
+          },
+          "keyword": {
+            "format": "text",
+            "label": "Keyword"
+          },
+          "matchReason": {
+            "format": "text",
+            "label": "Match Reason"
+          },
+          "matchedTerm": {
+            "format": "text",
+            "label": "Matched Term"
+          },
+          "postId": {
+            "format": "text",
+            "label": "Post ID"
+          },
+          "soundMatch": {
+            "format": "boolean",
+            "label": "Sound"
+          },
+          "source": {
+            "format": "text",
+            "label": "Source"
+          },
+          "taggedMatch": {
+            "format": "boolean",
+            "label": "Tagged"
+          }
+        }
+      },
+      "title": "Matching Evidence",
+      "transformation": {
+        "fields": [
+          "postId",
+          "keyword",
+          "source",
+          "matchReason",
+          "matchedTerm",
+          "captionMatch",
+          "hashtagMatch",
+          "taggedMatch",
+          "soundMatch",
+          "matchedHashtags",
+          "matchedMention",
+          "matchedKeywords",
+          "sources",
+          "isNew"
+        ]
+      }
+    },
+    "overview": {
+      "description": "TikTok posts matching a monitored keyword, hashtag or handle, with match evidence and engagement.",
+      "display": {
+        "component": "table",
+        "properties": {
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "commentCount": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "createdAt": {
+            "format": "text",
+            "label": "Created At"
+          },
+          "isNew": {
+            "format": "boolean",
+            "label": "New"
+          },
+          "keyword": {
+            "format": "text",
+            "label": "Keyword"
+          },
+          "likeCount": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "matchReason": {
+            "format": "text",
+            "label": "matchReason"
+          },
+          "mentionInCaption": {
+            "format": "boolean",
+            "label": "In Caption"
+          },
+          "playCount": {
+            "format": "number",
+            "label": "Views"
+          },
+          "postId": {
+            "format": "text",
+            "label": "Post ID"
+          },
+          "postUrl": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "rank": {
+            "format": "number",
+            "label": "Rank"
+          },
+          "shareCount": {
+            "format": "number",
+            "label": "Shares"
+          },
+          "source": {
+            "format": "text",
+            "label": "source"
+          }
+        }
+      },
+      "title": "Mentions Overview",
+      "transformation": {
+        "fields": [
+          "postId",
+          "keyword",
+          "rank",
+          "mentionInCaption",
+          "caption",
+          "createdAt",
+          "author",
+          "playCount",
+          "likeCount",
+          "commentCount",
+          "shareCount",
+          "postUrl",
+          "source",
+          "matchReason",
+          "isNew",
+          "captionMatch",
+          "hashtagMatch",
+          "taggedMatch"
+        ]
+      }
+    }
+  }
+}

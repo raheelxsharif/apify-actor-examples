@@ -1,0 +1,1193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-V1/2IwgLBCMCW4IyR68tUmyo7DVGCIWLWcP8c8blCbA=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>TikTok Keyword &amp; Brand Mention Monitor | Dataspryva</title><meta name="description" content="Searches TikTok for posts matching any keyword, brand name, or handle, flagging caption text matches and listing formally tagged mentions, engagement, and author details."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/"><meta property="og:title" content="TikTok Keyword &amp; Brand Mention Monitor | Dataspryva"><meta property="og:description" content="Searches TikTok for posts matching any keyword, brand name, or handle, flagging caption text matches and listing formally tagged mentions, engagement, and author details."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#webpage","name":"TikTok Keyword & Brand Mention Monitor","description":"Searches TikTok for posts matching any keyword, brand name, or handle, flagging caption text matches and listing formally tagged mentions, engagement, and author details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#article","headline":"TikTok Keyword & Brand Mention Monitor","name":"TikTok Keyword & Brand Mention Monitor","description":"Searches TikTok for posts matching any keyword, brand name, or handle, flagging caption text matches and listing formally tagged mentions, engagement, and author details.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"TikTok Keyword & Brand Mention Monitor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/k05bfa7NlOQLER8tY/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>TikTok Keyword &amp; Brand Mention Monitor</span></div><section id="overview"><h1 class="doc-title">TikTok Keyword &amp; Brand Mention Monitor</h1><p class="lede">Searches TikTok for posts matching any keyword, brand name, or handle, flagging caption text matches and listing formally tagged mentions, engagement, and author details.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/tiktok-keyword-and-brand-mention-monitor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/k05bfa7NlOQLER8tY/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>keywords</code></td><td>array</td><td>required</td><td>Terms to monitor. One per line. Accepts plain keywords and phrases (&#x27;nike&#x27;, &#x27;nike shoes&#x27;), hashtags (&#x27;#JustDoIt&#x27;) and handles (&#x27;@gymshark&#x27;). Multi-word caption matches require a contiguous phrase; direct @handles require a clickable tag.</td></tr><tr><td><code>matchMode</code></td><td>string</td><td>optional</td><td>&#x27;Real mentions&#x27; keeps posts with a contiguous caption phrase, a matching hashtag slug, a clickable @mention or an explicit sound match. For direct @handle inputs only the clickable tag (or sound) counts. &#x27;Every search result&#x27; also keeps weak search hits, labelled searchResult.</td></tr><tr><td><code>datePosted</code></td><td>string</td><td>optional</td><td>Only keep posts published in this window. The actor asks TikTok for the matching publish window, merges a bounded unfiltered pass for recall, and applies the exact cutoff.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>keywords</code></td><td>array</td><td>required</td><td>Terms to monitor. One per line. Accepts plain keywords and phrases (&#x27;nike&#x27;, &#x27;nike shoes&#x27;), hashtags (&#x27;#JustDoIt&#x27;) and handles (&#x27;@gymshark&#x27;). Multi-word caption matches require a contiguous phrase; direct @handles require a clickable tag.</td></tr><tr><td><code>matchMode</code></td><td>string</td><td>optional</td><td>&#x27;Real mentions&#x27; keeps posts with a contiguous caption phrase, a matching hashtag slug, a clickable @mention or an explicit sound match. For direct @handle inputs only the clickable tag (or sound) counts. &#x27;Every search result&#x27; also keeps weak search hits, labelled searchResult.</td></tr><tr><td><code>datePosted</code></td><td>string</td><td>optional</td><td>Only keep posts published in this window. The actor asks TikTok for the matching publish window, merges a bounded unfiltered pass for recall, and applies the exact cutoff.</td></tr><tr><td><code>postedAfter</code></td><td>string</td><td>optional</td><td>Optional exact cut-off, e.g. 2026-10-01 or &#x27;3 days&#x27;. The tighter of this and &#x27;Posted within&#x27; applies.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of the final rows. &#x27;Newest first&#x27; is the monitor-friendly order; TikTok&#x27;s own newest ordering is used where available, with a client-side fallback.</td></tr><tr><td><code>searchDepth</code></td><td>string</td><td>optional</td><td>&#x27;Just this term&#x27; runs one search. &#x27;Standard&#x27; adds the #hashtag and @handle for single-word terms. &#x27;Deep&#x27; also reads photo/slideshow posts, related searches and case/spacing variants. A direct @handle stays tagged-only in mentionsOnly.</td></tr><tr><td><code>maxResultsPerKeyword</code></td><td>integer</td><td>optional</td><td>Maximum rows kept for each keyword after all sources are merged (1-500). TikTok returns roughly 130-240 posts per source query; deep mode can find more across sources.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Optional global cap across all keywords and sources.</td></tr><tr><td><code>minPlayCount</code></td><td>integer</td><td>optional</td><td>Drop posts with fewer plays/views. Leave empty for no minimum.</td></tr><tr><td><code>searchCountry</code></td><td>string</td><td>optional</td><td>&#x27;Any country&#x27; uses the fastest free connection. A specific country pins the search to that market&#x27;s results, which is slower but shows what people there see.</td></tr><tr><td><code>onlyNewMentions</code></td><td>boolean</td><td>optional</td><td>Emit only posts not seen by this monitor in previous runs. The first run backfills; &#x27;new&#x27; means new to this monitor, not new on TikTok.</td></tr><tr><td><code>monitorName</code></td><td>string</td><td>optional</td><td>Name for this watchlist&#x27;s saved state. Use a different name for a separate set of keywords.</td></tr><tr><td><code>soundUrls</code></td><td>array</td><td>optional</td><td>Optional TikTok sound URLs or IDs to read as explicit sources, e.g. https://www.tiktok.com/music/original-sound-123... . Sound evidence sets soundMatch; a sound-only row uses source=sound and keyword=sound:&lt;musicId&gt;.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Monitor TikTok for posts that mention keywords, brand names, #hashtags or @handles. Choose strict mention evidence, date windows, multi-source coverage and optional only-new delta state.&quot;,
+  &quot;properties&quot;: {
+    &quot;datePosted&quot;: {
+      &quot;default&quot;: &quot;anyTime&quot;,
+      &quot;description&quot;: &quot;Only keep posts published in this window. The actor asks TikTok for the matching publish window, merges a bounded unfiltered pass for recall, and applies the exact cutoff.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;anyTime&quot;,
+        &quot;past24Hours&quot;,
+        &quot;pastWeek&quot;,
+        &quot;pastMonth&quot;,
+        &quot;past3Months&quot;,
+        &quot;past6Months&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any time&quot;,
+        &quot;Past 24 hours&quot;,
+        &quot;Past week&quot;,
+        &quot;Past month&quot;,
+        &quot;Past 3 months&quot;,
+        &quot;Past 6 months&quot;
+      ],
+      &quot;prefill&quot;: &quot;anyTime&quot;,
+      &quot;title&quot;: &quot;Posted within&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;keywords&quot;: {
+      &quot;description&quot;: &quot;Terms to monitor. One per line. Accepts plain keywords and phrases (&#x27;nike&#x27;, &#x27;nike shoes&#x27;), hashtags (&#x27;#JustDoIt&#x27;) and handles (&#x27;@gymshark&#x27;). Multi-word caption matches require a contiguous phrase; direct @handles require a clickable tag.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;nike&quot;,
+        &quot;#JustDoIt&quot;,
+        &quot;@gymshark&quot;,
+        &quot;قهوة&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;coffee&quot;
+      ],
+      &quot;title&quot;: &quot;Keywords, brands, hashtags or handles&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;matchMode&quot;: {
+      &quot;default&quot;: &quot;mentionsOnly&quot;,
+      &quot;description&quot;: &quot;&#x27;Real mentions&#x27; keeps posts with a contiguous caption phrase, a matching hashtag slug, a clickable @mention or an explicit sound match. For direct @handle inputs only the clickable tag (or sound) counts. &#x27;Every search result&#x27; also keeps weak search hits, labelled searchResult.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;mentionsOnly&quot;,
+        &quot;allResults&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Real mentions only (caption / hashtag / tag)&quot;,
+        &quot;Every search result (labelled)&quot;
+      ],
+      &quot;prefill&quot;: &quot;mentionsOnly&quot;,
+      &quot;title&quot;: &quot;What counts as a mention&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;description&quot;: &quot;Optional global cap across all keywords and sources.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Max posts in total&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxResultsPerKeyword&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum rows kept for each keyword after all sources are merged (1-500). TikTok returns roughly 130-240 posts per source query; deep mode can find more across sources.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max posts per keyword&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minPlayCount&quot;: {
+      &quot;description&quot;: &quot;Drop posts with fewer plays/views. Leave empty for no minimum.&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum views&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;monitorName&quot;: {
+      &quot;default&quot;: &quot;default&quot;,
+      &quot;description&quot;: &quot;Name for this watchlist&#x27;s saved state. Use a different name for a separate set of keywords.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;default&quot;,
+      &quot;title&quot;: &quot;Monitor name&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNewMentions&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Emit only posts not seen by this monitor in previous runs. The first run backfills; &#x27;new&#x27; means new to this monitor, not new on TikTok.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new mentions&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;postedAfter&quot;: {
+      &quot;dateType&quot;: &quot;absoluteOrRelative&quot;,
+      &quot;description&quot;: &quot;Optional exact cut-off, e.g. 2026-10-01 or &#x27;3 days&#x27;. The tighter of this and &#x27;Posted within&#x27; applies.&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;title&quot;: &quot;Posted on or after&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchCountry&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;&#x27;Any country&#x27; uses the fastest free connection. A specific country pins the search to that market&#x27;s results, which is slower but shows what people there see.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;US&quot;,
+        &quot;CA&quot;,
+        &quot;MX&quot;,
+        &quot;BR&quot;,
+        &quot;AR&quot;,
+        &quot;CO&quot;,
+        &quot;CL&quot;,
+        &quot;PE&quot;,
+        &quot;GB&quot;,
+        &quot;IE&quot;,
+        &quot;FR&quot;,
+        &quot;DE&quot;,
+        &quot;AT&quot;,
+        &quot;CH&quot;,
+        &quot;NL&quot;,
+        &quot;BE&quot;,
+        &quot;ES&quot;,
+        &quot;PT&quot;,
+        &quot;IT&quot;,
+        &quot;SE&quot;,
+        &quot;NO&quot;,
+        &quot;DK&quot;,
+        &quot;FI&quot;,
+        &quot;PL&quot;,
+        &quot;CZ&quot;,
+        &quot;RO&quot;,
+        &quot;GR&quot;,
+        &quot;TR&quot;,
+        &quot;UA&quot;,
+        &quot;IL&quot;,
+        &quot;SA&quot;,
+        &quot;AE&quot;,
+        &quot;EG&quot;,
+        &quot;MA&quot;,
+        &quot;NG&quot;,
+        &quot;KE&quot;,
+        &quot;ZA&quot;,
+        &quot;PK&quot;,
+        &quot;BD&quot;,
+        &quot;ID&quot;,
+        &quot;MY&quot;,
+        &quot;SG&quot;,
+        &quot;PH&quot;,
+        &quot;TH&quot;,
+        &quot;VN&quot;,
+        &quot;JP&quot;,
+        &quot;KR&quot;,
+        &quot;TW&quot;,
+        &quot;AU&quot;,
+        &quot;NZ&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any country (fastest)&quot;,
+        &quot;United States&quot;,
+        &quot;Canada&quot;,
+        &quot;Mexico&quot;,
+        &quot;Brazil&quot;,
+        &quot;Argentina&quot;,
+        &quot;Colombia&quot;,
+        &quot;Chile&quot;,
+        &quot;Peru&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Ireland&quot;,
+        &quot;France&quot;,
+        &quot;Germany&quot;,
+        &quot;Austria&quot;,
+        &quot;Switzerland&quot;,
+        &quot;Netherlands&quot;,
+        &quot;Belgium&quot;,
+        &quot;Spain&quot;,
+        &quot;Portugal&quot;,
+        &quot;Italy&quot;,
+        &quot;Sweden&quot;,
+        &quot;Norway&quot;,
+        &quot;Denmark&quot;,
+        &quot;Finland&quot;,
+        &quot;Poland&quot;,
+        &quot;Czechia&quot;,
+        &quot;Romania&quot;,
+        &quot;Greece&quot;,
+        &quot;Turkey&quot;,
+        &quot;Ukraine&quot;,
+        &quot;Israel&quot;,
+        &quot;Saudi Arabia&quot;,
+        &quot;United Arab Emirates&quot;,
+        &quot;Egypt&quot;,
+        &quot;Morocco&quot;,
+        &quot;Nigeria&quot;,
+        &quot;Kenya&quot;,
+        &quot;South Africa&quot;,
+        &quot;Pakistan&quot;,
+        &quot;Bangladesh&quot;,
+        &quot;Indonesia&quot;,
+        &quot;Malaysia&quot;,
+        &quot;Singapore&quot;,
+        &quot;Philippines&quot;,
+        &quot;Thailand&quot;,
+        &quot;Vietnam&quot;,
+        &quot;Japan&quot;,
+        &quot;South Korea&quot;,
+        &quot;Taiwan&quot;,
+        &quot;Australia&quot;,
+        &quot;New Zealand&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Search from country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchDepth&quot;: {
+      &quot;default&quot;: &quot;standard&quot;,
+      &quot;description&quot;: &quot;&#x27;Just this term&#x27; runs one search. &#x27;Standard&#x27; adds the #hashtag and @handle for single-word terms. &#x27;Deep&#x27; also reads photo/slideshow posts, related searches and case/spacing variants. A direct @handle stays tagged-only in mentionsOnly.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;keywordOnly&quot;,
+        &quot;standard&quot;,
+        &quot;deep&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Just this term (fastest)&quot;,
+        &quot;Standard: keyword + #hashtag + @handle&quot;,
+        &quot;Deep: + photo posts, related searches, variants&quot;
+      ],
+      &quot;prefill&quot;: &quot;keywordOnly&quot;,
+      &quot;title&quot;: &quot;How wide to search&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Order of the final rows. &#x27;Newest first&#x27; is the monitor-friendly order; TikTok&#x27;s own newest ordering is used where available, with a client-side fallback.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;newest&quot;,
+        &quot;mostLiked&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance (TikTok order)&quot;,
+        &quot;Newest first&quot;,
+        &quot;Most liked first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;soundUrls&quot;: {
+      &quot;description&quot;: &quot;Optional TikTok sound URLs or IDs to read as explicit sources, e.g. https://www.tiktok.com/music/original-sound-123... . Sound evidence sets soundMatch; a sound-only row uses source=sound and keyword=sound:&lt;musicId&gt;.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://www.tiktok.com/music/original-sound-7627060748200577810&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Brand or campaign sounds&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;keywords&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;TikTok Keyword &amp; Brand Mention Monitor Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>data</code></td><td>string</td><td>optional</td><td>Dataset containing one row per matched TikTok post. Each row includes keyword, source, matchReason, matchedKeywords/sources, caption/hashtag/tag evidence, engagement, author snapshot, music/video metadata, slideshow images, hashtags and mentions.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One row per public TikTok post matched to a keyword, hashtag, handle, photo search, related search or explicit sound, with match evidence, provenance and engagement.&quot;,
+  &quot;properties&quot;: {
+    &quot;data&quot;: {
+      &quot;description&quot;: &quot;Dataset containing one row per matched TikTok post. Each row includes keyword, source, matchReason, matchedKeywords/sources, caption/hashtag/tag evidence, engagement, author snapshot, music/video metadata, slideshow images, hashtags and mentions.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Keyword Mentions&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;TikTok Keyword &amp; Brand Mention Monitor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;AIGCDescription&quot;: {
+      &quot;description&quot;: &quot;Description for AI-generated content label&quot;,
+      &quot;title&quot;: &quot;AIGC Description&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;adLabelVersion&quot;: {
+      &quot;description&quot;: &quot;Ad label version; non-zero when the post is a sponsored ad&quot;,
+      &quot;title&quot;: &quot;Ad Label Version&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;aiContentLabel&quot;: {
+      &quot;description&quot;: &quot;Human-readable AI label when TikTok exposes one&quot;,
+      &quot;title&quot;: &quot;AI Content Label&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;author&quot;: {
+      &quot;description&quot;: &quot;Author/creator information at time of scraping&quot;,
+      &quot;properties&quot;: {
+        &quot;avatarUrl&quot;: {
+          &quot;title&quot;: &quot;Avatar URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;bio&quot;: {
+          &quot;title&quot;: &quot;Bio&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;displayName&quot;: {
+          &quot;title&quot;: &quot;Display Name&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;followerCount&quot;: {
+          &quot;title&quot;: &quot;Followers&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;followingCount&quot;: {
+          &quot;title&quot;: &quot;Following&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;heartCount&quot;: {
+          &quot;title&quot;: &quot;Hearts/Likes&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;id&quot;: {
+          &quot;title&quot;: &quot;User ID&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;privateAccount&quot;: {
+          &quot;title&quot;: &quot;Private Account&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;roomId&quot;: {
+          &quot;title&quot;: &quot;Live Room ID (non-empty when live)&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;secUid&quot;: {
+          &quot;title&quot;: &quot;Secure UID&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;username&quot;: {
+          &quot;title&quot;: &quot;Username&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;verified&quot;: {
+          &quot;title&quot;: &quot;Verified&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;videoCount&quot;: {
+          &quot;title&quot;: &quot;Videos&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        }
+      },
+      &quot;title&quot;: &quot;Author&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;caption&quot;: {
+      &quot;description&quot;: &quot;Post caption/description text including hashtags and mentions&quot;,
+      &quot;title&quot;: &quot;Caption&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;captionMatch&quot;: {
+      &quot;description&quot;: &quot;The monitored term appears contiguously in the caption (whole word for single tokens; true phrase for multi-word Latin; substring for non-Latin scripts)&quot;,
+      &quot;title&quot;: &quot;Caption Match&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;collectCount&quot;: {
+      &quot;description&quot;: &quot;Number of times post was bookmarked/collected&quot;,
+      &quot;title&quot;: &quot;Collect Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;commentCount&quot;: {
+      &quot;description&quot;: &quot;Number of comments&quot;,
+      &quot;title&quot;: &quot;Comment Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;commentStatus&quot;: {
+      &quot;description&quot;: &quot;Comment permission setting (0=all, 1=friends, 2=none)&quot;,
+      &quot;title&quot;: &quot;Comment Status&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;createTime&quot;: {
+      &quot;description&quot;: &quot;Unix timestamp (seconds) when the post was created&quot;,
+      &quot;title&quot;: &quot;Create Time (Unix)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;createdAt&quot;: {
+      &quot;description&quot;: &quot;ISO 8601 UTC datetime when the post was created&quot;,
+      &quot;title&quot;: &quot;Created At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;duetEnabled&quot;: {
+      &quot;description&quot;: &quot;Whether the creator allows duets with this video&quot;,
+      &quot;title&quot;: &quot;Duet Enabled&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;firstSeenAt&quot;: {
+      &quot;description&quot;: &quot;ISO 8601 time this monitor first saw the post&quot;,
+      &quot;title&quot;: &quot;First Seen At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;forFriend&quot;: {
+      &quot;description&quot;: &quot;Whether the post is restricted to friends only&quot;,
+      &quot;title&quot;: &quot;For Friend&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;hashtagMatch&quot;: {
+      &quot;description&quot;: &quot;A hashtag slug equals the monitored term with whitespace removed (e.g. #nikeshoes for \&quot;nike shoes\&quot;); separate #nike and #shoes do not count&quot;,
+      &quot;title&quot;: &quot;Hashtag Match&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;hashtags&quot;: {
+      &quot;description&quot;: &quot;Structured hashtags from TikTok metadata; a caption-only tag that matched is in matchedHashtags&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;title&quot;: &quot;Hashtag ID&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;isCommerce&quot;: {
+            &quot;title&quot;: &quot;Is Commerce&quot;,
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;name&quot;: {
+            &quot;title&quot;: &quot;Hashtag Name&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Hashtags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;images&quot;: {
+      &quot;description&quot;: &quot;Images for slideshow posts (postType=&#x27;slideshow&#x27;)&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;height&quot;: {
+            &quot;title&quot;: &quot;Height&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;ordinal&quot;: {
+            &quot;title&quot;: &quot;Index&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;urlList&quot;: {
+            &quot;title&quot;: &quot;Image URLs&quot;,
+            &quot;type&quot;: &quot;array&quot;
+          },
+          &quot;width&quot;: {
+            &quot;title&quot;: &quot;Width&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Slideshow Images&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;isAd&quot;: {
+      &quot;description&quot;: &quot;Whether this post is a paid advertisement&quot;,
+      &quot;title&quot;: &quot;Is Ad&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;isAigc&quot;: {
+      &quot;description&quot;: &quot;True only when TikTok exposes an AI label; omitted when unknown&quot;,
+      &quot;title&quot;: &quot;AI Generated Content&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;isNew&quot;: {
+      &quot;description&quot;: &quot;New to this monitor (not necessarily new on TikTok)&quot;,
+      &quot;title&quot;: &quot;Is New&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;isPaidPartnership&quot;: {
+      &quot;description&quot;: &quot;TikTok&#x27;s paid-partnership label when exposed&quot;,
+      &quot;title&quot;: &quot;Paid Partnership&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;keyword&quot;: {
+      &quot;description&quot;: &quot;The monitored keyword/brand/hashtag/handle this post primarily matched; a sound-only row uses sound:&lt;musicId&gt;&quot;,
+      &quot;title&quot;: &quot;Keyword&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;likeCount&quot;: {
+      &quot;description&quot;: &quot;Number of likes/diggs&quot;,
+      &quot;title&quot;: &quot;Like Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;matchReason&quot;: {
+      &quot;description&quot;: &quot;Primary evidence: caption (contiguous phrase), hashtag (slug match), taggedMention (clickable @tag), sound (explicit sound source) or searchResult (weak search hit, allResults only)&quot;,
+      &quot;title&quot;: &quot;Match Reason&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;matchReasons&quot;: {
+      &quot;description&quot;: &quot;Every evidence type found across sources&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;All Match Reasons&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;matchedHashtags&quot;: {
+      &quot;description&quot;: &quot;Hashtag entries that matched the monitored term&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Matched Hashtags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;matchedKeywords&quot;: {
+      &quot;description&quot;: &quot;Every monitored keyword that surfaced this post, plus sound:&lt;musicId&gt; for explicit sound sources&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Matched Keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;matchedMention&quot;: {
+      &quot;description&quot;: &quot;The clickable @mention that matched, with real handle and UTF-16 offsets&quot;,
+      &quot;title&quot;: &quot;Matched Mention&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;matchedTerm&quot;: {
+      &quot;description&quot;: &quot;The exact search term, related suggestion, source variant or sound ID that surfaced this post&quot;,
+      &quot;title&quot;: &quot;Matched Term&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;mediaUrlExpiresAt&quot;: {
+      &quot;description&quot;: &quot;ISO 8601 UTC datetime when signed media URLs (video/cover) expire&quot;,
+      &quot;title&quot;: &quot;Media URL Expires At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;mentionInCaption&quot;: {
+      &quot;description&quot;: &quot;Whether the monitored term appears contiguously in the caption (same as captionMatch; kept for backward compatibility)&quot;,
+      &quot;title&quot;: &quot;Mention In Caption&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;mentions&quot;: {
+      &quot;description&quot;: &quot;@mentions in the post caption with UTF-16 text offsets&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;awemeId&quot;: {
+            &quot;title&quot;: &quot;Mentioned Post ID (if any)&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;end&quot;: {
+            &quot;title&quot;: &quot;End Offset&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;start&quot;: {
+            &quot;title&quot;: &quot;Start Offset&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;username&quot;: {
+            &quot;title&quot;: &quot;Username&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Mentions&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;monitorName&quot;: {
+      &quot;description&quot;: &quot;Watchlist state name used for onlyNewMentions&quot;,
+      &quot;title&quot;: &quot;Monitor Name&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;music&quot;: {
+      &quot;description&quot;: &quot;Sound/music used in the post&quot;,
+      &quot;properties&quot;: {
+        &quot;album&quot;: {
+          &quot;title&quot;: &quot;Album&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;authorName&quot;: {
+          &quot;title&quot;: &quot;Author&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;coverUrl&quot;: {
+          &quot;title&quot;: &quot;Cover URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;dspLinks&quot;: {
+          &quot;title&quot;: &quot;DSP Links (Spotify, Apple Music, etc.)&quot;,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;duration&quot;: {
+          &quot;title&quot;: &quot;Duration (s)&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;id&quot;: {
+          &quot;title&quot;: &quot;Music ID&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;isCommerceMusic&quot;: {
+          &quot;title&quot;: &quot;Is Commerce Music&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;isCopyrighted&quot;: {
+          &quot;title&quot;: &quot;Is Copyrighted&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;isPrivate&quot;: {
+          &quot;title&quot;: &quot;Is Private Sound&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;isUnlimitedMusic&quot;: {
+          &quot;title&quot;: &quot;Is Unlimited Music&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;original&quot;: {
+          &quot;title&quot;: &quot;Original Sound&quot;,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;playUrl&quot;: {
+          &quot;title&quot;: &quot;Play URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;shootDuration&quot;: {
+          &quot;title&quot;: &quot;Shoot Duration (s)&quot;,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        &quot;title&quot;: {
+          &quot;title&quot;: &quot;Title&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;title&quot;: &quot;Music&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;originalItem&quot;: {
+      &quot;description&quot;: &quot;Whether this post is an original (non-duet, non-stitch) creation&quot;,
+      &quot;title&quot;: &quot;Original Item&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;playCount&quot;: {
+      &quot;description&quot;: &quot;Number of video plays&quot;,
+      &quot;title&quot;: &quot;Play Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;postId&quot;: {
+      &quot;description&quot;: &quot;TikTok&#x27;s unique post/video ID (string to preserve 64-bit precision)&quot;,
+      &quot;title&quot;: &quot;Post ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;postType&quot;: {
+      &quot;description&quot;: &quot;Either &#x27;video&#x27; or &#x27;slideshow&#x27;&quot;,
+      &quot;title&quot;: &quot;Post Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;postUrl&quot;: {
+      &quot;description&quot;: &quot;Direct URL to the TikTok post&quot;,
+      &quot;title&quot;: &quot;Post URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;privateItem&quot;: {
+      &quot;description&quot;: &quot;Whether the post is set to private&quot;,
+      &quot;title&quot;: &quot;Private Item&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;rank&quot;: {
+      &quot;description&quot;: &quot;Best (lowest) 0-based position this post had across all merged source queries&quot;,
+      &quot;title&quot;: &quot;Rank&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;repostCount&quot;: {
+      &quot;description&quot;: &quot;Number of reposts&quot;,
+      &quot;title&quot;: &quot;Repost Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;scrapedAt&quot;: {
+      &quot;description&quot;: &quot;ISO 8601 run timestamp&quot;,
+      &quot;title&quot;: &quot;Scraped At&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchCountry&quot;: {
+      &quot;description&quot;: &quot;Market code when the run was country-pinned&quot;,
+      &quot;title&quot;: &quot;Search Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchUrl&quot;: {
+      &quot;description&quot;: &quot;The TikTok search or sound page this post came from&quot;,
+      &quot;title&quot;: &quot;Search URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;shareCount&quot;: {
+      &quot;description&quot;: &quot;Number of shares&quot;,
+      &quot;title&quot;: &quot;Share Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;shareEnabled&quot;: {
+      &quot;description&quot;: &quot;Whether sharing is enabled for this post&quot;,
+      &quot;title&quot;: &quot;Share Enabled&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;soundMatch&quot;: {
+      &quot;description&quot;: &quot;The post came from an explicit sound URL&quot;,
+      &quot;title&quot;: &quot;Sound Match&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;source&quot;: {
+      &quot;description&quot;: &quot;Primary source for this row: keyword, hashtag, handle, photo, relatedSearch or sound; sources[] lists every merged source&quot;,
+      &quot;title&quot;: &quot;Source&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sources&quot;: {
+      &quot;description&quot;: &quot;Every source that surfaced this post&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Sources&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;stitchEnabled&quot;: {
+      &quot;description&quot;: &quot;Whether the creator allows stitching this video&quot;,
+      &quot;title&quot;: &quot;Stitch Enabled&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;taggedMatch&quot;: {
+      &quot;description&quot;: &quot;TikTok&#x27;s clickable @mention for the monitored handle is present; for direct @handle inputs this is the only caption-side match kept in mentionsOnly&quot;,
+      &quot;title&quot;: &quot;Tagged Mention&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;textLanguage&quot;: {
+      &quot;description&quot;: &quot;Detected language code of the caption text&quot;,
+      &quot;title&quot;: &quot;Text Language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;video&quot;: {
+      &quot;description&quot;: &quot;Video technical metadata and signed play/cover URLs&quot;,
+      &quot;properties&quot;: {
+        &quot;bitrate&quot;: {
+          &quot;title&quot;: &quot;Bitrate&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;bitrateInfo&quot;: {
+          &quot;description&quot;: &quot;All available quality/bitrate variants with play URLs&quot;,
+          &quot;title&quot;: &quot;Bitrate Info&quot;,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;codecType&quot;: {
+          &quot;title&quot;: &quot;Codec&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;cover&quot;: {
+          &quot;title&quot;: &quot;Cover Image URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;definition&quot;: {
+          &quot;title&quot;: &quot;Definition&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;downloadAddr&quot;: {
+          &quot;title&quot;: &quot;Download URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;duration&quot;: {
+          &quot;title&quot;: &quot;Duration (s)&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;dynamicCover&quot;: {
+          &quot;title&quot;: &quot;Dynamic Cover URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;format&quot;: {
+          &quot;title&quot;: &quot;Format&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;height&quot;: {
+          &quot;title&quot;: &quot;Height (px)&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;originCover&quot;: {
+          &quot;title&quot;: &quot;Original Cover URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;playUrl&quot;: {
+          &quot;title&quot;: &quot;Play URL&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;ratio&quot;: {
+          &quot;title&quot;: &quot;Aspect Ratio&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;size&quot;: {
+          &quot;title&quot;: &quot;File Size (bytes)&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;videoQuality&quot;: {
+          &quot;title&quot;: &quot;Video Quality Label&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;volumeInfo&quot;: {
+          &quot;description&quot;: &quot;Audio loudness and peak level metadata&quot;,
+          &quot;title&quot;: &quot;Volume Info&quot;,
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;width&quot;: {
+          &quot;title&quot;: &quot;Width (px)&quot;,
+          &quot;type&quot;: &quot;integer&quot;
+        }
+      },
+      &quot;title&quot;: &quot;Video&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;title&quot;: &quot;TikTok Keyword Mentions&quot;,
+  &quot;views&quot;: {
+    &quot;matching&quot;: {
+      &quot;description&quot;: &quot;One row per post with the evidence that caused it to be kept.&quot;,
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;captionMatch&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Caption&quot;
+          },
+          &quot;hashtagMatch&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Hashtag&quot;
+          },
+          &quot;isNew&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;New&quot;
+          },
+          &quot;keyword&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Keyword&quot;
+          },
+          &quot;matchReason&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Match Reason&quot;
+          },
+          &quot;matchedTerm&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Matched Term&quot;
+          },
+          &quot;postId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Post ID&quot;
+          },
+          &quot;soundMatch&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Sound&quot;
+          },
+          &quot;source&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Source&quot;
+          },
+          &quot;taggedMatch&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Tagged&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Matching Evidence&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;postId&quot;,
+          &quot;keyword&quot;,
+          &quot;source&quot;,
+          &quot;matchReason&quot;,
+          &quot;matchedTerm&quot;,
+          &quot;captionMatch&quot;,
+          &quot;hashtagMatch&quot;,
+          &quot;taggedMatch&quot;,
+          &quot;soundMatch&quot;,
+          &quot;matchedHashtags&quot;,
+          &quot;matchedMention&quot;,
+          &quot;matchedKeywords&quot;,
+          &quot;sources&quot;,
+          &quot;isNew&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;description&quot;: &quot;TikTok posts matching a monitored keyword, hashtag or handle, with match evidence and engagement.&quot;,
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;caption&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Caption&quot;
+          },
+          &quot;commentCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Comments&quot;
+          },
+          &quot;createdAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Created At&quot;
+          },
+          &quot;isNew&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;New&quot;
+          },
+          &quot;keyword&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Keyword&quot;
+          },
+          &quot;likeCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Likes&quot;
+          },
+          &quot;matchReason&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;matchReason&quot;
+          },
+          &quot;mentionInCaption&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;In Caption&quot;
+          },
+          &quot;playCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Views&quot;
+          },
+          &quot;postId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Post ID&quot;
+          },
+          &quot;postUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Post URL&quot;
+          },
+          &quot;rank&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rank&quot;
+          },
+          &quot;shareCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Shares&quot;
+          },
+          &quot;source&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;source&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Mentions Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;postId&quot;,
+          &quot;keyword&quot;,
+          &quot;rank&quot;,
+          &quot;mentionInCaption&quot;,
+          &quot;caption&quot;,
+          &quot;createdAt&quot;,
+          &quot;author&quot;,
+          &quot;playCount&quot;,
+          &quot;likeCount&quot;,
+          &quot;commentCount&quot;,
+          &quot;shareCount&quot;,
+          &quot;postUrl&quot;,
+          &quot;source&quot;,
+          &quot;matchReason&quot;,
+          &quot;isNew&quot;,
+          &quot;captionMatch&quot;,
+          &quot;hashtagMatch&quot;,
+          &quot;taggedMatch&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-tiktok-keyword-brand-mention-monitor">TikTok Keyword &amp; Brand Mention Monitor</h2>
+<p>Find the TikTok posts that actually mention your brand, product, campaign, hashtag or handle — and see why each one matched. This actor reads TikTok's public search from several angles (keyword, hashtag, handle, photo posts, related searches and optional brand sounds), merges duplicates into one row per post, and labels the evidence so a real caption mention is never confused with a weak search hit.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Six source types:</strong> keyword search, <code>#hashtag</code> search, <code>@handle</code> search, photo/slideshow search, token-filtered related searches, and explicit brand/campaign sounds.</li>
+<li><strong>Evidence, not guesses:</strong> every row says whether the term appears in the caption, in a hashtag, as TikTok's clickable <code>@mention</code>, from a sound page, or only as a search result.</li>
+<li><strong>Strict by default:</strong> <code>mentionsOnly</code> keeps rows with real evidence; switch to <code>allResults</code> to keep every search hit, labelled.</li>
+<li><strong>One row per post:</strong> multi-keyword and multi-source duplicates are merged, with <code>matchedKeywords[]</code>, <code>sources[]</code> and the best <code>rank</code> across merged sources.</li>
+<li><strong>Built for monitoring:</strong> server-backed date windows, newest-first ordering, an exact cut-off, and optional only-new delta state.</li>
+<li><strong>Full post detail:</strong> caption, engagement, creator snapshot, sound, video or slideshow images, hashtags, mentions and location tags.</li>
+<li><strong>Honest empty fields:</strong> values TikTok does not provide are omitted, never filled with placeholders.</li>
+</ul>
+<h2 id="readme-output-per-post">Output per post</h2>
+<p>Every row is one public TikTok post.</p>
+<ul>
+<li><code>postId</code>, <code>postType</code> (<code>video</code> or <code>slideshow</code>), <code>postUrl</code> — identity and canonical link</li>
+<li><code>caption</code>, <code>textLanguage</code>, <code>createTime</code>, <code>createdAt</code> — text and publication time</li>
+<li><code>keyword</code> — the monitored term that primarily matched this post; an explicit sound-only row uses <code>sound:&lt;musicId&gt;</code></li>
+<li><code>source</code> — the primary source: <code>keyword</code>, <code>hashtag</code>, <code>handle</code>, <code>photo</code>, <code>relatedSearch</code> or <code>sound</code>; merged rows list every source in <code>sources[]</code></li>
+<li><code>matchReason</code> — <code>caption</code>, <code>hashtag</code>, <code>taggedMention</code>, <code>sound</code> or <code>searchResult</code></li>
+<li><code>matchReasons[]</code> — every reason this post matched across sources</li>
+<li><code>matchedTerm</code>, <code>matchedKeywords[]</code>, <code>sources[]</code> — full provenance after dedupe; explicit sounds contribute a <code>sound:&lt;musicId&gt;</code> label</li>
+<li><code>mentionInCaption</code>, <code>captionMatch</code>, <code>hashtagMatch</code>, <code>taggedMatch</code>, <code>soundMatch</code> — evidence flags</li>
+<li><code>matchedHashtags[]</code> — the hashtag entries that matched the monitored term</li>
+<li><code>matchedMention</code> — <code>{username, displayText, userId, secUid, start, end}</code> for a clickable tag</li>
+<li><code>rank</code> — best (lowest) position this post had across all merged sources</li>
+<li><code>searchUrl</code>, <code>searchCountry</code>, <code>monitorName</code>, <code>scrapedAt</code> — provenance and run context</li>
+<li><code>isNew</code>, <code>firstSeenAt</code> — monitor state (first run: everything is new)</li>
+<li><code>playCount</code>, <code>likeCount</code>, <code>commentCount</code>, <code>shareCount</code>, <code>collectCount</code>, <code>repostCount</code></li>
+<li><code>author</code> — <code>{id, secUid, username, displayName, bio, verified, privateAccount, avatarUrl, followerCount, followingCount, heartCount, videoCount}</code></li>
+<li><code>music</code> — <code>{id, title, authorName, original, duration, album, playUrl, coverUrl, ...}</code> when a sound is attached</li>
+<li><code>video</code> — dimensions, duration, definition, <code>playUrl</code>, <code>downloadAddr</code>, cover images and quality details</li>
+<li><code>images[]</code> — ordered slideshow images (<code>{ordinal, width, height, urlList}</code>)</li>
+<li><code>hashtags[]</code> — all structured hashtags in the post</li>
+<li><code>mentions[]</code> — all clickable <code>@mentions</code>, with real handles and source-text offsets</li>
+<li><code>poi</code> — location tag, when the creator added one</li>
+<li><code>isAd</code>, <code>adLabelVersion</code>, <code>privateItem</code>, <code>forFriend</code>, <code>originalItem</code>, <code>stitchEnabled</code>, <code>shareEnabled</code>, <code>duetEnabled</code>, <code>commentStatus</code></li>
+<li><code>isAigc</code>, <code>aiContentLabel</code>, <code>isPaidPartnership</code> — only when TikTok exposes a verified label</li>
+<li><code>mediaUrlExpiresAt</code> — when TikTok's signed media links expire</li>
+</ul>
+<p>Media URLs (<code>video.playUrl</code>, <code>video.downloadAddr</code>, <code>music.playUrl</code>) are reference-only. Most video play/download links return 403 outside TikTok; music and cover links are signed too and can expire or fail. Covers and slideshow images also expire.</p>
+<h2 id="readme-how-matching-works">How matching works</h2>
+<p>A search result is not automatically a mention.</p>
+<ul>
+<li><code>caption</code> — the monitored term appears contiguously in the caption. Single words use whole-word matching, so <code>nike</code> does <strong>not</strong> match <code>nikeshoes</code>. Multi-word terms must appear as a true phrase: <code>#nike ... #shoes</code> is <strong>not</strong> a <code>nike shoes</code> caption match; <code>my nike shoes</code> is. For non-Latin scripts, matching is a contiguous substring, so related forms can count (for example <code>القهوة</code> for <code>قهوة</code>).</li>
+<li><code>hashtag</code> — the post carries a hashtag whose slug equals the monitored term with whitespace removed. <code>nike shoes</code> matches <code>#nikeshoes</code>; separate <code>#nike</code> and <code>#shoes</code> do not count as a phrase match.</li>
+<li><code>taggedMention</code> — the caption contains TikTok's clickable tag for the monitored <code>@handle</code>. A direct <code>@handle</code> keyword is strict: in <code>mentionsOnly</code>, only clickable tags (or an explicit sound source) are kept; caption and hashtag hits for the bare name are labelled <code>searchResult</code> and appear only in <code>allResults</code>.</li>
+<li><code>sound</code> — the post came from a sound URL you supplied.</li>
+<li><code>searchResult</code> — TikTok returned the post for the search, but none of the above is true. These rows are kept only in <code>allResults</code> mode.</li>
+</ul>
+<p>For non-Latin scripts (for example Arabic, Chinese or Devanagari), TikTok often returns relevant posts whose captions do not contain the literal query as a separate word. Matching is a contiguous substring for those scripts, so <code>mentionsOnly</code> can keep related word forms; use <code>allResults</code> when you want every search hit and label the weak ones yourself.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keywords</code></td>
+<td>array</td>
+<td>–</td>
+<td><strong>Required.</strong> Keywords, phrases, <code>#hashtags</code> or <code>@handles</code> to monitor.</td>
+</tr>
+<tr>
+<td><code>matchMode</code></td>
+<td>string</td>
+<td><code>mentionsOnly</code></td>
+<td><code>mentionsOnly</code> (real evidence) or <code>allResults</code> (every search hit, labelled).</td>
+</tr>
+<tr>
+<td><code>datePosted</code></td>
+<td>string</td>
+<td><code>anyTime</code></td>
+<td><code>anyTime</code>, <code>past24Hours</code>, <code>pastWeek</code>, <code>pastMonth</code>, <code>past3Months</code> or <code>past6Months</code>.</td>
+</tr>
+<tr>
+<td><code>postedAfter</code></td>
+<td>string</td>
+<td>–</td>
+<td>Exact cut-off: <code>2026-10-01</code> or a relative age such as <code>3 days</code>.</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>newest</code> or <code>mostLiked</code>.</td>
+</tr>
+<tr>
+<td><code>searchDepth</code></td>
+<td>string</td>
+<td><code>standard</code></td>
+<td><code>keywordOnly</code>; <code>standard</code> adds #hashtag and @handle for single-word terms; <code>deep</code> adds photos, related searches and case/spacing variants.</td>
+</tr>
+<tr>
+<td><code>maxResultsPerKeyword</code></td>
+<td>integer</td>
+<td>50</td>
+<td>Rows kept per keyword after merging sources (1-500).</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Optional global cap across all keywords.</td>
+</tr>
+<tr>
+<td><code>minPlayCount</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Drop posts with fewer views.</td>
+</tr>
+<tr>
+<td><code>searchCountry</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code> or a market code such as <code>US</code>, <code>GB</code>, <code>PK</code>, <code>JP</code>.</td>
+</tr>
+<tr>
+<td><code>onlyNewMentions</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Emit only posts not seen by this monitor before.</td>
+</tr>
+<tr>
+<td><code>monitorName</code></td>
+<td>string</td>
+<td><code>default</code></td>
+<td>State name for this watchlist.</td>
+</tr>
+<tr>
+<td><code>soundUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Optional TikTok sound URLs or IDs to read as explicit sources.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-brand-monitor-last-week-newest-first">Example: brand monitor, last week, newest first</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;nike&quot;, &quot;adidas&quot;],
+  &quot;matchMode&quot;: &quot;mentionsOnly&quot;,
+  &quot;searchDepth&quot;: &quot;standard&quot;,
+  &quot;datePosted&quot;: &quot;pastWeek&quot;,
+  &quot;sortBy&quot;: &quot;newest&quot;,
+  &quot;maxResultsPerKeyword&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-campaign-hashtag-with-photo-posts">Example: campaign hashtag with photo posts</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;#JustDoIt&quot;],
+  &quot;matchMode&quot;: &quot;allResults&quot;,
+  &quot;searchDepth&quot;: &quot;deep&quot;,
+  &quot;maxResultsPerKeyword&quot;: 200,
+  &quot;minPlayCount&quot;: 1000
+}
+</code></pre>
+<h3 id="readme-example-unicode-discovery">Example: unicode discovery</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;قهوة&quot;, &quot;咖啡&quot;],
+  &quot;matchMode&quot;: &quot;allResults&quot;,
+  &quot;searchDepth&quot;: &quot;standard&quot;,
+  &quot;maxResultsPerKeyword&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-daily-only-new-watchlist">Example: daily only-new watchlist</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;khaadi&quot;, &quot;@gymshark&quot;],
+  &quot;matchMode&quot;: &quot;mentionsOnly&quot;,
+  &quot;datePosted&quot;: &quot;pastWeek&quot;,
+  &quot;sortBy&quot;: &quot;newest&quot;,
+  &quot;onlyNewMentions&quot;: true,
+  &quot;monitorName&quot;: &quot;brand-watch&quot;
+}
+</code></pre>
+<h3 id="readme-example-brand-owned-sound">Example: brand-owned sound</h3>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;khaadi&quot;],
+  &quot;soundUrls&quot;: [&quot;https://www.tiktok.com/music/original-sound-7627060748200577810&quot;],
+  &quot;searchDepth&quot;: &quot;standard&quot;,
+  &quot;maxResultsPerKeyword&quot;: 100
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Brand monitoring</strong> — catch posts that name your brand, not only posts that tag your account.</li>
+<li><strong>Competitor tracking</strong> — compare how often competing brands are mentioned and how those posts perform.</li>
+<li><strong>Campaign measurement</strong> — follow a campaign hashtag, slogan or brand-owned sound across creators.</li>
+<li><strong>PR and crisis watch</strong> — run a daily only-new monitor for a product or brand term.</li>
+<li><strong>Market research</strong> — compare the conversation in different countries and languages.</li>
+<li><strong>Creator and partnership discovery</strong> — find the creators and posts driving a brand conversation.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-do-i-need-a-tiktok-account-cookies-or-a-proxy">Do I need a TikTok account, cookies or a proxy?</h3>
+<p>No. The actor reads public TikTok search and needs no login, cookies or proxy setup. It chooses a working connection automatically.</p>
+<h3 id="readme-what-is-the-difference-between-caption-hashtag-taggedmention-and-searchresult">What is the difference between <code>caption</code>, <code>hashtag</code>, <code>taggedMention</code> and <code>searchResult</code>?</h3>
+<p><code>caption</code> means the term appears in the caption text. <code>hashtag</code> means a matching hashtag is attached. <code>taggedMention</code> means TikTok's clickable tag for the monitored handle is present. <code>searchResult</code> means TikTok returned the post for the search but none of the stronger evidence exists; those rows appear only in <code>allResults</code> mode.</p>
+<h3 id="readme-why-do-i-get-fewer-rows-than-maxresultsperkeyword">Why do I get fewer rows than <code>maxResultsPerKeyword</code>?</h3>
+<p>TikTok's public search pool is finite and rotates. Runs returned roughly 130-240 posts per source query in current tests; a repeat of the same query can return a different set. Niche terms, narrow date windows and hashtags can run out earlier. Date windows also merge a bounded unfiltered pass, so recent posts are not lost just because TikTok's date-ranked pool is incomplete. <code>deep</code> mode searches several sources and merges them, which usually finds more.</p>
+<h3 id="readme-how-does-onlynewmentions-work">How does <code>onlyNewMentions</code> work?</h3>
+<p>The actor saves the posts it has seen for each <code>monitorName</code> in a persistent store. On the next run, only posts not seen before are emitted and marked <code>isNew</code>. The first run backfills everything it finds within your filters and caps; if the state is lost, the next run backfills again. &quot;New&quot; means new to this monitor, not new on TikTok.</p>
+<h3 id="readme-does-it-monitor-hashtags-and-handles">Does it monitor hashtags and handles?</h3>
+<p>Yes. A plain single-word keyword can automatically include its <code>#hashtag</code> and <code>@handle</code> in <code>standard</code> or <code>deep</code> mode. You can also enter a hashtag or handle directly. A direct <code>@handle</code> is strict in <code>mentionsOnly</code>: only TikTok's clickable tag for that handle is kept. A direct <code>#hashtag</code> keeps matching hashtag, caption or tag evidence for the bare term. Use a plain keyword when you want caption mentions of a brand name.</p>
+<h3 id="readme-can-i-search-a-specific-country">Can I search a specific country?</h3>
+<p>Yes. Set <code>searchCountry</code> to a market code. Country-specific results are slower because the actor uses a country-pinned connection. Leave it on <code>any</code> for the fastest run.</p>
+<h3 id="readme-why-are-some-fields-missing-from-a-row">Why are some fields missing from a row?</h3>
+<p>Empty values are omitted. TikTok does not expose every field for every post. A per-post country is not available from search; <code>poi</code> appears when the creator added a location tag, and <code>textLanguage</code> gives the caption language.</p>
+<h3 id="readme-can-i-download-the-video-or-sound-from-the-output">Can I download the video or sound from the output?</h3>
+<p>Treat media URLs as reference-only. Most video play/download links return 403 outside TikTok; music and cover links are signed too and can expire or fail. Covers and slideshow images also expire.</p>
+<h3 id="readme-does-this-actor-include-comments">Does this actor include comments?</h3>
+<p>No. It monitors public posts and captions. TikTok's public web search does not offer a comment search, so comment-level mentions are out of scope.</p>
+<h3 id="readme-is-this-affiliated-with-tiktok">Is this affiliated with TikTok?</h3>
+<p>No. This is a third-party actor that reads publicly visible TikTok search results and is not affiliated with TikTok or ByteDance.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/k05bfa7NlOQLER8tY/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>vY7Zsay8SPvOcD3t4</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

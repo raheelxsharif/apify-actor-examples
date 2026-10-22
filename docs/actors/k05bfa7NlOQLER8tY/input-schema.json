@@ -1,0 +1,275 @@
+{
+  "description": "Monitor TikTok for posts that mention keywords, brand names, #hashtags or @handles. Choose strict mention evidence, date windows, multi-source coverage and optional only-new delta state.",
+  "properties": {
+    "datePosted": {
+      "default": "anyTime",
+      "description": "Only keep posts published in this window. The actor asks TikTok for the matching publish window, merges a bounded unfiltered pass for recall, and applies the exact cutoff.",
+      "editor": "select",
+      "enum": [
+        "anyTime",
+        "past24Hours",
+        "pastWeek",
+        "pastMonth",
+        "past3Months",
+        "past6Months"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Past 24 hours",
+        "Past week",
+        "Past month",
+        "Past 3 months",
+        "Past 6 months"
+      ],
+      "prefill": "anyTime",
+      "title": "Posted within",
+      "type": "string"
+    },
+    "keywords": {
+      "description": "Terms to monitor. One per line. Accepts plain keywords and phrases ('nike', 'nike shoes'), hashtags ('#JustDoIt') and handles ('@gymshark'). Multi-word caption matches require a contiguous phrase; direct @handles require a clickable tag.",
+      "editor": "stringList",
+      "example": [
+        "nike",
+        "#JustDoIt",
+        "@gymshark",
+        "قهوة"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "coffee"
+      ],
+      "title": "Keywords, brands, hashtags or handles",
+      "type": "array"
+    },
+    "matchMode": {
+      "default": "mentionsOnly",
+      "description": "'Real mentions' keeps posts with a contiguous caption phrase, a matching hashtag slug, a clickable @mention or an explicit sound match. For direct @handle inputs only the clickable tag (or sound) counts. 'Every search result' also keeps weak search hits, labelled searchResult.",
+      "editor": "select",
+      "enum": [
+        "mentionsOnly",
+        "allResults"
+      ],
+      "enumTitles": [
+        "Real mentions only (caption / hashtag / tag)",
+        "Every search result (labelled)"
+      ],
+      "prefill": "mentionsOnly",
+      "title": "What counts as a mention",
+      "type": "string"
+    },
+    "maxItems": {
+      "description": "Optional global cap across all keywords and sources.",
+      "maximum": 100000,
+      "minimum": 1,
+      "title": "Max posts in total",
+      "type": "integer"
+    },
+    "maxResultsPerKeyword": {
+      "default": 50,
+      "description": "Maximum rows kept for each keyword after all sources are merged (1-500). TikTok returns roughly 130-240 posts per source query; deep mode can find more across sources.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max posts per keyword",
+      "type": "integer"
+    },
+    "minPlayCount": {
+      "description": "Drop posts with fewer plays/views. Leave empty for no minimum.",
+      "minimum": 0,
+      "title": "Minimum views",
+      "type": "integer"
+    },
+    "monitorName": {
+      "default": "default",
+      "description": "Name for this watchlist's saved state. Use a different name for a separate set of keywords.",
+      "editor": "textfield",
+      "prefill": "default",
+      "title": "Monitor name",
+      "type": "string"
+    },
+    "onlyNewMentions": {
+      "default": false,
+      "description": "Emit only posts not seen by this monitor in previous runs. The first run backfills; 'new' means new to this monitor, not new on TikTok.",
+      "prefill": false,
+      "title": "Only new mentions",
+      "type": "boolean"
+    },
+    "postedAfter": {
+      "dateType": "absoluteOrRelative",
+      "description": "Optional exact cut-off, e.g. 2026-10-01 or '3 days'. The tighter of this and 'Posted within' applies.",
+      "editor": "datepicker",
+      "title": "Posted on or after",
+      "type": "string"
+    },
+    "searchCountry": {
+      "default": "any",
+      "description": "'Any country' uses the fastest free connection. A specific country pins the search to that market's results, which is slower but shows what people there see.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "US",
+        "CA",
+        "MX",
+        "BR",
+        "AR",
+        "CO",
+        "CL",
+        "PE",
+        "GB",
+        "IE",
+        "FR",
+        "DE",
+        "AT",
+        "CH",
+        "NL",
+        "BE",
+        "ES",
+        "PT",
+        "IT",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "PL",
+        "CZ",
+        "RO",
+        "GR",
+        "TR",
+        "UA",
+        "IL",
+        "SA",
+        "AE",
+        "EG",
+        "MA",
+        "NG",
+        "KE",
+        "ZA",
+        "PK",
+        "BD",
+        "ID",
+        "MY",
+        "SG",
+        "PH",
+        "TH",
+        "VN",
+        "JP",
+        "KR",
+        "TW",
+        "AU",
+        "NZ"
+      ],
+      "enumTitles": [
+        "Any country (fastest)",
+        "United States",
+        "Canada",
+        "Mexico",
+        "Brazil",
+        "Argentina",
+        "Colombia",
+        "Chile",
+        "Peru",
+        "United Kingdom",
+        "Ireland",
+        "France",
+        "Germany",
+        "Austria",
+        "Switzerland",
+        "Netherlands",
+        "Belgium",
+        "Spain",
+        "Portugal",
+        "Italy",
+        "Sweden",
+        "Norway",
+        "Denmark",
+        "Finland",
+        "Poland",
+        "Czechia",
+        "Romania",
+        "Greece",
+        "Turkey",
+        "Ukraine",
+        "Israel",
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "Egypt",
+        "Morocco",
+        "Nigeria",
+        "Kenya",
+        "South Africa",
+        "Pakistan",
+        "Bangladesh",
+        "Indonesia",
+        "Malaysia",
+        "Singapore",
+        "Philippines",
+        "Thailand",
+        "Vietnam",
+        "Japan",
+        "South Korea",
+        "Taiwan",
+        "Australia",
+        "New Zealand"
+      ],
+      "prefill": "any",
+      "title": "Search from country",
+      "type": "string"
+    },
+    "searchDepth": {
+      "default": "standard",
+      "description": "'Just this term' runs one search. 'Standard' adds the #hashtag and @handle for single-word terms. 'Deep' also reads photo/slideshow posts, related searches and case/spacing variants. A direct @handle stays tagged-only in mentionsOnly.",
+      "editor": "select",
+      "enum": [
+        "keywordOnly",
+        "standard",
+        "deep"
+      ],
+      "enumTitles": [
+        "Just this term (fastest)",
+        "Standard: keyword + #hashtag + @handle",
+        "Deep: + photo posts, related searches, variants"
+      ],
+      "prefill": "keywordOnly",
+      "title": "How wide to search",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order of the final rows. 'Newest first' is the monitor-friendly order; TikTok's own newest ordering is used where available, with a client-side fallback.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "mostLiked"
+      ],
+      "enumTitles": [
+        "Relevance (TikTok order)",
+        "Newest first",
+        "Most liked first"
+      ],
+      "prefill": "relevance",
+      "title": "Order",
+      "type": "string"
+    },
+    "soundUrls": {
+      "description": "Optional TikTok sound URLs or IDs to read as explicit sources, e.g. https://www.tiktok.com/music/original-sound-123... . Sound evidence sets soundMatch; a sound-only row uses source=sound and keyword=sound:<musicId>.",
+      "editor": "stringList",
+      "example": [
+        "https://www.tiktok.com/music/original-sound-7627060748200577810"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Brand or campaign sounds",
+      "type": "array"
+    }
+  },
+  "required": [
+    "keywords"
+  ],
+  "schemaVersion": 1,
+  "title": "TikTok Keyword & Brand Mention Monitor Input",
+  "type": "object"
+}
