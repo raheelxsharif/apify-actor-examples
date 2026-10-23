@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per YouTube Community-tab post, with text, images, poll choices, video attachments, vote counts, and optional comments.",
+  "description": "Community posts with exact dates, engagement, images, polls, quizzes, playlists, reposts and comment threads, plus one-row-per-comment output in postComments mode.",
   "properties": {
     "posts": {
-      "description": "Dataset containing all scraped community post rows with attachments and comments.",
+      "description": "Dataset containing community post rows, comment rows from postComments mode, and explanatory status rows.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "YouTube Community posts",
+      "title": "YouTube Community rows",
       "type": "string"
     }
   },
-  "title": "YouTube Community Tab Post & Poll Scraper Output"
+  "title": "YouTube Community Posts, Polls & Comments Scraper Output"
 }

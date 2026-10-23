@@ -4,16 +4,47 @@
     "overview": {
       "display": {
         "component": "table",
-        "properties": {}
+        "properties": {
+          "channelName": {
+            "format": "text",
+            "label": "Channel"
+          },
+          "commentCount": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "contentText": {
+            "format": "text",
+            "label": "Text"
+          },
+          "likeCount": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "postId": {
+            "format": "text",
+            "label": "Post ID"
+          },
+          "postType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "publishedAt": {
+            "format": "text",
+            "label": "Published"
+          }
+        }
       },
-      "title": "Community posts",
+      "title": "Community posts & comments",
       "transformation": {
         "fields": [
           "postId",
+          "postType",
+          "channelName",
           "contentText",
-          "publishedTimeText",
-          "voteCountText",
-          "commentCountText"
+          "publishedAt",
+          "likeCount",
+          "commentCount"
         ]
       }
     }

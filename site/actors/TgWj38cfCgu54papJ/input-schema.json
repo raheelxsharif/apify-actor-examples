@@ -1,29 +1,103 @@
 {
   "properties": {
-    "channelUrls": {
-      "description": "Public YouTube channel URLs, handles, or channel IDs.",
-      "editor": "stringList",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "prefill": [
-        "https://www.youtube.com/@MrBeast",
-        "https://www.youtube.com/@RickAstleyYT"
+    "commentSort": {
+      "default": "top",
+      "description": "Show YouTube's featured comments first, or the newest comments first, when comments are returned.",
+      "editor": "select",
+      "enum": [
+        "top",
+        "newest"
       ],
-      "title": "Channel URLs",
-      "type": "array"
+      "enumTitles": [
+        "Top comments",
+        "Newest comments"
+      ],
+      "prefill": "top",
+      "title": "Comment order",
+      "type": "string"
     },
     "includeComments": {
       "default": false,
-      "description": "Include comments only when YouTube exposes them in the public post response.",
+      "description": "Return comment threads on each post (up to Maximum comments) in channelPosts and postDetails modes. postComments always returns comments.",
       "prefill": false,
-      "title": "Include comments exposed on the post page",
+      "title": "Include comments",
       "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "In channelPosts mode, fill the exact publish date, exact like count, comment count and a 3-comment preview. Adds one detail and one comment request per post. postDetails always returns details.",
+      "prefill": false,
+      "title": "Fetch per-post details",
+      "type": "boolean"
+    },
+    "includeReplies": {
+      "default": false,
+      "description": "Also fetch replies under each comment when comments are included.",
+      "prefill": false,
+      "title": "Include comment replies",
+      "type": "boolean"
+    },
+    "keyword": {
+      "description": "In channelPosts mode, only keep posts whose text contains this phrase. Case-insensitive. Leave empty for all posts.",
+      "editor": "textfield",
+      "title": "Keyword filter",
+      "type": "string"
+    },
+    "language": {
+      "default": "en",
+      "description": "Language used for YouTube's relative times and display labels. Post text is never translated.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "pt",
+        "de",
+        "fr",
+        "it",
+        "nl",
+        "pl",
+        "ru",
+        "tr",
+        "ar",
+        "hi",
+        "id",
+        "th",
+        "vi",
+        "ja",
+        "ko",
+        "zh",
+        "sv",
+        "da"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "Portuguese",
+        "German",
+        "French",
+        "Italian",
+        "Dutch",
+        "Polish",
+        "Russian",
+        "Turkish",
+        "Arabic",
+        "Hindi",
+        "Indonesian",
+        "Thai",
+        "Vietnamese",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Swedish",
+        "Danish"
+      ],
+      "prefill": "en",
+      "title": "Interface language",
+      "type": "string"
     },
     "market": {
       "default": "US",
-      "description": "Country code used for the public localized YouTube page.",
+      "description": "Country used to render YouTube's localized labels and relative times.",
       "editor": "select",
       "enum": [
         "US",
@@ -91,12 +165,13 @@
         "Colombia",
         "Chile"
       ],
+      "prefill": "US",
       "title": "Market",
       "type": "string"
     },
     "maxComments": {
       "default": 100,
-      "description": "Maximum public comments to retain on each post row when enabled.",
+      "description": "Maximum top-level comments to keep per post when comments are included. Replies are counted separately.",
       "maximum": 1000,
       "minimum": 1,
       "title": "Maximum comments per post",
@@ -104,18 +179,95 @@
     },
     "maxPosts": {
       "default": 100,
-      "description": "Maximum number of public post rows per channel.",
-      "maximum": 10000,
+      "description": "Maximum posts per channel, or per run in the post modes. The run also accepts at most this many channel/post inputs. YouTube exposes at most 200 posts per channel.",
+      "maximum": 200,
       "minimum": 1,
-      "prefill": 10,
+      "prefill": 3,
       "title": "Maximum posts",
       "type": "integer"
+    },
+    "maxRepliesPerComment": {
+      "default": 10,
+      "description": "Maximum replies to keep per comment when replies are included.",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Maximum replies per comment",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "channelPosts",
+      "description": "Choose channel posts, one post per URL/ID, or comments from post URLs/IDs.",
+      "editor": "select",
+      "enum": [
+        "channelPosts",
+        "postDetails",
+        "postComments"
+      ],
+      "enumTitles": [
+        "Posts from channel URLs",
+        "One post per URL or ID",
+        "Comments from post URLs or IDs"
+      ],
+      "prefill": "channelPosts",
+      "title": "What to scrape",
+      "type": "string"
+    },
+    "postTypes": {
+      "default": [],
+      "description": "In channelPosts mode, only return these post types. Leave empty to include every type. The post modes return the post URLs/IDs you give them.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "text",
+          "image",
+          "video",
+          "poll",
+          "quiz",
+          "playlist",
+          "shared"
+        ],
+        "enumTitles": [
+          "Text",
+          "Image or carousel",
+          "Shared video",
+          "Poll",
+          "Quiz",
+          "Shared playlist",
+          "Repost"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Post types",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "publishedAfter": {
+      "description": "In channelPosts mode, keep posts published on or after this date. Uses YouTube's exact publish date, so details are fetched when set.",
+      "editor": "datepicker",
+      "title": "Published on or after",
+      "type": "string"
+    },
+    "publishedBefore": {
+      "description": "In channelPosts mode, keep posts published on or before this date. Uses YouTube's exact publish date, so details are fetched when set.",
+      "editor": "datepicker",
+      "title": "Published on or before",
+      "type": "string"
+    },
+    "urls": {
+      "description": "Channel URLs, @handles or channel IDs when mode=channelPosts. Post URLs or post IDs when mode=postDetails/postComments.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.youtube.com/@MrBeast"
+      ],
+      "title": "Channel or post URLs / IDs",
+      "type": "array"
     }
   },
-  "required": [
-    "channelUrls"
-  ],
   "schemaVersion": 1,
-  "title": "YouTube Community Posts Scraper Input",
+  "title": "YouTube Community Posts & Polls Input",
   "type": "object"
 }
