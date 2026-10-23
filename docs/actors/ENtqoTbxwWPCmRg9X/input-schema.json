@@ -1,125 +1,96 @@
 {
+  "description": "Collect a LinkedIn profile's recent public activity: posts and reposts, comments, and reactions. No cookie or login is needed.",
   "properties": {
-    "activityType": {
-      "default": "all",
-      "description": "Legacy single-select for backwards compatibility. Prefer 'activityTypes' below. 'all' fetches likes, comments, and posts/reposts in separate passes.",
-      "editor": "select",
-      "enum": [
-        "all",
-        "likes",
-        "comments",
-        "posts"
-      ],
-      "enumTitles": [
-        "All (likes + comments + posts)",
-        "Likes only",
-        "Comments only",
-        "Posts & Reposts only"
-      ],
-      "title": "Activity Type (legacy)",
-      "type": "string"
-    },
     "activityTypes": {
       "default": [
         "posts",
         "comments",
-        "reactions",
-        "shares"
+        "reactions"
       ],
-      "description": "Multi-select activity types to scrape. Leave empty (or include 'all') to scrape posts, comments, reactions, and shares.",
+      "description": "Which public activity tabs to collect. Posts includes reposts; comments includes replies. The legacy value shares is accepted and returned as posts/reposts.",
       "editor": "select",
       "items": {
-        "enum": [
+        "enumSuggestedValues": [
           "posts",
           "comments",
           "reactions",
           "shares"
         ],
+        "enumTitles": [
+          "Posts and reposts",
+          "Comments",
+          "Reactions",
+          "Shares (legacy alias for posts)"
+        ],
         "type": "string"
       },
       "prefill": [
-        "posts",
-        "comments",
-        "reactions",
-        "shares"
+        "posts"
       ],
       "title": "Activity Types",
       "type": "array",
       "uniqueItems": true
     },
-    "cookie": {
-      "description": "Your LinkedIn session cookie. Accepts: (1) the li_at value from browser DevTools, or (2) full cookies JSON array from an extension like EditThisCookie.",
-      "editor": "textarea",
-      "isSecret": true,
-      "prefill": "AQEDATVc5uMEM5s_AAABnro67cYAAAGe3kdxxk0Ajoj1en-Axa4lUoxvqVMAsMpFO2u4rOjJfIS1U1wrBETHJHqkj5i6KReB53dmYSZDgX9K4XnaFLmn7vE30gVWegfZltSOZVu_-Ny8sl4-aAKzeN-H",
-      "title": "LinkedIn Cookie",
-      "type": "string"
-    },
-    "language": {
-      "default": "",
-      "description": "Preferred response language for LinkedIn API requests.",
-      "editor": "select",
-      "enum": [
-        "",
-        "en",
-        "es",
-        "fr",
-        "de",
-        "pt"
-      ],
-      "enumTitles": [
-        "Auto / English",
-        "English",
-        "Spanish",
-        "French",
-        "German",
-        "Portuguese"
-      ],
-      "title": "Language",
-      "type": "string"
+    "includePostDetails": {
+      "default": true,
+      "description": "Open each target post for full text, exact dates, engagement totals, media, and comment timestamps. Turn off for a faster card-only run.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Include Post Details",
+      "type": "boolean"
     },
     "maxActivitiesPerProfile": {
       "default": 50,
-      "description": "Maximum number of activity items to scrape per profile (per activity type when 'all' is selected).",
+      "description": "Maximum records per profile across the selected activity types. Public profiles show one pageful per tab.",
       "editor": "number",
       "maximum": 500,
       "minimum": 1,
+      "prefill": 1,
       "title": "Max Activities Per Profile",
       "type": "integer"
     },
     "maxDate": {
-      "description": "Only include activities on or before this ISO date. Leave empty for no upper bound.",
-      "editor": "textfield",
-      "title": "Maximum Date (ISO)",
+      "default": "",
+      "description": "Keep posts and comments whose exact activity date is on or before this date. Reactions have no public event date and are kept.",
+      "editor": "datepicker",
+      "prefill": "",
+      "title": "Maximum Date",
       "type": "string"
     },
+    "maxItems": {
+      "default": 500,
+      "description": "Maximum activity records for the whole run. Error rows do not count toward this limit.",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max Items",
+      "type": "integer"
+    },
     "minDate": {
-      "description": "Only include activities on or after this ISO date (e.g. 2024-01-01 or 2024-01-01T00:00:00Z). Leave empty for no lower bound.",
-      "editor": "textfield",
-      "title": "Minimum Date (ISO)",
+      "default": "",
+      "description": "Keep posts and comments whose exact activity date is on or after this date. Reactions have no public event date and are kept.",
+      "editor": "datepicker",
+      "prefill": "",
+      "title": "Minimum Date",
       "type": "string"
     },
     "profileUrls": {
-      "description": "LinkedIn profile URLs or usernames. Accepts: https://www.linkedin.com/in/williamhgates/, https://uk.linkedin.com/in/williamhgates, or just the username: williamhgates",
+      "description": "Public LinkedIn profile URLs or usernames. Accepts https://www.linkedin.com/in/name, country subdomains, and bare usernames.",
       "editor": "stringList",
+      "maxItems": 500,
+      "minItems": 1,
       "prefill": [
-        "https://www.linkedin.com/in/adam-grant/"
+        "https://www.linkedin.com/in/satyanadella/"
       ],
       "title": "Profile URLs",
       "type": "array"
-    },
-    "proxyConfiguration": {
-      "description": "Optional Apify proxy configuration. Residential proxy recommended for best results.",
-      "editor": "proxy",
-      "title": "Proxy Configuration",
-      "type": "object"
     }
   },
   "required": [
-    "profileUrls",
-    "cookie"
+    "profileUrls"
   ],
   "schemaVersion": 1,
-  "title": "LinkedIn User Activity Scraper Input",
+  "title": "LinkedIn Profile Engagement Timeline Scraper Input",
   "type": "object"
 }

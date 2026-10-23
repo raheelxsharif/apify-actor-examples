@@ -1,14 +1,22 @@
 {
   "actorSpecification": 1,
-  "title": "LinkedIn User Activity",
+  "title": "LinkedIn Public Activity",
   "views": {
     "overview": {
       "display": {
         "component": "table",
         "properties": {
+          "activityTimeAgo": {
+            "format": "text",
+            "label": "Activity Age"
+          },
           "activityType": {
             "format": "text",
-            "label": "Activity Type"
+            "label": "Type"
+          },
+          "commentsCount": {
+            "format": "number",
+            "label": "Comments"
           },
           "content": {
             "format": "text",
@@ -16,19 +24,27 @@
           },
           "inputProfileUrl": {
             "format": "link",
-            "label": "Profile"
+            "label": "Profile URL"
           },
           "originalAuthorName": {
             "format": "text",
-            "label": "Original Author"
+            "label": "Post Author"
           },
-          "originalPostUrl": {
+          "originalPostPermalink": {
             "format": "link",
             "label": "Post URL"
           },
-          "reactedAt": {
-            "format": "datetime",
-            "label": "Reacted At"
+          "originalPostTimeAgo": {
+            "format": "text",
+            "label": "Post Age"
+          },
+          "profileName": {
+            "format": "text",
+            "label": "Profile"
+          },
+          "reactionsCount": {
+            "format": "number",
+            "label": "Reactions"
           }
         }
       },
@@ -36,10 +52,14 @@
       "transformation": {
         "fields": [
           "activityType",
-          "reactedAt",
+          "profileName",
+          "activityTimeAgo",
+          "originalPostTimeAgo",
           "originalAuthorName",
           "content",
-          "originalPostUrl",
+          "reactionsCount",
+          "commentsCount",
+          "originalPostPermalink",
           "inputProfileUrl"
         ]
       }

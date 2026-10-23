@@ -4,113 +4,140 @@
 
 # LinkedIn Profile Engagement Timeline Scraper
 
-Pull a LinkedIn profile's engagement history in one run: the posts and reposts they published, the comments they left on other people's posts, and the reactions (likes) they gave — each returned as its own record with the original post's author, text, and link.
+Collect a LinkedIn profile's **recent public activity** in one run: the posts and reposts they published, the comments they left on other people's posts, and the reactions they gave. Each record carries the target post's author, text, URL, and engagement totals, so a like or comment arrives with the context it needs.
+
+No cookie, login, or LinkedIn account is required. The actor reads the public version of the profile page that LinkedIn serves to logged-out visitors and search engines.
 
 ## What this actor does
 
-- Fetches posts/reposts, comments, and reactions for one or more LinkedIn profiles in a single run, using LinkedIn's own activity feed modules.
-- Lets you pick which activity categories to pull via `activityTypes`, or scrape all three at once.
-- Narrows results to an ISO date window with `minDate`/`maxDate` so you only pull recent engagement.
-- Attaches the original post's author, headline, avatar, and post URL to every like, comment, and repost, plus media (images, video, article) for the profile's own posts.
-- Fields that don't apply to a given activity (for example `commentText` on a like, or `mediaItems` on a text-only post) are left out of that record.
-
-## Authentication
-
-This actor requires a LinkedIn session cookie (`cookie`) because activity history is only served to a logged-in session. Supply either the `li_at` cookie value from your browser's DevTools, or a full cookie-export JSON array. If the cookie is missing or has expired, the actor returns a single status record describing the problem instead of failing silently.
+- Collects the three public activity tabs: **Posts**, **Comments**, and **Reactions**.
+- Returns one record per activity, with the target post's text, author, URL, reaction total, and comment total.
+- Opens each target post, when available, for exact dates, media, and the comment that the profile wrote.
+- Supports one or many profile URLs or usernames in a single run.
+- Filters by activity type and an optional date window.
+- Emits a diagnostic row for a profile that is private, unavailable, or returns an auth wall, instead of failing the whole run.
+- Empty fields are omitted, never returned as `null` or an empty string.
 
 ## Output per activity
 
+- `recordType` — `activity`, `error`, or `noResults`
 - `activityType` — `post`, `repost`, `comment`, or `reaction`
-- `originalPostUrl` — URL of the post the activity relates to
-- `originalPostId` — LinkedIn activity ID of that post
-- `originalPostedAt` — when the original post was published
-- `originalAuthorName`, `originalAuthorHeadline`, `originalAuthorAvatar` — the post's author
-- `originalAuthorProfileUrl` — profile URL of that author
-- `content` — text of the original post
-- `reactedAt` — when the profile performed this activity (liked, commented, posted)
-- `targetAuthor` — the person whose post was reacted to or commented on, for reactions/comments/reposts
-- `targetPostUrl` — present when the activity references a distinct target post URL
-- `reactionType` — the reaction given (e.g. `LIKE`, `PRAISE`), for `reaction` activities
-- `commentText` — the text the profile actually wrote, for `comment` activities
-- `mediaItems` — images, video, or article attachments, for the profile's own posts
-- `inputProfileUrl` — the profile URL you supplied
-- `scrapedAt` — ISO 8601 timestamp of when the record was scraped
+- `profileName`, `profileUsername`, `inputProfileUrl` — the profile that performed the activity
+- `activityTimeAgo` — LinkedIn's relative activity age (`2w`, `3mo`) for posts and comments. Reposts omit it because only the original post's age is public.
+- `originalPostTimeAgo` — LinkedIn's relative age of the target post for posts, reposts, and reactions. Omitted for comments, whose card only shows the comment age.
+- `reactedAt` — exact ISO activity time when public: an original post's publish time or a matched comment time. Omitted for reactions, reposts, and comments whose time is not visible.
+- `originalPostUrl`, `originalPostPermalink`, `originalPostId` — canonical feed URL, the public post link, and the post ID
+- `originalPostedAt` — exact target-post publish time, or a timestamp decoded from the post ID when the post page is unavailable
+- `originalAuthorName`, `originalAuthorProfileUrl`, `originalAuthorAvatar` — the target post's author
+- `originalAuthorHeadline` — kept for compatibility; public pages do not expose it, so it is normally omitted
+- `content` — the target post's text, full when the post page is available and a preview otherwise
+- `reactionsCount`, `commentsCount` — engagement totals for the target post
+- `targetPostUrl`, `targetAuthor` — target-post context for comments, reactions, and reposts
+- `commentText` — the comment the profile wrote
+- `commentIsReply` — `true` when the profile replied to another comment
+- `commentReactionsCount` — reactions on the matched comment
+- `reactionType` — `like` when the public card explicitly says "liked this"; omitted for the generic "reacted on this" label because the exact reaction type is not public
+- `mediaItems` — images, video, or article attachments when the public post exposes them
+- `dataSource` — `postPage` or `activityCard`, showing whether page-level details were available
+- `scrapedAt` — when the record was collected
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `profileUrls` | array | – | LinkedIn profile URLs or bare usernames (required) |
-| `cookie` | string | – | LinkedIn session cookie — `li_at` value or full cookies JSON array (required) |
-| `activityType` | string | `all` | Legacy single-select: `all`, `likes`, `comments`, or `posts`. Kept for backwards compatibility — prefer `activityTypes` |
-| `activityTypes` | array | `["posts","comments","reactions","shares"]` | Multi-select of `posts`, `comments`, `reactions`, `shares` to scrape |
-| `minDate` | string | – | Only include activity on or after this ISO date |
-| `maxDate` | string | – | Only include activity on or before this ISO date |
-| `language` | string | – (auto) | Preferred response language for LinkedIn's API: `en`, `es`, `fr`, `de`, or `pt` |
-| `maxActivitiesPerProfile` | integer | `50` | Max activity items per profile, per activity type (1–500) |
-| `proxyConfiguration` | object | – | Apify proxy settings; a residential proxy is recommended for reliability |
+| `profileUrls` | array | — | Public LinkedIn profile URLs or usernames. Required; up to 500 per run. |
+| `activityTypes` | array | `posts`, `comments`, `reactions` | `posts`, `comments`, `reactions`. Posts includes reposts; comments includes replies. The legacy value `shares` is accepted and returned as posts/reposts. |
+| `includePostDetails` | boolean | `true` | Open each target post for full text, exact dates, counts, media, and comment times. |
+| `minDate` | string | — | Keep posts and comments on or after this date. Reactions have no public event date and are kept. |
+| `maxDate` | string | — | Keep posts and comments on or before this date. Reactions are kept. |
+| `maxActivitiesPerProfile` | integer | `50` | Maximum records per profile across selected types (1–500). |
+| `maxItems` | integer | `500` | Maximum activity records for the whole run (1–10,000). Error rows do not count. |
 
-### Example: full engagement history for two profiles
+Older saved tasks that send `cookie`, `language`, or `proxyConfiguration` still run; those keys are ignored with a note. Legacy `activityType` no longer filters the run because the schema supplies the default `activityTypes`; set `activityTypes` explicitly. The old `shares` value is rejected by the current schema; use `posts`.
+
+### Example: everything public for one profile
 
 ```json
 {
-  "profileUrls": ["https://www.linkedin.com/in/williamhgates/", "adam-grant"],
-  "cookie": "AQEDATVc5uMEM5s_AAAB...",
-  "activityTypes": ["posts", "comments", "reactions", "shares"],
+  "profileUrls": ["https://www.linkedin.com/in/satyanadella/"],
+  "activityTypes": ["posts", "comments", "reactions"],
+  "includePostDetails": true,
   "maxActivitiesPerProfile": 50
 }
 ```
 
-### Example: only comments, within a date window
+### Example: comments in a date window
 
 ```json
 {
-  "profileUrls": ["https://www.linkedin.com/in/satyanadella"],
-  "cookie": "AQEDATVc5uMEM5s_AAAB...",
+  "profileUrls": ["https://www.linkedin.com/in/satyanadella/"],
   "activityTypes": ["comments"],
   "minDate": "2026-01-01",
-  "maxDate": "2026-06-30"
+  "maxDate": "2026-10-23",
+  "maxActivitiesPerProfile": 20
 }
 ```
 
-### Example: just posts and reposts, higher cap
+### Example: reactions for a batch of profiles
 
 ```json
 {
-  "profileUrls": ["https://www.linkedin.com/in/adam-grant/"],
-  "cookie": "AQEDATVc5uMEM5s_AAAB...",
-  "activityTypes": ["posts"],
-  "maxActivitiesPerProfile": 200
+  "profileUrls": [
+    "https://www.linkedin.com/in/satyanadella/",
+    "https://www.linkedin.com/in/williamhgates/",
+    "adam-grant"
+  ],
+  "activityTypes": ["reactions"],
+  "includePostDetails": false,
+  "maxItems": 100
 }
 ```
 
 ## Use cases
 
-- **Sales intelligence** — see which posts and topics a prospect engages with before an outreach call
-- **Influencer analysis** — map which content a thought leader likes, comments on, and shares
-- **Competitive research** — track what competitors' employees react to or publish
-- **Lead enrichment** — add recent LinkedIn engagement signals to CRM contacts
-- **Content strategy** — study which post types draw reactions and comments from a target audience
+- **Sales and ABM research** — see which topics a prospect comments on or reacts to before outreach.
+- **Influencer and executive audits** — compare what a leader publishes with what they engage with.
+- **Competitive research** — track the public posts and reactions of a competitor's team.
+- **Content strategy** — study the posts that draw comments and reactions from a target audience.
+- **CRM enrichment** — add recent public engagement signals to a contact record.
+
+## Limitations
+
+- **Recent public activity only.** A public profile page renders one pageful per tab: typically 0–9 posts, 0–3 top-level comments, and 0–9 reactions. The "See all activities" link requires a LinkedIn sign-in, so older history is not available without a login.
+- **Reaction times and exact reaction types are not public.** A reaction card says "liked this" or the generic "reacted on this". The actor records `reactionType: "like"` only for the explicit "liked this" label; for "reacted on this" it omits the field rather than guessing celebrate, love, or another type. `reactedAt` is omitted for all reactions.
+- **Reaction cards have two labels.** Both "liked this" and "reacted on this" are returned as `activityType: "reaction"`, including when the card appears in the Posts panel.
+- **Comment times are conditional.** The profile page shows only a relative age. An exact comment time is filled when the comment is visible among the target post's public comments; otherwise `reactedAt` is omitted and `activityTimeAgo` remains.
+- **Comment replies have no public parent-post link.** They are returned with `commentIsReply: true` and without a target post URL.
+- **Some profiles are private.** LinkedIn may return an auth wall or HTTP 999 for a profile whose public visibility is restricted, or temporarily block a request. The actor retries, then emits a `blocked_or_private` error row for that profile. After repeated 999 responses it may retry through Apify's automatic datacenter proxy; no proxy input is requested from you.
+- **Target posts can disappear.** If a post was deleted or made private after the activity card was rendered, the record keeps the card data and sets `dataSource: "activityCard"`.
+- **Repost/share counts, views, reaction breakdowns, and the names of reactors are not public.** Reposts themselves are returned as `repost`; the missing numbers are not fabricated.
+- **A public profile link may return 999 to a plain HTTP client** while still opening normally in a browser. That is LinkedIn's access behaviour, not a broken record.
 
 ## FAQ
 
-**Why does this need a cookie instead of just a profile URL?**
-LinkedIn only serves activity history (likes, comments, post history) to an authenticated session — there's no public, logged-out version of this data, unlike a profile's headline or job history.
+**Do I need a LinkedIn cookie or account?**
+No. The actor never asks you for a cookie, login, or proxy. It reads only the public profile and post pages; after repeated 999 blocks it may use Apify's automatic datacenter proxy.
 
-**What's the difference between `activityType` and `activityTypes`?**
-`activityTypes` is the current multi-select input and should be used going forward; `activityType` is a legacy single-select kept only for older integrations.
+**Why do I get fewer rows than I asked for?**
+LinkedIn renders a fixed recent-activity section per profile. There is no public "load more" or pagination, so the maximum is one pageful per tab even when `maxActivitiesPerProfile` is higher.
 
-**Why do I get a status record instead of activity data?**
-If the cookie is missing, malformed, or has expired, the actor returns one record describing the problem instead of failing the whole run, so you can see exactly what to fix.
+**Why is `reactedAt` missing on a reaction?**
+LinkedIn does not expose when a reaction was given. The target post's own date is in `originalPostedAt` and `originalPostTimeAgo`; they are not reaction times. `reactionType` is filled only when the card explicitly says "liked this".
 
-**Can I see activity from a profile I'm not connected to?**
-Only if your cookie's account can already view that profile's activity on linkedin.com. The actor can't surface anything your session wouldn't see on the site.
+**Why is `reactedAt` sometimes missing on a comment?**
+The exact comment time comes from the target post's public comment list. If the comment is not among the visible comments, only the relative `activityTimeAgo` is available.
 
-**Why is `targetPostUrl` sometimes missing on a comment or reaction?**
-It's only included when LinkedIn's response distinguishes a separate target post URL from `originalPostUrl`; when the two are the same, the field is omitted.
+**Can I collect older posts or a complete history?**
+No. The public page exposes only the recent activity section. Schedule the actor and deduplicate on `originalPostId` plus `profileUsername` to build history forward.
 
-**How far back can I pull activity?**
-As far as LinkedIn's own activity feed modules return for that profile — older activity may not be available if LinkedIn itself has stopped surfacing it.
+**Can I see who reacted to a post?**
+No. Reactor identities are visible only to signed-in LinkedIn members, so they are not part of this actor.
+
+**Why did one profile return an error row?**
+That profile may hide its activity from logged-out visitors, may not exist, or LinkedIn may have returned a temporary 999. The row's `status` and `error` fields explain which case applied; other profiles in the same run continue.
+
+**Why do some comments have no target post?**
+Those are replies to another comment. The public card shows the reply text and age but not the parent post link.
 
 **Is this affiliated with LinkedIn?**
-No. This is an independent, third-party actor that uses your own session cookie to read activity data LinkedIn already shows that account; it is not operated by or affiliated with LinkedIn.
+No. This is an independent third-party actor that reads public pages. It is not operated by or affiliated with LinkedIn.

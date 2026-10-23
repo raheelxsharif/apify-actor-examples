@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per LinkedIn profile activity (post, repost, comment, or reaction), with the original post's author, text, and link attached.",
+  "description": "One record per public LinkedIn profile activity (post, repost, comment, or reaction), with the target post's author, text, URL, engagement totals, and media when public.",
   "properties": {
     "activities": {
-      "description": "Dataset containing all scraped LinkedIn profile activity records.",
+      "description": "Dataset containing scraped public LinkedIn profile activity records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "LinkedIn profile activities",
+      "title": "LinkedIn public activity",
       "type": "string"
     }
   },
