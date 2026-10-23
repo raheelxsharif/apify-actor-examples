@@ -1,0 +1,121 @@
+{
+  "properties": {
+    "channelUrls": {
+      "description": "Public YouTube channel URLs, handles, or channel IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "prefill": [
+        "https://www.youtube.com/@MrBeast",
+        "https://www.youtube.com/@RickAstleyYT"
+      ],
+      "title": "Channel URLs",
+      "type": "array"
+    },
+    "includeComments": {
+      "default": false,
+      "description": "Include comments only when YouTube exposes them in the public post response.",
+      "prefill": false,
+      "title": "Include comments exposed on the post page",
+      "type": "boolean"
+    },
+    "market": {
+      "default": "US",
+      "description": "Country code used for the public localized YouTube page.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "JP",
+        "KR",
+        "BR",
+        "IN",
+        "MX",
+        "IT",
+        "ES",
+        "NL",
+        "PL",
+        "RU",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "ZA",
+        "SG",
+        "HK",
+        "TW",
+        "ID",
+        "MY",
+        "TH",
+        "PH",
+        "AR",
+        "CO",
+        "CL"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Germany",
+        "France",
+        "Japan",
+        "South Korea",
+        "Brazil",
+        "India",
+        "Mexico",
+        "Italy",
+        "Spain",
+        "Netherlands",
+        "Poland",
+        "Russia",
+        "Sweden",
+        "Norway",
+        "Denmark",
+        "Finland",
+        "South Africa",
+        "Singapore",
+        "Hong Kong",
+        "Taiwan",
+        "Indonesia",
+        "Malaysia",
+        "Thailand",
+        "Philippines",
+        "Argentina",
+        "Colombia",
+        "Chile"
+      ],
+      "title": "Market",
+      "type": "string"
+    },
+    "maxComments": {
+      "default": 100,
+      "description": "Maximum public comments to retain on each post row when enabled.",
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Maximum comments per post",
+      "type": "integer"
+    },
+    "maxPosts": {
+      "default": 100,
+      "description": "Maximum number of public post rows per channel.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum posts",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "channelUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "YouTube Community Posts Scraper Input",
+  "type": "object"
+}
