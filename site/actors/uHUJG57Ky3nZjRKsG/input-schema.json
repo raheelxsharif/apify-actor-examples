@@ -1,0 +1,105 @@
+{
+  "properties": {
+    "categoryUrl": {
+      "description": "Hepsiburada category page URL (required for categoryBrowse mode). E.g. https://www.hepsiburada.com/laptop-x-c-1",
+      "editor": "textfield",
+      "title": "Category URL",
+      "type": "string"
+    },
+    "keyword": {
+      "description": "Search keyword (required for search and topSellers modes).",
+      "editor": "textfield",
+      "prefill": "laptop",
+      "title": "Search Keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of products to return (1–500).",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Maximum Items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Filter products with price below this value (Turkish Lira).",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Maximum Price (TRY)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Filter products with price above this value (Turkish Lira).",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum Price (TRY)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to scrape: search products, get product details, browse a category, or get top sellers.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "productDetails",
+        "categoryBrowse",
+        "topSellers"
+      ],
+      "enumTitles": [
+        "Search Products",
+        "Product Details",
+        "Category Browse",
+        "Top Sellers"
+      ],
+      "prefill": "search",
+      "title": "Scraping Mode",
+      "type": "string"
+    },
+    "productUrls": {
+      "description": "List of Hepsiburada product page URLs (required for productDetails mode).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Apify proxy settings. Hepsiburada may require proxy for consistent access.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "sortBy": {
+      "default": "MOST_POPULAR",
+      "description": "Product sort order.",
+      "editor": "select",
+      "enum": [
+        "MOST_POPULAR",
+        "LOWEST_PRICE",
+        "HIGHEST_PRICE",
+        "MOST_RECENT",
+        "BEST_RATED"
+      ],
+      "enumTitles": [
+        "Most Popular",
+        "Lowest Price",
+        "Highest Price",
+        "Most Recent",
+        "Best Rated"
+      ],
+      "prefill": "MOST_POPULAR",
+      "title": "Sort By",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Hepsiburada Scraper Input",
+  "type": "object"
+}

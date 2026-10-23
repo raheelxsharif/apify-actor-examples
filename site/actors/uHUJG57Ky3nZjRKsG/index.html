@@ -1,0 +1,344 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-ukC1G/em93eIwQ5rwVGl9a+R7bLnETMaWewiNRXnsHo=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Hepsiburada Product Search &amp; Category Price Scraper | Dataspryva</title><meta name="description" content="Search Hepsiburada by keyword, browse a category page, look up specific product URLs, or find a keyword&#x27;s top sellers, and get price, rating, discount, and seller details for each "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/"><meta property="og:title" content="Hepsiburada Product Search &amp; Category Price Scraper | Dataspryva"><meta property="og:description" content="Search Hepsiburada by keyword, browse a category page, look up specific product URLs, or find a keyword&#x27;s top sellers, and get price, rating, discount, and seller details for each "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#webpage","name":"Hepsiburada Product Search & Category Price Scraper","description":"Search Hepsiburada by keyword, browse a category page, look up specific product URLs, or find a keyword's top sellers, and get price, rating, discount, and seller details for each product.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#article","headline":"Hepsiburada Product Search & Category Price Scraper","name":"Hepsiburada Product Search & Category Price Scraper","description":"Search Hepsiburada by keyword, browse a category page, look up specific product URLs, or find a keyword's top sellers, and get price, rating, discount, and seller details for each product.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Hepsiburada Product Search & Category Price Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/uHUJG57Ky3nZjRKsG/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Hepsiburada Product Search &amp; Category Price Scraper</span></div><section id="overview"><h1 class="doc-title">Hepsiburada Product Search &amp; Category Price Scraper</h1><p class="lede">Search Hepsiburada by keyword, browse a category page, look up specific product URLs, or find a keyword&#x27;s top sellers, and get price, rating, discount, and seller details for each product.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/hepsiburada-product-search-and-category-price">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/uHUJG57Ky3nZjRKsG/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape: search products, get product details, browse a category, or get top sellers.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Search keyword (required for search and topSellers modes).</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>List of Hepsiburada product page URLs (required for productDetails mode).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape: search products, get product details, browse a category, or get top sellers.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Search keyword (required for search and topSellers modes).</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>List of Hepsiburada product page URLs (required for productDetails mode).</td></tr><tr><td><code>categoryUrl</code></td><td>string</td><td>optional</td><td>Hepsiburada category page URL (required for categoryBrowse mode). E.g. https://www.hepsiburada.com/laptop-x-c-1</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Product sort order.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Filter products with price above this value (Turkish Lira).</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Filter products with price below this value (Turkish Lira).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of products to return (1–500).</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Apify proxy settings. Hepsiburada may require proxy for consistent access.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;categoryUrl&quot;: {
+      &quot;description&quot;: &quot;Hepsiburada category page URL (required for categoryBrowse mode). E.g. https://www.hepsiburada.com/laptop-x-c-1&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Category URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;keyword&quot;: {
+      &quot;description&quot;: &quot;Search keyword (required for search and topSellers modes).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;laptop&quot;,
+      &quot;title&quot;: &quot;Search Keyword&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum number of products to return (1–500).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Maximum Items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPrice&quot;: {
+      &quot;description&quot;: &quot;Filter products with price below this value (Turkish Lira).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Price (TRY)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minPrice&quot;: {
+      &quot;description&quot;: &quot;Filter products with price above this value (Turkish Lira).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum Price (TRY)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to scrape: search products, get product details, browse a category, or get top sellers.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;productDetails&quot;,
+        &quot;categoryBrowse&quot;,
+        &quot;topSellers&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search Products&quot;,
+        &quot;Product Details&quot;,
+        &quot;Category Browse&quot;,
+        &quot;Top Sellers&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Scraping Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;description&quot;: &quot;List of Hepsiburada product page URLs (required for productDetails mode).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Product URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Apify proxy settings. Hepsiburada may require proxy for consistent access.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;title&quot;: &quot;Proxy Configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;MOST_POPULAR&quot;,
+      &quot;description&quot;: &quot;Product sort order.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;MOST_POPULAR&quot;,
+        &quot;LOWEST_PRICE&quot;,
+        &quot;HIGHEST_PRICE&quot;,
+        &quot;MOST_RECENT&quot;,
+        &quot;BEST_RATED&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most Popular&quot;,
+        &quot;Lowest Price&quot;,
+        &quot;Highest Price&quot;,
+        &quot;Most Recent&quot;,
+        &quot;Best Rated&quot;
+      ],
+      &quot;prefill&quot;: &quot;MOST_POPULAR&quot;,
+      &quot;title&quot;: &quot;Sort By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Hepsiburada Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Hepsiburada product records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per Hepsiburada product from search, category, detail, or top-seller lookups, with price, discount, rating, and seller.&quot;,
+  &quot;properties&quot;: {
+    &quot;results&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Hepsiburada product records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Hepsiburada products&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Hepsiburada Product Search &amp; Category Price Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-hepsiburada-product-search-category-price-scraper">Hepsiburada Product Search &amp; Category Price Scraper</h2>
+<p>Pull live product data from Hepsiburada, Turkey's largest multi-category marketplace, four different ways: keyword search, a category page, a list of product URLs, or a keyword's top sellers — each returning structured price, rating, and seller records.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches Hepsiburada by keyword and returns matching products with current price, rating, and seller.</li>
+<li>Browses any category page URL and returns its product listing, sorted the same way the site's own sort options work.</li>
+<li>Fetches full detail (including the product description) for a specific list of product page URLs.</li>
+<li>Surfaces the top-selling products for a keyword using Hepsiburada's own popularity ranking.</li>
+<li>Lets every mode be filtered to a price range in Turkish Lira and capped to a maximum item count; fields Hepsiburada doesn't publish for a product are left out of its record.</li>
+</ul>
+<h2 id="readme-output-per-product">Output per product</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>productId</code></td>
+<td>String</td>
+<td>Hepsiburada product ID (SKU)</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>String</td>
+<td>Product title</td>
+</tr>
+<tr>
+<td><code>brand</code></td>
+<td>String</td>
+<td>Brand name</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td>Product description (<code>productDetails</code> mode only)</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>String</td>
+<td>Product category</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>Number</td>
+<td>Current price (TRY)</td>
+</tr>
+<tr>
+<td><code>originalPrice</code></td>
+<td>Number</td>
+<td>Original price before discount (TRY)</td>
+</tr>
+<tr>
+<td><code>discountPercent</code></td>
+<td>Integer</td>
+<td>Discount percentage (0–100)</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>Number</td>
+<td>Average rating (0–5 scale)</td>
+</tr>
+<tr>
+<td><code>reviewCount</code></td>
+<td>Integer</td>
+<td>Number of customer reviews</td>
+</tr>
+<tr>
+<td><code>seller</code></td>
+<td>String</td>
+<td>Seller/merchant name</td>
+</tr>
+<tr>
+<td><code>freeShipping</code></td>
+<td>Boolean</td>
+<td>Whether free shipping is available</td>
+</tr>
+<tr>
+<td><code>isMerchant</code></td>
+<td>Boolean</td>
+<td><code>true</code> if sold by a marketplace seller, <code>false</code> if sold directly by Hepsiburada</td>
+</tr>
+<tr>
+<td><code>imageUrl</code></td>
+<td>String</td>
+<td>Product image URL</td>
+</tr>
+<tr>
+<td><code>productUrl</code></td>
+<td>String</td>
+<td>Full Hepsiburada product page URL</td>
+</tr>
+<tr>
+<td><code>recordType</code></td>
+<td>String</td>
+<td>Always <code>product</code></td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>String</td>
+<td>ISO 8601 timestamp of when the record was scraped</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>productDetails</code>, <code>categoryBrowse</code>, or <code>topSellers</code></td>
+</tr>
+<tr>
+<td><code>keyword</code></td>
+<td>string</td>
+<td>–</td>
+<td>Search keyword (required for <code>search</code> and <code>topSellers</code>)</td>
+</tr>
+<tr>
+<td><code>productUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Hepsiburada product page URLs (required for <code>productDetails</code>)</td>
+</tr>
+<tr>
+<td><code>categoryUrl</code></td>
+<td>string</td>
+<td>–</td>
+<td>Hepsiburada category page URL (required for <code>categoryBrowse</code>)</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>MOST_POPULAR</code></td>
+<td><code>MOST_POPULAR</code>, <code>LOWEST_PRICE</code>, <code>HIGHEST_PRICE</code>, <code>MOST_RECENT</code>, or <code>BEST_RATED</code></td>
+</tr>
+<tr>
+<td><code>minPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum price in Turkish Lira</td>
+</tr>
+<tr>
+<td><code>maxPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum price in Turkish Lira</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Maximum number of products to return (1–500)</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>–</td>
+<td>Apify proxy settings; recommended for consistent access</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-keyword-search-sorted-by-price">Example: keyword search sorted by price</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;keyword&quot;: &quot;laptop&quot;,
+  &quot;sortBy&quot;: &quot;LOWEST_PRICE&quot;,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-detail-lookup-for-specific-products">Example: detail lookup for specific products</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;productDetails&quot;,
+  &quot;productUrls&quot;: [
+    &quot;https://www.hepsiburada.com/apple-macbook-pro-14-pm-HBCV00000GVYH5&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-browse-a-category-page-within-a-price-range">Example: browse a category page within a price range</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;categoryBrowse&quot;,
+  &quot;categoryUrl&quot;: &quot;https://www.hepsiburada.com/laptop-x-c-1&quot;,
+  &quot;sortBy&quot;: &quot;LOWEST_PRICE&quot;,
+  &quot;minPrice&quot;: 20000,
+  &quot;maxPrice&quot;: 60000,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Price monitoring</strong> — track a product line's price and discount percentage over time</li>
+<li><strong>Market research</strong> — compare brands, ratings, and review counts within a category</li>
+<li><strong>Competitor tracking</strong> — watch which products a merchant lists and how they're priced</li>
+<li><strong>Assortment analysis</strong> — pull a whole category to see Hepsiburada's live product mix</li>
+<li><strong>Trend spotting</strong> — use <code>topSellers</code> to see which products currently rank best for a keyword</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>What's the difference between <code>search</code> and <code>topSellers</code>?</strong>
+<code>search</code> returns matching products in whatever order <code>sortBy</code> specifies; <code>topSellers</code> always ranks by Hepsiburada's own popularity signal for the keyword, regardless of <code>sortBy</code>.</p>
+<p><strong>Why does <code>description</code> only appear sometimes?</strong>
+It's only populated in <code>productDetails</code> mode, where the actor fetches each product's own page; search and category results don't include the full description.</p>
+<p><strong>What is <code>isMerchant</code>?</strong>
+Hepsiburada sells both as a direct retailer and as a marketplace for third-party sellers. <code>isMerchant</code> is <code>true</code> when the listing is fulfilled by a marketplace seller and <code>false</code> when Hepsiburada is the seller of record.</p>
+<p><strong>Can I filter by price?</strong>
+Yes — <code>minPrice</code> and <code>maxPrice</code> apply to any mode and are both in Turkish Lira (TRY).</p>
+<p><strong>How do I find a category URL for <code>categoryBrowse</code>?</strong>
+Copy the URL of any Hepsiburada category listing page, for example <code>https://www.hepsiburada.com/laptop-x-c-1</code> or <code>https://www.hepsiburada.com/cep-telefonu-x-c-32</code>.</p>
+<p><strong>Do I need to log in or provide cookies?</strong>
+No — all four modes read Hepsiburada's public pages.</p>
+<p><strong>Why would I need the proxy setting?</strong>
+Hepsiburada's anti-bot protection can block repeated requests from a single IP; enabling the proxy input improves reliability if you see failed or empty results.</p>
+<p><strong>Is this affiliated with Hepsiburada?</strong>
+No. This is an independent, third-party actor that reads Hepsiburada's public pages and is not operated by or affiliated with Hepsiburada.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/uHUJG57Ky3nZjRKsG/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>lz8EslvtdXY2p3RDv</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
