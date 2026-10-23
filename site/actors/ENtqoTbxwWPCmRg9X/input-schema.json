@@ -1,0 +1,125 @@
+{
+  "properties": {
+    "activityType": {
+      "default": "all",
+      "description": "Legacy single-select for backwards compatibility. Prefer 'activityTypes' below. 'all' fetches likes, comments, and posts/reposts in separate passes.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "likes",
+        "comments",
+        "posts"
+      ],
+      "enumTitles": [
+        "All (likes + comments + posts)",
+        "Likes only",
+        "Comments only",
+        "Posts & Reposts only"
+      ],
+      "title": "Activity Type (legacy)",
+      "type": "string"
+    },
+    "activityTypes": {
+      "default": [
+        "posts",
+        "comments",
+        "reactions",
+        "shares"
+      ],
+      "description": "Multi-select activity types to scrape. Leave empty (or include 'all') to scrape posts, comments, reactions, and shares.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "posts",
+          "comments",
+          "reactions",
+          "shares"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "posts",
+        "comments",
+        "reactions",
+        "shares"
+      ],
+      "title": "Activity Types",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "cookie": {
+      "description": "Your LinkedIn session cookie. Accepts: (1) the li_at value from browser DevTools, or (2) full cookies JSON array from an extension like EditThisCookie.",
+      "editor": "textarea",
+      "isSecret": true,
+      "prefill": "AQEDATVc5uMEM5s_AAABnro67cYAAAGe3kdxxk0Ajoj1en-Axa4lUoxvqVMAsMpFO2u4rOjJfIS1U1wrBETHJHqkj5i6KReB53dmYSZDgX9K4XnaFLmn7vE30gVWegfZltSOZVu_-Ny8sl4-aAKzeN-H",
+      "title": "LinkedIn Cookie",
+      "type": "string"
+    },
+    "language": {
+      "default": "",
+      "description": "Preferred response language for LinkedIn API requests.",
+      "editor": "select",
+      "enum": [
+        "",
+        "en",
+        "es",
+        "fr",
+        "de",
+        "pt"
+      ],
+      "enumTitles": [
+        "Auto / English",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Portuguese"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "maxActivitiesPerProfile": {
+      "default": 50,
+      "description": "Maximum number of activity items to scrape per profile (per activity type when 'all' is selected).",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "title": "Max Activities Per Profile",
+      "type": "integer"
+    },
+    "maxDate": {
+      "description": "Only include activities on or before this ISO date. Leave empty for no upper bound.",
+      "editor": "textfield",
+      "title": "Maximum Date (ISO)",
+      "type": "string"
+    },
+    "minDate": {
+      "description": "Only include activities on or after this ISO date (e.g. 2024-01-01 or 2024-01-01T00:00:00Z). Leave empty for no lower bound.",
+      "editor": "textfield",
+      "title": "Minimum Date (ISO)",
+      "type": "string"
+    },
+    "profileUrls": {
+      "description": "LinkedIn profile URLs or usernames. Accepts: https://www.linkedin.com/in/williamhgates/, https://uk.linkedin.com/in/williamhgates, or just the username: williamhgates",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.linkedin.com/in/adam-grant/"
+      ],
+      "title": "Profile URLs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Optional Apify proxy configuration. Residential proxy recommended for best results.",
+      "editor": "proxy",
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "required": [
+    "profileUrls",
+    "cookie"
+  ],
+  "schemaVersion": 1,
+  "title": "LinkedIn User Activity Scraper Input",
+  "type": "object"
+}

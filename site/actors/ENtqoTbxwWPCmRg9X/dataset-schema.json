@@ -1,0 +1,48 @@
+{
+  "actorSpecification": 1,
+  "title": "LinkedIn User Activity",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "activityType": {
+            "format": "text",
+            "label": "Activity Type"
+          },
+          "content": {
+            "format": "text",
+            "label": "Content"
+          },
+          "inputProfileUrl": {
+            "format": "link",
+            "label": "Profile"
+          },
+          "originalAuthorName": {
+            "format": "text",
+            "label": "Original Author"
+          },
+          "originalPostUrl": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "reactedAt": {
+            "format": "datetime",
+            "label": "Reacted At"
+          }
+        }
+      },
+      "title": "Activity",
+      "transformation": {
+        "fields": [
+          "activityType",
+          "reactedAt",
+          "originalAuthorName",
+          "content",
+          "originalPostUrl",
+          "inputProfileUrl"
+        ]
+      }
+    }
+  }
+}

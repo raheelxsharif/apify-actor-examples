@@ -1,5 +1,5 @@
 {
-  "description": "Search Florida's Division of Corporations (Sunbiz) registry.",
+  "description": "Look up Florida business entities on Sunbiz by entity name, officer/agent, FEI/EIN, document number, ZIP, address, or trademark. Multiple terms and pasted Sunbiz URLs are supported.",
   "properties": {
     "entityStatus": {
       "default": "any",
@@ -19,38 +19,79 @@
       "title": "Filter by entity status",
       "type": "string"
     },
+    "entityType": {
+      "default": "any",
+      "description": "Keep only this kind of filing. Useful for hiding trademarks and nearest-name neighbours.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "corporation",
+        "llc",
+        "trademark",
+        "partnership",
+        "nonprofit"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Corporation (profit, non-profit, foreign)",
+        "Limited liability company (LLC)",
+        "Trademark / service mark",
+        "Partnership",
+        "Non-profit"
+      ],
+      "prefill": "any",
+      "title": "Filter by entity type",
+      "type": "string"
+    },
+    "includeEventHistory": {
+      "default": true,
+      "description": "Fetch each entity's full filing-event trail (amendments, mergers, reinstatements, dissolutions, old names). Adds one request per entity that has events.",
+      "prefill": false,
+      "title": "Include event and name history",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 20,
-      "description": "Hard cap on emitted records. Each record requires a detail-page fetch, so keep this modest for large name/zip/address searches.",
-      "maximum": 200,
+      "description": "Hard cap on emitted records across all search terms and URLs. Each record requires a detail-page fetch.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 2,
       "title": "Max items",
       "type": "integer"
     },
-    "proxyConfiguration": {
-      "default": {
-        "useApifyProxy": true
-      },
-      "description": "Only used as an automatic fallback if Sunbiz starts blocking datacenter requests. Leave default.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": true
-      },
-      "title": "Proxy configuration",
-      "type": "object"
-    },
-    "searchTerm": {
-      "default": "publix",
-      "description": "The value to search for (entity name, officer/agent name, FEI/EIN digits, document number, ZIP code, street address, trademark name, or trademark owner name depending on `searchType`). Sunbiz performs a starts-with / nearest-alphabetical (or nearest-numerical, for FEI/ZIP) match on every search type EXCEPT `documentNumber`, same as the official site — a term with no exact match returns the closest neighbors in Sunbiz's index rather than zero results. Only `documentNumber` is a true exact-match lookup.",
-      "editor": "textfield",
-      "prefill": "publix",
-      "title": "Search term",
+    "mirrorFiledDocuments": {
+      "default": "none",
+      "description": "Save copies of filed documents to Apify storage and add a permanent `pdfUrl` to each `filedDocuments` entry. `all` mirrors up to the 20 newest documents per entity.",
+      "editor": "select",
+      "enum": [
+        "none",
+        "newest",
+        "all"
+      ],
+      "enumTitles": [
+        "No PDF copies (labels only)",
+        "Newest document only",
+        "All documents"
+      ],
+      "prefill": "none",
+      "title": "Filed document PDFs",
       "type": "string"
+    },
+    "searchTerms": {
+      "description": "One or more values for the selected `searchType` (entity names, officer/agent names, FEI/EIN digits, document numbers, ZIP codes, street addresses, or trademark terms). Sunbiz matches names/addresses from the start of its ordered index and returns the nearest entries when there is no exact match; `documentNumber` is the only exact lookup.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "publix super markets"
+      ],
+      "title": "Search terms",
+      "type": "array"
     },
     "searchType": {
       "default": "entityName",
-      "description": "Which Sunbiz search axis to use.",
+      "description": "Which Sunbiz index to search. Applies to the values in `searchTerms`; pasted `startUrls` are fetched directly.",
       "editor": "select",
       "enum": [
         "entityName",
@@ -65,8 +106,8 @@
       ],
       "enumTitles": [
         "Entity name",
-        "Officer / Registered Agent name",
-        "Registered Agent name only",
+        "Officer / registered agent name",
+        "Registered agent name only",
         "FEI/EIN number",
         "Document number (exact)",
         "ZIP code",
@@ -77,13 +118,21 @@
       "prefill": "entityName",
       "title": "Search type",
       "type": "string"
+    },
+    "startUrls": {
+      "description": "Optional Sunbiz detail or search-results URLs to fetch directly. You can mix URLs with `searchTerms` in one run.",
+      "editor": "requestListSources",
+      "items": {
+        "type": "object"
+      },
+      "title": "Sunbiz URLs",
+      "type": "array"
     }
   },
   "required": [
-    "searchType",
-    "searchTerm"
+    "searchType"
   ],
   "schemaVersion": 1,
-  "title": "Florida Sunbiz Business Entity Search Scraper Input",
+  "title": "Florida Sunbiz Business Entity Lookup Input",
   "type": "object"
 }
