@@ -1,104 +1,155 @@
 {
+  "description": "Search Hepsiburada, browse category pages, or look up products. Collect prices, list prices, discounts, ratings, sellers, stock, shipping, installments, variants, specifications, and images.",
   "properties": {
-    "categoryUrl": {
-      "description": "Hepsiburada category page URL (required for categoryBrowse mode). E.g. https://www.hepsiburada.com/laptop-x-c-1",
-      "editor": "textfield",
-      "title": "Category URL",
-      "type": "string"
+    "brands": {
+      "description": "Exact brand names to include, e.g. Lenovo, Asus. Leave empty for all brands.",
+      "editor": "stringList",
+      "title": "Brands",
+      "type": "array"
     },
-    "keyword": {
-      "description": "Search keyword (required for search and topSellers modes).",
-      "editor": "textfield",
-      "prefill": "laptop",
-      "title": "Search Keyword",
-      "type": "string"
+    "categoryUrls": {
+      "description": "Hepsiburada category page URLs (mode=category), e.g. https://www.hepsiburada.com/laptop-notebook-dizustu-bilgisayarlar-c-98",
+      "editor": "stringList",
+      "title": "Category URLs",
+      "type": "array"
+    },
+    "discountedOnly": {
+      "default": false,
+      "description": "Keep only products Hepsiburada marks as advantageous or discounted.",
+      "prefill": false,
+      "title": "Discounted products only",
+      "type": "boolean"
+    },
+    "fastDeliveryOnly": {
+      "default": false,
+      "description": "Keep only products with Hepsiburada's fast-delivery signal.",
+      "prefill": false,
+      "title": "Fast delivery only",
+      "type": "boolean"
+    },
+    "includeProductDetails": {
+      "default": false,
+      "description": "Open each product page to add description, specifications, variants, stock count, seller rating, shipping cost, and return policy. One extra request per record.",
+      "prefill": false,
+      "title": "Include full product details",
+      "type": "boolean"
     },
     "maxItems": {
-      "default": 20,
-      "description": "Maximum number of products to return (1–500).",
+      "default": 100,
+      "description": "Maximum records per search query or category (1-2000). For product lookup it is the total across all URLs.",
       "editor": "number",
-      "maximum": 500,
+      "maximum": 2000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Maximum Items",
+      "prefill": 3,
+      "title": "Maximum items",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Filter products with price below this value (Turkish Lira).",
+      "description": "Highest product price to include, in Turkish Lira.",
       "editor": "number",
-      "maximum": 1000000,
+      "maximum": 2000000,
       "minimum": 0,
-      "title": "Maximum Price (TRY)",
+      "title": "Maximum price (TRY)",
       "type": "integer"
     },
+    "maximizeCoverage": {
+      "default": false,
+      "description": "Split broad searches into price bands to go beyond the site's single-query result limit.",
+      "prefill": false,
+      "title": "Maximize coverage",
+      "type": "boolean"
+    },
     "minPrice": {
-      "description": "Filter products with price above this value (Turkish Lira).",
+      "description": "Lowest product price to include, in Turkish Lira.",
       "editor": "number",
-      "maximum": 1000000,
+      "maximum": 2000000,
       "minimum": 0,
-      "title": "Minimum Price (TRY)",
+      "title": "Minimum price (TRY)",
       "type": "integer"
+    },
+    "minRating": {
+      "default": "",
+      "description": "Only include products rated at or above this many stars.",
+      "editor": "select",
+      "enum": [
+        "",
+        "3",
+        "4",
+        "4.5"
+      ],
+      "enumTitles": [
+        "Any rating",
+        "3 stars and up",
+        "4 stars and up",
+        "4.5 stars and up"
+      ],
+      "prefill": "",
+      "title": "Minimum rating",
+      "type": "string"
     },
     "mode": {
       "default": "search",
-      "description": "What to scrape: search products, get product details, browse a category, or get top sellers.",
+      "description": "Choose keyword search, category browsing, or product lookup.",
       "editor": "select",
-      "enum": [
+      "enumSuggestedValues": [
         "search",
-        "productDetails",
-        "categoryBrowse",
-        "topSellers"
-      ],
-      "enumTitles": [
-        "Search Products",
-        "Product Details",
-        "Category Browse",
-        "Top Sellers"
+        "category",
+        "productDetails"
       ],
       "prefill": "search",
-      "title": "Scraping Mode",
+      "title": "What to scrape",
       "type": "string"
     },
+    "officialSellersOnly": {
+      "default": false,
+      "description": "Keep only products from authorized or official sellers.",
+      "prefill": false,
+      "title": "Official sellers only",
+      "type": "boolean"
+    },
     "productUrls": {
-      "description": "List of Hepsiburada product page URLs (required for productDetails mode).",
+      "description": "Product page URLs, short product URLs, or bare product/SKU IDs (mode=productDetails).",
       "editor": "stringList",
-      "prefill": [],
-      "title": "Product URLs",
+      "title": "Product URLs or IDs",
       "type": "array"
     },
-    "proxyConfiguration": {
-      "description": "Apify proxy settings. Hepsiburada may require proxy for consistent access.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": true
-      },
-      "title": "Proxy Configuration",
-      "type": "object"
+    "searchQueries": {
+      "description": "One or more product searches (mode=search). Each query is collected separately.",
+      "editor": "stringList",
+      "prefill": [
+        "laptop"
+      ],
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "sellers": {
+      "description": "Exact seller names to include, e.g. Hepsiburada. Leave empty for all sellers.",
+      "editor": "stringList",
+      "title": "Sellers",
+      "type": "array"
     },
     "sortBy": {
-      "default": "MOST_POPULAR",
-      "description": "Product sort order.",
+      "default": "recommended",
+      "description": "Result order for search and category modes.",
       "editor": "select",
-      "enum": [
-        "MOST_POPULAR",
-        "LOWEST_PRICE",
-        "HIGHEST_PRICE",
-        "MOST_RECENT",
-        "BEST_RATED"
+      "enumSuggestedValues": [
+        "recommended",
+        "lowestPrice",
+        "highestPrice",
+        "bestSelling",
+        "mostReviewed",
+        "topRated",
+        "highestDiscount",
+        "newest"
       ],
-      "enumTitles": [
-        "Most Popular",
-        "Lowest Price",
-        "Highest Price",
-        "Most Recent",
-        "Best Rated"
-      ],
-      "prefill": "MOST_POPULAR",
-      "title": "Sort By",
+      "prefill": "recommended",
+      "title": "Sort by",
       "type": "string"
     }
   },
-  "required": [],
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
   "title": "Hepsiburada Scraper Input",
   "type": "object"

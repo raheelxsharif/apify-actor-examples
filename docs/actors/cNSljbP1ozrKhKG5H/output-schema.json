@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per looked-up CNPJ, with official Receita Federal data including name, status, industry codes, address, and partner (QSA) list.",
+  "properties": {
+    "companies": {
+      "description": "Dataset containing all scraped Brazilian company records.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Company records",
+      "type": "string"
+    }
+  },
+  "title": "Brazilian CNPJ Bulk Lookup & Partner Records Scraper Output"
+}

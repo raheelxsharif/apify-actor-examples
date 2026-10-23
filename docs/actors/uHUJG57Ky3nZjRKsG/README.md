@@ -4,117 +4,190 @@
 
 # Hepsiburada Product Search & Category Price Scraper
 
-Pull live product data from Hepsiburada, Turkey's largest multi-category marketplace, four different ways: keyword search, a category page, a list of product URLs, or a keyword's top sellers — each returning structured price, rating, and seller records.
+Collect live product data from Hepsiburada, Turkey's largest multi-category marketplace. Search by keyword, browse category pages, or look up specific products by URL or ID. Search and category records carry current price, list price when discounted, discount, rating, review count, seller, stock signal, delivery signal, installments, images, attributes, and category. Enable full details to add descriptions, specifications, variants, stock counts, seller ratings, shipping cost, and return policy. No login, cookies, API key, or proxy setup is required.
 
 ## What this actor does
 
-- Searches Hepsiburada by keyword and returns matching products with current price, rating, and seller.
-- Browses any category page URL and returns its product listing, sorted the same way the site's own sort options work.
-- Fetches full detail (including the product description) for a specific list of product page URLs.
-- Surfaces the top-selling products for a keyword using Hepsiburada's own popularity ranking.
-- Lets every mode be filtered to a price range in Turkish Lira and capped to a maximum item count; fields Hepsiburada doesn't publish for a product are left out of its record.
+- **Search by keyword:** one or many product searches, with Hepsiburada's own sort orders and filters.
+- **Browse categories:** paste one or more Hepsiburada category URLs and collect their product listings.
+- **Look up products:** paste product URLs, short product URLs, or bare product/SKU IDs for full detail.
+- **Filter on the site:** price range, brand, seller, minimum rating, fast delivery, discounted products, and official sellers.
+- **Add full details when needed:** descriptions, specifications, variants, stock counts, seller ratings, shipping cost, and return policy.
+- **Go beyond the default page limit:** split broad searches by price band with `maximizeCoverage`.
+- Empty fields are omitted from each record, never written as `null`.
 
 ## Output per product
 
-| Field | Type | Description |
-|---|---|---|
-| `productId` | String | Hepsiburada product ID (SKU) |
-| `title` | String | Product title |
-| `brand` | String | Brand name |
-| `description` | String | Product description (`productDetails` mode only) |
-| `category` | String | Product category |
-| `price` | Number | Current price (TRY) |
-| `originalPrice` | Number | Original price before discount (TRY) |
-| `discountPercent` | Integer | Discount percentage (0–100) |
-| `rating` | Number | Average rating (0–5 scale) |
-| `reviewCount` | Integer | Number of customer reviews |
-| `seller` | String | Seller/merchant name |
-| `freeShipping` | Boolean | Whether free shipping is available |
-| `isMerchant` | Boolean | `true` if sold by a marketplace seller, `false` if sold directly by Hepsiburada |
-| `imageUrl` | String | Product image URL |
-| `productUrl` | String | Full Hepsiburada product page URL |
-| `recordType` | String | Always `product` |
-| `scrapedAt` | String | ISO 8601 timestamp of when the record was scraped |
+Identity and classification:
+
+- `productId` — Hepsiburada product-level ID (for example `HBC0000ELZI4O`)
+- `sku` — selected variant SKU (for example `HBCV0000ELZI58`)
+- `barcode` — product barcode/GTIN when published
+- `title`, `brand`
+- `category` — leaf category name
+- `categoryId` — leaf category ID
+- `categoryPath` — full breadcrumb path (with full details)
+- `productUrl` — absolute Hepsiburada product URL
+- `imageUrl`, `imageUrls` — main image and gallery
+
+Pricing and reviews:
+
+- `price` — current price in TRY
+- `originalPrice` — list price before a real discount
+- `discountPercent` — discount percentage when the source publishes one
+- `currency` — `TRY`
+- `rating` — average customer rating (0-5)
+- `reviewCount` — number of customer reviews
+- `installmentCount`, `installmentAmount`, `installmentText` — installment plan when published
+- `taxVatRate` — VAT rate when published
+
+Seller, stock and delivery:
+
+- `seller`, `sellerId`, `sellerUrl`
+- `sellerCity`, `sellerCountry`
+- `sellerRating` — seller score on Hepsiburada's 0-10 scale
+- `sellerReviewCount`
+- `sellerIsOfficial` — true for authorized/official sellers
+- `isMerchant` — true when a marketplace seller fulfils the listing, false for Hepsiburada
+- `inStock`, `stockQuantity`, `isPreOrder`
+- `shipmentDays`, `fastShipping`, `freeShipping`
+- `shippingCost`, `shippingCurrency`
+- `returnPolicyDays`, `returnPolicyUrl`
+
+Variants and specifications:
+
+- `hasVariants`
+- `variants[]` — SKU, title, URL, price, stock, barcode, image, and attributes per variant
+- `attributes` — selected colour/capacity/size attributes
+- `specifications` — product specification table as name/value pairs
+- `tags`, `promotions` — human-readable marketplace labels and campaign text when published; internal tag IDs are never emitted
+
+Provenance:
+
+- `position` — global 1-based order across the run; duplicates are skipped, so positions stay unique
+- `searchQuery` — the keyword that produced the record
+- `sourceUrl`, `sourceType`, `page` — provenance; `sourceUrl` is the actual page or price-band query URL
+- `recordType` — always `product`
+- `scrapedAt` — ISO 8601 timestamp
+
+### Mode differences and limits
+
+- Search and category records contain listing fields only. Set `includeProductDetails=true` to add description, specifications, variants, stock quantity, seller rating, shipping cost, and return policy to each record.
+- `productDetails` records include the top-level `productUrl`, `taxVatRate`, `installmentCount`, `installmentAmount`/`installmentText` when published, and human-readable `promotions`. The actor looks up the product's search listing to recover the installment plan and labels when the detail page only has a count.
+- A single search or category slice is capped at 49 pages (1,764 raw rows). Repeated or promoted products are deduplicated, so unique counts can be lower; the actor continues across price bands for large targets and reports an honest shortfall when the source is exhausted.
+- `maximizeCoverage` splits the price range into bands and takes products round-robin from each band, so cheap and expensive products share the budget. `position` is global and `sourceUrl` identifies the band/query URL.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search`, `productDetails`, `categoryBrowse`, or `topSellers` |
-| `keyword` | string | – | Search keyword (required for `search` and `topSellers`) |
-| `productUrls` | array | `[]` | Hepsiburada product page URLs (required for `productDetails`) |
-| `categoryUrl` | string | – | Hepsiburada category page URL (required for `categoryBrowse`) |
-| `sortBy` | string | `MOST_POPULAR` | `MOST_POPULAR`, `LOWEST_PRICE`, `HIGHEST_PRICE`, `MOST_RECENT`, or `BEST_RATED` |
-| `minPrice` | integer | – | Minimum price in Turkish Lira |
-| `maxPrice` | integer | – | Maximum price in Turkish Lira |
-| `maxItems` | integer | `20` | Maximum number of products to return (1–500) |
-| `proxyConfiguration` | object | – | Apify proxy settings; recommended for consistent access |
+| `mode` | string | `search` | `search`, `category`, or `productDetails` |
+| `searchQueries` | array | – | Keywords for keyword search (mode=search) |
+| `categoryUrls` | array | – | Hepsiburada category URLs (mode=category) |
+| `productUrls` | array | – | Product URLs, short URLs, or bare IDs (mode=productDetails) |
+| `sortBy` | string | `recommended` | `recommended`, `lowestPrice`, `highestPrice`, `bestSelling`, `mostReviewed`, `topRated`, `highestDiscount`, `newest` |
+| `minPrice` | integer | – | Minimum price in TRY |
+| `maxPrice` | integer | – | Maximum price in TRY |
+| `minRating` | string | – | `3`, `4`, or `4.5` stars and up |
+| `brands` | array | – | Exact brand names |
+| `sellers` | array | – | Exact seller names |
+| `discountedOnly` | boolean | `false` | Only products marked as advantageous/discounted |
+| `fastDeliveryOnly` | boolean | `false` | Only products with a fast-delivery signal |
+| `officialSellersOnly` | boolean | `false` | Only authorized/official sellers |
+| `includeProductDetails` | boolean | `false` | Add description, specifications, variants, stock count, seller rating, shipping cost, and return policy |
+| `maximizeCoverage` | boolean | `false` | Split broad searches into price bands to exceed the single-query limit |
+| `maxItems` | integer | `100` | Maximum records per query/category; total for product lookup (1-2000) |
 
-### Example: keyword search sorted by price
+### Example: keyword search with filters
 
 ```json
 {
   "mode": "search",
-  "keyword": "laptop",
-  "sortBy": "LOWEST_PRICE",
-  "maxItems": 20
+  "searchQueries": ["laptop"],
+  "minPrice": 20000,
+  "maxPrice": 50000,
+  "minRating": "4",
+  "brands": ["Lenovo", "Asus"],
+  "sortBy": "lowestPrice",
+  "maxItems": 100
 }
 ```
 
-### Example: detail lookup for specific products
+### Example: browse a category and add full details
+
+```json
+{
+  "mode": "category",
+  "categoryUrls": [
+    "https://www.hepsiburada.com/laptop-notebook-dizustu-bilgisayarlar-c-98"
+  ],
+  "sortBy": "bestSelling",
+  "includeProductDetails": true,
+  "maxItems": 50
+}
+```
+
+### Example: look up product URLs and IDs
 
 ```json
 {
   "mode": "productDetails",
   "productUrls": [
-    "https://www.hepsiburada.com/apple-macbook-pro-14-pm-HBCV00000GVYH5"
-  ]
+    "https://www.hepsiburada.com/acer-nitro-anv15-52-intel-core-i5-13420h-16gb-1tb-ssd-rtx5050-freedos-15-6-165hz-tasinabilir-bilgisayar-nh-qz7ey-004-p-HBCV0000ELZI58",
+    "HBC0000EMXA9B"
+  ],
+  "maxItems": 10
 }
 ```
 
-### Example: browse a category page within a price range
+### Example: broad coverage with price bands
 
 ```json
 {
-  "mode": "categoryBrowse",
-  "categoryUrl": "https://www.hepsiburada.com/laptop-x-c-1",
-  "sortBy": "LOWEST_PRICE",
-  "minPrice": 20000,
-  "maxPrice": 60000,
-  "maxItems": 50
+  "mode": "search",
+  "searchQueries": ["laptop"],
+  "maximizeCoverage": true,
+  "maxItems": 2000
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — track a product line's price and discount percentage over time
-- **Market research** — compare brands, ratings, and review counts within a category
-- **Competitor tracking** — watch which products a merchant lists and how they're priced
-- **Assortment analysis** — pull a whole category to see Hepsiburada's live product mix
-- **Trend spotting** — use `topSellers` to see which products currently rank best for a keyword
+- **Price monitoring:** track current price, list price, and discount changes for a product set.
+- **Competitor catalog tracking:** compare brands, sellers, and price bands in a category.
+- **Market research:** measure assortment, ratings, and review counts across Turkish e-commerce.
+- **Stock and delivery checks:** monitor availability, stock counts, shipping cost, and delivery days.
+- **Catalog enrichment:** fill internal product databases with specifications, variants, images, and barcodes.
+- **Seller analysis:** compare official sellers and marketplace sellers by rating and product mix.
 
 ## FAQ
 
-**What's the difference between `search` and `topSellers`?**
-`search` returns matching products in whatever order `sortBy` specifies; `topSellers` always ranks by Hepsiburada's own popularity signal for the keyword, regardless of `sortBy`.
+**What is the difference between `productId` and `sku`?**
+`productId` is Hepsiburada's product-level ID. `sku` is the selected variant's SKU. A product can have several SKUs for colour, capacity, or size.
 
-**Why does `description` only appear sometimes?**
-It's only populated in `productDetails` mode, where the actor fetches each product's own page; search and category results don't include the full description.
+**Why is `originalPrice` missing on some records?**
+Only products with a real discount publish a list price above the current price. When there is no discount, the field is omitted.
 
-**What is `isMerchant`?**
-Hepsiburada sells both as a direct retailer and as a marketplace for third-party sellers. `isMerchant` is `true` when the listing is fulfilled by a marketplace seller and `false` when Hepsiburada is the seller of record.
+**Why are some fields missing from search results?**
+Search and category pages publish price, rating, seller, images, and installments, but not descriptions, specifications, variants, stock counts, or return policy. Enable `includeProductDetails` to fetch those from each product page.
 
-**Can I filter by price?**
-Yes — `minPrice` and `maxPrice` apply to any mode and are both in Turkish Lira (TRY).
+**What does `includeProductDetails` cost in time?**
+It opens one extra product page per record. Small runs finish in seconds; larger runs take longer. The default is off.
 
-**How do I find a category URL for `categoryBrowse`?**
-Copy the URL of any Hepsiburada category listing page, for example `https://www.hepsiburada.com/laptop-x-c-1` or `https://www.hepsiburada.com/cep-telefonu-x-c-32`.
+**Why do I get fewer than `maxItems` results, and is it per query?**
+For `search` and `category`, `maxItems` is per query or category; for `productDetails`, it is the total across all product URLs. A single slice is capped at 49 pages (1,764 raw rows), and deduplication can lower the unique count. For large targets, the actor automatically continues across price bands and takes products round-robin from each band. If the source runs out, the status message reports how many records were requested and emitted.
 
-**Do I need to log in or provide cookies?**
-No — all four modes read Hepsiburada's public pages.
+**Are prices in Turkish Lira?**
+Yes. Hepsiburada is a Turkey-only marketplace and all prices are returned in TRY.
 
-**Why would I need the proxy setting?**
-Hepsiburada's anti-bot protection can block repeated requests from a single IP; enabling the proxy input improves reliability if you see failed or empty results.
+**Can I filter by brand and seller?**
+Yes. Enter exact brand or seller names in `brands` or `sellers`. Matching is done by Hepsiburada's own filters.
+
+**Does the actor collect full review text or Q&A?**
+No. It collects the rating and review count for each product. Full review and Q&A collection is not part of this version.
+
+**Do I need a proxy, login, or cookies?**
+No. The actor connects directly to Hepsiburada's public pages. Just choose a mode, fill in the inputs, and run it.
 
 **Is this affiliated with Hepsiburada?**
 No. This is an independent, third-party actor that reads Hepsiburada's public pages and is not operated by or affiliated with Hepsiburada.

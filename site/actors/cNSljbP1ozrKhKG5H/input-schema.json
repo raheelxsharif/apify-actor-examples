@@ -1,0 +1,38 @@
+{
+  "description": "Look up Brazilian companies by CNPJ number using the BrasilAPI free endpoint. Returns official Receita Federal data.",
+  "properties": {
+    "cnpjs": {
+      "description": "List of Brazilian CNPJ numbers to look up. Can include formatting (dots, slashes, hyphens) or plain 14-digit numbers. Example: [\"18.236.120/0001-58\", \"47960950000121\"].",
+      "editor": "json",
+      "prefill": [
+        "18236120000158",
+        "47960950000121",
+        "03007331000100",
+        "60746948000112",
+        "33000167000101"
+      ],
+      "title": "CNPJ Numbers",
+      "type": "array"
+    },
+    "includePartners": {
+      "default": true,
+      "description": "Whether to include the company's partner/shareholder list (Quadro Societário de Administração) in the output.",
+      "prefill": true,
+      "title": "Include Partners (QSA)",
+      "type": "boolean"
+    },
+    "includeSecondaryActivities": {
+      "default": true,
+      "description": "Whether to include the list of secondary CNAE industry codes in the output.",
+      "prefill": true,
+      "title": "Include Secondary CNAE Activities",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "cnpjs"
+  ],
+  "schemaVersion": 1,
+  "title": "BrasilAPI CNPJ Company Scraper Input",
+  "type": "object"
+}
