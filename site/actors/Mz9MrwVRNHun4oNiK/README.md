@@ -1,0 +1,122 @@
+# VivaReal Colombia Real Estate Listings by City & Price
+
+Search [VivaReal Colombia](https://www.vivareal.com.co) the same way a buyer or renter would — by city, neighborhood, property type, price band, bedrooms, and area — and get back structured listing records instead of search-result pages.
+
+## What this actor does
+
+- Searches properties for sale or for rent on VivaReal Colombia's national listing portal.
+- Narrows a search to a city and, optionally, a specific neighborhood or zone within it.
+- Filters by property type (apartment, house, office, land, commercial, garage, warehouse), price range in COP, bedroom count, and total area in square meters.
+- Returns each listing's price, size, room counts, address breakdown, primary photo, and the direct listing URL.
+- Fields VivaReal doesn't publish for a given listing (such as `neighborhood` or `parkingSpaces`) are left out of that record instead of being filled with a placeholder.
+
+## Output per listing
+
+| Field | Description |
+|---|---|
+| `listingId` | Unique VivaReal listing identifier |
+| `title` | Listing title |
+| `description` | Listing description, when published |
+| `price` | Price in COP |
+| `currency` | Always `COP` |
+| `area` | Usable area in square meters |
+| `bedrooms` | Number of bedrooms |
+| `bathrooms` | Number of bathrooms |
+| `parkingSpaces` | Number of parking spaces |
+| `propertyType` | Property type (`APARTMENT`, `HOME`, `OFFICE`, etc.) |
+| `city` | City name |
+| `neighborhood` | Neighborhood or zone |
+| `state` | Department/state |
+| `zipCode` | Postal code, when published |
+| `address` | Full address string built from the available location parts |
+| `imageUrl` | Primary listing photo URL |
+| `listingUrl` | Direct link to the listing on vivareal.com.co |
+| `mode` | `searchForSale` or `searchForRent` |
+| `recordType` | Always `property` |
+| `scrapedAt` | ISO 8601 timestamp of when the record was scraped |
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `searchForSale` | `searchForSale` or `searchForRent` |
+| `city` | string | `Bogotá` | City to search in |
+| `neighborhood` | string | – | Neighborhood or zone within the city |
+| `propertyType` | string | – (all types) | `APARTMENT`, `HOME`, `OFFICE`, `TERRAIN`, `COMMERCIAL`, `GARAGE`, or `WAREHOUSE` |
+| `priceMin` | integer | – | Minimum price in Colombian Pesos |
+| `priceMax` | integer | – | Maximum price in Colombian Pesos |
+| `bedroomsMin` | integer | – | Minimum number of bedrooms |
+| `bedroomsMax` | integer | – | Maximum number of bedrooms |
+| `areaMin` | integer | – | Minimum total area in m² |
+| `areaMax` | integer | – | Maximum total area in m² |
+| `maxItems` | integer | `50` | Maximum number of listings to return (1–1000) |
+
+### Example: apartments for sale in a price band
+
+```json
+{
+  "mode": "searchForSale",
+  "city": "Bogotá",
+  "propertyType": "APARTMENT",
+  "priceMin": 200000000,
+  "priceMax": 600000000,
+  "bedroomsMin": 2,
+  "maxItems": 100
+}
+```
+
+### Example: houses for rent in a specific neighborhood
+
+```json
+{
+  "mode": "searchForRent",
+  "city": "Medellín",
+  "neighborhood": "El Poblado",
+  "propertyType": "HOME",
+  "maxItems": 50
+}
+```
+
+### Example: commercial space by area range
+
+```json
+{
+  "mode": "searchForSale",
+  "city": "Cali",
+  "propertyType": "COMMERCIAL",
+  "areaMin": 100,
+  "areaMax": 500,
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- **Market research** — compare asking prices and inventory across Colombian cities and neighborhoods
+- **Lead generation** — build a current list of active listings in a target market
+- **Investment screening** — filter by price, area, and bedroom count to shortlist candidate properties
+- **Rental monitoring** — track rental asking prices in a neighborhood over time
+- **Proptech data feeds** — power a search or comparison tool with live VivaReal Colombia inventory
+
+## FAQ
+
+**Which cities can I search?**
+Any city covered by VivaReal Colombia, including Bogotá, Medellín, Cali, Barranquilla, and Cartagena — pass the name as free text in `city`.
+
+**What currency are prices shown in?**
+Colombian Pesos (COP); this is the only currency VivaReal Colombia lists prices in.
+
+**Can I get rental listings instead of sales?**
+Yes — set `mode` to `searchForRent`.
+
+**How many listings can I get in one run?**
+Up to 1,000, set via `maxItems`. For a specific market, narrowing with `city`, `neighborhood`, or `propertyType` returns a more focused set faster.
+
+**Why is `neighborhood`, `zipCode`, or `parkingSpaces` missing from some records?**
+VivaReal doesn't publish those details on every listing; the actor omits a field rather than guessing a value.
+
+**Does this actor need a VivaReal account or login?**
+No — all data comes from VivaReal Colombia's public search results.
+
+**Is this affiliated with VivaReal?**
+No. This is an independent, third-party actor that reads VivaReal Colombia's public listing pages and is not operated by or affiliated with VivaReal.

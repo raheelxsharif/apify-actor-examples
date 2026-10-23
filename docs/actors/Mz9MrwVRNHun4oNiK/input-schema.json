@@ -1,0 +1,120 @@
+{
+  "description": "Search VivaReal Colombia for properties for sale or rent.",
+  "properties": {
+    "areaMax": {
+      "description": "Maximum total area in square meters (optional).",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Max Area (m²)",
+      "type": "integer"
+    },
+    "areaMin": {
+      "description": "Minimum total area in square meters (optional).",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min Area (m²)",
+      "type": "integer"
+    },
+    "bedroomsMax": {
+      "description": "Maximum number of bedrooms (optional).",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Max Bedrooms",
+      "type": "integer"
+    },
+    "bedroomsMin": {
+      "description": "Minimum number of bedrooms (optional).",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Min Bedrooms",
+      "type": "integer"
+    },
+    "city": {
+      "default": "Bogotá",
+      "description": "City to search in (e.g. Bogotá, Medellín, Cali, Barranquilla).",
+      "editor": "textfield",
+      "prefill": "Bogotá",
+      "title": "City",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchForSale",
+      "description": "What to search for.",
+      "editor": "select",
+      "enum": [
+        "searchForSale",
+        "searchForRent"
+      ],
+      "enumTitles": [
+        "Search properties for sale",
+        "Search properties for rent"
+      ],
+      "prefill": "searchForSale",
+      "title": "Mode",
+      "type": "string"
+    },
+    "neighborhood": {
+      "description": "Neighborhood or zone filter (optional).",
+      "editor": "textfield",
+      "title": "Neighborhood / Zone",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum price in Colombian Pesos (optional).",
+      "maximum": 100000000000,
+      "minimum": 0,
+      "title": "Max Price (COP)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in Colombian Pesos (optional).",
+      "maximum": 100000000000,
+      "minimum": 0,
+      "title": "Min Price (COP)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "Filter by property type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "APARTMENT",
+        "HOME",
+        "OFFICE",
+        "TERRAIN",
+        "COMMERCIAL",
+        "GARAGE",
+        "WAREHOUSE"
+      ],
+      "enumTitles": [
+        "All types",
+        "Apartment",
+        "House",
+        "Office",
+        "Land / Terrain",
+        "Commercial",
+        "Garage",
+        "Warehouse"
+      ],
+      "prefill": "",
+      "title": "Property Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "VivaReal Colombia Scraper Input",
+  "type": "object"
+}

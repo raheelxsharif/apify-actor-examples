@@ -1,0 +1,393 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-XyOPQQB+nfkL/cPK60XXcBUC/ZMWw91oyCEZcINdwI4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>VivaReal Colombia Real Estate Listings by City &amp; Price | Dataspryva</title><meta name="description" content="Search VivaReal Colombia for properties for sale or rent by city, neighborhood, property type, price range, bedrooms, and area, and get back price, size, address, photo, and listin"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/"><meta property="og:title" content="VivaReal Colombia Real Estate Listings by City &amp; Price | Dataspryva"><meta property="og:description" content="Search VivaReal Colombia for properties for sale or rent by city, neighborhood, property type, price range, bedrooms, and area, and get back price, size, address, photo, and listin"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#webpage","name":"VivaReal Colombia Real Estate Listings by City & Price","description":"Search VivaReal Colombia for properties for sale or rent by city, neighborhood, property type, price range, bedrooms, and area, and get back price, size, address, photo, and listing URL for each match.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#article","headline":"VivaReal Colombia Real Estate Listings by City & Price","name":"VivaReal Colombia Real Estate Listings by City & Price","description":"Search VivaReal Colombia for properties for sale or rent by city, neighborhood, property type, price range, bedrooms, and area, and get back price, size, address, photo, and listing URL for each match.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"VivaReal Colombia Real Estate Listings by City & Price","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/Mz9MrwVRNHun4oNiK/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>VivaReal Colombia Real Estate Listings by City &amp; Price</span></div><section id="overview"><h1 class="doc-title">VivaReal Colombia Real Estate Listings by City &amp; Price</h1><p class="lede">Search VivaReal Colombia for properties for sale or rent by city, neighborhood, property type, price range, bedrooms, and area, and get back price, size, address, photo, and listing URL for each match.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/vivareal-colombia-real-estate-listings-by-city">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/Mz9MrwVRNHun4oNiK/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to search for.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>City to search in (e.g. Bogotá, Medellín, Cali, Barranquilla).</td></tr><tr><td><code>neighborhood</code></td><td>string</td><td>optional</td><td>Neighborhood or zone filter (optional).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to search for.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>City to search in (e.g. Bogotá, Medellín, Cali, Barranquilla).</td></tr><tr><td><code>neighborhood</code></td><td>string</td><td>optional</td><td>Neighborhood or zone filter (optional).</td></tr><tr><td><code>propertyType</code></td><td>string</td><td>optional</td><td>Filter by property type.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Minimum price in Colombian Pesos (optional).</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Maximum price in Colombian Pesos (optional).</td></tr><tr><td><code>bedroomsMin</code></td><td>integer</td><td>optional</td><td>Minimum number of bedrooms (optional).</td></tr><tr><td><code>bedroomsMax</code></td><td>integer</td><td>optional</td><td>Maximum number of bedrooms (optional).</td></tr><tr><td><code>areaMin</code></td><td>integer</td><td>optional</td><td>Minimum total area in square meters (optional).</td></tr><tr><td><code>areaMax</code></td><td>integer</td><td>optional</td><td>Maximum total area in square meters (optional).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of listings to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search VivaReal Colombia for properties for sale or rent.&quot;,
+  &quot;properties&quot;: {
+    &quot;areaMax&quot;: {
+      &quot;description&quot;: &quot;Maximum total area in square meters (optional).&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max Area (m²)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;areaMin&quot;: {
+      &quot;description&quot;: &quot;Minimum total area in square meters (optional).&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min Area (m²)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bedroomsMax&quot;: {
+      &quot;description&quot;: &quot;Maximum number of bedrooms (optional).&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max Bedrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bedroomsMin&quot;: {
+      &quot;description&quot;: &quot;Minimum number of bedrooms (optional).&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min Bedrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;city&quot;: {
+      &quot;default&quot;: &quot;Bogotá&quot;,
+      &quot;description&quot;: &quot;City to search in (e.g. Bogotá, Medellín, Cali, Barranquilla).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;Bogotá&quot;,
+      &quot;title&quot;: &quot;City&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum number of listings to return.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 50,
+      &quot;title&quot;: &quot;Max Items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchForSale&quot;,
+      &quot;description&quot;: &quot;What to search for.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchForSale&quot;,
+        &quot;searchForRent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search properties for sale&quot;,
+        &quot;Search properties for rent&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchForSale&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;neighborhood&quot;: {
+      &quot;description&quot;: &quot;Neighborhood or zone filter (optional).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Neighborhood / Zone&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;priceMax&quot;: {
+      &quot;description&quot;: &quot;Maximum price in Colombian Pesos (optional).&quot;,
+      &quot;maximum&quot;: 100000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max Price (COP)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;priceMin&quot;: {
+      &quot;description&quot;: &quot;Minimum price in Colombian Pesos (optional).&quot;,
+      &quot;maximum&quot;: 100000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min Price (COP)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;propertyType&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Filter by property type.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;APARTMENT&quot;,
+        &quot;HOME&quot;,
+        &quot;OFFICE&quot;,
+        &quot;TERRAIN&quot;,
+        &quot;COMMERCIAL&quot;,
+        &quot;GARAGE&quot;,
+        &quot;WAREHOUSE&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All types&quot;,
+        &quot;Apartment&quot;,
+        &quot;House&quot;,
+        &quot;Office&quot;,
+        &quot;Land / Terrain&quot;,
+        &quot;Commercial&quot;,
+        &quot;Garage&quot;,
+        &quot;Warehouse&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Property Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;VivaReal Colombia Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped property listings from VivaReal Colombia.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per VivaReal Colombia listing, with title, price, area, bedrooms, bathrooms, city, neighborhood, property type, and listing URL.&quot;,
+  &quot;properties&quot;: {
+    &quot;listings&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped property listings from VivaReal Colombia.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Property Listings&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;VivaReal Colombia Real Estate Listings by City &amp; Price Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Properties&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;price&quot;,
+          &quot;currency&quot;,
+          &quot;area&quot;,
+          &quot;bedrooms&quot;,
+          &quot;bathrooms&quot;,
+          &quot;city&quot;,
+          &quot;neighborhood&quot;,
+          &quot;propertyType&quot;,
+          &quot;listingUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-vivareal-colombia-real-estate-listings-by-city-price">VivaReal Colombia Real Estate Listings by City &amp; Price</h2>
+<p>Search <a href="https://www.vivareal.com.co">VivaReal Colombia</a> the same way a buyer or renter would — by city, neighborhood, property type, price band, bedrooms, and area — and get back structured listing records instead of search-result pages.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches properties for sale or for rent on VivaReal Colombia's national listing portal.</li>
+<li>Narrows a search to a city and, optionally, a specific neighborhood or zone within it.</li>
+<li>Filters by property type (apartment, house, office, land, commercial, garage, warehouse), price range in COP, bedroom count, and total area in square meters.</li>
+<li>Returns each listing's price, size, room counts, address breakdown, primary photo, and the direct listing URL.</li>
+<li>Fields VivaReal doesn't publish for a given listing (such as <code>neighborhood</code> or <code>parkingSpaces</code>) are left out of that record instead of being filled with a placeholder.</li>
+</ul>
+<h2 id="readme-output-per-listing">Output per listing</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>listingId</code></td>
+<td>Unique VivaReal listing identifier</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Listing title</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Listing description, when published</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>Price in COP</td>
+</tr>
+<tr>
+<td><code>currency</code></td>
+<td>Always <code>COP</code></td>
+</tr>
+<tr>
+<td><code>area</code></td>
+<td>Usable area in square meters</td>
+</tr>
+<tr>
+<td><code>bedrooms</code></td>
+<td>Number of bedrooms</td>
+</tr>
+<tr>
+<td><code>bathrooms</code></td>
+<td>Number of bathrooms</td>
+</tr>
+<tr>
+<td><code>parkingSpaces</code></td>
+<td>Number of parking spaces</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>Property type (<code>APARTMENT</code>, <code>HOME</code>, <code>OFFICE</code>, etc.)</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>City name</td>
+</tr>
+<tr>
+<td><code>neighborhood</code></td>
+<td>Neighborhood or zone</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>Department/state</td>
+</tr>
+<tr>
+<td><code>zipCode</code></td>
+<td>Postal code, when published</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>Full address string built from the available location parts</td>
+</tr>
+<tr>
+<td><code>imageUrl</code></td>
+<td>Primary listing photo URL</td>
+</tr>
+<tr>
+<td><code>listingUrl</code></td>
+<td>Direct link to the listing on vivareal.com.co</td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>searchForSale</code> or <code>searchForRent</code></td>
+</tr>
+<tr>
+<td><code>recordType</code></td>
+<td>Always <code>property</code></td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>ISO 8601 timestamp of when the record was scraped</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchForSale</code></td>
+<td><code>searchForSale</code> or <code>searchForRent</code></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td><code>Bogotá</code></td>
+<td>City to search in</td>
+</tr>
+<tr>
+<td><code>neighborhood</code></td>
+<td>string</td>
+<td>–</td>
+<td>Neighborhood or zone within the city</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>string</td>
+<td>– (all types)</td>
+<td><code>APARTMENT</code>, <code>HOME</code>, <code>OFFICE</code>, <code>TERRAIN</code>, <code>COMMERCIAL</code>, <code>GARAGE</code>, or <code>WAREHOUSE</code></td>
+</tr>
+<tr>
+<td><code>priceMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum price in Colombian Pesos</td>
+</tr>
+<tr>
+<td><code>priceMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum price in Colombian Pesos</td>
+</tr>
+<tr>
+<td><code>bedroomsMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum number of bedrooms</td>
+</tr>
+<tr>
+<td><code>bedroomsMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum number of bedrooms</td>
+</tr>
+<tr>
+<td><code>areaMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum total area in m²</td>
+</tr>
+<tr>
+<td><code>areaMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum total area in m²</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Maximum number of listings to return (1–1000)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-apartments-for-sale-in-a-price-band">Example: apartments for sale in a price band</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForSale&quot;,
+  &quot;city&quot;: &quot;Bogotá&quot;,
+  &quot;propertyType&quot;: &quot;APARTMENT&quot;,
+  &quot;priceMin&quot;: 200000000,
+  &quot;priceMax&quot;: 600000000,
+  &quot;bedroomsMin&quot;: 2,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-houses-for-rent-in-a-specific-neighborhood">Example: houses for rent in a specific neighborhood</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForRent&quot;,
+  &quot;city&quot;: &quot;Medellín&quot;,
+  &quot;neighborhood&quot;: &quot;El Poblado&quot;,
+  &quot;propertyType&quot;: &quot;HOME&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-commercial-space-by-area-range">Example: commercial space by area range</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchForSale&quot;,
+  &quot;city&quot;: &quot;Cali&quot;,
+  &quot;propertyType&quot;: &quot;COMMERCIAL&quot;,
+  &quot;areaMin&quot;: 100,
+  &quot;areaMax&quot;: 500,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Market research</strong> — compare asking prices and inventory across Colombian cities and neighborhoods</li>
+<li><strong>Lead generation</strong> — build a current list of active listings in a target market</li>
+<li><strong>Investment screening</strong> — filter by price, area, and bedroom count to shortlist candidate properties</li>
+<li><strong>Rental monitoring</strong> — track rental asking prices in a neighborhood over time</li>
+<li><strong>Proptech data feeds</strong> — power a search or comparison tool with live VivaReal Colombia inventory</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Which cities can I search?</strong>
+Any city covered by VivaReal Colombia, including Bogotá, Medellín, Cali, Barranquilla, and Cartagena — pass the name as free text in <code>city</code>.</p>
+<p><strong>What currency are prices shown in?</strong>
+Colombian Pesos (COP); this is the only currency VivaReal Colombia lists prices in.</p>
+<p><strong>Can I get rental listings instead of sales?</strong>
+Yes — set <code>mode</code> to <code>searchForRent</code>.</p>
+<p><strong>How many listings can I get in one run?</strong>
+Up to 1,000, set via <code>maxItems</code>. For a specific market, narrowing with <code>city</code>, <code>neighborhood</code>, or <code>propertyType</code> returns a more focused set faster.</p>
+<p><strong>Why is <code>neighborhood</code>, <code>zipCode</code>, or <code>parkingSpaces</code> missing from some records?</strong>
+VivaReal doesn't publish those details on every listing; the actor omits a field rather than guessing a value.</p>
+<p><strong>Does this actor need a VivaReal account or login?</strong>
+No — all data comes from VivaReal Colombia's public search results.</p>
+<p><strong>Is this affiliated with VivaReal?</strong>
+No. This is an independent, third-party actor that reads VivaReal Colombia's public listing pages and is not operated by or affiliated with VivaReal.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/Mz9MrwVRNHun4oNiK/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>fF3QIzRxfPiMGRpZs</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

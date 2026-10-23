@@ -1,9 +1,9 @@
 {
-  "description": "Search properties on 99acres — India's leading real estate portal.",
+  "description": "Search 99acres sale and rent listings by city, BHK, property type, locality, and price.",
   "properties": {
     "bedrooms": {
       "default": "",
-      "description": "Number of bedrooms.",
+      "description": "Number of bedrooms. Choose '5+' for five or more.",
       "editor": "select",
       "enum": [
         "",
@@ -21,13 +21,13 @@
         "4 BHK",
         "5+ BHK"
       ],
-      "prefill": "",
+      "prefill": "2",
       "title": "Bedrooms (BHK)",
       "type": "string"
     },
     "city": {
       "default": "Delhi",
-      "description": "City to search in.",
+      "description": "Indian city to search in.",
       "editor": "select",
       "enum": [
         "Delhi",
@@ -83,52 +83,93 @@
         "Kochi",
         "Visakhapatnam"
       ],
-      "prefill": "Delhi",
+      "prefill": "Noida",
       "title": "City",
       "type": "string"
     },
+    "furnishing": {
+      "default": "",
+      "description": "Filter by furnishing status.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Furnished",
+        "Unfurnished",
+        "Semi-furnished"
+      ],
+      "enumTitles": [
+        "Any",
+        "Furnished",
+        "Unfurnished",
+        "Semi-furnished"
+      ],
+      "prefill": "",
+      "title": "Furnishing",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch each property's detail page for RERA numbers, amenity labels, carpet area, floor, furnishing details, and coordinates. Off by default because it adds one residential request per property.",
+      "prefill": false,
+      "title": "Include detail-page enrichment",
+      "type": "boolean"
+    },
+    "includeProjects": {
+      "default": true,
+      "description": "Include new-launch project cards alongside individual listings. Project rows have recordType 'project'.",
+      "prefill": false,
+      "title": "Include new-launch projects",
+      "type": "boolean"
+    },
+    "localities": {
+      "description": "Optional list of locality names; each is resolved to a 99acres locality ID.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Localities (multiple)",
+      "type": "array"
+    },
     "locality": {
-      "description": "Specific locality or neighbourhood within the city.",
+      "description": "Optional locality or sector name within the city, e.g. 'Sector 43'. The actor looks up the 99acres locality ID.",
       "editor": "textfield",
       "title": "Locality",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of property records to return.",
-      "maximum": 500,
+      "description": "Maximum number of property and project records to return.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
     "mode": {
       "default": "searchForSale",
-      "description": "What to scrape from 99acres.",
+      "description": "Search properties for sale or for rent.",
       "editor": "select",
-      "enum": [
-        "searchProperties",
+      "enumSuggestedValues": [
         "searchForSale",
         "searchForRent"
       ],
       "enumTitles": [
-        "Search all properties",
-        "Search properties for sale",
-        "Search properties for rent"
+        "For sale",
+        "For rent"
       ],
-      "prefill": "searchForSale",
-      "title": "Mode",
+      "prefill": "searchForRent",
+      "title": "Listing type",
       "type": "string"
     },
     "priceMax": {
-      "description": "Maximum property price in Indian Rupees.",
+      "description": "Maximum price in Indian Rupees. Applied while scanning pages because 99acres ignores price query parameters.",
       "maximum": 999999999,
       "minimum": 0,
       "title": "Max price (INR)",
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum property price in Indian Rupees.",
+      "description": "Minimum price in Indian Rupees. Applied while scanning pages because 99acres ignores price query parameters.",
       "maximum": 999999999,
       "minimum": 0,
       "title": "Min price (INR)",
@@ -136,38 +177,53 @@
     },
     "propertyType": {
       "default": "Residential Apartment",
-      "description": "Type of property to search for.",
+      "description": "Residential property type to search for.",
       "editor": "select",
-      "enum": [
+      "enumSuggestedValues": [
         "Residential Apartment",
         "Independent House",
         "Villa",
         "Residential Plot",
         "Independent Floor",
         "Studio Apartment",
-        "Penthouse",
-        "Farm House",
-        "Commercial Office Space",
-        "Commercial Shop",
-        "Commercial Land",
-        "Warehouse"
+        "Farm House"
       ],
       "enumTitles": [
-        "Residential Apartment",
-        "Independent House",
+        "Residential apartment",
+        "Independent house",
         "Villa",
-        "Residential Plot",
-        "Independent Floor",
-        "Studio Apartment",
-        "Penthouse",
-        "Farm House",
-        "Commercial Office Space",
-        "Commercial Shop",
-        "Commercial Land",
-        "Warehouse / Godown"
+        "Residential plot / land",
+        "Independent / builder floor",
+        "Studio apartment",
+        "Farm house"
       ],
       "prefill": "Residential Apartment",
       "title": "Property type",
+      "type": "string"
+    },
+    "searchUrls": {
+      "description": "Optional 99acres search URLs: /property-in-<city>-ffid?... or /<n>-bhk-flats-in-<city>-ffid?... When provided, city and filter fields are ignored.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search URLs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Result order. 'Newest' is 99acres' recently-updated order (updatedAt), not the original posting date (postedAt).",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Newest first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
       "type": "string"
     }
   },

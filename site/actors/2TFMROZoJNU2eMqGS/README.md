@@ -1,112 +1,160 @@
 # 99acres City & BHK Property Listing Scraper
 
-Pull live buy and rent listings from 99acres by picking a city, a property type, and a BHK size — the same filters you'd use on the site itself — and get back structured records instead of a search results page.
+Pull live 99acres sale and rent listings for a city, BHK size, property type, locality, and price band. Every row is a structured property record with the asking price, area, seller details, photos, amenity IDs, floor, furnishing, and map coordinates — plus optional new-launch project cards.
 
 ## What this actor does
 
-- Searches 99acres for sale or for rent across 25 major Indian cities.
-- Narrows results by property type (apartment, villa, plot, commercial office, warehouse, and more) and by number of bedrooms (BHK).
-- Accepts a free-text locality name plus a minimum/maximum price in INR to tighten a search within a city.
-- Returns each listing's title, price, area, bedroom count, location, property type, and the poster's name alongside a direct link to the listing.
-- Fields 99acres doesn't show for a given listing (for example `postedBy` or `locality` on some ads) are left out of that record rather than filled with a placeholder.
+- Searches 99acres for **sale or rent** across 25 Indian cities, from Delhi and Mumbai to Noida, Pune, Bangalore, Gurugram, and Kochi.
+- Filters by **BHK, residential property type, locality, furnishing, and price**. Localities are resolved to 99acres' own location IDs, so names like `Sector 43` work instead of silently returning the whole city.
+- Returns **one row per listing** with title, price text and numeric INR value, area in square feet and square metres, BHK, bathrooms, property type, locality, city, project/society, seller name and type, posted date, images, video, amenity IDs, floor, furnishing, availability, coordinates, and RERA registration flags.
+- Adds **new-launch project cards** when `includeProjects` is on; each project row has its builder, price range, configurations, construction status where the card shows it, possession, photos, and project URL. Listings are collected first; project cards are appended only up to 20% of `maxItems`, so they never crowd out individual listings.
+- Accepts **pasted 99acres search URLs** for filters configured on the site, and supports 99acres' date-descending (recently updated) sort.
+- Omits fields 99acres does not show for a listing instead of writing `null` or a placeholder.
 
 ## Output per property
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `title` | String | Property title / description |
-| `price` | String | Asking price as displayed on 99acres (e.g. `"75 Lac"`, `"1.2 Cr"`, `"25,000/month"`) |
-| `area` | String | Built-up / carpet / plot area (e.g. `"1400 sq.ft"`) |
-| `bedrooms` | Integer | Number of bedrooms (BHK) |
-| `city` | String | City name |
-| `locality` | String | Locality / sector / neighbourhood |
-| `propertyType` | String | Type of property |
-| `postedBy` | String | Owner or agent/dealer name, when shown |
-| `propertyUrl` | String | Direct link to the listing on 99acres |
-| `sourceUrl` | String | Canonical listing URL (same as `propertyUrl`) |
-| `recordType` | String | Always `property` |
-| `scrapedAt` | String | ISO 8601 timestamp of when the record was scraped |
+- `propertyId`, `propId` — 99acres listing identifiers
+- `title`, `propertyType`, `bedrooms`, `bathrooms`, `balconies`
+- `price` (as displayed), `priceValue`, `priceMaxValue`, `pricePerSqft`
+- `area` (as displayed), `areaSqft`, `areaSqm`, `areaType`
+- `city`, `locality`, `projectName`
+- `postedBy`, `sellerName`, `sellerCompany`, `sellerType`
+- `postedAt`, `updatedAt`, `availability`, `statusTags`
+- `furnishing`, `floor`, `totalFloors`, `facing`
+- `description`, `images[]`, `imageCount`, `videoUrl`
+- `amenityIds[]`
+- `latitude`, `longitude`
+- `reraRegistered`, `reraDealerRegistered`
+- `transactionType`, `dealType`
+- `propertyUrl`, `sourceUrl`
+- `recordType: "property"`, `scrapedAt`
+
+With `includeDetails: true`, property rows also include: `reraNumber`, `dealerReraNumber`, `amenities[]` (labels), `carpetAreaSqft`, `superBuiltupAreaSqft`, `floorLabel`, `furnishingDetails`, `flooring`, `ownership`, `ageLabel`, `deposit`, `priceNegotiable`, `powerBackup`, `waterSource`, `petFriendly`, `brokerage`, `availabilityText`, `availabilityDate`, `detailsEnriched`.
+
+## Output per project (`includeProjects: true`)
+
+`recordType: "project"`, `projectId`, `title`, `subtitle`, `builder`, `priceMin`, `priceMax`, `priceLabel`, `pricePerSqft`, `areaType`, `configurations[]` (`bhk`, `area`, `price`), `constructionStatus` (when shown), `possession`, `locality`, `city`, `latitude`, `longitude`, `images[]`, `imageCount`, `tags[]`, `description`, `projectUrl`, `isNewLaunch`, `reraTag`, `scrapedAt`.
 
 ## Input
 
 | Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `mode` | string | `searchForSale` | `searchProperties`, `searchForSale`, or `searchForRent` — `searchProperties` currently behaves the same as `searchForSale` |
-| `city` | string | `Delhi` | City to search (required) |
-| `propertyType` | string | `Residential Apartment` | Type of property to search for |
-| `bedrooms` | string | – (any) | Number of bedrooms: `1`–`4`, or `5+` |
-| `locality` | string | – | Specific neighbourhood or sector within the city |
-| `priceMin` | integer | – | Minimum price in Indian Rupees |
-| `priceMax` | integer | – | Maximum price in Indian Rupees |
-| `maxItems` | integer | `50` | Maximum number of property records to return (1–500) |
+|---|---|---|---|
+| `mode` | string | `searchForSale` | `searchForSale` or `searchForRent` |
+| `city` | string | `Delhi` | One of the 25 supported Indian cities |
+| `propertyType` | string | `Residential Apartment` | Residential apartment, independent house, villa, plot, independent floor, studio, or farm house |
+| `bedrooms` | string | any | `1`–`4` or `5+` BHK |
+| `locality` | string | – | One locality name within the city |
+| `localities` | array | – | Multiple locality names |
+| `priceMin` | integer | – | Minimum price in INR |
+| `priceMax` | integer | – | Maximum price in INR |
+| `furnishing` | string | any | Furnished, unfurnished, or semi-furnished |
+| `sortBy` | string | `relevance` | `relevance` or `newest` |
+| `includeProjects` | boolean | `true` | Add new-launch project cards (they count toward `maxItems`; set `false` for listings only) |
+| `searchUrls` | array | – | Full 99acres `/property-in-<city>-ffid?...` search URLs |
+| `maxItems` | integer | `50` | Record cap, 1–1,000 |
 
-### Example: 2 BHK rentals in a specific locality
+### Example: 2 BHK rentals in Noida
 
 ```json
 {
   "mode": "searchForRent",
-  "city": "Bangalore",
+  "city": "Noida",
   "propertyType": "Residential Apartment",
   "bedrooms": "2",
-  "locality": "HSR Layout",
-  "maxItems": 40
+  "maxItems": 30
 }
 ```
 
-### Example: independent houses for sale within a budget
+### Example: family homes in a locality
 
 ```json
 {
   "mode": "searchForSale",
-  "city": "Pune",
+  "city": "Bangalore",
   "propertyType": "Independent House",
-  "priceMin": 5000000,
-  "priceMax": 15000000,
+  "bedrooms": "3",
+  "localities": ["HSR Layout", "Koramangala"],
+  "priceMin": 10000000,
+  "priceMax": 30000000,
   "maxItems": 50
 }
 ```
 
-### Example: a specific property type in one city
+### Example: newest furnished rentals
 
 ```json
 {
-  "mode": "searchForSale",
-  "city": "Mumbai",
-  "propertyType": "Villa",
-  "maxItems": 30
+  "mode": "searchForRent",
+  "city": "Pune",
+  "bedrooms": "2",
+  "furnishing": "Semi-furnished",
+  "sortBy": "newest",
+  "includeProjects": false,
+  "maxItems": 40
+}
+```
+
+### Example: enrich property details
+
+```json
+{
+  "mode": "searchForRent",
+  "city": "Noida",
+  "bedrooms": "2",
+  "includeProjects": false,
+  "includeDetails": true,
+  "maxItems": 5
+}
+```
+
+### Example: reuse a search URL
+
+```json
+{
+  "searchUrls": [
+    "https://www.99acres.com/property-in-mumbai-ffid?preference=R&res_com=R&bedroom_num=2&page=1"
+  ],
+  "maxItems": 25
 }
 ```
 
 ## Use cases
 
-- **Market research** — compare asking prices and inventory volume across Indian cities and localities
-- **Investment screening** — filter by price band and property type before shortlisting areas to study
-- **Rental tracking** — pull current rental listings with BHK and locality for a neighbourhood
-- **Lead sourcing** — collect owner/agent names attached to active listings
-- **Proptech data feeds** — refresh a search UI or dashboard with current 99acres inventory
+- **Market research** — compare asking prices and inventory across cities, BHK sizes, and localities.
+- **Investment screening** — build a shortlist by price band, property type, and furnishing.
+- **Rental tracking** — refresh a neighbourhood feed with current rents and new listings.
+- **Lead sourcing** — collect public seller names, seller types, and active listing URLs.
+- **PropTech feeds** — populate dashboards, comparison pages, or CRMs with clean listing records.
+- **New-launch monitoring** — track project price ranges and possession dates alongside resale inventory.
 
 ## FAQ
 
-**Do I need a 99acres login to use this?**
-No — every field comes from 99acres' public, unauthenticated search results.
+**Do I need a 99acres login or cookies?**
+No. The actor reads public search results and needs no account, cookie, or API key.
 
-**What's the difference between the three modes?**
-`searchForSale` returns properties listed for purchase and `searchForRent` returns rental listings only. `searchProperties` currently queries the same for-sale listings as `searchForSale`; run the actor twice with different modes if you need both sale and rental results.
+**Do I need to configure a proxy?**
+No. The actor chooses a working connection to 99acres automatically. Just fill in the input and run it.
 
-**Why are `price` and `area` text instead of numbers?**
-They're returned exactly as 99acres formats them (e.g. `"1.2 Cr"`, `"1400 sq.ft"`) because the site mixes units (Lac/Cr, sq.ft/sq.m) that a single numeric field couldn't represent without losing information.
+**Why are some fields missing from a record?**
+99acres does not show every field for every listing. Missing values are omitted rather than sent as `null` or a placeholder.
 
-**Why is `postedBy` or `locality` missing from some records?**
-99acres doesn't render every field on every listing card. When a value isn't present on the source page, the actor omits the field instead of guessing.
+**What does `includeDetails` add, and what does it cost?**
+It fetches the individual property page for RERA numbers, amenity labels, carpet area, floor and furnishing details, and coordinates. Each property needs one extra residential request, so keep `maxItems` small when it is on.
 
-**Can I search for a locality that isn't in a dropdown?**
-Yes — `locality` is free text, so you can type any neighbourhood or sector name 99acres recognizes within the selected city.
+**Why does a price filter sometimes take longer?**
+99acres ignores price query parameters, so the actor applies your price range while it scans result pages. A narrow band may need more pages than a broad one.
 
-**Does this cover photos or the full listing description?**
-No. Those live on the individual listing page; `propertyUrl` gives you the direct link to open it on 99acres.
+**What is the difference between a property row and a project row?**
+`recordType: "property"` is an individual resale or rental listing. `recordType: "project"` is a new-launch project card with a builder, price range, and unit configurations. Set `includeProjects` to `false` for listings only.
 
-**Why is the actor named "NinetyNineAcresScraper" instead of "99acresScraper"?**
-Folder and code identifiers can't start with a digit, so the site's name is spelled out; the actor itself still targets 99acres.com.
+**Why do some localities return no rows?**
+The actor resolves locality names from the city's own locality list, not from the filtered result page. A name can resolve correctly and still return no rows if that BHK, property type, furnishing, or price band has no listings there. The actor says so instead of returning the whole city.
+
+**Why doesn't "Newest first" match the posted date?**
+99acres' date sort is a **recently updated** order. Use `updatedAt` when you need to compare the sort order; `postedAt` is the original listing date.
+
+**Does the actor support commercial property?**
+This revision covers residential sale and rent. Commercial property types are not exposed yet.
 
 **Is this actor affiliated with 99acres?**
-No. This is an independent, third-party actor that reads 99acres' public listing pages and is not operated by or affiliated with 99acres.com.
+No. This is an independent, third-party actor that reads 99acres' public search pages and is not operated by or affiliated with 99acres.com.
