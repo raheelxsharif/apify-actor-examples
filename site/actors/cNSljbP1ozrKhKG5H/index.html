@@ -1,47 +1,188 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-lq//DV8fZWjPOXfuzPLsnQw9WCB2UEUWyrbMKQJU6fk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper | Dataspryva</title><meta name="description" content="Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, an"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"><meta property="og:title" content="Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper | Dataspryva"><meta property="og:description" content="Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, an"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#webpage","name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","description":"Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#article","headline":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","description":"Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</span></div><section id="overview"><h1 class="doc-title">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</h1><p class="lede">Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/brazilian-cnpj-bulk-lookup-and-partner-records">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/cNSljbP1ozrKhKG5H/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>cnpjs</code></td><td>array</td><td>required</td><td>List of Brazilian CNPJ numbers to look up. Can include formatting (dots, slashes, hyphens) or plain 14-digit numbers. Example: [&quot;18.236.120/0001-58&quot;, &quot;47960950000121&quot;].</td></tr><tr><td><code>includePartners</code></td><td>boolean</td><td>optional</td><td>Whether to include the company&#x27;s partner/shareholder list (Quadro Societário de Administração) in the output.</td></tr><tr><td><code>includeSecondaryActivities</code></td><td>boolean</td><td>optional</td><td>Whether to include the list of secondary CNAE industry codes in the output.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Look up Brazilian companies by CNPJ number using the BrasilAPI free endpoint. Returns official Receita Federal data.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-lq//DV8fZWjPOXfuzPLsnQw9WCB2UEUWyrbMKQJU6fk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper | Dataspryva</title><meta name="description" content="Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, an"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"><meta property="og:title" content="Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper | Dataspryva"><meta property="og:description" content="Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, an"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#webpage","name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","description":"Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#article","headline":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","description":"Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Brazilian CNPJ Bulk Lookup & Partner Records Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/cNSljbP1ozrKhKG5H/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</span></div><section id="overview"><h1 class="doc-title">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</h1><p class="lede">Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/brazilian-cnpj-bulk-lookup-and-partner-records">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/cNSljbP1ozrKhKG5H/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Look up a list of CNPJs, or discover companies that match filters.</td></tr><tr><td><code>cnpjs</code></td><td>array</td><td>optional</td><td>CNPJ numbers to look up (mode=lookup). Numeric or alphanumeric, formatted or plain. Example: [&quot;18.236.120/0001-58&quot;, &quot;00000000E08G12&quot;].</td></tr><tr><td><code>cnpjText</code></td><td>string</td><td>optional</td><td>Paste a CSV or any text containing CNPJs (mode=lookup). Every valid CNPJ is extracted, validated and deduplicated. A spreadsheet column with or without a header works.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Look up a list of CNPJs, or discover companies that match filters.</td></tr><tr><td><code>cnpjs</code></td><td>array</td><td>optional</td><td>CNPJ numbers to look up (mode=lookup). Numeric or alphanumeric, formatted or plain. Example: [&quot;18.236.120/0001-58&quot;, &quot;00000000E08G12&quot;].</td></tr><tr><td><code>cnpjText</code></td><td>string</td><td>optional</td><td>Paste a CSV or any text containing CNPJs (mode=lookup). Every valid CNPJ is extracted, validated and deduplicated. A spreadsheet column with or without a header works.</td></tr><tr><td><code>cnaes</code></td><td>array</td><td>optional</td><td>One or more 7-digit CNAE codes (mode=discovery). Matches primary or secondary activity. Example: [&quot;6209100&quot;, &quot;6201501&quot;].</td></tr><tr><td><code>uf</code></td><td>string</td><td>optional</td><td>Brazilian state to narrow discovery (mode=discovery).</td></tr><tr><td><code>municipio</code></td><td>string</td><td>optional</td><td>IBGE or SIAFI municipality code, digits only (mode=discovery). Example: 3550308 (São Paulo), 5300108 (Brasília). This is a code, not a city name.</td></tr><tr><td><code>naturezaJuridica</code></td><td>string</td><td>optional</td><td>4-digit legal-nature code (mode=discovery). Example: 2135 (Empresário Individual), 2062 (Sociedade Empresária Limitada).</td></tr><tr><td><code>partnerCpf</code></td><td>string</td><td>optional</td><td>Masked partner document from the QSA (mode=discovery), in the Receita format such as ***123456**. Add a state or CNAE to narrow the search; the same mask can match different people.</td></tr><tr><td><code>situacao</code></td><td>string</td><td>optional</td><td>Keep only companies with this registration status (mode=discovery).</td></tr><tr><td><code>includePartners</code></td><td>boolean</td><td>optional</td><td>Include the full partner/shareholder list.</td></tr><tr><td><code>includeSecondaryActivities</code></td><td>boolean</td><td>optional</td><td>Include the list of secondary CNAE activities.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum CNPJs to process in lookup, or maximum records to emit in discovery.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Look up Brazilian companies by CNPJ in bulk, or discover companies by CNAE, state, city, legal nature or partner. Returns official Receita Federal registry data and full partner (QSA) records.&quot;,
   &quot;properties&quot;: {
+    &quot;cnaes&quot;: {
+      &quot;description&quot;: &quot;One or more 7-digit CNAE codes (mode=discovery). Matches primary or secondary activity. Example: [\&quot;6209100\&quot;, \&quot;6201501\&quot;].&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;CNAE codes&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;cnpjText&quot;: {
+      &quot;description&quot;: &quot;Paste a CSV or any text containing CNPJs (mode=lookup). Every valid CNPJ is extracted, validated and deduplicated. A spreadsheet column with or without a header works.&quot;,
+      &quot;editor&quot;: &quot;textarea&quot;,
+      &quot;title&quot;: &quot;CNPJ list or CSV text&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
     &quot;cnpjs&quot;: {
-      &quot;description&quot;: &quot;List of Brazilian CNPJ numbers to look up. Can include formatting (dots, slashes, hyphens) or plain 14-digit numbers. Example: [\&quot;18.236.120/0001-58\&quot;, \&quot;47960950000121\&quot;].&quot;,
+      &quot;description&quot;: &quot;CNPJ numbers to look up (mode=lookup). Numeric or alphanumeric, formatted or plain. Example: [\&quot;18.236.120/0001-58\&quot;, \&quot;00000000E08G12\&quot;].&quot;,
       &quot;editor&quot;: &quot;json&quot;,
       &quot;prefill&quot;: [
-        &quot;18236120000158&quot;,
-        &quot;47960950000121&quot;,
-        &quot;03007331000100&quot;,
-        &quot;60746948000112&quot;,
-        &quot;33000167000101&quot;
+        &quot;18236120000158&quot;
       ],
-      &quot;title&quot;: &quot;CNPJ Numbers&quot;,
+      &quot;title&quot;: &quot;CNPJ numbers&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;includePartners&quot;: {
       &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Whether to include the company&#x27;s partner/shareholder list (Quadro Societário de Administração) in the output.&quot;,
+      &quot;description&quot;: &quot;Include the full partner/shareholder list.&quot;,
       &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Include Partners (QSA)&quot;,
+      &quot;title&quot;: &quot;Include partners (QSA)&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;includeSecondaryActivities&quot;: {
       &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Whether to include the list of secondary CNAE industry codes in the output.&quot;,
+      &quot;description&quot;: &quot;Include the list of secondary CNAE activities.&quot;,
       &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Include Secondary CNAE Activities&quot;,
+      &quot;title&quot;: &quot;Include secondary CNAEs&quot;,
       &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum CNPJs to process in lookup, or maximum records to emit in discovery.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Maximum records&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;lookup&quot;,
+      &quot;description&quot;: &quot;Look up a list of CNPJs, or discover companies that match filters.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;lookup&quot;,
+        &quot;discovery&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Look up CNPJs&quot;,
+        &quot;Find companies by filters&quot;
+      ],
+      &quot;prefill&quot;: &quot;lookup&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;municipio&quot;: {
+      &quot;description&quot;: &quot;IBGE or SIAFI municipality code, digits only (mode=discovery). Example: 3550308 (São Paulo), 5300108 (Brasília). This is a code, not a city name.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Municipality code&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;naturezaJuridica&quot;: {
+      &quot;description&quot;: &quot;4-digit legal-nature code (mode=discovery). Example: 2135 (Empresário Individual), 2062 (Sociedade Empresária Limitada).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Legal nature code&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;partnerCpf&quot;: {
+      &quot;description&quot;: &quot;Masked partner document from the QSA (mode=discovery), in the Receita format such as ***123456**. Add a state or CNAE to narrow the search; the same mask can match different people.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Partner CPF/CNPJ&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;situacao&quot;: {
+      &quot;default&quot;: &quot;ATIVA&quot;,
+      &quot;description&quot;: &quot;Keep only companies with this registration status (mode=discovery).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;ATIVA&quot;,
+        &quot;SUSPENSA&quot;,
+        &quot;INAPTA&quot;,
+        &quot;BAIXADA&quot;,
+        &quot;NULA&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All statuses&quot;,
+        &quot;Active&quot;,
+        &quot;Suspended&quot;,
+        &quot;Inactive&quot;,
+        &quot;Closed&quot;,
+        &quot;Null&quot;
+      ],
+      &quot;prefill&quot;: &quot;ATIVA&quot;,
+      &quot;title&quot;: &quot;Registration status&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;uf&quot;: {
+      &quot;default&quot;: &quot;ALL&quot;,
+      &quot;description&quot;: &quot;Brazilian state to narrow discovery (mode=discovery).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ALL&quot;,
+        &quot;AC&quot;,
+        &quot;AL&quot;,
+        &quot;AP&quot;,
+        &quot;AM&quot;,
+        &quot;BA&quot;,
+        &quot;CE&quot;,
+        &quot;DF&quot;,
+        &quot;ES&quot;,
+        &quot;GO&quot;,
+        &quot;MA&quot;,
+        &quot;MT&quot;,
+        &quot;MS&quot;,
+        &quot;MG&quot;,
+        &quot;PA&quot;,
+        &quot;PB&quot;,
+        &quot;PR&quot;,
+        &quot;PE&quot;,
+        &quot;PI&quot;,
+        &quot;RJ&quot;,
+        &quot;RN&quot;,
+        &quot;RS&quot;,
+        &quot;RO&quot;,
+        &quot;RR&quot;,
+        &quot;SC&quot;,
+        &quot;SP&quot;,
+        &quot;SE&quot;,
+        &quot;TO&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All states&quot;,
+        &quot;Acre&quot;,
+        &quot;Alagoas&quot;,
+        &quot;Amapá&quot;,
+        &quot;Amazonas&quot;,
+        &quot;Bahia&quot;,
+        &quot;Ceará&quot;,
+        &quot;Distrito Federal&quot;,
+        &quot;Espírito Santo&quot;,
+        &quot;Goiás&quot;,
+        &quot;Maranhão&quot;,
+        &quot;Mato Grosso&quot;,
+        &quot;Mato Grosso do Sul&quot;,
+        &quot;Minas Gerais&quot;,
+        &quot;Pará&quot;,
+        &quot;Paraíba&quot;,
+        &quot;Paraná&quot;,
+        &quot;Pernambuco&quot;,
+        &quot;Piauí&quot;,
+        &quot;Rio de Janeiro&quot;,
+        &quot;Rio Grande do Norte&quot;,
+        &quot;Rio Grande do Sul&quot;,
+        &quot;Rondônia&quot;,
+        &quot;Roraima&quot;,
+        &quot;Santa Catarina&quot;,
+        &quot;São Paulo&quot;,
+        &quot;Sergipe&quot;,
+        &quot;Tocantins&quot;
+      ],
+      &quot;prefill&quot;: &quot;ALL&quot;,
+      &quot;title&quot;: &quot;State&quot;,
+      &quot;type&quot;: &quot;string&quot;
     }
   },
-  &quot;required&quot;: [
-    &quot;cnpjs&quot;
-  ],
   &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;BrasilAPI CNPJ Company Scraper Input&quot;,
+  &quot;title&quot;: &quot;Brazilian CNPJ Lookup Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>companies</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Brazilian company records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>companies</code></td><td>string</td><td>optional</td><td>Dataset containing all resolved Brazilian company records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;One record per looked-up CNPJ, with official Receita Federal data including name, status, industry codes, address, and partner (QSA) list.&quot;,
+  &quot;description&quot;: &quot;One record per Brazilian company, with Receita Federal status, CNAE activities, address, Simples/MEI, tax history and full partner (QSA) records.&quot;,
   &quot;properties&quot;: {
     &quot;companies&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Brazilian company records.&quot;,
+      &quot;description&quot;: &quot;Dataset containing all resolved Brazilian company records.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Company records&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -67,164 +208,125 @@
           &quot;cnaeDescricao&quot;,
           &quot;municipio&quot;,
           &quot;uf&quot;,
-          &quot;dataInicioAtividade&quot;
+          &quot;dataInicioAtividade&quot;,
+          &quot;isMatriz&quot;,
+          &quot;optanteMei&quot;,
+          &quot;source&quot;
         ]
       }
     }
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-brazilian-cnpj-bulk-lookup-partner-records-scraper">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</h2>
-<p>Submit a list of Brazilian CNPJ numbers and get back each company's official Receita Federal record — legal name, registration status, industry codes, address, and partner list — in one structured record per CNPJ, with no limit on how many you look up in a single run.</p>
+<p>Look up Brazilian companies by CNPJ in bulk, or discover companies by CNAE activity, state, city, legal nature or partner. Every result is an official-style Receita Federal registry record: legal name, status, CNAE codes, address, Simples/MEI flags, tax history, capital, and the full partner (QSA) list. Numeric and 2026 alphanumeric CNPJs are accepted, with no login, API key, or proxy.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Looks up any number of CNPJ numbers in one run, in any common formatting (with or without dots, slashes, and hyphens).</li>
-<li>Returns the company's registration status, size classification, legal nature, and primary/secondary industry (CNAE) codes.</li>
-<li>Builds a full address object plus top-level city, state, and postal code fields for each company.</li>
-<li>Optionally includes the partner/shareholder list (QSA) and the secondary CNAE activity codes, so you can request a smaller record when you don't need them.</li>
-<li>CNPJs that are invalid or not found in the registry are skipped rather than producing a per-CNPJ error record; every other field a company doesn't have on file is simply left out. If every CNPJ in a run fails to resolve, the run instead returns a small fixed set of example company records (well-known Brazilian companies) rather than an empty dataset — these are not results for your submitted CNPJs.</li>
+<li><strong>Bulk lookup:</strong> paste a list, a spreadsheet column, or CSV text. CNPJs are normalized, check-digit validated, deduplicated, and resolved in one run.</li>
+<li><strong>Discovery:</strong> find companies by CNAE (primary or secondary), state, municipality code, legal nature, or a partner's masked CPF/CNPJ, then keep only the status you want.</li>
+<li><strong>Full partner records:</strong> name, masked document, person/company/foreign type, qualification, entry date, age band, country and legal representative.</li>
+<li><strong>Tax and status depth:</strong> Simples Nacional, MEI, option/exclusion dates, per-year tax regime, status reason, special status and registration dates.</li>
+<li><strong>Clean output:</strong> empty fields are omitted at every level; <code>false</code> and <code>0</code> are kept because they are real values.</li>
 </ul>
 <h2 id="readme-output-per-company">Output per company</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
-<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>cnpj</code></td>
-<td>string</td>
-<td>14-digit CNPJ number</td>
+<td><code>cnpj</code>, <code>cnpjFormatado</code>, <code>cnpjRaiz</code></td>
+<td>14-character CNPJ, formatted mask, and 8-character root</td>
 </tr>
 <tr>
-<td><code>razaoSocial</code></td>
-<td>string</td>
-<td>Official corporate name</td>
+<td><code>razaoSocial</code>, <code>nomeFantasia</code></td>
+<td>Legal name and trade name</td>
 </tr>
 <tr>
-<td><code>nomeFantasia</code></td>
-<td>string</td>
-<td>Trade/brand name</td>
+<td><code>isMatriz</code>, <code>tipoUnidade</code></td>
+<td>Headquarters or branch</td>
 </tr>
 <tr>
-<td><code>situacaoCadastralCodigo</code></td>
-<td>integer</td>
-<td>Registration status code (1–8)</td>
+<td><code>situacaoCadastral</code>, <code>situacaoCadastralCodigo</code></td>
+<td>Registration status and code</td>
 </tr>
 <tr>
-<td><code>situacaoCadastral</code></td>
-<td>string</td>
-<td>Status label: <code>Ativa</code>, <code>Suspensa</code>, <code>Inapta</code>, <code>Baixada</code>, <code>Nula</code></td>
+<td><code>situacaoCadastralMotivo</code>, <code>situacaoCadastralMotivoCodigo</code></td>
+<td>Reason for the current status</td>
 </tr>
 <tr>
 <td><code>dataSituacaoCadastral</code></td>
-<td>string</td>
-<td>Date of the last status change (<code>YYYY-MM-DD</code>)</td>
+<td>Date the status took effect (<code>YYYY-MM-DD</code>)</td>
 </tr>
 <tr>
-<td><code>porteCodigo</code></td>
-<td>integer</td>
-<td>Company size code</td>
+<td><code>situacaoEspecial</code>, <code>dataSituacaoEspecial</code></td>
+<td>Special registration status, when published</td>
 </tr>
 <tr>
-<td><code>porte</code></td>
-<td>string</td>
-<td>Size label: <code>Micro Empresa</code>, <code>Empresa de Pequeno Porte</code>, <code>Demais</code></td>
-</tr>
-<tr>
-<td><code>tipoUnidade</code></td>
-<td>string</td>
-<td><code>Matriz</code> (headquarters) or <code>Filial</code> (branch)</td>
-</tr>
-<tr>
-<td><code>naturezaJuridica</code></td>
-<td>string</td>
-<td>Legal nature code and description</td>
-</tr>
-<tr>
-<td><code>cnaeFiscal</code></td>
-<td>integer</td>
-<td>Primary CNAE industry code</td>
-</tr>
-<tr>
-<td><code>cnaeDescricao</code></td>
-<td>string</td>
-<td>Primary CNAE description</td>
+<td><code>cnaeFiscal</code>, <code>cnaeDescricao</code></td>
+<td>Primary CNAE code and description</td>
 </tr>
 <tr>
 <td><code>cnaesSecundarios</code></td>
-<td>array</td>
-<td>Secondary CNAE codes, each <code>{codigo, descricao}</code> (when <code>includeSecondaryActivities</code> is <code>true</code>)</td>
+<td>Secondary CNAEs, each <code>{codigo, descricao}</code></td>
 </tr>
 <tr>
-<td><code>endereco</code></td>
-<td>object</td>
-<td>Full address object (street, number, neighbourhood, city, state, postal code)</td>
-</tr>
-<tr>
-<td><code>municipio</code></td>
-<td>string</td>
-<td>City name</td>
-</tr>
-<tr>
-<td><code>uf</code></td>
-<td>string</td>
-<td>State abbreviation (e.g. <code>SP</code>, <code>RJ</code>)</td>
-</tr>
-<tr>
-<td><code>cep</code></td>
-<td>string</td>
-<td>Postal code</td>
-</tr>
-<tr>
-<td><code>telefone1</code>, <code>telefone2</code></td>
-<td>string</td>
-<td>Phone numbers on file, when published</td>
-</tr>
-<tr>
-<td><code>email</code></td>
-<td>string</td>
-<td>Company email address, when published</td>
+<td><code>naturezaJuridica</code>, <code>naturezaJuridicaCodigo</code></td>
+<td>Legal nature description and code</td>
 </tr>
 <tr>
 <td><code>capitalSocial</code></td>
-<td>number</td>
-<td>Share capital in BRL</td>
+<td>Share capital in BRL (zero is kept)</td>
 </tr>
 <tr>
-<td><code>dataInicioAtividade</code></td>
-<td>string</td>
-<td>Founding / activity start date</td>
+<td><code>porte</code>, <code>porteCodigo</code></td>
+<td>Company size and code</td>
 </tr>
 <tr>
-<td><code>regimeTributario</code></td>
-<td>string</td>
-<td>Tax regime for the latest year on file</td>
+<td><code>optanteSimples</code>, <code>dataOpcaoSimples</code>, <code>dataExclusaoSimples</code></td>
+<td>Simples Nacional flag and dates</td>
+</tr>
+<tr>
+<td><code>optanteMei</code>, <code>dataOpcaoMei</code>, <code>dataExclusaoMei</code></td>
+<td>MEI flag and dates</td>
+</tr>
+<tr>
+<td><code>regimeTributario</code>, <code>regimeTributarioAno</code>, <code>regimeTributarioHistorico</code></td>
+<td>Latest tax regime, its year, and the full per-year history</td>
+</tr>
+<tr>
+<td><code>endereco</code></td>
+<td><code>{tipoLogradouro, logradouro, numero, complemento, bairro, municipio, codigoMunicipioIbge, uf, cep, pais, codigoPais, nomeCidadeExterior}</code></td>
+</tr>
+<tr>
+<td><code>municipio</code>, <code>uf</code>, <code>cep</code></td>
+<td>Top-level address fields for spreadsheets</td>
+</tr>
+<tr>
+<td><code>telefone1</code>, <code>telefone2</code>, <code>fax</code>, <code>email</code></td>
+<td>Contact data when the registry publishes it</td>
 </tr>
 <tr>
 <td><code>socios</code></td>
-<td>array</td>
-<td>Partner/shareholder list, each <code>{nome, qualificacao, faixaEtaria, dataEntradaSociedade}</code> (when <code>includePartners</code> is <code>true</code>)</td>
+<td>Partner list: <code>{nome, documento, tipo, qualificacao, codigoQualificacao, dataEntradaSociedade, faixaEtaria, codigoFaixaEtaria, pais, codigoPais, representanteLegal}</code></td>
 </tr>
 <tr>
-<td><code>sourceUrl</code></td>
-<td>string</td>
-<td>Direct source URL for the record</td>
+<td><code>companyAgeDays</code>, <code>statusAgeDays</code></td>
+<td>Days since activity start and since the current status</td>
 </tr>
 <tr>
-<td><code>recordType</code></td>
-<td>string</td>
-<td>Always <code>company</code></td>
+<td><code>source</code>, <code>sourceUrl</code>, <code>sourceUpdatedAt</code></td>
+<td>Data source, provider URL used (company endpoint for lookups, search query for discovery), and registry snapshot month</td>
 </tr>
 <tr>
-<td><code>scrapedAt</code></td>
-<td>string</td>
-<td>ISO 8601 timestamp of when the record was scraped</td>
+<td><code>recordType</code>, <code>scrapedAt</code></td>
+<td>Always <code>company</code>; ISO UTC scrape time</td>
 </tr>
 </tbody>
 </table></div>
+<p><strong>Fallback depth.</strong> If the primary mirror and its same-schema fallback are unavailable, the independent fallback may omit the per-year tax regime and some partner detail (masked document, partner type, entry date, legal representative). Unavailable fields are omitted, never fabricated; <code>source</code> identifies the mirror that answered.</p>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -237,64 +339,139 @@
 </thead>
 <tbody>
 <tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>lookup</code></td>
+<td><code>lookup</code> or <code>discovery</code></td>
+</tr>
+<tr>
 <td><code>cnpjs</code></td>
 <td>array</td>
 <td>–</td>
-<td>CNPJ numbers to look up, formatted or plain 14-digit (required)</td>
+<td>CNPJ numbers for lookup, numeric or alphanumeric, formatted or plain</td>
+</tr>
+<tr>
+<td><code>cnpjText</code></td>
+<td>string</td>
+<td>–</td>
+<td>CSV or free text containing CNPJs; valid values are extracted and deduplicated</td>
+</tr>
+<tr>
+<td><code>cnaes</code></td>
+<td>array</td>
+<td>–</td>
+<td>7-digit CNAE codes for discovery (primary or secondary)</td>
+</tr>
+<tr>
+<td><code>uf</code></td>
+<td>string</td>
+<td><code>ALL</code></td>
+<td>State for discovery</td>
+</tr>
+<tr>
+<td><code>municipio</code></td>
+<td>string</td>
+<td>–</td>
+<td>IBGE/SIAFI municipality code (digits, not a city name)</td>
+</tr>
+<tr>
+<td><code>naturezaJuridica</code></td>
+<td>string</td>
+<td>–</td>
+<td>4-digit legal-nature code</td>
+</tr>
+<tr>
+<td><code>partnerCpf</code></td>
+<td>string</td>
+<td>–</td>
+<td>Masked partner CPF/CNPJ, e.g. <code>***123456**</code></td>
+</tr>
+<tr>
+<td><code>situacao</code></td>
+<td>string</td>
+<td><code>ATIVA</code></td>
+<td><code>all</code>, <code>ATIVA</code>, <code>SUSPENSA</code>, <code>INAPTA</code>, <code>BAIXADA</code>, <code>NULA</code></td>
 </tr>
 <tr>
 <td><code>includePartners</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
-<td>Include the partner/shareholder list (QSA) in the output</td>
+<td>Include the QSA list</td>
 </tr>
 <tr>
 <td><code>includeSecondaryActivities</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
-<td>Include secondary CNAE industry codes in the output</td>
+<td>Include secondary CNAEs</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>1000</code></td>
+<td>Max CNPJs processed in lookup or records emitted in discovery (1–100,000)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-full-lookup-with-partners-and-secondary-activities">Example: full lookup with partners and secondary activities</h3>
+<h3 id="readme-example-bulk-lookup-with-partners">Example: bulk lookup with partners</h3>
 <pre><code class="language-json">{
-  &quot;cnpjs&quot;: [&quot;18.236.120/0001-58&quot;, &quot;47960950000121&quot;, &quot;33000167000101&quot;],
+  &quot;mode&quot;: &quot;lookup&quot;,
+  &quot;cnpjs&quot;: [&quot;18.236.120/0001-58&quot;, &quot;00000000E08G12&quot;, &quot;33.000.167/0001-01&quot;],
   &quot;includePartners&quot;: true,
   &quot;includeSecondaryActivities&quot;: true
 }
 </code></pre>
-<h3 id="readme-example-lean-lookup-without-partner-or-secondary-activity-data">Example: lean lookup without partner or secondary-activity data</h3>
+<h3 id="readme-example-paste-a-spreadsheet-column">Example: paste a spreadsheet column</h3>
 <pre><code class="language-json">{
-  &quot;cnpjs&quot;: [&quot;03007331000100&quot;, &quot;60746948000112&quot;],
-  &quot;includePartners&quot;: false,
-  &quot;includeSecondaryActivities&quot;: false
+  &quot;mode&quot;: &quot;lookup&quot;,
+  &quot;cnpjText&quot;: &quot;cliente,cnpj\nNubank,18.236.120/0001-58\nBanco do Brasil,00.000.000/E08G-12&quot;,
+  &quot;maxItems&quot;: 500
+}
+</code></pre>
+<h3 id="readme-example-discover-active-companies-by-cnae-and-city">Example: discover active companies by CNAE and city</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;discovery&quot;,
+  &quot;cnaes&quot;: [&quot;4713004&quot;, &quot;6209100&quot;],
+  &quot;uf&quot;: &quot;SP&quot;,
+  &quot;municipio&quot;: &quot;3550308&quot;,
+  &quot;situacao&quot;: &quot;ATIVA&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-find-companies-by-a-partner-s-masked-cpf">Example: find companies by a partner's masked CPF</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;discovery&quot;,
+  &quot;partnerCpf&quot;: &quot;***550179**&quot;,
+  &quot;uf&quot;: &quot;RR&quot;,
+  &quot;situacao&quot;: &quot;all&quot;,
+  &quot;maxItems&quot;: 20
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Vendor/customer onboarding (KYB)</strong> — confirm a Brazilian counterparty's legal status before signing a contract</li>
-<li><strong>Bulk CNPJ validation</strong> — check thousands of CNPJs at once and keep only the ones that resolve to a real, active company</li>
-<li><strong>Compliance screening</strong> — pull a company's legal nature, size, and registration status for a risk review</li>
-<li><strong>Sales intelligence</strong> — enrich a prospect list with industry codes, address, and company size</li>
-<li><strong>Corporate research</strong> — review a company's partner/shareholder list (QSA) for ownership structure</li>
+<li><strong>KYB and vendor onboarding:</strong> confirm a Brazilian counterparty's status, legal nature, capital and owners before signing.</li>
+<li><strong>Bulk CRM enrichment:</strong> turn a CNPJ column into industry, address, contact and ownership data.</li>
+<li><strong>Compliance screening:</strong> review status reason, Simples/MEI and partner structure for risk triage.</li>
+<li><strong>B2B prospecting:</strong> build lists by CNAE, state and municipality, then filter to active companies.</li>
+<li><strong>Ownership research:</strong> trace a masked partner across companies or review a company's QSA.</li>
+<li><strong>Market mapping:</strong> count companies in an activity or region before outreach.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
 <p><strong>What is a CNPJ?</strong>
-<em>Cadastro Nacional da Pessoa Jurídica</em> — Brazil's 14-digit national company registration number, issued by the Receita Federal (Brazilian tax authority). Every legally registered Brazilian company has one.</p>
+<em>Cadastro Nacional da Pessoa Jurídica</em> — Brazil's 14-character company registration number issued by the Receita Federal. Since July 2026 new registrations can include letters (alphanumeric CNPJ), and this actor accepts both formats.</p>
 <p><strong>Where does the data come from?</strong>
-The public BrasilAPI CNPJ endpoint, which mirrors the official Receita Federal registry.</p>
-<p><strong>Do I need an API key or login?</strong>
-No — the data source is free and public, with no authentication required.</p>
-<p><strong>What CNPJ formats does <code>cnpjs</code> accept?</strong>
-Any mix of formatted (<code>18.236.120/0001-58</code>) and unformatted (<code>18236120000158</code>) values in the same list.</p>
-<p><strong>What happens if a CNPJ is invalid or not registered?</strong>
-It's skipped rather than producing an error record, so your output normally only contains CNPJs that actually resolved to a company. If none of the CNPJs in a run resolve, the run returns a small fixed set of example company records instead of an empty dataset — if you see unfamiliar company names you didn't request, none of your submitted CNPJs resolved.</p>
-<p><strong>Is there a limit on how many CNPJs I can submit?</strong>
-No hard limit — you can submit as many as you need in one run.</p>
-<p><strong>What is the <code>socios</code> (QSA) field?</strong>
-QSA stands for <em>Quadro Societário de Administração</em> — the Receita Federal's official list of a company's registered partners and administrators.</p>
-<p><strong>Why would I turn off <code>includePartners</code> or <code>includeSecondaryActivities</code>?</strong>
-To get smaller, faster-to-process records when you only need the company's core identity and status, not its full ownership and industry breakdown.</p>
-<p><strong>Is this affiliated with the Brazilian government or Receita Federal?</strong>
-No. This is an independent, third-party actor that reads a public mirror of Receita Federal data and is not operated by or affiliated with any government agency.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/cNSljbP1ozrKhKG5H/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>4AlSMrjz8Zh3QfVhG</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+Public mirrors of the official Receita Federal CNPJ registry. The registry is published monthly, so very recent changes may not appear immediately.</p>
+<p><strong>Do I need an API key, login, cookie or proxy?</strong>
+No. The actor gets real data without credentials and without any proxy setup. Just fill in the input and run it.</p>
+<p><strong>What happens to invalid or unknown CNPJs?</strong>
+Invalid CNPJs are skipped before any request; unknown CNPJs are skipped by the source. The run summary reports invalid, not-found, duplicate and unavailable counts. No made-up records are ever added.</p>
+<p><strong>Why is the partner list (<code>socios</code>) empty for some companies?</strong>
+MEI and individual-entrepreneur registrations normally have no QSA. The registry can also withhold a QSA in specific legal cases. The field is simply omitted rather than filled with placeholders.</p>
+<p><strong>Why is <code>email</code> often missing?</strong>
+The public CNPJ registry rarely publishes company email addresses. When the source has one, it is included; otherwise the field is omitted. Phone and address data are more consistently available.</p>
+<p><strong>Does <code>socios</code> include equity percentages?</strong>
+No. The public registry exposes the partner list, qualification, entry date, age band and masked document, but not each partner's percentage. Percentages are only in the company's contract at the Junta Comercial.</p>
+<p><strong>Can I search by a partner's CPF?</strong>
+Yes, using the masked format shown in the QSA (for example <code>***123456**</code>). Add a state or CNAE because the same six visible digits can match more than one person.</p>
+<p><strong>Is this affiliated with the Receita Federal or the Brazilian government?</strong>
+No. This is an independent, third-party actor that reads public registry mirrors and is not operated by or affiliated with any government agency.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/cNSljbP1ozrKhKG5H/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>BWzgVjDPh2W6AweCl</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

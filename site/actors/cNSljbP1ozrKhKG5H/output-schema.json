@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per looked-up CNPJ, with official Receita Federal data including name, status, industry codes, address, and partner (QSA) list.",
+  "description": "One record per Brazilian company, with Receita Federal status, CNAE activities, address, Simples/MEI, tax history and full partner (QSA) records.",
   "properties": {
     "companies": {
-      "description": "Dataset containing all scraped Brazilian company records.",
+      "description": "Dataset containing all resolved Brazilian company records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Company records",
       "type": "string"

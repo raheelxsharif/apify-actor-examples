@@ -4,108 +4,142 @@
 
 # Brazilian CNPJ Bulk Lookup & Partner Records Scraper
 
-Submit a list of Brazilian CNPJ numbers and get back each company's official Receita Federal record — legal name, registration status, industry codes, address, and partner list — in one structured record per CNPJ, with no limit on how many you look up in a single run.
+Look up Brazilian companies by CNPJ in bulk, or discover companies by CNAE activity, state, city, legal nature or partner. Every result is an official-style Receita Federal registry record: legal name, status, CNAE codes, address, Simples/MEI flags, tax history, capital, and the full partner (QSA) list. Numeric and 2026 alphanumeric CNPJs are accepted, with no login, API key, or proxy.
 
 ## What this actor does
 
-- Looks up any number of CNPJ numbers in one run, in any common formatting (with or without dots, slashes, and hyphens).
-- Returns the company's registration status, size classification, legal nature, and primary/secondary industry (CNAE) codes.
-- Builds a full address object plus top-level city, state, and postal code fields for each company.
-- Optionally includes the partner/shareholder list (QSA) and the secondary CNAE activity codes, so you can request a smaller record when you don't need them.
-- CNPJs that are invalid or not found in the registry are skipped rather than producing a per-CNPJ error record; every other field a company doesn't have on file is simply left out. If every CNPJ in a run fails to resolve, the run instead returns a small fixed set of example company records (well-known Brazilian companies) rather than an empty dataset — these are not results for your submitted CNPJs.
+- **Bulk lookup:** paste a list, a spreadsheet column, or CSV text. CNPJs are normalized, check-digit validated, deduplicated, and resolved in one run.
+- **Discovery:** find companies by CNAE (primary or secondary), state, municipality code, legal nature, or a partner's masked CPF/CNPJ, then keep only the status you want.
+- **Full partner records:** name, masked document, person/company/foreign type, qualification, entry date, age band, country and legal representative.
+- **Tax and status depth:** Simples Nacional, MEI, option/exclusion dates, per-year tax regime, status reason, special status and registration dates.
+- **Clean output:** empty fields are omitted at every level; `false` and `0` are kept because they are real values.
 
 ## Output per company
 
-| Field | Type | Description |
-|---|---|---|
-| `cnpj` | string | 14-digit CNPJ number |
-| `razaoSocial` | string | Official corporate name |
-| `nomeFantasia` | string | Trade/brand name |
-| `situacaoCadastralCodigo` | integer | Registration status code (1–8) |
-| `situacaoCadastral` | string | Status label: `Ativa`, `Suspensa`, `Inapta`, `Baixada`, `Nula` |
-| `dataSituacaoCadastral` | string | Date of the last status change (`YYYY-MM-DD`) |
-| `porteCodigo` | integer | Company size code |
-| `porte` | string | Size label: `Micro Empresa`, `Empresa de Pequeno Porte`, `Demais` |
-| `tipoUnidade` | string | `Matriz` (headquarters) or `Filial` (branch) |
-| `naturezaJuridica` | string | Legal nature code and description |
-| `cnaeFiscal` | integer | Primary CNAE industry code |
-| `cnaeDescricao` | string | Primary CNAE description |
-| `cnaesSecundarios` | array | Secondary CNAE codes, each `{codigo, descricao}` (when `includeSecondaryActivities` is `true`) |
-| `endereco` | object | Full address object (street, number, neighbourhood, city, state, postal code) |
-| `municipio` | string | City name |
-| `uf` | string | State abbreviation (e.g. `SP`, `RJ`) |
-| `cep` | string | Postal code |
-| `telefone1`, `telefone2` | string | Phone numbers on file, when published |
-| `email` | string | Company email address, when published |
-| `capitalSocial` | number | Share capital in BRL |
-| `dataInicioAtividade` | string | Founding / activity start date |
-| `regimeTributario` | string | Tax regime for the latest year on file |
-| `socios` | array | Partner/shareholder list, each `{nome, qualificacao, faixaEtaria, dataEntradaSociedade}` (when `includePartners` is `true`) |
-| `sourceUrl` | string | Direct source URL for the record |
-| `recordType` | string | Always `company` |
-| `scrapedAt` | string | ISO 8601 timestamp of when the record was scraped |
+| Field | Description |
+|---|---|
+| `cnpj`, `cnpjFormatado`, `cnpjRaiz` | 14-character CNPJ, formatted mask, and 8-character root |
+| `razaoSocial`, `nomeFantasia` | Legal name and trade name |
+| `isMatriz`, `tipoUnidade` | Headquarters or branch |
+| `situacaoCadastral`, `situacaoCadastralCodigo` | Registration status and code |
+| `situacaoCadastralMotivo`, `situacaoCadastralMotivoCodigo` | Reason for the current status |
+| `dataSituacaoCadastral` | Date the status took effect (`YYYY-MM-DD`) |
+| `situacaoEspecial`, `dataSituacaoEspecial` | Special registration status, when published |
+| `cnaeFiscal`, `cnaeDescricao` | Primary CNAE code and description |
+| `cnaesSecundarios` | Secondary CNAEs, each `{codigo, descricao}` |
+| `naturezaJuridica`, `naturezaJuridicaCodigo` | Legal nature description and code |
+| `capitalSocial` | Share capital in BRL (zero is kept) |
+| `porte`, `porteCodigo` | Company size and code |
+| `optanteSimples`, `dataOpcaoSimples`, `dataExclusaoSimples` | Simples Nacional flag and dates |
+| `optanteMei`, `dataOpcaoMei`, `dataExclusaoMei` | MEI flag and dates |
+| `regimeTributario`, `regimeTributarioAno`, `regimeTributarioHistorico` | Latest tax regime, its year, and the full per-year history |
+| `endereco` | `{tipoLogradouro, logradouro, numero, complemento, bairro, municipio, codigoMunicipioIbge, uf, cep, pais, codigoPais, nomeCidadeExterior}` |
+| `municipio`, `uf`, `cep` | Top-level address fields for spreadsheets |
+| `telefone1`, `telefone2`, `fax`, `email` | Contact data when the registry publishes it |
+| `socios` | Partner list: `{nome, documento, tipo, qualificacao, codigoQualificacao, dataEntradaSociedade, faixaEtaria, codigoFaixaEtaria, pais, codigoPais, representanteLegal}` |
+| `companyAgeDays`, `statusAgeDays` | Days since activity start and since the current status |
+| `source`, `sourceUrl`, `sourceUpdatedAt` | Data source, provider URL used (company endpoint for lookups, search query for discovery), and registry snapshot month |
+| `recordType`, `scrapedAt` | Always `company`; ISO UTC scrape time |
+
+**Fallback depth.** If the primary mirror and its same-schema fallback are unavailable, the independent fallback may omit the per-year tax regime and some partner detail (masked document, partner type, entry date, legal representative). Unavailable fields are omitted, never fabricated; `source` identifies the mirror that answered.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `cnpjs` | array | – | CNPJ numbers to look up, formatted or plain 14-digit (required) |
-| `includePartners` | boolean | `true` | Include the partner/shareholder list (QSA) in the output |
-| `includeSecondaryActivities` | boolean | `true` | Include secondary CNAE industry codes in the output |
+| `mode` | string | `lookup` | `lookup` or `discovery` |
+| `cnpjs` | array | – | CNPJ numbers for lookup, numeric or alphanumeric, formatted or plain |
+| `cnpjText` | string | – | CSV or free text containing CNPJs; valid values are extracted and deduplicated |
+| `cnaes` | array | – | 7-digit CNAE codes for discovery (primary or secondary) |
+| `uf` | string | `ALL` | State for discovery |
+| `municipio` | string | – | IBGE/SIAFI municipality code (digits, not a city name) |
+| `naturezaJuridica` | string | – | 4-digit legal-nature code |
+| `partnerCpf` | string | – | Masked partner CPF/CNPJ, e.g. `***123456**` |
+| `situacao` | string | `ATIVA` | `all`, `ATIVA`, `SUSPENSA`, `INAPTA`, `BAIXADA`, `NULA` |
+| `includePartners` | boolean | `true` | Include the QSA list |
+| `includeSecondaryActivities` | boolean | `true` | Include secondary CNAEs |
+| `maxItems` | integer | `1000` | Max CNPJs processed in lookup or records emitted in discovery (1–100,000) |
 
-### Example: full lookup with partners and secondary activities
+### Example: bulk lookup with partners
 
 ```json
 {
-  "cnpjs": ["18.236.120/0001-58", "47960950000121", "33000167000101"],
+  "mode": "lookup",
+  "cnpjs": ["18.236.120/0001-58", "00000000E08G12", "33.000.167/0001-01"],
   "includePartners": true,
   "includeSecondaryActivities": true
 }
 ```
 
-### Example: lean lookup without partner or secondary-activity data
+### Example: paste a spreadsheet column
 
 ```json
 {
-  "cnpjs": ["03007331000100", "60746948000112"],
-  "includePartners": false,
-  "includeSecondaryActivities": false
+  "mode": "lookup",
+  "cnpjText": "cliente,cnpj\nNubank,18.236.120/0001-58\nBanco do Brasil,00.000.000/E08G-12",
+  "maxItems": 500
+}
+```
+
+### Example: discover active companies by CNAE and city
+
+```json
+{
+  "mode": "discovery",
+  "cnaes": ["4713004", "6209100"],
+  "uf": "SP",
+  "municipio": "3550308",
+  "situacao": "ATIVA",
+  "maxItems": 100
+}
+```
+
+### Example: find companies by a partner's masked CPF
+
+```json
+{
+  "mode": "discovery",
+  "partnerCpf": "***550179**",
+  "uf": "RR",
+  "situacao": "all",
+  "maxItems": 20
 }
 ```
 
 ## Use cases
 
-- **Vendor/customer onboarding (KYB)** — confirm a Brazilian counterparty's legal status before signing a contract
-- **Bulk CNPJ validation** — check thousands of CNPJs at once and keep only the ones that resolve to a real, active company
-- **Compliance screening** — pull a company's legal nature, size, and registration status for a risk review
-- **Sales intelligence** — enrich a prospect list with industry codes, address, and company size
-- **Corporate research** — review a company's partner/shareholder list (QSA) for ownership structure
+- **KYB and vendor onboarding:** confirm a Brazilian counterparty's status, legal nature, capital and owners before signing.
+- **Bulk CRM enrichment:** turn a CNPJ column into industry, address, contact and ownership data.
+- **Compliance screening:** review status reason, Simples/MEI and partner structure for risk triage.
+- **B2B prospecting:** build lists by CNAE, state and municipality, then filter to active companies.
+- **Ownership research:** trace a masked partner across companies or review a company's QSA.
+- **Market mapping:** count companies in an activity or region before outreach.
 
 ## FAQ
 
 **What is a CNPJ?**
-*Cadastro Nacional da Pessoa Jurídica* — Brazil's 14-digit national company registration number, issued by the Receita Federal (Brazilian tax authority). Every legally registered Brazilian company has one.
+*Cadastro Nacional da Pessoa Jurídica* — Brazil's 14-character company registration number issued by the Receita Federal. Since July 2026 new registrations can include letters (alphanumeric CNPJ), and this actor accepts both formats.
 
 **Where does the data come from?**
-The public BrasilAPI CNPJ endpoint, which mirrors the official Receita Federal registry.
+Public mirrors of the official Receita Federal CNPJ registry. The registry is published monthly, so very recent changes may not appear immediately.
 
-**Do I need an API key or login?**
-No — the data source is free and public, with no authentication required.
+**Do I need an API key, login, cookie or proxy?**
+No. The actor gets real data without credentials and without any proxy setup. Just fill in the input and run it.
 
-**What CNPJ formats does `cnpjs` accept?**
-Any mix of formatted (`18.236.120/0001-58`) and unformatted (`18236120000158`) values in the same list.
+**What happens to invalid or unknown CNPJs?**
+Invalid CNPJs are skipped before any request; unknown CNPJs are skipped by the source. The run summary reports invalid, not-found, duplicate and unavailable counts. No made-up records are ever added.
 
-**What happens if a CNPJ is invalid or not registered?**
-It's skipped rather than producing an error record, so your output normally only contains CNPJs that actually resolved to a company. If none of the CNPJs in a run resolve, the run returns a small fixed set of example company records instead of an empty dataset — if you see unfamiliar company names you didn't request, none of your submitted CNPJs resolved.
+**Why is the partner list (`socios`) empty for some companies?**
+MEI and individual-entrepreneur registrations normally have no QSA. The registry can also withhold a QSA in specific legal cases. The field is simply omitted rather than filled with placeholders.
 
-**Is there a limit on how many CNPJs I can submit?**
-No hard limit — you can submit as many as you need in one run.
+**Why is `email` often missing?**
+The public CNPJ registry rarely publishes company email addresses. When the source has one, it is included; otherwise the field is omitted. Phone and address data are more consistently available.
 
-**What is the `socios` (QSA) field?**
-QSA stands for *Quadro Societário de Administração* — the Receita Federal's official list of a company's registered partners and administrators.
+**Does `socios` include equity percentages?**
+No. The public registry exposes the partner list, qualification, entry date, age band and masked document, but not each partner's percentage. Percentages are only in the company's contract at the Junta Comercial.
 
-**Why would I turn off `includePartners` or `includeSecondaryActivities`?**
-To get smaller, faster-to-process records when you only need the company's core identity and status, not its full ownership and industry breakdown.
+**Can I search by a partner's CPF?**
+Yes, using the masked format shown in the QSA (for example `***123456**`). Add a state or CNAE because the same six visible digits can match more than one person.
 
-**Is this affiliated with the Brazilian government or Receita Federal?**
-No. This is an independent, third-party actor that reads a public mirror of Receita Federal data and is not operated by or affiliated with any government agency.
+**Is this affiliated with the Receita Federal or the Brazilian government?**
+No. This is an independent, third-party actor that reads public registry mirrors and is not operated by or affiliated with any government agency.

@@ -1,38 +1,179 @@
 {
-  "description": "Look up Brazilian companies by CNPJ number using the BrasilAPI free endpoint. Returns official Receita Federal data.",
+  "description": "Look up Brazilian companies by CNPJ in bulk, or discover companies by CNAE, state, city, legal nature or partner. Returns official Receita Federal registry data and full partner (QSA) records.",
   "properties": {
+    "cnaes": {
+      "description": "One or more 7-digit CNAE codes (mode=discovery). Matches primary or secondary activity. Example: [\"6209100\", \"6201501\"].",
+      "editor": "stringList",
+      "title": "CNAE codes",
+      "type": "array"
+    },
+    "cnpjText": {
+      "description": "Paste a CSV or any text containing CNPJs (mode=lookup). Every valid CNPJ is extracted, validated and deduplicated. A spreadsheet column with or without a header works.",
+      "editor": "textarea",
+      "title": "CNPJ list or CSV text",
+      "type": "string"
+    },
     "cnpjs": {
-      "description": "List of Brazilian CNPJ numbers to look up. Can include formatting (dots, slashes, hyphens) or plain 14-digit numbers. Example: [\"18.236.120/0001-58\", \"47960950000121\"].",
+      "description": "CNPJ numbers to look up (mode=lookup). Numeric or alphanumeric, formatted or plain. Example: [\"18.236.120/0001-58\", \"00000000E08G12\"].",
       "editor": "json",
       "prefill": [
-        "18236120000158",
-        "47960950000121",
-        "03007331000100",
-        "60746948000112",
-        "33000167000101"
+        "18236120000158"
       ],
-      "title": "CNPJ Numbers",
+      "title": "CNPJ numbers",
       "type": "array"
     },
     "includePartners": {
       "default": true,
-      "description": "Whether to include the company's partner/shareholder list (Quadro Societário de Administração) in the output.",
+      "description": "Include the full partner/shareholder list.",
       "prefill": true,
-      "title": "Include Partners (QSA)",
+      "title": "Include partners (QSA)",
       "type": "boolean"
     },
     "includeSecondaryActivities": {
       "default": true,
-      "description": "Whether to include the list of secondary CNAE industry codes in the output.",
+      "description": "Include the list of secondary CNAE activities.",
       "prefill": true,
-      "title": "Include Secondary CNAE Activities",
+      "title": "Include secondary CNAEs",
       "type": "boolean"
+    },
+    "maxItems": {
+      "default": 1000,
+      "description": "Maximum CNPJs to process in lookup, or maximum records to emit in discovery.",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Maximum records",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "lookup",
+      "description": "Look up a list of CNPJs, or discover companies that match filters.",
+      "editor": "select",
+      "enum": [
+        "lookup",
+        "discovery"
+      ],
+      "enumTitles": [
+        "Look up CNPJs",
+        "Find companies by filters"
+      ],
+      "prefill": "lookup",
+      "title": "Mode",
+      "type": "string"
+    },
+    "municipio": {
+      "description": "IBGE or SIAFI municipality code, digits only (mode=discovery). Example: 3550308 (São Paulo), 5300108 (Brasília). This is a code, not a city name.",
+      "editor": "textfield",
+      "title": "Municipality code",
+      "type": "string"
+    },
+    "naturezaJuridica": {
+      "description": "4-digit legal-nature code (mode=discovery). Example: 2135 (Empresário Individual), 2062 (Sociedade Empresária Limitada).",
+      "editor": "textfield",
+      "title": "Legal nature code",
+      "type": "string"
+    },
+    "partnerCpf": {
+      "description": "Masked partner document from the QSA (mode=discovery), in the Receita format such as ***123456**. Add a state or CNAE to narrow the search; the same mask can match different people.",
+      "editor": "textfield",
+      "title": "Partner CPF/CNPJ",
+      "type": "string"
+    },
+    "situacao": {
+      "default": "ATIVA",
+      "description": "Keep only companies with this registration status (mode=discovery).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "ATIVA",
+        "SUSPENSA",
+        "INAPTA",
+        "BAIXADA",
+        "NULA"
+      ],
+      "enumTitles": [
+        "All statuses",
+        "Active",
+        "Suspended",
+        "Inactive",
+        "Closed",
+        "Null"
+      ],
+      "prefill": "ATIVA",
+      "title": "Registration status",
+      "type": "string"
+    },
+    "uf": {
+      "default": "ALL",
+      "description": "Brazilian state to narrow discovery (mode=discovery).",
+      "editor": "select",
+      "enum": [
+        "ALL",
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO"
+      ],
+      "enumTitles": [
+        "All states",
+        "Acre",
+        "Alagoas",
+        "Amapá",
+        "Amazonas",
+        "Bahia",
+        "Ceará",
+        "Distrito Federal",
+        "Espírito Santo",
+        "Goiás",
+        "Maranhão",
+        "Mato Grosso",
+        "Mato Grosso do Sul",
+        "Minas Gerais",
+        "Pará",
+        "Paraíba",
+        "Paraná",
+        "Pernambuco",
+        "Piauí",
+        "Rio de Janeiro",
+        "Rio Grande do Norte",
+        "Rio Grande do Sul",
+        "Rondônia",
+        "Roraima",
+        "Santa Catarina",
+        "São Paulo",
+        "Sergipe",
+        "Tocantins"
+      ],
+      "prefill": "ALL",
+      "title": "State",
+      "type": "string"
     }
   },
-  "required": [
-    "cnpjs"
-  ],
   "schemaVersion": 1,
-  "title": "BrasilAPI CNPJ Company Scraper Input",
+  "title": "Brazilian CNPJ Lookup Input",
   "type": "object"
 }
