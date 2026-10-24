@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per Google autocomplete suggestion (or per seed keyword in tree mode), with suggestion text, expansion mode, market, and relevance score.",
+  "properties": {
+    "suggestions": {
+      "description": "Dataset containing all scraped Google autocomplete keyword suggestions.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Keyword suggestions",
+      "type": "string"
+    }
+  },
+  "title": "Google Autocomplete Keyword Expansion Scraper Output"
+}
