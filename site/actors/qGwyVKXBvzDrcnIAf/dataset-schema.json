@@ -1,6 +1,24 @@
 {
   "actorSpecification": 1,
   "views": {
+    "citations": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Citations",
+      "transformation": {
+        "fields": [
+          "publicationNumber",
+          "title",
+          "publicationDate",
+          "assignee",
+          "citationDirection",
+          "citationSeed",
+          "patentUrl"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
@@ -11,9 +29,13 @@
         "fields": [
           "publicationNumber",
           "title",
+          "matchType",
           "primaryAssignee",
           "primaryInventor",
           "publicationDate",
+          "status",
+          "legalStatus",
+          "familyId",
           "patentUrl"
         ]
       }
