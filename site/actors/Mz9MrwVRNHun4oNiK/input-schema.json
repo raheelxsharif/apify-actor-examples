@@ -1,113 +1,276 @@
 {
-  "description": "Search VivaReal Colombia for properties for sale or rent.",
+  "description": "Search VivaReal Brazil by city, state, neighborhood, price, area, rooms, property type, and amenities, or look up specific listing URLs/IDs.",
   "properties": {
+    "amenities": {
+      "description": "Optional amenity codes the listing must have, for example POOL, GYM, ELEVATOR, BARBECUE_GRILL, or PETS_ALLOWED.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Amenities",
+      "type": "array"
+    },
     "areaMax": {
-      "description": "Maximum total area in square meters (optional).",
+      "description": "Maximum usable area in square meters.",
       "maximum": 100000,
       "minimum": 0,
-      "title": "Max Area (m²)",
+      "title": "Max Usable Area (m²)",
       "type": "integer"
     },
     "areaMin": {
-      "description": "Minimum total area in square meters (optional).",
+      "description": "Minimum usable area in square meters.",
       "maximum": 100000,
       "minimum": 0,
-      "title": "Min Area (m²)",
+      "title": "Min Usable Area (m²)",
+      "type": "integer"
+    },
+    "bathroomsMax": {
+      "description": "Maximum number of bathrooms.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Max Bathrooms",
+      "type": "integer"
+    },
+    "bathroomsMin": {
+      "description": "Minimum number of bathrooms.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Min Bathrooms",
       "type": "integer"
     },
     "bedroomsMax": {
-      "description": "Maximum number of bedrooms (optional).",
+      "description": "Maximum number of bedrooms.",
       "maximum": 20,
       "minimum": 0,
       "title": "Max Bedrooms",
       "type": "integer"
     },
     "bedroomsMin": {
-      "description": "Minimum number of bedrooms (optional).",
+      "description": "Minimum number of bedrooms.",
       "maximum": 20,
       "minimum": 0,
       "title": "Min Bedrooms",
       "type": "integer"
     },
     "city": {
-      "default": "Bogotá",
-      "description": "City to search in (e.g. Bogotá, Medellín, Cali, Barranquilla).",
+      "default": "São Paulo",
+      "description": "Brazilian city to search, for example São Paulo, Rio de Janeiro, or Belo Horizonte. Use with State.",
       "editor": "textfield",
-      "prefill": "Bogotá",
+      "prefill": "São Paulo",
       "title": "City",
       "type": "string"
+    },
+    "listingType": {
+      "default": "USED",
+      "description": "Used resale listings, new-development listings, or both.",
+      "editor": "select",
+      "enum": [
+        "USED",
+        "DEVELOPMENT",
+        "ALL"
+      ],
+      "enumTitles": [
+        "Used / resale",
+        "New development",
+        "Both"
+      ],
+      "prefill": "USED",
+      "title": "Listing Type",
+      "type": "string"
+    },
+    "listingUrls": {
+      "description": "VivaReal listing URLs or numeric IDs to fetch (mode=byUrls). Example: https://www.vivareal.com.br/imovel/2918839249/",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Listing URLs or IDs",
+      "type": "array"
     },
     "maxItems": {
       "default": 50,
       "description": "Maximum number of listings to return.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max Items",
       "type": "integer"
     },
     "mode": {
-      "default": "searchForSale",
-      "description": "What to search for.",
+      "default": "sale",
+      "description": "Search a Brazilian city for sale/rent listings, or fetch specific listings by URL or ID.",
       "editor": "select",
       "enum": [
+        "sale",
+        "rent",
+        "byUrls",
         "searchForSale",
         "searchForRent"
       ],
       "enumTitles": [
-        "Search properties for sale",
-        "Search properties for rent"
+        "Properties for sale",
+        "Properties for rent",
+        "Look up listings by URL or ID",
+        "Properties for sale (legacy saved task)",
+        "Properties for rent (legacy saved task)"
       ],
-      "prefill": "searchForSale",
+      "prefill": "sale",
       "title": "Mode",
       "type": "string"
     },
     "neighborhood": {
-      "description": "Neighborhood or zone filter (optional).",
+      "description": "Optional neighborhood within the city, for example Pinheiros or Copacabana.",
       "editor": "textfield",
-      "title": "Neighborhood / Zone",
+      "title": "Neighborhood",
       "type": "string"
     },
-    "priceMax": {
-      "description": "Maximum price in Colombian Pesos (optional).",
-      "maximum": 100000000000,
+    "parkingMin": {
+      "description": "Minimum number of parking spaces.",
+      "maximum": 20,
       "minimum": 0,
-      "title": "Max Price (COP)",
+      "title": "Min Parking Spaces",
+      "type": "integer"
+    },
+    "priceMax": {
+      "description": "Maximum price in Brazilian reais. Not Colombian pesos.",
+      "maximum": 10000000000,
+      "minimum": 0,
+      "title": "Max Price (BRL)",
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum price in Colombian Pesos (optional).",
-      "maximum": 100000000000,
+      "description": "Minimum price in Brazilian reais. Not Colombian pesos.",
+      "maximum": 10000000000,
       "minimum": 0,
-      "title": "Min Price (COP)",
+      "title": "Min Price (BRL)",
       "type": "integer"
     },
     "propertyType": {
-      "default": "",
-      "description": "Filter by property type.",
+      "default": "ANY",
+      "description": "Filter by property type. Legacy values TERRAIN and COMMERCIAL still work.",
       "editor": "select",
       "enum": [
-        "",
+        "ANY",
         "APARTMENT",
         "HOME",
+        "PENTHOUSE",
+        "FLAT",
+        "KITNET",
         "OFFICE",
-        "TERRAIN",
-        "COMMERCIAL",
+        "ALLOTMENT_LAND",
+        "COMMERCIAL_PROPERTY",
+        "COMMERCIAL_BUILDING",
+        "WAREHOUSE",
         "GARAGE",
-        "WAREHOUSE"
+        "FARM",
+        "HOTEL",
+        "TERRAIN",
+        "COMMERCIAL"
       ],
       "enumTitles": [
-        "All types",
+        "Any type",
         "Apartment",
         "House",
+        "Penthouse",
+        "Flat",
+        "Kitnet / studio",
         "Office",
-        "Land / Terrain",
-        "Commercial",
+        "Land / lot",
+        "Commercial property",
+        "Commercial building",
+        "Warehouse",
         "Garage",
-        "Warehouse"
+        "Farm",
+        "Hotel",
+        "Land (legacy alias)",
+        "Commercial (legacy alias)"
       ],
-      "prefill": "",
+      "prefill": "ANY",
       "title": "Property Type",
+      "type": "string"
+    },
+    "state": {
+      "default": "SP",
+      "description": "Brazilian state (UF) that contains the city.",
+      "editor": "select",
+      "enum": [
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO"
+      ],
+      "enumTitles": [
+        "Acre",
+        "Alagoas",
+        "Amapá",
+        "Amazonas",
+        "Bahia",
+        "Ceará",
+        "Distrito Federal",
+        "Espírito Santo",
+        "Goiás",
+        "Maranhão",
+        "Mato Grosso",
+        "Mato Grosso do Sul",
+        "Minas Gerais",
+        "Pará",
+        "Paraíba",
+        "Paraná",
+        "Pernambuco",
+        "Piauí",
+        "Rio de Janeiro",
+        "Rio Grande do Norte",
+        "Rio Grande do Sul",
+        "Rondônia",
+        "Roraima",
+        "Santa Catarina",
+        "São Paulo",
+        "Sergipe",
+        "Tocantins"
+      ],
+      "prefill": "SP",
+      "title": "State",
+      "type": "string"
+    },
+    "usageType": {
+      "default": "ANY",
+      "description": "Residential, commercial, or any usage.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "RESIDENTIAL",
+        "COMMERCIAL"
+      ],
+      "enumTitles": [
+        "Any usage",
+        "Residential",
+        "Commercial"
+      ],
+      "prefill": "ANY",
+      "title": "Usage",
       "type": "string"
     }
   },
@@ -115,6 +278,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "VivaReal Colombia Scraper Input",
+  "title": "VivaReal Brazil Scraper Input",
   "type": "object"
 }

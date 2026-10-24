@@ -1,0 +1,329 @@
+{
+  "description": "Search Google Patents or fetch single-patent details. Pick a mode and fill the matching fields.",
+  "properties": {
+    "assignee": {
+      "default": "",
+      "description": "Assignee or applicant company, e.g. \"Google\", \"Apple Inc\", \"IBM\".",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Assignee / Company (mode=byAssignee)",
+      "type": "string"
+    },
+    "autoEscalateOnBlock": {
+      "default": true,
+      "description": "If direct fetches start returning 403 / 429, automatically retry through Apify proxy.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Auto-escalate on block",
+      "type": "boolean"
+    },
+    "citationDirection": {
+      "default": "both",
+      "description": "Which side of the citation graph to walk: backward (cited by this patent), forward (citing this patent), or both.",
+      "editor": "select",
+      "enum": [
+        "backward",
+        "forward",
+        "both"
+      ],
+      "enumTitles": [
+        "Backward — patents this one cites",
+        "Forward — patents citing this one",
+        "Both directions"
+      ],
+      "prefill": "both",
+      "title": "Citation direction (mode=byCitation)",
+      "type": "string"
+    },
+    "classification": {
+      "default": "",
+      "description": "CPC or IPC code, e.g. H04L9/06 or G06N3/00. The Google Patents site search uses CPC=... internally.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Classification code (mode=byClassification)",
+      "type": "string"
+    },
+    "country": {
+      "default": "",
+      "description": "Restrict search modes to a specific patent office. (any) = no restriction.",
+      "editor": "select",
+      "enum": [
+        "",
+        "US",
+        "EP",
+        "WO",
+        "JP",
+        "CN",
+        "KR",
+        "DE",
+        "GB",
+        "FR",
+        "CA",
+        "AU",
+        "IN",
+        "BR",
+        "RU",
+        "ES",
+        "IT",
+        "NL",
+        "AT",
+        "BE",
+        "CH",
+        "SE",
+        "DK",
+        "FI",
+        "NO",
+        "PL",
+        "PT",
+        "TW",
+        "MX",
+        "AR",
+        "ZA"
+      ],
+      "enumTitles": [
+        "(any)",
+        "United States (US)",
+        "Europe (EP)",
+        "WIPO PCT (WO)",
+        "Japan (JP)",
+        "China (CN)",
+        "South Korea (KR)",
+        "Germany (DE)",
+        "United Kingdom (GB)",
+        "France (FR)",
+        "Canada (CA)",
+        "Australia (AU)",
+        "India (IN)",
+        "Brazil (BR)",
+        "Russia (RU)",
+        "Spain (ES)",
+        "Italy (IT)",
+        "Netherlands (NL)",
+        "Austria (AT)",
+        "Belgium (BE)",
+        "Switzerland (CH)",
+        "Sweden (SE)",
+        "Denmark (DK)",
+        "Finland (FI)",
+        "Norway (NO)",
+        "Poland (PL)",
+        "Portugal (PT)",
+        "Taiwan (TW)",
+        "Mexico (MX)",
+        "Argentina (AR)",
+        "South Africa (ZA)"
+      ],
+      "prefill": "",
+      "title": "Filing-jurisdiction filter",
+      "type": "string"
+    },
+    "fetchFullDetails": {
+      "default": false,
+      "description": "For search modes (searchPatents, byInventor, byAssignee, byClassification): also fetch each patent's full HTML page for abstract, claims, classifications, citations. Adds 1 HTTP request per patent.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Fetch full patent details",
+      "type": "boolean"
+    },
+    "filingDateFrom": {
+      "default": "",
+      "description": "Drop patents filed before this date.",
+      "editor": "textfield",
+      "title": "Filing date — from (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "filingDateTo": {
+      "default": "",
+      "description": "Drop patents filed after this date.",
+      "editor": "textfield",
+      "title": "Filing date — to (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "inventor": {
+      "default": "",
+      "description": "Inventor name, e.g. \"Geoffrey Hinton\".",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Inventor (mode=byInventor)",
+      "type": "string"
+    },
+    "language": {
+      "default": "en",
+      "description": "Translate the returned patent metadata to this language when Google Patents has a translation available. Patent text is multilingual; this only affects the rendered locale.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "de",
+        "fr",
+        "es",
+        "ja",
+        "ko",
+        "zh",
+        "ru",
+        "pt",
+        "it"
+      ],
+      "enumTitles": [
+        "English",
+        "German",
+        "French",
+        "Spanish",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Russian",
+        "Portuguese",
+        "Italian"
+      ],
+      "prefill": "en",
+      "title": "Result language",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted records.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchPatents",
+      "description": "Which lookup axis to use.",
+      "editor": "select",
+      "enum": [
+        "searchPatents",
+        "byPatent",
+        "byInventor",
+        "byAssignee",
+        "byClassification",
+        "byCitation",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search patents (free-text query)",
+        "Lookup single patent by publication number",
+        "Search by inventor name",
+        "Search by assignee / company",
+        "Search by CPC / IPC classification code",
+        "List forward / backward citations of a patent",
+        "Fetch direct patents.google.com URL(s)"
+      ],
+      "prefill": "searchPatents",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyGroups": [],
+        "useApifyProxy": true
+      },
+      "description": "Apify proxy configuration. Used when useProxy is enabled or auto-escalation triggers.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [],
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "publicationDateFrom": {
+      "default": "",
+      "description": "Drop patents published before this date.",
+      "editor": "textfield",
+      "title": "Publication date — from (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "publicationDateTo": {
+      "default": "",
+      "description": "Drop patents published after this date.",
+      "editor": "textfield",
+      "title": "Publication date — to (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "publicationNumber": {
+      "default": "",
+      "description": "Patent publication number, e.g. US11704715B2, EP3789012A1, WO2020012345A1, CN101234567A. The actor accepts any country prefix supported by Google Patents.",
+      "editor": "textfield",
+      "prefill": "US11704715B2",
+      "title": "Publication number (mode=byPatent)",
+      "type": "string"
+    },
+    "publicationNumbers": {
+      "default": [],
+      "description": "Optional: list multiple publication numbers to fetch in one run (mode=byPatent) or to seed citation traversal (mode=byCitation).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Publication numbers (batch — mode=byPatent or mode=byCitation)",
+      "type": "array"
+    },
+    "query": {
+      "default": "quantum computing",
+      "description": "Free-text search query — same syntax as the Google Patents site search box.",
+      "editor": "textfield",
+      "prefill": "quantum computing",
+      "title": "Query (mode=searchPatents)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Sort order for search modes.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "new",
+        "old"
+      ],
+      "enumTitles": [
+        "Relevance (default)",
+        "Newest first",
+        "Oldest first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "status": {
+      "default": "",
+      "description": "Restrict results by legal status of the family.",
+      "editor": "select",
+      "enum": [
+        "",
+        "GRANT",
+        "APPLICATION"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Granted only",
+        "Applications only"
+      ],
+      "prefill": "",
+      "title": "Status filter",
+      "type": "string"
+    },
+    "urls": {
+      "default": [],
+      "description": "Direct patents.google.com URLs (search results, patent pages, or inventor / assignee search URLs).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Patent URLs (mode=byUrl)",
+      "type": "array"
+    },
+    "useProxy": {
+      "default": false,
+      "description": "Route requests through Apify proxy. Google Patents is generally accessible without a proxy; enable only if direct fetches return 429 / 403.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Use Apify proxy",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Google Patents Scraper Input",
+  "type": "object"
+}
