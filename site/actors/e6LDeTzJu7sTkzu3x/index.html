@@ -1,9 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-T8x4CcWaCg3w2EU7XqfRK+gva5QQJGcOIWVS6BrNwhI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>US Walkability, Transit &amp; Bike Score Extractor | Dataspryva</title><meta name="description" content="Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"><meta property="og:title" content="US Walkability, Transit &amp; Bike Score Extractor | Dataspryva"><meta property="og:description" content="Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#webpage","name":"US Walkability, Transit & Bike Score Extractor","description":"Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#article","headline":"US Walkability, Transit & Bike Score Extractor","name":"US Walkability, Transit & Bike Score Extractor","description":"Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"US Walkability, Transit & Bike Score Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>US Walkability, Transit &amp; Bike Score Extractor</span></div><section id="overview"><h1 class="doc-title">US Walkability, Transit &amp; Bike Score Extractor</h1><p class="lede">Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/us-walkability-transit-and-bike-score-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/e6LDeTzJu7sTkzu3x/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>How to look up Walk Scores.</td></tr><tr><td><code>addresses</code></td><td>array</td><td>optional</td><td>List of US addresses to look up. Format: &#x27;123 Main St, Seattle, WA&#x27;</td></tr><tr><td><code>cities</code></td><td>array</td><td>optional</td><td>List of city/state slugs to look up, e.g. &#x27;Seattle-WA&#x27;, &#x27;New-York-NY&#x27;, &#x27;Chicago-IL&#x27;.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>How to look up Walk Scores.</td></tr><tr><td><code>addresses</code></td><td>array</td><td>optional</td><td>List of US addresses to look up. Format: &#x27;123 Main St, Seattle, WA&#x27;</td></tr><tr><td><code>cities</code></td><td>array</td><td>optional</td><td>List of city/state slugs to look up, e.g. &#x27;Seattle-WA&#x27;, &#x27;New-York-NY&#x27;, &#x27;Chicago-IL&#x27;.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to emit.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape Walk Score, Transit Score, and Bike Score for US addresses or cities.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-T8x4CcWaCg3w2EU7XqfRK+gva5QQJGcOIWVS6BrNwhI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>US Walkability, Transit &amp; Bike Score Extractor | Dataspryva</title><meta name="description" content="Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"><meta property="og:title" content="US Walkability, Transit &amp; Bike Score Extractor | Dataspryva"><meta property="og:description" content="Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#webpage","name":"US Walkability, Transit & Bike Score Extractor","description":"Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#article","headline":"US Walkability, Transit & Bike Score Extractor","name":"US Walkability, Transit & Bike Score Extractor","description":"Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"US Walkability, Transit & Bike Score Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/e6LDeTzJu7sTkzu3x/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>US Walkability, Transit &amp; Bike Score Extractor</span></div><section id="overview"><h1 class="doc-title">US Walkability, Transit &amp; Bike Score Extractor</h1><p class="lede">Looks up Walk Score, Transit Score, and Bike Score for any US city or street address, returning each 0-100 score with its rating label and nearby amenity categories.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/us-walkability-transit-and-bike-score-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/e6LDeTzJu7sTkzu3x/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to look up.</td></tr><tr><td><code>addresses</code></td><td>array</td><td>optional</td><td>US street addresses, e.g. &#x27;1 Beach St, San Francisco, CA 94133&#x27;. walkscore.com/score/... URLs are also accepted.</td></tr><tr><td><code>cities</code></td><td>array</td><td>optional</td><td>Cities as &#x27;Seattle, WA&#x27;, &#x27;Seattle-WA&#x27;, or a walkscore.com city URL.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to look up.</td></tr><tr><td><code>addresses</code></td><td>array</td><td>optional</td><td>US street addresses, e.g. &#x27;1 Beach St, San Francisco, CA 94133&#x27;. walkscore.com/score/... URLs are also accepted.</td></tr><tr><td><code>cities</code></td><td>array</td><td>optional</td><td>Cities as &#x27;Seattle, WA&#x27;, &#x27;Seattle-WA&#x27;, or a walkscore.com city URL.</td></tr><tr><td><code>neighborhoods</code></td><td>array</td><td>optional</td><td>Neighborhoods as &#x27;Ballard, Seattle, WA&#x27; or a walkscore.com neighborhood URL.</td></tr><tr><td><code>state</code></td><td>string</td><td>optional</td><td>US state whose city table to read.</td></tr><tr><td><code>includeNeighborhoods</code></td><td>boolean</td><td>optional</td><td>Add the city page&#x27;s neighborhood ranking table to each city record.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum records to emit (state summary counts as one).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Look up Walk Score, Transit Score, and Bike Score for US addresses, cities, neighborhoods, or states, with ratings, coordinates, transit lines, and city/neighborhood context.&quot;,
   &quot;properties&quot;: {
     &quot;addresses&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;List of US addresses to look up. Format: &#x27;123 Main St, Seattle, WA&#x27;&quot;,
+      &quot;description&quot;: &quot;US street addresses, e.g. &#x27;1 Beach St, San Francisco, CA 94133&#x27;. walkscore.com/score/... URLs are also accepted.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Addresses (mode=byAddress)&quot;,
@@ -11,41 +11,174 @@
     },
     &quot;cities&quot;: {
       &quot;default&quot;: [
-        &quot;Seattle-WA&quot;
+        &quot;Seattle, WA&quot;
       ],
-      &quot;description&quot;: &quot;List of city/state slugs to look up, e.g. &#x27;Seattle-WA&#x27;, &#x27;New-York-NY&#x27;, &#x27;Chicago-IL&#x27;.&quot;,
+      &quot;description&quot;: &quot;Cities as &#x27;Seattle, WA&#x27;, &#x27;Seattle-WA&#x27;, or a walkscore.com city URL.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [
-        &quot;Seattle-WA&quot;,
-        &quot;New-York-NY&quot;,
-        &quot;Chicago-IL&quot;
+        &quot;Seattle, WA&quot;
       ],
       &quot;title&quot;: &quot;Cities (mode=byCity)&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
+    &quot;includeNeighborhoods&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add the city page&#x27;s neighborhood ranking table to each city record.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include neighborhood table (mode=byCity)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Maximum number of records to emit.&quot;,
-      &quot;maximum&quot;: 500,
+      &quot;description&quot;: &quot;Maximum records to emit (state summary counts as one).&quot;,
+      &quot;maximum&quot;: 1000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 50,
-      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max records&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;byCity&quot;,
-      &quot;description&quot;: &quot;How to look up Walk Scores.&quot;,
+      &quot;description&quot;: &quot;What to look up.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;byAddress&quot;,
-        &quot;byCity&quot;
+        &quot;byCity&quot;,
+        &quot;byNeighborhood&quot;,
+        &quot;byState&quot;,
+        &quot;byRanking&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;By address (street + city + state)&quot;,
-        &quot;By city/state slug&quot;
+        &quot;Addresses (bulk)&quot;,
+        &quot;Cities (with neighborhood table)&quot;,
+        &quot;Neighborhoods&quot;,
+        &quot;All cities in a state&quot;,
+        &quot;Top US cities (national ranking)&quot;
       ],
       &quot;prefill&quot;: &quot;byCity&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;neighborhoods&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Neighborhoods as &#x27;Ballard, Seattle, WA&#x27; or a walkscore.com neighborhood URL.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Neighborhoods (mode=byNeighborhood)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;state&quot;: {
+      &quot;default&quot;: &quot;WA&quot;,
+      &quot;description&quot;: &quot;US state whose city table to read.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;AL&quot;,
+        &quot;AK&quot;,
+        &quot;AZ&quot;,
+        &quot;AR&quot;,
+        &quot;CA&quot;,
+        &quot;CO&quot;,
+        &quot;CT&quot;,
+        &quot;DE&quot;,
+        &quot;DC&quot;,
+        &quot;FL&quot;,
+        &quot;GA&quot;,
+        &quot;HI&quot;,
+        &quot;ID&quot;,
+        &quot;IL&quot;,
+        &quot;IN&quot;,
+        &quot;IA&quot;,
+        &quot;KS&quot;,
+        &quot;KY&quot;,
+        &quot;LA&quot;,
+        &quot;ME&quot;,
+        &quot;MD&quot;,
+        &quot;MA&quot;,
+        &quot;MI&quot;,
+        &quot;MN&quot;,
+        &quot;MS&quot;,
+        &quot;MO&quot;,
+        &quot;MT&quot;,
+        &quot;NE&quot;,
+        &quot;NV&quot;,
+        &quot;NH&quot;,
+        &quot;NJ&quot;,
+        &quot;NM&quot;,
+        &quot;NY&quot;,
+        &quot;NC&quot;,
+        &quot;ND&quot;,
+        &quot;OH&quot;,
+        &quot;OK&quot;,
+        &quot;OR&quot;,
+        &quot;PA&quot;,
+        &quot;RI&quot;,
+        &quot;SC&quot;,
+        &quot;SD&quot;,
+        &quot;TN&quot;,
+        &quot;TX&quot;,
+        &quot;UT&quot;,
+        &quot;VT&quot;,
+        &quot;VA&quot;,
+        &quot;WA&quot;,
+        &quot;WV&quot;,
+        &quot;WI&quot;,
+        &quot;WY&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Alabama&quot;,
+        &quot;Alaska&quot;,
+        &quot;Arizona&quot;,
+        &quot;Arkansas&quot;,
+        &quot;California&quot;,
+        &quot;Colorado&quot;,
+        &quot;Connecticut&quot;,
+        &quot;Delaware&quot;,
+        &quot;District of Columbia&quot;,
+        &quot;Florida&quot;,
+        &quot;Georgia&quot;,
+        &quot;Hawaii&quot;,
+        &quot;Idaho&quot;,
+        &quot;Illinois&quot;,
+        &quot;Indiana&quot;,
+        &quot;Iowa&quot;,
+        &quot;Kansas&quot;,
+        &quot;Kentucky&quot;,
+        &quot;Louisiana&quot;,
+        &quot;Maine&quot;,
+        &quot;Maryland&quot;,
+        &quot;Massachusetts&quot;,
+        &quot;Michigan&quot;,
+        &quot;Minnesota&quot;,
+        &quot;Mississippi&quot;,
+        &quot;Missouri&quot;,
+        &quot;Montana&quot;,
+        &quot;Nebraska&quot;,
+        &quot;Nevada&quot;,
+        &quot;New Hampshire&quot;,
+        &quot;New Jersey&quot;,
+        &quot;New Mexico&quot;,
+        &quot;New York&quot;,
+        &quot;North Carolina&quot;,
+        &quot;North Dakota&quot;,
+        &quot;Ohio&quot;,
+        &quot;Oklahoma&quot;,
+        &quot;Oregon&quot;,
+        &quot;Pennsylvania&quot;,
+        &quot;Rhode Island&quot;,
+        &quot;South Carolina&quot;,
+        &quot;South Dakota&quot;,
+        &quot;Tennessee&quot;,
+        &quot;Texas&quot;,
+        &quot;Utah&quot;,
+        &quot;Vermont&quot;,
+        &quot;Virginia&quot;,
+        &quot;Washington&quot;,
+        &quot;West Virginia&quot;,
+        &quot;Wisconsin&quot;,
+        &quot;Wyoming&quot;
+      ],
+      &quot;prefill&quot;: &quot;WA&quot;,
+      &quot;title&quot;: &quot;State (mode=byState)&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -53,15 +186,15 @@
     &quot;mode&quot;
   ],
   &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Walk Score Scraper Input&quot;,
+  &quot;title&quot;: &quot;Walk Score Lookup Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Walk Score records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Dataset of Walk Score, Transit Score, and Bike Score records for US cities and addresses, with rating labels and nearby amenities.&quot;,
+  &quot;description&quot;: &quot;Address, city, neighborhood, state, and ranking records with Walk, Transit, and Bike scores, ratings, coordinates, transit lines, parks, neighborhood context, and live/archive provenance.&quot;,
   &quot;properties&quot;: {
     &quot;items&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped records.&quot;,
+      &quot;description&quot;: &quot;Dataset containing all scraped Walk Score records.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Items&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -81,10 +214,17 @@
       &quot;transformation&quot;: {
         &quot;fields&quot;: [
           &quot;address&quot;,
+          &quot;locationType&quot;,
+          &quot;city&quot;,
+          &quot;state&quot;,
+          &quot;zipCode&quot;,
           &quot;walkScore&quot;,
           &quot;walkDescription&quot;,
           &quot;transitScore&quot;,
+          &quot;transitDescription&quot;,
           &quot;bikeScore&quot;,
+          &quot;bikeDescription&quot;,
+          &quot;nearbyAmenities&quot;,
           &quot;sourceUrl&quot;
         ]
       }
@@ -92,70 +232,43 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-us-walkability-transit-bike-score-extractor">US Walkability, Transit &amp; Bike Score Extractor</h2>
-<p>Walk Score rates how walkable, transit-friendly, and bikeable a US location is on a 0-100 scale. This actor looks up those three scores for any US city or street address directly from walkscore.com, with no API key, login, or account needed.</p>
+<p>Look up <strong>Walk Score</strong>, <strong>Transit Score</strong>, and <strong>Bike Score</strong> for US addresses, cities, neighborhoods, and states. Each record carries the 0–100 scores with the rating labels and summaries shown on walkscore.com, plus coordinates, city/state/ZIP, transit lines, nearby parks, and city or neighborhood context. No API key, login, or proxy setup is needed.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Looks up scores by city/state slug (e.g. <code>Seattle-WA</code>) or by a full street address (e.g. <code>123 Main St, Seattle, WA</code>).</li>
-<li>Returns the Walk Score, Transit Score, and Bike Score, each on a 0-100 scale with its human-readable rating label.</li>
-<li>Pulls nearby amenity categories when the page shows them, giving context for why a location scored the way it did.</li>
-<li>Accepts a list of multiple cities or addresses and processes them in one run.</li>
-<li>Any score or amenity list the page doesn't have for a given location is left out of that record.</li>
+<li><strong>Five modes:</strong> <code>byAddress</code> (bulk), <code>byCity</code> (with an optional neighborhood ranking table), <code>byNeighborhood</code>, <code>byState</code> (all cities in one state), and <code>byRanking</code> (top US cities).</li>
+<li><strong>Correct ratings:</strong> Walk/Transit/Bike labels and summaries are read from each page, so low-score categories such as &quot;Car-Dependent&quot; and &quot;Somewhat Bikeable&quot; are labelled correctly.</li>
+<li><strong>Location context:</strong> latitude/longitude, city, state, ZIP, transit lines with type and distance, nearby park names, city averages, population, and walkability ranks where the page shows them.</li>
+<li><strong>Bulk-friendly:</strong> one address per lookup, or a whole city/state table in a single request.</li>
+<li><strong>Archive fallback:</strong> if walkscore.com is unavailable, the actor can return a recent Wayback Machine snapshot with explicit provenance. City and neighborhood pages are more likely to be archived than arbitrary addresses.</li>
+<li><strong>Empty fields are omitted.</strong> A location without a Transit Score is not given a zero; the field is simply absent.</li>
 </ul>
+<h3 id="readme-archive-data-limitations">Archive data limitations</h3>
+<p>Wayback snapshots are a best-effort fallback, not a live feed. Archive records are marked with
+<code>dataSource: &quot;wayback&quot;</code> and carry the snapshot time and URL. Data can be days or weeks old and
+scores are point-in-time. City and neighborhood pages are archived more often than arbitrary
+street addresses; when no snapshot exists, the actor says so instead of inventing a score.</p>
 <h2 id="readme-output-per-location">Output per location</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>address</code></td>
-<td>The city slug or address you supplied</td>
-</tr>
-<tr>
-<td><code>walkScore</code></td>
-<td>Walk Score, 0-100</td>
-</tr>
-<tr>
-<td><code>walkDescription</code></td>
-<td>Walk Score's label, e.g. &quot;Walker's Paradise&quot;, &quot;Very Walkable&quot;</td>
-</tr>
-<tr>
-<td><code>transitScore</code></td>
-<td>Transit Score, 0-100</td>
-</tr>
-<tr>
-<td><code>transitDescription</code></td>
-<td>Transit Score's label, e.g. &quot;Rider's Paradise&quot;, &quot;Excellent Transit&quot;</td>
-</tr>
-<tr>
-<td><code>bikeScore</code></td>
-<td>Bike Score, 0-100</td>
-</tr>
-<tr>
-<td><code>bikeDescription</code></td>
-<td>Bike Score's label, e.g. &quot;Very Bikeable&quot;, &quot;Bikeable&quot;</td>
-</tr>
-<tr>
-<td><code>nearbyAmenities</code></td>
-<td>Categories of nearby amenities shown on the page</td>
-</tr>
-<tr>
-<td><code>sourceUrl</code></td>
-<td>The walkscore.com page the record was read from</td>
-</tr>
-<tr>
-<td><code>recordType</code></td>
-<td>Always <code>walk_score</code></td>
-</tr>
-<tr>
-<td><code>scrapedAt</code></td>
-<td>Collection timestamp</td>
-</tr>
-</tbody>
-</table></div>
+<ul>
+<li><code>locationType</code> — <code>address</code>, <code>city</code>, <code>neighborhood</code>, <code>state</code>, or <code>error</code></li>
+<li><code>address</code> — the canonical display label from the page</li>
+<li><code>inputAddress</code>, <code>addressMatched</code> — the submitted address and whether the geocoder kept the same street (address records)</li>
+<li><code>city</code>, <code>state</code>, <code>zipCode</code>, <code>country</code></li>
+<li><code>latitude</code>, <code>longitude</code> — decimal degrees</li>
+<li><code>walkScore</code>, <code>walkDescription</code>, <code>walkSummary</code></li>
+<li><code>transitScore</code>, <code>transitDescription</code>, <code>transitSummary</code></li>
+<li><code>bikeScore</code>, <code>bikeDescription</code>, <code>bikeSummary</code></li>
+<li><code>transitLines[]</code> — <code>type</code> (<code>rail</code>/<code>bus</code>), <code>name</code>, <code>distanceMiles</code></li>
+<li><code>nearbyAmenities[]</code> — nearby park names the page lists</li>
+<li><code>cityAverageWalkScore</code>, <code>cityPopulation</code> — city context on address pages</li>
+<li><code>population</code>, <code>walkRankUS</code>, <code>transitRouteCounts</code>, <code>topNeighborhoods</code>, <code>neighborhoods[]</code> — city/neighborhood context</li>
+<li><code>stateName</code>, <code>stateAverageWalkScore</code>, <code>stateCityCount</code>, <code>bestCities</code>, <code>worstCities</code> — state summary</li>
+<li><code>sourceUrl</code>, <code>recordType</code>, <code>scrapedAt</code></li>
+<li><code>dataSource</code> — <code>live</code> or <code>wayback</code> (archived fallback)</li>
+<li><code>archivedAt</code> — ISO timestamp of the Wayback snapshot (archive records only)</li>
+<li><code>archiveUrl</code> — the raw Wayback snapshot URL (archive records only)</li>
+<li><code>status</code> — provenance note, e.g. <code>live</code> or <code>archived snapshot; live source unavailable (HTTP 503)</code></li>
+<li><code>_message</code> — present only on a diagnostic record when neither live nor archived data is available</li>
+</ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -169,65 +282,105 @@
 <tbody>
 <tr>
 <td><code>mode</code></td>
-<td>String (select)</td>
+<td>string</td>
 <td><code>byCity</code></td>
-<td><code>byCity</code> to look up by city/state slug, or <code>byAddress</code> to look up by street address.</td>
-</tr>
-<tr>
-<td><code>cities</code></td>
-<td>Array</td>
-<td><code>[&quot;Seattle-WA&quot;]</code></td>
-<td>City/state slugs to look up, e.g. <code>Seattle-WA</code>, <code>New-York-NY</code>, <code>Chicago-IL</code>. Used by <code>byCity</code>.</td>
+<td><code>byAddress</code> / <code>byCity</code> / <code>byNeighborhood</code> / <code>byState</code> / <code>byRanking</code></td>
 </tr>
 <tr>
 <td><code>addresses</code></td>
-<td>Array</td>
+<td>array</td>
 <td><code>[]</code></td>
-<td>Full US addresses to look up, e.g. <code>123 Main St, Seattle, WA</code>. Used by <code>byAddress</code>.</td>
+<td>US addresses, e.g. <code>1 Beach St, San Francisco, CA 94133</code> (mode=byAddress)</td>
+</tr>
+<tr>
+<td><code>cities</code></td>
+<td>array</td>
+<td><code>[&quot;Seattle, WA&quot;]</code></td>
+<td><code>Seattle, WA</code>, <code>Seattle-WA</code>, or a city URL (mode=byCity)</td>
+</tr>
+<tr>
+<td><code>neighborhoods</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td><code>Ballard, Seattle, WA</code> or a neighborhood URL (mode=byNeighborhood)</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>string</td>
+<td><code>WA</code></td>
+<td>US state code (mode=byState)</td>
+</tr>
+<tr>
+<td><code>includeNeighborhoods</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add the city page's neighborhood table (mode=byCity)</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
-<td>Integer</td>
-<td>50</td>
-<td>Maximum number of records to return (1-500).</td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Hard cap, 1–1000 (the state summary counts as one)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-look-up-several-cities">Example: look up several cities</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;byCity&quot;,
-  &quot;cities&quot;: [&quot;Seattle-WA&quot;, &quot;New-York-NY&quot;, &quot;Chicago-IL&quot;],
-  &quot;maxItems&quot;: 50
-}
-</code></pre>
-<h3 id="readme-example-look-up-specific-street-addresses">Example: look up specific street addresses</h3>
+<h3 id="readme-example-score-a-list-of-addresses">Example: score a list of addresses</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;byAddress&quot;,
-  &quot;addresses&quot;: [&quot;123 Main St, Seattle, WA&quot;, &quot;1 Infinite Loop, Cupertino, CA&quot;],
-  &quot;maxItems&quot;: 20
+  &quot;addresses&quot;: [
+    &quot;1 Beach St, San Francisco, CA 94133&quot;,
+    &quot;1519 8th Ave, Seattle, WA 98101&quot;,
+    &quot;County Road 15, Johnstown, CO 80534&quot;
+  ],
+  &quot;maxItems&quot;: 10
 }
+</code></pre>
+<h3 id="readme-example-cities-with-their-neighborhood-table">Example: cities with their neighborhood table</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byCity&quot;,
+  &quot;cities&quot;: [&quot;Seattle, WA&quot;, &quot;Chicago, IL&quot;],
+  &quot;includeNeighborhoods&quot;: true,
+  &quot;maxItems&quot;: 5
+}
+</code></pre>
+<h3 id="readme-example-every-city-in-a-state">Example: every city in a state</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byState&quot;,
+  &quot;state&quot;: &quot;WA&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-a-neighborhood-or-the-national-ranking">Example: a neighborhood or the national ranking</h3>
+<pre><code class="language-json">{&quot;mode&quot;: &quot;byNeighborhood&quot;, &quot;neighborhoods&quot;: [&quot;Ballard, Seattle, WA&quot;], &quot;maxItems&quot;: 3}
+</code></pre>
+<pre><code class="language-json">{&quot;mode&quot;: &quot;byRanking&quot;, &quot;maxItems&quot;: 25}
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Relocation research</strong> — compare walkability and transit access across cities you're considering moving to.</li>
-<li><strong>Real estate listings</strong> — attach walkability context to a property address alongside other listing data.</li>
-<li><strong>Site selection</strong> — screen candidate addresses for a retail or office location by how walkable and bike-friendly the area is.</li>
-<li><strong>Urban planning research</strong> — compare walk/transit/bike scores across neighborhoods or cities at scale.</li>
-<li><strong>Content and comparison sites</strong> — build city-ranking content using live Walk Score data.</li>
+<li><strong>Relocation research</strong> — compare walk, transit, and bike access across candidate addresses and cities.</li>
+<li><strong>Real-estate enrichment</strong> — attach scores and neighborhood context to property lists by address or ZIP-level city.</li>
+<li><strong>Site selection</strong> — screen retail/office addresses by walkability and transit access.</li>
+<li><strong>Urban planning and research</strong> — pull a whole state's city table or a city's neighborhood ranking in one run.</li>
+<li><strong>Content and comparison sites</strong> — build city and neighborhood rankings from live Walk Score data.</li>
+<li><strong>Data pipelines</strong> — normalize addresses and merge scores with coordinates, city/state/ZIP, and transit context.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Do I need an API key or account?</strong>
-No — this reads walkscore.com's public pages directly.</p>
-<p><strong>What format should a city go in?</strong>
-Use the <code>CityName-ST</code> slug format walkscore.com itself uses, e.g. <code>Los-Angeles-CA</code> or <code>Austin-TX</code>.</p>
+<p><strong>Do I need a Walk Score API key?</strong>
+No. This actor reads walkscore.com's public pages. The official Walk Score API is not used.</p>
+<p><strong>Why is a Transit Score or Bike Score missing for some locations?</strong>
+walkscore.com only publishes those scores where it has enough data. Rural and exurban locations often have no Transit Score; the field is omitted rather than set to zero.</p>
+<p><strong>Why does <code>nearbyAmenities</code> only contain park names?</strong>
+The public pages name nearby parks, and list transit lines separately. They do not publish restaurant, grocery, or coffee-shop names or distances; those are not invented.</p>
+<p><strong>My address changed after lookup. Why?</strong>
+walkscore.com's geocoder can snap a vague or invalid address to the nearest known address. Compare <code>inputAddress</code> with <code>address</code> and check <code>addressMatched</code>; the canonical <code>sourceUrl</code> is always included.</p>
+<p><strong>Can I get the neighborhood name for a street address?</strong>
+Not yet. Address pages give city, state, ZIP, and coordinates. City records include a full neighborhood table with scores and population, and <code>byNeighborhood</code> looks up a named neighborhood directly.</p>
+<p><strong>What happens if walkscore.com is unavailable?</strong>
+The actor tries the live page first. If the site is down, it looks for a recent Wayback Machine snapshot and returns it with <code>dataSource: &quot;wayback&quot;</code>, <code>archivedAt</code>, <code>archiveUrl</code>, and a <code>status</code> note. Archive data can be days or weeks old, so scores are point-in-time; city and neighborhood pages are more likely to be archived than arbitrary addresses. If neither live nor archived data exists, a diagnostic record with <code>_message</code> is returned instead of silently returning no rows.</p>
 <p><strong>Does this work outside the US?</strong>
-It's built around walkscore.com's US city and address pages; coverage outside the US isn't supported.</p>
-<p><strong>Why is <code>nearbyAmenities</code> sometimes missing?</strong>
-It's only included when walkscore.com's page actually lists nearby amenity categories for that location; not every page shows one.</p>
-<p><strong>Can I look up a mix of addresses and cities in one run?</strong>
-Set <code>mode</code> to whichever type you mostly need and run it twice if you need both a city list and an address list, since <code>mode</code> controls which input field (<code>cities</code> or <code>addresses</code>) the actor reads.</p>
-<p><strong>How accurate are the scores?</strong>
-The scores come directly from walkscore.com's own methodology, which draws on sources like OpenStreetMap; this actor doesn't recalculate or adjust them.</p>
-<p><strong>Is this affiliated with Walk Score?</strong>
-No. This actor reads walkscore.com's public pages and is not affiliated with Walk Score or Redfin.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/e6LDeTzJu7sTkzu3x/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0mL2bAEdh9lBMKeKn</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+It is built for US city, neighborhood, address, and state pages. Canadian and other international pages are not covered.</p>
+<p><strong>Is this affiliated with Walk Score or Redfin?</strong>
+No. This is a third-party actor reading publicly available pages. Walk Score is a trademark of Redfin Corporation.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. The actor chooses a working connection automatically.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/e6LDeTzJu7sTkzu3x/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>4PDMfidL97ROpWPYL</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

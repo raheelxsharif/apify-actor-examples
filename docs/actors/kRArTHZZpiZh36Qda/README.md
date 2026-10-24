@@ -4,95 +4,125 @@
 
 # DeviantArt Artwork Search, Gallery & Trending Feed
 
-DeviantArt is one of the longest-running communities for digital art, traditional art, photography, and fan art. This actor reads its public RSS feeds to return deviations matching a keyword search, an artist's full gallery, or the site's currently trending artwork — with no account or API key needed.
+Collect artwork from DeviantArt through its public pages. Search by keyword, browse a tag, read an artist's gallery, follow the Daily Deviations feed, or open specific artwork URLs — with no account, API key or proxy setup.
 
-## What this actor does
+## What you get
 
-- Searches DeviantArt for deviations matching a keyword.
-- Pulls every deviation in a specific artist's public gallery by username.
-- Reads the currently trending/popular deviations feed, optionally scoped to one art category.
-- Filters results to a single category — Digital Art, Traditional Art, Photography, Fan Art, Literature, Film & Animation, or Designs.
-- Any field a deviation's feed entry doesn't include (such as `category` when the feed omits one) is left out of that record.
-
-## Output per deviation
-
-- `deviationId` — numeric ID parsed from the deviation's URL
-- `title` — artwork title
-- `artistName` — the creator's username
-- `category` — the art category the feed tags the deviation with, when present
-- `imageUrl` — preview image URL
-- `deviationUrl` — direct link to the deviation's page
-- `publishedAt` — publication date as given by the feed
-- `recordType` — always `deviation`
-- `scrapedAt` — collection timestamp
+- **Five input paths**: keyword search, tag browse, artist gallery, Daily Deviations, and direct artwork URLs or IDs.
+- **Artwork metadata**: title, artist, publication time, media type, file type, language, licence, and daily-deviation flag.
+- **Engagement stats**: views, favourites, comments, downloads and private collections.
+- **Rights and provenance flags**: mature, sensitive, downloadable, AI-generated and AI-use-disallowed.
+- **Signed media URLs**: thumbnail and full preview links built from the page's current image tokens, plus display dimensions.
+- **Optional artwork details**: tags, description, original dimensions, file size, original file type and watermark flag.
+- **Optional artist profiles**: watchers, deviation count, pageviews and join date.
+- **Literature support**: list modes return a text excerpt for literature submissions, with image fields omitted; detail enrichment merges the page description when present.
+- **Omit-empty output**: fields the source does not expose are left out instead of filled with guesses.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | Used by |
 | --- | --- | --- | --- |
-| `mode` | String (select) | `search` | `search`, `gallery`, or `popular`. |
-| `searchQuery` | String | `fantasy art` | Keyword to search for, used by `search`. |
-| `username` | String | – | DeviantArt username whose gallery to browse, used by `gallery`. |
-| `category` | String (select) | – | Restrict to one category: Digital Art, Traditional Art, Photography, Fan Art, Literature, Film & Animation, or Designs. |
-| `maxItems` | Integer | 30 | Maximum number of deviation records to return (1-500). |
+| `mode` | Select | `search` | All modes: `search`, `tag`, `gallery`, `daily`, `artwork`. |
+| `searchQuery` | Text | `fantasy art` | `search`; keyword or search URL. |
+| `tag` | Text | – | `tag`; accepts `fantasy` or a tag URL. |
+| `username` | Text | – | `gallery`; accepts a username or profile URL. |
+| `artworkUrls` | String list | – | `artwork`; URL, `/art/...-id` link or numeric ID. |
+| `contentType` | Select | `all` | `search`; limit to `image` or `literature`. |
+| `order` | Select | `recommended` | `tag`; `recommended` or `most-recent`. |
+| `includeDetails` | Boolean | `false` | Browse modes only: adds tags, description and original-file metadata with one extra artwork page per record. |
+| `includeArtistStats` | Boolean | `false` | Adds profile statistics; one extra page per unique artist. |
+| `excludeMature` | Boolean | `false` | Skips artwork flagged mature or sensitive. |
+| `maxItems` | Integer | `30` | Stops after this many unique artworks (1–500). |
 
-### Example: keyword search
+Every record is de-duplicated by deviation ID across pages.
+
+### Examples
+
+Search for recent fantasy artwork:
 
 ```json
 {
   "mode": "search",
   "searchQuery": "fantasy art",
-  "maxItems": 30
+  "contentType": "image",
+  "maxItems": 50
 }
 ```
 
-### Example: one artist's gallery
+Browse a tag with detail enrichment:
+
+```json
+{
+  "mode": "tag",
+  "tag": "fantasy",
+  "order": "most-recent",
+  "includeDetails": true,
+  "maxItems": 20
+}
+```
+
+Read an artist gallery with profile stats:
 
 ```json
 {
   "mode": "gallery",
   "username": "example-artist",
-  "maxItems": 50
-}
-```
-
-### Example: trending photography
-
-```json
-{
-  "mode": "popular",
-  "category": "photography",
+  "includeArtistStats": true,
   "maxItems": 40
 }
 ```
 
+Open specific artworks:
+
+```json
+{
+  "mode": "artwork",
+  "artworkUrls": [
+    "https://www.deviantart.com/byzwa-dher/art/Temple-485251112",
+    "485251112"
+  ]
+}
+```
+
+## Output fields
+
+`deviationId`, `title`, `artistName`, `artistUsername`, `artistUrl`, `artistAvatarUrl`, `artistType`, `deviationUrl`, `shortUrl`, `sourceFeed`, `searchInput`, `recordType`, `scrapedAt`, `publishedAt`, `type`, `mediaType`, `fileType`, `language`, `isMature`, `isNsfg`, `isDownloadable`, `isAiGenerated`, `isAiUseDisallowed`, `isDailyDeviation`, `license`, `imageUrl`, `thumbnailUrl`, `imageWidth`, `imageHeight`, `thumbnailWidth`, `thumbnailHeight`, `views`, `favourites`, `comments`, `downloads`, `privatelyCollected`, `description`.
+
+Detail enrichment (automatic in `artwork` mode, opt-in elsewhere) adds `tags`, `originalWidth`, `originalHeight`, `fileSizeBytes`, `originalFileType` and `hasWatermark`. Artist enrichment adds `artistWatchers`, `artistDeviationsCount`, `artistPageviews` and `artistJoinDate`.
+
 ## Use cases
 
-- **Art discovery** — pull a fresh batch of artwork matching a theme or keyword.
-- **Artist portfolio tracking** — monitor what a specific artist has published lately.
-- **Trend spotting** — scan the popular feed by category to see what's gaining traction right now.
-- **Reference gathering** — collect image URLs and artist credits for mood boards or research.
-- **Category comparisons** — pull the trending feed across several categories to compare activity levels.
+- Find new artwork around a theme, fandom or tag.
+- Monitor an artist's public gallery over time.
+- Track which genres and creators appear in the Daily Deviations feed.
+- Build mood boards or training sets from signed preview images and attribution metadata.
+- Compare engagement across tags and creators.
 
 ## FAQ
 
 **Do I need a DeviantArt account or API key?**
-No — every mode reads DeviantArt's public RSS feeds, which don't require authentication.
+No. The actor reads public artwork pages and requires no login or developer credentials.
 
-**Why is `category` sometimes missing from a record?**
-The feed only includes a category tag for some deviations; when it's absent on the source feed entry, the field is left off that record.
+**Why are some tags or descriptions missing?**
+In browse modes, detail data is merged when you enable `includeDetails`; `artwork` mode reads it from the same page. DeviantArt does not expose it on every artwork page, so missing values are omitted rather than invented.
 
-**Does `category` filtering work the same in every mode?**
-In `popular` mode, the category is applied as part of the trending feed query itself. In `search` and other filtering, it's matched against whatever category tag the feed entry carries, so results can vary depending on how consistently deviations are tagged.
+**Do image links expire?**
+Image links carry signed tokens from the page you scraped. They usually remain valid for a while, but treat them as temporary and download images promptly if you need long-term storage.
 
-**Can I combine a search keyword with a category filter?**
-`category` filtering is available alongside `search` and `popular`; `gallery` mode returns everything in the artist's feed regardless of category.
+**Why did the run return fewer records than requested?**
+The source limits how deep public browsing goes, and pagination can end early; gallery pages can stop at the first server-rendered batch. The run reports how many records it actually collected.
+
+**Why is there no category field?**
+DeviantArt's public artwork data no longer exposes the old art-category taxonomy. The actor does not guess one from the media type.
+
+**Can I collect mature artwork?**
+Anonymous browsing hides most mature work. `excludeMature` lets you filter out anything flagged mature or sensitive.
+
+**Is literature supported?**
+Yes. List modes include a text excerpt and omit image-specific fields. When detail enrichment is on, structured rich-text descriptions are converted to readable text; a literature excerpt is always kept.
 
 **How fresh is the data?**
-Each run reads the live RSS feeds at request time, so results reflect what's currently published.
-
-**Why might a gallery return fewer deviations than expected?**
-The RSS feed for a gallery reflects what DeviantArt currently exposes publicly for that account; private or mature-filtered content outside the feed's scope won't appear.
+Each run reads the current public pages at request time.
 
 **Is this affiliated with DeviantArt?**
-No. This actor reads DeviantArt's public RSS feeds and is not affiliated with DeviantArt, Inc.
+No. This actor is independent and is not affiliated with DeviantArt, Inc.

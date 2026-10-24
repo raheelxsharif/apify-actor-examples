@@ -1,73 +1,120 @@
 {
-  "description": "Search or browse DeviantArt.com for fan art, digital art, and traditional art via RSS feed.",
+  "description": "Search DeviantArt artwork, browse a tag, read an artist's gallery, collect Daily Deviations, or open specific artwork pages.",
   "properties": {
-    "category": {
-      "default": "",
-      "description": "Filter by art category.",
+    "artworkUrls": {
+      "description": "Artwork page URLs, /art/... links, or numeric deviation IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Artwork URLs or IDs",
+      "type": "array"
+    },
+    "contentType": {
+      "default": "all",
+      "description": "Limit keyword searches to images or literature.",
       "editor": "select",
       "enum": [
-        "",
-        "digitalart",
-        "traditional",
-        "photography",
-        "fanart",
-        "literature",
-        "film",
-        "designs"
+        "all",
+        "image",
+        "literature"
       ],
       "enumTitles": [
-        "Any",
-        "Digital Art",
-        "Traditional Art",
-        "Photography",
-        "Fan Art",
-        "Literature",
-        "Film & Animation",
-        "Designs"
+        "All content",
+        "Images only",
+        "Literature only"
       ],
-      "prefill": "",
-      "title": "Category filter",
+      "title": "Content type",
       "type": "string"
+    },
+    "excludeMature": {
+      "default": false,
+      "description": "Skip artwork flagged as mature or sensitive.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Exclude mature artwork",
+      "type": "boolean"
+    },
+    "includeArtistStats": {
+      "default": false,
+      "description": "Open each artist profile to add watchers, deviation count, pageviews and join date.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include artist statistics",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Open each artwork page to add tags, description, original dimensions, file size and watermark flag when available.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include artwork details",
+      "type": "boolean"
     },
     "maxItems": {
       "default": 30,
-      "description": "Maximum number of deviation records to return.",
+      "description": "Maximum number of artwork records to return.",
       "maximum": 500,
       "minimum": 1,
-      "prefill": 30,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum records",
       "type": "integer"
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch.",
+      "description": "Choose what to collect.",
       "editor": "select",
       "enum": [
         "search",
+        "tag",
         "gallery",
-        "popular"
+        "daily",
+        "artwork"
       ],
       "enumTitles": [
-        "Search deviations",
-        "Browse gallery by username",
-        "Browse popular deviations"
+        "Search by keyword",
+        "Browse a tag",
+        "Artist gallery",
+        "Daily Deviations",
+        "Specific artwork URLs or IDs"
       ],
-      "prefill": "search",
+      "prefill": "tag",
       "title": "Mode",
+      "type": "string"
+    },
+    "order": {
+      "default": "recommended",
+      "description": "Order used when browsing a tag.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "most-recent"
+      ],
+      "enumTitles": [
+        "Recommended",
+        "Most recent"
+      ],
+      "title": "Tag order",
       "type": "string"
     },
     "searchQuery": {
       "default": "fantasy art",
-      "description": "Search term for deviations (mode=search).",
+      "description": "Keyword or phrase to search for. Supports DeviantArt search syntax.",
       "editor": "textfield",
-      "prefill": "fantasy art",
       "title": "Search query",
       "type": "string"
     },
-    "username": {
-      "description": "DeviantArt username to browse gallery (mode=gallery).",
+    "tag": {
+      "description": "Tag slug or tag URL, for example fantasy or https://www.deviantart.com/tag/fantasy.",
       "editor": "textfield",
-      "title": "Username",
+      "prefill": "fantasy",
+      "title": "Tag",
+      "type": "string"
+    },
+    "username": {
+      "description": "DeviantArt username or profile URL whose gallery should be collected.",
+      "editor": "textfield",
+      "title": "Artist username",
       "type": "string"
     }
   },

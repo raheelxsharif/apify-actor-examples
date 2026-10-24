@@ -1,73 +1,120 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-I6JP4p4RWJ8/BbAzMxaSPEWDiFVDdShUPfSNlq/aOy8=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>DeviantArt Artwork Search, Gallery &amp; Trending Feed | Dataspryva</title><meta name="description" content="Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"><meta property="og:title" content="DeviantArt Artwork Search, Gallery &amp; Trending Feed | Dataspryva"><meta property="og:description" content="Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#webpage","name":"DeviantArt Artwork Search, Gallery & Trending Feed","description":"Reads DeviantArt's public feeds to find deviations by keyword, browse an artist's full gallery, or pull the current trending artwork feed by category.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#article","headline":"DeviantArt Artwork Search, Gallery & Trending Feed","name":"DeviantArt Artwork Search, Gallery & Trending Feed","description":"Reads DeviantArt's public feeds to find deviations by keyword, browse an artist's full gallery, or pull the current trending artwork feed by category.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"DeviantArt Artwork Search, Gallery & Trending Feed","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>DeviantArt Artwork Search, Gallery &amp; Trending Feed</span></div><section id="overview"><h1 class="doc-title">DeviantArt Artwork Search, Gallery &amp; Trending Feed</h1><p class="lede">Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/deviantart-artwork-search-gallery-and-trending">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/kRArTHZZpiZh36Qda/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Search term for deviations (mode=search).</td></tr><tr><td><code>username</code></td><td>string</td><td>optional</td><td>DeviantArt username to browse gallery (mode=gallery).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Search term for deviations (mode=search).</td></tr><tr><td><code>username</code></td><td>string</td><td>optional</td><td>DeviantArt username to browse gallery (mode=gallery).</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Filter by art category.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of deviation records to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search or browse DeviantArt.com for fan art, digital art, and traditional art via RSS feed.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-I6JP4p4RWJ8/BbAzMxaSPEWDiFVDdShUPfSNlq/aOy8=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>DeviantArt Artwork Search, Gallery &amp; Trending Feed | Dataspryva</title><meta name="description" content="Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"><meta property="og:title" content="DeviantArt Artwork Search, Gallery &amp; Trending Feed | Dataspryva"><meta property="og:description" content="Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#webpage","name":"DeviantArt Artwork Search, Gallery & Trending Feed","description":"Reads DeviantArt's public feeds to find deviations by keyword, browse an artist's full gallery, or pull the current trending artwork feed by category.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#article","headline":"DeviantArt Artwork Search, Gallery & Trending Feed","name":"DeviantArt Artwork Search, Gallery & Trending Feed","description":"Reads DeviantArt's public feeds to find deviations by keyword, browse an artist's full gallery, or pull the current trending artwork feed by category.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"DeviantArt Artwork Search, Gallery & Trending Feed","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/kRArTHZZpiZh36Qda/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>DeviantArt Artwork Search, Gallery &amp; Trending Feed</span></div><section id="overview"><h1 class="doc-title">DeviantArt Artwork Search, Gallery &amp; Trending Feed</h1><p class="lede">Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/deviantart-artwork-search-gallery-and-trending">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/kRArTHZZpiZh36Qda/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to collect.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword or phrase to search for. Supports DeviantArt search syntax.</td></tr><tr><td><code>tag</code></td><td>string</td><td>optional</td><td>Tag slug or tag URL, for example fantasy or https://www.deviantart.com/tag/fantasy.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to collect.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword or phrase to search for. Supports DeviantArt search syntax.</td></tr><tr><td><code>tag</code></td><td>string</td><td>optional</td><td>Tag slug or tag URL, for example fantasy or https://www.deviantart.com/tag/fantasy.</td></tr><tr><td><code>username</code></td><td>string</td><td>optional</td><td>DeviantArt username or profile URL whose gallery should be collected.</td></tr><tr><td><code>artworkUrls</code></td><td>array</td><td>optional</td><td>Artwork page URLs, /art/... links, or numeric deviation IDs.</td></tr><tr><td><code>contentType</code></td><td>string</td><td>optional</td><td>Limit keyword searches to images or literature.</td></tr><tr><td><code>order</code></td><td>string</td><td>optional</td><td>Order used when browsing a tag.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Open each artwork page to add tags, description, original dimensions, file size and watermark flag when available.</td></tr><tr><td><code>includeArtistStats</code></td><td>boolean</td><td>optional</td><td>Open each artist profile to add watchers, deviation count, pageviews and join date.</td></tr><tr><td><code>excludeMature</code></td><td>boolean</td><td>optional</td><td>Skip artwork flagged as mature or sensitive.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of artwork records to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search DeviantArt artwork, browse a tag, read an artist&#x27;s gallery, collect Daily Deviations, or open specific artwork pages.&quot;,
   &quot;properties&quot;: {
-    &quot;category&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Filter by art category.&quot;,
+    &quot;artworkUrls&quot;: {
+      &quot;description&quot;: &quot;Artwork page URLs, /art/... links, or numeric deviation IDs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Artwork URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;contentType&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Limit keyword searches to images or literature.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
-        &quot;&quot;,
-        &quot;digitalart&quot;,
-        &quot;traditional&quot;,
-        &quot;photography&quot;,
-        &quot;fanart&quot;,
-        &quot;literature&quot;,
-        &quot;film&quot;,
-        &quot;designs&quot;
+        &quot;all&quot;,
+        &quot;image&quot;,
+        &quot;literature&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Any&quot;,
-        &quot;Digital Art&quot;,
-        &quot;Traditional Art&quot;,
-        &quot;Photography&quot;,
-        &quot;Fan Art&quot;,
-        &quot;Literature&quot;,
-        &quot;Film &amp; Animation&quot;,
-        &quot;Designs&quot;
+        &quot;All content&quot;,
+        &quot;Images only&quot;,
+        &quot;Literature only&quot;
       ],
-      &quot;prefill&quot;: &quot;&quot;,
-      &quot;title&quot;: &quot;Category filter&quot;,
+      &quot;title&quot;: &quot;Content type&quot;,
       &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;excludeMature&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Skip artwork flagged as mature or sensitive.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude mature artwork&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeArtistStats&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Open each artist profile to add watchers, deviation count, pageviews and join date.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include artist statistics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Open each artwork page to add tags, description, original dimensions, file size and watermark flag when available.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include artwork details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 30,
-      &quot;description&quot;: &quot;Maximum number of deviation records to return.&quot;,
+      &quot;description&quot;: &quot;Maximum number of artwork records to return.&quot;,
       &quot;maximum&quot;: 500,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 30,
-      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum records&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to fetch.&quot;,
+      &quot;description&quot;: &quot;Choose what to collect.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;search&quot;,
+        &quot;tag&quot;,
         &quot;gallery&quot;,
-        &quot;popular&quot;
+        &quot;daily&quot;,
+        &quot;artwork&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Search deviations&quot;,
-        &quot;Browse gallery by username&quot;,
-        &quot;Browse popular deviations&quot;
+        &quot;Search by keyword&quot;,
+        &quot;Browse a tag&quot;,
+        &quot;Artist gallery&quot;,
+        &quot;Daily Deviations&quot;,
+        &quot;Specific artwork URLs or IDs&quot;
       ],
-      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;prefill&quot;: &quot;tag&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;order&quot;: {
+      &quot;default&quot;: &quot;recommended&quot;,
+      &quot;description&quot;: &quot;Order used when browsing a tag.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;recommended&quot;,
+        &quot;most-recent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Recommended&quot;,
+        &quot;Most recent&quot;
+      ],
+      &quot;title&quot;: &quot;Tag order&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;searchQuery&quot;: {
       &quot;default&quot;: &quot;fantasy art&quot;,
-      &quot;description&quot;: &quot;Search term for deviations (mode=search).&quot;,
+      &quot;description&quot;: &quot;Keyword or phrase to search for. Supports DeviantArt search syntax.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;fantasy art&quot;,
       &quot;title&quot;: &quot;Search query&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;username&quot;: {
-      &quot;description&quot;: &quot;DeviantArt username to browse gallery (mode=gallery).&quot;,
+    &quot;tag&quot;: {
+      &quot;description&quot;: &quot;Tag slug or tag URL, for example fantasy or https://www.deviantart.com/tag/fantasy.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Username&quot;,
+      &quot;prefill&quot;: &quot;fantasy&quot;,
+      &quot;title&quot;: &quot;Tag&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;username&quot;: {
+      &quot;description&quot;: &quot;DeviantArt username or profile URL whose gallery should be collected.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Artist username&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -78,14 +125,14 @@
   &quot;title&quot;: &quot;DeviantArt Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>deviations</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped deviation records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>deviations</code></td><td>string</td><td>optional</td><td>Dataset containing all collected artwork records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Deviations from DeviantArt — title, creator, category, media URL, and publication date.&quot;,
+  &quot;description&quot;: &quot;Artwork records with artist profile, signed image URLs, stats, flags, licence, dimensions and optional detail fields.&quot;,
   &quot;properties&quot;: {
     &quot;deviations&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped deviation records.&quot;,
+      &quot;description&quot;: &quot;Dataset containing all collected artwork records.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;DeviantArt deviations&quot;,
+      &quot;title&quot;: &quot;DeviantArt artwork&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -99,14 +146,16 @@
         &quot;component&quot;: &quot;table&quot;,
         &quot;properties&quot;: {}
       },
-      &quot;title&quot;: &quot;Deviations&quot;,
+      &quot;title&quot;: &quot;Artwork&quot;,
       &quot;transformation&quot;: {
         &quot;fields&quot;: [
           &quot;deviationId&quot;,
           &quot;title&quot;,
-          &quot;artistName&quot;,
-          &quot;category&quot;,
+          &quot;artistUsername&quot;,
+          &quot;type&quot;,
           &quot;publishedAt&quot;,
+          &quot;views&quot;,
+          &quot;favourites&quot;,
           &quot;deviationUrl&quot;
         ]
       }
@@ -114,26 +163,18 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-deviantart-artwork-search-gallery-trending-feed">DeviantArt Artwork Search, Gallery &amp; Trending Feed</h2>
-<p>DeviantArt is one of the longest-running communities for digital art, traditional art, photography, and fan art. This actor reads its public RSS feeds to return deviations matching a keyword search, an artist's full gallery, or the site's currently trending artwork — with no account or API key needed.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<p>Collect artwork from DeviantArt through its public pages. Search by keyword, browse a tag, read an artist's gallery, follow the Daily Deviations feed, or open specific artwork URLs — with no account, API key or proxy setup.</p>
+<h2 id="readme-what-you-get">What you get</h2>
 <ul>
-<li>Searches DeviantArt for deviations matching a keyword.</li>
-<li>Pulls every deviation in a specific artist's public gallery by username.</li>
-<li>Reads the currently trending/popular deviations feed, optionally scoped to one art category.</li>
-<li>Filters results to a single category — Digital Art, Traditional Art, Photography, Fan Art, Literature, Film &amp; Animation, or Designs.</li>
-<li>Any field a deviation's feed entry doesn't include (such as <code>category</code> when the feed omits one) is left out of that record.</li>
-</ul>
-<h2 id="readme-output-per-deviation">Output per deviation</h2>
-<ul>
-<li><code>deviationId</code> — numeric ID parsed from the deviation's URL</li>
-<li><code>title</code> — artwork title</li>
-<li><code>artistName</code> — the creator's username</li>
-<li><code>category</code> — the art category the feed tags the deviation with, when present</li>
-<li><code>imageUrl</code> — preview image URL</li>
-<li><code>deviationUrl</code> — direct link to the deviation's page</li>
-<li><code>publishedAt</code> — publication date as given by the feed</li>
-<li><code>recordType</code> — always <code>deviation</code></li>
-<li><code>scrapedAt</code> — collection timestamp</li>
+<li><strong>Five input paths</strong>: keyword search, tag browse, artist gallery, Daily Deviations, and direct artwork URLs or IDs.</li>
+<li><strong>Artwork metadata</strong>: title, artist, publication time, media type, file type, language, licence, and daily-deviation flag.</li>
+<li><strong>Engagement stats</strong>: views, favourites, comments, downloads and private collections.</li>
+<li><strong>Rights and provenance flags</strong>: mature, sensitive, downloadable, AI-generated and AI-use-disallowed.</li>
+<li><strong>Signed media URLs</strong>: thumbnail and full preview links built from the page's current image tokens, plus display dimensions.</li>
+<li><strong>Optional artwork details</strong>: tags, description, original dimensions, file size, original file type and watermark flag.</li>
+<li><strong>Optional artist profiles</strong>: watchers, deviation count, pageviews and join date.</li>
+<li><strong>Literature support</strong>: list modes return a text excerpt for literature submissions, with image fields omitted; detail enrichment merges the page description when present.</li>
+<li><strong>Omit-empty output</strong>: fields the source does not expose are left out instead of filled with guesses.</li>
 </ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
@@ -142,84 +183,142 @@
 <th>Field</th>
 <th>Type</th>
 <th>Default</th>
-<th>Description</th>
+<th>Used by</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>mode</code></td>
-<td>String (select)</td>
+<td>Select</td>
 <td><code>search</code></td>
-<td><code>search</code>, <code>gallery</code>, or <code>popular</code>.</td>
+<td>All modes: <code>search</code>, <code>tag</code>, <code>gallery</code>, <code>daily</code>, <code>artwork</code>.</td>
 </tr>
 <tr>
 <td><code>searchQuery</code></td>
-<td>String</td>
+<td>Text</td>
 <td><code>fantasy art</code></td>
-<td>Keyword to search for, used by <code>search</code>.</td>
+<td><code>search</code>; keyword or search URL.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>Text</td>
+<td>–</td>
+<td><code>tag</code>; accepts <code>fantasy</code> or a tag URL.</td>
 </tr>
 <tr>
 <td><code>username</code></td>
-<td>String</td>
+<td>Text</td>
 <td>–</td>
-<td>DeviantArt username whose gallery to browse, used by <code>gallery</code>.</td>
+<td><code>gallery</code>; accepts a username or profile URL.</td>
 </tr>
 <tr>
-<td><code>category</code></td>
-<td>String (select)</td>
+<td><code>artworkUrls</code></td>
+<td>String list</td>
 <td>–</td>
-<td>Restrict to one category: Digital Art, Traditional Art, Photography, Fan Art, Literature, Film &amp; Animation, or Designs.</td>
+<td><code>artwork</code>; URL, <code>/art/...-id</code> link or numeric ID.</td>
+</tr>
+<tr>
+<td><code>contentType</code></td>
+<td>Select</td>
+<td><code>all</code></td>
+<td><code>search</code>; limit to <code>image</code> or <code>literature</code>.</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>Select</td>
+<td><code>recommended</code></td>
+<td><code>tag</code>; <code>recommended</code> or <code>most-recent</code>.</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Browse modes only: adds tags, description and original-file metadata with one extra artwork page per record.</td>
+</tr>
+<tr>
+<td><code>includeArtistStats</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Adds profile statistics; one extra page per unique artist.</td>
+</tr>
+<tr>
+<td><code>excludeMature</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Skips artwork flagged mature or sensitive.</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>Integer</td>
-<td>30</td>
-<td>Maximum number of deviation records to return (1-500).</td>
+<td><code>30</code></td>
+<td>Stops after this many unique artworks (1–500).</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-keyword-search">Example: keyword search</h3>
+<p>Every record is de-duplicated by deviation ID across pages.</p>
+<h3 id="readme-examples">Examples</h3>
+<p>Search for recent fantasy artwork:</p>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
   &quot;searchQuery&quot;: &quot;fantasy art&quot;,
-  &quot;maxItems&quot;: 30
-}
-</code></pre>
-<h3 id="readme-example-one-artist-s-gallery">Example: one artist's gallery</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;gallery&quot;,
-  &quot;username&quot;: &quot;example-artist&quot;,
+  &quot;contentType&quot;: &quot;image&quot;,
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-trending-photography">Example: trending photography</h3>
+<p>Browse a tag with detail enrichment:</p>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;popular&quot;,
-  &quot;category&quot;: &quot;photography&quot;,
+  &quot;mode&quot;: &quot;tag&quot;,
+  &quot;tag&quot;: &quot;fantasy&quot;,
+  &quot;order&quot;: &quot;most-recent&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<p>Read an artist gallery with profile stats:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;gallery&quot;,
+  &quot;username&quot;: &quot;example-artist&quot;,
+  &quot;includeArtistStats&quot;: true,
   &quot;maxItems&quot;: 40
 }
 </code></pre>
+<p>Open specific artworks:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;artwork&quot;,
+  &quot;artworkUrls&quot;: [
+    &quot;https://www.deviantart.com/byzwa-dher/art/Temple-485251112&quot;,
+    &quot;485251112&quot;
+  ]
+}
+</code></pre>
+<h2 id="readme-output-fields">Output fields</h2>
+<p><code>deviationId</code>, <code>title</code>, <code>artistName</code>, <code>artistUsername</code>, <code>artistUrl</code>, <code>artistAvatarUrl</code>, <code>artistType</code>, <code>deviationUrl</code>, <code>shortUrl</code>, <code>sourceFeed</code>, <code>searchInput</code>, <code>recordType</code>, <code>scrapedAt</code>, <code>publishedAt</code>, <code>type</code>, <code>mediaType</code>, <code>fileType</code>, <code>language</code>, <code>isMature</code>, <code>isNsfg</code>, <code>isDownloadable</code>, <code>isAiGenerated</code>, <code>isAiUseDisallowed</code>, <code>isDailyDeviation</code>, <code>license</code>, <code>imageUrl</code>, <code>thumbnailUrl</code>, <code>imageWidth</code>, <code>imageHeight</code>, <code>thumbnailWidth</code>, <code>thumbnailHeight</code>, <code>views</code>, <code>favourites</code>, <code>comments</code>, <code>downloads</code>, <code>privatelyCollected</code>, <code>description</code>.</p>
+<p>Detail enrichment (automatic in <code>artwork</code> mode, opt-in elsewhere) adds <code>tags</code>, <code>originalWidth</code>, <code>originalHeight</code>, <code>fileSizeBytes</code>, <code>originalFileType</code> and <code>hasWatermark</code>. Artist enrichment adds <code>artistWatchers</code>, <code>artistDeviationsCount</code>, <code>artistPageviews</code> and <code>artistJoinDate</code>.</p>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Art discovery</strong> — pull a fresh batch of artwork matching a theme or keyword.</li>
-<li><strong>Artist portfolio tracking</strong> — monitor what a specific artist has published lately.</li>
-<li><strong>Trend spotting</strong> — scan the popular feed by category to see what's gaining traction right now.</li>
-<li><strong>Reference gathering</strong> — collect image URLs and artist credits for mood boards or research.</li>
-<li><strong>Category comparisons</strong> — pull the trending feed across several categories to compare activity levels.</li>
+<li>Find new artwork around a theme, fandom or tag.</li>
+<li>Monitor an artist's public gallery over time.</li>
+<li>Track which genres and creators appear in the Daily Deviations feed.</li>
+<li>Build mood boards or training sets from signed preview images and attribution metadata.</li>
+<li>Compare engagement across tags and creators.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
 <p><strong>Do I need a DeviantArt account or API key?</strong>
-No — every mode reads DeviantArt's public RSS feeds, which don't require authentication.</p>
-<p><strong>Why is <code>category</code> sometimes missing from a record?</strong>
-The feed only includes a category tag for some deviations; when it's absent on the source feed entry, the field is left off that record.</p>
-<p><strong>Does <code>category</code> filtering work the same in every mode?</strong>
-In <code>popular</code> mode, the category is applied as part of the trending feed query itself. In <code>search</code> and other filtering, it's matched against whatever category tag the feed entry carries, so results can vary depending on how consistently deviations are tagged.</p>
-<p><strong>Can I combine a search keyword with a category filter?</strong>
-<code>category</code> filtering is available alongside <code>search</code> and <code>popular</code>; <code>gallery</code> mode returns everything in the artist's feed regardless of category.</p>
+No. The actor reads public artwork pages and requires no login or developer credentials.</p>
+<p><strong>Why are some tags or descriptions missing?</strong>
+In browse modes, detail data is merged when you enable <code>includeDetails</code>; <code>artwork</code> mode reads it from the same page. DeviantArt does not expose it on every artwork page, so missing values are omitted rather than invented.</p>
+<p><strong>Do image links expire?</strong>
+Image links carry signed tokens from the page you scraped. They usually remain valid for a while, but treat them as temporary and download images promptly if you need long-term storage.</p>
+<p><strong>Why did the run return fewer records than requested?</strong>
+The source limits how deep public browsing goes, and pagination can end early; gallery pages can stop at the first server-rendered batch. The run reports how many records it actually collected.</p>
+<p><strong>Why is there no category field?</strong>
+DeviantArt's public artwork data no longer exposes the old art-category taxonomy. The actor does not guess one from the media type.</p>
+<p><strong>Can I collect mature artwork?</strong>
+Anonymous browsing hides most mature work. <code>excludeMature</code> lets you filter out anything flagged mature or sensitive.</p>
+<p><strong>Is literature supported?</strong>
+Yes. List modes include a text excerpt and omit image-specific fields. When detail enrichment is on, structured rich-text descriptions are converted to readable text; a literature excerpt is always kept.</p>
 <p><strong>How fresh is the data?</strong>
-Each run reads the live RSS feeds at request time, so results reflect what's currently published.</p>
-<p><strong>Why might a gallery return fewer deviations than expected?</strong>
-The RSS feed for a gallery reflects what DeviantArt currently exposes publicly for that account; private or mature-filtered content outside the feed's scope won't appear.</p>
+Each run reads the current public pages at request time.</p>
 <p><strong>Is this affiliated with DeviantArt?</strong>
-No. This actor reads DeviantArt's public RSS feeds and is not affiliated with DeviantArt, Inc.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/kRArTHZZpiZh36Qda/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>SyMIQutgrndaxsudP</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. This actor is independent and is not affiliated with DeviantArt, Inc.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/kRArTHZZpiZh36Qda/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>PTlcRordbiDo0SrJ4</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

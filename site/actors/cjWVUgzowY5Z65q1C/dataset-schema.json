@@ -1,0 +1,53 @@
+{
+  "actorSpecification": 1,
+  "title": "LinkedIn Alumni Profiles",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "connectionDegree": {
+            "format": "text",
+            "label": "Connection"
+          },
+          "headline": {
+            "format": "text",
+            "label": "Headline"
+          },
+          "location": {
+            "format": "text",
+            "label": "Location"
+          },
+          "name": {
+            "format": "text",
+            "label": "Name"
+          },
+          "profileUrl": {
+            "format": "link",
+            "label": "Profile URL"
+          },
+          "schoolName": {
+            "format": "text",
+            "label": "School"
+          },
+          "scrapedAt": {
+            "format": "datetime",
+            "label": "Scraped At"
+          }
+        }
+      },
+      "title": "Alumni Profiles",
+      "transformation": {
+        "fields": [
+          "name",
+          "headline",
+          "location",
+          "profileUrl",
+          "schoolName",
+          "connectionDegree",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

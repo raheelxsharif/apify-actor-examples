@@ -4,88 +4,137 @@
 
 # US Walkability, Transit & Bike Score Extractor
 
-Walk Score rates how walkable, transit-friendly, and bikeable a US location is on a 0-100 scale. This actor looks up those three scores for any US city or street address directly from walkscore.com, with no API key, login, or account needed.
+Look up **Walk Score**, **Transit Score**, and **Bike Score** for US addresses, cities, neighborhoods, and states. Each record carries the 0–100 scores with the rating labels and summaries shown on walkscore.com, plus coordinates, city/state/ZIP, transit lines, nearby parks, and city or neighborhood context. No API key, login, or proxy setup is needed.
 
 ## What this actor does
 
-- Looks up scores by city/state slug (e.g. `Seattle-WA`) or by a full street address (e.g. `123 Main St, Seattle, WA`).
-- Returns the Walk Score, Transit Score, and Bike Score, each on a 0-100 scale with its human-readable rating label.
-- Pulls nearby amenity categories when the page shows them, giving context for why a location scored the way it did.
-- Accepts a list of multiple cities or addresses and processes them in one run.
-- Any score or amenity list the page doesn't have for a given location is left out of that record.
+- **Five modes:** `byAddress` (bulk), `byCity` (with an optional neighborhood ranking table), `byNeighborhood`, `byState` (all cities in one state), and `byRanking` (top US cities).
+- **Correct ratings:** Walk/Transit/Bike labels and summaries are read from each page, so low-score categories such as "Car-Dependent" and "Somewhat Bikeable" are labelled correctly.
+- **Location context:** latitude/longitude, city, state, ZIP, transit lines with type and distance, nearby park names, city averages, population, and walkability ranks where the page shows them.
+- **Bulk-friendly:** one address per lookup, or a whole city/state table in a single request.
+- **Archive fallback:** if walkscore.com is unavailable, the actor can return a recent Wayback Machine snapshot with explicit provenance. City and neighborhood pages are more likely to be archived than arbitrary addresses.
+- **Empty fields are omitted.** A location without a Transit Score is not given a zero; the field is simply absent.
+
+### Archive data limitations
+
+Wayback snapshots are a best-effort fallback, not a live feed. Archive records are marked with
+`dataSource: "wayback"` and carry the snapshot time and URL. Data can be days or weeks old and
+scores are point-in-time. City and neighborhood pages are archived more often than arbitrary
+street addresses; when no snapshot exists, the actor says so instead of inventing a score.
 
 ## Output per location
 
-| Field | Description |
-| --- | --- |
-| `address` | The city slug or address you supplied |
-| `walkScore` | Walk Score, 0-100 |
-| `walkDescription` | Walk Score's label, e.g. "Walker's Paradise", "Very Walkable" |
-| `transitScore` | Transit Score, 0-100 |
-| `transitDescription` | Transit Score's label, e.g. "Rider's Paradise", "Excellent Transit" |
-| `bikeScore` | Bike Score, 0-100 |
-| `bikeDescription` | Bike Score's label, e.g. "Very Bikeable", "Bikeable" |
-| `nearbyAmenities` | Categories of nearby amenities shown on the page |
-| `sourceUrl` | The walkscore.com page the record was read from |
-| `recordType` | Always `walk_score` |
-| `scrapedAt` | Collection timestamp |
+- `locationType` — `address`, `city`, `neighborhood`, `state`, or `error`
+- `address` — the canonical display label from the page
+- `inputAddress`, `addressMatched` — the submitted address and whether the geocoder kept the same street (address records)
+- `city`, `state`, `zipCode`, `country`
+- `latitude`, `longitude` — decimal degrees
+- `walkScore`, `walkDescription`, `walkSummary`
+- `transitScore`, `transitDescription`, `transitSummary`
+- `bikeScore`, `bikeDescription`, `bikeSummary`
+- `transitLines[]` — `type` (`rail`/`bus`), `name`, `distanceMiles`
+- `nearbyAmenities[]` — nearby park names the page lists
+- `cityAverageWalkScore`, `cityPopulation` — city context on address pages
+- `population`, `walkRankUS`, `transitRouteCounts`, `topNeighborhoods`, `neighborhoods[]` — city/neighborhood context
+- `stateName`, `stateAverageWalkScore`, `stateCityCount`, `bestCities`, `worstCities` — state summary
+- `sourceUrl`, `recordType`, `scrapedAt`
+- `dataSource` — `live` or `wayback` (archived fallback)
+- `archivedAt` — ISO timestamp of the Wayback snapshot (archive records only)
+- `archiveUrl` — the raw Wayback snapshot URL (archive records only)
+- `status` — provenance note, e.g. `live` or `archived snapshot; live source unavailable (HTTP 503)`
+- `_message` — present only on a diagnostic record when neither live nor archived data is available
 
 ## Input
 
 | Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `mode` | String (select) | `byCity` | `byCity` to look up by city/state slug, or `byAddress` to look up by street address. |
-| `cities` | Array | `["Seattle-WA"]` | City/state slugs to look up, e.g. `Seattle-WA`, `New-York-NY`, `Chicago-IL`. Used by `byCity`. |
-| `addresses` | Array | `[]` | Full US addresses to look up, e.g. `123 Main St, Seattle, WA`. Used by `byAddress`. |
-| `maxItems` | Integer | 50 | Maximum number of records to return (1-500). |
+|---|---|---|---|
+| `mode` | string | `byCity` | `byAddress` / `byCity` / `byNeighborhood` / `byState` / `byRanking` |
+| `addresses` | array | `[]` | US addresses, e.g. `1 Beach St, San Francisco, CA 94133` (mode=byAddress) |
+| `cities` | array | `["Seattle, WA"]` | `Seattle, WA`, `Seattle-WA`, or a city URL (mode=byCity) |
+| `neighborhoods` | array | `[]` | `Ballard, Seattle, WA` or a neighborhood URL (mode=byNeighborhood) |
+| `state` | string | `WA` | US state code (mode=byState) |
+| `includeNeighborhoods` | boolean | `true` | Add the city page's neighborhood table (mode=byCity) |
+| `maxItems` | integer | `50` | Hard cap, 1–1000 (the state summary counts as one) |
 
-### Example: look up several cities
-
-```json
-{
-  "mode": "byCity",
-  "cities": ["Seattle-WA", "New-York-NY", "Chicago-IL"],
-  "maxItems": 50
-}
-```
-
-### Example: look up specific street addresses
+### Example: score a list of addresses
 
 ```json
 {
   "mode": "byAddress",
-  "addresses": ["123 Main St, Seattle, WA", "1 Infinite Loop, Cupertino, CA"],
-  "maxItems": 20
+  "addresses": [
+    "1 Beach St, San Francisco, CA 94133",
+    "1519 8th Ave, Seattle, WA 98101",
+    "County Road 15, Johnstown, CO 80534"
+  ],
+  "maxItems": 10
 }
+```
+
+### Example: cities with their neighborhood table
+
+```json
+{
+  "mode": "byCity",
+  "cities": ["Seattle, WA", "Chicago, IL"],
+  "includeNeighborhoods": true,
+  "maxItems": 5
+}
+```
+
+### Example: every city in a state
+
+```json
+{
+  "mode": "byState",
+  "state": "WA",
+  "maxItems": 100
+}
+```
+
+### Example: a neighborhood or the national ranking
+
+```json
+{"mode": "byNeighborhood", "neighborhoods": ["Ballard, Seattle, WA"], "maxItems": 3}
+```
+
+```json
+{"mode": "byRanking", "maxItems": 25}
 ```
 
 ## Use cases
 
-- **Relocation research** — compare walkability and transit access across cities you're considering moving to.
-- **Real estate listings** — attach walkability context to a property address alongside other listing data.
-- **Site selection** — screen candidate addresses for a retail or office location by how walkable and bike-friendly the area is.
-- **Urban planning research** — compare walk/transit/bike scores across neighborhoods or cities at scale.
-- **Content and comparison sites** — build city-ranking content using live Walk Score data.
+- **Relocation research** — compare walk, transit, and bike access across candidate addresses and cities.
+- **Real-estate enrichment** — attach scores and neighborhood context to property lists by address or ZIP-level city.
+- **Site selection** — screen retail/office addresses by walkability and transit access.
+- **Urban planning and research** — pull a whole state's city table or a city's neighborhood ranking in one run.
+- **Content and comparison sites** — build city and neighborhood rankings from live Walk Score data.
+- **Data pipelines** — normalize addresses and merge scores with coordinates, city/state/ZIP, and transit context.
 
 ## FAQ
 
-**Do I need an API key or account?**
-No — this reads walkscore.com's public pages directly.
+**Do I need a Walk Score API key?**
+No. This actor reads walkscore.com's public pages. The official Walk Score API is not used.
 
-**What format should a city go in?**
-Use the `CityName-ST` slug format walkscore.com itself uses, e.g. `Los-Angeles-CA` or `Austin-TX`.
+**Why is a Transit Score or Bike Score missing for some locations?**
+walkscore.com only publishes those scores where it has enough data. Rural and exurban locations often have no Transit Score; the field is omitted rather than set to zero.
+
+**Why does `nearbyAmenities` only contain park names?**
+The public pages name nearby parks, and list transit lines separately. They do not publish restaurant, grocery, or coffee-shop names or distances; those are not invented.
+
+**My address changed after lookup. Why?**
+walkscore.com's geocoder can snap a vague or invalid address to the nearest known address. Compare `inputAddress` with `address` and check `addressMatched`; the canonical `sourceUrl` is always included.
+
+**Can I get the neighborhood name for a street address?**
+Not yet. Address pages give city, state, ZIP, and coordinates. City records include a full neighborhood table with scores and population, and `byNeighborhood` looks up a named neighborhood directly.
+
+**What happens if walkscore.com is unavailable?**
+The actor tries the live page first. If the site is down, it looks for a recent Wayback Machine snapshot and returns it with `dataSource: "wayback"`, `archivedAt`, `archiveUrl`, and a `status` note. Archive data can be days or weeks old, so scores are point-in-time; city and neighborhood pages are more likely to be archived than arbitrary addresses. If neither live nor archived data exists, a diagnostic record with `_message` is returned instead of silently returning no rows.
 
 **Does this work outside the US?**
-It's built around walkscore.com's US city and address pages; coverage outside the US isn't supported.
+It is built for US city, neighborhood, address, and state pages. Canadian and other international pages are not covered.
 
-**Why is `nearbyAmenities` sometimes missing?**
-It's only included when walkscore.com's page actually lists nearby amenity categories for that location; not every page shows one.
+**Is this affiliated with Walk Score or Redfin?**
+No. This is a third-party actor reading publicly available pages. Walk Score is a trademark of Redfin Corporation.
 
-**Can I look up a mix of addresses and cities in one run?**
-Set `mode` to whichever type you mostly need and run it twice if you need both a city list and an address list, since `mode` controls which input field (`cities` or `addresses`) the actor reads.
-
-**How accurate are the scores?**
-The scores come directly from walkscore.com's own methodology, which draws on sources like OpenStreetMap; this actor doesn't recalculate or adjust them.
-
-**Is this affiliated with Walk Score?**
-No. This actor reads walkscore.com's public pages and is not affiliated with Walk Score or Redfin.
+**Do I need to configure a proxy?**
+No. The actor chooses a working connection automatically.
