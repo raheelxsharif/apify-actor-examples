@@ -1,163 +1,138 @@
 {
   "properties": {
-    "connectionDegree": {
-      "default": "",
-      "description": "Filter alumni by LinkedIn connection degree: F = 1st degree, S = 2nd degree, O = 3rd degree+. Leave blank to include all.",
-      "editor": "select",
-      "enum": [
-        "",
-        "F",
-        "S",
-        "O"
-      ],
-      "enumTitles": [
-        "All connections",
-        "1st degree only",
-        "2nd degree only",
-        "3rd degree+"
-      ],
-      "title": "Connection Degree",
-      "type": "string"
-    },
-    "cookie": {
-      "description": "Your LinkedIn session cookie. Accepts: (1) the li_at value from browser DevTools → Application → Cookies, or (2) a full cookie JSON array exported from a browser extension such as EditThisCookie or Cookie-Editor.",
-      "editor": "textarea",
-      "isSecret": true,
-      "prefill": "AQEDATVc5uMEM5s_AAABnro67cYAAAGe3kdxxk0Ajoj1en-Axa4lUoxvqVMAsMpFO2u4rOjJfIS1U1wrBETHJHqkj5i6KReB53dmYSZDgX9K4XnaFLmn7vE30gVWegfZltSOZVu_-Ny8sl4-aAKzeN-H",
-      "title": "LinkedIn Cookie",
-      "type": "string"
-    },
     "currentCompany": {
-      "description": "Filter to alumni currently working at this company.",
+      "description": "School insights: a public company facet name or ID (e.g. Google). Alumni profiles: only return people whose public current employer matches.",
       "editor": "textfield",
-      "title": "Current Company",
+      "title": "Current company",
+      "type": "string"
+    },
+    "currentFunction": {
+      "description": "School insights only: a public function facet name or ID (e.g. Engineering).",
+      "editor": "textfield",
+      "title": "Current function",
       "type": "string"
     },
     "currentLocation": {
-      "description": "Filter to alumni whose current location matches this text.",
+      "description": "Alumni profiles only: only return people whose public location contains this text.",
       "editor": "textfield",
-      "title": "Current Location",
+      "title": "Current location",
       "type": "string"
     },
     "degree": {
       "default": "",
-      "description": "Degree filter.",
+      "description": "Narrow discovery toward profiles whose public text mentions this degree (mode=alumniProfiles). Degree is best-effort because LinkedIn hides it on most guest profiles.",
       "editor": "select",
       "enum": [
         "",
         "Bachelor",
         "Master",
-        "PhD",
         "MBA",
-        "Associate",
-        "Other"
+        "PhD",
+        "Associate"
       ],
       "enumTitles": [
         "Any degree",
         "Bachelor's",
         "Master's",
-        "PhD / Doctorate",
         "MBA",
-        "Associate",
-        "Other"
+        "PhD / Doctorate",
+        "Associate"
       ],
       "title": "Degree",
       "type": "string"
     },
-    "field": {
-      "description": "Field of study (e.g. 'Computer Science', 'Economics', 'Marketing').",
-      "editor": "textfield",
-      "title": "Field of Study",
-      "type": "string"
-    },
     "fieldOfStudy": {
-      "description": "Optional keyword to narrow alumni results by field of study or specialization. Example: 'Computer Science', 'MBA', 'Engineering'.",
+      "description": "School insights: a public field facet name or ID (e.g. Computer Science). Alumni profiles: searches and prefers this field (best-effort).",
       "editor": "textfield",
-      "title": "Field of Study / Keywords",
-      "type": "string"
-    },
-    "graduationYear": {
-      "description": "Optional graduation year filter. Example: '2020', '2015'. Used as a keyword in the search.",
-      "editor": "textfield",
-      "title": "Graduation Year",
+      "title": "Field of study",
       "type": "string"
     },
     "graduationYearRange": {
-      "description": "Optional graduation year range with start and end (inclusive).",
+      "description": "Alumni profiles only: keep profiles whose public education end year is inside this inclusive range.",
       "editor": "json",
-      "prefill": {
-        "end": 2024,
-        "start": 2015
+      "properties": {
+        "end": {
+          "description": "Latest graduation year to include (inclusive).",
+          "maximum": 2100,
+          "minimum": 1900,
+          "title": "End year",
+          "type": "integer"
+        },
+        "start": {
+          "description": "Earliest graduation year to include (inclusive).",
+          "maximum": 2100,
+          "minimum": 1900,
+          "title": "Start year",
+          "type": "integer"
+        }
       },
-      "title": "Graduation Year Range",
+      "title": "Graduation year range",
       "type": "object"
     },
-    "language": {
-      "default": "en_US",
-      "description": "Preferred LinkedIn locale.",
-      "editor": "select",
-      "enum": [
-        "en_US",
-        "en_GB",
-        "es_ES",
-        "fr_FR",
-        "de_DE",
-        "pt_BR",
-        "it_IT",
-        "nl_NL",
-        "ja_JP",
-        "zh_CN"
-      ],
-      "enumTitles": [
-        "English (US)",
-        "English (UK)",
-        "Spanish",
-        "French",
-        "German",
-        "Portuguese (BR)",
-        "Italian",
-        "Dutch",
-        "Japanese",
-        "Chinese (Simplified)"
-      ],
-      "title": "Language",
-      "type": "string"
+    "includeSchoolProfile": {
+      "default": true,
+      "description": "School insights only: also fetch the school overview page for website, founding year, size, specialties and employee count. Adds one request per school.",
+      "prefill": false,
+      "title": "Include school profile details",
+      "type": "boolean"
     },
     "maxAlumniPerSchool": {
-      "default": 100,
-      "description": "Maximum number of alumni profiles to scrape per school. LinkedIn surfaces alumni visible to your session.",
-      "editor": "number",
+      "default": 50,
+      "description": "Maximum verified public profiles to return per school (mode=alumniProfiles). Values above 200 are clamped to 200 to keep runs bounded.",
       "maximum": 1000,
       "minimum": 1,
-      "title": "Max Alumni Per School",
+      "prefill": 3,
+      "title": "Max alumni per school",
       "type": "integer"
     },
-    "proxyConfiguration": {
-      "description": "Optional Apify proxy configuration. Residential proxy is recommended for best reliability.",
-      "editor": "proxy",
-      "title": "Proxy Configuration",
-      "type": "object"
+    "maxSchools": {
+      "default": 10,
+      "description": "Maximum number of schools to process in one run.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max schools",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "schoolInsights",
+      "description": "What to return: public school-level alumni insights, or individual public alumni profiles found by search.",
+      "editor": "select",
+      "enum": [
+        "schoolInsights",
+        "alumniProfiles"
+      ],
+      "enumTitles": [
+        "School insights (counts, top employers, fields, functions)",
+        "Alumni profiles (public profiles + education)"
+      ],
+      "prefill": "schoolInsights",
+      "title": "Mode",
+      "type": "string"
     },
     "schoolNames": {
-      "description": "Plain school or university names when you don't have the LinkedIn URL. Example: 'MIT', 'Harvard University', 'Stanford University'.",
+      "description": "Plain university names when you do not have the LinkedIn URL, e.g. MIT or Harvard University. Names are resolved automatically.",
       "editor": "stringList",
-      "prefill": [
-        "MIT"
-      ],
-      "title": "School Names",
+      "items": {
+        "type": "string"
+      },
+      "title": "School names",
       "type": "array"
     },
     "schoolUrls": {
-      "description": "LinkedIn school page URLs. Example: https://www.linkedin.com/school/mit/ or https://www.linkedin.com/school/harvard-university/",
+      "description": "LinkedIn school page URLs or bare slugs, e.g. https://www.linkedin.com/school/mit/ or mit.",
       "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
       "prefill": [
         "https://www.linkedin.com/school/mit/"
       ],
-      "title": "School URLs",
+      "title": "School URLs or slugs",
       "type": "array"
     }
   },
   "schemaVersion": 1,
-  "title": "LinkedIn Schools Alumni Scraper Input",
+  "title": "LinkedIn University Alumni Input",
   "type": "object"
 }

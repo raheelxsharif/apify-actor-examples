@@ -1,0 +1,60 @@
+{
+  "properties": {
+    "broadcastIds": {
+      "description": "Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, broadcast IDs, or a post link whose card contains a broadcast. The actor finds the broadcast automatically.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/i/broadcasts/1YGNrbPLejQGw",
+        "1YGNrbPLejQGw"
+      ],
+      "minItems": 1,
+      "prefill": [
+        "https://x.com/i/broadcasts/1YGNrbPLejQGw"
+      ],
+      "title": "Broadcast links, IDs or broadcast posts",
+      "type": "array"
+    },
+    "includeReplayVideo": {
+      "default": false,
+      "description": "Include the HLS replay video link for broadcasts that have a replay.",
+      "prefill": false,
+      "title": "Include replay video link",
+      "type": "boolean"
+    },
+    "includeThumbnail": {
+      "default": true,
+      "description": "Include the broadcast thumbnail/cover image URL. Turn off for a lighter output.",
+      "prefill": true,
+      "title": "Include thumbnail image",
+      "type": "boolean"
+    },
+    "includeViewerStats": {
+      "default": true,
+      "description": "Include current viewers, total viewers and the viewer history graph. Turn off for a lighter output.",
+      "prefill": true,
+      "title": "Include viewer statistics",
+      "type": "boolean"
+    },
+    "includeViewerTimeline": {
+      "default": false,
+      "description": "Push one \"viewer timeline point\" row per point of the broadcast's viewer history graph (viewers, point index and a timestamp derived from the broadcast's real start/end time). No rows are emitted when X provides no graph.",
+      "prefill": false,
+      "title": "Emit viewer timeline points as rows",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "description": "Optional. Use a proxy if you plan large runs or see frequent rate limits.",
+      "editor": "proxy",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Optional settings for large or repeated runs.",
+      "title": "Proxy configuration",
+      "type": "object"
+    }
+  },
+  "required": [
+    "broadcastIds"
+  ],
+  "schemaVersion": 1,
+  "title": "Twitter (X) Broadcast Scraper",
+  "type": "object"
+}

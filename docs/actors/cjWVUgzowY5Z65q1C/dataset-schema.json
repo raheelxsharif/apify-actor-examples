@@ -1,18 +1,22 @@
 {
   "actorSpecification": 1,
-  "title": "LinkedIn Alumni Profiles",
+  "title": "LinkedIn Alumni Insights & Profiles",
   "views": {
     "overview": {
       "display": {
         "component": "table",
         "properties": {
-          "connectionDegree": {
-            "format": "text",
-            "label": "Connection"
+          "alumniCount": {
+            "format": "number",
+            "label": "Alumni count"
           },
           "headline": {
             "format": "text",
             "label": "Headline"
+          },
+          "insightDimension": {
+            "format": "text",
+            "label": "Insight facet"
           },
           "location": {
             "format": "text",
@@ -20,11 +24,15 @@
           },
           "name": {
             "format": "text",
-            "label": "Name"
+            "label": "Alumnus"
           },
           "profileUrl": {
             "format": "link",
             "label": "Profile URL"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
           },
           "schoolName": {
             "format": "text",
@@ -32,19 +40,21 @@
           },
           "scrapedAt": {
             "format": "datetime",
-            "label": "Scraped At"
+            "label": "Scraped at"
           }
         }
       },
-      "title": "Alumni Profiles",
+      "title": "Alumni records",
       "transformation": {
         "fields": [
+          "recordType",
+          "schoolName",
           "name",
           "headline",
           "location",
           "profileUrl",
-          "schoolName",
-          "connectionDegree",
+          "alumniCount",
+          "insightDimension",
           "scrapedAt"
         ]
       }

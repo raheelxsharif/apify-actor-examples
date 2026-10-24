@@ -1,0 +1,117 @@
+# X Broadcast Viewer History & Replay Link Scraper
+
+Hand this actor a broadcast link or a bare broadcast ID and get back its full metadata, viewer numbers over time, and a replay stream link — all from X's publicly visible broadcast data, no login required.
+
+## What this actor does
+
+- Accepts either a full broadcast link or a bare broadcast ID and resolves both to the same broadcast data.
+- Returns current and total viewer counts plus the complete viewer-history graph for the broadcast.
+- Can expand that viewer-history graph into individual timeline rows, each anchored to real elapsed time since the broadcast started.
+- Returns a ready-to-play replay stream link for broadcasts that still have one available.
+- Fields not available for a given broadcast (for example a replay link on a still-live broadcast) are left out rather than filled with a placeholder.
+
+## Output per record
+
+Every run returns rows tagged by `type`:
+
+| type | Meaning |
+|---|---|
+| `broadcast` | One broadcast's metadata, viewer statistics, and broadcaster profile |
+| `viewer timeline point` | One point of the viewer-history graph (only when timeline rows are enabled) |
+| `status` | A problem row (invalid link, deleted broadcast, rate limit, no replay available); always includes a `message` |
+
+### Broadcast row fields
+
+- `id`, `url`, `title`, `state`
+- `status` — X's own headline status for the broadcast, when it publishes one
+- `startedAt`, `endedAt`
+- `viewersNow`, `viewersTotal`, `viewCountGraph[]` — viewer statistics, when enabled
+- `thumbnailUrl` — cover image, when enabled
+- `width`, `height`, `mediaKey`
+- `chatOption`, `isHighLatency`, `cameraRotation`, `source`
+- `broadcaster` — the broadcaster's profile object (username, name, bio, followers, profile image, verification)
+- `replayVideoUrl`, `replayVideoFormat` — replay stream link and format, when requested and available
+- `collectedAt`
+
+### Viewer timeline point fields
+
+- `broadcastId`, `broadcastUrl`, `title`
+- `pointIndex` — position within the graph (0 = first point)
+- `viewers` — viewer count at that point
+- `elapsedSeconds` — seconds since the broadcast started
+- `timestamp` — real time of the point; `timeEstimated: true` marks timestamps the actor derived from the broadcast's start/end rather than an explicit value from X
+- `collectedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `broadcastIds` | array | – | Broadcast links or bare broadcast IDs (required) |
+| `includeReplayVideo` | boolean | `false` | Add the replay stream link for broadcasts that have one |
+| `includeViewerStats` | boolean | `true` | Include current/total viewers and the viewer-history graph |
+| `includeViewerTimeline` | boolean | `false` | Emit one row per point of the viewer-history graph |
+| `includeThumbnail` | boolean | `true` | Include the broadcast's thumbnail/cover image URL |
+| `proxyConfiguration` | object | – | Optional, recommended for large or repeated runs |
+
+### Example: basic broadcast metadata
+
+```json
+{
+  "broadcastIds": ["https://x.com/i/broadcasts/1YGNrbPLejQGw"]
+}
+```
+
+### Example: full viewer timeline plus replay link
+
+```json
+{
+  "broadcastIds": ["1YGNrbPLejQGw"],
+  "includeViewerTimeline": true,
+  "includeReplayVideo": true
+}
+```
+
+### Example: multiple broadcasts, lightweight output
+
+```json
+{
+  "broadcastIds": [
+    "https://x.com/i/broadcasts/1YGNrbPLejQGw",
+    "1zqKVPjvzZDxB"
+  ],
+  "includeViewerStats": false,
+  "includeThumbnail": false
+}
+```
+
+## Use cases
+
+- **Live event monitoring** — track how audience size changed during and after a public broadcast
+- **Media analytics** — chart the viewer-history graph to measure sustained interest in an event
+- **Newsroom verification** — confirm viewer numbers and exact timing of a public statement
+- **Archival** — preserve broadcast metadata and a replay link for a public event
+- **Broadcaster comparison** — compare audience size and duration across different broadcasters
+- **Dashboard feeds** — load viewer timeline rows directly into a chart or spreadsheet
+
+## FAQ
+
+**Do I need an X account or cookies?**
+No — the actor is cookieless and only reads publicly visible broadcast data.
+
+**How many rows can one broadcast produce?**
+X's viewer-history graph typically holds around a thousand points. With `includeViewerTimeline` enabled, a single broadcast can emit roughly that many timeline rows in addition to its one broadcast row.
+
+**Are the timeline timestamps exact?**
+They're anchored to the broadcast's real start time. When X's graph doesn't include explicit per-point times, the actor derives evenly spaced timestamps from the broadcast's known start and end and flags those rows with `timeEstimated: true`.
+
+**Is the replay a downloadable file?**
+No — `replayVideoUrl` is a stream link that plays in a standard media player or can be processed by your own pipeline; the actor doesn't download or host video.
+
+**Why is a broadcast's replay missing?**
+Live (not-yet-ended) broadcasts have no replay yet, and some broadcasts aren't kept available afterward — either case returns a `status` row explaining why.
+
+**Does this work on X Spaces (audio rooms)?**
+No — a Space link or ID produces a `status` row rather than broadcast data; Spaces are a separate X feature from video broadcasts.
+
+**Is this affiliated with X?**
+No. This is an independent, third-party actor that reads X's publicly visible broadcast data and is not operated by or affiliated with X Corp.

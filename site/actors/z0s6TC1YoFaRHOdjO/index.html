@@ -1,0 +1,250 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-xt0iLl3dqPhnlBcrFeeiqYZ+Z9MpIkYpfxoYMSwHG/E=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>X Broadcast Viewer History &amp; Replay Link Scraper | Dataspryva</title><meta name="description" content="Get a public X broadcast&#x27;s title, state, start/end times, viewer counts over time, thumbnail, broadcaster profile, and an optional replay stream link, resolved from a broadcast lin"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/"><meta property="og:title" content="X Broadcast Viewer History &amp; Replay Link Scraper | Dataspryva"><meta property="og:description" content="Get a public X broadcast&#x27;s title, state, start/end times, viewer counts over time, thumbnail, broadcaster profile, and an optional replay stream link, resolved from a broadcast lin"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#webpage","name":"X Broadcast Viewer History & Replay Link Scraper","description":"Get a public X broadcast's title, state, start/end times, viewer counts over time, thumbnail, broadcaster profile, and an optional replay stream link, resolved from a broadcast link or ID.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#article","headline":"X Broadcast Viewer History & Replay Link Scraper","name":"X Broadcast Viewer History & Replay Link Scraper","description":"Get a public X broadcast's title, state, start/end times, viewer counts over time, thumbnail, broadcaster profile, and an optional replay stream link, resolved from a broadcast link or ID.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"X Broadcast Viewer History & Replay Link Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/z0s6TC1YoFaRHOdjO/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>X Broadcast Viewer History &amp; Replay Link Scraper</span></div><section id="overview"><h1 class="doc-title">X Broadcast Viewer History &amp; Replay Link Scraper</h1><p class="lede">Get a public X broadcast&#x27;s title, state, start/end times, viewer counts over time, thumbnail, broadcaster profile, and an optional replay stream link, resolved from a broadcast link or ID.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/x-broadcast-viewer-history-and-replay-link-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/z0s6TC1YoFaRHOdjO/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>broadcastIds</code></td><td>array</td><td>required</td><td>Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, broadcast IDs, or a post link whose card contains a broadcast. The actor finds the broadcast automatically.</td></tr><tr><td><code>includeReplayVideo</code></td><td>boolean</td><td>optional</td><td>Include the HLS replay video link for broadcasts that have a replay.</td></tr><tr><td><code>includeViewerStats</code></td><td>boolean</td><td>optional</td><td>Include current viewers, total viewers and the viewer history graph. Turn off for a lighter output.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>broadcastIds</code></td><td>array</td><td>required</td><td>Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, broadcast IDs, or a post link whose card contains a broadcast. The actor finds the broadcast automatically.</td></tr><tr><td><code>includeReplayVideo</code></td><td>boolean</td><td>optional</td><td>Include the HLS replay video link for broadcasts that have a replay.</td></tr><tr><td><code>includeViewerStats</code></td><td>boolean</td><td>optional</td><td>Include current viewers, total viewers and the viewer history graph. Turn off for a lighter output.</td></tr><tr><td><code>includeViewerTimeline</code></td><td>boolean</td><td>optional</td><td>Push one &quot;viewer timeline point&quot; row per point of the broadcast&#x27;s viewer history graph (viewers, point index and a timestamp derived from the broadcast&#x27;s real start/end time). No rows are emitted when X provides no graph.</td></tr><tr><td><code>includeThumbnail</code></td><td>boolean</td><td>optional</td><td>Include the broadcast thumbnail/cover image URL. Turn off for a lighter output.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional. Use a proxy if you plan large runs or see frequent rate limits.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;broadcastIds&quot;: {
+      &quot;description&quot;: &quot;Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, broadcast IDs, or a post link whose card contains a broadcast. The actor finds the broadcast automatically.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://x.com/i/broadcasts/1YGNrbPLejQGw&quot;,
+        &quot;1YGNrbPLejQGw&quot;
+      ],
+      &quot;minItems&quot;: 1,
+      &quot;prefill&quot;: [
+        &quot;https://x.com/i/broadcasts/1YGNrbPLejQGw&quot;
+      ],
+      &quot;title&quot;: &quot;Broadcast links, IDs or broadcast posts&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeReplayVideo&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Include the HLS replay video link for broadcasts that have a replay.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include replay video link&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeThumbnail&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the broadcast thumbnail/cover image URL. Turn off for a lighter output.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include thumbnail image&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeViewerStats&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include current viewers, total viewers and the viewer history graph. Turn off for a lighter output.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include viewer statistics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeViewerTimeline&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Push one \&quot;viewer timeline point\&quot; row per point of the broadcast&#x27;s viewer history graph (viewers, point index and a timestamp derived from the broadcast&#x27;s real start/end time). No rows are emitted when X provides no graph.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Emit viewer timeline points as rows&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Optional. Use a proxy if you plan large runs or see frequent rate limits.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;sectionCaption&quot;: &quot;Advanced&quot;,
+      &quot;sectionDescription&quot;: &quot;Optional settings for large or repeated runs.&quot;,
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;broadcastIds&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Twitter (X) Broadcast Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>broadcasts</code></td><td>string</td><td>optional</td><td>Collected broadcast rows and status rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per X broadcast or viewer-timeline point, with title, state, viewer counts, broadcaster, and replay link.&quot;,
+  &quot;properties&quot;: {
+    &quot;broadcasts&quot;: {
+      &quot;description&quot;: &quot;Collected broadcast rows and status rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;X broadcasts&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;X Broadcast Viewer History &amp; Replay Link Scraper Output&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Broadcasts&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;type&quot;,
+          &quot;title&quot;,
+          &quot;state&quot;,
+          &quot;broadcaster.username&quot;,
+          &quot;viewersNow&quot;,
+          &quot;viewersTotal&quot;,
+          &quot;startedAt&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-x-broadcast-viewer-history-replay-link-scraper">X Broadcast Viewer History &amp; Replay Link Scraper</h2>
+<p>Hand this actor a broadcast link or a bare broadcast ID and get back its full metadata, viewer numbers over time, and a replay stream link — all from X's publicly visible broadcast data, no login required.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Accepts either a full broadcast link or a bare broadcast ID and resolves both to the same broadcast data.</li>
+<li>Returns current and total viewer counts plus the complete viewer-history graph for the broadcast.</li>
+<li>Can expand that viewer-history graph into individual timeline rows, each anchored to real elapsed time since the broadcast started.</li>
+<li>Returns a ready-to-play replay stream link for broadcasts that still have one available.</li>
+<li>Fields not available for a given broadcast (for example a replay link on a still-live broadcast) are left out rather than filled with a placeholder.</li>
+</ul>
+<h2 id="readme-output-per-record">Output per record</h2>
+<p>Every run returns rows tagged by <code>type</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>broadcast</code></td>
+<td>One broadcast's metadata, viewer statistics, and broadcaster profile</td>
+</tr>
+<tr>
+<td><code>viewer timeline point</code></td>
+<td>One point of the viewer-history graph (only when timeline rows are enabled)</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>A problem row (invalid link, deleted broadcast, rate limit, no replay available); always includes a <code>message</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-broadcast-row-fields">Broadcast row fields</h3>
+<ul>
+<li><code>id</code>, <code>url</code>, <code>title</code>, <code>state</code></li>
+<li><code>status</code> — X's own headline status for the broadcast, when it publishes one</li>
+<li><code>startedAt</code>, <code>endedAt</code></li>
+<li><code>viewersNow</code>, <code>viewersTotal</code>, <code>viewCountGraph[]</code> — viewer statistics, when enabled</li>
+<li><code>thumbnailUrl</code> — cover image, when enabled</li>
+<li><code>width</code>, <code>height</code>, <code>mediaKey</code></li>
+<li><code>chatOption</code>, <code>isHighLatency</code>, <code>cameraRotation</code>, <code>source</code></li>
+<li><code>broadcaster</code> — the broadcaster's profile object (username, name, bio, followers, profile image, verification)</li>
+<li><code>replayVideoUrl</code>, <code>replayVideoFormat</code> — replay stream link and format, when requested and available</li>
+<li><code>collectedAt</code></li>
+</ul>
+<h3 id="readme-viewer-timeline-point-fields">Viewer timeline point fields</h3>
+<ul>
+<li><code>broadcastId</code>, <code>broadcastUrl</code>, <code>title</code></li>
+<li><code>pointIndex</code> — position within the graph (0 = first point)</li>
+<li><code>viewers</code> — viewer count at that point</li>
+<li><code>elapsedSeconds</code> — seconds since the broadcast started</li>
+<li><code>timestamp</code> — real time of the point; <code>timeEstimated: true</code> marks timestamps the actor derived from the broadcast's start/end rather than an explicit value from X</li>
+<li><code>collectedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>broadcastIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>Broadcast links or bare broadcast IDs (required)</td>
+</tr>
+<tr>
+<td><code>includeReplayVideo</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add the replay stream link for broadcasts that have one</td>
+</tr>
+<tr>
+<td><code>includeViewerStats</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include current/total viewers and the viewer-history graph</td>
+</tr>
+<tr>
+<td><code>includeViewerTimeline</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Emit one row per point of the viewer-history graph</td>
+</tr>
+<tr>
+<td><code>includeThumbnail</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include the broadcast's thumbnail/cover image URL</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>–</td>
+<td>Optional, recommended for large or repeated runs</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-basic-broadcast-metadata">Example: basic broadcast metadata</h3>
+<pre><code class="language-json">{
+  &quot;broadcastIds&quot;: [&quot;https://x.com/i/broadcasts/1YGNrbPLejQGw&quot;]
+}
+</code></pre>
+<h3 id="readme-example-full-viewer-timeline-plus-replay-link">Example: full viewer timeline plus replay link</h3>
+<pre><code class="language-json">{
+  &quot;broadcastIds&quot;: [&quot;1YGNrbPLejQGw&quot;],
+  &quot;includeViewerTimeline&quot;: true,
+  &quot;includeReplayVideo&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-multiple-broadcasts-lightweight-output">Example: multiple broadcasts, lightweight output</h3>
+<pre><code class="language-json">{
+  &quot;broadcastIds&quot;: [
+    &quot;https://x.com/i/broadcasts/1YGNrbPLejQGw&quot;,
+    &quot;1zqKVPjvzZDxB&quot;
+  ],
+  &quot;includeViewerStats&quot;: false,
+  &quot;includeThumbnail&quot;: false
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Live event monitoring</strong> — track how audience size changed during and after a public broadcast</li>
+<li><strong>Media analytics</strong> — chart the viewer-history graph to measure sustained interest in an event</li>
+<li><strong>Newsroom verification</strong> — confirm viewer numbers and exact timing of a public statement</li>
+<li><strong>Archival</strong> — preserve broadcast metadata and a replay link for a public event</li>
+<li><strong>Broadcaster comparison</strong> — compare audience size and duration across different broadcasters</li>
+<li><strong>Dashboard feeds</strong> — load viewer timeline rows directly into a chart or spreadsheet</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need an X account or cookies?</strong>
+No — the actor is cookieless and only reads publicly visible broadcast data.</p>
+<p><strong>How many rows can one broadcast produce?</strong>
+X's viewer-history graph typically holds around a thousand points. With <code>includeViewerTimeline</code> enabled, a single broadcast can emit roughly that many timeline rows in addition to its one broadcast row.</p>
+<p><strong>Are the timeline timestamps exact?</strong>
+They're anchored to the broadcast's real start time. When X's graph doesn't include explicit per-point times, the actor derives evenly spaced timestamps from the broadcast's known start and end and flags those rows with <code>timeEstimated: true</code>.</p>
+<p><strong>Is the replay a downloadable file?</strong>
+No — <code>replayVideoUrl</code> is a stream link that plays in a standard media player or can be processed by your own pipeline; the actor doesn't download or host video.</p>
+<p><strong>Why is a broadcast's replay missing?</strong>
+Live (not-yet-ended) broadcasts have no replay yet, and some broadcasts aren't kept available afterward — either case returns a <code>status</code> row explaining why.</p>
+<p><strong>Does this work on X Spaces (audio rooms)?</strong>
+No — a Space link or ID produces a <code>status</code> row rather than broadcast data; Spaces are a separate X feature from video broadcasts.</p>
+<p><strong>Is this affiliated with X?</strong>
+No. This is an independent, third-party actor that reads X's publicly visible broadcast data and is not operated by or affiliated with X Corp.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/z0s6TC1YoFaRHOdjO/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>oPT2qGolN1FZ8Gef8</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

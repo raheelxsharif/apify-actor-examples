@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per matched LinkedIn alumnus, with profile details, current role, and detected degree, field of study, and graduation year.",
+  "description": "One row per school insight (alumni count, top employers, fields and functions) or per public alumnus profile (location, current company, education, degree and years when public).",
   "properties": {
-    "alumni": {
-      "description": "Dataset containing all scraped LinkedIn alumni records.",
+    "records": {
+      "description": "Dataset containing school insight rows and public alumnus profile rows.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "LinkedIn alumni profiles",
+      "title": "LinkedIn alumni records",
       "type": "string"
     }
   },
-  "title": "LinkedIn University Alumni Search by Degree & Year Output"
+  "title": "LinkedIn University Alumni Insights & Profiles Output"
 }

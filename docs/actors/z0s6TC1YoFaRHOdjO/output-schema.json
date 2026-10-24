@@ -1,0 +1,14 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per X broadcast or viewer-timeline point, with title, state, viewer counts, broadcaster, and replay link.",
+  "properties": {
+    "broadcasts": {
+      "description": "Collected broadcast rows and status rows.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "X broadcasts",
+      "type": "string"
+    }
+  },
+  "title": "X Broadcast Viewer History & Replay Link Scraper Output",
+  "type": "object"
+}
