@@ -1,0 +1,98 @@
+{
+  "description": "Search Tokopedia e-commerce products by keyword, category, or browse top products.",
+  "properties": {
+    "category": {
+      "description": "Category slug to browse.",
+      "editor": "textfield",
+      "title": "Category (mode=categoryBrowse)",
+      "type": "string"
+    },
+    "keyword": {
+      "default": "smartphone",
+      "description": "Product keyword to search (e.g. 'smartphone', 'laptop', 'sepatu').",
+      "editor": "textfield",
+      "prefill": "smartphone",
+      "title": "Search keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of products to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to scrape from Tokopedia.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "topProducts",
+        "categoryBrowse",
+        "productDetails"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse top/popular products",
+        "Browse by category",
+        "Get product details by URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum price in Indonesian Rupiah.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Max price (IDR)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in Indonesian Rupiah.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Min price (IDR)",
+      "type": "integer"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Tokopedia product page URLs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs (mode=productDetails)",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How to sort search results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "price_asc",
+        "price_desc",
+        "best_seller"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Newest first",
+        "Price: lowest first",
+        "Price: highest first",
+        "Best sellers"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Tokopedia Scraper Input",
+  "type": "object"
+}

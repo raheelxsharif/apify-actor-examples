@@ -1,59 +1,315 @@
 {
-  "description": "Fetch MLB data from the official MLB Stats API — player stats, standings, schedules, and teams.",
+  "description": "Fetch official MLB data from statsapi.mlb.com — teams, rosters, schedules, standings, stat lines, box scores, leaders, and reference data.",
   "properties": {
     "endDate": {
-      "description": "End date for schedule range (e.g. '2024-04-07'). Used for mode=getSchedule.",
+      "description": "End date in YYYY-MM-DD format. Used by schedule, box score, and player stats (statType=byDateRange).",
       "editor": "textfield",
-      "title": "End Date (YYYY-MM-DD)",
+      "title": "End date",
+      "type": "string"
+    },
+    "gamePks": {
+      "default": [],
+      "description": "MLB game IDs (gamePk), e.g. 822974. Used by mode=getBoxscore. Leave empty to derive games from seasons, dates, or teams.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Game IDs",
+      "type": "array"
+    },
+    "gameType": {
+      "default": "R",
+      "description": "Filter games and stats by game type. Regular season is R; other codes include spring training (S), wild card (F), division series (D), league championship (L), World Series (W), and All-Star (A).",
+      "editor": "select",
+      "enum": [
+        "S",
+        "R",
+        "F",
+        "D",
+        "L",
+        "W",
+        "C",
+        "P",
+        "A",
+        "I",
+        "E"
+      ],
+      "enumTitles": [
+        "Spring Training",
+        "Regular Season",
+        "Wild Card",
+        "Division Series",
+        "League Championship Series",
+        "World Series",
+        "Championship",
+        "Postseason",
+        "All-Star Game",
+        "Intrasquad",
+        "Exhibition"
+      ],
+      "prefill": "R",
+      "title": "Game type",
+      "type": "string"
+    },
+    "includeStats": {
+      "default": false,
+      "description": "For mode=getPlayers, attach each player's season stats for the selected stat group.",
+      "prefill": false,
+      "title": "Include season stats",
+      "type": "boolean"
+    },
+    "includeTeamTotals": {
+      "default": false,
+      "description": "For mode=getBoxscore, add one team-total record per side per game, including the inning-by-inning line score.",
+      "prefill": false,
+      "title": "Include team totals and line score",
+      "type": "boolean"
+    },
+    "leaderCategory": {
+      "default": "homeRuns",
+      "description": "Stat category for mode=getLeaders. Choose a category that belongs to the selected stat group, e.g. homeRuns, battingAverage, or runsBattedIn for hitting; earnedRunAverage, strikeouts, or saves for pitching; fieldingPercentage or errors for fielding.",
+      "editor": "select",
+      "enum": [
+        "homeRuns",
+        "battingAverage",
+        "runsBattedIn",
+        "hits",
+        "runs",
+        "stolenBases",
+        "doubles",
+        "triples",
+        "walks",
+        "onBasePlusSlugging",
+        "strikeouts",
+        "hitByPitch",
+        "caughtStealing",
+        "intentionalWalks",
+        "totalBases",
+        "plateAppearances",
+        "gamesPlayed",
+        "atBats",
+        "sacrificeFlies",
+        "groundIntoDoublePlay",
+        "earnedRunAverage",
+        "wins",
+        "saves",
+        "whip",
+        "inningsPitched",
+        "losses",
+        "gamesStarted",
+        "completeGames",
+        "shutouts",
+        "holds",
+        "blownSaves",
+        "walksPer9Inn",
+        "strikeoutsPer9Inn",
+        "hitsPer9Inn",
+        "winPercentage",
+        "strikeoutWalkRatio",
+        "battersFaced",
+        "numberOfPitches",
+        "wildPitches",
+        "balks",
+        "fieldingPercentage",
+        "errors",
+        "assists",
+        "putOuts",
+        "chances",
+        "doublePlays",
+        "rangeFactorPerGame",
+        "innings"
+      ],
+      "enumTitles": [
+        "Home runs",
+        "Batting average",
+        "Runs batted in",
+        "Hits",
+        "Runs",
+        "Stolen bases",
+        "Doubles",
+        "Triples",
+        "Walks",
+        "On-base plus slugging",
+        "Strikeouts",
+        "Hit by pitch",
+        "Caught stealing",
+        "Intentional walks",
+        "Total bases",
+        "Plate appearances",
+        "Games played",
+        "At bats",
+        "Sacrifice flies",
+        "Grounded into double play",
+        "Earned run average",
+        "Wins",
+        "Saves",
+        "WHIP",
+        "Innings pitched",
+        "Losses",
+        "Games started",
+        "Complete games",
+        "Shutouts",
+        "Holds",
+        "Blown saves",
+        "Walks per 9 innings",
+        "Strikeouts per 9 innings",
+        "Hits per 9 innings",
+        "Win percentage",
+        "Strikeout-to-walk ratio",
+        "Batters faced",
+        "Number of pitches",
+        "Wild pitches",
+        "Balks",
+        "Fielding percentage",
+        "Errors",
+        "Assists",
+        "Putouts",
+        "Chances",
+        "Double plays",
+        "Range factor per game",
+        "Innings"
+      ],
+      "prefill": "homeRuns",
+      "title": "Leader category",
+      "type": "string"
+    },
+    "leagueId": {
+      "default": "both",
+      "description": "Filter standings and leaders to the American League, National League, or both.",
+      "editor": "select",
+      "enum": [
+        "both",
+        "AL",
+        "NL"
+      ],
+      "enumTitles": [
+        "Both leagues",
+        "American League",
+        "National League"
+      ],
+      "prefill": "both",
+      "title": "League",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of records to return (1–500).",
-      "maximum": 500,
+      "description": "Hard cap on the number of records returned (1–10,000).",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 30,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Maximum records",
       "type": "integer"
     },
     "mode": {
       "default": "getPlayerStats",
-      "description": "What data to fetch from the MLB Stats API.",
+      "description": "What to fetch. Nine modes cover teams, players/rosters, player stats, game logs, schedules, standings, box scores, leaders, and reference data.",
       "editor": "select",
       "enum": [
+        "getTeams",
+        "getPlayers",
         "getPlayerStats",
-        "getStandings",
+        "getGameLog",
         "getSchedule",
-        "getTeams"
+        "getStandings",
+        "getBoxscore",
+        "getLeaders",
+        "getReference"
       ],
       "enumTitles": [
-        "Get Player Stats — season batting or pitching statistics",
-        "Get Standings — team standings by division",
-        "Get Schedule — game schedule and results for a date range",
-        "Get Teams — list all MLB teams"
+        "Teams",
+        "Players and rosters",
+        "Player stats (season, career, splits)",
+        "Player game-by-game log",
+        "Schedule and scores",
+        "Standings",
+        "Box score stat lines",
+        "League leaders",
+        "Reference data (venues, leagues, divisions, seasons)"
       ],
-      "prefill": "getPlayerStats",
+      "prefill": "getPlayers",
       "title": "Mode",
       "type": "string"
     },
-    "season": {
-      "default": 2024,
-      "description": "MLB season year (e.g. 2024). Supported range: 2019–2024.",
-      "maximum": 2024,
-      "minimum": 2019,
-      "prefill": 2024,
-      "title": "Season (year)",
-      "type": "integer"
+    "playerIds": {
+      "default": [],
+      "description": "MLB player IDs, e.g. 660271 for Shohei Ohtani. Used by players, player stats, and game log modes. Use Search query to find a player ID by name.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Player IDs",
+      "type": "array"
+    },
+    "referenceType": {
+      "default": "venues",
+      "description": "Which reference dataset to return for mode=getReference.",
+      "editor": "select",
+      "enum": [
+        "venues",
+        "leagues",
+        "divisions",
+        "seasons"
+      ],
+      "enumTitles": [
+        "Ballparks and venues",
+        "Leagues",
+        "Divisions",
+        "Season calendar"
+      ],
+      "prefill": "venues",
+      "title": "Reference data",
+      "type": "string"
+    },
+    "rosterType": {
+      "default": "active",
+      "description": "Which roster to return for mode=getPlayers when teamIds is set.",
+      "editor": "select",
+      "enum": [
+        "active",
+        "40Man",
+        "fullSeason",
+        "depthChart",
+        "coach"
+      ],
+      "enumTitles": [
+        "Active roster",
+        "40-man roster",
+        "Full-season roster",
+        "Depth chart",
+        "Coaching staff"
+      ],
+      "prefill": "active",
+      "title": "Roster type",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Find players by name for mode=getPlayers, e.g. Ohtani or Aaron Judge. Returns up to 50 matching players.",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    },
+    "seasons": {
+      "default": [],
+      "description": "Season years, e.g. 2024 or 2025. Leave empty for the current season. Stats cover 1876 onward; schedules cover 1901 onward. Multiple seasons can be fetched in one run (mode=getTeams, getPlayers, getPlayerStats, getSchedule, getStandings, getLeaders, getReference).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Seasons",
+      "type": "array"
     },
     "startDate": {
-      "description": "Start date for schedule range (e.g. '2024-04-01'). Used for mode=getSchedule.",
+      "description": "Start date in YYYY-MM-DD format. Used by schedule, box score, and player stats (statType=byDateRange). A single date can be set in either date field.",
       "editor": "textfield",
-      "title": "Start Date (YYYY-MM-DD)",
+      "title": "Start date",
       "type": "string"
     },
     "statGroup": {
       "default": "hitting",
-      "description": "Type of player stats to retrieve (for mode=getPlayerStats).",
+      "description": "Which stat category to return for players, player stats, game logs, box scores, and leaders.",
       "editor": "select",
       "enum": [
         "hitting",
@@ -66,21 +322,51 @@
         "Fielding"
       ],
       "prefill": "hitting",
-      "title": "Stat Group",
+      "title": "Stat group",
       "type": "string"
     },
-    "teamId": {
-      "description": "Filter by MLB team ID (e.g. 147 = Yankees, 111 = Red Sox). Optional — leave blank for all teams.",
-      "maximum": 999,
-      "minimum": 100,
-      "title": "Team ID",
-      "type": "integer"
+    "statType": {
+      "default": "season",
+      "description": "Scope for mode=getPlayerStats. Season, career, and date-range stats work for the whole player pool; season-by-season, month, day-of-week, and home/away splits require playerIds or teamIds.",
+      "editor": "select",
+      "enum": [
+        "season",
+        "career",
+        "yearByYear",
+        "byMonth",
+        "byDayOfWeek",
+        "homeAndAway",
+        "byDateRange"
+      ],
+      "enumTitles": [
+        "Season totals",
+        "Career totals",
+        "Season by season",
+        "By month",
+        "By day of week",
+        "Home and away",
+        "Date range"
+      ],
+      "prefill": "season",
+      "title": "Stat type",
+      "type": "string"
+    },
+    "teamIds": {
+      "default": [],
+      "description": "Filter by MLB team IDs (147 = Yankees), team names (Yankees), abbreviations (NYY), or team URLs (https://www.mlb.com/yankees). Leave empty for all teams. Used by teams, players, player stats, schedule, standings, box score, and leaders modes.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Teams",
+      "type": "array"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "MLB Baseball Stats Scraper Input",
+  "title": "Official MLB Team, Schedule & Stat Line Scraper Input",
   "type": "object"
 }

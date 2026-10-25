@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per Tokopedia product from search, category, top-seller, or detail lookups, with price, discount, rating, and seller.",
+  "properties": {
+    "products": {
+      "description": "Dataset of scraped Tokopedia products.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Tokopedia products",
+      "type": "string"
+    }
+  },
+  "title": "Tokopedia Search, Category & Price Drop Scraper Output"
+}
