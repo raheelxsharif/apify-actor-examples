@@ -1,0 +1,107 @@
+{
+  "description": "Search Noon.com or browse by category to extract products from UAE, Saudi Arabia, and Egypt.",
+  "properties": {
+    "categoryPath": {
+      "description": "Noon category URL path segment, e.g. `beauty-personal-care`, `electronics`, `home-kitchen`. From the URL after /uae-en/.",
+      "editor": "textfield",
+      "title": "Category path (mode=byCategory)",
+      "type": "string"
+    },
+    "market": {
+      "default": "uae",
+      "description": "Noon regional website to scrape.",
+      "editor": "select",
+      "enum": [
+        "uae",
+        "saudi",
+        "egypt"
+      ],
+      "enumTitles": [
+        "UAE (noon.com/uae-en)",
+        "Saudi Arabia (noon.com/saudi-en)",
+        "Egypt (noon.com/egypt-en)"
+      ],
+      "prefill": "uae",
+      "title": "Market",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only emit products with rating >= this value (0–5).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from Noon.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "bycategory",
+        "byurl"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse products by category URL path",
+        "Fetch from Noon search or category URL(s)"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "moisturizer",
+      "description": "Keyword to search for (mode=search).",
+      "editor": "textfield",
+      "prefill": "moisturizer",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "popularity",
+      "description": "Product sort order.",
+      "editor": "select",
+      "enum": [
+        "popularity",
+        "price_asc",
+        "price_desc",
+        "discount",
+        "new_arrivals"
+      ],
+      "enumTitles": [
+        "Popularity",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Biggest Discount",
+        "New Arrivals"
+      ],
+      "prefill": "popularity",
+      "title": "Sort results by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Noon search or category URLs. E.g. https://www.noon.com/uae-en/search?q=serum",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Noon.com E-Commerce Scraper Input",
+  "type": "object"
+}

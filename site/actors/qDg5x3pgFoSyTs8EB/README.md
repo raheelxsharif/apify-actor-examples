@@ -1,0 +1,127 @@
+# Noon.com Multi-Market Product Search by Discount
+
+Search Noon.com across its three storefronts — UAE, Saudi Arabia, and Egypt — by keyword, category path, or a pasted search/category URL, and get back structured product records with pricing, discount, rating, and promotional labels in that market's own currency.
+
+## What this actor does
+
+- **Three modes:** `search` (keyword), `byCategory` (category path), `byUrl` (from any Noon search or category URL)
+- **Multi-market:** UAE (AED), Saudi Arabia (SAR), Egypt (EGP)
+- **Full pricing detail:** selling price, original price, discount percentage, and currency
+- **Sort options:** popularity, price (low/high), biggest discount, new arrivals
+- **Promotional data:** Noon Express delivery tag, free delivery, stock warnings
+- **Empty fields are omitted** — records only contain fields that have real values
+
+## Output per product
+
+- `name` — full product name
+- `sku` — Noon product identifier (e.g. `N70154922V`)
+- `url` — direct link to the Noon product page
+- `price` — current selling price (numeric)
+- `originalPrice` — pre-discount price (numeric, when discounted)
+- `discountPercent` — percentage saved (numeric, when discounted)
+- `currency` — ISO currency code (`AED`, `SAR`, `EGP`)
+- `rating` — average star rating (0–5 scale)
+- `reviewCount` — number of customer reviews
+- `brand` — brand name (when shown on listing card)
+- `imageUrl` — primary product image URL from Noon CDN
+- `promotionTags` — active tags, e.g. `["Noon Express", "Free Delivery"]`
+- `stockWarning` — low-stock message when shown (e.g. `Only 2 left`)
+- `market` — market code: `uae`, `saudi`, or `egypt`
+- `scrapedAt` — ISO 8601 timestamp of the scrape
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` / `byCategory` / `byUrl` |
+| `market` | string | `uae` | `uae` (UAE), `saudi` (Saudi Arabia), `egypt` (Egypt) |
+| `searchQuery` | string | `moisturizer` | Keyword to search for (mode=search) |
+| `categoryPath` | string | – | Category URL path, e.g. `beauty-personal-care` (mode=byCategory) |
+| `startUrls` | array | – | Noon search or category URLs (mode=byUrl) |
+| `sortBy` | string | `popularity` | `popularity`, `price_asc`, `price_desc`, `discount`, `new_arrivals` |
+| `minRating` | number | – | Only emit products with rating ≥ this value (0–5) |
+| `maxItems` | int | `50` | Hard cap on emitted records (1–1000) |
+
+### Example: search for laptops in UAE
+
+```json
+{
+  "mode": "search",
+  "market": "uae",
+  "searchQuery": "laptop",
+  "sortBy": "popularity",
+  "maxItems": 50
+}
+```
+
+### Example: browse beauty products in Saudi Arabia
+
+```json
+{
+  "mode": "byCategory",
+  "market": "saudi",
+  "categoryPath": "beauty-personal-care",
+  "sortBy": "discount",
+  "maxItems": 100
+}
+```
+
+### Example: top-rated electronics in Egypt
+
+```json
+{
+  "mode": "search",
+  "market": "egypt",
+  "searchQuery": "smartphone",
+  "sortBy": "popularity",
+  "minRating": 4.0,
+  "maxItems": 50
+}
+```
+
+### Example: scrape from a Noon URL
+
+```json
+{
+  "mode": "byUrl",
+  "startUrls": [
+    "https://www.noon.com/uae-en/search?q=perfume&sort%5Bby%5D=discount"
+  ],
+  "maxItems": 50
+}
+```
+
+## Use cases
+
+- **Price comparison** — track Noon prices against other MENA e-commerce platforms
+- **Discount monitoring** — identify products with the highest discounts in real time
+- **Brand presence analysis** — measure brand reach and product count across Noon's categories
+- **Market research** — compare product availability and pricing between UAE, Saudi Arabia, and Egypt
+- **Inventory intelligence** — monitor stock warnings and availability for competitive products
+- **E-commerce analytics** — analyze rating distributions and review counts by category
+
+## FAQ
+
+**What is Noon.com?**
+Noon.com is a major e-commerce marketplace in the Middle East, operating in the UAE, Saudi Arabia, and Egypt. It offers millions of products across electronics, fashion, beauty, home goods, and more.
+
+**Which markets are supported?**
+UAE (`noon.com/uae-en`), Saudi Arabia (`noon.com/saudi-en`), and Egypt (`noon.com/egypt-en`). Each market has its own product catalogue, pricing, and currency.
+
+**How fresh is the data?**
+The actor fetches live Noon pages, so prices and stock status reflect what is visible on Noon at the time of scraping.
+
+**How many products can I scrape per run?**
+Set `maxItems` up to 1000. Noon returns approximately 50 products per search/category page and the actor paginates automatically.
+
+**What category paths can I use?**
+Use the URL segment after `/uae-en/` on any Noon category page. Examples: `electronics`, `beauty-personal-care`, `fashion-women`, `home-kitchen`, `sports-outdoors`. Browse `noon.com/uae-en/electronics/` to discover paths.
+
+**Why are some products missing brand or image?**
+Noon's listing cards include brand and image data for most products, but some listings omit these. Fields that have no value are simply omitted from the output record.
+
+**Is this actor affiliated with Noon?**
+No. This is an independent third-party actor. It is not affiliated with or endorsed by Noon E-Commerce LLC or Emaar Malls Group.
+
+**Does the actor work without a proxy?**
+Yes. Noon.com is publicly accessible from Apify's datacenter IPs without requiring a proxy. If you encounter issues, running without a proxy is still the recommended configuration.
