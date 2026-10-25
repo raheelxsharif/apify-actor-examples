@@ -4,105 +4,185 @@
 
 # Mercari Japan Listings by Condition, Price & Status
 
-Search [jp.mercari.com](https://jp.mercari.com), Japan's largest C2C marketplace, by keyword and come back with structured listing records — price in yen, item condition, listing status, seller, and photos — instead of a results page you'd have to scroll yourself.
+Scrape **Mercari Japan** (`jp.mercari.com`) for active, sold and in-transaction listings. Search by keyword with condition, price, status, category, brand, size and seller filters, or paste search, item and Mercari Shops links. Each row carries the listing's real price in yen, condition, status, seller rating, description, photos and shipping details.
+
+No login, cookies, API key or proxy setup is needed. Prices are in JPY; condition and status labels are in English.
 
 ## What this actor does
 
-- Searches Mercari Japan by keyword, in either Japanese or romanized text.
-- Filters by item condition (new through very poor) and a minimum/maximum price in JPY.
-- Sorts results by relevance, newest, price (either direction), or most liked.
-- Returns each listing's seller, shipping payer, category, and both a thumbnail and full-size image URL.
-- Fields Mercari doesn't publish for a given listing (such as `seller` when the listing hides it) are left out of that record rather than filled with a placeholder.
+- **Keyword search** with Mercari's own filters: condition (six grades), price range, status (on sale, sold out, trading, sold, all), category, brand, size, seller type and exclude keyword.
+- **Paste links**: search result URLs keep their filters; item URLs and Mercari Shops product URLs return one detailed record each. Mix different link types in one run.
+- **Mercari Shops storefronts**: list a shop's products with the same detail enrichment.
+- **Five sort orders**: relevance, newest, price low to high, price high to low, most liked.
+- **Rich records**: description, every photo, seller name and rating, likes, category path, brand, size, shipping payer/method/origin/speed and auction data when present.
+- Empty fields are omitted from a record rather than filled with `null` or a placeholder.
 
 ## Output per listing
 
 | Field | Description |
 |---|---|
-| `itemId` | Mercari Japan item ID |
-| `name` | Item title |
-| `price` | Price in JPY |
+| `itemId` | Mercari item ID (personal) or product ID (Mercari Shops) |
+| `itemUrl` | Direct listing URL (`/item/...` or `/shops/product/...`) |
+| `itemType` | `personal` or `shop` |
+| `name` | Listing title as written by the seller |
+| `price` | Price in Japanese yen |
 | `currency` | Always `JPY` |
-| `condition` | Item condition (New, Like New, Good, Fair, Poor, Very Poor) |
-| `status` | Listing status (on sale, sold out, trading) |
-| `seller` | Seller name or ID, when shown |
-| `shippingPayer` | Who pays shipping — seller or buyer |
-| `category` | Category name or ID |
-| `imageUrl` | Full-size item image |
+| `status` | `on_sale`, `sold_out` or `trading` |
+| `condition` | English condition label: New, Like New, Good, Fair, Poor or Very Poor |
+| `conditionId` | Mercari condition ID (1-6) |
+| `brandName`, `brandId` | Brand, when the listing has one |
+| `category`, `categoryId` | Leaf category name and ID (`category` is the numeric ID when `includeDetails=false`) |
+| `categoryPath` | Full category path, e.g. `ゲーム・おもちゃ・グッズ > テレビゲーム > Nintendo Switch` |
+| `sizeName`, `sizeId` | Size, when the listing has one |
+| `description` | Full listing description |
+| `imageUrl`, `imageUrls[]` | Main full-size photo and all photos |
 | `thumbnailUrl` | Thumbnail image |
-| `itemUrl` | Direct link to the listing on jp.mercari.com |
-| `scrapedAt` | ISO 8601 timestamp of when the record was scraped |
+| `seller` | Seller display name |
+| `sellerId` | Seller ID (or Mercari Shops shop ID) |
+| `sellerRating` | Seller star rating (0-5) |
+| `sellerRatingCount` | Number of seller ratings |
+| `likes` | Like count; zero is a real value |
+| `commentCount` | Comment count, when shown |
+| `shippingPayer` | `Seller` or `Buyer` |
+| `shippingMethod` | Shipping method, e.g. `らくらくメルカリ便` |
+| `shippingFromArea` | Prefecture the item ships from |
+| `shippingDuration` | Dispatch window, e.g. `1~2日で発送` |
+| `isAuction`, `auction` | Auction flag and bid details when the listing is an auction |
+| `createdAt`, `updatedAt` | Listing timestamps in ISO 8601 UTC |
+| `searchKeyword`, `sourceUrl` | Keyword or source link that produced the row |
+| `scrapedAt` | When the row was collected |
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `keyword` | string | – | Search keyword, Japanese or romanized (required) |
-| `sortBy` | string | `default` | `default` (relevance), `created_time`, `price_asc`, `price_desc`, or `num_likes` |
-| `condition` | string | – (any) | `ITEM_CONDITION_NEW`, `ITEM_CONDITION_LIKE_NEW`, `ITEM_CONDITION_GOOD`, `ITEM_CONDITION_NORMAL`, `ITEM_CONDITION_BAD`, or `ITEM_CONDITION_VERY_BAD` |
-| `status` | string | `ITEM_STATUS_ON_SALE` | Accepted but currently has no effect — searches always return on-sale listings |
+| `mode` | string | `search` | `search`, `byUrl` or `shop` |
+| `keyword` | string | – (prefill: `Nintendo Switch`) | Search term (mode=search) |
+| `startUrls` | array | – | Search, item or shop links (mode=byUrl) |
+| `shop` | string | – | Mercari Shops ID, storefront URL or shop product URL (mode=shop) |
+| `status` | string | `on_sale` | `on_sale`, `sold_out`, `trading`, `sold` (sold out + trading) or `all` |
+| `condition` | string | `any` | `any`, or 1-6 (New … Very Poor) |
+| `sortBy` | string | `default` | `default`, `created_time`, `price_asc`, `price_desc` or `num_likes` |
+| `category` | string | – | Category name, path or numeric ID |
+| `brand` | string | – | Brand name (Japanese or English) or numeric ID |
+| `size` | string | `any` | Any of Mercari's 130 size values, grouped by size type |
+| `sellerType` | string | `any` | `any`, `individual` or `shop` |
+| `excludeKeyword` | string | – | Drop titles containing this word |
 | `minPrice` | integer | – | Minimum price in JPY |
 | `maxPrice` | integer | – | Maximum price in JPY |
-| `maxItems` | integer | `20` | Maximum number of listings to return (1–500) |
+| `maxItems` | integer | `100` | Maximum listings to save (1-2,000) |
+| `includeDetails` | boolean | `true` | Open each listing for description, all photos, seller rating, likes and shipping details |
 
-### Example: like-new items sorted by price
+### Example: like-new games under ¥5,000
 
 ```json
 {
+  "mode": "search",
   "keyword": "Nintendo Switch",
-  "sortBy": "price_asc",
-  "condition": "ITEM_CONDITION_LIKE_NEW",
-  "maxItems": 50
-}
-```
-
-### Example: active listings under a price cap, Japanese keyword
-
-```json
-{
-  "keyword": "カメラ",
-  "status": "ITEM_STATUS_ON_SALE",
+  "condition": "2",
   "maxPrice": 5000,
+  "sortBy": "price_asc",
   "maxItems": 100
 }
 ```
 
-### Example: most-liked listings across any condition
+### Example: sold comparables for a camera
 
 ```json
 {
-  "keyword": "ゲーム機",
-  "sortBy": "num_likes",
-  "maxItems": 30
+  "mode": "search",
+  "keyword": "Nikon Z6",
+  "status": "sold",
+  "sortBy": "created_time",
+  "maxItems": 200
+}
+```
+
+### Example: brand and size on fashion
+
+```json
+{
+  "mode": "search",
+  "keyword": "Tシャツ",
+  "brand": "Nike",
+  "size": "3",
+  "condition": "3",
+  "maxItems": 50
+}
+```
+
+### Example: paste links
+
+```json
+{
+  "mode": "byUrl",
+  "startUrls": [
+    { "url": "https://jp.mercari.com/search?keyword=ポケモンカード&status=on_sale&price_min=1000" },
+    { "url": "https://jp.mercari.com/item/m62109311441" },
+    { "url": "https://jp.mercari.com/shops/product/2JXdgagXNJQg8TL7TuwiZG" }
+  ],
+  "maxItems": 20
+}
+```
+
+### Example: a Mercari Shops storefront
+
+```json
+{
+  "mode": "shop",
+  "shop": "https://jp.mercari.com/shops/profile/Bh6cspVjCR9oww4P7w7eHm",
+  "maxItems": 100,
+  "sortBy": "price_asc"
 }
 ```
 
 ## Use cases
 
-- **Resale sourcing** — find underpriced items in good condition to flag for resale
-- **Price tracking** — monitor how asking prices for a product move over time
-- **Market research** — see the mix of conditions and price points for a product category
-- **Cross-border arbitrage** — identify Japan-only listings worth importing
-- **Collector monitoring** — watch for a specific item or keyword as new listings appear
+- **Resale sourcing** — find underpriced items by condition and price band before competitors.
+- **Sold-price research** — collect sold and in-transaction listings for a model or brand.
+- **Price monitoring** — schedule a search and compare asking prices over time.
+- **Brand and size intelligence** — see what a brand actually lists in each size and condition.
+- **Shop catalogue exports** — export a Mercari Shops storefront with seller ratings and photos.
+- **Cross-border sourcing** — use the description, photos and shipping origin to evaluate imports.
 
 ## FAQ
 
-**Do I need to log in or provide an API key?**
-No — Mercari Japan's public search is accessible without authentication.
+### Do I need a Mercari account, cookies or an API key?
 
-**What currency are prices shown in?**
-Japanese Yen (JPY) — Mercari Japan doesn't list prices in any other currency.
+No. The actor reads public Mercari Japan listing data without login, cookies or an API key.
 
-**Can I search using Japanese text?**
-Yes — `keyword` accepts Japanese characters directly (e.g. `カメラ`, `ゲーム機`) as well as romanized terms.
+### Do I need to configure a proxy?
 
-**Can I search sold-out or in-transaction listings instead of on-sale ones?**
-Not currently — searches always return active, on-sale listings regardless of the `status` input. The `status` field on each returned record still reflects that listing's own real status.
+No. The actor connects directly to Mercari without a proxy. Just fill in the input and run it.
 
-**Why is `seller` sometimes missing?**
-Mercari doesn't expose a seller name or ID on every listing card; when that's the case, the field is omitted rather than guessed.
+### What is the difference between `sold_out`, `trading` and `sold`?
 
-**How many listings can I get per search?**
-Up to `maxItems`, capped at 500 per run.
+`sold_out` returns only completed sales. `trading` returns listings with a purchase in progress. `sold` combines both, which matches Mercari's own "sold out" filter on the website. When you paste a Mercari search link, its own `status` value is honored as the site defines it, so a link using the site's `status=sold_out` filter maps to `sold` (sold out plus trading). Use the `status` input for an exact `sold_out` filter.
 
-**Is this affiliated with Mercari?**
-No. This is an independent, third-party actor that reads Mercari Japan's public listing data and is not operated by or affiliated with Mercari.
+### Why are some fields missing from a record?
+
+Mercari does not publish every field for every listing. For example, many listings have no brand or size. Those fields are omitted; the actor never invents values.
+
+### What does `includeDetails` change?
+
+With details on, the actor opens each listing to add its full description, all photos, seller name and rating, likes, category name and path, and shipping details. Turning it off makes runs faster; `category` then falls back to the numeric ID and the description, seller rating, likes, category path and shipping details are omitted.
+
+### How many listings can I get per run?
+
+Up to 2,000 per run. Mercari itself serves at most about 100 pages per search (roughly 12,000 unique listings) and reports a matching count capped at 15,000. Split a broad search by category, brand or price range to go deeper.
+
+### Does the condition filter use English or Japanese grades?
+
+The input uses Mercari's numeric grades 1-6, shown in English as New, Like New, Good, Fair, Poor and Very Poor. Japanese titles and descriptions stay in their original language.
+
+### Can I use Japanese keywords and brand names?
+
+Yes. Keywords, category names and brand names accept Japanese and English. Brand and category names are resolved to Mercari's own IDs automatically.
+
+### Are Mercari Shops listings included?
+
+Yes. Search results include both individual and shop listings unless you choose `sellerType`; `mode=shop` lists a whole storefront. Shop product links use `/shops/product/...` URLs.
+
+### Is this affiliated with Mercari?
+
+No. This is an independent third-party actor that reads public Mercari Japan listing data and is not operated by or affiliated with Mercari.
