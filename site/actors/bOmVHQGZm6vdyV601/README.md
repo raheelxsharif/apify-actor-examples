@@ -1,14 +1,15 @@
 # Tokopedia Search, Category & Price Drop Scraper
 
-Pull live product data from Tokopedia, Indonesia's largest marketplace, four ways: keyword search, a category page, a top-sellers browse, or a specific list of product URLs — each returning price, discount, rating, and seller details.
+Tokopedia is Indonesia's largest marketplace, and this actor turns its public product pages into a clean dataset. Search by keyword or search URL, browse a category, or paste product URLs to collect prices in Rupiah, discounts, ratings, sold counts, seller details, condition, stock, variants, and images. No account, login, or proxy setup is needed.
 
 ## What this actor does
 
-- Searches Tokopedia by keyword, with sorting by relevance, newest, price, or best-seller rank.
-- Browses a specific category or Tokopedia's top/popular products listing.
-- Fetches full detail for a specific list of product URLs.
-- Filters `search`, `topProducts`, and `categoryBrowse` by a minimum/maximum price range in Indonesian Rupiah.
-- Fields Tokopedia doesn't publish for a given product (such as `badge` on a listing with no official-store tag) are left out of that record.
+- **Search products** by keyword or a Tokopedia search/find URL, with Tokopedia's real filters and five real sort orders.
+- **Browse categories** from a `/p/...` URL or a numeric category ID.
+- **Fetch product details** from Tokopedia product URLs: condition, stock, weight, minimum order, variants and child SKUs, description, rating breakdown, and campaign dates.
+- **Price-drop view:** every record exposes the current price, original price, discount percentage, discount amount, and a `priceDropped` flag. Tokopedia does not publish historical prices, so this is a current-snapshot view rather than a price history.
+- **Overview or detail:** keep search results fast, or enable `includeDetails` to enrich each row with the full product page.
+- Empty fields are omitted from each record instead of being returned as null or blank.
 
 ## Output per product
 
@@ -16,98 +17,129 @@ Pull live product data from Tokopedia, Indonesia's largest marketplace, four way
 |---|---|
 | `productId` | Tokopedia product ID |
 | `name` | Product name |
-| `price` | Current price in IDR |
-| `originalPrice` | Original price before discount, when the product is discounted |
-| `discountPercent` | Discount percentage |
+| `productUrl` | Direct product page URL |
+| `price`, `priceText` | Current price in IDR, numeric and as displayed |
+| `originalPrice`, `originalPriceText` | Pre-discount price when shown |
+| `discountPercent`, `discountAmount` | Current discount |
+| `priceDropped` | True when the original price is above the current price |
 | `currency` | Always `IDR` |
-| `shop` | Seller/shop name |
-| `shopLocation` | Shop's city or location |
-| `rating` | Product rating (0–5) |
-| `reviewCount` | Number of reviews |
-| `sold` | Number of units sold |
-| `imageUrl` | Product image URL |
-| `productUrl` | Direct link to the product on Tokopedia |
-| `badge` | Product badge, e.g. "Official Store", when present |
-| `mode` | The scraping mode that produced this record |
-| `scrapedAt` | ISO 8601 timestamp of when the record was scraped |
+| `rating`, `reviewCount` | Rating and, in detail mode, review count |
+| `sold`, `soldText` | Units sold, parsed into a number plus the source label |
+| `shop`, `shopId`, `shopUrl`, `shopLocation` | Seller identity and location |
+| `shopTier` | `mall`, `power_shop`, or `regular` when known |
+| `imageUrl`, `imageUrlOriginal` | Main image plus the signed source URL. Most normalized links are durable; a minority stay on a signed host and expire. |
+| `categoryId`, `categoryName`, `categoryPath` | Category identity and breadcrumb path |
+| `labels` | Promotional and service labels shown on the card |
+| `badge` | Official/Power/Mall badge when one is visible |
+| `preorder` | Whether the listing is a preorder |
+| `condition`, `conditionText` | NEW/USED and its local display text (detail) |
+| `status` | Product status such as ACTIVE (detail) |
+| `stock`, `minOrder`, `maxOrder` | Availability and order limits (detail) |
+| `weight`, `weightUnit` | Shipping weight (detail) |
+| `isVariant`, `variants`, `variantChildren` | Variation axes and child SKUs with their prices and stock (detail) |
+| `description` | Seller description (detail) |
+| `specifications` | Best-effort key/value specifications parsed from the description (detail) |
+| `ratingBreakdown` | Per-star rating counts and percentages (detail) |
+| `imageUrls` | Full gallery of image URLs (detail; mostly durable) |
+| `categoryBreadcrumb` | Category path with names and URLs (detail) |
+| `campaignType`, `campaignEndsAt`, `campaignDiscountPercent`, `campaignStockSoldPercent` | Active campaign details when present (detail) |
+| `mode`, `searchQuery`, `position`, `scrapedAt` | Provenance: mode, query, result position, and scrape time |
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search`, `topProducts`, `categoryBrowse`, or `productDetails` |
-| `keyword` | string | `smartphone` | Search keyword (mode=`search`) |
-| `category` | string | – | Category slug to browse (mode=`categoryBrowse`) |
-| `productUrls` | array | `[]` | Tokopedia product page URLs (mode=`productDetails`) |
-| `sortBy` | string | `relevance` | `relevance`, `newest`, `price_asc`, `price_desc`, or `best_seller` |
-| `priceMin` | integer | – | Minimum price in Indonesian Rupiah |
-| `priceMax` | integer | – | Maximum price in Indonesian Rupiah |
-| `maxItems` | integer | `20` | Maximum number of products to return (1–1000) |
+| `mode` | string | – | `search`, `categoryBrowse`, or `productDetails` |
+| `searchQueries` | array | `[]` (prefill `["smartphone"]`) | Keywords to search (mode=search) |
+| `searchUrls` | array | `[]` | Tokopedia search or `/find/` URLs (mode=search) |
+| `categoryUrls` | array | `[]` | Tokopedia category URLs (mode=categoryBrowse) |
+| `categoryIds` | array | `[]` | Numeric category IDs (mode=categoryBrowse) |
+| `productUrls` | array | `[]` | Product page URLs (mode=productDetails) |
+| `sortBy` | string | `relevance` | `relevance`, `newest`, `price_low`, `price_high`, `most_reviewed` |
+| `priceMin`, `priceMax` | integer | – | Price range in IDR |
+| `condition` | string | `any` | `any`, `new`, `used` |
+| `shopType` | string | `any` | `any`, `mall`, `power_shop` |
+| `minRating` | string | `any` | `any` or `4` |
+| `city` | string | `any` | Common seller locations, or `any` |
+| `cityId` | string | – | Exact Tokopedia city ID(s), comma-separated |
+| `latestProductDays` | string | `any` | `any`, `7`, `14`, `30`, `90` |
+| `discountOnly` | boolean | `false` | Only discounted products |
+| `codOnly` | boolean | `false` | Only cash-on-delivery products |
+| `freeShippingOnly` | boolean | `false` | Only products with the free-shipping offer |
+| `preorder` | string | `any` | `any`, `ready_stock`, `preorder` |
+| `includeDetails` | boolean | `false` | Enrich search/category rows from each product page |
+| `maxItems` | integer | `100` | Maximum products, 1–6000 |
 
-### Example: keyword search sorted by best sellers
+### Example: search with filters
 
 ```json
 {
   "mode": "search",
-  "keyword": "sepatu lari",
-  "sortBy": "best_seller",
-  "maxItems": 30
-}
-```
-
-### Example: category browse within a price band
-
-```json
-{
-  "mode": "categoryBrowse",
-  "category": "handphone-tablet",
-  "priceMin": 1000000,
-  "priceMax": 5000000,
+  "searchQueries": ["sepatu lari"],
+  "sortBy": "price_low",
+  "priceMin": 100000,
+  "priceMax": 500000,
+  "shopType": "mall",
+  "minRating": "4",
   "maxItems": 50
 }
 ```
 
-### Example: detail lookup for specific product URLs
+### Example: browse a category
+
+```json
+{
+  "mode": "categoryBrowse",
+  "categoryUrls": ["https://www.tokopedia.com/p/handphone-tablet/handphone"],
+  "sortBy": "newest",
+  "maxItems": 100
+}
+```
+
+### Example: full product details
 
 ```json
 {
   "mode": "productDetails",
   "productUrls": [
-    "https://www.tokopedia.com/example-shop/example-product"
+    "https://www.tokopedia.com/pxofficialindonesia/kabel-data-usb-type-c-ultra-fast-charging-pd240w-charger-nylon-braided-laptop-tablet-smartphone-samsung-oppo-huawei-vivo-px-fcc-2m-1736805261334316721"
   ]
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — track a product's price and discount percentage over time
-- **Market research** — compare ratings, review counts, and sold counts across a category
-- **Competitor tracking** — watch what a shop lists and how it prices against the market
-- **Assortment analysis** — pull a whole category to see Tokopedia's current product mix
-- **Trend spotting** — use `topProducts` to see which items are currently best-sellers
+- **Price and discount monitoring** — compare current prices, discounts, and campaign end dates across a category or keyword.
+- **Seller intelligence** — compare shop type, location, sold counts, and ratings across merchants.
+- **Assortment planning** — browse a category to see the current product mix and pricing ladder.
+- **Product research** — collect variants, child SKUs, stock, weight, condition, and descriptions for a shortlist.
+- **Marketplace analytics** — feed clean product records into dashboards, spreadsheets, or a database.
 
 ## FAQ
 
 **Do I need a Tokopedia account or login?**
-No — all four modes read Tokopedia's public pages.
+No. The actor reads public product, search, and category pages.
 
 **What currency are prices in?**
 Indonesian Rupiah (IDR), returned as integers.
 
-**What's the difference between `search` and `topProducts`?**
-Both still match the `keyword` field, but `topProducts` forces a best-seller sort order instead of using `sortBy`. Clear `keyword` for a best-seller listing that isn't narrowed to a specific term.
+**What does "price drop" mean here?**
+It means the product currently has a lower price than its displayed original price. Tokopedia does not publish a historical price series, so the actor cannot show a true past price. Run it on a schedule and compare `price` values to build your own history.
 
-**How do I find a category slug for `categoryBrowse`?**
-Copy the slug from a Tokopedia category page URL, for example `handphone-tablet` from `tokopedia.com/p/handphone-tablet`.
+**Why are some fields missing?**
+Tokopedia does not show every field on every listing. A product without a discount has no `originalPrice`; a listing without a description spec block has no `specifications`. The actor omits missing fields instead of guessing.
 
-**Why is `shopLocation` or `badge` sometimes missing?**
-Tokopedia doesn't display those details on every listing; the actor omits a field rather than guessing a value.
+**Why do some product URLs fail?**
+The actor needs the normal Tokopedia product URL (`/{shop}/{product-slug}-{id}`). Numeric product IDs alone do not resolve through the public site.
 
-**Can I filter by price on every mode?**
-`priceMin` and `priceMax` apply to `search`, `topProducts`, and `categoryBrowse`. `productDetails` fetches the exact URLs you supply, so price filters don't apply there.
+**How many products can I get per search?**
+Up to 6,000 products per search slice. Tokopedia caps pagination at that point. For larger sets, split the work by keyword, category, price range, or location.
 
-**How many products can I get per run?**
-Up to `maxItems`, capped at 1000.
+**Can I filter by seller city?**
+Yes. Use the location dropdown for common cities, or `cityId` for an exact Tokopedia city ID from a Tokopedia search URL.
+
+**Are image links permanent?**
+The actor returns a normalized image URL and keeps the original signed URL in `imageUrlOriginal`. Most normalized links are durable, but a minority remain on Tokopedia's signed host; those expire within hours. Use `imageUrlOriginal` promptly or re-run the actor to refresh them.
 
 **Is this affiliated with Tokopedia?**
-No. This is an independent, third-party actor that reads Tokopedia's public pages and is not operated by or affiliated with Tokopedia.
+No. This is an independent third-party actor that reads publicly available Tokopedia pages and is not operated by or affiliated with Tokopedia.

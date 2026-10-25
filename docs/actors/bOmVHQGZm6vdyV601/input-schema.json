@@ -1,47 +1,224 @@
 {
-  "description": "Search Tokopedia e-commerce products by keyword, category, or browse top products.",
+  "description": "Search Tokopedia, browse categories, or fetch product details.",
   "properties": {
-    "category": {
-      "description": "Category slug to browse.",
-      "editor": "textfield",
-      "title": "Category (mode=categoryBrowse)",
+    "categoryIds": {
+      "default": [],
+      "description": "Numeric Tokopedia category IDs, for example 24 for Handphone.",
+      "editor": "stringList",
+      "title": "Category IDs (mode=categoryBrowse)",
+      "type": "array"
+    },
+    "categoryUrls": {
+      "default": [],
+      "description": "Tokopedia category URLs such as https://www.tokopedia.com/p/handphone-tablet/handphone.",
+      "editor": "stringList",
+      "title": "Category URLs (mode=categoryBrowse)",
+      "type": "array"
+    },
+    "city": {
+      "default": "any",
+      "description": "Filter by a common seller location. Leave Any for all of Indonesia.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "DKI Jakarta",
+        "Jabodetabek",
+        "Bandung",
+        "Medan",
+        "Surabaya",
+        "Bali",
+        "Banten",
+        "D.I. Yogyakarta",
+        "Semarang",
+        "Makassar",
+        "Palembang",
+        "Denpasar",
+        "Bekasi",
+        "Tangerang",
+        "Depok",
+        "Bogor",
+        "Jakarta Pusat",
+        "Jakarta Selatan",
+        "Jakarta Barat",
+        "Jakarta Utara",
+        "Jakarta Timur"
+      ],
+      "enumTitles": [
+        "Any location",
+        "DKI Jakarta",
+        "Jabodetabek",
+        "Bandung",
+        "Medan",
+        "Surabaya",
+        "Bali",
+        "Banten",
+        "Yogyakarta",
+        "Semarang",
+        "Makassar",
+        "Palembang",
+        "Denpasar",
+        "Bekasi",
+        "Tangerang",
+        "Depok",
+        "Bogor",
+        "Jakarta Pusat",
+        "Jakarta Selatan",
+        "Jakarta Barat",
+        "Jakarta Utara",
+        "Jakarta Timur"
+      ],
+      "prefill": "any",
+      "title": "Seller location",
       "type": "string"
     },
-    "keyword": {
-      "default": "smartphone",
-      "description": "Product keyword to search (e.g. 'smartphone', 'laptop', 'sepatu').",
+    "cityId": {
+      "description": "Exact Tokopedia city ID(s), comma-separated. Overrides the location dropdown.",
       "editor": "textfield",
-      "prefill": "smartphone",
-      "title": "Search keyword",
+      "title": "City ID (advanced)",
+      "type": "string"
+    },
+    "codOnly": {
+      "default": false,
+      "description": "Only show products that offer cash on delivery.",
+      "prefill": false,
+      "title": "Cash on delivery only",
+      "type": "boolean"
+    },
+    "condition": {
+      "default": "any",
+      "description": "Filter by product condition.",
+      "editor": "select",
+      "enumSuggestedValues": [
+        "any",
+        "new",
+        "used",
+        "1",
+        "2"
+      ],
+      "enumTitles": [
+        "Any condition",
+        "New",
+        "Used",
+        "New (legacy code 1)",
+        "Used (legacy code 2)"
+      ],
+      "prefill": "any",
+      "title": "Condition",
+      "type": "string"
+    },
+    "discountOnly": {
+      "default": false,
+      "description": "Only show products currently on discount.",
+      "prefill": false,
+      "title": "Discounted products only",
+      "type": "boolean"
+    },
+    "freeShippingOnly": {
+      "default": false,
+      "description": "Only show products with the free-shipping offer.",
+      "prefill": false,
+      "title": "Extra free shipping only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Add condition, stock, variants, description, and rating breakdown to search and category results. Slower and makes one extra request per product.",
+      "prefill": false,
+      "title": "Include product details",
+      "type": "boolean"
+    },
+    "latestProductDays": {
+      "default": "any",
+      "description": "Only show products added recently.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "7",
+        "14",
+        "30",
+        "90"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 7 days",
+        "Last 14 days",
+        "Last 30 days",
+        "Last 90 days"
+      ],
+      "prefill": "any",
+      "title": "Listed within",
       "type": "string"
     },
     "maxItems": {
-      "default": 20,
+      "default": 100,
       "description": "Maximum number of products to return.",
-      "maximum": 1000,
+      "maximum": 6000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
-    "mode": {
-      "default": "search",
-      "description": "What to scrape from Tokopedia.",
+    "minRating": {
+      "default": "any",
+      "description": "Only show products rated 4 or higher.",
       "editor": "select",
-      "enum": [
-        "search",
-        "topProducts",
-        "categoryBrowse",
-        "productDetails"
+      "enumSuggestedValues": [
+        "any",
+        "4",
+        "4.5",
+        "4,5",
+        "3"
       ],
       "enumTitles": [
-        "Search products by keyword",
-        "Browse top/popular products",
-        "Browse by category",
-        "Get product details by URLs"
+        "Any rating",
+        "4 stars and up",
+        "4.5 stars (legacy)",
+        "4+ (legacy library value)",
+        "3 stars (legacy, not supported)"
+      ],
+      "prefill": "any",
+      "title": "Minimum rating",
+      "type": "string"
+    },
+    "mode": {
+      "description": "What to scrape.",
+      "editor": "select",
+      "enumSuggestedValues": [
+        "search",
+        "categoryBrowse",
+        "productDetails",
+        "topProducts"
+      ],
+      "enumTitles": [
+        "Search products",
+        "Browse a category",
+        "Get product details by URL",
+        "Top products (legacy)"
       ],
       "prefill": "search",
       "title": "Mode",
+      "type": "string"
+    },
+    "preorder": {
+      "default": "any",
+      "description": "Filter by ready stock or preorder.",
+      "editor": "select",
+      "enumSuggestedValues": [
+        "any",
+        "ready_stock",
+        "preorder",
+        "true",
+        "false"
+      ],
+      "enumTitles": [
+        "Any availability",
+        "Ready stock",
+        "Preorder",
+        "Preorder (legacy)",
+        "Ready stock (legacy)"
+      ],
+      "prefill": "any",
+      "title": "Availability",
       "type": "string"
     },
     "priceMax": {
@@ -60,38 +237,79 @@
     },
     "productUrls": {
       "default": [],
-      "description": "Tokopedia product page URLs.",
+      "description": "Tokopedia product page URLs. Numeric IDs alone are not supported.",
       "editor": "stringList",
-      "prefill": [],
       "title": "Product URLs (mode=productDetails)",
       "type": "array"
     },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to search (mode=search). Example: smartphone, sepatu lari, kopi arabika.",
+      "editor": "stringList",
+      "prefill": [
+        "smartphone"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "searchUrls": {
+      "default": [],
+      "description": "Tokopedia search or /find/ URLs. Filters and sort already in the URL are applied.",
+      "editor": "stringList",
+      "title": "Search URLs (mode=search)",
+      "type": "array"
+    },
+    "shopType": {
+      "default": "any",
+      "description": "Filter by Tokopedia shop type.",
+      "editor": "select",
+      "enumSuggestedValues": [
+        "any",
+        "mall",
+        "power_shop",
+        "2",
+        "3"
+      ],
+      "enumTitles": [
+        "Any shop",
+        "Mall",
+        "Power Shop",
+        "Mall (legacy code 2)",
+        "Power Shop (legacy code 3)"
+      ],
+      "prefill": "any",
+      "title": "Shop type",
+      "type": "string"
+    },
     "sortBy": {
       "default": "relevance",
-      "description": "How to sort search results.",
+      "description": "Result order.",
       "editor": "select",
-      "enum": [
+      "enumSuggestedValues": [
         "relevance",
         "newest",
+        "price_low",
+        "price_high",
+        "most_reviewed",
+        "best_seller",
         "price_asc",
-        "price_desc",
-        "best_seller"
+        "price_desc"
       ],
       "enumTitles": [
         "Most relevant",
-        "Newest first",
-        "Price: lowest first",
-        "Price: highest first",
-        "Best sellers"
+        "Newest",
+        "Price: low to high",
+        "Price: high to low",
+        "Most reviewed",
+        "Best seller (legacy)",
+        "Price ascending (legacy)",
+        "Price descending (legacy)"
       ],
       "prefill": "relevance",
       "title": "Sort by",
       "type": "string"
     }
   },
-  "required": [
-    "mode"
-  ],
   "schemaVersion": 1,
   "title": "Tokopedia Scraper Input",
   "type": "object"

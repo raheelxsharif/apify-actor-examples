@@ -1,47 +1,224 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-8EUELAIvAmJ+Uk5F/kmVUFz0fUQHtAUPFYpF/LSBXBE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Tokopedia Search, Category &amp; Price Drop Scraper | Dataspryva</title><meta name="description" content="Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian market"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"><meta property="og:title" content="Tokopedia Search, Category &amp; Price Drop Scraper | Dataspryva"><meta property="og:description" content="Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian market"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#webpage","name":"Tokopedia Search, Category & Price Drop Scraper","description":"Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#article","headline":"Tokopedia Search, Category & Price Drop Scraper","name":"Tokopedia Search, Category & Price Drop Scraper","description":"Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Tokopedia Search, Category & Price Drop Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Tokopedia Search, Category &amp; Price Drop Scraper</span></div><section id="overview"><h1 class="doc-title">Tokopedia Search, Category &amp; Price Drop Scraper</h1><p class="lede">Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/tokopedia-search-category-and-price-drop-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/bOmVHQGZm6vdyV601/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape from Tokopedia.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Product keyword to search (e.g. &#x27;smartphone&#x27;, &#x27;laptop&#x27;, &#x27;sepatu&#x27;).</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Category slug to browse.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape from Tokopedia.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Product keyword to search (e.g. &#x27;smartphone&#x27;, &#x27;laptop&#x27;, &#x27;sepatu&#x27;).</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Category slug to browse.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Tokopedia product page URLs.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to sort search results.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Minimum price in Indonesian Rupiah.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Maximum price in Indonesian Rupiah.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of products to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search Tokopedia e-commerce products by keyword, category, or browse top products.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-8EUELAIvAmJ+Uk5F/kmVUFz0fUQHtAUPFYpF/LSBXBE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Tokopedia Search, Category &amp; Price Drop Scraper | Dataspryva</title><meta name="description" content="Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian market"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"><meta property="og:title" content="Tokopedia Search, Category &amp; Price Drop Scraper | Dataspryva"><meta property="og:description" content="Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian market"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#webpage","name":"Tokopedia Search, Category & Price Drop Scraper","description":"Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#article","headline":"Tokopedia Search, Category & Price Drop Scraper","name":"Tokopedia Search, Category & Price Drop Scraper","description":"Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Tokopedia Search, Category & Price Drop Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/bOmVHQGZm6vdyV601/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Tokopedia Search, Category &amp; Price Drop Scraper</span></div><section id="overview"><h1 class="doc-title">Tokopedia Search, Category &amp; Price Drop Scraper</h1><p class="lede">Search Tokopedia by keyword, browse a category or top-sellers list, or look up specific product URLs, and get price, discount, rating, and seller details for each Indonesian marketplace listing.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/tokopedia-search-category-and-price-drop-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/bOmVHQGZm6vdyV601/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search (mode=search). Example: smartphone, sepatu lari, kopi arabika.</td></tr><tr><td><code>searchUrls</code></td><td>array</td><td>optional</td><td>Tokopedia search or /find/ URLs. Filters and sort already in the URL are applied.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search (mode=search). Example: smartphone, sepatu lari, kopi arabika.</td></tr><tr><td><code>searchUrls</code></td><td>array</td><td>optional</td><td>Tokopedia search or /find/ URLs. Filters and sort already in the URL are applied.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Tokopedia category URLs such as https://www.tokopedia.com/p/handphone-tablet/handphone.</td></tr><tr><td><code>categoryIds</code></td><td>array</td><td>optional</td><td>Numeric Tokopedia category IDs, for example 24 for Handphone.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Tokopedia product page URLs. Numeric IDs alone are not supported.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result order.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Minimum price in Indonesian Rupiah.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Maximum price in Indonesian Rupiah.</td></tr><tr><td><code>condition</code></td><td>string</td><td>optional</td><td>Filter by product condition.</td></tr><tr><td><code>shopType</code></td><td>string</td><td>optional</td><td>Filter by Tokopedia shop type.</td></tr><tr><td><code>minRating</code></td><td>string</td><td>optional</td><td>Only show products rated 4 or higher.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>Filter by a common seller location. Leave Any for all of Indonesia.</td></tr><tr><td><code>cityId</code></td><td>string</td><td>optional</td><td>Exact Tokopedia city ID(s), comma-separated. Overrides the location dropdown.</td></tr><tr><td><code>latestProductDays</code></td><td>string</td><td>optional</td><td>Only show products added recently.</td></tr><tr><td><code>discountOnly</code></td><td>boolean</td><td>optional</td><td>Only show products currently on discount.</td></tr><tr><td><code>codOnly</code></td><td>boolean</td><td>optional</td><td>Only show products that offer cash on delivery.</td></tr><tr><td><code>freeShippingOnly</code></td><td>boolean</td><td>optional</td><td>Only show products with the free-shipping offer.</td></tr><tr><td><code>preorder</code></td><td>string</td><td>optional</td><td>Filter by ready stock or preorder.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Add condition, stock, variants, description, and rating breakdown to search and category results. Slower and makes one extra request per product.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of products to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Tokopedia, browse categories, or fetch product details.&quot;,
   &quot;properties&quot;: {
-    &quot;category&quot;: {
-      &quot;description&quot;: &quot;Category slug to browse.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Category (mode=categoryBrowse)&quot;,
+    &quot;categoryIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Numeric Tokopedia category IDs, for example 24 for Handphone.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Category IDs (mode=categoryBrowse)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categoryUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Tokopedia category URLs such as https://www.tokopedia.com/p/handphone-tablet/handphone.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Category URLs (mode=categoryBrowse)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;city&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by a common seller location. Leave Any for all of Indonesia.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;DKI Jakarta&quot;,
+        &quot;Jabodetabek&quot;,
+        &quot;Bandung&quot;,
+        &quot;Medan&quot;,
+        &quot;Surabaya&quot;,
+        &quot;Bali&quot;,
+        &quot;Banten&quot;,
+        &quot;D.I. Yogyakarta&quot;,
+        &quot;Semarang&quot;,
+        &quot;Makassar&quot;,
+        &quot;Palembang&quot;,
+        &quot;Denpasar&quot;,
+        &quot;Bekasi&quot;,
+        &quot;Tangerang&quot;,
+        &quot;Depok&quot;,
+        &quot;Bogor&quot;,
+        &quot;Jakarta Pusat&quot;,
+        &quot;Jakarta Selatan&quot;,
+        &quot;Jakarta Barat&quot;,
+        &quot;Jakarta Utara&quot;,
+        &quot;Jakarta Timur&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any location&quot;,
+        &quot;DKI Jakarta&quot;,
+        &quot;Jabodetabek&quot;,
+        &quot;Bandung&quot;,
+        &quot;Medan&quot;,
+        &quot;Surabaya&quot;,
+        &quot;Bali&quot;,
+        &quot;Banten&quot;,
+        &quot;Yogyakarta&quot;,
+        &quot;Semarang&quot;,
+        &quot;Makassar&quot;,
+        &quot;Palembang&quot;,
+        &quot;Denpasar&quot;,
+        &quot;Bekasi&quot;,
+        &quot;Tangerang&quot;,
+        &quot;Depok&quot;,
+        &quot;Bogor&quot;,
+        &quot;Jakarta Pusat&quot;,
+        &quot;Jakarta Selatan&quot;,
+        &quot;Jakarta Barat&quot;,
+        &quot;Jakarta Utara&quot;,
+        &quot;Jakarta Timur&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Seller location&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;keyword&quot;: {
-      &quot;default&quot;: &quot;smartphone&quot;,
-      &quot;description&quot;: &quot;Product keyword to search (e.g. &#x27;smartphone&#x27;, &#x27;laptop&#x27;, &#x27;sepatu&#x27;).&quot;,
+    &quot;cityId&quot;: {
+      &quot;description&quot;: &quot;Exact Tokopedia city ID(s), comma-separated. Overrides the location dropdown.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;smartphone&quot;,
-      &quot;title&quot;: &quot;Search keyword&quot;,
+      &quot;title&quot;: &quot;City ID (advanced)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;codOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only show products that offer cash on delivery.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Cash on delivery only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;condition&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by product condition.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enumSuggestedValues&quot;: [
+        &quot;any&quot;,
+        &quot;new&quot;,
+        &quot;used&quot;,
+        &quot;1&quot;,
+        &quot;2&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any condition&quot;,
+        &quot;New&quot;,
+        &quot;Used&quot;,
+        &quot;New (legacy code 1)&quot;,
+        &quot;Used (legacy code 2)&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Condition&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;discountOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only show products currently on discount.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Discounted products only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;freeShippingOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only show products with the free-shipping offer.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Extra free shipping only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add condition, stock, variants, description, and rating breakdown to search and category results. Slower and makes one extra request per product.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include product details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;latestProductDays&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only show products added recently.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;7&quot;,
+        &quot;14&quot;,
+        &quot;30&quot;,
+        &quot;90&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any time&quot;,
+        &quot;Last 7 days&quot;,
+        &quot;Last 14 days&quot;,
+        &quot;Last 30 days&quot;,
+        &quot;Last 90 days&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Listed within&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;maxItems&quot;: {
-      &quot;default&quot;: 20,
+      &quot;default&quot;: 100,
       &quot;description&quot;: &quot;Maximum number of products to return.&quot;,
-      &quot;maximum&quot;: 1000,
+      &quot;maximum&quot;: 6000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 20,
+      &quot;prefill&quot;: 3,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to scrape from Tokopedia.&quot;,
+    &quot;minRating&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only show products rated 4 or higher.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;search&quot;,
-        &quot;topProducts&quot;,
-        &quot;categoryBrowse&quot;,
-        &quot;productDetails&quot;
+      &quot;enumSuggestedValues&quot;: [
+        &quot;any&quot;,
+        &quot;4&quot;,
+        &quot;4.5&quot;,
+        &quot;4,5&quot;,
+        &quot;3&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Search products by keyword&quot;,
-        &quot;Browse top/popular products&quot;,
-        &quot;Browse by category&quot;,
-        &quot;Get product details by URLs&quot;
+        &quot;Any rating&quot;,
+        &quot;4 stars and up&quot;,
+        &quot;4.5 stars (legacy)&quot;,
+        &quot;4+ (legacy library value)&quot;,
+        &quot;3 stars (legacy, not supported)&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Minimum rating&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;description&quot;: &quot;What to scrape.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enumSuggestedValues&quot;: [
+        &quot;search&quot;,
+        &quot;categoryBrowse&quot;,
+        &quot;productDetails&quot;,
+        &quot;topProducts&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search products&quot;,
+        &quot;Browse a category&quot;,
+        &quot;Get product details by URL&quot;,
+        &quot;Top products (legacy)&quot;
       ],
       &quot;prefill&quot;: &quot;search&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;preorder&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by ready stock or preorder.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enumSuggestedValues&quot;: [
+        &quot;any&quot;,
+        &quot;ready_stock&quot;,
+        &quot;preorder&quot;,
+        &quot;true&quot;,
+        &quot;false&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any availability&quot;,
+        &quot;Ready stock&quot;,
+        &quot;Preorder&quot;,
+        &quot;Preorder (legacy)&quot;,
+        &quot;Ready stock (legacy)&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Availability&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;priceMax&quot;: {
@@ -60,48 +237,89 @@
     },
     &quot;productUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Tokopedia product page URLs.&quot;,
+      &quot;description&quot;: &quot;Tokopedia product page URLs. Numeric IDs alone are not supported.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Product URLs (mode=productDetails)&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords to search (mode=search). Example: smartphone, sepatu lari, kopi arabika.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;smartphone&quot;
+      ],
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Tokopedia search or /find/ URLs. Filters and sort already in the URL are applied.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Search URLs (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;shopType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by Tokopedia shop type.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enumSuggestedValues&quot;: [
+        &quot;any&quot;,
+        &quot;mall&quot;,
+        &quot;power_shop&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any shop&quot;,
+        &quot;Mall&quot;,
+        &quot;Power Shop&quot;,
+        &quot;Mall (legacy code 2)&quot;,
+        &quot;Power Shop (legacy code 3)&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Shop type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
     &quot;sortBy&quot;: {
       &quot;default&quot;: &quot;relevance&quot;,
-      &quot;description&quot;: &quot;How to sort search results.&quot;,
+      &quot;description&quot;: &quot;Result order.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
+      &quot;enumSuggestedValues&quot;: [
         &quot;relevance&quot;,
         &quot;newest&quot;,
+        &quot;price_low&quot;,
+        &quot;price_high&quot;,
+        &quot;most_reviewed&quot;,
+        &quot;best_seller&quot;,
         &quot;price_asc&quot;,
-        &quot;price_desc&quot;,
-        &quot;best_seller&quot;
+        &quot;price_desc&quot;
       ],
       &quot;enumTitles&quot;: [
         &quot;Most relevant&quot;,
-        &quot;Newest first&quot;,
-        &quot;Price: lowest first&quot;,
-        &quot;Price: highest first&quot;,
-        &quot;Best sellers&quot;
+        &quot;Newest&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;,
+        &quot;Most reviewed&quot;,
+        &quot;Best seller (legacy)&quot;,
+        &quot;Price ascending (legacy)&quot;,
+        &quot;Price descending (legacy)&quot;
       ],
       &quot;prefill&quot;: &quot;relevance&quot;,
       &quot;title&quot;: &quot;Sort by&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
   &quot;schemaVersion&quot;: 1,
   &quot;title&quot;: &quot;Tokopedia Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset of scraped Tokopedia products.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Tokopedia products.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;One record per Tokopedia product from search, category, top-seller, or detail lookups, with price, discount, rating, and seller.&quot;,
+  &quot;description&quot;: &quot;One record per Tokopedia product from keyword search, category browse, or product-detail URLs, with pricing, discount, rating, sold count, shop, condition, stock, variants, and images.&quot;,
   &quot;properties&quot;: {
     &quot;products&quot;: {
-      &quot;description&quot;: &quot;Dataset of scraped Tokopedia products.&quot;,
+      &quot;description&quot;: &quot;Dataset containing all scraped Tokopedia products.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Tokopedia products&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -122,9 +340,13 @@
         &quot;fields&quot;: [
           &quot;name&quot;,
           &quot;price&quot;,
+          &quot;originalPrice&quot;,
+          &quot;discountPercent&quot;,
           &quot;shop&quot;,
+          &quot;shopLocation&quot;,
           &quot;rating&quot;,
           &quot;sold&quot;,
+          &quot;condition&quot;,
           &quot;productUrl&quot;
         ]
       }
@@ -132,14 +354,15 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-tokopedia-search-category-price-drop-scraper">Tokopedia Search, Category &amp; Price Drop Scraper</h2>
-<p>Pull live product data from Tokopedia, Indonesia's largest marketplace, four ways: keyword search, a category page, a top-sellers browse, or a specific list of product URLs — each returning price, discount, rating, and seller details.</p>
+<p>Tokopedia is Indonesia's largest marketplace, and this actor turns its public product pages into a clean dataset. Search by keyword or search URL, browse a category, or paste product URLs to collect prices in Rupiah, discounts, ratings, sold counts, seller details, condition, stock, variants, and images. No account, login, or proxy setup is needed.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Searches Tokopedia by keyword, with sorting by relevance, newest, price, or best-seller rank.</li>
-<li>Browses a specific category or Tokopedia's top/popular products listing.</li>
-<li>Fetches full detail for a specific list of product URLs.</li>
-<li>Filters <code>search</code>, <code>topProducts</code>, and <code>categoryBrowse</code> by a minimum/maximum price range in Indonesian Rupiah.</li>
-<li>Fields Tokopedia doesn't publish for a given product (such as <code>badge</code> on a listing with no official-store tag) are left out of that record.</li>
+<li><strong>Search products</strong> by keyword or a Tokopedia search/find URL, with Tokopedia's real filters and five real sort orders.</li>
+<li><strong>Browse categories</strong> from a <code>/p/...</code> URL or a numeric category ID.</li>
+<li><strong>Fetch product details</strong> from Tokopedia product URLs: condition, stock, weight, minimum order, variants and child SKUs, description, rating breakdown, and campaign dates.</li>
+<li><strong>Price-drop view:</strong> every record exposes the current price, original price, discount percentage, discount amount, and a <code>priceDropped</code> flag. Tokopedia does not publish historical prices, so this is a current-snapshot view rather than a price history.</li>
+<li><strong>Overview or detail:</strong> keep search results fast, or enable <code>includeDetails</code> to enrich each row with the full product page.</li>
+<li>Empty fields are omitted from each record instead of being returned as null or blank.</li>
 </ul>
 <h2 id="readme-output-per-product">Output per product</h2>
 <div class="table-wrap"><table>
@@ -159,60 +382,112 @@
 <td>Product name</td>
 </tr>
 <tr>
-<td><code>price</code></td>
-<td>Current price in IDR</td>
+<td><code>productUrl</code></td>
+<td>Direct product page URL</td>
 </tr>
 <tr>
-<td><code>originalPrice</code></td>
-<td>Original price before discount, when the product is discounted</td>
+<td><code>price</code>, <code>priceText</code></td>
+<td>Current price in IDR, numeric and as displayed</td>
 </tr>
 <tr>
-<td><code>discountPercent</code></td>
-<td>Discount percentage</td>
+<td><code>originalPrice</code>, <code>originalPriceText</code></td>
+<td>Pre-discount price when shown</td>
+</tr>
+<tr>
+<td><code>discountPercent</code>, <code>discountAmount</code></td>
+<td>Current discount</td>
+</tr>
+<tr>
+<td><code>priceDropped</code></td>
+<td>True when the original price is above the current price</td>
 </tr>
 <tr>
 <td><code>currency</code></td>
 <td>Always <code>IDR</code></td>
 </tr>
 <tr>
-<td><code>shop</code></td>
-<td>Seller/shop name</td>
+<td><code>rating</code>, <code>reviewCount</code></td>
+<td>Rating and, in detail mode, review count</td>
 </tr>
 <tr>
-<td><code>shopLocation</code></td>
-<td>Shop's city or location</td>
+<td><code>sold</code>, <code>soldText</code></td>
+<td>Units sold, parsed into a number plus the source label</td>
 </tr>
 <tr>
-<td><code>rating</code></td>
-<td>Product rating (0–5)</td>
+<td><code>shop</code>, <code>shopId</code>, <code>shopUrl</code>, <code>shopLocation</code></td>
+<td>Seller identity and location</td>
 </tr>
 <tr>
-<td><code>reviewCount</code></td>
-<td>Number of reviews</td>
+<td><code>shopTier</code></td>
+<td><code>mall</code>, <code>power_shop</code>, or <code>regular</code> when known</td>
 </tr>
 <tr>
-<td><code>sold</code></td>
-<td>Number of units sold</td>
+<td><code>imageUrl</code>, <code>imageUrlOriginal</code></td>
+<td>Main image plus the signed source URL. Most normalized links are durable; a minority stay on a signed host and expire.</td>
 </tr>
 <tr>
-<td><code>imageUrl</code></td>
-<td>Product image URL</td>
+<td><code>categoryId</code>, <code>categoryName</code>, <code>categoryPath</code></td>
+<td>Category identity and breadcrumb path</td>
 </tr>
 <tr>
-<td><code>productUrl</code></td>
-<td>Direct link to the product on Tokopedia</td>
+<td><code>labels</code></td>
+<td>Promotional and service labels shown on the card</td>
 </tr>
 <tr>
 <td><code>badge</code></td>
-<td>Product badge, e.g. &quot;Official Store&quot;, when present</td>
+<td>Official/Power/Mall badge when one is visible</td>
 </tr>
 <tr>
-<td><code>mode</code></td>
-<td>The scraping mode that produced this record</td>
+<td><code>preorder</code></td>
+<td>Whether the listing is a preorder</td>
 </tr>
 <tr>
-<td><code>scrapedAt</code></td>
-<td>ISO 8601 timestamp of when the record was scraped</td>
+<td><code>condition</code>, <code>conditionText</code></td>
+<td>NEW/USED and its local display text (detail)</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Product status such as ACTIVE (detail)</td>
+</tr>
+<tr>
+<td><code>stock</code>, <code>minOrder</code>, <code>maxOrder</code></td>
+<td>Availability and order limits (detail)</td>
+</tr>
+<tr>
+<td><code>weight</code>, <code>weightUnit</code></td>
+<td>Shipping weight (detail)</td>
+</tr>
+<tr>
+<td><code>isVariant</code>, <code>variants</code>, <code>variantChildren</code></td>
+<td>Variation axes and child SKUs with their prices and stock (detail)</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Seller description (detail)</td>
+</tr>
+<tr>
+<td><code>specifications</code></td>
+<td>Best-effort key/value specifications parsed from the description (detail)</td>
+</tr>
+<tr>
+<td><code>ratingBreakdown</code></td>
+<td>Per-star rating counts and percentages (detail)</td>
+</tr>
+<tr>
+<td><code>imageUrls</code></td>
+<td>Full gallery of image URLs (detail; mostly durable)</td>
+</tr>
+<tr>
+<td><code>categoryBreadcrumb</code></td>
+<td>Category path with names and URLs (detail)</td>
+</tr>
+<tr>
+<td><code>campaignType</code>, <code>campaignEndsAt</code>, <code>campaignDiscountPercent</code>, <code>campaignStockSoldPercent</code></td>
+<td>Active campaign details when present (detail)</td>
+</tr>
+<tr>
+<td><code>mode</code>, <code>searchQuery</code>, <code>position</code>, <code>scrapedAt</code></td>
+<td>Provenance: mode, query, result position, and scrape time</td>
 </tr>
 </tbody>
 </table></div>
@@ -230,101 +505,178 @@
 <tr>
 <td><code>mode</code></td>
 <td>string</td>
-<td><code>search</code></td>
-<td><code>search</code>, <code>topProducts</code>, <code>categoryBrowse</code>, or <code>productDetails</code></td>
-</tr>
-<tr>
-<td><code>keyword</code></td>
-<td>string</td>
-<td><code>smartphone</code></td>
-<td>Search keyword (mode=<code>search</code>)</td>
-</tr>
-<tr>
-<td><code>category</code></td>
-<td>string</td>
 <td>–</td>
-<td>Category slug to browse (mode=<code>categoryBrowse</code>)</td>
+<td><code>search</code>, <code>categoryBrowse</code>, or <code>productDetails</code></td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td><code>[]</code> (prefill <code>[&quot;smartphone&quot;]</code>)</td>
+<td>Keywords to search (mode=search)</td>
+</tr>
+<tr>
+<td><code>searchUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Tokopedia search or <code>/find/</code> URLs (mode=search)</td>
+</tr>
+<tr>
+<td><code>categoryUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Tokopedia category URLs (mode=categoryBrowse)</td>
+</tr>
+<tr>
+<td><code>categoryIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Numeric category IDs (mode=categoryBrowse)</td>
 </tr>
 <tr>
 <td><code>productUrls</code></td>
 <td>array</td>
 <td><code>[]</code></td>
-<td>Tokopedia product page URLs (mode=<code>productDetails</code>)</td>
+<td>Product page URLs (mode=productDetails)</td>
 </tr>
 <tr>
 <td><code>sortBy</code></td>
 <td>string</td>
 <td><code>relevance</code></td>
-<td><code>relevance</code>, <code>newest</code>, <code>price_asc</code>, <code>price_desc</code>, or <code>best_seller</code></td>
+<td><code>relevance</code>, <code>newest</code>, <code>price_low</code>, <code>price_high</code>, <code>most_reviewed</code></td>
 </tr>
 <tr>
-<td><code>priceMin</code></td>
+<td><code>priceMin</code>, <code>priceMax</code></td>
 <td>integer</td>
 <td>–</td>
-<td>Minimum price in Indonesian Rupiah</td>
+<td>Price range in IDR</td>
 </tr>
 <tr>
-<td><code>priceMax</code></td>
-<td>integer</td>
+<td><code>condition</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>new</code>, <code>used</code></td>
+</tr>
+<tr>
+<td><code>shopType</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>mall</code>, <code>power_shop</code></td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code> or <code>4</code></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>Common seller locations, or <code>any</code></td>
+</tr>
+<tr>
+<td><code>cityId</code></td>
+<td>string</td>
 <td>–</td>
-<td>Maximum price in Indonesian Rupiah</td>
+<td>Exact Tokopedia city ID(s), comma-separated</td>
+</tr>
+<tr>
+<td><code>latestProductDays</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>7</code>, <code>14</code>, <code>30</code>, <code>90</code></td>
+</tr>
+<tr>
+<td><code>discountOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only discounted products</td>
+</tr>
+<tr>
+<td><code>codOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only cash-on-delivery products</td>
+</tr>
+<tr>
+<td><code>freeShippingOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only products with the free-shipping offer</td>
+</tr>
+<tr>
+<td><code>preorder</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>ready_stock</code>, <code>preorder</code></td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Enrich search/category rows from each product page</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
-<td><code>20</code></td>
-<td>Maximum number of products to return (1–1000)</td>
+<td><code>100</code></td>
+<td>Maximum products, 1–6000</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-keyword-search-sorted-by-best-sellers">Example: keyword search sorted by best sellers</h3>
+<h3 id="readme-example-search-with-filters">Example: search with filters</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
-  &quot;keyword&quot;: &quot;sepatu lari&quot;,
-  &quot;sortBy&quot;: &quot;best_seller&quot;,
-  &quot;maxItems&quot;: 30
-}
-</code></pre>
-<h3 id="readme-example-category-browse-within-a-price-band">Example: category browse within a price band</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;categoryBrowse&quot;,
-  &quot;category&quot;: &quot;handphone-tablet&quot;,
-  &quot;priceMin&quot;: 1000000,
-  &quot;priceMax&quot;: 5000000,
+  &quot;searchQueries&quot;: [&quot;sepatu lari&quot;],
+  &quot;sortBy&quot;: &quot;price_low&quot;,
+  &quot;priceMin&quot;: 100000,
+  &quot;priceMax&quot;: 500000,
+  &quot;shopType&quot;: &quot;mall&quot;,
+  &quot;minRating&quot;: &quot;4&quot;,
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-detail-lookup-for-specific-product-urls">Example: detail lookup for specific product URLs</h3>
+<h3 id="readme-example-browse-a-category">Example: browse a category</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;categoryBrowse&quot;,
+  &quot;categoryUrls&quot;: [&quot;https://www.tokopedia.com/p/handphone-tablet/handphone&quot;],
+  &quot;sortBy&quot;: &quot;newest&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-full-product-details">Example: full product details</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;productDetails&quot;,
   &quot;productUrls&quot;: [
-    &quot;https://www.tokopedia.com/example-shop/example-product&quot;
+    &quot;https://www.tokopedia.com/pxofficialindonesia/kabel-data-usb-type-c-ultra-fast-charging-pd240w-charger-nylon-braided-laptop-tablet-smartphone-samsung-oppo-huawei-vivo-px-fcc-2m-1736805261334316721&quot;
   ]
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Price monitoring</strong> — track a product's price and discount percentage over time</li>
-<li><strong>Market research</strong> — compare ratings, review counts, and sold counts across a category</li>
-<li><strong>Competitor tracking</strong> — watch what a shop lists and how it prices against the market</li>
-<li><strong>Assortment analysis</strong> — pull a whole category to see Tokopedia's current product mix</li>
-<li><strong>Trend spotting</strong> — use <code>topProducts</code> to see which items are currently best-sellers</li>
+<li><strong>Price and discount monitoring</strong> — compare current prices, discounts, and campaign end dates across a category or keyword.</li>
+<li><strong>Seller intelligence</strong> — compare shop type, location, sold counts, and ratings across merchants.</li>
+<li><strong>Assortment planning</strong> — browse a category to see the current product mix and pricing ladder.</li>
+<li><strong>Product research</strong> — collect variants, child SKUs, stock, weight, condition, and descriptions for a shortlist.</li>
+<li><strong>Marketplace analytics</strong> — feed clean product records into dashboards, spreadsheets, or a database.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
 <p><strong>Do I need a Tokopedia account or login?</strong>
-No — all four modes read Tokopedia's public pages.</p>
+No. The actor reads public product, search, and category pages.</p>
 <p><strong>What currency are prices in?</strong>
 Indonesian Rupiah (IDR), returned as integers.</p>
-<p><strong>What's the difference between <code>search</code> and <code>topProducts</code>?</strong>
-Both still match the <code>keyword</code> field, but <code>topProducts</code> forces a best-seller sort order instead of using <code>sortBy</code>. Clear <code>keyword</code> for a best-seller listing that isn't narrowed to a specific term.</p>
-<p><strong>How do I find a category slug for <code>categoryBrowse</code>?</strong>
-Copy the slug from a Tokopedia category page URL, for example <code>handphone-tablet</code> from <code>tokopedia.com/p/handphone-tablet</code>.</p>
-<p><strong>Why is <code>shopLocation</code> or <code>badge</code> sometimes missing?</strong>
-Tokopedia doesn't display those details on every listing; the actor omits a field rather than guessing a value.</p>
-<p><strong>Can I filter by price on every mode?</strong>
-<code>priceMin</code> and <code>priceMax</code> apply to <code>search</code>, <code>topProducts</code>, and <code>categoryBrowse</code>. <code>productDetails</code> fetches the exact URLs you supply, so price filters don't apply there.</p>
-<p><strong>How many products can I get per run?</strong>
-Up to <code>maxItems</code>, capped at 1000.</p>
+<p><strong>What does &quot;price drop&quot; mean here?</strong>
+It means the product currently has a lower price than its displayed original price. Tokopedia does not publish a historical price series, so the actor cannot show a true past price. Run it on a schedule and compare <code>price</code> values to build your own history.</p>
+<p><strong>Why are some fields missing?</strong>
+Tokopedia does not show every field on every listing. A product without a discount has no <code>originalPrice</code>; a listing without a description spec block has no <code>specifications</code>. The actor omits missing fields instead of guessing.</p>
+<p><strong>Why do some product URLs fail?</strong>
+The actor needs the normal Tokopedia product URL (<code>/{shop}/{product-slug}-{id}</code>). Numeric product IDs alone do not resolve through the public site.</p>
+<p><strong>How many products can I get per search?</strong>
+Up to 6,000 products per search slice. Tokopedia caps pagination at that point. For larger sets, split the work by keyword, category, price range, or location.</p>
+<p><strong>Can I filter by seller city?</strong>
+Yes. Use the location dropdown for common cities, or <code>cityId</code> for an exact Tokopedia city ID from a Tokopedia search URL.</p>
+<p><strong>Are image links permanent?</strong>
+The actor returns a normalized image URL and keeps the original signed URL in <code>imageUrlOriginal</code>. Most normalized links are durable, but a minority remain on Tokopedia's signed host; those expire within hours. Use <code>imageUrlOriginal</code> promptly or re-run the actor to refresh them.</p>
 <p><strong>Is this affiliated with Tokopedia?</strong>
-No. This is an independent, third-party actor that reads Tokopedia's public pages and is not operated by or affiliated with Tokopedia.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/bOmVHQGZm6vdyV601/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>pD5WZ3eiIIKLSd49w</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. This is an independent third-party actor that reads publicly available Tokopedia pages and is not operated by or affiliated with Tokopedia.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/bOmVHQGZm6vdyV601/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0xhqWRRyaZ3YnEnaW</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
