@@ -4,60 +4,65 @@
 
 # X Broadcast Viewer History & Replay Link Scraper
 
-Hand this actor a broadcast link or a bare broadcast ID and get back its full metadata, viewer numbers over time, and a replay stream link — all from X's publicly visible broadcast data, no login required.
+Collect public X broadcasts from a broadcast link, a bare broadcast ID, an announcement post, or a legacy Periscope link. Get the title, state, timing, viewer counts and viewer-history graph, an HLS playback link, a stable cover image, the broadcaster's public profile, and — when the broadcast has ended and its chat is public — the chat replay text. No X account, cookies, or API key required.
 
 ## What this actor does
 
-- Accepts either a full broadcast link or a bare broadcast ID and resolves both to the same broadcast data.
-- Returns current and total viewer counts plus the complete viewer-history graph for the broadcast.
-- Can expand that viewer-history graph into individual timeline rows, each anchored to real elapsed time since the broadcast started.
-- Returns a ready-to-play replay stream link for broadcasts that still have one available.
-- Fields not available for a given broadcast (for example a replay link on a still-live broadcast) are left out rather than filled with a placeholder.
+- **One target list, many link forms:** `x.com/i/broadcasts/...`, `twitter.com/i/broadcasts/...`, bare IDs, post links that announce a broadcast, and legacy Periscope `/v/<id>` or `/<user>/<id>` links.
+- **Metadata and timing:** title, state, creation/start/end times, duration, dimensions, media key, language, tags, and the announcement post.
+- **Viewer statistics:** current/total counters, the viewer-history graph **when X exposes it**, and derived peak/average viewers. The graph is sample counts, not a fabricated timeline.
+- **Replay and playback:** an HLS playback URL and stream status. Live broadcasts return the live HLS URL; ended broadcasts return the replay URL.
+- **Public chat replay:** optional text messages from an ended, public chat. Live and private chats are not collected; join/heart events are ignored.
+- **Broadcaster profile:** followers, bio, location, account creation date, pinned posts, and verification details, with a compact fallback.
+- **Stable cover image:** the expiring X thumbnail is stored in the run's key-value store; the original X URL is kept beside it.
+- **Honest status rows:** invalid links, old `pscp.tv/w` share links, Spaces, deleted broadcasts, and rate limits each get a clear message instead of a silent failure.
+- **Empty fields are omitted** — no `null` values or placeholder strings.
 
 ## Output per record
 
-Every run returns rows tagged by `type`:
+Each row has a `type`:
 
-| type | Meaning |
+| `type` | Meaning |
 |---|---|
-| `broadcast` | One broadcast's metadata, viewer statistics, and broadcaster profile |
-| `viewer timeline point` | One point of the viewer-history graph (only when timeline rows are enabled) |
-| `status` | A problem row (invalid link, deleted broadcast, rate limit, no replay available); always includes a `message` |
+| `broadcast` | One broadcast's metadata, viewer statistics, playback, chat summary and broadcaster |
+| `viewer timeline point` | One sampled point of the viewer-history graph (only when timeline rows are enabled) |
+| `chat message` | One public chat text message (only when chat replay is enabled and available) |
+| `status` | A problem row with a `status` and a human-readable `message` |
 
-### Broadcast row fields
+### Broadcast fields
 
-- `id`, `url`, `title`, `state`
-- `status` — X's own headline status for the broadcast, when it publishes one
-- `startedAt`, `endedAt`
-- `viewersNow`, `viewersTotal`, `viewCountGraph[]` — viewer statistics, when enabled
-- `thumbnailUrl` — cover image, when enabled
-- `width`, `height`, `mediaKey`
-- `chatOption`, `isHighLatency`, `cameraRotation`, `source`
-- `broadcaster` — the broadcaster's profile object (username, name, bio, followers, profile image, verification)
-- `replayVideoUrl`, `replayVideoFormat` — replay stream link and format, when requested and available
-- `collectedAt`
+- **Identity:** `id`, `url`, `title`, `state`, `status` (X's machine state when it publishes one)
+- **Timing:** `createdAt`, `updatedAt`, `startedAt`, `endedAt`, `durationSeconds`
+- **Viewers:** `viewersNow`, `viewersTotal`, `viewCountGraph[]`, `viewerHistoryAvailable`, `viewerGraphPoints`, `peakViewers`, `averageViewers`, `viewerTimelineSampled`
+- **Media:** `thumbnailUrl` (stable), `thumbnailUrlOriginal`, `width`, `height`, `mediaKey`, `cameraRotation`, `isHighLatency`
+- **Replay:** `replayAvailable`, `playbackKind` (`live` / `replay` / `upcoming`), `streamStatus`, `replayVideoUrl`, `replayVideoFormat`
+- **Chat:** `chatHistoryStatus`, `chatMessageCount`, `chatEventCount`, `chatHistoryTruncated`
+- **Broadcaster:** `broadcaster` (public profile; compact fallback)
+- **Context:** `language`, `tags[]`, `announcementTweetId`, `announcementTweetUrl`, `sourceTweetId`, `sourceTweetUrl` (when the input was a post), `chatOption`, `privateChat`, `isLocked`, `noHearts`, `hasModeration`, `source`, `collectedAt`
 
-### Viewer timeline point fields
+### Viewer timeline fields
 
-- `broadcastId`, `broadcastUrl`, `title`
-- `pointIndex` — position within the graph (0 = first point)
-- `viewers` — viewer count at that point
-- `elapsedSeconds` — seconds since the broadcast started
-- `timestamp` — real time of the point; `timeEstimated: true` marks timestamps the actor derived from the broadcast's start/end rather than an explicit value from X
-- `collectedAt`
+`broadcastId`, `broadcastUrl`, `title`, `pointIndex` (original graph position), `viewers`, `elapsedSeconds`, `timestamp`, `timeEstimated`, `collectedAt`.
+
+### Chat message fields
+
+`broadcastId`, `broadcastUrl`, `title`, `messageId`, `username`, `displayName`, `text`, `timestamp`, `elapsedSeconds`, `profileImageUrl`, `twitterId`, `verified`, `participantIndex`, `collectedAt`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `broadcastIds` | array | – | Broadcast links or bare broadcast IDs (required) |
-| `includeReplayVideo` | boolean | `false` | Add the replay stream link for broadcasts that have one |
-| `includeViewerStats` | boolean | `true` | Include current/total viewers and the viewer-history graph |
-| `includeViewerTimeline` | boolean | `false` | Emit one row per point of the viewer-history graph |
-| `includeThumbnail` | boolean | `true` | Include the broadcast's thumbnail/cover image URL |
-| `proxyConfiguration` | object | – | Optional, recommended for large or repeated runs |
+| `broadcastIds` | array | – | Broadcast links, bare IDs, announcement posts, or legacy Periscope `/v/<id>` / `/<user>/<id>` links (required) |
+| `includeViewerStats` | boolean | `true` | Current/total viewers, viewer-history graph and derived peak/average |
+| `includeViewerTimeline` | boolean | `false` | Emit one row per viewer-history point |
+| `maxViewerTimelinePoints` | integer | `0` | Max timeline rows per broadcast; `0` = all; capped runs sample evenly |
+| `includeReplayVideo` | boolean | `false` | Resolve the HLS playback URL and stream status |
+| `includeChatHistory` | boolean | `false` | Collect public chat replay text after the broadcast ends |
+| `maxChatMessages` | integer | `1000` | Max public chat text messages per broadcast |
+| `includeThumbnail` | boolean | `true` | Store the cover image and return a stable URL plus the original |
+| `includeBroadcasterProfile` | boolean | `true` | Add the broadcaster's public profile; falls back to the compact record |
 
-### Example: basic broadcast metadata
+### Example: broadcast metadata
 
 ```json
 {
@@ -65,7 +70,7 @@ Every run returns rows tagged by `type`:
 }
 ```
 
-### Example: full viewer timeline plus replay link
+### Example: viewer history plus replay
 
 ```json
 {
@@ -75,47 +80,66 @@ Every run returns rows tagged by `type`:
 }
 ```
 
-### Example: multiple broadcasts, lightweight output
+### Example: public chat replay
+
+```json
+{
+  "broadcastIds": ["https://x.com/i/broadcasts/1BdGYEQPeDNGX"],
+  "includeChatHistory": true,
+  "maxChatMessages": 200
+}
+```
+
+### Example: mixed links and a deleted broadcast
 
 ```json
 {
   "broadcastIds": [
     "https://x.com/i/broadcasts/1YGNrbPLejQGw",
-    "1zqKVPjvzZDxB"
+    "https://www.periscope.tv/v/1kvJpmapzboxE",
+    "https://x.com/i/broadcasts/1AAAAAAAAAAAA"
   ],
-  "includeViewerStats": false,
-  "includeThumbnail": false
+  "includeReplayVideo": true
 }
 ```
 
 ## Use cases
 
-- **Live event monitoring** — track how audience size changed during and after a public broadcast
-- **Media analytics** — chart the viewer-history graph to measure sustained interest in an event
-- **Newsroom verification** — confirm viewer numbers and exact timing of a public statement
-- **Archival** — preserve broadcast metadata and a replay link for a public event
-- **Broadcaster comparison** — compare audience size and duration across different broadcasters
-- **Dashboard feeds** — load viewer timeline rows directly into a chart or spreadsheet
+- **Live-event monitoring:** track audience size during and after a public broadcast.
+- **Newsroom verification:** confirm viewer counts, timing and the announcement post for a public statement.
+- **Archival:** preserve broadcast metadata, a stable cover image and a replay URL while they are still available.
+- **Creator comparison:** compare audience, duration and chat activity across broadcasters.
+- **Dashboard feeds:** load the viewer timeline or chat rows directly into a chart or spreadsheet.
+- **Chat research:** study public chat replay around an event without collecting private or live chat.
 
 ## FAQ
 
-**Do I need an X account or cookies?**
-No — the actor is cookieless and only reads publicly visible broadcast data.
+**Do I need an X account, cookies or a proxy?**
+No. The actor reads publicly visible broadcast data and selects a working connection automatically. Just add one or more targets and run it.
 
-**How many rows can one broadcast produce?**
-X's viewer-history graph typically holds around a thousand points. With `includeViewerTimeline` enabled, a single broadcast can emit roughly that many timeline rows in addition to its one broadcast row.
+**What counts as an X broadcast?**
+X live video, the product that replaced Periscope. Its canonical link is `x.com/i/broadcasts/<id>`; `twitter.com` links redirect there. Legacy Periscope replay pages no longer exist, but their broadcast IDs can still resolve at x.com when the broadcast survives. If X returns an upcoming broadcast, the row reports the state X publishes and `playbackKind: "upcoming"`; X's guest payload does not expose reliable scheduled start times or pre-live slate URLs, so those fields are omitted rather than guessed.
 
-**Are the timeline timestamps exact?**
-They're anchored to the broadcast's real start time. When X's graph doesn't include explicit per-point times, the actor derives evenly spaced timestamps from the broadcast's known start and end and flags those rows with `timeEstimated: true`.
+**Why is the viewer-history graph missing for some broadcasts?**
+X exposes `view_count_graph` for only a subset of broadcasts: 26 of 50 (52%) in our October 2026 sample, and rarely for older ones. The actor never invents points; when X has no graph it reports `viewerHistoryAvailable: false` and omits peak/average.
 
-**Is the replay a downloadable file?**
-No — `replayVideoUrl` is a stream link that plays in a standard media player or can be processed by your own pipeline; the actor doesn't download or host video.
+**Are the viewer timeline timestamps exact?**
+X returns viewer counts only, without per-point times. Timestamps are derived evenly from the broadcast's real start/end (or the collection time for a live broadcast) and flagged `timeEstimated: true`. `averageViewers` is the mean of X's sampled points.
 
-**Why is a broadcast's replay missing?**
-Live (not-yet-ended) broadcasts have no replay yet, and some broadcasts aren't kept available afterward — either case returns a `status` row explaining why.
+**What do `viewersTotal` and `viewersNow` mean?**
+They are X's own counters. `viewersTotal` is not a unique-viewer count, and on an ended broadcast `viewersNow` is the last concurrent count X reported, not a live figure.
 
-**Does this work on X Spaces (audio rooms)?**
-No — a Space link or ID produces a `status` row rather than broadcast data; Spaces are a separate X feature from video broadcasts.
+**Is the replay a downloadable video?**
+No. `replayVideoUrl` is an HLS playback URL for a standard player or your own pipeline. For a live broadcast it is the live HLS URL (`playbackKind: "live"`); the replay appears after the broadcast ends. Some regional CDN edges return 403 unless the request carries `Referer: https://x.com/`; add that header if your player is refused.
+
+**Why is a replay or chat missing?**
+A deleted or non-public broadcast has no replay. A live broadcast has no replay yet. Chat replay is collected only after a broadcast ends, only for public chats, and only when X still serves the chat history; many chats contain only join/heart events, so `chatMessageCount` can be 0. History is read in pages of up to 1,000 events with a 50-page cap per broadcast; `maxChatMessages` caps text rows, and `chatHistoryTruncated` marks a capped result.
+
+**Do legacy Periscope links work?**
+`/v/<id>` and `/<user>/<id>` links resolve by their trailing broadcast ID. Old `pscp.tv/w/...` share links are not broadcast IDs and return a `legacyShareLinkUnsupported` status row.
+
+**Does this work on X Spaces?**
+No. Spaces are audio rooms; they return a `spacesNotSupported` status row.
 
 **Is this affiliated with X?**
-No. This is an independent, third-party actor that reads X's publicly visible broadcast data and is not operated by or affiliated with X Corp.
+No. This is an independent, third-party actor that reads publicly visible broadcast data and is not operated by or affiliated with X Corp.

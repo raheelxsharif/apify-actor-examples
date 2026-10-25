@@ -1,11 +1,12 @@
 {
   "properties": {
     "broadcastIds": {
-      "description": "Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, broadcast IDs, or a post link whose card contains a broadcast. The actor finds the broadcast automatically.",
+      "description": "Paste broadcast links such as https://x.com/i/broadcasts/1YGNrbPLejQGw, bare broadcast IDs, post links that announce a broadcast, or legacy Periscope links (/v/<id> or /<user>/<id>). Old pscp.tv/w share links cannot be resolved and return a status row.",
       "editor": "stringList",
       "example": [
         "https://x.com/i/broadcasts/1YGNrbPLejQGw",
-        "1YGNrbPLejQGw"
+        "1YGNrbPLejQGw",
+        "https://x.com/SpaceX/status/1649033533846097927"
       ],
       "minItems": 1,
       "prefill": [
@@ -14,41 +15,65 @@
       "title": "Broadcast links, IDs or broadcast posts",
       "type": "array"
     },
+    "includeBroadcasterProfile": {
+      "default": true,
+      "description": "Add the broadcaster's public profile (followers, bio, location, account creation date, pinned posts). Falls back to the compact broadcaster record if the profile is unavailable.",
+      "prefill": true,
+      "title": "Include broadcaster profile",
+      "type": "boolean"
+    },
+    "includeChatHistory": {
+      "default": false,
+      "description": "Collect text messages from the broadcast's public chat replay after it ends. Live chat and private chats are not collected. No text is emitted when the chat only contains join/heart events.",
+      "prefill": false,
+      "title": "Include public chat replay",
+      "type": "boolean"
+    },
     "includeReplayVideo": {
       "default": false,
-      "description": "Include the HLS replay video link for broadcasts that have a replay.",
+      "description": "Resolve the HLS playback URL and stream status. For a live broadcast the URL is the live stream; for an ended broadcast it is the replay.",
       "prefill": false,
       "title": "Include replay video link",
       "type": "boolean"
     },
     "includeThumbnail": {
       "default": true,
-      "description": "Include the broadcast thumbnail/cover image URL. Turn off for a lighter output.",
+      "description": "Store the broadcast cover image in the run's key-value store and return its stable URL plus the original X image URL.",
       "prefill": true,
       "title": "Include thumbnail image",
       "type": "boolean"
     },
     "includeViewerStats": {
       "default": true,
-      "description": "Include current viewers, total viewers and the viewer history graph. Turn off for a lighter output.",
+      "description": "Include current/total viewers, the viewer-history graph when X exposes it, and derived peak/average viewers. Turn off for a lighter output.",
       "prefill": true,
       "title": "Include viewer statistics",
       "type": "boolean"
     },
     "includeViewerTimeline": {
       "default": false,
-      "description": "Push one \"viewer timeline point\" row per point of the broadcast's viewer history graph (viewers, point index and a timestamp derived from the broadcast's real start/end time). No rows are emitted when X provides no graph.",
+      "description": "Push one \"viewer timeline point\" row per point of the broadcast's viewer-history graph. No rows are emitted when X provides no graph.",
       "prefill": false,
       "title": "Emit viewer timeline points as rows",
       "type": "boolean"
     },
-    "proxyConfiguration": {
-      "description": "Optional. Use a proxy if you plan large runs or see frequent rate limits.",
-      "editor": "proxy",
-      "sectionCaption": "Advanced",
-      "sectionDescription": "Optional settings for large or repeated runs.",
-      "title": "Proxy configuration",
-      "type": "object"
+    "maxChatMessages": {
+      "default": 1000,
+      "description": "Maximum public chat text messages per broadcast. Older events and join/heart events are not counted.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max chat messages per broadcast",
+      "type": "integer"
+    },
+    "maxViewerTimelinePoints": {
+      "default": 0,
+      "description": "Maximum timeline rows per broadcast. 0 means all points. When capped, points are evenly sampled across the full broadcast and each row keeps its original index.",
+      "maximum": 50000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max viewer timeline points per broadcast",
+      "type": "integer"
     }
   },
   "required": [
