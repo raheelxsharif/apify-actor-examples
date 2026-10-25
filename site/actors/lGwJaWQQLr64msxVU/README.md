@@ -1,0 +1,104 @@
+# Mercari Japan Listings by Condition, Price & Status
+
+Search [jp.mercari.com](https://jp.mercari.com), Japan's largest C2C marketplace, by keyword and come back with structured listing records — price in yen, item condition, listing status, seller, and photos — instead of a results page you'd have to scroll yourself.
+
+## What this actor does
+
+- Searches Mercari Japan by keyword, in either Japanese or romanized text.
+- Filters by item condition (new through very poor) and a minimum/maximum price in JPY.
+- Sorts results by relevance, newest, price (either direction), or most liked.
+- Returns each listing's seller, shipping payer, category, and both a thumbnail and full-size image URL.
+- Fields Mercari doesn't publish for a given listing (such as `seller` when the listing hides it) are left out of that record rather than filled with a placeholder.
+
+## Output per listing
+
+| Field | Description |
+|---|---|
+| `itemId` | Mercari Japan item ID |
+| `name` | Item title |
+| `price` | Price in JPY |
+| `currency` | Always `JPY` |
+| `condition` | Item condition (New, Like New, Good, Fair, Poor, Very Poor) |
+| `status` | Listing status (on sale, sold out, trading) |
+| `seller` | Seller name or ID, when shown |
+| `shippingPayer` | Who pays shipping — seller or buyer |
+| `category` | Category name or ID |
+| `imageUrl` | Full-size item image |
+| `thumbnailUrl` | Thumbnail image |
+| `itemUrl` | Direct link to the listing on jp.mercari.com |
+| `scrapedAt` | ISO 8601 timestamp of when the record was scraped |
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `keyword` | string | – | Search keyword, Japanese or romanized (required) |
+| `sortBy` | string | `default` | `default` (relevance), `created_time`, `price_asc`, `price_desc`, or `num_likes` |
+| `condition` | string | – (any) | `ITEM_CONDITION_NEW`, `ITEM_CONDITION_LIKE_NEW`, `ITEM_CONDITION_GOOD`, `ITEM_CONDITION_NORMAL`, `ITEM_CONDITION_BAD`, or `ITEM_CONDITION_VERY_BAD` |
+| `status` | string | `ITEM_STATUS_ON_SALE` | Accepted but currently has no effect — searches always return on-sale listings |
+| `minPrice` | integer | – | Minimum price in JPY |
+| `maxPrice` | integer | – | Maximum price in JPY |
+| `maxItems` | integer | `20` | Maximum number of listings to return (1–500) |
+
+### Example: like-new items sorted by price
+
+```json
+{
+  "keyword": "Nintendo Switch",
+  "sortBy": "price_asc",
+  "condition": "ITEM_CONDITION_LIKE_NEW",
+  "maxItems": 50
+}
+```
+
+### Example: active listings under a price cap, Japanese keyword
+
+```json
+{
+  "keyword": "カメラ",
+  "status": "ITEM_STATUS_ON_SALE",
+  "maxPrice": 5000,
+  "maxItems": 100
+}
+```
+
+### Example: most-liked listings across any condition
+
+```json
+{
+  "keyword": "ゲーム機",
+  "sortBy": "num_likes",
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- **Resale sourcing** — find underpriced items in good condition to flag for resale
+- **Price tracking** — monitor how asking prices for a product move over time
+- **Market research** — see the mix of conditions and price points for a product category
+- **Cross-border arbitrage** — identify Japan-only listings worth importing
+- **Collector monitoring** — watch for a specific item or keyword as new listings appear
+
+## FAQ
+
+**Do I need to log in or provide an API key?**
+No — Mercari Japan's public search is accessible without authentication.
+
+**What currency are prices shown in?**
+Japanese Yen (JPY) — Mercari Japan doesn't list prices in any other currency.
+
+**Can I search using Japanese text?**
+Yes — `keyword` accepts Japanese characters directly (e.g. `カメラ`, `ゲーム機`) as well as romanized terms.
+
+**Can I search sold-out or in-transaction listings instead of on-sale ones?**
+Not currently — searches always return active, on-sale listings regardless of the `status` input. The `status` field on each returned record still reflects that listing's own real status.
+
+**Why is `seller` sometimes missing?**
+Mercari doesn't expose a seller name or ID on every listing card; when that's the case, the field is omitted rather than guessed.
+
+**How many listings can I get per search?**
+Up to `maxItems`, capped at 500 per run.
+
+**Is this affiliated with Mercari?**
+No. This is an independent, third-party actor that reads Mercari Japan's public listing data and is not operated by or affiliated with Mercari.

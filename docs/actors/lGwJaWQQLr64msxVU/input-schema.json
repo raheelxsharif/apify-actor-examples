@@ -1,0 +1,107 @@
+{
+  "description": "Search Mercari Japan listings by keyword. Filter by condition, category, status, and price range.",
+  "properties": {
+    "condition": {
+      "default": "",
+      "description": "Filter by item condition.",
+      "editor": "select",
+      "enum": [
+        "",
+        "ITEM_CONDITION_NEW",
+        "ITEM_CONDITION_LIKE_NEW",
+        "ITEM_CONDITION_GOOD",
+        "ITEM_CONDITION_NORMAL",
+        "ITEM_CONDITION_BAD",
+        "ITEM_CONDITION_VERY_BAD"
+      ],
+      "enumTitles": [
+        "Any condition",
+        "New",
+        "Like New",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very Poor"
+      ],
+      "prefill": "",
+      "title": "Condition",
+      "type": "string"
+    },
+    "keyword": {
+      "description": "Search keyword for Mercari Japan listings.",
+      "editor": "textfield",
+      "prefill": "Nintendo Switch",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of listings to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Only include listings at or below this price in JPY.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Maximum price (JPY)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Only include listings at or above this price in JPY.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum price (JPY)",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "default",
+      "description": "Listing sort order.",
+      "editor": "select",
+      "enum": [
+        "default",
+        "created_time",
+        "price_asc",
+        "price_desc",
+        "num_likes"
+      ],
+      "enumTitles": [
+        "Relevance (default)",
+        "Newest First",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Most Liked"
+      ],
+      "prefill": "default",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "status": {
+      "default": "ITEM_STATUS_ON_SALE",
+      "description": "Filter by listing status.",
+      "editor": "select",
+      "enum": [
+        "ITEM_STATUS_ON_SALE",
+        "ITEM_STATUS_SOLD_OUT",
+        "ITEM_STATUS_TRADING"
+      ],
+      "enumTitles": [
+        "On Sale (active listings)",
+        "Sold Out",
+        "Trading (in transaction)"
+      ],
+      "prefill": "ITEM_STATUS_ON_SALE",
+      "title": "Listing status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "keyword"
+  ],
+  "schemaVersion": 1,
+  "title": "Mercari Japan Scraper Input",
+  "type": "object"
+}
