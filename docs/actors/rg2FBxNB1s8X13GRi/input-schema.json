@@ -1,0 +1,86 @@
+{
+  "description": "Fetch MLB data from the official MLB Stats API — player stats, standings, schedules, and teams.",
+  "properties": {
+    "endDate": {
+      "description": "End date for schedule range (e.g. '2024-04-07'). Used for mode=getSchedule.",
+      "editor": "textfield",
+      "title": "End Date (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of records to return (1–500).",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "getPlayerStats",
+      "description": "What data to fetch from the MLB Stats API.",
+      "editor": "select",
+      "enum": [
+        "getPlayerStats",
+        "getStandings",
+        "getSchedule",
+        "getTeams"
+      ],
+      "enumTitles": [
+        "Get Player Stats — season batting or pitching statistics",
+        "Get Standings — team standings by division",
+        "Get Schedule — game schedule and results for a date range",
+        "Get Teams — list all MLB teams"
+      ],
+      "prefill": "getPlayerStats",
+      "title": "Mode",
+      "type": "string"
+    },
+    "season": {
+      "default": 2024,
+      "description": "MLB season year (e.g. 2024). Supported range: 2019–2024.",
+      "maximum": 2024,
+      "minimum": 2019,
+      "prefill": 2024,
+      "title": "Season (year)",
+      "type": "integer"
+    },
+    "startDate": {
+      "description": "Start date for schedule range (e.g. '2024-04-01'). Used for mode=getSchedule.",
+      "editor": "textfield",
+      "title": "Start Date (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "statGroup": {
+      "default": "hitting",
+      "description": "Type of player stats to retrieve (for mode=getPlayerStats).",
+      "editor": "select",
+      "enum": [
+        "hitting",
+        "pitching",
+        "fielding"
+      ],
+      "enumTitles": [
+        "Hitting",
+        "Pitching",
+        "Fielding"
+      ],
+      "prefill": "hitting",
+      "title": "Stat Group",
+      "type": "string"
+    },
+    "teamId": {
+      "description": "Filter by MLB team ID (e.g. 147 = Yankees, 111 = Red Sox). Optional — leave blank for all teams.",
+      "maximum": 999,
+      "minimum": 100,
+      "title": "Team ID",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "MLB Baseball Stats Scraper Input",
+  "type": "object"
+}

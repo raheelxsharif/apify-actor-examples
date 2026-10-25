@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per MLB team, player stat line, scheduled game, or standings row, sourced from the official MLB Stats API.",
+  "properties": {
+    "mlbData": {
+      "description": "Dataset containing all scraped MLB records (teams, players, games, standings, or stats).",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "MLB data records",
+      "type": "string"
+    }
+  },
+  "title": "Official MLB Team, Schedule & Stat Line Scraper Output"
+}
