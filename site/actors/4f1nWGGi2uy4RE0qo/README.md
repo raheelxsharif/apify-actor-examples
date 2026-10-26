@@ -1,0 +1,306 @@
+# Quora Question, Answer & Profile Search Scraper
+
+Point this actor at a Quora keyword search, a list of direct Quora URLs (questions, answers, profiles, topics, Spaces, or standalone posts), or just a list of usernames, and get back one structured row per entity — question text, full answers, author details, engagement counts, comments, and more — with every content type it can't reach reported as a clear status row instead of being silently skipped.
+
+## What this actor does
+
+- Runs keyword searches against Quora's native search, or scrapes question, answer, profile, topic, Space, and post URLs directly.
+- Expands question pages into their individual answers (and, if enabled, comments on those answers), with independent caps and sort order for each.
+- Filters search results and answers by promotion/ad status, AI-generated labels, minimum upvotes, topic match, and publish date.
+- Can walk profile activity feeds, build a bounded entity-relationship graph between the rows it scraped, and discover every author mentioned across a batch with the evidence of where they appeared.
+- When Quora blocks, gates behind a login/Quora+ wall, or removes a page, the run returns a typed status row explaining what happened instead of a fabricated or empty record; every other field is omitted from a row rather than filled with a placeholder when the source page doesn't show it.
+
+## Output per record
+
+Every row carries a `content_type` (`question`, `answer`, `comment`, `profile`, `profile_activity`, `topic`, `topic_question`, `topic_post`, `topic_related`, `space`, `post`, `post_discovery`, `search_result`, `author`, `entity_edge`, `status`, or `run_manifest`) plus `url`, `scrape_timestamp`, and access/traversal state fields (`access_state`, `requested_depth`, `observed_depth`, `detail_expansion_state`) that tell you whether the row is a full record or an access-blocked placeholder.
+
+### Question rows
+
+- `title`, `url`, `question_body` — question text and body
+- `answer_count`, `follow_count`, `view_count` — plus their raw display-text companions
+- `question_is_unanswered` — true only when Quora reports exactly zero answers
+- `topics` — related topic links
+- `related_questions` — linked "related questions" when enabled
+- `question_author_name`/`question_author_url`/`question_author_credentials` — question asker and their tagline, when shown
+- `created_at`, `question_updated_at` — question dates, when published
+
+### Answer rows
+
+- `answer_text`, `answer_url`, `question_title`, `question_url` — the answer and its parent question
+- `author_name`, `author_url`, `author_credentials` — the answerer
+- `upvotes`, `comments_count`, `shares_count` — engagement counts, plus display-text companions
+- `is_ai_answer`, `ai_label_text` — whether Quora explicitly labels the answer as AI-generated
+- `answer_is_anonymous`, `answer_is_collapsed`, `answer_visibility` — answer state flags
+- `answer_timestamp` — when the answer was posted
+- `reaction_breakdown` — per-reaction-type counts, when requested
+
+### Profile rows
+
+- `name`, `bio`, `credentials`, `profile_image_url`
+- `employment`, `education`, `location`, `profile_joined_date`
+- `follower_count`, `following_count`, `question_count`, `post_count`, `total_views`
+- `website_url`, `social_links`, `profile_active_spaces`
+- `profile_is_verified`, `profile_is_restricted`
+
+### Topic and Space rows
+
+- `title`/`name`, `url`, `description`, `follower_count`
+- Topic rows: `topic_urls` (related topics), child `topic_question`/`topic_post`/`topic_related` rows when enabled
+- Space rows: `owner_name`, `owner_url`, `member_count`, `space_type`, `space_visibility`, and (when `includeSpaceSettings` is enabled) the Space's posting/comment permission settings
+
+### Post rows
+
+- `post_title`, `post_body`, `post_author_name`, `post_author_url`, `post_author_credentials`
+- `post_view_count`, `post_reaction_count`, `post_comment_count`, `post_share_count`
+- `post_space_name`, `post_space_url` — the Space the post was published in, when any
+- `post_created_at`, `post_updated_at`
+- `top_comments` — top-labeled comments, when `includePostComments` is enabled
+
+### Post discovery rows
+
+Lightweight links to posts found on a profile or Space feed, emitted instead of (or alongside) full post rows when `resultTypes` includes `post_discovery`:
+
+- `title`/`discovery_title`, `url`/`post_url`, `discovery_rank`, `discovery_snippet`, `source_url`
+
+### Comment rows (nested under answers or posts)
+
+- `comment_text`, `comment_url`, `comment_author_name`, `comment_author_url`, `comment_author_credentials`
+- `comment_upvote_count`, `comment_reaction_count`, `comment_reply_count`
+- `comment_depth`, `comment_is_reply`, `parent_comment_id`
+- `comment_is_top_labeled`, `comment_collection_label` — whether Quora itself labels this a "Top"/"Most helpful" comment
+
+### Search result rows
+
+- `search_title`, `search_snippet`, `search_url`, `search_result_type`
+- `search_author_name`, `search_author_url`
+- `search_view_count_text`, `search_answer_count_text`, `search_follow_count_text`
+- `is_promoted`, `is_ad`, `promotion_label` — sponsored-card evidence
+- `search_rank` — position within the search results
+
+### Author discovery and relationship rows
+
+- `author` rows: `name`, `profile_url`, `evidence_urls` — every author found across scraped pages, with where they were seen
+- `entity_edge` rows (when `includeEntityGraph` is enabled): `from_record_id`/`from_url`, `relationship`, `to_record_id`/`to_url` — links between scraped entities (e.g. answer → question, post → Space)
+
+### Status and run-summary rows
+
+- `status` rows: `access_state` (e.g. `cloudflare_challenge`, `login_required`, `quora_plus_or_gated`, `removed`, `not_found`), `http_status`, `error`, `source_url` — emitted whenever a page couldn't be read as a normal record
+- `run_manifest` row: `records_emitted`, `content_type_counts`, `access_state_counts`, `run_started_at`, `run_finished_at` — a one-row summary of the whole run
+
+## Row shaping, traversal depth and cookies
+
+- **Trimmed rows.** List the fields you want in `outputFields` and everything else is dropped after extraction; leave it empty for full rows. Nested projection is supported with bounded dotted paths such as `top_comments.comment_text` or `related_questions.title` where that collection exists, with child identity/URL fields kept. Identity, access/status, source and traversal fields are protected, and `output_projection` on each row reads `full` or `selected`. `includeFieldEvidence` toggles the `field_sources`/`fields_present` maps independently.
+- **Traversal depth.** `scrapeDepth` defaults to `detail`. `overview` keeps discovery and page summaries but turns off answer, comment and profile-activity expansion. Each row reports `requested_depth`, `observed_depth` and `detail_expansion_state`; `bounded` means a configured cap stopped the traversal (not that every item was collected), and a gated page reports `observed_depth: "status"`. Search cards are always `overview`-level rows.
+- **Author credentials.** `question_author_credentials`, `comment_author_credentials`, `post_author_credentials` and `author_credentials` are filled only when Quora shows a credential or tagline in that author's own block, and are never treated as proof of expertise.
+- **Cookies.** Use structured `cookies` or the secret `cookieString` header form (`name=value; name2=value2`). Structured cookies take precedence for duplicate names, malformed pairs are skipped, and the raw header is never emitted or logged. Cookies and proxy settings are optional authorized inputs and not guaranteed access, so a blocked page still produces a typed status row.
+- **Field-by-field reference.** Every output field this actor can emit is listed under [Output per record](#output-per-record) above.
+
+## Fixture-backed examples (synthetic)
+
+Synthetic, trimmed rows that illustrate the shape of the output; they are not live Quora results. The first is a native search card from a source capped by `maxItemsPerSource`, the second is the status row for a page behind a login wall.
+
+```json
+{"content_type":"search_result","search_title":"Fixture result","search_rank":1,"search_result_type":"question","search_view_count_text":"900 views","access_state":"public","requested_depth":"detail","observed_depth":"overview","detail_expansion_state":"not_requested","source_cap":10,"source_items_observed":14,"source_items_emitted":10,"source_cap_reached":true,"field_sources":{"search_title":"visible_dom_or_metadata","search_view_count_text":"scoped_label_or_structured_data","access_state":"runtime_or_access"}}
+```
+
+```json
+{"content_type":"status","access_state":"login_required","http_status":200,"requested_depth":"detail","observed_depth":"status","detail_expansion_state":"blocked","field_sources":{"access_state":"runtime_or_access","http_status":"runtime_or_access"}}
+```
+
+## Complete schema input inventory
+
+This actor has a large surface area; the fields below are the primary (canonical) names. Several additional input names exist purely as aliases for backward compatibility (e.g. `queries`/`searchKeywords`/`searchQuery` all alias `searchQueries`; `contentTypes`/`scrapeType` alias `resultTypes`; `sortBy` aliases `sortOrder`; `minUpvotes` aliases `minAnswerUpvotes`) — the canonical name always takes precedence when both are supplied.
+
+**Targets**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `searchQueries` | array | – | Keywords to search for on Quora |
+| `directUrls` | array | – | Direct Quora URLs (questions, answers, profiles, topics, Spaces, posts) |
+| `targets` | array | `[]` | Compatibility alias accepting a mixed list of search keywords and Quora URLs; URL-shaped values join `directUrls`, the rest join `searchQueries` |
+| `startUrls` | array | `[]` | Alternative to `directUrls`, as request-list objects |
+| `usernames` | array | `[]` | Quora profile usernames/slugs |
+| `resultTypes` | array | `["question", "answer", "profile", "profile_activity", "topic", "space", "post", "search_result"]` | Restrict output to selected content types — any of the `content_type` values listed above, plus `comment` and `topic_question`/`topic_post`/`topic_related` |
+
+**Search filtering and sorting**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `searchType` | string | `all` | Restrict native search cards to `question`, `answer`, `profile`, `topic`, `space`, or `post` |
+| `searchTimeFilter` | string | `all_time` | Restrict to a visible timestamp window |
+| `timeFilter` | string | – | Compatibility alias for `searchTimeFilter`; canonical field takes precedence |
+| `dateFrom` / `dateTo` (aliases `customDateFrom` / `customDateTo`) | string | – | Inclusive ISO date bounds applied to search cards with a machine-readable timestamp |
+| `sortOrder` | string | `relevance` | `relevance`, `newest`, or `most_viewed` |
+| `onlyUnanswered` | boolean | `false` | Keep only questions with an explicit zero answer count |
+| `excludePromoted` / `includePromoted` | boolean | `false` / `true` | Exclude or include cards with explicit sponsored/promoted evidence |
+| `includePromotionEvidence` | boolean | `true` | Keep promotion-state fields on search rows |
+| `includeUncertain` | boolean | `true` | Mark cards with no explicit promotion evidence as `unknown` rather than dropping them |
+| `topicFilter` | array | `[]` | Keep only rows matching one of these topic labels/URLs |
+| `maxResults` | integer | `50` | Max results per search query, or answers per question URL |
+| `maxResultsPerQuery` | integer | `50` | Compatibility alias for `maxResults`; canonical field takes precedence |
+
+**Answer controls**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `includeAnswers` | boolean | `true` | Expand and emit answers for question pages |
+| `maxAnswersPerQuestion` | integer | `50` | Max answers extracted per question |
+| `minAnswerUpvotes` | integer | `0` | Keep only answers with explicit upvotes at or above this value |
+| `answerSortOrder` | string | `observed` | `observed`, `upvotes_desc`, `newest`, or `views_desc` |
+| `sortAnswersBy` | string | `relevance` | Compatibility alias mapped to `answerSortOrder` (`relevance`=`observed`, `recency`=`newest`, `upvotes`=`upvotes_desc`); canonical field takes precedence |
+| `filterAiAnswers` | string | `include` | `include`, `exclude`, or `only` AI-labeled answers |
+| `includeAnswerHtml` (alias `includeHtmlContent`) | boolean | `true` | Include rendered answer HTML |
+| `maxAnswerHtmlBytes` | integer | `0` | Byte ceiling for answer HTML (`0` = uncapped) |
+| `includeAnswerPreview` | boolean | `false` | Attach bounded answer previews to question/search rows without opening the full answer page |
+| `maxAnswerPreviews` | integer | `3` | Max previews per question/search row |
+| `minAnswerPreviewUpvotes` | integer | `0` | Minimum upvotes for a preview to be kept |
+| `includeEngagementBreakdown` (alias `includeReactionBreakdown`) | boolean | `false` | Include per-reaction-type counts on answers |
+
+**Question, topic, and Space controls**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `includeQuestionDetails` | boolean | `true` | Include the question's body text |
+| `includeQuestionHtml` | boolean | `false` | Include rendered question HTML |
+| `maxQuestionHtmlBytes` | integer | `0` | Byte ceiling for question HTML |
+| `includeRelatedQuestions` | boolean | `true` | Include linked "related questions" |
+| `maxRelatedQuestions` | integer | `0` | Cap on related-question links (`0` = unlimited) |
+| `includeQuestionTopics` | boolean | `true` | Include topic links on question rows |
+| `maxQuestionTopics` | integer | `0` | Cap on topic links (`0` = unlimited) |
+| `includeTopicQuestions` / `maxTopicQuestions` | boolean / integer | `true` / `50` | Emit question links from a topic page |
+| `includeTopicPosts` / `maxTopicPosts` | boolean / integer | `false` / `50` | Emit post links from a topic page |
+| `includeRelatedTopics` / `maxRelatedTopics` | boolean / integer | `true` / `50` | Emit related-topic links |
+| `includeSpaceSettings` | boolean | `false` | Include a Space's posting/comment permission settings |
+
+**Post and comment controls**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `maxPostsPerSource` | integer | `0` | Cap on post links discovered and scraped from one source page |
+| `includeComments` | boolean | `false` | Extract comments on answers |
+| `maxCommentsPerAnswer` | integer | `50` | Max comments per answer |
+| `includePostComments` | boolean | `false` | Extract top-labeled comments on standalone posts |
+| `maxCommentsPerPost` | integer | `50` | Max comment nodes inspected per post |
+| `topCommentsOnly` | boolean | `false` | Keep only explicitly top/most-helpful-labeled comments |
+| `commentSortOrder` | string | `observed` | `observed`, `upvotes_desc`, `reactions_desc`, `replies_desc`, or `newest` |
+| `maxCommentDepth` | integer | `20` | Max comment nesting depth retained |
+| `maxReplyExpandAttempts` | integer | `0` | Clicks on visible reply-expansion controls per question page |
+| `includeRelatedContent` / `maxRelatedContent` | boolean / integer | `false` / `20` | Include a linked "related content" block on an answer/post |
+| `includePostAuthorContext` / `maxPostAuthorContextItems` | boolean / integer | `false` / `10` | Include a post author's About/Education/Joined info and active Spaces |
+| `includeQuestionHtml`, `includePostHtml`, `maxPostHtmlBytes` | boolean / integer | `false` / `0` | Rendered HTML retention for posts |
+
+**Profile, author, and graph controls**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `includeProfileActivity` | boolean | `false` | Extract a profile's public activity feed |
+| `activityTab` | string | `all` | Which profile-activity tab to open first |
+| `profileActivityTypes` | array | `["answer","question","post"]` | Activity categories to keep |
+| `maxProfileActivityItems` | integer | `50` | Max activity rows per profile |
+| `includeActivityText` / `includeActivityHtml` | boolean | `true` / `false` | Include text/HTML on activity rows |
+| `maxItemsPerTab` | integer | `0` | Independent cap on profile-activity rows per tab, in addition to `maxProfileActivityItems` (`0` = unlimited) |
+| `maxDetailItems` | integer | `0` | When `scrapeDepth=detail`, number of profile-activity items opened individually for detail text/title (`0` disables detail expansion) |
+| `includeProfileSensitiveFields` (alias `includeSensitiveProfileFields`) | boolean | `true` | Include location/employment/education/joined-date on profile rows |
+| `includeSocialLinks` | boolean | `true` | Include social links and website URL on profile rows |
+| `maxAuthors` | integer | `1000` | Max unique authors to emit (requires `author` in `resultTypes`) |
+| `maxSourcePages` | integer | `100` | Max already-scraped source pages scanned for author evidence |
+| `maxEvidencePerAuthor` | integer | `10` | Max evidence entries retained per discovered author |
+| `includeProfileSnapshot` | boolean | `false` | Merge a full profile snapshot onto each discovered author row |
+| `includeEntityGraph` (alias `includeGraphEdges`) | boolean | `false` | Emit `entity_edge` relationship rows between scraped entities |
+| `maxGraphEdges` | integer | `5000` | Cap on `entity_edge` rows |
+
+**Output shaping, state, and access**
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `scrapeDepth` | string | `detail` | `overview` (page summaries only) or `detail` (full traversal) |
+| `maxItems` | integer | `0` | Max total records across all inputs (`0` = unlimited) |
+| `maxItemsPerSource` | integer | `0` | Max records per individual query/URL (`0` = unlimited) |
+| `maxItemsPerQuery` | integer | `0` | Compatibility alias for `maxItemsPerSource`; canonical field takes precedence |
+| `dedupeMode` | string | `canonical` | `canonical` (suppress duplicate entities by canonical URL) or `none` |
+| `globalOrder` | string | `observed` | Cross-source ordering mode |
+| `outputFields` | array | `[]` | Optional allowlist of fields/nested paths to keep in the output |
+| `includeFieldEvidence` | boolean | `true` | Include `field_sources`/`fields_present` provenance maps |
+| `language` | string | `auto` | Browser language hint |
+| `requestDelay` | number | `2` | Seconds between page navigations |
+| `maxConcurrency` | integer | `1` | Concurrent discovery queries processed |
+| `maxNavigationRetries` | integer | `2` | Retries after a transient navigation failure |
+| `maxScrollAttempts` | integer | `20` | Scroll attempts per question page |
+| `maxLoadMoreAttempts` | integer | `0` | Clicks on a search page's "load more" control |
+| `includeMedia` / `includeOutboundLinks` | boolean | `true` / `true` | Extract image/video URLs and external links from content |
+| `onlyNewItems` | boolean | `false` | Suppress rows unchanged since a previous run |
+| `includeUnchanged` | boolean | `true` | When `onlyNewItems` is set, also keep `unchanged`-marked rows |
+| `stateStoreId` | string | – | Key-value store name used to persist `onlyNewItems` state across runs |
+| `cookies` / `cookieString` | array / string | – | Your own authenticated session, for content you're authorized to view |
+| `proxyConfiguration` | object | residential proxy | Apify proxy configuration |
+
+## Example inputs
+
+### Example: keyword search for a topic, answers included
+
+```json
+{
+  "searchQueries": ["best productivity apps"],
+  "resultTypes": ["search_result", "question", "answer"],
+  "maxResults": 30,
+  "includeAnswers": true,
+  "maxAnswersPerQuestion": 10
+}
+```
+
+### Example: scrape a specific question's top answers only
+
+```json
+{
+  "directUrls": ["https://www.quora.com/What-is-Python"],
+  "resultTypes": ["question", "answer"],
+  "answerSortOrder": "upvotes_desc",
+  "minAnswerUpvotes": 5,
+  "maxAnswersPerQuestion": 20
+}
+```
+
+### Example: discover authors across a search without saving full pages
+
+```json
+{
+  "searchQueries": ["machine learning careers"],
+  "resultTypes": ["author"],
+  "includeProfileSnapshot": true,
+  "maxAuthors": 100
+}
+```
+
+## Use cases
+
+- **Content research** — pull well-upvoted answers on a topic for inspiration or competitive analysis
+- **Market and audience insight** — see which questions are unanswered or under-discussed in a niche
+- **Expert sourcing** — discover and profile authors who write frequently about a subject
+- **Community monitoring** — track activity on a Space or topic over time
+- **Dataset building** — assemble a structured corpus of Quora questions and answers for downstream analysis
+
+## FAQ
+
+**Do I need to log in or provide cookies?**
+No — most Quora content is publicly readable. `cookies`/`cookieString` are optional and only needed to read content gated behind your own account; they are not a bypass guarantee, and a page that stays gated is returned as a status record.
+
+**Why do I get a `status` row instead of question/answer data for some URLs?**
+Quora sometimes shows a Cloudflare challenge, a login wall, or a "Quora+ only" gate, or the page has been removed. The actor reports exactly which of these happened via `access_state` rather than guessing or returning an empty record.
+
+**Why are some fields missing from a record I expected to be full?**
+Only fields Quora actually renders for that entity are populated — this actor never fabricates a value when the source page doesn't show one (for example, a question with no description text simply omits `question_body`).
+
+**What's the difference between `search_result` rows and `question`/`answer` rows?**
+`search_result` rows are the lightweight cards shown on Quora's own search results page; `question` and `answer` rows come from actually opening and scraping the full question page, so they carry much richer detail.
+
+**Can I get both the data I want and skip the provenance/diagnostic fields?**
+Yes — use `outputFields` to allowlist only the field names (including nested paths like `top_comments.comment_text`) you want kept; a small set of access/status fields always remain so you can still tell blocked rows apart from real ones.
+
+**Does `onlyUnanswered` guarantee the question has zero answers right now?**
+It filters on Quora's own explicit answer-count evidence at scrape time; questions where that count isn't visible are excluded from the filtered set rather than assumed to be zero.
+
+**How do I re-run this periodically and only get new or changed content?**
+Set `onlyNewItems: true` with a `stateStoreId`; the actor compares content against what it stored from previous runs and only returns new/changed rows (plus optionally `unchanged` rows if `includeUnchanged` is left on).
+
+**Is this affiliated with Quora?**
+No. This is an independent, third-party actor that reads Quora's publicly visible pages (and, optionally, pages visible to your own account) and is not operated by or affiliated with Quora, Inc.
