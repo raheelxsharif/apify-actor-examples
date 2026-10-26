@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per Noon.com product, with name, brand, SKU, price, rating, discount, and promotional data across UAE, Saudi Arabia, and Egypt.",
+  "description": "One record per noon.com product with local-currency price, list price, discount, rating, seller, stock, images, specs, and optional recent reviews across seven GCC storefronts.",
   "properties": {
     "products": {
-      "description": "Dataset containing all scraped Noon product records.",
+      "description": "Dataset containing all scraped noon product records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Noon products",
       "type": "string"
     }
   },
-  "title": "Noon.com Multi-Market Product Search by Discount Output"
+  "title": "Noon.com Multi-Market Product Search Output"
 }

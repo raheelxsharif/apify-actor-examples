@@ -1,41 +1,122 @@
 {
-  "description": "Search Noon.com or browse by category to extract products from UAE, Saudi Arabia, and Egypt.",
+  "description": "Search noon.com in seven GCC storefronts, browse categories, look up products by SKU or URL, and filter by price, rating, discount, brand, seller, or deal tag.",
   "properties": {
-    "categoryPath": {
-      "description": "Noon category URL path segment, e.g. `beauty-personal-care`, `electronics`, `home-kitchen`. From the URL after /uae-en/.",
+    "brand": {
+      "description": "Optional brand name or brand code, e.g. `HP` or `hp`. Matched against noon's brand filter.",
       "editor": "textfield",
-      "title": "Category path (mode=byCategory)",
+      "title": "Brand",
+      "type": "string"
+    },
+    "categoryPaths": {
+      "default": [],
+      "description": "noon category paths or URLs (mode=byCategory), e.g. `electronics-and-mobiles/computers-and-accessories/computers-new/laptops`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Category paths or URLs",
+      "type": "array"
+    },
+    "dealOnly": {
+      "default": false,
+      "description": "Only emit products carrying a noon deal tag.",
+      "prefill": false,
+      "title": "Deals only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Add description, specifications, stock, warranty, delivery, and all seller offers. Adds one request per product.",
+      "prefill": false,
+      "title": "Fetch product details",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Add up to five latest review snippets per product. Adds one request per product.",
+      "prefill": false,
+      "title": "Fetch recent reviews",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "description": "Product titles and descriptions language used by the storefront.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "ar"
+      ],
+      "enumTitles": [
+        "English",
+        "Arabic"
+      ],
+      "prefill": "en",
+      "title": "Language",
       "type": "string"
     },
     "market": {
       "default": "uae",
-      "description": "Noon regional website to scrape.",
+      "description": "noon storefront and currency. Product and URL inputs can override it from the URL.",
       "editor": "select",
       "enum": [
         "uae",
         "saudi",
-        "egypt"
+        "egypt",
+        "bahrain",
+        "qatar",
+        "kuwait",
+        "oman"
       ],
       "enumTitles": [
-        "UAE (noon.com/uae-en)",
-        "Saudi Arabia (noon.com/saudi-en)",
-        "Egypt (noon.com/egypt-en)"
+        "United Arab Emirates (AED)",
+        "Saudi Arabia (SAR)",
+        "Egypt (EGP)",
+        "Bahrain (BHD)",
+        "Qatar (QAR)",
+        "Kuwait (KWD)",
+        "Oman (OMR)"
       ],
       "prefill": "uae",
       "title": "Market",
       "type": "string"
     },
+    "maxDiscountPercent": {
+      "description": "Only emit products discounted by at most this percentage. Set 0 to require no discount.",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Maximum discount (%)",
+      "type": "number"
+    },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on emitted records.",
-      "maximum": 1000,
+      "description": "Hard cap on emitted products across the whole run.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
+    "maxPrice": {
+      "description": "Only emit products at or below this price, in the selected market's currency.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Maximum price",
+      "type": "number"
+    },
+    "minDiscountPercent": {
+      "description": "Only emit products discounted by at least this percentage. Products without a list price have no discount and are excluded.",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Minimum discount (%)",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Only emit products at or above this price, in the selected market's currency.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum price",
+      "type": "number"
+    },
     "minRating": {
-      "description": "Only emit products with rating >= this value (0–5).",
+      "description": "Only emit rated products at or above this star rating (0-5). Unrated products are excluded when this is set.",
       "maximum": 5,
       "minimum": 0,
       "title": "Minimum rating",
@@ -43,47 +124,65 @@
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch from Noon.",
+      "description": "Choose what to fetch. Search needs `searchQueries`; category needs `categoryPaths`; product needs `productInputs`; URL needs `startUrls`.",
       "editor": "select",
       "enum": [
         "search",
-        "bycategory",
-        "byurl"
+        "byCategory",
+        "byProduct",
+        "byUrl"
       ],
       "enumTitles": [
         "Search products by keyword",
-        "Browse products by category URL path",
-        "Fetch from Noon search or category URL(s)"
+        "Browse categories",
+        "Look up products by SKU or product URL",
+        "Fetch from noon search, category, or product URLs"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
     },
-    "searchQuery": {
-      "default": "moisturizer",
-      "description": "Keyword to search for (mode=search).",
+    "productInputs": {
+      "default": [],
+      "description": "noon SKUs or product URLs (mode=byProduct), e.g. `N70367827V`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product SKUs or URLs",
+      "type": "array"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to search for (mode=search). One query per line, e.g. `laptop`.",
+      "editor": "stringList",
+      "prefill": [
+        "laptop"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "seller": {
+      "description": "Optional seller name or seller code, e.g. `noon` or `p_9404`.",
       "editor": "textfield",
-      "prefill": "moisturizer",
-      "title": "Search query",
+      "title": "Seller",
       "type": "string"
     },
     "sortBy": {
       "default": "popularity",
-      "description": "Product sort order.",
+      "description": "Ordering for search and category results.",
       "editor": "select",
       "enum": [
         "popularity",
         "price_asc",
         "price_desc",
-        "discount",
+        "best_rating",
         "new_arrivals"
       ],
       "enumTitles": [
         "Popularity",
-        "Price: Low to High",
-        "Price: High to Low",
-        "Biggest Discount",
-        "New Arrivals"
+        "Price: low to high",
+        "Price: high to low",
+        "Top rated",
+        "New arrivals"
       ],
       "prefill": "popularity",
       "title": "Sort results by",
@@ -91,10 +190,10 @@
     },
     "startUrls": {
       "default": [],
-      "description": "Noon search or category URLs. E.g. https://www.noon.com/uae-en/search?q=serum",
+      "description": "noon search, category, or product URLs (mode=byUrl). The market in each URL overrides the Market field.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Start URLs (mode=byUrl)",
+      "title": "Start URLs",
       "type": "array"
     }
   },
@@ -102,6 +201,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Noon.com E-Commerce Scraper Input",
+  "title": "Noon.com Multi-Market Product Search Input",
   "type": "object"
 }

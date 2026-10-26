@@ -1,122 +1,71 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-DiFrCLew/jpPhHEP0KFfK9tf0+LfEuk2GrvrIFgBwxI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Amazon Deals Grid Tracker by Category &amp; Discount | Dataspryva</title><meta name="description" content="Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category,"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"><meta property="og:title" content="Amazon Deals Grid Tracker by Category &amp; Discount | Dataspryva"><meta property="og:description" content="Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category,"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#webpage","name":"Amazon Deals Grid Tracker by Category & Discount","description":"Pull Amazon's Today's Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#article","headline":"Amazon Deals Grid Tracker by Category & Discount","name":"Amazon Deals Grid Tracker by Category & Discount","description":"Pull Amazon's Today's Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Amazon Deals Grid Tracker by Category & Discount","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Amazon Deals Grid Tracker by Category &amp; Discount</span></div><section id="overview"><h1 class="doc-title">Amazon Deals Grid Tracker by Category &amp; Discount</h1><p class="lede">Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/amazon-deals-grid-tracker-by-category-and-discount">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/yZ5tcZFmAAXi1egIo/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>marketplace</code></td><td>string</td><td>required</td><td>Which Amazon domain&#x27;s Today&#x27;s Deals page to scrape.</td></tr><tr><td><code>dealType</code></td><td>string</td><td>optional</td><td>Only emit deals belonging to this collection bubble (the real filter chips Amazon shows atop the Deals page). Department-scoped bubbles (e.g. Customers&#x27; Most-Loved) are enforced by matching each deal&#x27;s department IDs; tag-scoped bubbles (Lightning Deals, Coupons, Outlet) can&#x27;t be verified per-deal from the grid data and pass through unfiltered. `(any deal type)` applies no filter.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Free-text filter matched against each deal&#x27;s department/category name (case-insensitive substring, e.g. `Electronics`, `Home`, `Toys`). Leave empty for all categories.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>marketplace</code></td><td>string</td><td>required</td><td>Which Amazon domain&#x27;s Today&#x27;s Deals page to scrape.</td></tr><tr><td><code>dealType</code></td><td>string</td><td>optional</td><td>Only emit deals belonging to this collection bubble (the real filter chips Amazon shows atop the Deals page). Department-scoped bubbles (e.g. Customers&#x27; Most-Loved) are enforced by matching each deal&#x27;s department IDs; tag-scoped bubbles (Lightning Deals, Coupons, Outlet) can&#x27;t be verified per-deal from the grid data and pass through unfiltered. `(any deal type)` applies no filter.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>Free-text filter matched against each deal&#x27;s department/category name (case-insensitive substring, e.g. `Electronics`, `Home`, `Toys`). Leave empty for all categories.</td></tr><tr><td><code>brand</code></td><td>string</td><td>optional</td><td>Free-text filter matched against each deal&#x27;s brand name (case-insensitive substring, e.g. `Anker`, `Samsung`). Leave empty for all brands.</td></tr><tr><td><code>minRating</code></td><td>integer</td><td>optional</td><td>Only emit deals with a star rating at or above this value. Deals without a visible rating pass through unless this is set.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Drop deals priced below this amount (in the marketplace&#x27;s local currency).</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Drop deals priced above this amount (in the marketplace&#x27;s local currency).</td></tr><tr><td><code>discountMin</code></td><td>integer</td><td>optional</td><td>Drop deals with a savings percentage below this value.</td></tr><tr><td><code>discountMax</code></td><td>integer</td><td>optional</td><td>Drop deals with a savings percentage above this value.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted deal records.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Hard cap on how many grid pages (up to 30 items each) to walk (each page is a fresh in-browser fetch of the widget&#x27;s own pagination request).</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Apify proxy used to fetch the Deals page. AUTO (datacenter) is used by default; the actor escalates to residential automatically only after repeated block detections within a run.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape Amazon&#x27;s Today&#x27;s Deals grid. Filter by category, brand, rating, price and discount range across Amazon marketplaces.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-DiFrCLew/jpPhHEP0KFfK9tf0+LfEuk2GrvrIFgBwxI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Amazon Deals Grid Tracker by Category &amp; Discount | Dataspryva</title><meta name="description" content="Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category,"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"><meta property="og:title" content="Amazon Deals Grid Tracker by Category &amp; Discount | Dataspryva"><meta property="og:description" content="Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category,"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#webpage","name":"Amazon Deals Grid Tracker by Category & Discount","description":"Pull Amazon's Today's Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#article","headline":"Amazon Deals Grid Tracker by Category & Discount","name":"Amazon Deals Grid Tracker by Category & Discount","description":"Pull Amazon's Today's Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Amazon Deals Grid Tracker by Category & Discount","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/yZ5tcZFmAAXi1egIo/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Amazon Deals Grid Tracker by Category &amp; Discount</span></div><section id="overview"><h1 class="doc-title">Amazon Deals Grid Tracker by Category &amp; Discount</h1><p class="lede">Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/amazon-deals-grid-tracker-by-category-and-discount">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/yZ5tcZFmAAXi1egIo/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>marketplace</code></td><td>string</td><td>required</td><td>Which Amazon domain&#x27;s Today&#x27;s Deals page to scrape.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Amazon departments to scan. Common names: Electronics, Home &amp; Kitchen, Kitchen, Beauty &amp; Personal Care, Clothing Shoes &amp; Jewelry, Toys &amp; Games, Sports &amp; Outdoors, Books, Pet Supplies, Automotive, Health &amp; Household, Computers &amp; Accessories, Cell Phones &amp; Accessories, Video Games, Tools &amp; Home Improvement, Patio Lawn &amp; Garden, Baby Products, Office Products, Musical Instruments, Camera &amp; Photo, Grocery &amp; Gourmet Food, Amazon Devices &amp; Accessories. Add several categories to scan past Amazon&#x27;s 500-deal window.</td></tr><tr><td><code>collection</code></td><td>string</td><td>optional</td><td>Restrict to one of Amazon&#x27;s curated deal collections. The collection names differ by marketplace; unsupported collections return a clear status record instead of unfiltered data.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>marketplace</code></td><td>string</td><td>required</td><td>Which Amazon domain&#x27;s Today&#x27;s Deals page to scrape.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Amazon departments to scan. Common names: Electronics, Home &amp; Kitchen, Kitchen, Beauty &amp; Personal Care, Clothing Shoes &amp; Jewelry, Toys &amp; Games, Sports &amp; Outdoors, Books, Pet Supplies, Automotive, Health &amp; Household, Computers &amp; Accessories, Cell Phones &amp; Accessories, Video Games, Tools &amp; Home Improvement, Patio Lawn &amp; Garden, Baby Products, Office Products, Musical Instruments, Camera &amp; Photo, Grocery &amp; Gourmet Food, Amazon Devices &amp; Accessories. Add several categories to scan past Amazon&#x27;s 500-deal window.</td></tr><tr><td><code>collection</code></td><td>string</td><td>optional</td><td>Restrict to one of Amazon&#x27;s curated deal collections. The collection names differ by marketplace; unsupported collections return a clear status record instead of unfiltered data.</td></tr><tr><td><code>brand</code></td><td>string</td><td>optional</td><td>Case-insensitive brand name substring (e.g. Anker, Samsung). Leave empty for all brands.</td></tr><tr><td><code>minRating</code></td><td>integer</td><td>optional</td><td>Keep only deals whose product rating is at least this value. Deals without a rating are excluded when this is set.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Keep deals at or above this price in the marketplace&#x27;s local currency.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Keep deals at or below this price in the marketplace&#x27;s local currency.</td></tr><tr><td><code>discountMin</code></td><td>integer</td><td>optional</td><td>Keep deals with at least this percentage off, filtered by Amazon itself.</td></tr><tr><td><code>discountMax</code></td><td>integer</td><td>optional</td><td>Keep deals with at most this percentage off, filtered by Amazon itself.</td></tr><tr><td><code>primeExclusiveOnly</code></td><td>boolean</td><td>optional</td><td>Only return deals in Amazon&#x27;s Prime Exclusive collection.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Featured keeps Amazon&#x27;s order. Other sorts read the fetched deal window before returning, so they may take longer.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted deal records. Amazon exposes up to 500 deals per category/collection query; add categories to partition the window.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape Amazon&#x27;s Today&#x27;s Deals grid by category, discount, price, collection and Prime status across 23 marketplaces. Includes rating, deal window and product details.&quot;,
   &quot;properties&quot;: {
     &quot;brand&quot;: {
       &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Free-text filter matched against each deal&#x27;s brand name (case-insensitive substring, e.g. `Anker`, `Samsung`). Leave empty for all brands.&quot;,
+      &quot;description&quot;: &quot;Case-insensitive brand name substring (e.g. Anker, Samsung). Leave empty for all brands.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
       &quot;prefill&quot;: &quot;&quot;,
       &quot;title&quot;: &quot;Brand&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;category&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Free-text filter matched against each deal&#x27;s department/category name (case-insensitive substring, e.g. `Electronics`, `Home`, `Toys`). Leave empty for all categories.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;&quot;,
-      &quot;title&quot;: &quot;Category / department&quot;,
-      &quot;type&quot;: &quot;string&quot;
+    &quot;categories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Amazon departments to scan. Common names: Electronics, Home &amp; Kitchen, Kitchen, Beauty &amp; Personal Care, Clothing Shoes &amp; Jewelry, Toys &amp; Games, Sports &amp; Outdoors, Books, Pet Supplies, Automotive, Health &amp; Household, Computers &amp; Accessories, Cell Phones &amp; Accessories, Video Games, Tools &amp; Home Improvement, Patio Lawn &amp; Garden, Baby Products, Office Products, Musical Instruments, Camera &amp; Photo, Grocery &amp; Gourmet Food, Amazon Devices &amp; Accessories. Add several categories to scan past Amazon&#x27;s 500-deal window.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Categories / departments&quot;,
+      &quot;type&quot;: &quot;array&quot;
     },
-    &quot;dealType&quot;: {
+    &quot;collection&quot;: {
       &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Only emit deals belonging to this collection bubble (the real filter chips Amazon shows atop the Deals page). Department-scoped bubbles (e.g. Customers&#x27; Most-Loved) are enforced by matching each deal&#x27;s department IDs; tag-scoped bubbles (Lightning Deals, Coupons, Outlet) can&#x27;t be verified per-deal from the grid data and pass through unfiltered. `(any deal type)` applies no filter.&quot;,
+      &quot;description&quot;: &quot;Restrict to one of Amazon&#x27;s curated deal collections. The collection names differ by marketplace; unsupported collections return a clear status record instead of unfiltered data.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;&quot;,
-        &quot;deals-collection-lightning-deals&quot;,
-        &quot;deals-collection-coupons&quot;,
-        &quot;us-outlet&quot;,
-        &quot;deals-collection-cml&quot;,
-        &quot;Lowest Price in 365 Days&quot;,
-        &quot;discounts-collection-for-you&quot;,
-        &quot;Premium&quot;,
-        &quot;SummerFavorites&quot;,
-        &quot;beauty&quot;,
-        &quot;fashion&quot;,
-        &quot;home&quot;,
-        &quot;toys-games&quot;,
-        &quot;electronics&quot;,
-        &quot;Devices&quot;,
-        &quot;kitchen&quot;,
-        &quot;everyday-essentials&quot;,
-        &quot;deals-collection-amazon-brands&quot;,
-        &quot;computer-accessories&quot;,
-        &quot;pet-supplies&quot;,
-        &quot;furniture&quot;,
-        &quot;tvs-accessories&quot;,
-        &quot;home-diy&quot;,
-        &quot;sport-outdoors&quot;,
-        &quot;grocery&quot;,
-        &quot;personal-care&quot;,
-        &quot;cell-phones-accessories&quot;,
-        &quot;small-business&quot;,
-        &quot;video-games&quot;,
-        &quot;lawn-garden&quot;,
-        &quot;automotive&quot;,
-        &quot;camera-photo&quot;,
-        &quot;books&quot;,
-        &quot;jewelry&quot;,
-        &quot;baby&quot;,
-        &quot;office-supplies&quot;,
-        &quot;musical-instruments&quot;,
-        &quot;deals-collection-refurbished&quot;
+        &quot;lightning-deals&quot;,
+        &quot;coupons&quot;,
+        &quot;outlet&quot;,
+        &quot;customers-most-loved&quot;,
+        &quot;new-arrivals&quot;,
+        &quot;trending&quot;,
+        &quot;prime-exclusive&quot;,
+        &quot;refurbished&quot;,
+        &quot;premium-brands&quot;,
+        &quot;amazon-brands&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;(any deal type)&quot;,
+        &quot;Any collection&quot;,
         &quot;Lightning Deals&quot;,
         &quot;Coupons&quot;,
         &quot;Outlet&quot;,
         &quot;Customers&#x27; Most-Loved&quot;,
-        &quot;Lowest Price in 365 Days&quot;,
-        &quot;For You&quot;,
+        &quot;New Arrivals&quot;,
+        &quot;Trending&quot;,
+        &quot;Prime Exclusive&quot;,
+        &quot;Refurbished&quot;,
         &quot;Premium Brands&quot;,
-        &quot;Summer Favorites&quot;,
-        &quot;Beauty&quot;,
-        &quot;Fashion&quot;,
-        &quot;Home&quot;,
-        &quot;Toys &amp; Games&quot;,
-        &quot;Electronics&quot;,
-        &quot;Devices&quot;,
-        &quot;Kitchen&quot;,
-        &quot;Everyday Essentials&quot;,
-        &quot;Amazon Brands&quot;,
-        &quot;Computers &amp; Accessories&quot;,
-        &quot;Pet Supplies&quot;,
-        &quot;Furniture&quot;,
-        &quot;TVs &amp; Accessories&quot;,
-        &quot;Home DIY &amp; Appliances&quot;,
-        &quot;Sports &amp; Outdoors&quot;,
-        &quot;Grocery&quot;,
-        &quot;Health &amp; Household&quot;,
-        &quot;Cell Phones &amp; Accessories&quot;,
-        &quot;Small Business&quot;,
-        &quot;Video Games&quot;,
-        &quot;Lawn &amp; Garden&quot;,
-        &quot;Automotive&quot;,
-        &quot;Camera &amp; Photo&quot;,
-        &quot;Books&quot;,
-        &quot;Jewelry&quot;,
-        &quot;Baby&quot;,
-        &quot;Office Supplies&quot;,
-        &quot;Musical Instruments&quot;,
-        &quot;Refurbished Products&quot;
+        &quot;Amazon Brands&quot;
       ],
       &quot;prefill&quot;: &quot;&quot;,
-      &quot;title&quot;: &quot;Deal type&quot;,
+      &quot;title&quot;: &quot;Deal collection&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;discountMax&quot;: {
-      &quot;description&quot;: &quot;Drop deals with a savings percentage above this value.&quot;,
+      &quot;description&quot;: &quot;Keep deals with at most this percentage off, filtered by Amazon itself.&quot;,
       &quot;maximum&quot;: 100,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Max discount %&quot;,
+      &quot;title&quot;: &quot;Maximum discount (%)&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;discountMin&quot;: {
-      &quot;description&quot;: &quot;Drop deals with a savings percentage below this value.&quot;,
+      &quot;description&quot;: &quot;Keep deals with at least this percentage off, filtered by Amazon itself.&quot;,
       &quot;maximum&quot;: 100,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min discount %&quot;,
+      &quot;title&quot;: &quot;Minimum discount (%)&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;marketplace&quot;: {
@@ -179,66 +128,74 @@
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 30,
-      &quot;description&quot;: &quot;Hard cap on emitted deal records.&quot;,
+      &quot;description&quot;: &quot;Hard cap on emitted deal records. Amazon exposes up to 500 deals per category/collection query; add categories to partition the window.&quot;,
       &quot;maximum&quot;: 2000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 30,
+      &quot;prefill&quot;: 3,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;maxPages&quot;: {
-      &quot;default&quot;: 5,
-      &quot;description&quot;: &quot;Hard cap on how many grid pages (up to 30 items each) to walk (each page is a fresh in-browser fetch of the widget&#x27;s own pagination request).&quot;,
-      &quot;maximum&quot;: 50,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 5,
-      &quot;title&quot;: &quot;Max pages&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
     &quot;minRating&quot;: {
-      &quot;description&quot;: &quot;Only emit deals with a star rating at or above this value. Deals without a visible rating pass through unless this is set.&quot;,
+      &quot;description&quot;: &quot;Keep only deals whose product rating is at least this value. Deals without a rating are excluded when this is set.&quot;,
       &quot;maximum&quot;: 5,
       &quot;minimum&quot;: 1,
-      &quot;title&quot;: &quot;Minimum star rating (1-5)&quot;,
+      &quot;title&quot;: &quot;Minimum rating&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;priceMax&quot;: {
-      &quot;description&quot;: &quot;Drop deals priced above this amount (in the marketplace&#x27;s local currency).&quot;,
+      &quot;description&quot;: &quot;Keep deals at or below this price in the marketplace&#x27;s local currency.&quot;,
       &quot;maximum&quot;: 100000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Max deal price&quot;,
+      &quot;title&quot;: &quot;Maximum deal price&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;priceMin&quot;: {
-      &quot;description&quot;: &quot;Drop deals priced below this amount (in the marketplace&#x27;s local currency).&quot;,
+      &quot;description&quot;: &quot;Keep deals at or above this price in the marketplace&#x27;s local currency.&quot;,
       &quot;maximum&quot;: 100000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min deal price&quot;,
+      &quot;title&quot;: &quot;Minimum deal price&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;proxyConfiguration&quot;: {
-      &quot;default&quot;: {
-        &quot;useApifyProxy&quot;: true
-      },
-      &quot;description&quot;: &quot;Apify proxy used to fetch the Deals page. AUTO (datacenter) is used by default; the actor escalates to residential automatically only after repeated block detections within a run.&quot;,
-      &quot;editor&quot;: &quot;proxy&quot;,
-      &quot;prefill&quot;: {
-        &quot;useApifyProxy&quot;: true
-      },
-      &quot;title&quot;: &quot;Proxy configuration&quot;,
-      &quot;type&quot;: &quot;object&quot;
+    &quot;primeExclusiveOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only return deals in Amazon&#x27;s Prime Exclusive collection.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Prime Exclusive deals only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;featured&quot;,
+      &quot;description&quot;: &quot;Featured keeps Amazon&#x27;s order. Other sorts read the fetched deal window before returning, so they may take longer.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;featured&quot;,
+        &quot;priceLow&quot;,
+        &quot;priceHigh&quot;,
+        &quot;discountHigh&quot;,
+        &quot;ratingHigh&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Amazon featured&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;,
+        &quot;Biggest discount&quot;,
+        &quot;Highest rating&quot;
+      ],
+      &quot;prefill&quot;: &quot;featured&quot;,
+      &quot;title&quot;: &quot;Sort results&quot;,
+      &quot;type&quot;: &quot;string&quot;
     }
   },
   &quot;required&quot;: [
     &quot;marketplace&quot;
   ],
   &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Amazon Deals Scraper Input&quot;,
+  &quot;title&quot;: &quot;Amazon Deals Grid Tracker Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
 </code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>deals</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Amazon deals.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;One record per discounted product on Amazon&#x27;s Today&#x27;s Deals grid, with ASIN, title, images, deal/list price, savings amount/percent, deal type, and brand/department IDs.&quot;,
+  &quot;description&quot;: &quot;One record per discounted product on Amazon&#x27;s Today&#x27;s Deals grid: ASIN, title, images, local-currency deal/list price, savings, rating and review histogram, deal window, collection, brand and category.&quot;,
   &quot;properties&quot;: {
     &quot;deals&quot;: {
       &quot;description&quot;: &quot;Dataset containing all scraped Amazon deals.&quot;,
@@ -247,7 +204,7 @@
       &quot;type&quot;: &quot;string&quot;
     }
   },
-  &quot;title&quot;: &quot;Amazon Deals Grid Tracker by Category &amp; Discount Output&quot;
+  &quot;title&quot;: &quot;Amazon Deals Grid Tracker Output&quot;
 }
 </code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorSpecification&quot;: 1,
@@ -263,9 +220,10 @@
           &quot;asin&quot;,
           &quot;title&quot;,
           &quot;dealPrice&quot;,
-          &quot;listPrice&quot;,
           &quot;savingsPercent&quot;,
-          &quot;dealType&quot;,
+          &quot;averageRating&quot;,
+          &quot;dealEndsAt&quot;,
+          &quot;category&quot;,
           &quot;sourceUrl&quot;
         ]
       }
@@ -273,47 +231,50 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-amazon-deals-grid-tracker-by-category-discount">Amazon Deals Grid Tracker by Category &amp; Discount</h2>
-<p>Pull Amazon's &quot;Today's Deals&quot; grid across 23 marketplaces and get every discounted product's ASIN, title, images, brand, department/category, variation options, and pinned status back as a structured record. Filter by category, brand, price range, discount range, and deal type (see FAQ for the current status of the <code>minRating</code> filter). No login required.</p>
+<p>Turn Amazon's Today's Deals grid into a clean dataset of discounted products — ASIN, title, images, local-currency deal and list price, discount, rating and review histogram, deal window, collection, brand and category. Filter by department, discount, price, collection and Prime status across 23 marketplaces. No login, cookies or proxy setup.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li><strong>23 marketplaces</strong> — amazon.com, .co.uk, .de, .fr, .it, .es, .ca, .com.au, .co.jp, .in, .com.br, .com.mx, .nl, .se, .pl, .com.tr, .ae, .sa, .sg, .eg, .ie, .com.be, .co.za</li>
-<li><strong>Filters:</strong> category/department, brand, deal price range, discount percent range, deal type (real collection bubbles Amazon shows on the page); a <code>minRating</code> input also exists but currently has no effect since Amazon's Deals grid never exposes per-deal ratings (see FAQ)</li>
-<li><strong>Deal fields:</strong> title, images, deal/list price, savings amount/percent, deal badge text/messaging, countdown-badge expiry timestamp, claim progress, deal state/promotion type, lightning-deal flag, brand name/ID, department names/IDs, category, variation options, pinned flag</li>
-<li><strong>Pagination:</strong> walks the deals grid page by page up to your limits</li>
-<li><strong>Empty fields are omitted</strong></li>
+<li><strong>23 Amazon marketplaces</strong> — amazon.com, .co.uk, .de, .fr, .it, .es, .ca, .com.au, .co.jp, .in, .com.br, .com.mx, .nl, .se, .pl, .com.tr, .ae, .sa, .sg, .eg, .ie, .com.be, .co.za. 20 of 23 answered during testing; amazon.com.br, amazon.com.tr and amazon.co.za returned 503 and remain best-effort.</li>
+<li><strong>Amazon-applied filters</strong> — department/category, discount range, price range and Prime Exclusive deals are filtered by Amazon before the rows are read.</li>
+<li><strong>Deal collections</strong> — Lightning Deals, Coupons, Outlet, Customers' Most-Loved, New Arrivals, Trending, Prime Exclusive, Refurbished, Premium Brands and Amazon Brands.</li>
+<li><strong>Ratings and reviews summary</strong> — average rating, ratings count and the full 5→1 star histogram, from Amazon's own product summary.</li>
+<li><strong>Deal urgency</strong> — deal start and end time, badge text, deal state, promotion type and percent claimed (when Amazon exposes it, especially on Lightning Deals).</li>
+<li><strong>Local prices</strong> — prices are returned in the marketplace's local currency. When Amazon only serves a converted display price in another currency, the price is omitted instead of being mislabelled.</li>
+<li><strong>Multi-category runs</strong> — add several categories to move past Amazon's 500-deal window for a single query.</li>
+<li><strong>Empty fields are omitted</strong> — never <code>null</code>, never a fabricated zero.</li>
 </ul>
 <h2 id="readme-output-per-deal">Output per deal</h2>
 <ul>
 <li><code>asin</code> — Amazon Standard Identification Number</li>
 <li><code>title</code> — product title</li>
 <li><code>sourceUrl</code> — canonical product URL</li>
-<li><code>images[]</code> — product image URLs (hi-res and low-res variants)</li>
-<li><code>dealPrice</code>, <code>listPrice</code> — <code>{value, currency, display}</code> — included whenever Amazon's Deals grid carries live pricing for that specific deal (a real subset of deals — typically roughly half on any given fetch — genuinely have no price data attached, e.g. brand-level coupon promos; never fabricated, see FAQ)</li>
-<li><code>savingsAmount</code>, <code>savingsPercent</code> — included whenever Amazon exposes them (derived from the deal's own price fields and/or its badge percentage, whichever is present)</li>
-<li><code>dealBadgeText</code> — the deal grid's own badge label (e.g. <code>&quot;15% off&quot;</code>), when shown</li>
-<li><code>dealBadgeMessage</code> — the badge's messaging line (e.g. <code>&quot;Limited time deal&quot;</code>), when shown</li>
-<li><code>dealEndsAt</code> — ISO-8601 UTC expiry timestamp for a Lightning-Deal-style countdown badge (e.g. <code>&quot;Ends in&quot;</code>), when Amazon exposes one for that deal</li>
-<li><code>percentClaimed</code>, <code>percentClaimedMessage</code> — live claim-progress for the deal (e.g. <code>34.0</code>, <code>&quot;34% claimed&quot;</code>), when Amazon exposes it for that deal</li>
-<li><code>dealState</code> — the deal's live state as Amazon reports it (e.g. <code>AVAILABLE</code>)</li>
-<li><code>dealPromotionType</code> — Amazon's internal promotion classification for the deal (e.g. <code>BEST_DEAL</code>, <code>LIGHTNING_DEAL</code>)</li>
-<li><code>isLightningDeal</code> — boolean, whether Amazon's own cart data flags this as a Lightning Deal</li>
-<li><code>brandId</code>, <code>brandName</code> — Amazon's internal brand ID and its resolved display name</li>
-<li><code>departmentIds[]</code>, <code>departmentNames[]</code> — Amazon's internal department/category IDs and resolved names</li>
-<li><code>categorySymbol</code>, <code>productType</code> — Amazon's internal category taxonomy codes</li>
-<li><code>brandLogoUrl</code> — the brand's logo image, when shown</li>
-<li><code>variationDimensions</code> — variant/size/color options and their ASINs (when present)</li>
-<li><code>isPinned</code> — whether Amazon pinned this deal</li>
-<li><code>dealId</code> — stable deal/promotion ID (when exposed by the widget)</li>
-<li><code>position</code> — 1-based rank in the deals grid</li>
-<li><code>recordType: &quot;deal&quot;</code>, <code>scrapedAt</code></li>
+<li><code>images[]</code> — product image URLs</li>
+<li><code>marketplace</code> — the Amazon domain</li>
+<li><code>dealPrice</code>, <code>listPrice</code> — <code>{value, currency, display}</code> in the marketplace's local currency</li>
+<li><code>currency</code> — ISO code shared by the price fields, when a price is present</li>
+<li><code>dealPriceLabel</code>, <code>listPriceLabel</code> — Amazon's own labels (<code>Deal Price</code>, <code>List</code>, <code>Typical</code>, <code>Was</code>, <code>RRP</code>, …), when shown</li>
+<li><code>savingsAmount</code>, <code>savingsPercent</code> — money and percent saved</li>
+<li><code>dealBadgeText</code>, <code>dealBadgeMessage</code> — badge label and messaging (<code>25% off</code>, <code>Limited time deal</code>, <code>Ends in</code>, …)</li>
+<li><code>dealStartsAt</code>, <code>dealEndsAt</code> — ISO-8601 UTC promotion window, when Amazon exposes it</li>
+<li><code>percentClaimed</code>, <code>percentClaimedMessage</code> — live claim progress for limited offers</li>
+<li><code>dealState</code>, <code>dealPromotionType</code>, <code>dealId</code> — Amazon's deal state/type/id</li>
+<li><code>isLightningDeal</code> — whether the row is a Lightning Deal</li>
+<li><code>averageRating</code>, <code>ratingsCount</code>, <code>ratingHistogram</code> — product rating summary; histogram keys are <code>&quot;5&quot;</code>…<code>&quot;1&quot;</code> percentages</li>
+<li><code>ratingCountByStar</code> — derived counts from the histogram and total ratings (rounded)</li>
+<li><code>isPrimeExclusive</code> — present and <code>true</code> when Amazon labels the deal a Prime deal (<code>Limited Prime deal</code>) or the Prime filter is active</li>
+<li><code>brandId</code>, <code>brandName</code>, <code>brandLogoUrl</code> — brand metadata</li>
+<li><code>departmentIds[]</code>, <code>departmentNames[]</code>, <code>category</code> — Amazon's department taxonomy and a readable category</li>
+<li><code>categorySymbol</code>, <code>glProductGroup</code>, <code>productType</code> — Amazon taxonomy codes</li>
+<li><code>variationDimensions</code> — size/colour/variant options when present</li>
+<li><code>isPinned</code>, <code>position</code>, <code>recordType: &quot;deal&quot;</code>, <code>scrapedAt</code></li>
 </ul>
 <h3 id="readme-when-no-deals-are-emitted">When no deals are emitted</h3>
-<p>If a run ends with zero <code>&quot;deal&quot;</code> records, it also pushes exactly one <code>recordType: &quot;status&quot;</code> record instead of leaving the dataset empty with no explanation — so you can tell a real failure apart from a clean run that legitimately found nothing, without needing to read the run log:</p>
+<p>If a run ends with zero deal rows, it pushes exactly one <code>recordType: &quot;status&quot;</code> row so an empty dataset is never ambiguous:</p>
 <ul>
-<li><code>success: false</code> — the Deals grid was never reached, with a <code>reason</code> of <code>BLOCKED</code> (couldn't get past bot-detection/redirect handling after retries — check <code>classification</code> for the specific cause), <code>WIDGET_NOT_FOUND</code> (page fetched cleanly but the deals widget wasn't present), or <code>NO_ENTRIES</code> (widget found but empty)</li>
-<li><code>success: true, reason: &quot;NO_MATCHES&quot;</code> — the Deals grid was fetched and parsed successfully, but every entry was filtered out by your <code>category</code>/<code>brand</code>/<code>priceMin</code>-<code>priceMax</code>/<code>discountMin</code>-<code>discountMax</code>/<code>dealType</code> filters (or the marketplace's grid was genuinely empty that day)</li>
+<li><code>success: false</code> — the grid could not be reached (<code>BLOCKED</code>), the widget was missing (<code>WIDGET_NOT_FOUND</code>), the grid was empty (<code>NO_ENTRIES</code>), or the requested collection is not shown on this marketplace today (<code>COLLECTION_NOT_FOUND</code>)</li>
+<li><code>success: true, reason: &quot;NO_MATCHES&quot;</code> — the grid was read successfully but every deal was filtered out</li>
 </ul>
-<p>Every status record also carries <code>marketplace</code>, <code>message</code> (human-readable), and <code>scrapedAt</code>.</p>
+<p>Every status row also carries <code>marketplace</code>, <code>message</code> and <code>scrapedAt</code>.</p>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -327,106 +288,109 @@
 <tbody>
 <tr>
 <td><code>marketplace</code></td>
-<td>string</td>
+<td>select</td>
 <td><code>amazon.com</code></td>
-<td>Which Amazon domain's Deals page to scrape</td>
+<td>Which Amazon domain's Deals page to read</td>
 </tr>
 <tr>
-<td><code>dealType</code></td>
-<td>string</td>
-<td><code>(any)</code></td>
-<td>Real collection bubble Amazon shows on the page — Lightning Deals / Coupons / Outlet / Customers' Most-Loved / Lowest Price in 365 Days / plus 30+ per-category bubbles (Electronics, Beauty, Fashion, Home, Toys &amp; Games, etc.), all live-verified against amazon.com/deals</td>
-</tr>
-<tr>
-<td><code>category</code></td>
-<td>string</td>
+<td><code>categories</code></td>
+<td>list</td>
 <td>–</td>
-<td>Free-text filter matched against department name / category taxonomy code</td>
+<td>Departments such as Electronics, Home &amp; Kitchen, Kitchen, Beauty &amp; Personal Care, Toys &amp; Games, Sports &amp; Outdoors. Add several to scan past the 500-deal window</td>
+</tr>
+<tr>
+<td><code>collection</code></td>
+<td>select</td>
+<td>any</td>
+<td>Lightning Deals, Coupons, Outlet, Customers' Most-Loved, New Arrivals, Trending, Prime Exclusive, Refurbished, Premium Brands, Amazon Brands</td>
 </tr>
 <tr>
 <td><code>brand</code></td>
 <td>string</td>
 <td>–</td>
-<td>Free-text brand substring filter</td>
+<td>Case-insensitive brand substring</td>
 </tr>
 <tr>
 <td><code>minRating</code></td>
 <td>int</td>
 <td>–</td>
-<td>Minimum star rating (1-5) — currently a no-op; see FAQ</td>
+<td>Keep products rated at least this value; unrated products are excluded when set</td>
 </tr>
 <tr>
 <td><code>priceMin</code> / <code>priceMax</code></td>
 <td>int</td>
 <td>–</td>
-<td>Deal price range (local currency, when price data is available — see FAQ)</td>
+<td>Deal-price range in local currency</td>
 </tr>
 <tr>
 <td><code>discountMin</code> / <code>discountMax</code></td>
 <td>int</td>
 <td>–</td>
-<td>Discount percent range (when available — see FAQ)</td>
+<td>Discount percentage range</td>
+</tr>
+<tr>
+<td><code>primeExclusiveOnly</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Only Prime Exclusive deals</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>featured</code></td>
+<td>Amazon featured, price low/high, biggest discount, highest rating</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>int</td>
-<td><code>30</code></td>
-<td>Hard cap on emitted deals (1-2000)</td>
-</tr>
-<tr>
-<td><code>maxPages</code></td>
-<td>int</td>
-<td><code>5</code></td>
-<td>Hard cap on grid pages walked (1-50)</td>
-</tr>
-<tr>
-<td><code>proxyConfiguration</code></td>
-<td>object</td>
-<td>AUTO</td>
-<td>Apify proxy configuration for fetching the Deals page</td>
+<td>30</td>
+<td>Hard cap on emitted deals (1–2000)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-default-us-deals-grid">Example: default US deals grid</h3>
+<h3 id="readme-example-us-electronics-deals-with-at-least-25-off">Example: US Electronics deals with at least 25% off</h3>
 <pre><code class="language-json">{
   &quot;marketplace&quot;: &quot;amazon.com&quot;,
-  &quot;maxItems&quot;: 30
+  &quot;categories&quot;: [&quot;Electronics&quot;],
+  &quot;discountMin&quot;: 25,
+  &quot;minRating&quot;: 4,
+  &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-home-kitchen-deals-from-a-specific-brand">Example: home &amp; kitchen deals from a specific brand</h3>
+<h3 id="readme-example-uk-lightning-deals">Example: UK Lightning Deals</h3>
 <pre><code class="language-json">{
-  &quot;marketplace&quot;: &quot;amazon.com&quot;,
-  &quot;category&quot;: &quot;Home &amp; Kitchen&quot;,
-  &quot;brand&quot;: &quot;Bissell&quot;,
+  &quot;marketplace&quot;: &quot;amazon.co.uk&quot;,
+  &quot;collection&quot;: &quot;lightning-deals&quot;,
   &quot;maxItems&quot;: 60
 }
 </code></pre>
-<h3 id="readme-example-uk-customers-most-loved-deals-with-a-4-star-minimum">Example: UK Customers' Most-Loved deals with a 4-star minimum</h3>
+<h3 id="readme-example-three-categories-in-one-run">Example: three categories in one run</h3>
 <pre><code class="language-json">{
-  &quot;marketplace&quot;: &quot;amazon.co.uk&quot;,
-  &quot;dealType&quot;: &quot;deals-collection-cml&quot;,
-  &quot;minRating&quot;: 4,
-  &quot;maxItems&quot;: 50
+  &quot;marketplace&quot;: &quot;amazon.com&quot;,
+  &quot;categories&quot;: [&quot;Electronics&quot;, &quot;Home &amp; Kitchen&quot;, &quot;Kitchen&quot;],
+  &quot;discountMin&quot;: 20,
+  &quot;maxItems&quot;: 300
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Deal aggregators</strong> — build a curated &quot;today's deals&quot; catalog feed</li>
-<li><strong>Competitive intelligence</strong> — see which brands/categories Amazon is currently discounting</li>
-<li><strong>Merchandising research</strong> — track which products get pinned/featured in the Deals grid</li>
-<li><strong>Shopping assistants</strong> — surface deals matching a user's category/brand interest</li>
-<li><strong>Catalog enrichment</strong> — pull variation options (size/color) and brand metadata for deal ASINs</li>
+<li><strong>Deal feeds and newsletters</strong> — a fresh, structured snapshot of today's discounts by category and collection.</li>
+<li><strong>Competitive intelligence</strong> — which brands and categories Amazon is discounting, and how deep.</li>
+<li><strong>Price and promotion monitoring</strong> — track deal windows, Lightning Deal urgency and changes between scheduled runs.</li>
+<li><strong>Shopping assistants</strong> — surface highly rated deals that meet a price and discount floor.</li>
+<li><strong>Market research</strong> — compare discount depth and category mix across Amazon marketplaces.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Does this require an Amazon account or cookies?</strong>  No. The Deals page is publicly browsable; the actor scrapes it directly with no login.</p>
-<p><strong>Why don't I see <code>dealPrice</code>, <code>listPrice</code>, <code>savingsPercent</code>, <code>dealBadgeText</code> or <code>percentClaimed</code> on every record?</strong>  Amazon's own Deals grid data genuinely omits price/badge/claim-progress information for a real subset of deals on any given fetch (commonly brand-level coupon promos with no single &quot;deal price&quot; to show). The actor never fabricates these fields — it populates them whenever Amazon's page includes them for that specific deal, and omits them entirely otherwise. All the catalog/structural fields (title, images, brand, category, variations) are always populated when Amazon shows them.</p>
-<p><strong>Why do a few records occasionally show an implausibly large <code>dealPrice</code>/<code>listPrice</code>?</strong>  On rare fetches, Amazon's own Deals grid data itself carries an inflated numeric value for a handful of deals — independently confirmed live by inspecting the raw page data byte-for-byte, not an actor parsing/arithmetic error (the actor's <code>savingsPercent</code> math on these records is still internally correct — e.g. a genuinely-computed &quot;30% off&quot; — only the absolute base price is implausible). This appears tied to sessions Amazon treats as higher-risk/automated (the same class of session-dependent behavior that can also cause Amazon to render a different regional currency than expected); the actor does not attempt to &quot;correct&quot; these values since there is no reliable way to distinguish a genuinely expensive real deal from an inflated one without fabricating a number. If you filter downstream by price, treat an outlier far outside a category's normal range with appropriate skepticism.</p>
-<p><strong>Why is <code>dealType</code> filtering only &quot;best effort&quot; for some values?</strong>  Amazon's Deals page groups deals into filter &quot;bubbles&quot;. Category-style bubbles (e.g. Customers' Most-Loved) are backed by an explicit department list, so the actor can verify membership per deal. Promotion-style bubbles (Lightning Deals, Coupons, Outlet) aren't tagged per-item in the grid data the actor can see, so those filters pass every deal through rather than risk wrongly excluding a real match. Additionally, not every <code>dealType</code> value is guaranteed to render as a live bubble on every one of the 23 supported marketplaces on a given day (e.g. a smaller marketplace's Deals page may simply not have a &quot;Jewelry&quot; bubble today) — when this happens the actor logs a warning and passes every deal through unfiltered rather than silently returning zero results; check the run log if a <code>dealType</code> filter appears to have had no effect.</p>
-<p><strong>Why does <code>sourceUrl</code> return a 503 if I fetch it with a plain script?</strong>  Amazon aggressively blocks plain, non-browser requests — a bare request with no session or JavaScript can get a 503 &quot;Service Unavailable&quot; even though the same URL loads fine for a real shopper's browser. The URLs in the output are the correct, canonical Amazon product URLs and render normally when opened in an actual browser.</p>
-<p><strong>Does <code>minRating</code> actually filter anything?</strong>  Not currently, in practice. Amazon's Deals grid data (the same page payload documented above) never includes a per-deal star rating — only structural/catalog fields do. Since the actor never excludes a deal on the <em>absence</em> of rating evidence (per its no-fabrication rule), <code>minRating</code> currently passes every deal through unfiltered rather than risk wrongly dropping real matches. The input is kept because a future/differently-trusted session could expose rating data the way it can expose pricing; if you need rating-based filtering today, filter the output dataset by <code>stars</code> after the run (it will simply be absent on every current record).</p>
-<p><strong>Do <code>priceMin</code>/<code>priceMax</code>/<code>discountMin</code>/<code>discountMax</code> exclude deals with missing price/savings data, or let them through?</strong>  They let them through. Every filter in this actor follows the same rule: a deal is only ever <em>excluded</em> when it has real, present evidence that contradicts the filter — never on the <em>absence</em> of the field the filter checks (see &quot;Why don't I see <code>dealPrice</code>...&quot; above; the same real subset of deals genuinely has no price/savings data on any given fetch). So <code>discountMin: 10</code> will exclude a deal it can see has e.g. a 5% discount, but will still include a deal with no <code>savingsPercent</code> at all — its real discount is simply unknown, not verified to be below your threshold. If your workflow needs a hard guarantee (&quot;only deals I can <em>confirm</em> meet the discount floor&quot;), filter the output dataset post-run by checking <code>savingsPercent</code> is present and satisfies your threshold yourself, rather than relying on the actor's own filter to have done that exclusion for you.</p>
-<p><strong>How many deals can I get per run?</strong>  Amazon's Deals grid returns up to 30 items per page (occasionally fewer, depending on catalog/session state). The actor attempts to walk further pages by reproducing the grid's own &quot;load more&quot; request live in-browser; if Amazon doesn't expose a further page in a given session, the actor stops cleanly rather than guessing. Each deal's <code>position</code> is always a gapless, 1-based rank across the full run regardless of how many items any individual page actually returned.</p>
-<p><strong>What if my category/brand filter returns 0 results?</strong>  These are free-text substring filters matched against the department name / category code / brand name Amazon exposes on each deal. If nothing matches, widen or clear the filter.</p>
-<p><strong>Is this affiliated with Amazon?</strong>  No, this is an independent third-party actor that scrapes Amazon's public Deals page.</p>
-<p><strong>How fresh is the data?</strong>  As fresh as the live page at run time — Amazon refreshes its Deals grid continuously throughout the day.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/yZ5tcZFmAAXi1egIo/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>2PAYdDiIb9k36uE3e</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<p><strong>Does this require an Amazon account or cookies?</strong> No. The Deals grid and its product summaries are public. The actor works cookielessly, and no proxy setup is required.</p>
+<p><strong>How many deals can I get?</strong> Amazon exposes up to 500 deals per category/collection query. Add more categories to partition that window; <code>maxItems</code> can go up to 2,000 across categories. A single query stops honestly when Amazon's window is exhausted. Amazon can also reshuffle the grid between pages, so after de-duplication one window may return fewer than 500 unique deals.</p>
+<p><strong>Why do some rows have no <code>dealPrice</code> or <code>discount</code>?</strong> Amazon genuinely omits price and discount data for a subset of deals (for example, some coupon-only promotions), and it omits a local price when only a converted display price is available. The actor never guesses, converts or fills a zero. Price and discount filters exclude rows that cannot be verified.</p>
+<p><strong>How does <code>minRating</code> work now?</strong> Ratings come from Amazon's own product summary, so <code>minRating</code> filters real values. If a product has no rating, it is excluded when <code>minRating</code> is set.</p>
+<p><strong>Why is <code>percentClaimed</code> missing on many rows?</strong> Amazon exposes claim progress mainly for limited/urgent offers such as Lightning Deals. It is populated when present and omitted otherwise.</p>
+<p><strong>Why don't I see shipping, seller, stock, Best Sellers Rank or review text?</strong> Those fields are not part of the Deals grid or its product-summary data. This actor stays focused on deals; use a product-details or reviews actor for those fields.</p>
+<p><strong>Why is the currency different from what I see on Amazon?</strong> Amazon can show a converted price based on the visitor's location. This actor reports the marketplace's local price (for example, GBP on amazon.co.uk) so rows from different marketplaces stay comparable.</p>
+<p><strong>Why does a collection sometimes return a <code>COLLECTION_NOT_FOUND</code> status?</strong> Amazon's collections differ by marketplace and change seasonally. The actor reports the missing collection plainly instead of silently returning unfiltered deals.</p>
+<p><strong>Why can <code>sortBy</code> take longer?</strong> Amazon has no server-side sort for the Deals grid. To return the cheapest or highest-rated deals, the actor reads the available window first, then sorts it.</p>
+<p><strong>Why does <code>sourceUrl</code> return 503 in a plain script?</strong> Amazon blocks bare non-browser requests on product pages. The URL is the canonical product page and opens normally in a browser.</p>
+<p><strong>Is this affiliated with Amazon?</strong> No. This is an independent third-party actor that reads Amazon's public Deals pages.</p>
+<p><strong>How fresh is the data?</strong> As fresh as the live Deals grid at run time. Deals rotate throughout the day, so schedule the actor as often as your use case needs.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/yZ5tcZFmAAXi1egIo/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>jBUJUe5UwT4agcDX0</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -4,124 +4,131 @@
 
 # Amazon Deals Grid Tracker by Category & Discount
 
-Pull Amazon's "Today's Deals" grid across 23 marketplaces and get every discounted product's ASIN, title, images, brand, department/category, variation options, and pinned status back as a structured record. Filter by category, brand, price range, discount range, and deal type (see FAQ for the current status of the `minRating` filter). No login required.
+Turn Amazon's Today's Deals grid into a clean dataset of discounted products — ASIN, title, images, local-currency deal and list price, discount, rating and review histogram, deal window, collection, brand and category. Filter by department, discount, price, collection and Prime status across 23 marketplaces. No login, cookies or proxy setup.
 
 ## What this actor does
 
-- **23 marketplaces** — amazon.com, .co.uk, .de, .fr, .it, .es, .ca, .com.au, .co.jp, .in, .com.br, .com.mx, .nl, .se, .pl, .com.tr, .ae, .sa, .sg, .eg, .ie, .com.be, .co.za
-- **Filters:** category/department, brand, deal price range, discount percent range, deal type (real collection bubbles Amazon shows on the page); a `minRating` input also exists but currently has no effect since Amazon's Deals grid never exposes per-deal ratings (see FAQ)
-- **Deal fields:** title, images, deal/list price, savings amount/percent, deal badge text/messaging, countdown-badge expiry timestamp, claim progress, deal state/promotion type, lightning-deal flag, brand name/ID, department names/IDs, category, variation options, pinned flag
-- **Pagination:** walks the deals grid page by page up to your limits
-- **Empty fields are omitted**
+- **23 Amazon marketplaces** — amazon.com, .co.uk, .de, .fr, .it, .es, .ca, .com.au, .co.jp, .in, .com.br, .com.mx, .nl, .se, .pl, .com.tr, .ae, .sa, .sg, .eg, .ie, .com.be, .co.za. 20 of 23 answered during testing; amazon.com.br, amazon.com.tr and amazon.co.za returned 503 and remain best-effort.
+- **Amazon-applied filters** — department/category, discount range, price range and Prime Exclusive deals are filtered by Amazon before the rows are read.
+- **Deal collections** — Lightning Deals, Coupons, Outlet, Customers' Most-Loved, New Arrivals, Trending, Prime Exclusive, Refurbished, Premium Brands and Amazon Brands.
+- **Ratings and reviews summary** — average rating, ratings count and the full 5→1 star histogram, from Amazon's own product summary.
+- **Deal urgency** — deal start and end time, badge text, deal state, promotion type and percent claimed (when Amazon exposes it, especially on Lightning Deals).
+- **Local prices** — prices are returned in the marketplace's local currency. When Amazon only serves a converted display price in another currency, the price is omitted instead of being mislabelled.
+- **Multi-category runs** — add several categories to move past Amazon's 500-deal window for a single query.
+- **Empty fields are omitted** — never `null`, never a fabricated zero.
 
 ## Output per deal
 
 - `asin` — Amazon Standard Identification Number
 - `title` — product title
 - `sourceUrl` — canonical product URL
-- `images[]` — product image URLs (hi-res and low-res variants)
-- `dealPrice`, `listPrice` — `{value, currency, display}` — included whenever Amazon's Deals grid carries live pricing for that specific deal (a real subset of deals — typically roughly half on any given fetch — genuinely have no price data attached, e.g. brand-level coupon promos; never fabricated, see FAQ)
-- `savingsAmount`, `savingsPercent` — included whenever Amazon exposes them (derived from the deal's own price fields and/or its badge percentage, whichever is present)
-- `dealBadgeText` — the deal grid's own badge label (e.g. `"15% off"`), when shown
-- `dealBadgeMessage` — the badge's messaging line (e.g. `"Limited time deal"`), when shown
-- `dealEndsAt` — ISO-8601 UTC expiry timestamp for a Lightning-Deal-style countdown badge (e.g. `"Ends in"`), when Amazon exposes one for that deal
-- `percentClaimed`, `percentClaimedMessage` — live claim-progress for the deal (e.g. `34.0`, `"34% claimed"`), when Amazon exposes it for that deal
-- `dealState` — the deal's live state as Amazon reports it (e.g. `AVAILABLE`)
-- `dealPromotionType` — Amazon's internal promotion classification for the deal (e.g. `BEST_DEAL`, `LIGHTNING_DEAL`)
-- `isLightningDeal` — boolean, whether Amazon's own cart data flags this as a Lightning Deal
-- `brandId`, `brandName` — Amazon's internal brand ID and its resolved display name
-- `departmentIds[]`, `departmentNames[]` — Amazon's internal department/category IDs and resolved names
-- `categorySymbol`, `productType` — Amazon's internal category taxonomy codes
-- `brandLogoUrl` — the brand's logo image, when shown
-- `variationDimensions` — variant/size/color options and their ASINs (when present)
-- `isPinned` — whether Amazon pinned this deal
-- `dealId` — stable deal/promotion ID (when exposed by the widget)
-- `position` — 1-based rank in the deals grid
-- `recordType: "deal"`, `scrapedAt`
+- `images[]` — product image URLs
+- `marketplace` — the Amazon domain
+- `dealPrice`, `listPrice` — `{value, currency, display}` in the marketplace's local currency
+- `currency` — ISO code shared by the price fields, when a price is present
+- `dealPriceLabel`, `listPriceLabel` — Amazon's own labels (`Deal Price`, `List`, `Typical`, `Was`, `RRP`, …), when shown
+- `savingsAmount`, `savingsPercent` — money and percent saved
+- `dealBadgeText`, `dealBadgeMessage` — badge label and messaging (`25% off`, `Limited time deal`, `Ends in`, …)
+- `dealStartsAt`, `dealEndsAt` — ISO-8601 UTC promotion window, when Amazon exposes it
+- `percentClaimed`, `percentClaimedMessage` — live claim progress for limited offers
+- `dealState`, `dealPromotionType`, `dealId` — Amazon's deal state/type/id
+- `isLightningDeal` — whether the row is a Lightning Deal
+- `averageRating`, `ratingsCount`, `ratingHistogram` — product rating summary; histogram keys are `"5"`…`"1"` percentages
+- `ratingCountByStar` — derived counts from the histogram and total ratings (rounded)
+- `isPrimeExclusive` — present and `true` when Amazon labels the deal a Prime deal (`Limited Prime deal`) or the Prime filter is active
+- `brandId`, `brandName`, `brandLogoUrl` — brand metadata
+- `departmentIds[]`, `departmentNames[]`, `category` — Amazon's department taxonomy and a readable category
+- `categorySymbol`, `glProductGroup`, `productType` — Amazon taxonomy codes
+- `variationDimensions` — size/colour/variant options when present
+- `isPinned`, `position`, `recordType: "deal"`, `scrapedAt`
 
 ### When no deals are emitted
 
-If a run ends with zero `"deal"` records, it also pushes exactly one `recordType: "status"` record instead of leaving the dataset empty with no explanation — so you can tell a real failure apart from a clean run that legitimately found nothing, without needing to read the run log:
+If a run ends with zero deal rows, it pushes exactly one `recordType: "status"` row so an empty dataset is never ambiguous:
 
-- `success: false` — the Deals grid was never reached, with a `reason` of `BLOCKED` (couldn't get past bot-detection/redirect handling after retries — check `classification` for the specific cause), `WIDGET_NOT_FOUND` (page fetched cleanly but the deals widget wasn't present), or `NO_ENTRIES` (widget found but empty)
-- `success: true, reason: "NO_MATCHES"` — the Deals grid was fetched and parsed successfully, but every entry was filtered out by your `category`/`brand`/`priceMin`-`priceMax`/`discountMin`-`discountMax`/`dealType` filters (or the marketplace's grid was genuinely empty that day)
+- `success: false` — the grid could not be reached (`BLOCKED`), the widget was missing (`WIDGET_NOT_FOUND`), the grid was empty (`NO_ENTRIES`), or the requested collection is not shown on this marketplace today (`COLLECTION_NOT_FOUND`)
+- `success: true, reason: "NO_MATCHES"` — the grid was read successfully but every deal was filtered out
 
-Every status record also carries `marketplace`, `message` (human-readable), and `scrapedAt`.
+Every status row also carries `marketplace`, `message` and `scrapedAt`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `marketplace` | string | `amazon.com` | Which Amazon domain's Deals page to scrape |
-| `dealType` | string | `(any)` | Real collection bubble Amazon shows on the page — Lightning Deals / Coupons / Outlet / Customers' Most-Loved / Lowest Price in 365 Days / plus 30+ per-category bubbles (Electronics, Beauty, Fashion, Home, Toys & Games, etc.), all live-verified against amazon.com/deals |
-| `category` | string | – | Free-text filter matched against department name / category taxonomy code |
-| `brand` | string | – | Free-text brand substring filter |
-| `minRating` | int | – | Minimum star rating (1-5) — currently a no-op; see FAQ |
-| `priceMin` / `priceMax` | int | – | Deal price range (local currency, when price data is available — see FAQ) |
-| `discountMin` / `discountMax` | int | – | Discount percent range (when available — see FAQ) |
-| `maxItems` | int | `30` | Hard cap on emitted deals (1-2000) |
-| `maxPages` | int | `5` | Hard cap on grid pages walked (1-50) |
-| `proxyConfiguration` | object | AUTO | Apify proxy configuration for fetching the Deals page |
+| `marketplace` | select | `amazon.com` | Which Amazon domain's Deals page to read |
+| `categories` | list | – | Departments such as Electronics, Home & Kitchen, Kitchen, Beauty & Personal Care, Toys & Games, Sports & Outdoors. Add several to scan past the 500-deal window |
+| `collection` | select | any | Lightning Deals, Coupons, Outlet, Customers' Most-Loved, New Arrivals, Trending, Prime Exclusive, Refurbished, Premium Brands, Amazon Brands |
+| `brand` | string | – | Case-insensitive brand substring |
+| `minRating` | int | – | Keep products rated at least this value; unrated products are excluded when set |
+| `priceMin` / `priceMax` | int | – | Deal-price range in local currency |
+| `discountMin` / `discountMax` | int | – | Discount percentage range |
+| `primeExclusiveOnly` | boolean | false | Only Prime Exclusive deals |
+| `sortBy` | select | `featured` | Amazon featured, price low/high, biggest discount, highest rating |
+| `maxItems` | int | 30 | Hard cap on emitted deals (1–2000) |
 
-### Example: default US deals grid
-
-```json
-{
-  "marketplace": "amazon.com",
-  "maxItems": 30
-}
-```
-
-### Example: home & kitchen deals from a specific brand
+### Example: US Electronics deals with at least 25% off
 
 ```json
 {
   "marketplace": "amazon.com",
-  "category": "Home & Kitchen",
-  "brand": "Bissell",
-  "maxItems": 60
+  "categories": ["Electronics"],
+  "discountMin": 25,
+  "minRating": 4,
+  "maxItems": 100
 }
 ```
 
-### Example: UK Customers' Most-Loved deals with a 4-star minimum
+### Example: UK Lightning Deals
 
 ```json
 {
   "marketplace": "amazon.co.uk",
-  "dealType": "deals-collection-cml",
-  "minRating": 4,
-  "maxItems": 50
+  "collection": "lightning-deals",
+  "maxItems": 60
+}
+```
+
+### Example: three categories in one run
+
+```json
+{
+  "marketplace": "amazon.com",
+  "categories": ["Electronics", "Home & Kitchen", "Kitchen"],
+  "discountMin": 20,
+  "maxItems": 300
 }
 ```
 
 ## Use cases
 
-- **Deal aggregators** — build a curated "today's deals" catalog feed
-- **Competitive intelligence** — see which brands/categories Amazon is currently discounting
-- **Merchandising research** — track which products get pinned/featured in the Deals grid
-- **Shopping assistants** — surface deals matching a user's category/brand interest
-- **Catalog enrichment** — pull variation options (size/color) and brand metadata for deal ASINs
+- **Deal feeds and newsletters** — a fresh, structured snapshot of today's discounts by category and collection.
+- **Competitive intelligence** — which brands and categories Amazon is discounting, and how deep.
+- **Price and promotion monitoring** — track deal windows, Lightning Deal urgency and changes between scheduled runs.
+- **Shopping assistants** — surface highly rated deals that meet a price and discount floor.
+- **Market research** — compare discount depth and category mix across Amazon marketplaces.
 
 ## FAQ
 
-**Does this require an Amazon account or cookies?**  No. The Deals page is publicly browsable; the actor scrapes it directly with no login.
+**Does this require an Amazon account or cookies?** No. The Deals grid and its product summaries are public. The actor works cookielessly, and no proxy setup is required.
 
-**Why don't I see `dealPrice`, `listPrice`, `savingsPercent`, `dealBadgeText` or `percentClaimed` on every record?**  Amazon's own Deals grid data genuinely omits price/badge/claim-progress information for a real subset of deals on any given fetch (commonly brand-level coupon promos with no single "deal price" to show). The actor never fabricates these fields — it populates them whenever Amazon's page includes them for that specific deal, and omits them entirely otherwise. All the catalog/structural fields (title, images, brand, category, variations) are always populated when Amazon shows them.
+**How many deals can I get?** Amazon exposes up to 500 deals per category/collection query. Add more categories to partition that window; `maxItems` can go up to 2,000 across categories. A single query stops honestly when Amazon's window is exhausted. Amazon can also reshuffle the grid between pages, so after de-duplication one window may return fewer than 500 unique deals.
 
-**Why do a few records occasionally show an implausibly large `dealPrice`/`listPrice`?**  On rare fetches, Amazon's own Deals grid data itself carries an inflated numeric value for a handful of deals — independently confirmed live by inspecting the raw page data byte-for-byte, not an actor parsing/arithmetic error (the actor's `savingsPercent` math on these records is still internally correct — e.g. a genuinely-computed "30% off" — only the absolute base price is implausible). This appears tied to sessions Amazon treats as higher-risk/automated (the same class of session-dependent behavior that can also cause Amazon to render a different regional currency than expected); the actor does not attempt to "correct" these values since there is no reliable way to distinguish a genuinely expensive real deal from an inflated one without fabricating a number. If you filter downstream by price, treat an outlier far outside a category's normal range with appropriate skepticism.
+**Why do some rows have no `dealPrice` or `discount`?** Amazon genuinely omits price and discount data for a subset of deals (for example, some coupon-only promotions), and it omits a local price when only a converted display price is available. The actor never guesses, converts or fills a zero. Price and discount filters exclude rows that cannot be verified.
 
-**Why is `dealType` filtering only "best effort" for some values?**  Amazon's Deals page groups deals into filter "bubbles". Category-style bubbles (e.g. Customers' Most-Loved) are backed by an explicit department list, so the actor can verify membership per deal. Promotion-style bubbles (Lightning Deals, Coupons, Outlet) aren't tagged per-item in the grid data the actor can see, so those filters pass every deal through rather than risk wrongly excluding a real match. Additionally, not every `dealType` value is guaranteed to render as a live bubble on every one of the 23 supported marketplaces on a given day (e.g. a smaller marketplace's Deals page may simply not have a "Jewelry" bubble today) — when this happens the actor logs a warning and passes every deal through unfiltered rather than silently returning zero results; check the run log if a `dealType` filter appears to have had no effect.
+**How does `minRating` work now?** Ratings come from Amazon's own product summary, so `minRating` filters real values. If a product has no rating, it is excluded when `minRating` is set.
 
-**Why does `sourceUrl` return a 503 if I fetch it with a plain script?**  Amazon aggressively blocks plain, non-browser requests — a bare request with no session or JavaScript can get a 503 "Service Unavailable" even though the same URL loads fine for a real shopper's browser. The URLs in the output are the correct, canonical Amazon product URLs and render normally when opened in an actual browser.
+**Why is `percentClaimed` missing on many rows?** Amazon exposes claim progress mainly for limited/urgent offers such as Lightning Deals. It is populated when present and omitted otherwise.
 
-**Does `minRating` actually filter anything?**  Not currently, in practice. Amazon's Deals grid data (the same page payload documented above) never includes a per-deal star rating — only structural/catalog fields do. Since the actor never excludes a deal on the *absence* of rating evidence (per its no-fabrication rule), `minRating` currently passes every deal through unfiltered rather than risk wrongly dropping real matches. The input is kept because a future/differently-trusted session could expose rating data the way it can expose pricing; if you need rating-based filtering today, filter the output dataset by `stars` after the run (it will simply be absent on every current record).
+**Why don't I see shipping, seller, stock, Best Sellers Rank or review text?** Those fields are not part of the Deals grid or its product-summary data. This actor stays focused on deals; use a product-details or reviews actor for those fields.
 
-**Do `priceMin`/`priceMax`/`discountMin`/`discountMax` exclude deals with missing price/savings data, or let them through?**  They let them through. Every filter in this actor follows the same rule: a deal is only ever *excluded* when it has real, present evidence that contradicts the filter — never on the *absence* of the field the filter checks (see "Why don't I see `dealPrice`..." above; the same real subset of deals genuinely has no price/savings data on any given fetch). So `discountMin: 10` will exclude a deal it can see has e.g. a 5% discount, but will still include a deal with no `savingsPercent` at all — its real discount is simply unknown, not verified to be below your threshold. If your workflow needs a hard guarantee ("only deals I can *confirm* meet the discount floor"), filter the output dataset post-run by checking `savingsPercent` is present and satisfies your threshold yourself, rather than relying on the actor's own filter to have done that exclusion for you.
+**Why is the currency different from what I see on Amazon?** Amazon can show a converted price based on the visitor's location. This actor reports the marketplace's local price (for example, GBP on amazon.co.uk) so rows from different marketplaces stay comparable.
 
-**How many deals can I get per run?**  Amazon's Deals grid returns up to 30 items per page (occasionally fewer, depending on catalog/session state). The actor attempts to walk further pages by reproducing the grid's own "load more" request live in-browser; if Amazon doesn't expose a further page in a given session, the actor stops cleanly rather than guessing. Each deal's `position` is always a gapless, 1-based rank across the full run regardless of how many items any individual page actually returned.
+**Why does a collection sometimes return a `COLLECTION_NOT_FOUND` status?** Amazon's collections differ by marketplace and change seasonally. The actor reports the missing collection plainly instead of silently returning unfiltered deals.
 
-**What if my category/brand filter returns 0 results?**  These are free-text substring filters matched against the department name / category code / brand name Amazon exposes on each deal. If nothing matches, widen or clear the filter.
+**Why can `sortBy` take longer?** Amazon has no server-side sort for the Deals grid. To return the cheapest or highest-rated deals, the actor reads the available window first, then sorts it.
 
-**Is this affiliated with Amazon?**  No, this is an independent third-party actor that scrapes Amazon's public Deals page.
+**Why does `sourceUrl` return 503 in a plain script?** Amazon blocks bare non-browser requests on product pages. The URL is the canonical product page and opens normally in a browser.
 
-**How fresh is the data?**  As fresh as the live page at run time — Amazon refreshes its Deals grid continuously throughout the day.
+**Is this affiliated with Amazon?** No. This is an independent third-party actor that reads Amazon's public Deals pages.
+
+**How fresh is the data?** As fresh as the live Deals grid at run time. Deals rotate throughout the day, so schedule the actor as often as your use case needs.

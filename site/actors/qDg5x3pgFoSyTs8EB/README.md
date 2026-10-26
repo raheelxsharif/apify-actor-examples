@@ -1,91 +1,116 @@
 # Noon.com Multi-Market Product Search by Discount
 
-Search Noon.com across its three storefronts — UAE, Saudi Arabia, and Egypt — by keyword, category path, or a pasted search/category URL, and get back structured product records with pricing, discount, rating, and promotional labels in that market's own currency.
+Search **noon.com** across the UAE, Saudi Arabia, Egypt, Bahrain, Qatar, Kuwait, and Oman, then export structured product rows with local-currency prices, list prices, discounts, ratings, sellers, stock, images, specifications, and recent review snippets. Four modes cover keyword search, category browsing, direct SKU or product-URL lookups, and pasted noon URLs — in English or Arabic, with no login, cookie, API key, or proxy setup.
 
 ## What this actor does
 
-- **Three modes:** `search` (keyword), `byCategory` (category path), `byUrl` (from any Noon search or category URL)
-- **Multi-market:** UAE (AED), Saudi Arabia (SAR), Egypt (EGP)
-- **Full pricing detail:** selling price, original price, discount percentage, and currency
-- **Sort options:** popularity, price (low/high), biggest discount, new arrivals
-- **Promotional data:** Noon Express delivery tag, free delivery, stock warnings
-- **Empty fields are omitted** — records only contain fields that have real values
+- **Four modes:** keyword `search`, `byCategory`, `byProduct` (SKU or product URL), and `byUrl` (search, category, or product URL)
+- **Seven GCC storefronts:** UAE (AED), Saudi Arabia (SAR), Egypt (EGP), Bahrain (BHD), Qatar (QAR), Kuwait (KWD), Oman (OMR)
+- **Discount search:** filter by minimum or maximum discount percentage, not just noon's default ranking
+- **Product filters:** price range, rating, brand, seller, and deal-only
+- **Listing and detail data:** seller, stock, images, specifications, offers, warranty, delivery, and up to five latest reviews
+- **Empty fields are omitted** — every record contains only fields that have real values
 
 ## Output per product
 
-- `name` — full product name
-- `sku` — Noon product identifier (e.g. `N70154922V`)
-- `url` — direct link to the Noon product page
-- `price` — current selling price (numeric)
-- `originalPrice` — pre-discount price (numeric, when discounted)
-- `discountPercent` — percentage saved (numeric, when discounted)
-- `currency` — ISO currency code (`AED`, `SAR`, `EGP`)
-- `rating` — average star rating (0–5 scale)
-- `reviewCount` — number of customer reviews
-- `brand` — brand name (when shown on listing card)
-- `imageUrl` — primary product image URL from Noon CDN
-- `promotionTags` — active tags, e.g. `["Noon Express", "Free Delivery"]`
-- `stockWarning` — low-stock message when shown (e.g. `Only 2 left`)
-- `market` — market code: `uae`, `saudi`, or `egypt`
-- `scrapedAt` — ISO 8601 timestamp of the scrape
+- `sku` — noon product identifier (e.g. `N70367827V`)
+- `skuConfig` — noon SKU configuration/offer identifier when present
+- `name` — product title
+- `brand`, `brandCode` — brand name and noon brand code
+- `url` — direct noon product page URL
+- `price` — current selling price in the market's currency
+- `originalPrice` — pre-discount list price, when discounted
+- `discountPercent` — calculated discount percentage, when discounted
+- `discountAmount` — calculated saving, when discounted
+- `currency` — `AED`, `SAR`, `EGP`, `BHD`, `QAR`, `KWD`, or `OMR`
+- `rating` — average product rating (0–5)
+- `reviewCount` — total ratings/reviews shown by noon
+- `recentReviews` — up to five latest review snippets (with `includeReviews`)
+- `seller`, `sellerCode` — buy-box seller name and code
+- `sellerRating`, `sellerReviewCount`, `sellerPositivePercent` — seller signals
+- `isBuyable`, `isBestseller`, `stock`, `minOrderQty` — availability and order limits
+- `stockWarning` — low-stock text such as `Only 2 left`
+- `estimatedDelivery` — delivery promise on detail records
+- `imageUrl`, `images` — primary image and full image list
+- `promotionTags` — delivery, deal, and merchandising labels
+- `dealTag`, `discountCode`, `bestSellerRank` — merchandising signals
+- `description`, `featureBullets`, `specifications`, `breadcrumbs`, `categoryPath` — detail fields
+- `warranty`, `offers`, `offerCount` — seller offers and warranty (detail mode)
+- `market`, `locale` — storefront code and language-region
+- `sourceQuery`, `sourceCategory` — the input that produced the row
+- `scrapedAt` — ISO 8601 timestamp
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `byCategory` / `byUrl` |
-| `market` | string | `uae` | `uae` (UAE), `saudi` (Saudi Arabia), `egypt` (Egypt) |
-| `searchQuery` | string | `moisturizer` | Keyword to search for (mode=search) |
-| `categoryPath` | string | – | Category URL path, e.g. `beauty-personal-care` (mode=byCategory) |
-| `startUrls` | array | – | Noon search or category URLs (mode=byUrl) |
-| `sortBy` | string | `popularity` | `popularity`, `price_asc`, `price_desc`, `discount`, `new_arrivals` |
-| `minRating` | number | – | Only emit products with rating ≥ this value (0–5) |
-| `maxItems` | int | `50` | Hard cap on emitted records (1–1000) |
+| `mode` | string | `search` | `search` / `byCategory` / `byProduct` / `byUrl` |
+| `searchQueries` | array | – | Keywords (mode=search) |
+| `categoryPaths` | array | – | Category paths or URLs (mode=byCategory) |
+| `productInputs` | array | – | SKUs or product URLs (mode=byProduct) |
+| `startUrls` | array | – | Search, category, or product URLs (mode=byUrl) |
+| `market` | string | `uae` | `uae`, `saudi`, `egypt`, `bahrain`, `qatar`, `kuwait`, `oman` |
+| `language` | string | `en` | `en` or `ar` |
+| `sortBy` | string | `popularity` | `popularity`, `price_asc`, `price_desc`, `best_rating`, `new_arrivals` |
+| `minPrice` / `maxPrice` | number | – | Price window in the market's currency |
+| `minRating` | number | – | Minimum star rating (0–5) |
+| `minDiscountPercent` / `maxDiscountPercent` | number | – | Discount window (0–100) |
+| `brand` | string | – | Brand name or code, e.g. `HP` or `hp` |
+| `seller` | string | – | Seller name or code, e.g. `noon` or `p_9404` |
+| `dealOnly` | boolean | `false` | Only products with a noon deal tag |
+| `includeDetails` | boolean | `false` | Add description, specs, stock, offers, warranty, delivery |
+| `includeReviews` | boolean | `false` | Add up to five latest review snippets |
+| `maxItems` | integer | `50` | Hard cap on emitted products (1–10,000) |
 
-### Example: search for laptops in UAE
+### Example: discounted laptops in the UAE
 
 ```json
 {
   "mode": "search",
+  "searchQueries": ["laptop"],
   "market": "uae",
-  "searchQuery": "laptop",
-  "sortBy": "popularity",
+  "minDiscountPercent": 20,
+  "minRating": 4,
   "maxItems": 50
 }
 ```
 
-### Example: browse beauty products in Saudi Arabia
+### Example: browse a Saudi category with product details
 
 ```json
 {
   "mode": "byCategory",
+  "categoryPaths": ["electronics-and-mobiles/computers-and-accessories/computers-new/laptops"],
   "market": "saudi",
-  "categoryPath": "beauty-personal-care",
-  "sortBy": "discount",
+  "sortBy": "price_asc",
+  "maxPrice": 4000,
+  "includeDetails": true,
   "maxItems": 100
 }
 ```
 
-### Example: top-rated electronics in Egypt
+### Example: look up products by SKU or URL in Egypt
 
 ```json
 {
-  "mode": "search",
-  "market": "egypt",
-  "searchQuery": "smartphone",
-  "sortBy": "popularity",
-  "minRating": 4.0,
-  "maxItems": 50
+  "mode": "byProduct",
+  "productInputs": [
+    "N70430909V",
+    "https://www.noon.com/egypt-en/renewed-hp-elitebook-845-g8-laptop-amd-ryzen-3-5450u-8gb-ddr4-ram-256gb-ssd-amd-radeon-tm-graphics-14-inch-fhd-windows11-pro-silver-english-arabic-silver/N70430909V/p/"
+  ],
+  "includeReviews": true,
+  "maxItems": 10
 }
 ```
 
-### Example: scrape from a Noon URL
+### Example: paste noon URLs from any market
 
 ```json
 {
   "mode": "byUrl",
   "startUrls": [
-    "https://www.noon.com/uae-en/search?q=perfume&sort%5Bby%5D=discount"
+    "https://www.noon.com/uae-en/search?q=perfume&sort%5Bby%5D=price&sort%5Bdir%5D=asc",
+    "https://www.noon.com/kuwait-en/electronics-and-mobiles/"
   ],
   "maxItems": 50
 }
@@ -93,35 +118,41 @@ Search Noon.com across its three storefronts — UAE, Saudi Arabia, and Egypt �
 
 ## Use cases
 
-- **Price comparison** — track Noon prices against other MENA e-commerce platforms
-- **Discount monitoring** — identify products with the highest discounts in real time
-- **Brand presence analysis** — measure brand reach and product count across Noon's categories
-- **Market research** — compare product availability and pricing between UAE, Saudi Arabia, and Egypt
-- **Inventory intelligence** — monitor stock warnings and availability for competitive products
-- **E-commerce analytics** — analyze rating distributions and review counts by category
+- **Discount monitoring** — track products above a discount threshold across GCC markets
+- **Price intelligence** — compare current and list prices in each local currency
+- **Seller and buy-box research** — see who sells a SKU, at what price, with what stock
+- **Catalog enrichment** — pull titles, images, specs, and descriptions for product feeds
+- **Market research** — compare assortment, availability, and ratings across seven storefronts
+- **Customer-feedback sampling** — collect the latest review snippets and aggregate ratings
 
 ## FAQ
 
-**What is Noon.com?**
-Noon.com is a major e-commerce marketplace in the Middle East, operating in the UAE, Saudi Arabia, and Egypt. It offers millions of products across electronics, fashion, beauty, home goods, and more.
+**Which noon markets are supported?**
+UAE, Saudi Arabia, Egypt, Bahrain, Qatar, Kuwait, and Oman. Each returns prices in its own currency. English and Arabic storefronts are supported.
 
-**Which markets are supported?**
-UAE (`noon.com/uae-en`), Saudi Arabia (`noon.com/saudi-en`), and Egypt (`noon.com/egypt-en`). Each market has its own product catalogue, pricing, and currency.
+**Can I paste noon URLs instead of filling in fields?**
+Yes. `byUrl` accepts search, category, and product URLs. The market and language in each URL override the Market and Language fields. URL price, rating, brand, and seller filters are applied when present; a deal filter in a URL becomes a deal-only filter.
+
+**Why is `originalPrice` missing on some products?**
+noon only exposes a list price when a product is discounted. Products without a discount omit `originalPrice`, `discountPercent`, and `discountAmount`.
+
+**Why are rating or review count missing on some products?**
+The values are omitted for products noon has not rated yet. Setting a positive `minRating` excludes unrated products.
+
+**Can the actor return full review text?**
+It returns up to the five latest review snippets through `includeReviews`. The full paginated review history is not publicly available to a cookieless request, so it is not claimed.
+
+**How many products can one input return?**
+Up to 10,000 per run. noon serves at most 10,000 rows per search or category input, 200 products per page with a page 50 cap. For larger catalogs, split the job by category, brand, or price window.
+
+**Does the actor sort by biggest discount?**
+noon does not provide a server-side discount sort. Use `minDiscountPercent` and `maxDiscountPercent` to target a discount range, then sort the dataset by `discountPercent` in your spreadsheet or database.
 
 **How fresh is the data?**
-The actor fetches live Noon pages, so prices and stock status reflect what is visible on Noon at the time of scraping.
+Every run reads noon's live catalog responses. Prices, discounts, ratings, and stock reflect the storefront at the time of the run.
 
-**How many products can I scrape per run?**
-Set `maxItems` up to 1000. Noon returns approximately 50 products per search/category page and the actor paginates automatically.
+**Do I need a proxy or a noon account?**
+No. The actor uses noon's public catalog data and handles its own connection automatically. No login, cookie, API key, or proxy configuration is required.
 
-**What category paths can I use?**
-Use the URL segment after `/uae-en/` on any Noon category page. Examples: `electronics`, `beauty-personal-care`, `fashion-women`, `home-kitchen`, `sports-outdoors`. Browse `noon.com/uae-en/electronics/` to discover paths.
-
-**Why are some products missing brand or image?**
-Noon's listing cards include brand and image data for most products, but some listings omit these. Fields that have no value are simply omitted from the output record.
-
-**Is this actor affiliated with Noon?**
-No. This is an independent third-party actor. It is not affiliated with or endorsed by Noon E-Commerce LLC or Emaar Malls Group.
-
-**Does the actor work without a proxy?**
-Yes. Noon.com is publicly accessible from Apify's datacenter IPs without requiring a proxy. If you encounter issues, running without a proxy is still the recommended configuration.
+**Is this actor affiliated with noon?**
+No. This is an independent third-party tool. It is not affiliated with or endorsed by Noon AD Holdings Ltd or noon.com.

@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per Quora question, answer, comment, profile, topic, Space, post, or search result, with text, author, and engagement fields, plus status rows for blocked pages.",
+  "description": "Quora questions, full answers, profiles, authors, topics, search-result cards, access-status rows, and a run manifest.",
   "properties": {
     "results": {
-      "description": "All records from the run, in the default dataset.",
+      "description": "Dataset containing question, answer, profile, author, topic, search_result, status, and run_manifest rows.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Results",
+      "title": "Quora rows",
       "type": "string"
     }
   },
