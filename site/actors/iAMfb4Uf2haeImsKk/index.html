@@ -1,57 +1,298 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-UqTCKIwn/YqnOnWxSj5ouROl4QID2lPz5v7ZVtcxTRY=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Greenhouse ATS Job Board Lookup by Company | Dataspryva</title><meta name="description" content="Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"><meta property="og:title" content="Greenhouse ATS Job Board Lookup by Company | Dataspryva"><meta property="og:description" content="Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#webpage","name":"Greenhouse ATS Job Board Lookup by Company","description":"Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#article","headline":"Greenhouse ATS Job Board Lookup by Company","name":"Greenhouse ATS Job Board Lookup by Company","description":"Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Greenhouse ATS Job Board Lookup by Company","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Greenhouse ATS Job Board Lookup by Company</span></div><section id="overview"><h1 class="doc-title">Greenhouse ATS Job Board Lookup by Company</h1><p class="lede">Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/greenhouse-ats-job-board-lookup-by-company">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/iAMfb4Uf2haeImsKk/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: all jobs from company boards, or a specific job by ID.</td></tr><tr><td><code>companySlugs</code></td><td>array</td><td>optional</td><td>List of Greenhouse company board slugs to scrape (e.g. [&quot;google&quot;, &quot;airbnb&quot;]). Find the slug in the Greenhouse board URL: boards.greenhouse.io/v1/boards/{slug}/jobs</td></tr><tr><td><code>companySlug</code></td><td>string</td><td>optional</td><td>Single company board slug for fetching a specific job (e.g. &quot;airbnb&quot;).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: all jobs from company boards, or a specific job by ID.</td></tr><tr><td><code>companySlugs</code></td><td>array</td><td>optional</td><td>List of Greenhouse company board slugs to scrape (e.g. [&quot;google&quot;, &quot;airbnb&quot;]). Find the slug in the Greenhouse board URL: boards.greenhouse.io/v1/boards/{slug}/jobs</td></tr><tr><td><code>companySlug</code></td><td>string</td><td>optional</td><td>Single company board slug for fetching a specific job (e.g. &quot;airbnb&quot;).</td></tr><tr><td><code>jobIds</code></td><td>array</td><td>optional</td><td>List of Greenhouse job IDs (integers) to fetch.</td></tr><tr><td><code>content</code></td><td>boolean</td><td>optional</td><td>When enabled, each job record will include the full job description as HTML.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of job records to emit.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Get all jobs from one or more Greenhouse company boards, or fetch a specific job by company + job ID.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-UqTCKIwn/YqnOnWxSj5ouROl4QID2lPz5v7ZVtcxTRY=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Greenhouse ATS Job Board Lookup by Company | Dataspryva</title><meta name="description" content="Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"><meta property="og:title" content="Greenhouse ATS Job Board Lookup by Company | Dataspryva"><meta property="og:description" content="Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#webpage","name":"Greenhouse ATS Job Board Lookup by Company","description":"Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#article","headline":"Greenhouse ATS Job Board Lookup by Company","name":"Greenhouse ATS Job Board Lookup by Company","description":"Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Greenhouse ATS Job Board Lookup by Company","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iAMfb4Uf2haeImsKk/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Greenhouse ATS Job Board Lookup by Company</span></div><section id="overview"><h1 class="doc-title">Greenhouse ATS Job Board Lookup by Company</h1><p class="lede">Pull every open role from one or more Greenhouse company boards, or look up specific postings by job ID, with location, department, employment type, salary, and apply link for each.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/greenhouse-ats-job-board-lookup-by-company">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/iAMfb4Uf2haeImsKk/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: jobs from company boards, specific job URLs, or company board lookup.</td></tr><tr><td><code>companies</code></td><td>array</td><td>optional</td><td>Board tokens, board URLs, embed URLs, job URLs, company names or domains. Examples: &quot;stripe&quot;, &quot;https://job-boards.greenhouse.io/figma&quot;, &quot;Airbnb&quot;, &quot;jobs.elastic.co&quot;.</td></tr><tr><td><code>jobUrls</code></td><td>array</td><td>optional</td><td>Full Greenhouse job URLs to fetch one by one. A company board URL alone is not enough; include /jobs/&lt;id&gt;.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: jobs from company boards, specific job URLs, or company board lookup.</td></tr><tr><td><code>companies</code></td><td>array</td><td>optional</td><td>Board tokens, board URLs, embed URLs, job URLs, company names or domains. Examples: &quot;stripe&quot;, &quot;https://job-boards.greenhouse.io/figma&quot;, &quot;Airbnb&quot;, &quot;jobs.elastic.co&quot;.</td></tr><tr><td><code>jobUrls</code></td><td>array</td><td>optional</td><td>Full Greenhouse job URLs to fetch one by one. A company board URL alone is not enough; include /jobs/&lt;id&gt;.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Name or token text to match against the built-in company directory. Leave empty to resolve the Companies list instead.</td></tr><tr><td><code>titleKeywords</code></td><td>array</td><td>optional</td><td>Keep jobs whose title contains any of these words (case-insensitive).</td></tr><tr><td><code>excludeTitleKeywords</code></td><td>array</td><td>optional</td><td>Drop jobs whose title contains any of these words (case-insensitive).</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Keep jobs whose location or office contains any of these words, e.g. Remote, London, New York.</td></tr><tr><td><code>departments</code></td><td>array</td><td>optional</td><td>Keep jobs in departments that contain any of these words, e.g. Engineering, Sales.</td></tr><tr><td><code>workplaceType</code></td><td>string</td><td>optional</td><td>Keep remote, hybrid or on-site roles. Jobs without a stated arrangement are dropped when this is not Any.</td></tr><tr><td><code>employmentType</code></td><td>string</td><td>optional</td><td>Keep full-time, part-time, contract, internship or temporary roles when the employer states it.</td></tr><tr><td><code>publishedAfter</code></td><td>string</td><td>optional</td><td>Keep jobs first published on or after this date (YYYY-MM-DD).</td></tr><tr><td><code>updatedAfter</code></td><td>string</td><td>optional</td><td>Keep jobs last updated on or after this date (YYYY-MM-DD).</td></tr><tr><td><code>onlyWithSalary</code></td><td>boolean</td><td>optional</td><td>Keep only jobs with a published or clearly stated pay range.</td></tr><tr><td><code>minAnnualSalary</code></td><td>integer</td><td>optional</td><td>Keep jobs whose base pay reaches at least this yearly amount. Hourly, monthly and weekly ranges are annualized.</td></tr><tr><td><code>salaryCurrency</code></td><td>string</td><td>optional</td><td>Only keep jobs with pay in this currency. Use Any to ignore currency.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result order after filtering.</td></tr><tr><td><code>content</code></td><td>boolean</td><td>optional</td><td>Include the full job description. Departments and offices are always included (fetched separately when descriptions are off).</td></tr><tr><td><code>descriptionFormat</code></td><td>string</td><td>optional</td><td>Format used when Include job descriptions is on. HTML is always the content field; text/markdown add contentText/contentMarkdown.</td></tr><tr><td><code>includeQuestions</code></td><td>boolean</td><td>optional</td><td>Fetch each job&#x27;s application form questions. Adds one request per emitted job.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of job or company records to emit.</td></tr><tr><td><code>maxJobsPerCompany</code></td><td>integer</td><td>optional</td><td>Cap jobs per company after filters (mode=companyJobs). 0 means no per-company cap.</td></tr><tr><td><code>verifyCompanies</code></td><td>boolean</td><td>optional</td><td>Check each company against the live board and report its open-job count.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape jobs from Greenhouse company boards by token, board URL, job URL, company name or domain. Get structured pay, locations, departments, questions and dates.&quot;,
   &quot;properties&quot;: {
-    &quot;companySlug&quot;: {
-      &quot;description&quot;: &quot;Single company board slug for fetching a specific job (e.g. \&quot;airbnb\&quot;).&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Company board slug (mode=getJob)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;companySlugs&quot;: {
-      &quot;description&quot;: &quot;List of Greenhouse company board slugs to scrape (e.g. [\&quot;google\&quot;, \&quot;airbnb\&quot;]). Find the slug in the Greenhouse board URL: boards.greenhouse.io/v1/boards/{slug}/jobs&quot;,
+    &quot;companies&quot;: {
+      &quot;description&quot;: &quot;Board tokens, board URLs, embed URLs, job URLs, company names or domains. Examples: \&quot;stripe\&quot;, \&quot;https://job-boards.greenhouse.io/figma\&quot;, \&quot;Airbnb\&quot;, \&quot;jobs.elastic.co\&quot;.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [
         &quot;airbnb&quot;
       ],
-      &quot;title&quot;: &quot;Company board slugs (mode=getJobs)&quot;,
+      &quot;title&quot;: &quot;Companies&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;content&quot;: {
       &quot;default&quot;: false,
-      &quot;description&quot;: &quot;When enabled, each job record will include the full job description as HTML.&quot;,
+      &quot;description&quot;: &quot;Include the full job description. Departments and offices are always included (fetched separately when descriptions are off).&quot;,
       &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Include job description HTML&quot;,
+      &quot;title&quot;: &quot;Include job descriptions&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
-    &quot;jobIds&quot;: {
-      &quot;description&quot;: &quot;List of Greenhouse job IDs (integers) to fetch.&quot;,
+    &quot;departments&quot;: {
+      &quot;description&quot;: &quot;Keep jobs in departments that contain any of these words, e.g. Engineering, Sales.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;title&quot;: &quot;Job IDs (mode=getJob)&quot;,
+      &quot;title&quot;: &quot;Departments&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;descriptionFormat&quot;: {
+      &quot;default&quot;: &quot;html&quot;,
+      &quot;description&quot;: &quot;Format used when Include job descriptions is on. HTML is always the content field; text/markdown add contentText/contentMarkdown.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;html&quot;,
+        &quot;text&quot;,
+        &quot;markdown&quot;,
+        &quot;all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;HTML&quot;,
+        &quot;HTML + plain text&quot;,
+        &quot;HTML + Markdown&quot;,
+        &quot;HTML + text + Markdown&quot;
+      ],
+      &quot;prefill&quot;: &quot;html&quot;,
+      &quot;title&quot;: &quot;Description format&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;employmentType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Keep full-time, part-time, contract, internship or temporary roles when the employer states it.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;full-time&quot;,
+        &quot;part-time&quot;,
+        &quot;contract&quot;,
+        &quot;internship&quot;,
+        &quot;temporary&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Full-time&quot;,
+        &quot;Part-time&quot;,
+        &quot;Contract&quot;,
+        &quot;Internship&quot;,
+        &quot;Temporary&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Employment type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;excludeTitleKeywords&quot;: {
+      &quot;description&quot;: &quot;Drop jobs whose title contains any of these words (case-insensitive).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Job title must not contain&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeQuestions&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch each job&#x27;s application form questions. Adds one request per emitted job.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include application questions&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;jobUrls&quot;: {
+      &quot;description&quot;: &quot;Full Greenhouse job URLs to fetch one by one. A company board URL alone is not enough; include /jobs/&lt;id&gt;.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Job URLs (mode=jobDetails)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;locations&quot;: {
+      &quot;description&quot;: &quot;Keep jobs whose location or office contains any of these words, e.g. Remote, London, New York.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Locations&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 500,
-      &quot;description&quot;: &quot;Maximum number of job records to emit.&quot;,
+      &quot;description&quot;: &quot;Maximum number of job or company records to emit.&quot;,
       &quot;maximum&quot;: 10000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 500,
+      &quot;prefill&quot;: 1,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
+    &quot;maxJobsPerCompany&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Cap jobs per company after filters (mode=companyJobs). 0 means no per-company cap.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Max jobs per company&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minAnnualSalary&quot;: {
+      &quot;description&quot;: &quot;Keep jobs whose base pay reaches at least this yearly amount. Hourly, monthly and weekly ranges are annualized.&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum annual salary&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
     &quot;mode&quot;: {
-      &quot;default&quot;: &quot;getJobs&quot;,
-      &quot;description&quot;: &quot;What to fetch: all jobs from company boards, or a specific job by ID.&quot;,
+      &quot;default&quot;: &quot;companyJobs&quot;,
+      &quot;description&quot;: &quot;What to fetch: jobs from company boards, specific job URLs, or company board lookup.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
+        &quot;companyJobs&quot;,
+        &quot;jobDetails&quot;,
+        &quot;companySearch&quot;,
         &quot;getJobs&quot;,
         &quot;getJob&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Get all jobs from company board(s)&quot;,
-        &quot;Get specific job by company + job ID&quot;
+        &quot;Jobs from company boards&quot;,
+        &quot;Specific jobs by URL or ID&quot;,
+        &quot;Company board lookup&quot;,
+        &quot;All jobs from company boards (legacy alias)&quot;,
+        &quot;Specific job by company + ID (legacy alias)&quot;
       ],
-      &quot;prefill&quot;: &quot;getJobs&quot;,
+      &quot;prefill&quot;: &quot;companyJobs&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyWithSalary&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only jobs with a published or clearly stated pay range.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only jobs with salary&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;publishedAfter&quot;: {
+      &quot;description&quot;: &quot;Keep jobs first published on or after this date (YYYY-MM-DD).&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;title&quot;: &quot;Published after&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;salaryCurrency&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only keep jobs with pay in this currency. Use Any to ignore currency.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;USD&quot;,
+        &quot;EUR&quot;,
+        &quot;GBP&quot;,
+        &quot;CAD&quot;,
+        &quot;AUD&quot;,
+        &quot;SGD&quot;,
+        &quot;INR&quot;,
+        &quot;JPY&quot;,
+        &quot;CNY&quot;,
+        &quot;CHF&quot;,
+        &quot;SEK&quot;,
+        &quot;NOK&quot;,
+        &quot;DKK&quot;,
+        &quot;PLN&quot;,
+        &quot;CZK&quot;,
+        &quot;HUF&quot;,
+        &quot;RON&quot;,
+        &quot;BRL&quot;,
+        &quot;MXN&quot;,
+        &quot;ARS&quot;,
+        &quot;CLP&quot;,
+        &quot;COP&quot;,
+        &quot;ZAR&quot;,
+        &quot;AED&quot;,
+        &quot;SAR&quot;,
+        &quot;ILS&quot;,
+        &quot;TRY&quot;,
+        &quot;KRW&quot;,
+        &quot;TWD&quot;,
+        &quot;HKD&quot;,
+        &quot;NZD&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;USD&quot;,
+        &quot;EUR&quot;,
+        &quot;GBP&quot;,
+        &quot;CAD&quot;,
+        &quot;AUD&quot;,
+        &quot;SGD&quot;,
+        &quot;INR&quot;,
+        &quot;JPY&quot;,
+        &quot;CNY&quot;,
+        &quot;CHF&quot;,
+        &quot;SEK&quot;,
+        &quot;NOK&quot;,
+        &quot;DKK&quot;,
+        &quot;PLN&quot;,
+        &quot;CZK&quot;,
+        &quot;HUF&quot;,
+        &quot;RON&quot;,
+        &quot;BRL&quot;,
+        &quot;MXN&quot;,
+        &quot;ARS&quot;,
+        &quot;CLP&quot;,
+        &quot;COP&quot;,
+        &quot;ZAR&quot;,
+        &quot;AED&quot;,
+        &quot;SAR&quot;,
+        &quot;ILS&quot;,
+        &quot;TRY&quot;,
+        &quot;KRW&quot;,
+        &quot;TWD&quot;,
+        &quot;HKD&quot;,
+        &quot;NZD&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Salary currency&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;description&quot;: &quot;Name or token text to match against the built-in company directory. Leave empty to resolve the Companies list instead.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Company search (mode=companySearch)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;board&quot;,
+      &quot;description&quot;: &quot;Result order after filtering.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;board&quot;,
+        &quot;publishedNewest&quot;,
+        &quot;publishedOldest&quot;,
+        &quot;updatedNewest&quot;,
+        &quot;titleAZ&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Board order&quot;,
+        &quot;Newest published&quot;,
+        &quot;Oldest published&quot;,
+        &quot;Recently updated&quot;,
+        &quot;Title A–Z&quot;
+      ],
+      &quot;prefill&quot;: &quot;board&quot;,
+      &quot;title&quot;: &quot;Sort results&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;titleKeywords&quot;: {
+      &quot;description&quot;: &quot;Keep jobs whose title contains any of these words (case-insensitive).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Job title must contain&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;updatedAfter&quot;: {
+      &quot;description&quot;: &quot;Keep jobs last updated on or after this date (YYYY-MM-DD).&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;title&quot;: &quot;Updated after&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;verifyCompanies&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Check each company against the live board and report its open-job count.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Verify companies live (mode=companySearch)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;workplaceType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Keep remote, hybrid or on-site roles. Jobs without a stated arrangement are dropped when this is not Any.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;remote&quot;,
+        &quot;hybrid&quot;,
+        &quot;onsite&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Remote&quot;,
+        &quot;Hybrid&quot;,
+        &quot;On-site&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Workplace type&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -62,12 +303,12 @@
   &quot;title&quot;: &quot;Greenhouse Jobs Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>jobs</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Greenhouse job listings.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>jobs</code></td><td>string</td><td>optional</td><td>Dataset containing Greenhouse job records, plus company rows when mode=companySearch.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;One record per Greenhouse job posting, with title, location, departments, employment type, salary, and apply link.&quot;,
+  &quot;description&quot;: &quot;One record per Greenhouse job (title, company, locations, departments, structured pay, dates, apply link) or per company in company-search mode.&quot;,
   &quot;properties&quot;: {
     &quot;jobs&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Greenhouse job listings.&quot;,
+      &quot;description&quot;: &quot;Dataset containing Greenhouse job records, plus company rows when mode=companySearch.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Greenhouse job listings&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -88,109 +329,77 @@
         &quot;fields&quot;: [
           &quot;title&quot;,
           &quot;companySlug&quot;,
+          &quot;companyName&quot;,
           &quot;location&quot;,
           &quot;departments&quot;,
           &quot;employmentType&quot;,
+          &quot;publishedAt&quot;,
+          &quot;updatedAt&quot;,
           &quot;applyUrl&quot;,
-          &quot;updatedAt&quot;
+          &quot;region&quot;
         ]
       }
     }
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-greenhouse-ats-job-board-lookup-by-company">Greenhouse ATS Job Board Lookup by Company</h2>
-<p>Pull every open role from one or more company career pages built on Greenhouse — the applicant tracking system used by thousands of companies including Airbnb, Stripe, and Figma — or look up specific postings by job ID, with location, department, and apply link for each.</p>
+<p>Pull every open role from any company hiring on Greenhouse, or look up specific postings by URL. Start from a board token, a careers link, a company name or a domain; get clean job records with structured pay ranges, locations, departments, application questions, published dates and direct apply links. Greenhouse's public job board data is read directly, with no login, API key, cookie or proxy.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Fetches every open job from one or more Greenhouse company board slugs in a single run.</li>
-<li>Looks up specific job postings directly by company slug and job ID.</li>
-<li>Returns each job's location breakdown, departments, offices, employment type, and salary range when the company publishes one.</li>
-<li>Can optionally include the full HTML job description alongside the structured fields.</li>
-<li>Fields Greenhouse doesn't publish for a given posting (such as <code>salary</code> when a company doesn't disclose one) are left out of that record.</li>
+<li><strong>Three modes:</strong> scrape company boards, fetch specific job URLs, or resolve company boards from names and domains.</li>
+<li><strong>Flexible company input:</strong> board tokens, <code>boards.greenhouse.io</code> / <code>job-boards.greenhouse.io</code> links, embed links, single-job links, company names and domains.</li>
+<li><strong>Structured pay:</strong> every disclosed pay band is preserved with min/max, currency, period and base/OTE labelling.</li>
+<li><strong>Useful filters:</strong> title, location, department, workplace type, employment type, published/updated date, salary and currency.</li>
+<li><strong>Descriptions and questions:</strong> full HTML, plain text or Markdown, plus the application questions each posting asks.</li>
+<li><strong>Complete context:</strong> published and updated dates, offices, department hierarchy, metadata, language, requisition ID and apply URL.</li>
+<li><strong>Empty fields are omitted</strong> — not set to <code>null</code>, <code>&quot;&quot;</code> or a placeholder.</li>
 </ul>
 <h2 id="readme-output-per-job">Output per job</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>Greenhouse job ID</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td>Job title</td>
-</tr>
-<tr>
-<td><code>companySlug</code></td>
-<td>Greenhouse company board slug</td>
-</tr>
-<tr>
-<td><code>companyName</code></td>
-<td>Company display name, when published</td>
-</tr>
-<tr>
-<td><code>location</code></td>
-<td>Location object with <code>name</code>, <code>city</code>, <code>state</code>, <code>country</code></td>
-</tr>
-<tr>
-<td><code>departments</code></td>
-<td>List of department names</td>
-</tr>
-<tr>
-<td><code>offices</code></td>
-<td>List of office names</td>
-</tr>
-<tr>
-<td><code>employmentType</code></td>
-<td>Employment type (e.g. &quot;Full-time&quot;, &quot;Contract&quot;)</td>
-</tr>
-<tr>
-<td><code>educationLevel</code></td>
-<td>Required education level, when specified</td>
-</tr>
-<tr>
-<td><code>salary</code></td>
-<td>Salary range object, when the company publishes one</td>
-</tr>
-<tr>
-<td><code>requisitionId</code></td>
-<td>Internal requisition ID</td>
-</tr>
-<tr>
-<td><code>updatedAt</code></td>
-<td>Last-updated timestamp from Greenhouse</td>
-</tr>
-<tr>
-<td><code>applyUrl</code></td>
-<td>Direct application URL</td>
-</tr>
-<tr>
-<td><code>absoluteUrl</code></td>
-<td>Full job listing URL on Greenhouse</td>
-</tr>
-<tr>
-<td><code>sourceUrl</code></td>
-<td>Constructed board URL for the job</td>
-</tr>
-<tr>
-<td><code>content</code></td>
-<td>Full HTML job description (only when <code>content</code> is enabled)</td>
-</tr>
-<tr>
-<td><code>recordType</code></td>
-<td>Always <code>job</code></td>
-</tr>
-<tr>
-<td><code>scrapedAt</code></td>
-<td>ISO 8601 timestamp of when the record was scraped</td>
-</tr>
-</tbody>
-</table></div>
+<ul>
+<li><code>id</code> — Greenhouse job post ID</li>
+<li><code>internalJobId</code> — Greenhouse's internal job ID</li>
+<li><code>requisitionId</code> — employer requisition number, when published</li>
+<li><code>title</code> — job title</li>
+<li><code>companySlug</code> — Greenhouse board token</li>
+<li><code>companyName</code> — employer name</li>
+<li><code>location</code> — primary location object with <code>name</code>, <code>city</code>, <code>state</code>, <code>country</code></li>
+<li><code>locations[]</code> — every location when a posting covers several</li>
+<li><code>isRemote</code> — <code>true</code> when the posting is remote</li>
+<li><code>workplaceType</code> — <code>remote</code>, <code>hybrid</code> or <code>onsite</code> when stated</li>
+<li><code>departments[]</code> — department names</li>
+<li><code>departmentsDetailed[]</code> — department <code>id</code>, <code>name</code> and <code>parentId</code></li>
+<li><code>offices[]</code> — office names</li>
+<li><code>officesDetailed[]</code> — office <code>id</code>, <code>name</code>, <code>location</code> and <code>parentId</code></li>
+<li><code>employmentType</code> — full-time, part-time, contract, internship or temporary, when stated</li>
+<li><code>educationLevel</code> — Greenhouse education requirement code, when published</li>
+<li><code>salary</code> — primary pay object with <code>min</code>, <code>max</code>, <code>currency</code>, <code>period</code>, <code>range</code> and <code>source</code></li>
+<li><code>salaryBands[]</code> — every disclosed band with <code>label</code>, <code>min</code>, <code>max</code>, <code>currency</code>, <code>period</code>, <code>kind</code> and <code>source</code></li>
+<li><code>publishedAt</code> — first published timestamp</li>
+<li><code>updatedAt</code> — last updated timestamp</li>
+<li><code>applicationDeadline</code> — application deadline, when set</li>
+<li><code>language</code> — posting language code</li>
+<li><code>metadata[]</code> — custom fields with <code>name</code>, <code>value</code> and <code>valueType</code></li>
+<li><code>team</code> — team name from metadata, when present</li>
+<li><code>seniority</code> — seniority from metadata, when present</li>
+<li><code>content</code> — full description HTML, when descriptions are enabled</li>
+<li><code>contentText</code> — plain-text description, when requested</li>
+<li><code>contentMarkdown</code> — Markdown description, when requested</li>
+<li><code>questions[]</code> — application questions with <code>label</code>, <code>required</code> and <code>fields</code></li>
+<li><code>applyUrl</code> — direct apply link</li>
+<li><code>absoluteUrl</code> — Greenhouse-hosted posting URL</li>
+<li><code>boardUrl</code> — company's Greenhouse board URL</li>
+<li><code>sourceUrl</code> — stable Greenhouse posting URL</li>
+<li><code>region</code> — <code>us</code> or <code>eu</code></li>
+<li><code>recordType</code> — <code>job</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of the scrape</li>
+</ul>
+<h2 id="readme-output-per-company-mode-companysearch">Output per company (mode = <code>companySearch</code>)</h2>
+<ul>
+<li><code>companySlug</code>, <code>companyName</code>, <code>companyDescription</code> (when published)</li>
+<li><code>boardUrl</code>, <code>region</code>, <code>openJobs</code> (open jobs when <code>verifyCompanies</code> is true)</li>
+<li><code>status</code> — <code>found</code>, <code>empty</code>, <code>not_found</code> or <code>ambiguous</code></li>
+<li><code>sourceUrl</code>, <code>recordType: &quot;company&quot;</code>, <code>scrapedAt</code></li>
+</ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -205,89 +414,213 @@
 <tr>
 <td><code>mode</code></td>
 <td>string</td>
-<td><code>getJobs</code></td>
-<td><code>getJobs</code> (all jobs from company boards) or <code>getJob</code> (specific job by ID)</td>
+<td><code>companyJobs</code></td>
+<td><code>companyJobs</code>, <code>jobDetails</code> or <code>companySearch</code> (legacy <code>getJobs</code>/<code>getJob</code> aliases are accepted)</td>
 </tr>
 <tr>
-<td><code>companySlugs</code></td>
+<td><code>companies</code></td>
 <td>array</td>
 <td>–</td>
-<td>Greenhouse company board slugs to scrape (mode=<code>getJobs</code>)</td>
+<td>Tokens, board URLs, job URLs, company names or domains</td>
 </tr>
 <tr>
-<td><code>companySlug</code></td>
+<td><code>jobUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Full job URLs for <code>jobDetails</code></td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
 <td>string</td>
 <td>–</td>
-<td>Single company board slug (mode=<code>getJob</code>)</td>
+<td>Directory search text for <code>companySearch</code></td>
 </tr>
 <tr>
-<td><code>jobIds</code></td>
+<td><code>titleKeywords</code></td>
 <td>array</td>
 <td>–</td>
-<td>Greenhouse job IDs to fetch (mode=<code>getJob</code>)</td>
+<td>Keep titles containing any of these words</td>
+</tr>
+<tr>
+<td><code>excludeTitleKeywords</code></td>
+<td>array</td>
+<td>–</td>
+<td>Drop titles containing any of these words</td>
+</tr>
+<tr>
+<td><code>locations</code></td>
+<td>array</td>
+<td>–</td>
+<td>Keep locations or offices containing any of these words</td>
+</tr>
+<tr>
+<td><code>departments</code></td>
+<td>array</td>
+<td>–</td>
+<td>Keep departments containing any of these words</td>
+</tr>
+<tr>
+<td><code>workplaceType</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>remote</code>, <code>hybrid</code> or <code>onsite</code></td>
+</tr>
+<tr>
+<td><code>employmentType</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>full-time</code>, <code>part-time</code>, <code>contract</code>, <code>internship</code> or <code>temporary</code></td>
+</tr>
+<tr>
+<td><code>publishedAfter</code></td>
+<td>string</td>
+<td>–</td>
+<td>First-published cutoff (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>updatedAfter</code></td>
+<td>string</td>
+<td>–</td>
+<td>Last-updated cutoff (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>onlyWithSalary</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep only jobs with a stated pay range</td>
+</tr>
+<tr>
+<td><code>minAnnualSalary</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum annualized base pay</td>
+</tr>
+<tr>
+<td><code>salaryCurrency</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>Only jobs with pay in this currency</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>board</code></td>
+<td><code>board</code>, <code>publishedNewest</code>, <code>publishedOldest</code>, <code>updatedNewest</code> or <code>titleAZ</code></td>
 </tr>
 <tr>
 <td><code>content</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>Include the full job description as HTML</td>
+<td>Include full job descriptions</td>
+</tr>
+<tr>
+<td><code>descriptionFormat</code></td>
+<td>string</td>
+<td><code>html</code></td>
+<td><code>html</code>, <code>text</code>, <code>markdown</code> or <code>all</code></td>
+</tr>
+<tr>
+<td><code>includeQuestions</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Fetch application questions (one extra request per emitted job)</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
 <td><code>500</code></td>
-<td>Maximum number of job records to emit (1–10000)</td>
+<td>Maximum records to emit (1–10,000)</td>
+</tr>
+<tr>
+<td><code>maxJobsPerCompany</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Per-company cap after filters; <code>0</code> means no cap</td>
+</tr>
+<tr>
+<td><code>verifyCompanies</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Live-check companies in <code>companySearch</code> and report open jobs</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-all-open-roles-across-three-companies">Example: all open roles across three companies</h3>
+<h3 id="readme-example-all-engineering-roles-at-three-companies">Example: all engineering roles at three companies</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;getJobs&quot;,
-  &quot;companySlugs&quot;: [&quot;stripe&quot;, &quot;airbnb&quot;, &quot;shopify&quot;],
-  &quot;maxItems&quot;: 1000
+  &quot;mode&quot;: &quot;companyJobs&quot;,
+  &quot;companies&quot;: [&quot;stripe&quot;, &quot;figma&quot;, &quot;https://job-boards.greenhouse.io/airbnb&quot;],
+  &quot;titleKeywords&quot;: [&quot;engineer&quot;, &quot;developer&quot;],
+  &quot;workplaceType&quot;: &quot;remote&quot;,
+  &quot;content&quot;: false,
+  &quot;maxItems&quot;: 200
 }
 </code></pre>
-<h3 id="readme-example-specific-job-postings-with-full-description">Example: specific job postings with full description</h3>
+<h3 id="readme-example-company-names-and-domains">Example: company names and domains</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;getJob&quot;,
-  &quot;companySlug&quot;: &quot;stripe&quot;,
-  &quot;jobIds&quot;: [4567890, 4567891],
-  &quot;content&quot;: true
-}
-</code></pre>
-<h3 id="readme-example-one-company-s-jobs-with-descriptions-capped">Example: one company's jobs with descriptions, capped</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;getJobs&quot;,
-  &quot;companySlugs&quot;: [&quot;figma&quot;],
-  &quot;content&quot;: true,
+  &quot;mode&quot;: &quot;companyJobs&quot;,
+  &quot;companies&quot;: [&quot;Anthropic&quot;, &quot;jobs.elastic.co&quot;, &quot;HubSpot&quot;],
+  &quot;onlyWithSalary&quot;: true,
+  &quot;minAnnualSalary&quot;: 120000,
+  &quot;salaryCurrency&quot;: &quot;USD&quot;,
+  &quot;sortBy&quot;: &quot;publishedNewest&quot;,
   &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-specific-jobs-with-descriptions-markdown-and-questions">Example: specific jobs with descriptions, Markdown and questions</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;jobDetails&quot;,
+  &quot;jobUrls&quot;: [
+    &quot;https://job-boards.greenhouse.io/gitlab/jobs/8860302002&quot;,
+    &quot;https://boards.greenhouse.io/figma/jobs/5426468004&quot;
+  ],
+  &quot;content&quot;: true,
+  &quot;descriptionFormat&quot;: &quot;all&quot;,
+  &quot;includeQuestions&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-resolve-a-company-list">Example: resolve a company list</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;companySearch&quot;,
+  &quot;companies&quot;: [&quot;Airbnb&quot;, &quot;stripe.com&quot;, &quot;HubSpot&quot;, &quot;not-a-real-board&quot;],
+  &quot;verifyCompanies&quot;: true,
+  &quot;maxItems&quot;: 10
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Job board aggregation</strong> — build a career site or job feed from live Greenhouse data</li>
-<li><strong>Hiring trend research</strong> — track which departments and locations a company is actively hiring for</li>
-<li><strong>Competitive intelligence</strong> — monitor which roles competitors are trying to fill</li>
-<li><strong>Recruitment analytics</strong> — compare job requirements and employment types across companies</li>
-<li><strong>Salary benchmarking</strong> — collect published salary ranges where companies disclose them</li>
+<li><strong>Job boards and aggregators</strong> — build live company career pages from the source, with stable IDs and apply links.</li>
+<li><strong>Recruiting and sourcing</strong> — monitor target companies by department, location and seniority.</li>
+<li><strong>Compensation research</strong> — collect disclosed pay bands with currency and period labels.</li>
+<li><strong>Sales and hiring signals</strong> — see which teams and locations are expanding.</li>
+<li><strong>AI agents and enrichment</strong> — feed clean job text, questions and structured pay into matching or RAG pipelines.</li>
+<li><strong>Applicant tooling</strong> — list the exact questions a Greenhouse application will ask before a candidate starts.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Do I need an API key or login?</strong>
-No — Greenhouse's public job board API is open and requires no authentication.</p>
-<p><strong>How do I find a company's board slug?</strong>
-It's the identifier in the company's Greenhouse board URL, e.g. <code>stripe</code> in <code>boards.greenhouse.io/stripe</code>.</p>
-<p><strong>Does this work for every company that uses Greenhouse?</strong>
-It works for any company with a public Greenhouse board. Some companies configure their board as private, in which case it isn't accessible through the public API at all.</p>
-<p><strong>How do I get the full job description text?</strong>
-Set <code>content</code> to <code>true</code>; each job record will then include the full HTML description.</p>
-<p><strong>How many jobs can I pull per run?</strong>
-Up to <code>maxItems</code>, capped at 10,000. Greenhouse's API returns a company's full job list in one response, with no pagination needed.</p>
-<p><strong>Why is <code>salary</code> missing from some jobs?</strong>
-Not every company publishes a salary range on Greenhouse; the field is included only when the company's own posting has one.</p>
-<p><strong>What happens if I give an invalid company slug?</strong>
-That slug is skipped with a logged warning, and the run continues with any other slugs you provided.</p>
-<p><strong>How fresh is the data?</strong>
-As fresh as Greenhouse's own API — each job carries an <code>updatedAt</code> timestamp straight from the source.</p>
-<p><strong>Is this affiliated with Greenhouse Software?</strong>
-No. This is an independent, third-party actor that reads Greenhouse's public job board data and is not operated by or affiliated with Greenhouse Software, Inc.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/iAMfb4Uf2haeImsKk/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>6tme8vDrdSz5kalXG</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<p><strong>Do I need a Greenhouse account, API key or proxy?</strong>
+No. The actor reads publicly published job boards. There is nothing to configure and no login, cookie or proxy needed.</p>
+<p><strong>How do I find a company's board token?</strong>
+Paste the company's Greenhouse board link, embed link or a single job link. If you only have a company name or domain, the actor tries the built-in verified directory, then common board-name variants. Name/domain lookup is best-effort; a board URL or token is always exact.</p>
+<p><strong>Does this work for companies on the EU Greenhouse host?</strong>
+Yes. EU boards return the same public data and are marked <code>region: &quot;eu&quot;</code>.</p>
+<p><strong>Why is salary missing from some jobs?</strong>
+Pay disclosure is a company choice. Many employers publish no range at all; the field is included only when a real range is available. The actor never invents a number.</p>
+<p><strong>What is the difference between <code>salary</code> and <code>salaryBands</code>?</strong>
+<code>salary</code> is the primary base-pay summary. <code>salaryBands</code> keeps every disclosed band, including location zones and OTE ranges, because one posting can publish several. OTE and commission bands stay in <code>salaryBands</code> but are excluded from the <code>salary</code> envelope.</p>
+<p><strong>Why is employment type missing?</strong>
+Greenhouse no longer exposes a dedicated employment-type field. The actor reads it from employer metadata when present and omits it otherwise.</p>
+<p><strong>Can I get the full job description and questions?</strong>
+Yes. Turn on descriptions and choose HTML, text, Markdown or all three. Questions are optional because they require one additional request per job.</p>
+<p><strong>How many jobs can I get per company?</strong>
+A company's whole board is returned in one response, so there is no page limit. Use <code>maxItems</code> and <code>maxJobsPerCompany</code> to control run size.</p>
+<p><strong>Does this work for private or unlisted boards?</strong>
+No. Only publicly published Greenhouse boards are readable.</p>
+<p><strong>Is this affiliated with Greenhouse?</strong>
+No. This is an independent third-party actor that reads publicly published job board data and is not operated by or affiliated with Greenhouse Software, Inc.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>Pay, employment type and some metadata are employer-optional; missing values are real, not parsing failures.</li>
+<li>Company name/domain resolution is best-effort. Use a board URL or token for an exact match.</li>
+<li>Application questions are only available per job and add one request per record.</li>
+<li>A posting can publish multiple pay bands; the actor preserves all of them instead of picking one.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/iAMfb4Uf2haeImsKk/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>gRN0mLqin4dVb7ZGK</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

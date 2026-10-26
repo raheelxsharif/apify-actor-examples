@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "One record per Greenhouse job posting, with title, location, departments, employment type, salary, and apply link.",
+  "description": "One record per Greenhouse job (title, company, locations, departments, structured pay, dates, apply link) or per company in company-search mode.",
   "properties": {
     "jobs": {
-      "description": "Dataset containing all scraped Greenhouse job listings.",
+      "description": "Dataset containing Greenhouse job records, plus company rows when mode=companySearch.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Greenhouse job listings",
       "type": "string"

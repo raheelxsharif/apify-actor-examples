@@ -1,57 +1,298 @@
 {
-  "description": "Get all jobs from one or more Greenhouse company boards, or fetch a specific job by company + job ID.",
+  "description": "Scrape jobs from Greenhouse company boards by token, board URL, job URL, company name or domain. Get structured pay, locations, departments, questions and dates.",
   "properties": {
-    "companySlug": {
-      "description": "Single company board slug for fetching a specific job (e.g. \"airbnb\").",
-      "editor": "textfield",
-      "title": "Company board slug (mode=getJob)",
-      "type": "string"
-    },
-    "companySlugs": {
-      "description": "List of Greenhouse company board slugs to scrape (e.g. [\"google\", \"airbnb\"]). Find the slug in the Greenhouse board URL: boards.greenhouse.io/v1/boards/{slug}/jobs",
+    "companies": {
+      "description": "Board tokens, board URLs, embed URLs, job URLs, company names or domains. Examples: \"stripe\", \"https://job-boards.greenhouse.io/figma\", \"Airbnb\", \"jobs.elastic.co\".",
       "editor": "stringList",
       "prefill": [
         "airbnb"
       ],
-      "title": "Company board slugs (mode=getJobs)",
+      "title": "Companies",
       "type": "array"
     },
     "content": {
       "default": false,
-      "description": "When enabled, each job record will include the full job description as HTML.",
+      "description": "Include the full job description. Departments and offices are always included (fetched separately when descriptions are off).",
       "prefill": false,
-      "title": "Include job description HTML",
+      "title": "Include job descriptions",
       "type": "boolean"
     },
-    "jobIds": {
-      "description": "List of Greenhouse job IDs (integers) to fetch.",
+    "departments": {
+      "description": "Keep jobs in departments that contain any of these words, e.g. Engineering, Sales.",
       "editor": "stringList",
-      "title": "Job IDs (mode=getJob)",
+      "title": "Departments",
+      "type": "array"
+    },
+    "descriptionFormat": {
+      "default": "html",
+      "description": "Format used when Include job descriptions is on. HTML is always the content field; text/markdown add contentText/contentMarkdown.",
+      "editor": "select",
+      "enum": [
+        "html",
+        "text",
+        "markdown",
+        "all"
+      ],
+      "enumTitles": [
+        "HTML",
+        "HTML + plain text",
+        "HTML + Markdown",
+        "HTML + text + Markdown"
+      ],
+      "prefill": "html",
+      "title": "Description format",
+      "type": "string"
+    },
+    "employmentType": {
+      "default": "any",
+      "description": "Keep full-time, part-time, contract, internship or temporary roles when the employer states it.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "full-time",
+        "part-time",
+        "contract",
+        "internship",
+        "temporary"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Internship",
+        "Temporary"
+      ],
+      "prefill": "any",
+      "title": "Employment type",
+      "type": "string"
+    },
+    "excludeTitleKeywords": {
+      "description": "Drop jobs whose title contains any of these words (case-insensitive).",
+      "editor": "stringList",
+      "title": "Job title must not contain",
+      "type": "array"
+    },
+    "includeQuestions": {
+      "default": false,
+      "description": "Fetch each job's application form questions. Adds one request per emitted job.",
+      "prefill": false,
+      "title": "Include application questions",
+      "type": "boolean"
+    },
+    "jobUrls": {
+      "description": "Full Greenhouse job URLs to fetch one by one. A company board URL alone is not enough; include /jobs/<id>.",
+      "editor": "stringList",
+      "title": "Job URLs (mode=jobDetails)",
+      "type": "array"
+    },
+    "locations": {
+      "description": "Keep jobs whose location or office contains any of these words, e.g. Remote, London, New York.",
+      "editor": "stringList",
+      "title": "Locations",
       "type": "array"
     },
     "maxItems": {
       "default": 500,
-      "description": "Maximum number of job records to emit.",
+      "description": "Maximum number of job or company records to emit.",
       "maximum": 10000,
       "minimum": 1,
-      "prefill": 500,
+      "prefill": 1,
       "title": "Max items",
       "type": "integer"
     },
+    "maxJobsPerCompany": {
+      "default": 0,
+      "description": "Cap jobs per company after filters (mode=companyJobs). 0 means no per-company cap.",
+      "maximum": 10000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max jobs per company",
+      "type": "integer"
+    },
+    "minAnnualSalary": {
+      "description": "Keep jobs whose base pay reaches at least this yearly amount. Hourly, monthly and weekly ranges are annualized.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum annual salary",
+      "type": "integer"
+    },
     "mode": {
-      "default": "getJobs",
-      "description": "What to fetch: all jobs from company boards, or a specific job by ID.",
+      "default": "companyJobs",
+      "description": "What to fetch: jobs from company boards, specific job URLs, or company board lookup.",
       "editor": "select",
       "enum": [
+        "companyJobs",
+        "jobDetails",
+        "companySearch",
         "getJobs",
         "getJob"
       ],
       "enumTitles": [
-        "Get all jobs from company board(s)",
-        "Get specific job by company + job ID"
+        "Jobs from company boards",
+        "Specific jobs by URL or ID",
+        "Company board lookup",
+        "All jobs from company boards (legacy alias)",
+        "Specific job by company + ID (legacy alias)"
       ],
-      "prefill": "getJobs",
+      "prefill": "companyJobs",
       "title": "Mode",
+      "type": "string"
+    },
+    "onlyWithSalary": {
+      "default": false,
+      "description": "Keep only jobs with a published or clearly stated pay range.",
+      "prefill": false,
+      "title": "Only jobs with salary",
+      "type": "boolean"
+    },
+    "publishedAfter": {
+      "description": "Keep jobs first published on or after this date (YYYY-MM-DD).",
+      "editor": "datepicker",
+      "title": "Published after",
+      "type": "string"
+    },
+    "salaryCurrency": {
+      "default": "any",
+      "description": "Only keep jobs with pay in this currency. Use Any to ignore currency.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "USD",
+        "EUR",
+        "GBP",
+        "CAD",
+        "AUD",
+        "SGD",
+        "INR",
+        "JPY",
+        "CNY",
+        "CHF",
+        "SEK",
+        "NOK",
+        "DKK",
+        "PLN",
+        "CZK",
+        "HUF",
+        "RON",
+        "BRL",
+        "MXN",
+        "ARS",
+        "CLP",
+        "COP",
+        "ZAR",
+        "AED",
+        "SAR",
+        "ILS",
+        "TRY",
+        "KRW",
+        "TWD",
+        "HKD",
+        "NZD"
+      ],
+      "enumTitles": [
+        "Any",
+        "USD",
+        "EUR",
+        "GBP",
+        "CAD",
+        "AUD",
+        "SGD",
+        "INR",
+        "JPY",
+        "CNY",
+        "CHF",
+        "SEK",
+        "NOK",
+        "DKK",
+        "PLN",
+        "CZK",
+        "HUF",
+        "RON",
+        "BRL",
+        "MXN",
+        "ARS",
+        "CLP",
+        "COP",
+        "ZAR",
+        "AED",
+        "SAR",
+        "ILS",
+        "TRY",
+        "KRW",
+        "TWD",
+        "HKD",
+        "NZD"
+      ],
+      "prefill": "any",
+      "title": "Salary currency",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Name or token text to match against the built-in company directory. Leave empty to resolve the Companies list instead.",
+      "editor": "textfield",
+      "title": "Company search (mode=companySearch)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "board",
+      "description": "Result order after filtering.",
+      "editor": "select",
+      "enum": [
+        "board",
+        "publishedNewest",
+        "publishedOldest",
+        "updatedNewest",
+        "titleAZ"
+      ],
+      "enumTitles": [
+        "Board order",
+        "Newest published",
+        "Oldest published",
+        "Recently updated",
+        "Title A–Z"
+      ],
+      "prefill": "board",
+      "title": "Sort results",
+      "type": "string"
+    },
+    "titleKeywords": {
+      "description": "Keep jobs whose title contains any of these words (case-insensitive).",
+      "editor": "stringList",
+      "title": "Job title must contain",
+      "type": "array"
+    },
+    "updatedAfter": {
+      "description": "Keep jobs last updated on or after this date (YYYY-MM-DD).",
+      "editor": "datepicker",
+      "title": "Updated after",
+      "type": "string"
+    },
+    "verifyCompanies": {
+      "default": true,
+      "description": "Check each company against the live board and report its open-job count.",
+      "prefill": true,
+      "title": "Verify companies live (mode=companySearch)",
+      "type": "boolean"
+    },
+    "workplaceType": {
+      "default": "any",
+      "description": "Keep remote, hybrid or on-site roles. Jobs without a stated arrangement are dropped when this is not Any.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "remote",
+        "hybrid",
+        "onsite"
+      ],
+      "enumTitles": [
+        "Any",
+        "Remote",
+        "Hybrid",
+        "On-site"
+      ],
+      "prefill": "any",
+      "title": "Workplace type",
       "type": "string"
     }
   },
