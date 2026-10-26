@@ -1,0 +1,65 @@
+{
+  "description": "Fetch album profiles, rankings and search suggestions from iQIYI (iq.com).",
+  "properties": {
+    "albumIds": {
+      "default": [],
+      "description": "iQIYI album slugs or URLs, e.g. `genius-girlfriend-2026-28fzrln6il1` or `https://www.iq.com/album/genius-girlfriend-2026-28fzrln6il1?lang=en_us`.",
+      "editor": "stringList",
+      "prefill": [
+        "genius-girlfriend-2026-28fzrln6il1"
+      ],
+      "title": "Album IDs (mode=byId)",
+      "type": "array"
+    },
+    "channelId": {
+      "default": 2,
+      "description": "Ranking channel: 0 = Top, 1 = Movie, 2 = Series, 6 = Kids, 7 = Variety, 8 = Anime.",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 2,
+      "title": "Channel (mode=trending)",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 25,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byId",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "byId",
+        "trending",
+        "search"
+      ],
+      "enumTitles": [
+        "Album profile by ID",
+        "Top ranking by channel",
+        "Search suggestions"
+      ],
+      "prefill": "byId",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "love",
+      "description": "Text to find show suggestions for, e.g. `love`.",
+      "editor": "textfield",
+      "prefill": "love",
+      "title": "Search query (mode=search)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "iQIYI Scraper Input",
+  "type": "object"
+}
