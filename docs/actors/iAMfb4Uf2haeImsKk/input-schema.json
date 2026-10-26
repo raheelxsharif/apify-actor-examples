@@ -1,0 +1,64 @@
+{
+  "description": "Get all jobs from one or more Greenhouse company boards, or fetch a specific job by company + job ID.",
+  "properties": {
+    "companySlug": {
+      "description": "Single company board slug for fetching a specific job (e.g. \"airbnb\").",
+      "editor": "textfield",
+      "title": "Company board slug (mode=getJob)",
+      "type": "string"
+    },
+    "companySlugs": {
+      "description": "List of Greenhouse company board slugs to scrape (e.g. [\"google\", \"airbnb\"]). Find the slug in the Greenhouse board URL: boards.greenhouse.io/v1/boards/{slug}/jobs",
+      "editor": "stringList",
+      "prefill": [
+        "airbnb"
+      ],
+      "title": "Company board slugs (mode=getJobs)",
+      "type": "array"
+    },
+    "content": {
+      "default": false,
+      "description": "When enabled, each job record will include the full job description as HTML.",
+      "prefill": false,
+      "title": "Include job description HTML",
+      "type": "boolean"
+    },
+    "jobIds": {
+      "description": "List of Greenhouse job IDs (integers) to fetch.",
+      "editor": "stringList",
+      "title": "Job IDs (mode=getJob)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 500,
+      "description": "Maximum number of job records to emit.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 500,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "getJobs",
+      "description": "What to fetch: all jobs from company boards, or a specific job by ID.",
+      "editor": "select",
+      "enum": [
+        "getJobs",
+        "getJob"
+      ],
+      "enumTitles": [
+        "Get all jobs from company board(s)",
+        "Get specific job by company + job ID"
+      ],
+      "prefill": "getJobs",
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Greenhouse Jobs Scraper Input",
+  "type": "object"
+}

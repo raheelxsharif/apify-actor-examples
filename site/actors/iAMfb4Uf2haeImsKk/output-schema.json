@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per Greenhouse job posting, with title, location, departments, employment type, salary, and apply link.",
+  "properties": {
+    "jobs": {
+      "description": "Dataset containing all scraped Greenhouse job listings.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Greenhouse job listings",
+      "type": "string"
+    }
+  },
+  "title": "Greenhouse ATS Job Board Lookup by Company Output"
+}
