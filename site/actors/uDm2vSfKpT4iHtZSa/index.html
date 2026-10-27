@@ -1,0 +1,326 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-N0s62MAXoMCKuVPYxlKk2JeqW2303VFVreTDnr/6WN0=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Transfermarkt Player Market Value &amp; Transfer Scraper | Dataspryva</title><meta name="description" content="Look up football players, clubs, and competitions on Transfermarkt. Get player market value history, transfer records, injury logs, club squads, and competition club lists by name "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/"><meta property="og:title" content="Transfermarkt Player Market Value &amp; Transfer Scraper | Dataspryva"><meta property="og:description" content="Look up football players, clubs, and competitions on Transfermarkt. Get player market value history, transfer records, injury logs, club squads, and competition club lists by name "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#webpage","name":"Transfermarkt Player Market Value & Transfer Scraper","description":"Look up football players, clubs, and competitions on Transfermarkt. Get player market value history, transfer records, injury logs, club squads, and competition club lists by name or ID.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#article","headline":"Transfermarkt Player Market Value & Transfer Scraper","name":"Transfermarkt Player Market Value & Transfer Scraper","description":"Look up football players, clubs, and competitions on Transfermarkt. Get player market value history, transfer records, injury logs, club squads, and competition club lists by name or ID.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Transfermarkt Player Market Value & Transfer Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/uDm2vSfKpT4iHtZSa/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Transfermarkt Player Market Value &amp; Transfer Scraper</span></div><section id="overview"><h1 class="doc-title">Transfermarkt Player Market Value &amp; Transfer Scraper</h1><p class="lede">Look up football players, clubs, and competitions on Transfermarkt. Get player market value history, transfer records, injury logs, club squads, and competition club lists by name or ID.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/transfermarkt-player-market-value-and-transfer">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/uDm2vSfKpT4iHtZSa/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Transfermarkt.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Player/club/competition name to search for (used in search modes).</td></tr><tr><td><code>playerId</code></td><td>string</td><td>optional</td><td>Transfermarkt numeric player ID, e.g. `28003` for Messi.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Transfermarkt.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Player/club/competition name to search for (used in search modes).</td></tr><tr><td><code>playerId</code></td><td>string</td><td>optional</td><td>Transfermarkt numeric player ID, e.g. `28003` for Messi.</td></tr><tr><td><code>clubId</code></td><td>string</td><td>optional</td><td>Transfermarkt numeric club ID, e.g. `131` for Manchester City.</td></tr><tr><td><code>competitionId</code></td><td>string</td><td>optional</td><td>Transfermarkt competition ID, e.g. `GB1` for Premier League.</td></tr><tr><td><code>minMarketValueEur</code></td><td>integer</td><td>optional</td><td>Filter out players with a market value below this amount in euros.</td></tr><tr><td><code>nationality</code></td><td>string</td><td>optional</td><td>Only include players whose nationality contains this string (e.g. `Argentina`, `Brazil`).</td></tr><tr><td><code>position</code></td><td>string</td><td>optional</td><td>Only include players matching this position.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search players, clubs, and competitions on Transfermarkt, or fetch detailed profiles by ID.&quot;,
+  &quot;properties&quot;: {
+    &quot;clubId&quot;: {
+      &quot;description&quot;: &quot;Transfermarkt numeric club ID, e.g. `131` for Manchester City.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Club ID (mode=byClubId)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;competitionId&quot;: {
+      &quot;description&quot;: &quot;Transfermarkt competition ID, e.g. `GB1` for Premier League.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Competition ID (mode=byCompetitionId)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 5,
+      &quot;description&quot;: &quot;Maximum number of records to return.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 5,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minMarketValueEur&quot;: {
+      &quot;description&quot;: &quot;Filter out players with a market value below this amount in euros.&quot;,
+      &quot;maximum&quot;: 500000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min market value (EUR)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchPlayers&quot;,
+      &quot;description&quot;: &quot;What to fetch from Transfermarkt.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchPlayers&quot;,
+        &quot;byPlayerId&quot;,
+        &quot;searchClubs&quot;,
+        &quot;byClubId&quot;,
+        &quot;searchCompetitions&quot;,
+        &quot;byCompetitionId&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search players by name&quot;,
+        &quot;Full player profile by ID (transfers, market value, injuries)&quot;,
+        &quot;Search clubs by name&quot;,
+        &quot;Club profile + squad by ID&quot;,
+        &quot;Search competitions/leagues by name&quot;,
+        &quot;Clubs in a competition by ID&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchPlayers&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;nationality&quot;: {
+      &quot;description&quot;: &quot;Only include players whose nationality contains this string (e.g. `Argentina`, `Brazil`).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Nationality filter&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;playerId&quot;: {
+      &quot;description&quot;: &quot;Transfermarkt numeric player ID, e.g. `28003` for Messi.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Player ID (mode=byPlayerId)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;position&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only include players matching this position.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;Goalkeeper&quot;,
+        &quot;Centre-Back&quot;,
+        &quot;Left-Back&quot;,
+        &quot;Right-Back&quot;,
+        &quot;Defensive Midfield&quot;,
+        &quot;Central Midfield&quot;,
+        &quot;Attacking Midfield&quot;,
+        &quot;Left Winger&quot;,
+        &quot;Right Winger&quot;,
+        &quot;Centre-Forward&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any position&quot;,
+        &quot;Goalkeeper&quot;,
+        &quot;Centre-Back&quot;,
+        &quot;Left-Back&quot;,
+        &quot;Right-Back&quot;,
+        &quot;Defensive Midfield&quot;,
+        &quot;Central Midfield&quot;,
+        &quot;Attacking Midfield&quot;,
+        &quot;Left Winger&quot;,
+        &quot;Right Winger&quot;,
+        &quot;Centre-Forward&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Position filter&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;query&quot;: {
+      &quot;default&quot;: &quot;Messi&quot;,
+      &quot;description&quot;: &quot;Player/club/competition name to search for (used in search modes).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;Messi&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Transfermarkt Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Transfermarkt records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Transfermarkt player, club, and competition records with market values, transfer history, injury logs, and squad lists.&quot;,
+  &quot;properties&quot;: {
+    &quot;records&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Transfermarkt records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Transfermarkt records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Transfermarkt Player Market Value &amp; Transfer Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Records&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;name&quot;,
+          &quot;currentClub&quot;,
+          &quot;position&quot;,
+          &quot;marketValue&quot;,
+          &quot;nationality&quot;,
+          &quot;profileUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-transfermarkt-player-market-value-transfer-scraper">Transfermarkt Player Market Value &amp; Transfer Scraper</h2>
+<p>Transfermarkt tracks market values, transfer fees, and squad data for football players and clubs worldwide. This actor searches that data by name or pulls a full record by ID — a player's transfer and injury history, a club's current squad, or every club in a competition.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches for players, clubs, or competitions by name.</li>
+<li>Pulls a single player's full profile by ID, including market value history, transfer records, and injury log.</li>
+<li>Pulls a club's profile plus its full current squad by ID, or every club competing in a given competition.</li>
+<li>Filters player results by minimum market value, nationality, or position.</li>
+<li>Fields Transfermarkt doesn't publish for a given record (an unlisted market value, a missing stadium name) are left out rather than sent empty.</li>
+</ul>
+<h2 id="readme-output-per-record-type">Output per record type</h2>
+<h3 id="readme-player">Player</h3>
+<ul>
+<li><code>playerId</code> — Transfermarkt numeric player ID</li>
+<li><code>name</code>, <code>fullName</code> — display and full name</li>
+<li><code>nationality</code> — array of nationalities</li>
+<li><code>position</code>, <code>subPosition</code> — main and secondary playing position</li>
+<li><code>dateOfBirth</code>, <code>age</code></li>
+<li><code>height</code>, <code>foot</code></li>
+<li><code>currentClub</code>, <code>currentClubId</code></li>
+<li><code>marketValue</code> — formatted current market value (e.g. <code>€15.00m</code>)</li>
+<li><code>marketValueNumeric</code> — the same value in euros as a number</li>
+<li><code>highestMarketValue</code>, <code>highestMarketValueDate</code> — peak market value and when it was recorded (full profile only, mode <code>byPlayerId</code>)</li>
+<li><code>transfers</code> — array of <code>{date, fromClub, toClub, fee, feeNumeric}</code> (full profile only)</li>
+<li><code>injuries</code> — array of <code>{date, injury, absence}</code> (full profile only)</li>
+<li><code>profileUrl</code>, <code>imageUrl</code></li>
+<li><code>siteName</code> — always <code>Transfermarkt</code></li>
+<li><code>recordType</code> — always <code>player</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of the fetch</li>
+</ul>
+<h3 id="readme-club">Club</h3>
+<ul>
+<li><code>clubId</code> — Transfermarkt numeric club ID</li>
+<li><code>name</code>, <code>officialName</code></li>
+<li><code>country</code></li>
+<li><code>league</code>, <code>leagueId</code></li>
+<li><code>squadSize</code>, <code>avgAge</code>, <code>foreignersNumber</code></li>
+<li><code>totalMarketValue</code></li>
+<li><code>stadiumName</code>, <code>stadiumSeats</code></li>
+<li><code>profileUrl</code>, <code>imageUrl</code></li>
+<li><code>siteName</code> — always <code>Transfermarkt</code></li>
+<li><code>recordType</code> — always <code>club</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of the fetch</li>
+</ul>
+<h3 id="readme-competition">Competition</h3>
+<ul>
+<li><code>competitionId</code> — Transfermarkt competition ID</li>
+<li><code>name</code>, <code>country</code>, <code>countryId</code></li>
+<li><code>competitionUrl</code>, <code>imageUrl</code></li>
+<li><code>siteName</code> — always <code>Transfermarkt</code></li>
+<li><code>recordType</code> — always <code>competition</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of the fetch</li>
+</ul>
+<p>Running <code>byClubId</code> returns the club record followed by one player record per squad member; <code>byCompetitionId</code> returns one club record per club in that competition.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchPlayers</code></td>
+<td><code>searchPlayers</code>, <code>byPlayerId</code>, <code>searchClubs</code>, <code>byClubId</code>, <code>searchCompetitions</code>, or <code>byCompetitionId</code></td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td><code>Messi</code></td>
+<td>Name to search for; used by the search modes</td>
+</tr>
+<tr>
+<td><code>playerId</code></td>
+<td>string</td>
+<td>–</td>
+<td>Transfermarkt numeric player ID, e.g. <code>28003</code> for Messi; used by <code>byPlayerId</code></td>
+</tr>
+<tr>
+<td><code>clubId</code></td>
+<td>string</td>
+<td>–</td>
+<td>Transfermarkt numeric club ID, e.g. <code>131</code> for Manchester City; used by <code>byClubId</code></td>
+</tr>
+<tr>
+<td><code>competitionId</code></td>
+<td>string</td>
+<td>–</td>
+<td>Transfermarkt competition ID, e.g. <code>GB1</code> for Premier League; used by <code>byCompetitionId</code></td>
+</tr>
+<tr>
+<td><code>minMarketValueEur</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Only keep players with a market value at or above this amount in euros</td>
+</tr>
+<tr>
+<td><code>nationality</code></td>
+<td>string</td>
+<td>–</td>
+<td>Only keep players whose nationality contains this text, e.g. <code>Argentina</code></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>string</td>
+<td>(any)</td>
+<td>Only keep players in this exact position</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Maximum number of records to return (1-1000)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-search-for-a-player">Example: search for a player</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchPlayers&quot;,
+  &quot;query&quot;: &quot;Messi&quot;,
+  &quot;maxItems&quot;: 10
+}
+</code></pre>
+<h3 id="readme-example-full-player-profile-with-transfer-and-injury-history">Example: full player profile with transfer and injury history</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byPlayerId&quot;,
+  &quot;playerId&quot;: &quot;28003&quot;
+}
+</code></pre>
+<h3 id="readme-example-club-profile-and-squad-filtered-to-forwards">Example: club profile and squad, filtered to forwards</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byClubId&quot;,
+  &quot;clubId&quot;: &quot;131&quot;,
+  &quot;position&quot;: &quot;Centre-Forward&quot;,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-example-every-club-in-a-competition">Example: every club in a competition</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byCompetitionId&quot;,
+  &quot;competitionId&quot;: &quot;GB1&quot;,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Scouting reports that need a player's transfer history and current market value in one record.</li>
+<li>Tracking a player's market value trend over their career.</li>
+<li>Building a squad roster for a club, filtered to a position or nationality.</li>
+<li>Comparing total squad value and average age across clubs in the same competition.</li>
+<li>Research on transfer fees and club spending by season.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Transfermarkt?</strong>
+No. This actor reads Transfermarkt's public player, club, and competition data; it isn't operated by or connected to Transfermarkt.</p>
+<p><strong>Do I need to log in or provide an API key?</strong>
+No. Every mode works on public data with no account required.</p>
+<p><strong>Where do I find a player, club, or competition ID?</strong>
+Run <code>searchPlayers</code>, <code>searchClubs</code>, or <code>searchCompetitions</code> first — each result record includes the numeric ID (or code, for competitions) needed for the <code>byPlayerId</code>, <code>byClubId</code>, or <code>byCompetitionId</code> modes. IDs also appear in a Transfermarkt profile URL, e.g. <code>28003</code> in <code>.../profil/spieler/28003</code>.</p>
+<p><strong>Why do <code>transfers</code> and <code>injuries</code> only appear with <code>byPlayerId</code>?</strong>
+Search results return a summary profile; the full transfer and injury history is only fetched when you request a specific player by ID.</p>
+<p><strong>Why is <code>highestMarketValue</code> sometimes missing even for a well-known player?</strong>
+It's only populated when Transfermarkt's market value history for that player has a valid value to compare; some players have too short a history for a peak to be determined.</p>
+<p><strong>Do the <code>minMarketValueEur</code>, <code>nationality</code>, and <code>position</code> filters apply to clubs and competitions too?</strong>
+No, they only filter player records.</p>
+<p><strong>How current is the data?</strong>
+Every run queries Transfermarkt live, so market values, squads, and transfer records reflect what the site shows at run time.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/uDm2vSfKpT4iHtZSa/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>DvzslkDrOqTaMYwvj</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

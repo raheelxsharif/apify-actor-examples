@@ -1,0 +1,117 @@
+{
+  "description": "Search players, clubs, and competitions on Transfermarkt, or fetch detailed profiles by ID.",
+  "properties": {
+    "clubId": {
+      "description": "Transfermarkt numeric club ID, e.g. `131` for Manchester City.",
+      "editor": "textfield",
+      "title": "Club ID (mode=byClubId)",
+      "type": "string"
+    },
+    "competitionId": {
+      "description": "Transfermarkt competition ID, e.g. `GB1` for Premier League.",
+      "editor": "textfield",
+      "title": "Competition ID (mode=byCompetitionId)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 5,
+      "description": "Maximum number of records to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minMarketValueEur": {
+      "description": "Filter out players with a market value below this amount in euros.",
+      "maximum": 500000000,
+      "minimum": 0,
+      "title": "Min market value (EUR)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchPlayers",
+      "description": "What to fetch from Transfermarkt.",
+      "editor": "select",
+      "enum": [
+        "searchPlayers",
+        "byPlayerId",
+        "searchClubs",
+        "byClubId",
+        "searchCompetitions",
+        "byCompetitionId"
+      ],
+      "enumTitles": [
+        "Search players by name",
+        "Full player profile by ID (transfers, market value, injuries)",
+        "Search clubs by name",
+        "Club profile + squad by ID",
+        "Search competitions/leagues by name",
+        "Clubs in a competition by ID"
+      ],
+      "prefill": "searchPlayers",
+      "title": "Mode",
+      "type": "string"
+    },
+    "nationality": {
+      "description": "Only include players whose nationality contains this string (e.g. `Argentina`, `Brazil`).",
+      "editor": "textfield",
+      "title": "Nationality filter",
+      "type": "string"
+    },
+    "playerId": {
+      "description": "Transfermarkt numeric player ID, e.g. `28003` for Messi.",
+      "editor": "textfield",
+      "title": "Player ID (mode=byPlayerId)",
+      "type": "string"
+    },
+    "position": {
+      "default": "",
+      "description": "Only include players matching this position.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Goalkeeper",
+        "Centre-Back",
+        "Left-Back",
+        "Right-Back",
+        "Defensive Midfield",
+        "Central Midfield",
+        "Attacking Midfield",
+        "Left Winger",
+        "Right Winger",
+        "Centre-Forward"
+      ],
+      "enumTitles": [
+        "Any position",
+        "Goalkeeper",
+        "Centre-Back",
+        "Left-Back",
+        "Right-Back",
+        "Defensive Midfield",
+        "Central Midfield",
+        "Attacking Midfield",
+        "Left Winger",
+        "Right Winger",
+        "Centre-Forward"
+      ],
+      "prefill": "",
+      "title": "Position filter",
+      "type": "string"
+    },
+    "query": {
+      "default": "Messi",
+      "description": "Player/club/competition name to search for (used in search modes).",
+      "editor": "textfield",
+      "prefill": "Messi",
+      "title": "Search query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Transfermarkt Scraper Input",
+  "type": "object"
+}
