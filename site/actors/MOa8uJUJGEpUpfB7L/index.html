@@ -1,0 +1,338 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-JW9eVT+Xxl7+/ikXRtke0odcT9ixb/nLHtCjSuh/zag=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva</title><meta name="description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:title" content="DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva"><meta property="og:description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article","headline":"DexScreener Token Pair & Boosted Token Scraper","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"DexScreener Token Pair & Boosted Token Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>DexScreener Token Pair &amp; Boosted Token Scraper</span></div><section id="overview"><h1 class="doc-title">DexScreener Token Pair &amp; Boosted Token Scraper</h1><p class="lede">Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/dexscreener-token-pair-and-boosted-token-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/MOa8uJUJGEpUpfB7L/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from DexScreener.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Token name, symbol, or pair address to search (mode=search).</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from DexScreener.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Token name, symbol, or pair address to search (mode=search).</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</td></tr><tr><td><code>chainId</code></td><td>string</td><td>optional</td><td>Blockchain network. Use &#x27;all&#x27; to include all chains (only applies to search mode).</td></tr><tr><td><code>pairAddress</code></td><td>string</td><td>optional</td><td>The pair contract address. Requires chainId to also be set (not &#x27;all&#x27;).</td></tr><tr><td><code>minLiquidityUsd</code></td><td>number</td><td>optional</td><td>Filter out pairs with total liquidity below this USD value.</td></tr><tr><td><code>minVolumeH24</code></td><td>number</td><td>optional</td><td>Filter out pairs with 24h trading volume below this USD value.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to emit.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search token pairs, lookup by address, browse trending tokens, or fetch profiles from DexScreener.&quot;,
+  &quot;properties&quot;: {
+    &quot;chainId&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Blockchain network. Use &#x27;all&#x27; to include all chains (only applies to search mode).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;ethereum&quot;,
+        &quot;bsc&quot;,
+        &quot;polygon&quot;,
+        &quot;arbitrum&quot;,
+        &quot;optimism&quot;,
+        &quot;base&quot;,
+        &quot;avalanche&quot;,
+        &quot;fantom&quot;,
+        &quot;solana&quot;,
+        &quot;cronos&quot;,
+        &quot;celo&quot;,
+        &quot;gnosis&quot;,
+        &quot;moonbeam&quot;,
+        &quot;moonriver&quot;,
+        &quot;harmony&quot;,
+        &quot;klaytn&quot;,
+        &quot;fuse&quot;,
+        &quot;heco&quot;,
+        &quot;okex&quot;,
+        &quot;cro&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All chains&quot;,
+        &quot;Ethereum&quot;,
+        &quot;BNB Smart Chain (BSC)&quot;,
+        &quot;Polygon&quot;,
+        &quot;Arbitrum&quot;,
+        &quot;Optimism&quot;,
+        &quot;Base&quot;,
+        &quot;Avalanche&quot;,
+        &quot;Fantom&quot;,
+        &quot;Solana&quot;,
+        &quot;Cronos&quot;,
+        &quot;Celo&quot;,
+        &quot;Gnosis&quot;,
+        &quot;Moonbeam&quot;,
+        &quot;Moonriver&quot;,
+        &quot;Harmony&quot;,
+        &quot;Klaytn&quot;,
+        &quot;Fuse&quot;,
+        &quot;HECO&quot;,
+        &quot;OKEx Chain&quot;,
+        &quot;Crypto.com Chain&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Chain&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 5,
+      &quot;description&quot;: &quot;Maximum number of records to emit.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 5,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minLiquidityUsd&quot;: {
+      &quot;description&quot;: &quot;Filter out pairs with total liquidity below this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min liquidity (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minVolumeH24&quot;: {
+      &quot;description&quot;: &quot;Filter out pairs with 24h trading volume below this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min 24h volume (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch from DexScreener.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;byTokenAddress&quot;,
+        &quot;byPairAddress&quot;,
+        &quot;trending&quot;,
+        &quot;byProfile&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search tokens/pairs by keyword&quot;,
+        &quot;Pairs by token address (comma-separated, up to 30)&quot;,
+        &quot;Specific pair by chain + pair address&quot;,
+        &quot;Trending/boosted tokens (top boosts)&quot;,
+        &quot;Latest token profiles&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;pairAddress&quot;: {
+      &quot;description&quot;: &quot;The pair contract address. Requires chainId to also be set (not &#x27;all&#x27;).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Pair address (mode=byPairAddress)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;query&quot;: {
+      &quot;description&quot;: &quot;Token name, symbol, or pair address to search (mode=search).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;USDC&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;tokenAddresses&quot;: {
+      &quot;description&quot;: &quot;Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Token addresses (mode=byTokenAddress)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;DexScreener Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Scraped records</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;DexScreener trading pair, boosted token, and token profile records with price, liquidity, volume, and transaction counts.&quot;,
+  &quot;properties&quot;: {
+    &quot;records&quot;: {
+      &quot;description&quot;: &quot;Scraped records&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;DexScreener Token Pair &amp; Boosted Token Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Pairs&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;chainId&quot;,
+          &quot;dexId&quot;,
+          &quot;pairAddress&quot;,
+          &quot;baseToken&quot;,
+          &quot;quoteToken&quot;,
+          &quot;priceUsd&quot;,
+          &quot;liquidity&quot;,
+          &quot;volume&quot;,
+          &quot;pairUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-dexscreener-token-pair-boosted-token-scraper">DexScreener Token Pair &amp; Boosted Token Scraper</h2>
+<p>DexScreener aggregates live trading pairs from decentralized exchanges across 20 blockchains. This actor pulls that data by keyword search, by token or pair address, or as the site's current boosted-token and token-profile feeds — all without a wallet or account.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches tokens and pairs by name, symbol, or address and returns matching pairs.</li>
+<li>Looks up every pair for one or more token contract addresses (up to 30 at once).</li>
+<li>Fetches a single pair by chain and pair address.</li>
+<li>Pulls the current boosted (promoted) tokens and the latest submitted token profiles.</li>
+<li>Filters pair results by minimum liquidity and minimum 24-hour volume in USD.</li>
+<li>Fields DexScreener doesn't report for a given pair or token (no fully diluted valuation, no labels) are left out of the record instead of being sent empty.</li>
+</ul>
+<h2 id="readme-output-per-mode">Output per mode</h2>
+<h3 id="readme-search-bytokenaddress-bypairaddress-trading-pair"><code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code> — trading pair</h3>
+<ul>
+<li><code>chainId</code> — blockchain the pair is on (e.g. <code>ethereum</code>, <code>solana</code>)</li>
+<li><code>dexId</code> — DEX protocol name (e.g. <code>uniswap</code>, <code>raydium</code>)</li>
+<li><code>pairAddress</code>, <code>pairUrl</code> — pair contract address and its DexScreener page</li>
+<li><code>baseToken</code>, <code>quoteToken</code> — <code>{address, name, symbol}</code> for each side of the pair</li>
+<li><code>priceNative</code>, <code>priceUsd</code> — price in native quote-token units and in USD</li>
+<li><code>liquidity</code> — <code>{usd, base, quote}</code> liquidity amounts</li>
+<li><code>fdv</code> — fully diluted valuation in USD</li>
+<li><code>marketCap</code> — market cap in USD</li>
+<li><code>volume</code> — trading volume by window: <code>h24</code>, <code>h6</code>, <code>h1</code>, <code>m5</code></li>
+<li><code>priceChange</code> — percentage price change by the same windows</li>
+<li><code>txns</code> — buy/sell counts by the same windows</li>
+<li><code>pairCreatedAt</code> — ISO 8601 pair creation date</li>
+<li><code>labels</code> — tags such as <code>v2</code>, <code>v3</code>, or <code>pump.fun</code></li>
+<li><code>boosts</code> — <code>{active}</code> count of active boosts on the pair</li>
+<li><code>recordType</code> — always <code>pair</code></li>
+<li><code>siteName</code> — always <code>DexScreener</code></li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+</ul>
+<h3 id="readme-trending-boosted-token"><code>trending</code> — boosted token</h3>
+<ul>
+<li><code>chainId</code>, <code>tokenAddress</code> — blockchain and token contract address</li>
+<li><code>icon</code>, <code>header</code> — token image URLs</li>
+<li><code>description</code> — token description text</li>
+<li><code>pairUrl</code> — link to the token's DexScreener page</li>
+<li><code>boostAmount</code>, <code>boostTotalAmount</code> — boost amount on this submission and the token's running total</li>
+<li><code>links</code> — array of <code>{type, label, url}</code> social/website links</li>
+<li><code>recordType</code> — always <code>boostedToken</code></li>
+<li><code>siteName</code> — always <code>DexScreener</code></li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+</ul>
+<h3 id="readme-byprofile-token-profile"><code>byProfile</code> — token profile</h3>
+<ul>
+<li><code>chainId</code>, <code>tokenAddress</code> — blockchain and token contract address</li>
+<li><code>icon</code>, <code>header</code> — token image URLs</li>
+<li><code>description</code> — token description text</li>
+<li><code>pairUrl</code> — link to the token's DexScreener page</li>
+<li><code>links</code> — array of <code>{type, label, url}</code> social/website links</li>
+<li><code>recordType</code> — always <code>tokenProfile</code></li>
+<li><code>siteName</code> — always <code>DexScreener</code></li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code>, <code>trending</code>, or <code>byProfile</code></td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>–</td>
+<td>Token name, symbol, or address to search for; used by <code>search</code></td>
+</tr>
+<tr>
+<td><code>tokenAddresses</code></td>
+<td>string</td>
+<td>–</td>
+<td>Comma-separated token contract addresses, up to 30; used by <code>byTokenAddress</code></td>
+</tr>
+<tr>
+<td><code>chainId</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td>Blockchain network, or <code>all</code> for every chain (search mode only)</td>
+</tr>
+<tr>
+<td><code>pairAddress</code></td>
+<td>string</td>
+<td>–</td>
+<td>Pair contract address; used by <code>byPairAddress</code>, requires <code>chainId</code> set to a specific chain</td>
+</tr>
+<tr>
+<td><code>minLiquidityUsd</code></td>
+<td>number</td>
+<td>–</td>
+<td>Only keep pairs with total liquidity at or above this USD value</td>
+</tr>
+<tr>
+<td><code>minVolumeH24</code></td>
+<td>number</td>
+<td>–</td>
+<td>Only keep pairs with 24-hour volume at or above this USD value</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Maximum number of records to return (1-1000)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-search-across-all-chains">Example: search across all chains</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;query&quot;: &quot;USDC&quot;,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-every-pair-for-a-token-on-ethereum">Example: every pair for a token on Ethereum</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byTokenAddress&quot;,
+  &quot;tokenAddresses&quot;: &quot;0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&quot;,
+  &quot;chainId&quot;: &quot;ethereum&quot;
+}
+</code></pre>
+<h3 id="readme-example-liquid-actively-traded-pairs-only">Example: liquid, actively traded pairs only</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;query&quot;: &quot;ETH&quot;,
+  &quot;minLiquidityUsd&quot;: 100000,
+  &quot;minVolumeH24&quot;: 50000,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-currently-boosted-tokens">Example: currently boosted tokens</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;trending&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Screen for pairs above a liquidity and volume threshold before researching a token further.</li>
+<li>Pull every pair tied to a token contract to see where it's traded.</li>
+<li>Track which tokens are currently paying for DexScreener boosts.</li>
+<li>Monitor newly submitted token profiles for emerging projects.</li>
+<li>Compare price, volume, and transaction activity for a specific pair over repeated runs.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with DexScreener?</strong>
+No. This actor reads DexScreener's public pages and data; it is not operated by or connected to DexScreener.</p>
+<p><strong>Do I need a wallet or API key?</strong>
+No. Every mode works without a wallet connection, account, or key.</p>
+<p><strong>Do <code>minLiquidityUsd</code> and <code>minVolumeH24</code> apply to <code>byTokenAddress</code> and <code>byPairAddress</code> too?</strong>
+Yes — they apply to every mode that returns pair records (<code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code>), not just <code>search</code>. A pair without liquidity or volume data is excluded once either filter is set. They have no effect on <code>trending</code> or <code>byProfile</code>, which don't return pair records at all.</p>
+<p><strong>Can I search across every blockchain at once?</strong>
+Yes — leave <code>chainId</code> at its default of <code>all</code> to search across every supported chain.</p>
+<p><strong>Why does a pair record have no <code>fdv</code> or <code>marketCap</code>?</strong>
+DexScreener doesn't publish a fully diluted valuation or market cap for every token, so those fields are left out when there's no value to report.</p>
+<p><strong>What's the difference between <code>trending</code> and <code>byProfile</code>?</strong>
+<code>trending</code> returns tokens that currently have an active paid boost on DexScreener; <code>byProfile</code> returns the latest token profiles submitted to the site, regardless of whether they're boosted.</p>
+<p><strong>How many records can one run return?</strong>
+Up to <code>maxItems</code>, capped at 1000 per run.</p>
+<p><strong>How current is the data?</strong>
+Every run reads DexScreener live, so prices, liquidity, and volume reflect the current market at run time.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/MOa8uJUJGEpUpfB7L/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>rbgoR6IULiCzVVRrs</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

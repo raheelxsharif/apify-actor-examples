@@ -1,0 +1,129 @@
+{
+  "description": "Search token pairs, lookup by address, browse trending tokens, or fetch profiles from DexScreener.",
+  "properties": {
+    "chainId": {
+      "default": "all",
+      "description": "Blockchain network. Use 'all' to include all chains (only applies to search mode).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche",
+        "fantom",
+        "solana",
+        "cronos",
+        "celo",
+        "gnosis",
+        "moonbeam",
+        "moonriver",
+        "harmony",
+        "klaytn",
+        "fuse",
+        "heco",
+        "okex",
+        "cro"
+      ],
+      "enumTitles": [
+        "All chains",
+        "Ethereum",
+        "BNB Smart Chain (BSC)",
+        "Polygon",
+        "Arbitrum",
+        "Optimism",
+        "Base",
+        "Avalanche",
+        "Fantom",
+        "Solana",
+        "Cronos",
+        "Celo",
+        "Gnosis",
+        "Moonbeam",
+        "Moonriver",
+        "Harmony",
+        "Klaytn",
+        "Fuse",
+        "HECO",
+        "OKEx Chain",
+        "Crypto.com Chain"
+      ],
+      "prefill": "all",
+      "title": "Chain",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 5,
+      "description": "Maximum number of records to emit.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minLiquidityUsd": {
+      "description": "Filter out pairs with total liquidity below this USD value.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Min liquidity (USD)",
+      "type": "number"
+    },
+    "minVolumeH24": {
+      "description": "Filter out pairs with 24h trading volume below this USD value.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Min 24h volume (USD)",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from DexScreener.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byTokenAddress",
+        "byPairAddress",
+        "trending",
+        "byProfile"
+      ],
+      "enumTitles": [
+        "Search tokens/pairs by keyword",
+        "Pairs by token address (comma-separated, up to 30)",
+        "Specific pair by chain + pair address",
+        "Trending/boosted tokens (top boosts)",
+        "Latest token profiles"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "pairAddress": {
+      "description": "The pair contract address. Requires chainId to also be set (not 'all').",
+      "editor": "textfield",
+      "title": "Pair address (mode=byPairAddress)",
+      "type": "string"
+    },
+    "query": {
+      "description": "Token name, symbol, or pair address to search (mode=search).",
+      "editor": "textfield",
+      "prefill": "USDC",
+      "title": "Search query",
+      "type": "string"
+    },
+    "tokenAddresses": {
+      "description": "Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "editor": "textfield",
+      "title": "Token addresses (mode=byTokenAddress)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "DexScreener Scraper Input",
+  "type": "object"
+}
