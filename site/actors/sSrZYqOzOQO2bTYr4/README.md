@@ -1,0 +1,107 @@
+# Willhaben Marketplace, Cars & Real Estate Listings Scraper
+
+Willhaben.at is Austria's biggest classifieds site, covering everyday marketplace items, used cars, and apartments, houses, and land for rent or sale. This actor searches any of those sections and returns structured listing data instead of a page you'd otherwise scroll by hand.
+
+## What this actor does
+
+- Searches marketplace items, used cars, or one of five real-estate categories (rent/buy apartment, rent/buy house, land) by keyword.
+- Filters results by minimum and maximum price in euros.
+- Sorts results by relevance, newest, price (either direction), or distance.
+- Adds category-specific fields automatically — vehicle make/model/mileage for cars, room count/living area/floor for real estate.
+- Leaves out fields that don't apply to a listing's category or that the seller never filled in, rather than returning them empty.
+
+## Output per listing
+
+- `adId` — Willhaben's unique ad ID
+- `heading` — listing title
+- `price`, `currency` — numeric price and currency (always `EUR`)
+- `priceDisplay` — the formatted price string as shown on the site
+- `oldPrice` — the previous price, when the listing shows a price reduction
+- `pricePerSquareMeter` — EUR per m² (real estate only)
+- `location`, `district`, `state`, `postcode`, `address`, `country` — location fields, as published by the seller
+- `latitude`, `longitude` — geo-coordinates
+- `propertyType`, `rooms`, `livingAreaSqm`, `floor` — real-estate-only details
+- `carMake`, `carModel`, `carModelDetail`, `mileageKm` — car-only details
+- `status` — the ad's current status (e.g. "aktiv")
+- `condition` — item condition, when the seller specified one (e.g. new/used)
+- `publishedDate` — listing publication date (ISO 8601)
+- `imageUrl`, `imageUrls` — first image URL, and up to 20 image URLs
+- `adUrl` — direct link to the listing
+- `seller` — seller or organisation name, when public
+- `isPrivate` — `true` for a private seller, `false` for a dealer or business
+- `mode` — which search mode produced this record
+- `scrapedAt` — ISO timestamp of the fetch
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `searchItems` | `searchAll`, `searchItems`, `searchCars`, `searchRealEstateRentApartment`, `searchRealEstateBuyApartment`, `searchRealEstateRentHouse`, `searchRealEstateBuyHouse`, or `searchRealEstateLand` |
+| `query` | string | – | Keyword to search for (e.g. `sofa`, `iPhone`, `BMW`); leave empty to browse the category unfiltered |
+| `sortBy` | string | `relevance` | `relevance`, `newest`, `priceAsc`, `priceDesc`, or `distance` |
+| `priceMin` | integer | – | Minimum price in EUR |
+| `priceMax` | integer | – | Maximum price in EUR |
+| `maxItems` | integer | `20` | Maximum number of listings to return (1-1000) |
+
+### Example: furniture search, cheapest first
+
+```json
+{
+  "mode": "searchItems",
+  "query": "sofa",
+  "sortBy": "priceAsc",
+  "maxItems": 20
+}
+```
+
+### Example: used cars under a price cap
+
+```json
+{
+  "mode": "searchCars",
+  "query": "BMW",
+  "priceMax": 15000,
+  "maxItems": 50
+}
+```
+
+### Example: apartments for rent, newest first
+
+```json
+{
+  "mode": "searchRealEstateRentApartment",
+  "sortBy": "newest",
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- Price-check second-hand goods, like a specific furniture piece or electronics model, across current listings.
+- Track used-car prices and mileage for a make/model you're shopping for.
+- Monitor new apartment or house listings in a price range as they're posted.
+- Pull land or plot listings for a market-research dataset.
+- Compare price-per-square-metre across real-estate listings.
+
+## FAQ
+
+**Is this affiliated with Willhaben?**
+No. This actor reads Willhaben's public listing pages and has no relationship with Willhaben.at.
+
+**Do I need a Willhaben account to run this?**
+No. All data comes from listings that are publicly visible without logging in.
+
+**Can I combine a keyword with a price range?**
+Yes — `query`, `priceMin`, and `priceMax` all apply together in every mode.
+
+**Why do some listings have no `carMake` or `rooms`?**
+Those fields only apply to the car and real-estate categories respectively; a marketplace item listing omits both instead of returning them empty.
+
+**Why is `seller` missing on some listings?**
+Willhaben doesn't require every private seller to display a name; when none is shown, the field is left out instead of being sent as blank.
+
+**How many listings can one run return?**
+Up to `maxItems`, capped at 1000 per run.
+
+**How current are the results?**
+Every run searches Willhaben live, so results reflect what's currently listed at run time.

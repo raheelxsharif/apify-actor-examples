@@ -1,0 +1,92 @@
+{
+  "description": "Search Willhaben.at — Austria's largest classifieds marketplace — for items for sale, cars, and real estate (rent/buy apartments, houses, and land).",
+  "properties": {
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of listings to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchItems",
+      "description": "Which Willhaben category to search.",
+      "editor": "select",
+      "enum": [
+        "searchAll",
+        "searchItems",
+        "searchCars",
+        "searchRealEstateRentApartment",
+        "searchRealEstateBuyApartment",
+        "searchRealEstateRentHouse",
+        "searchRealEstateBuyHouse",
+        "searchRealEstateLand"
+      ],
+      "enumTitles": [
+        "All classifieds (Marktplatz)",
+        "Items for sale (Marktplatz)",
+        "Cars & vehicles (Gebrauchtwagen)",
+        "Real estate — rent apartment",
+        "Real estate — buy apartment",
+        "Real estate — rent house",
+        "Real estate — buy house",
+        "Real estate — land / plots"
+      ],
+      "prefill": "searchItems",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum price in Euro.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Max price (EUR)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in Euro.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min price (EUR)",
+      "type": "integer"
+    },
+    "query": {
+      "default": "",
+      "description": "Keyword to search for (e.g. 'sofa', 'iPhone', 'BMW'). Leave empty to browse the whole category unfiltered.",
+      "editor": "textfield",
+      "prefill": "sofa",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Result ordering.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "priceAsc",
+        "priceDesc",
+        "distance"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Newest first",
+        "Price: low to high",
+        "Price: high to low",
+        "Distance (nearest first)"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Willhaben Scraper Input",
+  "type": "object"
+}
