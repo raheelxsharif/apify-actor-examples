@@ -1,101 +1,185 @@
 # YouTube Search Suggestions Scraper
 
-Discover the phrases YouTube shows in its public search autocomplete. Enter one or more seed keywords and get clean, ranked suggestions that can be used for SEO research, video planning, audience research, and content discovery.
+Discover the phrases YouTube puts in its search box. Enter one or more seed queries and collect the platform's live autocomplete suggestions as clean, ranked JSON or CSV rows — with optional alphabet, question, modifier and related-search expansion for keyword research, video planning and audience research.
 
-This actor reads YouTube's own public autocomplete response. It does not require a YouTube account, API key, cookies, or a paid proxy.
+No YouTube account, API key, cookies or user-supplied proxy is needed. The actor reads YouTube's public autocomplete response and chooses a working connection automatically.
 
 ## What this actor does
 
-- **Autocomplete lookup:** pass one or more seed phrases and get YouTube's own suggestions
-- **Ready search URLs:** every suggestion includes a `searchUrl` you can feed to a search scraper
-- **Market and language aware:** localized suggestions per country and language
-- **Bulk queries:** multiple seeds are processed in one run
-- **Empty fields are omitted** — records only contain values that are actually populated.
+- **Live YouTube suggestions:** each exact seed query returns up to 14 suggestions, the same list the signed-out YouTube search box shows.
+- **Eight expansion modes:** `exact`, `alphabet` (suffix and prefix, letters and digits), `questions`, `modifiers`, `prepositions`, `comparisons`, `related`, and `all` (the union).
+- **Optional recursion:** re-query the best suggestions to depth 1 or 2 for deeper long-tail coverage.
+- **Locale targeting:** 134 countries and 78 languages, with localized question and modifier words for 19 languages.
+- **Channel/topic cards:** when YouTube attaches a creator or topic card to a suggestion, its name, description or handle, image, channel ID and entity URL are included when supplied.
+- **Filters and caps:** length, word count, question-only, contains-seed, exclude terms, per-seed and global row caps.
+- **Per-seed deduplication:** repeated phrases are merged with a best rank and an appearance count. Optional cross-seed deduplication.
+- **Empty fields are omitted:** records only contain values that are actually populated.
 
-## Output
-
-
-One row is returned for every suggestion:
+## Output per suggestion
 
 | Field | Description |
 |---|---|
-| `suggestion` | The exact phrase returned by YouTube autocomplete. |
-| `inputQuery` | The seed keyword that produced the suggestion. |
-| `rank` | Position within that seed keyword's returned list. |
-| `language` | Language used for the request. |
-| `market` | Country or region used for the request. |
-| `searchUrl` | YouTube search URL for the suggestion when enabled. |
+| `recordType` | `suggestion` for a suggestion row, `status` when a seed produced nothing. |
+| `id` | Stable 16-character ID for the source, seed, suggestion and locale. |
+| `suggestion` | The exact phrase YouTube autocomplete returned. |
+| `seed` | The seed query that produced this row. |
+| `inputQuery` | Alias of `seed`, kept for older integrations. |
+| `query` | The exact expansion query that produced the best rank. |
+| `type` | `suggestion`, `alphabet`, `question`, `modifier`, `preposition`, `comparison`, `related` or `recursive`. |
+| `rank` | Best 1-based position across every query that returned the phrase. |
+| `appearances` | Number of expansion queries that returned the phrase. |
+| `depth` | 0 for the base plan, 1-2 for recursion. |
+| `parentQuery` | The query that led to a recursive row. |
+| `language`, `market`, `locale` | Requested language, country and combined locale. |
+| `source` | `youtube` or `youtubeMusic`. |
+| `suggestionType` | `query`, `channel` or `topic`. |
+| `subTypes` | YouTube's raw numeric suggestion codes, when present. |
+| `entityId`, `entityName`, `entityDescription` | Channel/topic card identity, name and description or handle. |
+| `entityImageUrl`, `entityUrl` | Card image and source-provided entity link, when present. |
+| `channelId`, `channelHandle`, `channelUrl` | Channel card details, when present. |
+| `wordCount`, `isQuestion`, `containsSeed` | Derived text signals. |
+| `searchUrl` | Ready-to-open YouTube or YouTube Music search URL. |
+| `scrapedAt` | ISO-8601 UTC timestamp. |
 
-All emitted fields contain real public values. Empty suggestions are discarded rather than emitted as blank rows.
-
-When a keyword returns nothing, the run instead emits one status row for that keyword: `recordType` (`status`), `status` (`no_suggestions` when YouTube responded with an empty list, or `suggestions_unavailable` when the request itself failed), `query`, `language`, `market`, and `suggestionCount` (`0`).
+When a seed returns no rows, the actor emits one status row instead: `recordType` (`status`), `status`, `seed`, `query`, `language`, `market`, `source` and `suggestionCount` (`0`). Status values are `no_suggestions`, `suggestions_unavailable`, `invalid_query` and `blocked`. An unavailable YouTube Music response is reported as `suggestions_unavailable` for the seed.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `queries` | array | `["web scraping"]` | One or more seed keywords or phrases. |
-| `maxSuggestions` | integer | `10` | Suggestions to return per keyword (1–20). |
+| `queries` | array | `["web scraping"]` | Seed keywords or phrases. 1-3 word seeds work best. |
+| `mode` | string | `exact` | `all`, `exact`, `alphabet`, `questions`, `modifiers`, `prepositions`, `comparisons` or `related`. |
+| `source` | string | `youtube` | `youtube`, `youtubeMusic` or `both`. |
 | `language` | string | `en` | Language code used to localize suggestions. |
-| `market` | string | `US` | Country or region used to localize suggestions. |
-| `deduplicateSuggestions` | boolean | `true` | Keep one row when the same suggestion appears for multiple keywords. |
-| `includeSearchUrl` | boolean | `true` | Include a ready-to-use YouTube search URL on every row. |
+| `market` | string | `US` | Country or region code used to localize suggestions. |
+| `maxItems` | integer | `5000` | Global cap on suggestion rows. |
+| `maxSuggestionsPerSeed` | integer | `2000` | Rows kept per seed after the expansion plan. |
+| `maxQueriesPerSeed` | integer | `300` | Autocomplete requests per seed and source. |
+| `expansionDepth` | integer | `0` | `0` = selected mode only; `1`-`2` = re-query the best suggestions. |
+| `dedupeAcrossSeeds` | boolean | `false` | Keep one row when a phrase appears for several seeds. Per-seed dedupe is always on. |
+| `minLength` | integer | – | Drop shorter suggestions. |
+| `maxLength` | integer | – | Drop longer suggestions. |
+| `containsKeyword` | string | – | Keep suggestions containing this text; prefix with `!` to exclude it. |
+| `excludeTerms` | array | `[]` | Drop suggestions containing any of these terms. |
+| `minWordCount` | integer | `0` | Drop suggestions with fewer words. |
+| `onlyQuestions` | boolean | `false` | Keep only question-shaped suggestions. |
+| `mustContainSeed` | boolean | `false` | Keep only suggestions that contain the seed. |
+| `includeEntityCards` | boolean | `true` | Keep channel/topic cards and their metadata. |
+| `includeSearchUrl` | boolean | `true` | Add a ready-to-open search URL to every row. |
+
+Old tasks that use `keywords`, `maxSuggestions`, `deduplicateSuggestions` or `country` keep working; those legacy keys are mapped to the new fields automatically.
 
 ## Examples
 
+### Example: exact suggestions for one seed
 
 ```json
 {
-  "queries": ["web scraping", "youtube automation"],
-  "maxSuggestions": 10,
+  "queries": ["web scraping"],
+  "mode": "exact",
   "language": "en",
   "market": "US",
-  "deduplicateSuggestions": true,
-  "includeSearchUrl": true
+  "maxItems": 20
 }
 ```
 
-### Example: single seed
+### Example: full keyword expansion
 
 ```json
 {
-  "queries": ["how to scrape"],
-  "market": "US",
-  "language": "en"
+  "queries": ["coffee", "minecraft"],
+  "mode": "all",
+  "expansionDepth": 1,
+  "maxItems": 5000
 }
 ```
 
-### Example: multiple seeds
+### Example: Spanish questions with channel cards
 
 ```json
 {
-  "queries": ["youtube api", "web scraping"],
-  "market": "GB"
+  "queries": ["café"],
+  "mode": "questions",
+  "language": "es",
+  "market": "ES",
+  "includeEntityCards": true
+}
+```
+
+### Example: YouTube Music suggestions
+
+```json
+{
+  "queries": ["lofi hip hop"],
+  "source": "youtubeMusic",
+  "mode": "exact",
+  "maxItems": 20
+}
+```
+
+### Example: long-tail ideas that mention the seed
+
+```json
+{
+  "queries": ["running shoes"],
+  "mode": "all",
+  "mustContainSeed": true,
+  "minWordCount": 3,
+  "maxItems": 1000
 }
 ```
 
 ## Use cases
 
-- **SEO and content research** — discover what users actually search for
-- **Keyword expansion** — grow seed keywords into long-tail phrases
-- **Market localization** — compare suggestions across countries
-- **Autocomplete features** — power search boxes with real YouTube suggestions
+- **YouTube SEO and content planning** — turn one topic into the phrases viewers actually type.
+- **Keyword research** — compare suggestions across markets and languages.
+- **Title and script ideas** — collect question and long-tail variants for a niche.
+- **Creator discovery** — surface channel cards YouTube attaches to short brand seeds.
+- **Trend monitoring** — schedule a run and diff `suggestion` or `rank` between snapshots.
+- **YouTube Music research** — read the separate music-biased suggestion list for artists, genres and moods.
 
 ## FAQ
 
+### Does this require a YouTube account, API key or cookies?
 
-### Does this require cookies or an API key?
+No. It reads YouTube's public search-box suggestions and works signed out.
 
-No. It uses YouTube's public autocomplete endpoint and works without a login.
+### How many suggestions does one query return?
 
-### Are suggestions guaranteed to be the same every time?
+YouTube returns up to 14 suggestions per query. There is no pagination and no parameter that raises that ceiling.
 
-No. YouTube can change autocomplete based on language, country, current trends, and its own ranking. The actor records the returned phrases and request context for reproducibility.
+### Why are some suggestions missing or different?
 
-### Does this scrape video results?
+Autocomplete is personalized by language, country, current trends and the request location, and YouTube can change it at any time. The actor records the requested locale but cannot guarantee a specific list.
 
-No. Use a dedicated YouTube search results actor when you need video, channel, playlist, or Shorts result metadata.
+### Can I get search volume or competition metrics?
 
-### What happens if a keyword returns no suggestions?
+No. YouTube autocomplete does not publish search volume, CPC or difficulty. Those numbers come from separate paid keyword or search-results products.
 
-The run still emits one record for that keyword with `recordType: "status"` and a `status` of `no_suggestions` (or `suggestions_unavailable` if YouTube didn't respond), so you can see which seeds produced nothing instead of silently getting fewer rows.
+### Why does a long seed return nothing?
+
+Autocomplete completes prefixes, so four- and five-word seeds often return few or no suggestions. Use a 1-3 word seed, or use `alphabet` mode to expand around a long seed.
+
+### What are channel and topic cards?
+
+Some suggestions carry a creator or topic card with a name, handle, image, channel ID or entity link. The actor includes those fields when YouTube supplies them. Set `includeEntityCards` to `false` if you only want plain query suggestions.
+
+### How does deduplication work?
+
+Duplicate phrases inside one seed are merged into one row with the best `rank` and an `appearances` count. Cross-seed duplicates are kept by default so each seed's list stays complete; set `dedupeAcrossSeeds` to `true` for one row per phrase across the whole run.
+
+### What is the YouTube Music source?
+
+YouTube Music has its own music-biased suggestion list. It typically returns 6-10 suggestions per query and can return none for some seeds or locales; it is not a replacement for the main YouTube search box. Use `source: "youtubeMusic"` for music research or `both` to collect both lists.
+
+### Does this support YouTube TV suggestions?
+
+No. YouTube TV does not expose a separate public suggestion list; it uses the same search suggestions as YouTube.
+
+### Do I need to set up a proxy?
+
+No. The actor chooses a working connection to YouTube automatically. Just fill in the input and run it.
+
+---
+
+This is a third-party actor that reads publicly available YouTube autocomplete data. It is not affiliated with, endorsed by or sponsored by YouTube or Google.
