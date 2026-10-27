@@ -1,0 +1,223 @@
+{
+  "description": "Search Vivino wines, explore by type/country, look up by wine ID, or scrape a winery's full catalogue.",
+  "properties": {
+    "country": {
+      "default": "",
+      "description": "Filter wines by country of origin using 2-letter ISO country code (e.g. `it` for Italy, `fr` for France, `us` for USA). Case-insensitive.",
+      "editor": "select",
+      "enum": [
+        "",
+        "it",
+        "fr",
+        "us",
+        "es",
+        "de",
+        "pt",
+        "ar",
+        "cl",
+        "au",
+        "nz",
+        "za",
+        "gr",
+        "at",
+        "hu",
+        "ro",
+        "hr",
+        "bg",
+        "si",
+        "rs",
+        "mk",
+        "al",
+        "ge",
+        "am",
+        "az",
+        "md",
+        "ua",
+        "tr",
+        "il",
+        "lb",
+        "cn",
+        "jp",
+        "in",
+        "br",
+        "mx",
+        "ca",
+        "gb"
+      ],
+      "enumTitles": [
+        "Any country",
+        "Italy",
+        "France",
+        "USA",
+        "Spain",
+        "Germany",
+        "Portugal",
+        "Argentina",
+        "Chile",
+        "Australia",
+        "New Zealand",
+        "South Africa",
+        "Greece",
+        "Austria",
+        "Hungary",
+        "Romania",
+        "Croatia",
+        "Bulgaria",
+        "Slovenia",
+        "Serbia",
+        "North Macedonia",
+        "Albania",
+        "Georgia",
+        "Armenia",
+        "Azerbaijan",
+        "Moldova",
+        "Ukraine",
+        "Turkey",
+        "Israel",
+        "Lebanon",
+        "China",
+        "Japan",
+        "India",
+        "Brazil",
+        "Mexico",
+        "Canada",
+        "UK"
+      ],
+      "prefill": "",
+      "title": "Country code filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of wine records to emit.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "default": 500,
+      "description": "Filter to wines priced at or below this value in USD.",
+      "minimum": 0,
+      "prefill": 500,
+      "title": "Maximum price (USD)",
+      "type": "number"
+    },
+    "maxRating": {
+      "description": "Filter to wines with rating equal to or below this value (0–5 scale).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Maximum rating",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Filter to wines priced at or above this value in USD.",
+      "minimum": 0,
+      "title": "Minimum price (USD)",
+      "type": "number"
+    },
+    "minRating": {
+      "description": "Filter to wines with rating equal to or above this value (0–5 scale).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch. `search` runs a free-text query; `explore` browses wines by type, country or price range; `byWineId` fetches specific wines by Vivino vintage ID (from the vintageId field in search results, or from the URL vivino.com/vintages/{id}); `winery` scrapes all wines from a winery.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "explore",
+        "byWineId",
+        "winery"
+      ],
+      "enumTitles": [
+        "Search wines (free-text query)",
+        "Explore wines (browse by type / country / price)",
+        "Lookup by Vivino wine ID",
+        "All wines from a specific winery"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "orderBy": {
+      "default": "ratings_count",
+      "description": "How to sort explore/search results.",
+      "editor": "select",
+      "enum": [
+        "ratings_count",
+        "ratings_average",
+        "price"
+      ],
+      "enumTitles": [
+        "Most reviewed (default)",
+        "Highest rated",
+        "Price"
+      ],
+      "prefill": "ratings_count",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "barolo",
+      "description": "Free-text wine search query (mode=search). Example: `barolo`, `chateau petrus`, `napa valley cabernet`.",
+      "editor": "textfield",
+      "prefill": "barolo",
+      "title": "Search query",
+      "type": "string"
+    },
+    "wineIds": {
+      "default": [],
+      "description": "List of Vivino vintage IDs to look up (mode=byWineId). The ID appears in the vintage URL, e.g. https://www.vivino.com/vintages/18745256 → use 18745256. You can get these IDs from the vintageId field in search/explore results.",
+      "editor": "stringList",
+      "prefill": [
+        "18745256",
+        "87183621"
+      ],
+      "title": "Vivino Vintage IDs (mode=byWineId)",
+      "type": "array"
+    },
+    "wineType": {
+      "default": "",
+      "description": "Filter by wine type (applies to search and explore modes).",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "2",
+        "3",
+        "4",
+        "7",
+        "24"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Red",
+        "White",
+        "Sparkling",
+        "Rose",
+        "Dessert",
+        "Fortified"
+      ],
+      "prefill": "",
+      "title": "Wine type filter",
+      "type": "string"
+    },
+    "wineryId": {
+      "description": "Vivino winery ID (mode=winery). The ID appears in the winery's Vivino URL path.",
+      "minimum": 1,
+      "title": "Winery ID (mode=winery)",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Vivino Scraper Input",
+  "type": "object"
+}
