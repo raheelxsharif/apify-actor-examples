@@ -1,99 +1,97 @@
 # Google Maps Business Lead & Email Finder
 
-Turn a Google Maps search into a ready-to-use list of sales and marketing leads. Each result carries the place's own contact details, and when enrichment is on, the business's own website is checked for an email address and social profiles. No Google account, cookies, or API key are needed to run a search.
+Build a local prospecting list without a Google account, browser cookie or developer key. The actor searches Google Maps for the businesses you describe, then visits each business's own public website to collect the email addresses, extra phone numbers and social profiles that the business publishes.
 
-## What this actor does
+## Three ways to use it
 
-- Search Google Maps by any query ("restaurants in Brooklyn", "dentists Berlin")
-- Extract name, category, address, phone, website, rating, reviews, place ID, coordinates
-- Optional website crawl: emails, additional phones, Facebook / Instagram / LinkedIn / X / YouTube / TikTok
-- Supports the country and language values listed in the input schema; raw Maps queries can target other locations as well
+- Search Maps by category or phrase. One row per business with its listing details and Google Maps link.
+- Look up places you already have. Paste Google Maps place links or Place IDs.
+- Enrich a website list. Bring your own domains and skip the Maps search entirely.
+
+## What you get
+
+Each lead carries the business name, Google Maps categories, a split address, phone, website, rating, review count, Place ID, coordinates and a clean Google Maps URL. With contact extraction on, the row also carries emails found on the business's website, an MX-checked subset, the source page for each email, additional website phone numbers and up to ten social profiles.
+
+Maps itself has no email field. An address is only reported when the business publishes it on its own site, and every missing field is left out rather than guessed.
 
 ## Input
 
 | Field | Type | Default | Description |
-|------|------|---------|-------------|
-| `category` | string | – | Business category; used only when `keyword` and `searchQueries` are empty |
-| `keyword` | string | – | Custom search term; takes precedence over `category` |
-| `state` | enum | `CA` | US state code or `All`; used for US searches |
-| `country` | enum | – | Country code: `US`, `GB`, `CA`, `AU`, `DE`, `FR`, `IN`, `BR`, `MX`, `JP`, `KR`, `CN`, `AE`, or `SG` |
-| `max_results` | int | 100 | Total lead cap (1–100,000; records are pushed progressively) |
-| `minRating` | number | – | Optional minimum rating from 1.0 to 5.0 |
-| `extractEmails` | bool | `true` | Crawl public business websites for emails, additional phones, contact pages, and social links |
-| `language` | enum | `en` | Maps interface language: `en`, `es`, `fr`, `de`, `it`, `pt`, `ja`, `ko`, `zh`, `ar`, or `ru` |
-| `searchQueries` | array | – | Advanced raw Maps queries; overrides `keyword` and `category` |
-| `proxyConfiguration` | object | – | Optional Apify Proxy configuration for the run |
+|---|---|---|---|
+| `mode` | select | `searchPlaces` | Search Maps, look up specific places, or enrich websites |
+| `searchQueries` | string[] | – | Phrases for Maps, such as `roofers in Dallas TX` |
+| `locationQuery` | string | – | Shared location appended to each phrase |
+| `category` | string | `bakery` | Category used when keyword and phrases are empty |
+| `keyword` | string | – | Custom term that takes priority over category |
+| `state` | select | `All` | US state, or `All` for nationwide |
+| `country` | select | `US` | Country for the search |
+| `websites` | string[] | – | Domains for website mode; bare domains are accepted |
+| `placeUrls` | string[] | – | Google Maps place links for specific-place mode |
+| `placeIds` | string[] | – | Place IDs starting with `ChIJ` |
+| `max_results` | integer | `100` | Total lead cap (1–100,000) |
+| `minRating` | number | – | Keep places rated at least this value (1.0–5.0) |
+| `extractEmails` | boolean | `true` | Read business websites for contact details |
+| `maxEmailsPerWebsite` | integer | `5` | Email cap per business website |
+| `maxContactPagesPerWebsite` | integer | `3` | Homepage plus contact/about/legal/privacy pages |
+| `onlySaveResults` | select | `allPlaces` | All places, only with an email, or only with contacts |
+| `categoryFilter` | string[] | – | Keep categories containing all words of any entry |
+| `websiteFilter` | select | `allPlaces` | All places, with a website, or without one |
+| `skipClosedPlaces` | boolean | `false` | Leave out permanently or temporarily closed places |
+| `language` | select | `en` | Maps interface language (74 options plus two legacy codes) |
 
-## Output per lead
-
-One dataset record per business with only fields supported by observed data:
-
-- Maps place data: `name`, `googleBusinessCategories`, `street`, `city`, `state`, `zip`, `country`, `countryCode`, `phoneNumber`, `url`, `reviewScore`, `reviewsNumber`, `placeId`, `featureId`, `googleMapsUrl`, `priceLevel`, `plusCode`, and `location`.
-- Optional website enrichment (`extractEmails: true`): `email`, `emails`, `websitePhones`, `contactPageUrl`, `websitePagesCrawled`, `facebook`, `instagram`, `linkedin`, `twitter`, `youtube`, and `tiktok`.
-- Record context: `recordType`, `sourceUrl`, and `scrapedAt`.
-
-These are 32 possible keys; each is omitted when its source is unavailable. The
-dataset table exposes the same field inventory.
-
-A canonical Google Place ID beginning with `ChIJ` is recorded in `placeId`; a
-legacy feature/CID token (`0x…:0x…`) is recorded in `featureId` and is never
-relabelled as a Place ID. When both are observed, the canonical token takes
-`placeId` and the legacy token is still recorded as `featureId`.
-
-Website contact fields come from the optional public website crawl, not from
-Google Maps itself. Unavailable fields are omitted rather than filled with
-nulls or inferred values.
-
-## Examples
-
-### Example: London bakery enrichment
+### Examples
 
 ```json
-{"searchQueries":["bakeries in London"],"max_results":50,"extractEmails":true}
+{"mode":"searchPlaces","searchQueries":["bakeries in London"],"max_results":50,"extractEmails":true}
 ```
-
-### Example: Maps-only international search
 
 ```json
-{"keyword":"dentist","country":"DE","extractEmails":false,"language":"de"}
+{"mode":"specificPlaces","placeIds":["ChIJ…"],"extractEmails":true}
 ```
-
-### Example: Japanese prospecting without website enrichment
 
 ```json
-{"searchQueries":["coffee shops in Tokyo","bakeries in Tokyo"],"max_results":25,"extractEmails":false,"language":"ja"}
+{"mode":"enrichWebsites","websites":["example-bakery.com","example-dentist.de"]}
 ```
 
-## Use cases
+## Output
 
-- Build local prospecting lists with public business details.
-- Enrich place results with contact information from each business website.
-- Compare categories and locations across several search queries.
+- Listing: `name`, `googleBusinessCategories`, `street`, `city`, `state`, `zip`, `country`, `countryCode`, `phoneNumber`, `url`, `reviewScore`, `reviewsNumber`, `placeId`, `featureId`, `googleMapsUrl`, `priceLevel`, `plusCode`, `location`, `websiteType`.
+- Contacts: `email`, `emails`, `emailsMxValid`, `emailProvenance`, `websitePhones`, `contactPageUrl`, `websitePagesCrawled`, `facebook`, `instagram`, `linkedin`, `twitter`, `youtube`, `tiktok`, `pinterest`, `threads`, `whatsapp`, `telegram`.
+- Context: `recordType`, `sourceUrl`, `scrapedAt`.
+
+`emailProvenance` names the signal and the page that supplied each address. `websiteType` marks social-profile and directory links so a platform page is never treated as the business's own site.
+
+## How many emails should I expect?
+
+In a 128-business sample across Austin, London, Berlin and Paris, 74% published an email within the homepage plus two contact pages; reading deeper pages lifted the measured rate to 77% of businesses with a website. About 76% of the businesses with a website had at least one MX-valid address (98% of the email-bearing sites in the sample). European businesses often publish a legally required Impressum page, which helps those markets; sites that only offer a contact form, hide their address in JavaScript, or block automated visits cannot yield one. Treat 66–77% as a realistic range, not a promise for every market.
 
 ## Limitations
 
-- Optional Google Maps fields are omitted when Google does not publish them, rather than filled with empty or placeholder values.
-
-It is your responsibility to use this public data lawfully and in line with Google's terms.
+- A single Maps phrase exposes a ranked window of roughly 150–220 businesses. Run several related phrases, or split by area, to widen coverage; duplicates are removed by Place ID.
+- Some websites publish no email, use a contact form only, or block automated access. Those rows keep their Maps details and simply omit website contacts.
+- `priceLevel` is rarely exposed by Google's public listing data and is omitted rather than invented.
+- `plusCode` is the code computed from the coordinates; Google's optional locality label is not appended.
+- `emailsMxValid` confirms that the address domain publishes an MX record. It cannot prove that a person reads the inbox or detect a catch-all mailbox.
+- Closed-place checks use Google's public status. A place whose status cannot be read is kept.
 
 ## FAQ
 
-**Q: Do I need a proxy?**
-A: No. `proxyConfiguration` is available in the input if you want to route
-traffic through your own Apify Proxy setup, but a default run works without it.
+**Do I need an API key, cookies or a proxy?**
+No. Searches and business websites are read from public pages. You do not configure a connection.
 
-**Q: Why are some fields missing?**
-A: We omit fields we couldn't populate rather than emit `null`. Every field
-in your record has real data.
+**Why is a row missing an email?**
+Not every business has a website, and not every website publishes an address. Some use a contact form or a booking widget. The row is still a valid lead unless you choose `onlySaveResults: "onlyWithEmails"`; that filter keeps the matching rows among the places fetched up to your lead cap.
 
-**Q: Does enrichment slow things down?**
-A: Website crawl adds ~1-3s per business. Disable `extractEmails` for a
-Maps-only run.
+**What does `emailsMxValid` mean?**
+It is the part of `emails` whose domain had an MX record when the run executed. An address is kept in `emails` even when DNS has no answer; it is simply not listed as MX-valid.
 
-**Q: Is website contact data from Google Maps?**
-A: No. Google Maps supplies the place record; email and social fields are copied
-from publicly visible pages on the business website when enrichment is enabled.
+**What is `emailProvenance`?**
+A small list that pairs each email with its signal (`mailto`, `jsonLd`, `cloudflare`, `text`, `obfuscated` or `raw`) and the page where it was found.
 
-**Q: Can I process several search queries together?**
-A: Yes. Provide multiple `searchQueries`; matching businesses are deduplicated
-by observed Google identity where available.
+**Can I use the actor without Google Maps?**
+Yes. Choose `enrichWebsites` and paste the domains. Each row is keyed to the website you supplied.
+
+**Does it find owner or decision-maker emails?**
+No. It reports public business contact details; personal or executive addresses are not inferred.
+
+Use public data lawfully and in line with Google's terms. This actor is not affiliated with Google.

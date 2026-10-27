@@ -1,31 +1,86 @@
 {
-  "description": "Fetch album profiles, rankings and search suggestions from iQIYI (iq.com).",
+  "description": "Fetch album profiles, released episode lists, channel and global rankings, full search results, or suggestions from iQIYI (iq.com).",
   "properties": {
     "albumIds": {
       "default": [],
-      "description": "iQIYI album slugs or URLs, e.g. `genius-girlfriend-2026-28fzrln6il1` or `https://www.iq.com/album/genius-girlfriend-2026-28fzrln6il1?lang=en_us`.",
+      "description": "iQIYI album slugs, album URLs, play URLs or numeric album IDs. Examples: `genius-girlfriend-2026-28fzrln6il1`, `https://www.iq.com/album/fated-hearts-2025-d6iyehcx4p`, `https://www.iq.com/play/fated-hearts-episode-1-1ggw7a63yug`, `1324877168319701`.",
       "editor": "stringList",
       "prefill": [
-        "genius-girlfriend-2026-28fzrln6il1"
+        "genius-girlfriend-2026-28fzrln6il1",
+        "fated-hearts-2025-d6iyehcx4p",
+        "a-better-jianghu-2026-1qi696xihh0"
       ],
-      "title": "Album IDs (mode=byId)",
+      "title": "Album IDs or URLs (mode=byId)",
       "type": "array"
     },
     "channelId": {
-      "default": 2,
-      "description": "Ranking channel: 0 = Top, 1 = Movie, 2 = Series, 6 = Kids, 7 = Variety, 8 = Anime.",
-      "maximum": 100,
-      "minimum": 0,
-      "prefill": 2,
-      "title": "Channel (mode=trending)",
-      "type": "integer"
+      "default": "2",
+      "description": "Legacy channel ranking selector. 0 = Top, 1 = Movie, 2 = Series, 4 = Anime, 6 = Variety.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "4",
+        "6"
+      ],
+      "enumTitles": [
+        "Top",
+        "Movie",
+        "Series",
+        "Anime",
+        "Variety"
+      ],
+      "prefill": "2",
+      "title": "Channel (mode=trending, legacy)",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Add score, exact release year, description, genres, age rating and cast roles to search results by reading each matching album profile.",
+      "prefill": true,
+      "title": "Include album details in search (mode=searchTitles)",
+      "type": "boolean"
+    },
+    "includeEpisodes": {
+      "default": true,
+      "description": "Include every currently released episode for album profiles and search results. Planned episode counts are always returned.",
+      "prefill": true,
+      "title": "Include episode lists",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en_us",
+      "description": "Language for titles and metadata. These are the languages iQIYI currently returns for search results.",
+      "editor": "select",
+      "enum": [
+        "en_us",
+        "zh_cn",
+        "zh_tw",
+        "th_th",
+        "vi_vn",
+        "id_id",
+        "ms_my"
+      ],
+      "enumTitles": [
+        "English",
+        "Simplified Chinese",
+        "Traditional Chinese",
+        "Thai",
+        "Vietnamese",
+        "Indonesian",
+        "Malay"
+      ],
+      "prefill": "en_us",
+      "title": "Metadata language (mode=searchTitles)",
+      "type": "string"
     },
     "maxItems": {
       "default": 25,
       "description": "Hard cap on emitted records.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 25,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -35,24 +90,108 @@
       "editor": "select",
       "enum": [
         "byId",
-        "trending",
-        "search"
+        "searchTitles",
+        "rankings",
+        "search",
+        "trending"
       ],
       "enumTitles": [
-        "Album profile by ID",
-        "Top ranking by channel",
-        "Search suggestions"
+        "Album profile by ID or URL",
+        "Full title search",
+        "Rankings and top 10",
+        "Search-box suggestions (legacy)",
+        "Channel ranking (legacy)"
       ],
       "prefill": "byId",
       "title": "Mode",
       "type": "string"
     },
+    "rankingType": {
+      "default": "top10",
+      "description": "Which ranking list to fetch.",
+      "editor": "select",
+      "enum": [
+        "top10",
+        "hot",
+        "anticipated",
+        "rising",
+        "mustWatch",
+        "dramaPicks",
+        "moviePicks",
+        "animePicks",
+        "varietyPicks",
+        "channelDrama",
+        "channelMovie",
+        "channelAnime",
+        "channelVariety"
+      ],
+      "enumTitles": [
+        "Weekly top 10",
+        "Hot chart",
+        "Anticipated chart",
+        "Rising chart",
+        "Must-watch chart",
+        "Drama picks",
+        "Movie picks",
+        "Anime picks",
+        "Variety picks",
+        "Drama channel hot list",
+        "Movie channel hot list",
+        "Anime channel hot list",
+        "Variety channel hot list"
+      ],
+      "prefill": "top10",
+      "title": "Ranking (mode=rankings)",
+      "type": "string"
+    },
+    "region": {
+      "default": "intl",
+      "description": "iQIYI serves a different catalogue per region. `intl` is the global catalogue; the others are regional catalogues.",
+      "editor": "select",
+      "enum": [
+        "intl",
+        "vn",
+        "th",
+        "id",
+        "my",
+        "ph",
+        "sg",
+        "kr",
+        "jp"
+      ],
+      "enumTitles": [
+        "International",
+        "Vietnam",
+        "Thailand",
+        "Indonesia",
+        "Malaysia",
+        "Philippines",
+        "Singapore",
+        "South Korea",
+        "Japan"
+      ],
+      "prefill": "intl",
+      "title": "Catalogue region (mode=searchTitles)",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [
+        "love"
+      ],
+      "description": "Title keywords or iq.com search URLs. Each query is searched in the selected region and language.",
+      "editor": "stringList",
+      "prefill": [
+        "love"
+      ],
+      "title": "Search queries (mode=searchTitles)",
+      "type": "array"
+    },
     "searchQuery": {
       "default": "love",
-      "description": "Text to find show suggestions for, e.g. `love`.",
+      "description": "Text used by the legacy search-box suggestion mode, e.g. `love`.",
       "editor": "textfield",
       "prefill": "love",
-      "title": "Search query (mode=search)",
+      "title": "Suggestion query (mode=search)",
       "type": "string"
     }
   },
@@ -60,6 +199,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "iQIYI Scraper Input",
+  "title": "iQIYI Album Profile & Channel Ranking Scraper Input",
   "type": "object"
 }

@@ -1,98 +1,165 @@
 {
-  "description": "Search players, clubs, and competitions on Transfermarkt, or fetch detailed profiles by ID.",
+  "description": "Fetch Transfermarkt player profiles, market-value timelines, transfer records, clubs and competitions by name, ID or URL.",
   "properties": {
-    "clubId": {
-      "description": "Transfermarkt numeric club ID, e.g. `131` for Manchester City.",
-      "editor": "textfield",
-      "title": "Club ID (mode=byClubId)",
-      "type": "string"
+    "clubIds": {
+      "description": "Transfermarkt club IDs or URLs, one per line. Used by club and club-transfer modes.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Club IDs or URLs",
+      "type": "array"
     },
-    "competitionId": {
-      "description": "Transfermarkt competition ID, e.g. `GB1` for Premier League.",
-      "editor": "textfield",
-      "title": "Competition ID (mode=byCompetitionId)",
-      "type": "string"
+    "competitionIds": {
+      "description": "Transfermarkt competition codes (e.g. GB1, ES1) or URLs, one per line.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Competition codes or URLs",
+      "type": "array"
+    },
+    "includeAbsences": {
+      "default": true,
+      "description": "Add injuries, suspensions and national-team call-ups for each player.",
+      "prefill": false,
+      "title": "Include absences",
+      "type": "boolean"
+    },
+    "includeAchievements": {
+      "default": false,
+      "description": "Add trophies and awards for each player. Adds one request per player.",
+      "prefill": false,
+      "title": "Include achievements",
+      "type": "boolean"
+    },
+    "includeCompetitionClubs": {
+      "default": true,
+      "description": "Add the club list and table positions to competition records.",
+      "prefill": true,
+      "title": "Include competition clubs",
+      "type": "boolean"
+    },
+    "includeMarketValueHistory": {
+      "default": true,
+      "description": "Add every valuation Transfermarkt has recorded for each player.",
+      "prefill": true,
+      "title": "Include market-value history",
+      "type": "boolean"
+    },
+    "includeSquad": {
+      "default": true,
+      "description": "Add the current or selected-season squad to club records. byClubId also emits one player record per squad member.",
+      "prefill": true,
+      "title": "Include club squads",
+      "type": "boolean"
+    },
+    "includeTransferHistory": {
+      "default": true,
+      "description": "Add each player's career transfers, including fees and clubs.",
+      "prefill": true,
+      "title": "Include transfer history",
+      "type": "boolean"
     },
     "maxItems": {
-      "default": 5,
-      "description": "Maximum number of records to return.",
+      "default": 50,
+      "description": "Stop after this many top-level records.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 5,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum records",
       "type": "integer"
     },
     "minMarketValueEur": {
-      "description": "Filter out players with a market value below this amount in euros.",
+      "description": "Only keep players whose current market value is at least this many euros.",
       "maximum": 500000000,
       "minimum": 0,
-      "title": "Min market value (EUR)",
+      "title": "Minimum market value (EUR)",
       "type": "integer"
     },
     "mode": {
       "default": "searchPlayers",
-      "description": "What to fetch from Transfermarkt.",
+      "description": "Choose a player, club, competition, transfer or auto-detect mode.",
       "editor": "select",
       "enum": [
         "searchPlayers",
         "byPlayerId",
+        "transfersPlayer",
         "searchClubs",
         "byClubId",
+        "transfersClub",
         "searchCompetitions",
-        "byCompetitionId"
+        "byCompetitionId",
+        "transfersCompetition",
+        "byUrl"
       ],
       "enumTitles": [
         "Search players by name",
-        "Full player profile by ID (transfers, market value, injuries)",
+        "Player profiles by ID or URL",
+        "Transfer records for players",
         "Search clubs by name",
-        "Club profile + squad by ID",
-        "Search competitions/leagues by name",
-        "Clubs in a competition by ID"
+        "Club profile and squad by ID or URL",
+        "Transfer window for clubs",
+        "Search competitions by name",
+        "Clubs in a competition by ID or URL",
+        "Transfer window for competitions",
+        "Auto-detect from pasted URLs"
       ],
       "prefill": "searchPlayers",
-      "title": "Mode",
+      "title": "What to scrape",
       "type": "string"
     },
     "nationality": {
-      "description": "Only include players whose nationality contains this string (e.g. `Argentina`, `Brazil`).",
+      "description": "Only keep players whose nationality contains this text, e.g. Argentina or Brazil.",
       "editor": "textfield",
       "title": "Nationality filter",
       "type": "string"
     },
-    "playerId": {
-      "description": "Transfermarkt numeric player ID, e.g. `28003` for Messi.",
-      "editor": "textfield",
-      "title": "Player ID (mode=byPlayerId)",
-      "type": "string"
+    "playerIds": {
+      "description": "Transfermarkt player IDs or profile URLs, one per line. Used by player and player-transfer modes.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Player IDs or URLs",
+      "type": "array"
     },
     "position": {
       "default": "",
-      "description": "Only include players matching this position.",
+      "description": "Only keep players in this position.",
       "editor": "select",
       "enum": [
         "",
         "Goalkeeper",
+        "Sweeper",
         "Centre-Back",
         "Left-Back",
         "Right-Back",
         "Defensive Midfield",
         "Central Midfield",
+        "Right Midfield",
+        "Left Midfield",
         "Attacking Midfield",
         "Left Winger",
         "Right Winger",
+        "Second Striker",
         "Centre-Forward"
       ],
       "enumTitles": [
         "Any position",
         "Goalkeeper",
+        "Sweeper",
         "Centre-Back",
         "Left-Back",
         "Right-Back",
         "Defensive Midfield",
         "Central Midfield",
+        "Right Midfield",
+        "Left Midfield",
         "Attacking Midfield",
         "Left Winger",
         "Right Winger",
+        "Second Striker",
         "Centre-Forward"
       ],
       "prefill": "",
@@ -101,11 +168,27 @@
     },
     "query": {
       "default": "Messi",
-      "description": "Player/club/competition name to search for (used in search modes).",
+      "description": "Player, club or competition name. Used by the three search modes. At least 2 characters.",
       "editor": "textfield",
       "prefill": "Messi",
       "title": "Search query",
       "type": "string"
+    },
+    "season": {
+      "description": "Club and competition modes only. Use 2025 for 2025/26. Leave empty for the current season.",
+      "maximum": 2100,
+      "minimum": 1990,
+      "title": "Season start year",
+      "type": "integer"
+    },
+    "urls": {
+      "description": "Player, club or competition URLs for auto-detect mode. Mixing page types is allowed.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Transfermarkt URLs",
+      "type": "array"
     }
   },
   "required": [

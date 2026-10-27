@@ -1,10 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Dataset of Google Maps business leads with contact details, optionally enriched with emails, extra phones, and social links from each business website.",
+  "description": "Dataset of Google Maps business leads with contact details, website emails (source and MX-checked), extra phones, and social profiles.",
   "properties": {
     "results": {
-      "description": "Dataset with business leads.",
+      "description": "One row per business with Maps listing data, website contact details, email provenance and social profiles.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Business Leads",
       "type": "string"
     }
   },

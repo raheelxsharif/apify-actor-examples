@@ -1,142 +1,204 @@
 # Transfermarkt Player Market Value & Transfer Scraper
 
-Transfermarkt tracks market values, transfer fees, and squad data for football players and clubs worldwide. This actor searches that data by name or pulls a full record by ID — a player's transfer and injury history, a club's current squad, or every club in a competition.
+Transfermarkt is the reference source for football player valuations and transfer fees. This actor turns its public player, club and competition data into clean JSON records: current and peak market values, the full valuation timeline, career transfers, squad lists and club/competition transfer windows. Start from a name, a Transfermarkt ID or a pasted URL.
 
-## What this actor does
+No login, API key or proxy is required.
 
-- Searches for players, clubs, or competitions by name.
-- Pulls a single player's full profile by ID, including market value history, transfer records, and injury log.
-- Pulls a club's profile plus its full current squad by ID, or every club competing in a given competition.
-- Filters player results by minimum market value, nationality, or position.
-- Fields Transfermarkt doesn't publish for a given record (an unlisted market value, a missing stadium name) are left out rather than sent empty.
+## What you can scrape
 
-## Output per record type
+| Mode | What it returns | Input |
+|---|---|---|
+| `searchPlayers` | Player records for a name search | `query` |
+| `byPlayerId` | One full player record per player | `playerIds` |
+| `transfersPlayer` | One transfer row per career move | `playerIds` |
+| `searchClubs` | Club records for a name search | `query` |
+| `byClubId` | Club record plus its squad | `clubIds` |
+| `transfersClub` | Arrivals, departures and pending moves | `clubIds`, optional `season` |
+| `searchCompetitions` | Competition records for a name search | `query` |
+| `byCompetitionId` | Club records for every team in a competition | `competitionIds`, optional `season` |
+| `transfersCompetition` | Every transfer in a competition | `competitionIds`, optional `season` |
+| `byUrl` | Auto-detects player, club and competition URLs | `urls` |
 
-### Player
+`playerIds`, `clubIds` and `competitionIds` accept either bare IDs/codes or full Transfermarkt URLs (including regional domains and profile, squad or transfers pages). `byUrl` accepts a mixed list of page types.
 
-- `playerId` — Transfermarkt numeric player ID
-- `name`, `fullName` — display and full name
-- `nationality` — array of nationalities
-- `position`, `subPosition` — main and secondary playing position
-- `dateOfBirth`, `age`
-- `height`, `foot`
-- `currentClub`, `currentClubId`
-- `marketValue` — formatted current market value (e.g. `€15.00m`)
-- `marketValueNumeric` — the same value in euros as a number
-- `highestMarketValue`, `highestMarketValueDate` — peak market value and when it was recorded (full profile only, mode `byPlayerId`)
-- `transfers` — array of `{date, fromClub, toClub, fee, feeNumeric}` (full profile only)
-- `injuries` — array of `{date, injury, absence}` (full profile only)
-- `profileUrl`, `imageUrl`
-- `siteName` — always `Transfermarkt`
-- `recordType` — always `player`
-- `scrapedAt` — UTC timestamp of the fetch
+## Player records
 
-### Club
+Each player record includes:
 
-- `clubId` — Transfermarkt numeric club ID
-- `name`, `officialName`
-- `country`
-- `league`, `leagueId`
-- `squadSize`, `avgAge`, `foreignersNumber`
-- `totalMarketValue`
-- `stadiumName`, `stadiumSeats`
-- `profileUrl`, `imageUrl`
-- `siteName` — always `Transfermarkt`
-- `recordType` — always `club`
-- `scrapedAt` — UTC timestamp of the fetch
+- `playerId`, `name`, `fullName`, `shortName`
+- `dateOfBirth`, `age`, `placeOfBirth`, `countryOfBirth`
+- `nationality` (array), `nationalityIds`
+- `position`, `subPosition`, `positionGroup`
+- `height`, `heightMeters`, `foot`
+- `currentClub`, `currentClubId`, `currentClubUrl`, `currentClubCrestUrl`
+- `joinedCurrentClub`, `contractExpires`, `contractOption`
+- `shirtNumber`, `isCaptain`, `status`
+- `agentName`, `agentId`, `agentVerified`, `outfitter`
+- `marketValue`, `marketValueNumeric`, `marketValueCurrency`, `marketValueDate`
+- `previousMarketValue`, `previousMarketValueNumeric`
+- `highestMarketValue`, `highestMarketValueNumeric`, `highestMarketValueDate`
+- `marketValueHistory` - array of `{date, seasonId, season, club, clubId, clubUrl, age, value, valueNumeric, currency, formattedValue}`
+- `transfers` - array of `{date, season, fromClub, fromClubId, toClub, toClubId, fee, feeNumeric, feeCurrency, transferType, feeDescription, marketValue, marketValueNumeric, age, isPending, transferUrl}`
+- `transferFeeSum`, `transferFeeSumNumeric`
+- `absences` - injuries, suspensions and national-team call-ups
+- `injuries` - the injury/illness subset, in the legacy `{date, injury, absence}` shape
+- `achievements` - trophies and awards
+- `profileUrl`, `imageUrl`, `siteName`, `recordType`, `scrapedAt`
 
-### Competition
+## Club, competition and transfer records
 
-- `competitionId` — Transfermarkt competition ID
-- `name`, `country`, `countryId`
-- `competitionUrl`, `imageUrl`
-- `siteName` — always `Transfermarkt`
-- `recordType` — always `competition`
-- `scrapedAt` — UTC timestamp of the fetch
+Club records include identity, country, league, squad size, average age, foreigners, squad market value, stadium, address, squad and table position where available.
 
-Running `byClubId` returns the club record followed by one player record per squad member; `byCompetitionId` returns one club record per club in that competition.
+Competition records include country, confederation, current season, total market value and the club list with rank, points and goal difference.
+
+Transfer records include the player, date, season, from/to club and competition IDs, fee text and EUR integer, transfer type, fee description, market value at the time, pending flag and direction (arrival/departure) for club windows.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | Notes |
 |---|---|---|---|
-| `mode` | string | `searchPlayers` | `searchPlayers`, `byPlayerId`, `searchClubs`, `byClubId`, `searchCompetitions`, or `byCompetitionId` |
-| `query` | string | `Messi` | Name to search for; used by the search modes |
-| `playerId` | string | – | Transfermarkt numeric player ID, e.g. `28003` for Messi; used by `byPlayerId` |
-| `clubId` | string | – | Transfermarkt numeric club ID, e.g. `131` for Manchester City; used by `byClubId` |
-| `competitionId` | string | – | Transfermarkt competition ID, e.g. `GB1` for Premier League; used by `byCompetitionId` |
-| `minMarketValueEur` | integer | – | Only keep players with a market value at or above this amount in euros |
-| `nationality` | string | – | Only keep players whose nationality contains this text, e.g. `Argentina` |
-| `position` | string | (any) | Only keep players in this exact position |
-| `maxItems` | integer | `5` | Maximum number of records to return (1-1000) |
+| `mode` | select | `searchPlayers` | One of the 10 modes above |
+| `query` | string | `Messi` | Search modes; at least 2 characters |
+| `playerIds` | string array | - | Player IDs or URLs |
+| `clubIds` | string array | - | Club IDs or URLs |
+| `competitionIds` | string array | - | Competition codes or URLs |
+| `urls` | string array | - | Mixed player/club/competition URLs for `byUrl` |
+| `season` | integer | — | Season start year, e.g. `2025` for 2025/26; club/competition modes. Leave empty for the current season |
+| `minMarketValueEur` | integer | - | Keep players at or above this current value |
+| `nationality` | string | - | Case-insensitive substring filter |
+| `position` | select | Any | Exact position filter |
+| `includeMarketValueHistory` | boolean | `true` | Add the valuation timeline |
+| `includeTransferHistory` | boolean | `true` | Add career transfers |
+| `includeAbsences` | boolean | `true` | Add injuries/suspensions/call-ups |
+| `includeAchievements` | boolean | `false` | Add trophies and awards |
+| `includeSquad` | boolean | `true` | Add squads to club records; `byClubId` also emits player records |
+| `includeCompetitionClubs` | boolean | `true` | Add clubs and table rows to competition records |
+| `maxItems` | integer | `50` | 1-1,000 top-level records |
 
-### Example: search for a player
+### Example: three players by name
 
 ```json
 {
   "mode": "searchPlayers",
   "query": "Messi",
-  "maxItems": 10
+  "maxItems": 3
 }
 ```
 
-### Example: full player profile with transfer and injury history
+### Example: one player with everything
 
 ```json
 {
   "mode": "byPlayerId",
-  "playerId": "28003"
+  "playerIds": ["28003"],
+  "includeAbsences": true,
+  "includeAchievements": true
 }
 ```
 
-### Example: club profile and squad, filtered to forwards
+### Example: a club transfer window
 
 ```json
 {
-  "mode": "byClubId",
-  "clubId": "131",
-  "position": "Centre-Forward",
-  "maxItems": 40
+  "mode": "transfersClub",
+  "clubIds": ["https://www.transfermarkt.com/manchester-city/startseite/verein/281"],
+  "season": 2025,
+  "maxItems": 100
 }
 ```
 
-### Example: every club in a competition
+### Example: auto-detect mixed URLs
 
 ```json
 {
-  "mode": "byCompetitionId",
-  "competitionId": "GB1",
-  "maxItems": 20
+  "mode": "byUrl",
+  "urls": [
+    "https://www.transfermarkt.com/erling-haaland/profil/spieler/418560",
+    "https://www.transfermarkt.com/premier-league/startseite/wettbewerb/GB1"
+  ],
+  "maxItems": 5
 }
 ```
 
-## Use cases
+## Output example (trimmed)
 
-- Scouting reports that need a player's transfer history and current market value in one record.
-- Tracking a player's market value trend over their career.
-- Building a squad roster for a club, filtered to a position or nationality.
-- Comparing total squad value and average age across clubs in the same competition.
-- Research on transfer fees and club spending by season.
+```json
+{
+  "recordType": "player",
+  "playerId": "28003",
+  "name": "Lionel Messi",
+  "fullName": "Lionel Andrés Messi Cuccitini",
+  "age": 39,
+  "nationality": ["Argentina", "Spain"],
+  "position": "Right Winger",
+  "currentClub": "Inter Miami CF",
+  "currentClubId": "69261",
+  "marketValue": "€15.00m",
+  "marketValueNumeric": 15000000,
+  "highestMarketValue": "€180.00m",
+  "highestMarketValueNumeric": 180000000,
+  "marketValueHistory": [
+    {
+      "date": "2026-06-02",
+      "seasonId": 2025,
+      "club": "Inter Miami CF",
+      "age": 38,
+      "value": 15000000,
+      "formattedValue": "€15.00m"
+    }
+  ],
+  "transfers": [
+    {
+      "date": "2023-07-15",
+      "season": "23/24",
+      "fromClub": "Paris Saint-Germain",
+      "toClub": "Inter Miami CF",
+      "fee": "Free Transfer"
+    }
+  ],
+  "profileUrl": "https://www.transfermarkt.com/lionel-messi/profil/spieler/28003",
+  "siteName": "Transfermarkt",
+  "scrapedAt": "2026-10-27T00:00:00+00:00"
+}
+```
 
 ## FAQ
 
-**Is this affiliated with Transfermarkt?**
-No. This actor reads Transfermarkt's public player, club, and competition data; it isn't operated by or connected to Transfermarkt.
+**Do I need a Transfermarkt account, API key or proxy?**
+No. The actor uses Transfermarkt's public football data without credentials and chooses its own transport automatically.
 
-**Do I need to log in or provide an API key?**
-No. Every mode works on public data with no account required.
+**Where do I find a player, club or competition ID?**
+The ID is the number in a Transfermarkt URL (`/profil/spieler/28003`, `/verein/281`) or the code in a competition URL (`/wettbewerb/GB1`). You can paste the whole URL instead.
 
-**Where do I find a player, club, or competition ID?**
-Run `searchPlayers`, `searchClubs`, or `searchCompetitions` first — each result record includes the numeric ID (or code, for competitions) needed for the `byPlayerId`, `byClubId`, or `byCompetitionId` modes. IDs also appear in a Transfermarkt profile URL, e.g. `28003` in `.../profil/spieler/28003`.
+**Why is a transfer fee missing?**
+Transfermarkt only publishes a fee for some moves. Free transfers, loans and undisclosed deals keep their text label, while `feeNumeric` is omitted. Pending moves can have no fee yet.
 
-**Why do `transfers` and `injuries` only appear with `byPlayerId`?**
-Search results return a summary profile; the full transfer and injury history is only fetched when you request a specific player by ID.
+**What does `season` mean?**
+It is the season start year: `2025` means 2025/26. It applies to club squads, club transfer windows, competition tables and competition transfer windows. Player career transfers always cover the full career.
 
-**Why is `highestMarketValue` sometimes missing even for a well-known player?**
-It's only populated when Transfermarkt's market value history for that player has a valid value to compare; some players have too short a history for a peak to be determined.
+**Why are some market values or club names missing?**
+A player may have no current club, a valuation may not have been published yet, or a historical club may be recorded as "without club". Empty fields are omitted rather than sent as null.
 
-**Do the `minMarketValueEur`, `nationality`, and `position` filters apply to clubs and competitions too?**
-No, they only filter player records.
+**Does `byClubId` return more than one record?**
+Yes. It returns the club record first, then one player record per squad member, matching the previous behavior. Set `maxItems` to cap the total.
 
-**How current is the data?**
-Every run queries Transfermarkt live, so market values, squads, and transfer records reflect what the site shows at run time.
+**Can I scrape several players, clubs or competitions at once?**
+Yes. Use the ID/URL arrays, or `byUrl` with a mixed list.
+
+**Are achievements and absences included by default?**
+Absences are on by default. Achievements are off because they add one request per player. Both can be toggled.
+
+**How fresh is the data?**
+Every run asks Transfermarkt live, so market values, squads and transfer records reflect the site at run time.
+
+## Limitations
+
+- Transfermarkt does not publish a fee for every transfer; the actor never invents one.
+- Pending transfers may have no fee or market value yet.
+- Absence records mix injuries, suspensions and national-team call-ups; use `isInjury`, `isSuspension` and `isCallUp` to separate them.
+- Output is English. Regional Transfermarkt mirrors are accepted as input URLs, but labels are not localized.
+- Profile, club and competition URLs are canonical Transfermarkt pages; the site may challenge direct browserless requests, while image URLs load publicly.
+- Player season statistics and global ranking/transfer-record lists are not part of this actor.
+- Search needs at least two characters.
+
+This actor is not affiliated with Transfermarkt. Use the data responsibly and respect the source's terms.

@@ -1,6 +1,40 @@
 {
   "actorSpecification": 1,
   "views": {
+    "clubs": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Clubs",
+      "transformation": {
+        "fields": [
+          "name",
+          "country",
+          "league",
+          "squadSize",
+          "totalMarketValue",
+          "stadiumName",
+          "profileUrl"
+        ]
+      }
+    },
+    "competitions": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Competitions",
+      "transformation": {
+        "fields": [
+          "name",
+          "country",
+          "currentSeasonId",
+          "totalMarketValue",
+          "competitionUrl"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
@@ -16,6 +50,42 @@
           "marketValue",
           "nationality",
           "profileUrl"
+        ]
+      }
+    },
+    "players": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Players",
+      "transformation": {
+        "fields": [
+          "name",
+          "currentClub",
+          "position",
+          "age",
+          "marketValue",
+          "highestMarketValue",
+          "profileUrl"
+        ]
+      }
+    },
+    "transfers": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Transfers",
+      "transformation": {
+        "fields": [
+          "date",
+          "playerName",
+          "fromClub",
+          "toClub",
+          "fee",
+          "transferType",
+          "season"
         ]
       }
     }

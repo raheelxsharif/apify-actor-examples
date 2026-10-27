@@ -4,97 +4,133 @@
 
 # iQIYI Album Profile & Channel Ranking Scraper
 
-iQIYI (iq.com) hosts Chinese, Korean, and Thai dramas, movies, variety shows, and anime for an international audience. This actor pulls three different views of that catalog: a full profile for a specific title, the current top-ranked titles for a channel, and the suggestions iQIYI's own search box returns for a query.
+iQIYI (iq.com) is the international home of Chinese, Korean, Thai and other Asian dramas, movies, anime and variety shows. This actor reads the public catalogue without an account and returns album profiles with released episode lists, the current hot lists for four channels, eight ranking boards, a weekly top 10, full title search results across regional catalogues, and the autocomplete suggestions from iQIYI's own search box.
 
 ## What this actor does
 
-- Looks up one or more albums by slug or URL and returns their full profile: genres, cast, episode count, score, release year, and the countries where the title is licensed.
-- Pulls the current top-ranked titles for a channel (Top, Movie, Series, Kids, Variety, or Anime).
-- Returns the autocomplete-style title suggestions iQIYI offers for a search term.
-- Caps every run at a configurable number of records.
-- Fields iQIYI doesn't publish for a given title (a missing score, an untagged genre group) are left out of that record rather than sent empty.
+- **Album profiles:** look up a title by slug, album URL, play URL or numeric album ID and get its score, release year, age rating, genres, licensed regions, cast with roles, directors and every currently released episode with a direct play link.
+- **Full title search:** search the international catalogue, or one of eight regional catalogues, in seven metadata languages. Results include episodes, cast and optional album-level score/description enrichment.
+- **Rankings:** pull the hot list for Drama, Movie, Anime or Variety (up to 30 titles each), the eight global charts (hot, anticipated, rising, must-watch and four curated picks), or the weekly top 10 with view counts.
+- **Legacy modes:** the original search-box suggestions and channel-ranking modes still work for saved tasks.
+- **Clean records:** empty fields are omitted, image URLs are normalized, dates are ISO, scores are numeric, and IDs are kept as iQIYI publishes them.
 
 ## Output per mode
 
 ### `byId` — album profile
 
-- `albumId` — the slug used to look up the title
-- `qipuId` — iQIYI's internal content ID
+- `albumId`, `qipuId` — slug and internal content ID
 - `title`, `subtitle`, `alterTitle` — title variants
 - `description` — synopsis
-- `releaseYear`, `releaseStatus` — release year and current airing/release status
-- `totalEpisodes`, `durationMinutes` — episode count and per-episode runtime
-- `score` — iQIYI user rating
-- `channelId` — numeric channel the title belongs to
-- `TypeDsj`, `SubjectMatter`, `Language`, `Place`, `Adaptation` — genre/category tag groups (each an array of tag names, present only when iQIYI tags that group)
-- `starring`, `creator` — cast and director/creator names
-- `posterUrl`, `bannerUrl`, or `landscapeUrl` — one cover image URL, under whichever of these three keys matches the first image iQIYI exposes for the title
-- `availableRegions` — ISO country codes where the title is licensed
-- `isPremium` — true when the title requires a paid membership
-- `userLevel` — minimum membership tier required, when iQIYI publishes one
-- `iqiyiUrl`, `sourceUrl` — links back to the album page
-- `recordType` — always `album`
-- `scrapedAt` — UTC timestamp of the fetch
+- `releaseYear`, `releaseStatus`, `type`, `isSeries` — release and content type
+- `score`, `scoreVotes`, `contentRating` — user score, vote count and age rating
+- `totalEpisodes`, `releasedEpisodeCount`, `episodes[]` — planned count, released count, and episode rows (`order`, `name`, `episodeId`, `url`, `publishDate`, `durationSeconds`, plus `subtitle` when published)
+- `durationMinutes` — runtime for a movie, or the first released episode's runtime
+- `channelId` — 1 Movie, 2 TV series, 4 Anime, 6 Variety show
+- `TypeDsj`, `SubjectMatter`, `Language`, `Place`, `Adaptation` — tag groups
+- `genres`, `tags` — flattened genre and tag lists
+- `starring`, `cast[]`, `creator`, `directors[]` — cast and directors; cast rows include `name`, `role`, `character` and `profileUrl` when published
+- `posterUrl`, `bannerUrl` — portrait and landscape artwork
+- `availableRegions` — countries where the title is licensed
+- `audioLanguages` — published audio tracks
+- `isPremium`, `isFinished`, `isExclusive`, `isQiyiProduced` — availability flags
+- `playUrl`, `iqiyiUrl`, `sourceUrl` — direct play and album links
+- `recordType: "album"`, `scrapedAt`
 
-### `trending` — channel ranking
+### `rankings` — channel and global rankings
 
-- `name` — title name
-- `qipuId`, `albumId` — identifiers for the ranked title
-- `publishDate` — the date iQIYI shows for the title in the ranking
-- `posterUrl` — cover image
-- `rating` — iQIYI's rating for the title
-- `playCount` — view/play count behind the ranking
-- `iqiyiUrl`, `sourceUrl` — links back to the album page
-- `recordType` — always `album`
-- `scrapedAt` — UTC timestamp of the fetch
+- `rankingType` — `top10`, `hot`, `anticipated`, `rising`, `mustWatch`, `dramaPicks`, `moviePicks`, `animePicks`, `varietyPicks`, `channelDrama`, `channelMovie`, `channelAnime`, `channelVariety`
+- `rank` — 1-based position
+- `title`, `qipuId`, `albumId`, `channelId`
+- `score`, `contentRating`, `year`, `tags[]`
+- `updateText`, `episodeCount`, `description`
+- `weeklyViews` — top-10 only
+- `posterUrl`, `thumbnailUrl`, `albumUrl`, `playUrl`
+- `isPremium`, `recordType: "ranking"`, `scrapedAt`
 
-### `search` — suggestions
+### `searchTitles` — full search results
 
-- `suggestion` — the suggested title text iQIYI's search returns for the query
-- `sourceUrl` — the search URL the suggestion was generated from
-- `recordType` — always `suggestion`
-- `scrapedAt` — UTC timestamp of the fetch
+- `query`, `rank`, `title`, `albumId`, `qipuId`
+- `type`, `channelId`, `isSeries`, `year`, `publishDate`
+- `score`, `contentRating`, `description`, `tags[]` — present when details are included
+- `episodeCount`, `releasedEpisodeCount`, `episodes[]`
+- `cast[]`, `directors[]`
+- `posterUrl`, `thumbnailUrl`, `albumUrl`, `playUrl`
+- `isPremium`, `recordType: "searchResult"`, `scrapedAt`
+
+### `search` — suggestions (legacy)
+
+- `suggestion`, `sourceUrl`, `recordType: "suggestion"`, `scrapedAt`
+
+### `trending` — channel ranking (legacy)
+
+Keeps the original fields `name`, `qipuId`, `albumId`, `publishDate`, `posterUrl`, `iqiyiUrl`, `sourceUrl`, `recordType`, `scrapedAt`, and includes `rank`, `rating`, `contentRating`, `year`, `tags`, `updateText` and `episodeCount` where available. `playCount` is omitted because intl iq.com does not publish cumulative play counts.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `byId` | `byId` (album profile), `trending` (channel ranking), or `search` (title suggestions) |
-| `albumIds` | array | `[]` | Album slugs or full iq.com album URLs; used when `mode` is `byId` |
-| `channelId` | integer | `2` | Ranking channel: 0 = Top, 1 = Movie, 2 = Series, 6 = Kids, 7 = Variety, 8 = Anime; used when `mode` is `trending` |
-| `searchQuery` | string | `love` | Text to get title suggestions for; used when `mode` is `search` |
-| `maxItems` | integer | `25` | Maximum number of records to return (1-1000) |
+| `mode` | string | `byId` | `byId`, `searchTitles`, `rankings`, `search` (legacy suggestions), `trending` (legacy channel ranking) |
+| `albumIds` | array | `[]` | Album slugs, album URLs, play URLs or numeric IDs (mode=byId) |
+| `searchQueries` | array | `["love"]` | Keywords or iq.com search URLs (mode=searchTitles) |
+| `searchQuery` | string | `love` | Suggestion text (mode=search) |
+| `region` | string | `intl` | intl, vn, th, id, my, ph, sg, kr, jp (mode=searchTitles) |
+| `language` | string | `en_us` | en_us, zh_cn, zh_tw, th_th, vi_vn, id_id, ms_my (mode=searchTitles) |
+| `includeDetails` | boolean | `true` | Add score, description, genres, age rating and cast roles to search rows |
+| `includeEpisodes` | boolean | `true` | Include released episode lists |
+| `rankingType` | string | `top10` | One of the 13 ranking types (mode=rankings) |
+| `channelId` | string | `2` | 0 Top, 1 Movie, 2 Series, 4 Anime, 6 Variety (mode=trending) |
+| `maxItems` | integer | `25` | Hard cap on emitted records (1–1000) |
 
-### Example: pull a drama's full profile
+### Example: three album profiles
 
 ```json
 {
   "mode": "byId",
-  "albumIds": ["genius-girlfriend-2026-28fzrln6il1"]
+  "albumIds": [
+    "genius-girlfriend-2026-28fzrln6il1",
+    "fated-hearts-2025-d6iyehcx4p",
+    "a-better-jianghu-2026-1qi696xihh0"
+  ],
+  "includeEpisodes": true,
+  "maxItems": 3
 }
 ```
 
-### Example: today's top series
+### Example: full search in a regional catalogue
 
 ```json
 {
-  "mode": "trending",
-  "channelId": 2,
+  "mode": "searchTitles",
+  "searchQueries": ["love", "revenge"],
+  "region": "th",
+  "language": "th_th",
+  "includeDetails": true,
+  "includeEpisodes": true,
   "maxItems": 30
 }
 ```
 
-### Example: top anime ranking
+### Example: drama channel hot list
 
 ```json
 {
-  "mode": "trending",
-  "channelId": 8,
-  "maxItems": 20
+  "mode": "rankings",
+  "rankingType": "channelDrama",
+  "maxItems": 30
 }
 ```
 
-### Example: title suggestions for a query
+### Example: weekly top 10
+
+```json
+{
+  "mode": "rankings",
+  "rankingType": "top10",
+  "maxItems": 10
+}
+```
+
+### Example: legacy suggestions
 
 ```json
 {
@@ -106,31 +142,51 @@ iQIYI (iq.com) hosts Chinese, Korean, and Thai dramas, movies, variety shows, an
 
 ## Use cases
 
-- Build a catalog of iQIYI originals and licensed titles with genre and cast metadata.
-- Check which countries a specific drama, movie, or anime is currently licensed in.
-- Track which titles are trending on a given channel over time.
-- Feed genre tags, cast, and ratings into a recommendation or research dataset.
-- Check what iQIYI's own search surfaces for a keyword before building a campaign around it.
+- Build a catalogue of iQIYI dramas, movies, anime and variety shows with scores, genres and cast.
+- Track which titles are on a channel hot list, a global chart or the weekly top 10 over time.
+- Enrich a recommendation database with released episodes, cast roles and play links.
+- Research regional catalogue differences across nine iQIYI markets.
+- Monitor a genre or franchise with scheduled searches and deduplicated results.
+- Check a title's licensed regions and premium status before planning a release.
 
 ## FAQ
 
-**Is this affiliated with iQIYI?**
-No. This is an independent actor that reads iQIYI's public pages; it has no relationship with iQIYI or iq.com.
+### Is this affiliated with iQIYI?
 
-**Do I need an iQIYI account or subscription?**
-No. Every field comes from pages and lookups that are open to the public.
+No. This is an independent actor that reads public iQ.com pages and catalogue data. It is not endorsed by or connected to iQIYI.
 
-**Why does `search` return short suggestions instead of full search results?**
-iQIYI's public search box only exposes suggestion-style matches without logging in, so that's what this mode returns rather than a full results page.
+### Do I need an iQIYI account or subscription?
 
-**Why is a field like `score` or a genre tag group missing from a record?**
-iQIYI doesn't tag or rate every title the same way — a documentary may have no `score`, and a title with no romance elements has no `SubjectMatter` entry for it. Missing fields are left out instead of being sent as empty values.
+No. No login, cookie or API key is required.
 
-**Why does the `trending` mode return fewer fields than `byId`?**
-The channel ranking view only exposes a summary of each title (name, rating, play count); run `byId` with the returned `albumId` to get the full profile.
+### Why are some fields missing from a record?
 
-**How many records can one run return?**
-Up to `maxItems`, capped at 1000 per run.
+iQIYI does not publish every field for every title. Anime and some variety shows often have no cast list, unreleased shows have no episodes yet, and some titles have no description. Missing fields are omitted rather than sent as null or empty values.
 
-**How current is the data?**
-Every run queries iQIYI live, so rankings and profiles reflect what iq.com shows at run time.
+### Why are there fewer episodes than `totalEpisodes`?
+
+`totalEpisodes` is the planned episode count. The `episodes` array contains episodes that are currently released and listed by iQIYI. Ongoing shows can have a planned count above the released count, and some unreleased titles publish no episode list at all, so `episodes` is omitted even though `totalEpisodes` is present.
+
+### Why is there no play count?
+
+The international iq.com catalogue does not expose a cumulative play count. The weekly top-10 ranking does include `weeklyViews`, and that is the only view metric included.
+
+### Which regions and languages are supported?
+
+Search supports the international catalogue plus Vietnam, Thailand, Indonesia, Malaysia, the Philippines, Singapore, South Korea and Japan. Metadata languages are English, Simplified and Traditional Chinese, Thai, Vietnamese, Indonesian and Malay. Other iQIYI languages and the Taiwan region currently return no search results, so they are not offered.
+
+### How many search results can one query return?
+
+It depends on the query. Popular terms can return several hundred unique titles (currently around 400 for broad terms); narrow terms can return only a handful. The actor follows iQIYI's pages until they stop adding new titles and never promises the catalogue's reported total.
+
+### Why are there only four channel hot lists?
+
+The international catalogue publishes hot lists for Drama, Movie, Anime and Variety. Kids and documentary channels redirect to the home page and have no equivalent list. The eight global charts and the weekly top 10 cover the rest of the catalogue.
+
+### Do I need to configure a proxy?
+
+No. The actor connects directly to iq.com without a proxy; no proxy configuration is needed. Just fill in the input and run it.
+
+### How current is the data?
+
+Every run reads iQIYI live, so scores, rankings, episodes and availability reflect what iq.com shows at run time.
