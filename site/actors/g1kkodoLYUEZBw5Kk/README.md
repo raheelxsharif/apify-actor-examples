@@ -1,136 +1,190 @@
 # Vivino Wine Ratings & Tasting Profile Scraper
 
-Vivino's community of millions of wine drinkers has rated and reviewed wines from every major wine region. This actor turns that catalogue into structured data — search by name, browse by type/country/price, look up specific vintages, or pull everything a winery has listed.
+Vivino is the world's largest wine community, with ratings, reviews and tasting notes for millions of bottles. This actor turns that catalogue into clean, structured records: search by name, browse by type, country, region or grape, look up exact wines by URL or ID, or page through a producer's full range.
 
 ## What this actor does
 
-- Runs a free-text search across Vivino's wine catalogue by name, producer, or region.
-- Browses ("explores") wines filtered by type, country of origin, and price or rating range.
-- Looks up specific wines by their Vivino vintage ID.
-- Pulls every wine listed under a given winery.
-- Omits fields Vivino doesn't have for a given wine instead of sending them as empty.
+- Runs one or more free-text searches across wines, wineries, regions and grape varieties.
+- Browses the catalogue with filters for wine type, country of origin, region/appellation, grape, rating range and price range.
+- Accepts Vivino wine and vintage URLs as well as numeric IDs.
+- Pulls a winery's catalogue, one record per wine (up to 5,000 wines per winery).
+- Returns one enriched record per wine vintage in search, explore and by-ID modes, and one record per wine in winery mode, with ratings, taste profile, alcohol, description, critic scores, awards, rankings, market prices and merchant offers.
+- Optionally attaches the latest community reviews.
+- Omits fields Vivino does not have for a wine instead of sending empty values.
 
 ## Output per wine
 
-- `wineId`, `vintageId` — Vivino's internal identifiers for the wine and this specific vintage
-- `name`, `fullName` — wine name, and the full vintage name including winery and year
-- `vintage` — vintage year
-- `winery`, `wineryUrl` — producer name and Vivino winery page
-- `type`, `typeId` — wine type (red, white, sparkling, rose, dessert, fortified) and its numeric code
-- `isNatural` — true when Vivino tags the wine as a natural wine
-- `country`, `countryCode` — country of origin and its 2-letter code
-- `region` — wine region
-- `style`, `styleDescription` — Vivino's wine style name (e.g. "Italian Barolo") and its description
-- `grapes` — grape varieties used
-- `foodPairing` — recommended food pairings
-- `tastingNotes` — flavor/tasting keywords
-- `tasteAcidity`, `tasteTannin`, `tasteSweetness`, `tasteIntensity`, `tasteFizziness` — taste structure scores (1-5 scale, present only for the traits Vivino scores for that wine)
-- `body`, `bodyDescription` — body score and its description
-- `acidity`, `acidityDescription` — acidity level and its description
-- `rating`, `ratingsCount` — average rating and number of ratings for this vintage specifically
-- `wineRating`, `wineRatingsCount` — average rating and number of ratings across all vintages of the wine
-- `price`, `currency` — listed price and its currency (standardized to USD)
-- `imageUrl` — wine label image
-- `wineUrl`, `vintageUrl` — links to the wine and vintage pages on Vivino
-- `topListRankings` — any "best of" or award-list appearances
-- `sourceUrl` — the page the record was read from
-- `recordType` — always `wine`
-- `scrapedAt` — ISO 8601 timestamp of when the record was fetched
+**Identity and place**
 
-`mode: winery` returns a wine-level record without a specific vintage attached, so it never includes `vintageId`, `vintage`, `wineryUrl`, `styleDescription`, the taste-structure fields, `body`/`bodyDescription`, `acidity`/`acidityDescription`, `wineRating`/`wineRatingsCount`, `price`/`currency`, `imageUrl`, `vintageUrl`, or `topListRankings` — only `search`, `explore`, and `byWineId` can populate those.
+- `wineId`, `vintageId` — Vivino identifiers for the wine and this vintage
+- `name`, `fullName` — wine name and the full vintage name with winery and year
+- `vintage` — harvest year; omitted for non-vintage wines, with `isNonVintage: true`
+- `winery`, `wineryId`, `wineryUrl`
+- `type`, `typeId`, `isNatural`
+- `region`, `regionId`, `regionUrl`, `country`, `countryCode`
+- `style`, `styleId`, `styleDescription`, `styleBlurb`, `interestingFacts`
+
+**Taste and pairing**
+
+- `grapes`, `grapeComposition`
+- `foodPairing`
+- `tasteAcidity`, `tasteTannin`, `tasteSweetness`, `tasteIntensity`, `tasteFizziness` — Vivino's 1–5 taste scores, present only for the traits it scores for that wine
+- `tastingNotes` — flattened flavour keywords
+- `flavorGroups` — flavour groups with counts and keyword mentions
+- `body`, `bodyDescription`, `acidity`, `acidityDescription`
+
+**Ratings and reviews**
+
+- `rating`, `ratingsCount`, `ratingStatus` — the vintage's own rating, count and status; `rating` is present only when Vivino publishes a vintage average
+- `displayRating`, `displayRatingScope` — the vintage rating, or the wine's all-vintage rating when the vintage is below Vivino's publication threshold
+- `wineRating`, `wineRatingsCount` — the wine's all-vintage rating
+- `reviewsCount`, `labelsCount`, `ratingsDistribution`
+- `reviews` — optional latest community reviews, with rating, text, language, date, reviewer and the review's vintage year; `reviewsScope` is `wine` because Vivino exposes reviews at wine level
+
+**Description and chemistry**
+
+- `description` — wine-specific description
+- `alcohol` — ABV percentage
+- `closure`, `winemaker`
+
+**Market**
+
+- `price` — best current merchant offer
+- `averagePrice` — Vivino's market median
+- `currency`, `priceStatus`
+- `offerCount`, `offers` — up to five offers with merchant, price, currency, URL, bottle type, volume and stock
+- `bottleType`, `bottleVolumeMl`, `discountPercent`
+
+**Critics and standing**
+
+- `criticReviews` — critic name, score, score scale and date
+- `awards` — competition, edition, medal, trophy, score and link
+- `rankings` — global, country, region and winery rank with totals
+- `topListRankings`, `drinkingWindow`
+
+**Media and metadata**
+
+- `imageUrl`, `labelImageUrl`, `bottleImageUrl`
+- `wineUrl`, `vintageUrl`, `sourceUrl` — canonical Vivino URLs
+- `recordType` (`wine`) and `scrapedAt`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (free-text query), `explore` (browse by type/country/price), `byWineId` (look up specific vintages), or `winery` (a winery's full catalogue) |
-| `searchQuery` | string | `barolo` | Free-text wine query; used by `search` |
-| `wineIds` | array | `[]` | Vivino vintage IDs to look up; used by `byWineId` |
-| `wineryId` | integer | – | Vivino winery ID; used by `winery` |
-| `wineType` | string | (any) | Wine type filter for `search`/`explore`: Red, White, Sparkling, Rose, Dessert, or Fortified |
-| `country` | string | (any) | 2-letter ISO country-of-origin filter, e.g. `it`, `fr`, `us` |
-| `minRating` | number | – | Minimum rating, 0-5 scale |
-| `maxRating` | number | – | Maximum rating, 0-5 scale |
-| `minPrice` | number | – | Minimum price in USD |
-| `maxPrice` | number | `500` | Maximum price in USD |
-| `orderBy` | string | `ratings_count` | Sort order for `search`/`explore`: `ratings_count` (most reviewed), `ratings_average` (highest rated), or `price` |
-| `maxItems` | integer | `50` | Maximum number of wine records to return (1-2000) |
+| `mode` | select | `search` | `search`, `explore`, `byWineId` or `winery` |
+| `searchQueries` | array | `["barolo"]` | One or more wine searches for `search` mode |
+| `wineIds` | array | `["171525306"]` | Wine/vintage IDs or Vivino URLs for `byWineId`; accepts plain IDs, `/w/<id>`, `/wines/<id>`, `/vintages/<id>` and full Vivino URLs |
+| `winery` | string | – | Winery ID, slug or URL for `winery` mode |
+| `wineType` | select | (any) | Red, White, Sparkling, Rose, Dessert or Fortified |
+| `country` | select | (any) | Country of origin; 146 wine-producing countries |
+| `region` | string | – | Region/appellation name, slug or Vivino region URL |
+| `grape` | string | – | Grape name, slug or Vivino grape URL |
+| `minRating` / `maxRating` | number | – | Rating range on Vivino's 0–5 scale |
+| `minPrice` / `maxPrice` | number | – | Price range in USD |
+| `orderBy` | select | `ratings_count` | `ratings_count`, `ratings_average`, `price` or `relevance` |
+| `order` | select | `desc` | `desc` or `asc` |
+| `includeReviews` | boolean | `false` | Attach latest community reviews |
+| `maxReviewsPerWine` | integer | `10` | Reviews per wine when enabled (1–50) |
+| `maxItems` | integer | `50` | Maximum wine records to return (1–2,500) |
 
-### Example: search by name
+### Example: search for a wine
 
 ```json
 {
   "mode": "search",
-  "searchQuery": "barolo",
-  "maxItems": 50
+  "searchQueries": ["barolo", "chablis"],
+  "maxItems": 20
 }
 ```
 
-### Example: browse top-rated Italian reds
+### Example: top-rated Italian reds under $100
 
 ```json
 {
   "mode": "explore",
   "wineType": "1",
   "country": "it",
-  "minRating": 4.0,
+  "minRating": 4.2,
+  "maxPrice": 100,
   "orderBy": "ratings_average",
   "maxItems": 100
 }
 ```
 
-### Example: look up specific vintages by ID
+### Example: a region and a grape
+
+```json
+{
+  "mode": "explore",
+  "region": "napa-valley",
+  "grape": "cabernet-sauvignon",
+  "minRating": 4.0,
+  "maxItems": 50
+}
+```
+
+### Example: exact wines by URL or ID
 
 ```json
 {
   "mode": "byWineId",
-  "wineIds": ["18745256", "87183621"]
+  "wineIds": [
+    "https://www.vivino.com/en/barolo-monprivato/w/1274818?year=2021",
+    "171525306"
+  ],
+  "includeReviews": true,
+  "maxReviewsPerWine": 5
 }
 ```
 
-### Example: a winery's full catalogue
+### Example: a winery catalogue
 
 ```json
 {
   "mode": "winery",
-  "wineryId": 11472,
+  "winery": "michele-chiarlo",
   "maxItems": 50
 }
 ```
 
 ## Use cases
 
-- Compare ratings, prices, and tasting notes across a shortlist of wines before buying.
-- Build a regional or varietal wine list for a restaurant or shop.
-- Track how a winery's catalogue and ratings change over time.
-- Feed grape, region, and taste-profile data into a wine recommendation tool.
-- Study price-to-rating patterns across a country or wine type.
+- Build a wine list with ratings, taste profiles and food pairings.
+- Compare prices and merchant offers for a shortlist or a region.
+- Track a winery's range and its vintage ratings over time.
+- Enrich an e-commerce catalogue with grapes, alcohol, descriptions and images.
+- Analyse critic scores, awards and value across a region or grape.
+- Power a recommendation engine with structured taste and flavour data.
 
 ## FAQ
 
 **Is this affiliated with Vivino?**
 No. This actor reads Vivino's public wine pages and is not operated by or connected to Vivino.
 
-**Do I need a Vivino account to use this?**
+**Do I need a Vivino account, cookie or API key?**
 No. Every mode works without logging in.
 
-**How do I find a wine's Vivino vintage ID?**
-Run `search` or `explore` first — each result includes a `vintageId`, or you can take the number from a vintage URL, e.g. `18745256` from `https://www.vivino.com/vintages/18745256`.
+**How many wines can I get in one run?**
+Up to 2,500 records per run (`maxItems` is capped at 2,500). Vivino exposes at most 50 pages of 50 results per search or explore query, so split broad queries by country, region, type or price across runs to reach more wines. Winery mode follows the producer's catalogue page by page, up to 5,000 wines.
 
-**How do I find a winery's ID?**
-It's in the winery's Vivino URL, e.g. `11472` from `https://www.vivino.com/wineries/11472-giacomo-conterno`.
+**How do I find a wine's ID or URL?**
+Open the wine on Vivino and copy its URL, or run `search`/`explore` first — each result includes `wineUrl` and `vintageId`. `wineIds` accepts full URLs, `/w/<id>`, `/vintages/<id>` and plain numeric IDs. A plain numeric ID is treated as a vintage ID first (the original behaviour); use a `/w/<id>` URL to look up a wine ID unambiguously.
 
-**Can I search by grape variety instead of wine name?**
-Yes — put the grape name in `searchQuery` (e.g. `nebbiolo`, `pinot noir`); Vivino's search matches on grapes too.
+**Why is `rating` missing for some wines?**
+Vivino does not publish a vintage average until it has enough ratings. Use `displayRating` for a ready-to-use score and read `displayRatingScope`: `vintage` means it is this bottle's score; `wine` means it is the wine's all-vintage score. `ratingStatus` shows `BelowThreshold` when the vintage average is not published.
 
-**Do `minRating`/`maxRating`/`country`/`wineType` filters apply in `byWineId` mode?**
-Yes — a looked-up vintage is still dropped if its rating, country, or type doesn't satisfy the filters you set. Only price filtering is skipped in this mode, since the vintage lookup doesn't fetch a price.
+**Are prices always available?**
+Prices and offers are for the US market and require a merchant listing. When no offer exists, `price` is omitted and `priceStatus` is `no_offer`. `averagePrice` is Vivino's market median and may be present even when no single offer is.
 
-**Why are prices always in USD even for European wines?**
-Vivino's own pricing data is standardized to USD across markets, so that's the currency this actor returns.
+**Are the reviews for the vintage I selected?**
+Vivino exposes reviews at wine level, not vintage level. The optional `reviews` list contains the latest reviews across the wine's vintages; each review includes its own `vintageYear`, and `reviewsScope` is `wine`.
 
-**Why is a field like `tasteTannin` or `topListRankings` missing from some wines?**
-Vivino doesn't score or list every trait for every wine — fields with no underlying data are left out of the record rather than sent as empty values.
+**Why do some wines have no description, alcohol, critic score or award?**
+Vivino does not have that data for every wine. Those fields are left out rather than sent as empty values. Taste traits are also conditional: for example, tannin is scored for reds and fizziness for sparkling wines.
+
+**Can I search by grape or region instead of wine name?**
+Yes. Use the `grape` and `region` filters, or put a grape/region name in `searchQueries`. Filters resolve names, slugs and Vivino URLs. A region filter matches the region you pass; to cover a broad area, run its appellations or sub-regions separately.
 
 **How fresh is the data?**
-Each run fetches wine data live from Vivino at the time it runs.
+Each run reads the current Vivino catalogue, including live ratings, prices and offers.

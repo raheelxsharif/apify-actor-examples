@@ -1,0 +1,154 @@
+{
+  "description": "Find public YouTube autocomplete suggestions for one or more keywords.",
+  "properties": {
+    "deduplicateSuggestions": {
+      "default": true,
+      "description": "Avoid emitting the same suggestion more than once for a run.",
+      "prefill": true,
+      "title": "Remove duplicates",
+      "type": "boolean"
+    },
+    "includeSearchUrl": {
+      "default": true,
+      "description": "Include a ready-to-open YouTube search URL for every suggestion.",
+      "prefill": true,
+      "title": "Include search links",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "description": "Language used to personalize the suggestion list.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "ja",
+        "ko",
+        "hi",
+        "id",
+        "tr",
+        "nl",
+        "pl",
+        "vi",
+        "th",
+        "zh-CN",
+        "zh-TW",
+        "ru",
+        "ar"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "German",
+        "French",
+        "Portuguese",
+        "Italian",
+        "Japanese",
+        "Korean",
+        "Hindi",
+        "Indonesian",
+        "Turkish",
+        "Dutch",
+        "Polish",
+        "Vietnamese",
+        "Thai",
+        "Chinese (Simplified)",
+        "Chinese (Traditional)",
+        "Russian",
+        "Arabic"
+      ],
+      "prefill": "en",
+      "title": "Language",
+      "type": "string"
+    },
+    "market": {
+      "default": "US",
+      "description": "Country or region used for localized suggestions.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "BR",
+        "MX",
+        "IN",
+        "JP",
+        "KR",
+        "ID",
+        "TR",
+        "NL",
+        "PL",
+        "VN",
+        "TH",
+        "TW",
+        "RU",
+        "SA"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Germany",
+        "France",
+        "Spain",
+        "Italy",
+        "Brazil",
+        "Mexico",
+        "India",
+        "Japan",
+        "South Korea",
+        "Indonesia",
+        "Türkiye",
+        "Netherlands",
+        "Poland",
+        "Vietnam",
+        "Thailand",
+        "Taiwan",
+        "Russia",
+        "Saudi Arabia"
+      ],
+      "prefill": "US",
+      "title": "Country or region",
+      "type": "string"
+    },
+    "maxSuggestions": {
+      "default": 10,
+      "description": "Maximum number of suggestions returned for each keyword.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Suggestions per keyword",
+      "type": "integer"
+    },
+    "queries": {
+      "default": [
+        "web scraping"
+      ],
+      "description": "Keywords or phrases to expand with YouTube autocomplete.",
+      "editor": "stringList",
+      "maxItems": 100,
+      "minItems": 1,
+      "prefill": [
+        "web scraping"
+      ],
+      "title": "Keywords",
+      "type": "array"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "schemaVersion": 1,
+  "title": "YouTube Search Suggestions Scraper Input",
+  "type": "object"
+}
