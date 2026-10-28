@@ -1,122 +1,496 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-JW9eVT+Xxl7+/ikXRtke0odcT9ixb/nLHtCjSuh/zag=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva</title><meta name="description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:title" content="DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva"><meta property="og:description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article","headline":"DexScreener Token Pair & Boosted Token Scraper","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"DexScreener Token Pair & Boosted Token Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>DexScreener Token Pair &amp; Boosted Token Scraper</span></div><section id="overview"><h1 class="doc-title">DexScreener Token Pair &amp; Boosted Token Scraper</h1><p class="lede">Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/dexscreener-token-pair-and-boosted-token-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/MOa8uJUJGEpUpfB7L/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from DexScreener.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Token name, symbol, or pair address to search (mode=search).</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from DexScreener.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Token name, symbol, or pair address to search (mode=search).</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</td></tr><tr><td><code>chainId</code></td><td>string</td><td>optional</td><td>Blockchain network. Use &#x27;all&#x27; to include all chains (only applies to search mode).</td></tr><tr><td><code>pairAddress</code></td><td>string</td><td>optional</td><td>The pair contract address. Requires chainId to also be set (not &#x27;all&#x27;).</td></tr><tr><td><code>minLiquidityUsd</code></td><td>number</td><td>optional</td><td>Filter out pairs with total liquidity below this USD value.</td></tr><tr><td><code>minVolumeH24</code></td><td>number</td><td>optional</td><td>Filter out pairs with 24h trading volume below this USD value.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to emit.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search token pairs, lookup by address, browse trending tokens, or fetch profiles from DexScreener.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-JW9eVT+Xxl7+/ikXRtke0odcT9ixb/nLHtCjSuh/zag=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva</title><meta name="description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:title" content="DexScreener Token Pair &amp; Boosted Token Scraper | Dataspryva"><meta property="og:description" content="Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#article","headline":"DexScreener Token Pair & Boosted Token Scraper","name":"DexScreener Token Pair & Boosted Token Scraper","description":"Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"DexScreener Token Pair & Boosted Token Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/MOa8uJUJGEpUpfB7L/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>DexScreener Token Pair &amp; Boosted Token Scraper</span></div><section id="overview"><h1 class="doc-title">DexScreener Token Pair &amp; Boosted Token Scraper</h1><p class="lede">Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/dexscreener-token-pair-and-boosted-token-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/MOa8uJUJGEpUpfB7L/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect. Each mode uses its own fields below.</td></tr><tr><td><code>queries</code></td><td>array</td><td>optional</td><td>Token names, symbols, pair text such as SOL/USDC, token addresses, or DexScreener URLs. Multiple queries fan out. (mode=search)</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>One or more token contract addresses or DexScreener token URLs, separated by commas or new lines. (mode=byToken, orders)</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect. Each mode uses its own fields below.</td></tr><tr><td><code>queries</code></td><td>array</td><td>optional</td><td>Token names, symbols, pair text such as SOL/USDC, token addresses, or DexScreener URLs. Multiple queries fan out. (mode=search)</td></tr><tr><td><code>tokenAddresses</code></td><td>string</td><td>optional</td><td>One or more token contract addresses or DexScreener token URLs, separated by commas or new lines. (mode=byToken, orders)</td></tr><tr><td><code>pairAddresses</code></td><td>array</td><td>optional</td><td>Pair URLs, chain:pairAddress, or bare pair addresses. Bare addresses need a specific chain. (mode=byPair)</td></tr><tr><td><code>chainId</code></td><td>string</td><td>optional</td><td>Blockchain to read. Required for byToken when not &#x27;all&#x27;, for bare pair addresses, and for orders. Also filters search and promotion feeds locally.</td></tr><tr><td><code>customChainId</code></td><td>string</td><td>optional</td><td>Optional override for a chain added after this release, e.g. &#x27;newchain&#x27;. When set it replaces Chain.</td></tr><tr><td><code>feed</code></td><td>string</td><td>optional</td><td>Which live promotion feed to read. (mode=discovery)</td></tr><tr><td><code>metaSlugs</code></td><td>array</td><td>optional</td><td>Narrative slugs such as ai, dog, cat, or x402. Run mode=metas to discover live slugs. (mode=metaPairs)</td></tr><tr><td><code>allPools</code></td><td>boolean</td><td>optional</td><td>When on, byToken returns every pool of each token on the chain. When off, it returns the best pair per token.</td></tr><tr><td><code>minLiquidityUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with liquidity below this USD value.</td></tr><tr><td><code>maxLiquidityUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with liquidity above this USD value.</td></tr><tr><td><code>minVolume24hUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with 24-hour volume below this USD value.</td></tr><tr><td><code>maxVolume24hUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with 24-hour volume above this USD value.</td></tr><tr><td><code>minMarketCapUsd</code></td><td>number</td><td>optional</td><td>Skip pairs below this market cap. Uses FDV when market cap is missing.</td></tr><tr><td><code>maxMarketCapUsd</code></td><td>number</td><td>optional</td><td>Skip pairs above this market cap. Uses FDV when market cap is missing.</td></tr><tr><td><code>minFdvUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with a fully diluted valuation below this USD value.</td></tr><tr><td><code>maxFdvUsd</code></td><td>number</td><td>optional</td><td>Skip pairs with a fully diluted valuation above this USD value.</td></tr><tr><td><code>minTxns24h</code></td><td>integer</td><td>optional</td><td>Skip pairs with fewer buys plus sells in the last 24 hours.</td></tr><tr><td><code>maxTxns24h</code></td><td>integer</td><td>optional</td><td>Skip pairs with more buys plus sells in the last 24 hours.</td></tr><tr><td><code>minPriceChange24h</code></td><td>number</td><td>optional</td><td>Skip pairs whose 24-hour price change is below this percent. Negative values allowed.</td></tr><tr><td><code>maxPriceChange24h</code></td><td>number</td><td>optional</td><td>Skip pairs whose 24-hour price change is above this percent. Negative values allowed.</td></tr><tr><td><code>minAgeHours</code></td><td>number</td><td>optional</td><td>Skip pairs younger than this many hours.</td></tr><tr><td><code>maxAgeHours</code></td><td>number</td><td>optional</td><td>Skip pairs older than this many hours. Use 24 to keep pairs launched today.</td></tr><tr><td><code>dexIds</code></td><td>array</td><td>optional</td><td>Keep only these DEX protocols, e.g. uniswap, raydium, aerodrome. Empty means all.</td></tr><tr><td><code>quoteSymbols</code></td><td>array</td><td>optional</td><td>Keep only pairs quoted in these assets, e.g. USDC, SOL, WETH. Empty means all.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Sort results within each query, token, or feed. Missing values are always last.</td></tr><tr><td><code>sortOrder</code></td><td>string</td><td>optional</td><td>Largest/oldest first or smallest/newest first. Pair age ascending means newest first.</td></tr><tr><td><code>onePairPerToken</code></td><td>boolean</td><td>optional</td><td>Keep only the most liquid pair for each token.</td></tr><tr><td><code>includeInfo</code></td><td>boolean</td><td>optional</td><td>Add logo, header image, website and social links when DexScreener has them.</td></tr><tr><td><code>includeMarketData</code></td><td>boolean</td><td>optional</td><td>For promotion feeds, attach price, liquidity, volume, market cap and age of each token&#x27;s best pair.</td></tr><tr><td><code>expandChainSearch</code></td><td>boolean</td><td>optional</td><td>When a chain is selected, also search quote variants and pull the token pools to get past the 30-pair search cap.</td></tr><tr><td><code>chainSearchTokens</code></td><td>integer</td><td>optional</td><td>How many matching tokens get their pools fetched when widening a chain search. 0 = quote variants only.</td></tr><tr><td><code>includeFlags</code></td><td>boolean</td><td>optional</td><td>Add heuristic flags such as low liquidity, new pair, sell pressure, or no socials.</td></tr><tr><td><code>newPairHours</code></td><td>integer</td><td>optional</td><td>Pairs younger than this many hours get a new_pair flag.</td></tr><tr><td><code>maxItemsPerQuery</code></td><td>integer</td><td>optional</td><td>Maximum records from each query, token, or feed. DexScreener caps search at 30.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on records for the whole run.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search tokens and pairs, inspect every pool of a token, monitor pairs, or pull promotion feeds, narratives and paid orders from DexScreener&#x27;s public API.&quot;,
   &quot;properties&quot;: {
+    &quot;allPools&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When on, byToken returns every pool of each token on the chain. When off, it returns the best pair per token.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;All pools per token&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;chainId&quot;: {
       &quot;default&quot;: &quot;all&quot;,
-      &quot;description&quot;: &quot;Blockchain network. Use &#x27;all&#x27; to include all chains (only applies to search mode).&quot;,
+      &quot;description&quot;: &quot;Blockchain to read. Required for byToken when not &#x27;all&#x27;, for bare pair addresses, and for orders. Also filters search and promotion feeds locally.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;all&quot;,
-        &quot;ethereum&quot;,
-        &quot;bsc&quot;,
-        &quot;polygon&quot;,
+        &quot;abstract&quot;,
+        &quot;algorand&quot;,
+        &quot;aptos&quot;,
         &quot;arbitrum&quot;,
-        &quot;optimism&quot;,
-        &quot;base&quot;,
+        &quot;arc&quot;,
         &quot;avalanche&quot;,
-        &quot;fantom&quot;,
-        &quot;solana&quot;,
-        &quot;cronos&quot;,
+        &quot;base&quot;,
+        &quot;beam&quot;,
+        &quot;berachain&quot;,
+        &quot;blast&quot;,
+        &quot;bsc&quot;,
         &quot;celo&quot;,
-        &quot;gnosis&quot;,
+        &quot;conflux&quot;,
+        &quot;cronos&quot;,
+        &quot;ethereum&quot;,
+        &quot;fantom&quot;,
+        &quot;fuse&quot;,
+        &quot;flare&quot;,
+        &quot;flowevm&quot;,
+        &quot;harmony&quot;,
+        &quot;heco&quot;,
+        &quot;hedera&quot;,
+        &quot;hyperevm&quot;,
+        &quot;hyperliquid&quot;,
+        &quot;ink&quot;,
+        &quot;injective&quot;,
+        &quot;kava&quot;,
+        &quot;klaytn&quot;,
+        &quot;linea&quot;,
+        &quot;manta&quot;,
+        &quot;mantle&quot;,
+        &quot;metis&quot;,
+        &quot;monad&quot;,
         &quot;moonbeam&quot;,
         &quot;moonriver&quot;,
-        &quot;harmony&quot;,
-        &quot;klaytn&quot;,
-        &quot;fuse&quot;,
-        &quot;heco&quot;,
+        &quot;gnosis&quot;,
+        &quot;movement&quot;,
+        &quot;multiversx&quot;,
+        &quot;near&quot;,
         &quot;okex&quot;,
-        &quot;cro&quot;
+        &quot;optimism&quot;,
+        &quot;cro&quot;,
+        &quot;plasma&quot;,
+        &quot;polygon&quot;,
+        &quot;pulsechain&quot;,
+        &quot;robinhood&quot;,
+        &quot;scroll&quot;,
+        &quot;seiv2&quot;,
+        &quot;solana&quot;,
+        &quot;soneium&quot;,
+        &quot;sonic&quot;,
+        &quot;stacks&quot;,
+        &quot;starknet&quot;,
+        &quot;sui&quot;,
+        &quot;telos&quot;,
+        &quot;ton&quot;,
+        &quot;tron&quot;,
+        &quot;unichain&quot;,
+        &quot;worldchain&quot;,
+        &quot;xrpl&quot;,
+        &quot;zksync&quot;
       ],
       &quot;enumTitles&quot;: [
         &quot;All chains&quot;,
-        &quot;Ethereum&quot;,
-        &quot;BNB Smart Chain (BSC)&quot;,
-        &quot;Polygon&quot;,
+        &quot;Abstract&quot;,
+        &quot;Algorand&quot;,
+        &quot;Aptos&quot;,
         &quot;Arbitrum&quot;,
-        &quot;Optimism&quot;,
-        &quot;Base&quot;,
+        &quot;Arc&quot;,
         &quot;Avalanche&quot;,
-        &quot;Fantom&quot;,
-        &quot;Solana&quot;,
-        &quot;Cronos&quot;,
+        &quot;Base&quot;,
+        &quot;Beam&quot;,
+        &quot;Berachain&quot;,
+        &quot;Blast&quot;,
+        &quot;BNB Smart Chain (BSC)&quot;,
         &quot;Celo&quot;,
-        &quot;Gnosis&quot;,
+        &quot;Conflux&quot;,
+        &quot;Cronos&quot;,
+        &quot;Ethereum&quot;,
+        &quot;Fantom&quot;,
+        &quot;Fuse&quot;,
+        &quot;Flare&quot;,
+        &quot;Flow EVM&quot;,
+        &quot;Harmony&quot;,
+        &quot;HECO&quot;,
+        &quot;Hedera&quot;,
+        &quot;HyperEVM&quot;,
+        &quot;Hyperliquid&quot;,
+        &quot;Ink&quot;,
+        &quot;Injective&quot;,
+        &quot;Kava&quot;,
+        &quot;Klaytn&quot;,
+        &quot;Linea&quot;,
+        &quot;Manta&quot;,
+        &quot;Mantle&quot;,
+        &quot;Metis&quot;,
+        &quot;Monad&quot;,
         &quot;Moonbeam&quot;,
         &quot;Moonriver&quot;,
-        &quot;Harmony&quot;,
-        &quot;Klaytn&quot;,
-        &quot;Fuse&quot;,
-        &quot;HECO&quot;,
+        &quot;Gnosis&quot;,
+        &quot;Movement&quot;,
+        &quot;MultiversX&quot;,
+        &quot;NEAR&quot;,
         &quot;OKEx Chain&quot;,
-        &quot;Crypto.com Chain&quot;
+        &quot;Optimism&quot;,
+        &quot;Crypto.com Chain&quot;,
+        &quot;Plasma&quot;,
+        &quot;Polygon&quot;,
+        &quot;PulseChain&quot;,
+        &quot;Robinhood&quot;,
+        &quot;Scroll&quot;,
+        &quot;Sei V2&quot;,
+        &quot;Solana&quot;,
+        &quot;Soneium&quot;,
+        &quot;Sonic&quot;,
+        &quot;Stacks&quot;,
+        &quot;Starknet&quot;,
+        &quot;Sui&quot;,
+        &quot;Telos&quot;,
+        &quot;TON&quot;,
+        &quot;Tron&quot;,
+        &quot;Unichain&quot;,
+        &quot;World Chain&quot;,
+        &quot;XRP Ledger&quot;,
+        &quot;zkSync&quot;
       ],
       &quot;prefill&quot;: &quot;all&quot;,
       &quot;title&quot;: &quot;Chain&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;chainSearchTokens&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;How many matching tokens get their pools fetched when widening a chain search. 0 = quote variants only.&quot;,
+      &quot;maximum&quot;: 30,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Tokens to widen&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;customChainId&quot;: {
+      &quot;description&quot;: &quot;Optional override for a chain added after this release, e.g. &#x27;newchain&#x27;. When set it replaces Chain.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Custom chain id&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;dexIds&quot;: {
+      &quot;description&quot;: &quot;Keep only these DEX protocols, e.g. uniswap, raydium, aerodrome. Empty means all.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;DEX filter&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;expandChainSearch&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;When a chain is selected, also search quote variants and pull the token pools to get past the 30-pair search cap.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Widen search by chain&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;feed&quot;: {
+      &quot;default&quot;: &quot;boostedTop&quot;,
+      &quot;description&quot;: &quot;Which live promotion feed to read. (mode=discovery)&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;boostedTop&quot;,
+        &quot;boostedLatest&quot;,
+        &quot;profilesLatest&quot;,
+        &quot;profilesUpdated&quot;,
+        &quot;takeovers&quot;,
+        &quot;ads&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most-boosted tokens&quot;,
+        &quot;Newest boosts&quot;,
+        &quot;Newest token profiles&quot;,
+        &quot;Recently updated profiles&quot;,
+        &quot;Community takeovers&quot;,
+        &quot;Paid ads&quot;
+      ],
+      &quot;prefill&quot;: &quot;boostedTop&quot;,
+      &quot;title&quot;: &quot;Promotion feed&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeFlags&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add heuristic flags such as low liquidity, new pair, sell pressure, or no socials.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include risk flags&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeInfo&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add logo, header image, website and social links when DexScreener has them.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include token info&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeMarketData&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;For promotion feeds, attach price, liquidity, volume, market cap and age of each token&#x27;s best pair.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include market data&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxAgeHours&quot;: {
+      &quot;description&quot;: &quot;Skip pairs older than this many hours. Use 24 to keep pairs launched today.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max pair age (hours)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxFdvUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with a fully diluted valuation above this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max FDV (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
     &quot;maxItems&quot;: {
-      &quot;default&quot;: 5,
-      &quot;description&quot;: &quot;Maximum number of records to emit.&quot;,
-      &quot;maximum&quot;: 1000,
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on records for the whole run.&quot;,
+      &quot;maximum&quot;: 10000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 5,
+      &quot;prefill&quot;: 1,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;minLiquidityUsd&quot;: {
-      &quot;description&quot;: &quot;Filter out pairs with total liquidity below this USD value.&quot;,
+    &quot;maxItemsPerQuery&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Maximum records from each query, token, or feed. DexScreener caps search at 30.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 30,
+      &quot;title&quot;: &quot;Max per query&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxLiquidityUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with liquidity above this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max liquidity (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxMarketCapUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs above this market cap. Uses FDV when market cap is missing.&quot;,
+      &quot;maximum&quot;: 1000000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max market cap (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxPriceChange24h&quot;: {
+      &quot;description&quot;: &quot;Skip pairs whose 24-hour price change is above this percent. Negative values allowed.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: -100,
+      &quot;title&quot;: &quot;Max 24h change (%)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxTxns24h&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with more buys plus sells in the last 24 hours.&quot;,
       &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max 24h transactions&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxVolume24hUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with 24-hour volume above this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Max 24h volume (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;metaSlugs&quot;: {
+      &quot;description&quot;: &quot;Narrative slugs such as ai, dog, cat, or x402. Run mode=metas to discover live slugs. (mode=metaPairs)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Narrative slugs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;minAgeHours&quot;: {
+      &quot;description&quot;: &quot;Skip pairs younger than this many hours.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min pair age (hours)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minFdvUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with a fully diluted valuation below this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min FDV (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minLiquidityUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with liquidity below this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000,
       &quot;minimum&quot;: 0,
       &quot;title&quot;: &quot;Min liquidity (USD)&quot;,
       &quot;type&quot;: &quot;number&quot;
     },
-    &quot;minVolumeH24&quot;: {
-      &quot;description&quot;: &quot;Filter out pairs with 24h trading volume below this USD value.&quot;,
+    &quot;minMarketCapUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs below this market cap. Uses FDV when market cap is missing.&quot;,
+      &quot;maximum&quot;: 1000000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min market cap (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minPriceChange24h&quot;: {
+      &quot;description&quot;: &quot;Skip pairs whose 24-hour price change is below this percent. Negative values allowed.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: -100,
+      &quot;title&quot;: &quot;Min 24h change (%)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minTxns24h&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with fewer buys plus sells in the last 24 hours.&quot;,
       &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Min 24h transactions&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minVolume24hUsd&quot;: {
+      &quot;description&quot;: &quot;Skip pairs with 24-hour volume below this USD value.&quot;,
+      &quot;maximum&quot;: 1000000000000,
       &quot;minimum&quot;: 0,
       &quot;title&quot;: &quot;Min 24h volume (USD)&quot;,
       &quot;type&quot;: &quot;number&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to fetch from DexScreener.&quot;,
+      &quot;description&quot;: &quot;What to collect. Each mode uses its own fields below.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;search&quot;,
+        &quot;byToken&quot;,
+        &quot;byPair&quot;,
+        &quot;discovery&quot;,
+        &quot;metas&quot;,
+        &quot;metaPairs&quot;,
+        &quot;orders&quot;,
         &quot;byTokenAddress&quot;,
         &quot;byPairAddress&quot;,
         &quot;trending&quot;,
         &quot;byProfile&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Search tokens/pairs by keyword&quot;,
-        &quot;Pairs by token address (comma-separated, up to 30)&quot;,
-        &quot;Specific pair by chain + pair address&quot;,
-        &quot;Trending/boosted tokens (top boosts)&quot;,
-        &quot;Latest token profiles&quot;
+        &quot;Search tokens and pairs&quot;,
+        &quot;Token lookup (pools or best pair)&quot;,
+        &quot;Pair lookup by address or URL&quot;,
+        &quot;Promotion feeds (boosts, profiles, takeovers, ads)&quot;,
+        &quot;Trending narratives&quot;,
+        &quot;Pairs inside narratives&quot;,
+        &quot;Paid orders for tokens&quot;,
+        &quot;Token lookup (legacy)&quot;,
+        &quot;Pair lookup (legacy)&quot;,
+        &quot;Boosted tokens (legacy)&quot;,
+        &quot;Token profiles (legacy)&quot;
       ],
       &quot;prefill&quot;: &quot;search&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;pairAddress&quot;: {
-      &quot;description&quot;: &quot;The pair contract address. Requires chainId to also be set (not &#x27;all&#x27;).&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Pair address (mode=byPairAddress)&quot;,
+    &quot;newPairHours&quot;: {
+      &quot;default&quot;: 24,
+      &quot;description&quot;: &quot;Pairs younger than this many hours get a new_pair flag.&quot;,
+      &quot;maximum&quot;: 720,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 24,
+      &quot;title&quot;: &quot;New pair threshold&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;onePairPerToken&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only the most liquid pair for each token.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;One pair per token&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;pairAddresses&quot;: {
+      &quot;description&quot;: &quot;Pair URLs, chain:pairAddress, or bare pair addresses. Bare addresses need a specific chain. (mode=byPair)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Pair addresses or URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;queries&quot;: {
+      &quot;description&quot;: &quot;Token names, symbols, pair text such as SOL/USDC, token addresses, or DexScreener URLs. Multiple queries fan out. (mode=search)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;USDC&quot;
+      ],
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;quoteSymbols&quot;: {
+      &quot;description&quot;: &quot;Keep only pairs quoted in these assets, e.g. USDC, SOL, WETH. Empty means all.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Quote symbols&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;none&quot;,
+      &quot;description&quot;: &quot;Sort results within each query, token, or feed. Missing values are always last.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;none&quot;,
+        &quot;liquidity&quot;,
+        &quot;volume24h&quot;,
+        &quot;volume1h&quot;,
+        &quot;volume6h&quot;,
+        &quot;marketCap&quot;,
+        &quot;fdv&quot;,
+        &quot;priceChange5m&quot;,
+        &quot;priceChange1h&quot;,
+        &quot;priceChange6h&quot;,
+        &quot;priceChange24h&quot;,
+        &quot;txns24h&quot;,
+        &quot;buys24h&quot;,
+        &quot;sells24h&quot;,
+        &quot;buySellRatio24h&quot;,
+        &quot;pairAge&quot;,
+        &quot;boosts&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Source order&quot;,
+        &quot;Liquidity&quot;,
+        &quot;24h volume&quot;,
+        &quot;1h volume&quot;,
+        &quot;6h volume&quot;,
+        &quot;Market cap&quot;,
+        &quot;FDV&quot;,
+        &quot;5m price change&quot;,
+        &quot;1h price change&quot;,
+        &quot;6h price change&quot;,
+        &quot;24h price change&quot;,
+        &quot;24h transactions&quot;,
+        &quot;24h buys&quot;,
+        &quot;24h sells&quot;,
+        &quot;24h buy/sell ratio&quot;,
+        &quot;Pair age&quot;,
+        &quot;Active boosts&quot;
+      ],
+      &quot;prefill&quot;: &quot;none&quot;,
+      &quot;title&quot;: &quot;Sort by&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;query&quot;: {
-      &quot;description&quot;: &quot;Token name, symbol, or pair address to search (mode=search).&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;USDC&quot;,
-      &quot;title&quot;: &quot;Search query&quot;,
+    &quot;sortOrder&quot;: {
+      &quot;default&quot;: &quot;desc&quot;,
+      &quot;description&quot;: &quot;Largest/oldest first or smallest/newest first. Pair age ascending means newest first.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;desc&quot;,
+        &quot;asc&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Descending&quot;,
+        &quot;Ascending&quot;
+      ],
+      &quot;prefill&quot;: &quot;desc&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;tokenAddresses&quot;: {
-      &quot;description&quot;: &quot;Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Token addresses (mode=byTokenAddress)&quot;,
+      &quot;description&quot;: &quot;One or more token contract addresses or DexScreener token URLs, separated by commas or new lines. (mode=byToken, orders)&quot;,
+      &quot;editor&quot;: &quot;textarea&quot;,
+      &quot;title&quot;: &quot;Token addresses&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -127,12 +501,12 @@
   &quot;title&quot;: &quot;DexScreener Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Scraped records</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Scraped DexScreener records</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;DexScreener trading pair, boosted token, and token profile records with price, liquidity, volume, and transaction counts.&quot;,
+  &quot;description&quot;: &quot;DexScreener pair, pool, boosted-token, profile, takeover, ad, narrative and paid-order records with price, liquidity, volume, transaction counts, token info and risk flags.&quot;,
   &quot;properties&quot;: {
     &quot;records&quot;: {
-      &quot;description&quot;: &quot;Scraped records&quot;,
+      &quot;description&quot;: &quot;Scraped DexScreener records&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Records&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -154,11 +528,14 @@
           &quot;chainId&quot;,
           &quot;dexId&quot;,
           &quot;pairAddress&quot;,
-          &quot;baseToken&quot;,
-          &quot;quoteToken&quot;,
+          &quot;tokenSymbol&quot;,
+          &quot;quoteTokenSymbol&quot;,
           &quot;priceUsd&quot;,
           &quot;liquidity&quot;,
           &quot;volume&quot;,
+          &quot;marketCap&quot;,
+          &quot;info&quot;,
+          &quot;flags&quot;,
           &quot;pairUrl&quot;
         ]
       }
@@ -166,59 +543,68 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-dexscreener-token-pair-boosted-token-scraper">DexScreener Token Pair &amp; Boosted Token Scraper</h2>
-<p>DexScreener aggregates live trading pairs from decentralized exchanges across 20 blockchains. This actor pulls that data by keyword search, by token or pair address, or as the site's current boosted-token and token-profile feeds — all without a wallet or account.</p>
+<p>DexScreener is the market screen for on-chain trading: live pairs across DEXs and dozens of chains, plus the paid boosts, profiles, takeovers, ads and narratives that drive attention. This actor reads DexScreener's official public API and returns clean, analysis-ready records for token research, pair monitoring and promotion tracking. No wallet, API key, cookie or proxy is needed.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Searches tokens and pairs by name, symbol, or address and returns matching pairs.</li>
-<li>Looks up every pair for one or more token contract addresses (up to 30 at once).</li>
-<li>Fetches a single pair by chain and pair address.</li>
-<li>Pulls the current boosted (promoted) tokens and the latest submitted token profiles.</li>
-<li>Filters pair results by minimum liquidity and minimum 24-hour volume in USD.</li>
-<li>Fields DexScreener doesn't report for a given pair or token (no fully diluted valuation, no labels) are left out of the record instead of being sent empty.</li>
+<li><strong>Search</strong> tokens and pairs by name, symbol, pair text such as <code>SOL/USDC</code>, contract address, or a pasted DexScreener URL.</li>
+<li><strong>Inspect a token</strong>: best pair per token on one chain, or every pool of the token.</li>
+<li><strong>Monitor pairs</strong> by address or URL, many at a time.</li>
+<li><strong>Pull six promotion feeds</strong>: most-boosted tokens, newest boosts, newest profiles, recently updated profiles, community takeovers and paid ads.</li>
+<li><strong>Follow narratives</strong>: trending metas, then the pairs inside each meta.</li>
+<li><strong>Check paid orders</strong>: profile, ad and takeover orders plus boost purchases for a token.</li>
+<li><strong>Filter and sort</strong> by liquidity, 24h volume, market cap, FDV, transactions, 24h price change, pair age, DEX and quote symbol.</li>
+<li><strong>Token info and risk flags</strong>: logo, header, website and social links when available; heuristic flags such as low liquidity, new pair, sell pressure or no socials.</li>
 </ul>
-<h2 id="readme-output-per-mode">Output per mode</h2>
-<h3 id="readme-search-bytokenaddress-bypairaddress-trading-pair"><code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code> — trading pair</h3>
+<h2 id="readme-output-per-record-type">Output per record type</h2>
+<p>Empty fields are omitted. Every record has <code>recordType</code>, <code>siteName</code> and <code>scrapedAt</code>.</p>
+<h3 id="readme-pair-pair">Pair (<code>pair</code>)</h3>
 <ul>
-<li><code>chainId</code> — blockchain the pair is on (e.g. <code>ethereum</code>, <code>solana</code>)</li>
-<li><code>dexId</code> — DEX protocol name (e.g. <code>uniswap</code>, <code>raydium</code>)</li>
-<li><code>pairAddress</code>, <code>pairUrl</code> — pair contract address and its DexScreener page</li>
-<li><code>baseToken</code>, <code>quoteToken</code> — <code>{address, name, symbol}</code> for each side of the pair</li>
-<li><code>priceNative</code>, <code>priceUsd</code> — price in native quote-token units and in USD</li>
-<li><code>liquidity</code> — <code>{usd, base, quote}</code> liquidity amounts</li>
-<li><code>fdv</code> — fully diluted valuation in USD</li>
-<li><code>marketCap</code> — market cap in USD</li>
-<li><code>volume</code> — trading volume by window: <code>h24</code>, <code>h6</code>, <code>h1</code>, <code>m5</code></li>
-<li><code>priceChange</code> — percentage price change by the same windows</li>
-<li><code>txns</code> — buy/sell counts by the same windows</li>
-<li><code>pairCreatedAt</code> — ISO 8601 pair creation date</li>
-<li><code>labels</code> — tags such as <code>v2</code>, <code>v3</code>, or <code>pump.fun</code></li>
-<li><code>boosts</code> — <code>{active}</code> count of active boosts on the pair</li>
-<li><code>recordType</code> — always <code>pair</code></li>
-<li><code>siteName</code> — always <code>DexScreener</code></li>
-<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+<li><code>chainId</code>, <code>dexId</code>, <code>pairAddress</code>, <code>pairUrl</code></li>
+<li><code>id</code> - <code>chain:pairAddress</code></li>
+<li><code>tokenAddress</code>, <code>tokenName</code>, <code>tokenSymbol</code>, <code>quoteTokenAddress</code>, <code>quoteTokenSymbol</code></li>
+<li><code>baseToken</code>, <code>quoteToken</code> - <code>{address, name, symbol}</code></li>
+<li><code>priceNative</code>, <code>priceUsd</code></li>
+<li><code>liquidity</code> - <code>{usd, base, quote}</code></li>
+<li><code>fdv</code>, <code>marketCap</code></li>
+<li><code>volume</code> - <code>{h24, h6, h1, m5}</code></li>
+<li><code>priceChange</code> - <code>{h24, h6, h1, m5}</code></li>
+<li><code>txns</code> - buy/sell counts for the same windows</li>
+<li><code>pairCreatedAt</code>, <code>ageHours</code></li>
+<li><code>labels</code>, <code>boosts</code></li>
+<li><code>buySellRatio24h</code>, <code>volumeToLiquidity24h</code></li>
+<li><code>info</code> - <code>{imageUrl, header, openGraph, websites[], socials[]}</code></li>
+<li><code>flags[]</code> - <code>low_liquidity</code>, <code>no_liquidity_data</code>, <code>suspicious_liquidity</code>, <code>new_pair_&lt;N&gt;h</code>, <code>sell_pressure</code>, <code>no_sells_24h</code>, <code>extreme_price_move_24h</code>, <code>volume_over_10x_liquidity</code>, <code>no_profile</code>, <code>no_socials</code></li>
+<li><code>query</code>, <code>rank</code>, <code>metaSlug</code>, <code>metaName</code> when relevant</li>
+<li><code>querySide</code>, <code>tokenPriceUsd</code> for token lookups where the token is the quote side</li>
 </ul>
-<h3 id="readme-trending-boosted-token"><code>trending</code> — boosted token</h3>
+<h3 id="readme-boosted-token-boostedtoken-and-token-profile-tokenprofile">Boosted token (<code>boostedToken</code>) and token profile (<code>tokenProfile</code>)</h3>
 <ul>
-<li><code>chainId</code>, <code>tokenAddress</code> — blockchain and token contract address</li>
-<li><code>icon</code>, <code>header</code> — token image URLs</li>
-<li><code>description</code> — token description text</li>
-<li><code>pairUrl</code> — link to the token's DexScreener page</li>
-<li><code>boostAmount</code>, <code>boostTotalAmount</code> — boost amount on this submission and the token's running total</li>
-<li><code>links</code> — array of <code>{type, label, url}</code> social/website links</li>
-<li><code>recordType</code> — always <code>boostedToken</code></li>
-<li><code>siteName</code> — always <code>DexScreener</code></li>
-<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+<li><code>chainId</code>, <code>tokenAddress</code>, <code>tokenUrl</code>, <code>pairUrl</code></li>
+<li><code>icon</code>, <code>header</code>, <code>openGraph</code>, <code>description</code>, <code>links[]</code></li>
+<li><code>boostAmount</code>, <code>boostTotalAmount</code> (boosts)</li>
+<li><code>cto</code> (profiles), <code>updatedAt</code> (recently updated profiles)</li>
+<li><code>rank</code>, <code>listType</code></li>
+<li>Market data when enabled: <code>symbol</code>, <code>name</code>, <code>priceUsd</code>, <code>quoteSymbol</code>, <code>dexId</code>, <code>liquidityUsd</code>, <code>fdv</code>, <code>marketCap</code>, <code>volume24h</code>, <code>priceChange1h</code>, <code>priceChange24h</code>, <code>pairCreatedAt</code>, <code>ageHours</code>, <code>pairsFound</code>, <code>topPairAddress</code>, <code>topPairUrl</code></li>
 </ul>
-<h3 id="readme-byprofile-token-profile"><code>byProfile</code> — token profile</h3>
+<h3 id="readme-community-takeover-communitytakeover-and-ad-ad">Community takeover (<code>communityTakeover</code>) and ad (<code>ad</code>)</h3>
 <ul>
-<li><code>chainId</code>, <code>tokenAddress</code> — blockchain and token contract address</li>
-<li><code>icon</code>, <code>header</code> — token image URLs</li>
-<li><code>description</code> — token description text</li>
-<li><code>pairUrl</code> — link to the token's DexScreener page</li>
-<li><code>links</code> — array of <code>{type, label, url}</code> social/website links</li>
-<li><code>recordType</code> — always <code>tokenProfile</code></li>
-<li><code>siteName</code> — always <code>DexScreener</code></li>
-<li><code>scrapedAt</code> — ISO 8601 timestamp of the fetch</li>
+<li>Takeover: <code>chainId</code>, <code>tokenAddress</code>, <code>tokenUrl</code>, <code>pairUrl</code>, <code>icon</code>, <code>header</code>, <code>openGraph</code>, <code>description</code>, <code>links[]</code>, market data, plus <code>claimDate</code>.</li>
+<li>Ad: <code>tokenAddress</code>, <code>tokenUrl</code>, <code>adDate</code>, <code>adType</code>, <code>adImpressions</code>, optional <code>adDurationHours</code>, plus market data.</li>
+</ul>
+<h3 id="readme-narrative-meta">Narrative (<code>meta</code>)</h3>
+<ul>
+<li><code>slug</code>, <code>name</code>, <code>description</code>, <code>icon</code>, <code>iconType</code></li>
+<li><code>marketCap</code>, <code>liquidity</code>, <code>volume</code>, <code>tokenCount</code></li>
+<li><code>marketCapChange</code>, <code>marketCapDelta</code> for <code>m5</code>, <code>h1</code>, <code>h6</code>, <code>h24</code></li>
+<li><code>rank</code></li>
+</ul>
+<h3 id="readme-paid-orders-orders">Paid orders (<code>orders</code>)</h3>
+<ul>
+<li><code>chainId</code>, <code>tokenAddress</code></li>
+<li><code>ordersCount</code>, <code>approvedCount</code>, <code>hasApprovedProfile</code>, <code>hasPaidAds</code>, <code>lastPaymentAt</code></li>
+<li><code>orders[]</code> - <code>{type, status, paymentTimestamp}</code></li>
+<li><code>boosts[]</code> - <code>{id, amount, paymentTimestamp}</code></li>
+<li><code>totalBoostAmount</code></li>
 </ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
@@ -235,104 +621,242 @@
 <td><code>mode</code></td>
 <td>string</td>
 <td><code>search</code></td>
-<td><code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code>, <code>trending</code>, or <code>byProfile</code></td>
+<td><code>search</code>, <code>byToken</code>, <code>byPair</code>, <code>discovery</code>, <code>metas</code>, <code>metaPairs</code>, <code>orders</code></td>
 </tr>
 <tr>
-<td><code>query</code></td>
-<td>string</td>
+<td><code>queries</code></td>
+<td>array</td>
 <td>–</td>
-<td>Token name, symbol, or address to search for; used by <code>search</code></td>
+<td>Names, symbols, <code>SOL/USDC</code>, addresses or DexScreener URLs (mode=search)</td>
 </tr>
 <tr>
 <td><code>tokenAddresses</code></td>
 <td>string</td>
-<td>–</td>
-<td>Comma-separated token contract addresses, up to 30; used by <code>byTokenAddress</code></td>
+<td>-</td>
+<td>Token addresses or URLs, comma/newline separated (mode=byToken, orders)</td>
+</tr>
+<tr>
+<td><code>pairAddresses</code></td>
+<td>array</td>
+<td>-</td>
+<td>Pair URLs, <code>chain:pairAddress</code>, or bare pair addresses (mode=byPair)</td>
 </tr>
 <tr>
 <td><code>chainId</code></td>
 <td>string</td>
 <td><code>all</code></td>
-<td>Blockchain network, or <code>all</code> for every chain (search mode only)</td>
+<td>Chain scope; required for byToken (unless <code>all</code>), bare pairs, and orders</td>
 </tr>
 <tr>
-<td><code>pairAddress</code></td>
+<td><code>customChainId</code></td>
 <td>string</td>
-<td>–</td>
-<td>Pair contract address; used by <code>byPairAddress</code>, requires <code>chainId</code> set to a specific chain</td>
+<td>-</td>
+<td>Override for a chain added after this release</td>
 </tr>
 <tr>
-<td><code>minLiquidityUsd</code></td>
-<td>number</td>
-<td>–</td>
-<td>Only keep pairs with total liquidity at or above this USD value</td>
+<td><code>feed</code></td>
+<td>string</td>
+<td><code>boostedTop</code></td>
+<td><code>boostedTop</code>, <code>boostedLatest</code>, <code>profilesLatest</code>, <code>profilesUpdated</code>, <code>takeovers</code>, <code>ads</code></td>
 </tr>
 <tr>
-<td><code>minVolumeH24</code></td>
+<td><code>metaSlugs</code></td>
+<td>array</td>
+<td>-</td>
+<td>Narrative slugs such as <code>ai</code>, <code>dog</code>, <code>cat</code> (mode=metaPairs)</td>
+</tr>
+<tr>
+<td><code>allPools</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>byToken: every pool of the token instead of the best pair</td>
+</tr>
+<tr>
+<td><code>minLiquidityUsd</code> / <code>maxLiquidityUsd</code></td>
 <td>number</td>
-<td>–</td>
-<td>Only keep pairs with 24-hour volume at or above this USD value</td>
+<td>-</td>
+<td>Keep pairs inside this liquidity range</td>
+</tr>
+<tr>
+<td><code>minVolume24hUsd</code> / <code>maxVolume24hUsd</code></td>
+<td>number</td>
+<td>-</td>
+<td>Keep pairs inside this 24h volume range</td>
+</tr>
+<tr>
+<td><code>minMarketCapUsd</code> / <code>maxMarketCapUsd</code></td>
+<td>number</td>
+<td>-</td>
+<td>Uses market cap, or FDV when market cap is missing</td>
+</tr>
+<tr>
+<td><code>minFdvUsd</code> / <code>maxFdvUsd</code></td>
+<td>number</td>
+<td>-</td>
+<td>Keep pairs inside this FDV range</td>
+</tr>
+<tr>
+<td><code>minTxns24h</code> / <code>maxTxns24h</code></td>
+<td>integer</td>
+<td>-</td>
+<td>Buys plus sells in the last 24 hours</td>
+</tr>
+<tr>
+<td><code>minPriceChange24h</code> / <code>maxPriceChange24h</code></td>
+<td>number</td>
+<td>-</td>
+<td>24h price change in percent; negatives allowed</td>
+</tr>
+<tr>
+<td><code>minAgeHours</code> / <code>maxAgeHours</code></td>
+<td>number</td>
+<td>-</td>
+<td>Pair age in hours</td>
+</tr>
+<tr>
+<td><code>dexIds</code></td>
+<td>array</td>
+<td>-</td>
+<td>Keep only these DEX protocols</td>
+</tr>
+<tr>
+<td><code>quoteSymbols</code></td>
+<td>array</td>
+<td>-</td>
+<td>Keep only these quote assets</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>none</code></td>
+<td>Sort by liquidity, volume, market cap, FDV, change, transactions, age or boosts</td>
+</tr>
+<tr>
+<td><code>sortOrder</code></td>
+<td>string</td>
+<td><code>desc</code></td>
+<td><code>desc</code> or <code>asc</code>; age ascending means newest first</td>
+</tr>
+<tr>
+<td><code>onePairPerToken</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep the most liquid pair per token</td>
+</tr>
+<tr>
+<td><code>includeInfo</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add logo, header, websites and socials</td>
+</tr>
+<tr>
+<td><code>includeMarketData</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Attach best-pair market data to promotion feeds</td>
+</tr>
+<tr>
+<td><code>expandChainSearch</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Widen a chain-filtered search past the 30-pair cap</td>
+</tr>
+<tr>
+<td><code>chainSearchTokens</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Matching tokens whose pools are fetched when widening</td>
+</tr>
+<tr>
+<td><code>includeFlags</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add heuristic risk flags</td>
+</tr>
+<tr>
+<td><code>newPairHours</code></td>
+<td>integer</td>
+<td><code>24</code></td>
+<td>Threshold for the new-pair flag</td>
+</tr>
+<tr>
+<td><code>maxItemsPerQuery</code></td>
+<td>integer</td>
+<td><code>30</code></td>
+<td>Cap per query, token, feed or meta</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
-<td><code>5</code></td>
-<td>Maximum number of records to return (1-1000)</td>
+<td><code>100</code></td>
+<td>Cap for the whole run</td>
 </tr>
 </tbody>
 </table></div>
 <h3 id="readme-example-search-across-all-chains">Example: search across all chains</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
-  &quot;query&quot;: &quot;USDC&quot;,
-  &quot;maxItems&quot;: 20
+  &quot;queries&quot;: [&quot;PEPE&quot;, &quot;WIF&quot;, &quot;AERO&quot;],
+  &quot;sortBy&quot;: &quot;volume24h&quot;,
+  &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-every-pair-for-a-token-on-ethereum">Example: every pair for a token on Ethereum</h3>
+<p>Older saved tasks that use <code>query</code>, <code>pairAddress</code>, <code>minVolumeH24</code>, or the previous mode names (<code>byTokenAddress</code>, <code>byPairAddress</code>, <code>trending</code>, <code>byProfile</code>) keep working.</p>
+<h3 id="readme-example-every-pool-of-a-token-on-solana">Example: every pool of a token on Solana</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;byTokenAddress&quot;,
-  &quot;tokenAddresses&quot;: &quot;0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&quot;,
-  &quot;chainId&quot;: &quot;ethereum&quot;
-}
-</code></pre>
-<h3 id="readme-example-liquid-actively-traded-pairs-only">Example: liquid, actively traded pairs only</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;search&quot;,
-  &quot;query&quot;: &quot;ETH&quot;,
-  &quot;minLiquidityUsd&quot;: 100000,
-  &quot;minVolumeH24&quot;: 50000,
+  &quot;mode&quot;: &quot;byToken&quot;,
+  &quot;chainId&quot;: &quot;solana&quot;,
+  &quot;tokenAddresses&quot;: &quot;EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&quot;,
+  &quot;allPools&quot;: true,
+  &quot;minLiquidityUsd&quot;: 10000,
   &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h3 id="readme-example-currently-boosted-tokens">Example: currently boosted tokens</h3>
+<h3 id="readme-example-newest-boosted-tokens-with-market-data">Example: newest boosted tokens with market data</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;trending&quot;,
-  &quot;maxItems&quot;: 50
+  &quot;mode&quot;: &quot;discovery&quot;,
+  &quot;feed&quot;: &quot;boostedLatest&quot;,
+  &quot;includeMarketData&quot;: true,
+  &quot;minLiquidityUsd&quot;: 5000,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-paid-orders-for-a-token">Example: paid orders for a token</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;orders&quot;,
+  &quot;chainId&quot;: &quot;solana&quot;,
+  &quot;tokenAddresses&quot;: &quot;So11111111111111111111111111111111111111112&quot;,
+  &quot;maxItems&quot;: 1
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li>Screen for pairs above a liquidity and volume threshold before researching a token further.</li>
-<li>Pull every pair tied to a token contract to see where it's traded.</li>
-<li>Track which tokens are currently paying for DexScreener boosts.</li>
-<li>Monitor newly submitted token profiles for emerging projects.</li>
-<li>Compare price, volume, and transaction activity for a specific pair over repeated runs.</li>
+<li><strong>Token screening</strong> - rank pairs by liquidity, volume, age or price change before deeper research.</li>
+<li><strong>Liquidity mapping</strong> - pull every pool of a token to see where it actually trades.</li>
+<li><strong>Launch monitoring</strong> - watch newest profiles, boosts, takeovers and ads for emerging projects.</li>
+<li><strong>Narrative research</strong> - follow trending metas and compare the pairs inside them.</li>
+<li><strong>Promotion due diligence</strong> - check whether a token paid for profiles, ads or boosts.</li>
+<li><strong>Scheduled snapshots</strong> - keep a time series of prices, liquidity and volume for a watchlist.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Is this affiliated with DexScreener?</strong>
-No. This actor reads DexScreener's public pages and data; it is not operated by or connected to DexScreener.</p>
-<p><strong>Do I need a wallet or API key?</strong>
-No. Every mode works without a wallet connection, account, or key.</p>
-<p><strong>Do <code>minLiquidityUsd</code> and <code>minVolumeH24</code> apply to <code>byTokenAddress</code> and <code>byPairAddress</code> too?</strong>
-Yes — they apply to every mode that returns pair records (<code>search</code>, <code>byTokenAddress</code>, <code>byPairAddress</code>), not just <code>search</code>. A pair without liquidity or volume data is excluded once either filter is set. They have no effect on <code>trending</code> or <code>byProfile</code>, which don't return pair records at all.</p>
-<p><strong>Can I search across every blockchain at once?</strong>
-Yes — leave <code>chainId</code> at its default of <code>all</code> to search across every supported chain.</p>
-<p><strong>Why does a pair record have no <code>fdv</code> or <code>marketCap</code>?</strong>
-DexScreener doesn't publish a fully diluted valuation or market cap for every token, so those fields are left out when there's no value to report.</p>
-<p><strong>What's the difference between <code>trending</code> and <code>byProfile</code>?</strong>
-<code>trending</code> returns tokens that currently have an active paid boost on DexScreener; <code>byProfile</code> returns the latest token profiles submitted to the site, regardless of whether they're boosted.</p>
-<p><strong>How many records can one run return?</strong>
-Up to <code>maxItems</code>, capped at 1000 per run.</p>
-<p><strong>How current is the data?</strong>
-Every run reads DexScreener live, so prices, liquidity, and volume reflect the current market at run time.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/MOa8uJUJGEpUpfB7L/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>rbgoR6IULiCzVVRrs</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<h3 id="readme-is-this-affiliated-with-dexscreener">Is this affiliated with DexScreener?</h3>
+<p>No. This is an independent actor that reads DexScreener's public API. Data belongs to DexScreener.</p>
+<h3 id="readme-do-i-need-a-wallet-api-key-or-proxy">Do I need a wallet, API key or proxy?</h3>
+<p>No. Every mode works without an account, key or proxy.</p>
+<h3 id="readme-why-did-i-get-fewer-records-than-maxitems">Why did I get fewer records than <code>maxItems</code>?</h3>
+<p>DexScreener caps a search at 30 pairs per query and has no pagination. Pools per token are capped at 30. The promotion feeds return at most 30 rows for boosts, profiles and ads, 11 for takeovers, 18 trending narratives and 49 pairs per narrative feed. Repeated boosts or ads for the same token are collapsed into one record. Use multiple queries, <code>byToken</code> with <code>allPools</code>, or several chains to widen coverage.</p>
+<h3 id="readme-how-do-i-get-every-pool-of-a-token">How do I get every pool of a token?</h3>
+<p>Use <code>byToken</code> with a specific chain and <code>allPools: true</code>. A search is capped at 30 pairs across all chains; pool lookup is scoped to the token and chain.</p>
+<h3 id="readme-are-the-filters-applied-by-dexscreener">Are the filters applied by DexScreener?</h3>
+<p>No. The public API has no filter parameters, so filters and sorting run in the actor after the fetch. That also means a filter cannot recover rows beyond the source cap.</p>
+<h3 id="readme-why-are-info-or-some-flags-missing-from-a-pair">Why are <code>info</code> or some flags missing from a pair?</h3>
+<p>Token images, websites and socials are optional on DexScreener, and some market fields do not exist for brand-new pairs. Missing values are omitted, not sent as null. Flags are heuristics for triage, not verdicts.</p>
+<h3 id="readme-what-is-the-difference-between-the-boost-and-profile-feeds">What is the difference between the boost and profile feeds?</h3>
+<p><code>boostedTop</code> and <code>boostedLatest</code> return tokens with paid boosts (ranked or newest). <code>profilesLatest</code> and <code>profilesUpdated</code> return token profile submissions, and <code>takeovers</code> returns community takeover events.</p>
+<h3 id="readme-does-this-actor-include-ohlc-candles-holders-or-top-traders">Does this actor include OHLC candles, holders or top traders?</h3>
+<p>No. Those are not part of DexScreener's official public API. This actor covers pairs, pools, promotion feeds, narratives and paid orders.</p>
+<h3 id="readme-how-fresh-is-the-data">How fresh is the data?</h3>
+<p>Every run reads DexScreener live, so prices, liquidity, volume and promotions reflect the market at run time.</p>
+<h3 id="readme-is-this-financial-advice">Is this financial advice?</h3>
+<p>No. It is market data for research and monitoring; verify token contracts independently.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/MOa8uJUJGEpUpfB7L/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>yo7tmA6LqmLYqmoGa</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

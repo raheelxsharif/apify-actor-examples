@@ -1,0 +1,218 @@
+{
+  "description": "Scrape books, authors, series, Listopia lists, popular shelves, and genres from Goodreads. Look up books by URL, search query, or ISBN.",
+  "properties": {
+    "authorUrls": {
+      "default": [],
+      "description": "Goodreads author URLs (e.g. https://www.goodreads.com/author/show/1077326). The actor walks /author/list/<id>?page=N for all books. (mode=auto, authors)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Author URLs",
+      "type": "array"
+    },
+    "bookUrls": {
+      "default": [],
+      "description": "Direct Goodreads book URLs. (mode=auto, books)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.goodreads.com/book/show/4671.The_Great_Gatsby"
+      ],
+      "sectionCaption": "Inputs",
+      "title": "Book URLs",
+      "type": "array"
+    },
+    "containsAuthor": {
+      "description": "Drop books unless one of their authors contains this substring (case-insensitive).",
+      "editor": "textfield",
+      "title": "Contains author",
+      "type": "string"
+    },
+    "containsGenre": {
+      "description": "Drop books unless one of their genres contains this substring (case-insensitive).",
+      "editor": "textfield",
+      "title": "Contains genre",
+      "type": "string"
+    },
+    "genreNames": {
+      "default": [],
+      "description": "Genre names like 'fiction', 'romance', 'mystery'. (mode=auto, genres)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Genre names",
+      "type": "array"
+    },
+    "includeMetadata": {
+      "default": false,
+      "description": "When true, emit one extra record per author/series/list with bio, description, and counts (recordType: 'author' | 'series' | 'list'). Default false.",
+      "prefill": false,
+      "sectionCaption": "Advanced",
+      "title": "Include metadata records",
+      "type": "boolean"
+    },
+    "isbns": {
+      "default": [],
+      "description": "ISBN-10 or ISBN-13 codes. Goodreads' search redirects ISBN queries to the matching book. (mode=auto, isbns)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "ISBNs",
+      "type": "array"
+    },
+    "language": {
+      "description": "Drop books whose language doesn't contain this string (case-insensitive substring match). E.g. 'en', 'eng', 'English'.",
+      "editor": "textfield",
+      "title": "Language",
+      "type": "string"
+    },
+    "listUrls": {
+      "default": [],
+      "description": "Goodreads /list/show/ URLs (e.g. Best Books Ever). Paginated. (mode=auto, lists)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Listopia list URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on total records emitted across all inputs. Books, search results, and listing-page results all count toward this.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "sectionCaption": "Output limits",
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxResultsPerQuery": {
+      "description": "Legacy field. Use maxItems instead. When set and maxItems is at its default, this value is used as the cap.",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "[Deprecated] Max results per query",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop books with averageRating below this integer threshold (0-5). For finer thresholds (e.g. 4.5), use a higher minRatingsCount filter to surface highly-rated books.",
+      "maximum": 5,
+      "minimum": 0,
+      "sectionCaption": "Filters",
+      "title": "Min average rating",
+      "type": "integer"
+    },
+    "minRatingsCount": {
+      "description": "Drop books with fewer than N ratings.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min ratings count",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "auto",
+      "description": "What to scrape. Use 'auto' (default) to run any non-empty inputs you provide. Or pick a specific mode to run only that one.",
+      "editor": "select",
+      "enum": [
+        "auto",
+        "books",
+        "search",
+        "isbns",
+        "authors",
+        "series",
+        "lists",
+        "shelves",
+        "genres"
+      ],
+      "enumTitles": [
+        "Auto (run all non-empty inputs)",
+        "Book URLs (direct /book/show/ links)",
+        "Search queries (text)",
+        "ISBN lookup (ISBN-10 or ISBN-13)",
+        "Author pages (all books by author)",
+        "Series pages (all books in series)",
+        "Listopia lists",
+        "Popular shelves",
+        "Genres"
+      ],
+      "prefill": "auto",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": false
+      },
+      "description": "Optional proxy. Goodreads is reachable from datacenter IPs without proxy; only enable if you hit sustained 429s.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": false
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "publishYearMax": {
+      "description": "Drop books published after this year.",
+      "maximum": 3000,
+      "minimum": 0,
+      "title": "Published year max",
+      "type": "integer"
+    },
+    "publishYearMin": {
+      "description": "Drop books published before this year.",
+      "maximum": 3000,
+      "minimum": 0,
+      "title": "Published year min",
+      "type": "integer"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Free-text search terms (titles, authors, keywords). (mode=auto, search)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "sapiens"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "seriesUrls": {
+      "default": [],
+      "description": "Goodreads series URLs (e.g. https://www.goodreads.com/series/49075-harry-potter). All books in the series are scraped. (mode=auto, series)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Series URLs",
+      "type": "array"
+    },
+    "shelfNames": {
+      "default": [],
+      "description": "Popular shelf names like 'mystery', 'fantasy', 'historical-fiction'. Paginated. (mode=auto, shelves)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Shelf names",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Goodreads Scraper Input",
+  "type": "object"
+}

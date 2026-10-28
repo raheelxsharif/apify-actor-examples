@@ -1,145 +1,201 @@
 # DexScreener Token Pair & Boosted Token Scraper
 
-DexScreener aggregates live trading pairs from decentralized exchanges across 20 blockchains. This actor pulls that data by keyword search, by token or pair address, or as the site's current boosted-token and token-profile feeds — all without a wallet or account.
+DexScreener is the market screen for on-chain trading: live pairs across DEXs and dozens of chains, plus the paid boosts, profiles, takeovers, ads and narratives that drive attention. This actor reads DexScreener's official public API and returns clean, analysis-ready records for token research, pair monitoring and promotion tracking. No wallet, API key, cookie or proxy is needed.
 
 ## What this actor does
 
-- Searches tokens and pairs by name, symbol, or address and returns matching pairs.
-- Looks up every pair for one or more token contract addresses (up to 30 at once).
-- Fetches a single pair by chain and pair address.
-- Pulls the current boosted (promoted) tokens and the latest submitted token profiles.
-- Filters pair results by minimum liquidity and minimum 24-hour volume in USD.
-- Fields DexScreener doesn't report for a given pair or token (no fully diluted valuation, no labels) are left out of the record instead of being sent empty.
+- **Search** tokens and pairs by name, symbol, pair text such as `SOL/USDC`, contract address, or a pasted DexScreener URL.
+- **Inspect a token**: best pair per token on one chain, or every pool of the token.
+- **Monitor pairs** by address or URL, many at a time.
+- **Pull six promotion feeds**: most-boosted tokens, newest boosts, newest profiles, recently updated profiles, community takeovers and paid ads.
+- **Follow narratives**: trending metas, then the pairs inside each meta.
+- **Check paid orders**: profile, ad and takeover orders plus boost purchases for a token.
+- **Filter and sort** by liquidity, 24h volume, market cap, FDV, transactions, 24h price change, pair age, DEX and quote symbol.
+- **Token info and risk flags**: logo, header, website and social links when available; heuristic flags such as low liquidity, new pair, sell pressure or no socials.
 
-## Output per mode
+## Output per record type
 
-### `search`, `byTokenAddress`, `byPairAddress` — trading pair
+Empty fields are omitted. Every record has `recordType`, `siteName` and `scrapedAt`.
 
-- `chainId` — blockchain the pair is on (e.g. `ethereum`, `solana`)
-- `dexId` — DEX protocol name (e.g. `uniswap`, `raydium`)
-- `pairAddress`, `pairUrl` — pair contract address and its DexScreener page
-- `baseToken`, `quoteToken` — `{address, name, symbol}` for each side of the pair
-- `priceNative`, `priceUsd` — price in native quote-token units and in USD
-- `liquidity` — `{usd, base, quote}` liquidity amounts
-- `fdv` — fully diluted valuation in USD
-- `marketCap` — market cap in USD
-- `volume` — trading volume by window: `h24`, `h6`, `h1`, `m5`
-- `priceChange` — percentage price change by the same windows
-- `txns` — buy/sell counts by the same windows
-- `pairCreatedAt` — ISO 8601 pair creation date
-- `labels` — tags such as `v2`, `v3`, or `pump.fun`
-- `boosts` — `{active}` count of active boosts on the pair
-- `recordType` — always `pair`
-- `siteName` — always `DexScreener`
-- `scrapedAt` — ISO 8601 timestamp of the fetch
+### Pair (`pair`)
 
-### `trending` — boosted token
+- `chainId`, `dexId`, `pairAddress`, `pairUrl`
+- `id` - `chain:pairAddress`
+- `tokenAddress`, `tokenName`, `tokenSymbol`, `quoteTokenAddress`, `quoteTokenSymbol`
+- `baseToken`, `quoteToken` - `{address, name, symbol}`
+- `priceNative`, `priceUsd`
+- `liquidity` - `{usd, base, quote}`
+- `fdv`, `marketCap`
+- `volume` - `{h24, h6, h1, m5}`
+- `priceChange` - `{h24, h6, h1, m5}`
+- `txns` - buy/sell counts for the same windows
+- `pairCreatedAt`, `ageHours`
+- `labels`, `boosts`
+- `buySellRatio24h`, `volumeToLiquidity24h`
+- `info` - `{imageUrl, header, openGraph, websites[], socials[]}`
+- `flags[]` - `low_liquidity`, `no_liquidity_data`, `suspicious_liquidity`, `new_pair_<N>h`, `sell_pressure`, `no_sells_24h`, `extreme_price_move_24h`, `volume_over_10x_liquidity`, `no_profile`, `no_socials`
+- `query`, `rank`, `metaSlug`, `metaName` when relevant
+- `querySide`, `tokenPriceUsd` for token lookups where the token is the quote side
 
-- `chainId`, `tokenAddress` — blockchain and token contract address
-- `icon`, `header` — token image URLs
-- `description` — token description text
-- `pairUrl` — link to the token's DexScreener page
-- `boostAmount`, `boostTotalAmount` — boost amount on this submission and the token's running total
-- `links` — array of `{type, label, url}` social/website links
-- `recordType` — always `boostedToken`
-- `siteName` — always `DexScreener`
-- `scrapedAt` — ISO 8601 timestamp of the fetch
+### Boosted token (`boostedToken`) and token profile (`tokenProfile`)
 
-### `byProfile` — token profile
+- `chainId`, `tokenAddress`, `tokenUrl`, `pairUrl`
+- `icon`, `header`, `openGraph`, `description`, `links[]`
+- `boostAmount`, `boostTotalAmount` (boosts)
+- `cto` (profiles), `updatedAt` (recently updated profiles)
+- `rank`, `listType`
+- Market data when enabled: `symbol`, `name`, `priceUsd`, `quoteSymbol`, `dexId`, `liquidityUsd`, `fdv`, `marketCap`, `volume24h`, `priceChange1h`, `priceChange24h`, `pairCreatedAt`, `ageHours`, `pairsFound`, `topPairAddress`, `topPairUrl`
 
-- `chainId`, `tokenAddress` — blockchain and token contract address
-- `icon`, `header` — token image URLs
-- `description` — token description text
-- `pairUrl` — link to the token's DexScreener page
-- `links` — array of `{type, label, url}` social/website links
-- `recordType` — always `tokenProfile`
-- `siteName` — always `DexScreener`
-- `scrapedAt` — ISO 8601 timestamp of the fetch
+### Community takeover (`communityTakeover`) and ad (`ad`)
+
+- Takeover: `chainId`, `tokenAddress`, `tokenUrl`, `pairUrl`, `icon`, `header`, `openGraph`, `description`, `links[]`, market data, plus `claimDate`.
+- Ad: `tokenAddress`, `tokenUrl`, `adDate`, `adType`, `adImpressions`, optional `adDurationHours`, plus market data.
+
+### Narrative (`meta`)
+
+- `slug`, `name`, `description`, `icon`, `iconType`
+- `marketCap`, `liquidity`, `volume`, `tokenCount`
+- `marketCapChange`, `marketCapDelta` for `m5`, `h1`, `h6`, `h24`
+- `rank`
+
+### Paid orders (`orders`)
+
+- `chainId`, `tokenAddress`
+- `ordersCount`, `approvedCount`, `hasApprovedProfile`, `hasPaidAds`, `lastPaymentAt`
+- `orders[]` - `{type, status, paymentTimestamp}`
+- `boosts[]` - `{id, amount, paymentTimestamp}`
+- `totalBoostAmount`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search`, `byTokenAddress`, `byPairAddress`, `trending`, or `byProfile` |
-| `query` | string | – | Token name, symbol, or address to search for; used by `search` |
-| `tokenAddresses` | string | – | Comma-separated token contract addresses, up to 30; used by `byTokenAddress` |
-| `chainId` | string | `all` | Blockchain network, or `all` for every chain (search mode only) |
-| `pairAddress` | string | – | Pair contract address; used by `byPairAddress`, requires `chainId` set to a specific chain |
-| `minLiquidityUsd` | number | – | Only keep pairs with total liquidity at or above this USD value |
-| `minVolumeH24` | number | – | Only keep pairs with 24-hour volume at or above this USD value |
-| `maxItems` | integer | `5` | Maximum number of records to return (1-1000) |
+| `mode` | string | `search` | `search`, `byToken`, `byPair`, `discovery`, `metas`, `metaPairs`, `orders` |
+| `queries` | array | – | Names, symbols, `SOL/USDC`, addresses or DexScreener URLs (mode=search) |
+| `tokenAddresses` | string | - | Token addresses or URLs, comma/newline separated (mode=byToken, orders) |
+| `pairAddresses` | array | - | Pair URLs, `chain:pairAddress`, or bare pair addresses (mode=byPair) |
+| `chainId` | string | `all` | Chain scope; required for byToken (unless `all`), bare pairs, and orders |
+| `customChainId` | string | - | Override for a chain added after this release |
+| `feed` | string | `boostedTop` | `boostedTop`, `boostedLatest`, `profilesLatest`, `profilesUpdated`, `takeovers`, `ads` |
+| `metaSlugs` | array | - | Narrative slugs such as `ai`, `dog`, `cat` (mode=metaPairs) |
+| `allPools` | boolean | `false` | byToken: every pool of the token instead of the best pair |
+| `minLiquidityUsd` / `maxLiquidityUsd` | number | - | Keep pairs inside this liquidity range |
+| `minVolume24hUsd` / `maxVolume24hUsd` | number | - | Keep pairs inside this 24h volume range |
+| `minMarketCapUsd` / `maxMarketCapUsd` | number | - | Uses market cap, or FDV when market cap is missing |
+| `minFdvUsd` / `maxFdvUsd` | number | - | Keep pairs inside this FDV range |
+| `minTxns24h` / `maxTxns24h` | integer | - | Buys plus sells in the last 24 hours |
+| `minPriceChange24h` / `maxPriceChange24h` | number | - | 24h price change in percent; negatives allowed |
+| `minAgeHours` / `maxAgeHours` | number | - | Pair age in hours |
+| `dexIds` | array | - | Keep only these DEX protocols |
+| `quoteSymbols` | array | - | Keep only these quote assets |
+| `sortBy` | string | `none` | Sort by liquidity, volume, market cap, FDV, change, transactions, age or boosts |
+| `sortOrder` | string | `desc` | `desc` or `asc`; age ascending means newest first |
+| `onePairPerToken` | boolean | `false` | Keep the most liquid pair per token |
+| `includeInfo` | boolean | `true` | Add logo, header, websites and socials |
+| `includeMarketData` | boolean | `true` | Attach best-pair market data to promotion feeds |
+| `expandChainSearch` | boolean | `true` | Widen a chain-filtered search past the 30-pair cap |
+| `chainSearchTokens` | integer | `10` | Matching tokens whose pools are fetched when widening |
+| `includeFlags` | boolean | `true` | Add heuristic risk flags |
+| `newPairHours` | integer | `24` | Threshold for the new-pair flag |
+| `maxItemsPerQuery` | integer | `30` | Cap per query, token, feed or meta |
+| `maxItems` | integer | `100` | Cap for the whole run |
 
 ### Example: search across all chains
 
 ```json
 {
   "mode": "search",
-  "query": "USDC",
-  "maxItems": 20
+  "queries": ["PEPE", "WIF", "AERO"],
+  "sortBy": "volume24h",
+  "maxItems": 50
 }
 ```
 
-### Example: every pair for a token on Ethereum
+Older saved tasks that use `query`, `pairAddress`, `minVolumeH24`, or the previous mode names (`byTokenAddress`, `byPairAddress`, `trending`, `byProfile`) keep working.
+
+### Example: every pool of a token on Solana
 
 ```json
 {
-  "mode": "byTokenAddress",
-  "tokenAddresses": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-  "chainId": "ethereum"
-}
-```
-
-### Example: liquid, actively traded pairs only
-
-```json
-{
-  "mode": "search",
-  "query": "ETH",
-  "minLiquidityUsd": 100000,
-  "minVolumeH24": 50000,
+  "mode": "byToken",
+  "chainId": "solana",
+  "tokenAddresses": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "allPools": true,
+  "minLiquidityUsd": 10000,
   "maxItems": 30
 }
 ```
 
-### Example: currently boosted tokens
+### Example: newest boosted tokens with market data
 
 ```json
 {
-  "mode": "trending",
-  "maxItems": 50
+  "mode": "discovery",
+  "feed": "boostedLatest",
+  "includeMarketData": true,
+  "minLiquidityUsd": 5000,
+  "maxItems": 30
+}
+```
+
+### Example: paid orders for a token
+
+```json
+{
+  "mode": "orders",
+  "chainId": "solana",
+  "tokenAddresses": "So11111111111111111111111111111111111111112",
+  "maxItems": 1
 }
 ```
 
 ## Use cases
 
-- Screen for pairs above a liquidity and volume threshold before researching a token further.
-- Pull every pair tied to a token contract to see where it's traded.
-- Track which tokens are currently paying for DexScreener boosts.
-- Monitor newly submitted token profiles for emerging projects.
-- Compare price, volume, and transaction activity for a specific pair over repeated runs.
+- **Token screening** - rank pairs by liquidity, volume, age or price change before deeper research.
+- **Liquidity mapping** - pull every pool of a token to see where it actually trades.
+- **Launch monitoring** - watch newest profiles, boosts, takeovers and ads for emerging projects.
+- **Narrative research** - follow trending metas and compare the pairs inside them.
+- **Promotion due diligence** - check whether a token paid for profiles, ads or boosts.
+- **Scheduled snapshots** - keep a time series of prices, liquidity and volume for a watchlist.
 
 ## FAQ
 
-**Is this affiliated with DexScreener?**
-No. This actor reads DexScreener's public pages and data; it is not operated by or connected to DexScreener.
+### Is this affiliated with DexScreener?
 
-**Do I need a wallet or API key?**
-No. Every mode works without a wallet connection, account, or key.
+No. This is an independent actor that reads DexScreener's public API. Data belongs to DexScreener.
 
-**Do `minLiquidityUsd` and `minVolumeH24` apply to `byTokenAddress` and `byPairAddress` too?**
-Yes — they apply to every mode that returns pair records (`search`, `byTokenAddress`, `byPairAddress`), not just `search`. A pair without liquidity or volume data is excluded once either filter is set. They have no effect on `trending` or `byProfile`, which don't return pair records at all.
+### Do I need a wallet, API key or proxy?
 
-**Can I search across every blockchain at once?**
-Yes — leave `chainId` at its default of `all` to search across every supported chain.
+No. Every mode works without an account, key or proxy.
 
-**Why does a pair record have no `fdv` or `marketCap`?**
-DexScreener doesn't publish a fully diluted valuation or market cap for every token, so those fields are left out when there's no value to report.
+### Why did I get fewer records than `maxItems`?
 
-**What's the difference between `trending` and `byProfile`?**
-`trending` returns tokens that currently have an active paid boost on DexScreener; `byProfile` returns the latest token profiles submitted to the site, regardless of whether they're boosted.
+DexScreener caps a search at 30 pairs per query and has no pagination. Pools per token are capped at 30. The promotion feeds return at most 30 rows for boosts, profiles and ads, 11 for takeovers, 18 trending narratives and 49 pairs per narrative feed. Repeated boosts or ads for the same token are collapsed into one record. Use multiple queries, `byToken` with `allPools`, or several chains to widen coverage.
 
-**How many records can one run return?**
-Up to `maxItems`, capped at 1000 per run.
+### How do I get every pool of a token?
 
-**How current is the data?**
-Every run reads DexScreener live, so prices, liquidity, and volume reflect the current market at run time.
+Use `byToken` with a specific chain and `allPools: true`. A search is capped at 30 pairs across all chains; pool lookup is scoped to the token and chain.
+
+### Are the filters applied by DexScreener?
+
+No. The public API has no filter parameters, so filters and sorting run in the actor after the fetch. That also means a filter cannot recover rows beyond the source cap.
+
+### Why are `info` or some flags missing from a pair?
+
+Token images, websites and socials are optional on DexScreener, and some market fields do not exist for brand-new pairs. Missing values are omitted, not sent as null. Flags are heuristics for triage, not verdicts.
+
+### What is the difference between the boost and profile feeds?
+
+`boostedTop` and `boostedLatest` return tokens with paid boosts (ranked or newest). `profilesLatest` and `profilesUpdated` return token profile submissions, and `takeovers` returns community takeover events.
+
+### Does this actor include OHLC candles, holders or top traders?
+
+No. Those are not part of DexScreener's official public API. This actor covers pairs, pools, promotion feeds, narratives and paid orders.
+
+### How fresh is the data?
+
+Every run reads DexScreener live, so prices, liquidity, volume and promotions reflect the market at run time.
+
+### Is this financial advice?
+
+No. It is market data for research and monitoring; verify token contracts independently.

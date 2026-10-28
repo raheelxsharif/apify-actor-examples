@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Goodreads book records, plus optional author, series, and Listopia list summary records, identified by a `recordType` field.",
+  "properties": {
+    "records": {
+      "description": "Dataset containing all scraped Goodreads books + optional metadata records.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Goodreads records",
+      "type": "string"
+    }
+  },
+  "title": "Goodreads Book, Author & Listopia List Scraper Output"
+}

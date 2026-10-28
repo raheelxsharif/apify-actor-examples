@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "US state-level home value, inventory, and metro-level market heat records from Zillow Research data.",
+  "description": "Zillow Research observations: home values, rents, inventory, days to pending, price cuts, sales, market heat, forecasts, new construction and affordability by US region and date.",
   "properties": {
-    "results": {
-      "description": "Dataset containing all scraped home value, inventory, and market heat records.",
+    "observations": {
+      "description": "Dataset containing tidy observation rows, metric snapshots, or dataset catalog records, depending on the selected mode.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Home value & market trend records",
+      "title": "Zillow Research observations",
       "type": "string"
     }
   },
-  "title": "Zillow Research Home Value & Market Heat Scraper Output"
+  "title": "Zillow Research Data Scraper Output"
 }

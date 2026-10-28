@@ -1,122 +1,496 @@
 {
-  "description": "Search token pairs, lookup by address, browse trending tokens, or fetch profiles from DexScreener.",
+  "description": "Search tokens and pairs, inspect every pool of a token, monitor pairs, or pull promotion feeds, narratives and paid orders from DexScreener's public API.",
   "properties": {
+    "allPools": {
+      "default": false,
+      "description": "When on, byToken returns every pool of each token on the chain. When off, it returns the best pair per token.",
+      "prefill": false,
+      "title": "All pools per token",
+      "type": "boolean"
+    },
     "chainId": {
       "default": "all",
-      "description": "Blockchain network. Use 'all' to include all chains (only applies to search mode).",
+      "description": "Blockchain to read. Required for byToken when not 'all', for bare pair addresses, and for orders. Also filters search and promotion feeds locally.",
       "editor": "select",
       "enum": [
         "all",
-        "ethereum",
-        "bsc",
-        "polygon",
+        "abstract",
+        "algorand",
+        "aptos",
         "arbitrum",
-        "optimism",
-        "base",
+        "arc",
         "avalanche",
-        "fantom",
-        "solana",
-        "cronos",
+        "base",
+        "beam",
+        "berachain",
+        "blast",
+        "bsc",
         "celo",
-        "gnosis",
+        "conflux",
+        "cronos",
+        "ethereum",
+        "fantom",
+        "fuse",
+        "flare",
+        "flowevm",
+        "harmony",
+        "heco",
+        "hedera",
+        "hyperevm",
+        "hyperliquid",
+        "ink",
+        "injective",
+        "kava",
+        "klaytn",
+        "linea",
+        "manta",
+        "mantle",
+        "metis",
+        "monad",
         "moonbeam",
         "moonriver",
-        "harmony",
-        "klaytn",
-        "fuse",
-        "heco",
+        "gnosis",
+        "movement",
+        "multiversx",
+        "near",
         "okex",
-        "cro"
+        "optimism",
+        "cro",
+        "plasma",
+        "polygon",
+        "pulsechain",
+        "robinhood",
+        "scroll",
+        "seiv2",
+        "solana",
+        "soneium",
+        "sonic",
+        "stacks",
+        "starknet",
+        "sui",
+        "telos",
+        "ton",
+        "tron",
+        "unichain",
+        "worldchain",
+        "xrpl",
+        "zksync"
       ],
       "enumTitles": [
         "All chains",
-        "Ethereum",
-        "BNB Smart Chain (BSC)",
-        "Polygon",
+        "Abstract",
+        "Algorand",
+        "Aptos",
         "Arbitrum",
-        "Optimism",
-        "Base",
+        "Arc",
         "Avalanche",
-        "Fantom",
-        "Solana",
-        "Cronos",
+        "Base",
+        "Beam",
+        "Berachain",
+        "Blast",
+        "BNB Smart Chain (BSC)",
         "Celo",
-        "Gnosis",
+        "Conflux",
+        "Cronos",
+        "Ethereum",
+        "Fantom",
+        "Fuse",
+        "Flare",
+        "Flow EVM",
+        "Harmony",
+        "HECO",
+        "Hedera",
+        "HyperEVM",
+        "Hyperliquid",
+        "Ink",
+        "Injective",
+        "Kava",
+        "Klaytn",
+        "Linea",
+        "Manta",
+        "Mantle",
+        "Metis",
+        "Monad",
         "Moonbeam",
         "Moonriver",
-        "Harmony",
-        "Klaytn",
-        "Fuse",
-        "HECO",
+        "Gnosis",
+        "Movement",
+        "MultiversX",
+        "NEAR",
         "OKEx Chain",
-        "Crypto.com Chain"
+        "Optimism",
+        "Crypto.com Chain",
+        "Plasma",
+        "Polygon",
+        "PulseChain",
+        "Robinhood",
+        "Scroll",
+        "Sei V2",
+        "Solana",
+        "Soneium",
+        "Sonic",
+        "Stacks",
+        "Starknet",
+        "Sui",
+        "Telos",
+        "TON",
+        "Tron",
+        "Unichain",
+        "World Chain",
+        "XRP Ledger",
+        "zkSync"
       ],
       "prefill": "all",
       "title": "Chain",
       "type": "string"
     },
+    "chainSearchTokens": {
+      "default": 10,
+      "description": "How many matching tokens get their pools fetched when widening a chain search. 0 = quote variants only.",
+      "maximum": 30,
+      "minimum": 0,
+      "prefill": 10,
+      "title": "Tokens to widen",
+      "type": "integer"
+    },
+    "customChainId": {
+      "description": "Optional override for a chain added after this release, e.g. 'newchain'. When set it replaces Chain.",
+      "editor": "textfield",
+      "title": "Custom chain id",
+      "type": "string"
+    },
+    "dexIds": {
+      "description": "Keep only these DEX protocols, e.g. uniswap, raydium, aerodrome. Empty means all.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "DEX filter",
+      "type": "array"
+    },
+    "expandChainSearch": {
+      "default": true,
+      "description": "When a chain is selected, also search quote variants and pull the token pools to get past the 30-pair search cap.",
+      "prefill": true,
+      "title": "Widen search by chain",
+      "type": "boolean"
+    },
+    "feed": {
+      "default": "boostedTop",
+      "description": "Which live promotion feed to read. (mode=discovery)",
+      "editor": "select",
+      "enum": [
+        "boostedTop",
+        "boostedLatest",
+        "profilesLatest",
+        "profilesUpdated",
+        "takeovers",
+        "ads"
+      ],
+      "enumTitles": [
+        "Most-boosted tokens",
+        "Newest boosts",
+        "Newest token profiles",
+        "Recently updated profiles",
+        "Community takeovers",
+        "Paid ads"
+      ],
+      "prefill": "boostedTop",
+      "title": "Promotion feed",
+      "type": "string"
+    },
+    "includeFlags": {
+      "default": true,
+      "description": "Add heuristic flags such as low liquidity, new pair, sell pressure, or no socials.",
+      "prefill": true,
+      "title": "Include risk flags",
+      "type": "boolean"
+    },
+    "includeInfo": {
+      "default": true,
+      "description": "Add logo, header image, website and social links when DexScreener has them.",
+      "prefill": true,
+      "title": "Include token info",
+      "type": "boolean"
+    },
+    "includeMarketData": {
+      "default": true,
+      "description": "For promotion feeds, attach price, liquidity, volume, market cap and age of each token's best pair.",
+      "prefill": true,
+      "title": "Include market data",
+      "type": "boolean"
+    },
+    "maxAgeHours": {
+      "description": "Skip pairs older than this many hours. Use 24 to keep pairs launched today.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max pair age (hours)",
+      "type": "number"
+    },
+    "maxFdvUsd": {
+      "description": "Skip pairs with a fully diluted valuation above this USD value.",
+      "maximum": 1000000000000000,
+      "minimum": 0,
+      "title": "Max FDV (USD)",
+      "type": "number"
+    },
     "maxItems": {
-      "default": 5,
-      "description": "Maximum number of records to emit.",
-      "maximum": 1000,
+      "default": 100,
+      "description": "Hard cap on records for the whole run.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 5,
+      "prefill": 1,
       "title": "Max items",
       "type": "integer"
     },
-    "minLiquidityUsd": {
-      "description": "Filter out pairs with total liquidity below this USD value.",
+    "maxItemsPerQuery": {
+      "default": 30,
+      "description": "Maximum records from each query, token, or feed. DexScreener caps search at 30.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max per query",
+      "type": "integer"
+    },
+    "maxLiquidityUsd": {
+      "description": "Skip pairs with liquidity above this USD value.",
+      "maximum": 1000000000000,
+      "minimum": 0,
+      "title": "Max liquidity (USD)",
+      "type": "number"
+    },
+    "maxMarketCapUsd": {
+      "description": "Skip pairs above this market cap. Uses FDV when market cap is missing.",
+      "maximum": 1000000000000000,
+      "minimum": 0,
+      "title": "Max market cap (USD)",
+      "type": "number"
+    },
+    "maxPriceChange24h": {
+      "description": "Skip pairs whose 24-hour price change is above this percent. Negative values allowed.",
+      "maximum": 100000,
+      "minimum": -100,
+      "title": "Max 24h change (%)",
+      "type": "number"
+    },
+    "maxTxns24h": {
+      "description": "Skip pairs with more buys plus sells in the last 24 hours.",
       "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Max 24h transactions",
+      "type": "integer"
+    },
+    "maxVolume24hUsd": {
+      "description": "Skip pairs with 24-hour volume above this USD value.",
+      "maximum": 1000000000000,
+      "minimum": 0,
+      "title": "Max 24h volume (USD)",
+      "type": "number"
+    },
+    "metaSlugs": {
+      "description": "Narrative slugs such as ai, dog, cat, or x402. Run mode=metas to discover live slugs. (mode=metaPairs)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Narrative slugs",
+      "type": "array"
+    },
+    "minAgeHours": {
+      "description": "Skip pairs younger than this many hours.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Min pair age (hours)",
+      "type": "number"
+    },
+    "minFdvUsd": {
+      "description": "Skip pairs with a fully diluted valuation below this USD value.",
+      "maximum": 1000000000000000,
+      "minimum": 0,
+      "title": "Min FDV (USD)",
+      "type": "number"
+    },
+    "minLiquidityUsd": {
+      "description": "Skip pairs with liquidity below this USD value.",
+      "maximum": 1000000000000,
       "minimum": 0,
       "title": "Min liquidity (USD)",
       "type": "number"
     },
-    "minVolumeH24": {
-      "description": "Filter out pairs with 24h trading volume below this USD value.",
+    "minMarketCapUsd": {
+      "description": "Skip pairs below this market cap. Uses FDV when market cap is missing.",
+      "maximum": 1000000000000000,
+      "minimum": 0,
+      "title": "Min market cap (USD)",
+      "type": "number"
+    },
+    "minPriceChange24h": {
+      "description": "Skip pairs whose 24-hour price change is below this percent. Negative values allowed.",
+      "maximum": 100000,
+      "minimum": -100,
+      "title": "Min 24h change (%)",
+      "type": "number"
+    },
+    "minTxns24h": {
+      "description": "Skip pairs with fewer buys plus sells in the last 24 hours.",
       "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Min 24h transactions",
+      "type": "integer"
+    },
+    "minVolume24hUsd": {
+      "description": "Skip pairs with 24-hour volume below this USD value.",
+      "maximum": 1000000000000,
       "minimum": 0,
       "title": "Min 24h volume (USD)",
       "type": "number"
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch from DexScreener.",
+      "description": "What to collect. Each mode uses its own fields below.",
       "editor": "select",
       "enum": [
         "search",
+        "byToken",
+        "byPair",
+        "discovery",
+        "metas",
+        "metaPairs",
+        "orders",
         "byTokenAddress",
         "byPairAddress",
         "trending",
         "byProfile"
       ],
       "enumTitles": [
-        "Search tokens/pairs by keyword",
-        "Pairs by token address (comma-separated, up to 30)",
-        "Specific pair by chain + pair address",
-        "Trending/boosted tokens (top boosts)",
-        "Latest token profiles"
+        "Search tokens and pairs",
+        "Token lookup (pools or best pair)",
+        "Pair lookup by address or URL",
+        "Promotion feeds (boosts, profiles, takeovers, ads)",
+        "Trending narratives",
+        "Pairs inside narratives",
+        "Paid orders for tokens",
+        "Token lookup (legacy)",
+        "Pair lookup (legacy)",
+        "Boosted tokens (legacy)",
+        "Token profiles (legacy)"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
     },
-    "pairAddress": {
-      "description": "The pair contract address. Requires chainId to also be set (not 'all').",
-      "editor": "textfield",
-      "title": "Pair address (mode=byPairAddress)",
+    "newPairHours": {
+      "default": 24,
+      "description": "Pairs younger than this many hours get a new_pair flag.",
+      "maximum": 720,
+      "minimum": 1,
+      "prefill": 24,
+      "title": "New pair threshold",
+      "type": "integer"
+    },
+    "onePairPerToken": {
+      "default": false,
+      "description": "Keep only the most liquid pair for each token.",
+      "prefill": false,
+      "title": "One pair per token",
+      "type": "boolean"
+    },
+    "pairAddresses": {
+      "description": "Pair URLs, chain:pairAddress, or bare pair addresses. Bare addresses need a specific chain. (mode=byPair)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Pair addresses or URLs",
+      "type": "array"
+    },
+    "queries": {
+      "description": "Token names, symbols, pair text such as SOL/USDC, token addresses, or DexScreener URLs. Multiple queries fan out. (mode=search)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "USDC"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "quoteSymbols": {
+      "description": "Keep only pairs quoted in these assets, e.g. USDC, SOL, WETH. Empty means all.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Quote symbols",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "none",
+      "description": "Sort results within each query, token, or feed. Missing values are always last.",
+      "editor": "select",
+      "enum": [
+        "none",
+        "liquidity",
+        "volume24h",
+        "volume1h",
+        "volume6h",
+        "marketCap",
+        "fdv",
+        "priceChange5m",
+        "priceChange1h",
+        "priceChange6h",
+        "priceChange24h",
+        "txns24h",
+        "buys24h",
+        "sells24h",
+        "buySellRatio24h",
+        "pairAge",
+        "boosts"
+      ],
+      "enumTitles": [
+        "Source order",
+        "Liquidity",
+        "24h volume",
+        "1h volume",
+        "6h volume",
+        "Market cap",
+        "FDV",
+        "5m price change",
+        "1h price change",
+        "6h price change",
+        "24h price change",
+        "24h transactions",
+        "24h buys",
+        "24h sells",
+        "24h buy/sell ratio",
+        "Pair age",
+        "Active boosts"
+      ],
+      "prefill": "none",
+      "title": "Sort by",
       "type": "string"
     },
-    "query": {
-      "description": "Token name, symbol, or pair address to search (mode=search).",
-      "editor": "textfield",
-      "prefill": "USDC",
-      "title": "Search query",
+    "sortOrder": {
+      "default": "desc",
+      "description": "Largest/oldest first or smallest/newest first. Pair age ascending means newest first.",
+      "editor": "select",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "enumTitles": [
+        "Descending",
+        "Ascending"
+      ],
+      "prefill": "desc",
+      "title": "Sort order",
       "type": "string"
     },
     "tokenAddresses": {
-      "description": "Comma-separated token contract addresses (up to 30). Example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-      "editor": "textfield",
-      "title": "Token addresses (mode=byTokenAddress)",
+      "description": "One or more token contract addresses or DexScreener token URLs, separated by commas or new lines. (mode=byToken, orders)",
+      "editor": "textarea",
+      "title": "Token addresses",
       "type": "string"
     }
   },

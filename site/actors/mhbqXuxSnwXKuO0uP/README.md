@@ -1,94 +1,132 @@
-# Zillow Research Home Value & Market Heat Scraper
+# Zillow Research Data Scraper — ZHVI, ZORI & Market Heat
 
-Zillow publishes state and metro-level housing statistics as open research data. This actor turns those files into dataset records: state home value trends, active-listing inventory, and metro market heat index data, each filterable by state.
+Download Zillow Research's public housing datasets as clean rows for analytics, dashboards and market reports. Choose from 208 home-value, rent, inventory, days-on-market, price-cut, sales, market-heat, forecast, new-construction and affordability files, for the US, states, metros, counties, cities, ZIP codes and neighborhoods Zillow publishes. No Zillow account, API key or proxy is needed.
 
 ## What this actor does
 
-- Returns recent monthly state-level home value data (the Zillow Home Value Index), optionally filtered to one state.
-- Falls back to active-listing inventory data for the requested state when no home value rows match.
-- Returns metro-level market heat index data for market-temperature research.
-- Caps every run at a configurable number of records.
-- Leaves out a region's monthly value columns when Zillow has no published figure for that month, rather than sending an empty value.
+- **208 datasets in one actor:** every live file on Zillow's research data page, including all ZHVI cuts (all homes, SFR, condo, bedrooms, tiers), ZORI rent cuts, inventory, new listings, pending listings, median list price, sale prices, sales counts, days to pending/close, price cuts, sale-to-list, percent sold above/below list, market heat, ZHVF/ZORF forecasts, new construction and affordability.
+- **Four modes:** `latest` returns one row per region with the newest value and 1-month, 3-month and 1-year changes; `history` returns tidy rows for every region and date; `snapshot` returns a 12-metric view for selected metro regions with rent-to-price yield; `catalog` lists the available datasets.
+- **Region and date filters:** match names or Zillow RegionIDs, and select an inclusive date range.
+- **Zillow join keys:** records carry `regionId`, `sizeRank`, `regionName` and `regionType` so they join cleanly to other Zillow series.
+- **Uses only published research files:** it reads Zillow's CSV files, not the listings site, so it is not affected by listing anti-bot walls.
+- Empty values are omitted from records rather than returned as `null`.
 
-## Output per record
+## Output per observation
 
-- `regionName` — the state, county, or metro area name
-- `regionType` — the region level (e.g. state, county, or metro/msa)
-- `stateName` — the state the region belongs to, when published
-- `metro` — the metro area name, when the region is a metro
-- `value_<YYYYMMDD>` — one field per recent month with a published value for that date (field names change as new months are published)
-- `latestValue`, `latestDate` — the most recent monthly value and its date
-- `datasetType` — human-readable label for the dataset this record came from (`Home Values (ZHVI)`, `Active Listings Inventory`, or `Market Heat Index`)
-- `propertyType` — property segment covered (`Single Family / Condo`), present on home value records
-- `currency` — always `USD`, present on home value and inventory records
-- `dataSource` — always `Zillow Research`
-- `sourceUrl` — the Zillow Research file the record was read from
-- `recordType` — `propertyValue`, `propertyInventory`, or `marketTrend`
-- `scrapedAt` — UTC timestamp of the fetch
+One record per region in `latest` mode, or per region and date in `history` mode:
+
+- `recordType` — `observation`, `metricSnapshot` or `dataset`
+- `datasetId`, `category`, `metric`, `metricName` — the selected dataset and metric
+- `geography`, `frequency` — `metro`, `state`, `county`, `city`, `zip`, `neighborhood` or `us`; `monthly` or `weekly`
+- `regionId`, `sizeRank`, `regionName`, `regionType` — Zillow's region identity
+- `stateName`, `state`, `city`, `countyName`, `metro` — location fields, with state/county/metro filled in when Zillow leaves them blank
+- `stateFips`, `municipalCodeFips` — present in county-level files
+- `date` — observation date (`YYYY-MM-DD`)
+- `value` — numeric value in the dataset's `unit`
+- `unit` — `USD`, `USD/month`, `USD/year`, `USD/sqft`, `percent`, `days`, `count`, `index`, `ratio` or `years`
+- `latestValue`, `latestDate` — newest value in `latest` and `snapshot` modes
+- `change1mPct`, `change3mPct`, `change1yPct` — changes in `latest` and `snapshot` modes when prior values exist (4-week, 13-week and 52-week offsets on weekly datasets)
+- `grossRentalYieldPct` — annual rent divided by home value, when a snapshot has both ZORI and ZHVI
+- `baseDate`, `horizonMonths` — forecast origin and horizon (1, 3 or 12 months) on forecast rows
+- `sourceUrl`, `dataSource`, `scrapedAt` — the exact file read and the download time
+
+In `catalog` mode, each record describes one dataset: `datasetId`, `category`, `metric`, `metricName`, `geography`, `frequency`, `unit`, `dataType`, `firstDate`, `lastDate`, `sizeBytes`, `isForecast` and `sourceUrl`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` and `stateValues` both return state home value data (with an inventory fallback); `nationalTrends` returns metro market heat data |
-| `state` | string | `Texas` | US state name to filter results to |
-| `datasetType` | string | `homeValues` | `homeValues`, `inventory`, `marketHeat`, or `countyHomeValues`; the active `mode` currently determines which dataset is actually used (see above) |
-| `maxItems` | integer | `20` | Maximum number of records to return (1-500) |
+| `mode` | string | `latest` | `latest`, `history`, `snapshot` or `catalog`; `search`, `stateValues` and `nationalTrends` are kept for old saved tasks and return the previous wide format |
+| `dataset` | string | `market_temp_index_metro_uc_sfrcondo_month` | One of 208 Zillow Research datasets; the picker labels each by category, metric, geography and variant |
+| `customDatasetUrl` | string | – | Advanced: a newer Zillow Research CSV URL, if Zillow adds a file before this actor's catalog is updated |
+| `regions` | array | – | Region names or substrings, e.g. `["Austin, TX"]`, `["Texas"]`, `["90210"]`; empty for all |
+| `regionIds` | array | – | Exact Zillow RegionIDs; if set with `regions`, a row must match both |
+| `startDate` | string | – | Inclusive start date, `YYYY-MM-DD` |
+| `endDate` | string | – | Inclusive end date, `YYYY-MM-DD` |
+| `includeChanges` | boolean | `true` | Add 1-month, 3-month and 1-year changes in `latest`/`snapshot` |
+| `snapshotMetrics` | array | all 12 | Metrics to include in `snapshot` mode |
+| `category` | string | `all` | Filter the catalog by category in `catalog` mode |
+| `maxItems` | integer | `1000` | Record cap, 1–100,000 |
 
-### Example: home values for one state
+### Example: latest home values and market heat for Austin
 
 ```json
 {
-  "mode": "search",
-  "state": "Texas",
-  "maxItems": 10
+  "mode": "latest",
+  "dataset": "zhvi_metro_uc_sfrcondo_tier_0_33_0_67_sm_sa_month",
+  "regions": ["Austin, TX"],
+  "includeChanges": true
 }
 ```
 
-### Example: home values for every state
+### Example: full rent history for one metro
 
 ```json
 {
-  "mode": "stateValues",
-  "maxItems": 50
+  "mode": "history",
+  "dataset": "zori_metro_uc_sfrcondomfr_sm_month",
+  "regions": ["Austin, TX"],
+  "startDate": "2015-01-01",
+  "maxItems": 500
 }
 ```
 
-### Example: metro market heat index
+### Example: 12-metric snapshot for a city
 
 ```json
 {
-  "mode": "nationalTrends",
-  "maxItems": 100
+  "mode": "snapshot",
+  "regions": ["Austin, TX"],
+  "snapshotMetrics": ["zhvi", "zori", "inventory", "daysToPending", "marketHeatIndex"]
+}
+```
+
+### Example: browse the catalog
+
+```json
+{
+  "mode": "catalog",
+  "category": "Market heat index"
 }
 ```
 
 ## Use cases
 
-- Track a state's recent home value trend without visiting Zillow's research pages.
-- Compare active-listing inventory across states.
-- Pull metro-level market heat data for a housing market report.
-- Feed home value history into a broader real-estate or economic dataset.
+- **Housing analysts** — track ZHVI, ZORI and inventory trends for metros, counties or ZIP codes.
+- **Investors** — compare typical home values and rents, including gross rental yield, across markets.
+- **PropTech and data teams** — load tidy region/date/value rows into a warehouse for dashboards and models.
+- **Market researchers** — monitor market heat, days to pending, price cuts and sale-to-list ratios.
+- **Economic and policy teams** — pull affordability, new-construction and forecast series for reports.
+- **Data journalists** — export a single ZIP or metro's full history for a story.
 
 ## FAQ
 
 **Is this affiliated with Zillow?**
-No. This actor reads Zillow's own published research files; it isn't operated by or connected to Zillow.
+No. This actor reads Zillow Research's public data files. Zillow is not affiliated with and does not endorse this actor. Attribution to Zillow Research is required when you publish the data.
 
-**Do I need a Zillow account or API key?**
-No. Zillow publishes these research files openly, with no login required.
+**Do I need a Zillow account, API key or proxy?**
+No. The research CSV files are public. The actor needs no login, API key, cookie or proxy configuration.
 
-**Why does `state` not narrow down `nationalTrends` results?**
-`nationalTrends` returns metro-area rows (e.g. "Dallas-Fort Worth, TX"), not state rows, so a state name match against those regions will often return nothing; `state` is most useful with `search` or `stateValues`.
+**What is the difference between ZHVI and ZORI?**
+ZHVI is Zillow's typical home value index. ZORI is its observed rent index. The dataset picker includes all-homes, single-family, condo, bedroom-count and price-tier cuts where Zillow publishes them.
 
-**Why do I sometimes get inventory records instead of home values?**
-If no home value rows match your `state` filter, the run automatically returns active-listing inventory data for that state instead of an empty result.
+**Why does rent data cover fewer metros than home values?**
+Zillow publishes ZORI for fewer regions than ZHVI. The actor returns only regions present in the chosen file; it does not fill missing regions with estimates.
 
-**Why do the `value_<date>` field names change between runs?**
-Each one reflects an actual month Zillow has published a figure for; as Zillow adds new months, the most recent twelve column names shift forward.
+**Why do some months have no value for my region?**
+Zillow starts some series later or stops publishing a cut. Empty cells are skipped, so a record appears only when Zillow published a value for that region and month.
 
-**How many records can one run return?**
-Up to `maxItems`, capped at 500 per run.
+**Why does history data sometimes change between runs?**
+Zillow restates its back-series when methodology or source data change. Each run reads the current published file, so a later download can differ from an earlier one. `scrapedAt` records when the file was read.
+
+**How do I get a full ZIP or neighborhood history?**
+Those files are large and the actor caps output at 100,000 records per run. Use `latest` for a current snapshot, or split the request by state, region or date range.
+
+**Are market heat and forecast values percentages?**
+Market heat is an index value; higher means a hotter seller's market. ZHVF and ZORF forecast values are percentages. The `unit` field on every row tells you which applies.
+
+**Can I use a dataset that is not in the picker?**
+Yes. Paste its Zillow Research CSV URL into `customDatasetUrl`. Only `files.zillowstatic.com/research/...csv` URLs are accepted.
 
 **How current is the data?**
-Each run downloads Zillow's current published research file, so results reflect whatever Zillow has most recently released.
+Zillow updates monthly datasets around the middle of the following month and weekly files on a monthly cadence. The `latestDate` field shows the newest observation in the file you selected.

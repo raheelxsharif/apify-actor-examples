@@ -1,22 +1,39 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "latestSnapshot": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "Lands of America Scraper",
+      "title": "Latest snapshot",
       "transformation": {
         "fields": [
-          "title",
-          "acres",
-          "price",
-          "pricePerAcre",
+          "regionName",
           "state",
-          "county",
-          "landType",
-          "listingUrl"
+          "value",
+          "date",
+          "change1yPct",
+          "unit",
+          "metric"
+        ]
+      }
+    },
+    "observations": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Observations",
+      "transformation": {
+        "fields": [
+          "regionName",
+          "regionType",
+          "date",
+          "value",
+          "unit",
+          "metric",
+          "datasetId"
         ]
       }
     }
