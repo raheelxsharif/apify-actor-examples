@@ -1,0 +1,238 @@
+{
+  "description": "Search NetEase Cloud Music, fetch songs by URL, artist top songs, browse playlists, and pull top-100 charts. No login required.",
+  "properties": {
+    "artistId": {
+      "description": "NetEase artist id, e.g. 6452 (Jay Chou). Either artistId or artistName.",
+      "maximum": 999999999,
+      "minimum": 1,
+      "title": "Artist ID (mode=byArtist)",
+      "type": "integer"
+    },
+    "artistName": {
+      "description": "Artist name resolved to an id via the suggestions API when artistId is empty.",
+      "editor": "textfield",
+      "title": "Artist name (mode=byArtist)",
+      "type": "string"
+    },
+    "containsKeyword": {
+      "description": "Only keep songs whose title contains this substring (case-insensitive).",
+      "editor": "textfield",
+      "title": "Contains keyword",
+      "type": "string"
+    },
+    "includeLyric": {
+      "default": false,
+      "description": "Attach the first 2000 chars of the LRC lyric to song records.",
+      "prefill": false,
+      "title": "Include lyrics (mode=bySongUrl)",
+      "type": "boolean"
+    },
+    "includeToplistInfo": {
+      "default": true,
+      "description": "Emit the toplist summary record before its tracks.",
+      "prefill": true,
+      "title": "Include toplist info record",
+      "type": "boolean"
+    },
+    "maxDurationSec": {
+      "description": "Drop songs longer than this.",
+      "maximum": 86400,
+      "minimum": 0,
+      "title": "Max duration (seconds)",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minDurationSec": {
+      "description": "Drop songs shorter than this.",
+      "maximum": 86400,
+      "minimum": 0,
+      "title": "Min duration (seconds)",
+      "type": "integer"
+    },
+    "minPopularity": {
+      "description": "Drop songs with lower popularity (0-100).",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Min popularity",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "bySongUrl",
+        "byArtist",
+        "byArtistAlbums",
+        "byPlaylist",
+        "byToplist"
+      ],
+      "enumTitles": [
+        "Search songs (suggestions)",
+        "Fetch songs by URL",
+        "Artist top songs",
+        "Artist album discography",
+        "Browse playlists",
+        "Top-100 charts"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "playlistCat": {
+      "default": "华语",
+      "description": "Playlist genre to browse.",
+      "editor": "select",
+      "enum": [
+        "华语",
+        "欧美",
+        "日语",
+        "韩语",
+        "粤语",
+        "摇滚",
+        "民谣",
+        "电子",
+        "说唱",
+        "轻音乐",
+        "影视原声",
+        "ACG",
+        "怀旧",
+        "治愈",
+        "放松",
+        "旅行",
+        "夜晚",
+        "学习",
+        "工作",
+        "运动",
+        "综艺",
+        "流行",
+        "清新",
+        "清晨",
+        "浪漫",
+        "儿童",
+        "校园",
+        "游戏"
+      ],
+      "enumTitles": [
+        "华语",
+        "欧美",
+        "日语",
+        "韩语",
+        "粤语",
+        "摇滚",
+        "民谣",
+        "电子",
+        "说唱",
+        "轻音乐",
+        "影视原声",
+        "ACG",
+        "怀旧",
+        "治愈",
+        "放松",
+        "旅行",
+        "夜晚",
+        "学习",
+        "工作",
+        "运动",
+        "综艺",
+        "流行",
+        "清新",
+        "清晨",
+        "浪漫",
+        "儿童",
+        "校园",
+        "游戏"
+      ],
+      "prefill": "华语",
+      "title": "Playlist category (mode=byPlaylist)",
+      "type": "string"
+    },
+    "playlistOrder": {
+      "default": "hot",
+      "description": "Sort playlists by popularity or freshness.",
+      "editor": "select",
+      "enum": [
+        "hot",
+        "new"
+      ],
+      "enumTitles": [
+        "Most popular",
+        "Newest"
+      ],
+      "prefill": "hot",
+      "title": "Playlist sort order (mode=byPlaylist)",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "周杰伦",
+      "description": "Free-text query (mode=search).",
+      "editor": "textfield",
+      "prefill": "周杰伦",
+      "title": "Search query",
+      "type": "string"
+    },
+    "songUrls": {
+      "default": [],
+      "description": "music.163.com song URLs, e.g. `https://music.163.com/#/song?id=186016`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Song URLs (mode=bySongUrl)",
+      "type": "array"
+    },
+    "toplistId": {
+      "description": "NetEase chart to fetch (top 100 tracks).",
+      "editor": "select",
+      "enum": [
+        "19723756",
+        "3778678",
+        "3779629",
+        "2884035",
+        "3779659",
+        "3778776",
+        "3777462",
+        "3777333",
+        "5059644681",
+        "7774293341",
+        "991319582",
+        "2250011882",
+        "71384707",
+        "2006508653",
+        "10520166"
+      ],
+      "enumTitles": [
+        "云音乐飙升榜",
+        "云音乐热歌榜",
+        "云音乐新歌榜",
+        "云音乐原创榜",
+        "云音乐电音榜",
+        "云音乐民谣榜",
+        "云音乐说唱榜",
+        "云音乐ACG榜",
+        "云音乐国风榜",
+        "云音乐电影歌曲榜",
+        "云音乐90后榜",
+        "抖音排行榜",
+        "云音乐KTV热歌榜",
+        "云音乐新歌速递",
+        "云音乐欧美新歌榜"
+      ],
+      "title": "Toplist (mode=byToplist)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "NetEase Music Scraper Input",
+  "type": "object"
+}

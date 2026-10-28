@@ -1,20 +1,20 @@
 {
-  "description": "Scrape books, authors, series, Listopia lists, popular shelves, and genres from Goodreads. Look up books by URL, search query, or ISBN.",
+  "description": "Scrape books, reviews, editions, quotes, authors, series, Listopia lists, shelves, genres, similar books, and release charts from Goodreads.",
   "properties": {
     "authorUrls": {
       "default": [],
-      "description": "Goodreads author URLs (e.g. https://www.goodreads.com/author/show/1077326). The actor walks /author/list/<id>?page=N for all books. (mode=auto, authors)",
+      "description": "Goodreads author URLs or bare author IDs. (mode=authors, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "prefill": [],
-      "title": "Author URLs",
+      "title": "Author URLs or IDs",
       "type": "array"
     },
     "bookUrls": {
       "default": [],
-      "description": "Direct Goodreads book URLs. (mode=auto, books)",
+      "description": "Goodreads book URLs, bare book IDs, or ISBNs. Used by books, reviews, editions, similar, and bookLists. (mode=books, reviews, editions, similar, bookLists, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"
@@ -22,25 +22,47 @@
       "prefill": [
         "https://www.goodreads.com/book/show/4671.The_Great_Gatsby"
       ],
-      "sectionCaption": "Inputs",
-      "title": "Book URLs",
+      "title": "Book URLs or IDs",
       "type": "array"
     },
     "containsAuthor": {
-      "description": "Drop books unless one of their authors contains this substring (case-insensitive).",
+      "description": "Keep books with an author name containing this text.",
       "editor": "textfield",
       "title": "Contains author",
       "type": "string"
     },
     "containsGenre": {
-      "description": "Drop books unless one of their genres contains this substring (case-insensitive).",
+      "description": "Keep books with a genre containing this text.",
       "editor": "textfield",
       "title": "Contains genre",
       "type": "string"
     },
+    "detailLevel": {
+      "default": "full",
+      "description": "Full returns complete book records. Listing returns lighter row records for search, author, series, list, shelf, and genre results.",
+      "editor": "select",
+      "enum": [
+        "full",
+        "listing"
+      ],
+      "enumTitles": [
+        "Full book records",
+        "Listing rows only"
+      ],
+      "prefill": "full",
+      "title": "Detail level",
+      "type": "string"
+    },
+    "excludeSpoilers": {
+      "default": false,
+      "description": "Skip reviews Goodreads marks as containing spoilers. (mode=reviews)",
+      "prefill": false,
+      "title": "Exclude spoilers",
+      "type": "boolean"
+    },
     "genreNames": {
       "default": [],
-      "description": "Genre names like 'fiction', 'romance', 'mystery'. (mode=auto, genres)",
+      "description": "Genre slugs such as fantasy, romance, or science-fiction. (mode=genres, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"
@@ -51,75 +73,119 @@
     },
     "includeMetadata": {
       "default": false,
-      "description": "When true, emit one extra record per author/series/list with bio, description, and counts (recordType: 'author' | 'series' | 'list'). Default false.",
+      "description": "Also emit one author, series, or Listopia summary record alongside the books.",
       "prefill": false,
-      "sectionCaption": "Advanced",
-      "title": "Include metadata records",
+      "title": "Include summary records",
+      "type": "boolean"
+    },
+    "includeRelated": {
+      "default": false,
+      "description": "In auto mode, also collect reviews, editions, similar books, and lists for each book URL.",
+      "prefill": false,
+      "title": "Include related book data",
       "type": "boolean"
     },
     "isbns": {
       "default": [],
-      "description": "ISBN-10 or ISBN-13 codes. Goodreads' search redirects ISBN queries to the matching book. (mode=auto, isbns)",
+      "description": "ISBN-10 or ISBN-13 values. Hyphens and spaces are accepted. (mode=isbns, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
-      "prefill": [],
+      "prefill": [
+        "9780743273565"
+      ],
       "title": "ISBNs",
       "type": "array"
     },
     "language": {
-      "description": "Drop books whose language doesn't contain this string (case-insensitive substring match). E.g. 'en', 'eng', 'English'.",
+      "description": "Keep books whose language starts with this text, for example en, English, or fre.",
       "editor": "textfield",
       "title": "Language",
       "type": "string"
     },
     "listUrls": {
       "default": [],
-      "description": "Goodreads /list/show/ URLs (e.g. Best Books Ever). Paginated. (mode=auto, lists)",
+      "description": "Listopia /list/show/ URLs or bare list IDs. (mode=lists, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "prefill": [],
-      "title": "Listopia list URLs",
+      "title": "Listopia URLs or IDs",
       "type": "array"
+    },
+    "maxEditionsPerBook": {
+      "default": 20,
+      "description": "Editions to collect for each book. (mode=editions)",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max editions per book",
+      "type": "integer"
     },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on total records emitted across all inputs. Books, search results, and listing-page results all count toward this.",
-      "maximum": 1000,
+      "description": "Hard cap on every record emitted in the run, including review, edition, quote, list, and summary records.",
+      "maximum": 1000000,
       "minimum": 1,
-      "prefill": 5,
-      "sectionCaption": "Output limits",
+      "prefill": 1,
       "title": "Max items",
       "type": "integer"
     },
-    "maxResultsPerQuery": {
-      "description": "Legacy field. Use maxItems instead. When set and maxItems is at its default, this value is used as the cap.",
+    "maxListsPerBook": {
+      "default": 20,
+      "description": "Listopia lists to collect for each input book. (mode=bookLists)",
       "maximum": 100,
       "minimum": 1,
-      "title": "[Deprecated] Max results per query",
+      "prefill": 5,
+      "title": "Max lists per book",
+      "type": "integer"
+    },
+    "maxQuotesPerSource": {
+      "default": 30,
+      "description": "Quotes to collect from each tag, author, or work. (mode=quotes)",
+      "maximum": 3000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max quotes per source",
+      "type": "integer"
+    },
+    "maxReviewsPerBook": {
+      "default": 30,
+      "description": "Reviews to collect for each book. (mode=reviews)",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max reviews per book",
+      "type": "integer"
+    },
+    "maxSimilarPerBook": {
+      "default": 20,
+      "description": "Similar books to collect for each input book. (mode=similar)",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max similar books per book",
       "type": "integer"
     },
     "minRating": {
-      "description": "Drop books with averageRating below this integer threshold (0-5). For finer thresholds (e.g. 4.5), use a higher minRatingsCount filter to surface highly-rated books.",
+      "description": "Drop books rated below this value. Decimals such as 4.5 are supported.",
       "maximum": 5,
       "minimum": 0,
-      "sectionCaption": "Filters",
-      "title": "Min average rating",
-      "type": "integer"
+      "title": "Minimum average rating",
+      "type": "number"
     },
     "minRatingsCount": {
-      "description": "Drop books with fewer than N ratings.",
+      "description": "Drop books with fewer ratings than this.",
       "maximum": 10000000,
       "minimum": 0,
-      "title": "Min ratings count",
+      "title": "Minimum ratings count",
       "type": "integer"
     },
     "mode": {
       "default": "auto",
-      "description": "What to scrape. Use 'auto' (default) to run any non-empty inputs you provide. Or pick a specific mode to run only that one.",
+      "description": "What to scrape. Auto runs every non-empty input you provide.",
       "editor": "select",
       "enum": [
         "auto",
@@ -130,76 +196,322 @@
         "series",
         "lists",
         "shelves",
-        "genres"
+        "genres",
+        "reviews",
+        "editions",
+        "quotes",
+        "similar",
+        "bookLists",
+        "newReleases"
       ],
       "enumTitles": [
-        "Auto (run all non-empty inputs)",
-        "Book URLs (direct /book/show/ links)",
-        "Search queries (text)",
-        "ISBN lookup (ISBN-10 or ISBN-13)",
-        "Author pages (all books by author)",
-        "Series pages (all books in series)",
+        "Auto (run every non-empty input)",
+        "Books by URL or ID",
+        "Search by keyword",
+        "Books by ISBN",
+        "Books by author",
+        "Books in a series",
         "Listopia lists",
         "Popular shelves",
-        "Genres"
+        "Genres",
+        "Reviews of books",
+        "Editions of books",
+        "Quotes",
+        "Similar books",
+        "Lists containing books",
+        "New releases by date"
       ],
-      "prefill": "auto",
+      "prefill": "isbns",
       "title": "Mode",
       "type": "string"
     },
-    "proxyConfiguration": {
-      "default": {
-        "useApifyProxy": false
-      },
-      "description": "Optional proxy. Goodreads is reachable from datacenter IPs without proxy; only enable if you hit sustained 429s.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": false
-      },
-      "title": "Proxy configuration",
-      "type": "object"
-    },
     "publishYearMax": {
-      "description": "Drop books published after this year.",
+      "description": "Drop books first published after this year.",
       "maximum": 3000,
       "minimum": 0,
-      "title": "Published year max",
+      "title": "Published year to",
       "type": "integer"
     },
     "publishYearMin": {
-      "description": "Drop books published before this year.",
+      "description": "Drop books first published before this year.",
       "maximum": 3000,
       "minimum": 0,
-      "title": "Published year min",
+      "title": "Published year from",
       "type": "integer"
     },
-    "searchQueries": {
+    "quoteAuthorUrls": {
       "default": [],
-      "description": "Free-text search terms (titles, authors, keywords). (mode=auto, search)",
-      "editor": "stringList",
-      "items": {
-        "type": "string"
-      },
-      "prefill": [
-        "sapiens"
-      ],
-      "title": "Search queries",
-      "type": "array"
-    },
-    "seriesUrls": {
-      "default": [],
-      "description": "Goodreads series URLs (e.g. https://www.goodreads.com/series/49075-harry-potter). All books in the series are scraped. (mode=auto, series)",
+      "description": "Author quote pages as Goodreads URLs or bare author IDs. (mode=quotes)",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "prefill": [],
-      "title": "Series URLs",
+      "title": "Quote author URLs or IDs",
+      "type": "array"
+    },
+    "quoteTags": {
+      "default": [],
+      "description": "Quote tag pages to scrape, such as love, life, or wisdom. (mode=quotes)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "love"
+      ],
+      "title": "Quote tags",
+      "type": "array"
+    },
+    "quoteWorkUrls": {
+      "default": [],
+      "description": "Work quote pages as Goodreads URLs or bare work IDs. (mode=quotes)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Quote work URLs or IDs",
+      "type": "array"
+    },
+    "releaseMonth": {
+      "default": "all",
+      "description": "Month of the new-releases chart, or all for the yearly chart. (mode=newReleases)",
+      "editor": "select",
+      "enum": [
+        "all",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "enumTitles": [
+        "Whole year",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      "prefill": "all",
+      "title": "Release chart month",
+      "type": "string"
+    },
+    "releaseYear": {
+      "default": 2026,
+      "description": "Year of the new-releases chart. (mode=newReleases)",
+      "maximum": 2100,
+      "minimum": 1900,
+      "prefill": 2026,
+      "title": "Release chart year",
+      "type": "integer"
+    },
+    "reviewLanguage": {
+      "default": "all",
+      "description": "Only collect reviews written in this language. (mode=reviews)",
+      "editor": "select",
+      "enum": [
+        "all",
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "nl",
+        "pl",
+        "tr",
+        "ar",
+        "ru",
+        "uk",
+        "zh",
+        "zh-TW",
+        "ja",
+        "ko",
+        "hi",
+        "bn",
+        "id",
+        "vi",
+        "th",
+        "sv",
+        "no",
+        "da",
+        "fi",
+        "cs",
+        "sk",
+        "hu",
+        "ro",
+        "bg",
+        "el",
+        "he",
+        "sr",
+        "hr",
+        "sl",
+        "lt",
+        "lv",
+        "et",
+        "ca",
+        "gl",
+        "eu",
+        "fa",
+        "ur",
+        "ms",
+        "tl",
+        "af",
+        "sw",
+        "ka",
+        "hy",
+        "az",
+        "uz",
+        "mn",
+        "is",
+        "ga",
+        "cy",
+        "sq",
+        "bs",
+        "mk",
+        "be",
+        "la"
+      ],
+      "enumTitles": [
+        "All languages",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Dutch",
+        "Polish",
+        "Turkish",
+        "Arabic",
+        "Russian",
+        "Ukrainian",
+        "Chinese",
+        "Chinese (Traditional)",
+        "Japanese",
+        "Korean",
+        "Hindi",
+        "Bengali",
+        "Indonesian",
+        "Vietnamese",
+        "Thai",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "Finnish",
+        "Czech",
+        "Slovak",
+        "Hungarian",
+        "Romanian",
+        "Bulgarian",
+        "Greek",
+        "Hebrew",
+        "Serbian",
+        "Croatian",
+        "Slovenian",
+        "Lithuanian",
+        "Latvian",
+        "Estonian",
+        "Catalan",
+        "Galician",
+        "Basque",
+        "Persian",
+        "Urdu",
+        "Malay",
+        "Tagalog",
+        "Afrikaans",
+        "Swahili",
+        "Georgian",
+        "Armenian",
+        "Azerbaijani",
+        "Uzbek",
+        "Mongolian",
+        "Icelandic",
+        "Irish",
+        "Welsh",
+        "Albanian",
+        "Bosnian",
+        "Macedonian",
+        "Belarusian",
+        "Latin"
+      ],
+      "prefill": "all",
+      "title": "Review language",
+      "type": "string"
+    },
+    "reviewRatingMax": {
+      "description": "Only collect reviews with at most this star rating. (mode=reviews)",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Maximum review rating",
+      "type": "integer"
+    },
+    "reviewRatingMin": {
+      "description": "Only collect reviews with at least this star rating. (mode=reviews)",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum review rating",
+      "type": "integer"
+    },
+    "reviewSort": {
+      "default": "DEFAULT",
+      "description": "Order reviews by Goodreads default, newest first, or oldest first. (mode=reviews)",
+      "editor": "select",
+      "enum": [
+        "DEFAULT",
+        "NEWEST",
+        "OLDEST"
+      ],
+      "enumTitles": [
+        "Goodreads default",
+        "Newest first",
+        "Oldest first"
+      ],
+      "prefill": "DEFAULT",
+      "title": "Review sort order",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Titles, authors, or keywords to search for. (mode=search, auto)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "seriesUrls": {
+      "default": [],
+      "description": "Goodreads series URLs or bare series IDs. (mode=series, auto)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Series URLs or IDs",
       "type": "array"
     },
     "shelfNames": {
       "default": [],
-      "description": "Popular shelf names like 'mystery', 'fantasy', 'historical-fiction'. Paginated. (mode=auto, shelves)",
+      "description": "Popular shelf names such as mystery, fantasy, or historical-fiction. (mode=shelves, auto)",
       "editor": "stringList",
       "items": {
         "type": "string"

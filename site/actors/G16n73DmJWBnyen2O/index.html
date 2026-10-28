@@ -1,20 +1,20 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-1ThABkODUhzgzR0CPvlgglJuyTbYK6PBvwxvPCYAN2M=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Goodreads Book, Author &amp; Listopia List Scraper | Dataspryva</title><meta name="description" content="Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publ"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"><meta property="og:title" content="Goodreads Book, Author &amp; Listopia List Scraper | Dataspryva"><meta property="og:description" content="Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publ"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#webpage","name":"Goodreads Book, Author & Listopia List Scraper","description":"Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#article","headline":"Goodreads Book, Author & Listopia List Scraper","name":"Goodreads Book, Author & Listopia List Scraper","description":"Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Goodreads Book, Author & Listopia List Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Goodreads Book, Author &amp; Listopia List Scraper</span></div><section id="overview"><h1 class="doc-title">Goodreads Book, Author &amp; Listopia List Scraper</h1><p class="lede">Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/goodreads-book-author-and-listopia-list-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/G16n73DmJWBnyen2O/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Use &#x27;auto&#x27; (default) to run any non-empty inputs you provide. Or pick a specific mode to run only that one.</td></tr><tr><td><code>bookUrls</code></td><td>array</td><td>optional</td><td>Direct Goodreads book URLs. (mode=auto, books)</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Free-text search terms (titles, authors, keywords). (mode=auto, search)</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Use &#x27;auto&#x27; (default) to run any non-empty inputs you provide. Or pick a specific mode to run only that one.</td></tr><tr><td><code>bookUrls</code></td><td>array</td><td>optional</td><td>Direct Goodreads book URLs. (mode=auto, books)</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Free-text search terms (titles, authors, keywords). (mode=auto, search)</td></tr><tr><td><code>isbns</code></td><td>array</td><td>optional</td><td>ISBN-10 or ISBN-13 codes. Goodreads&#x27; search redirects ISBN queries to the matching book. (mode=auto, isbns)</td></tr><tr><td><code>authorUrls</code></td><td>array</td><td>optional</td><td>Goodreads author URLs (e.g. https://www.goodreads.com/author/show/1077326). The actor walks /author/list/&lt;id&gt;?page=N for all books. (mode=auto, authors)</td></tr><tr><td><code>seriesUrls</code></td><td>array</td><td>optional</td><td>Goodreads series URLs (e.g. https://www.goodreads.com/series/49075-harry-potter). All books in the series are scraped. (mode=auto, series)</td></tr><tr><td><code>listUrls</code></td><td>array</td><td>optional</td><td>Goodreads /list/show/ URLs (e.g. Best Books Ever). Paginated. (mode=auto, lists)</td></tr><tr><td><code>shelfNames</code></td><td>array</td><td>optional</td><td>Popular shelf names like &#x27;mystery&#x27;, &#x27;fantasy&#x27;, &#x27;historical-fiction&#x27;. Paginated. (mode=auto, shelves)</td></tr><tr><td><code>genreNames</code></td><td>array</td><td>optional</td><td>Genre names like &#x27;fiction&#x27;, &#x27;romance&#x27;, &#x27;mystery&#x27;. (mode=auto, genres)</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on total records emitted across all inputs. Books, search results, and listing-page results all count toward this.</td></tr><tr><td><code>maxResultsPerQuery</code></td><td>integer</td><td>optional</td><td>Legacy field. Use maxItems instead. When set and maxItems is at its default, this value is used as the cap.</td></tr><tr><td><code>minRating</code></td><td>integer</td><td>optional</td><td>Drop books with averageRating below this integer threshold (0-5). For finer thresholds (e.g. 4.5), use a higher minRatingsCount filter to surface highly-rated books.</td></tr><tr><td><code>minRatingsCount</code></td><td>integer</td><td>optional</td><td>Drop books with fewer than N ratings.</td></tr><tr><td><code>publishYearMin</code></td><td>integer</td><td>optional</td><td>Drop books published before this year.</td></tr><tr><td><code>publishYearMax</code></td><td>integer</td><td>optional</td><td>Drop books published after this year.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Drop books whose language doesn&#x27;t contain this string (case-insensitive substring match). E.g. &#x27;en&#x27;, &#x27;eng&#x27;, &#x27;English&#x27;.</td></tr><tr><td><code>containsGenre</code></td><td>string</td><td>optional</td><td>Drop books unless one of their genres contains this substring (case-insensitive).</td></tr><tr><td><code>containsAuthor</code></td><td>string</td><td>optional</td><td>Drop books unless one of their authors contains this substring (case-insensitive).</td></tr><tr><td><code>includeMetadata</code></td><td>boolean</td><td>optional</td><td>When true, emit one extra record per author/series/list with bio, description, and counts (recordType: &#x27;author&#x27; | &#x27;series&#x27; | &#x27;list&#x27;). Default false.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional proxy. Goodreads is reachable from datacenter IPs without proxy; only enable if you hit sustained 429s.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape books, authors, series, Listopia lists, popular shelves, and genres from Goodreads. Look up books by URL, search query, or ISBN.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-1ThABkODUhzgzR0CPvlgglJuyTbYK6PBvwxvPCYAN2M=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Goodreads Book, Author &amp; Listopia List Scraper | Dataspryva</title><meta name="description" content="Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publ"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"><meta property="og:title" content="Goodreads Book, Author &amp; Listopia List Scraper | Dataspryva"><meta property="og:description" content="Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publ"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#webpage","name":"Goodreads Book, Author & Listopia List Scraper","description":"Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#article","headline":"Goodreads Book, Author & Listopia List Scraper","name":"Goodreads Book, Author & Listopia List Scraper","description":"Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Goodreads Book, Author & Listopia List Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/G16n73DmJWBnyen2O/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Goodreads Book, Author &amp; Listopia List Scraper</span></div><section id="overview"><h1 class="doc-title">Goodreads Book, Author &amp; Listopia List Scraper</h1><p class="lede">Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/goodreads-book-author-and-listopia-list-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/G16n73DmJWBnyen2O/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Auto runs every non-empty input you provide.</td></tr><tr><td><code>bookUrls</code></td><td>array</td><td>optional</td><td>Goodreads book URLs, bare book IDs, or ISBNs. Used by books, reviews, editions, similar, and bookLists. (mode=books, reviews, editions, similar, bookLists, auto)</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Titles, authors, or keywords to search for. (mode=search, auto)</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Auto runs every non-empty input you provide.</td></tr><tr><td><code>bookUrls</code></td><td>array</td><td>optional</td><td>Goodreads book URLs, bare book IDs, or ISBNs. Used by books, reviews, editions, similar, and bookLists. (mode=books, reviews, editions, similar, bookLists, auto)</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Titles, authors, or keywords to search for. (mode=search, auto)</td></tr><tr><td><code>isbns</code></td><td>array</td><td>optional</td><td>ISBN-10 or ISBN-13 values. Hyphens and spaces are accepted. (mode=isbns, auto)</td></tr><tr><td><code>authorUrls</code></td><td>array</td><td>optional</td><td>Goodreads author URLs or bare author IDs. (mode=authors, auto)</td></tr><tr><td><code>seriesUrls</code></td><td>array</td><td>optional</td><td>Goodreads series URLs or bare series IDs. (mode=series, auto)</td></tr><tr><td><code>listUrls</code></td><td>array</td><td>optional</td><td>Listopia /list/show/ URLs or bare list IDs. (mode=lists, auto)</td></tr><tr><td><code>shelfNames</code></td><td>array</td><td>optional</td><td>Popular shelf names such as mystery, fantasy, or historical-fiction. (mode=shelves, auto)</td></tr><tr><td><code>genreNames</code></td><td>array</td><td>optional</td><td>Genre slugs such as fantasy, romance, or science-fiction. (mode=genres, auto)</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on every record emitted in the run, including review, edition, quote, list, and summary records.</td></tr><tr><td><code>detailLevel</code></td><td>string</td><td>optional</td><td>Full returns complete book records. Listing returns lighter row records for search, author, series, list, shelf, and genre results.</td></tr><tr><td><code>includeMetadata</code></td><td>boolean</td><td>optional</td><td>Also emit one author, series, or Listopia summary record alongside the books.</td></tr><tr><td><code>includeRelated</code></td><td>boolean</td><td>optional</td><td>In auto mode, also collect reviews, editions, similar books, and lists for each book URL.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Drop books rated below this value. Decimals such as 4.5 are supported.</td></tr><tr><td><code>minRatingsCount</code></td><td>integer</td><td>optional</td><td>Drop books with fewer ratings than this.</td></tr><tr><td><code>publishYearMin</code></td><td>integer</td><td>optional</td><td>Drop books first published before this year.</td></tr><tr><td><code>publishYearMax</code></td><td>integer</td><td>optional</td><td>Drop books first published after this year.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Keep books whose language starts with this text, for example en, English, or fre.</td></tr><tr><td><code>containsGenre</code></td><td>string</td><td>optional</td><td>Keep books with a genre containing this text.</td></tr><tr><td><code>containsAuthor</code></td><td>string</td><td>optional</td><td>Keep books with an author name containing this text.</td></tr><tr><td><code>maxReviewsPerBook</code></td><td>integer</td><td>optional</td><td>Reviews to collect for each book. (mode=reviews)</td></tr><tr><td><code>reviewSort</code></td><td>string</td><td>optional</td><td>Order reviews by Goodreads default, newest first, or oldest first. (mode=reviews)</td></tr><tr><td><code>reviewLanguage</code></td><td>string</td><td>optional</td><td>Only collect reviews written in this language. (mode=reviews)</td></tr><tr><td><code>reviewRatingMin</code></td><td>integer</td><td>optional</td><td>Only collect reviews with at least this star rating. (mode=reviews)</td></tr><tr><td><code>reviewRatingMax</code></td><td>integer</td><td>optional</td><td>Only collect reviews with at most this star rating. (mode=reviews)</td></tr><tr><td><code>excludeSpoilers</code></td><td>boolean</td><td>optional</td><td>Skip reviews Goodreads marks as containing spoilers. (mode=reviews)</td></tr><tr><td><code>maxEditionsPerBook</code></td><td>integer</td><td>optional</td><td>Editions to collect for each book. (mode=editions)</td></tr><tr><td><code>quoteTags</code></td><td>array</td><td>optional</td><td>Quote tag pages to scrape, such as love, life, or wisdom. (mode=quotes)</td></tr><tr><td><code>quoteAuthorUrls</code></td><td>array</td><td>optional</td><td>Author quote pages as Goodreads URLs or bare author IDs. (mode=quotes)</td></tr><tr><td><code>quoteWorkUrls</code></td><td>array</td><td>optional</td><td>Work quote pages as Goodreads URLs or bare work IDs. (mode=quotes)</td></tr><tr><td><code>maxQuotesPerSource</code></td><td>integer</td><td>optional</td><td>Quotes to collect from each tag, author, or work. (mode=quotes)</td></tr><tr><td><code>maxSimilarPerBook</code></td><td>integer</td><td>optional</td><td>Similar books to collect for each input book. (mode=similar)</td></tr><tr><td><code>maxListsPerBook</code></td><td>integer</td><td>optional</td><td>Listopia lists to collect for each input book. (mode=bookLists)</td></tr><tr><td><code>releaseYear</code></td><td>integer</td><td>optional</td><td>Year of the new-releases chart. (mode=newReleases)</td></tr><tr><td><code>releaseMonth</code></td><td>string</td><td>optional</td><td>Month of the new-releases chart, or all for the yearly chart. (mode=newReleases)</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape books, reviews, editions, quotes, authors, series, Listopia lists, shelves, genres, similar books, and release charts from Goodreads.&quot;,
   &quot;properties&quot;: {
     &quot;authorUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Goodreads author URLs (e.g. https://www.goodreads.com/author/show/1077326). The actor walks /author/list/&lt;id&gt;?page=N for all books. (mode=auto, authors)&quot;,
+      &quot;description&quot;: &quot;Goodreads author URLs or bare author IDs. (mode=authors, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
       &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Author URLs&quot;,
+      &quot;title&quot;: &quot;Author URLs or IDs&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;bookUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Direct Goodreads book URLs. (mode=auto, books)&quot;,
+      &quot;description&quot;: &quot;Goodreads book URLs, bare book IDs, or ISBNs. Used by books, reviews, editions, similar, and bookLists. (mode=books, reviews, editions, similar, bookLists, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
@@ -22,25 +22,47 @@
       &quot;prefill&quot;: [
         &quot;https://www.goodreads.com/book/show/4671.The_Great_Gatsby&quot;
       ],
-      &quot;sectionCaption&quot;: &quot;Inputs&quot;,
-      &quot;title&quot;: &quot;Book URLs&quot;,
+      &quot;title&quot;: &quot;Book URLs or IDs&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;containsAuthor&quot;: {
-      &quot;description&quot;: &quot;Drop books unless one of their authors contains this substring (case-insensitive).&quot;,
+      &quot;description&quot;: &quot;Keep books with an author name containing this text.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
       &quot;title&quot;: &quot;Contains author&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;containsGenre&quot;: {
-      &quot;description&quot;: &quot;Drop books unless one of their genres contains this substring (case-insensitive).&quot;,
+      &quot;description&quot;: &quot;Keep books with a genre containing this text.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
       &quot;title&quot;: &quot;Contains genre&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;detailLevel&quot;: {
+      &quot;default&quot;: &quot;full&quot;,
+      &quot;description&quot;: &quot;Full returns complete book records. Listing returns lighter row records for search, author, series, list, shelf, and genre results.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;full&quot;,
+        &quot;listing&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Full book records&quot;,
+        &quot;Listing rows only&quot;
+      ],
+      &quot;prefill&quot;: &quot;full&quot;,
+      &quot;title&quot;: &quot;Detail level&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;excludeSpoilers&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Skip reviews Goodreads marks as containing spoilers. (mode=reviews)&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude spoilers&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;genreNames&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Genre names like &#x27;fiction&#x27;, &#x27;romance&#x27;, &#x27;mystery&#x27;. (mode=auto, genres)&quot;,
+      &quot;description&quot;: &quot;Genre slugs such as fantasy, romance, or science-fiction. (mode=genres, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
@@ -51,75 +73,119 @@
     },
     &quot;includeMetadata&quot;: {
       &quot;default&quot;: false,
-      &quot;description&quot;: &quot;When true, emit one extra record per author/series/list with bio, description, and counts (recordType: &#x27;author&#x27; | &#x27;series&#x27; | &#x27;list&#x27;). Default false.&quot;,
+      &quot;description&quot;: &quot;Also emit one author, series, or Listopia summary record alongside the books.&quot;,
       &quot;prefill&quot;: false,
-      &quot;sectionCaption&quot;: &quot;Advanced&quot;,
-      &quot;title&quot;: &quot;Include metadata records&quot;,
+      &quot;title&quot;: &quot;Include summary records&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeRelated&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;In auto mode, also collect reviews, editions, similar books, and lists for each book URL.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include related book data&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;isbns&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;ISBN-10 or ISBN-13 codes. Goodreads&#x27; search redirects ISBN queries to the matching book. (mode=auto, isbns)&quot;,
+      &quot;description&quot;: &quot;ISBN-10 or ISBN-13 values. Hyphens and spaces are accepted. (mode=isbns, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
-      &quot;prefill&quot;: [],
+      &quot;prefill&quot;: [
+        &quot;9780743273565&quot;
+      ],
       &quot;title&quot;: &quot;ISBNs&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;language&quot;: {
-      &quot;description&quot;: &quot;Drop books whose language doesn&#x27;t contain this string (case-insensitive substring match). E.g. &#x27;en&#x27;, &#x27;eng&#x27;, &#x27;English&#x27;.&quot;,
+      &quot;description&quot;: &quot;Keep books whose language starts with this text, for example en, English, or fre.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
       &quot;title&quot;: &quot;Language&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;listUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Goodreads /list/show/ URLs (e.g. Best Books Ever). Paginated. (mode=auto, lists)&quot;,
+      &quot;description&quot;: &quot;Listopia /list/show/ URLs or bare list IDs. (mode=lists, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
       &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Listopia list URLs&quot;,
+      &quot;title&quot;: &quot;Listopia URLs or IDs&quot;,
       &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxEditionsPerBook&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Editions to collect for each book. (mode=editions)&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max editions per book&quot;,
+      &quot;type&quot;: &quot;integer&quot;
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Hard cap on total records emitted across all inputs. Books, search results, and listing-page results all count toward this.&quot;,
-      &quot;maximum&quot;: 1000,
+      &quot;description&quot;: &quot;Hard cap on every record emitted in the run, including review, edition, quote, list, and summary records.&quot;,
+      &quot;maximum&quot;: 1000000,
       &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 5,
-      &quot;sectionCaption&quot;: &quot;Output limits&quot;,
+      &quot;prefill&quot;: 1,
       &quot;title&quot;: &quot;Max items&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;maxResultsPerQuery&quot;: {
-      &quot;description&quot;: &quot;Legacy field. Use maxItems instead. When set and maxItems is at its default, this value is used as the cap.&quot;,
+    &quot;maxListsPerBook&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Listopia lists to collect for each input book. (mode=bookLists)&quot;,
       &quot;maximum&quot;: 100,
       &quot;minimum&quot;: 1,
-      &quot;title&quot;: &quot;[Deprecated] Max results per query&quot;,
+      &quot;prefill&quot;: 5,
+      &quot;title&quot;: &quot;Max lists per book&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxQuotesPerSource&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Quotes to collect from each tag, author, or work. (mode=quotes)&quot;,
+      &quot;maximum&quot;: 3000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max quotes per source&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerBook&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Reviews to collect for each book. (mode=reviews)&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max reviews per book&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxSimilarPerBook&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Similar books to collect for each input book. (mode=similar)&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 5,
+      &quot;title&quot;: &quot;Max similar books per book&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;minRating&quot;: {
-      &quot;description&quot;: &quot;Drop books with averageRating below this integer threshold (0-5). For finer thresholds (e.g. 4.5), use a higher minRatingsCount filter to surface highly-rated books.&quot;,
+      &quot;description&quot;: &quot;Drop books rated below this value. Decimals such as 4.5 are supported.&quot;,
       &quot;maximum&quot;: 5,
       &quot;minimum&quot;: 0,
-      &quot;sectionCaption&quot;: &quot;Filters&quot;,
-      &quot;title&quot;: &quot;Min average rating&quot;,
-      &quot;type&quot;: &quot;integer&quot;
+      &quot;title&quot;: &quot;Minimum average rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
     },
     &quot;minRatingsCount&quot;: {
-      &quot;description&quot;: &quot;Drop books with fewer than N ratings.&quot;,
+      &quot;description&quot;: &quot;Drop books with fewer ratings than this.&quot;,
       &quot;maximum&quot;: 10000000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min ratings count&quot;,
+      &quot;title&quot;: &quot;Minimum ratings count&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;auto&quot;,
-      &quot;description&quot;: &quot;What to scrape. Use &#x27;auto&#x27; (default) to run any non-empty inputs you provide. Or pick a specific mode to run only that one.&quot;,
+      &quot;description&quot;: &quot;What to scrape. Auto runs every non-empty input you provide.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;auto&quot;,
@@ -130,76 +196,322 @@
         &quot;series&quot;,
         &quot;lists&quot;,
         &quot;shelves&quot;,
-        &quot;genres&quot;
+        &quot;genres&quot;,
+        &quot;reviews&quot;,
+        &quot;editions&quot;,
+        &quot;quotes&quot;,
+        &quot;similar&quot;,
+        &quot;bookLists&quot;,
+        &quot;newReleases&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;Auto (run all non-empty inputs)&quot;,
-        &quot;Book URLs (direct /book/show/ links)&quot;,
-        &quot;Search queries (text)&quot;,
-        &quot;ISBN lookup (ISBN-10 or ISBN-13)&quot;,
-        &quot;Author pages (all books by author)&quot;,
-        &quot;Series pages (all books in series)&quot;,
+        &quot;Auto (run every non-empty input)&quot;,
+        &quot;Books by URL or ID&quot;,
+        &quot;Search by keyword&quot;,
+        &quot;Books by ISBN&quot;,
+        &quot;Books by author&quot;,
+        &quot;Books in a series&quot;,
         &quot;Listopia lists&quot;,
         &quot;Popular shelves&quot;,
-        &quot;Genres&quot;
+        &quot;Genres&quot;,
+        &quot;Reviews of books&quot;,
+        &quot;Editions of books&quot;,
+        &quot;Quotes&quot;,
+        &quot;Similar books&quot;,
+        &quot;Lists containing books&quot;,
+        &quot;New releases by date&quot;
       ],
-      &quot;prefill&quot;: &quot;auto&quot;,
+      &quot;prefill&quot;: &quot;isbns&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;proxyConfiguration&quot;: {
-      &quot;default&quot;: {
-        &quot;useApifyProxy&quot;: false
-      },
-      &quot;description&quot;: &quot;Optional proxy. Goodreads is reachable from datacenter IPs without proxy; only enable if you hit sustained 429s.&quot;,
-      &quot;editor&quot;: &quot;proxy&quot;,
-      &quot;prefill&quot;: {
-        &quot;useApifyProxy&quot;: false
-      },
-      &quot;title&quot;: &quot;Proxy configuration&quot;,
-      &quot;type&quot;: &quot;object&quot;
-    },
     &quot;publishYearMax&quot;: {
-      &quot;description&quot;: &quot;Drop books published after this year.&quot;,
+      &quot;description&quot;: &quot;Drop books first published after this year.&quot;,
       &quot;maximum&quot;: 3000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Published year max&quot;,
+      &quot;title&quot;: &quot;Published year to&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;publishYearMin&quot;: {
-      &quot;description&quot;: &quot;Drop books published before this year.&quot;,
+      &quot;description&quot;: &quot;Drop books first published before this year.&quot;,
       &quot;maximum&quot;: 3000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Published year min&quot;,
+      &quot;title&quot;: &quot;Published year from&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
-    &quot;searchQueries&quot;: {
+    &quot;quoteAuthorUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Free-text search terms (titles, authors, keywords). (mode=auto, search)&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      },
-      &quot;prefill&quot;: [
-        &quot;sapiens&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;seriesUrls&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Goodreads series URLs (e.g. https://www.goodreads.com/series/49075-harry-potter). All books in the series are scraped. (mode=auto, series)&quot;,
+      &quot;description&quot;: &quot;Author quote pages as Goodreads URLs or bare author IDs. (mode=quotes)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
       &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Series URLs&quot;,
+      &quot;title&quot;: &quot;Quote author URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;quoteTags&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Quote tag pages to scrape, such as love, life, or wisdom. (mode=quotes)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;love&quot;
+      ],
+      &quot;title&quot;: &quot;Quote tags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;quoteWorkUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Work quote pages as Goodreads URLs or bare work IDs. (mode=quotes)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Quote work URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;releaseMonth&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Month of the new-releases chart, or all for the yearly chart. (mode=newReleases)&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;1&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;,
+        &quot;4&quot;,
+        &quot;5&quot;,
+        &quot;6&quot;,
+        &quot;7&quot;,
+        &quot;8&quot;,
+        &quot;9&quot;,
+        &quot;10&quot;,
+        &quot;11&quot;,
+        &quot;12&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Whole year&quot;,
+        &quot;January&quot;,
+        &quot;February&quot;,
+        &quot;March&quot;,
+        &quot;April&quot;,
+        &quot;May&quot;,
+        &quot;June&quot;,
+        &quot;July&quot;,
+        &quot;August&quot;,
+        &quot;September&quot;,
+        &quot;October&quot;,
+        &quot;November&quot;,
+        &quot;December&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Release chart month&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;releaseYear&quot;: {
+      &quot;default&quot;: 2026,
+      &quot;description&quot;: &quot;Year of the new-releases chart. (mode=newReleases)&quot;,
+      &quot;maximum&quot;: 2100,
+      &quot;minimum&quot;: 1900,
+      &quot;prefill&quot;: 2026,
+      &quot;title&quot;: &quot;Release chart year&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;reviewLanguage&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Only collect reviews written in this language. (mode=reviews)&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;en&quot;,
+        &quot;es&quot;,
+        &quot;fr&quot;,
+        &quot;de&quot;,
+        &quot;it&quot;,
+        &quot;pt&quot;,
+        &quot;nl&quot;,
+        &quot;pl&quot;,
+        &quot;tr&quot;,
+        &quot;ar&quot;,
+        &quot;ru&quot;,
+        &quot;uk&quot;,
+        &quot;zh&quot;,
+        &quot;zh-TW&quot;,
+        &quot;ja&quot;,
+        &quot;ko&quot;,
+        &quot;hi&quot;,
+        &quot;bn&quot;,
+        &quot;id&quot;,
+        &quot;vi&quot;,
+        &quot;th&quot;,
+        &quot;sv&quot;,
+        &quot;no&quot;,
+        &quot;da&quot;,
+        &quot;fi&quot;,
+        &quot;cs&quot;,
+        &quot;sk&quot;,
+        &quot;hu&quot;,
+        &quot;ro&quot;,
+        &quot;bg&quot;,
+        &quot;el&quot;,
+        &quot;he&quot;,
+        &quot;sr&quot;,
+        &quot;hr&quot;,
+        &quot;sl&quot;,
+        &quot;lt&quot;,
+        &quot;lv&quot;,
+        &quot;et&quot;,
+        &quot;ca&quot;,
+        &quot;gl&quot;,
+        &quot;eu&quot;,
+        &quot;fa&quot;,
+        &quot;ur&quot;,
+        &quot;ms&quot;,
+        &quot;tl&quot;,
+        &quot;af&quot;,
+        &quot;sw&quot;,
+        &quot;ka&quot;,
+        &quot;hy&quot;,
+        &quot;az&quot;,
+        &quot;uz&quot;,
+        &quot;mn&quot;,
+        &quot;is&quot;,
+        &quot;ga&quot;,
+        &quot;cy&quot;,
+        &quot;sq&quot;,
+        &quot;bs&quot;,
+        &quot;mk&quot;,
+        &quot;be&quot;,
+        &quot;la&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All languages&quot;,
+        &quot;English&quot;,
+        &quot;Spanish&quot;,
+        &quot;French&quot;,
+        &quot;German&quot;,
+        &quot;Italian&quot;,
+        &quot;Portuguese&quot;,
+        &quot;Dutch&quot;,
+        &quot;Polish&quot;,
+        &quot;Turkish&quot;,
+        &quot;Arabic&quot;,
+        &quot;Russian&quot;,
+        &quot;Ukrainian&quot;,
+        &quot;Chinese&quot;,
+        &quot;Chinese (Traditional)&quot;,
+        &quot;Japanese&quot;,
+        &quot;Korean&quot;,
+        &quot;Hindi&quot;,
+        &quot;Bengali&quot;,
+        &quot;Indonesian&quot;,
+        &quot;Vietnamese&quot;,
+        &quot;Thai&quot;,
+        &quot;Swedish&quot;,
+        &quot;Norwegian&quot;,
+        &quot;Danish&quot;,
+        &quot;Finnish&quot;,
+        &quot;Czech&quot;,
+        &quot;Slovak&quot;,
+        &quot;Hungarian&quot;,
+        &quot;Romanian&quot;,
+        &quot;Bulgarian&quot;,
+        &quot;Greek&quot;,
+        &quot;Hebrew&quot;,
+        &quot;Serbian&quot;,
+        &quot;Croatian&quot;,
+        &quot;Slovenian&quot;,
+        &quot;Lithuanian&quot;,
+        &quot;Latvian&quot;,
+        &quot;Estonian&quot;,
+        &quot;Catalan&quot;,
+        &quot;Galician&quot;,
+        &quot;Basque&quot;,
+        &quot;Persian&quot;,
+        &quot;Urdu&quot;,
+        &quot;Malay&quot;,
+        &quot;Tagalog&quot;,
+        &quot;Afrikaans&quot;,
+        &quot;Swahili&quot;,
+        &quot;Georgian&quot;,
+        &quot;Armenian&quot;,
+        &quot;Azerbaijani&quot;,
+        &quot;Uzbek&quot;,
+        &quot;Mongolian&quot;,
+        &quot;Icelandic&quot;,
+        &quot;Irish&quot;,
+        &quot;Welsh&quot;,
+        &quot;Albanian&quot;,
+        &quot;Bosnian&quot;,
+        &quot;Macedonian&quot;,
+        &quot;Belarusian&quot;,
+        &quot;Latin&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Review language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;reviewRatingMax&quot;: {
+      &quot;description&quot;: &quot;Only collect reviews with at most this star rating. (mode=reviews)&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Maximum review rating&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;reviewRatingMin&quot;: {
+      &quot;description&quot;: &quot;Only collect reviews with at least this star rating. (mode=reviews)&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Minimum review rating&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;reviewSort&quot;: {
+      &quot;default&quot;: &quot;DEFAULT&quot;,
+      &quot;description&quot;: &quot;Order reviews by Goodreads default, newest first, or oldest first. (mode=reviews)&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;DEFAULT&quot;,
+        &quot;NEWEST&quot;,
+        &quot;OLDEST&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Goodreads default&quot;,
+        &quot;Newest first&quot;,
+        &quot;Oldest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;DEFAULT&quot;,
+      &quot;title&quot;: &quot;Review sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Titles, authors, or keywords to search for. (mode=search, auto)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;seriesUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Goodreads series URLs or bare series IDs. (mode=series, auto)&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Series URLs or IDs&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;shelfNames&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Popular shelf names like &#x27;mystery&#x27;, &#x27;fantasy&#x27;, &#x27;historical-fiction&#x27;. Paginated. (mode=auto, shelves)&quot;,
+      &quot;description&quot;: &quot;Popular shelf names such as mystery, fantasy, or historical-fiction. (mode=shelves, auto)&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
@@ -216,12 +528,12 @@
   &quot;title&quot;: &quot;Goodreads Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Goodreads books + optional metadata records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset containing every scraped record for the selected mode, discriminated by recordType.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Goodreads book records, plus optional author, series, and Listopia list summary records, identified by a `recordType` field.&quot;,
+  &quot;description&quot;: &quot;One dataset of Goodreads records identified by recordType: books, reviews, editions, quotes, authors, series, Listopia lists, listing rows, and release-chart entries.&quot;,
   &quot;properties&quot;: {
     &quot;records&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Goodreads books + optional metadata records.&quot;,
+      &quot;description&quot;: &quot;Dataset containing every scraped record for the selected mode, discriminated by recordType.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Goodreads records&quot;,
       &quot;type&quot;: &quot;string&quot;
@@ -272,53 +584,92 @@
           &quot;url&quot;
         ]
       }
+    },
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;bookId&quot;: {
+            &quot;label&quot;: &quot;Book ID&quot;
+          },
+          &quot;createdAt&quot;: {
+            &quot;label&quot;: &quot;Created&quot;
+          },
+          &quot;likesCount&quot;: {
+            &quot;label&quot;: &quot;Likes&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;reviewText&quot;: {
+            &quot;label&quot;: &quot;Review&quot;
+          },
+          &quot;reviewer.name&quot;: {
+            &quot;label&quot;: &quot;Reviewer&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;bookId&quot;,
+          &quot;rating&quot;,
+          &quot;reviewer.name&quot;,
+          &quot;createdAt&quot;,
+          &quot;likesCount&quot;,
+          &quot;reviewText&quot;
+        ]
+      }
     }
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-goodreads-book-author-listopia-list-scraper">Goodreads Book, Author &amp; Listopia List Scraper</h2>
-<p>Goodreads holds ratings, reviews, and metadata for millions of books, but there's no official way to pull that data in bulk. This actor reads Goodreads' own public pages for you — one book at a time by URL, ISBN, or search term, or an entire author, series, Listopia list, shelf, or genre page in a single run.</p>
+<p>Pull <strong>Goodreads</strong> book data, reader reviews, editions, quotes, author profiles, series, Listopia rankings, shelf and genre charts, similar books, and new-release charts into one dataset. Look up books by URL, ID, ISBN, or keyword, or walk an entire author, series, or Listopia list. Every run is cookieless: no Goodreads login, account, or API key is needed.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Looks up books directly by URL, free-text search query, or ISBN-10/ISBN-13 (hyphens and spaces are tolerated).</li>
-<li>Walks an author's full book list, a series' full book list, a Listopia list, a popular shelf, or a genre page, and scrapes every book found there.</li>
-<li>Filters results by minimum rating, minimum ratings count, publish year range, language, genre, or author name.</li>
-<li>Optionally adds one summary record per author, series, or list (bio/description and counts) alongside the book records.</li>
-<li>Omits fields a page doesn't publish rather than sending them as <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code>, or <code>{}</code>.</li>
+<li><strong>Fifteen modes:</strong> <code>books</code>, <code>search</code>, <code>isbns</code>, <code>authors</code>, <code>series</code>, <code>lists</code>, <code>shelves</code>, <code>genres</code>, <code>reviews</code>, <code>editions</code>, <code>quotes</code>, <code>similar</code>, <code>bookLists</code>, <code>newReleases</code>, and <code>auto</code>.</li>
+<li><strong>Books by URL, ID, or ISBN</strong> with ratings, reviews, editions, awards, characters, places, series, social counters, and buy links.</li>
+<li><strong>Reader reviews</strong> with full text, rating, date, reviewer profile, likes, comments, shelves, language, and sort filters.</li>
+<li><strong>Discovery rows</strong> for search results, author bibliographies, series reading order, Listopia ranks, shelves, genres, similar books, and monthly or yearly release charts.</li>
+<li><strong>Filters</strong> for minimum rating, ratings count, first-published year range, language, genre, and author, plus per-book review, edition, quote, similar-book, and list caps.</li>
+<li><strong>Clean records:</strong> empty fields are omitted at every depth, never returned as <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code>, or <code>{}</code>.</li>
 </ul>
-<h2 id="readme-output-per-record-type">Output per record type</h2>
-<p>Every record carries a <code>recordType</code> and a <code>scrapedAt</code> (ISO 8601 UTC) timestamp.</p>
+<h2 id="readme-output">Output</h2>
+<p>Every record has a <code>recordType</code> and a <code>scrapedAt</code> ISO 8601 UTC timestamp. Empty fields are omitted.</p>
 <h3 id="readme-book-recordtype-book">Book (<code>recordType: &quot;book&quot;</code>)</h3>
 <ul>
-<li><code>title</code>, <code>url</code>, <code>bookId</code></li>
-<li><code>authors</code>, <code>primaryAuthor</code>, <code>authorUrls</code></li>
-<li><code>description</code> — plain text, HTML stripped</li>
-<li><code>isbn</code>, <code>isbn10</code>, <code>isbn13</code> — whichever identifiers Goodreads publishes for that edition</li>
-<li><code>averageRating</code>, <code>ratingsCount</code>, <code>reviewsCount</code></li>
-<li><code>pagesCount</code>, <code>publishedYear</code>, <code>publisher</code>, <code>language</code>, <code>format</code></li>
-<li><code>genres</code> — genre tags</li>
-<li><code>coverImage</code> — cover image URL on Goodreads' CDN</li>
+<li>Identity: <code>bookId</code>, <code>kcaId</code>, <code>title</code>, <code>titleComplete</code>, <code>originalTitle</code>, <code>url</code>, <code>workId</code>, <code>workKcaId</code>, <code>workUrl</code>, <code>coverImage</code></li>
+<li>Description: <code>description</code> (plain text), <code>descriptionHtml</code></li>
+<li>Contributors: <code>authors[]</code>, <code>primaryAuthor</code>, <code>authorUrls[]</code>, <code>contributors[]</code> (<code>name</code>, <code>authorId</code>, <code>url</code>, <code>role</code>, <code>isGoodreadsAuthor</code>)</li>
+<li>Series: <code>series</code> (<code>name</code>, <code>position</code>, <code>url</code>, <code>id</code>, <code>kcaId</code>), <code>allSeries[]</code></li>
+<li>Edition: <code>isbn</code>, <code>isbn10</code>, <code>isbn13</code>, <code>asin</code>, <code>pagesCount</code>, <code>format</code>, <code>publisher</code>, <code>language</code>, <code>languageCode</code>, <code>publishedYear</code>, <code>publishedAt</code>, <code>firstPublishedYear</code>, <code>firstPublishedAt</code></li>
+<li>Ratings: <code>averageRating</code>, <code>ratingsCount</code>, <code>reviewsCount</code>, <code>ratingsDistribution</code> (1–5 stars), <code>reviewsByLanguage</code></li>
+<li>Discovery: <code>genres[]</code>, <code>awards[]</code>, <code>characters[]</code>, <code>places[]</code>, <code>editionsCount</code>, <code>editionsUrl</code>, <code>quotesCount</code>, <code>questionsCount</code>, <code>topicsCount</code>, <code>currentlyReadingCount</code>, <code>wantToReadCount</code></li>
+<li>Commerce: <code>kindleUrl</code>, <code>buyLinks[]</code></li>
 </ul>
-<h3 id="readme-author-recordtype-author-only-when-includemetadata-true">Author (<code>recordType: &quot;author&quot;</code>, only when <code>includeMetadata: true</code>)</h3>
+<h3 id="readme-review-recordtype-review">Review (<code>recordType: &quot;review&quot;</code>)</h3>
+<p><code>reviewId</code>, <code>bookId</code>, <code>workId</code>, <code>rating</code>, <code>preciseRating</code>, <code>reviewText</code>, <code>reviewTextHtml</code>, <code>spoiler</code>, <code>likesCount</code>, <code>commentsCount</code>, <code>createdAt</code>, <code>updatedAt</code>, <code>reviewer</code> (<code>id</code>, <code>name</code>, <code>url</code>, <code>imageUrl</code>, <code>isAuthor</code>, <code>followersCount</code>, <code>textReviewsCount</code>), <code>shelves[]</code></p>
+<h3 id="readme-edition-recordtype-edition">Edition (<code>recordType: &quot;edition&quot;</code>)</h3>
+<p><code>editionId</code>, <code>bookId</code>, <code>sourceBookId</code>, <code>workId</code>, <code>title</code>, <code>format</code>, <code>publishedYear</code>, <code>publishedAt</code>, <code>publisher</code>, <code>pagesCount</code>, <code>authors[]</code>, <code>primaryAuthor</code>, <code>isbn10</code>, <code>isbn13</code>, <code>asin</code>, <code>language</code>, <code>languageCode</code>, <code>averageRating</code>, <code>ratingsCount</code>, <code>coverImage</code>, <code>url</code>. For editions, <code>bookId</code> is the edition's own Goodreads id; <code>sourceBookId</code> is the book supplied in the input.</p>
+<h3 id="readme-quote-recordtype-quote">Quote (<code>recordType: &quot;quote&quot;</code>)</h3>
+<p><code>quoteId</code>, <code>quoteText</code>, <code>authorName</code>, <code>bookTitle</code>, <code>workId</code>, <code>workUrl</code>, <code>tags[]</code>, <code>likesCount</code>, <code>quoteUrl</code>, <code>imageUrl</code>, <code>sourceType</code>, <code>sourceValue</code></p>
+<h3 id="readme-author-recordtype-author-with-includemetadata">Author (<code>recordType: &quot;author&quot;</code>, with <code>includeMetadata</code>)</h3>
+<p><code>authorId</code>, <code>name</code>, <code>authorUrl</code>, <code>photoUrl</code>, <code>description</code>, <code>born</code>, <code>died</code>, <code>website</code>, <code>twitter</code>, <code>genres[]</code>, <code>influences[]</code>, <code>series[]</code> (<code>seriesId</code>, <code>name</code>, <code>url</code>, <code>bookCount</code>, <code>authors</code>, <code>averageRating</code>, <code>ratingsCount</code>)</p>
+<h3 id="readme-series-recordtype-series-with-includemetadata">Series (<code>recordType: &quot;series&quot;</code>, with <code>includeMetadata</code>)</h3>
+<p><code>seriesId</code>, <code>name</code>, <code>seriesUrl</code>, <code>description</code>, <code>primaryWorksCount</code>, <code>totalWorksCount</code></p>
+<h3 id="readme-listopia-list-recordtype-list">Listopia list (<code>recordType: &quot;list&quot;</code>)</h3>
+<p><code>listId</code>, <code>name</code>, <code>listUrl</code>, <code>description</code>, <code>bookCount</code>, <code>voterCount</code>, <code>createdDate</code>, <code>creator</code> (<code>name</code>, <code>url</code>), <code>sourceBookId</code>. Records emitted by <code>bookLists</code> carry the list id, name, URL, book count, voter count, and <code>sourceBookId</code>; the full description, creation date, and creator come from the <code>lists</code> mode with <code>includeMetadata</code>.</p>
+<h3 id="readme-listing-rows">Listing rows</h3>
 <ul>
-<li><code>name</code>, <code>authorId</code>, <code>authorUrl</code></li>
-<li><code>photoUrl</code></li>
-<li><code>description</code> — &quot;about the author&quot; text</li>
-<li><code>born</code>, <code>died</code> — when Goodreads publishes them</li>
-<li><code>genres</code> — the author's top genres</li>
-<li><code>website</code> — external author site, when listed</li>
-</ul>
-<h3 id="readme-series-recordtype-series-only-when-includemetadata-true">Series (<code>recordType: &quot;series&quot;</code>, only when <code>includeMetadata: true</code>)</h3>
-<ul>
-<li><code>name</code>, <code>seriesId</code>, <code>seriesUrl</code></li>
-<li><code>description</code></li>
-<li><code>primaryAuthor</code></li>
-<li><code>bookCount</code></li>
-</ul>
-<h3 id="readme-list-recordtype-list-only-when-includemetadata-true">List (<code>recordType: &quot;list&quot;</code>, only when <code>includeMetadata: true</code>)</h3>
-<ul>
-<li><code>name</code>, <code>listId</code>, <code>listUrl</code></li>
-<li><code>description</code></li>
-<li><code>bookCount</code>, <code>voterCount</code></li>
+<li><code>searchResult</code> (<code>query</code>) and <code>authorWork</code> (<code>authorId</code>): <code>bookId</code>, <code>title</code>, <code>url</code>, <code>coverImage</code>, <code>authors[]</code>, <code>primaryAuthor</code>, <code>series</code>, <code>averageRating</code>, <code>ratingsCount</code>, <code>reviewsCount</code>, <code>publishedYear</code>, <code>editionsCount</code></li>
+<li><code>seriesBook</code> (<code>seriesId</code>, <code>position</code>) and <code>listEntry</code> (<code>listId</code>, <code>rank</code>, <code>score</code>, <code>voterCount</code>)</li>
+<li><code>shelfBook</code> (<code>shelfName</code>, <code>shelfCount</code>), <code>genreBook</code> (<code>genre</code>, <code>group</code>)</li>
+<li><code>similarBook</code> (<code>sourceBookId</code>)</li>
+<li><code>newRelease</code> (<code>year</code>, <code>month</code>, <code>rank</code>, <code>count</code>)</li>
 </ul>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
@@ -335,182 +686,291 @@
 <td><code>mode</code></td>
 <td>string</td>
 <td><code>auto</code></td>
-<td><code>auto</code> (run every non-empty input below), <code>books</code>, <code>search</code>, <code>isbns</code>, <code>authors</code>, <code>series</code>, <code>lists</code>, <code>shelves</code>, or <code>genres</code></td>
+<td><code>auto</code>, <code>books</code>, <code>search</code>, <code>isbns</code>, <code>authors</code>, <code>series</code>, <code>lists</code>, <code>shelves</code>, <code>genres</code>, <code>reviews</code>, <code>editions</code>, <code>quotes</code>, <code>similar</code>, <code>bookLists</code>, <code>newReleases</code></td>
 </tr>
 <tr>
 <td><code>bookUrls</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Direct Goodreads <code>/book/show/</code> URLs</td>
+<td>–</td>
+<td>Book URLs, IDs, or ISBNs (books, reviews, editions, similar, bookLists)</td>
 </tr>
 <tr>
 <td><code>searchQueries</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Free-text search terms (titles, authors, keywords)</td>
+<td>–</td>
+<td>Titles, authors, or keywords (search)</td>
 </tr>
 <tr>
 <td><code>isbns</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>ISBN-10 or ISBN-13 codes</td>
+<td>–</td>
+<td>ISBN-10 or ISBN-13 values (isbns)</td>
 </tr>
 <tr>
 <td><code>authorUrls</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Goodreads author URLs; every book by that author is scraped</td>
+<td>–</td>
+<td>Author URLs or IDs (authors)</td>
 </tr>
 <tr>
 <td><code>seriesUrls</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Goodreads series URLs; every book in the series is scraped</td>
+<td>–</td>
+<td>Series URLs or IDs (series)</td>
 </tr>
 <tr>
 <td><code>listUrls</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Goodreads <code>/list/show/</code> Listopia URLs, paginated automatically</td>
+<td>–</td>
+<td>Listopia URLs or IDs (lists)</td>
 </tr>
 <tr>
 <td><code>shelfNames</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Popular shelf names, e.g. <code>mystery</code>, <code>fantasy</code>, <code>historical-fiction</code></td>
+<td>–</td>
+<td>Shelf names such as <code>mystery</code> (shelves)</td>
 </tr>
 <tr>
 <td><code>genreNames</code></td>
 <td>array</td>
-<td><code>[]</code></td>
-<td>Genre names, e.g. <code>fiction</code>, <code>romance</code>, <code>mystery</code></td>
+<td>–</td>
+<td>Genre slugs such as <code>fantasy</code> (genres)</td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
 <td><code>50</code></td>
-<td>Hard cap on total records emitted across all inputs</td>
+<td>Hard cap on every emitted record</td>
 </tr>
 <tr>
-<td><code>maxResultsPerQuery</code></td>
-<td>integer</td>
-<td>–</td>
-<td>Deprecated; used as the cap only when set and <code>maxItems</code> is left at its default</td>
-</tr>
-<tr>
-<td><code>minRating</code></td>
-<td>integer</td>
-<td>–</td>
-<td>Drop books with <code>averageRating</code> below this (0-5)</td>
-</tr>
-<tr>
-<td><code>minRatingsCount</code></td>
-<td>integer</td>
-<td>–</td>
-<td>Drop books with fewer ratings than this</td>
-</tr>
-<tr>
-<td><code>publishYearMin</code></td>
-<td>integer</td>
-<td>–</td>
-<td>Drop books published before this year</td>
-</tr>
-<tr>
-<td><code>publishYearMax</code></td>
-<td>integer</td>
-<td>–</td>
-<td>Drop books published after this year</td>
-</tr>
-<tr>
-<td><code>language</code></td>
+<td><code>detailLevel</code></td>
 <td>string</td>
-<td>–</td>
-<td>Keep only books whose <code>language</code> starts with this text (case-insensitive), e.g. <code>en</code> matches <code>en</code>/<code>eng</code>/<code>English</code></td>
-</tr>
-<tr>
-<td><code>containsGenre</code></td>
-<td>string</td>
-<td>–</td>
-<td>Keep only books with a genre containing this text</td>
-</tr>
-<tr>
-<td><code>containsAuthor</code></td>
-<td>string</td>
-<td>–</td>
-<td>Keep only books with an author name containing this text</td>
+<td><code>full</code></td>
+<td><code>full</code> book records or <code>listing</code> rows</td>
 </tr>
 <tr>
 <td><code>includeMetadata</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>Also emit an author/series/list summary record alongside the books</td>
+<td>Add author, series, or Listopia summary records</td>
 </tr>
 <tr>
-<td><code>proxyConfiguration</code></td>
-<td>object</td>
-<td><code>{&quot;useApifyProxy&quot;: false}</code></td>
-<td>Optional proxy; Goodreads is reachable without one for most runs</td>
+<td><code>includeRelated</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>In <code>auto</code> mode, also collect reviews, editions, similar books, and lists for each book URL</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td>–</td>
+<td>Drop books rated below this value (decimals allowed)</td>
+</tr>
+<tr>
+<td><code>minRatingsCount</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Drop books with fewer ratings</td>
+</tr>
+<tr>
+<td><code>publishYearMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Drop books first published before this year</td>
+</tr>
+<tr>
+<td><code>publishYearMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Drop books first published after this year</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep books whose language starts with this text</td>
+</tr>
+<tr>
+<td><code>containsGenre</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep books with a genre containing this text</td>
+</tr>
+<tr>
+<td><code>containsAuthor</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep books with an author containing this text</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerBook</code></td>
+<td>integer</td>
+<td><code>30</code></td>
+<td>Reviews per book (reviews)</td>
+</tr>
+<tr>
+<td><code>reviewSort</code></td>
+<td>string</td>
+<td><code>DEFAULT</code></td>
+<td><code>DEFAULT</code>, <code>NEWEST</code>, <code>OLDEST</code> (reviews)</td>
+</tr>
+<tr>
+<td><code>reviewLanguage</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td>Review language code (reviews)</td>
+</tr>
+<tr>
+<td><code>reviewRatingMin</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum review star rating (reviews)</td>
+</tr>
+<tr>
+<td><code>reviewRatingMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum review star rating (reviews)</td>
+</tr>
+<tr>
+<td><code>excludeSpoilers</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Skip reviews marked as spoilers (reviews)</td>
+</tr>
+<tr>
+<td><code>maxEditionsPerBook</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Editions per book (editions)</td>
+</tr>
+<tr>
+<td><code>quoteTags</code></td>
+<td>array</td>
+<td>–</td>
+<td>Quote tag pages such as <code>love</code> (quotes)</td>
+</tr>
+<tr>
+<td><code>quoteAuthorUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Author quote pages (quotes)</td>
+</tr>
+<tr>
+<td><code>quoteWorkUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Work quote pages (quotes)</td>
+</tr>
+<tr>
+<td><code>maxQuotesPerSource</code></td>
+<td>integer</td>
+<td><code>30</code></td>
+<td>Quotes per tag, author, or work (quotes)</td>
+</tr>
+<tr>
+<td><code>maxSimilarPerBook</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Similar books per input book (similar)</td>
+</tr>
+<tr>
+<td><code>maxListsPerBook</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Lists per input book (bookLists)</td>
+</tr>
+<tr>
+<td><code>releaseYear</code></td>
+<td>integer</td>
+<td><code>2026</code></td>
+<td>Release chart year (newReleases)</td>
+</tr>
+<tr>
+<td><code>releaseMonth</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td><code>all</code> or <code>1</code>–<code>12</code> (newReleases)</td>
 </tr>
 </tbody>
 </table></div>
-<p>All filters apply across every mode, and only reject a record when the filtered field is present and out of range — a record missing that field passes through untouched.</p>
-<h3 id="readme-example-book-by-url-plus-a-search-query">Example: book by URL plus a search query</h3>
+<h3 id="readme-example-book-detail-by-url">Example: book detail by URL</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;auto&quot;,
+  &quot;mode&quot;: &quot;books&quot;,
   &quot;bookUrls&quot;: [&quot;https://www.goodreads.com/book/show/4671.The_Great_Gatsby&quot;],
-  &quot;searchQueries&quot;: [&quot;sapiens&quot;],
   &quot;maxItems&quot;: 5
 }
 </code></pre>
-<h3 id="readme-example-isbn-lookup">Example: ISBN lookup</h3>
+<h3 id="readme-example-newest-english-reviews-for-two-books">Example: newest English reviews for two books</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;isbns&quot;,
-  &quot;isbns&quot;: [&quot;978-0-7432-7356-5&quot;, &quot;0747532699&quot;]
+  &quot;mode&quot;: &quot;reviews&quot;,
+  &quot;bookUrls&quot;: [&quot;4671&quot;, &quot;9780743273565&quot;],
+  &quot;maxReviewsPerBook&quot;: 100,
+  &quot;reviewSort&quot;: &quot;NEWEST&quot;,
+  &quot;reviewLanguage&quot;: &quot;en&quot;,
+  &quot;reviewRatingMin&quot;: 4,
+  &quot;excludeSpoilers&quot;: true
 }
 </code></pre>
-<h3 id="readme-example-every-book-by-an-author-with-a-summary-record">Example: every book by an author, with a summary record</h3>
+<h3 id="readme-example-listopia-rows-plus-a-list-summary">Example: Listopia rows plus a list summary</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;lists&quot;,
+  &quot;listUrls&quot;: [&quot;https://www.goodreads.com/list/show/1.Best_Books_Ever&quot;],
+  &quot;detailLevel&quot;: &quot;listing&quot;,
+  &quot;includeMetadata&quot;: true,
+  &quot;maxItems&quot;: 500
+}
+</code></pre>
+<h3 id="readme-example-monthly-release-chart">Example: monthly release chart</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;newReleases&quot;,
+  &quot;releaseYear&quot;: 2026,
+  &quot;releaseMonth&quot;: &quot;10&quot;,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-full-author-bibliography">Example: full author bibliography</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;authors&quot;,
   &quot;authorUrls&quot;: [&quot;https://www.goodreads.com/author/show/1077326.J_K_Rowling&quot;],
-  &quot;maxItems&quot;: 20,
-  &quot;includeMetadata&quot;: true
-}
-</code></pre>
-<h3 id="readme-example-highly-rated-recent-fantasy-from-a-shelf">Example: highly-rated recent fantasy from a shelf</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;shelves&quot;,
-  &quot;shelfNames&quot;: [&quot;fantasy&quot;],
   &quot;minRating&quot;: 4,
-  &quot;minRatingsCount&quot;: 10000,
-  &quot;publishYearMin&quot;: 2020,
-  &quot;maxItems&quot;: 50
+  &quot;maxItems&quot;: 60
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li>Bulk-import book metadata into a library or catalog system by ISBN.</li>
-<li>Build a book recommendation dataset from genre, rating, and author data.</li>
-<li>Pull every book by an author or every entry in a series for a reading-order guide.</li>
-<li>Mine a Listopia list like &quot;Best Books of the Decade&quot; for a curated discovery feed.</li>
-<li>Track ratings and review counts across a shelf or genre over time.</li>
-</ul>
+<h2 id="readme-how-it-works">How it works</h2>
+<p>Fill in one or more input arrays and pick a mode, or leave <code>mode</code> on <code>auto</code> to run every non-empty input in one pass. The actor reads Goodreads' public book pages, listing pages, and the same public data service the signed-out website uses, then streams records to the dataset as they are ready. Use <code>detailLevel: &quot;listing&quot;</code> when you only need ranks and row metadata; use <code>full</code> when you need complete book records. <code>maxItems</code> is a hard cap across the whole run, so a large request stops exactly at your limit rather than over-delivering. Set <code>includeRelated</code> when an auto run should also collect reviews, editions, similar books, and lists for its book URLs.</p>
+<h2 id="readme-usage-cost">Usage cost</h2>
+<p>You pay only for Apify compute time on the selected memory setting; there is no per-record charge from this actor. Listing modes are the cheapest because they skip per-book detail calls. Review and full-detail runs cost more because each book requires additional requests.</p>
 <h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Goodreads account, cookies, or an API key?</strong>
+No. The actor reads public data only and works without any credentials.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. Requests go direct first. If Goodreads challenges an HTML request, the actor retries and then tries a fresh Apify AUTO datacenter session when your account has that proxy access; book pages also have a <code>.xml</code> fallback. GraphQL and autocomplete run without a user proxy.</p>
+<p><strong>What is the difference between <code>full</code> and <code>listing</code>?</strong>
+<code>full</code> returns complete book records with description, ratings, awards, and edition data. <code>listing</code> returns one lightweight row per result with the rank, title, author, rating, and URL, which is faster for large lists.</p>
+<p><strong>Why are reviews missing some likes, comments, or shelves?</strong>
+Goodreads itself omits those counters on some deleted or restricted reviews. The actor keeps the review text and rating and leaves the missing fields out.</p>
+<p><strong>Why is a book missing its ISBN or publisher?</strong>
+Not every Goodreads edition records those fields. The actor never invents values; it omits the field when the source does not publish it.</p>
+<p><strong>How far can search, Listopia, quotes, and shelves go?</strong>
+Goodreads caps search at about 2,000 results, Listopia at 10,000 entries per list, quote pages at 3,000 quotes per source, and popular shelf pages at 50 books. Genre pages expose the three curated groups shown on the page. The actor reports these limits in the run status instead of silently under-delivering.</p>
+<p><strong>Does <code>maxItems</code> include summary records?</strong>
+Yes. Every record counts, including review, edition, quote, author, series, and list records.</p>
+<p><strong>Which memory setting does the actor use?</strong>
+The actor requests 1,024 MB and streams records instead of buffering a run. Account-level defaults can raise the effective run memory (often 4,096 MB on Apify accounts), so compute cost follows the memory Apify actually assigns.</p>
+<p><strong>Are the links and covers usable elsewhere?</strong>
+Book, cover, author, and buy links are the public URLs Goodreads publishes. A very old or rare cover may no longer be served by Goodreads itself.</p>
 <p><strong>Is this affiliated with Goodreads or Amazon?</strong>
-No. This is a third-party actor that reads Goodreads' own public pages.</p>
-<p><strong>Do I need a proxy or login?</strong>
-No. Goodreads' public pages work without an account, and the default run doesn't use a proxy; <code>proxyConfiguration</code> is available if you want to supply your own.</p>
-<p><strong>What does <code>mode: &quot;auto&quot;</code> do?</strong>
-It runs every input array you've populated (<code>bookUrls</code>, <code>searchQueries</code>, <code>isbns</code>, and so on) in the same run, so you don't have to pick a single mode when you have more than one kind of input.</p>
-<p><strong>Why is <code>includeMetadata</code> off by default?</strong>
-With it off, every record has <code>recordType: &quot;book&quot;</code>, which keeps the dataset uniform. Turning it on mixes in <code>author</code>/<code>series</code>/<code>list</code> summary records, which is useful for analysis but changes the record shape.</p>
-<p><strong>Why might a <code>coverImage</code> link not load?</strong>
-The URL is whatever Goodreads publishes for that edition; very old or rare titles sometimes reference an image Goodreads itself no longer serves.</p>
-<p><strong>Does <code>mode: &quot;shelves&quot;</code> cover an entire shelf?</strong>
-Goodreads' own shelf pages stop returning new books after roughly the first 50, regardless of how many pages you request; for deeper coverage, use <code>mode: &quot;lists&quot;</code> (Listopia lists paginate into the thousands) or <code>mode: &quot;genres&quot;</code>.</p>
-<p><strong>Are individual review texts included?</strong>
-No. Book records include <code>reviewsCount</code> (the total number of reviews Goodreads reports), but the actor doesn't walk individual review pages.</p>
-<p><strong>Can I combine several filters at once?</strong>
-Yes — <code>minRating</code>, <code>minRatingsCount</code>, <code>publishYearMin</code>/<code>publishYearMax</code>, <code>language</code>, <code>containsGenre</code>, and <code>containsAuthor</code> all apply together, in every mode.</p>
-<p><strong>How current is the data?</strong>
-Each run reads Goodreads live, so ratings, review counts, and descriptions reflect what the site shows at run time.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/G16n73DmJWBnyen2O/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>pWeMR0MaJZwKKep8f</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. This is an independent third-party actor that reads Goodreads' public data.</p>
+<h2 id="readme-notes-and-limitations">Notes and limitations</h2>
+<ul>
+<li>Search is capped by Goodreads at roughly 2,000 results per query. Split broad topics into narrower queries for deeper coverage.</li>
+<li>Listopia lists stop at 10,000 entries and quote pages at 3,000 quotes per source; both are site limits.</li>
+<li>Popular shelves return the 50 books Goodreads shows; there is no deeper shelf pagination. Use Listopia or genre pages for larger discovery sets.</li>
+<li>Genre pages expose the new-release, most-read, and popular groups shown on the page, not an unbounded catalog.</li>
+<li>Deleted reviews and incomplete editions can lack optional counters or identifiers; those fields are omitted.</li>
+<li>If Goodreads challenges HTML with its AWS WAF page, the actor retries, then attempts an Apify AUTO proxy session; if the challenge persists, it uses book <code>.xml</code> and search autocomplete fallbacks where available and reports the challenge in the run status. GraphQL book, review, edition, similar, and list data is not WAF-gated.</li>
+<li>The <code>.xml</code> book fallback can resolve to the work's primary edition, so its <code>bookId</code> may differ from the edition you requested and it carries fewer social/related fields. The actor uses GraphQL whenever that endpoint answers.</li>
+<li>Data is live at run time; ratings, review counts, and chart positions change continuously.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/G16n73DmJWBnyen2O/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>SE0siaqd22MLHJstA</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

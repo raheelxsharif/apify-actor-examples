@@ -41,6 +41,46 @@
           "url"
         ]
       }
+    },
+    "reviews": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "bookId": {
+            "label": "Book ID"
+          },
+          "createdAt": {
+            "label": "Created"
+          },
+          "likesCount": {
+            "label": "Likes"
+          },
+          "rating": {
+            "label": "Rating"
+          },
+          "recordType": {
+            "label": "Type"
+          },
+          "reviewText": {
+            "label": "Review"
+          },
+          "reviewer.name": {
+            "label": "Reviewer"
+          }
+        }
+      },
+      "title": "Reviews",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "bookId",
+          "rating",
+          "reviewer.name",
+          "createdAt",
+          "likesCount",
+          "reviewText"
+        ]
+      }
     }
   }
 }
