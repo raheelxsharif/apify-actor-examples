@@ -1,0 +1,190 @@
+{
+  "description": "Scrape rental listings from Apartments.com. Use 'search' mode to find listings by location, or 'urls' mode to scrape specific pages.",
+  "properties": {
+    "amenities": {
+      "default": [],
+      "description": "Only show listings with these amenities.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "pool",
+          "utilities-included",
+          "garage",
+          "air-conditioning",
+          "dishwasher",
+          "walk-in-closets",
+          "balcony",
+          "furnished"
+        ],
+        "enumTitles": [
+          "Swimming Pool",
+          "Utilities Included",
+          "Parking Garage",
+          "Air Conditioning",
+          "Dishwasher",
+          "Walk-In Closets",
+          "Balcony / Patio",
+          "Furnished"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Required Amenities",
+      "type": "array"
+    },
+    "bedrooms": {
+      "default": "any",
+      "description": "Filter by bedroom count.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "studio",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5plus"
+      ],
+      "enumTitles": [
+        "Any",
+        "Studio",
+        "1 bedroom",
+        "2 bedrooms",
+        "3 bedrooms",
+        "4 bedrooms",
+        "5+ bedrooms"
+      ],
+      "prefill": "any",
+      "title": "Bedrooms",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to return (1–500).",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 5,
+      "description": "Maximum number of search result pages to scrape (1–20). Each page has ~25 listings.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max Search Pages",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "How to find listings: 'search' builds a URL from your location and filters; 'urls' scrapes the Apartments.com URLs you provide.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "urls"
+      ],
+      "enumTitles": [
+        "Search by location + filters",
+        "Scrape provided URLs"
+      ],
+      "prefill": "search",
+      "sectionCaption": "Mode",
+      "sectionDescription": "Choose how to discover listings.",
+      "title": "Mode",
+      "type": "string"
+    },
+    "petPolicy": {
+      "default": "any",
+      "description": "Filter by pet policy.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "dogs",
+        "cats",
+        "pets"
+      ],
+      "enumTitles": [
+        "Any",
+        "Dogs allowed",
+        "Cats allowed",
+        "Pets allowed"
+      ],
+      "prefill": "any",
+      "title": "Pet Policy",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum monthly rent in USD. Leave unset for no maximum.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Maximum Monthly Rent ($)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum monthly rent in USD. Leave unset for no minimum.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Minimum Monthly Rent ($)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Filter by property type.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "apartments",
+        "houses",
+        "condos",
+        "townhomes"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Apartments",
+        "Houses",
+        "Condos",
+        "Townhomes"
+      ],
+      "prefill": "any",
+      "title": "Property Type",
+      "type": "string"
+    },
+    "rentSpecials": {
+      "default": false,
+      "description": "Only show listings with current rent specials or move-in deals.",
+      "prefill": false,
+      "title": "Rent Specials Only",
+      "type": "boolean"
+    },
+    "scrapeDetails": {
+      "default": true,
+      "description": "Visit each listing's detail page to get full amenities, description, scores, floor plans, and contact info. Slower but richer data.",
+      "prefill": false,
+      "sectionCaption": "Output Options",
+      "title": "Scrape Full Listing Details",
+      "type": "boolean"
+    },
+    "searchLocation": {
+      "description": "City and state to search (e.g. 'New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Austin, TX'). Used only in 'search' mode.",
+      "editor": "textfield",
+      "prefill": "New York, NY",
+      "sectionCaption": "Search Filters",
+      "sectionDescription": "Filters applied when mode=search. Ignored when mode=urls.",
+      "title": "Search Location",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Apartments.com search result page URLs or individual listing URLs. Used only in 'urls' mode.",
+      "editor": "requestListSources",
+      "sectionCaption": "Direct URLs",
+      "sectionDescription": "Provide Apartments.com URLs directly when mode=urls.",
+      "title": "Start URLs",
+      "type": "array"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Apartments.com Scraper Input",
+  "type": "object"
+}
