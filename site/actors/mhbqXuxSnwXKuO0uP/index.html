@@ -1,0 +1,312 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-vLPUaiMmlUSnXBM+CiC++YHWqgLLQ1YyRdF7mvzQQSE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Zillow Research Home Value &amp; Market Heat Scraper | Dataspryva</title><meta name="description" content="Get US state-level home value trends, active-listing inventory, and metro-level market heat index data from Zillow&#x27;s published research files. Filter by state and cap the number of"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/"><meta property="og:title" content="Zillow Research Home Value &amp; Market Heat Scraper | Dataspryva"><meta property="og:description" content="Get US state-level home value trends, active-listing inventory, and metro-level market heat index data from Zillow&#x27;s published research files. Filter by state and cap the number of"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#webpage","name":"Zillow Research Home Value & Market Heat Scraper","description":"Get US state-level home value trends, active-listing inventory, and metro-level market heat index data from Zillow's published research files. Filter by state and cap the number of records returned.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#article","headline":"Zillow Research Home Value & Market Heat Scraper","name":"Zillow Research Home Value & Market Heat Scraper","description":"Get US state-level home value trends, active-listing inventory, and metro-level market heat index data from Zillow's published research files. Filter by state and cap the number of records returned.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Zillow Research Home Value & Market Heat Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/mhbqXuxSnwXKuO0uP/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Zillow Research Home Value &amp; Market Heat Scraper</span></div><section id="overview"><h1 class="doc-title">Zillow Research Home Value &amp; Market Heat Scraper</h1><p class="lede">Get US state-level home value trends, active-listing inventory, and metro-level market heat index data from Zillow&#x27;s published research files. Filter by state and cap the number of records returned.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/zillow-research-home-value-and-market-heat-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mhbqXuxSnwXKuO0uP/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What data to fetch.</td></tr><tr><td><code>state</code></td><td>string</td><td>optional</td><td>US state to filter data for (e.g. &#x27;Texas&#x27;, &#x27;California&#x27;).</td></tr><tr><td><code>datasetType</code></td><td>string</td><td>optional</td><td>Type of Zillow dataset to use.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What data to fetch.</td></tr><tr><td><code>state</code></td><td>string</td><td>optional</td><td>US state to filter data for (e.g. &#x27;Texas&#x27;, &#x27;California&#x27;).</td></tr><tr><td><code>datasetType</code></td><td>string</td><td>optional</td><td>Type of Zillow dataset to use.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to return.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Input for US Property Value Scraper (via Zillow Research public data).&quot;,
+  &quot;properties&quot;: {
+    &quot;datasetType&quot;: {
+      &quot;default&quot;: &quot;homeValues&quot;,
+      &quot;description&quot;: &quot;Type of Zillow dataset to use.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;homeValues&quot;,
+        &quot;inventory&quot;,
+        &quot;marketHeat&quot;,
+        &quot;countyHomeValues&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Home Values (ZHVI)&quot;,
+        &quot;Active Listing Inventory&quot;,
+        &quot;Market Heat Index&quot;,
+        &quot;County-Level Home Values&quot;
+      ],
+      &quot;prefill&quot;: &quot;homeValues&quot;,
+      &quot;title&quot;: &quot;Dataset type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum number of records to return.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What data to fetch.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;stateValues&quot;,
+        &quot;nationalTrends&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search by State&quot;,
+        &quot;State Home Values&quot;,
+        &quot;National Market Trends&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;state&quot;: {
+      &quot;default&quot;: &quot;Texas&quot;,
+      &quot;description&quot;: &quot;US state to filter data for (e.g. &#x27;Texas&#x27;, &#x27;California&#x27;).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;Alabama&quot;,
+        &quot;Alaska&quot;,
+        &quot;Arizona&quot;,
+        &quot;Arkansas&quot;,
+        &quot;California&quot;,
+        &quot;Colorado&quot;,
+        &quot;Connecticut&quot;,
+        &quot;Delaware&quot;,
+        &quot;Florida&quot;,
+        &quot;Georgia&quot;,
+        &quot;Hawaii&quot;,
+        &quot;Idaho&quot;,
+        &quot;Illinois&quot;,
+        &quot;Indiana&quot;,
+        &quot;Iowa&quot;,
+        &quot;Kansas&quot;,
+        &quot;Kentucky&quot;,
+        &quot;Louisiana&quot;,
+        &quot;Maine&quot;,
+        &quot;Maryland&quot;,
+        &quot;Massachusetts&quot;,
+        &quot;Michigan&quot;,
+        &quot;Minnesota&quot;,
+        &quot;Mississippi&quot;,
+        &quot;Missouri&quot;,
+        &quot;Montana&quot;,
+        &quot;Nebraska&quot;,
+        &quot;Nevada&quot;,
+        &quot;New Hampshire&quot;,
+        &quot;New Jersey&quot;,
+        &quot;New Mexico&quot;,
+        &quot;New York&quot;,
+        &quot;North Carolina&quot;,
+        &quot;North Dakota&quot;,
+        &quot;Ohio&quot;,
+        &quot;Oklahoma&quot;,
+        &quot;Oregon&quot;,
+        &quot;Pennsylvania&quot;,
+        &quot;Rhode Island&quot;,
+        &quot;South Carolina&quot;,
+        &quot;South Dakota&quot;,
+        &quot;Tennessee&quot;,
+        &quot;Texas&quot;,
+        &quot;Utah&quot;,
+        &quot;Vermont&quot;,
+        &quot;Virginia&quot;,
+        &quot;Washington&quot;,
+        &quot;West Virginia&quot;,
+        &quot;Wisconsin&quot;,
+        &quot;Wyoming&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Alabama&quot;,
+        &quot;Alaska&quot;,
+        &quot;Arizona&quot;,
+        &quot;Arkansas&quot;,
+        &quot;California&quot;,
+        &quot;Colorado&quot;,
+        &quot;Connecticut&quot;,
+        &quot;Delaware&quot;,
+        &quot;Florida&quot;,
+        &quot;Georgia&quot;,
+        &quot;Hawaii&quot;,
+        &quot;Idaho&quot;,
+        &quot;Illinois&quot;,
+        &quot;Indiana&quot;,
+        &quot;Iowa&quot;,
+        &quot;Kansas&quot;,
+        &quot;Kentucky&quot;,
+        &quot;Louisiana&quot;,
+        &quot;Maine&quot;,
+        &quot;Maryland&quot;,
+        &quot;Massachusetts&quot;,
+        &quot;Michigan&quot;,
+        &quot;Minnesota&quot;,
+        &quot;Mississippi&quot;,
+        &quot;Missouri&quot;,
+        &quot;Montana&quot;,
+        &quot;Nebraska&quot;,
+        &quot;Nevada&quot;,
+        &quot;New Hampshire&quot;,
+        &quot;New Jersey&quot;,
+        &quot;New Mexico&quot;,
+        &quot;New York&quot;,
+        &quot;North Carolina&quot;,
+        &quot;North Dakota&quot;,
+        &quot;Ohio&quot;,
+        &quot;Oklahoma&quot;,
+        &quot;Oregon&quot;,
+        &quot;Pennsylvania&quot;,
+        &quot;Rhode Island&quot;,
+        &quot;South Carolina&quot;,
+        &quot;South Dakota&quot;,
+        &quot;Tennessee&quot;,
+        &quot;Texas&quot;,
+        &quot;Utah&quot;,
+        &quot;Vermont&quot;,
+        &quot;Virginia&quot;,
+        &quot;Washington&quot;,
+        &quot;West Virginia&quot;,
+        &quot;Wisconsin&quot;,
+        &quot;Wyoming&quot;
+      ],
+      &quot;prefill&quot;: &quot;Texas&quot;,
+      &quot;title&quot;: &quot;State&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;US Property Value Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped home value, inventory, and market heat records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;US state-level home value, inventory, and metro-level market heat records from Zillow Research data.&quot;,
+  &quot;properties&quot;: {
+    &quot;results&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped home value, inventory, and market heat records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Home value &amp; market trend records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Zillow Research Home Value &amp; Market Heat Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Lands of America Scraper&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;acres&quot;,
+          &quot;price&quot;,
+          &quot;pricePerAcre&quot;,
+          &quot;state&quot;,
+          &quot;county&quot;,
+          &quot;landType&quot;,
+          &quot;listingUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-zillow-research-home-value-market-heat-scraper">Zillow Research Home Value &amp; Market Heat Scraper</h2>
+<p>Zillow publishes state and metro-level housing statistics as open research data. This actor turns those files into dataset records: state home value trends, active-listing inventory, and metro market heat index data, each filterable by state.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Returns recent monthly state-level home value data (the Zillow Home Value Index), optionally filtered to one state.</li>
+<li>Falls back to active-listing inventory data for the requested state when no home value rows match.</li>
+<li>Returns metro-level market heat index data for market-temperature research.</li>
+<li>Caps every run at a configurable number of records.</li>
+<li>Leaves out a region's monthly value columns when Zillow has no published figure for that month, rather than sending an empty value.</li>
+</ul>
+<h2 id="readme-output-per-record">Output per record</h2>
+<ul>
+<li><code>regionName</code> — the state, county, or metro area name</li>
+<li><code>regionType</code> — the region level (e.g. state, county, or metro/msa)</li>
+<li><code>stateName</code> — the state the region belongs to, when published</li>
+<li><code>metro</code> — the metro area name, when the region is a metro</li>
+<li><code>value_&lt;YYYYMMDD&gt;</code> — one field per recent month with a published value for that date (field names change as new months are published)</li>
+<li><code>latestValue</code>, <code>latestDate</code> — the most recent monthly value and its date</li>
+<li><code>datasetType</code> — human-readable label for the dataset this record came from (<code>Home Values (ZHVI)</code>, <code>Active Listings Inventory</code>, or <code>Market Heat Index</code>)</li>
+<li><code>propertyType</code> — property segment covered (<code>Single Family / Condo</code>), present on home value records</li>
+<li><code>currency</code> — always <code>USD</code>, present on home value and inventory records</li>
+<li><code>dataSource</code> — always <code>Zillow Research</code></li>
+<li><code>sourceUrl</code> — the Zillow Research file the record was read from</li>
+<li><code>recordType</code> — <code>propertyValue</code>, <code>propertyInventory</code>, or <code>marketTrend</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of the fetch</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code> and <code>stateValues</code> both return state home value data (with an inventory fallback); <code>nationalTrends</code> returns metro market heat data</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>string</td>
+<td><code>Texas</code></td>
+<td>US state name to filter results to</td>
+</tr>
+<tr>
+<td><code>datasetType</code></td>
+<td>string</td>
+<td><code>homeValues</code></td>
+<td><code>homeValues</code>, <code>inventory</code>, <code>marketHeat</code>, or <code>countyHomeValues</code>; the active <code>mode</code> currently determines which dataset is actually used (see above)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Maximum number of records to return (1-500)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-home-values-for-one-state">Example: home values for one state</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;state&quot;: &quot;Texas&quot;,
+  &quot;maxItems&quot;: 10
+}
+</code></pre>
+<h3 id="readme-example-home-values-for-every-state">Example: home values for every state</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;stateValues&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-metro-market-heat-index">Example: metro market heat index</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;nationalTrends&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Track a state's recent home value trend without visiting Zillow's research pages.</li>
+<li>Compare active-listing inventory across states.</li>
+<li>Pull metro-level market heat data for a housing market report.</li>
+<li>Feed home value history into a broader real-estate or economic dataset.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Zillow?</strong>
+No. This actor reads Zillow's own published research files; it isn't operated by or connected to Zillow.</p>
+<p><strong>Do I need a Zillow account or API key?</strong>
+No. Zillow publishes these research files openly, with no login required.</p>
+<p><strong>Why does <code>state</code> not narrow down <code>nationalTrends</code> results?</strong>
+<code>nationalTrends</code> returns metro-area rows (e.g. &quot;Dallas-Fort Worth, TX&quot;), not state rows, so a state name match against those regions will often return nothing; <code>state</code> is most useful with <code>search</code> or <code>stateValues</code>.</p>
+<p><strong>Why do I sometimes get inventory records instead of home values?</strong>
+If no home value rows match your <code>state</code> filter, the run automatically returns active-listing inventory data for that state instead of an empty result.</p>
+<p><strong>Why do the <code>value_&lt;date&gt;</code> field names change between runs?</strong>
+Each one reflects an actual month Zillow has published a figure for; as Zillow adds new months, the most recent twelve column names shift forward.</p>
+<p><strong>How many records can one run return?</strong>
+Up to <code>maxItems</code>, capped at 500 per run.</p>
+<p><strong>How current is the data?</strong>
+Each run downloads Zillow's current published research file, so results reflect whatever Zillow has most recently released.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/mhbqXuxSnwXKuO0uP/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>yDONdb7SxDvjBs2za</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
