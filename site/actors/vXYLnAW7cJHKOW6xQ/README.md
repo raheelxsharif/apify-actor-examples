@@ -1,148 +1,217 @@
-# NetEase Cloud Music Song, Chart & Playlist Scraper
+# NetEase Cloud Music Scraper: Songs, Charts & Comments
 
-NetEase Cloud Music (网易云音乐) is one of China's largest music streaming services. This actor reads its public song, artist, playlist, and chart pages without a login, so you can pull track metadata, artist catalogues, and top-100 charts into a dataset.
+NetEase Cloud Music (网易云音乐) is one of China's largest music streaming catalogs. This actor reads its public catalog without an account: search songs, albums, artists and playlists; pull song details with full LRC, translated, romanized and word-by-word lyrics; walk an artist's complete discography; read album and playlist tracklists; collect every current chart; and export comments with optional replies. No login, cookies, API keys or proxy setup.
 
 ## What this actor does
 
-- Searches songs by free-text query and returns matching tracks.
-- Fetches full song details — including popularity, play/collection counts, and optional lyrics — for one or more song URLs.
-- Lists an artist's top songs or full album discography.
-- Browses playlists by genre category, sorted by popularity.
-- Pulls any of NetEase's top-100 charts, with an optional chart-summary record before the tracks.
-- Filters by song duration, minimum popularity, or a keyword in the title.
-- Leaves out fields a song, album, or playlist doesn't have published rather than sending them empty.
+- **Ten modes:** `search`, `bySongUrl`, `byArtist`, `byArtistAlbums`, `byAlbum`, `byPlaylist`, `byPlaylistUrl`, `byToplist`, `toplists`, `comments`.
+- **Catalog search:** songs, albums, artists and playlists through NetEase's modern search endpoint, with popularity and duration included.
+- **Lyrics:** full LRC plus translation, romanization and word-by-word lyrics whenever NetEase publishes them.
+- **Playlists and charts:** complete tracklists from `trackIds`, including each track's playlist rank and the time it was added.
+- **Comments:** recommended or hot comments for songs, albums, playlists and charts, with an optional reply floor.
+- **Clean output:** empty fields are omitted; invalid or unavailable inputs become explicit `error` records instead of disappearing.
 
-## Output per record type
+## Services
 
-Every data record carries `sourceUrl` and `scrapedAt` (UTC ISO). Records that couldn't be built from a bad input carry `recordType: "error"` with `errorCode`, `errorMessage`, and `inputValue` instead.
+- **Music catalog lookup** — song, album, artist and playlist search.
+- **Song enrichment** — release dates, quality tiers, maximum bitrate, music-video links and full lyric variants.
+- **Artist intelligence** — full song catalogue, album catalogue, profile biography, images, ranks, identities and fan count.
+- **Playlist and chart coverage** — 70 live playlist categories, all 65 current charts, chart positions and rank movement where NetEase publishes it.
+- **Audience research** — comment text, likes, timestamps, authors, avatars, IP locations and replies.
 
-### Song (`recordType: "song"`)
+## How it works
 
-- `songId`, `name`, `alias`, `transName`
-- `artists`, `artist` — all artist names, and the first one
-- `albumId`, `album`, `coverUrl`
-- `durationSec`
-- `popularity`, `score`, `playedNum`, `starredNum`
-- `fee`, `copyright`, `copyrightId`, `single`
-- `mvid` — associated music video ID, when one exists
-- `disc`, `trackNo`, `position`
-- `publishTimeMs`, `commentThreadId`
-- `mp3Url` — when NetEase exposes a direct playback URL
-- `lyric` — first portion of the LRC lyric text, only when `includeLyric` is on and the mode is `bySongUrl`
-
-### Album (`recordType: "album"`, mode `byArtistAlbums`)
-
-- `albumId`, `name`, `coverUrl`, `trackCount`
-- `publishTimeMs`, `company`, `type`, `subType`
-- `paid`, `onSale`
-- `artists`, `artist`
-
-### Playlist (`recordType: "playlist"`, mode `byPlaylist`)
-
-- `playlistId`, `name`, `coverUrl`
-- `playCount`, `trackCount`, `totalDurationMs`
-- `creatorName`, `creatorId`, `creatorAvatarUrl`
-- `tags`, `description`
-- `subscribedCount`, `commentCount`, `shareCount`
-- `updateTimeMs`
-
-### Toplist (`recordType: "toplist"`, mode `byToplist`, when `includeToplistInfo` is on)
-
-- `toplistId`, `name`, `coverUrl`, `description`
-- `playCount`, `trackCount`, `subscribedCount`, `updateFrequency`
+The actor reads NetEase Cloud Music's public web catalog anonymously. Each mode calls the matching public catalog, lyric, chart or comment view and converts the response into flat, readable records. When NetEase responds with a verification challenge instead of data, the actor keeps the run alive by switching to a working connection automatically and continues from the same page. Runs stop on the requested item cap or when NetEase runs out of matching results — never on a fixed time limit.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search`, `bySongUrl`, `byArtist`, `byArtistAlbums`, `byPlaylist`, or `byToplist` |
-| `searchQuery` | string | `周杰伦` | Free-text query; used by `search` |
-| `songUrls` | array | `[]` | `music.163.com` song URLs; used by `bySongUrl` |
-| `artistId` | integer | – | NetEase artist ID, e.g. `6452` for Jay Chou; used by `byArtist`/`byArtistAlbums` when `artistName` is empty |
-| `artistName` | string | – | Artist name, resolved to an ID automatically when `artistId` is empty |
-| `playlistCat` | string | `华语` | Playlist genre category to browse; used by `byPlaylist` |
-| `playlistOrder` | string | `hot` | `hot` (most popular) or `new` (newest); used by `byPlaylist` |
-| `toplistId` | string | – | Which top-100 chart to fetch; used by `byToplist` |
-| `includeToplistInfo` | boolean | `true` | Emit the chart summary record before its tracks |
-| `includeLyric` | boolean | `false` | Attach the start of the lyric text to song records; `bySongUrl` only |
-| `minDurationSec` | integer | – | Drop songs shorter than this |
-| `maxDurationSec` | integer | – | Drop songs longer than this |
-| `minPopularity` | integer | – | Drop songs with popularity below this (0-100) |
-| `containsKeyword` | string | – | Keep only songs whose title contains this text |
-| `maxItems` | integer | `30` | Hard cap on total records returned, including any error records (1-1000) |
+| `mode` | string | `search` | One of the ten modes listed above |
+| `searchQueries` | array | `["周杰伦"]` | Queries for `search` |
+| `searchType` | string | `song` | `song`, `album`, `artist` or `playlist` |
+| `songUrls` | array | – | Song URLs or bare IDs for `bySongUrl` |
+| `artistIds` | array | – | Artist IDs, URLs or exact names for `byArtist` / `byArtistAlbums` |
+| `artistOrder` | string | `hot` | `hot` or `time` for an artist's songs |
+| `albumUrls` | array | – | Album URLs or IDs for `byAlbum` |
+| `playlistUrls` | array | – | Playlist URLs or IDs for `byPlaylistUrl` |
+| `playlistCat` | string | `华语` | 70 NetEase categories plus `全部` for `byPlaylist` |
+| `toplistIds` | array | – | Chart IDs, names or URLs for `byToplist`; `all` or empty scans every chart |
+| `maxTracksPerChart` | int | `0` | Tracks per chart; `0` reads all |
+| `commentUrls` | array | – | Song/album/playlist/chart URLs or IDs for `comments` |
+| `commentOrder` | string | `recommended` | `recommended` or `hot` |
+| `maxCommentsPerItem` | int | `100` | Top-level comments per resource (1–1,100) |
+| `includeReplies` | boolean | `false` | Also read reply floors |
+| `maxRepliesPerComment` | int | `20` | Replies read per comment |
+| `includeArtistProfile` | boolean | `false` | Emit an artist profile record |
+| `includeLyrics` | boolean | `false` | Attach every available lyric variant |
+| `includeAlbumTracks` | boolean | `true` | Emit album tracks as songs |
+| `includePlaylistTracks` | boolean | `true` | Emit the complete playlist tracklist |
+| `includeToplistInfo` | boolean | `true` | Emit a chart summary before tracks |
+| `minDurationSec` / `maxDurationSec` | int | – | Song duration window; metadata records are unaffected |
+| `minPopularity` | int | – | Song popularity floor (0–100) |
+| `minPlayCount` / `minTrackCount` | int | – | Playlist browse filters |
+| `containsKeyword` | string | – | Name must contain this text (case-insensitive) |
+| `maxItems` | int | `100` | Hard cap on all dataset records, including errors (1–100,000) |
 
-### Example: search for an artist's songs
+### Example: search songs
 
 ```json
 {
   "mode": "search",
-  "searchQuery": "周杰伦",
-  "maxItems": 30
+  "searchQueries": ["周杰伦", "晴天"],
+  "searchType": "song",
+  "maxItems": 50
 }
 ```
 
-### Example: song detail with lyrics
+### Example: song details with every lyric variant
 
 ```json
 {
   "mode": "bySongUrl",
   "songUrls": ["https://music.163.com/#/song?id=186016"],
-  "includeLyric": true
+  "includeLyrics": true,
+  "maxItems": 1
 }
 ```
 
-### Example: an artist's top songs, filtered
+### Example: a complete playlist with added-at timestamps
 
 ```json
 {
-  "mode": "byArtist",
-  "artistName": "周杰伦",
-  "minPopularity": 50,
-  "maxItems": 20
+  "mode": "byPlaylistUrl",
+  "playlistUrls": ["https://music.163.com/#/playlist?id=8803637201"],
+  "includePlaylistTracks": true,
+  "maxItems": 500
 }
 ```
 
-### Example: a top-100 chart
+### Example: all current charts, first 20 tracks each
 
 ```json
 {
   "mode": "byToplist",
-  "toplistId": "3778678",
+  "toplistIds": ["all"],
+  "maxTracksPerChart": 20,
   "includeToplistInfo": true,
-  "maxItems": 100
+  "maxItems": 1000
 }
 ```
 
+### Example: hot comments with replies
+
+```json
+{
+  "mode": "comments",
+  "commentUrls": ["https://music.163.com/#/song?id=186016"],
+  "commentOrder": "hot",
+  "maxCommentsPerItem": 100,
+  "includeReplies": true,
+  "maxRepliesPerComment": 10,
+  "maxItems": 200
+}
+```
+
+## Output
+
+Every record carries `recordType`, `sourceUrl` and `scrapedAt` (UTC ISO). Empty fields are omitted at every depth.
+
+### Song (`recordType: "song"`)
+
+- `songId`, `name`, `alias[]`, `transName`
+- `artists[]`, `artist`, `albumId`, `album`, `coverUrl`
+- `durationSec`, `popularity`, `score`, `playedNum`, `starredNum`
+- `fee`, `copyright`, `copyrightId`, `single`
+- `mvid`, `mvUrl`, `disc`, `trackNo`, `position`
+- `publishTimeMs`, `publishDate`, `commentThreadId`
+- `availableQualities[]`, `maxBitrateKbps`
+- `lyric`, `lyricTranslation`, `lyricRomanization`, `lyricWordByWord`, `lyricCredit`
+- `rankPosition`, `chartId`, `chartName`, `previousRank`, `rankChange`
+- `playlistId`, `playlistName`, `addedToPlaylistAt`
+- `mp3Url` only when NetEase exposes a valid HTTPS source value
+
+### Album (`recordType: "album"`)
+
+`albumId`, `name`, `coverUrl`, `trackCount`, `publishTimeMs`, `publishDate`, `company`, `type`, `subType`, `paid`, `onSale`, `artists[]`, `artist`, `description`, `commentThreadId`, `albumUrl`, `sourceUrl`.
+
+### Artist (`recordType: "artist"`)
+
+`artistId`, `name`, `alias[]`, `transNames[]`, `briefDesc`, `avatarUrl`, `coverUrl`, `picUrl`, `albumSize`, `musicSize`, `mvSize`, `videoCount`, `fansCount`, `fansSize`, `rank`, `identities[]`, `sourceUrl`.
+
+### Playlist (`recordType: "playlist"`)
+
+`playlistId`, `name`, `coverUrl`, `playCount`, `trackCount`, `totalDurationMs`, `creatorName`, `creatorId`, `creatorAvatarUrl`, `tags[]`, `description`, `updateTimeMs`, `createTimeMs`, `commentThreadId`, `playlistType`, `privacy`, `updateFrequency`, `sourceUrl`.
+
+### Chart summary (`recordType: "toplist"`)
+
+`toplistId`, `name`, `englishTitle`, `coverUrl`, `description`, `playCount`, `trackCount`, `subscribedCount`, `updateFrequency`, `commentThreadId`, `createTimeMs`, `publishDate`, `specialType`, `playlistType`, `sourceUrl`.
+
+### Comment (`recordType: "comment"`)
+
+`commentId`, `parentCommentId`, `content`, `likedCount`, `createdAt`, `createdAtMs`, `authorNickname`, `authorUserId`, `authorAvatarUrl`, `ipLocation`, `isHot`, `replyCount`, `repliedToCommentId`, `repliedToUser`, `repliedToContent`, `threadId`, `resourceType`, `resourceId`, `sourceUrl`.
+
+### Error (`recordType: "error"`)
+
+`errorCode`, `errorMessage`, `inputValue` — emitted for an input that could not be parsed or found. Error records count toward `maxItems`, so a partially valid list still returns every usable record alongside clear failures.
+
 ## Use cases
 
-- Track how an artist's catalogue and album list grows over time.
-- Pull a genre playlist for a curated listening session or research dataset.
-- Monitor a chart's top tracks and their popularity scores.
-- Collect song metadata and lyrics for text or music-trend analysis.
-- Build a cross-reference between song, album, and artist identifiers.
+- Build a searchable NetEase catalog slice for a genre, artist or mood.
+- Export synchronized, translated and romanized lyrics for language or music research.
+- Track chart positions and rank movement over time.
+- Audit a playlist's full running order and when each track was added.
+- Study listener sentiment and fan culture through comments and replies.
+- Mirror an artist's complete discography and album metadata into a local database.
+
+## Usage cost
+
+NetEase access is free and needs no subscription. You pay for the Apify run itself and the actor's Store price, which is shown on the listing. A small search run costs a fraction of a cent; large playlist, chart or comment runs cost more because they process more records. The daily prefill is deliberately tiny (`search`, one query, three records).
 
 ## FAQ
 
-**Is this affiliated with NetEase?**
-No. This actor reads NetEase Cloud Music's own public pages and has no relationship with NetEase.
+**Do I need a NetEase account, cookie or API key?**
+No. Every mode reads public data anonymously. Nothing in the input asks for credentials.
 
-**Do I need an account to use this?**
-No. Every mode works without logging in.
+**Do I need to configure a proxy?**
+No. The actor chooses a working connection automatically. Just fill in the input and run it.
 
-**Why does `playlistOrder: "new"` return no results?**
-NetEase's own newest-playlist listing currently returns nothing for every genre category when queried this way; use the default `hot` order until that changes upstream.
+**Why do comments stop before the total shown on NetEase?**
+NetEase's public comment pages stop around 1,100 comments per resource. The actor reads up to 1,100 top-level comments, then stops with a note instead of pretending the rest are available.
 
-**Why do some songs have no `popularity`?**
-Search results sometimes omit a popularity score; those songs are dropped when `minPopularity` is set, since a song with an unknown popularity can't be confirmed to meet the floor.
+**Why do only a few songs show `previousRank` and `rankChange`?**
+NetEase publishes rank movement for the first six preview tracks of each chart. Every track still gets its current `rankPosition`; the comparison fields are omitted when the source has no previous rank.
 
-**Can I look up an album directly by ID?**
-Not as a single lookup. Album metadata comes from `byArtistAlbums`, and an album's tracks appear through the playlist, artist, or toplist modes.
+**Why are translation, romanization or word-by-word lyrics missing on some songs?**
+NetEase provides those variants only for some tracks. The main LRC is usually present; the other variants are added only when NetEase publishes them.
 
-**Why did I get fewer songs than `maxItems` from `byArtist`?**
-NetEase's top-songs listing for an artist returns a bounded set of tracks; this actor deduplicates by song ID and stops once a page adds nothing new, so very large artists may still return fewer than `maxItems`.
+**Can I get an artist's entire catalog, not just top songs?**
+Yes. `byArtist` paginates the full song catalog, and `byArtistAlbums` walks every album. Set `includeArtistProfile` to add a profile record.
 
-**What happens if I pass an invalid song URL or toplist ID?**
-That input produces an `error` record (with `errorCode`, `errorMessage`, and `inputValue`) instead of being silently skipped, and it still counts toward `maxItems`.
+**Can I search in Chinese and English?**
+Yes. Search queries, artist names and chart names accept Chinese, English and mixed text.
 
-**How current is the data?**
-Each run reads NetEase Cloud Music live, so popularity, play counts, and chart positions reflect what the site shows at run time.
+**What happened to the old `playlistOrder: "new"` option?**
+NetEase no longer serves a newest-first playlist listing; it returns nothing for every category. The setting is accepted for old saved tasks but is ignored, and the run says so in its status message.
+
+**Is the data live?**
+Yes. Each run reads NetEase at run time, so chart positions, play counts and comments reflect the moment of the run.
+
+## Notes
+
+- Bare numeric IDs are accepted alongside music.163.com URLs.
+- For comments, a bare ID is treated as a song; use `album:123`, `playlist:123` or `chart:123` when the ID belongs to another resource.
+- `toplistIds: ["all"]` or an empty list scans every chart currently published by NetEase.
+- Legacy saved inputs (`searchQuery`, `artistId`, `artistName`, `toplistId`, `includeLyric`, `playlistOrder`) continue to work without being shown in the input form.
+- API callers can pass a `modes` array (for example `["bySongUrl","byArtist"]`) to run several modes in one run; the console's single `mode` field remains the normal path.
+- The chart catalogue is served live when available and falls back to the built-in 65-chart list if NetEase withholds it.
+- Song records include a valid `mp3Url` only when NetEase exposes one; the actor does not download audio.
+
+## Limitations
+
+- Comment pagination is capped around 1,100 per resource by NetEase; time-ordered ("newest") comments are not exposed by the public API.
+- `previousRank` and `rankChange` exist only for the top six preview tracks of a chart.
+- The newest-first playlist browse sort is no longer available upstream.
+- Translation, romanization and word-by-word lyrics are conditional on NetEase publishing them.
+- Playback/audio URLs are signed and can expire, so audio download is out of scope.
+- A temporary NetEase verification challenge can add latency while the actor switches connections; it does not produce an empty run.
