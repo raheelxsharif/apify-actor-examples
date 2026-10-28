@@ -1,0 +1,921 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-i03mm6giTZP/lqad5W9KgIKP451FLVdHfHvfvfNpsuQ=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Twitter (X) Media Downloader | Dataspryva</title><meta name="description" content="Download videos, photos, GIFs, audio and poster images from public Twitter/X posts - no login, no cookies. Works with post links or usernames, supports every video quality, audio-o"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/"><meta property="og:title" content="Twitter (X) Media Downloader | Dataspryva"><meta property="og:description" content="Download videos, photos, GIFs, audio and poster images from public Twitter/X posts - no login, no cookies. Works with post links or usernames, supports every video quality, audio-o"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#webpage","name":"Twitter (X) Media Downloader","description":"Download videos, photos, GIFs, audio and poster images from public Twitter/X posts - no login, no cookies. Works with post links or usernames, supports every video quality, audio-only M4A/MP3, quoted-post media and public signed download links.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#article","headline":"Twitter (X) Media Downloader","name":"Twitter (X) Media Downloader","description":"Download videos, photos, GIFs, audio and poster images from public Twitter/X posts - no login, no cookies. Works with post links or usernames, supports every video quality, audio-only M4A/MP3, quoted-post media and public signed download links.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Twitter (X) Media Downloader","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/fnHBLqMkGad5UusrY/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Twitter (X) Media Downloader</span></div><section id="overview"><h1 class="doc-title">Twitter (X) Media Downloader</h1><p class="lede">Download videos, photos, GIFs, audio and poster images from public Twitter/X posts - no login, no cookies. Works with post links or usernames, supports every video quality, audio-only M4A/MP3, quoted-post media and public signed download links.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/twitter-x-media-downloader">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/fnHBLqMkGad5UusrY/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>postUrls</code></td><td>array</td><td>optional</td><td>Paste links of posts to download media from. Accepts x.com and twitter.com links, i/web/status links, or bare post IDs. Optional if you provide usernames or profile links below.</td></tr><tr><td><code>tweetUrls</code></td><td>array</td><td>optional</td><td>Alias of post links. Accepts tweet links, bare tweet IDs and profile links.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Scan recent posts from these profiles and download their media. Type handles with or without @, or paste full profile links. Optional if you provide post links above.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>postUrls</code></td><td>array</td><td>optional</td><td>Paste links of posts to download media from. Accepts x.com and twitter.com links, i/web/status links, or bare post IDs. Optional if you provide usernames or profile links below.</td></tr><tr><td><code>tweetUrls</code></td><td>array</td><td>optional</td><td>Alias of post links. Accepts tweet links, bare tweet IDs and profile links.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Scan recent posts from these profiles and download their media. Type handles with or without @, or paste full profile links. Optional if you provide post links above.</td></tr><tr><td><code>profileUrls</code></td><td>array</td><td>optional</td><td>Alias of usernames to scan. Paste x.com or twitter.com profile links or bare handles.</td></tr><tr><td><code>maxPostsPerUser</code></td><td>integer</td><td>optional</td><td>How many recent posts to look at for each username. Posts without matching media are skipped.</td></tr><tr><td><code>mediaTypes</code></td><td>array</td><td>optional</td><td>Choose which kinds of media to download. All types are selected by default.</td></tr><tr><td><code>imageQuality</code></td><td>string</td><td>optional</td><td>Quality to use for photos (and video poster images). Original is the full-resolution file posted on X.</td></tr><tr><td><code>videoQuality</code></td><td>string</td><td>optional</td><td>Preferred video resolution. The actor picks the closest available quality when the exact one is not offered.</td></tr><tr><td><code>downloadAllQualities</code></td><td>boolean</td><td>optional</td><td>Emit and download one separate file for every progressive MP4 quality X offers (for example 1080p, 720p, 480p) instead of only the preferred one. Every quality gets its own row, filename and download link.</td></tr><tr><td><code>includePosterImage</code></td><td>boolean</td><td>optional</td><td>Save the thumbnail/poster image of each video or GIF as an additional photo file.</td></tr><tr><td><code>includeThumbnails</code></td><td>boolean</td><td>optional</td><td>Alias of save video poster images. When either option is on, the video thumbnail is stored as an extra photo.</td></tr><tr><td><code>includeAltText</code></td><td>boolean</td><td>optional</td><td>Attach the alt text (image description) X stores for each photo or video thumbnail to the media row.</td></tr><tr><td><code>audioOnly</code></td><td>boolean</td><td>optional</td><td>Download only the audio track of videos. Photos and GIFs are skipped. Files are extracted with ffmpeg and need the save files option.</td></tr><tr><td><code>audioFormat</code></td><td>string</td><td>optional</td><td>Format used when Audio only is on.</td></tr><tr><td><code>includeQuotedMedia</code></td><td>boolean</td><td>optional</td><td>Also download the photos, videos and GIFs that appear inside a quoted post (a post embedded in the linked post). Those rows are marked with mediaSource &quot;quoted post&quot;.</td></tr><tr><td><code>includeMetadata</code></td><td>boolean</td><td>optional</td><td>Attach the post text, like/repost/reply/view counts, the uploader&#x27;s follower count and a derived engagement rate to every downloaded file.</td></tr><tr><td><code>saveToFile</code></td><td>boolean</td><td>optional</td><td>Download each file into this run&#x27;s key-value store and add a public signed download link. Turn off to collect metadata only.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional. Use an Apify proxy if you plan large runs or see frequent rate limits.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;audioFormat&quot;: {
+      &quot;default&quot;: &quot;m4a&quot;,
+      &quot;description&quot;: &quot;Format used when Audio only is on.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;m4a&quot;,
+        &quot;mp3&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;M4A (AAC, smaller, native)&quot;,
+        &quot;MP3 (widest compatibility)&quot;
+      ],
+      &quot;prefill&quot;: &quot;m4a&quot;,
+      &quot;title&quot;: &quot;Audio file format&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;audioOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Download only the audio track of videos. Photos and GIFs are skipped. Files are extracted with ffmpeg and need the save files option.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Audio only (extract sound from videos)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;downloadAllQualities&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Emit and download one separate file for every progressive MP4 quality X offers (for example 1080p, 720p, 480p) instead of only the preferred one. Every quality gets its own row, filename and download link.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Download every video quality&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;imageQuality&quot;: {
+      &quot;default&quot;: &quot;orig&quot;,
+      &quot;description&quot;: &quot;Quality to use for photos (and video poster images). Original is the full-resolution file posted on X.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;orig&quot;,
+        &quot;large&quot;,
+        &quot;medium&quot;,
+        &quot;small&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Original (highest quality)&quot;,
+        &quot;Large&quot;,
+        &quot;Medium&quot;,
+        &quot;Small (lightest)&quot;
+      ],
+      &quot;prefill&quot;: &quot;orig&quot;,
+      &quot;title&quot;: &quot;Photo quality&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeAltText&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Attach the alt text (image description) X stores for each photo or video thumbnail to the media row.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include image alt text&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeMetadata&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Attach the post text, like/repost/reply/view counts, the uploader&#x27;s follower count and a derived engagement rate to every downloaded file.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include post metadata&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePosterImage&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Save the thumbnail/poster image of each video or GIF as an additional photo file.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Also save video poster images&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeQuotedMedia&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Also download the photos, videos and GIFs that appear inside a quoted post (a post embedded in the linked post). Those rows are marked with mediaSource \&quot;quoted post\&quot;.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include media from quoted posts&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeThumbnails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Alias of save video poster images. When either option is on, the video thumbnail is stored as an extra photo.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include thumbnails (alias)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxPostsPerUser&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;How many recent posts to look at for each username. Posts without matching media are skipped.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Maximum posts to check per username&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mediaTypes&quot;: {
+      &quot;default&quot;: [
+        &quot;video&quot;,
+        &quot;photo&quot;,
+        &quot;gif&quot;
+      ],
+      &quot;description&quot;: &quot;Choose which kinds of media to download. All types are selected by default.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;video&quot;,
+          &quot;photo&quot;,
+          &quot;gif&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Videos&quot;,
+          &quot;Photos&quot;,
+          &quot;GIFs&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;video&quot;,
+        &quot;photo&quot;,
+        &quot;gif&quot;
+      ],
+      &quot;title&quot;: &quot;Media types to download&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;postUrls&quot;: {
+      &quot;description&quot;: &quot;Paste links of posts to download media from. Accepts x.com and twitter.com links, i/web/status links, or bare post IDs. Optional if you provide usernames or profile links below.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://x.com/NASA/status/2107095768821576019&quot;,
+        &quot;2107516524965794217&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;https://x.com/NASA/status/2107095768821576019&quot;,
+        &quot;https://x.com/SheCodeAfrica/status/2107516524965794217&quot;
+      ],
+      &quot;title&quot;: &quot;Post links or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;profileUrls&quot;: {
+      &quot;description&quot;: &quot;Alias of usernames to scan. Paste x.com or twitter.com profile links or bare handles.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://x.com/NASA&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Profile links to scan (alias)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Optional. Use an Apify proxy if you plan large runs or see frequent rate limits.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;sectionCaption&quot;: &quot;Advanced&quot;,
+      &quot;sectionDescription&quot;: &quot;Optional settings for large or repeated runs.&quot;,
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;saveToFile&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Download each file into this run&#x27;s key-value store and add a public signed download link. Turn off to collect metadata only.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Save files and return download links&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;tweetUrls&quot;: {
+      &quot;description&quot;: &quot;Alias of post links. Accepts tweet links, bare tweet IDs and profile links.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;https://x.com/NASA/status/2107095768821576019&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Tweet links or IDs (alias)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;usernames&quot;: {
+      &quot;description&quot;: &quot;Scan recent posts from these profiles and download their media. Type handles with or without @, or paste full profile links. Optional if you provide post links above.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;NASA&quot;,
+        &quot;https://x.com/elonmusk&quot;
+      ],
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Usernames or profile links to scan&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;videoQuality&quot;: {
+      &quot;default&quot;: &quot;best&quot;,
+      &quot;description&quot;: &quot;Preferred video resolution. The actor picks the closest available quality when the exact one is not offered.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;best&quot;,
+        &quot;2160p&quot;,
+        &quot;1080p&quot;,
+        &quot;720p&quot;,
+        &quot;480p&quot;,
+        &quot;worst&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Best available&quot;,
+        &quot;2160p (4K)&quot;,
+        &quot;1080p (Full HD)&quot;,
+        &quot;720p (HD)&quot;,
+        &quot;480p (SD)&quot;,
+        &quot;Worst (smallest file)&quot;
+      ],
+      &quot;prefill&quot;: &quot;best&quot;,
+      &quot;title&quot;: &quot;Video quality&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Twitter (X) Media Downloader&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>media</code></td><td>string</td><td>optional</td><td>One row per downloaded video, photo, GIF or poster image, with a public download link.</td></tr><tr><td><code>files</code></td><td>string</td><td>optional</td><td>Key-value store holding the actual media files.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;properties&quot;: {
+    &quot;files&quot;: {
+      &quot;description&quot;: &quot;Key-value store holding the actual media files.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultKeyValueStoreUrl}}/keys&quot;,
+      &quot;title&quot;: &quot;Stored files&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;media&quot;: {
+      &quot;description&quot;: &quot;One row per downloaded video, photo, GIF or poster image, with a public download link.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Downloaded media&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Twitter (X) Media Downloader Output&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;description&quot;: &quot;One row per downloaded file, plus status rows for failures.&quot;,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;altText&quot;: {
+        &quot;description&quot;: &quot;Image description X stores for the photo or video thumbnail.&quot;,
+        &quot;title&quot;: &quot;Alt text&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;audioFormat&quot;: {
+        &quot;description&quot;: &quot;Audio container used when the audio-only option is on.&quot;,
+        &quot;enum&quot;: [
+          &quot;m4a&quot;,
+          &quot;mp3&quot;
+        ],
+        &quot;title&quot;: &quot;Audio format&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;collectedAt&quot;: {
+        &quot;description&quot;: &quot;UTC timestamp when the row was created.&quot;,
+        &quot;example&quot;: &quot;2026-10-06T18:53:49+00:00&quot;,
+        &quot;title&quot;: &quot;Data collected at&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;downloadStatus&quot;: {
+        &quot;description&quot;: &quot;finished, failed or notDownloaded.&quot;,
+        &quot;enum&quot;: [
+          &quot;finished&quot;,
+          &quot;failed&quot;,
+          &quot;notDownloaded&quot;
+        ],
+        &quot;title&quot;: &quot;Download status&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;downloadUrl&quot;: {
+        &quot;description&quot;: &quot;Public signed download link for the stored file.&quot;,
+        &quot;example&quot;: &quot;https://api.apify.com/v2/key-value-stores/STORE/records/file.mp4?signature=...&quot;,
+        &quot;title&quot;: &quot;Download URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;durationSeconds&quot;: {
+        &quot;description&quot;: &quot;Video or GIF duration.&quot;,
+        &quot;example&quot;: 13.3,
+        &quot;title&quot;: &quot;Duration (seconds)&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;fileSizeBytes&quot;: {
+        &quot;description&quot;: &quot;Real size of the downloaded file.&quot;,
+        &quot;example&quot;: 3178943,
+        &quot;title&quot;: &quot;File size (bytes)&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;filename&quot;: {
+        &quot;description&quot;: &quot;File name used in the key-value store.&quot;,
+        &quot;example&quot;: &quot;2107095768821576019_video_1.mp4&quot;,
+        &quot;title&quot;: &quot;File name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;height&quot;: {
+        &quot;description&quot;: &quot;Media height in pixels.&quot;,
+        &quot;example&quot;: 1080,
+        &quot;title&quot;: &quot;Height&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;likeCount&quot;: {
+        &quot;description&quot;: &quot;Number of likes on the post.&quot;,
+        &quot;title&quot;: &quot;Likes&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;mediaSource&quot;: {
+        &quot;description&quot;: &quot;post for the post&#x27;s own media, quoted post for media inside a quoted post, poster image for a video thumbnail.&quot;,
+        &quot;enum&quot;: [
+          &quot;post&quot;,
+          &quot;quoted post&quot;,
+          &quot;poster image&quot;
+        ],
+        &quot;title&quot;: &quot;Media source&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;mediaType&quot;: {
+        &quot;description&quot;: &quot;video, photo or gif.&quot;,
+        &quot;enum&quot;: [
+          &quot;video&quot;,
+          &quot;photo&quot;,
+          &quot;gif&quot;
+        ],
+        &quot;title&quot;: &quot;Media type&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;mediaUrl&quot;: {
+        &quot;description&quot;: &quot;Media URL with the selected photo quality applied (videos/GIFs use the chosen stream).&quot;,
+        &quot;example&quot;: &quot;https://pbs.twimg.com/media/ABC123?format=jpg&amp;name=large&quot;,
+        &quot;title&quot;: &quot;Media URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;mediaUrlOriginal&quot;: {
+        &quot;description&quot;: &quot;Untouched X CDN URL of the media, without the quality parameter.&quot;,
+        &quot;example&quot;: &quot;https://pbs.twimg.com/media/ABC123&quot;,
+        &quot;title&quot;: &quot;Original media URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;message&quot;: {
+        &quot;description&quot;: &quot;Human-friendly status or failure message.&quot;,
+        &quot;title&quot;: &quot;Message&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;posterImageUrl&quot;: {
+        &quot;description&quot;: &quot;Poster image URL on video/GIF rows when includePosterImage is on, with the selected photo quality applied.&quot;,
+        &quot;title&quot;: &quot;Poster image URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;retweetCount&quot;: {
+        &quot;description&quot;: &quot;Number of reposts on the post.&quot;,
+        &quot;title&quot;: &quot;Reposts&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;status&quot;: {
+        &quot;description&quot;: &quot;Status code on status rows.&quot;,
+        &quot;enum&quot;: [
+          &quot;noInput&quot;,
+          &quot;invalidLink&quot;,
+          &quot;invalidUsername&quot;,
+          &quot;notFound&quot;,
+          &quot;rateLimited&quot;,
+          &quot;error&quot;,
+          &quot;noMatchingMedia&quot;,
+          &quot;noRecords&quot;
+        ],
+        &quot;title&quot;: &quot;Status code&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;thumbnailUrl&quot;: {
+        &quot;description&quot;: &quot;Preview/poster image URL for videos and GIFs.&quot;,
+        &quot;title&quot;: &quot;Thumbnail URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;tweetId&quot;: {
+        &quot;description&quot;: &quot;Numeric ID of the post the media belongs to.&quot;,
+        &quot;example&quot;: &quot;2107095768821576019&quot;,
+        &quot;title&quot;: &quot;Post ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;tweetText&quot;: {
+        &quot;description&quot;: &quot;Text of the post.&quot;,
+        &quot;title&quot;: &quot;Post text&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;tweetUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical URL of the post.&quot;,
+        &quot;example&quot;: &quot;https://x.com/i/status/2107095768821576019&quot;,
+        &quot;title&quot;: &quot;Post URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: {
+        &quot;description&quot;: &quot;media file for a downloaded file, status for a run message.&quot;,
+        &quot;enum&quot;: [
+          &quot;media file&quot;,
+          &quot;status&quot;
+        ],
+        &quot;example&quot;: &quot;media file&quot;,
+        &quot;title&quot;: &quot;Row type&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;uploaderUsername&quot;: {
+        &quot;description&quot;: &quot;Handle of the account that posted the media.&quot;,
+        &quot;example&quot;: &quot;NASA&quot;,
+        &quot;title&quot;: &quot;Uploader&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;username&quot;: {
+        &quot;description&quot;: &quot;Username related to a status row.&quot;,
+        &quot;title&quot;: &quot;Username&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;viewCount&quot;: {
+        &quot;description&quot;: &quot;Number of views on the post.&quot;,
+        &quot;title&quot;: &quot;Views&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;width&quot;: {
+        &quot;description&quot;: &quot;Media width in pixels.&quot;,
+        &quot;example&quot;: 1920,
+        &quot;title&quot;: &quot;Width&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;type&quot;,
+      &quot;collectedAt&quot;
+    ],
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;Twitter (X) Media Downloader Output&quot;,
+  &quot;views&quot;: {
+    &quot;allRecords&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;collectedAt&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Data collected at&quot;
+          },
+          &quot;downloadUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Download Link&quot;
+          },
+          &quot;filename&quot;: {
+            &quot;label&quot;: &quot;File&quot;
+          },
+          &quot;mediaType&quot;: {
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;message&quot;: {
+            &quot;label&quot;: &quot;Message&quot;
+          },
+          &quot;status&quot;: {
+            &quot;label&quot;: &quot;Status&quot;
+          },
+          &quot;tweetId&quot;: {
+            &quot;label&quot;: &quot;Post ID&quot;
+          },
+          &quot;tweetUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Post URL&quot;
+          },
+          &quot;type&quot;: {
+            &quot;label&quot;: &quot;Row Type&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;All records&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;type&quot;,
+          &quot;status&quot;,
+          &quot;message&quot;,
+          &quot;tweetUrl&quot;,
+          &quot;tweetId&quot;,
+          &quot;mediaType&quot;,
+          &quot;filename&quot;,
+          &quot;downloadUrl&quot;,
+          &quot;collectedAt&quot;
+        ]
+      }
+    },
+    &quot;mediaFiles&quot;: {
+      &quot;description&quot;: &quot;One row per downloaded video, photo or GIF.&quot;,
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;altText&quot;: {
+            &quot;label&quot;: &quot;Alt Text&quot;
+          },
+          &quot;collectedAt&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Data collected at&quot;
+          },
+          &quot;downloadStatus&quot;: {
+            &quot;label&quot;: &quot;Status&quot;
+          },
+          &quot;downloadUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Download Link&quot;
+          },
+          &quot;durationSeconds&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Duration (s)&quot;
+          },
+          &quot;fileSizeBytes&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Size (bytes)&quot;
+          },
+          &quot;filename&quot;: {
+            &quot;label&quot;: &quot;File&quot;
+          },
+          &quot;height&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Height&quot;
+          },
+          &quot;mediaType&quot;: {
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;mediaUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Media URL&quot;
+          },
+          &quot;mediaUrlOriginal&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Original Media URL&quot;
+          },
+          &quot;posterImageUrl&quot;: {
+            &quot;format&quot;: &quot;image&quot;,
+            &quot;label&quot;: &quot;Poster Image&quot;
+          },
+          &quot;tweetUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Post URL&quot;
+          },
+          &quot;uploaderUsername&quot;: {
+            &quot;label&quot;: &quot;Uploader&quot;
+          },
+          &quot;width&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Width&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Downloaded media&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;tweetUrl&quot;,
+          &quot;uploaderUsername&quot;,
+          &quot;mediaType&quot;,
+          &quot;filename&quot;,
+          &quot;fileSizeBytes&quot;,
+          &quot;width&quot;,
+          &quot;height&quot;,
+          &quot;durationSeconds&quot;,
+          &quot;mediaUrl&quot;,
+          &quot;mediaUrlOriginal&quot;,
+          &quot;posterImageUrl&quot;,
+          &quot;altText&quot;,
+          &quot;downloadUrl&quot;,
+          &quot;downloadStatus&quot;,
+          &quot;collectedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-twitter-x-media-downloader">Twitter (X) Media Downloader</h2>
+<p>Download videos, photos, GIFs, audio tracks and video poster images from public <strong>Twitter / X</strong> posts — <strong>no login, no cookies, no browser</strong>. Paste post links or usernames and get every file stored with a public signed download link that works in any browser or <code>curl</code>.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Two discovery paths:</strong> direct post links/IDs, or scan usernames/profile links for their latest media posts</li>
+<li><strong>All media types:</strong> videos, photos, GIFs and video poster images</li>
+<li><strong>Quality control:</strong> original or compressed photos; any video quality (<code>2160p</code> down to <code>480p</code>, best or smallest) — or every available quality at once as separate files</li>
+<li><strong>Audio only:</strong> extract the soundtrack of videos as M4A or MP3</li>
+<li><strong>Extras:</strong> media from quoted posts, image alt text, post metadata with a derived engagement rate</li>
+<li><strong>Empty fields are omitted</strong></li>
+</ul>
+<h2 id="readme-output-per-media-file">Output per media file</h2>
+<p>Each row has a <code>type</code>: <code>media file</code> for a downloaded file or <code>status</code> for a run message.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tweetId</code>, <code>tweetUrl</code></td>
+<td>Post ID and canonical post URL</td>
+</tr>
+<tr>
+<td><code>mediaType</code></td>
+<td><code>video</code>, <code>photo</code> or <code>gif</code></td>
+</tr>
+<tr>
+<td><code>mediaUrl</code></td>
+<td>Media URL with the selected photo quality applied (videos/GIFs use the chosen quality)</td>
+</tr>
+<tr>
+<td><code>mediaUrlOriginal</code></td>
+<td>Untouched X CDN URL, without the quality parameter</td>
+</tr>
+<tr>
+<td><code>thumbnailUrl</code></td>
+<td>Preview image URL for videos and GIFs</td>
+</tr>
+<tr>
+<td><code>posterImageUrl</code></td>
+<td>Poster image URL on video/GIF rows when poster saving is on</td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td>File name in the key-value store</td>
+</tr>
+<tr>
+<td><code>fileSizeBytes</code></td>
+<td>Real size of the downloaded file</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Media dimensions in pixels</td>
+</tr>
+<tr>
+<td><code>durationSeconds</code></td>
+<td>Video or GIF duration</td>
+</tr>
+<tr>
+<td><code>downloadUrl</code></td>
+<td>Public signed download link for the stored file</td>
+</tr>
+<tr>
+<td><code>downloadStatus</code></td>
+<td><code>finished</code>, <code>failed</code> or <code>notDownloaded</code></td>
+</tr>
+<tr>
+<td><code>uploaderUsername</code>, <code>uploaderFollowers</code></td>
+<td>Handle and follower count of the account that posted the media</td>
+</tr>
+<tr>
+<td><code>tweetText</code></td>
+<td>Text of the post</td>
+</tr>
+<tr>
+<td><code>likeCount</code>, <code>retweetCount</code>, <code>replyCount</code>, <code>viewCount</code></td>
+<td>Public engagement counts</td>
+</tr>
+<tr>
+<td><code>engagementRate</code></td>
+<td>Derived engagement in percent (likes + reposts + replies ÷ followers)</td>
+</tr>
+<tr>
+<td><code>variantQuality</code>, <code>variantBitrate</code></td>
+<td>Quality label (for example <code>1080p</code>) and bitrate of the downloaded variant</td>
+</tr>
+<tr>
+<td><code>availableQualities</code></td>
+<td>Every quality X offers for the video, best first (label, URL, dimensions, bitrate)</td>
+</tr>
+<tr>
+<td><code>qualityCount</code></td>
+<td>How many video qualities are available</td>
+</tr>
+<tr>
+<td><code>isBestQuality</code></td>
+<td>Whether the downloaded variant is the best one X offers</td>
+</tr>
+<tr>
+<td><code>mediaSource</code></td>
+<td><code>post</code>, <code>quoted post</code> or <code>poster image</code></td>
+</tr>
+<tr>
+<td><code>altText</code></td>
+<td>Image description X stores for the photo or video thumbnail</td>
+</tr>
+<tr>
+<td><code>mediaKey</code>, <code>focusRects</code></td>
+<td>Media identifier and X's crop focus rectangles</td>
+</tr>
+<tr>
+<td><code>allowDownload</code></td>
+<td>Whether X allows downloads for this media</td>
+</tr>
+<tr>
+<td><code>audioFormat</code></td>
+<td><code>m4a</code> or <code>mp3</code> on audio-only rows</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Explanation on failed or skipped files</td>
+</tr>
+<tr>
+<td><code>collectedAt</code></td>
+<td>UTC timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<p>Status rows carry <code>status</code> (<code>noInput</code>, <code>invalidLink</code>, <code>invalidUsername</code>, <code>notFound</code>, <code>rateLimited</code>, <code>error</code>, <code>noMatchingMedia</code>, <code>noRecords</code>), a human-friendly <code>message</code>, and the related <code>tweetUrl</code>, <code>tweetId</code> or <code>username</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>postUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Post links, <code>i/web/status</code> links or bare post IDs</td>
+</tr>
+<tr>
+<td><code>tweetUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Alias of post links</td>
+</tr>
+<tr>
+<td><code>usernames</code></td>
+<td>array</td>
+<td>–</td>
+<td>Profiles to scan for recent media (<code>@</code> optional, profile links accepted)</td>
+</tr>
+<tr>
+<td><code>profileUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Alias of usernames to scan</td>
+</tr>
+<tr>
+<td><code>maxPostsPerUser</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>How many recent posts to check per username (1–100)</td>
+</tr>
+<tr>
+<td><code>mediaTypes</code></td>
+<td>array</td>
+<td><code>[&quot;video&quot;, &quot;photo&quot;, &quot;gif&quot;]</code></td>
+<td><code>video</code>, <code>photo</code>, <code>gif</code></td>
+</tr>
+<tr>
+<td><code>imageQuality</code></td>
+<td>string</td>
+<td><code>orig</code></td>
+<td><code>orig</code>, <code>large</code>, <code>medium</code>, <code>small</code></td>
+</tr>
+<tr>
+<td><code>videoQuality</code></td>
+<td>string</td>
+<td><code>best</code></td>
+<td><code>best</code>, <code>2160p</code>, <code>1080p</code>, <code>720p</code>, <code>480p</code>, <code>worst</code> — the closest available quality is used</td>
+</tr>
+<tr>
+<td><code>downloadAllQualities</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Download every progressive video quality as a separate row and file</td>
+</tr>
+<tr>
+<td><code>includePosterImage</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Also save the video/GIF poster image as a photo</td>
+</tr>
+<tr>
+<td><code>includeThumbnails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Alias of poster images</td>
+</tr>
+<tr>
+<td><code>includeAltText</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Attach X's image description to the row</td>
+</tr>
+<tr>
+<td><code>audioOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Save only the audio track of videos as M4A/MP3; photos and GIFs are skipped</td>
+</tr>
+<tr>
+<td><code>audioFormat</code></td>
+<td>string</td>
+<td><code>m4a</code></td>
+<td><code>m4a</code> or <code>mp3</code> when audio-only is on</td>
+</tr>
+<tr>
+<td><code>includeQuotedMedia</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Also download media from a post quoted inside the linked post</td>
+</tr>
+<tr>
+<td><code>includeMetadata</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Attach post text and engagement counts to every file</td>
+</tr>
+<tr>
+<td><code>saveToFile</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Store files and return public signed links; turn off to collect metadata only</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>–</td>
+<td>Optional, for large or repeated runs</td>
+</tr>
+</tbody>
+</table></div>
+<p>At least one post link or username is required. Post links and usernames can be combined in one run.</p>
+<h3 id="readme-example-direct-post-links">Example: direct post links</h3>
+<pre><code class="language-json">{
+  &quot;postUrls&quot;: [
+    &quot;https://x.com/NASA/status/2107095768821576019&quot;,
+    &quot;2107516524965794217&quot;
+  ],
+  &quot;mediaTypes&quot;: [&quot;video&quot;, &quot;photo&quot;],
+  &quot;videoQuality&quot;: &quot;1080p&quot;
+}
+</code></pre>
+<h3 id="readme-example-scan-profiles-for-recent-media">Example: scan profiles for recent media</h3>
+<pre><code class="language-json">{
+  &quot;usernames&quot;: [&quot;NASA&quot;, &quot;https://x.com/elonmusk&quot;],
+  &quot;maxPostsPerUser&quot;: 30,
+  &quot;mediaTypes&quot;: [&quot;video&quot;],
+  &quot;includeMetadata&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-audio-only-mp3">Example: audio only (MP3)</h3>
+<pre><code class="language-json">{
+  &quot;postUrls&quot;: [&quot;https://x.com/NASA/status/2107095768821576019&quot;],
+  &quot;audioOnly&quot;: true,
+  &quot;audioFormat&quot;: &quot;mp3&quot;
+}
+</code></pre>
+<h3 id="readme-example-every-video-quality">Example: every video quality</h3>
+<pre><code class="language-json">{
+  &quot;postUrls&quot;: [&quot;https://x.com/NASA/status/2107095768821576019&quot;],
+  &quot;mediaTypes&quot;: [&quot;video&quot;],
+  &quot;downloadAllQualities&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-record">Example record</h3>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;media file&quot;,
+  &quot;tweetId&quot;: &quot;2107095768821576019&quot;,
+  &quot;tweetUrl&quot;: &quot;https://x.com/i/status/2107095768821576019&quot;,
+  &quot;mediaType&quot;: &quot;video&quot;,
+  &quot;mediaUrl&quot;: &quot;https://video.twimg.com/amplify_video/.../avc1/1920x1080/video.mp4?tag=16&quot;,
+  &quot;mediaUrlOriginal&quot;: &quot;https://video.twimg.com/amplify_video/.../video.mp4&quot;,
+  &quot;thumbnailUrl&quot;: &quot;https://pbs.twimg.com/amplify_video_thumb/.../img/thumb.jpg&quot;,
+  &quot;posterImageUrl&quot;: &quot;https://pbs.twimg.com/amplify_video_thumb/.../img/thumb.jpg?format=jpg&amp;name=orig&quot;,
+  &quot;filename&quot;: &quot;2107095768821576019_video_1.mp4&quot;,
+  &quot;fileSizeBytes&quot;: 3178943,
+  &quot;width&quot;: 1920,
+  &quot;height&quot;: 1080,
+  &quot;durationSeconds&quot;: 13.3,
+  &quot;downloadUrl&quot;: &quot;https://api.apify.com/v2/key-value-stores/{STORE_ID}/records/2107095768821576019_video_1.mp4?signature=...&quot;,
+  &quot;downloadStatus&quot;: &quot;finished&quot;,
+  &quot;uploaderUsername&quot;: &quot;NASA&quot;,
+  &quot;tweetText&quot;: &quot;It's World Space Week! ...&quot;,
+  &quot;likeCount&quot;: 7284,
+  &quot;retweetCount&quot;: 1138,
+  &quot;viewCount&quot;: 2838162,
+  &quot;variantQuality&quot;: &quot;1080p&quot;,
+  &quot;qualityCount&quot;: 3,
+  &quot;isBestQuality&quot;: true,
+  &quot;mediaSource&quot;: &quot;post&quot;,
+  &quot;collectedAt&quot;: &quot;2026-10-06T18:53:49+00:00&quot;
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Content archival</strong> — back up media from accounts you care about</li>
+<li><strong>Repurposing</strong> — pull video and photo assets for blogs, presentations or social posts</li>
+<li><strong>Compliance and evidence</strong> — preserve public posts for legal or regulatory records</li>
+<li><strong>Media research</strong> — build labelled datasets of public video/photo content</li>
+<li><strong>Audio workflows</strong> — turn public videos into podcast-ready M4A/MP3 tracks</li>
+<li><strong>Social listening</strong> — enrich posts with engagement metrics for analysis</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Twitter/X account or cookies?</strong> No. The actor is fully cookieless and reads public posts and public profile timelines only.</p>
+<p><strong>What media types are supported?</strong> Videos, photos and GIFs. If a post has 3 photos and 1 video, you get all 4 files (plus the video poster when poster saving is on).</p>
+<p><strong>How are video qualities handled?</strong> The actor picks the closest available quality to your preference (<code>best</code> and <code>worst</code> are also supported). Portrait videos are compared by their real quality — a 1080×1920 video is treated as 1080p. When <code>downloadAllQualities</code> is on, every quality becomes its own file.</p>
+<p><strong>What is <code>posterImageUrl</code>?</strong> When poster saving is on, every video/GIF row carries the poster image URL at your chosen photo quality, and the poster is also saved as a separate photo row. Turn the option off to keep video/GIF rows only.</p>
+<p><strong>Does it download media from quoted posts?</strong> Yes — by default media inside a quoted post is collected too and marked with <code>mediaSource: &quot;quoted post&quot;</code>. Set <code>includeQuotedMedia</code> to <code>false</code> to keep only the linked post's own media.</p>
+<p><strong>How does audio-only work?</strong> Videos are downloaded and their audio track is extracted as M4A (AAC) or MP3. Photos and GIFs are skipped in this mode. Audio-only requires file saving, so <code>saveToFile</code> is enabled automatically.</p>
+<p><strong>What happens to posts with no media or filtered-out media?</strong> The actor emits a <code>status</code> row explaining why, so a run is never silently empty.</p>
+<p><strong>Why are download links signed?</strong> Apify key-value store records need a signature for public access; the actor appends it automatically. Paste the URL into any browser or <code>curl</code>.</p>
+<p><strong>How long do download links last?</strong> They follow your Apify key-value store retention (typically 7 days on the free tier). Re-run the actor or copy the files to your own storage for permanent archival.</p>
+<p><strong>Can I collect metadata without downloading files?</strong> Yes — set <code>saveToFile</code> to <code>false</code>. Rows still include the original CDN URLs.</p>
+<p><strong>Can I download from private or protected accounts?</strong> No. The actor only accesses public content, by design.</p>
+<h2 id="readme-limits">Limits</h2>
+<ul>
+<li>Public posts only — deleted posts and protected accounts cannot be retrieved.</li>
+<li>Profile scanning is limited to the posts X exposes to logged-out visitors (roughly the newest posts of the account).</li>
+<li>Very large scans may be rate-limited by X; reduce <code>maxPostsPerUser</code> or configure a proxy.</li>
+<li>When X marks a media item as not downloadable, the row reports <code>downloadStatus: &quot;notDownloaded&quot;</code> with an explanation instead of a file.</li>
+</ul>
+<h2 id="readme-integrations">Integrations</h2>
+<p>Run it on a schedule and push new files to Google Drive, Dropbox, S3 or any webhook through Apify's built-in integrations, or call the actor from the Apify API to feed media pipelines.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/fnHBLqMkGad5UusrY/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0HSxEtm7Agvf2chqx</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "properties": {
+    "files": {
+      "description": "Key-value store holding the actual media files.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys",
+      "title": "Stored files",
+      "type": "string"
+    },
+    "media": {
+      "description": "One row per downloaded video, photo, GIF or poster image, with a public download link.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Downloaded media",
+      "type": "string"
+    }
+  },
+  "title": "Twitter (X) Media Downloader Output",
+  "type": "object"
+}

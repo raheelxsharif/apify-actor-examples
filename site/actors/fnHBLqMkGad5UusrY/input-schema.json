@@ -1,0 +1,225 @@
+{
+  "properties": {
+    "audioFormat": {
+      "default": "m4a",
+      "description": "Format used when Audio only is on.",
+      "editor": "select",
+      "enum": [
+        "m4a",
+        "mp3"
+      ],
+      "enumTitles": [
+        "M4A (AAC, smaller, native)",
+        "MP3 (widest compatibility)"
+      ],
+      "prefill": "m4a",
+      "title": "Audio file format",
+      "type": "string"
+    },
+    "audioOnly": {
+      "default": false,
+      "description": "Download only the audio track of videos. Photos and GIFs are skipped. Files are extracted with ffmpeg and need the save files option.",
+      "prefill": false,
+      "title": "Audio only (extract sound from videos)",
+      "type": "boolean"
+    },
+    "downloadAllQualities": {
+      "default": false,
+      "description": "Emit and download one separate file for every progressive MP4 quality X offers (for example 1080p, 720p, 480p) instead of only the preferred one. Every quality gets its own row, filename and download link.",
+      "prefill": false,
+      "title": "Download every video quality",
+      "type": "boolean"
+    },
+    "imageQuality": {
+      "default": "orig",
+      "description": "Quality to use for photos (and video poster images). Original is the full-resolution file posted on X.",
+      "editor": "select",
+      "enum": [
+        "orig",
+        "large",
+        "medium",
+        "small"
+      ],
+      "enumTitles": [
+        "Original (highest quality)",
+        "Large",
+        "Medium",
+        "Small (lightest)"
+      ],
+      "prefill": "orig",
+      "title": "Photo quality",
+      "type": "string"
+    },
+    "includeAltText": {
+      "default": true,
+      "description": "Attach the alt text (image description) X stores for each photo or video thumbnail to the media row.",
+      "prefill": true,
+      "title": "Include image alt text",
+      "type": "boolean"
+    },
+    "includeMetadata": {
+      "default": true,
+      "description": "Attach the post text, like/repost/reply/view counts, the uploader's follower count and a derived engagement rate to every downloaded file.",
+      "prefill": true,
+      "title": "Include post metadata",
+      "type": "boolean"
+    },
+    "includePosterImage": {
+      "default": true,
+      "description": "Save the thumbnail/poster image of each video or GIF as an additional photo file.",
+      "prefill": true,
+      "title": "Also save video poster images",
+      "type": "boolean"
+    },
+    "includeQuotedMedia": {
+      "default": true,
+      "description": "Also download the photos, videos and GIFs that appear inside a quoted post (a post embedded in the linked post). Those rows are marked with mediaSource \"quoted post\".",
+      "prefill": true,
+      "title": "Include media from quoted posts",
+      "type": "boolean"
+    },
+    "includeThumbnails": {
+      "default": false,
+      "description": "Alias of save video poster images. When either option is on, the video thumbnail is stored as an extra photo.",
+      "prefill": false,
+      "title": "Include thumbnails (alias)",
+      "type": "boolean"
+    },
+    "maxPostsPerUser": {
+      "default": 20,
+      "description": "How many recent posts to look at for each username. Posts without matching media are skipped.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Maximum posts to check per username",
+      "type": "integer"
+    },
+    "mediaTypes": {
+      "default": [
+        "video",
+        "photo",
+        "gif"
+      ],
+      "description": "Choose which kinds of media to download. All types are selected by default.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "video",
+          "photo",
+          "gif"
+        ],
+        "enumTitles": [
+          "Videos",
+          "Photos",
+          "GIFs"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "video",
+        "photo",
+        "gif"
+      ],
+      "title": "Media types to download",
+      "type": "array"
+    },
+    "postUrls": {
+      "description": "Paste links of posts to download media from. Accepts x.com and twitter.com links, i/web/status links, or bare post IDs. Optional if you provide usernames or profile links below.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/NASA/status/2107095768821576019",
+        "2107516524965794217"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://x.com/NASA/status/2107095768821576019",
+        "https://x.com/SheCodeAfrica/status/2107516524965794217"
+      ],
+      "title": "Post links or IDs",
+      "type": "array"
+    },
+    "profileUrls": {
+      "description": "Alias of usernames to scan. Paste x.com or twitter.com profile links or bare handles.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/NASA"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Profile links to scan (alias)",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Optional. Use an Apify proxy if you plan large runs or see frequent rate limits.",
+      "editor": "proxy",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Optional settings for large or repeated runs.",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "saveToFile": {
+      "default": true,
+      "description": "Download each file into this run's key-value store and add a public signed download link. Turn off to collect metadata only.",
+      "prefill": true,
+      "title": "Save files and return download links",
+      "type": "boolean"
+    },
+    "tweetUrls": {
+      "description": "Alias of post links. Accepts tweet links, bare tweet IDs and profile links.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/NASA/status/2107095768821576019"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Tweet links or IDs (alias)",
+      "type": "array"
+    },
+    "usernames": {
+      "description": "Scan recent posts from these profiles and download their media. Type handles with or without @, or paste full profile links. Optional if you provide post links above.",
+      "editor": "stringList",
+      "example": [
+        "NASA",
+        "https://x.com/elonmusk"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Usernames or profile links to scan",
+      "type": "array"
+    },
+    "videoQuality": {
+      "default": "best",
+      "description": "Preferred video resolution. The actor picks the closest available quality when the exact one is not offered.",
+      "editor": "select",
+      "enum": [
+        "best",
+        "2160p",
+        "1080p",
+        "720p",
+        "480p",
+        "worst"
+      ],
+      "enumTitles": [
+        "Best available",
+        "2160p (4K)",
+        "1080p (Full HD)",
+        "720p (HD)",
+        "480p (SD)",
+        "Worst (smallest file)"
+      ],
+      "prefill": "best",
+      "title": "Video quality",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Twitter (X) Media Downloader",
+  "type": "object"
+}

@@ -1,0 +1,331 @@
+{
+  "actorSpecification": 1,
+  "description": "One row per downloaded file, plus status rows for failures.",
+  "fields": {
+    "properties": {
+      "altText": {
+        "description": "Image description X stores for the photo or video thumbnail.",
+        "title": "Alt text",
+        "type": "string"
+      },
+      "audioFormat": {
+        "description": "Audio container used when the audio-only option is on.",
+        "enum": [
+          "m4a",
+          "mp3"
+        ],
+        "title": "Audio format",
+        "type": "string"
+      },
+      "collectedAt": {
+        "description": "UTC timestamp when the row was created.",
+        "example": "2026-10-06T18:53:49+00:00",
+        "title": "Data collected at",
+        "type": "string"
+      },
+      "downloadStatus": {
+        "description": "finished, failed or notDownloaded.",
+        "enum": [
+          "finished",
+          "failed",
+          "notDownloaded"
+        ],
+        "title": "Download status",
+        "type": "string"
+      },
+      "downloadUrl": {
+        "description": "Public signed download link for the stored file.",
+        "example": "https://api.apify.com/v2/key-value-stores/STORE/records/file.mp4?signature=...",
+        "title": "Download URL",
+        "type": "string"
+      },
+      "durationSeconds": {
+        "description": "Video or GIF duration.",
+        "example": 13.3,
+        "title": "Duration (seconds)",
+        "type": "number"
+      },
+      "fileSizeBytes": {
+        "description": "Real size of the downloaded file.",
+        "example": 3178943,
+        "title": "File size (bytes)",
+        "type": "integer"
+      },
+      "filename": {
+        "description": "File name used in the key-value store.",
+        "example": "2107095768821576019_video_1.mp4",
+        "title": "File name",
+        "type": "string"
+      },
+      "height": {
+        "description": "Media height in pixels.",
+        "example": 1080,
+        "title": "Height",
+        "type": "integer"
+      },
+      "likeCount": {
+        "description": "Number of likes on the post.",
+        "title": "Likes",
+        "type": "integer"
+      },
+      "mediaSource": {
+        "description": "post for the post's own media, quoted post for media inside a quoted post, poster image for a video thumbnail.",
+        "enum": [
+          "post",
+          "quoted post",
+          "poster image"
+        ],
+        "title": "Media source",
+        "type": "string"
+      },
+      "mediaType": {
+        "description": "video, photo or gif.",
+        "enum": [
+          "video",
+          "photo",
+          "gif"
+        ],
+        "title": "Media type",
+        "type": "string"
+      },
+      "mediaUrl": {
+        "description": "Media URL with the selected photo quality applied (videos/GIFs use the chosen stream).",
+        "example": "https://pbs.twimg.com/media/ABC123?format=jpg&name=large",
+        "title": "Media URL",
+        "type": "string"
+      },
+      "mediaUrlOriginal": {
+        "description": "Untouched X CDN URL of the media, without the quality parameter.",
+        "example": "https://pbs.twimg.com/media/ABC123",
+        "title": "Original media URL",
+        "type": "string"
+      },
+      "message": {
+        "description": "Human-friendly status or failure message.",
+        "title": "Message",
+        "type": "string"
+      },
+      "posterImageUrl": {
+        "description": "Poster image URL on video/GIF rows when includePosterImage is on, with the selected photo quality applied.",
+        "title": "Poster image URL",
+        "type": "string"
+      },
+      "retweetCount": {
+        "description": "Number of reposts on the post.",
+        "title": "Reposts",
+        "type": "integer"
+      },
+      "status": {
+        "description": "Status code on status rows.",
+        "enum": [
+          "noInput",
+          "invalidLink",
+          "invalidUsername",
+          "notFound",
+          "rateLimited",
+          "error",
+          "noMatchingMedia",
+          "noRecords"
+        ],
+        "title": "Status code",
+        "type": "string"
+      },
+      "thumbnailUrl": {
+        "description": "Preview/poster image URL for videos and GIFs.",
+        "title": "Thumbnail URL",
+        "type": "string"
+      },
+      "tweetId": {
+        "description": "Numeric ID of the post the media belongs to.",
+        "example": "2107095768821576019",
+        "title": "Post ID",
+        "type": "string"
+      },
+      "tweetText": {
+        "description": "Text of the post.",
+        "title": "Post text",
+        "type": "string"
+      },
+      "tweetUrl": {
+        "description": "Canonical URL of the post.",
+        "example": "https://x.com/i/status/2107095768821576019",
+        "title": "Post URL",
+        "type": "string"
+      },
+      "type": {
+        "description": "media file for a downloaded file, status for a run message.",
+        "enum": [
+          "media file",
+          "status"
+        ],
+        "example": "media file",
+        "title": "Row type",
+        "type": "string"
+      },
+      "uploaderUsername": {
+        "description": "Handle of the account that posted the media.",
+        "example": "NASA",
+        "title": "Uploader",
+        "type": "string"
+      },
+      "username": {
+        "description": "Username related to a status row.",
+        "title": "Username",
+        "type": "string"
+      },
+      "viewCount": {
+        "description": "Number of views on the post.",
+        "title": "Views",
+        "type": "integer"
+      },
+      "width": {
+        "description": "Media width in pixels.",
+        "example": 1920,
+        "title": "Width",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "type",
+      "collectedAt"
+    ],
+    "type": "object"
+  },
+  "title": "Twitter (X) Media Downloader Output",
+  "views": {
+    "allRecords": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "collectedAt": {
+            "format": "date",
+            "label": "Data collected at"
+          },
+          "downloadUrl": {
+            "format": "link",
+            "label": "Download Link"
+          },
+          "filename": {
+            "label": "File"
+          },
+          "mediaType": {
+            "label": "Type"
+          },
+          "message": {
+            "label": "Message"
+          },
+          "status": {
+            "label": "Status"
+          },
+          "tweetId": {
+            "label": "Post ID"
+          },
+          "tweetUrl": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "type": {
+            "label": "Row Type"
+          }
+        }
+      },
+      "title": "All records",
+      "transformation": {
+        "fields": [
+          "type",
+          "status",
+          "message",
+          "tweetUrl",
+          "tweetId",
+          "mediaType",
+          "filename",
+          "downloadUrl",
+          "collectedAt"
+        ]
+      }
+    },
+    "mediaFiles": {
+      "description": "One row per downloaded video, photo or GIF.",
+      "display": {
+        "component": "table",
+        "properties": {
+          "altText": {
+            "label": "Alt Text"
+          },
+          "collectedAt": {
+            "format": "date",
+            "label": "Data collected at"
+          },
+          "downloadStatus": {
+            "label": "Status"
+          },
+          "downloadUrl": {
+            "format": "link",
+            "label": "Download Link"
+          },
+          "durationSeconds": {
+            "format": "number",
+            "label": "Duration (s)"
+          },
+          "fileSizeBytes": {
+            "format": "number",
+            "label": "Size (bytes)"
+          },
+          "filename": {
+            "label": "File"
+          },
+          "height": {
+            "format": "number",
+            "label": "Height"
+          },
+          "mediaType": {
+            "label": "Type"
+          },
+          "mediaUrl": {
+            "format": "link",
+            "label": "Media URL"
+          },
+          "mediaUrlOriginal": {
+            "format": "link",
+            "label": "Original Media URL"
+          },
+          "posterImageUrl": {
+            "format": "image",
+            "label": "Poster Image"
+          },
+          "tweetUrl": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "uploaderUsername": {
+            "label": "Uploader"
+          },
+          "width": {
+            "format": "number",
+            "label": "Width"
+          }
+        }
+      },
+      "title": "Downloaded media",
+      "transformation": {
+        "fields": [
+          "tweetUrl",
+          "uploaderUsername",
+          "mediaType",
+          "filename",
+          "fileSizeBytes",
+          "width",
+          "height",
+          "durationSeconds",
+          "mediaUrl",
+          "mediaUrlOriginal",
+          "posterImageUrl",
+          "altText",
+          "downloadUrl",
+          "downloadStatus",
+          "collectedAt"
+        ]
+      }
+    }
+  }
+}
