@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Apartments.com rental listing records with rent ranges, per-unit floor plans, amenities, walkability scores, and leasing contact details.",
+  "description": "One record per Apartments.com property, with rent by bedroom, floor plans, available units, fees, pets, parking, amenities, schools, office hours, manager, website and photos.",
   "properties": {
     "listings": {
-      "description": "Dataset containing all scraped Apartments.com rental listings.",
+      "description": "Dataset containing the scraped Apartments.com properties.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Rental Listings",
+      "title": "Rental listings",
       "type": "string"
     }
   },
-  "title": "Apartments.com Rental Listing & Floor Plan Scraper Output"
+  "title": "Apartments.com Rental Listings, Floor Plans & Fees"
 }

@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Optional. Leave empty to scrape anonymously. Paste your own Instagram cookies in JSON format to also retry age-restricted and login-protected posts with your account; posts your account still cannot open keep their status, and a private post opens only if your account follows that account. It is a secret input, so the Apify Console hides and encrypts it.\n\nFormat: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "post_urls": {
+      "description": "Instagram post, reel or IGTV URLs to scrape. Accepts /p/, /reel/, /reels/, /tv/, and canonical username/p/shortcode formats. Duplicates are silently de-duplicated.",
+      "editor": "stringList",
+      "maxItems": 10000,
+      "minItems": 1,
+      "prefill": [
+        "https://www.instagram.com/p/DUtk38cj2TA/"
+      ],
+      "title": "Post URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "post_urls"
+  ],
+  "schemaVersion": 1,
+  "title": "Instagram Post Scraper",
+  "type": "object"
+}

@@ -2,13 +2,13 @@
   "actorOutputSchemaVersion": 1,
   "properties": {
     "files": {
-      "description": "Key-value store holding the actual media files.",
+      "description": "Key-value store holding the downloaded media files and their public links.",
       "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys",
       "title": "Stored files",
       "type": "string"
     },
     "media": {
-      "description": "One row per downloaded video, photo, GIF or poster image, with a public download link.",
+      "description": "One row per downloaded video, photo, GIF, audio track or poster image, with media metadata and a public download link. Status rows explain deleted, protected or media-less posts.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Downloaded media",
       "type": "string"

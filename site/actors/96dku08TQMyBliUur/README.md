@@ -1,138 +1,158 @@
 # YellowPagesPK Business Directory & Lead Finder
 
-YellowPagesPK.com lists Pakistani businesses across dozens of categories and cities. This actor browses any of the site's 46 business categories, runs a free-text keyword search (business name, service, or city), or fetches full business profiles from direct listing URLs — names, addresses, cities, phone numbers, emails, websites, and more, with no login, cookies, or API key required.
+YellowPagesPK.com is one of Pakistan's largest online business directories. This actor turns it into structured lead data: browse a category, browse a city, run the site's keyword search, or open specific listing URLs. It returns the full public profile behind each business — contact details, addresses, category terms, opening hours, social profiles, photo galleries and map coordinates — with no login, cookies, API key or proxy setup.
 
-## What this actor does
+## What it does
 
-- **Three modes:** `byCategory` (browse a category, with real pagination), `search` (free-text keyword search across the whole directory, with real pagination), and `byUrls` (fetch specific listing pages directly)
-- **46 categories** covering restaurants, hotels, automotive, real estate, law firms, medical, education, construction, and more — the full, current category list published on the site
-- **Optional city filter** — narrow any mode to businesses whose address mentions a given Pakistani city (e.g. `"Lahore"`, `"Karachi"`, `"Islamabad"`)
-- **Full business profiles** — description, category, claimed status, owner/author profile, email, phone, website, logo (toggle `fetchDetails`)
-- **Empty fields are omitted** — you only ever see fields that were actually found for a business
+- **Four modes:** `byCategory` (browse one or more category archives), `byCity` (browse one or more city/location archives), `search` (the site's relevance-ranked keyword search) and `byUrls` (open specific listing pages).
+- **All 47 published categories** and **all 65 published location terms**, exposed as multi-select dropdowns with human-readable titles.
+- **The whole directory:** leaving `categories` or `cities` empty crawls every published listing through the site's WordPress REST API — currently **2,198 businesses**.
+- **Combined targeting:** pick several categories and several cities in one run; city and category selections also act as exact filters in the other modes.
+- **Lead-quality filters:** minimum rating, claimed-only, and only-with-email / only-with-website / only-with-phone.
+- **Full profile records:** description, primary category plus category arrays, city/country, address, phone, email, website, WhatsApp and social profiles, weekday opening hours, open/closed state, rating and real review count, price range, photos, coordinates, author and publish dates.
+- **Safe by design:** strict listing-URL validation, duplicate removal by WordPress post ID, and empty fields omitted rather than emitted as `null`.
 
-## Output per business
+## Services covered
 
-- `name` — business name
-- `description` — business description (when profile fetched)
-- `category`, `categorySlug` — the listing's own category, taken from its breadcrumb (when profile fetched)
-- `searchCategory` — the category you searched (mode=byCategory)
-- `searchQuery` — the keyword you searched (mode=search)
-- `address` — full street address as published
-- `city` — best-effort city extracted from the listing's own city tag (mode=byCategory) or from the address text
-- `phone`, `email`, `website`
-- `latitude`, `longitude` — GPS coordinates (only present for the small number of listings that publish them)
-- `rating` — star rating out of 5 (only present for listings that have received at least one review — most have none)
-- `reviewCount` — number of reviews behind the rating (mode=byCategory; only present when `rating` is present)
-- `openStatus` — live open/closed/day-off badge text, when the listing publishes hours (mode=byCategory)
-- `claimed` — `true` if the business owner has claimed and verified the listing
-- `sponsored` — `true` if the listing is marked "Ad" (a paid/promoted placement) on its category page (mode=byCategory)
-- `imageUrl` — listing photo (mode=byCategory; omitted when the listing has no real photo, or the photo file is no longer reachable on the source site -- see Limitations)
-- `logoUrl` — business logo (when profile fetched; omitted when the listing has no real logo, or the logo file is no longer reachable on the source site -- see Limitations)
-- `authorName`, `authorProfileUrl` — the directory account that submitted the listing (when profile fetched)
-- `sourceUrl` — canonical YellowPagesPK.com listing URL
-- `recordType: "business"`, `scrapedAt`
+Restaurants, hotels and guest houses, health and medical providers, education institutes, software houses, shopping, real estate, law firms, travel agencies, manufacturers, movers and packers, beauty and spa, automotive, electronics, construction, digital media and every other category the directory publishes.
+
+## How it works
+
+The actor uses two public, cookieless data paths:
+
+1. **Server-rendered archives** for discovery — category archives and city archives return 100 business cards per page; the native search returns listing teasers 10 per page. Cards carry name, address, phone, coordinates, claimed/sponsored badges and images.
+2. **WordPress REST API** for exact metadata — category and location term IDs, publish/modified dates, descriptions and totals. Term filters are exact, so a "Lahore + restaurant" request matches the directory's own taxonomy rather than a text guess. The REST endpoint has 2,198 published listings at 100 per request.
+
+When `fetchDetails` is on, each business page is opened for the rich profile fields. Detail pages are the only source of email, website, opening hours, social links, gallery and price range. A sitemap index provides a fallback enumeration path if the REST endpoint is unavailable.
+
+Requests use full browser headers because the site's LiteSpeed edge rejects incomplete requests with HTTP 406. Retries cover transient 5xx responses. Apify's datacenter proxy is used automatically only after a real block; no proxy configuration is needed from the user.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `byCategory` | `byCategory`, `search`, or `byUrls` |
-| `category` | string (select) | `restaurant` | One of the 46 published categories (mode=byCategory) |
-| `cityFilter` | string | – | Only keep businesses whose address/city mentions this text, e.g. `"Lahore"` (mode=byCategory, mode=search) |
-| `searchQuery` | string | – | Free-text keyword to search, e.g. `"restaurant lahore"` (mode=search) |
-| `listingUrls` | array | – | Direct YellowPagesPK.com listing URLs to fetch (mode=byUrls) |
-| `minRating` | integer (select) | `0` | Only include businesses rated at least this many stars (0-5). Businesses with no published rating are excluded once set above 0 |
-| `onlyClaimed` | boolean | `false` | Only include businesses whose listing has been claimed/verified by its owner |
-| `fetchDetails` | boolean | `true` | Also visit each listing's page for description, email, website, category, claimed status, and owner profile |
-| `maxItems` | integer | `30` | Hard cap on returned records (1-500) |
+| `mode` | select | `byCategory` | `byCategory`, `byCity`, `search` or `byUrls` |
+| `categories` | multi-select | – | 47 category slugs; in `byCategory` restaurant when omitted, empty means the whole directory; exact filter in other modes |
+| `cities` | multi-select | `[]` | 65 location slugs; browse in `byCity`, exact filter elsewhere |
+| `searchQuery` | text | – | Keyword for `search` mode |
+| `listingUrls` | URL list | `[]` | Exact YellowPagesPK listing URLs for `byUrls` |
+| `minRating` | integer 0–5 | `0` | Minimum published rating; profiles are fetched automatically when the selected path cannot supply ratings |
+| `onlyClaimed` | boolean | `false` | Keep only owner-claimed listings; profiles are fetched automatically when the selected path cannot supply claim badges |
+| `onlyWithEmail` | boolean | `false` | Keep only records with an email (turns on profiles) |
+| `onlyWithWebsite` | boolean | `false` | Keep only records with a website (turns on profiles) |
+| `onlyWithPhone` | boolean | `false` | Keep only records with a phone (turns on profiles) |
+| `fetchDetails` | boolean | `true` | Open each profile page for full contact/social/hours data |
+| `maxItems` | integer 1–5,000 | `30` | Maximum records to return |
 
-### Example: browse restaurants
+### Examples
 
-```json
-{
-  "mode": "byCategory",
-  "category": "restaurant",
-  "maxItems": 30
-}
-```
-
-### Example: hotels in Lahore only
+Browse every restaurant in Lahore:
 
 ```json
 {
   "mode": "byCategory",
-  "category": "hotels",
-  "cityFilter": "Lahore",
-  "maxItems": 30
+  "categories": ["restaurant"],
+  "cities": ["lahore"],
+  "maxItems": 100
 }
 ```
 
-### Example: keyword search across the directory
+Browse software houses and digital media in Karachi and Islamabad:
+
+```json
+{
+  "mode": "byCity",
+  "cities": ["karachi", "islamabad"],
+  "categories": ["software-houses", "digital-media"],
+  "maxItems": 200
+}
+```
+
+Search for a service, with contactable businesses only:
 
 ```json
 {
   "mode": "search",
   "searchQuery": "digital marketing lahore",
-  "maxItems": 40
+  "onlyWithEmail": true,
+  "maxItems": 50
 }
 ```
 
-### Example: fetch specific business profiles
+Open specific profiles:
 
 ```json
 {
   "mode": "byUrls",
   "listingUrls": [
+    { "url": "https://yellowpagespk.com/listing/bizlaw/" },
     { "url": "https://yellowpagespk.com/listing/andaaz-restaurant/" }
   ]
 }
 ```
 
-### Example: only claimed/verified listings
+Crawl the entire directory as a fast list of names, categories, cities, descriptions and dates (no profile requests):
 
 ```json
 {
   "mode": "byCategory",
-  "category": "law-firms",
-  "onlyClaimed": true,
-  "maxItems": 30
+  "categories": [],
+  "fetchDetails": false,
+  "maxItems": 5000
 }
 ```
 
-## Use cases
+## Output
 
-- **Local lead generation** — build a prospect list of Pakistani businesses by category and city for B2B outreach
-- **Directory aggregation** — feed structured Pakistani business data into your own local-search product
-- **Market research** — see how many listed businesses exist in a category and which cities they cluster in
-- **Competitor mapping** — see who else is listed in a category with contact and website details
+Each dataset record is one business. Fields include:
 
-## Limitations
+`postId`, `businessId`, `name`, `description`, `category`, `categorySlug`, `categories`, `categorySlugs`, `searchCategory`, `searchQuery`, `address`, `city`, `country`, `locationTerms`, `phone`, `email`, `website`, `latitude`, `longitude`, `rating`, `reviewCount`, `openStatus`, `openNow`, `openingHours`, `socialLinks`, `images`, `imageUrl`, `logoUrl`, `priceRange`, `claimed`, `sponsored`, `authorName`, `authorProfileUrl`, `publishedAt`, `lastUpdated`, `sourceUrl`, `recordType`, `scrapedAt`.
 
-- **`mode=byCategory` paginates for real.** YellowPagesPK.com's category pages (`/listing-category/<slug>/`, `/listing-category/<slug>/page/N/`) are genuinely paginated via standard WordPress `/page/N/` URLs (confirmed live: page 1 and page 2 return distinct, non-overlapping business listings). The actor walks pages until it hits `maxItems`, runs out of new listings, or reaches an internal page cap.
-- **`mode=search` also paginates for real** and can return substantially more results than `mode=byCategory` for a broad keyword, since it uses the site's native WordPress search (`/?s=...`, `/page/N/?s=...`), which is genuinely paginated.
-- **Ratings and reviews are rare.** Most listings on this directory have never received a review, so `rating` is only present on the small minority that have. This is a fact about the underlying data, not a bug — the actor never fabricates a rating.
-- **Many older listing photos are broken on the source site itself.** YellowPagesPK.com's HTML still references photo/logo files uploaded before roughly November 2024 that have since been removed from its media server (verified: the site's own listing pages link to these paths, but the files themselves return 404). The actor live-checks every `imageUrl`/`logoUrl` before including it and omits the field rather than shipping a broken link, so a lower `imageUrl`/`logoUrl` coverage rate reflects an upstream data-integrity gap, not a scraper defect.
-- **GPS coordinates are rare.** Only a small number of listings have `latitude`/`longitude` set on the site itself; most do not, and the field is simply omitted.
-- **`city` is best-effort.** `mode=byCategory` uses the listing's own city tag when the site provides one; otherwise (and always in `mode=search`/`mode=byUrls`), the actor matches the address text against a curated list of ~70 major Pakistani cities/towns. Addresses that don't mention a recognized city will have no `city` field.
-- **`cityFilter` only excludes businesses with a known, non-matching city.** Businesses that have no address/city data at all on the site are passed through rather than excluded (the filter can't verify what isn't there), the same way `minRating`-style filters behave on other directory actors in this catalog.
-- **Directory data quality is the site's own.** YellowPagesPK.com occasionally contains a small number of off-topic or foreign listings inside a Pakistani category (a fact of the source data, reproduced as-is rather than filtered out, since the actor does not assume what "off-topic" means for every use case).
+All nested values are omit-empty: a business without a website has no `website` key, and a profile without a gallery has no `images` key.
+
+## Usage cost
+
+The actor makes cheap HTML/JSON requests only; it does not launch a browser and does not use paid proxy groups. A normal category run with profiles enabled costs one archive request plus one request per business. `onlyWith*` filters, and rating/claimed filters in modes whose fast path lacks those fields, enable profiles automatically. For the lowest-cost large runs, use category/city archives with `fetchDetails` set to `false` and `maxItems` up to 5,000. Apify compute and the actor's own pay-per-result pricing (when enabled on the listing) are billed by the platform according to your plan.
 
 ## FAQ
 
-**What data source does this actor use?**
-It reads the publicly available category, search, and listing pages on YellowPagesPK.com, a Pakistan business directory. No account or API key is needed.
+**Do I need an account, cookies or an API key?**
+No. Every page and endpoint used by this actor is public.
 
-**Is this affiliated with YellowPagesPK.com?**
-No. This is an independent, third-party actor that reads publicly accessible pages.
+**How many businesses can I get?**
+The directory currently has 2,198 published listings. Leave `categories` or `cities` empty to crawl all of them; otherwise the selected archives are fully paginated.
 
-**Why do some businesses have no email, website, or rating?**
-YellowPagesPK.com only shows contact details a business itself provided, and only shows a rating once a business has received at least one review. Fields with no data are simply omitted from the record rather than shown as empty or null.
+**Why do some records have no email, website, hours or rating?**
+The directory only shows what each business supplied. Email and website appear on profile pages; hours are published by a small minority; ratings exist only after a review. Missing values are omitted, never invented.
 
-**Why is `fetchDetails` on by default?**
-Category and search listing pages alone only carry a subset of fields (name, address, phone, sometimes a photo). Turning on `fetchDetails` (the default) visits each listing's own page for the full picture — description, category, email, website, claimed status, and owner profile — at the cost of one extra request per result.
+**What is the difference between `byCategory` and `byCity`?**
+They are two browse paths over the same listings. `byCategory` walks category archives and can be narrowed with `cities`; `byCity` walks location archives and can be narrowed with `categories`. Both deduplicate by post ID.
 
-**Can I search by both category and city at once?**
-Yes — set `category` and `cityFilter` together in `mode=byCategory` to browse a category limited to a specific city.
+**Does `fetchDetails` change the output?**
+Yes. With it off, category/city archive runs still return card + REST fields: name, address, phone, categories, city/country, coordinates, badges and dates. Keyword-search runs return name, image, categories, city/country, description and dates; whole-directory REST runs return name, categories, city/country, description and dates. With it on, every profile is opened for email, website, hours, socials, gallery and price range. Contact filters and filters whose field is missing from the selected fast path turn profiles on automatically.
 
-**Does this actor need a proxy or login?**
-No. YellowPagesPK.com's category, search, and listing pages are publicly accessible, so this actor runs with no login and no credentials required.
+**How is city chosen when the site lists a state or country?**
+The actor prefers a real city among the listing's location terms, then matches the address against a curated city list. Country is derived separately, so a Seattle business tagged "Washington" is returned as `city: "Seattle"` and `country: "United States"`, not as a city named Washington.
+
+**Are duplicate businesses possible across categories or cities?**
+No. Records are deduplicated by WordPress post ID (and canonical URL) within a run.
+
+**What happens if a detail page fails?**
+The card/REST fields are kept and the run continues; the log reports how many profile requests failed.
+
+## Notes
+
+- `businessId` is always the listing slug and `postId` is always the numeric WordPress ID, in every mode.
+- `searchCategory` records the category you browsed; `searchQuery` records the keyword you searched. `categories`/`categorySlugs` always describe the business itself.
+- `reviewCount` is parsed from the profile's "N Ratings" label and is only present when the site publishes it.
+- The default input is deliberately small (two restaurants, profiles off) so scheduled runs stay cheap; raise `maxItems` and enable `fetchDetails` for production jobs.
+
+## Limitations
+
+- **Address coverage is partial.** Roughly half of all listings publish a street address; the rest only have a city/country term. Address is omitted when the source has none.
+- **Ratings are rare.** Only a handful of listings have a rating and review count. Review text is not published anywhere on the site, so it cannot be scraped.
+- **Opening hours are rare.** Most profiles do not publish weekday hours; when they do, only the days shown are returned (no day is invented).
+- **City and country are best-effort.** The location taxonomy mixes cities, provinces, countries and a few neighbourhoods. The actor picks the most specific city term and derives country separately; listings with no location data may have no city.
+- **Some images are broken at the source.** Older photos and logos referenced by the site may return 404. Gallery and logo URLs are checked before output when profiles are fetched, so a missing image reflects the source, not a scrape failure; card thumbnails in fast runs are passed through as published.
+- **2,198 listings is the current directory total**, not a cap imposed by the actor. The REST enumeration includes the two listings that do not appear in category archives; if REST fails, a sitemap fallback enumerates listing URLs.
+- **No sort or resume options.** The site offers no reliable server-side sort or cursor, so results follow the directory's own archive order.

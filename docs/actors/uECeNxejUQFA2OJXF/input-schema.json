@@ -1,40 +1,124 @@
 {
-  "description": "Scrape rental listings from Apartments.com. Use 'search' mode to find listings by location, or 'urls' mode to scrape specific pages.",
+  "description": "Find Apartments.com rentals by city or ZIP, paste property URLs, or look up listing keys. Filters and extra detail are optional.",
   "properties": {
     "amenities": {
       "default": [],
-      "description": "Only show listings with these amenities.",
+      "description": "Only return listings that publish every selected amenity.",
       "editor": "select",
       "items": {
         "enum": [
-          "pool",
-          "utilities-included",
-          "garage",
-          "air-conditioning",
+          "smoke-free",
+          "washer-dryer",
           "dishwasher",
-          "walk-in-closets",
+          "central-heating",
+          "air-conditioning",
           "balcony",
-          "furnished"
+          "fireplace",
+          "furnished",
+          "fitness-center",
+          "pool",
+          "tennis-court",
+          "rooftop-deck",
+          "basketball-court",
+          "playground",
+          "parking",
+          "wheelchair-accessible",
+          "high-speed-internet",
+          "elevator",
+          "washer-dryer-hookups",
+          "laundry-facilities",
+          "utilities-included",
+          "lofts",
+          "doorman",
+          "gated",
+          "concierge",
+          "clubhouse",
+          "controlled-access",
+          "business-center",
+          "garage",
+          "patio",
+          "hardwood-floors",
+          "den",
+          "office",
+          "yard",
+          "walk-in-closets",
+          "basement",
+          "ev-charging",
+          "storage-units",
+          "high-ceilings",
+          "dog-park"
         ],
         "enumTitles": [
-          "Swimming Pool",
-          "Utilities Included",
-          "Parking Garage",
-          "Air Conditioning",
+          "Smoke-free",
+          "In-unit washer/dryer",
           "Dishwasher",
-          "Walk-In Closets",
-          "Balcony / Patio",
-          "Furnished"
+          "Central heating",
+          "Air conditioning",
+          "Balcony",
+          "Fireplace",
+          "Furnished",
+          "Fitness center",
+          "Pool",
+          "Tennis court",
+          "Rooftop deck",
+          "Basketball court",
+          "Playground",
+          "Parking",
+          "Wheelchair accessible",
+          "High-speed internet",
+          "Elevator",
+          "Washer/dryer hookups",
+          "Laundry facilities",
+          "Utilities included",
+          "Lofts",
+          "Doorman",
+          "Gated",
+          "Concierge",
+          "Clubhouse",
+          "Controlled access",
+          "Business center",
+          "Garage",
+          "Patio",
+          "Hardwood floors",
+          "Den",
+          "Office",
+          "Yard",
+          "Walk-in closets",
+          "Basement",
+          "EV charging",
+          "Storage units",
+          "High ceilings",
+          "Dog park"
         ],
         "type": "string"
       },
       "prefill": [],
-      "title": "Required Amenities",
+      "title": "Required amenities",
       "type": "array"
+    },
+    "bathrooms": {
+      "default": "any",
+      "description": "Match listings with a floor plan at or above this bathroom count.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1plus",
+        "2plus",
+        "3plus"
+      ],
+      "enumTitles": [
+        "Any",
+        "1+ bathrooms",
+        "2+ bathrooms",
+        "3+ bathrooms"
+      ],
+      "prefill": "any",
+      "title": "Bathrooms",
+      "type": "string"
     },
     "bedrooms": {
       "default": "any",
-      "description": "Filter by bedroom count.",
+      "description": "Match listings with at least one floor plan of this bedroom count.",
       "editor": "select",
       "enum": [
         "any",
@@ -58,35 +142,80 @@
       "title": "Bedrooms",
       "type": "string"
     },
+    "keywords": {
+      "description": "Keep listings whose name, description, amenities, neighborhood or floor-plan names contain this text. Requires scrapeDetails=true.",
+      "editor": "textfield",
+      "title": "Keywords",
+      "type": "string"
+    },
+    "listingKeys": {
+      "description": "Apartments.com listing keys such as `d3pj6rk`. Used only in `listingKeys` mode.",
+      "editor": "stringList",
+      "title": "Listing keys",
+      "type": "array"
+    },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of listings to return (1–500).",
-      "maximum": 500,
+      "description": "Maximum listings to return (1–5,000). Search mode also stops at the maxPages scan depth.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 5,
-      "title": "Max Items",
+      "prefill": 1,
+      "title": "Max listings",
       "type": "integer"
     },
     "maxPages": {
       "default": 5,
-      "description": "Maximum number of search result pages to scrape (1–20). Each page has ~25 listings.",
+      "description": "How many 40-listing discovery pages to scan in search mode (1–20). Raise it when filters are narrow.",
       "maximum": 20,
       "minimum": 1,
       "prefill": 1,
-      "title": "Max Search Pages",
+      "title": "Max search depth (pages)",
       "type": "integer"
+    },
+    "maximizeCoverage": {
+      "default": false,
+      "description": "When the public listing index cannot fill your request, automatically try the site's search page as a last resort. Off by default.",
+      "prefill": false,
+      "title": "Maximize coverage",
+      "type": "boolean"
+    },
+    "minRating": {
+      "default": "any",
+      "description": "Only return listings rated at or above this score (1–5).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "Any rating",
+        "1+ stars",
+        "2+ stars",
+        "3+ stars",
+        "4+ stars",
+        "5 stars"
+      ],
+      "prefill": "any",
+      "title": "Minimum rating",
+      "type": "string"
     },
     "mode": {
       "default": "search",
-      "description": "How to find listings: 'search' builds a URL from your location and filters; 'urls' scrapes the Apartments.com URLs you provide.",
+      "description": "How to find listings: `search` uses a city or ZIP plus filters; `urls` uses the Apartments.com URLs you paste; `listingKeys` looks up the listing keys you paste.",
       "editor": "select",
       "enum": [
         "search",
-        "urls"
+        "urls",
+        "listingKeys"
       ],
       "enumTitles": [
-        "Search by location + filters",
-        "Scrape provided URLs"
+        "Search by city or ZIP",
+        "Scrape pasted URLs",
+        "Look up listing keys"
       ],
       "prefill": "search",
       "sectionCaption": "Mode",
@@ -94,9 +223,15 @@
       "title": "Mode",
       "type": "string"
     },
+    "moveInDate": {
+      "description": "Only return listings with a unit available on or before this date (YYYY-MM-DD).",
+      "editor": "textfield",
+      "title": "Move-in by date",
+      "type": "string"
+    },
     "petPolicy": {
       "default": "any",
-      "description": "Filter by pet policy.",
+      "description": "Require listings that allow dogs, cats, or both.",
       "editor": "select",
       "enum": [
         "any",
@@ -108,29 +243,29 @@
         "Any",
         "Dogs allowed",
         "Cats allowed",
-        "Pets allowed"
+        "Dogs or cats allowed"
       ],
       "prefill": "any",
-      "title": "Pet Policy",
+      "title": "Pet policy",
       "type": "string"
     },
     "priceMax": {
-      "description": "Maximum monthly rent in USD. Leave unset for no maximum.",
+      "description": "Highest monthly rent to include. Leave unset for no maximum.",
       "maximum": 50000,
       "minimum": 0,
-      "title": "Maximum Monthly Rent ($)",
+      "title": "Maximum monthly rent ($)",
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum monthly rent in USD. Leave unset for no minimum.",
+      "description": "Lowest monthly rent to include. Leave unset for no minimum.",
       "maximum": 50000,
       "minimum": 0,
-      "title": "Minimum Monthly Rent ($)",
+      "title": "Minimum monthly rent ($)",
       "type": "integer"
     },
     "propertyType": {
       "default": "any",
-      "description": "Filter by property type.",
+      "description": "Restrict results to one property type.",
       "editor": "select",
       "enum": [
         "any",
@@ -147,38 +282,105 @@
         "Townhomes"
       ],
       "prefill": "any",
-      "title": "Property Type",
+      "title": "Property type",
       "type": "string"
     },
     "rentSpecials": {
       "default": false,
-      "description": "Only show listings with current rent specials or move-in deals.",
+      "description": "Only return listings advertising a current move-in deal.",
       "prefill": false,
-      "title": "Rent Specials Only",
+      "title": "Rent specials only",
       "type": "boolean"
     },
     "scrapeDetails": {
       "default": true,
-      "description": "Visit each listing's detail page to get full amenities, description, scores, floor plans, and contact info. Slower but richer data.",
-      "prefill": false,
-      "sectionCaption": "Output Options",
-      "title": "Scrape Full Listing Details",
+      "description": "Fetch floor plans, available units, fees, pets, parking, schools, office hours, manager, website and photos for each listing. Turn off for faster card-level results.",
+      "prefill": true,
+      "sectionCaption": "Output options",
+      "title": "Fetch full details",
       "type": "boolean"
     },
     "searchLocation": {
-      "description": "City and state to search (e.g. 'New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Austin, TX'). Used only in 'search' mode.",
+      "description": "US city and state (`New York, NY`) or 5-digit ZIP (`10001`). Used only in search mode.",
       "editor": "textfield",
       "prefill": "New York, NY",
-      "sectionCaption": "Search Filters",
-      "sectionDescription": "Filters applied when mode=search. Ignored when mode=urls.",
-      "title": "Search Location",
+      "sectionCaption": "Search filters",
+      "sectionDescription": "Narrow the search by rent, size, type, pets and amenities. All filters are optional.",
+      "title": "Search location",
       "type": "string"
     },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How to order returned listings.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "priceAsc",
+        "priceDesc",
+        "bedsAsc",
+        "bedsDesc",
+        "newest"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Lowest rent first",
+        "Highest rent first",
+        "Fewest bedrooms first",
+        "Most bedrooms first",
+        "Recently updated"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "specialties": {
+      "default": [],
+      "description": "Return listings matching at least one selected lifestyle or housing program. Student and senior housing are the most consistently published; other values are applied when the source exposes them.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "student",
+          "senior",
+          "military",
+          "corporate",
+          "luxury",
+          "affordable",
+          "cheap"
+        ],
+        "enumTitles": [
+          "Student housing",
+          "Senior housing",
+          "Military housing",
+          "Corporate housing",
+          "Luxury",
+          "Affordable housing",
+          "Cheap"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Lifestyle / housing type",
+      "type": "array"
+    },
+    "sqftMax": {
+      "description": "Largest floor plan to include. Leave unset for no maximum.",
+      "maximum": 20000,
+      "minimum": 0,
+      "title": "Maximum square feet",
+      "type": "integer"
+    },
+    "sqftMin": {
+      "description": "Smallest floor plan to include. Leave unset for no minimum.",
+      "maximum": 20000,
+      "minimum": 0,
+      "title": "Minimum square feet",
+      "type": "integer"
+    },
     "startUrls": {
-      "description": "Apartments.com search result page URLs or individual listing URLs. Used only in 'urls' mode.",
+      "description": "Apartments.com city-search or property URLs. Used only in `urls` mode. A listing key is also accepted.",
       "editor": "requestListSources",
-      "sectionCaption": "Direct URLs",
-      "sectionDescription": "Provide Apartments.com URLs directly when mode=urls.",
+      "sectionCaption": "Direct sources",
+      "sectionDescription": "Paste URLs or listing keys instead of searching.",
       "title": "Start URLs",
       "type": "array"
     }

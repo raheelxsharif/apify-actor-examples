@@ -1,0 +1,826 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-2nq31EMsXYOyvjXxBiNoEThCI14LEZHyfhowf2W9iko=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Instagram Posts &amp; Reels Data Scraper | Dataspryva</title><meta name="description" content="Scrape public Instagram posts, Reels, IGTV and carousels from a list of links, no login. Get caption, hashtags, author, photo and video links, likes, comments, video plays, locatio"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/"><meta property="og:title" content="Instagram Posts &amp; Reels Data Scraper | Dataspryva"><meta property="og:description" content="Scrape public Instagram posts, Reels, IGTV and carousels from a list of links, no login. Get caption, hashtags, author, photo and video links, likes, comments, video plays, locatio"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#webpage","name":"Instagram Posts & Reels Data Scraper","description":"Scrape public Instagram posts, Reels, IGTV and carousels from a list of links, no login. Get caption, hashtags, author, photo and video links, likes, comments, video plays, location and music. Export to Excel, CSV or JSON.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#article","headline":"Instagram Posts & Reels Data Scraper","name":"Instagram Posts & Reels Data Scraper","description":"Scrape public Instagram posts, Reels, IGTV and carousels from a list of links, no login. Get caption, hashtags, author, photo and video links, likes, comments, video plays, location and music. Export to Excel, CSV or JSON.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Instagram Posts & Reels Data Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/oo9fCmPb42ZdR6g0A/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Instagram Posts &amp; Reels Data Scraper</span></div><section id="overview"><h1 class="doc-title">Instagram Posts &amp; Reels Data Scraper</h1><p class="lede">Scrape public Instagram posts, Reels, IGTV and carousels from a list of links, no login. Get caption, hashtags, author, photo and video links, likes, comments, video plays, location and music. Export to Excel, CSV or JSON.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/instagram-posts-and-reels-data-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/oo9fCmPb42ZdR6g0A/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>post_urls</code></td><td>array</td><td>required</td><td>Instagram post, reel or IGTV URLs to scrape. Accepts /p/, /reel/, /reels/, /tv/, and canonical username/p/shortcode formats. Duplicates are silently de-duplicated.</td></tr><tr><td><code>cookies</code></td><td>string</td><td>optional</td><td>Optional. Leave empty to scrape anonymously. Paste your own Instagram cookies in JSON format to also retry age-restricted and login-protected posts with your account; posts your account still cannot open keep their status, and a private post opens only if your account follows that account. It is a secret input, so the Apify Console hides and encrypts it.
+
+Format: [{&quot;name&quot;:&quot;sessionid&quot;,&quot;value&quot;:&quot;...&quot;,&quot;domain&quot;:&quot;.instagram.com&quot;}, ...]</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;cookies&quot;: {
+      &quot;description&quot;: &quot;Optional. Leave empty to scrape anonymously. Paste your own Instagram cookies in JSON format to also retry age-restricted and login-protected posts with your account; posts your account still cannot open keep their status, and a private post opens only if your account follows that account. It is a secret input, so the Apify Console hides and encrypts it.\n\nFormat: [{\&quot;name\&quot;:\&quot;sessionid\&quot;,\&quot;value\&quot;:\&quot;...\&quot;,\&quot;domain\&quot;:\&quot;.instagram.com\&quot;}, ...]&quot;,
+      &quot;editor&quot;: &quot;textarea&quot;,
+      &quot;isSecret&quot;: true,
+      &quot;title&quot;: &quot;Instagram Cookies (Optional)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;post_urls&quot;: {
+      &quot;description&quot;: &quot;Instagram post, reel or IGTV URLs to scrape. Accepts /p/, /reel/, /reels/, /tv/, and canonical username/p/shortcode formats. Duplicates are silently de-duplicated.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;maxItems&quot;: 10000,
+      &quot;minItems&quot;: 1,
+      &quot;prefill&quot;: [
+        &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;
+      ],
+      &quot;title&quot;: &quot;Post URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;post_urls&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Instagram Post Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>posts</code></td><td>string</td><td>optional</td><td>Dataset containing one record per scraped post link, including the status of links that could not be read.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Instagram posts, Reels, IGTV and carousels: caption, hashtags, author, photo and video links, likes, comments, location and music.&quot;,
+  &quot;properties&quot;: {
+    &quot;posts&quot;: {
+      &quot;description&quot;: &quot;Dataset containing one record per scraped post link, including the status of links that could not be read.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Instagram posts&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Instagram Posts &amp; Reels Data Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;accessibility_caption&quot;: {
+        &quot;description&quot;: &quot;Alt text Instagram describes the post with&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;author_meta&quot;: {
+        &quot;description&quot;: &quot;Author details: id, username, full_name, is_verified, profile_pic_url and profile_url&quot;,
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;caption&quot;: {
+        &quot;description&quot;: &quot;Caption text&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;caption_is_edited&quot;: {
+        &quot;description&quot;: &quot;Whether the caption was edited after posting&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;collaborators&quot;: {
+        &quot;description&quot;: &quot;Usernames of the invited collaborators on the post&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;comment_count&quot;: {
+        &quot;description&quot;: &quot;Number of comments&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;comments_disabled&quot;: {
+        &quot;description&quot;: &quot;Whether comments are turned off&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;hashtags&quot;: {
+        &quot;description&quot;: &quot;Hashtags used in the caption&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;like_count&quot;: {
+        &quot;description&quot;: &quot;Number of likes, or null when the owner hides them&quot;,
+        &quot;type&quot;: [
+          &quot;integer&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;likes_hidden&quot;: {
+        &quot;description&quot;: &quot;Whether the owner hides the like count&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;location&quot;: {
+        &quot;description&quot;: &quot;Tagged place: name, id, lat and lng, or null&quot;,
+        &quot;type&quot;: [
+          &quot;object&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;media_count&quot;: {
+        &quot;description&quot;: &quot;Number of photos and videos in the post&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;media_items&quot;: {
+        &quot;description&quot;: &quot;Each photo or video: index, type, url, width, height, id, shortcode, accessibility_caption and, for videos, duration and has_audio&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;media_type&quot;: {
+        &quot;description&quot;: &quot;Photo, Video, Reel or Carousel&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;mentions&quot;: {
+        &quot;description&quot;: &quot;Usernames mentioned in the caption&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;music&quot;: {
+        &quot;description&quot;: &quot;Reel audio: artist, title, audio_id, audio_url, cover_url and is_trending, or null&quot;,
+        &quot;type&quot;: [
+          &quot;object&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;post_id&quot;: {
+        &quot;description&quot;: &quot;Instagram&#x27;s numeric id of the post&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;post_url&quot;: {
+        &quot;description&quot;: &quot;Link to the post on Instagram&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;pub_date&quot;: {
+        &quot;description&quot;: &quot;When the post was published (ISO 8601)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;scraped_at&quot;: {
+        &quot;description&quot;: &quot;When the post was scraped (ISO 8601)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;shortcode&quot;: {
+        &quot;description&quot;: &quot;The short code in the post link&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;status&quot;: {
+        &quot;description&quot;: &quot;success, or why the post has no data: not_found, age_restricted, is_private, blocked, error or invalid_url&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;tagged_users&quot;: {
+        &quot;description&quot;: &quot;Usernames of the people tagged in the post&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;thumbnail_url&quot;: {
+        &quot;description&quot;: &quot;Link to the cover image&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;username&quot;: {
+        &quot;description&quot;: &quot;Username of the account that posted&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;Instagram Posts &amp; Reels&quot;,
+  &quot;views&quot;: {
+    &quot;detailed&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;accessibility_caption&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Alt Text&quot;
+          },
+          &quot;author_meta&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
+          &quot;caption&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Caption&quot;
+          },
+          &quot;collaborators&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Collaborators&quot;
+          },
+          &quot;comment_count&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Comments&quot;
+          },
+          &quot;comments_disabled&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Comments Off&quot;
+          },
+          &quot;hashtags&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Hashtags&quot;
+          },
+          &quot;like_count&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Likes&quot;
+          },
+          &quot;likes_hidden&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Likes Hidden&quot;
+          },
+          &quot;location&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Location&quot;
+          },
+          &quot;media_count&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Media #&quot;
+          },
+          &quot;media_items&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Media Items&quot;
+          },
+          &quot;media_type&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;mentions&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Mentions&quot;
+          },
+          &quot;music&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Music&quot;
+          },
+          &quot;post_id&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Post ID&quot;
+          },
+          &quot;post_url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Post URL&quot;
+          },
+          &quot;pub_date&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Published&quot;
+          },
+          &quot;scraped_at&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Scraped At&quot;
+          },
+          &quot;shortcode&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Shortcode&quot;
+          },
+          &quot;status&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Status&quot;
+          },
+          &quot;tagged_users&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Tagged Users&quot;
+          },
+          &quot;thumbnail_url&quot;: {
+            &quot;format&quot;: &quot;image&quot;,
+            &quot;label&quot;: &quot;Thumbnail&quot;
+          },
+          &quot;username&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Username&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Detailed&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;status&quot;,
+          &quot;post_url&quot;,
+          &quot;shortcode&quot;,
+          &quot;post_id&quot;,
+          &quot;username&quot;,
+          &quot;author_meta&quot;,
+          &quot;collaborators&quot;,
+          &quot;caption&quot;,
+          &quot;hashtags&quot;,
+          &quot;mentions&quot;,
+          &quot;pub_date&quot;,
+          &quot;media_type&quot;,
+          &quot;media_count&quot;,
+          &quot;media_items&quot;,
+          &quot;thumbnail_url&quot;,
+          &quot;like_count&quot;,
+          &quot;comment_count&quot;,
+          &quot;likes_hidden&quot;,
+          &quot;comments_disabled&quot;,
+          &quot;tagged_users&quot;,
+          &quot;accessibility_caption&quot;,
+          &quot;location&quot;,
+          &quot;music&quot;,
+          &quot;scraped_at&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;author_meta&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
+          &quot;caption&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Caption&quot;
+          },
+          &quot;comment_count&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Comments&quot;
+          },
+          &quot;like_count&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Likes&quot;
+          },
+          &quot;media_type&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;post_url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Post URL&quot;
+          },
+          &quot;pub_date&quot;: {
+            &quot;format&quot;: &quot;date&quot;,
+            &quot;label&quot;: &quot;Published&quot;
+          },
+          &quot;status&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Status&quot;
+          },
+          &quot;thumbnail_url&quot;: {
+            &quot;format&quot;: &quot;image&quot;,
+            &quot;label&quot;: &quot;Thumbnail&quot;
+          },
+          &quot;username&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Username&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Posts&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;status&quot;,
+          &quot;post_url&quot;,
+          &quot;username&quot;,
+          &quot;author_meta&quot;,
+          &quot;media_type&quot;,
+          &quot;like_count&quot;,
+          &quot;comment_count&quot;,
+          &quot;pub_date&quot;,
+          &quot;caption&quot;,
+          &quot;thumbnail_url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-instagram-posts-reels-data-scraper">Instagram Posts &amp; Reels Data Scraper</h2>
+<p>Paste a list of Instagram post links and get back one tidy data row per post: who published it, the caption with its hashtags and mentions, direct links to every photo and video, like and comment counts, publish date, tagged location and Reel music. It understands regular posts, Reels, IGTV videos and multi-photo carousels, and it works without an Instagram account for public posts (you can optionally add your own cookies to include age-restricted and login-protected posts). It is built for marketers, analysts, researchers and agencies who already know which posts they want to look at and need the numbers and media links in a spreadsheet-friendly format.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Turns post links into structured rows</strong> — give it <code>/p/</code>, <code>/reel/</code>, <code>/reels/</code>, <code>/tv/</code> or <code>username/p/shortcode</code> links, in any mix, in a single run.</li>
+<li><strong>Collects the whole post</strong> — author details, caption, hashtags, mentions, tagged people, collaborators, publish date and engagement counts.</li>
+<li><strong>Lists every media file</strong> — a photo, a video, a Reel or each slide of a carousel is returned with its direct link, size and, for videos, duration and audio flag.</li>
+<li><strong>Adds context when Instagram shows it</strong> — tagged location with coordinates, Reel music and accessibility description.</li>
+<li><strong>Never loses a link silently</strong> — every URL you submit gets a result, and anything that could not be read carries a clear <code>status</code> explaining why.</li>
+<li><strong>Handles large lists</strong> — up to 10,000 links per run (large crawls are subject to your plan limits), with duplicate links merged automatically.</li>
+<li><strong>Optional cookies for gated posts</strong> — paste your own Instagram cookies and the posts that need a sign-in are retried with your session.</li>
+</ul>
+<h2 id="readme-output-per-post">Output per post</h2>
+<p>Every record starts with <code>status</code> and <code>post_url</code>. A record whose status is anything other than <code>success</code> contains only those two fields.</p>
+<p><strong>Identity</strong></p>
+<ul>
+<li><code>status</code> — outcome for this link: <code>success</code>, <code>not_found</code>, <code>age_restricted</code>, <code>is_private</code>, <code>invalid_url</code>, <code>error</code> or <code>blocked</code> (see Status values below).</li>
+<li><code>post_url</code> — the post's canonical address, <code>https://www.instagram.com/p/{shortcode}/</code>. For <code>invalid_url</code> records it is the text you submitted.</li>
+<li><code>shortcode</code> — the short code in the post's address.</li>
+<li><code>post_id</code> — Instagram's numeric ID for the post.</li>
+</ul>
+<p><strong>Author</strong></p>
+<ul>
+<li><code>username</code> — the account that published the post.</li>
+<li><code>author_meta</code> — object with the author's <code>id</code>, <code>username</code>, <code>full_name</code>, <code>is_verified</code>, <code>profile_pic_url</code>, and <code>profile_url</code>.</li>
+<li><code>collaborators</code> — usernames of co-authors on a collaborative post (empty list when none).</li>
+</ul>
+<p><strong>Content</strong></p>
+<ul>
+<li><code>caption</code> — full caption text (empty string when there is none).</li>
+<li><code>caption_is_edited</code> — <code>true</code> if the caption was edited after publishing.</li>
+<li><code>hashtags</code> — hashtags found in the caption, duplicates removed.</li>
+<li><code>mentions</code> — @mentioned usernames found in the caption, duplicates removed.</li>
+<li><code>tagged_users</code> — usernames tagged on the photo or video itself.</li>
+<li><code>pub_date</code> — publish time in ISO 8601, UTC.</li>
+<li><code>media_type</code> — <code>Photo</code>, <code>Video</code>, <code>Reel</code>, <code>IGTV</code> or <code>Carousel</code>.</li>
+<li><code>media_count</code> — number of media files in the post (more than 1 only for carousels).</li>
+<li><code>media_items</code> — one object per photo or video with <code>index</code>, <code>type</code>, <code>url</code>, <code>width</code> and <code>height</code>. Videos also carry <code>duration</code> (seconds) and <code>has_audio</code>. Some items also include an <code>id</code>, <code>shortcode</code> or <code>accessibility_caption</code>.</li>
+<li><code>thumbnail_url</code> — preview image link.</li>
+<li><code>accessibility_caption</code> — Instagram's auto-generated description of the image (empty string when not available).</li>
+</ul>
+<p><strong>Engagement</strong></p>
+<ul>
+<li><code>like_count</code> — number of likes, or <code>null</code> when the author hides likes.</li>
+<li><code>likes_hidden</code> — <code>true</code> when the author has hidden the like count.</li>
+<li><code>comment_count</code> — number of comments.</li>
+<li><code>comments_disabled</code> — <code>true</code> when commenting is turned off.</li>
+</ul>
+<p><strong>Extras (when Instagram shows them)</strong></p>
+<ul>
+<li><code>location</code> — object with <code>name</code>, <code>id</code>, <code>lat</code>, <code>lng</code> and, in many cases, <code>slug</code>; <code>null</code> when no place is tagged.</li>
+<li><code>music</code> — Reel audio details such as <code>artist</code>, <code>title</code>, <code>audio_id</code> and <code>is_trending</code>; for original sounds, the sound ID and the author of the sound. <code>null</code> when there is no music information.</li>
+</ul>
+<p><strong>Metadata</strong></p>
+<ul>
+<li><code>scraped_at</code> — when the record was collected, ISO 8601, UTC.</li>
+</ul>
+<p>Fields that Instagram does not provide for a post come back as an empty value (<code>null</code>, <code>&quot;&quot;</code>, <code>[]</code> or <code>false</code>) rather than being dropped, so every successful record has the same set of columns.</p>
+<h2 id="readme-status-values">Status values</h2>
+<p>Each submitted link produces a record with one of these statuses:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>success</code></td>
+<td>The post was read and all available fields are filled in.</td>
+</tr>
+<tr>
+<td><code>not_found</code></td>
+<td>The post could not be loaded without logging in: it was deleted, never existed, or is only shown to signed-in users.</td>
+</tr>
+<tr>
+<td><code>age_restricted</code></td>
+<td>Instagram hides the post behind an age check, either because of the post itself (for example alcohol brands) or because the account has a minimum-age setting.</td>
+</tr>
+<tr>
+<td><code>is_private</code></td>
+<td>The post belongs to a private account.</td>
+</tr>
+<tr>
+<td><code>invalid_url</code></td>
+<td>The text is not a post, Reel or IGTV link. Profile links, share links and other pages are not supported.</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>The post could not be read even after several attempts. Try the link again in a later run.</td>
+</tr>
+<tr>
+<td><code>blocked</code></td>
+<td>Instagram kept refusing the requests for this link during the run. Try it again in a later run.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Without cookies this actor never logs in to Instagram, so private and age-restricted posts cannot be opened and only come back as a status record with <code>status</code> and <code>post_url</code>. If you add your own cookies, those posts are retried once with your session: ones your account can see come back in full, and ones it still cannot open keep their status. A private post opens only if your account follows that account.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>post_urls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Required. 1 to 10,000 Instagram post, Reel or IGTV links. Accepts <code>/p/</code>, <code>/reel/</code>, <code>/reels/</code>, <code>/tv/</code> and <code>username/p/shortcode</code> formats. Duplicate links are merged into one record. The input form is prefilled with one sample post.</td>
+</tr>
+<tr>
+<td><code>cookies</code></td>
+<td>string</td>
+<td>–</td>
+<td>Optional. Your Instagram cookies in JSON format, used only to retry posts that cannot be read anonymously. Leave empty to scrape anonymously. It is a secret input, so the Apify Console hides and encrypts it.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-check-a-single-post">Example: check a single post</h3>
+<pre><code class="language-json">{
+  &quot;post_urls&quot;: [
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-compare-a-post-a-reel-and-an-igtv-video">Example: compare a post, a Reel and an IGTV video</h3>
+<pre><code class="language-json">{
+  &quot;post_urls&quot;: [
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;,
+    &quot;https://www.instagram.com/reel/C9uzjsSpHJC/&quot;,
+    &quot;https://www.instagram.com/tv/CQa7HaGlRPD/&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-links-copied-from-a-campaign-sheet">Example: links copied from a campaign sheet</h3>
+<p>Links that include the account name, plain <code>/reels/</code> links and repeated links can all sit in the same list. The repeated link below produces a single record.</p>
+<pre><code class="language-json">{
+  &quot;post_urls&quot;: [
+    &quot;https://www.instagram.com/leomessi/p/DZifppZj_cB/&quot;,
+    &quot;https://www.instagram.com/reels/C9uzjsSpHJC/&quot;,
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;,
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-audit-a-list-that-may-contain-dead-links">Example: audit a list that may contain dead links</h3>
+<p>The first link below comes back as <code>not_found</code> and the profile link as <code>invalid_url</code> instead of disappearing, so you can see which links in your list need fixing.</p>
+<pre><code class="language-json">{
+  &quot;post_urls&quot;: [
+    &quot;https://www.instagram.com/p/DELETED123/&quot;,
+    &quot;https://www.instagram.com/natgeo/&quot;,
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-include-age-restricted-posts-with-your-own-cookies">Example: include age-restricted posts with your own cookies</h3>
+<p>Posts that come back as <code>age_restricted</code>, <code>not_found</code> or <code>is_private</code> anonymously are retried once with your session.</p>
+<pre><code class="language-json">{
+  &quot;post_urls&quot;: [
+    &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;
+  ],
+  &quot;cookies&quot;: &quot;&lt;your cookies JSON&gt;&quot;
+}
+</code></pre>
+<h2 id="readme-example-output">Example output</h2>
+<p>A shortened, illustrative record for a successful photo post (link values are abbreviated):</p>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;post_url&quot;: &quot;https://www.instagram.com/p/DUtk38cj2TA/&quot;,
+  &quot;shortcode&quot;: &quot;DUtk38cj2TA&quot;,
+  &quot;post_id&quot;: &quot;3672810928374650123&quot;,
+  &quot;username&quot;: &quot;sample_travel&quot;,
+  &quot;author_meta&quot;: {
+    &quot;id&quot;: &quot;787132&quot;,
+    &quot;username&quot;: &quot;sample_travel&quot;,
+    &quot;full_name&quot;: &quot;Sample Travel Co&quot;,
+    &quot;is_verified&quot;: false,
+    &quot;profile_pic_url&quot;: &quot;https://scontent.cdninstagram.com/v/...&quot;,
+    &quot;profile_url&quot;: &quot;https://www.instagram.com/sample_travel/&quot;
+  },
+  &quot;collaborators&quot;: [],
+  &quot;caption&quot;: &quot;The ancient forest at dawn. #nature #wildlife #photography&quot;,
+  &quot;caption_is_edited&quot;: false,
+  &quot;hashtags&quot;: [&quot;nature&quot;, &quot;wildlife&quot;, &quot;photography&quot;],
+  &quot;mentions&quot;: [],
+  &quot;pub_date&quot;: &quot;2025-11-12T08:30:00&quot;,
+  &quot;media_type&quot;: &quot;Photo&quot;,
+  &quot;media_count&quot;: 1,
+  &quot;media_items&quot;: [
+    { &quot;index&quot;: 1, &quot;type&quot;: &quot;Photo&quot;, &quot;url&quot;: &quot;https://scontent.cdninstagram.com/v/...jpg&quot;, &quot;width&quot;: 1080, &quot;height&quot;: 1350 }
+  ],
+  &quot;thumbnail_url&quot;: &quot;https://scontent.cdninstagram.com/v/...jpg&quot;,
+  &quot;accessibility_caption&quot;: &quot;&quot;,
+  &quot;like_count&quot;: 4821,
+  &quot;comment_count&quot;: 132,
+  &quot;likes_hidden&quot;: false,
+  &quot;comments_disabled&quot;: false,
+  &quot;tagged_users&quot;: [],
+  &quot;location&quot;: null,
+  &quot;music&quot;: null,
+  &quot;scraped_at&quot;: &quot;2025-11-12T09:14:33.421000&quot;
+}
+</code></pre>
+<p>A link that could not be read is returned as a short status record:</p>
+<pre><code class="language-json">{ &quot;status&quot;: &quot;not_found&quot;, &quot;post_url&quot;: &quot;https://www.instagram.com/p/DELETED123/&quot; }
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Social media managers</strong> — pull like, comment and format data for a list of your own top posts and build a monthly performance report.</li>
+<li><strong>Influencer marketing agencies</strong> — check likes, comments and tagged accounts on the exact posts a creator delivered for a campaign.</li>
+<li><strong>Brand and PR teams</strong> — log every post that mentions a product launch, with caption, tagged accounts and location, for coverage reports.</li>
+<li><strong>Media buyers and creative strategists</strong> — compare Reels against carousels and photos, including video length and music, to decide which formats to brief next.</li>
+<li><strong>Academics and journalists</strong> — build a reproducible dataset of specific public posts, with timestamps, for a study or investigation.</li>
+<li><strong>Content archivists</strong> — keep a record of captions and media links for posts before they are edited, hidden or removed.</li>
+</ul>
+<h2 id="readme-using-your-own-cookies">Using your own cookies</h2>
+<p>Cookies are optional and only used to retry posts that cannot be read anonymously. This includes age-restricted posts that your account is old enough to view, and posts from private accounts, as long as the account the cookies belong to follows that private account (and has been accepted). Posts your account cannot open in the browser keep their original status. To add them, export your instagram.com cookies as JSON from a browser where you are signed in, using any cookie-export browser extension, and paste the JSON into the <code>cookies</code> field. The field is a secret input, so the Apify Console hides and encrypts it, and the cookies are used only during your run to open posts. Before any post is retried, the actor asks Instagram whether it recognises the cookies; if they are invalid, expired or signed out, the run log says so and those posts simply keep their original status. Only paste cookies from an account that belongs to you, and only collect posts you are allowed to access. You are responsible for complying with Instagram's terms and applicable law, and a dedicated account is the safer choice.</p>
+<h3 id="readme-cookie-format">Cookie format</h3>
+<p>The <code>cookies</code> field takes a <strong>JSON array</strong> of cookie objects, the format most cookie-export browser extensions call &quot;JSON&quot;. Other export formats are not supported: a Netscape <code>cookies.txt</code> file or a raw <code>Cookie:</code> header string will be rejected. Each cookie needs at least <code>name</code>, <code>value</code> and <code>domain</code>, and the export must include the <code>sessionid</code> and <code>ds_user_id</code> cookies of the signed-in account. A cookie that has an expiry date (<code>expirationDate</code>, in seconds since 1970) must not be expired.</p>
+<p>One cookie looks like this (the value shown is a placeholder, paste your own export unchanged):</p>
+<pre><code class="language-json">[
+  {
+    &quot;name&quot;: &quot;sessionid&quot;,
+    &quot;value&quot;: &quot;&lt;your sessionid value&gt;&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: null,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  }
+]
+</code></pre>
+<p>&lt;details&gt;
+&lt;summary&gt;Show a complete example export (placeholder values)&lt;/summary&gt;</p>
+<pre><code class="language-json">[
+  {
+    &quot;name&quot;: &quot;ps_n&quot;,
+    &quot;value&quot;: &quot;1&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;datr&quot;,
+    &quot;value&quot;: &quot;EXAMPLE-datr-value&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;ig_nrcb&quot;,
+    &quot;value&quot;: &quot;1&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: false,
+    &quot;sameSite&quot;: null,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;ds_user_id&quot;,
+    &quot;value&quot;: &quot;1234567890&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: false,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;csrftoken&quot;,
+    &quot;value&quot;: &quot;EXAMPLE-csrftoken-value&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: false,
+    &quot;sameSite&quot;: null,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;ig_did&quot;,
+    &quot;value&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;ps_l&quot;,
+    &quot;value&quot;: &quot;1&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;lax&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;wd&quot;,
+    &quot;value&quot;: &quot;1280x720&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: false,
+    &quot;sameSite&quot;: &quot;lax&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;mid&quot;,
+    &quot;value&quot;: &quot;EXAMPLE-mid-value&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;sessionid&quot;,
+    &quot;value&quot;: &quot;&lt;your sessionid value&gt;&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: null,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;dpr&quot;,
+    &quot;value&quot;: &quot;1&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: false,
+    &quot;sameSite&quot;: &quot;no_restriction&quot;,
+    &quot;session&quot;: false,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;expirationDate&quot;: 1893456000,
+    &quot;storeId&quot;: null
+  },
+  {
+    &quot;name&quot;: &quot;rur&quot;,
+    &quot;value&quot;: &quot;EXAMPLE-rur-value&quot;,
+    &quot;domain&quot;: &quot;.instagram.com&quot;,
+    &quot;hostOnly&quot;: false,
+    &quot;path&quot;: &quot;/&quot;,
+    &quot;secure&quot;: true,
+    &quot;httpOnly&quot;: true,
+    &quot;sameSite&quot;: &quot;lax&quot;,
+    &quot;session&quot;: true,
+    &quot;firstPartyDomain&quot;: &quot;&quot;,
+    &quot;partitionKey&quot;: null,
+    &quot;storeId&quot;: null
+  }
+]
+</code></pre>
+<p>&lt;/details&gt;</p>
+<p>Treat the cookies like a password: they give access to your Instagram account, so never share them or post them publicly.</p>
+<h2 id="readme-responsible-use">Responsible use</h2>
+<p>Most posts you collect are public, but the captions, usernames, tagged people, collaborators, locations and faces in photos and videos can still identify real individuals. Before you collect or store this data, make sure you have a lawful basis for doing so (for example under the GDPR), keep only what your purpose requires, and treat the people behind the posts fairly. Do not use post data to profile, track or target minors, and do not use it to infer or record sensitive details such as health, religion, political views or sexual orientation. If you add your own cookies, posts that only your account can see may be included, so also respect that account's access limits and the authors' expectations of privacy. Media files belong to their creators, so check that you have the right or permission to reuse them.</p>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need an Instagram account to use this actor?</strong>
+No. You only need the links, and the actor reads public posts without any Instagram account. An account only matters if you want age-restricted or login-protected posts: in that case paste your own cookies (see Using your own cookies).</p>
+<p><strong>Do I need to set up a proxy?</strong>
+No. The actor chooses a working connection to Instagram automatically. Just paste your links and run it.</p>
+<p><strong>Which links are supported?</strong>
+Post links (<code>/p/</code>), Reel links (<code>/reel/</code> and <code>/reels/</code>), IGTV links (<code>/tv/</code>) and links in the <code>username/p/shortcode</code> form. Profile pages, hashtag pages, share links and bare short codes are not supported and return <code>invalid_url</code>. To get the posts of a profile, collect the post links first and then submit them here.</p>
+<p><strong>How many links can I submit at once?</strong>
+Between 1 and 10,000 per run. Links that point to the same post are merged, so you receive one record per unique post. Very large crawls are subject to your plan limits.</p>
+<p><strong>Why is <code>like_count</code> empty on some posts?</strong>
+Authors can hide the like count on their posts. In that case Instagram does not share the number, so the record has <code>likes_hidden: true</code> and <code>like_count: null</code>. The comment count is still returned unless it is also unavailable.</p>
+<p><strong>Why did my link come back as <code>age_restricted</code>, <code>is_private</code> or <code>not_found</code>?</strong>
+These posts cannot be viewed without signing in to Instagram. <code>age_restricted</code> means an age check is in place, <code>is_private</code> means the account is private, and <code>not_found</code> means the post was deleted, never existed, or is only visible to signed-in users. Without cookies the actor does not sign in, so you receive a record with only <code>status</code> and <code>post_url</code> for them. Add your own cookies to retry those posts with your session.</p>
+<p><strong>What is the difference between <code>error</code> and <code>blocked</code>?</strong>
+Both mean the post could not be read this time, even though it may be public. <code>blocked</code> means Instagram kept refusing the requests for that link, while <code>error</code> covers other failures after repeated attempts. Resubmitting those links in a new run usually resolves them.</p>
+<p><strong>Does it return the comments themselves?</strong>
+No. You get the number of comments, whether comments are disabled, and the caption, but not the comment texts or the list of people who liked the post.</p>
+<p><strong>How fresh is the data?</strong>
+Everything is read live when your run executes, so like and comment counts reflect the moment of the run. The <code>scraped_at</code> field tells you exactly when each record was collected.</p>
+<p><strong>Is this affiliated with Instagram or Meta?</strong>
+No. This is an independent tool. It is not affiliated with, endorsed by or sponsored by Instagram or Meta Platforms, Inc.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/oo9fCmPb42ZdR6g0A/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>uR6VMlOVhFDAaBRF4</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

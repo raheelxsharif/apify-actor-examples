@@ -1,52 +1,68 @@
-# Apartments.com Rental Listing & Floor Plan Scraper
+# Apartments.com Rentals, Floor Plans & Fees Scraper
 
-Apartments.com lists rental properties across the US, from large managed communities down to single-unit houses. This actor searches that inventory by city and filters, or scrapes specific listing pages you already have, and returns each property as a structured record with pricing, floor plans, and contact details.
+Apartments.com is where US renters compare managed communities, houses, condos and townhomes. This actor turns those public property pages into structured records: rent by bedroom count, floor plans, individual available units, fees, pet and parking rules, schools, office hours, the leasing manager, the property website and the photo gallery.
 
-## What this actor does
+Use it to research a move, compare neighborhoods, track rent changes, or feed a rental dataset into a spreadsheet, CRM or analytics pipeline.
 
-- Searches rentals by city/state with filters for bedrooms, price range, property type, pet policy, and amenities.
-- Scrapes specific Apartments.com search-result or listing URLs you supply directly.
-- Optionally visits each listing's own page for its full amenity list, walkability scores, per-unit floor plans, and leasing contact number.
-- Caps both the number of listings returned and the number of search pages crawled.
-- Leaves out fields a listing doesn't publish (no coordinates, no rent specials) rather than sending them empty.
+## What it does
 
-## Output per listing
+- Searches a US city/state or ZIP code with filters for rent, bedrooms, bathrooms, square footage, property type, pets, amenities, rating, move-in date, specials and lifestyle.
+- Accepts Apartments.com city-search URLs and property URLs in one mixed list.
+- Looks up listing keys directly when you already have them.
+- Returns one record per property, with the fields the property actually publishes.
+- Omits fields a property does not publish instead of sending empty values.
+- Reports partial failures (stale keys, failed detail requests) in the run status instead of failing the whole run.
 
-- `listingId`, `url`, `name`
-- `address`, `city`, `state`, `zipCode`, `country` — when the listing publishes a country
-- `latitude`, `longitude`
-- `priceMin`, `priceMax` — monthly rent range across the property's unit types
-- `bedsMin`, `bedsMax`, `bathsMin`, `bathsMax`, `sqftMin`, `sqftMax` — ranges across unit types
-- `units` — per-floor-plan array of `{rentMin, rentMax, bedsMin, bedsMax, sqftMin, sqftMax}`, from the detail page
-- `propertyType`
-- `amenities` — list of amenity names, from the detail page
-- `description` — property description, from the detail page
-- `hasRentSpecials` — present and `true` only when the listing currently advertises a move-in deal
-- `availabilityDate`, `leaseTerms` — from the detail page
-- `phoneNumber` — leasing office contact number
-- `walkScore`, `transitScore`, `bikeScore`, `soundScore` — from the detail page, when published
-- `photos` — photo URLs (up to 20 from the detail page, fewer from the search card)
-- `scrapedAt` — ISO timestamp of the fetch
+## Services
+
+- **Location search** — city/state or 5-digit ZIP.
+- **URL mode** — paste search-result pages or individual property pages.
+- **Listing-key lookup** — one record per key, with invalid keys reported.
+- **Rent by bedroom** — the rent range for studios, 1-bed, 2-bed and larger plans.
+- **Floor plans and units** — model names, beds, baths, square footage, rent, total monthly price, unit counts, and individual unit numbers with availability dates and apply links.
+- **Monthly and one-time fees** — application, admin, deposit, pet, parking, storage, utility and other published fees.
+- **Policies** — pet rules, parking options, lease terms, office hours and languages.
+- **Local context** — schools, neighborhood, submarket, market and rating.
+- **Contact and media** — manager, website, phone and photo gallery.
+
+## How it works
+
+1. Reads your mode and filters.
+2. For search mode, resolves the city or ZIP and scans the site's public listing index for that place, up to the `maxPages` depth you set.
+3. Reads each candidate property's public details, applies your filters, and keeps the matching listings.
+4. For `urls` and `listingKeys`, reads exactly the properties you provide.
+5. When full details are enabled, attaches floor plans, units, fees, policies, schools, office hours, manager, website and photos.
+6. De-duplicates by listing key and URL, removes empty fields, and saves the records.
+
+No account, login, cookie or API key is required.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (build a search from location + filters) or `urls` (scrape the URLs you provide) |
-| `searchLocation` | string | – | City and state to search, e.g. `Chicago, IL`; used by `search` |
-| `bedrooms` | string | `any` | `any`, `studio`, `1`, `2`, `3`, `4`, or `5plus` |
-| `priceMin` | integer | – | Minimum monthly rent in USD |
-| `priceMax` | integer | – | Maximum monthly rent in USD |
-| `propertyType` | string | `any` | `any`, `apartments`, `houses`, `condos`, or `townhomes` |
-| `petPolicy` | string | `any` | `any`, `dogs`, `cats`, or `pets` |
-| `amenities` | array | `[]` | Any of `pool`, `utilities-included`, `garage`, `air-conditioning`, `dishwasher`, `walk-in-closets`, `balcony`, `furnished` |
-| `rentSpecials` | boolean | `false` | Only return listings currently advertising a move-in deal |
-| `startUrls` | array | – | Apartments.com search-result or listing URLs; used by `urls` |
-| `scrapeDetails` | boolean | `true` | Visit each listing's own page for full amenities, scores, floor plans, and contact info |
-| `maxItems` | integer | `50` | Maximum number of listings to return (1-500) |
-| `maxPages` | integer | `5` | Maximum number of search result pages to crawl (1-20); used by `search` |
+| `mode` | select | `search` | `search`, `urls` or `listingKeys` |
+| `searchLocation` | string | – | US city and state (`New York, NY`) or ZIP (`10001`); used by `search` |
+| `bedrooms` | select | `any` | `any`, `studio`, `1`, `2`, `3`, `4`, `5plus` |
+| `bathrooms` | select | `any` | `any`, `1plus`, `2plus`, `3plus` |
+| `priceMin` / `priceMax` | integer | – | Monthly rent range in USD (0–50,000) |
+| `sqftMin` / `sqftMax` | integer | – | Floor-plan size range (0–20,000) |
+| `propertyType` | select | `any` | `any`, `apartments`, `houses`, `condos`, `townhomes` |
+| `petPolicy` | select | `any` | `any`, `dogs`, `cats`, `pets` |
+| `amenities` | array | `[]` | 40 amenities, including pool, in-unit washer/dryer, parking, gym, elevator, dishwasher, air conditioning, balcony, furnished, gated, EV charging and more |
+| `rentSpecials` | boolean | `false` | Only listings advertising a current move-in deal |
+| `minRating` | select | `any` | `any`, `1`–`5` |
+| `moveInDate` | string | – | Keep listings with a unit available on or before this date (`YYYY-MM-DD`) |
+| `specialties` | array | `[]` | `student`, `senior`, `military`, `corporate`, `luxury`, `affordable`, `cheap` |
+| `keywords` | string | – | Match name, description, amenities, neighborhood or floor-plan names (requires `scrapeDetails`) |
+| `sortBy` | select | `relevance` | `relevance`, `priceAsc`, `priceDesc`, `bedsAsc`, `bedsDesc`, `newest` |
+| `startUrls` | array | – | Search or property URLs for `urls`; plain listing keys are accepted too |
+| `listingKeys` | array | – | Listing keys for `listingKeys` |
+| `maximizeCoverage` | boolean | `false` | Try an additional coverage path when the public index cannot fill your request |
+| `scrapeDetails` | boolean | `true` | Attach floor plans, units, fees, policies, schools, hours, manager, website and photos |
+| `maxItems` | integer | `50` | Maximum records to return (1–5,000) |
+| `maxPages` | integer | `5` | Search discovery depth, in 40-listing pages (1–20) |
 
-### Example: pet-friendly two-bedroom search
+### Example: pet-friendly two-bedrooms under $2,500
 
 ```json
 {
@@ -55,66 +71,131 @@ Apartments.com lists rental properties across the US, from large managed communi
   "bedrooms": "2",
   "priceMax": 2500,
   "petPolicy": "dogs",
-  "amenities": ["pool", "garage"],
-  "maxItems": 100,
+  "amenities": ["pool", "parking"],
+  "maxItems": 50,
+  "maxPages": 5,
   "scrapeDetails": true
 }
 ```
 
-### Example: scrape listing URLs directly
+### Example: mixed URLs
 
 ```json
 {
   "mode": "urls",
   "startUrls": [
-    "https://www.apartments.com/the-domain-austin-tx/a1b2c3d4e5f6/"
+    "https://www.apartments.com/austin-tx/2-bedrooms-under-2500/",
+    "https://www.apartments.com/amli-river-north-chicago-il/1pc7xx7/"
   ],
+  "maxItems": 20,
   "scrapeDetails": true
 }
 ```
 
-### Example: fast search without detail pages
+### Example: known listing keys
 
 ```json
 {
-  "mode": "search",
-  "searchLocation": "Chicago, IL",
-  "scrapeDetails": false,
-  "maxItems": 200,
-  "maxPages": 10
+  "mode": "listingKeys",
+  "listingKeys": ["d3pj6rk", "1pc7xx7", "lv3pbsf"],
+  "maxItems": 10,
+  "scrapeDetails": true
 }
 ```
 
-## Use cases
+## Output
 
-- Compare rent ranges and amenities across neighborhoods before relocating.
-- Filter for pet-friendly or amenity-specific rentals in a target city.
-- Collect leasing office contact details for outreach to property managers.
-- Track per-floor-plan pricing for a specific property over time.
-- Study walkability and transit scores alongside rent for housing research.
+Every record is one property. Fields are omitted when the property does not publish them.
+
+**Identity and place**
+
+- `listingId`, `url`, `name`
+- `address`, `fullAddress`, `city`, `state`, `zipCode`, `country`, `county`
+- `neighborhood`, `submarket`, `marketName`, `dma`
+- `latitude`, `longitude`
+- `propertyType`, `listingType`, `listingStatus`
+
+**Pricing**
+
+- `priceMin`, `priceMax`, `priceCurrency`
+- `baseRentMin`, `baseRentMax`
+- `totalMonthlyPriceMin`, `totalMonthlyPriceMax`
+- `rentText`
+- `rentByBedType` — array of `{beds, priceMin, priceMax, priceText, baseRentMin, baseRentMax, totalMonthlyPriceMin, totalMonthlyPriceMax, sqftMin, sqftMax, availabilityDate}`
+- `rentSpecial` — `{title, description, expiresAt}`
+- `hasRentSpecials`
+
+**Size and plans**
+
+- `bedsMin`, `bedsMax`, `bathsMin`, `bathsMax`, `sqftMin`, `sqftMax`
+- `floorPlans` — `{name, modelKey, beds, baths, sqftMin, sqftMax, rentMin, rentMax, totalMonthlyPriceMin, totalMonthlyPriceMax, unitCount, availableUnits, amenities}`
+- `units` — the same floor-plan data in the legacy shape, with `bedsMin`/`bedsMax`/`bathsMin`/`bathsMax`/`rentMin`/`rentMax`/`sqftMin`/`sqftMax`
+- `availableUnits` — `{unitKey, unitNumber, modelName, modelKey, beds, baths, sqft, rent, totalMonthlyPriceMin, totalMonthlyPriceMax, deposit, availableDate, availabilityText, leaseTerm, amenities, applyNowUrl}`
+
+**Building and policies**
+
+- `yearBuilt`, `unitCount`, `stories`, `lotSize`, `lotSizeUnit`
+- `amenities`, `amenityCategories`, `uniqueFeatures`
+- `petPolicies`, `parkingOptions`
+- `fees` — `{oneTime[], monthly[], parking[], pets[], other[]}`, each fee with `name`, `amountMin`, `amountMax`, `amountText` or `period`
+- `leaseTerms`, `officeHours`, `languagesSpoken`
+
+**Contact, reputation and media**
+
+- `phoneNumber`, `propertyWebsite`, `propertyManager` — `{name, companyKey, logoUrl}`
+- `rating`
+- `schools` — `{public[], private[]}`
+- `photos`, `coverPhoto`, `photoCount`
+- `availabilityDate`, `availabilityText`
+- `description`
+- `lastUpdated`, `scrapedAt`
+
+The original 32 fields remain available. Walk, transit, bike and sound scores (`walkScore`, `transitScore`, `bikeScore`, `soundScore`) are kept for compatibility but are only filled when a source publishes them.
+
+## Usage cost
+
+This actor runs on Apify's platform and is billed by Apify compute usage for the time and memory the run consumes. There are no external API keys, subscriptions or per-record fees. A small run (one city, 10–50 listings, full details) usually finishes in under a minute; large runs scale with the number of listings and detail pages requested. Keep `maxItems` and `maxPages` at the smallest values that answer your question.
 
 ## FAQ
 
-**Is this affiliated with Apartments.com?**
-No. This actor reads Apartments.com's own public listing pages and has no relationship with Apartments.com.
+**Do I need an Apartments.com account?**
+No. The actor reads publicly visible property information and needs no login, cookie or key.
 
-**Do I need an account to use this?**
-No. Every listing comes from pages that are publicly visible without logging in.
+**Why did I get fewer records than `maxItems`?**
+Search mode also stops at the `maxPages` discovery depth. A narrow filter may need a higher `maxPages`; direct `urls` and `listingKeys` modes are not limited by search depth. The run status says when a request was cut short.
 
-**What's the difference between `scrapeDetails: true` and `false`?**
-With `scrapeDetails: true`, the actor visits each listing's own page for the full amenity list, walkability scores, per-unit floor plans (`units`), description, and leasing phone number. With it `false`, you only get what the search results page itself shows — faster, but without those fields.
+**Why are some fields missing for a property?**
+Apartments.com does not publish every field for every property. Fees, pet rules, parking, office hours, schools, descriptions and photos are conditional. Missing values are omitted, never filled with placeholders.
 
-**Can I scrape a specific listing instead of searching?**
-Yes — set `mode` to `urls` and list the listing (or search-result) URLs in `startUrls`.
+**What is the difference between `priceMin` and `baseRentMin`?**
+`priceMin`/`priceMax` are the rent range across the property's plans. Base rent and total monthly price are also reported separately because some communities add required monthly fees.
 
-**Why do some listings have no `latitude`/`longitude` or `walkScore`?**
-Those come from data a listing's own page publishes; when a property doesn't include them, the record omits the field rather than sending an empty value.
+**What does `availableUnits` contain?**
+Individual units the property is advertising, with unit number, rent, square feet, availability date and apply link. Not every property publishes individual units; many only publish floor-plan models.
 
-**Why does `hasRentSpecials` only ever appear as `true`?**
-It's only added to a record when the listing is actually advertising a current move-in deal; listings without one simply don't have the field.
+**Does `scrapeDetails: false` still return useful data?**
+Yes. It returns the property-level record (address, rent ranges, bedrooms, amenities, fees where published and similar fields) but skips the extra media/fee/unit enrichment. It is faster and cheaper.
 
-**How many listings can one run return?**
-Up to `maxItems`, capped at 500, limited further by how many listings turn up across `maxPages` of search results.
+**Are reviews or walk scores included?**
+Reviews and walk/transit/bike/sound scores are not part of the public property data used here. The score fields are kept for backward compatibility but are normally absent.
 
-**How current is the data?**
-Every run searches Apartments.com live, so rent, availability, and specials reflect what's listed at run time.
+**Can I use ZIP codes?**
+Yes. A 5-digit US ZIP resolves to its city and is searched the same way as `City, ST`.
+
+## Notes
+
+- Search filters are applied to the listings returned by the public index, not to a private search API. Combining several narrow filters works best with a higher `maxPages`.
+- URLs in `urls` mode can mix search pages and property pages; URL filters override the corresponding input filters.
+- Listing keys are case-insensitive and validated before lookup.
+- Records are de-duplicated by listing key and URL.
+- `scrapedAt` is the time the record was produced; `lastUpdated` is the property's own freshness date when published.
+
+## Limitations
+
+- **US only.** Canadian provinces are not covered.
+- **Public index coverage.** The site's public listing index is large but not a complete inventory of every unit. Major metros are well covered; very small towns may return few or no results. The run status reports a shortfall when this happens.
+- **Search depth.** `maxPages` is capped at 20 (about 800 candidate listings). Use `listingKeys` or multiple URL runs when you need deeper coverage.
+- **Conditional fields.** Fees, pet rules, parking, office hours, schools and individual units are published by the property, not by every listing.
+- **Reviews, walkability scores, floor-plan images and virtual tours** are not exposed in the public property data. The legacy score fields remain reserved but are usually absent.
+- **Photo hosting.** Photo URLs point to Apartments.com's image CDN. They load in browsers; some command-line clients may be refused by the CDN.
+- **Coverage fallback.** `maximizeCoverage` adds an optional fallback path, but it can be unavailable or blocked. The actor then returns the direct results and explains the shortfall instead of failing.

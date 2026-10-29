@@ -18,7 +18,7 @@
     },
     "audioOnly": {
       "default": false,
-      "description": "Download only the audio track of videos. Photos and GIFs are skipped. Files are extracted with ffmpeg and need the save files option.",
+      "description": "Download only the audio track of videos. Photos and GIFs are skipped. Files are extracted with ffmpeg and file saving is enabled automatically.",
       "prefill": false,
       "title": "Audio only (extract sound from videos)",
       "type": "boolean"
@@ -59,15 +59,15 @@
     },
     "includeMetadata": {
       "default": true,
-      "description": "Attach the post text, like/repost/reply/view counts, the uploader's follower count and a derived engagement rate to every downloaded file.",
+      "description": "Attach the post text, date, conversation and reply/quote flags, hashtags, mentions, links, like/repost/reply/quote/bookmark/view counts, author name, avatar, verification and follower count, and a derived engagement rate to every downloaded file.",
       "prefill": true,
-      "title": "Include post metadata",
+      "title": "Include post and author metadata",
       "type": "boolean"
     },
     "includePosterImage": {
       "default": true,
       "description": "Save the thumbnail/poster image of each video or GIF as an additional photo file.",
-      "prefill": true,
+      "prefill": false,
       "title": "Also save video poster images",
       "type": "boolean"
     },
@@ -78,20 +78,22 @@
       "title": "Include media from quoted posts",
       "type": "boolean"
     },
-    "includeThumbnails": {
-      "default": false,
-      "description": "Alias of save video poster images. When either option is on, the video thumbnail is stored as an extra photo.",
-      "prefill": false,
-      "title": "Include thumbnails (alias)",
-      "type": "boolean"
+    "maxItems": {
+      "default": 100,
+      "description": "Hard cap on dataset rows for the whole run. The actor stops collecting and downloading once this many files are emitted.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Maximum media files to collect",
+      "type": "integer"
     },
     "maxPostsPerUser": {
       "default": 20,
-      "description": "How many recent posts to look at for each username. Posts without matching media are skipped.",
-      "maximum": 100,
+      "description": "How many of each profile's most recent media posts to look at. Posts without matching media or filtered-out posts are skipped.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Maximum posts to check per username",
+      "prefill": 1,
+      "title": "Maximum media posts to check per username",
       "type": "integer"
     },
     "mediaTypes": {
@@ -123,6 +125,33 @@
       "title": "Media types to download",
       "type": "array"
     },
+    "minLikes": {
+      "default": 0,
+      "description": "When scanning usernames, skip posts with fewer likes than this. Posts whose like count is unknown are kept. Leave at 0 to keep every post.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "prefill": 0,
+      "sectionCaption": "Profile filters",
+      "sectionDescription": "Optional filters applied while scanning usernames. Directly linked posts are always collected.",
+      "title": "Minimum likes (profile scans)",
+      "type": "integer"
+    },
+    "minRetweets": {
+      "default": 0,
+      "description": "When scanning usernames, skip posts with fewer reposts than this. Posts whose repost count is unknown are kept. Leave at 0 to keep every post.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum reposts (profile scans)",
+      "type": "integer"
+    },
+    "onlyVerifiedAuthors": {
+      "default": false,
+      "description": "When scanning usernames, skip posts whose author is not verified. Posts where verification is unknown are kept.",
+      "prefill": false,
+      "title": "Only verified authors (profile scans)",
+      "type": "boolean"
+    },
     "postUrls": {
       "description": "Paste links of posts to download media from. Accepts x.com and twitter.com links, i/web/status links, or bare post IDs. Optional if you provide usernames or profile links below.",
       "editor": "stringList",
@@ -134,53 +163,20 @@
         "type": "string"
       },
       "prefill": [
-        "https://x.com/NASA/status/2107095768821576019",
-        "https://x.com/SheCodeAfrica/status/2107516524965794217"
+        "https://x.com/NASA/status/2107095768821576019"
       ],
       "title": "Post links or IDs",
       "type": "array"
     },
-    "profileUrls": {
-      "description": "Alias of usernames to scan. Paste x.com or twitter.com profile links or bare handles.",
-      "editor": "stringList",
-      "example": [
-        "https://x.com/NASA"
-      ],
-      "items": {
-        "type": "string"
-      },
-      "title": "Profile links to scan (alias)",
-      "type": "array"
-    },
-    "proxyConfiguration": {
-      "description": "Optional. Use an Apify proxy if you plan large runs or see frequent rate limits.",
-      "editor": "proxy",
-      "sectionCaption": "Advanced",
-      "sectionDescription": "Optional settings for large or repeated runs.",
-      "title": "Proxy configuration",
-      "type": "object"
-    },
     "saveToFile": {
       "default": true,
-      "description": "Download each file into this run's key-value store and add a public signed download link. Turn off to collect metadata only.",
-      "prefill": true,
+      "description": "Download each file into this run's key-value store and add a public signed download link. Turn off to collect metadata and direct CDN links only.",
+      "prefill": false,
       "title": "Save files and return download links",
       "type": "boolean"
     },
-    "tweetUrls": {
-      "description": "Alias of post links. Accepts tweet links, bare tweet IDs and profile links.",
-      "editor": "stringList",
-      "example": [
-        "https://x.com/NASA/status/2107095768821576019"
-      ],
-      "items": {
-        "type": "string"
-      },
-      "title": "Tweet links or IDs (alias)",
-      "type": "array"
-    },
     "usernames": {
-      "description": "Scan recent posts from these profiles and download their media. Type handles with or without @, or paste full profile links. Optional if you provide post links above.",
+      "description": "Scan a profile's media posts and download their photos, videos and GIFs. Type handles with or without @, or paste full profile links. Optional if you provide post links above.",
       "editor": "stringList",
       "example": [
         "NASA",

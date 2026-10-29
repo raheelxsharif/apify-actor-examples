@@ -1,0 +1,329 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "accessibility_caption": {
+        "description": "Alt text Instagram describes the post with",
+        "type": "string"
+      },
+      "author_meta": {
+        "description": "Author details: id, username, full_name, is_verified, profile_pic_url and profile_url",
+        "type": "object"
+      },
+      "caption": {
+        "description": "Caption text",
+        "type": "string"
+      },
+      "caption_is_edited": {
+        "description": "Whether the caption was edited after posting",
+        "type": "boolean"
+      },
+      "collaborators": {
+        "description": "Usernames of the invited collaborators on the post",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "comment_count": {
+        "description": "Number of comments",
+        "type": "integer"
+      },
+      "comments_disabled": {
+        "description": "Whether comments are turned off",
+        "type": "boolean"
+      },
+      "hashtags": {
+        "description": "Hashtags used in the caption",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "like_count": {
+        "description": "Number of likes, or null when the owner hides them",
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "likes_hidden": {
+        "description": "Whether the owner hides the like count",
+        "type": "boolean"
+      },
+      "location": {
+        "description": "Tagged place: name, id, lat and lng, or null",
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "media_count": {
+        "description": "Number of photos and videos in the post",
+        "type": "integer"
+      },
+      "media_items": {
+        "description": "Each photo or video: index, type, url, width, height, id, shortcode, accessibility_caption and, for videos, duration and has_audio",
+        "items": {
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "media_type": {
+        "description": "Photo, Video, Reel or Carousel",
+        "type": "string"
+      },
+      "mentions": {
+        "description": "Usernames mentioned in the caption",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "music": {
+        "description": "Reel audio: artist, title, audio_id, audio_url, cover_url and is_trending, or null",
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "post_id": {
+        "description": "Instagram's numeric id of the post",
+        "type": "string"
+      },
+      "post_url": {
+        "description": "Link to the post on Instagram",
+        "type": "string"
+      },
+      "pub_date": {
+        "description": "When the post was published (ISO 8601)",
+        "type": "string"
+      },
+      "scraped_at": {
+        "description": "When the post was scraped (ISO 8601)",
+        "type": "string"
+      },
+      "shortcode": {
+        "description": "The short code in the post link",
+        "type": "string"
+      },
+      "status": {
+        "description": "success, or why the post has no data: not_found, age_restricted, is_private, blocked, error or invalid_url",
+        "type": "string"
+      },
+      "tagged_users": {
+        "description": "Usernames of the people tagged in the post",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "thumbnail_url": {
+        "description": "Link to the cover image",
+        "type": "string"
+      },
+      "username": {
+        "description": "Username of the account that posted",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram Posts & Reels",
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "accessibility_caption": {
+            "format": "text",
+            "label": "Alt Text"
+          },
+          "author_meta": {
+            "format": "object",
+            "label": "Author"
+          },
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "collaborators": {
+            "format": "array",
+            "label": "Collaborators"
+          },
+          "comment_count": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "comments_disabled": {
+            "format": "boolean",
+            "label": "Comments Off"
+          },
+          "hashtags": {
+            "format": "array",
+            "label": "Hashtags"
+          },
+          "like_count": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "likes_hidden": {
+            "format": "boolean",
+            "label": "Likes Hidden"
+          },
+          "location": {
+            "format": "object",
+            "label": "Location"
+          },
+          "media_count": {
+            "format": "number",
+            "label": "Media #"
+          },
+          "media_items": {
+            "format": "array",
+            "label": "Media Items"
+          },
+          "media_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "mentions": {
+            "format": "array",
+            "label": "Mentions"
+          },
+          "music": {
+            "format": "object",
+            "label": "Music"
+          },
+          "post_id": {
+            "format": "text",
+            "label": "Post ID"
+          },
+          "post_url": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "pub_date": {
+            "format": "date",
+            "label": "Published"
+          },
+          "scraped_at": {
+            "format": "date",
+            "label": "Scraped At"
+          },
+          "shortcode": {
+            "format": "text",
+            "label": "Shortcode"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "tagged_users": {
+            "format": "array",
+            "label": "Tagged Users"
+          },
+          "thumbnail_url": {
+            "format": "image",
+            "label": "Thumbnail"
+          },
+          "username": {
+            "format": "text",
+            "label": "Username"
+          }
+        }
+      },
+      "title": "Detailed",
+      "transformation": {
+        "fields": [
+          "status",
+          "post_url",
+          "shortcode",
+          "post_id",
+          "username",
+          "author_meta",
+          "collaborators",
+          "caption",
+          "hashtags",
+          "mentions",
+          "pub_date",
+          "media_type",
+          "media_count",
+          "media_items",
+          "thumbnail_url",
+          "like_count",
+          "comment_count",
+          "likes_hidden",
+          "comments_disabled",
+          "tagged_users",
+          "accessibility_caption",
+          "location",
+          "music",
+          "scraped_at"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "author_meta": {
+            "format": "object",
+            "label": "Author"
+          },
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "comment_count": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "like_count": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "media_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "post_url": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "pub_date": {
+            "format": "date",
+            "label": "Published"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "thumbnail_url": {
+            "format": "image",
+            "label": "Thumbnail"
+          },
+          "username": {
+            "format": "text",
+            "label": "Username"
+          }
+        }
+      },
+      "title": "Posts",
+      "transformation": {
+        "fields": [
+          "status",
+          "post_url",
+          "username",
+          "author_meta",
+          "media_type",
+          "like_count",
+          "comment_count",
+          "pub_date",
+          "caption",
+          "thumbnail_url"
+        ]
+      }
+    }
+  }
+}

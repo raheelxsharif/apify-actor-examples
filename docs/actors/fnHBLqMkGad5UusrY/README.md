@@ -4,103 +4,85 @@
 
 # Twitter (X) Media Downloader
 
-Download videos, photos, GIFs, audio tracks and video poster images from public **Twitter / X** posts — **no login, no cookies, no browser**. Paste post links or usernames and get every file stored with a public signed download link that works in any browser or `curl`.
+Collect public Twitter / X media without an account, cookies or a browser. Paste post links or ask for a profile's media posts and get the actual files back — videos in any available quality, photos, GIFs, audio-only tracks and video posters — each with a public download link.
 
-## What this actor does
+## What it does
 
-- **Two discovery paths:** direct post links/IDs, or scan usernames/profile links for their latest media posts
-- **All media types:** videos, photos, GIFs and video poster images
-- **Quality control:** original or compressed photos; any video quality (`2160p` down to `480p`, best or smallest) — or every available quality at once as separate files
-- **Audio only:** extract the soundtrack of videos as M4A or MP3
-- **Extras:** media from quoted posts, image alt text, post metadata with a derived engagement rate
-- **Empty fields are omitted**
+- **Post mode** — one link or ID per post, including `x.com`, `twitter.com`, `mobile.twitter.com`, `/i/web/status/` links, `/status/<id>/video/1` links and bare numeric IDs.
+- **Profile mode** — walks a profile's media posts page by page, not just the handful shown to logged-out visitors.
+- **Both modes in one run** — results are de-duplicated across the two paths.
+- **Status rows** — deleted, protected, media-less and rate-limited targets produce an honest status row instead of a silent empty run.
 
-## Output per media file
+## Services
 
-Each row has a `type`: `media file` for a downloaded file or `status` for a run message.
-
-| Field | Description |
+| Service | What you get |
 |---|---|
-| `tweetId`, `tweetUrl` | Post ID and canonical post URL |
-| `mediaType` | `video`, `photo` or `gif` |
-| `mediaUrl` | Media URL with the selected photo quality applied (videos/GIFs use the chosen quality) |
-| `mediaUrlOriginal` | Untouched X CDN URL, without the quality parameter |
-| `thumbnailUrl` | Preview image URL for videos and GIFs |
-| `posterImageUrl` | Poster image URL on video/GIF rows when poster saving is on |
-| `filename` | File name in the key-value store |
-| `fileSizeBytes` | Real size of the downloaded file |
-| `width`, `height` | Media dimensions in pixels |
-| `durationSeconds` | Video or GIF duration |
-| `downloadUrl` | Public signed download link for the stored file |
-| `downloadStatus` | `finished`, `failed` or `notDownloaded` |
-| `uploaderUsername`, `uploaderFollowers` | Handle and follower count of the account that posted the media |
-| `tweetText` | Text of the post |
-| `likeCount`, `retweetCount`, `replyCount`, `viewCount` | Public engagement counts |
-| `engagementRate` | Derived engagement in percent (likes + reposts + replies ÷ followers) |
-| `variantQuality`, `variantBitrate` | Quality label (for example `1080p`) and bitrate of the downloaded variant |
-| `availableQualities` | Every quality X offers for the video, best first (label, URL, dimensions, bitrate) |
-| `qualityCount` | How many video qualities are available |
-| `isBestQuality` | Whether the downloaded variant is the best one X offers |
-| `mediaSource` | `post`, `quoted post` or `poster image` |
-| `altText` | Image description X stores for the photo or video thumbnail |
-| `mediaKey`, `focusRects` | Media identifier and X's crop focus rectangles |
-| `allowDownload` | Whether X allows downloads for this media |
-| `audioFormat` | `m4a` or `mp3` on audio-only rows |
-| `message` | Explanation on failed or skipped files |
-| `collectedAt` | UTC timestamp |
+| Video download | Best, 2160p, 1080p, 720p, 480p or smallest MP4; every quality can be saved as separate files |
+| Photo download | Original, large, medium or small image files |
+| GIF download | The MP4 file X serves for animated GIFs |
+| Audio extraction | M4A (AAC) or MP3 soundtrack of a video |
+| Poster images | The video/GIF thumbnail as a separate photo file |
+| Quoted-post media | Media inside a quoted post, marked `mediaSource: "quoted post"` |
+| Author and post context | Text, date, engagement counts, author name/avatar/verification/followers, hashtags, mentions, links, reply/quote flags and quoted post IDs |
+| Profile context | Profile ID, follower count and media count on rows found through a username |
+| Profile filters | Minimum likes, minimum reposts and verified-authors-only |
 
-Status rows carry `status` (`noInput`, `invalidLink`, `invalidUsername`, `notFound`, `rateLimited`, `error`, `noMatchingMedia`, `noRecords`), a human-friendly `message`, and the related `tweetUrl`, `tweetId` or `username`.
+## How it works
+
+The actor reads X's public post data and the FxTwitter mirror, combines the fields each source is best at, and falls back to the X status page and oEmbed when a post looks missing. Videos and GIFs use X's direct CDN; if a direct file cannot be fetched, yt-dlp is tried as a last resort. Files are streamed to disk, checked for a sane size, stored in the run's key-value store and linked with a signed public URL. No request uses your cookies, login or API key.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `postUrls` | array | – | Post links, `i/web/status` links or bare post IDs |
-| `tweetUrls` | array | – | Alias of post links |
-| `usernames` | array | – | Profiles to scan for recent media (`@` optional, profile links accepted) |
-| `profileUrls` | array | – | Alias of usernames to scan |
-| `maxPostsPerUser` | integer | `20` | How many recent posts to check per username (1–100) |
+| `postUrls` | array | – | Post links or bare post IDs (the prefill uses one NASA post) |
+| `usernames` | array | – | Handles, `@handles` or profile links to scan |
+| `maxPostsPerUser` | integer | `20` | Media posts to check per profile (1–1000) |
+| `maxItems` | integer | `100` | Hard cap on media rows for the whole run (1–10000) |
 | `mediaTypes` | array | `["video", "photo", "gif"]` | `video`, `photo`, `gif` |
 | `imageQuality` | string | `orig` | `orig`, `large`, `medium`, `small` |
-| `videoQuality` | string | `best` | `best`, `2160p`, `1080p`, `720p`, `480p`, `worst` — the closest available quality is used |
-| `downloadAllQualities` | boolean | `false` | Download every progressive video quality as a separate row and file |
-| `includePosterImage` | boolean | `true` | Also save the video/GIF poster image as a photo |
-| `includeThumbnails` | boolean | `false` | Alias of poster images |
-| `includeAltText` | boolean | `true` | Attach X's image description to the row |
-| `audioOnly` | boolean | `false` | Save only the audio track of videos as M4A/MP3; photos and GIFs are skipped |
+| `videoQuality` | string | `best` | `best`, `2160p`, `1080p`, `720p`, `480p`, `worst` |
+| `downloadAllQualities` | boolean | `false` | One row and file per available MP4 quality |
+| `includePosterImage` | boolean | `true` | Save each video/GIF poster as a photo |
+| `includeAltText` | boolean | `true` | Attach X's image description when present |
+| `audioOnly` | boolean | `false` | Save only the audio track of videos; photos and GIFs are skipped |
 | `audioFormat` | string | `m4a` | `m4a` or `mp3` when audio-only is on |
-| `includeQuotedMedia` | boolean | `true` | Also download media from a post quoted inside the linked post |
-| `includeMetadata` | boolean | `true` | Attach post text and engagement counts to every file |
-| `saveToFile` | boolean | `true` | Store files and return public signed links; turn off to collect metadata only |
-| `proxyConfiguration` | object | – | Optional, for large or repeated runs |
+| `includeQuotedMedia` | boolean | `true` | Include media from a quoted post |
+| `includeMetadata` | boolean | `true` | Attach post, author and engagement context |
+| `minLikes` | integer | `0` | Profile scans only: skip posts below this like count |
+| `minRetweets` | integer | `0` | Profile scans only: skip posts below this repost count |
+| `onlyVerifiedAuthors` | boolean | `false` | Profile scans only: skip unverified authors |
+| `saveToFile` | boolean | `true` | Store files and return signed links; off means metadata and CDN links only |
 
-At least one post link or username is required. Post links and usernames can be combined in one run.
+At least one post link/ID or username is required. Directly linked posts are always collected; the three filters apply while scanning usernames.
 
-### Example: direct post links
+### Example: download two posts
 
 ```json
 {
   "postUrls": [
     "https://x.com/NASA/status/2107095768821576019",
-    "2107516524965794217"
+    "https://x.com/SheCodeAfrica/status/2107516524965794217"
   ],
-  "mediaTypes": ["video", "photo"],
-  "videoQuality": "1080p"
+  "videoQuality": "1080p",
+  "maxItems": 10
 }
 ```
 
-### Example: scan profiles for recent media
+### Example: scan a profile's media
 
 ```json
 {
-  "usernames": ["NASA", "https://x.com/elonmusk"],
-  "maxPostsPerUser": 30,
-  "mediaTypes": ["video"],
-  "includeMetadata": true
+  "usernames": ["NASA"],
+  "maxPostsPerUser": 50,
+  "maxItems": 100,
+  "mediaTypes": ["video", "photo"],
+  "minLikes": 100,
+  "onlyVerifiedAuthors": true
 }
 ```
 
-### Example: audio only (MP3)
+### Example: audio-only MP3
 
 ```json
 {
@@ -110,15 +92,24 @@ At least one post link or username is required. Post links and usernames can be 
 }
 ```
 
-### Example: every video quality
+## Output
 
-```json
-{
-  "postUrls": ["https://x.com/NASA/status/2107095768821576019"],
-  "mediaTypes": ["video"],
-  "downloadAllQualities": true
-}
-```
+Every dataset row has `type`: `media file` for a collectible file, or `status` for a run message.
+
+| Group | Fields |
+|---|---|
+| Identity | `tweetId`, `tweetUrl`, `postedAt`, `conversationId`, `inReplyToTweetId`, `isReply`, `isQuote`, `isRetweet`, `quotedTweetId`, `quotedTweetUrl` |
+| Media | `mediaType`, `mediaUrl`, `mediaUrlOriginal`, `contentType`, `mediaId`, `mediaKey`, `thumbnailUrl`, `posterImageUrl`, `filename`, `fileSizeBytes`, `width`, `height`, `durationSeconds`, `focusRects`, `allowDownload` |
+| Download | `downloadUrl`, `downloadStatus`, `message` |
+| Video quality | `variantQuality`, `variantBitrate`, `availableQualities`, `qualityCount`, `isBestQuality` |
+| Audio | `audioFormat` |
+| Author | `uploaderUsername`, `uploaderName`, `uploaderVerified`, `uploaderAvatarUrl`, `uploaderFollowers` |
+| Post context | `tweetText`, `likeCount`, `retweetCount`, `replyCount`, `quoteCount`, `bookmarkCount`, `viewCount`, `engagementRate`, `hashtags`, `mentions`, `urls` |
+| Source | `mediaSource` (`post`, `quoted post` or `poster image`) |
+| Profile | `profileId`, `profileFollowers`, `profileMediaCount` |
+| Run | `collectedAt` |
+
+Empty fields are omitted. Status rows carry `status` (`noInput`, `invalidLink`, `invalidUsername`, `notFound`, `rateLimited`, `error`, `noMatchingMedia`, `noRecords`), a human-readable `message`, and the related `tweetUrl`, `tweetId` or `username`.
 
 ### Example record
 
@@ -127,71 +118,73 @@ At least one post link or username is required. Post links and usernames can be 
   "type": "media file",
   "tweetId": "2107095768821576019",
   "tweetUrl": "https://x.com/i/status/2107095768821576019",
+  "postedAt": "2026-10-05T13:09:13+00:00",
   "mediaType": "video",
   "mediaUrl": "https://video.twimg.com/amplify_video/.../avc1/1920x1080/video.mp4?tag=16",
-  "mediaUrlOriginal": "https://video.twimg.com/amplify_video/.../video.mp4",
-  "thumbnailUrl": "https://pbs.twimg.com/amplify_video_thumb/.../img/thumb.jpg",
-  "posterImageUrl": "https://pbs.twimg.com/amplify_video_thumb/.../img/thumb.jpg?format=jpg&name=orig",
-  "filename": "2107095768821576019_video_1.mp4",
+  "contentType": "video/mp4",
+  "mediaId": "2107095744146460672",
+  "filename": "2107095768821576019_video_1_1080p.mp4",
   "fileSizeBytes": 3178943,
   "width": 1920,
   "height": 1080,
   "durationSeconds": 13.3,
-  "downloadUrl": "https://api.apify.com/v2/key-value-stores/{STORE_ID}/records/2107095768821576019_video_1.mp4?signature=...",
+  "downloadUrl": "https://api.apify.com/v2/key-value-stores/{STORE_ID}/records/...?signature=...",
   "downloadStatus": "finished",
   "uploaderUsername": "NASA",
-  "tweetText": "It's World Space Week! ...",
-  "likeCount": 7284,
-  "retweetCount": 1138,
-  "viewCount": 2838162,
+  "uploaderName": "NASA",
+  "uploaderVerified": true,
+  "uploaderFollowers": 92310189,
+  "likeCount": 7476,
+  "retweetCount": 1125,
+  "quoteCount": 97,
+  "bookmarkCount": 332,
+  "viewCount": 2961506,
   "variantQuality": "1080p",
-  "qualityCount": 3,
   "isBestQuality": true,
   "mediaSource": "post",
-  "collectedAt": "2026-10-06T18:53:49+00:00"
+  "collectedAt": "2026-10-29T00:00:00+00:00"
 }
 ```
 
-## Use cases
+## Usage cost
 
-- **Content archival** — back up media from accounts you care about
-- **Repurposing** — pull video and photo assets for blogs, presentations or social posts
-- **Compliance and evidence** — preserve public posts for legal or regulatory records
-- **Media research** — build labelled datasets of public video/photo content
-- **Audio workflows** — turn public videos into podcast-ready M4A/MP3 tracks
-- **Social listening** — enrich posts with engagement metrics for analysis
+You pay the actor's per-result price shown on its Apify page plus normal Apify platform usage. With `saveToFile: false` no media bytes are stored, so a metadata-only run is the cheapest option. Downloads add key-value store usage proportional to the real file sizes. Keep `maxItems` and `maxPostsPerUser` at the values you need — the actor stops as soon as `maxItems` is reached.
 
 ## FAQ
 
-**Do I need a Twitter/X account or cookies?** No. The actor is fully cookieless and reads public posts and public profile timelines only.
+**Do I need an X account, cookies or an API key?** No. Everything is read from public, logged-out sources.
 
-**What media types are supported?** Videos, photos and GIFs. If a post has 3 photos and 1 video, you get all 4 files (plus the video poster when poster saving is on).
+**Can I download from a private or protected account?** No. Protected and deleted posts return a `notFound` status row; they are not silently skipped.
 
-**How are video qualities handled?** The actor picks the closest available quality to your preference (`best` and `worst` are also supported). Portrait videos are compared by their real quality — a 1080×1920 video is treated as 1080p. When `downloadAllQualities` is on, every quality becomes its own file.
+**How far back does a profile scan go?** The walk follows X's media timeline page by page until `maxPostsPerUser`, `maxItems` or the end of the timeline. Large profiles can be rate-limited; lower `maxPostsPerUser` and re-run later.
 
-**What is `posterImageUrl`?** When poster saving is on, every video/GIF row carries the poster image URL at your chosen photo quality, and the poster is also saved as a separate photo row. Turn the option off to keep video/GIF rows only.
+**How are video qualities chosen?** The closest available quality to your preference is used. Portrait videos are compared by their short side, so a 1080×1920 video counts as 1080p. With `downloadAllQualities`, every progressive MP4 becomes its own row and file.
 
-**Does it download media from quoted posts?** Yes — by default media inside a quoted post is collected too and marked with `mediaSource: "quoted post"`. Set `includeQuotedMedia` to `false` to keep only the linked post's own media.
+**What happens with quoted posts?** Media inside a quoted post is included by default and marked `mediaSource: "quoted post"`. Turn `includeQuotedMedia` off to keep only the linked post's own media.
 
-**How does audio-only work?** Videos are downloaded and their audio track is extracted as M4A (AAC) or MP3. Photos and GIFs are skipped in this mode. Audio-only requires file saving, so `saveToFile` is enabled automatically.
+**Does audio-only work on GIFs?** No. Animated GIFs have no audio track, so they are skipped in audio-only mode along with photos.
 
-**What happens to posts with no media or filtered-out media?** The actor emits a `status` row explaining why, so a run is never silently empty.
+**What if a post has no media?** You get one `noMatchingMedia` status row explaining it, not an empty dataset.
 
-**Why are download links signed?** Apify key-value store records need a signature for public access; the actor appends it automatically. Paste the URL into any browser or `curl`.
+**Do download links expire?** Signed key-value store links follow your Apify storage retention. Re-run the actor or copy the files to your own storage for permanent archiving.
 
-**How long do download links last?** They follow your Apify key-value store retention (typically 7 days on the free tier). Re-run the actor or copy the files to your own storage for permanent archival.
+**How do the profile filters treat unknown counts?** A post whose like/repost count or verification status is unknown is kept rather than excluded.
 
-**Can I collect metadata without downloading files?** Yes — set `saveToFile` to `false`. Rows still include the original CDN URLs.
+**Can I still use my saved inputs from the previous version?** Yes. Old input keys are mapped automatically in code, so saved tasks keep running.
 
-**Can I download from private or protected accounts?** No. The actor only accesses public content, by design.
+## Notes
 
-## Limits
+- All timestamps are UTC ISO 8601.
+- Engagement rate is derived from likes, reposts, replies and quotes divided by the author's follower count; it is omitted when the follower count is unknown.
+- Media URLs are direct X CDN links and open without a Referer header.
+- Download links are public signed links tied to the run's key-value store.
+- Use the actor only for content you have the right to download.
 
-- Public posts only — deleted posts and protected accounts cannot be retrieved.
-- Profile scanning is limited to the posts X exposes to logged-out visitors (roughly the newest posts of the account).
-- Very large scans may be rate-limited by X; reduce `maxPostsPerUser` or configure a proxy.
-- When X marks a media item as not downloadable, the row reports `downloadStatus: "notDownloaded"` with an explanation instead of a file.
+## Limitations
 
-## Integrations
-
-Run it on a schedule and push new files to Google Drive, Dropbox, S3 or any webhook through Apify's built-in integrations, or call the actor from the Apify API to feed media pipelines.
+- Public posts only: deleted posts, protected accounts and login-gated content are not accessible.
+- Profile scans cover the most recent media posts X exposes publicly, up to 1,000 posts per run; deeper history is not addressable and very large profiles can hit rate limits, so re-run later if a scan stops early.
+- A single media file larger than 1 GB is rejected to keep memory bounded.
+- Some media is marked by X as not downloadable; those rows report `downloadStatus: "notDownloaded"` with an explanation.
+- Quote media depends on the quoted post still being public.
+- X changes its public endpoints periodically; the actor keeps several fallbacks, but a run can still return `rateLimited` or `error` status rows during an outage.

@@ -1,0 +1,464 @@
+# Instagram Posts & Reels Data Scraper
+
+Paste a list of Instagram post links and get back one tidy data row per post: who published it, the caption with its hashtags and mentions, direct links to every photo and video, like and comment counts, publish date, tagged location and Reel music. It understands regular posts, Reels, IGTV videos and multi-photo carousels, and it works without an Instagram account for public posts (you can optionally add your own cookies to include age-restricted and login-protected posts). It is built for marketers, analysts, researchers and agencies who already know which posts they want to look at and need the numbers and media links in a spreadsheet-friendly format.
+
+## What this actor does
+
+- **Turns post links into structured rows** — give it `/p/`, `/reel/`, `/reels/`, `/tv/` or `username/p/shortcode` links, in any mix, in a single run.
+- **Collects the whole post** — author details, caption, hashtags, mentions, tagged people, collaborators, publish date and engagement counts.
+- **Lists every media file** — a photo, a video, a Reel or each slide of a carousel is returned with its direct link, size and, for videos, duration and audio flag.
+- **Adds context when Instagram shows it** — tagged location with coordinates, Reel music and accessibility description.
+- **Never loses a link silently** — every URL you submit gets a result, and anything that could not be read carries a clear `status` explaining why.
+- **Handles large lists** — up to 10,000 links per run (large crawls are subject to your plan limits), with duplicate links merged automatically.
+- **Optional cookies for gated posts** — paste your own Instagram cookies and the posts that need a sign-in are retried with your session.
+
+## Output per post
+
+Every record starts with `status` and `post_url`. A record whose status is anything other than `success` contains only those two fields.
+
+**Identity**
+
+- `status` — outcome for this link: `success`, `not_found`, `age_restricted`, `is_private`, `invalid_url`, `error` or `blocked` (see Status values below).
+- `post_url` — the post's canonical address, `https://www.instagram.com/p/{shortcode}/`. For `invalid_url` records it is the text you submitted.
+- `shortcode` — the short code in the post's address.
+- `post_id` — Instagram's numeric ID for the post.
+
+**Author**
+
+- `username` — the account that published the post.
+- `author_meta` — object with the author's `id`, `username`, `full_name`, `is_verified`, `profile_pic_url`, and `profile_url`.
+- `collaborators` — usernames of co-authors on a collaborative post (empty list when none).
+
+**Content**
+
+- `caption` — full caption text (empty string when there is none).
+- `caption_is_edited` — `true` if the caption was edited after publishing.
+- `hashtags` — hashtags found in the caption, duplicates removed.
+- `mentions` — @mentioned usernames found in the caption, duplicates removed.
+- `tagged_users` — usernames tagged on the photo or video itself.
+- `pub_date` — publish time in ISO 8601, UTC.
+- `media_type` — `Photo`, `Video`, `Reel`, `IGTV` or `Carousel`.
+- `media_count` — number of media files in the post (more than 1 only for carousels).
+- `media_items` — one object per photo or video with `index`, `type`, `url`, `width` and `height`. Videos also carry `duration` (seconds) and `has_audio`. Some items also include an `id`, `shortcode` or `accessibility_caption`.
+- `thumbnail_url` — preview image link.
+- `accessibility_caption` — Instagram's auto-generated description of the image (empty string when not available).
+
+**Engagement**
+
+- `like_count` — number of likes, or `null` when the author hides likes.
+- `likes_hidden` — `true` when the author has hidden the like count.
+- `comment_count` — number of comments.
+- `comments_disabled` — `true` when commenting is turned off.
+
+**Extras (when Instagram shows them)**
+
+- `location` — object with `name`, `id`, `lat`, `lng` and, in many cases, `slug`; `null` when no place is tagged.
+- `music` — Reel audio details such as `artist`, `title`, `audio_id` and `is_trending`; for original sounds, the sound ID and the author of the sound. `null` when there is no music information.
+
+**Metadata**
+
+- `scraped_at` — when the record was collected, ISO 8601, UTC.
+
+Fields that Instagram does not provide for a post come back as an empty value (`null`, `""`, `[]` or `false`) rather than being dropped, so every successful record has the same set of columns.
+
+## Status values
+
+Each submitted link produces a record with one of these statuses:
+
+| Status | Meaning |
+|---|---|
+| `success` | The post was read and all available fields are filled in. |
+| `not_found` | The post could not be loaded without logging in: it was deleted, never existed, or is only shown to signed-in users. |
+| `age_restricted` | Instagram hides the post behind an age check, either because of the post itself (for example alcohol brands) or because the account has a minimum-age setting. |
+| `is_private` | The post belongs to a private account. |
+| `invalid_url` | The text is not a post, Reel or IGTV link. Profile links, share links and other pages are not supported. |
+| `error` | The post could not be read even after several attempts. Try the link again in a later run. |
+| `blocked` | Instagram kept refusing the requests for this link during the run. Try it again in a later run. |
+
+Without cookies this actor never logs in to Instagram, so private and age-restricted posts cannot be opened and only come back as a status record with `status` and `post_url`. If you add your own cookies, those posts are retried once with your session: ones your account can see come back in full, and ones it still cannot open keep their status. A private post opens only if your account follows that account.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `post_urls` | array | – | Required. 1 to 10,000 Instagram post, Reel or IGTV links. Accepts `/p/`, `/reel/`, `/reels/`, `/tv/` and `username/p/shortcode` formats. Duplicate links are merged into one record. The input form is prefilled with one sample post. |
+| `cookies` | string | – | Optional. Your Instagram cookies in JSON format, used only to retry posts that cannot be read anonymously. Leave empty to scrape anonymously. It is a secret input, so the Apify Console hides and encrypts it. |
+
+### Example: check a single post
+
+```json
+{
+  "post_urls": [
+    "https://www.instagram.com/p/DUtk38cj2TA/"
+  ]
+}
+```
+
+### Example: compare a post, a Reel and an IGTV video
+
+```json
+{
+  "post_urls": [
+    "https://www.instagram.com/p/DUtk38cj2TA/",
+    "https://www.instagram.com/reel/C9uzjsSpHJC/",
+    "https://www.instagram.com/tv/CQa7HaGlRPD/"
+  ]
+}
+```
+
+### Example: links copied from a campaign sheet
+
+Links that include the account name, plain `/reels/` links and repeated links can all sit in the same list. The repeated link below produces a single record.
+
+```json
+{
+  "post_urls": [
+    "https://www.instagram.com/leomessi/p/DZifppZj_cB/",
+    "https://www.instagram.com/reels/C9uzjsSpHJC/",
+    "https://www.instagram.com/p/DUtk38cj2TA/",
+    "https://www.instagram.com/p/DUtk38cj2TA/"
+  ]
+}
+```
+
+### Example: audit a list that may contain dead links
+
+The first link below comes back as `not_found` and the profile link as `invalid_url` instead of disappearing, so you can see which links in your list need fixing.
+
+```json
+{
+  "post_urls": [
+    "https://www.instagram.com/p/DELETED123/",
+    "https://www.instagram.com/natgeo/",
+    "https://www.instagram.com/p/DUtk38cj2TA/"
+  ]
+}
+```
+
+### Example: include age-restricted posts with your own cookies
+
+Posts that come back as `age_restricted`, `not_found` or `is_private` anonymously are retried once with your session.
+
+```json
+{
+  "post_urls": [
+    "https://www.instagram.com/p/DUtk38cj2TA/"
+  ],
+  "cookies": "<your cookies JSON>"
+}
+```
+
+## Example output
+
+A shortened, illustrative record for a successful photo post (link values are abbreviated):
+
+```json
+{
+  "status": "success",
+  "post_url": "https://www.instagram.com/p/DUtk38cj2TA/",
+  "shortcode": "DUtk38cj2TA",
+  "post_id": "3672810928374650123",
+  "username": "sample_travel",
+  "author_meta": {
+    "id": "787132",
+    "username": "sample_travel",
+    "full_name": "Sample Travel Co",
+    "is_verified": false,
+    "profile_pic_url": "https://scontent.cdninstagram.com/v/...",
+    "profile_url": "https://www.instagram.com/sample_travel/"
+  },
+  "collaborators": [],
+  "caption": "The ancient forest at dawn. #nature #wildlife #photography",
+  "caption_is_edited": false,
+  "hashtags": ["nature", "wildlife", "photography"],
+  "mentions": [],
+  "pub_date": "2025-11-12T08:30:00",
+  "media_type": "Photo",
+  "media_count": 1,
+  "media_items": [
+    { "index": 1, "type": "Photo", "url": "https://scontent.cdninstagram.com/v/...jpg", "width": 1080, "height": 1350 }
+  ],
+  "thumbnail_url": "https://scontent.cdninstagram.com/v/...jpg",
+  "accessibility_caption": "",
+  "like_count": 4821,
+  "comment_count": 132,
+  "likes_hidden": false,
+  "comments_disabled": false,
+  "tagged_users": [],
+  "location": null,
+  "music": null,
+  "scraped_at": "2025-11-12T09:14:33.421000"
+}
+```
+
+A link that could not be read is returned as a short status record:
+
+```json
+{ "status": "not_found", "post_url": "https://www.instagram.com/p/DELETED123/" }
+```
+
+## Use cases
+
+- **Social media managers** — pull like, comment and format data for a list of your own top posts and build a monthly performance report.
+- **Influencer marketing agencies** — check likes, comments and tagged accounts on the exact posts a creator delivered for a campaign.
+- **Brand and PR teams** — log every post that mentions a product launch, with caption, tagged accounts and location, for coverage reports.
+- **Media buyers and creative strategists** — compare Reels against carousels and photos, including video length and music, to decide which formats to brief next.
+- **Academics and journalists** — build a reproducible dataset of specific public posts, with timestamps, for a study or investigation.
+- **Content archivists** — keep a record of captions and media links for posts before they are edited, hidden or removed.
+
+## Using your own cookies
+
+Cookies are optional and only used to retry posts that cannot be read anonymously. This includes age-restricted posts that your account is old enough to view, and posts from private accounts, as long as the account the cookies belong to follows that private account (and has been accepted). Posts your account cannot open in the browser keep their original status. To add them, export your instagram.com cookies as JSON from a browser where you are signed in, using any cookie-export browser extension, and paste the JSON into the `cookies` field. The field is a secret input, so the Apify Console hides and encrypts it, and the cookies are used only during your run to open posts. Before any post is retried, the actor asks Instagram whether it recognises the cookies; if they are invalid, expired or signed out, the run log says so and those posts simply keep their original status. Only paste cookies from an account that belongs to you, and only collect posts you are allowed to access. You are responsible for complying with Instagram's terms and applicable law, and a dedicated account is the safer choice.
+
+### Cookie format
+
+The `cookies` field takes a **JSON array** of cookie objects, the format most cookie-export browser extensions call "JSON". Other export formats are not supported: a Netscape `cookies.txt` file or a raw `Cookie:` header string will be rejected. Each cookie needs at least `name`, `value` and `domain`, and the export must include the `sessionid` and `ds_user_id` cookies of the signed-in account. A cookie that has an expiry date (`expirationDate`, in seconds since 1970) must not be expired.
+
+One cookie looks like this (the value shown is a placeholder, paste your own export unchanged):
+
+```json
+[
+  {
+    "name": "sessionid",
+    "value": "<your sessionid value>",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  }
+]
+```
+
+<details>
+<summary>Show a complete example export (placeholder values)</summary>
+
+```json
+[
+  {
+    "name": "ps_n",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "datr",
+    "value": "EXAMPLE-datr-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ig_nrcb",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ds_user_id",
+    "value": "1234567890",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "csrftoken",
+    "value": "EXAMPLE-csrftoken-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ig_did",
+    "value": "00000000-0000-0000-0000-000000000000",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ps_l",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "lax",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "wd",
+    "value": "1280x720",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "lax",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "mid",
+    "value": "EXAMPLE-mid-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "sessionid",
+    "value": "<your sessionid value>",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "dpr",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "rur",
+    "value": "EXAMPLE-rur-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "lax",
+    "session": true,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "storeId": null
+  }
+]
+```
+
+</details>
+
+Treat the cookies like a password: they give access to your Instagram account, so never share them or post them publicly.
+
+## Responsible use
+
+Most posts you collect are public, but the captions, usernames, tagged people, collaborators, locations and faces in photos and videos can still identify real individuals. Before you collect or store this data, make sure you have a lawful basis for doing so (for example under the GDPR), keep only what your purpose requires, and treat the people behind the posts fairly. Do not use post data to profile, track or target minors, and do not use it to infer or record sensitive details such as health, religion, political views or sexual orientation. If you add your own cookies, posts that only your account can see may be included, so also respect that account's access limits and the authors' expectations of privacy. Media files belong to their creators, so check that you have the right or permission to reuse them.
+
+## FAQ
+
+**Do I need an Instagram account to use this actor?**
+No. You only need the links, and the actor reads public posts without any Instagram account. An account only matters if you want age-restricted or login-protected posts: in that case paste your own cookies (see Using your own cookies).
+
+**Do I need to set up a proxy?**
+No. The actor chooses a working connection to Instagram automatically. Just paste your links and run it.
+
+**Which links are supported?**
+Post links (`/p/`), Reel links (`/reel/` and `/reels/`), IGTV links (`/tv/`) and links in the `username/p/shortcode` form. Profile pages, hashtag pages, share links and bare short codes are not supported and return `invalid_url`. To get the posts of a profile, collect the post links first and then submit them here.
+
+**How many links can I submit at once?**
+Between 1 and 10,000 per run. Links that point to the same post are merged, so you receive one record per unique post. Very large crawls are subject to your plan limits.
+
+**Why is `like_count` empty on some posts?**
+Authors can hide the like count on their posts. In that case Instagram does not share the number, so the record has `likes_hidden: true` and `like_count: null`. The comment count is still returned unless it is also unavailable.
+
+**Why did my link come back as `age_restricted`, `is_private` or `not_found`?**
+These posts cannot be viewed without signing in to Instagram. `age_restricted` means an age check is in place, `is_private` means the account is private, and `not_found` means the post was deleted, never existed, or is only visible to signed-in users. Without cookies the actor does not sign in, so you receive a record with only `status` and `post_url` for them. Add your own cookies to retry those posts with your session.
+
+**What is the difference between `error` and `blocked`?**
+Both mean the post could not be read this time, even though it may be public. `blocked` means Instagram kept refusing the requests for that link, while `error` covers other failures after repeated attempts. Resubmitting those links in a new run usually resolves them.
+
+**Does it return the comments themselves?**
+No. You get the number of comments, whether comments are disabled, and the caption, but not the comment texts or the list of people who liked the post.
+
+**How fresh is the data?**
+Everything is read live when your run executes, so like and comment counts reflect the moment of the run. The `scraped_at` field tells you exactly when each record was collected.
+
+**Is this affiliated with Instagram or Meta?**
+No. This is an independent tool. It is not affiliated with, endorsed by or sponsored by Instagram or Meta Platforms, Inc.
