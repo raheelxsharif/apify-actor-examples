@@ -1,0 +1,197 @@
+{
+  "description": "Scrape YellowPagesPK.com, Pakistan's business listing directory. Browse by business category, search by free-text keyword, or fetch full business profiles from direct listing URLs.",
+  "properties": {
+    "category": {
+      "default": "restaurant",
+      "description": "Business category to browse. This is the full, current list of categories published on YellowPagesPK.com (mode=byCategory).",
+      "editor": "select",
+      "enum": [
+        "account-tax-consultant",
+        "arts-entertainment",
+        "automotive",
+        "beauty-salon",
+        "beauty-spa",
+        "best-event-management",
+        "charity-donation",
+        "computer-and-mobiles",
+        "construction",
+        "constructions-repairing",
+        "courier-service",
+        "customs-broker-clearance-agent",
+        "digital-media",
+        "education-institute",
+        "electronics-and-electrical-equipment",
+        "fashion-styles",
+        "furniture",
+        "general-order-supplier",
+        "goods-transportation",
+        "health-medical",
+        "home-furniture",
+        "home-garden",
+        "hotels",
+        "insurance",
+        "job-recruitment-agency",
+        "law-firms",
+        "legal-advisor",
+        "legal-service",
+        "loan-and-mortgage",
+        "manufacturer",
+        "movers-packers",
+        "property-real-estate-agent",
+        "real-estate",
+        "rent-a-car",
+        "restaurant",
+        "security-service",
+        "services",
+        "shopping",
+        "software-houses",
+        "specialist-medical-doctors",
+        "study-abroad",
+        "study-abroad-consultants",
+        "travel-agencies",
+        "vehicle-denter-painter",
+        "web-development",
+        "welder"
+      ],
+      "enumTitles": [
+        "Accounts and Tax Consultant",
+        "Arts & Entertainment",
+        "Automotive",
+        "Beauty Salon",
+        "Beauty & Spa",
+        "Event Management",
+        "Charity & Donation",
+        "Computer and Mobiles",
+        "Construction",
+        "Constructions and Repairing",
+        "Courier Service",
+        "Customs Broker & Clearance Agent",
+        "Digital Media",
+        "Education Institute",
+        "Electronics and Electrical Equipment",
+        "Fashion & Styles",
+        "Furniture",
+        "General Order Supplier",
+        "Goods Transportation",
+        "Health & Medical",
+        "Home Furniture",
+        "Home & Garden",
+        "Hotels & Guest Houses",
+        "Insurance",
+        "Job Recruitment Agency",
+        "Law Firms",
+        "Legal Advisor",
+        "Legal Service",
+        "Loan and Mortgage",
+        "Manufacturer",
+        "Packers and Movers",
+        "Property & Real Estate Agent",
+        "Real Estate",
+        "Rent a Car",
+        "Restaurant",
+        "Security Service",
+        "Services",
+        "Shopping",
+        "Software Houses",
+        "Specialist Medical Doctors",
+        "Study Abroad",
+        "Study Abroad Consultants",
+        "Travel Agencies",
+        "Vehicle Denter / Painter",
+        "Web Development",
+        "Welder"
+      ],
+      "prefill": "restaurant",
+      "title": "Business category (mode=byCategory)",
+      "type": "string"
+    },
+    "cityFilter": {
+      "description": "Only keep businesses whose address mentions this city, e.g. 'Lahore', 'Karachi', 'Islamabad'. Matched case-insensitively against the business address. Leave empty for no city filter (used in mode=byCategory and mode=search).",
+      "editor": "textfield",
+      "title": "City filter (optional)",
+      "type": "string"
+    },
+    "fetchDetails": {
+      "default": true,
+      "description": "For each result, also visit its listing page to collect description, email, website, category, claimed status, and owner profile (one extra request per result). When off, only the fields visible on the listing/search page are returned (mode=byCategory, mode=search).",
+      "prefill": true,
+      "title": "Fetch full business profiles",
+      "type": "boolean"
+    },
+    "listingUrls": {
+      "default": [],
+      "description": "Direct YellowPagesPK.com listing URLs to fetch, e.g. https://yellowpagespk.com/listing/andaaz-restaurant/. Use the 'sourceUrl' field from byCategory/search results.",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "YellowPagesPK.com listing URL.",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "Business listing URLs (mode=byUrls)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on the number of business records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Only include businesses with an average customer rating at or above this value (0-5 stars). 0 = no filter. Businesses with no published rating are excluded once this is set above 0. Ratings are only available on the listing/search card, not looked up separately.",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byCategory",
+      "description": "What to fetch: browse a business category, run a free-text keyword search across the whole directory, or fetch full business profiles from direct YellowPagesPK.com listing URLs.",
+      "editor": "select",
+      "enum": [
+        "byCategory",
+        "search",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Browse by category",
+        "Keyword search",
+        "Fetch business profiles by URL"
+      ],
+      "prefill": "byCategory",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onlyClaimed": {
+      "default": false,
+      "description": "Only include businesses whose listing has been claimed and verified by its owner on YellowPagesPK.com. Off by default (returns both claimed and unclaimed listings).",
+      "prefill": false,
+      "title": "Only claimed/verified businesses",
+      "type": "boolean"
+    },
+    "searchQuery": {
+      "description": "Free-text keyword to search for across YellowPagesPK.com, e.g. a business name, service, or city (mode=search). Matches the site's own search, so combining a service with a city (e.g. 'restaurant lahore') narrows results well.",
+      "editor": "textfield",
+      "prefill": "Lahore",
+      "title": "Search query (mode=search)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Yellow Pages PK Scraper Input",
+  "type": "object"
+}
