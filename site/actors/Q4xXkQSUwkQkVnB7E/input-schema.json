@@ -1,32 +1,117 @@
 {
+  "description": "Search Bayt.com jobs across 24 markets, paste job/search/company URLs, resolve specific job IDs, or pull a company profile and its open roles.",
   "properties": {
     "careerLevel": {
       "default": "any",
-      "description": "Filter by career level (applied client-side against the extracted careerLevel).",
+      "description": "Filter by seniority. Bayt publishes this for some jobs, mostly employer postings.",
       "editor": "select",
       "enum": [
         "any",
+        "student",
+        "fresh_graduate",
         "entry",
         "mid_career",
         "management",
-        "senior_executive",
-        "student"
+        "director",
+        "senior_executive"
       ],
       "enumTitles": [
-        "Any",
-        "Entry Level",
-        "Mid Career",
+        "Any career level",
+        "Student / internship",
+        "Fresh graduate",
+        "Entry level",
+        "Mid career",
         "Management",
-        "Senior Executive",
-        "Student"
+        "Director / head",
+        "Senior executive"
       ],
       "prefill": "any",
-      "title": "Career Level",
+      "title": "Career level",
+      "type": "string"
+    },
+    "city": {
+      "description": "Optional city name such as Dubai, Riyadh or Cairo. If Bayt has no page for the city, the search falls back to the whole country.",
+      "editor": "textfield",
+      "title": "City",
+      "type": "string"
+    },
+    "companyName": {
+      "description": "Optional employer name filter, for example Al Futtaim or Infosys. Bayt matches the employer facet, so partial names may work differently from exact names.",
+      "editor": "textfield",
+      "title": "Company name",
+      "type": "string"
+    },
+    "companyUrls": {
+      "default": [],
+      "description": "Bayt company profile URLs or numeric company IDs, used when Mode is Company profile.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Company URLs or IDs",
+      "type": "array"
+    },
+    "country": {
+      "default": "international",
+      "description": "Bayt market to search. Pick International for every country, or choose one of the 24 supported markets.",
+      "editor": "select",
+      "enum": [
+        "international",
+        "uae",
+        "saudi-arabia",
+        "qatar",
+        "kuwait",
+        "bahrain",
+        "oman",
+        "egypt",
+        "jordan",
+        "lebanon",
+        "iraq",
+        "morocco",
+        "tunisia",
+        "algeria",
+        "libya",
+        "syria",
+        "palestine",
+        "pakistan",
+        "india",
+        "usa",
+        "uk",
+        "canada",
+        "australia",
+        "turkiye"
+      ],
+      "enumTitles": [
+        "International (all markets)",
+        "United Arab Emirates",
+        "Saudi Arabia",
+        "Qatar",
+        "Kuwait",
+        "Bahrain",
+        "Oman",
+        "Egypt",
+        "Jordan",
+        "Lebanon",
+        "Iraq",
+        "Morocco",
+        "Tunisia",
+        "Algeria",
+        "Libya",
+        "Syria",
+        "Palestine",
+        "Pakistan",
+        "India",
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Türkiye"
+      ],
+      "prefill": "uae",
+      "title": "Market",
       "type": "string"
     },
     "datePosted": {
       "default": "any",
-      "description": "Filter jobs by how recently they were posted (applied client-side against postedAtRelative / postedAt).",
+      "description": "Only return jobs Bayt marks as posted within this window.",
       "editor": "select",
       "enum": [
         "any",
@@ -35,94 +120,224 @@
         "last_month"
       ],
       "enumTitles": [
-        "Any",
+        "Any time",
         "Last 24 hours",
-        "Last week",
-        "Last month"
+        "Last 7 days",
+        "Last 30 days"
       ],
       "prefill": "any",
-      "title": "Date Posted",
+      "title": "Date posted",
       "type": "string"
+    },
+    "easyApplyOnly": {
+      "default": false,
+      "description": "Only return jobs that accept an application directly on Bayt.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Easy Apply only",
+      "type": "boolean"
     },
     "employmentType": {
       "default": "any",
-      "description": "Filter by employment type (applied client-side against the extracted employmentType).",
+      "description": "Filter by the employment type Bayt publishes for the job.",
       "editor": "select",
       "enum": [
         "any",
         "full_time",
         "part_time",
-        "contract",
+        "contractor",
+        "temporary",
         "internship",
-        "temporary"
+        "freelance"
       ],
       "enumTitles": [
-        "Any",
+        "Any employment type",
         "Full time",
         "Part time",
-        "Contract",
+        "Contractor",
+        "Temporary",
         "Internship",
-        "Temporary"
+        "Freelance"
       ],
       "prefill": "any",
-      "title": "Employment Type",
+      "title": "Employment type",
       "type": "string"
     },
-    "keyword": {
-      "description": "Optional keyword filter. When set and no startUrl is supplied, builds https://www.bayt.com/en/international/jobs/?keyword=<query>.",
-      "editor": "textfield",
-      "title": "Keyword",
+    "includeCompanyJobs": {
+      "default": true,
+      "description": "In Company mode, also return the company's open roles as job records.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include the company's open jobs",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "On: full descriptions, skills, preferred-candidate criteria, parsed salary and company metadata. Off: faster, listing-card fields only.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Visit each job page",
+      "type": "boolean"
+    },
+    "industry": {
+      "default": "any",
+      "description": "Filter by one of Bayt's employer industries.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "accounting",
+        "pharmaceutical-manufacturing",
+        "construction-building",
+        "recruitment-employment-agency",
+        "general-engineering-consultancy",
+        "hospitality-accommodation",
+        "hr-outsourcing",
+        "it-services",
+        "law-firm",
+        "other-business-support",
+        "real-estate",
+        "sales-outsourcing",
+        "scientific-research-development",
+        "airlines",
+        "automotive-dealership",
+        "manufacturing",
+        "marketing",
+        "oil-gas",
+        "telecommunications",
+        "management-consulting",
+        "project-construction-planning",
+        "market-research"
+      ],
+      "enumTitles": [
+        "Any industry",
+        "Accounting",
+        "Pharmaceutical manufacturing",
+        "Construction & building",
+        "Recruitment & employment agency",
+        "General engineering consultancy",
+        "Hospitality & accommodation",
+        "HR outsourcing",
+        "IT services",
+        "Law firm",
+        "Other business support services",
+        "Real estate",
+        "Sales outsourcing",
+        "Scientific research & development",
+        "Airlines",
+        "Automotive dealership & distributor",
+        "Manufacturing",
+        "Marketing",
+        "Oil & gas",
+        "Telecommunications",
+        "Management consulting",
+        "Project & construction planning",
+        "Market research"
+      ],
+      "prefill": "any",
+      "title": "Industry",
       "type": "string"
     },
-    "locationFilter": {
-      "description": "Optional country/city slug used to scope results (e.g. dubai-uae, uae, saudi-arabia, qatar). Combined with keyword builds https://www.bayt.com/en/<slug>/jobs/?keyword=<query>.",
-      "editor": "textfield",
-      "title": "Location Filter",
-      "type": "string"
+    "jobIds": {
+      "default": [],
+      "description": "Bayt job IDs such as 5498312, or full job URLs, used when Mode is Resolve job IDs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Job IDs or job URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Overall record limit for the run. Bayt exposes at most about 10,000 results per single search.",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Maximum records",
+      "type": "integer"
     },
     "maxPages": {
-      "default": 20,
-      "description": "Maximum listing pages to iterate over when collecting results.",
+      "default": 100,
+      "description": "Safety cap on listing pages per search. Bayt shows 30 jobs per page and stops near 10,000 results.",
       "editor": "number",
-      "maximum": 100,
+      "maximum": 400,
       "minimum": 1,
-      "title": "Max Pages",
+      "prefill": 1,
+      "title": "Maximum pages per search",
       "type": "integer"
     },
-    "proxyConfiguration": {
-      "default": {
-        "useApifyProxy": true
-      },
-      "description": "Apify proxy configuration. Datacenter proxy is sufficient — Bayt.com accepts datacenter IPs.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": true
-      },
-      "title": "Proxy Configuration",
-      "type": "object"
-    },
-    "resultsWanted": {
-      "default": 3,
-      "description": "Maximum job listings to return.",
+    "minSalary": {
+      "description": "Exclude jobs whose published USD monthly range ends below this amount. Jobs with no published salary are excluded when this is set.",
       "editor": "number",
-      "maximum": 500,
-      "minimum": 1,
-      "prefill": 3,
-      "title": "Results Wanted",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum monthly salary (USD)",
       "type": "integer"
     },
-    "startUrl": {
-      "default": "https://www.bayt.com/en/international/jobs/python-jobs/",
-      "description": "Bayt.com search or category URL. Examples: https://www.bayt.com/en/international/jobs/python-jobs/, https://www.bayt.com/en/uae/jobs/, https://www.bayt.com/en/dubai-uae/jobs/",
-      "editor": "textfield",
-      "prefill": "https://www.bayt.com/en/international/jobs/python-jobs/",
-      "title": "Start URL",
+    "mode": {
+      "default": "search",
+      "description": "What to scrape. Search jobs builds one Bayt search per query. Paste URLs accepts job, search or company links. Job IDs resolves specific postings. Company pulls a profile and its open roles.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrls",
+        "byJobIds",
+        "company"
+      ],
+      "enumTitles": [
+        "Search jobs by keyword and filters",
+        "Paste job, search or company URLs",
+        "Resolve job IDs or job URLs",
+        "Company profile and open roles"
+      ],
+      "prefill": "search",
+      "title": "Mode",
       "type": "string"
+    },
+    "remoteOnly": {
+      "default": false,
+      "description": "Use Bayt's server-side remote-working filter.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Remote or hybrid only",
+      "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [
+        "accountant"
+      ],
+      "description": "One keyword per entry, for example accountant or software engineer. Several entries are searched in order and duplicates are removed.",
+      "editor": "stringList",
+      "prefill": [
+        "accountant"
+      ],
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "date",
+      "description": "Newest first is best for monitoring. Most relevant is best for broad keyword research.",
+      "editor": "select",
+      "enum": [
+        "date",
+        "relevance"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Most relevant"
+      ],
+      "prefill": "date",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Job, search or company URLs, used when Mode is Paste URLs. Arabic and English Bayt URLs are accepted.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "URLs to scrape",
+      "type": "array"
     }
   },
-  "required": [
-    "startUrl"
-  ],
   "schemaVersion": 1,
   "title": "Bayt.com Jobs Scraper Input",
   "type": "object"

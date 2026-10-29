@@ -1,13 +1,19 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Bayt.com job listing records with company, location, salary, career level, skills, and apply link.",
+  "description": "Bayt.com job records with salary, location, company, requirements and provenance, plus company profiles when Company mode is used.",
   "properties": {
-    "jobs": {
-      "description": "Dataset containing all scraped Bayt.com job listing records.",
+    "companies": {
+      "description": "Company profile records returned by Company mode, including website, size, industry, followers, about text and open-jobs count.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Bayt.com job listings",
+      "title": "Bayt.com company profiles",
+      "type": "string"
+    },
+    "jobs": {
+      "description": "Dataset records for jobs: titles, companies, locations, salary ranges, descriptions, skills, preferred-candidate criteria, exact posting timestamps and search provenance.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Bayt.com jobs",
       "type": "string"
     }
   },
-  "title": "Bayt.com MENA Job Listing & Salary Scraper Output"
+  "title": "Bayt.com MENA Jobs Output"
 }

@@ -1,0 +1,92 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "categories": {
+            "format": "text",
+            "label": "Categories"
+          },
+          "categoryName": {
+            "format": "text",
+            "label": "Category"
+          },
+          "googleMapsUrl": {
+            "format": "link",
+            "label": "Maps URL"
+          },
+          "image": {
+            "format": "link",
+            "label": "Image"
+          },
+          "latitude": {
+            "format": "number",
+            "label": "Latitude"
+          },
+          "longitude": {
+            "format": "number",
+            "label": "Longitude"
+          },
+          "name": {
+            "format": "text",
+            "label": "Related Place"
+          },
+          "rank": {
+            "format": "number",
+            "label": "Rank"
+          },
+          "relatedSectionType": {
+            "format": "text",
+            "label": "Related Section"
+          },
+          "reviewsCount": {
+            "format": "number",
+            "label": "Reviews"
+          },
+          "scrapedAt": {
+            "format": "datetime",
+            "label": "Scraped At"
+          },
+          "sourceBusinessName": {
+            "format": "text",
+            "label": "Source Business"
+          },
+          "totalScore": {
+            "format": "number",
+            "label": "Rating"
+          }
+        }
+      },
+      "title": "Similar Places",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "relatedSectionType",
+          "rank",
+          "name",
+          "placeId",
+          "featureId",
+          "categoryName",
+          "totalScore",
+          "reviewsCount",
+          "categories",
+          "latitude",
+          "longitude",
+          "image",
+          "sourceBusinessName",
+          "sourcePlaceId",
+          "sourceFeatureId",
+          "sourcePlaceUrl",
+          "googleMapsUrl",
+          "sourceUrl",
+          "scrapedAt",
+          "price",
+          "description",
+          "distance"
+        ]
+      }
+    }
+  }
+}

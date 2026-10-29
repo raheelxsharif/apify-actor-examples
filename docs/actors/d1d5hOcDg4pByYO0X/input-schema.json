@@ -1,0 +1,75 @@
+{
+  "description": "Extract 'People also search for' / similar / related places from any Google Maps business page.",
+  "properties": {
+    "language": {
+      "default": "en",
+      "description": "Language for the Google Maps interface (affects names/categories in some markets).",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ja",
+        "ko",
+        "zh",
+        "ar",
+        "ru"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Arabic",
+        "Russian"
+      ],
+      "prefill": "en",
+      "title": "Language",
+      "type": "string"
+    },
+    "maxResults": {
+      "default": 20,
+      "description": "Maximum number of similar places to extract (1-50).",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "placeId": {
+      "description": "Canonical Google Place ID beginning with ChIJ. Use this instead of placeUrl when available.",
+      "editor": "textfield",
+      "example": "ChIJabtoT7hlwokRLECK0SW3_8I",
+      "title": "Google Place ID",
+      "type": "string"
+    },
+    "placeUrl": {
+      "description": "Google Maps URL of the business page to extract similar places from.",
+      "editor": "textfield",
+      "prefill": "https://www.google.com/maps/place/The+Ritz+London/@51.5070782,-0.1416273,17z/data=!3m1!4b1!4m6!3m5!1s0x48760529d30fc857:0x596135811e044014!8m2!3d51.5070782!4d-0.1416273!16zL20vMDQ3enJ2?hl=en",
+      "title": "Place URL",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy. Leave default; the scraper works from datacenter IPs without proxy. Used as fallback only.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Google Maps Similar Places Scraper",
+  "type": "object"
+}
