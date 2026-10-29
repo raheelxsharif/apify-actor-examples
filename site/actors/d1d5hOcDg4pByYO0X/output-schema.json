@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Dataset of related-place records from a Google Maps place page, with rating, category, coordinates, and a back-reference to the source place.",
+  "description": "One row per related place, with its explicit relation provenance (Google carousel or same-category nearby), canonical and legacy identifiers, category, rating, reviews, contacts, coordinates, image, straight-line distance, and a back-reference to the source place.",
   "properties": {
     "similarPlaces": {
-      "description": "Each item contains only related-place fields observed in the public carousel or page data.",
+      "description": "Each item is one related place. relationMode says whether Google recommended it (googleCarousel) or it was found nearby in the same category (sameCategoryNearby). Fields Google does not publish are omitted.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Similar Places",
       "type": "string"

@@ -1,0 +1,169 @@
+{
+  "description": "Scrape Hacker News stories, comments, jobs, and users. All modes use the public Firebase + Algolia APIs — no auth, no proxy.",
+  "properties": {
+    "commentAuthorFilter": {
+      "default": [],
+      "description": "Only emit comments authored by one of these usernames (case-insensitive substring match).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Comment author allowlist",
+      "type": "array"
+    },
+    "commentMinScore": {
+      "description": "Drop comments below this score. (Note: HN exposes comment scores only sporadically; comments without a score are kept.)",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min comment score",
+      "type": "integer"
+    },
+    "dateRangeFrom": {
+      "description": "Drop items posted before this date (UTC). Empty = no lower bound.",
+      "editor": "textfield",
+      "title": "Date range from (ISO YYYY-MM-DD)",
+      "type": "string"
+    },
+    "dateRangeTo": {
+      "description": "Drop items posted after this date (UTC). Empty = no upper bound.",
+      "editor": "textfield",
+      "title": "Date range to (ISO YYYY-MM-DD)",
+      "type": "string"
+    },
+    "domainAllowlist": {
+      "default": [],
+      "description": "Only emit stories whose URL host contains one of these substrings (case-insensitive). e.g. ['github.com','arxiv.org'].",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Domain allowlist",
+      "type": "array"
+    },
+    "domainBlocklist": {
+      "default": [],
+      "description": "Drop stories whose URL host contains one of these substrings. e.g. ['twitter.com','x.com'].",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Domain blocklist",
+      "type": "array"
+    },
+    "enableCommentHierarchy": {
+      "default": false,
+      "description": "When true, attach a nested `comments[]` array to each story (recursive replies). When false, comments are emitted as flat sibling records (one per row, with `parentId` and `depth`).",
+      "prefill": false,
+      "title": "Build comment tree",
+      "type": "boolean"
+    },
+    "excludeDeadOrDeleted": {
+      "default": true,
+      "description": "Drop items flagged `dead: true` or `deleted: true` by Hacker News.",
+      "prefill": true,
+      "title": "Exclude dead/deleted",
+      "type": "boolean"
+    },
+    "itemIds": {
+      "default": [],
+      "description": "Direct Hacker News item IDs (numeric strings or integers). Used when mode=`item`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Item IDs (mode=item)",
+      "type": "array"
+    },
+    "maxComments": {
+      "default": 0,
+      "description": "Cap on comments fetched per story. 0 = no comments. Default 0 (skip comments).",
+      "maximum": 5000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max comments per story",
+      "type": "integer"
+    },
+    "maxDepth": {
+      "default": 5,
+      "description": "Maximum reply depth when fetching comments (only applies when `maxComments` > 0). Root comments are depth 0.",
+      "maximum": 20,
+      "minimum": 0,
+      "prefill": 5,
+      "title": "Max comment depth",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records (stories + comments + users combined).",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minCommentCount": {
+      "description": "Drop stories with fewer than this many comments.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min number of comments",
+      "type": "integer"
+    },
+    "minScore": {
+      "description": "Drop stories with fewer points than this. Comments are unaffected.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min story score",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "topStories",
+      "description": "What to scrape. `topStories` / `newStories` / `bestStories` / `askStories` / `showStories` / `jobStories` walk the public feeds. `item` fetches specific item IDs (`itemIds`). `user` fetches profiles (`usernames`). `search` uses the Algolia HN API (`searchQuery`).",
+      "editor": "select",
+      "enum": [
+        "topStories",
+        "newStories",
+        "bestStories",
+        "askStories",
+        "showStories",
+        "jobStories",
+        "item",
+        "user",
+        "search"
+      ],
+      "enumTitles": [
+        "Top stories",
+        "New stories",
+        "Best stories",
+        "Ask HN",
+        "Show HN",
+        "Jobs",
+        "Item by ID",
+        "User profile",
+        "Algolia search"
+      ],
+      "prefill": "topStories",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Free-text query passed to the Algolia HN search API.",
+      "editor": "textfield",
+      "title": "Search query (mode=search)",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Hacker News URLs to scrape directly. Supports `news.ycombinator.com/item?id=N` and `news.ycombinator.com/user?id=USER`. Each URL is converted to an item or user fetch.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (optional)",
+      "type": "array"
+    },
+    "usernames": {
+      "default": [],
+      "description": "Hacker News usernames. Used when mode=`user`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Usernames (mode=user)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Hacker News Scraper Input",
+  "type": "object"
+}

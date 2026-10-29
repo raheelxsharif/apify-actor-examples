@@ -5,41 +5,37 @@
       "display": {
         "component": "table",
         "properties": {
-          "categories": {
+          "address": {
             "format": "text",
-            "label": "Categories"
+            "label": "Address"
           },
           "categoryName": {
             "format": "text",
             "label": "Category"
           },
+          "distanceMeters": {
+            "format": "number",
+            "label": "Distance (m)"
+          },
           "googleMapsUrl": {
             "format": "link",
             "label": "Maps URL"
-          },
-          "image": {
-            "format": "link",
-            "label": "Image"
-          },
-          "latitude": {
-            "format": "number",
-            "label": "Latitude"
-          },
-          "longitude": {
-            "format": "number",
-            "label": "Longitude"
           },
           "name": {
             "format": "text",
             "label": "Related Place"
           },
+          "phone": {
+            "format": "text",
+            "label": "Phone"
+          },
           "rank": {
             "format": "number",
             "label": "Rank"
           },
-          "relatedSectionType": {
+          "relationMode": {
             "format": "text",
-            "label": "Related Section"
+            "label": "Relation"
           },
           "reviewsCount": {
             "format": "number",
@@ -56,6 +52,10 @@
           "totalScore": {
             "format": "number",
             "label": "Rating"
+          },
+          "website": {
+            "format": "link",
+            "label": "Website"
           }
         }
       },
@@ -63,28 +63,42 @@
       "transformation": {
         "fields": [
           "recordType",
+          "relationMode",
+          "relationQuery",
           "relatedSectionType",
           "rank",
           "name",
           "placeId",
           "featureId",
+          "kgmid",
+          "cid",
           "categoryName",
+          "categories",
           "totalScore",
           "reviewsCount",
-          "categories",
+          "address",
+          "website",
+          "phone",
+          "photoCount",
+          "plusCode",
+          "distanceMeters",
+          "distance",
+          "price",
+          "description",
           "latitude",
           "longitude",
           "image",
           "sourceBusinessName",
           "sourcePlaceId",
           "sourceFeatureId",
+          "sourceCategory",
+          "sourceLongitude",
+          "sourceLatitude",
+          "sourceAddress",
           "sourcePlaceUrl",
           "googleMapsUrl",
           "sourceUrl",
-          "scrapedAt",
-          "price",
-          "description",
-          "distance"
+          "scrapedAt"
         ]
       }
     }

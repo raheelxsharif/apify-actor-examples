@@ -1,9 +1,44 @@
 {
-  "description": "Extract 'People also search for' / similar / related places from any Google Maps business page.",
+  "description": "Find related places Google Maps shows for a business, or discover same-category competitors near it.",
   "properties": {
+    "categoryFilter": {
+      "description": "Keep only places whose category list contains this text (case-insensitive).",
+      "editor": "textfield",
+      "example": "Hotel",
+      "title": "Category contains",
+      "type": "string"
+    },
+    "categoryOverride": {
+      "description": "Use this category for the same-category fallback instead of the source place's own category.",
+      "editor": "textfield",
+      "example": "Pizza restaurant",
+      "title": "Category override",
+      "type": "string"
+    },
+    "deduplicate": {
+      "default": true,
+      "description": "Keep one row per place, using the canonical Place ID, then the feature ID, then name and coordinates.",
+      "prefill": true,
+      "title": "Remove duplicates",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Look up each returned place's own page for its canonical Place ID, address, website, phone, categories, plus code, photo count, and image. Adds one request per row and slows dense runs.",
+      "prefill": false,
+      "title": "Include details",
+      "type": "boolean"
+    },
+    "includeMedia": {
+      "default": true,
+      "description": "Include the image URL when Google publishes one.",
+      "prefill": true,
+      "title": "Include images",
+      "type": "boolean"
+    },
     "language": {
       "default": "en",
-      "description": "Language for the Google Maps interface (affects names/categories in some markets).",
+      "description": "Google Maps interface language. Affects names, categories, and the fallback category query.",
       "editor": "select",
       "enum": [
         "en",
@@ -35,41 +70,135 @@
       "title": "Language",
       "type": "string"
     },
-    "maxResults": {
-      "default": 20,
-      "description": "Maximum number of similar places to extract (1-50).",
+    "location": {
+      "description": "City or area appended to every place name (mode=byQuery).",
+      "editor": "textfield",
+      "example": "New York",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxDistanceKm": {
+      "description": "Keep only related places within this straight-line distance from the source. Requires published coordinates.",
+      "example": 2,
       "maximum": 50,
+      "minimum": 0.1,
+      "title": "Maximum distance (km)",
+      "type": "number"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of similar places to return across all sources.",
+      "maximum": 500,
       "minimum": 1,
-      "prefill": 10,
-      "title": "Max Results",
+      "prefill": 3,
+      "title": "Max results",
       "type": "integer"
     },
-    "placeId": {
-      "description": "Canonical Google Place ID beginning with ChIJ. Use this instead of placeUrl when available.",
-      "editor": "textfield",
-      "example": "ChIJabtoT7hlwokRLECK0SW3_8I",
-      "title": "Google Place ID",
+    "minRating": {
+      "description": "Drop related places rated below this value. Places without a published rating are dropped when this is above zero.",
+      "example": 4.5,
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "minReviews": {
+      "description": "Drop related places with fewer than this many reviews.",
+      "example": 1000,
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum reviews",
+      "type": "integer"
+    },
+    "minSimilar": {
+      "default": 5,
+      "description": "In auto mode, use the same-category fallback when the carousel has fewer usable rows than this number and cannot already fill Max results.",
+      "maximum": 20,
+      "minimum": 0,
+      "prefill": 1,
+      "title": "Min similar",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byPlace",
+      "description": "Choose how to enter the source places.",
+      "editor": "select",
+      "enum": [
+        "byPlace",
+        "byQuery"
+      ],
+      "enumTitles": [
+        "By place URL or Place ID",
+        "By place name and location"
+      ],
+      "prefill": "byPlace",
+      "title": "Mode",
       "type": "string"
     },
-    "placeUrl": {
-      "description": "Google Maps URL of the business page to extract similar places from.",
-      "editor": "textfield",
-      "prefill": "https://www.google.com/maps/place/The+Ritz+London/@51.5070782,-0.1416273,17z/data=!3m1!4b1!4m6!3m5!1s0x48760529d30fc857:0x596135811e044014!8m2!3d51.5070782!4d-0.1416273!16zL20vMDQ3enJ2?hl=en",
-      "title": "Place URL",
+    "placeUrls": {
+      "description": "Google Maps place URLs, canonical ChIJ Place IDs, or legacy 0x…:0x… feature IDs. Mixed values are allowed (mode=byPlace).",
+      "editor": "stringList",
+      "example": [
+        "ChIJ8Q2WSpJZwokRQz-bYYgEskM",
+        "https://maps.app.goo.gl/example"
+      ],
+      "prefill": [
+        "https://www.google.com/maps/place/The+Ritz+London/@51.5070782,-0.1416273,17z/data=!3m1!4b1!4m6!3m5!1s0x48760529d30fc857:0x596135811e044014!8m2!3d51.5070782!4d-0.1416273!16zL20vMDQ3enJ2?hl=en"
+      ],
+      "title": "Place URLs or IDs",
+      "type": "array"
+    },
+    "searchQueries": {
+      "description": "Business, hotel, or landmark names to resolve and analyze (mode=byQuery).",
+      "editor": "stringList",
+      "example": [
+        "Joe's Pizza",
+        "The Ritz London"
+      ],
+      "title": "Place names",
+      "type": "array"
+    },
+    "similaritySource": {
+      "default": "auto",
+      "description": "Auto uses Google's related carousel and falls back to same-category nearby places when the carousel has fewer than Min similar. Carousel never uses the fallback. Same category skips the carousel.",
+      "editor": "select",
+      "enum": [
+        "auto",
+        "carousel",
+        "sameCategory"
+      ],
+      "enumTitles": [
+        "Auto (carousel, then same category)",
+        "Google carousel only",
+        "Same category nearby only"
+      ],
+      "prefill": "auto",
+      "title": "Related places source",
       "type": "string"
     },
-    "proxyConfiguration": {
-      "description": "Optional proxy. Leave default; the scraper works from datacenter IPs without proxy. Used as fallback only.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": true
-      },
-      "title": "Proxy Configuration",
-      "type": "object"
+    "sortBy": {
+      "default": "recommended",
+      "description": "Order of the returned rows. Recommended keeps Google's carousel and search order.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "rating",
+        "reviews",
+        "distance"
+      ],
+      "enumTitles": [
+        "Recommended (Google order)",
+        "Highest rating",
+        "Most reviews",
+        "Closest first"
+      ],
+      "prefill": "recommended",
+      "title": "Sort by",
+      "type": "string"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Google Maps Similar Places Scraper",
+  "title": "Google Maps Similar Places Input",
   "type": "object"
 }

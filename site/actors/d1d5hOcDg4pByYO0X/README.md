@@ -1,105 +1,189 @@
 # Google Maps Related Place & Competitor Finder
 
-When you open a business, hotel, or landmark on Google Maps, Google often shows a "People also search for" or similar-places carousel next to it. This actor reads that carousel for any place you point it at and returns each related place as its own record, linked back to the place you searched.
+Find the places Google Maps treats as related to a business, hotel, or landmark — and keep going when Google shows no carousel by discovering same-category places around the same pin. Enter many URLs, Place IDs, or place names in one run, filter and sort the results, and get an explicit `relationMode` on every row so you always know whether Google recommended the place or it was found nearby.
 
-## What this actor does
+## What it does
 
-- Looks up a Google Maps place by URL or canonical Place ID and reads its related-places carousel.
-- Returns each related place's name, identifiers, rating, review count, category, and coordinates.
-- Keeps the carousel's own display order as a `rank` field.
-- Links every related place back to the source business so a multi-run dataset stays joinable.
-- Supports 11 Maps interface languages, parsing localized ratings, review counts, price, and distance without translating the values.
-- Omits a field whenever Google doesn't publish it for that place, rather than sending it empty or guessed.
+- **Two entry modes:** `byPlace` accepts Google Maps URLs, canonical `ChIJ` Place IDs, and legacy `0x…:0x…` feature IDs; `byQuery` accepts business names plus an optional city or area. Batch both.
+- **Carousel first, nearby fallback second:** reads Google's related-place carousel when it exists, then fills short results with places from the source's own category around the same coordinates.
+- **Explicit provenance:** every row says `googleCarousel` or `sameCategoryNearby`; fallback rows are never presented as Google recommendations.
+- **Filters and order:** minimum rating, minimum reviews, maximum straight-line distance, category text, and sort by recommended order, rating, reviews, or distance.
+- **Identity, contacts, and distance:** canonical Place ID, legacy feature ID, CID, KG MID, address, website, phone, plus code, photo count, coordinates, image, and computed `distanceMeters`.
+- **Empty fields are omitted** rather than sent as `null` or guessed.
 
-## Output per related place
+## Services
 
-- `rank` — position in the carousel (1 = first card shown)
-- `relatedSectionType` — the carousel's own label, e.g. "People also search for" or "Similar places"
-- `name`
-- `placeId` — canonical Google Place ID (`ChIJ…`), present only when Google publishes one
-- `featureId` — legacy Google feature identifier (`0x…:0x…`), present only when Google exposes it; never used in place of `placeId`
-- `googleMapsUrl` — link to the related place, from the card itself or built from its identifiers when needed
-- `categoryName`, `categories` — published category and any additional category list
-- `totalScore`, `reviewsCount` — rating and review count
-- `price` — price indicator, when shown
-- `description` — short description text, when shown
-- `distance` — distance from the source place, when shown
-- `latitude`, `longitude`
-- `image` — thumbnail image URL, requested at a larger resolution when the source URL supports it
-- `sourceBusinessName`, `sourcePlaceId`, `sourceFeatureId`, `sourcePlaceUrl` — identity of the place you searched, repeated on every related-place record
-- `sourceUrl` — the source place's URL
-- `recordType` — always `similarPlace`
-- `scrapedAt`
+| Service | What it returns | Used by |
+|---|---|---|
+| Google Maps place record | Source name, canonical and legacy IDs, category, address, rating, reviews, website, phone, coordinates | both modes |
+| Google Maps related carousel | Up to the cards Google publishes for that place, with names, ratings, reviews, coordinates, images, and visible card text | `byPlace`, `byQuery` |
+| Google Maps same-category search | Ranked places in the source category around the source coordinates, 20 per page | fallback in both modes |
+| Google Maps place details | Canonical Place ID, address, contacts, categories, plus code, photo count, image for one returned place | optional enrichment |
+
+## How it works
+
+1. **Resolve the source.** A place URL provides its feature ID and coordinates directly. A canonical `ChIJ` ID is resolved through Google's public place page in one request. A name query is resolved through Google's map search, preferring the focused result and requiring a name match otherwise.
+2. **Read the source record and carousel.** The same place response carries the source business data and, when Google exposes one, the related-place carousel.
+3. **Decide whether to fall back.** In `auto` mode the fallback runs when the carousel has fewer usable rows than `minSimilar` and the carousel cannot already fill `maxItems`. `carousel` never falls back; `sameCategory` skips the carousel entirely.
+4. **Search the same category nearby.** The fallback uses the source's first category (or `categoryOverride`) anchored at the source coordinates, page by page, until enough places pass the filters, the result window is exhausted, or `maxItems` is reached. Sorting by rating, reviews, or distance considers the full window before the cap is applied.
+5. **Clean the result set.** The source place is removed, filters are applied, identities are deduplicated, and rows are sorted.
+6. **Optionally enrich.** `includeDetails=true` looks up each emitted place's own page for its canonical Place ID, contacts, category, plus code, photo count, and image.
+7. **Push immediately.** Records are emitted as they are finalised, with the global `maxItems` cap. Unresolved inputs are skipped and reported without failing the whole run.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `placeUrl` | string | – | A Google Maps place URL; use this or `placeId` |
-| `placeId` | string | – | Canonical Google Place ID beginning with `ChIJ`; use instead of `placeUrl` |
-| `maxResults` | integer | `20` | Maximum number of related places to return (1-50) |
-| `language` | string | `en` | Maps interface language: `en`, `es`, `fr`, `de`, `it`, `pt`, `ja`, `ko`, `zh`, `ar`, or `ru` |
-| `proxyConfiguration` | object | `{"useApifyProxy": true}` | Optional Apify Proxy configuration for the run |
+| `mode` | string | `byPlace` | `byPlace` accepts URLs or IDs; `byQuery` accepts place names |
+| `placeUrls` | array | – | Google Maps URLs, `ChIJ…` IDs, or `0x…:0x…` feature IDs (mode=`byPlace`) |
+| `searchQueries` | array | – | Business, hotel, or landmark names (mode=`byQuery`) |
+| `location` | string | – | City or area appended to every name (mode=`byQuery`) |
+| `maxItems` | integer | `100` | Global cap on returned rows (1–500) |
+| `similaritySource` | string | `auto` | `auto`, `carousel`, or `sameCategory` |
+| `minSimilar` | integer | `5` | In `auto`, fall back when the carousel has fewer usable rows than this and cannot fill `maxItems` (0–20) |
+| `categoryOverride` | string | – | Category used by the fallback instead of the source's own |
+| `minRating` | number | – | Drop places below this rating (0–5) |
+| `minReviews` | integer | – | Drop places below this review count |
+| `maxDistanceKm` | number | – | Keep places within this straight-line distance (0.1–50 km) |
+| `categoryFilter` | string | – | Keep places whose category list contains this text |
+| `sortBy` | string | `recommended` | `recommended`, `rating`, `reviews`, or `distance` |
+| `deduplicate` | boolean | `true` | Keep one row per place identity |
+| `includeDetails` | boolean | `true` | Look up each returned place's own page for extra fields |
+| `includeMedia` | boolean | `true` | Include image URLs when Google publishes them |
+| `language` | string | `en` | Maps language: `en`, `es`, `fr`, `de`, `it`, `pt`, `ja`, `ko`, `zh`, `ar`, `ru` |
 
-### Example: related hotels from a place URL
-
-```json
-{
-  "placeUrl": "https://www.google.com/maps/place/The+Ritz+London/@51.5070782,-0.1416273,17z/data=!3m1!4b1!4m6!3m5!1s0x48760529d30fc857:0x596135811e044014!8m2!3d51.5070782!4d-0.1416273!16zL20vMDQ3enJ2?hl=en",
-  "maxResults": 10,
-  "language": "en"
-}
-```
-
-### Example: related places by canonical Place ID
-
-```json
-{
-  "placeId": "ChIJabtoT7hlwokRLECK0SW3_8I",
-  "maxResults": 20
-}
-```
-
-### Example: related places in a non-English market
+### Example: related hotels for one place URL
 
 ```json
 {
-  "placeUrl": "https://www.google.com/maps/place/Sushi+no+Midori/@35.6704396,139.7596577,17z/",
-  "maxResults": 10,
-  "language": "ja"
+  "mode": "byPlace",
+  "placeUrls": [
+    "https://www.google.com/maps/place/The+Ritz+London/@51.5070782,-0.1416273,17z/data=!3m1!4b1!4m6!3m5!1s0x48760529d30fc857:0x596135811e044014!8m2!3d51.5070782!4d-0.1416273!16zL20vMDQ3enJ2?hl=en"
+  ],
+  "maxItems": 20,
+  "similaritySource": "auto",
+  "minSimilar": 5
 }
 ```
+
+### Example: competitors for a restaurant with no carousel
+
+```json
+{
+  "mode": "byPlace",
+  "placeUrls": ["ChIJ8Q2WSpJZwokRQz-bYYgEskM"],
+  "similaritySource": "sameCategory",
+  "maxItems": 50,
+  "includeDetails": true
+}
+```
+
+### Example: several names in one city, filtered and sorted
+
+```json
+{
+  "mode": "byQuery",
+  "searchQueries": ["Joe's Pizza", "Peter Luger Steak House"],
+  "location": "New York",
+  "minRating": 4.2,
+  "minReviews": 500,
+  "maxDistanceKm": 5,
+  "sortBy": "rating",
+  "maxItems": 30
+}
+```
+
+### Example: carousel only, no fallback
+
+```json
+{
+  "mode": "byPlace",
+  "placeUrls": ["ChIJ4fRwZb25yhQRpHwVijb3LeU"],
+  "similaritySource": "carousel",
+  "includeMedia": false,
+  "maxItems": 10
+}
+```
+
+## Output
+
+Every row is one related place:
+
+- `relationMode` — `googleCarousel` or `sameCategoryNearby`
+- `relationQuery` — category used by the fallback, when applicable
+- `relatedSectionType` — Google's own section label when the response exposes one
+- `rank` — 1-based position in the returned order
+- `name` — related place name
+- `placeId` — canonical `ChIJ…` Place ID, only when Google publishes one
+- `featureId` — legacy `0x…:0x…` feature ID, never used in place of `placeId`
+- `cid`, `kgmid` — other observed identities
+- `googleMapsUrl` — link to the related place
+- `categoryName`, `categories` — primary category and full observed list
+- `totalScore`, `reviewsCount` — rating and review count
+- `address`, `website`, `phone` — contacts when Google publishes them
+- `plusCode`, `photoCount` — detail fields when enrichment is enabled
+- `price` — visible carousel price string, kept exactly as shown
+- `description` — visible carousel comparison text
+- `distance` — visible carousel distance badge
+- `distanceMeters` — straight-line distance from the source coordinates, in metres
+- `latitude`, `longitude` — related place coordinates
+- `image` — image URL at a larger size, when available
+- `sourceBusinessName`, `sourcePlaceId`, `sourceFeatureId`, `sourcePlaceUrl` — the place you searched
+- `sourceCategory`, `sourceAddress`, `sourceLatitude`, `sourceLongitude` — source context
+- `sourceUrl` — alias of `sourcePlaceUrl` for older integrations
+- `recordType` — always `similarPlace`
+- `scrapedAt` — ISO timestamp
 
 ## Use cases
 
-- Competitive analysis — see which hotels, restaurants, or stores Google associates with a given business.
-- Build a "places like this" recommendation feed from Google's own related-place signal.
-- Turn one landmark into a shortlist of nearby related landmarks or attractions.
-- Expand a small seed list of places into a wider set for further research.
-- Local SEO — check which competitors show up alongside your own listing.
+- **Local SEO and competitive analysis** — compare the places Google associates with a client's listing, or the competitors around its pin.
+- **Market and category research** — expand a handful of seed businesses into a wider set of nearby places in the same category.
+- **Lead and partner discovery** — collect contacts, websites, and ratings for businesses around a target area.
+- **Data enrichment** — attach canonical Place IDs, categories, and coordinates to an existing list of businesses.
+- **Recommendation feeds** — build a "places like this" list from Google's own related signal plus a transparent fallback.
+
+## Usage cost
+
+- No Google API key, no billing account, and no paid API calls are required.
+- The actor runs in 1024 MB and needs no browser.
+- A small run with `includeDetails=false` returns in seconds. `includeDetails=true` adds one place lookup per returned row, so large `maxItems` values take longer.
+- `maxItems` is a hard cap: the actor stops when it reaches it, when Google's result window is exhausted, or when every input is resolved. Filters are counted before the cap, so they do not shorten the result set while eligible places remain.
+- `sortBy=rating`, `reviews`, or `distance` reads the full nearby window before selecting rows; `recommended` stops as soon as the cap is met.
 
 ## FAQ
 
-**Does this need a login, cookies, or an API key?**
-No. It reads Google Maps' public place pages.
+**Why did `carousel` mode return no rows?** Google does not show a related-place carousel for many signed-out place pages. `carousel` is truthful about that; use `auto` or `sameCategory` when you need rows.
 
-**Does this need a proxy?**
-No. The default run works without one; `proxyConfiguration` is available in the input if you want to supply your own.
+**Are fallback rows Google recommendations?** No. They are places in the source's category near the source coordinates. `relationMode` says `sameCategoryNearby`, and `relationQuery` shows the category used.
 
-**Will every place have related places?**
-Not always — whether Google shows this carousel at all, and how many cards it has, varies by place and by run. If none are available, the run finishes with zero related-place records rather than inventing any.
+**How many carousel results can I get?** Google typically publishes 3–5 cards, and sometimes none. That is the whole carousel; no setting can make Google show more.
 
-**How many related places can I get per place?**
-Google typically shows a handful of cards per place; `maxResults` (up to 50) caps how many of those this actor returns.
+**How many same-category places are available?** Google returns 20 per page and the observed window is around 104 unique places for a dense query. Sparse categories or small towns exhaust sooner.
 
-**Why is `placeId` missing on some related places but `featureId` present?**
-Google doesn't publish a canonical Place ID for every place shown in a related-places carousel. When only the legacy feature identifier is available, the record carries `featureId` instead, and `placeId` is left out rather than guessed.
+**Why is `address` or `website` missing from a carousel row?** The carousel does not carry contacts. Turn on `includeDetails` to look up each place's own page; if Google still does not publish the field, it is omitted.
 
-**Does this work outside English-language Maps?**
-Yes — set `language` to any of the 11 supported codes. Ratings, review counts, prices, and distances are read from that locale's own text and numerals rather than being translated.
+**Why does `distanceMeters` differ from the distance badge on the card?** The badge is Google's own display string. `distanceMeters` is a straight-line calculation from the source coordinates to the related place coordinates.
 
-**Can I process many places in one run?**
-Each run takes one place. To cover several, run the actor once per place (for example from a script or scheduler); every run's related-place records carry `sourcePlaceId`/`sourceFeatureId` so you can join the results afterward.
+**Why are prices in an unexpected currency?** The carousel price is Google's localized display string for the request location. It is kept raw, not converted or normalised.
 
-**Is this affiliated with Google?**
-No. This actor reads Google Maps' public pages and is not operated by or connected to Google.
+**Can I use a Place ID instead of a URL?** Yes. Canonical `ChIJ…` IDs work in `placeUrls`, and legacy `0x…:0x…` feature IDs are accepted too.
+
+**Do I need a proxy or cookies?** No. The actor reads public place data and selects a working connection automatically.
+
+**What happens if one input is invalid?** That input is skipped and reported in the status message; the other inputs still run. If no input resolves, the run fails with a clear message instead of returning an empty success.
+
+## Notes
+
+- `price`, `description`, `distance`, and `relatedSectionType` are emitted only when Google's response actually carries them.
+- A canonical `ChIJ…` value always goes to `placeId`; a legacy `0x…:0x…` value always goes to `featureId`. They are never relabelled.
+- `sourceUrl` remains an alias of `sourcePlaceUrl` so older integrations keep working.
+- Duplicate identities are removed by default: canonical Place ID first, then feature ID, then name plus rounded coordinates.
+- In `auto` mode, carousel rows and fallback rows can both appear; `relationMode` separates them.
+
+## Limitations
+
+- **The carousel is conditional.** Most signed-out place pages show no related carousel at all. The actor cannot create one; it uses the honest same-category fallback instead.
+- **Fallback relevance depends on category.** If the source category is broad or wrong, nearby results can be broad too. Use `categoryOverride` or `categoryFilter` to narrow them.
+- **The nearby window is finite.** Google stops returning new places after roughly 100 unique results for a dense query, and sooner for sparse categories.
+- **No similarity score.** Google does not publish one, and the actor does not invent one.
+- **Detail fields are optional and conditional.** `includeDetails` improves coverage, but a field Google does not publish is omitted rather than fabricated.

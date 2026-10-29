@@ -1,0 +1,136 @@
+# Hacker News Story, Comment & Karma Scraper
+
+Hacker News runs on a handful of public feeds — front page, newest, best, Ask HN, Show HN, and job posts — plus a full-text search covering its entire history. This actor pulls from all of them, and can also look up a specific item or user profile directly, with no login or cookies needed.
+
+## What this actor does
+
+- Walks the public Hacker News feeds (top, new, best, ask, show, jobs)
+- Fetches individual stories or comment threads by ID
+- Pulls user profiles (karma, account age, submitted item count)
+- Runs a full-text search across Hacker News history
+- Builds nested comment trees on demand (`enableCommentHierarchy=true`) or emits flat comment rows otherwise
+
+## Modes
+
+| Mode | What it does |
+|---|---|
+| `topStories` | Front-page top stories |
+| `newStories` | Newest submissions |
+| `bestStories` | Best-of recent submissions |
+| `askStories` | Ask HN posts |
+| `showStories` | Show HN posts |
+| `jobStories` | YC company job ads |
+| `item` | Direct lookup of specific item IDs |
+| `user` | Direct lookup of user profiles |
+| `search` | Algolia full-text search across all HN history |
+
+## Output per story
+
+- `id`, `hnUrl`, `type`, `title`
+- `url`, `domain` (parsed host)
+- `score`, `numComments`, `author`
+- `createdAt` (ISO-8601 UTC), `createdAtEpoch`, `ageHours`
+- `text` (Ask/Show/Job posts only — HN-flavored markdown converted to plain text)
+- `kids` (list of top-level comment IDs)
+- `comments[]` (nested replies — only when `enableCommentHierarchy=true`)
+- `dead` / `deleted` (boolean — only when true)
+- `recordType: "story"`, `scrapedAt`
+
+## Output per comment
+
+- `id`, `hnUrl`, `storyId`, `parentId`, `depth`
+- `author`, `text` (HTML → plain text)
+- `createdAt`, `createdAtEpoch`, `ageHours`
+- `kids` (list of reply IDs), `replies[]` (nested — only when `enableCommentHierarchy=true`)
+- `recordType: "comment"`, `scrapedAt`
+
+## Output per user
+
+- `id`, `profileUrl`
+- `karma`, `createdAt`, `createdAtEpoch`, `about`
+- `submittedCount`, `submitted` (capped at 50 most-recent)
+- `recordType: "user"`, `scrapedAt`
+
+Empty fields are omitted from the output (no nulls).
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | enum | `topStories` | `topStories` / `newStories` / `bestStories` / `askStories` / `showStories` / `jobStories` / `item` / `user` / `search` |
+| `itemIds` | array | `[]` | When `mode=item`: numeric HN item IDs |
+| `usernames` | array | `[]` | When `mode=user`: HN usernames |
+| `searchQuery` | string | – | When `mode=search`: full-text query |
+| `startUrls` | array | `[]` | HN URLs (`item?id=N` or `user?id=USER`) — auto-routed to itemIds / usernames |
+| `enableCommentHierarchy` | boolean | `false` | When true, attach a nested `comments[]` array to each story instead of emitting flat sibling rows |
+| `maxItems` | int | `50` | Hard cap on emitted records (1–500) |
+| `maxComments` | int | `0` | Cap comments fetched per story. 0 = skip comments. |
+| `maxDepth` | int | `5` | Maximum reply depth when `maxComments > 0`. |
+| `minScore` | int | – | Drop stories below this score |
+| `domainAllowlist` | array | `[]` | Only emit stories whose URL host contains one of these substrings |
+| `domainBlocklist` | array | `[]` | Drop stories whose URL host contains one of these substrings |
+| `excludeDeadOrDeleted` | bool | `true` | Drop items flagged dead/deleted by HN |
+| `dateRangeFrom` | string | – | Drop items posted before this ISO-date (UTC) |
+| `dateRangeTo` | string | – | Drop items posted after this ISO-date (UTC) |
+| `commentMinScore` | int | – | Drop comments below this score |
+| `commentAuthorFilter` | array | `[]` | Only emit comments by these usernames |
+| `minCommentCount` | int | – | Drop stories with fewer than this many comments |
+
+### Example: top stories with filters
+
+```json
+{
+  "mode": "topStories",
+  "maxItems": 50,
+  "minScore": 100,
+  "domainBlocklist": ["twitter.com", "x.com"],
+  "excludeDeadOrDeleted": true
+}
+```
+
+### Example: full-text search
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "rust async runtime",
+  "maxItems": 100,
+  "minScore": 50
+}
+```
+
+### Example: story with comment tree
+
+```json
+{
+  "mode": "item",
+  "itemIds": ["12345678"],
+  "maxComments": 200,
+  "maxDepth": 3,
+  "enableCommentHierarchy": true
+}
+```
+
+## Use cases
+
+- **Trend monitoring** — track which domains hit the front page each week
+- **Comment intelligence** — pull every comment for an Ask HN thread to study reactions
+- **YC job-ads digest** — weekly extract of `jobStories` for the careers newsletter
+- **User research** — fetch a user's submission history + karma stats for outreach
+- **Search-driven enrichment** — feed Algolia search results into a downstream tagger
+
+## FAQ
+
+**Does it require a login or cookies?**  No. Every mode reads data Hacker News exposes publicly.
+
+**Is a proxy needed?**  No. The actor works without one.
+
+**Is this affiliated with Hacker News or Y Combinator?**  No. This is an independent actor that reads Hacker News' own public feeds and search.
+
+**Why are some stories missing a `url`?**  Ask HN / Show HN posts are self-text — they have a `text` field instead of a `url`. The omit-empty contract drops the `url` field on these.
+
+**Why does `commentMinScore` not filter much?**  Hacker News rarely exposes per-comment scores. When the field is missing the comment is kept.
+
+**What's the difference between `maxItems` and `maxComments`?**  `maxItems` caps the total emitted records (stories + comments + users combined). `maxComments` caps how deep the actor goes into each story's comment tree per story.
+
+**How fresh is the data?**  Real-time. Both APIs serve the live HN database.
