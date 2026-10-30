@@ -1,0 +1,157 @@
+{
+  "description": "Scrape TrustRadius software review pages from direct product URLs, TrustRadius search, popular categories, or arbitrary category URLs.",
+  "properties": {
+    "autoEscalateOnBlock": {
+      "default": true,
+      "description": "If TrustRadius starts returning blocks, rotate proxy session IDs automatically.",
+      "prefill": true,
+      "title": "Auto-escalate on block",
+      "type": "boolean"
+    },
+    "categorySlug": {
+      "default": "",
+      "description": "(Optional) Browse a curated TrustRadius category. Use `categoryUrls` for any category not in this list.",
+      "editor": "select",
+      "enum": [
+        "",
+        "ab-testing",
+        "accounting",
+        "ad-serving-retargeting",
+        "all-in-one-marketing",
+        "applicant-tracking-system-ats",
+        "business-intelligence-bi",
+        "cloud-storage",
+        "cms",
+        "collaboration",
+        "corporate-learning-management",
+        "crm",
+        "email-marketing",
+        "fraud-detection",
+        "help-desk",
+        "hr-management",
+        "integration-platform-as-a-service",
+        "marketing-automation",
+        "network-performance-monitoring",
+        "payroll",
+        "project-management",
+        "seo",
+        "social-media-management",
+        "surveys",
+        "talent-intelligence",
+        "talent-management",
+        "web-analytics",
+        "web-conferencing",
+        "workforce-analytics",
+        "workforce-management-wfm"
+      ],
+      "enumTitles": [
+        "(none)",
+        "A/B Testing",
+        "Accounting",
+        "Ad Serving & Retargeting",
+        "All-in-One Marketing",
+        "Applicant Tracking System (ATS)",
+        "Business Intelligence (BI)",
+        "Cloud Storage",
+        "CMS",
+        "Collaboration",
+        "Corporate Learning Management",
+        "CRM",
+        "Email Marketing",
+        "Fraud Detection",
+        "Help Desk",
+        "HR Management",
+        "Integration Platform as a Service",
+        "Marketing Automation",
+        "Network Performance Monitoring",
+        "Payroll",
+        "Project Management",
+        "SEO",
+        "Social Media Management",
+        "Surveys",
+        "Talent Intelligence",
+        "Talent Management",
+        "Web Analytics",
+        "Web Conferencing",
+        "Workforce Analytics",
+        "Workforce Management (WFM)"
+      ],
+      "title": "Popular category",
+      "type": "string"
+    },
+    "categoryUrls": {
+      "default": [],
+      "description": "Free-text TrustRadius category URLs (use this for any of the 260+ categories not in the popular dropdown), e.g. https://www.trustradius.com/categories/ai-chatbot.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Category URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted TrustRadius products.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 25,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "productUrls": {
+      "default": [
+        "https://www.trustradius.com/products/asana/reviews"
+      ],
+      "description": "Direct TrustRadius product review URLs, such as https://www.trustradius.com/products/asana/reviews.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.trustradius.com/products/asana/reviews"
+      ],
+      "title": "Product review URLs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "description": "Residential Apify proxy recommended for TrustRadius cloud runs.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchPages": {
+      "default": 1,
+      "description": "How many TrustRadius result pages to scan per search query / category.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Search pages per query",
+      "type": "integer"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to run against TrustRadius search.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "useProxy": {
+      "default": true,
+      "description": "TrustRadius blocks most datacenter IPs. Keep proxy enabled for cloud runs.",
+      "prefill": true,
+      "title": "Use Apify proxy",
+      "type": "boolean"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "TrustRadius Scraper Input",
+  "type": "object"
+}

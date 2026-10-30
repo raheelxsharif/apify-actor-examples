@@ -1,0 +1,120 @@
+# TrustRadius Product Ratings & Feature Score Extractor
+
+Pull structured software profiles straight off TrustRadius — the B2B peer-review site where IT buyers compare vendors before they sign a contract. Point it at a product page, a search term, or a whole category and get back pricing, aggregate ratings, award badges, and the feature-level scorecards TrustRadius uses to rank "Top Performer" products, without opening a browser yourself.
+
+## What this actor does
+
+- **Four ways in:** direct product review URLs, free-text search queries, a curated dropdown of popular categories, or any TrustRadius category URL (260+ categories)
+- **Pulls the review-page scorecard:** aggregate rating, rating/review counts, "Top Performing Features" and "Areas for Improvement" with their numeric scores
+- **Surfaces commercial detail:** vendor name, vendor URL, listed price and currency, award badges
+- **Links related products** that TrustRadius shows as alternatives on the same page
+- **Empty fields are omitted** from each record rather than returned as null or blank
+
+## Output per software record
+
+- `sourceUrl` — the URL the actor actually fetched
+- `canonicalUrl` — normalized `/products/<slug>/reviews` URL
+- `title` — product name
+- `description` — product summary from the page
+- `slug` — TrustRadius product slug
+- `applicationCategory` — category TrustRadius assigns the product
+- `category` — breadcrumb category name shown on the page
+- `ratingValue` — aggregate star rating
+- `ratingCount` — number of ratings behind the aggregate
+- `reviewCount` — number of written reviews
+- `vendorName`, `vendorUrl` — the company behind the product
+- `price`, `priceCurrency` — listed pricing, when TrustRadius shows one
+- `awards[]` — award/badge labels (e.g. "Top Rated")
+- `featureList[]` — named features TrustRadius lists for the product
+- `topReviews[]` — up to 5 featured reviews, each with `authorName`, `ratingValue`, `title`, `datePublished`, `reviewBody`
+- `topPerformingFeatures[]` — feature scorecard entries with `name` and `score`
+- `areasForImprovement[]` — lower-scoring feature entries with `name` and `score`
+- `relatedProducts[]` — alternative products with `title` and `url`
+- `mediaUrls[]` — up to 10 preloaded image URLs from the page (logos, screenshots)
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `productUrls` | array | `["https://www.trustradius.com/products/asana/reviews"]` | Direct TrustRadius product review URLs to scrape |
+| `searchQueries` | array | `[]` | Free-text keywords to run through TrustRadius search |
+| `categorySlug` | string (enum) | `` (none) | Pick one of 29 curated popular categories instead of a free-text URL |
+| `categoryUrls` | array | `[]` | Any TrustRadius category URL, for the 260+ categories not in the dropdown |
+| `searchPages` | integer | `1` | Result pages to scan per search query or category (1–20) |
+| `maxItems` | integer | `25` | Maximum number of product records to return (1–500) |
+| `useProxy` | boolean | `true` | Route requests through Apify proxy; TrustRadius blocks most non-proxied requests |
+| `autoEscalateOnBlock` | boolean | `true` | Rotate to a fresh proxy session automatically if TrustRadius starts blocking |
+| `proxyConfiguration` | object | residential proxy enabled | Apify proxy configuration used for all requests |
+
+### Example: scrape a known product
+
+```json
+{
+  "productUrls": ["https://www.trustradius.com/products/asana/reviews"],
+  "maxItems": 1
+}
+```
+
+### Example: search for a software category by keyword
+
+```json
+{
+  "searchQueries": ["expense management software"],
+  "searchPages": 2,
+  "maxItems": 20
+}
+```
+
+### Example: browse a curated category
+
+```json
+{
+  "categorySlug": "crm",
+  "searchPages": 3,
+  "maxItems": 50
+}
+```
+
+### Example: browse a category not in the dropdown
+
+```json
+{
+  "categoryUrls": ["https://www.trustradius.com/categories/ai-chatbot"],
+  "searchPages": 2,
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- **Vendor shortlisting** — pull rating, pricing, and feature scorecards for every product in a category before a buying committee meets
+- **Competitive intelligence** — track how a competitor's TrustRadius rating, awards, and "Areas for Improvement" change over time
+- **Market research** — compare feature strengths across a whole software category instead of reading page by page
+- **Sales enablement** — build a one-page comparison sheet of alternatives TrustRadius itself surfaces as related products
+- **Review monitoring** — capture featured review snippets and ratings as part of a brand-reputation tracker
+
+## FAQ
+
+**Is this affiliated with TrustRadius?**
+No. This is an independent, third-party actor that reads publicly available TrustRadius product pages; it isn't operated by or affiliated with TrustRadius.
+
+**What's the difference between the four input modes?**
+`productUrls` scrapes specific products you already know. `searchQueries` and `categoryUrls`/`categorySlug` instead discover a list of products (via TrustRadius search or category listing pages) and then scrape each one the same way.
+
+**Why does `categorySlug` only list 29 options when TrustRadius has more categories?**
+The dropdown covers the most commonly requested categories for convenience. For any other category, copy its TrustRadius URL (e.g. `https://www.trustradius.com/categories/ai-chatbot`) into `categoryUrls`.
+
+**Why are `topReviews` capped at 5?**
+TrustRadius product pages embed a limited set of featured reviews in their page data; the actor returns all of those it finds, up to 5, rather than the full review archive.
+
+**Why is a field like `price` or `awards` sometimes missing?**
+Not every product page publishes pricing or award badges. Fields with no data on the source page are left out of the record instead of being returned empty.
+
+**Do I need to supply my own proxy?**
+No. `proxyConfiguration` defaults to Apify's residential proxy group, which is recommended because TrustRadius blocks most non-proxied traffic.
+
+**How many products can one run return?**
+Up to `maxItems`, capped at 500 per run. Combine `searchPages` with a search query or category to discover more candidates before the cap is applied.
+
+**Does this collect the full review history for a product?**
+No. It returns the featured review snippets and the feature-level scorecards shown on the review summary page, not a paginated archive of every individual review.

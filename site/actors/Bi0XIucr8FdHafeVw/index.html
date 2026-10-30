@@ -1,0 +1,345 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-3WP0cSgZ6leQIi6vlOImrDbif69MBxJFeOr53udKLOQ=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>TrustRadius Product Ratings &amp; Feature Score Extractor | Dataspryva</title><meta name="description" content="Extract TrustRadius product pages by direct URL, search term, or category: pricing, aggregate ratings, feature scorecards, award badges, and related products for B2B software compa"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/"><meta property="og:title" content="TrustRadius Product Ratings &amp; Feature Score Extractor | Dataspryva"><meta property="og:description" content="Extract TrustRadius product pages by direct URL, search term, or category: pricing, aggregate ratings, feature scorecards, award badges, and related products for B2B software compa"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#webpage","name":"TrustRadius Product Ratings & Feature Score Extractor","description":"Extract TrustRadius product pages by direct URL, search term, or category: pricing, aggregate ratings, feature scorecards, award badges, and related products for B2B software comparison.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#article","headline":"TrustRadius Product Ratings & Feature Score Extractor","name":"TrustRadius Product Ratings & Feature Score Extractor","description":"Extract TrustRadius product pages by direct URL, search term, or category: pricing, aggregate ratings, feature scorecards, award badges, and related products for B2B software comparison.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"TrustRadius Product Ratings & Feature Score Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/Bi0XIucr8FdHafeVw/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>TrustRadius Product Ratings &amp; Feature Score Extractor</span></div><section id="overview"><h1 class="doc-title">TrustRadius Product Ratings &amp; Feature Score Extractor</h1><p class="lede">Extract TrustRadius product pages by direct URL, search term, or category: pricing, aggregate ratings, feature scorecards, award badges, and related products for B2B software comparison.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/trustradius-product-ratings-and-feature-score">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/Bi0XIucr8FdHafeVw/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Direct TrustRadius product review URLs, such as https://www.trustradius.com/products/asana/reviews.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to run against TrustRadius search.</td></tr><tr><td><code>categorySlug</code></td><td>string</td><td>optional</td><td>(Optional) Browse a curated TrustRadius category. Use `categoryUrls` for any category not in this list.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Direct TrustRadius product review URLs, such as https://www.trustradius.com/products/asana/reviews.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to run against TrustRadius search.</td></tr><tr><td><code>categorySlug</code></td><td>string</td><td>optional</td><td>(Optional) Browse a curated TrustRadius category. Use `categoryUrls` for any category not in this list.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Free-text TrustRadius category URLs (use this for any of the 260+ categories not in the popular dropdown), e.g. https://www.trustradius.com/categories/ai-chatbot.</td></tr><tr><td><code>searchPages</code></td><td>integer</td><td>optional</td><td>How many TrustRadius result pages to scan per search query / category.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted TrustRadius products.</td></tr><tr><td><code>useProxy</code></td><td>boolean</td><td>optional</td><td>TrustRadius blocks most datacenter IPs. Keep proxy enabled for cloud runs.</td></tr><tr><td><code>autoEscalateOnBlock</code></td><td>boolean</td><td>optional</td><td>If TrustRadius starts returning blocks, rotate proxy session IDs automatically.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Residential Apify proxy recommended for TrustRadius cloud runs.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape TrustRadius software review pages from direct product URLs, TrustRadius search, popular categories, or arbitrary category URLs.&quot;,
+  &quot;properties&quot;: {
+    &quot;autoEscalateOnBlock&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;If TrustRadius starts returning blocks, rotate proxy session IDs automatically.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Auto-escalate on block&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;categorySlug&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;(Optional) Browse a curated TrustRadius category. Use `categoryUrls` for any category not in this list.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;ab-testing&quot;,
+        &quot;accounting&quot;,
+        &quot;ad-serving-retargeting&quot;,
+        &quot;all-in-one-marketing&quot;,
+        &quot;applicant-tracking-system-ats&quot;,
+        &quot;business-intelligence-bi&quot;,
+        &quot;cloud-storage&quot;,
+        &quot;cms&quot;,
+        &quot;collaboration&quot;,
+        &quot;corporate-learning-management&quot;,
+        &quot;crm&quot;,
+        &quot;email-marketing&quot;,
+        &quot;fraud-detection&quot;,
+        &quot;help-desk&quot;,
+        &quot;hr-management&quot;,
+        &quot;integration-platform-as-a-service&quot;,
+        &quot;marketing-automation&quot;,
+        &quot;network-performance-monitoring&quot;,
+        &quot;payroll&quot;,
+        &quot;project-management&quot;,
+        &quot;seo&quot;,
+        &quot;social-media-management&quot;,
+        &quot;surveys&quot;,
+        &quot;talent-intelligence&quot;,
+        &quot;talent-management&quot;,
+        &quot;web-analytics&quot;,
+        &quot;web-conferencing&quot;,
+        &quot;workforce-analytics&quot;,
+        &quot;workforce-management-wfm&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;(none)&quot;,
+        &quot;A/B Testing&quot;,
+        &quot;Accounting&quot;,
+        &quot;Ad Serving &amp; Retargeting&quot;,
+        &quot;All-in-One Marketing&quot;,
+        &quot;Applicant Tracking System (ATS)&quot;,
+        &quot;Business Intelligence (BI)&quot;,
+        &quot;Cloud Storage&quot;,
+        &quot;CMS&quot;,
+        &quot;Collaboration&quot;,
+        &quot;Corporate Learning Management&quot;,
+        &quot;CRM&quot;,
+        &quot;Email Marketing&quot;,
+        &quot;Fraud Detection&quot;,
+        &quot;Help Desk&quot;,
+        &quot;HR Management&quot;,
+        &quot;Integration Platform as a Service&quot;,
+        &quot;Marketing Automation&quot;,
+        &quot;Network Performance Monitoring&quot;,
+        &quot;Payroll&quot;,
+        &quot;Project Management&quot;,
+        &quot;SEO&quot;,
+        &quot;Social Media Management&quot;,
+        &quot;Surveys&quot;,
+        &quot;Talent Intelligence&quot;,
+        &quot;Talent Management&quot;,
+        &quot;Web Analytics&quot;,
+        &quot;Web Conferencing&quot;,
+        &quot;Workforce Analytics&quot;,
+        &quot;Workforce Management (WFM)&quot;
+      ],
+      &quot;title&quot;: &quot;Popular category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;categoryUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Free-text TrustRadius category URLs (use this for any of the 260+ categories not in the popular dropdown), e.g. https://www.trustradius.com/categories/ai-chatbot.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Category URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 25,
+      &quot;description&quot;: &quot;Hard cap on emitted TrustRadius products.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 25,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;default&quot;: [
+        &quot;https://www.trustradius.com/products/asana/reviews&quot;
+      ],
+      &quot;description&quot;: &quot;Direct TrustRadius product review URLs, such as https://www.trustradius.com/products/asana/reviews.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;https://www.trustradius.com/products/asana/reviews&quot;
+      ],
+      &quot;title&quot;: &quot;Product review URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {
+        &quot;apifyProxyGroups&quot;: [
+          &quot;RESIDENTIAL&quot;
+        ],
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;description&quot;: &quot;Residential Apify proxy recommended for TrustRadius cloud runs.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;apifyProxyGroups&quot;: [
+          &quot;RESIDENTIAL&quot;
+        ],
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;searchPages&quot;: {
+      &quot;default&quot;: 1,
+      &quot;description&quot;: &quot;How many TrustRadius result pages to scan per search query / category.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Search pages per query&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords to run against TrustRadius search.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;useProxy&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;TrustRadius blocks most datacenter IPs. Keep proxy enabled for cloud runs.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Use Apify proxy&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;TrustRadius Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>software</code></td><td>string</td><td>optional</td><td>Dataset containing TrustRadius software review records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;TrustRadius software records with pricing, aggregate ratings, feature scorecards, award badges, and related products.&quot;,
+  &quot;properties&quot;: {
+    &quot;software&quot;: {
+      &quot;description&quot;: &quot;Dataset containing TrustRadius software review records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;TrustRadius software records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;TrustRadius Product Ratings &amp; Feature Score Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Software&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;vendorName&quot;,
+          &quot;ratingValue&quot;,
+          &quot;reviewCount&quot;,
+          &quot;price&quot;,
+          &quot;category&quot;,
+          &quot;canonicalUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-trustradius-product-ratings-feature-score-extractor">TrustRadius Product Ratings &amp; Feature Score Extractor</h2>
+<p>Pull structured software profiles straight off TrustRadius — the B2B peer-review site where IT buyers compare vendors before they sign a contract. Point it at a product page, a search term, or a whole category and get back pricing, aggregate ratings, award badges, and the feature-level scorecards TrustRadius uses to rank &quot;Top Performer&quot; products, without opening a browser yourself.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Four ways in:</strong> direct product review URLs, free-text search queries, a curated dropdown of popular categories, or any TrustRadius category URL (260+ categories)</li>
+<li><strong>Pulls the review-page scorecard:</strong> aggregate rating, rating/review counts, &quot;Top Performing Features&quot; and &quot;Areas for Improvement&quot; with their numeric scores</li>
+<li><strong>Surfaces commercial detail:</strong> vendor name, vendor URL, listed price and currency, award badges</li>
+<li><strong>Links related products</strong> that TrustRadius shows as alternatives on the same page</li>
+<li><strong>Empty fields are omitted</strong> from each record rather than returned as null or blank</li>
+</ul>
+<h2 id="readme-output-per-software-record">Output per software record</h2>
+<ul>
+<li><code>sourceUrl</code> — the URL the actor actually fetched</li>
+<li><code>canonicalUrl</code> — normalized <code>/products/&lt;slug&gt;/reviews</code> URL</li>
+<li><code>title</code> — product name</li>
+<li><code>description</code> — product summary from the page</li>
+<li><code>slug</code> — TrustRadius product slug</li>
+<li><code>applicationCategory</code> — category TrustRadius assigns the product</li>
+<li><code>category</code> — breadcrumb category name shown on the page</li>
+<li><code>ratingValue</code> — aggregate star rating</li>
+<li><code>ratingCount</code> — number of ratings behind the aggregate</li>
+<li><code>reviewCount</code> — number of written reviews</li>
+<li><code>vendorName</code>, <code>vendorUrl</code> — the company behind the product</li>
+<li><code>price</code>, <code>priceCurrency</code> — listed pricing, when TrustRadius shows one</li>
+<li><code>awards[]</code> — award/badge labels (e.g. &quot;Top Rated&quot;)</li>
+<li><code>featureList[]</code> — named features TrustRadius lists for the product</li>
+<li><code>topReviews[]</code> — up to 5 featured reviews, each with <code>authorName</code>, <code>ratingValue</code>, <code>title</code>, <code>datePublished</code>, <code>reviewBody</code></li>
+<li><code>topPerformingFeatures[]</code> — feature scorecard entries with <code>name</code> and <code>score</code></li>
+<li><code>areasForImprovement[]</code> — lower-scoring feature entries with <code>name</code> and <code>score</code></li>
+<li><code>relatedProducts[]</code> — alternative products with <code>title</code> and <code>url</code></li>
+<li><code>mediaUrls[]</code> — up to 10 preloaded image URLs from the page (logos, screenshots)</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>productUrls</code></td>
+<td>array</td>
+<td><code>[&quot;https://www.trustradius.com/products/asana/reviews&quot;]</code></td>
+<td>Direct TrustRadius product review URLs to scrape</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Free-text keywords to run through TrustRadius search</td>
+</tr>
+<tr>
+<td><code>categorySlug</code></td>
+<td>string (enum)</td>
+<td>`` (none)</td>
+<td>Pick one of 29 curated popular categories instead of a free-text URL</td>
+</tr>
+<tr>
+<td><code>categoryUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Any TrustRadius category URL, for the 260+ categories not in the dropdown</td>
+</tr>
+<tr>
+<td><code>searchPages</code></td>
+<td>integer</td>
+<td><code>1</code></td>
+<td>Result pages to scan per search query or category (1–20)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>25</code></td>
+<td>Maximum number of product records to return (1–500)</td>
+</tr>
+<tr>
+<td><code>useProxy</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Route requests through Apify proxy; TrustRadius blocks most non-proxied requests</td>
+</tr>
+<tr>
+<td><code>autoEscalateOnBlock</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Rotate to a fresh proxy session automatically if TrustRadius starts blocking</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>residential proxy enabled</td>
+<td>Apify proxy configuration used for all requests</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-scrape-a-known-product">Example: scrape a known product</h3>
+<pre><code class="language-json">{
+  &quot;productUrls&quot;: [&quot;https://www.trustradius.com/products/asana/reviews&quot;],
+  &quot;maxItems&quot;: 1
+}
+</code></pre>
+<h3 id="readme-example-search-for-a-software-category-by-keyword">Example: search for a software category by keyword</h3>
+<pre><code class="language-json">{
+  &quot;searchQueries&quot;: [&quot;expense management software&quot;],
+  &quot;searchPages&quot;: 2,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-browse-a-curated-category">Example: browse a curated category</h3>
+<pre><code class="language-json">{
+  &quot;categorySlug&quot;: &quot;crm&quot;,
+  &quot;searchPages&quot;: 3,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-browse-a-category-not-in-the-dropdown">Example: browse a category not in the dropdown</h3>
+<pre><code class="language-json">{
+  &quot;categoryUrls&quot;: [&quot;https://www.trustradius.com/categories/ai-chatbot&quot;],
+  &quot;searchPages&quot;: 2,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Vendor shortlisting</strong> — pull rating, pricing, and feature scorecards for every product in a category before a buying committee meets</li>
+<li><strong>Competitive intelligence</strong> — track how a competitor's TrustRadius rating, awards, and &quot;Areas for Improvement&quot; change over time</li>
+<li><strong>Market research</strong> — compare feature strengths across a whole software category instead of reading page by page</li>
+<li><strong>Sales enablement</strong> — build a one-page comparison sheet of alternatives TrustRadius itself surfaces as related products</li>
+<li><strong>Review monitoring</strong> — capture featured review snippets and ratings as part of a brand-reputation tracker</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with TrustRadius?</strong>
+No. This is an independent, third-party actor that reads publicly available TrustRadius product pages; it isn't operated by or affiliated with TrustRadius.</p>
+<p><strong>What's the difference between the four input modes?</strong>
+<code>productUrls</code> scrapes specific products you already know. <code>searchQueries</code> and <code>categoryUrls</code>/<code>categorySlug</code> instead discover a list of products (via TrustRadius search or category listing pages) and then scrape each one the same way.</p>
+<p><strong>Why does <code>categorySlug</code> only list 29 options when TrustRadius has more categories?</strong>
+The dropdown covers the most commonly requested categories for convenience. For any other category, copy its TrustRadius URL (e.g. <code>https://www.trustradius.com/categories/ai-chatbot</code>) into <code>categoryUrls</code>.</p>
+<p><strong>Why are <code>topReviews</code> capped at 5?</strong>
+TrustRadius product pages embed a limited set of featured reviews in their page data; the actor returns all of those it finds, up to 5, rather than the full review archive.</p>
+<p><strong>Why is a field like <code>price</code> or <code>awards</code> sometimes missing?</strong>
+Not every product page publishes pricing or award badges. Fields with no data on the source page are left out of the record instead of being returned empty.</p>
+<p><strong>Do I need to supply my own proxy?</strong>
+No. <code>proxyConfiguration</code> defaults to Apify's residential proxy group, which is recommended because TrustRadius blocks most non-proxied traffic.</p>
+<p><strong>How many products can one run return?</strong>
+Up to <code>maxItems</code>, capped at 500 per run. Combine <code>searchPages</code> with a search query or category to discover more candidates before the cap is applied.</p>
+<p><strong>Does this collect the full review history for a product?</strong>
+No. It returns the featured review snippets and the feature-level scorecards shown on the review summary page, not a paginated archive of every individual review.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/Bi0XIucr8FdHafeVw/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>2GrsangHODnSBmjJV</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
