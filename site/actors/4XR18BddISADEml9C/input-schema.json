@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "maxCommentsPerSnap": {
+      "default": 100,
+      "description": "Maximum number of comments to extract per Spotlight video.",
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Max Comments per Snap",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byUsername",
+      "description": "Choose whether to scrape comments by direct Spotlight video URL or by creator username.",
+      "editor": "select",
+      "enum": [
+        "bySpotlightUrl",
+        "byUsername"
+      ],
+      "enumTitles": [
+        "By Spotlight Video URL",
+        "By Creator Username (profile page comments)"
+      ],
+      "prefill": "byUsername",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy configuration for requests.",
+      "editor": "proxy",
+      "nullable": true,
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "spotlightUrls": {
+      "description": "For bySpotlightUrl mode: Snapchat Spotlight video URLs",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaXFxdmVobmp6AZ499vl-AZ499rsXAAAAAQ"
+      ],
+      "title": "Spotlight Video URLs",
+      "type": "array"
+    },
+    "usernames": {
+      "description": "For byUsername mode: Snapchat usernames to fetch spotlight comments from their profile page",
+      "editor": "stringList",
+      "prefill": [
+        "brentrivera"
+      ],
+      "title": "Usernames",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Snapchat Spotlight Comments Scraper",
+  "type": "object"
+}
