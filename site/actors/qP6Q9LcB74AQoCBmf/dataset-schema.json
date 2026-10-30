@@ -1,21 +1,42 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "history": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "LandWatch Scraper",
+      "title": "History",
       "transformation": {
         "fields": [
-          "title",
-          "acres",
-          "price",
-          "state",
-          "county",
-          "landType",
-          "listingUrl"
+          "regionName",
+          "regionType",
+          "date",
+          "value",
+          "homeType",
+          "regionId"
+        ]
+      }
+    },
+    "trends": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Trends",
+      "transformation": {
+        "fields": [
+          "countyName",
+          "stateCode",
+          "stateName",
+          "metro",
+          "homeType",
+          "latestValue",
+          "latestDate",
+          "change6mPct",
+          "change12mPct",
+          "vsBenchmark6mPct",
+          "rank"
         ]
       }
     }

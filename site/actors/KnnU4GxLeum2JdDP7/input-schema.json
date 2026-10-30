@@ -1,0 +1,166 @@
+{
+  "description": "Scrape products from Lowe's (lowes.com). Search by keyword, browse categories, fetch product details, or scrape from specific URLs.",
+  "properties": {
+    "category": {
+      "default": "tools",
+      "description": "Product category to browse (mode=byCategory).",
+      "editor": "select",
+      "enum": [
+        "tools",
+        "electrical",
+        "plumbing",
+        "building-supplies",
+        "flooring",
+        "paint",
+        "lighting-ceiling-fans",
+        "bathroom",
+        "kitchen",
+        "appliances",
+        "outdoor-power-equipment",
+        "storage-organization",
+        "windows-doors",
+        "heating-cooling"
+      ],
+      "enumTitles": [
+        "Tools",
+        "Electrical",
+        "Plumbing",
+        "Building Supplies",
+        "Flooring",
+        "Paint",
+        "Lighting & Ceiling Fans",
+        "Bathroom",
+        "Kitchen",
+        "Appliances",
+        "Outdoor Power Equipment",
+        "Storage & Organization",
+        "Windows & Doors",
+        "Heating & Cooling"
+      ],
+      "prefill": "tools",
+      "title": "Category",
+      "type": "string"
+    },
+    "inStockOnly": {
+      "default": false,
+      "description": "When enabled, only emit products that are currently in stock.",
+      "prefill": false,
+      "title": "In-stock items only",
+      "type": "boolean"
+    },
+    "itemIds": {
+      "default": [],
+      "description": "List of Lowe's item numbers (e.g. '5013654453'). Used with mode=productDetails.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Item IDs (mode=productDetails)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of products to emit.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Skip products priced above this value.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum price (USD)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Skip products priced below this value.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum price (USD)",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only emit products with rating >= this value (1.0–5.0).",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum star rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to scrape.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory",
+        "productDetails",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse a product category",
+        "Fetch product details by item ID",
+        "Scrape one or more product URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Apify proxy configuration. Lowes requires proxy to avoid bot detection. AUTO datacenter proxy is used by default.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "power drill",
+      "description": "Keyword or phrase to search for (mode=search).",
+      "editor": "textfield",
+      "prefill": "power drill",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "bestMatch",
+      "description": "How to sort search or category results.",
+      "editor": "select",
+      "enum": [
+        "bestMatch",
+        "topRated",
+        "priceAsc",
+        "priceDesc",
+        "newArrivals"
+      ],
+      "enumTitles": [
+        "Best Match (default)",
+        "Top Rated",
+        "Price: Low to High",
+        "Price: High to Low",
+        "New Arrivals"
+      ],
+      "prefill": "bestMatch",
+      "title": "Sort results by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "List of Lowe's product or search page URLs to scrape.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Lowes Scraper Input",
+  "type": "object"
+}

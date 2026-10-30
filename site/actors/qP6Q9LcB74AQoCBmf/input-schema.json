@@ -1,42 +1,157 @@
 {
-  "description": "Input for US County Property Data Scraper (via Zillow Research public data).",
+  "description": "Choose a ZHVI trend level, housing cut, region filters, as-of date, sort order, and row cap. History mode returns one row per region per month.",
   "properties": {
-    "county": {
-      "description": "Specific county name to filter (e.g. 'Gallatin', 'Missoula').",
+    "asOfDate": {
+      "description": "Compute the trend from the latest observation on or before this date (YYYY-MM-DD). Leave empty for the newest published month. Trend modes only.",
       "editor": "textfield",
-      "title": "County",
+      "title": "As-of date",
+      "type": "string"
+    },
+    "county": {
+      "description": "Case-insensitive county-name substring, e.g. 'Gallatin' or 'Los Angeles'. Works in countyTrends and county history. Use regionIds for exact matching.",
+      "editor": "textfield",
+      "title": "County name",
+      "type": "string"
+    },
+    "endDate": {
+      "description": "Last month to include in history mode (YYYY-MM-DD). Leave empty to end at the newest published month.",
+      "editor": "textfield",
+      "title": "History end date",
+      "type": "string"
+    },
+    "historyGeography": {
+      "default": "county",
+      "description": "Which ZHVI level the monthly history rows come from. Used only in history mode.",
+      "editor": "select",
+      "enum": [
+        "county",
+        "state",
+        "metro"
+      ],
+      "enumTitles": [
+        "Counties",
+        "States",
+        "Metros"
+      ],
+      "title": "History level",
+      "type": "string"
+    },
+    "homeType": {
+      "default": "allHomesMidTier",
+      "description": "Which Zillow Home Value Index series to read. All ten cuts are available at county, state, and metro level.",
+      "editor": "select",
+      "enum": [
+        "allHomesMidTier",
+        "singleFamily",
+        "condo",
+        "bottomTier",
+        "topTier",
+        "bedrooms1",
+        "bedrooms2",
+        "bedrooms3",
+        "bedrooms4",
+        "bedrooms5Plus"
+      ],
+      "enumTitles": [
+        "All homes, mid-tier",
+        "Single-family homes",
+        "Condos / co-ops",
+        "Bottom-tier homes",
+        "Top-tier homes",
+        "1-bedroom homes",
+        "2-bedroom homes",
+        "3-bedroom homes",
+        "4-bedroom homes",
+        "5+ bedroom homes"
+      ],
+      "prefill": "allHomesMidTier",
+      "title": "Housing cut",
       "type": "string"
     },
     "maxItems": {
-      "default": 20,
-      "description": "Maximum number of records to return.",
-      "maximum": 500,
+      "default": 100,
+      "description": "Hard cap on emitted records. The default county file has 3,071 rows; history usually needs a date or region filter to stay under the cap.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Max rows",
       "type": "integer"
     },
     "mode": {
-      "default": "search",
-      "description": "What data to fetch.",
+      "default": "countyTrends",
+      "description": "What to return: one trend row per county, per state, per metro, or one history row per region per month. The legacy values keep old saved tasks working and are mapped to the matching trend mode.",
       "editor": "select",
       "enum": [
+        "countyTrends",
+        "stateTrends",
+        "metroTrends",
+        "history",
         "search",
         "countyData",
         "stateComparison"
       ],
       "enumTitles": [
-        "County Search by State",
-        "County-Level Home Values",
-        "State-by-State Comparison"
+        "County trends — one row per county",
+        "State trends — one row per state and DC",
+        "Metro trends — one row per metro and US",
+        "Monthly history — one row per region per month",
+        "Legacy: county search (mapped to countyTrends)",
+        "Legacy: county data (mapped to countyTrends)",
+        "Legacy: state comparison (mapped to stateTrends)"
       ],
-      "prefill": "search",
+      "prefill": "stateTrends",
       "title": "Mode",
       "type": "string"
     },
+    "regionIds": {
+      "default": [],
+      "description": "Exact Zillow RegionIDs, e.g. ['3101', '1090']. Works in every mode. When combined with state or county filters, a region must match all of them.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Region IDs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "sizeRank",
+      "description": "Order trend rows and assign ranks across all matching regions before the row cap is applied. Missing metrics sort last without a rank.",
+      "editor": "select",
+      "enum": [
+        "sizeRank",
+        "regionName",
+        "latestValue",
+        "change1mPct",
+        "change3mPct",
+        "change6mPct",
+        "change12mPct",
+        "decline6mPct",
+        "decline12mPct"
+      ],
+      "enumTitles": [
+        "Market size rank (smallest first)",
+        "Region name (A to Z)",
+        "Latest home value (high to low)",
+        "1-month change (high to low)",
+        "3-month change (high to low)",
+        "6-month change (high to low)",
+        "12-month change (high to low)",
+        "Largest 6-month decline first",
+        "Largest 12-month decline first"
+      ],
+      "prefill": "sizeRank",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "startDate": {
+      "description": "First month to include in history mode (YYYY-MM-DD). Leave empty to start at the oldest published month.",
+      "editor": "textfield",
+      "title": "History start date",
+      "type": "string"
+    },
     "state": {
-      "default": "Montana",
-      "description": "US state to filter county data for (e.g. 'MT', 'Montana').",
+      "default": "all",
+      "description": "Filter counties, metros, or history to one state, or pick a single state in stateTrends. Choose 'all' to include every state. Two-letter codes are accepted by the API.",
       "editor": "select",
       "enum": [
         "Alabama",
@@ -47,6 +162,7 @@
         "Colorado",
         "Connecticut",
         "Delaware",
+        "District of Columbia",
         "Florida",
         "Georgia",
         "Hawaii",
@@ -88,7 +204,8 @@
         "Washington",
         "West Virginia",
         "Wisconsin",
-        "Wyoming"
+        "Wyoming",
+        "all"
       ],
       "enumTitles": [
         "Alabama",
@@ -99,6 +216,7 @@
         "Colorado",
         "Connecticut",
         "Delaware",
+        "District of Columbia",
         "Florida",
         "Georgia",
         "Hawaii",
@@ -140,9 +258,10 @@
         "Washington",
         "West Virginia",
         "Wisconsin",
-        "Wyoming"
+        "Wyoming",
+        "All states"
       ],
-      "prefill": "Montana",
+      "prefill": "all",
       "title": "State",
       "type": "string"
     }
@@ -151,6 +270,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "US County Property Data Scraper Input",
+  "title": "Zillow County Home Value Trends Input",
   "type": "object"
 }
