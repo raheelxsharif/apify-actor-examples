@@ -1,94 +1,177 @@
 # Snapchat Spotlight Comment & Reaction Scraper
 
-Snapchat embeds a set of top comments directly in the public page for each Spotlight video. This actor reads that data for one or more specific videos, or for every pinned Spotlight video on a creator's profile, and returns commenter names, Bitmoji IDs, reaction counts, posting timestamps, and reply counts — with full Unicode support for scripts like Urdu and Arabic.
+Scrape public **Snapchat Spotlight** comment threads — not just the handful of comments Snapchat embeds on a video page. Collect root comments and their direct replies for specific Spotlight videos, a creator's pinned Spotlights, a hashtag or topic, or the trending Spotlight feed of a country. Every row can include commenter details, reaction breakdowns, moderation fields, timestamps and hydrated video context such as the creator, caption, thumbnail and engagement counts.
 
 ## What this actor does
 
-- Fetches comments for one or more specific Spotlight video URLs (`bySpotlightUrl`).
-- Fetches comments for every pinned Spotlight video on a creator's profile in a single request per creator (`byUsername`).
-- Returns commenter display name, Bitmoji avatar/selfie IDs, and profile image for each comment.
-- Captures per-comment reaction counts, reply counts, and moderation status.
-- Emits an error record (rather than failing the run) when a video or username has no reachable comments.
+- **Four modes:** `bySpotlightUrls`, `byUsername`, `byTopic`, `byFeed`
+- **Full threads:** pages through the public comment service instead of stopping at the first embedded page
+- **Optional replies:** emits depth-1 replies as separate rows linked by `parentCommentId`
+- **Video context:** attaches creator, caption, hashtags, media URLs and engagement counts to every comment
+- **Global row cap:** `maxItems` stops the run at a predictable dataset size
+- **Omit-empty:** fields the source does not publish for a record are left out, never sent as `null`
 
-## Output per comment
+## Services
 
-- `commentId` — identifier composed of `{highBits}-{lowBits}`
-- `snapId` — the Spotlight video's snap ID
-- `sourceUsername` — creator username (`byUsername` mode)
-- `inputUrl` — the Spotlight URL that was scraped (`bySpotlightUrl` mode)
-- `replyText` — comment text (full Unicode, including Arabic, Urdu, and emoji)
-- `reactionCounts` — array of `{reactTypeId, count}` objects, one per reaction type used on the comment
-- `commenterDisplayName`, `commenterBitmojiAvatarId`, `commenterBitmojiSelfieId`, `commenterProfileLogoUrl`
-- `reportCount` — number of times the comment has been reported
-- `approvalState` — moderation state code (`3` = approved and visible)
-- `postedAt` — ISO 8601 UTC timestamp the comment was posted
-- `rankingScore` — Snapchat's own ranking score for the comment, when present
-- `threadedReplyCount` — number of threaded replies to the comment
-- `scrapedAt` — ISO 8601 UTC scrape timestamp
+| Service | What it gives you |
+|---|---|
+| Spotlight URL or ID lookup | Every root comment and optional reply for one or more specific videos |
+| Creator profile lookup | Comments for the Spotlight videos pinned on a public creator profile |
+| Hashtag / topic discovery | Comments for videos found on public tag, explore and topic pages |
+| Country trending feed | Comments for videos in the public Spotlight feed of one country |
+| Video hydration | Creator, caption, hashtags, thumbnail, video URL, duration, dimensions, post time and engagement counts |
+| Error rows | A readable error row when an input cannot be resolved, so one bad input does not fail the whole run |
 
-A failed lookup produces an error record instead, with `inputUrl` or `inputUsername`, `snapId` (when it was resolved before the failure), `error`, and `scrapedAt`.
+## How it works
+
+The actor reads the same public Spotlight pages and public comment data that any visitor can see on snapchat.com. It discovers videos first, then pages through the comment service for each video, optionally follows the reply cursor for comments that have replies, and hydrates video details in batches. It runs without a login, cookies, API key or proxy configuration. Requests are paced politely and repeated briefly when Snapchat returns a temporary server error.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `byUsername` | `bySpotlightUrl` (by direct video URL) or `byUsername` (from a creator's profile page) |
-| `spotlightUrls` | array | – | Spotlight video URLs, e.g. `https://www.snapchat.com/spotlight/{id}`; used by `bySpotlightUrl` |
-| `usernames` | array | – | Snapchat creator usernames; used by `byUsername` |
-| `maxCommentsPerSnap` | integer | `100` | Maximum comments to extract per Spotlight video (1-1000) |
-| `proxyConfiguration` | object | – | Optional Apify Proxy configuration for the run |
+| `mode` | string | `byUsername` | `bySpotlightUrls` / `byUsername` / `byTopic` / `byFeed` |
+| `spotlightUrls` | array | – | Spotlight URLs, `@user/spotlight` links, `t.snapchat.com` links or raw snap IDs (mode=bySpotlightUrls) |
+| `usernames` | array | `["brentrivera"]` | Snapchat usernames, `@names` or profile URLs (mode=byUsername) |
+| `topics` | array | `["food"]` | Hashtags, topic slugs or `/tag`, `/explore`, `/topic` URLs (mode=byTopic) |
+| `country` | string | `US` | ISO 3166-1 alpha-2 country code for the trending feed (mode=byFeed) |
+| `maxVideosPerSource` | integer | `50` | Stop after this many videos per username, topic or feed (1–100); ignored for explicit URLs |
+| `maxCommentsPerVideo` | integer | `100` | Maximum comment rows per video, including replies (1–100000) |
+| `includeReplies` | boolean | `false` | Emit direct replies as separate rows |
+| `maxItems` | integer | `1000000` | Global dataset row cap (1–1000000) |
 
-### Example: comments from two creators' pinned videos
+Older tasks that send `maxCommentsPerSnap` are mapped automatically to `maxCommentsPerVideo`; an explicit non-default `maxCommentsPerVideo` takes precedence. The former `bySpotlightUrl` mode value is still accepted.
+
+### Example: full thread for one video, with replies
+
+```json
+{
+  "mode": "bySpotlightUrls",
+  "spotlightUrls": [
+    "https://www.snapchat.com/@brentrivera/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYdXd0bndkZmd1AZrNg9asAZrNg8LXAAAAAQ"
+  ],
+  "maxCommentsPerVideo": 5000,
+  "includeReplies": true,
+  "maxItems": 10000
+}
+```
+
+### Example: comments for a creator's pinned Spotlights
 
 ```json
 {
   "mode": "byUsername",
-  "usernames": ["waqarzaka", "brentrivera"],
-  "maxCommentsPerSnap": 100
+  "usernames": ["brentrivera", "waqarzaka"],
+  "maxVideosPerSource": 10,
+  "maxCommentsPerVideo": 200
 }
 ```
 
-### Example: comments from a specific video
+### Example: discover videos by hashtag
 
 ```json
 {
-  "mode": "bySpotlightUrl",
-  "spotlightUrls": [
-    "https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaXFxdmVobmp6AZ499vl-AZ499rsXAAAAAQ"
-  ],
-  "maxCommentsPerSnap": 200
+  "mode": "byTopic",
+  "topics": ["food", "https://www.snapchat.com/tag/travel"],
+  "maxVideosPerSource": 20,
+  "maxCommentsPerVideo": 100,
+  "includeReplies": true
 }
 ```
 
+### Example: trending feed in the United Kingdom
+
+```json
+{
+  "mode": "byFeed",
+  "country": "GB",
+  "maxVideosPerSource": 25,
+  "maxCommentsPerVideo": 50
+}
+```
+
+## Output
+
+Every comment row is a flat object. Identity and thread fields come first, followed by commenter, engagement, video context and scrape metadata.
+
+- `recordType` — `comment` or `error`
+- `commentId`, `snapId`, `snapUrl`
+- `sourceUsername`, `inputUrl`, `topic`, `topicUrl`, `feedCountry` — mode context
+- `parentCommentId`, `depth` — `0` for root comments, `1` for replies
+- `replyText`
+- `postedAt`, `updatedAt`
+- `threadedReplyCount`
+- `commenterDisplayName`, `commenterId`, `commenterProfileId`, `commenterUsername`, `commenterProfileUrl`, `commenterIsPostAuthor`
+- `commenterBitmojiAvatarId`, `commenterBitmojiSelfieId`, `commenterProfileLogoUrl`
+- `reactionCounts` — array of `{reactTypeId, count}`
+- `likeCount` — sum of all reaction counts
+- `reportCount`, `approvalState` — Snapchat moderation fields
+- `rankingScore`
+- `creatorUsername`, `creatorDisplayName`, `creatorProfileUrl`, `creatorIsOfficial`
+- `videoCaption`, `videoHashtags`, `videoThumbnailUrl`, `videoUrl`
+- `videoDurationSeconds`, `videoWidth`, `videoHeight`, `videoPostedAt`
+- `videoViewCount`, `videoShareCount`, `videoCommentCount`, `videoBoostCount`, `videoRecommendCount`
+- `videoAiTitle`, `videoAiDescription`, `videoKeywords`
+- `scrapedAt`
+
+Error rows use `recordType: "error"`, the relevant input field (`inputUrl`, `inputUsername`, `topic`, `topicUrl` or `feedCountry`), an optional `snapId`, an `error` message and `scrapedAt`.
+
 ## Use cases
 
-- Audience sentiment research on a creator's Spotlight content.
-- Track reaction and reply counts on specific videos over time.
-- Build a moderation or spam-review dataset from public comment text.
-- Compare comment activity across multiple creators in one run.
+- **Audience research** — read what viewers say under a creator's or a brand's Spotlights.
+- **Campaign monitoring** — collect comment volume, reactions and replies around a hashtag or country feed.
+- **Moderation and safety** — export public comments, reports and moderation state for review.
+- **Sentiment and trend analysis** — feed comment text and timestamps into NLP or dashboard pipelines.
+- **Creator benchmarking** — compare comment engagement across several creators or videos.
+- **Video-level reporting** — join comments with captions, hashtags and video engagement in one dataset.
+
+## Usage cost
+
+Apify charges for the compute your runs use, based on the actor's memory setting and run time. This actor runs at 1 GB by default. Cost grows with the number of videos and comment pages you request, so use `maxVideosPerSource`, `maxCommentsPerVideo` and `maxItems` to keep runs inside your budget. A small run over one video or one creator costs a fraction of a cent; a large full-thread crawl across many videos costs more because it makes more requests. No paid proxy or external API is required.
 
 ## FAQ
 
-**Why are some Spotlight videos missing comments?**
-Snapchat only shows comments on its public page for videos with active, visible comments. Videos with no comments, disabled comments, or very recent posts may return nothing; the actor records an error row for those instead of failing the run.
+**Do I need a Snapchat account, cookies or an API key?**
+No. The actor reads public Snapchat pages and public comment data without logging in.
 
-**What's the difference between the two modes?**
-`byUsername` reads a creator's public profile page, which carries comments for all their pinned Spotlight videos in one request — efficient for getting everything from one creator. `bySpotlightUrl` reads each individual video page separately, which works for specific videos that aren't pinned on a profile.
+**Do I need to configure a proxy?**
+No. The actor connects to Snapchat automatically.
 
-**Are these all comments on a video, or just the top ones?**
-Snapchat's own public page shows a curated set of top-ranked comments, not the full comment history. How many are shown varies by video; `maxCommentsPerSnap` caps how many this actor extracts per video.
+**Why are there fewer comments than Snapchat shows on a video?**
+Snapchat can display a total comment count that is larger than the number of comments it pages out to anonymous visitors. The actor pages until the source stops returning a cursor, and records the reported `videoCommentCount` when Snapchat publishes one. It never invents rows.
 
-**Do I need a Snapchat account, login, or cookies?**
-No. This data is visible on Snapchat's public pages to any visitor, without an account.
+**What is the difference between a comment and a reply?**
+Root comments have `depth: 0`. Direct replies have `depth: 1` and a `parentCommentId`. Enable `includeReplies` to emit them.
 
-**Can I scrape comments from multiple creators at once?**
-Yes — list multiple usernames; each creator's comments are tagged with their own `sourceUsername`.
+**Why is a commenter username or Bitmoji missing?**
+Snapchat only exposes some commenter profile fields for some accounts. When a field is not published for that comment, it is omitted from the row.
 
-**What does `approvalState` mean?**
-It's Snapchat's own moderation state for the comment. `3` means approved and visible; other values indicate the comment is pending review or was otherwise moderated.
+**Why does byUsername return only a few videos?**
+Public creator profiles list the creator's pinned Spotlight highlights, not their complete Spotlight history. Increase `maxVideosPerSource` to use every pinned video that is available.
 
-**Does this support non-English comments?**
-Yes. Full Unicode is supported, including Arabic, Urdu, emoji, and other non-ASCII character sets.
+**Can I scrape comments for a hashtag that has no /tag page?**
+Yes. The actor falls back to Snapchat's explore page for the same term, and also accepts an explicit `/topic/<slug>` URL.
+
+**What happens when a video was removed?**
+Snapchat may keep its comment thread available even when the video page and metadata are gone. Such rows keep the comments and omit the missing video fields.
 
 **Is this affiliated with Snapchat?**
-No. This actor reads data shown on Snapchat's own public pages and has no relationship with Snap Inc.
+No. This is an independent third-party actor that reads publicly visible Snapchat data and has no relationship with Snap Inc.
+
+## Notes
+
+- Comment text is returned exactly as published, including emoji and non-Latin scripts.
+- Timestamps are ISO 8601 UTC.
+- Duplicate comment IDs from Snapchat's own pages are removed within a run.
+- One invalid URL, username or topic produces an error row and the run continues with the remaining inputs.
+- The default task is deliberately small: one profile, one video and a few comments.
+
+## Limitations
+
+- Creator profiles expose only pinned Spotlight videos, not the full back catalogue.
+- Replies are depth-1 only; nested reply chains are not followed recursively.
+- Commenter usernames and some profile fields are published for a minority of comments.
+- Snapchat may page out fewer comments than the count shown in its interface.
+- Topic and tag pages expose a limited set of videos (roughly 20–30 per page) with no pagination.
+- The trending feed is personalised and changes between requests; results are a snapshot of the moment the run executes.
+- Removed videos can keep comments while losing metadata, so video context may be absent on those rows.

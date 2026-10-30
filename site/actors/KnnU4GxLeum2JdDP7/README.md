@@ -1,101 +1,170 @@
 # Lowe's Price, Stock & Specification Scraper
 
-Lowe's sells hundreds of thousands of home-improvement products, each with its own price, stock status, and spec sheet. This actor pulls that data by keyword search, category browse, item ID, or a direct product URL, so you can track pricing and availability without visiting the site page by page.
+Lowe's product pages carry live pricing, store stock, fulfilment promises, ratings, and a deep spec sheet. This actor finds Lowe's product pages by keyword, department, item ID, or URL, then reads the live product data for every product it finds.
+
+Search and category discovery use a public web index to locate Lowe's product pages. That is a candidate set, not a full replica of Lowe's on-site search. Product price, stock, specs, and store context are then read live from Lowe's own product data.
 
 ## What this actor does
 
-- Searches Lowe's products by keyword, with a choice of sort order.
-- Browses a product category (Tools, Electrical, Plumbing, Appliances, and more).
-- Fetches full product details for one or more Lowe's item numbers.
-- Scrapes any Lowe's product or search URL you provide directly.
-- Filters results by stock status, price range, and minimum rating.
-- Leaves out fields a product listing doesn't have (no discount, no store availability message) rather than sending them empty.
+- Searches Lowe's products by keyword, with multiple query variants and result pages.
+- Browses a department or any Lowe's `/pl/` category URL. It first tries the category page for embedded product links and falls back to keyword discovery if Lowe's blocks or omits them.
+- Looks up products by item number or by `/pd/` product URL.
+- Accepts mixed URLs: product, search, and category URLs can be supplied in one run.
+- Reads store-aware price, was/sale price, stock by fulfilment method, ratings, specifications, UPC, dimensions, manuals, badges, variants, and more.
+- Deduplicates products across queries and pages.
+- Omits empty fields instead of emitting placeholders.
 
 ## Output per product
 
-- `title`, `url`, `itemId`
-- `brand`, `model`
-- `price`, `originalPrice` — current price and the pre-discount price, when the item is on sale
-- `discountPercent` — calculated when both prices are present
-- `inStock` — whether the item is currently in stock
-- `storeAvailability` — store-level stock message, when shown
-- `rating`, `reviewCount`
-- `imageUrl`
-- `description`, `specifications` — full description and a list of `{name, value}` spec pairs (from item-ID and URL lookups)
-- `category`
-- `scrapedAt`
+Identity and context:
+
+- `itemId`, `itemNumber`, `model`, `brand`, `title`, `url`
+- `imageUrl`, `images`, `videos`
+- `category`, `categoryPath`, `merchandising`
+- `storeId`, `storeNumber`, `storeName`, `storeCity`, `storeState`, `storeZip`
+- `aisle`, `bay`
+- `source`, `sourceQuery`, `position`, `scrapedAt`
+
+Price and promotion:
+
+- `price`, `priceText`, `priceScope`, `currency`, `priceNote`
+- `originalPrice`, `discountPercent`, `savings`, `savingsPercent`, `onSale`, `saleEndDate`
+
+Stock and fulfilment:
+
+- `inStock`, `availability` (method, availability, quantity, lead time, ship date, delivery date)
+- `onlineQuantity`, `pickupAvailable`, `pickupQuantity`, `storeQuantity`, `storeAvailability`, `deliveryDate`
+
+Ratings and merchandising:
+
+- `rating`, `reviewCount`, `brandRating`, `brandReviewCount`
+- `badges`, `isSponsored`, `isMarketplace`, `isSpecialOrder`, `programType`
+- `isBuyable`, `lowesExclusive`, `energyStar`, `prop65`, `socialProofing`
+
+Details (when `includeDetails` is on):
+
+- `description`, `romanceCopy`, `marketingBullets`
+- `specifications`, `keySpecs`
+- `upc`, `barcodes`, `dimensions`, `weight`, `weightUnit`, `packageQuantity`
+- `warranty`, `guides`, `listedAt`, `lastModifiedAt`, `maxPurchaseQuantity`
+
+Variants (when Lowe's exposes them):
+
+- `variantCount`, `variantAttribute`, `variants`, `selectedOptions`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search`, `byCategory`, `productDetails`, or `byUrl` |
-| `searchQuery` | string | `power drill` | Keyword to search for; used by `search` |
-| `category` | string | `tools` | Category to browse; used by `byCategory` |
-| `itemIds` | array | `[]` | Lowe's item numbers, e.g. `5013654453`; used by `productDetails` |
-| `startUrls` | array | `[]` | Lowe's product or search page URLs; used by `byUrl` |
-| `sortBy` | string | `bestMatch` | `bestMatch`, `topRated`, `priceAsc`, `priceDesc`, or `newArrivals` |
-| `inStockOnly` | boolean | `false` | Only return products currently in stock |
-| `minPrice` | integer | – | Skip products priced below this (USD) |
-| `maxPrice` | integer | – | Skip products priced above this (USD) |
-| `minRating` | number | – | Only return products rated at or above this (1.0-5.0) |
-| `proxyConfiguration` | object | `{"useApifyProxy": true}` | Apify Proxy configuration for the run |
-| `maxItems` | integer | `20` | Maximum number of products to return (1-500) |
+| `mode` | string | `productDetails` | `search`, `byCategory`, `productDetails`, or `byUrl` |
+| `searchQueries` | array | `["power drill"]` | Keywords for `search`; each query adds discovery results |
+| `category` | string | `tools` | Department for `byCategory` |
+| `itemIds` | array | `[]` | Item numbers or `/pd/` URLs for `productDetails` |
+| `startUrls` | array | `[]` | Product, search, or `/pl/` category URLs for `byUrl` |
+| `storeId` | string | `0208` | Four-digit store number for price and stock context |
+| `zipCode` | string | `92253` | Five-digit ZIP used with the store number |
+| `sortBy` | string | `featured` | `featured`, `bestSellers`, `highestRated`, `newest`, `priceLowToHigh`, `priceHighToLow`, or `brand` |
+| `inStockOnly` | boolean | `false` | Keep products with at least one available fulfilment method |
+| `onSaleOnly` | boolean | `false` | Keep products with a current was/sale price |
+| `onShelfOnly` | boolean | `false` | Keep products with pickup quantity above zero at the selected store |
+| `minPrice` | integer | – | Drop products below this price |
+| `maxPrice` | integer | – | Drop products above this price |
+| `minRating` | number | – | Drop products below this rating |
+| `includeDetails` | boolean | `true` | Add specs, bullets, UPC, dimensions, warranty, and manuals |
+| `maxItems` | integer | `50` | Maximum products to emit (1–5000) |
 
 ### Example: keyword search
 
 ```json
 {
   "mode": "search",
-  "searchQuery": "power drill",
-  "maxItems": 20
+  "searchQueries": ["power drill", "cordless drill kit"],
+  "maxItems": 20,
+  "storeId": "0208",
+  "zipCode": "92253"
 }
 ```
 
-### Example: browse a category, in-stock only, sorted by price
+### Example: browse a department
 
 ```json
 {
   "mode": "byCategory",
-  "category": "appliances",
+  "category": "paint",
   "inStockOnly": true,
-  "sortBy": "priceAsc",
+  "sortBy": "priceLowToHigh",
   "maxItems": 50
 }
 ```
 
-### Example: look up specific items
+### Example: look up item IDs
 
 ```json
 {
   "mode": "productDetails",
-  "itemIds": ["5013654453"]
+  "itemIds": ["5013207487", "50040962"],
+  "includeDetails": true
+}
+```
+
+### Example: mixed URLs
+
+```json
+{
+  "mode": "byUrl",
+  "startUrls": [
+    "https://www.lowes.com/pd/Kobalt-24-volt-Max-1-2-in-Metal-Ratcheting-Brushless-Cordless-Drill-1-Battery-Included-and-Charger-Included/5013207487",
+    "https://www.lowes.com/search?searchTerm=interior+paint",
+    "https://www.lowes.com/pl/tools/4294936478"
+  ],
+  "maxItems": 30
 }
 ```
 
 ## Use cases
 
-- Monitor price and discount changes on specific products or whole categories.
-- Build a stock-availability tracker for items you need to restock.
-- Compare specifications and ratings across competing products before buying.
-- Feed Lowe's pricing data into a broader retail price-comparison tool.
+- Track price and was/sale changes for a product list or a whole department.
+- Build a store-level stock and fulfilment tracker for items you restock.
+- Compare specifications, dimensions, manuals, and ratings across competing products.
+- Feed Lowe's product data into a price-comparison, estimating, or catalogue tool.
+- Find current product pages for a keyword without maintaining your own Lowe's link list.
+
+## Reliability and limits
+
+- Search and category discovery is index-based. It returns a candidate set of Lowe's product pages and can return fewer products than `maxItems` or fewer than Lowe's own search page shows. Split broad topics into several `searchQueries` or use narrower category URLs to widen coverage.
+- Category browsing tries the Lowe's category page first. If that page is blocked or has no product links, the actor derives keywords from the category path and uses index discovery instead.
+- Product data is read live for each product, so price, stock, and fulfilment reflect the run time.
+- Price and stock are store-scoped. `storeId` is the store you asked for; `storeNumber` is the price store Lowe's returned, which can be a nearby store. A product with no national or store price is emitted without a price rather than with zero.
+- Reviews are aggregate rating and review count only. Individual review text is not included.
+- The sponsored flag is included when Lowe's category page exposes it. Product data does not carry that flag, so it is omitted for ID, URL, and keyword-only records.
+- Variants are included when Lowe's exposes a variant group. Products without variants omit the field.
+- The actor selects its proxy automatically. No proxy configuration is needed.
 
 ## FAQ
 
-**Is this affiliated with Lowe's?**
-No. This actor reads Lowe's own public product pages and has no relationship with Lowe's.
+**Is this actor affiliated with Lowe's?**
+No. It reads publicly visible Lowe's product pages and has no relationship with Lowe's.
 
-**Do I need a Lowe's account?**
-No. Every field comes from pages that are publicly visible without logging in.
+**Do I need a Lowe's account or cookies?**
+No. Every field comes from public product data that does not require a login.
 
-**Why does this actor need a proxy?**
-`proxyConfiguration` is enabled by default because direct requests to Lowe's are unreliable without it; leave it on unless you have your own proxy setup to supply instead.
+**Do I need to configure a proxy?**
+No. The actor chooses its own proxy path and retries when a request is blocked.
 
-**Why do some products have no `specifications` or `description`?**
-Those fields are only populated when a product is fetched by item ID or URL (`productDetails`/`byUrl`); search and category results carry a lighter set of fields.
+**Why do I get fewer products than Lowe's search shows?**
+Keyword and category discovery uses a public web index, not Lowe's on-site search. It returns a candidate set, so broad queries can be shallow. Use several specific `searchQueries` or a narrower category URL to find more.
 
-**How many products can I get per run?**
-Up to `maxItems`, capped at 500 per run.
+**Why is a price missing on some products?**
+Some items are marketplace, special-order, or out of stock and have no national price. The actor omits the price instead of writing zero or a guess.
+
+**Why does the store differ from the ZIP I entered?**
+Lowe's returns the store it used for the price. `storeId` is the store you requested; `storeNumber` is the price store Lowe's returned, which may be a nearby store.
+
+**Do you return review text?**
+No. The actor returns the aggregate rating and review count. Individual review text is not part of the product data it reads.
+
+**Why are specifications missing on some products?**
+Specifications are included when `includeDetails` is on and Lowe's publishes them for that product. Missing specs are omitted rather than filled with placeholders.
 
 **How current is the data?**
-Each run reads Lowe's live, so price, discount, and stock status reflect what the site shows at run time.
+Each run reads Lowe's live product data, so price, stock, and fulfilment reflect what Lowe's returns at run time.

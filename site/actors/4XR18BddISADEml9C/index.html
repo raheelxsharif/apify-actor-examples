@@ -1,99 +1,903 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-EPJZ6YLK6qXnQtdImmfY/CSp95j8gR9dpcp4ux83rfk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Snapchat Spotlight Comment &amp; Reaction Scraper | Dataspryva</title><meta name="description" content="Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts,"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"><meta property="og:title" content="Snapchat Spotlight Comment &amp; Reaction Scraper | Dataspryva"><meta property="og:description" content="Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts,"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#webpage","name":"Snapchat Spotlight Comment & Reaction Scraper","description":"Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#article","headline":"Snapchat Spotlight Comment & Reaction Scraper","name":"Snapchat Spotlight Comment & Reaction Scraper","description":"Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Snapchat Spotlight Comment & Reaction Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Snapchat Spotlight Comment &amp; Reaction Scraper</span></div><section id="overview"><h1 class="doc-title">Snapchat Spotlight Comment &amp; Reaction Scraper</h1><p class="lede">Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/snapchat-spotlight-comment-and-reaction-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/4XR18BddISADEml9C/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose whether to scrape comments by direct Spotlight video URL or by creator username.</td></tr><tr><td><code>spotlightUrls</code></td><td>array</td><td>optional</td><td>For bySpotlightUrl mode: Snapchat Spotlight video URLs</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>For byUsername mode: Snapchat usernames to fetch spotlight comments from their profile page</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose whether to scrape comments by direct Spotlight video URL or by creator username.</td></tr><tr><td><code>spotlightUrls</code></td><td>array</td><td>optional</td><td>For bySpotlightUrl mode: Snapchat Spotlight video URLs</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>For byUsername mode: Snapchat usernames to fetch spotlight comments from their profile page</td></tr><tr><td><code>maxCommentsPerSnap</code></td><td>integer</td><td>optional</td><td>Maximum number of comments to extract per Spotlight video.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional proxy configuration for requests.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-EPJZ6YLK6qXnQtdImmfY/CSp95j8gR9dpcp4ux83rfk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Snapchat Spotlight Comment &amp; Reaction Scraper | Dataspryva</title><meta name="description" content="Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts,"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"><meta property="og:title" content="Snapchat Spotlight Comment &amp; Reaction Scraper | Dataspryva"><meta property="og:description" content="Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts,"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#webpage","name":"Snapchat Spotlight Comment & Reaction Scraper","description":"Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#article","headline":"Snapchat Spotlight Comment & Reaction Scraper","name":"Snapchat Spotlight Comment & Reaction Scraper","description":"Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Snapchat Spotlight Comment & Reaction Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/4XR18BddISADEml9C/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Snapchat Spotlight Comment &amp; Reaction Scraper</span></div><section id="overview"><h1 class="doc-title">Snapchat Spotlight Comment &amp; Reaction Scraper</h1><p class="lede">Get comment threads from Snapchat Spotlight videos, by direct video URL or by creator username. Each comment includes text, commenter display name and Bitmoji IDs, reaction counts, posting time, and reply count.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/snapchat-spotlight-comment-and-reaction-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/4XR18BddISADEml9C/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to scrape: specific Spotlight videos, creator profiles, hashtags/topics, or the trending country feed.</td></tr><tr><td><code>spotlightUrls</code></td><td>array</td><td>optional</td><td>(mode=bySpotlightUrls) One or more Spotlight URLs, @user/spotlight links, t.snapchat.com links, or raw snap IDs.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>(mode=byUsername) Snapchat usernames, @names, /add/name or /@name profile URLs.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to scrape: specific Spotlight videos, creator profiles, hashtags/topics, or the trending country feed.</td></tr><tr><td><code>spotlightUrls</code></td><td>array</td><td>optional</td><td>(mode=bySpotlightUrls) One or more Spotlight URLs, @user/spotlight links, t.snapchat.com links, or raw snap IDs.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>(mode=byUsername) Snapchat usernames, @names, /add/name or /@name profile URLs.</td></tr><tr><td><code>topics</code></td><td>array</td><td>optional</td><td>(mode=byTopic) Hashtags or topics, or /tag, /explore and /topic URLs.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>(mode=byFeed) Country whose trending Spotlight feed is used.</td></tr><tr><td><code>maxVideosPerSource</code></td><td>integer</td><td>optional</td><td>For username, topic and feed modes, stop after this many Spotlight videos per source. Ignored for explicit URLs.</td></tr><tr><td><code>maxCommentsPerVideo</code></td><td>integer</td><td>optional</td><td>Maximum comment rows per Spotlight video, including replies when enabled. Set high (for example 100000) for the full public thread.</td></tr><tr><td><code>includeReplies</code></td><td>boolean</td><td>optional</td><td>Emit direct replies as separate rows with parentCommentId and depth 1.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Global cap on dataset rows. The default is effectively unlimited for backward compatibility.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape public Snapchat Spotlight comment threads and replies by video URL, creator, hashtag or country feed.&quot;,
   &quot;properties&quot;: {
-    &quot;maxCommentsPerSnap&quot;: {
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;US&quot;,
+      &quot;description&quot;: &quot;(mode=byFeed) Country whose trending Spotlight feed is used.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;AF&quot;,
+        &quot;AL&quot;,
+        &quot;DZ&quot;,
+        &quot;AS&quot;,
+        &quot;AD&quot;,
+        &quot;AO&quot;,
+        &quot;AI&quot;,
+        &quot;AQ&quot;,
+        &quot;AG&quot;,
+        &quot;AR&quot;,
+        &quot;AM&quot;,
+        &quot;AW&quot;,
+        &quot;AU&quot;,
+        &quot;AT&quot;,
+        &quot;AZ&quot;,
+        &quot;BS&quot;,
+        &quot;BH&quot;,
+        &quot;BD&quot;,
+        &quot;BB&quot;,
+        &quot;BY&quot;,
+        &quot;BE&quot;,
+        &quot;BZ&quot;,
+        &quot;BJ&quot;,
+        &quot;BM&quot;,
+        &quot;BT&quot;,
+        &quot;BO&quot;,
+        &quot;BQ&quot;,
+        &quot;BA&quot;,
+        &quot;BW&quot;,
+        &quot;BV&quot;,
+        &quot;BR&quot;,
+        &quot;IO&quot;,
+        &quot;BN&quot;,
+        &quot;BG&quot;,
+        &quot;BF&quot;,
+        &quot;BI&quot;,
+        &quot;CV&quot;,
+        &quot;KH&quot;,
+        &quot;CM&quot;,
+        &quot;CA&quot;,
+        &quot;KY&quot;,
+        &quot;CF&quot;,
+        &quot;TD&quot;,
+        &quot;CL&quot;,
+        &quot;CN&quot;,
+        &quot;CX&quot;,
+        &quot;CC&quot;,
+        &quot;CO&quot;,
+        &quot;KM&quot;,
+        &quot;CG&quot;,
+        &quot;CD&quot;,
+        &quot;CK&quot;,
+        &quot;CR&quot;,
+        &quot;HR&quot;,
+        &quot;CU&quot;,
+        &quot;CW&quot;,
+        &quot;CY&quot;,
+        &quot;CZ&quot;,
+        &quot;CI&quot;,
+        &quot;DK&quot;,
+        &quot;DJ&quot;,
+        &quot;DM&quot;,
+        &quot;DO&quot;,
+        &quot;EC&quot;,
+        &quot;EG&quot;,
+        &quot;SV&quot;,
+        &quot;GQ&quot;,
+        &quot;ER&quot;,
+        &quot;EE&quot;,
+        &quot;SZ&quot;,
+        &quot;ET&quot;,
+        &quot;FK&quot;,
+        &quot;FO&quot;,
+        &quot;FJ&quot;,
+        &quot;FI&quot;,
+        &quot;FR&quot;,
+        &quot;GF&quot;,
+        &quot;PF&quot;,
+        &quot;TF&quot;,
+        &quot;GA&quot;,
+        &quot;GM&quot;,
+        &quot;GE&quot;,
+        &quot;DE&quot;,
+        &quot;GH&quot;,
+        &quot;GI&quot;,
+        &quot;GR&quot;,
+        &quot;GL&quot;,
+        &quot;GD&quot;,
+        &quot;GP&quot;,
+        &quot;GU&quot;,
+        &quot;GT&quot;,
+        &quot;GG&quot;,
+        &quot;GN&quot;,
+        &quot;GW&quot;,
+        &quot;GY&quot;,
+        &quot;HT&quot;,
+        &quot;HM&quot;,
+        &quot;VA&quot;,
+        &quot;HN&quot;,
+        &quot;HK&quot;,
+        &quot;HU&quot;,
+        &quot;IS&quot;,
+        &quot;IN&quot;,
+        &quot;ID&quot;,
+        &quot;IR&quot;,
+        &quot;IQ&quot;,
+        &quot;IE&quot;,
+        &quot;IM&quot;,
+        &quot;IL&quot;,
+        &quot;IT&quot;,
+        &quot;JM&quot;,
+        &quot;JP&quot;,
+        &quot;JE&quot;,
+        &quot;JO&quot;,
+        &quot;KZ&quot;,
+        &quot;KE&quot;,
+        &quot;KI&quot;,
+        &quot;KP&quot;,
+        &quot;KR&quot;,
+        &quot;KW&quot;,
+        &quot;KG&quot;,
+        &quot;LA&quot;,
+        &quot;LV&quot;,
+        &quot;LB&quot;,
+        &quot;LS&quot;,
+        &quot;LR&quot;,
+        &quot;LY&quot;,
+        &quot;LI&quot;,
+        &quot;LT&quot;,
+        &quot;LU&quot;,
+        &quot;MO&quot;,
+        &quot;MG&quot;,
+        &quot;MW&quot;,
+        &quot;MY&quot;,
+        &quot;MV&quot;,
+        &quot;ML&quot;,
+        &quot;MT&quot;,
+        &quot;MH&quot;,
+        &quot;MQ&quot;,
+        &quot;MR&quot;,
+        &quot;MU&quot;,
+        &quot;YT&quot;,
+        &quot;MX&quot;,
+        &quot;FM&quot;,
+        &quot;MD&quot;,
+        &quot;MC&quot;,
+        &quot;MN&quot;,
+        &quot;ME&quot;,
+        &quot;MS&quot;,
+        &quot;MA&quot;,
+        &quot;MZ&quot;,
+        &quot;MM&quot;,
+        &quot;NA&quot;,
+        &quot;NR&quot;,
+        &quot;NP&quot;,
+        &quot;NL&quot;,
+        &quot;NC&quot;,
+        &quot;NZ&quot;,
+        &quot;NI&quot;,
+        &quot;NE&quot;,
+        &quot;NG&quot;,
+        &quot;NU&quot;,
+        &quot;NF&quot;,
+        &quot;MK&quot;,
+        &quot;MP&quot;,
+        &quot;NO&quot;,
+        &quot;OM&quot;,
+        &quot;PK&quot;,
+        &quot;PW&quot;,
+        &quot;PS&quot;,
+        &quot;PA&quot;,
+        &quot;PG&quot;,
+        &quot;PY&quot;,
+        &quot;PE&quot;,
+        &quot;PH&quot;,
+        &quot;PN&quot;,
+        &quot;PL&quot;,
+        &quot;PT&quot;,
+        &quot;PR&quot;,
+        &quot;QA&quot;,
+        &quot;RO&quot;,
+        &quot;RU&quot;,
+        &quot;RW&quot;,
+        &quot;RE&quot;,
+        &quot;BL&quot;,
+        &quot;SH&quot;,
+        &quot;KN&quot;,
+        &quot;LC&quot;,
+        &quot;MF&quot;,
+        &quot;PM&quot;,
+        &quot;VC&quot;,
+        &quot;WS&quot;,
+        &quot;SM&quot;,
+        &quot;ST&quot;,
+        &quot;SA&quot;,
+        &quot;SN&quot;,
+        &quot;RS&quot;,
+        &quot;SC&quot;,
+        &quot;SL&quot;,
+        &quot;SG&quot;,
+        &quot;SX&quot;,
+        &quot;SK&quot;,
+        &quot;SI&quot;,
+        &quot;SB&quot;,
+        &quot;SO&quot;,
+        &quot;ZA&quot;,
+        &quot;GS&quot;,
+        &quot;SS&quot;,
+        &quot;ES&quot;,
+        &quot;LK&quot;,
+        &quot;SD&quot;,
+        &quot;SR&quot;,
+        &quot;SJ&quot;,
+        &quot;SE&quot;,
+        &quot;CH&quot;,
+        &quot;SY&quot;,
+        &quot;TW&quot;,
+        &quot;TJ&quot;,
+        &quot;TZ&quot;,
+        &quot;TH&quot;,
+        &quot;TL&quot;,
+        &quot;TG&quot;,
+        &quot;TK&quot;,
+        &quot;TO&quot;,
+        &quot;TT&quot;,
+        &quot;TN&quot;,
+        &quot;TM&quot;,
+        &quot;TC&quot;,
+        &quot;TV&quot;,
+        &quot;TR&quot;,
+        &quot;UG&quot;,
+        &quot;UA&quot;,
+        &quot;AE&quot;,
+        &quot;GB&quot;,
+        &quot;US&quot;,
+        &quot;UM&quot;,
+        &quot;UY&quot;,
+        &quot;UZ&quot;,
+        &quot;VU&quot;,
+        &quot;VE&quot;,
+        &quot;VN&quot;,
+        &quot;VG&quot;,
+        &quot;VI&quot;,
+        &quot;WF&quot;,
+        &quot;EH&quot;,
+        &quot;YE&quot;,
+        &quot;ZM&quot;,
+        &quot;ZW&quot;,
+        &quot;AX&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Afghanistan&quot;,
+        &quot;Albania&quot;,
+        &quot;Algeria&quot;,
+        &quot;American Samoa&quot;,
+        &quot;Andorra&quot;,
+        &quot;Angola&quot;,
+        &quot;Anguilla&quot;,
+        &quot;Antarctica&quot;,
+        &quot;Antigua and Barbuda&quot;,
+        &quot;Argentina&quot;,
+        &quot;Armenia&quot;,
+        &quot;Aruba&quot;,
+        &quot;Australia&quot;,
+        &quot;Austria&quot;,
+        &quot;Azerbaijan&quot;,
+        &quot;Bahamas&quot;,
+        &quot;Bahrain&quot;,
+        &quot;Bangladesh&quot;,
+        &quot;Barbados&quot;,
+        &quot;Belarus&quot;,
+        &quot;Belgium&quot;,
+        &quot;Belize&quot;,
+        &quot;Benin&quot;,
+        &quot;Bermuda&quot;,
+        &quot;Bhutan&quot;,
+        &quot;Bolivia, Plurinational State of&quot;,
+        &quot;Bonaire, Sint Eustatius and Saba&quot;,
+        &quot;Bosnia and Herzegovina&quot;,
+        &quot;Botswana&quot;,
+        &quot;Bouvet Island&quot;,
+        &quot;Brazil&quot;,
+        &quot;British Indian Ocean Territory&quot;,
+        &quot;Brunei Darussalam&quot;,
+        &quot;Bulgaria&quot;,
+        &quot;Burkina Faso&quot;,
+        &quot;Burundi&quot;,
+        &quot;Cabo Verde&quot;,
+        &quot;Cambodia&quot;,
+        &quot;Cameroon&quot;,
+        &quot;Canada&quot;,
+        &quot;Cayman Islands&quot;,
+        &quot;Central African Republic&quot;,
+        &quot;Chad&quot;,
+        &quot;Chile&quot;,
+        &quot;China&quot;,
+        &quot;Christmas Island&quot;,
+        &quot;Cocos (Keeling) Islands&quot;,
+        &quot;Colombia&quot;,
+        &quot;Comoros&quot;,
+        &quot;Congo&quot;,
+        &quot;Congo, The Democratic Republic of the&quot;,
+        &quot;Cook Islands&quot;,
+        &quot;Costa Rica&quot;,
+        &quot;Croatia&quot;,
+        &quot;Cuba&quot;,
+        &quot;Curaçao&quot;,
+        &quot;Cyprus&quot;,
+        &quot;Czechia&quot;,
+        &quot;Côte d&#x27;Ivoire&quot;,
+        &quot;Denmark&quot;,
+        &quot;Djibouti&quot;,
+        &quot;Dominica&quot;,
+        &quot;Dominican Republic&quot;,
+        &quot;Ecuador&quot;,
+        &quot;Egypt&quot;,
+        &quot;El Salvador&quot;,
+        &quot;Equatorial Guinea&quot;,
+        &quot;Eritrea&quot;,
+        &quot;Estonia&quot;,
+        &quot;Eswatini&quot;,
+        &quot;Ethiopia&quot;,
+        &quot;Falkland Islands (Malvinas)&quot;,
+        &quot;Faroe Islands&quot;,
+        &quot;Fiji&quot;,
+        &quot;Finland&quot;,
+        &quot;France&quot;,
+        &quot;French Guiana&quot;,
+        &quot;French Polynesia&quot;,
+        &quot;French Southern Territories&quot;,
+        &quot;Gabon&quot;,
+        &quot;Gambia&quot;,
+        &quot;Georgia&quot;,
+        &quot;Germany&quot;,
+        &quot;Ghana&quot;,
+        &quot;Gibraltar&quot;,
+        &quot;Greece&quot;,
+        &quot;Greenland&quot;,
+        &quot;Grenada&quot;,
+        &quot;Guadeloupe&quot;,
+        &quot;Guam&quot;,
+        &quot;Guatemala&quot;,
+        &quot;Guernsey&quot;,
+        &quot;Guinea&quot;,
+        &quot;Guinea-Bissau&quot;,
+        &quot;Guyana&quot;,
+        &quot;Haiti&quot;,
+        &quot;Heard Island and McDonald Islands&quot;,
+        &quot;Holy See (Vatican City State)&quot;,
+        &quot;Honduras&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Hungary&quot;,
+        &quot;Iceland&quot;,
+        &quot;India&quot;,
+        &quot;Indonesia&quot;,
+        &quot;Iran, Islamic Republic of&quot;,
+        &quot;Iraq&quot;,
+        &quot;Ireland&quot;,
+        &quot;Isle of Man&quot;,
+        &quot;Israel&quot;,
+        &quot;Italy&quot;,
+        &quot;Jamaica&quot;,
+        &quot;Japan&quot;,
+        &quot;Jersey&quot;,
+        &quot;Jordan&quot;,
+        &quot;Kazakhstan&quot;,
+        &quot;Kenya&quot;,
+        &quot;Kiribati&quot;,
+        &quot;Korea, Democratic People&#x27;s Republic of&quot;,
+        &quot;Korea, Republic of&quot;,
+        &quot;Kuwait&quot;,
+        &quot;Kyrgyzstan&quot;,
+        &quot;Lao People&#x27;s Democratic Republic&quot;,
+        &quot;Latvia&quot;,
+        &quot;Lebanon&quot;,
+        &quot;Lesotho&quot;,
+        &quot;Liberia&quot;,
+        &quot;Libya&quot;,
+        &quot;Liechtenstein&quot;,
+        &quot;Lithuania&quot;,
+        &quot;Luxembourg&quot;,
+        &quot;Macao&quot;,
+        &quot;Madagascar&quot;,
+        &quot;Malawi&quot;,
+        &quot;Malaysia&quot;,
+        &quot;Maldives&quot;,
+        &quot;Mali&quot;,
+        &quot;Malta&quot;,
+        &quot;Marshall Islands&quot;,
+        &quot;Martinique&quot;,
+        &quot;Mauritania&quot;,
+        &quot;Mauritius&quot;,
+        &quot;Mayotte&quot;,
+        &quot;Mexico&quot;,
+        &quot;Micronesia, Federated States of&quot;,
+        &quot;Moldova, Republic of&quot;,
+        &quot;Monaco&quot;,
+        &quot;Mongolia&quot;,
+        &quot;Montenegro&quot;,
+        &quot;Montserrat&quot;,
+        &quot;Morocco&quot;,
+        &quot;Mozambique&quot;,
+        &quot;Myanmar&quot;,
+        &quot;Namibia&quot;,
+        &quot;Nauru&quot;,
+        &quot;Nepal&quot;,
+        &quot;Netherlands&quot;,
+        &quot;New Caledonia&quot;,
+        &quot;New Zealand&quot;,
+        &quot;Nicaragua&quot;,
+        &quot;Niger&quot;,
+        &quot;Nigeria&quot;,
+        &quot;Niue&quot;,
+        &quot;Norfolk Island&quot;,
+        &quot;North Macedonia&quot;,
+        &quot;Northern Mariana Islands&quot;,
+        &quot;Norway&quot;,
+        &quot;Oman&quot;,
+        &quot;Pakistan&quot;,
+        &quot;Palau&quot;,
+        &quot;Palestine, State of&quot;,
+        &quot;Panama&quot;,
+        &quot;Papua New Guinea&quot;,
+        &quot;Paraguay&quot;,
+        &quot;Peru&quot;,
+        &quot;Philippines&quot;,
+        &quot;Pitcairn&quot;,
+        &quot;Poland&quot;,
+        &quot;Portugal&quot;,
+        &quot;Puerto Rico&quot;,
+        &quot;Qatar&quot;,
+        &quot;Romania&quot;,
+        &quot;Russian Federation&quot;,
+        &quot;Rwanda&quot;,
+        &quot;Réunion&quot;,
+        &quot;Saint Barthélemy&quot;,
+        &quot;Saint Helena, Ascension and Tristan da Cunha&quot;,
+        &quot;Saint Kitts and Nevis&quot;,
+        &quot;Saint Lucia&quot;,
+        &quot;Saint Martin (French part)&quot;,
+        &quot;Saint Pierre and Miquelon&quot;,
+        &quot;Saint Vincent and the Grenadines&quot;,
+        &quot;Samoa&quot;,
+        &quot;San Marino&quot;,
+        &quot;Sao Tome and Principe&quot;,
+        &quot;Saudi Arabia&quot;,
+        &quot;Senegal&quot;,
+        &quot;Serbia&quot;,
+        &quot;Seychelles&quot;,
+        &quot;Sierra Leone&quot;,
+        &quot;Singapore&quot;,
+        &quot;Sint Maarten (Dutch part)&quot;,
+        &quot;Slovakia&quot;,
+        &quot;Slovenia&quot;,
+        &quot;Solomon Islands&quot;,
+        &quot;Somalia&quot;,
+        &quot;South Africa&quot;,
+        &quot;South Georgia and the South Sandwich Islands&quot;,
+        &quot;South Sudan&quot;,
+        &quot;Spain&quot;,
+        &quot;Sri Lanka&quot;,
+        &quot;Sudan&quot;,
+        &quot;Suriname&quot;,
+        &quot;Svalbard and Jan Mayen&quot;,
+        &quot;Sweden&quot;,
+        &quot;Switzerland&quot;,
+        &quot;Syrian Arab Republic&quot;,
+        &quot;Taiwan, Province of China&quot;,
+        &quot;Tajikistan&quot;,
+        &quot;Tanzania, United Republic of&quot;,
+        &quot;Thailand&quot;,
+        &quot;Timor-Leste&quot;,
+        &quot;Togo&quot;,
+        &quot;Tokelau&quot;,
+        &quot;Tonga&quot;,
+        &quot;Trinidad and Tobago&quot;,
+        &quot;Tunisia&quot;,
+        &quot;Turkmenistan&quot;,
+        &quot;Turks and Caicos Islands&quot;,
+        &quot;Tuvalu&quot;,
+        &quot;Türkiye&quot;,
+        &quot;Uganda&quot;,
+        &quot;Ukraine&quot;,
+        &quot;United Arab Emirates&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;United States&quot;,
+        &quot;United States Minor Outlying Islands&quot;,
+        &quot;Uruguay&quot;,
+        &quot;Uzbekistan&quot;,
+        &quot;Vanuatu&quot;,
+        &quot;Venezuela, Bolivarian Republic of&quot;,
+        &quot;Viet Nam&quot;,
+        &quot;Virgin Islands, British&quot;,
+        &quot;Virgin Islands, U.S.&quot;,
+        &quot;Wallis and Futuna&quot;,
+        &quot;Western Sahara&quot;,
+        &quot;Yemen&quot;,
+        &quot;Zambia&quot;,
+        &quot;Zimbabwe&quot;,
+        &quot;Åland Islands&quot;
+      ],
+      &quot;prefill&quot;: &quot;US&quot;,
+      &quot;title&quot;: &quot;Feed country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeReplies&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Emit direct replies as separate rows with parentCommentId and depth 1.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include replies&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxCommentsPerVideo&quot;: {
       &quot;default&quot;: 100,
-      &quot;description&quot;: &quot;Maximum number of comments to extract per Spotlight video.&quot;,
-      &quot;maximum&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum comment rows per Spotlight video, including replies when enabled. Set high (for example 100000) for the full public thread.&quot;,
+      &quot;maximum&quot;: 100000,
       &quot;minimum&quot;: 1,
-      &quot;title&quot;: &quot;Max Comments per Snap&quot;,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max comments per video&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 1000000,
+      &quot;description&quot;: &quot;Global cap on dataset rows. The default is effectively unlimited for backward compatibility.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max rows&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxVideosPerSource&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;For username, topic and feed modes, stop after this many Spotlight videos per source. Ignored for explicit URLs.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max videos per source&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;byUsername&quot;,
-      &quot;description&quot;: &quot;Choose whether to scrape comments by direct Spotlight video URL or by creator username.&quot;,
+      &quot;description&quot;: &quot;Choose what to scrape: specific Spotlight videos, creator profiles, hashtags/topics, or the trending country feed.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
-        &quot;bySpotlightUrl&quot;,
-        &quot;byUsername&quot;
+        &quot;bySpotlightUrls&quot;,
+        &quot;byUsername&quot;,
+        &quot;byTopic&quot;,
+        &quot;byFeed&quot;
       ],
       &quot;enumTitles&quot;: [
-        &quot;By Spotlight Video URL&quot;,
-        &quot;By Creator Username (profile page comments)&quot;
+        &quot;Spotlight URLs or IDs&quot;,
+        &quot;Creator usernames&quot;,
+        &quot;Hashtags / topics&quot;,
+        &quot;Trending feed by country&quot;
       ],
       &quot;prefill&quot;: &quot;byUsername&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;proxyConfiguration&quot;: {
-      &quot;description&quot;: &quot;Optional proxy configuration for requests.&quot;,
-      &quot;editor&quot;: &quot;proxy&quot;,
-      &quot;nullable&quot;: true,
-      &quot;title&quot;: &quot;Proxy Configuration&quot;,
-      &quot;type&quot;: &quot;object&quot;
-    },
     &quot;spotlightUrls&quot;: {
-      &quot;description&quot;: &quot;For bySpotlightUrl mode: Snapchat Spotlight video URLs&quot;,
+      &quot;description&quot;: &quot;(mode=bySpotlightUrls) One or more Spotlight URLs, @user/spotlight links, t.snapchat.com links, or raw snap IDs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Spotlight URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;topics&quot;: {
+      &quot;default&quot;: [
+        &quot;food&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=byTopic) Hashtags or topics, or /tag, /explore and /topic URLs.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [
-        &quot;https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaXFxdmVobmp6AZ499vl-AZ499rsXAAAAAQ&quot;
+        &quot;food&quot;
       ],
-      &quot;title&quot;: &quot;Spotlight Video URLs&quot;,
+      &quot;title&quot;: &quot;Hashtags or topics&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
     &quot;usernames&quot;: {
-      &quot;description&quot;: &quot;For byUsername mode: Snapchat usernames to fetch spotlight comments from their profile page&quot;,
+      &quot;default&quot;: [
+        &quot;brentrivera&quot;
+      ],
+      &quot;description&quot;: &quot;(mode=byUsername) Snapchat usernames, @names, /add/name or /@name profile URLs.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [
         &quot;brentrivera&quot;
       ],
-      &quot;title&quot;: &quot;Usernames&quot;,
+      &quot;title&quot;: &quot;Creator usernames&quot;,
       &quot;type&quot;: &quot;array&quot;
     }
   },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
   &quot;schemaVersion&quot;: 1,
   &quot;title&quot;: &quot;Snapchat Spotlight Comments Scraper&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>comments</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Snapchat Spotlight comment records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>comments</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Snapchat Spotlight comment, reply and error rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Snapchat Spotlight comment records with commenter details, reaction counts, posting time, and reply count.&quot;,
+  &quot;description&quot;: &quot;Snapchat Spotlight comments and replies with commenter details, reactions, moderation fields, timestamps and hydrated video context.&quot;,
   &quot;properties&quot;: {
     &quot;comments&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Snapchat Spotlight comment records.&quot;,
+      &quot;description&quot;: &quot;Dataset containing all scraped Snapchat Spotlight comment, reply and error rows.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Spotlight comments&quot;,
+      &quot;title&quot;: &quot;Spotlight comments and replies&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
   &quot;title&quot;: &quot;Snapchat Spotlight Comment &amp; Reaction Scraper Output&quot;
 }
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-snapchat-spotlight-comment-reaction-scraper">Snapchat Spotlight Comment &amp; Reaction Scraper</h2>
-<p>Snapchat embeds a set of top comments directly in the public page for each Spotlight video. This actor reads that data for one or more specific videos, or for every pinned Spotlight video on a creator's profile, and returns commenter names, Bitmoji IDs, reaction counts, posting timestamps, and reply counts — with full Unicode support for scripts like Urdu and Arabic.</p>
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;approvalState&quot;: {
+        &quot;description&quot;: &quot;Moderation state (3 = approved)&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;commentId&quot;: {
+        &quot;description&quot;: &quot;Unique comment ID (highBits-lowBits)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterBitmojiAvatarId&quot;: {
+        &quot;description&quot;: &quot;Commenter Bitmoji avatar ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterBitmojiSelfieId&quot;: {
+        &quot;description&quot;: &quot;Commenter Bitmoji selfie ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterDisplayName&quot;: {
+        &quot;description&quot;: &quot;Commenter display name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterId&quot;: {
+        &quot;description&quot;: &quot;Commenter account UUID pair&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterIsPostAuthor&quot;: {
+        &quot;description&quot;: &quot;Whether the commenter is the video creator&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;commenterProfileId&quot;: {
+        &quot;description&quot;: &quot;Commenter business profile UUID pair&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterProfileLogoUrl&quot;: {
+        &quot;description&quot;: &quot;Commenter profile logo URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterProfileUrl&quot;: {
+        &quot;description&quot;: &quot;Commenter profile URL when a username is available&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;commenterUsername&quot;: {
+        &quot;description&quot;: &quot;Commenter username when Snapchat exposes it&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;creatorDisplayName&quot;: {
+        &quot;description&quot;: &quot;Video creator display name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;creatorIsOfficial&quot;: {
+        &quot;description&quot;: &quot;Emitted only when the creator is officially verified&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;creatorProfileUrl&quot;: {
+        &quot;description&quot;: &quot;Video creator profile URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;creatorUsername&quot;: {
+        &quot;description&quot;: &quot;Video creator username&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;depth&quot;: {
+        &quot;description&quot;: &quot;0 for root comments, 1 for replies&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;error&quot;: {
+        &quot;description&quot;: &quot;Error message for error rows&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;feedCountry&quot;: {
+        &quot;description&quot;: &quot;ISO country code of the trending feed (byFeed mode)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;inputUrl&quot;: {
+        &quot;description&quot;: &quot;Input Spotlight URL (bySpotlightUrls mode)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;inputUsername&quot;: {
+        &quot;description&quot;: &quot;Input username for error rows&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;likeCount&quot;: {
+        &quot;description&quot;: &quot;Sum of all reaction counts&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;parentCommentId&quot;: {
+        &quot;description&quot;: &quot;Parent comment ID for reply rows&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;postedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC time the comment was posted&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;rankingScore&quot;: {
+        &quot;description&quot;: &quot;Snapchat ranking score when present&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;reactionCounts&quot;: {
+        &quot;description&quot;: &quot;Reaction breakdown [{reactTypeId, count}]&quot;,
+        &quot;items&quot;: {
+          &quot;properties&quot;: {
+            &quot;count&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;reactTypeId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;recordType&quot;: {
+        &quot;description&quot;: &quot;Row type: comment or error&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;replyText&quot;: {
+        &quot;description&quot;: &quot;Comment or reply text&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;reportCount&quot;: {
+        &quot;description&quot;: &quot;Number of times the comment was reported&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;scrapedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC scrape timestamp&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;snapId&quot;: {
+        &quot;description&quot;: &quot;Spotlight snap ID this comment belongs to&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;snapUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical Spotlight video URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;sourceUsername&quot;: {
+        &quot;description&quot;: &quot;Creator username (byUsername mode)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;threadedReplyCount&quot;: {
+        &quot;description&quot;: &quot;Number of direct replies&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;topic&quot;: {
+        &quot;description&quot;: &quot;Hashtag or topic slug (byTopic mode)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;topicUrl&quot;: {
+        &quot;description&quot;: &quot;Tag, explore or topic page used for discovery&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;updatedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC time the comment state last changed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoAiDescription&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated description for the video&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoAiTitle&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated title for the video&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoBoostCount&quot;: {
+        &quot;description&quot;: &quot;Video boost (like) count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoCaption&quot;: {
+        &quot;description&quot;: &quot;Video caption or description&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoCommentCount&quot;: {
+        &quot;description&quot;: &quot;Comment count reported by Snapchat&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoDurationSeconds&quot;: {
+        &quot;description&quot;: &quot;Video duration in seconds&quot;,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;videoHashtags&quot;: {
+        &quot;description&quot;: &quot;Hashtags attached to the video&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;videoHeight&quot;: {
+        &quot;description&quot;: &quot;Video height in pixels&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoKeywords&quot;: {
+        &quot;description&quot;: &quot;Snapchat-generated keywords for the video&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;videoPostedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC video creation time&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoRecommendCount&quot;: {
+        &quot;description&quot;: &quot;Video recommend count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoShareCount&quot;: {
+        &quot;description&quot;: &quot;Video share count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoThumbnailUrl&quot;: {
+        &quot;description&quot;: &quot;Video thumbnail URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoUrl&quot;: {
+        &quot;description&quot;: &quot;Watermarked video URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoViewCount&quot;: {
+        &quot;description&quot;: &quot;Video view count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;videoWidth&quot;: {
+        &quot;description&quot;: &quot;Video width in pixels&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;Snapchat Spotlight Comments&quot;
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-snapchat-spotlight-comment-reaction-scraper">Snapchat Spotlight Comment &amp; Reaction Scraper</h2>
+<p>Scrape public <strong>Snapchat Spotlight</strong> comment threads — not just the handful of comments Snapchat embeds on a video page. Collect root comments and their direct replies for specific Spotlight videos, a creator's pinned Spotlights, a hashtag or topic, or the trending Spotlight feed of a country. Every row can include commenter details, reaction breakdowns, moderation fields, timestamps and hydrated video context such as the creator, caption, thumbnail and engagement counts.</p>
 <h2 id="readme-what-this-actor-does">What this actor does</h2>
 <ul>
-<li>Fetches comments for one or more specific Spotlight video URLs (<code>bySpotlightUrl</code>).</li>
-<li>Fetches comments for every pinned Spotlight video on a creator's profile in a single request per creator (<code>byUsername</code>).</li>
-<li>Returns commenter display name, Bitmoji avatar/selfie IDs, and profile image for each comment.</li>
-<li>Captures per-comment reaction counts, reply counts, and moderation status.</li>
-<li>Emits an error record (rather than failing the run) when a video or username has no reachable comments.</li>
+<li><strong>Four modes:</strong> <code>bySpotlightUrls</code>, <code>byUsername</code>, <code>byTopic</code>, <code>byFeed</code></li>
+<li><strong>Full threads:</strong> pages through the public comment service instead of stopping at the first embedded page</li>
+<li><strong>Optional replies:</strong> emits depth-1 replies as separate rows linked by <code>parentCommentId</code></li>
+<li><strong>Video context:</strong> attaches creator, caption, hashtags, media URLs and engagement counts to every comment</li>
+<li><strong>Global row cap:</strong> <code>maxItems</code> stops the run at a predictable dataset size</li>
+<li><strong>Omit-empty:</strong> fields the source does not publish for a record are left out, never sent as <code>null</code></li>
 </ul>
-<h2 id="readme-output-per-comment">Output per comment</h2>
-<ul>
-<li><code>commentId</code> — identifier composed of <code>{highBits}-{lowBits}</code></li>
-<li><code>snapId</code> — the Spotlight video's snap ID</li>
-<li><code>sourceUsername</code> — creator username (<code>byUsername</code> mode)</li>
-<li><code>inputUrl</code> — the Spotlight URL that was scraped (<code>bySpotlightUrl</code> mode)</li>
-<li><code>replyText</code> — comment text (full Unicode, including Arabic, Urdu, and emoji)</li>
-<li><code>reactionCounts</code> — array of <code>{reactTypeId, count}</code> objects, one per reaction type used on the comment</li>
-<li><code>commenterDisplayName</code>, <code>commenterBitmojiAvatarId</code>, <code>commenterBitmojiSelfieId</code>, <code>commenterProfileLogoUrl</code></li>
-<li><code>reportCount</code> — number of times the comment has been reported</li>
-<li><code>approvalState</code> — moderation state code (<code>3</code> = approved and visible)</li>
-<li><code>postedAt</code> — ISO 8601 UTC timestamp the comment was posted</li>
-<li><code>rankingScore</code> — Snapchat's own ranking score for the comment, when present</li>
-<li><code>threadedReplyCount</code> — number of threaded replies to the comment</li>
-<li><code>scrapedAt</code> — ISO 8601 UTC scrape timestamp</li>
-</ul>
-<p>A failed lookup produces an error record instead, with <code>inputUrl</code> or <code>inputUsername</code>, <code>snapId</code> (when it was resolved before the failure), <code>error</code>, and <code>scrapedAt</code>.</p>
+<h2 id="readme-services">Services</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Service</th>
+<th>What it gives you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spotlight URL or ID lookup</td>
+<td>Every root comment and optional reply for one or more specific videos</td>
+</tr>
+<tr>
+<td>Creator profile lookup</td>
+<td>Comments for the Spotlight videos pinned on a public creator profile</td>
+</tr>
+<tr>
+<td>Hashtag / topic discovery</td>
+<td>Comments for videos found on public tag, explore and topic pages</td>
+</tr>
+<tr>
+<td>Country trending feed</td>
+<td>Comments for videos in the public Spotlight feed of one country</td>
+</tr>
+<tr>
+<td>Video hydration</td>
+<td>Creator, caption, hashtags, thumbnail, video URL, duration, dimensions, post time and engagement counts</td>
+</tr>
+<tr>
+<td>Error rows</td>
+<td>A readable error row when an input cannot be resolved, so one bad input does not fail the whole run</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-how-it-works">How it works</h2>
+<p>The actor reads the same public Spotlight pages and public comment data that any visitor can see on snapchat.com. It discovers videos first, then pages through the comment service for each video, optionally follows the reply cursor for comments that have replies, and hydrates video details in batches. It runs without a login, cookies, API key or proxy configuration. Requests are paced politely and repeated briefly when Snapchat returns a temporary server error.</p>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -109,72 +913,165 @@
 <td><code>mode</code></td>
 <td>string</td>
 <td><code>byUsername</code></td>
-<td><code>bySpotlightUrl</code> (by direct video URL) or <code>byUsername</code> (from a creator's profile page)</td>
+<td><code>bySpotlightUrls</code> / <code>byUsername</code> / <code>byTopic</code> / <code>byFeed</code></td>
 </tr>
 <tr>
 <td><code>spotlightUrls</code></td>
 <td>array</td>
 <td>–</td>
-<td>Spotlight video URLs, e.g. <code>https://www.snapchat.com/spotlight/{id}</code>; used by <code>bySpotlightUrl</code></td>
+<td>Spotlight URLs, <code>@user/spotlight</code> links, <code>t.snapchat.com</code> links or raw snap IDs (mode=bySpotlightUrls)</td>
 </tr>
 <tr>
 <td><code>usernames</code></td>
 <td>array</td>
-<td>–</td>
-<td>Snapchat creator usernames; used by <code>byUsername</code></td>
+<td><code>[&quot;brentrivera&quot;]</code></td>
+<td>Snapchat usernames, <code>@names</code> or profile URLs (mode=byUsername)</td>
 </tr>
 <tr>
-<td><code>maxCommentsPerSnap</code></td>
+<td><code>topics</code></td>
+<td>array</td>
+<td><code>[&quot;food&quot;]</code></td>
+<td>Hashtags, topic slugs or <code>/tag</code>, <code>/explore</code>, <code>/topic</code> URLs (mode=byTopic)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>US</code></td>
+<td>ISO 3166-1 alpha-2 country code for the trending feed (mode=byFeed)</td>
+</tr>
+<tr>
+<td><code>maxVideosPerSource</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Stop after this many videos per username, topic or feed (1–100); ignored for explicit URLs</td>
+</tr>
+<tr>
+<td><code>maxCommentsPerVideo</code></td>
 <td>integer</td>
 <td><code>100</code></td>
-<td>Maximum comments to extract per Spotlight video (1-1000)</td>
+<td>Maximum comment rows per video, including replies (1–100000)</td>
 </tr>
 <tr>
-<td><code>proxyConfiguration</code></td>
-<td>object</td>
-<td>–</td>
-<td>Optional Apify Proxy configuration for the run</td>
+<td><code>includeReplies</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Emit direct replies as separate rows</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>1000000</code></td>
+<td>Global dataset row cap (1–1000000)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-comments-from-two-creators-pinned-videos">Example: comments from two creators' pinned videos</h3>
+<p>Older tasks that send <code>maxCommentsPerSnap</code> are mapped automatically to <code>maxCommentsPerVideo</code>; an explicit non-default <code>maxCommentsPerVideo</code> takes precedence. The former <code>bySpotlightUrl</code> mode value is still accepted.</p>
+<h3 id="readme-example-full-thread-for-one-video-with-replies">Example: full thread for one video, with replies</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;bySpotlightUrls&quot;,
+  &quot;spotlightUrls&quot;: [
+    &quot;https://www.snapchat.com/@brentrivera/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYdXd0bndkZmd1AZrNg9asAZrNg8LXAAAAAQ&quot;
+  ],
+  &quot;maxCommentsPerVideo&quot;: 5000,
+  &quot;includeReplies&quot;: true,
+  &quot;maxItems&quot;: 10000
+}
+</code></pre>
+<h3 id="readme-example-comments-for-a-creator-s-pinned-spotlights">Example: comments for a creator's pinned Spotlights</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;byUsername&quot;,
-  &quot;usernames&quot;: [&quot;waqarzaka&quot;, &quot;brentrivera&quot;],
-  &quot;maxCommentsPerSnap&quot;: 100
+  &quot;usernames&quot;: [&quot;brentrivera&quot;, &quot;waqarzaka&quot;],
+  &quot;maxVideosPerSource&quot;: 10,
+  &quot;maxCommentsPerVideo&quot;: 200
 }
 </code></pre>
-<h3 id="readme-example-comments-from-a-specific-video">Example: comments from a specific video</h3>
+<h3 id="readme-example-discover-videos-by-hashtag">Example: discover videos by hashtag</h3>
 <pre><code class="language-json">{
-  &quot;mode&quot;: &quot;bySpotlightUrl&quot;,
-  &quot;spotlightUrls&quot;: [
-    &quot;https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaXFxdmVobmp6AZ499vl-AZ499rsXAAAAAQ&quot;
-  ],
-  &quot;maxCommentsPerSnap&quot;: 200
+  &quot;mode&quot;: &quot;byTopic&quot;,
+  &quot;topics&quot;: [&quot;food&quot;, &quot;https://www.snapchat.com/tag/travel&quot;],
+  &quot;maxVideosPerSource&quot;: 20,
+  &quot;maxCommentsPerVideo&quot;: 100,
+  &quot;includeReplies&quot;: true
 }
 </code></pre>
+<h3 id="readme-example-trending-feed-in-the-united-kingdom">Example: trending feed in the United Kingdom</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byFeed&quot;,
+  &quot;country&quot;: &quot;GB&quot;,
+  &quot;maxVideosPerSource&quot;: 25,
+  &quot;maxCommentsPerVideo&quot;: 50
+}
+</code></pre>
+<h2 id="readme-output">Output</h2>
+<p>Every comment row is a flat object. Identity and thread fields come first, followed by commenter, engagement, video context and scrape metadata.</p>
+<ul>
+<li><code>recordType</code> — <code>comment</code> or <code>error</code></li>
+<li><code>commentId</code>, <code>snapId</code>, <code>snapUrl</code></li>
+<li><code>sourceUsername</code>, <code>inputUrl</code>, <code>topic</code>, <code>topicUrl</code>, <code>feedCountry</code> — mode context</li>
+<li><code>parentCommentId</code>, <code>depth</code> — <code>0</code> for root comments, <code>1</code> for replies</li>
+<li><code>replyText</code></li>
+<li><code>postedAt</code>, <code>updatedAt</code></li>
+<li><code>threadedReplyCount</code></li>
+<li><code>commenterDisplayName</code>, <code>commenterId</code>, <code>commenterProfileId</code>, <code>commenterUsername</code>, <code>commenterProfileUrl</code>, <code>commenterIsPostAuthor</code></li>
+<li><code>commenterBitmojiAvatarId</code>, <code>commenterBitmojiSelfieId</code>, <code>commenterProfileLogoUrl</code></li>
+<li><code>reactionCounts</code> — array of <code>{reactTypeId, count}</code></li>
+<li><code>likeCount</code> — sum of all reaction counts</li>
+<li><code>reportCount</code>, <code>approvalState</code> — Snapchat moderation fields</li>
+<li><code>rankingScore</code></li>
+<li><code>creatorUsername</code>, <code>creatorDisplayName</code>, <code>creatorProfileUrl</code>, <code>creatorIsOfficial</code></li>
+<li><code>videoCaption</code>, <code>videoHashtags</code>, <code>videoThumbnailUrl</code>, <code>videoUrl</code></li>
+<li><code>videoDurationSeconds</code>, <code>videoWidth</code>, <code>videoHeight</code>, <code>videoPostedAt</code></li>
+<li><code>videoViewCount</code>, <code>videoShareCount</code>, <code>videoCommentCount</code>, <code>videoBoostCount</code>, <code>videoRecommendCount</code></li>
+<li><code>videoAiTitle</code>, <code>videoAiDescription</code>, <code>videoKeywords</code></li>
+<li><code>scrapedAt</code></li>
+</ul>
+<p>Error rows use <code>recordType: &quot;error&quot;</code>, the relevant input field (<code>inputUrl</code>, <code>inputUsername</code>, <code>topic</code>, <code>topicUrl</code> or <code>feedCountry</code>), an optional <code>snapId</code>, an <code>error</code> message and <code>scrapedAt</code>.</p>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li>Audience sentiment research on a creator's Spotlight content.</li>
-<li>Track reaction and reply counts on specific videos over time.</li>
-<li>Build a moderation or spam-review dataset from public comment text.</li>
-<li>Compare comment activity across multiple creators in one run.</li>
+<li><strong>Audience research</strong> — read what viewers say under a creator's or a brand's Spotlights.</li>
+<li><strong>Campaign monitoring</strong> — collect comment volume, reactions and replies around a hashtag or country feed.</li>
+<li><strong>Moderation and safety</strong> — export public comments, reports and moderation state for review.</li>
+<li><strong>Sentiment and trend analysis</strong> — feed comment text and timestamps into NLP or dashboard pipelines.</li>
+<li><strong>Creator benchmarking</strong> — compare comment engagement across several creators or videos.</li>
+<li><strong>Video-level reporting</strong> — join comments with captions, hashtags and video engagement in one dataset.</li>
 </ul>
+<h2 id="readme-usage-cost">Usage cost</h2>
+<p>Apify charges for the compute your runs use, based on the actor's memory setting and run time. This actor runs at 1 GB by default. Cost grows with the number of videos and comment pages you request, so use <code>maxVideosPerSource</code>, <code>maxCommentsPerVideo</code> and <code>maxItems</code> to keep runs inside your budget. A small run over one video or one creator costs a fraction of a cent; a large full-thread crawl across many videos costs more because it makes more requests. No paid proxy or external API is required.</p>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Why are some Spotlight videos missing comments?</strong>
-Snapchat only shows comments on its public page for videos with active, visible comments. Videos with no comments, disabled comments, or very recent posts may return nothing; the actor records an error row for those instead of failing the run.</p>
-<p><strong>What's the difference between the two modes?</strong>
-<code>byUsername</code> reads a creator's public profile page, which carries comments for all their pinned Spotlight videos in one request — efficient for getting everything from one creator. <code>bySpotlightUrl</code> reads each individual video page separately, which works for specific videos that aren't pinned on a profile.</p>
-<p><strong>Are these all comments on a video, or just the top ones?</strong>
-Snapchat's own public page shows a curated set of top-ranked comments, not the full comment history. How many are shown varies by video; <code>maxCommentsPerSnap</code> caps how many this actor extracts per video.</p>
-<p><strong>Do I need a Snapchat account, login, or cookies?</strong>
-No. This data is visible on Snapchat's public pages to any visitor, without an account.</p>
-<p><strong>Can I scrape comments from multiple creators at once?</strong>
-Yes — list multiple usernames; each creator's comments are tagged with their own <code>sourceUsername</code>.</p>
-<p><strong>What does <code>approvalState</code> mean?</strong>
-It's Snapchat's own moderation state for the comment. <code>3</code> means approved and visible; other values indicate the comment is pending review or was otherwise moderated.</p>
-<p><strong>Does this support non-English comments?</strong>
-Yes. Full Unicode is supported, including Arabic, Urdu, emoji, and other non-ASCII character sets.</p>
+<p><strong>Do I need a Snapchat account, cookies or an API key?</strong>
+No. The actor reads public Snapchat pages and public comment data without logging in.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. The actor connects to Snapchat automatically.</p>
+<p><strong>Why are there fewer comments than Snapchat shows on a video?</strong>
+Snapchat can display a total comment count that is larger than the number of comments it pages out to anonymous visitors. The actor pages until the source stops returning a cursor, and records the reported <code>videoCommentCount</code> when Snapchat publishes one. It never invents rows.</p>
+<p><strong>What is the difference between a comment and a reply?</strong>
+Root comments have <code>depth: 0</code>. Direct replies have <code>depth: 1</code> and a <code>parentCommentId</code>. Enable <code>includeReplies</code> to emit them.</p>
+<p><strong>Why is a commenter username or Bitmoji missing?</strong>
+Snapchat only exposes some commenter profile fields for some accounts. When a field is not published for that comment, it is omitted from the row.</p>
+<p><strong>Why does byUsername return only a few videos?</strong>
+Public creator profiles list the creator's pinned Spotlight highlights, not their complete Spotlight history. Increase <code>maxVideosPerSource</code> to use every pinned video that is available.</p>
+<p><strong>Can I scrape comments for a hashtag that has no /tag page?</strong>
+Yes. The actor falls back to Snapchat's explore page for the same term, and also accepts an explicit <code>/topic/&lt;slug&gt;</code> URL.</p>
+<p><strong>What happens when a video was removed?</strong>
+Snapchat may keep its comment thread available even when the video page and metadata are gone. Such rows keep the comments and omit the missing video fields.</p>
 <p><strong>Is this affiliated with Snapchat?</strong>
-No. This actor reads data shown on Snapchat's own public pages and has no relationship with Snap Inc.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/4XR18BddISADEml9C/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>Pd19eTn4tsL4smshG</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. This is an independent third-party actor that reads publicly visible Snapchat data and has no relationship with Snap Inc.</p>
+<h2 id="readme-notes">Notes</h2>
+<ul>
+<li>Comment text is returned exactly as published, including emoji and non-Latin scripts.</li>
+<li>Timestamps are ISO 8601 UTC.</li>
+<li>Duplicate comment IDs from Snapchat's own pages are removed within a run.</li>
+<li>One invalid URL, username or topic produces an error row and the run continues with the remaining inputs.</li>
+<li>The default task is deliberately small: one profile, one video and a few comments.</li>
+</ul>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>Creator profiles expose only pinned Spotlight videos, not the full back catalogue.</li>
+<li>Replies are depth-1 only; nested reply chains are not followed recursively.</li>
+<li>Commenter usernames and some profile fields are published for a minority of comments.</li>
+<li>Snapchat may page out fewer comments than the count shown in its interface.</li>
+<li>Topic and tag pages expose a limited set of videos (roughly 20–30 per page) with no pagination.</li>
+<li>The trending feed is personalised and changes between requests; results are a snapshot of the moment the run executes.</li>
+<li>Removed videos can keep comments while losing metadata, so video context may be absent on those rows.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/4XR18BddISADEml9C/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>gAELgOsLCExTByN8L</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

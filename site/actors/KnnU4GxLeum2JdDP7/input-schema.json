@@ -1,9 +1,9 @@
 {
-  "description": "Scrape products from Lowe's (lowes.com). Search by keyword, browse categories, fetch product details, or scrape from specific URLs.",
+  "description": "Find Lowe's products by keyword, category, item ID, or URL, then read live price, stock, specs, and store details from Lowe's product pages.",
   "properties": {
     "category": {
       "default": "tools",
-      "description": "Product category to browse (mode=byCategory).",
+      "description": "Lowe's department to browse (mode=byCategory).",
       "editor": "select",
       "enum": [
         "tools",
@@ -43,52 +43,61 @@
     },
     "inStockOnly": {
       "default": false,
-      "description": "When enabled, only emit products that are currently in stock.",
+      "description": "Only emit products with at least one fulfilment method available.",
       "prefill": false,
-      "title": "In-stock items only",
+      "title": "In-stock only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Add description, bullets, specifications, UPC, dimensions, warranty, and manuals to each product.",
+      "prefill": false,
+      "title": "Include specification details",
       "type": "boolean"
     },
     "itemIds": {
       "default": [],
-      "description": "List of Lowe's item numbers (e.g. '5013654453'). Used with mode=productDetails.",
+      "description": "Lowe's item numbers (for example 5013207487) or /pd/ product URLs. Used by mode=productDetails.",
       "editor": "stringList",
-      "prefill": [],
-      "title": "Item IDs (mode=productDetails)",
+      "prefill": [
+        "5013207487"
+      ],
+      "title": "Item IDs or product URLs",
       "type": "array"
     },
     "maxItems": {
-      "default": 20,
-      "description": "Maximum number of products to emit.",
-      "maximum": 500,
+      "default": 50,
+      "description": "Maximum number of products to emit. Discovery may return fewer candidates than this.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 1,
       "title": "Max items",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Skip products priced above this value.",
+      "description": "Drop products priced above this value. Products without a price are skipped when a price filter is set.",
       "maximum": 100000,
       "minimum": 0,
       "title": "Maximum price (USD)",
       "type": "integer"
     },
     "minPrice": {
-      "description": "Skip products priced below this value.",
+      "description": "Drop products priced below this value. Products without a price are skipped when a price filter is set.",
       "maximum": 100000,
       "minimum": 0,
       "title": "Minimum price (USD)",
       "type": "integer"
     },
     "minRating": {
-      "description": "Only emit products with rating >= this value (1.0–5.0).",
+      "description": "Drop products rated below this value. Products without a rating are skipped when this filter is set.",
       "maximum": 5,
       "minimum": 1,
-      "title": "Minimum star rating",
+      "title": "Minimum rating",
       "type": "number"
     },
     "mode": {
-      "default": "search",
-      "description": "What to scrape.",
+      "default": "productDetails",
+      "description": "What to look up.",
       "editor": "select",
       "enum": [
         "search",
@@ -97,70 +106,96 @@
         "byUrl"
       ],
       "enumTitles": [
-        "Search products by keyword",
-        "Browse a product category",
-        "Fetch product details by item ID",
-        "Scrape one or more product URLs"
+        "Search by keyword",
+        "Browse a category",
+        "Look up item IDs",
+        "Scrape URLs (product, search, or category)"
       ],
-      "prefill": "search",
+      "prefill": "productDetails",
       "title": "Mode",
       "type": "string"
     },
-    "proxyConfiguration": {
-      "default": {
-        "useApifyProxy": true
-      },
-      "description": "Apify proxy configuration. Lowes requires proxy to avoid bot detection. AUTO datacenter proxy is used by default.",
-      "editor": "proxy",
-      "prefill": {
-        "useApifyProxy": true
-      },
-      "title": "Proxy configuration",
-      "type": "object"
+    "onSaleOnly": {
+      "default": false,
+      "description": "Only emit products with a current was/sale price.",
+      "prefill": false,
+      "title": "On-sale only",
+      "type": "boolean"
     },
-    "searchQuery": {
-      "default": "power drill",
-      "description": "Keyword or phrase to search for (mode=search).",
-      "editor": "textfield",
-      "prefill": "power drill",
-      "title": "Search query",
-      "type": "string"
+    "onShelfOnly": {
+      "default": false,
+      "description": "Only emit products with pickup quantity above zero at the selected store.",
+      "prefill": false,
+      "title": "On shelf at the store only",
+      "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [
+        "power drill"
+      ],
+      "description": "Keywords to search for (mode=search). Each query adds its own discovery results.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search queries",
+      "type": "array"
     },
     "sortBy": {
-      "default": "bestMatch",
-      "description": "How to sort search or category results.",
+      "default": "featured",
+      "description": "How to order the products found in this run.",
       "editor": "select",
       "enum": [
-        "bestMatch",
-        "topRated",
-        "priceAsc",
-        "priceDesc",
-        "newArrivals"
+        "featured",
+        "bestSellers",
+        "highestRated",
+        "newest",
+        "priceLowToHigh",
+        "priceHighToLow",
+        "brand"
       ],
       "enumTitles": [
-        "Best Match (default)",
-        "Top Rated",
-        "Price: Low to High",
-        "Price: High to Low",
-        "New Arrivals"
+        "Featured (discovery order)",
+        "Best sellers (discovery order)",
+        "Highest rated",
+        "Newest",
+        "Price: low to high",
+        "Price: high to low",
+        "Brand name"
       ],
-      "prefill": "bestMatch",
+      "prefill": "featured",
       "title": "Sort results by",
       "type": "string"
     },
     "startUrls": {
       "default": [],
-      "description": "List of Lowe's product or search page URLs to scrape.",
+      "description": "Lowe's product, search, or /pl/ category URLs. Used by mode=byUrl, and category URLs are also accepted by mode=byCategory.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Start URLs (mode=byUrl)",
+      "title": "Start URLs",
       "type": "array"
+    },
+    "storeId": {
+      "default": "0208",
+      "description": "Four-digit Lowe's store number used for price and stock context. Default 0208 (La Quinta, CA).",
+      "editor": "textfield",
+      "pattern": "^\\d{4}$",
+      "prefill": "0208",
+      "title": "Store number",
+      "type": "string"
+    },
+    "zipCode": {
+      "default": "92253",
+      "description": "Five-digit ZIP code used with the store number for price and stock context. Default 92253.",
+      "editor": "textfield",
+      "pattern": "^\\d{5}$",
+      "prefill": "92253",
+      "title": "ZIP code",
+      "type": "string"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Lowes Scraper Input",
+  "title": "Lowe's Product Scraper Input",
   "type": "object"
 }

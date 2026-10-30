@@ -1,1 +1,234 @@
-null
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "approvalState": {
+        "description": "Moderation state (3 = approved)",
+        "type": "integer"
+      },
+      "commentId": {
+        "description": "Unique comment ID (highBits-lowBits)",
+        "type": "string"
+      },
+      "commenterBitmojiAvatarId": {
+        "description": "Commenter Bitmoji avatar ID",
+        "type": "string"
+      },
+      "commenterBitmojiSelfieId": {
+        "description": "Commenter Bitmoji selfie ID",
+        "type": "string"
+      },
+      "commenterDisplayName": {
+        "description": "Commenter display name",
+        "type": "string"
+      },
+      "commenterId": {
+        "description": "Commenter account UUID pair",
+        "type": "string"
+      },
+      "commenterIsPostAuthor": {
+        "description": "Whether the commenter is the video creator",
+        "type": "boolean"
+      },
+      "commenterProfileId": {
+        "description": "Commenter business profile UUID pair",
+        "type": "string"
+      },
+      "commenterProfileLogoUrl": {
+        "description": "Commenter profile logo URL",
+        "type": "string"
+      },
+      "commenterProfileUrl": {
+        "description": "Commenter profile URL when a username is available",
+        "type": "string"
+      },
+      "commenterUsername": {
+        "description": "Commenter username when Snapchat exposes it",
+        "type": "string"
+      },
+      "creatorDisplayName": {
+        "description": "Video creator display name",
+        "type": "string"
+      },
+      "creatorIsOfficial": {
+        "description": "Emitted only when the creator is officially verified",
+        "type": "boolean"
+      },
+      "creatorProfileUrl": {
+        "description": "Video creator profile URL",
+        "type": "string"
+      },
+      "creatorUsername": {
+        "description": "Video creator username",
+        "type": "string"
+      },
+      "depth": {
+        "description": "0 for root comments, 1 for replies",
+        "type": "integer"
+      },
+      "error": {
+        "description": "Error message for error rows",
+        "type": "string"
+      },
+      "feedCountry": {
+        "description": "ISO country code of the trending feed (byFeed mode)",
+        "type": "string"
+      },
+      "inputUrl": {
+        "description": "Input Spotlight URL (bySpotlightUrls mode)",
+        "type": "string"
+      },
+      "inputUsername": {
+        "description": "Input username for error rows",
+        "type": "string"
+      },
+      "likeCount": {
+        "description": "Sum of all reaction counts",
+        "type": "integer"
+      },
+      "parentCommentId": {
+        "description": "Parent comment ID for reply rows",
+        "type": "string"
+      },
+      "postedAt": {
+        "description": "ISO 8601 UTC time the comment was posted",
+        "type": "string"
+      },
+      "rankingScore": {
+        "description": "Snapchat ranking score when present",
+        "type": "number"
+      },
+      "reactionCounts": {
+        "description": "Reaction breakdown [{reactTypeId, count}]",
+        "items": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "reactTypeId": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "recordType": {
+        "description": "Row type: comment or error",
+        "type": "string"
+      },
+      "replyText": {
+        "description": "Comment or reply text",
+        "type": "string"
+      },
+      "reportCount": {
+        "description": "Number of times the comment was reported",
+        "type": "integer"
+      },
+      "scrapedAt": {
+        "description": "ISO 8601 UTC scrape timestamp",
+        "type": "string"
+      },
+      "snapId": {
+        "description": "Spotlight snap ID this comment belongs to",
+        "type": "string"
+      },
+      "snapUrl": {
+        "description": "Canonical Spotlight video URL",
+        "type": "string"
+      },
+      "sourceUsername": {
+        "description": "Creator username (byUsername mode)",
+        "type": "string"
+      },
+      "threadedReplyCount": {
+        "description": "Number of direct replies",
+        "type": "integer"
+      },
+      "topic": {
+        "description": "Hashtag or topic slug (byTopic mode)",
+        "type": "string"
+      },
+      "topicUrl": {
+        "description": "Tag, explore or topic page used for discovery",
+        "type": "string"
+      },
+      "updatedAt": {
+        "description": "ISO 8601 UTC time the comment state last changed",
+        "type": "string"
+      },
+      "videoAiDescription": {
+        "description": "Snapchat-generated description for the video",
+        "type": "string"
+      },
+      "videoAiTitle": {
+        "description": "Snapchat-generated title for the video",
+        "type": "string"
+      },
+      "videoBoostCount": {
+        "description": "Video boost (like) count",
+        "type": "integer"
+      },
+      "videoCaption": {
+        "description": "Video caption or description",
+        "type": "string"
+      },
+      "videoCommentCount": {
+        "description": "Comment count reported by Snapchat",
+        "type": "integer"
+      },
+      "videoDurationSeconds": {
+        "description": "Video duration in seconds",
+        "type": "number"
+      },
+      "videoHashtags": {
+        "description": "Hashtags attached to the video",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "videoHeight": {
+        "description": "Video height in pixels",
+        "type": "integer"
+      },
+      "videoKeywords": {
+        "description": "Snapchat-generated keywords for the video",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "videoPostedAt": {
+        "description": "ISO 8601 UTC video creation time",
+        "type": "string"
+      },
+      "videoRecommendCount": {
+        "description": "Video recommend count",
+        "type": "integer"
+      },
+      "videoShareCount": {
+        "description": "Video share count",
+        "type": "integer"
+      },
+      "videoThumbnailUrl": {
+        "description": "Video thumbnail URL",
+        "type": "string"
+      },
+      "videoUrl": {
+        "description": "Watermarked video URL",
+        "type": "string"
+      },
+      "videoViewCount": {
+        "description": "Video view count",
+        "type": "integer"
+      },
+      "videoWidth": {
+        "description": "Video width in pixels",
+        "type": "integer"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Snapchat Spotlight Comments"
+}
