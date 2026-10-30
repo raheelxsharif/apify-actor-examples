@@ -1,36 +1,86 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-Ccb/m03XLGp2427JrLDV0YWQs0fFoZH6NjjqcekrJlU=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Hacker News Story, Comment &amp; Karma Scraper | Dataspryva</title><meta name="description" content="Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, d"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"><meta property="og:title" content="Hacker News Story, Comment &amp; Karma Scraper | Dataspryva"><meta property="og:description" content="Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, d"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#webpage","name":"Hacker News Story, Comment & Karma Scraper","description":"Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#article","headline":"Hacker News Story, Comment & Karma Scraper","name":"Hacker News Story, Comment & Karma Scraper","description":"Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Hacker News Story, Comment & Karma Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Hacker News Story, Comment &amp; Karma Scraper</span></div><section id="overview"><h1 class="doc-title">Hacker News Story, Comment &amp; Karma Scraper</h1><p class="lede">Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/hacker-news-story-comment-and-karma-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/shC9wAKWFYbt1zZYs/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. `topStories` / `newStories` / `bestStories` / `askStories` / `showStories` / `jobStories` walk the public feeds. `item` fetches specific item IDs (`itemIds`). `user` fetches profiles (`usernames`). `search` uses the Algolia HN API (`searchQuery`).</td></tr><tr><td><code>itemIds</code></td><td>array</td><td>optional</td><td>Direct Hacker News item IDs (numeric strings or integers). Used when mode=`item`.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Hacker News usernames. Used when mode=`user`.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. `topStories` / `newStories` / `bestStories` / `askStories` / `showStories` / `jobStories` walk the public feeds. `item` fetches specific item IDs (`itemIds`). `user` fetches profiles (`usernames`). `search` uses the Algolia HN API (`searchQuery`).</td></tr><tr><td><code>itemIds</code></td><td>array</td><td>optional</td><td>Direct Hacker News item IDs (numeric strings or integers). Used when mode=`item`.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Hacker News usernames. Used when mode=`user`.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Free-text query passed to the Algolia HN search API.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>Hacker News URLs to scrape directly. Supports `news.ycombinator.com/item?id=N` and `news.ycombinator.com/user?id=USER`. Each URL is converted to an item or user fetch.</td></tr><tr><td><code>enableCommentHierarchy</code></td><td>boolean</td><td>optional</td><td>When true, attach a nested `comments[]` array to each story (recursive replies). When false, comments are emitted as flat sibling records (one per row, with `parentId` and `depth`).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records (stories + comments + users combined).</td></tr><tr><td><code>maxComments</code></td><td>integer</td><td>optional</td><td>Cap on comments fetched per story. 0 = no comments. Default 0 (skip comments).</td></tr><tr><td><code>maxDepth</code></td><td>integer</td><td>optional</td><td>Maximum reply depth when fetching comments (only applies when `maxComments` &gt; 0). Root comments are depth 0.</td></tr><tr><td><code>minScore</code></td><td>integer</td><td>optional</td><td>Drop stories with fewer points than this. Comments are unaffected.</td></tr><tr><td><code>domainAllowlist</code></td><td>array</td><td>optional</td><td>Only emit stories whose URL host contains one of these substrings (case-insensitive). e.g. [&#x27;github.com&#x27;,&#x27;arxiv.org&#x27;].</td></tr><tr><td><code>domainBlocklist</code></td><td>array</td><td>optional</td><td>Drop stories whose URL host contains one of these substrings. e.g. [&#x27;twitter.com&#x27;,&#x27;x.com&#x27;].</td></tr><tr><td><code>excludeDeadOrDeleted</code></td><td>boolean</td><td>optional</td><td>Drop items flagged `dead: true` or `deleted: true` by Hacker News.</td></tr><tr><td><code>dateRangeFrom</code></td><td>string</td><td>optional</td><td>Drop items posted before this date (UTC). Empty = no lower bound.</td></tr><tr><td><code>dateRangeTo</code></td><td>string</td><td>optional</td><td>Drop items posted after this date (UTC). Empty = no upper bound.</td></tr><tr><td><code>commentMinScore</code></td><td>integer</td><td>optional</td><td>Drop comments below this score. (Note: HN exposes comment scores only sporadically; comments without a score are kept.)</td></tr><tr><td><code>commentAuthorFilter</code></td><td>array</td><td>optional</td><td>Only emit comments authored by one of these usernames (case-insensitive substring match).</td></tr><tr><td><code>minCommentCount</code></td><td>integer</td><td>optional</td><td>Drop stories with fewer than this many comments.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape Hacker News stories, comments, jobs, and users. All modes use the public Firebase + Algolia APIs — no auth, no proxy.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-Ccb/m03XLGp2427JrLDV0YWQs0fFoZH6NjjqcekrJlU=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Hacker News Story, Comment &amp; Karma Scraper | Dataspryva</title><meta name="description" content="Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, d"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"><meta property="og:title" content="Hacker News Story, Comment &amp; Karma Scraper | Dataspryva"><meta property="og:description" content="Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, d"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#webpage","name":"Hacker News Story, Comment & Karma Scraper","description":"Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#article","headline":"Hacker News Story, Comment & Karma Scraper","name":"Hacker News Story, Comment & Karma Scraper","description":"Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Hacker News Story, Comment & Karma Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/shC9wAKWFYbt1zZYs/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Hacker News Story, Comment &amp; Karma Scraper</span></div><section id="overview"><h1 class="doc-title">Hacker News Story, Comment &amp; Karma Scraper</h1><p class="lede">Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/hacker-news-story-comment-and-karma-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/shC9wAKWFYbt1zZYs/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Feeds walk the live Hacker News lists. `item` looks up specific IDs, `user` loads profiles, `search` queries Hacker News history, `frontPage` reads a historical day, and `whoIsHiring` parses monthly hiring threads.</td></tr><tr><td><code>itemIds</code></td><td>array</td><td>optional</td><td>Hacker News item IDs to look up, as numbers or numeric strings. Stories, comments, jobs, polls, and poll options are all accepted.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Hacker News usernames whose profiles and, optionally, submissions you want.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape. Feeds walk the live Hacker News lists. `item` looks up specific IDs, `user` loads profiles, `search` queries Hacker News history, `frontPage` reads a historical day, and `whoIsHiring` parses monthly hiring threads.</td></tr><tr><td><code>itemIds</code></td><td>array</td><td>optional</td><td>Hacker News item IDs to look up, as numbers or numeric strings. Stories, comments, jobs, polls, and poll options are all accepted.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>Hacker News usernames whose profiles and, optionally, submissions you want.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keyword queries. Every query runs independently and the results are merged without duplicates. Leave empty to browse by tags, author, or story instead.</td></tr><tr><td><code>searchSort</code></td><td>string</td><td>optional</td><td>`relevance` ranks by keyword match. `date` returns newest first and is more reproducible.</td></tr><tr><td><code>contentTypes</code></td><td>array</td><td>optional</td><td>Which Hacker News record types search should return. Selecting several types returns any of them. `front_page` covers only the current front page.</td></tr><tr><td><code>author</code></td><td>string</td><td>optional</td><td>Only return content written by this Hacker News username.</td></tr><tr><td><code>storyId</code></td><td>string</td><td>optional</td><td>Only return content attached to this story ID. Useful with `contentTypes` set to `comment` to search inside one thread.</td></tr><tr><td><code>exhaustiveSearch</code></td><td>boolean</td><td>optional</td><td>Hacker News search exposes at most 1,000 hits per query. When enabled, the actor splits the requested date range into smaller windows so deeper result sets can be collected. Relevance order then follows each date window rather than one global ranking.</td></tr><tr><td><code>dateRangeFrom</code></td><td>string</td><td>optional</td><td>Drop items posted before this date (UTC, `YYYY-MM-DD`). Empty means no lower bound.</td></tr><tr><td><code>dateRangeTo</code></td><td>string</td><td>optional</td><td>Drop items posted after this date (UTC, `YYYY-MM-DD`). Empty means no upper bound.</td></tr><tr><td><code>minScore</code></td><td>integer</td><td>optional</td><td>Drop stories, jobs, and polls below this point score. Comments are unaffected because Hacker News does not publish comment scores.</td></tr><tr><td><code>minCommentCount</code></td><td>integer</td><td>optional</td><td>Drop stories and polls with fewer than this many comments.</td></tr><tr><td><code>domainAllowlist</code></td><td>array</td><td>optional</td><td>Keep only stories whose link host contains one of these text fragments. For example, `github.com` or `arxiv.org`.</td></tr><tr><td><code>domainBlocklist</code></td><td>array</td><td>optional</td><td>Drop stories whose link host contains one of these text fragments. For example, `twitter.com` or `x.com`.</td></tr><tr><td><code>excludeDeadOrDeleted</code></td><td>boolean</td><td>optional</td><td>Drop items marked dead or deleted by Hacker News. Turning this off uses the slower exact comment path so those records can be included.</td></tr><tr><td><code>commentAuthorFilter</code></td><td>array</td><td>optional</td><td>Only keep comments written by these usernames. Matching is case-insensitive and accepts partial names.</td></tr><tr><td><code>commentSort</code></td><td>string</td><td>optional</td><td>`rank` keeps Hacker News display order. `newest` orders sibling replies newest first.</td></tr><tr><td><code>maxComments</code></td><td>integer</td><td>optional</td><td>How many comments to collect for each story. 0 skips comment collection. This is applied after a story passes your filters.</td></tr><tr><td><code>maxDepth</code></td><td>integer</td><td>optional</td><td>Deepest reply level to keep when comments are collected. Root comments are depth 0.</td></tr><tr><td><code>enableCommentHierarchy</code></td><td>boolean</td><td>optional</td><td>When true, each story carries a nested `comments` tree. When false, comments are separate rows and never contain duplicate reply rows.</td></tr><tr><td><code>includeSubmissions</code></td><td>boolean</td><td>optional</td><td>For mode `user`, also emit the user&#x27;s recent stories and comments as normal records after the profile.</td></tr><tr><td><code>submissionTypes</code></td><td>string</td><td>optional</td><td>Which submissions to emit when `includeSubmissions` is enabled.</td></tr><tr><td><code>frontPageDate</code></td><td>string</td><td>optional</td><td>Historical day to read in mode `frontPage`, as `YYYY-MM-DD`. Empty uses yesterday (UTC).</td></tr><tr><td><code>hiringMonths</code></td><td>integer</td><td>optional</td><td>How many recent monthly Who is hiring? threads to parse. Ignored when specific thread IDs are supplied.</td></tr><tr><td><code>hiringThreadIds</code></td><td>array</td><td>optional</td><td>Specific Who is hiring? thread IDs to parse. Overrides the automatic monthly selection.</td></tr><tr><td><code>hiringKeywords</code></td><td>array</td><td>optional</td><td>Keep only job posts whose text, company, role, location, or tech stack contains one of these terms.</td></tr><tr><td><code>remoteOnly</code></td><td>boolean</td><td>optional</td><td>Keep only hiring posts that explicitly mention remote work.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records across all types. Nested comments also count toward this cap.</td></tr><tr><td><code>includeAuthorProfiles</code></td><td>boolean</td><td>optional</td><td>Add `authorKarma` and `authorCreatedAt` to stories and comments. This costs one extra lookup per unique author.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>Hacker News links to read directly: item, user, historical front-page, and hiring-thread URLs. IDs and URLs are merged with the mode-specific lists.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Choose what to collect from Hacker News: live feeds, historical front pages, search results, specific items or users, or the monthly Who is hiring? threads.&quot;,
   &quot;properties&quot;: {
+    &quot;author&quot;: {
+      &quot;description&quot;: &quot;Only return content written by this Hacker News username.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Author (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
     &quot;commentAuthorFilter&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Only emit comments authored by one of these usernames (case-insensitive substring match).&quot;,
+      &quot;description&quot;: &quot;Only keep comments written by these usernames. Matching is case-insensitive and accepts partial names.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Comment author allowlist&quot;,
+      &quot;title&quot;: &quot;Comment author filter&quot;,
       &quot;type&quot;: &quot;array&quot;
     },
-    &quot;commentMinScore&quot;: {
-      &quot;description&quot;: &quot;Drop comments below this score. (Note: HN exposes comment scores only sporadically; comments without a score are kept.)&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min comment score&quot;,
-      &quot;type&quot;: &quot;integer&quot;
+    &quot;commentSort&quot;: {
+      &quot;default&quot;: &quot;rank&quot;,
+      &quot;description&quot;: &quot;`rank` keeps Hacker News display order. `newest` orders sibling replies newest first.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;rank&quot;,
+        &quot;newest&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Hacker News rank&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;rank&quot;,
+      &quot;title&quot;: &quot;Comment order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;contentTypes&quot;: {
+      &quot;default&quot;: [
+        &quot;story&quot;
+      ],
+      &quot;description&quot;: &quot;Which Hacker News record types search should return. Selecting several types returns any of them. `front_page` covers only the current front page.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;story&quot;,
+          &quot;comment&quot;,
+          &quot;poll&quot;,
+          &quot;pollopt&quot;,
+          &quot;job&quot;,
+          &quot;show_hn&quot;,
+          &quot;ask_hn&quot;,
+          &quot;front_page&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Stories&quot;,
+          &quot;Comments&quot;,
+          &quot;Polls&quot;,
+          &quot;Poll options&quot;,
+          &quot;Jobs&quot;,
+          &quot;Show HN&quot;,
+          &quot;Ask HN&quot;,
+          &quot;Current front page&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;story&quot;
+      ],
+      &quot;title&quot;: &quot;Search content types&quot;,
+      &quot;type&quot;: &quot;array&quot;
     },
     &quot;dateRangeFrom&quot;: {
-      &quot;description&quot;: &quot;Drop items posted before this date (UTC). Empty = no lower bound.&quot;,
+      &quot;description&quot;: &quot;Drop items posted before this date (UTC, `YYYY-MM-DD`). Empty means no lower bound.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Date range from (ISO YYYY-MM-DD)&quot;,
+      &quot;title&quot;: &quot;Date range from&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;dateRangeTo&quot;: {
-      &quot;description&quot;: &quot;Drop items posted after this date (UTC). Empty = no upper bound.&quot;,
+      &quot;description&quot;: &quot;Drop items posted after this date (UTC, `YYYY-MM-DD`). Empty means no upper bound.&quot;,
       &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Date range to (ISO YYYY-MM-DD)&quot;,
+      &quot;title&quot;: &quot;Date range to&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;domainAllowlist&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Only emit stories whose URL host contains one of these substrings (case-insensitive). e.g. [&#x27;github.com&#x27;,&#x27;arxiv.org&#x27;].&quot;,
+      &quot;description&quot;: &quot;Keep only stories whose link host contains one of these text fragments. For example, `github.com` or `arxiv.org`.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Domain allowlist&quot;,
@@ -38,7 +88,7 @@
     },
     &quot;domainBlocklist&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Drop stories whose URL host contains one of these substrings. e.g. [&#x27;twitter.com&#x27;,&#x27;x.com&#x27;].&quot;,
+      &quot;description&quot;: &quot;Drop stories whose link host contains one of these text fragments. For example, `twitter.com` or `x.com`.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Domain blocklist&quot;,
@@ -46,21 +96,73 @@
     },
     &quot;enableCommentHierarchy&quot;: {
       &quot;default&quot;: false,
-      &quot;description&quot;: &quot;When true, attach a nested `comments[]` array to each story (recursive replies). When false, comments are emitted as flat sibling records (one per row, with `parentId` and `depth`).&quot;,
+      &quot;description&quot;: &quot;When true, each story carries a nested `comments` tree. When false, comments are separate rows and never contain duplicate reply rows.&quot;,
       &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Build comment tree&quot;,
+      &quot;title&quot;: &quot;Nest comment replies&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;excludeDeadOrDeleted&quot;: {
       &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Drop items flagged `dead: true` or `deleted: true` by Hacker News.&quot;,
+      &quot;description&quot;: &quot;Drop items marked dead or deleted by Hacker News. Turning this off uses the slower exact comment path so those records can be included.&quot;,
       &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Exclude dead/deleted&quot;,
+      &quot;title&quot;: &quot;Exclude dead or deleted content&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;exhaustiveSearch&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Hacker News search exposes at most 1,000 hits per query. When enabled, the actor splits the requested date range into smaller windows so deeper result sets can be collected. Relevance order then follows each date window rather than one global ranking.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Search past 1,000 results&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;frontPageDate&quot;: {
+      &quot;description&quot;: &quot;Historical day to read in mode `frontPage`, as `YYYY-MM-DD`. Empty uses yesterday (UTC).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Front page date&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hiringKeywords&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keep only job posts whose text, company, role, location, or tech stack contains one of these terms.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Hiring keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;hiringMonths&quot;: {
+      &quot;default&quot;: 1,
+      &quot;description&quot;: &quot;How many recent monthly Who is hiring? threads to parse. Ignored when specific thread IDs are supplied.&quot;,
+      &quot;maximum&quot;: 12,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Hiring months&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;hiringThreadIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Specific Who is hiring? thread IDs to parse. Overrides the automatic monthly selection.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Hiring thread IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeAuthorProfiles&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add `authorKarma` and `authorCreatedAt` to stories and comments. This costs one extra lookup per unique author.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Add author karma&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeSubmissions&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;For mode `user`, also emit the user&#x27;s recent stories and comments as normal records after the profile.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include user submissions&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;itemIds&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Direct Hacker News item IDs (numeric strings or integers). Used when mode=`item`.&quot;,
+      &quot;description&quot;: &quot;Hacker News item IDs to look up, as numbers or numeric strings. Stories, comments, jobs, polls, and poll options are all accepted.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Item IDs (mode=item)&quot;,
@@ -68,48 +170,48 @@
     },
     &quot;maxComments&quot;: {
       &quot;default&quot;: 0,
-      &quot;description&quot;: &quot;Cap on comments fetched per story. 0 = no comments. Default 0 (skip comments).&quot;,
+      &quot;description&quot;: &quot;How many comments to collect for each story. 0 skips comment collection. This is applied after a story passes your filters.&quot;,
       &quot;maximum&quot;: 5000,
       &quot;minimum&quot;: 0,
       &quot;prefill&quot;: 0,
-      &quot;title&quot;: &quot;Max comments per story&quot;,
+      &quot;title&quot;: &quot;Comments per story&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;maxDepth&quot;: {
       &quot;default&quot;: 5,
-      &quot;description&quot;: &quot;Maximum reply depth when fetching comments (only applies when `maxComments` &gt; 0). Root comments are depth 0.&quot;,
+      &quot;description&quot;: &quot;Deepest reply level to keep when comments are collected. Root comments are depth 0.&quot;,
       &quot;maximum&quot;: 20,
       &quot;minimum&quot;: 0,
       &quot;prefill&quot;: 5,
-      &quot;title&quot;: &quot;Max comment depth&quot;,
+      &quot;title&quot;: &quot;Maximum reply depth&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;maxItems&quot;: {
       &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Hard cap on emitted records (stories + comments + users combined).&quot;,
-      &quot;maximum&quot;: 500,
+      &quot;description&quot;: &quot;Hard cap on emitted records across all types. Nested comments also count toward this cap.&quot;,
+      &quot;maximum&quot;: 5000,
       &quot;minimum&quot;: 1,
       &quot;prefill&quot;: 20,
-      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;title&quot;: &quot;Maximum records&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;minCommentCount&quot;: {
-      &quot;description&quot;: &quot;Drop stories with fewer than this many comments.&quot;,
-      &quot;maximum&quot;: 100000,
+      &quot;description&quot;: &quot;Drop stories and polls with fewer than this many comments.&quot;,
+      &quot;maximum&quot;: 1000000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min number of comments&quot;,
+      &quot;title&quot;: &quot;Minimum comment count&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;minScore&quot;: {
-      &quot;description&quot;: &quot;Drop stories with fewer points than this. Comments are unaffected.&quot;,
-      &quot;maximum&quot;: 100000,
+      &quot;description&quot;: &quot;Drop stories, jobs, and polls below this point score. Comments are unaffected because Hacker News does not publish comment scores.&quot;,
+      &quot;maximum&quot;: 1000000,
       &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min story score&quot;,
+      &quot;title&quot;: &quot;Minimum points&quot;,
       &quot;type&quot;: &quot;integer&quot;
     },
     &quot;mode&quot;: {
       &quot;default&quot;: &quot;topStories&quot;,
-      &quot;description&quot;: &quot;What to scrape. `topStories` / `newStories` / `bestStories` / `askStories` / `showStories` / `jobStories` walk the public feeds. `item` fetches specific item IDs (`itemIds`). `user` fetches profiles (`usernames`). `search` uses the Algolia HN API (`searchQuery`).&quot;,
+      &quot;description&quot;: &quot;What to scrape. Feeds walk the live Hacker News lists. `item` looks up specific IDs, `user` loads profiles, `search` queries Hacker News history, `frontPage` reads a historical day, and `whoIsHiring` parses monthly hiring threads.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
       &quot;enum&quot;: [
         &quot;topStories&quot;,
@@ -120,7 +222,9 @@
         &quot;jobStories&quot;,
         &quot;item&quot;,
         &quot;user&quot;,
-        &quot;search&quot;
+        &quot;search&quot;,
+        &quot;frontPage&quot;,
+        &quot;whoIsHiring&quot;
       ],
       &quot;enumTitles&quot;: [
         &quot;Top stories&quot;,
@@ -129,31 +233,82 @@
         &quot;Ask HN&quot;,
         &quot;Show HN&quot;,
         &quot;Jobs&quot;,
-        &quot;Item by ID&quot;,
-        &quot;User profile&quot;,
-        &quot;Algolia search&quot;
+        &quot;Items by ID&quot;,
+        &quot;User profiles&quot;,
+        &quot;Search&quot;,
+        &quot;Historical front page&quot;,
+        &quot;Who is hiring?&quot;
       ],
       &quot;prefill&quot;: &quot;topStories&quot;,
       &quot;title&quot;: &quot;Mode&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
-    &quot;searchQuery&quot;: {
-      &quot;description&quot;: &quot;Free-text query passed to the Algolia HN search API.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Search query (mode=search)&quot;,
+    &quot;remoteOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only hiring posts that explicitly mention remote work.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Remote jobs only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more keyword queries. Every query runs independently and the results are merged without duplicates. Leave empty to browse by tags, author, or story instead.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search queries (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchSort&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;`relevance` ranks by keyword match. `date` returns newest first and is more reproducible.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;date&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most relevant&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Search order&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     &quot;startUrls&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Hacker News URLs to scrape directly. Supports `news.ycombinator.com/item?id=N` and `news.ycombinator.com/user?id=USER`. Each URL is converted to an item or user fetch.&quot;,
+      &quot;description&quot;: &quot;Hacker News links to read directly: item, user, historical front-page, and hiring-thread URLs. IDs and URLs are merged with the mode-specific lists.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Start URLs (optional)&quot;,
+      &quot;title&quot;: &quot;Start URLs&quot;,
       &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;storyId&quot;: {
+      &quot;description&quot;: &quot;Only return content attached to this story ID. Useful with `contentTypes` set to `comment` to search inside one thread.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Story ID (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;submissionTypes&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Which submissions to emit when `includeSubmissions` is enabled.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;story&quot;,
+        &quot;comment&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Stories and comments&quot;,
+        &quot;Stories only&quot;,
+        &quot;Comments only&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;User submission types&quot;,
+      &quot;type&quot;: &quot;string&quot;
     },
     &quot;usernames&quot;: {
       &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Hacker News usernames. Used when mode=`user`.&quot;,
+      &quot;description&quot;: &quot;Hacker News usernames whose profiles and, optionally, submissions you want.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;prefill&quot;: [],
       &quot;title&quot;: &quot;Usernames (mode=user)&quot;,
@@ -167,18 +322,18 @@
   &quot;title&quot;: &quot;Hacker News Scraper Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped records. Stories: id, hnUrl, type, title, url, domain, score, author, numComments, createdAt, createdAtEpoch, ageHours, text, kids, dead, deleted, recordType, scrapedAt. Comments: id, hnUrl, storyId, parentId, depth, author, text, createdAt, kids, recordType, scrapedAt. Users: id, profileUrl, karma, createdAt, about, submittedCount, submitted, recordType, scrapedAt.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing every scraped record. `recordType` identifies stories, comments, users, poll options, and hiring posts. Story rows include id, title, url, domain, score, author, numComments, rank, timestamps, text, pollOptions, and optional nested comments. Comment rows include id, storyId, parentId, depth, author, text, and story context. User rows include karma, account age, about text, and submission counts.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Stories, comments, job posts, and user profiles from Hacker News. Fields vary by record type: stories include id, title, url, score, author, numComments, createdAt, domain, hnUrl; comments include id, storyId, parentId, depth, author, text; users include id, karma, submittedCount, profileUrl.&quot;,
+  &quot;description&quot;: &quot;Stories, comments, jobs, polls, poll options, user profiles, and parsed Who is hiring? posts from Hacker News.&quot;,
   &quot;properties&quot;: {
     &quot;items&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped records. Stories: id, hnUrl, type, title, url, domain, score, author, numComments, createdAt, createdAtEpoch, ageHours, text, kids, dead, deleted, recordType, scrapedAt. Comments: id, hnUrl, storyId, parentId, depth, author, text, createdAt, kids, recordType, scrapedAt. Users: id, profileUrl, karma, createdAt, about, submittedCount, submitted, recordType, scrapedAt.&quot;,
+      &quot;description&quot;: &quot;Dataset containing every scraped record. `recordType` identifies stories, comments, users, poll options, and hiring posts. Story rows include id, title, url, domain, score, author, numComments, rank, timestamps, text, pollOptions, and optional nested comments. Comment rows include id, storyId, parentId, depth, author, text, and story context. User rows include karma, account age, about text, and submission counts.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
       &quot;title&quot;: &quot;Hacker News records&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
-  &quot;title&quot;: &quot;Hacker News Story, Comment &amp; Karma Scraper Output&quot;
+  &quot;title&quot;: &quot;Hacker News Archive: Stories, Comments &amp; Hiring Output&quot;
 }
 </code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorSpecification&quot;: 1,
@@ -191,103 +346,68 @@
       &quot;title&quot;: &quot;Hacker News&quot;,
       &quot;transformation&quot;: {
         &quot;fields&quot;: [
+          &quot;recordType&quot;,
           &quot;title&quot;,
+          &quot;company&quot;,
+          &quot;role&quot;,
           &quot;url&quot;,
           &quot;score&quot;,
           &quot;author&quot;,
           &quot;numComments&quot;,
           &quot;createdAt&quot;,
-          &quot;domain&quot;
+          &quot;domain&quot;,
+          &quot;frontPageDate&quot;
         ]
       }
     }
   }
 }
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-hacker-news-story-comment-karma-scraper">Hacker News Story, Comment &amp; Karma Scraper</h2>
-<p>Hacker News runs on a handful of public feeds — front page, newest, best, Ask HN, Show HN, and job posts — plus a full-text search covering its entire history. This actor pulls from all of them, and can also look up a specific item or user profile directly, with no login or cookies needed.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-hacker-news-archive-stories-comments-hiring">Hacker News Archive: Stories, Comments &amp; Hiring</h2>
+<p>Hacker News is a living archive of technology discussion: front-page links, Ask HN and Show HN threads, job ads, polls, user karma, and years of comments. This actor collects all of it from the public Hacker News surfaces — live feeds, keyword search, historical front pages, individual items, user profiles, and the monthly “Who is hiring?” threads. No login, cookies, API key, or proxy setup is needed.</p>
+<h2 id="readme-what-it-does">What it does</h2>
 <ul>
-<li>Walks the public Hacker News feeds (top, new, best, ask, show, jobs)</li>
-<li>Fetches individual stories or comment threads by ID</li>
-<li>Pulls user profiles (karma, account age, submitted item count)</li>
-<li>Runs a full-text search across Hacker News history</li>
-<li>Builds nested comment trees on demand (<code>enableCommentHierarchy=true</code>) or emits flat comment rows otherwise</li>
+<li><strong>11 modes</strong> — six live feeds, item lookup, user profiles, keyword search, historical front pages, and monthly hiring threads.</li>
+<li><strong>Complete comment trees</strong> — flat rows or nested <code>comments</code>, with no duplicated replies and a correct <code>maxItems</code> cap.</li>
+<li><strong>Deep search</strong> — relevance or newest-first ordering, tags, author, story, date range, points, and comment filters.</li>
+<li><strong>Search past 1,000 results</strong> — adaptive date-window splitting keeps collecting when a query is larger than the search API’s per-query ceiling.</li>
+<li><strong>Typed records</strong> — stories, comments, jobs, polls with vote options, poll options, user profiles, and parsed job postings.</li>
+<li><strong>Historical front pages</strong> — read any day back to 2007 with its original ranking, score, author, and comment count.</li>
 </ul>
-<h2 id="readme-modes">Modes</h2>
+<h2 id="readme-services">Services</h2>
+<p>The actor reads three public Hacker News services:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Mode</th>
-<th>What it does</th>
+<th>Service</th>
+<th>What it provides</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>topStories</code></td>
-<td>Front-page top stories</td>
+<td>Firebase Hacker News API</td>
+<td>Live feeds, individual items, user profiles, scores, comment counts, and exact deleted/dead flags</td>
 </tr>
 <tr>
-<td><code>newStories</code></td>
-<td>Newest submissions</td>
+<td>Algolia Hacker News Search</td>
+<td>Keyword search, date ordering, tag and author filters, and fast comment-tree reads</td>
 </tr>
 <tr>
-<td><code>bestStories</code></td>
-<td>Best-of recent submissions</td>
-</tr>
-<tr>
-<td><code>askStories</code></td>
-<td>Ask HN posts</td>
-</tr>
-<tr>
-<td><code>showStories</code></td>
-<td>Show HN posts</td>
-</tr>
-<tr>
-<td><code>jobStories</code></td>
-<td>YC company job ads</td>
-</tr>
-<tr>
-<td><code>item</code></td>
-<td>Direct lookup of specific item IDs</td>
-</tr>
-<tr>
-<td><code>user</code></td>
-<td>Direct lookup of user profiles</td>
-</tr>
-<tr>
-<td><code>search</code></td>
-<td>Algolia full-text search across all HN history</td>
+<td>Hacker News HTML</td>
+<td>Historical <code>/front?day=</code> pages and their original story rankings</td>
 </tr>
 </tbody>
 </table></div>
-<h2 id="readme-output-per-story">Output per story</h2>
+<p>All three are reachable without credentials.</p>
+<h2 id="readme-how-it-works">How it works</h2>
+<p>Pick a mode and the actor chooses the right source for it:</p>
 <ul>
-<li><code>id</code>, <code>hnUrl</code>, <code>type</code>, <code>title</code></li>
-<li><code>url</code>, <code>domain</code> (parsed host)</li>
-<li><code>score</code>, <code>numComments</code>, <code>author</code></li>
-<li><code>createdAt</code> (ISO-8601 UTC), <code>createdAtEpoch</code>, <code>ageHours</code></li>
-<li><code>text</code> (Ask/Show/Job posts only — HN-flavored markdown converted to plain text)</li>
-<li><code>kids</code> (list of top-level comment IDs)</li>
-<li><code>comments[]</code> (nested replies — only when <code>enableCommentHierarchy=true</code>)</li>
-<li><code>dead</code> / <code>deleted</code> (boolean — only when true)</li>
-<li><code>recordType: &quot;story&quot;</code>, <code>scrapedAt</code></li>
+<li><strong>Feeds</strong> read the complete live list for the chosen section, then fetch item details and apply your filters. It keeps walking until the feed ends or <code>maxItems</code> is reached, so filtered-out stories do not silently shorten the result.</li>
+<li><strong>Search</strong> sends your query, tags, author, story, and date range to Hacker News search. With <code>exhaustiveSearch</code> enabled it splits the date range whenever a window would exceed 1,000 hits, then merges the windows without duplicates.</li>
+<li><strong>Comments</strong> use the fast threaded read first. When a thread is missing live replies, the actor checks the thread’s comment search and merges the gap. Asking for dead or deleted content switches to the exact live item walk.</li>
+<li><strong>Historical front pages</strong> read page after page of the chosen day, then deduplicate stories that appear twice.</li>
+<li><strong>Who is hiring?</strong> finds the requested number of monthly threads, reads their top-level posts, and extracts the common hiring fields without inventing missing details.</li>
 </ul>
-<h2 id="readme-output-per-comment">Output per comment</h2>
-<ul>
-<li><code>id</code>, <code>hnUrl</code>, <code>storyId</code>, <code>parentId</code>, <code>depth</code></li>
-<li><code>author</code>, <code>text</code> (HTML → plain text)</li>
-<li><code>createdAt</code>, <code>createdAtEpoch</code>, <code>ageHours</code></li>
-<li><code>kids</code> (list of reply IDs), <code>replies[]</code> (nested — only when <code>enableCommentHierarchy=true</code>)</li>
-<li><code>recordType: &quot;comment&quot;</code>, <code>scrapedAt</code></li>
-</ul>
-<h2 id="readme-output-per-user">Output per user</h2>
-<ul>
-<li><code>id</code>, <code>profileUrl</code></li>
-<li><code>karma</code>, <code>createdAt</code>, <code>createdAtEpoch</code>, <code>about</code></li>
-<li><code>submittedCount</code>, <code>submitted</code> (capped at 50 most-recent)</li>
-<li><code>recordType: &quot;user&quot;</code>, <code>scrapedAt</code></li>
-</ul>
-<p>Empty fields are omitted from the output (no nulls).</p>
+<p>Every mode is filter-aware: a story is checked before its comments are fetched, so filtered-out stories cost nothing extra.</p>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -301,154 +421,313 @@
 <tbody>
 <tr>
 <td><code>mode</code></td>
-<td>enum</td>
+<td>string</td>
 <td><code>topStories</code></td>
-<td><code>topStories</code> / <code>newStories</code> / <code>bestStories</code> / <code>askStories</code> / <code>showStories</code> / <code>jobStories</code> / <code>item</code> / <code>user</code> / <code>search</code></td>
+<td><code>topStories</code> / <code>newStories</code> / <code>bestStories</code> / <code>askStories</code> / <code>showStories</code> / <code>jobStories</code> / <code>item</code> / <code>user</code> / <code>search</code> / <code>frontPage</code> / <code>whoIsHiring</code></td>
 </tr>
 <tr>
 <td><code>itemIds</code></td>
 <td>array</td>
 <td><code>[]</code></td>
-<td>When <code>mode=item</code>: numeric HN item IDs</td>
+<td>Item IDs for <code>mode=item</code></td>
 </tr>
 <tr>
 <td><code>usernames</code></td>
 <td>array</td>
 <td><code>[]</code></td>
-<td>When <code>mode=user</code>: HN usernames</td>
+<td>Usernames for <code>mode=user</code></td>
 </tr>
 <tr>
-<td><code>searchQuery</code></td>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keywords for <code>mode=search</code>; several queries are merged</td>
+</tr>
+<tr>
+<td><code>searchSort</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code> or <code>date</code></td>
+</tr>
+<tr>
+<td><code>contentTypes</code></td>
+<td>array</td>
+<td><code>[&quot;story&quot;]</code></td>
+<td><code>story</code>, <code>comment</code>, <code>poll</code>, <code>pollopt</code>, <code>job</code>, <code>show_hn</code>, <code>ask_hn</code>, <code>front_page</code></td>
+</tr>
+<tr>
+<td><code>author</code></td>
 <td>string</td>
 <td>–</td>
-<td>When <code>mode=search</code>: full-text query</td>
+<td>Restrict search to one username</td>
 </tr>
 <tr>
-<td><code>startUrls</code></td>
-<td>array</td>
-<td><code>[]</code></td>
-<td>HN URLs (<code>item?id=N</code> or <code>user?id=USER</code>) — auto-routed to itemIds / usernames</td>
+<td><code>storyId</code></td>
+<td>string</td>
+<td>–</td>
+<td>Restrict search to one story</td>
 </tr>
 <tr>
-<td><code>enableCommentHierarchy</code></td>
+<td><code>exhaustiveSearch</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>When true, attach a nested <code>comments[]</code> array to each story instead of emitting flat sibling rows</td>
-</tr>
-<tr>
-<td><code>maxItems</code></td>
-<td>int</td>
-<td><code>50</code></td>
-<td>Hard cap on emitted records (1–500)</td>
-</tr>
-<tr>
-<td><code>maxComments</code></td>
-<td>int</td>
-<td><code>0</code></td>
-<td>Cap comments fetched per story. 0 = skip comments.</td>
-</tr>
-<tr>
-<td><code>maxDepth</code></td>
-<td>int</td>
-<td><code>5</code></td>
-<td>Maximum reply depth when <code>maxComments &gt; 0</code>.</td>
-</tr>
-<tr>
-<td><code>minScore</code></td>
-<td>int</td>
-<td>–</td>
-<td>Drop stories below this score</td>
-</tr>
-<tr>
-<td><code>domainAllowlist</code></td>
-<td>array</td>
-<td><code>[]</code></td>
-<td>Only emit stories whose URL host contains one of these substrings</td>
-</tr>
-<tr>
-<td><code>domainBlocklist</code></td>
-<td>array</td>
-<td><code>[]</code></td>
-<td>Drop stories whose URL host contains one of these substrings</td>
-</tr>
-<tr>
-<td><code>excludeDeadOrDeleted</code></td>
-<td>bool</td>
-<td><code>true</code></td>
-<td>Drop items flagged dead/deleted by HN</td>
+<td>Date-slice past the 1,000-hit search ceiling</td>
 </tr>
 <tr>
 <td><code>dateRangeFrom</code></td>
 <td>string</td>
 <td>–</td>
-<td>Drop items posted before this ISO-date (UTC)</td>
+<td>Earliest date (<code>YYYY-MM-DD</code>, UTC)</td>
 </tr>
 <tr>
 <td><code>dateRangeTo</code></td>
 <td>string</td>
 <td>–</td>
-<td>Drop items posted after this ISO-date (UTC)</td>
+<td>Latest date (<code>YYYY-MM-DD</code>, UTC)</td>
 </tr>
 <tr>
-<td><code>commentMinScore</code></td>
-<td>int</td>
+<td><code>minScore</code></td>
+<td>integer</td>
 <td>–</td>
-<td>Drop comments below this score</td>
+<td>Minimum points for stories, jobs, and polls</td>
+</tr>
+<tr>
+<td><code>minCommentCount</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum comment count for stories and polls</td>
+</tr>
+<tr>
+<td><code>domainAllowlist</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keep only these link-host fragments</td>
+</tr>
+<tr>
+<td><code>domainBlocklist</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Drop these link-host fragments</td>
+</tr>
+<tr>
+<td><code>excludeDeadOrDeleted</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Drop dead/deleted items</td>
 </tr>
 <tr>
 <td><code>commentAuthorFilter</code></td>
 <td>array</td>
 <td><code>[]</code></td>
-<td>Only emit comments by these usernames</td>
+<td>Keep only comments by these authors</td>
 </tr>
 <tr>
-<td><code>minCommentCount</code></td>
-<td>int</td>
+<td><code>commentSort</code></td>
+<td>string</td>
+<td><code>rank</code></td>
+<td><code>rank</code> or <code>newest</code> sibling order</td>
+</tr>
+<tr>
+<td><code>maxComments</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Comments collected per story; 0 skips comments</td>
+</tr>
+<tr>
+<td><code>maxDepth</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Maximum reply depth; roots are depth 0</td>
+</tr>
+<tr>
+<td><code>enableCommentHierarchy</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Nested <code>comments</code> instead of flat comment rows</td>
+</tr>
+<tr>
+<td><code>includeSubmissions</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Also emit a user’s submissions</td>
+</tr>
+<tr>
+<td><code>submissionTypes</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>story</code>, or <code>comment</code></td>
+</tr>
+<tr>
+<td><code>frontPageDate</code></td>
+<td>string</td>
 <td>–</td>
-<td>Drop stories with fewer than this many comments</td>
+<td>Day for <code>mode=frontPage</code>; empty means yesterday</td>
+</tr>
+<tr>
+<td><code>hiringMonths</code></td>
+<td>integer</td>
+<td><code>1</code></td>
+<td>Recent monthly hiring threads to parse</td>
+</tr>
+<tr>
+<td><code>hiringThreadIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Specific hiring threads, overriding the month count</td>
+</tr>
+<tr>
+<td><code>hiringKeywords</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keep matching hiring posts</td>
+</tr>
+<tr>
+<td><code>remoteOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep hiring posts that mention remote work</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Total records emitted; nested comments count too</td>
+</tr>
+<tr>
+<td><code>includeAuthorProfiles</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add author karma and account creation date</td>
+</tr>
+<tr>
+<td><code>startUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Item, user, front-page, or hiring-thread links</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-top-stories-with-filters">Example: top stories with filters</h3>
-<pre><code class="language-json">{
-  &quot;mode&quot;: &quot;topStories&quot;,
-  &quot;maxItems&quot;: 50,
-  &quot;minScore&quot;: 100,
-  &quot;domainBlocklist&quot;: [&quot;twitter.com&quot;, &quot;x.com&quot;],
-  &quot;excludeDeadOrDeleted&quot;: true
-}
-</code></pre>
-<h3 id="readme-example-full-text-search">Example: full-text search</h3>
+<p>Empty fields are omitted from the output — there are no nulls or blank strings.</p>
+<h3 id="readme-example-search-with-filters">Example: search with filters</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
-  &quot;searchQuery&quot;: &quot;rust async runtime&quot;,
-  &quot;maxItems&quot;: 100,
-  &quot;minScore&quot;: 50
+  &quot;searchQueries&quot;: [&quot;rust async runtime&quot;, &quot;tokio&quot;],
+  &quot;searchSort&quot;: &quot;date&quot;,
+  &quot;contentTypes&quot;: [&quot;story&quot;, &quot;comment&quot;],
+  &quot;dateRangeFrom&quot;: &quot;2025-01-01&quot;,
+  &quot;minScore&quot;: 50,
+  &quot;maxItems&quot;: 200
 }
 </code></pre>
-<h3 id="readme-example-story-with-comment-tree">Example: story with comment tree</h3>
+<h3 id="readme-example-full-comment-tree">Example: full comment tree</h3>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;item&quot;,
-  &quot;itemIds&quot;: [&quot;12345678&quot;],
-  &quot;maxComments&quot;: 200,
-  &quot;maxDepth&quot;: 3,
-  &quot;enableCommentHierarchy&quot;: true
+  &quot;itemIds&quot;: [&quot;49922569&quot;],
+  &quot;maxComments&quot;: 300,
+  &quot;maxDepth&quot;: 10,
+  &quot;enableCommentHierarchy&quot;: true,
+  &quot;commentSort&quot;: &quot;newest&quot;
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
+<h3 id="readme-example-a-historical-front-page">Example: a historical front page</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;frontPage&quot;,
+  &quot;frontPageDate&quot;: &quot;2024-01-01&quot;,
+  &quot;maxItems&quot;: 500
+}
+</code></pre>
+<h3 id="readme-example-this-month-s-hiring-posts">Example: this month’s hiring posts</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;whoIsHiring&quot;,
+  &quot;hiringMonths&quot;: 1,
+  &quot;hiringKeywords&quot;: [&quot;python&quot;, &quot;backend&quot;],
+  &quot;remoteOnly&quot;: true,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h2 id="readme-output-per-story-job-or-poll">Output per story, job, or poll</h2>
 <ul>
-<li><strong>Trend monitoring</strong> — track which domains hit the front page each week</li>
-<li><strong>Comment intelligence</strong> — pull every comment for an Ask HN thread to study reactions</li>
-<li><strong>YC job-ads digest</strong> — weekly extract of <code>jobStories</code> for the careers newsletter</li>
-<li><strong>User research</strong> — fetch a user's submission history + karma stats for outreach</li>
-<li><strong>Search-driven enrichment</strong> — feed Algolia search results into a downstream tagger</li>
+<li><code>id</code>, <code>hnUrl</code>, <code>type</code> (<code>story</code>, <code>job</code>, or <code>poll</code>), <code>title</code></li>
+<li><code>url</code>, <code>domain</code> for link posts</li>
+<li><code>score</code>, <code>author</code>, <code>numComments</code></li>
+<li><code>createdAt</code> (ISO-8601 UTC), <code>createdAtEpoch</code>, <code>ageHours</code></li>
+<li><code>text</code> for Ask HN, Show HN, jobs, and polls</li>
+<li><code>kids</code> — top-level comment IDs</li>
+<li><code>rank</code> — feed, search, or front-page position</li>
+<li><code>frontPageDate</code> for historical rows</li>
+<li><code>pollOptions[]</code> — <code>id</code>, <code>text</code>, <code>votes</code>, <code>author</code>, <code>createdAt</code>, <code>hnUrl</code></li>
+<li><code>fetchedCommentCount</code> when comments were read</li>
+<li><code>comments[]</code> — nested replies when hierarchy is enabled</li>
+<li><code>authorKarma</code>, <code>authorCreatedAt</code> when author enrichment is enabled</li>
+<li><code>dead</code> / <code>deleted</code> only when true</li>
+<li><code>recordType: &quot;story&quot;</code>, <code>scrapedAt</code></li>
 </ul>
+<h2 id="readme-output-per-comment">Output per comment</h2>
+<ul>
+<li><code>id</code>, <code>hnUrl</code>, <code>type</code>, <code>author</code>, <code>text</code></li>
+<li><code>storyId</code>, <code>parentId</code>, <code>depth</code></li>
+<li><code>createdAt</code>, <code>createdAtEpoch</code>, <code>ageHours</code></li>
+<li><code>kids</code> — reply IDs</li>
+<li><code>storyTitle</code>, <code>storyUrl</code> when a search hit supplies them</li>
+<li><code>replies[]</code> in nested mode only</li>
+<li><code>dead</code> / <code>deleted</code> only when true</li>
+<li><code>recordType: &quot;comment&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-user">Output per user</h2>
+<ul>
+<li><code>id</code>, <code>profileUrl</code></li>
+<li><code>karma</code>, <code>createdAt</code>, <code>createdAtEpoch</code>, <code>about</code></li>
+<li><code>submittedCount</code>, <code>submitted</code> (first 50 recent IDs)</li>
+<li><code>recordType: &quot;user&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<p>With <code>includeSubmissions</code>, normal story and comment rows follow the profile.</p>
+<h2 id="readme-output-per-poll-option">Output per poll option</h2>
+<ul>
+<li><code>id</code>, <code>hnUrl</code>, <code>type: &quot;pollopt&quot;</code>, <code>text</code>, <code>votes</code>, <code>pollId</code></li>
+<li><code>author</code>, <code>createdAt</code>, <code>createdAtEpoch</code>, <code>ageHours</code></li>
+<li><code>recordType: &quot;pollOption&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-hiring-post">Output per hiring post</h2>
+<ul>
+<li><code>id</code>, <code>hnUrl</code>, <code>threadId</code>, <code>threadTitle</code>, <code>threadMonth</code></li>
+<li><code>author</code>, <code>company</code>, <code>role</code>, <code>location</code>, <code>remote</code>, <code>salary</code></li>
+<li><code>techStack</code>, <code>visa</code>, <code>email</code>, <code>applyUrl</code></li>
+<li><code>text</code>, <code>postedAt</code></li>
+<li><code>recordType: &quot;jobPosting&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<p>Parsed hiring fields are omitted when the post does not state them.</p>
+<h2 id="readme-usage-cost">Usage cost</h2>
+<p>There is no paid data source, proxy, or credential in this actor. Usage is ordinary Apify compute plus the records you choose to collect. The cheapest useful run is the default prefill: 20 top stories with comments and author enrichment off. Cost grows with <code>maxItems</code>, <code>maxComments</code>, <code>maxDepth</code>, multiple search queries, <code>exhaustiveSearch</code>, and <code>includeAuthorProfiles</code> because each adds fetches. Small <code>maxItems</code> values keep runs short and inexpensive.</p>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>Does it require a login or cookies?</strong>  No. Every mode reads data Hacker News exposes publicly.</p>
-<p><strong>Is a proxy needed?</strong>  No. The actor works without one.</p>
-<p><strong>Is this affiliated with Hacker News or Y Combinator?</strong>  No. This is an independent actor that reads Hacker News' own public feeds and search.</p>
-<p><strong>Why are some stories missing a <code>url</code>?</strong>  Ask HN / Show HN posts are self-text — they have a <code>text</code> field instead of a <code>url</code>. The omit-empty contract drops the <code>url</code> field on these.</p>
-<p><strong>Why does <code>commentMinScore</code> not filter much?</strong>  Hacker News rarely exposes per-comment scores. When the field is missing the comment is kept.</p>
-<p><strong>What's the difference between <code>maxItems</code> and <code>maxComments</code>?</strong>  <code>maxItems</code> caps the total emitted records (stories + comments + users combined). <code>maxComments</code> caps how deep the actor goes into each story's comment tree per story.</p>
-<p><strong>How fresh is the data?</strong>  Real-time. Both APIs serve the live HN database.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/shC9wAKWFYbt1zZYs/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>5oHywcIl6KpVuhLqx</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<p><strong>Do I need an account, cookie, or API key?</strong> No. Every mode reads public Hacker News data.</p>
+<p><strong>Do I need a proxy?</strong> No. The actor connects directly and needs no proxy configuration.</p>
+<p><strong>Why is a field missing from some records?</strong> Hacker News does not store that field for every item. For example, self posts have text but no link URL, and many users have no “about” text. Missing fields are omitted instead of filled with a placeholder.</p>
+<p><strong>Why do comment scores never appear?</strong> Hacker News does not publish per-comment scores through its feeds, search, or HTML. Stories, polls, jobs, and poll options do have scores.</p>
+<p><strong>Why did a search stop at 1,000 results?</strong> Hacker News search returns at most 1,000 hits per query window. Turn on <code>exhaustiveSearch</code> to split the date range into smaller windows and collect deeper results.</p>
+<p><strong>Why is relevance order different when <code>exhaustiveSearch</code> is on?</strong> The deep search collects several date windows. Each window is ranked by relevance, so the final list follows window order rather than one global relevance ordering. Use <code>searchSort: &quot;date&quot;</code> for a stable chronological order.</p>
+<p><strong>How fresh is the data?</strong> Feeds and item lookups are live. Search and comment search can lag the live site by a short period, so brand-new comments or score changes may appear slightly later.</p>
+<p><strong>What is the difference between <code>maxItems</code> and <code>maxComments</code>?</strong> <code>maxItems</code> caps every emitted record, including nested comments. <code>maxComments</code> caps how many comments are read for each story before depth filtering.</p>
+<p><strong>Can I read a historical best, Ask HN, or Show HN list?</strong> No. Hacker News archives only the historical front page by date. Live Ask HN, Show HN, best, and job lists are available through their normal modes.</p>
+<p><strong>Is this affiliated with Hacker News or Y Combinator?</strong> No. This is an independent actor that reads Hacker News’ public data.</p>
+<h2 id="readme-notes">Notes</h2>
+<ul>
+<li>All timestamps are UTC and ISO-8601, with a matching Unix epoch.</li>
+<li>Records are snapshots: scores, comment counts, and comment trees can change after a run.</li>
+<li>Flat comment output contains one row per comment and never repeats a reply inside another row.</li>
+<li>Nested comment output is one story row; every reply carries its own type and scrape timestamp.</li>
+<li><code>item</code> returns a comment row for a comment ID, a story-style row for a story, job, or poll, and a poll-option row for a poll-option ID.</li>
+<li><code>startUrls</code> accepts item, user, historical front-page, and hiring-thread links alongside the mode-specific lists.</li>
+<li>Historical front pages are deduplicated when a story appears twice on the same day.</li>
+</ul>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li><strong>No comment scores or flags.</strong> Hacker News does not expose per-comment scores, moderation flags, or edit history publicly.</li>
+<li><strong>Search ceiling.</strong> Each Hacker News search window returns at most 1,000 hits. <code>exhaustiveSearch</code> works around this by date slicing, but a single second with more than 1,000 hits cannot be split further.</li>
+<li><strong>Historical lists.</strong> Only the front page is archived by day. Historical best, Ask HN, Show HN, and jobs pages are not available.</li>
+<li><strong>Feed caps.</strong> Hacker News itself limits the live feeds: top and new stories usually expose 500 IDs, best about 200, Ask HN 20, Show HN up to about 150, and jobs about 30. The actor reports when a feed is exhausted.</li>
+<li><strong>Comment-tree lag.</strong> The fast tree can trail the live thread by a short period, and deleted branches may be absent. The actor merges a comment-search fallback when live replies are missing; turning off <code>excludeDeadOrDeleted</code> uses the exact slower walk.</li>
+<li><strong>Hiring parsing is heuristic.</strong> Company, role, location, salary, tech stack, visa, email, and apply link are extracted from free-form posts. Fields the post does not state are omitted; no value is invented.</li>
+<li><strong>Very large user histories.</strong> A user can have tens of thousands of submissions. <code>maxItems</code> and <code>submissionTypes</code> keep the run bounded.</li>
+<li><strong>Relevance is not deterministic.</strong> Search relevance can shift between runs as the index changes; date order is stable.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/shC9wAKWFYbt1zZYs/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>ajANmalEbfWPogs9n</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

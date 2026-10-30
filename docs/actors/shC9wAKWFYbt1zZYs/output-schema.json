@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Stories, comments, job posts, and user profiles from Hacker News. Fields vary by record type: stories include id, title, url, score, author, numComments, createdAt, domain, hnUrl; comments include id, storyId, parentId, depth, author, text; users include id, karma, submittedCount, profileUrl.",
+  "description": "Stories, comments, jobs, polls, poll options, user profiles, and parsed Who is hiring? posts from Hacker News.",
   "properties": {
     "items": {
-      "description": "Dataset containing all scraped records. Stories: id, hnUrl, type, title, url, domain, score, author, numComments, createdAt, createdAtEpoch, ageHours, text, kids, dead, deleted, recordType, scrapedAt. Comments: id, hnUrl, storyId, parentId, depth, author, text, createdAt, kids, recordType, scrapedAt. Users: id, profileUrl, karma, createdAt, about, submittedCount, submitted, recordType, scrapedAt.",
+      "description": "Dataset containing every scraped record. `recordType` identifies stories, comments, users, poll options, and hiring posts. Story rows include id, title, url, domain, score, author, numComments, rank, timestamps, text, pollOptions, and optional nested comments. Comment rows include id, storyId, parentId, depth, author, text, and story context. User rows include karma, account age, about text, and submission counts.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Hacker News records",
       "type": "string"
     }
   },
-  "title": "Hacker News Story, Comment & Karma Scraper Output"
+  "title": "Hacker News Archive: Stories, Comments & Hiring Output"
 }
