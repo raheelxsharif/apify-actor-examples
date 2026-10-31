@@ -1,0 +1,68 @@
+# WTA Washington Trails Scraper
+
+Scrape **wta.org** (Washington Trails Association) — the comprehensive hiking trail database for Washington State with 3,500+ trails, GPS coordinates, elevation data, ratings, and trip reports.
+
+## What You Can Do
+
+- **Search Trails** — find trails by region (Snoqualmie, North Cascades, Olympics, etc.) or keyword
+- **Get Trail Details** — fetch detailed info by URL including GPS coordinates, full description, ratings
+- **Get Trip Reports** — access recent trip report activity and dates
+
+## Input Parameters
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `mode` | select | `searchTrails`, `getTrailDetails`, or `getTripReports` |
+| `region` | select | Washington region to filter (Snoqualmie Region, North Cascades, etc.) |
+| `searchQuery` | string | Keyword search for trail names |
+| `trailUrls` | array | WTA trail page URLs (mode=getTrailDetails) |
+| `fetchDetails` | boolean | Fetch detail page for lat/lon/description |
+| `minLengthMiles` | number | Minimum trail length filter |
+| `maxLengthMiles` | number | Maximum trail length filter |
+| `minRating` | number | Minimum rating filter (0–5) |
+| `maxItems` | integer | Max records (default: 50) |
+
+## Output Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `trailName` | string | Trail name |
+| `region` | string | Washington region |
+| `lengthText` | string | Length as text (e.g. "4.5 miles, roundtrip") |
+| `lengthMiles` | number | Trail length in miles |
+| `elevationGainFeet` | integer | Elevation gain in feet |
+| `highPointFeet` | integer | Highest point in feet |
+| `rating` | number | Average star rating (0–5) |
+| `reviewCount` | integer | Number of ratings |
+| `features` | array | Trail features (Lakes, Mountain views, etc.) |
+| `summary` | string | Trail description snippet |
+| `latitude` | number | GPS latitude |
+| `longitude` | number | GPS longitude |
+| `trailUrl` | string | WTA trail page URL |
+| `imageUrl` | string | Trail photo URL |
+
+## Available Regions
+
+- Snoqualmie Region (Snoqualmie Pass, North Bend Area, etc.)
+- Central Cascades
+- North Cascades
+- Olympics Peninsula
+- Mount Rainier Area
+- South Cascades
+- Puget Sound and Islands
+- Central Washington
+- Southwest Washington
+
+## FAQs
+
+**Q: Do I need an account to use this?**
+A: No. WTA's trail database is publicly accessible without any login.
+
+**Q: How many trails are available?**
+A: WTA lists 3,500+ hikes across Washington State.
+
+**Q: How do I get GPS coordinates?**
+A: Enable `fetchDetails=true` or use `mode=getTrailDetails` with specific trail URLs.
+
+**Q: What does "features" include?**
+A: Features like Lakes, Mountain views, Wildflowers, Wildlife, Old growth, Waterfalls, Ridges/passes, etc.

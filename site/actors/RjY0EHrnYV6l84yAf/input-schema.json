@@ -1,0 +1,116 @@
+{
+  "description": "Search Washington State hiking trails from wta.org by region, keyword, or get detailed trail info.",
+  "properties": {
+    "fetchDetails": {
+      "default": false,
+      "description": "When enabled, fetches the detail page for each trail to get lat/lon, full description, and rating. Slower but more complete.",
+      "prefill": false,
+      "title": "Fetch detailed trail info",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxLengthMiles": {
+      "description": "Filter: only include trails <= this length in miles.",
+      "maximum": 200,
+      "minimum": 0,
+      "title": "Max trail length (miles)",
+      "type": "number"
+    },
+    "minLengthMiles": {
+      "description": "Filter: only include trails >= this length in miles.",
+      "maximum": 200,
+      "minimum": 0,
+      "title": "Min trail length (miles)",
+      "type": "number"
+    },
+    "minRating": {
+      "description": "Filter: only include trails with average rating >= this value (0–5).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Min rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "searchTrails",
+      "description": "What to fetch from WTA.",
+      "editor": "select",
+      "enum": [
+        "searchTrails",
+        "getTrailDetails",
+        "getTripReports"
+      ],
+      "enumTitles": [
+        "Search trails by region / keyword",
+        "Get detailed trail info by URL",
+        "Get trip reports for trails"
+      ],
+      "prefill": "searchTrails",
+      "title": "Mode",
+      "type": "string"
+    },
+    "region": {
+      "default": "Snoqualmie Region",
+      "description": "Washington State region to filter trails. Examples: Snoqualmie Region, North Cascades, Olympics, Mount Rainier Area, Puget Sound and Islands.",
+      "editor": "select",
+      "enum": [
+        "Snoqualmie Region",
+        "Central Cascades",
+        "North Cascades",
+        "Olympics",
+        "Mount Rainier Area",
+        "South Cascades",
+        "Puget Sound and Islands",
+        "Central Washington",
+        "Southwest Washington"
+      ],
+      "enumTitles": [
+        "Snoqualmie Region",
+        "Central Cascades",
+        "North Cascades",
+        "Olympics Peninsula",
+        "Mount Rainier Area",
+        "South Cascades",
+        "Puget Sound and Islands",
+        "Central Washington",
+        "Southwest Washington"
+      ],
+      "prefill": "Snoqualmie Region",
+      "title": "Region",
+      "type": "string"
+    },
+    "regionFilter": {
+      "description": "Additional free-text filter on region field (e.g. Snoqualmie Pass).",
+      "editor": "textfield",
+      "title": "Region text filter",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Free-text keyword search for trail names or features.",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    },
+    "trailUrls": {
+      "default": [],
+      "description": "List of WTA trail page URLs to fetch details for.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Trail URLs (mode=getTrailDetails)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "WTA Washington Trails Scraper Input",
+  "type": "object"
+}
