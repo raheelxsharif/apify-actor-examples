@@ -1,0 +1,266 @@
+{
+  "description": "Search Myntra products, browse by category or brand, or fetch full product pages.",
+  "properties": {
+    "brandName": {
+      "description": "Brand to browse (mode=browseByBrand). Use the brand as it appears on Myntra, e.g. `adidas`, `nike`, `levis`, `tommy hilfiger`, `roadster`. Spaces and special characters are slugified automatically.",
+      "editor": "textfield",
+      "title": "Brand (mode=browseByBrand)",
+      "type": "string"
+    },
+    "category": {
+      "default": "tshirts",
+      "description": "Myntra category to browse (mode=browseByCategory).",
+      "editor": "select",
+      "enum": [
+        "tshirts",
+        "shirts",
+        "jeans",
+        "trousers",
+        "shorts",
+        "trackpants",
+        "sweatshirts",
+        "sweaters",
+        "jackets",
+        "blazers",
+        "coats",
+        "kurtas",
+        "kurtis",
+        "sarees",
+        "dresses",
+        "tops",
+        "skirts",
+        "leggings",
+        "innerwear",
+        "socks",
+        "swimwear",
+        "shoes",
+        "sneakers",
+        "sports-shoes",
+        "sandals",
+        "flats",
+        "heels",
+        "boots",
+        "slippers",
+        "bags",
+        "backpacks",
+        "clutches",
+        "wallets",
+        "watches",
+        "sunglasses",
+        "belts",
+        "caps",
+        "scarves",
+        "jewellery",
+        "earrings",
+        "rings",
+        "bracelets",
+        "chains",
+        "dupattas",
+        "stoles",
+        "lehengas",
+        "mens-grooming",
+        "beauty"
+      ],
+      "enumTitles": [
+        "T-shirts",
+        "Shirts",
+        "Jeans",
+        "Trousers",
+        "Shorts",
+        "Track pants",
+        "Sweatshirts",
+        "Sweaters",
+        "Jackets",
+        "Blazers",
+        "Coats",
+        "Kurtas",
+        "Kurtis",
+        "Sarees",
+        "Dresses",
+        "Tops",
+        "Skirts",
+        "Leggings",
+        "Innerwear",
+        "Socks",
+        "Swimwear",
+        "Shoes",
+        "Sneakers",
+        "Sports shoes",
+        "Sandals",
+        "Flats",
+        "Heels",
+        "Boots",
+        "Slippers",
+        "Bags",
+        "Backpacks",
+        "Clutches",
+        "Wallets",
+        "Watches",
+        "Sunglasses",
+        "Belts",
+        "Caps",
+        "Scarves",
+        "Jewellery",
+        "Earrings",
+        "Rings",
+        "Bracelets",
+        "Chains",
+        "Dupattas",
+        "Stoles",
+        "Lehengas",
+        "Men's grooming",
+        "Beauty"
+      ],
+      "prefill": "tshirts",
+      "title": "Category (mode=browseByCategory)",
+      "type": "string"
+    },
+    "containsKeyword": {
+      "description": "Only emit products whose name contains this keyword (case-insensitive).",
+      "editor": "textfield",
+      "title": "Keyword in product name",
+      "type": "string"
+    },
+    "gender": {
+      "default": "",
+      "description": "Restrict results to a gender segment. Applied as a server-side filter where Myntra supports it.",
+      "editor": "select",
+      "enum": [
+        "",
+        "men",
+        "women",
+        "boys",
+        "girls"
+      ],
+      "enumTitles": [
+        "Any",
+        "Men",
+        "Women",
+        "Boys",
+        "Girls"
+      ],
+      "prefill": "",
+      "title": "Gender",
+      "type": "string"
+    },
+    "includePdpDetails": {
+      "default": false,
+      "description": "Visit every product's detail page to enrich records with description, material & care, size & fit, manufacturer and country of origin. Slower but adds fields. Product URLs in mode=byUrl always fetch detail pages.",
+      "prefill": false,
+      "title": "Fetch product detail pages",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records. Myntra renders up to ~50 products per listing page.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop products whose selling price is above this amount.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Max price (INR)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Drop products whose selling price is below this amount.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min price (INR)",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop products rated below this value (0-5).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Min rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "browseByCategory",
+        "browseByBrand",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search products",
+        "Browse by category",
+        "Browse by brand",
+        "Fetch by product URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Full Myntra product URLs, e.g. `https://www.myntra.com/tshirts/keesor/keesor-girls-pack-of-3-multi-cotton-tshirts/36385830/buy` (mode=byUrl).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs (mode=byUrl)",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": false
+      },
+      "description": "Optional Apify proxy. Automatically engaged only if Myntra blocks direct requests (403/429).",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": false
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "tshirts",
+      "description": "Free-text product search (mode=search), e.g. `tshirts`, `jeans`, `printed tshirts`, `nike shoes`.",
+      "editor": "textfield",
+      "prefill": "tshirts",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "",
+      "description": "Sort order for listing pages.",
+      "editor": "select",
+      "enum": [
+        "",
+        "recommended",
+        "popularity",
+        "new",
+        "price_asc",
+        "price_desc",
+        "discount",
+        "customer_rating"
+      ],
+      "enumTitles": [
+        "Default (recommended)",
+        "Recommended",
+        "Popularity",
+        "What's new",
+        "Price: low to high",
+        "Price: high to low",
+        "Better discount",
+        "Customer rating"
+      ],
+      "prefill": "",
+      "title": "Sort order",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Myntra Scraper Input",
+  "type": "object"
+}
