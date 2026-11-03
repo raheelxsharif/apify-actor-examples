@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Live and replay chat messages with author, timestamp, Super Chat amount, and badge detail.",
+  "description": "Chat events with authors, replay offsets, Super Chat and gift amounts, membership detail, badges, stream metadata and optional summaries.",
   "properties": {
     "messages": {
-      "description": "Dataset containing all scraped live and replay chat message rows.",
+      "description": "Dataset containing chat messages, paid events, memberships, gifts, system rows and stream summaries.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "YouTube Live Chat Scraper dataset",
+      "title": "YouTube chat events",
       "type": "string"
     }
   },

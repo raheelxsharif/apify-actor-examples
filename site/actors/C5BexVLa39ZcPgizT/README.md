@@ -1,0 +1,262 @@
+# Patch.com Local News, Events & Classifieds Finder
+
+Pull hyperlocal news, local events, and classifieds for thousands of US towns and cities from **Patch.com**. Search any keyword nationwide or within a specific town, browse the latest headlines for any town/city, browse by category (Politics & Government, Sports, Real Estate, Crime & Safety, and more), pull every article by a specific author, browse by editorial tag, browse the local events calendar, or browse classifieds/marketplace listings. Filter by publish-date range, event date range, or by distance from a location, and get the headline, summary, author, date, town, category, tags, and image for every record. No login, no cookies, no proxy required.
+
+## What this actor does
+
+- **Seven modes:** `search`, `byTown`, `byCategory`, `byAuthor`, `byTag`, `events`, `classifieds`
+- **Nationwide or scoped:** search and browse across all of Patch, or narrow to one US state and/or one town/city
+- **21 news categories:** Politics & Government, Sports, Crime & Safety, Real Estate, Schools, Business, Arts & Entertainment, Obituaries, Pets, Weather, and more
+- **11 classifieds categories:** For Sale, Housing, Gigs & Services, Announcements, Lost & Found, and more
+- **Local events calendar:** browse upcoming community events with venue address and event date, independent from news articles
+- **Date-range filtering:** only return articles/events/classifieds published between two dates, plus a dedicated event-occurrence date range for `mode=events`
+- **Geo-radius filtering:** only return news articles from towns within N miles of a latitude/longitude, and sort by distance (news modes only)
+- **Flexible sorting:** relevance, newest first, oldest first, nearest first (news), or soonest-event-first (events)
+- **Empty fields are omitted** — every field returned in a record has real, populated data
+
+## Output per record
+
+Every record always includes `recordType` (`"article"` / `"event"` / `"classified"`) and `scrapedAt`. Field availability depends on `recordType`:
+
+### News articles (`recordType: "article"`)
+
+- `articleId` — Patch's internal article ID
+- `headline` — article title
+- `shortHeadline` — shortened headline used on Patch's cards/feeds
+- `summary` — one-line article summary/dek
+- `author` — byline name
+- `authorId` — Patch's internal author ID (useful to disambiguate two reporters who share a name)
+- `authorUrl` — link to the author's Patch profile
+- `publishedDate` — publish timestamp (ISO 8601, UTC)
+- `updatedDate` — last-updated timestamp (only present when different from `publishedDate`)
+- `url` — canonical article URL on patch.com
+- `town` — the Patch community the article belongs to (e.g. `Santa Monica`)
+- `townUrl` — link to that town's Patch homepage
+- `state` — 2-letter US state/territory abbreviation (e.g. `CA`)
+- `regionUrl` — link to that state's Patch statewide news hub
+- `category` — news category/topic (e.g. `Politics & Government`)
+- `tags` — editorial tags on the article (e.g. `["Back To School"]`; only present when Patch tagged the article — most articles have none)
+- `imageUrl` — article thumbnail image
+- `distanceMiles` — distance from `nearLat`/`nearLng`, in miles (only present when a geo search is used)
+
+### Local events (`recordType: "event"`, `mode=events`)
+
+- `eventId` — Patch's internal event ID
+- `headline` — event title
+- `shortHeadline`, `summary`, `author`, `authorId`, `authorUrl` — same meaning as articles (the event's poster)
+- `eventDate` — the event's own occurrence date/time (ISO 8601, UTC) — this is what you filter with `eventDateAfter`/`eventDateBefore`
+- `publishedDate` / `updatedDate` — when the event listing itself was posted/edited on Patch (filter with `publishedAfter`/`publishedBefore`)
+- `url`, `town`, `townUrl`, `state`, `regionUrl`, `imageUrl` — same meaning as articles
+- `eventAddress` — venue city/state/postal code, comma-joined (only present when Patch has address data for the event; most recent events include this)
+- `eventLat` / `eventLng` — venue coordinates (only present when Patch has geocoded the venue)
+- `isPromoted` — `true` if the event listing is a paid/sponsored promotion
+
+### Classifieds (`recordType: "classified"`, `mode=classifieds`)
+
+- `classifiedId` — Patch's internal classified listing ID
+- `headline` — listing title
+- `shortHeadline`, `summary`, `author`, `authorId`, `authorUrl` — same meaning as articles (the poster)
+- `category` — classifieds category (e.g. `Housing`, `For Sale`, `Gigs & Services` — see `classifiedCategory` input)
+- `publishedDate` / `updatedDate` — when the listing was posted/edited
+- `expiresDate` — when the listing expires from Patch's classifieds board
+- `url`, `town`, `townUrl`, `state`, `regionUrl`, `imageUrl` — same meaning as articles
+- `isPromoted` — `true` if the listing is a paid/sponsored promotion
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` / `byTown` / `byCategory` / `byAuthor` / `byTag` / `events` / `classifieds` |
+| `searchQuery` | string | – | Free-text keyword (mode=search; also works as an optional keyword filter on byTown/byCategory/byAuthor/byTag/events/classifieds) |
+| `authorName` | string | – | Exact byline/reporter/poster name, e.g. `Eric Heyl` (required for mode=byAuthor; optional filter combinable with any other mode, including events/classifieds) |
+| `tagName` | string | – | Exact editorial tag, e.g. `Back To School` (required for mode=byTag; optional filter on search/byTown/byCategory/byAuthor; not applicable to events/classifieds) |
+| `regionSlug` | string | – | US state to scope to, e.g. `california` (required for mode=byTown; optional filter on every other mode) |
+| `townSlug` | string | – | Town/city URL slug, e.g. `santamonica` (required for mode=byTown, needs `regionSlug` too; optional filter on every other mode) |
+| `category` | string | – | News category (required for mode=byCategory; optional filter on search/byTown/byAuthor/byTag; not applicable to events/classifieds) |
+| `classifiedCategory` | string | – | Classifieds category, e.g. `housing` (mode=classifieds only; a separate value set from `category`) |
+| `sortBy` | string | `relevance` | `relevance` / `newest` / `oldest` / `nearest` (news modes only, requires `nearLat`/`nearLng`) / `eventDate` (mode=events only) |
+| `publishedAfter` | string | – | Only records posted to Patch on/after this date (`YYYY-MM-DD`) |
+| `publishedBefore` | string | – | Only records posted to Patch on/before this date (`YYYY-MM-DD`) |
+| `eventDateAfter` | string | – | mode=events only. Only events occurring on/after this date (`YYYY-MM-DD`) |
+| `eventDateBefore` | string | – | mode=events only. Only events occurring on/before this date (`YYYY-MM-DD`) |
+| `nearLat` | number | – | Latitude to search near (news modes only; combine with `nearLng`, `radiusMiles`) |
+| `nearLng` | number | – | Longitude to search near (news modes only; combine with `nearLat`, `radiusMiles`) |
+| `radiusMiles` | int | `25` | Search radius in miles around `nearLat`/`nearLng` (news modes only, 1–500) |
+| `maxItems` | int | `25` | Maximum records to return (1–250) |
+
+`regionSlug` and `townSlug` come straight from the Patch URL — for `patch.com/california/santamonica`, `regionSlug` is `california` and `townSlug` is `santamonica`. Every filter above — including `authorName` and `tagName` — can be combined with any mode: e.g. `mode=search` + `searchQuery` + `authorName` searches one reporter's own articles for a keyword, or `mode=byCategory` + `category` + `tagName` narrows a category browse down to one editorial tag. `mode=events` and `mode=classifieds` browse Patch's local events calendar and classifieds board — separate content types from news articles, sharing the same town/state scope, `searchQuery`, and `authorName` filters, but with their own category axis (`classifiedCategory`) and date axis (`eventDateAfter`/`eventDateBefore` for events).
+
+### Example: nationwide keyword search
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "school board",
+  "sortBy": "newest",
+  "maxItems": 30
+}
+```
+
+### Example: latest news for a specific town
+
+```json
+{
+  "mode": "byTown",
+  "regionSlug": "california",
+  "townSlug": "santamonica",
+  "maxItems": 25
+}
+```
+
+### Example: browse a category nationwide
+
+```json
+{
+  "mode": "byCategory",
+  "category": "real-estate",
+  "sortBy": "newest",
+  "maxItems": 50
+}
+```
+
+### Example: category browse scoped to one state
+
+```json
+{
+  "mode": "byCategory",
+  "category": "sports",
+  "regionSlug": "texas",
+  "sortBy": "newest",
+  "maxItems": 40
+}
+```
+
+### Example: everything by one author
+
+```json
+{
+  "mode": "byAuthor",
+  "authorName": "Eric Heyl",
+  "sortBy": "newest",
+  "maxItems": 25
+}
+```
+
+### Example: everything tagged with an editorial tag
+
+```json
+{
+  "mode": "byTag",
+  "tagName": "Back To School",
+  "sortBy": "newest",
+  "maxItems": 25
+}
+```
+
+### Example: real-estate news published in a date range
+
+```json
+{
+  "mode": "byCategory",
+  "category": "real-estate",
+  "publishedAfter": "2026-08-01",
+  "publishedBefore": "2026-08-31",
+  "sortBy": "newest",
+  "maxItems": 50
+}
+```
+
+### Example: news within 25 miles of a location, nearest first
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "traffic",
+  "nearLat": 40.4406,
+  "nearLng": -79.9959,
+  "radiusMiles": 25,
+  "sortBy": "nearest",
+  "maxItems": 30
+}
+```
+
+### Example: one category narrowed to one reporter
+
+```json
+{
+  "mode": "byCategory",
+  "category": "sports",
+  "authorName": "Eric Heyl",
+  "sortBy": "newest",
+  "maxItems": 25
+}
+```
+
+### Example: local events happening this weekend in one town
+
+```json
+{
+  "mode": "events",
+  "regionSlug": "california",
+  "townSlug": "santamonica",
+  "eventDateAfter": "2026-08-21",
+  "eventDateBefore": "2026-08-23",
+  "sortBy": "eventDate",
+  "maxItems": 30
+}
+```
+
+### Example: classifieds nationwide, one category
+
+```json
+{
+  "mode": "classifieds",
+  "classifiedCategory": "housing",
+  "sortBy": "newest",
+  "maxItems": 25
+}
+```
+
+## Use cases
+
+- **Local news monitoring** — track breaking news for a specific town or neighborhood
+- **Real estate & business intelligence** — pull local real-estate and business coverage across a state or nationwide
+- **Media monitoring** — search for a brand, person, or topic mentioned across thousands of local outlets
+- **Content aggregation** — build a local-news feed or newsletter for a specific community
+- **Academic & civic research** — analyze hyperlocal coverage of politics, schools, and community issues
+- **Reporter/byline tracking** — follow every article published by a specific journalist
+- **Location-based monitoring** — find recent local coverage within a radius of a specific address or landmark
+- **Community calendar aggregation** — pull upcoming local events for a town/state into your own calendar or newsletter
+- **Local marketplace monitoring** — track new housing, for-sale, or gigs/services classifieds in a specific area
+
+## FAQ
+
+**What is the data source?**
+Patch.com's own public news search — the same search index the Patch.com website itself uses.
+
+**Is this affiliated with Patch.com?**
+No, this is an independent, third-party actor that reads Patch.com's publicly accessible pages and search service. It is not affiliated with or endorsed by Patch Media.
+
+**How do I find a town's `regionSlug` and `townSlug`?**
+Visit patch.com, search for your town, and look at the URL: `patch.com/{regionSlug}/{townSlug}`. For example `patch.com/new-york/manhattan` -> `regionSlug=new-york`, `townSlug=manhattan`.
+
+**How do I find an author's exact `authorName`?**
+Run any other mode first and copy the `author` field from a result — Patch matches bylines exactly (case-insensitive), so a guessed name may return 0 results if it doesn't match Patch's stored byline precisely.
+
+**How do I find an exact `tagName`, and why isn't it a dropdown like `category`?**
+Run any other mode first and copy a value from a result's `tags` field. Unlike `category` (a fixed list of Patch topics), editorial tags are open-ended and Patch editors coin new ones continuously, so there's no finite list to enumerate — only a minority of articles carry tags at all, so try a different query or mode until a `tags` field shows up.
+
+**Why are some fields (like `updatedDate`, `distanceMiles`, `eventAddress`) sometimes missing?**
+They're only included when the underlying data actually applies to that record — e.g. `updatedDate` only appears if the article was edited after publishing, and `distanceMiles` only appears when you set both `nearLat` and `nearLng` on a news mode. See the field descriptions under Output above for exactly when each optional field appears.
+
+**Does this include the full article/event/classified body text?**
+No — only the headline, summary, and structured metadata (author, dates, town, category, tags, image) are returned. Full body text isn't currently supported.
+
+**What's the difference between `publishedAfter`/`publishedBefore` and `eventDateAfter`/`eventDateBefore`?**
+`publishedAfter`/`publishedBefore` filter by when a record (article, event listing, or classified) was posted to Patch — available on every mode. `eventDateAfter`/`eventDateBefore` (mode=events only) filter by the event's own occurrence date instead — e.g. use them to find "events happening this weekend" regardless of when the listing was posted.
+
+**Why does `maxItems` cap out at 250?**
+Patch's public search only exposes the first 250 matching results per query. To page further back, run the actor again with `publishedBefore` (or `eventDateBefore` for events) set to the oldest date returned by the previous run.
+
+**How fresh is the data?**
+Results reflect Patch's live search index at the time the actor runs — typically minutes behind newly published articles/events/classifieds.

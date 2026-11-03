@@ -4,112 +4,153 @@
 
 # YouTube Live Stream & Replay Chat Extractor
 
-YouTube's live chat disappears from the page once a stream ends unless you know where to look for the replay feed. This actor reads the chat from a currently live stream or from an ended stream's saved replay, and returns every message with its author, timestamp, and any Super Chat amount.
+Read the chat behind a YouTube live stream — while it is running or from the saved replay after it ends. Give the actor a video link, a video ID or a channel, and it returns the chat timeline as structured records: text messages, Super Chats, Super Stickers, memberships, gift memberships and paid gift messages.
 
-## What this actor does
+No cookies, login, API key or proxy setup is required.
 
-- **Works on live and ended streams** — automatically detects whether a video is actively streaming or only has replay chat available, or you can force a specific mode
-- **Covers every chat event type** — regular messages, Super Chats, Super Stickers, membership events, and viewer engagement messages
-- **Captures author detail** — name, channel ID, avatar, and badges (e.g. moderator, member)
-- **Processes multiple videos per run**, each as an independent target
-- **Empty fields are omitted** from each record instead of being returned as null
+## What you get
 
-## Output per chat message
+- **Replay chat in full** — pages through the saved chat to the end of the stream instead of stopping after a fixed number of pages.
+- **Live chat capture** — opens the live chat feed, emits the recent history already on screen, then polls at YouTube's own interval until your time window ends.
+- **Channel discovery** — finds the current live stream and recent stream replays from an `@handle`, channel URL or `UC…` channel ID.
+- **Every visible event type** — normal messages, Super Chats, Super Stickers, memberships, gift purchases, gift redemptions, paid gift messages, engagement notices and slow-mode/system notices.
+- **Replay offsets** — each replay event carries `videoOffsetMsec` and a readable `videoOffsetText` such as `0:05:06`.
+- **Numeric money** — `amountText` plus `amountValue` and `currency` when the amount is unambiguous.
+- **Author detail** — display name, channel ID, avatar, badges, handle, profile URL, and owner / moderator / member / verified flags.
+- **Stream context** — title, channel, live status, start/end time, publish date, duration, views, likes and category.
+- **Type filters and caps** — include or exclude event families, cap messages per video and total items, and restrict replay output to a time range.
+- **Optional summary** — one `stream_summary` record per video with event counts, per-currency totals, top supporters and a completeness note.
 
-- `recordType` — always `"live_chat_message"`
-- `videoId`, `videoUrl` — the video the message came from
-- `chatType` — `active` or `replay`, whichever feed the message was read from
-- `messageId` — unique chat message ID
-- `messageType` — e.g. `text_message`, `paid_message`, `membership`, `engagement`
-- `authorName` — chat author's display name
-- `authorChannelId` — author's YouTube channel ID
-- `authorPhotoUrl` — author's avatar image
-- `authorBadges[]` — badge labels shown next to the author (e.g. moderator, member)
-- `messageText` — the message body
-- `timestampText` — the timestamp as YouTube displays it in chat
-- `timestamp` — the same timestamp as an ISO 8601 datetime, when YouTube provides a precise value
-- `amountText` — the paid amount, for Super Chats and Super Stickers
-- `videoTitle`, `channelName`, `isLiveContent` — video metadata, included on every message row when `includeMetadata` is enabled
-- `scrapedAt` — ISO 8601 timestamp of when the message was collected
+## Inputs
 
-## Output when chat isn't available
+| Field | Default | What it does |
+|---|---|---|
+| `videoRefs` | — | Watch, live, shorts or `youtu.be` links, bare 11-character IDs, or channel live links such as `@handle/live`. |
+| `channelRefs` | — | `@handle`, channel URL or `UC…` ID. Each channel is searched for streams. |
+| `mode` | `auto` | `auto` detects live versus replay. `active` forces live chat. `replay` forces saved replay chat. |
+| `channelDiscoveryMode` | `current_live_then_replays` | `current_live`, `current_live_then_replays` or `latest_replays`. |
+| `maxVideosPerChannel` | `5` | How many streams to take from each channel. |
+| `lookbackDays` | `30` | How far back to include ended streams from a channel. `0` means no limit. |
+| `includeUpcomingLives` | `false` | Emit an `upcoming` status row for scheduled channel streams. |
+| `maxMessagesPerVideo` | `5000` | Chat events per video. `0` collects every available event. |
+| `maxTotalItems` | `0` | Whole-run dataset cap. `0` means no limit. |
+| `maxTimePerVideoSecs` | `600` | Safety budget for replay pagination on one video. |
+| `includeNormalMessages` | `true` | Include standard text messages. |
+| `includeSuperChats` | `true` | Include Super Chats and Super Stickers. |
+| `includeMembershipEvents` | `true` | Include memberships. |
+| `includeGiftEvents` | `true` | Include gift purchases, redemptions and paid gift messages. |
+| `includeSystemEvents` | `true` | Include engagement, slow-mode and other system notices. |
+| `includePlaceholders` | `false` | Include empty placeholder rows. |
+| `includeSummary` | `false` | Add a stream summary row per video. |
+| `startOffsetSecs` / `endOffsetSecs` | `0` / `0` | Replay-only time window inside the video. |
+| `liveCollectSecs` | `60` | How long to poll an active chat. |
+| `pollIntervalMs` | `2000` | Minimum live poll delay; YouTube's longer timeout is honoured. |
+| `language` / `regionCode` | `en` / `US` | Page and chat request locale. |
+| `includeMetadata` | `true` | Repeat stream metadata on each chat row. |
 
-Instead of a message, a video can produce a status row with `recordType: "status"` and a `status` value:
+## Output
 
-- `invalid_video` — the given URL/ID couldn't be parsed; only `videoUrl` and `error` are set
-- `failed` — the watch page itself couldn't be loaded; `videoUrl`, `videoId`, and `error` are set
-- `chat_unavailable` — the video has no live chat or chat replay; `videoUrl`, `videoId`, `title`, `isLiveContent`, `liveChatAvailable: false`, and `scrapedAt` are set
-- `chat_empty` / `chat_fetch_failed` — chat exists but no messages were collected; `videoUrl`, `videoId`, `title`, `isLiveContent`, `liveChatAvailable: true`, `chatType`, `scrapedAt`, and (for `chat_fetch_failed`) `error` are set
+Every chat record has `recordType: "live_chat_message"` and:
 
-## Input
+- identity and timing: `videoId`, `videoUrl`, `chatType`, `messageId`, `eventType`, `messageType`, `timestamp`, `timestampUsec`, `publishedAt`, `videoOffsetMsec`, `videoOffsetText`, `scrapedAt`
+- author: `authorName`, `authorChannelId`, `authorHandle`, `authorPhotoUrl`, `authorProfileUrl`, `authorBadges`, `memberBadge`, `isOwner`, `isModerator`, `isMember`, `isVerified`
+- content: `messageText`, `messageParts[]` (text and emoji runs)
+- money and membership: `amountText`, `amountValue`, `currency`, `superChatColor`, `stickerName`, `stickerUrl`, `membershipText`, `membershipLevel`, `memberMonths`
+- gifts: `giftCount`, `giftName`, `giftImageUrl`, `giftedBy`
+- system: `systemAction`, `systemText`
+- stream context when `includeMetadata` is on: `videoTitle`, `channelName`, `channelId`, `channelUrl`, `channelHandle`, `isLiveContent`, `isLiveNow`, `streamStatus`, `streamStartedAt`, `streamEndedAt`, `videoPublishedAt`, `videoDurationSeconds`, `videoViewCount`, `videoLikeCount`, `videoCategory`
+- channel discovery context when the target came from a channel: `discoverySource`, `channelRef`, `isDiscoveredLive`, `isDiscoveredUpcoming`, `discoveredAt`
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `videoUrls` | array | – | YouTube watch URLs to read chat from |
-| `videoIds` | array | – | 11-character YouTube video IDs, as an alternative to `videoUrls` |
-| `mode` | string (enum) | `auto` | `auto` (detect automatically), `active` (force live chat), or `replay` (force chat replay) |
-| `maxMessages` | integer | `1000` | Maximum unique chat messages to collect per video (1–100000) |
-| `maxPages` | integer | `10` | Maximum continuation requests used to page through chat per video (1–1000) |
-| `includeMetadata` | boolean | `true` | Repeat the video title, channel name, and live-content flag on every message row |
+Event values include `message`, `super_chat`, `super_sticker`, `membership`, `membership_gift`, `gift_received`, `gift`, `system` and `placeholder`.
 
-### Example: replay chat from a specific video
+When chat cannot be read, the actor emits a `recordType: "status"` row with a specific status such as `chat_disabled`, `upcoming`, `no_replay`, `stream_ended`, `stream_live`, `channel_not_live`, `rate_limited` or `partial_capture`, plus a plain-language `error`.
+
+## Examples
+
+Read a complete replay:
 
 ```json
 {
-  "videoUrls": ["https://www.youtube.com/watch?v=FQbNtLOVlwU"],
+  "videoRefs": ["https://www.youtube.com/watch?v=FQbNtLOVlwU"],
   "mode": "replay",
-  "maxMessages": 500
+  "maxMessagesPerVideo": 0
 }
 ```
 
-### Example: auto-detect mode on a currently live stream
+Capture 60 seconds of a live chat:
 
 ```json
 {
-  "videoUrls": ["https://www.youtube.com/watch?v=jfKfPfyJRdk"],
-  "maxMessages": 100
+  "videoRefs": ["https://www.youtube.com/live/74WjpIH4jeE"],
+  "mode": "active",
+  "liveCollectSecs": 60
 }
 ```
 
-### Example: multiple videos in one run
+Find a channel's current live stream and its two most recent replays:
 
 ```json
 {
-  "videoUrls": [
-    "https://www.youtube.com/watch?v=jfKfPfyJRdk",
-    "https://www.youtube.com/watch?v=21X5lGlDOfg"
-  ],
-  "maxMessages": 50
+  "channelRefs": ["@CBSNews"],
+  "channelDiscoveryMode": "current_live_then_replays",
+  "maxVideosPerChannel": 2,
+  "lookbackDays": 30,
+  "includeSummary": true
 }
 ```
 
-## Use cases
+Read only paid events from a replay between two offsets:
 
-- **Audience sentiment analysis** — gauge live reaction to a stream or premiere as it happens or after the fact
-- **Super Chat and monetization tracking** — see which messages carried paid amounts and how much
-- **Moderation research** — study the mix of message types and badge usage in a stream's chat
-- **Creator analytics** — measure chat engagement volume across a creator's streams
-- **Event archiving** — preserve the chat record of a live event for later reference
+```json
+{
+  "videoRefs": ["1vvDbx3nYpg"],
+  "mode": "replay",
+  "includeNormalMessages": false,
+  "includeMembershipEvents": false,
+  "includeGiftEvents": false,
+  "includeSystemEvents": false,
+  "startOffsetSecs": 60,
+  "endOffsetSecs": 600
+}
+```
 
 ## FAQ
 
-**Is this affiliated with YouTube?**
-No. This is an independent, third-party actor that reads publicly available YouTube chat data; it isn't operated by or affiliated with YouTube or Google.
+**Do I need cookies, an API key or a proxy?**
+No. The actor reads public chat data without cookies or credentials. It connects directly and switches proxy automatically only when a request is blocked.
 
-**Does this work on streams that have already ended?**
-Yes, as long as the creator left replay chat enabled for that stream; `mode: "replay"` or `auto` will pick it up.
+**Why is a live run shorter than the whole chat?**
+A live read only sees what appears while the actor is collecting. The actor emits the recent history already on screen, then polls until `liveCollectSecs` ends. Run replay mode after the stream ends for the full timeline.
 
-**Why are messages missing for some streams?**
-Some creators disable live chat or replay chat entirely. When that happens, the actor returns a status row explaining that chat is unavailable instead of silently returning nothing.
+**How much replay chat can I get?**
+As much as YouTube exposes. Pagination stops only at the end of the replay, `maxMessagesPerVideo`, `maxTotalItems`, `maxTimePerVideoSecs`, or a real error. There is no fixed page cap.
 
-**Do I need cookies or an API key?**
-No. The actor reads YouTube's publicly accessible chat feed without authentication.
+**What is the difference between `active` and `auto`?**
+`auto` checks the video and chooses live or replay. `active` insists on live chat and reports `stream_ended` if the stream is already over. `replay` insists on saved chat and reports `stream_live` if the stream is still running.
 
-**What's the difference between `active` and `replay` chat?**
-`active` reads a stream's live, ongoing chat feed. `replay` reads the saved chat timeline of a stream that has already ended. `auto` detects which one applies to the video you gave it.
+**Why is `amountValue` sometimes missing?**
+Only unambiguous amounts are converted to a number and currency. The original `amountText` is always kept. Unusual formats are counted in `amountsNotRead` on the summary row instead of being guessed.
 
-**How many messages can I collect per video?**
-Up to `maxMessages`, bounded by how many continuation pages `maxPages` allows the actor to fetch.
+**Are gift memberships the same as memberships?**
+No. A purchase is `membership_gift` (the buyer sent memberships), a redemption is `gift_received` (someone received one), and a paid gift message is `gift`. The summary keeps separate counts.
 
-**Why does `timestamp` sometimes appear but not always?**
-It's only added when YouTube's chat feed includes a precise microsecond timestamp for that message; `timestampText` (the display string YouTube shows in chat) is present whenever YouTube provides one.
+**Why are some messages missing from a channel result?**
+Channel discovery only returns streams that match `channelDiscoveryMode`, `lookbackDays` and `maxVideosPerChannel`. Some streams have chat disabled, no saved replay, or are members-only. Each of those cases produces a status row instead of fabricated data.
+
+**Does the actor convert currencies or provide a single total?**
+No. Totals stay per currency in `totalAmountByCurrency`; no exchange-rate service is used. Top supporters are ranked by numeric amount and keep their own currency.
+
+**Can it read members-only chat or deleted-message moderation details?**
+No. Those require an authenticated channel session. The actor reads public chat, reports unavailable paths as status rows, and never fakes restricted data.
+
+## Limits
+
+- Live captures are partial by design; replay is the complete path.
+- Members-only chat, age/region-gated videos and moderation logs are not available without authentication.
+- Reply-thread parent IDs and a numeric concurrent-viewer count are not exposed in the public chat payload, so they are not returned.
+- Currency conversion is intentionally not performed.
+- Chat availability is controlled by the creator. A stream can be public while its chat or replay is disabled.
+
+## Data source
+
+The actor reads YouTube's public watch pages and its public InnerTube live-chat endpoints. It does not log in, post messages, or perform moderation actions.

@@ -1,19 +1,57 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "chatEvents": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "Chat messages",
+      "title": "Chat events",
       "transformation": {
         "fields": [
           "videoId",
+          "eventType",
           "authorName",
           "messageText",
-          "timestampText",
-          "messageType"
+          "videoOffsetText",
+          "amountText",
+          "currency"
+        ]
+      }
+    },
+    "paidEvents": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Super Chats, Stickers & gifts",
+      "transformation": {
+        "fields": [
+          "videoId",
+          "eventType",
+          "authorName",
+          "amountText",
+          "amountValue",
+          "currency",
+          "giftCount"
+        ]
+      }
+    },
+    "streamSummaries": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Stream summaries",
+      "transformation": {
+        "fields": [
+          "videoId",
+          "videoTitle",
+          "messageCount",
+          "superChatCount",
+          "membershipGiftCount",
+          "totalAmountByCurrency",
+          "chatComplete"
         ]
       }
     }

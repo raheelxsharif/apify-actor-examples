@@ -1,33 +1,194 @@
 {
+  "description": "Read public live chat from videos, live streams or channels. No cookies, login or proxy setup required.",
   "properties": {
-    "includeMetadata": {
-      "default": true,
-      "description": "Repeat public video title, channel, and live-content metadata on each message row.",
-      "prefill": true,
-      "title": "Include video metadata on message rows",
-      "type": "boolean"
+    "channelDiscoveryMode": {
+      "default": "current_live_then_replays",
+      "description": "Which streams to pick from each channel. Used with channel references.",
+      "editor": "select",
+      "enum": [
+        "current_live",
+        "current_live_then_replays",
+        "latest_replays"
+      ],
+      "enumTitles": [
+        "Current live only",
+        "Current live, then recent replays",
+        "Recent stream replays only"
+      ],
+      "prefill": "current_live",
+      "title": "Channel discovery",
+      "type": "string"
     },
-    "maxMessages": {
-      "default": 1000,
-      "description": "Maximum unique public chat messages across all continuation pages.",
-      "maximum": 100000,
-      "minimum": 1,
-      "prefill": 100,
-      "title": "Maximum messages",
+    "channelRefs": {
+      "description": "Channel handles (@name), channel URLs or UC… channel IDs. The actor discovers current live streams and recent stream replays from each channel.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Channels",
+      "type": "array"
+    },
+    "endOffsetSecs": {
+      "default": 0,
+      "description": "Replay only. Stop after this video offset. Use 0 to read to the end.",
+      "maximum": 604800,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "End offset (seconds)",
       "type": "integer"
     },
-    "maxPages": {
-      "default": 10,
-      "description": "Maximum continuation requests used to bound active/replay chat collection.",
-      "maximum": 1000,
-      "minimum": 1,
+    "includeGiftEvents": {
+      "default": true,
+      "description": "Include gift membership purchases, gift membership redemptions and paid gift messages.",
+      "prefill": true,
+      "title": "Include gifts",
+      "type": "boolean"
+    },
+    "includeMembershipEvents": {
+      "default": true,
+      "description": "Include new and renewed channel membership events.",
+      "prefill": true,
+      "title": "Include memberships",
+      "type": "boolean"
+    },
+    "includeMetadata": {
+      "default": true,
+      "description": "Repeat video and stream metadata on each chat row.",
+      "prefill": true,
+      "title": "Include stream metadata",
+      "type": "boolean"
+    },
+    "includeNormalMessages": {
+      "default": true,
+      "description": "Include standard text chat messages.",
+      "prefill": true,
+      "title": "Include normal messages",
+      "type": "boolean"
+    },
+    "includePlaceholders": {
+      "default": false,
+      "description": "Include raw placeholder rows that contain only an ID and timestamp.",
+      "prefill": false,
+      "title": "Include placeholders",
+      "type": "boolean"
+    },
+    "includeSummary": {
+      "default": false,
+      "description": "Add one stream_summary row per video with event counts, per-currency totals, top supporters and completeness.",
+      "prefill": false,
+      "title": "Include stream summary",
+      "type": "boolean"
+    },
+    "includeSuperChats": {
+      "default": true,
+      "description": "Include paid Super Chat messages and paid Super Stickers.",
+      "prefill": true,
+      "title": "Include Super Chats and Stickers",
+      "type": "boolean"
+    },
+    "includeSystemEvents": {
+      "default": true,
+      "description": "Include engagement notices, slow-mode changes, restricted participation and other system rows.",
+      "prefill": true,
+      "title": "Include system events",
+      "type": "boolean"
+    },
+    "includeUpcomingLives": {
+      "default": false,
+      "description": "Emit an upcoming status row for scheduled channel streams instead of skipping them.",
+      "prefill": false,
+      "title": "Include upcoming streams",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "description": "Interface language used when requesting YouTube pages and chat.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "pt",
+        "de",
+        "fr",
+        "it",
+        "ja",
+        "ko",
+        "hi",
+        "id"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "Portuguese",
+        "German",
+        "French",
+        "Italian",
+        "Japanese",
+        "Korean",
+        "Hindi",
+        "Indonesian"
+      ],
+      "prefill": "en",
+      "title": "Language",
+      "type": "string"
+    },
+    "liveCollectSecs": {
+      "default": 60,
+      "description": "How long to keep polling an active chat before stopping. Live captures are always partial.",
+      "maximum": 86400,
+      "minimum": 10,
+      "prefill": 10,
+      "title": "Live capture seconds",
+      "type": "integer"
+    },
+    "lookbackDays": {
+      "default": 30,
+      "description": "How far back to include ended streams from a channel. Use 0 for no limit.",
+      "maximum": 365,
+      "minimum": 0,
+      "prefill": 30,
+      "title": "Replay lookback days",
+      "type": "integer"
+    },
+    "maxMessagesPerVideo": {
+      "default": 5000,
+      "description": "Maximum unique chat events collected from each video. Use 0 to collect every available event.",
+      "maximum": 200000,
+      "minimum": 0,
       "prefill": 3,
-      "title": "Maximum continuation pages",
+      "title": "Messages per video",
+      "type": "integer"
+    },
+    "maxTimePerVideoSecs": {
+      "default": 600,
+      "description": "Safety limit for replay pagination on one video, in seconds. A run that reaches it reports partial_capture.",
+      "maximum": 86400,
+      "minimum": 30,
+      "prefill": 120,
+      "title": "Time budget per video",
+      "type": "integer"
+    },
+    "maxTotalItems": {
+      "default": 0,
+      "description": "Whole-run cap across all videos and summary rows. Use 0 for no limit.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Maximum dataset items",
+      "type": "integer"
+    },
+    "maxVideosPerChannel": {
+      "default": 5,
+      "description": "Maximum streams to process from each channel.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Videos per channel",
       "type": "integer"
     },
     "mode": {
       "default": "auto",
-      "description": "Select automatic detection, active live chat, or replay chat endpoint behavior.",
+      "description": "Auto detects live versus replay. Active captures an ongoing live chat. Replay reads the saved chat of an ended stream.",
       "editor": "select",
       "enum": [
         "auto",
@@ -36,23 +197,69 @@
       ],
       "enumTitles": [
         "Detect automatically",
-        "Active live chat",
+        "Live chat",
         "Chat replay"
       ],
+      "prefill": "auto",
       "title": "Chat mode",
       "type": "string"
     },
-    "videoIds": {
-      "description": "Public 11-character YouTube video IDs.",
-      "editor": "stringList",
-      "items": {
-        "type": "string"
-      },
-      "title": "Video IDs",
-      "type": "array"
+    "pollIntervalMs": {
+      "default": 2000,
+      "description": "Minimum delay between live chat polls. YouTube's own timeout is honoured when it is longer.",
+      "maximum": 30000,
+      "minimum": 2000,
+      "prefill": 2000,
+      "title": "Live poll interval (ms)",
+      "type": "integer"
     },
-    "videoUrls": {
-      "description": "Public YouTube watch URLs. At least one URL or video ID is required; a public replay fixture is used if both are omitted.",
+    "regionCode": {
+      "default": "US",
+      "description": "Region used for YouTube page and chat requests.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "BR",
+        "DE",
+        "FR",
+        "JP",
+        "KR",
+        "MX",
+        "ID"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "India",
+        "Brazil",
+        "Germany",
+        "France",
+        "Japan",
+        "South Korea",
+        "Mexico",
+        "Indonesia"
+      ],
+      "prefill": "US",
+      "title": "Region",
+      "type": "string"
+    },
+    "startOffsetSecs": {
+      "default": 0,
+      "description": "Replay only. Skip events before this video offset. Use 0 to start at the beginning.",
+      "maximum": 604800,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Start offset (seconds)",
+      "type": "integer"
+    },
+    "videoRefs": {
+      "description": "YouTube watch, live, shorts or youtu.be links, 11-character video IDs, or a channel live link such as @handle/live.",
       "editor": "stringList",
       "items": {
         "type": "string"
@@ -60,11 +267,11 @@
       "prefill": [
         "https://www.youtube.com/watch?v=FQbNtLOVlwU"
       ],
-      "title": "Video URLs",
+      "title": "Video URLs or IDs",
       "type": "array"
     }
   },
   "schemaVersion": 1,
-  "title": "YouTube Live Chat Scraper Input",
+  "title": "YouTube Live Chat Input",
   "type": "object"
 }

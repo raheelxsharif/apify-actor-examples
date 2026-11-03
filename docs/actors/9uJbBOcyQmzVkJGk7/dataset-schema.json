@@ -1,1 +1,396 @@
-null
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "address": {
+        "description": "Publisher address when exposed",
+        "type": "string"
+      },
+      "bio": {
+        "description": "Publisher bio or show description",
+        "type": "string"
+      },
+      "category": {
+        "description": "Publisher category identifier when exposed",
+        "type": "string"
+      },
+      "displayName": {
+        "description": "Publisher display name or show title",
+        "type": "string"
+      },
+      "episodeCount": {
+        "description": "Number of episodes returned for the publisher",
+        "type": "integer"
+      },
+      "episodeId": {
+        "description": "Episode story ID",
+        "type": "string"
+      },
+      "episodeNumber": {
+        "description": "Episode number within its season",
+        "type": "integer"
+      },
+      "episodeUrl": {
+        "description": "Canonical episode page URL",
+        "type": "string"
+      },
+      "episodes": {
+        "description": "Complete episode history for the publisher",
+        "items": {
+          "properties": {
+            "episodeId": {
+              "type": "string"
+            },
+            "episodeNumber": {
+              "type": "integer"
+            },
+            "episodeUrl": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string"
+            },
+            "seasonId": {
+              "type": "string"
+            },
+            "seasonNumber": {
+              "type": "integer"
+            },
+            "snapCount": {
+              "type": "integer"
+            },
+            "snaps": {
+              "items": {
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "intervalStartMs": {
+                    "type": "integer"
+                  },
+                  "mediaType": {
+                    "type": "string"
+                  },
+                  "mediaUrl": {
+                    "type": "string"
+                  },
+                  "previewUrl": {
+                    "type": "string"
+                  },
+                  "snapId": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "thumbnailUrl": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "videoTrackUrl": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "error": {
+        "description": "Error message on an error row",
+        "type": "string"
+      },
+      "hasCuratedHighlights": {
+        "description": "Whether the publisher has curated highlights",
+        "type": "boolean"
+      },
+      "hasSpotlightHighlights": {
+        "description": "Whether the publisher has Spotlight highlights",
+        "type": "boolean"
+      },
+      "hasStory": {
+        "description": "Whether the publisher currently has a story",
+        "type": "boolean"
+      },
+      "hostUserId": {
+        "description": "Internal host user UUID when exposed",
+        "type": "string"
+      },
+      "input": {
+        "description": "Original input value on an error row",
+        "type": "string"
+      },
+      "isVerified": {
+        "description": "Whether the publisher has a verification badge",
+        "type": "boolean"
+      },
+      "mutableName": {
+        "description": "Mutable display name when exposed",
+        "type": "string"
+      },
+      "pageUrl": {
+        "description": "Canonical publisher or creator page URL",
+        "type": "string"
+      },
+      "premiumShowSeasons": {
+        "description": "Season summary with IDs, numbers and declared episode counts",
+        "items": {
+          "properties": {
+            "episodeCount": {
+              "type": "integer"
+            },
+            "seasonId": {
+              "type": "string"
+            },
+            "seasonNumber": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "premiumStories": {
+        "description": "Latest stories embedded in the publisher page for backward compatibility",
+        "items": {
+          "properties": {
+            "episodeNumber": {
+              "type": "integer"
+            },
+            "postedAt": {
+              "type": "string"
+            },
+            "seasonNumber": {
+              "type": "integer"
+            },
+            "storyId": {
+              "type": "string"
+            },
+            "storyTitle": {
+              "type": "string"
+            },
+            "storyType": {
+              "type": "integer"
+            },
+            "thumbnailUrl": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "preselectedStory": {
+        "description": "Featured episode with snap media when the page exposes one",
+        "properties": {
+          "episodeNumber": {
+            "type": "integer"
+          },
+          "episodeUrl": {
+            "type": "string"
+          },
+          "seasonNumber": {
+            "type": "integer"
+          },
+          "snaps": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "storyId": {
+            "type": "string"
+          },
+          "storyTitle": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "primaryColor": {
+        "description": "Publisher primary brand color",
+        "type": "string"
+      },
+      "profilePictureUrl": {
+        "description": "Publisher profile or show logo URL",
+        "type": "string"
+      },
+      "publishedAt": {
+        "description": "ISO 8601 UTC publication time",
+        "type": "string"
+      },
+      "publisherId": {
+        "description": "Publisher business profile ID (UUID)",
+        "type": "string"
+      },
+      "publisherSpotlights": {
+        "description": "Publisher Spotlight story cards with media, creator and engagement data",
+        "items": {
+          "properties": {
+            "caption": {
+              "type": "string"
+            },
+            "compositeStoryId": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "creatorDisplayName": {
+              "type": "string"
+            },
+            "creatorFollowerCount": {
+              "type": "integer"
+            },
+            "creatorUsername": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "durationSeconds": {
+              "type": "number"
+            },
+            "engagementStats": {
+              "type": "object"
+            },
+            "geoDisplayName": {
+              "type": "string"
+            },
+            "height": {
+              "type": "integer"
+            },
+            "imageUrl": {
+              "type": "string"
+            },
+            "lat": {
+              "type": "number"
+            },
+            "latestUpdatedAt": {
+              "type": "string"
+            },
+            "lng": {
+              "type": "number"
+            },
+            "snapId": {
+              "type": "string"
+            },
+            "snapUrl": {
+              "type": "string"
+            },
+            "storyId": {
+              "type": "string"
+            },
+            "thumbnailUrl": {
+              "type": "string"
+            },
+            "videoUrl": {
+              "type": "string"
+            },
+            "width": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "publisherType": {
+        "description": "Publisher type, for example SHOW or NORMAL",
+        "type": "string"
+      },
+      "recordType": {
+        "description": "Row type: publisher, episode, discoverStory or error",
+        "type": "string"
+      },
+      "scrapedAt": {
+        "description": "ISO 8601 UTC timestamp when the row was scraped",
+        "type": "string"
+      },
+      "seasonCount": {
+        "description": "Number of seasons listed for the publisher",
+        "type": "integer"
+      },
+      "seasonId": {
+        "description": "Season UUID",
+        "type": "string"
+      },
+      "seasonNumber": {
+        "description": "Season number",
+        "type": "integer"
+      },
+      "shouldHideUsername": {
+        "description": "Whether the profile hides its username",
+        "type": "boolean"
+      },
+      "snapCount": {
+        "description": "Number of snaps attached to an episode or story",
+        "type": "integer"
+      },
+      "snapcodeImageUrl": {
+        "description": "Snapcode image URL",
+        "type": "string"
+      },
+      "snaps": {
+        "description": "Snap preview and media records",
+        "items": {
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "squareHeroImageUrl": {
+        "description": "Square hero or banner image URL",
+        "type": "string"
+      },
+      "statusCode": {
+        "description": "HTTP status code on an error row",
+        "type": "integer"
+      },
+      "storyId": {
+        "description": "Discover story ID",
+        "type": "string"
+      },
+      "storyType": {
+        "description": "Discover story type, for example SHOW or PUBLIC_USER_STORY",
+        "type": "string"
+      },
+      "subcategory": {
+        "description": "Publisher subcategory identifier when exposed",
+        "type": "string"
+      },
+      "subscriberCount": {
+        "description": "Publisher subscriber count",
+        "type": "integer"
+      },
+      "tapId": {
+        "description": "Discover feed tap ID used for pagination",
+        "type": "string"
+      },
+      "thumbnailUrl": {
+        "description": "Episode or story thumbnail URL",
+        "type": "string"
+      },
+      "title": {
+        "description": "Episode or Discover story title",
+        "type": "string"
+      },
+      "username": {
+        "description": "Snapchat username when the publisher has one",
+        "type": "string"
+      },
+      "videoTrackUrl": {
+        "description": "Episode HLS video track URL",
+        "type": "string"
+      },
+      "websiteUrl": {
+        "description": "Publisher website URL",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Snapchat Publisher, Episodes and Discover"
+}
