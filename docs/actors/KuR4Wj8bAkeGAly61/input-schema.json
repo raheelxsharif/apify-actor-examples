@@ -1,0 +1,70 @@
+{
+  "properties": {
+    "includeMetadata": {
+      "default": true,
+      "description": "Repeat public video title, channel, and live-content metadata on each message row.",
+      "prefill": true,
+      "title": "Include video metadata on message rows",
+      "type": "boolean"
+    },
+    "maxMessages": {
+      "default": 1000,
+      "description": "Maximum unique public chat messages across all continuation pages.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Maximum messages",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 10,
+      "description": "Maximum continuation requests used to bound active/replay chat collection.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum continuation pages",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "auto",
+      "description": "Select automatic detection, active live chat, or replay chat endpoint behavior.",
+      "editor": "select",
+      "enum": [
+        "auto",
+        "active",
+        "replay"
+      ],
+      "enumTitles": [
+        "Detect automatically",
+        "Active live chat",
+        "Chat replay"
+      ],
+      "title": "Chat mode",
+      "type": "string"
+    },
+    "videoIds": {
+      "description": "Public 11-character YouTube video IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Video IDs",
+      "type": "array"
+    },
+    "videoUrls": {
+      "description": "Public YouTube watch URLs. At least one URL or video ID is required; a public replay fixture is used if both are omitted.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.youtube.com/watch?v=FQbNtLOVlwU"
+      ],
+      "title": "Video URLs",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "YouTube Live Chat Scraper Input",
+  "type": "object"
+}

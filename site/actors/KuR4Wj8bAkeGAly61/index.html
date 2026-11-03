@@ -1,0 +1,235 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-HMqJkqphZij47+z3TAq1w2wc/yze7VO6OAfe95+no1Y=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>YouTube Live Stream &amp; Replay Chat Extractor | Dataspryva</title><meta name="description" content="Collect chat messages, Super Chats, Super Stickers, and membership events from an active YouTube livestream or an ended stream&#x27;s saved chat replay, with author and timestamp detail"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/"><meta property="og:title" content="YouTube Live Stream &amp; Replay Chat Extractor | Dataspryva"><meta property="og:description" content="Collect chat messages, Super Chats, Super Stickers, and membership events from an active YouTube livestream or an ended stream&#x27;s saved chat replay, with author and timestamp detail"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#webpage","name":"YouTube Live Stream & Replay Chat Extractor","description":"Collect chat messages, Super Chats, Super Stickers, and membership events from an active YouTube livestream or an ended stream's saved chat replay, with author and timestamp detail.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#article","headline":"YouTube Live Stream & Replay Chat Extractor","name":"YouTube Live Stream & Replay Chat Extractor","description":"Collect chat messages, Super Chats, Super Stickers, and membership events from an active YouTube livestream or an ended stream's saved chat replay, with author and timestamp detail.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"YouTube Live Stream & Replay Chat Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/KuR4Wj8bAkeGAly61/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>YouTube Live Stream &amp; Replay Chat Extractor</span></div><section id="overview"><h1 class="doc-title">YouTube Live Stream &amp; Replay Chat Extractor</h1><p class="lede">Collect chat messages, Super Chats, Super Stickers, and membership events from an active YouTube livestream or an ended stream&#x27;s saved chat replay, with author and timestamp detail.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/youtube-live-stream-and-replay-chat-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/KuR4Wj8bAkeGAly61/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videoUrls</code></td><td>array</td><td>optional</td><td>Public YouTube watch URLs. At least one URL or video ID is required; a public replay fixture is used if both are omitted.</td></tr><tr><td><code>videoIds</code></td><td>array</td><td>optional</td><td>Public 11-character YouTube video IDs.</td></tr><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Select automatic detection, active live chat, or replay chat endpoint behavior.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videoUrls</code></td><td>array</td><td>optional</td><td>Public YouTube watch URLs. At least one URL or video ID is required; a public replay fixture is used if both are omitted.</td></tr><tr><td><code>videoIds</code></td><td>array</td><td>optional</td><td>Public 11-character YouTube video IDs.</td></tr><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Select automatic detection, active live chat, or replay chat endpoint behavior.</td></tr><tr><td><code>maxMessages</code></td><td>integer</td><td>optional</td><td>Maximum unique public chat messages across all continuation pages.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Maximum continuation requests used to bound active/replay chat collection.</td></tr><tr><td><code>includeMetadata</code></td><td>boolean</td><td>optional</td><td>Repeat public video title, channel, and live-content metadata on each message row.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;includeMetadata&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Repeat public video title, channel, and live-content metadata on each message row.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include video metadata on message rows&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxMessages&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;Maximum unique public chat messages across all continuation pages.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 100,
+      &quot;title&quot;: &quot;Maximum messages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Maximum continuation requests used to bound active/replay chat collection.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum continuation pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;auto&quot;,
+      &quot;description&quot;: &quot;Select automatic detection, active live chat, or replay chat endpoint behavior.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;auto&quot;,
+        &quot;active&quot;,
+        &quot;replay&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Detect automatically&quot;,
+        &quot;Active live chat&quot;,
+        &quot;Chat replay&quot;
+      ],
+      &quot;title&quot;: &quot;Chat mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;videoIds&quot;: {
+      &quot;description&quot;: &quot;Public 11-character YouTube video IDs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Video IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;videoUrls&quot;: {
+      &quot;description&quot;: &quot;Public YouTube watch URLs. At least one URL or video ID is required; a public replay fixture is used if both are omitted.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;https://www.youtube.com/watch?v=FQbNtLOVlwU&quot;
+      ],
+      &quot;title&quot;: &quot;Video URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;YouTube Live Chat Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>messages</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped live and replay chat message rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Live and replay chat messages with author, timestamp, Super Chat amount, and badge detail.&quot;,
+  &quot;properties&quot;: {
+    &quot;messages&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped live and replay chat message rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;YouTube Live Chat Scraper dataset&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;YouTube Live Stream &amp; Replay Chat Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Chat messages&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;videoId&quot;,
+          &quot;authorName&quot;,
+          &quot;messageText&quot;,
+          &quot;timestampText&quot;,
+          &quot;messageType&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-youtube-live-stream-replay-chat-extractor">YouTube Live Stream &amp; Replay Chat Extractor</h2>
+<p>YouTube's live chat disappears from the page once a stream ends unless you know where to look for the replay feed. This actor reads the chat from a currently live stream or from an ended stream's saved replay, and returns every message with its author, timestamp, and any Super Chat amount.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Works on live and ended streams</strong> — automatically detects whether a video is actively streaming or only has replay chat available, or you can force a specific mode</li>
+<li><strong>Covers every chat event type</strong> — regular messages, Super Chats, Super Stickers, membership events, and viewer engagement messages</li>
+<li><strong>Captures author detail</strong> — name, channel ID, avatar, and badges (e.g. moderator, member)</li>
+<li><strong>Processes multiple videos per run</strong>, each as an independent target</li>
+<li><strong>Empty fields are omitted</strong> from each record instead of being returned as null</li>
+</ul>
+<h2 id="readme-output-per-chat-message">Output per chat message</h2>
+<ul>
+<li><code>recordType</code> — always <code>&quot;live_chat_message&quot;</code></li>
+<li><code>videoId</code>, <code>videoUrl</code> — the video the message came from</li>
+<li><code>chatType</code> — <code>active</code> or <code>replay</code>, whichever feed the message was read from</li>
+<li><code>messageId</code> — unique chat message ID</li>
+<li><code>messageType</code> — e.g. <code>text_message</code>, <code>paid_message</code>, <code>membership</code>, <code>engagement</code></li>
+<li><code>authorName</code> — chat author's display name</li>
+<li><code>authorChannelId</code> — author's YouTube channel ID</li>
+<li><code>authorPhotoUrl</code> — author's avatar image</li>
+<li><code>authorBadges[]</code> — badge labels shown next to the author (e.g. moderator, member)</li>
+<li><code>messageText</code> — the message body</li>
+<li><code>timestampText</code> — the timestamp as YouTube displays it in chat</li>
+<li><code>timestamp</code> — the same timestamp as an ISO 8601 datetime, when YouTube provides a precise value</li>
+<li><code>amountText</code> — the paid amount, for Super Chats and Super Stickers</li>
+<li><code>videoTitle</code>, <code>channelName</code>, <code>isLiveContent</code> — video metadata, included on every message row when <code>includeMetadata</code> is enabled</li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of when the message was collected</li>
+</ul>
+<h2 id="readme-output-when-chat-isn-t-available">Output when chat isn't available</h2>
+<p>Instead of a message, a video can produce a status row with <code>recordType: &quot;status&quot;</code> and a <code>status</code> value:</p>
+<ul>
+<li><code>invalid_video</code> — the given URL/ID couldn't be parsed; only <code>videoUrl</code> and <code>error</code> are set</li>
+<li><code>failed</code> — the watch page itself couldn't be loaded; <code>videoUrl</code>, <code>videoId</code>, and <code>error</code> are set</li>
+<li><code>chat_unavailable</code> — the video has no live chat or chat replay; <code>videoUrl</code>, <code>videoId</code>, <code>title</code>, <code>isLiveContent</code>, <code>liveChatAvailable: false</code>, and <code>scrapedAt</code> are set</li>
+<li><code>chat_empty</code> / <code>chat_fetch_failed</code> — chat exists but no messages were collected; <code>videoUrl</code>, <code>videoId</code>, <code>title</code>, <code>isLiveContent</code>, <code>liveChatAvailable: true</code>, <code>chatType</code>, <code>scrapedAt</code>, and (for <code>chat_fetch_failed</code>) <code>error</code> are set</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>videoUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>YouTube watch URLs to read chat from</td>
+</tr>
+<tr>
+<td><code>videoIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>11-character YouTube video IDs, as an alternative to <code>videoUrls</code></td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td>string (enum)</td>
+<td><code>auto</code></td>
+<td><code>auto</code> (detect automatically), <code>active</code> (force live chat), or <code>replay</code> (force chat replay)</td>
+</tr>
+<tr>
+<td><code>maxMessages</code></td>
+<td>integer</td>
+<td><code>1000</code></td>
+<td>Maximum unique chat messages to collect per video (1–100000)</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Maximum continuation requests used to page through chat per video (1–1000)</td>
+</tr>
+<tr>
+<td><code>includeMetadata</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Repeat the video title, channel name, and live-content flag on every message row</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-replay-chat-from-a-specific-video">Example: replay chat from a specific video</h3>
+<pre><code class="language-json">{
+  &quot;videoUrls&quot;: [&quot;https://www.youtube.com/watch?v=FQbNtLOVlwU&quot;],
+  &quot;mode&quot;: &quot;replay&quot;,
+  &quot;maxMessages&quot;: 500
+}
+</code></pre>
+<h3 id="readme-example-auto-detect-mode-on-a-currently-live-stream">Example: auto-detect mode on a currently live stream</h3>
+<pre><code class="language-json">{
+  &quot;videoUrls&quot;: [&quot;https://www.youtube.com/watch?v=jfKfPfyJRdk&quot;],
+  &quot;maxMessages&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-multiple-videos-in-one-run">Example: multiple videos in one run</h3>
+<pre><code class="language-json">{
+  &quot;videoUrls&quot;: [
+    &quot;https://www.youtube.com/watch?v=jfKfPfyJRdk&quot;,
+    &quot;https://www.youtube.com/watch?v=21X5lGlDOfg&quot;
+  ],
+  &quot;maxMessages&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Audience sentiment analysis</strong> — gauge live reaction to a stream or premiere as it happens or after the fact</li>
+<li><strong>Super Chat and monetization tracking</strong> — see which messages carried paid amounts and how much</li>
+<li><strong>Moderation research</strong> — study the mix of message types and badge usage in a stream's chat</li>
+<li><strong>Creator analytics</strong> — measure chat engagement volume across a creator's streams</li>
+<li><strong>Event archiving</strong> — preserve the chat record of a live event for later reference</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with YouTube?</strong>
+No. This is an independent, third-party actor that reads publicly available YouTube chat data; it isn't operated by or affiliated with YouTube or Google.</p>
+<p><strong>Does this work on streams that have already ended?</strong>
+Yes, as long as the creator left replay chat enabled for that stream; <code>mode: &quot;replay&quot;</code> or <code>auto</code> will pick it up.</p>
+<p><strong>Why are messages missing for some streams?</strong>
+Some creators disable live chat or replay chat entirely. When that happens, the actor returns a status row explaining that chat is unavailable instead of silently returning nothing.</p>
+<p><strong>Do I need cookies or an API key?</strong>
+No. The actor reads YouTube's publicly accessible chat feed without authentication.</p>
+<p><strong>What's the difference between <code>active</code> and <code>replay</code> chat?</strong>
+<code>active</code> reads a stream's live, ongoing chat feed. <code>replay</code> reads the saved chat timeline of a stream that has already ended. <code>auto</code> detects which one applies to the video you gave it.</p>
+<p><strong>How many messages can I collect per video?</strong>
+Up to <code>maxMessages</code>, bounded by how many continuation pages <code>maxPages</code> allows the actor to fetch.</p>
+<p><strong>Why does <code>timestamp</code> sometimes appear but not always?</strong>
+It's only added when YouTube's chat feed includes a precise microsecond timestamp for that message; <code>timestampText</code> (the display string YouTube shows in chat) is present whenever YouTube provides one.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/KuR4Wj8bAkeGAly61/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0LvsE4R11bElgXpXe</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
