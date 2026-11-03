@@ -1,0 +1,362 @@
+{
+  "description": "Scrape public Skool communities, courses, and visible member lists. Browse the community directory, get details for specific communities, or list members from public communities.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Deprecated alias for categorySlug kept so saved tasks keep working. categorySlug takes precedence when both are set.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Technology",
+        "Business",
+        "Health & Fitness",
+        "Arts & Creativity",
+        "Education",
+        "Gaming",
+        "Lifestyle",
+        "Finance",
+        "Marketing",
+        "Other"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Technology",
+        "Business",
+        "Health & Fitness",
+        "Arts & Creativity",
+        "Education",
+        "Gaming",
+        "Lifestyle",
+        "Finance",
+        "Marketing",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Category (legacy alias)",
+      "type": "string"
+    },
+    "categorySlug": {
+      "default": "all",
+      "description": "Browse one of Skool's nine directory categories, or all categories. Filtering by category also fills the category fields on each community.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "hobbies",
+        "music",
+        "money",
+        "spirituality",
+        "tech",
+        "health",
+        "sports",
+        "self_improvement",
+        "relationships"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Hobbies",
+        "Music",
+        "Money",
+        "Spirituality",
+        "Tech",
+        "Health",
+        "Sports",
+        "Self-improvement",
+        "Relationships"
+      ],
+      "prefill": "all",
+      "title": "Category (mode=discover)",
+      "type": "string"
+    },
+    "communityType": {
+      "default": "all",
+      "description": "Filter the directory by public or private communities.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "public",
+        "private"
+      ],
+      "enumTitles": [
+        "All communities",
+        "Public",
+        "Private"
+      ],
+      "prefill": "all",
+      "title": "Community type (mode=discover)",
+      "type": "string"
+    },
+    "enrichDetails": {
+      "default": true,
+      "description": "Open each discovered community to add pricing, owner, rating, review and roster fields.",
+      "prefill": true,
+      "title": "Fetch full community details (mode=discover)",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": true,
+      "description": "Add the latest public reviews (up to five) to each community record.",
+      "prefill": false,
+      "title": "Include recent reviews",
+      "type": "boolean"
+    },
+    "isFree": {
+      "default": false,
+      "description": "Deprecated alias for priceType=free kept so saved tasks keep working. priceType takes precedence when set.",
+      "prefill": false,
+      "title": "Free communities only (legacy alias)",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "all",
+      "description": "Filter the directory by the community's language.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "english",
+        "german",
+        "spanish",
+        "french",
+        "chinese",
+        "italian",
+        "dutch",
+        "vietnamese",
+        "arabic",
+        "hebrew",
+        "danish",
+        "romanian",
+        "turkish",
+        "polish",
+        "czech",
+        "hungarian",
+        "swedish",
+        "portuguese",
+        "bulgarian",
+        "norwegian",
+        "finnish",
+        "croatian",
+        "latvian",
+        "slovak",
+        "serbian",
+        "mongolian",
+        "haitian",
+        "thai",
+        "slovenian",
+        "russian",
+        "lithuanian",
+        "amharic",
+        "malay",
+        "estonian",
+        "greek",
+        "ukrainian",
+        "swahili",
+        "japanese",
+        "filipino",
+        "persian",
+        "welsh",
+        "korean",
+        "cantonese",
+        "indonesian",
+        "latin",
+        "bengali",
+        "catalan",
+        "hindi"
+      ],
+      "enumTitles": [
+        "All languages",
+        "English",
+        "German",
+        "Spanish",
+        "French",
+        "Chinese",
+        "Italian",
+        "Dutch",
+        "Vietnamese",
+        "Arabic",
+        "Hebrew",
+        "Danish",
+        "Romanian",
+        "Turkish",
+        "Polish",
+        "Czech",
+        "Hungarian",
+        "Swedish",
+        "Portuguese",
+        "Bulgarian",
+        "Norwegian",
+        "Finnish",
+        "Croatian",
+        "Latvian",
+        "Slovak",
+        "Serbian",
+        "Mongolian",
+        "Haitian",
+        "Thai",
+        "Slovenian",
+        "Russian",
+        "Lithuanian",
+        "Amharic",
+        "Malay",
+        "Estonian",
+        "Greek",
+        "Ukrainian",
+        "Swahili",
+        "Japanese",
+        "Filipino",
+        "Persian",
+        "Welsh",
+        "Korean",
+        "Cantonese",
+        "Indonesian",
+        "Latin",
+        "Bengali",
+        "Catalan",
+        "Hindi"
+      ],
+      "prefill": "all",
+      "title": "Language (mode=discover)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of records to emit (communities or members combined).",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxMembers": {
+      "description": "Only keep communities with at most this many members.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Maximum members (mode=discover)",
+      "type": "integer"
+    },
+    "maxMembersPerCommunity": {
+      "default": 30,
+      "description": "Maximum public members to emit per community. Skool exposes about 30 rows per tab plus the admin and online tabs.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max members per community (mode=getMembers)",
+      "type": "integer"
+    },
+    "memberScope": {
+      "default": "all",
+      "description": "Which public member tab to read: the default members list, the online list, the admin list, or all three combined.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "members",
+        "online",
+        "admins"
+      ],
+      "enumTitles": [
+        "All public tabs",
+        "Members",
+        "Online",
+        "Admins"
+      ],
+      "prefill": "all",
+      "title": "Member tabs (mode=getMembers)",
+      "type": "string"
+    },
+    "minMembers": {
+      "description": "Only keep communities with at least this many members.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum members (mode=discover)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "discover",
+      "description": "What to scrape: discover communities from the directory, get details for specific communities, or list visible members.",
+      "editor": "select",
+      "enum": [
+        "discover",
+        "getCommunity",
+        "getMembers"
+      ],
+      "enumTitles": [
+        "Discover communities (browse directory)",
+        "Get community details (by URL or slug)",
+        "Get visible members (from public community)"
+      ],
+      "prefill": "discover",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceType": {
+      "default": "all",
+      "description": "Filter communities by membership price: free, paid, or free trial.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "free",
+        "paid",
+        "free-trial"
+      ],
+      "enumTitles": [
+        "All prices",
+        "Free",
+        "Paid",
+        "Free trial"
+      ],
+      "prefill": "all",
+      "title": "Price (mode=discover)",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to search the Skool directory for, e.g. [\"ai automation\", \"fitness\"]. Leave empty to browse the selected category and sort order.",
+      "editor": "stringList",
+      "prefill": [
+        "ai"
+      ],
+      "title": "Search keywords (mode=discover)",
+      "type": "array"
+    },
+    "slugs": {
+      "default": [],
+      "description": "Community slugs from the Skool URL, e.g. [\"the-skool-of-life\", \"buildwithskool\"]. Alternative to startUrls.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Community slugs (mode=getCommunity / getMembers)",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "trending",
+      "description": "Order the directory by trending or by all-time popularity. Legacy popular/new values are accepted.",
+      "editor": "select",
+      "enum": [
+        "trending",
+        "top-v2",
+        "popular",
+        "new"
+      ],
+      "enumTitles": [
+        "Trending",
+        "Most popular",
+        "Most popular (legacy alias)",
+        "Trending (legacy alias)"
+      ],
+      "prefill": "trending",
+      "title": "Sort by (mode=discover)",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Skool community URLs, e.g. https://www.skool.com/the-skool-of-life.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Community URLs (mode=getCommunity / getMembers)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Skool Communities & Courses Scraper Input",
+  "type": "object"
+}

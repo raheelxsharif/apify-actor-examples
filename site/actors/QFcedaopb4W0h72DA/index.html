@@ -1,0 +1,539 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-oIJBBhFfSZjWGCypIvgEihH9apAsVRgphZOdatBpALA=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Home Depot Search Results &amp; Price Tracker | Dataspryva</title><meta name="description" content="Turn a Home Depot keyword search or search URL into structured product data: price, original price, brand, rating, reviews, and image, with sponsored-result and keyword filtering."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/"><meta property="og:title" content="Home Depot Search Results &amp; Price Tracker | Dataspryva"><meta property="og:description" content="Turn a Home Depot keyword search or search URL into structured product data: price, original price, brand, rating, reviews, and image, with sponsored-result and keyword filtering."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#webpage","name":"Home Depot Search Results & Price Tracker","description":"Turn a Home Depot keyword search or search URL into structured product data: price, original price, brand, rating, reviews, and image, with sponsored-result and keyword filtering.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#article","headline":"Home Depot Search Results & Price Tracker","name":"Home Depot Search Results & Price Tracker","description":"Turn a Home Depot keyword search or search URL into structured product data: price, original price, brand, rating, reviews, and image, with sponsored-result and keyword filtering.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Home Depot Search Results & Price Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/QFcedaopb4W0h72DA/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Home Depot Search Results &amp; Price Tracker</span></div><section id="overview"><h1 class="doc-title">Home Depot Search Results &amp; Price Tracker</h1><p class="lede">Turn a Home Depot keyword search or search URL into structured product data: price, original price, brand, rating, reviews, and image, with sponsored-result and keyword filtering.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/home-depot-search-results-and-price-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/QFcedaopb4W0h72DA/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to scrape: a keyword search, a category browse page, or specific Home Depot item IDs.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One keyword per line, for example &#x27;cordless drill&#x27;. Used in search mode.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Home Depot category URLs (/b/...) or browse codes (N-...). Used in category mode.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to scrape: a keyword search, a category browse page, or specific Home Depot item IDs.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One keyword per line, for example &#x27;cordless drill&#x27;. Used in search mode.</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Home Depot category URLs (/b/...) or browse codes (N-...). Used in category mode.</td></tr><tr><td><code>itemIds</code></td><td>array</td><td>optional</td><td>Home Depot item IDs or product URLs (/p/...). Used in products mode.</td></tr><tr><td><code>storeId</code></td><td>string</td><td>optional</td><td>Home Depot store number for store-local prices and pickup stock. 121 is Cumberland, GA.</td></tr><tr><td><code>zipCode</code></td><td>string</td><td>optional</td><td>Used to find the nearest store when Store ID is empty, and for delivery estimates.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to order the products in each search or category.</td></tr><tr><td><code>priceMin</code></td><td>number</td><td>optional</td><td>Only keep products at or above this price.</td></tr><tr><td><code>priceMax</code></td><td>number</td><td>optional</td><td>Only keep products at or below this price.</td></tr><tr><td><code>brand</code></td><td>string</td><td>optional</td><td>Keep only products whose brand contains this text, for example Milwaukee.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Drop products rated below this average, from 0 to 5.</td></tr><tr><td><code>onlyOnSale</code></td><td>boolean</td><td>optional</td><td>Keep only products with a real discount, promotion, special buy or clearance.</td></tr><tr><td><code>onlyClearance</code></td><td>boolean</td><td>optional</td><td>Keep only products with a clearance price.</td></tr><tr><td><code>onlyInStock</code></td><td>boolean</td><td>optional</td><td>Keep only products available for pickup at the selected store or for delivery.</td></tr><tr><td><code>includeSponsored</code></td><td>boolean</td><td>optional</td><td>Include paid product placements alongside organic results.</td></tr><tr><td><code>filterKeywords</code></td><td>string</td><td>optional</td><td>Comma-separated words; keep only products whose title contains at least one, for example chainsaw,chain saw.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Overall maximum number of products to save.</td></tr><tr><td><code>maxItemsPerQuery</code></td><td>integer</td><td>optional</td><td>Maximum products to save from each search query or category.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Maximum result pages to read for each search or category. Home Depot returns up to 24 products per page and 30 pages per browse.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Add description, specs, key features, UPC/GTIN, all images, videos and variants for every product.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Add customer reviews and the rating breakdown for every product.</td></tr><tr><td><code>maxReviewsPerProduct</code></td><td>integer</td><td>optional</td><td>Review cap for each product when reviews are enabled.</td></tr><tr><td><code>reviewsSort</code></td><td>string</td><td>optional</td><td>How to order reviews when reviews are enabled.</td></tr><tr><td><code>includeQuestions</code></td><td>boolean</td><td>optional</td><td>Add customer questions and their answers for every product.</td></tr><tr><td><code>maxQuestionsPerProduct</code></td><td>integer</td><td>optional</td><td>Question cap for each product when questions are enabled.</td></tr><tr><td><code>includeStoreAvailability</code></td><td>boolean</td><td>optional</td><td>Add store-local pickup quantity, pickup/delivery split and delivery details.</td></tr><tr><td><code>includeAisleBay</code></td><td>boolean</td><td>optional</td><td>Add the aisle and bay where the product sits at the selected store.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;brand&quot;: {
+      &quot;description&quot;: &quot;Keep only products whose brand contains this text, for example Milwaukee.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Brand (optional)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;categoryUrls&quot;: {
+      &quot;description&quot;: &quot;Home Depot category URLs (/b/...) or browse codes (N-...). Used in category mode.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Category URLs or Browse Codes&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;filterKeywords&quot;: {
+      &quot;description&quot;: &quot;Comma-separated words; keep only products whose title contains at least one, for example chainsaw,chain saw.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Title Keywords (optional)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeAisleBay&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add the aisle and bay where the product sits at the selected store.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Aisle and Bay&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add description, specs, key features, UPC/GTIN, all images, videos and variants for every product.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Product Details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeQuestions&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add customer questions and their answers for every product.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Questions &amp; Answers&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add customer reviews and the rating breakdown for every product.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeSponsored&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Include paid product placements alongside organic results.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Sponsored Products&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeStoreAvailability&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add store-local pickup quantity, pickup/delivery split and delivery details.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Store Availability&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;itemIds&quot;: {
+      &quot;description&quot;: &quot;Home Depot item IDs or product URLs (/p/...). Used in products mode.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Item IDs or Product URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Overall maximum number of products to save.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum Products&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItemsPerQuery&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Maximum products to save from each search query or category.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum Products Per Query or Category&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Maximum result pages to read for each search or category. Home Depot returns up to 24 products per page and 30 pages per browse.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 30,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Maximum Pages Per Source&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxQuestionsPerProduct&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Question cap for each product when questions are enabled.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 50,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Questions Per Product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerProduct&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Review cap for each product when reviews are enabled.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Reviews Per Product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;description&quot;: &quot;Drop products rated below this average, from 0 to 5.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum Rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;Choose what to scrape: a keyword search, a category browse page, or specific Home Depot item IDs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;category&quot;,
+        &quot;products&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search by keyword&quot;,
+        &quot;Browse a category&quot;,
+        &quot;Look up item IDs&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyClearance&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only products with a clearance price.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only Clearance Products&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;onlyInStock&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only products available for pickup at the selected store or for delivery.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only Products In Stock&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;onlyOnSale&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only products with a real discount, promotion, special buy or clearance.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only Products On Sale&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;priceMax&quot;: {
+      &quot;description&quot;: &quot;Only keep products at or below this price.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Price (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;priceMin&quot;: {
+      &quot;description&quot;: &quot;Only keep products at or above this price.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum Price (USD)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;reviewsSort&quot;: {
+      &quot;default&quot;: &quot;most_recent&quot;,
+      &quot;description&quot;: &quot;How to order reviews when reviews are enabled.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;most_recent&quot;,
+        &quot;most_helpful&quot;,
+        &quot;oldest&quot;,
+        &quot;highest_rating&quot;,
+        &quot;lowest_rating&quot;,
+        &quot;photos_first&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most recent&quot;,
+        &quot;Most helpful&quot;,
+        &quot;Oldest&quot;,
+        &quot;Highest rating&quot;,
+        &quot;Lowest rating&quot;,
+        &quot;Photos first&quot;
+      ],
+      &quot;title&quot;: &quot;Review Order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;description&quot;: &quot;One keyword per line, for example &#x27;cordless drill&#x27;. Used in search mode.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;drill&quot;
+      ],
+      &quot;title&quot;: &quot;Search Queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;How to order the products in each search or category.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;top_sellers&quot;,
+        &quot;price_low_to_high&quot;,
+        &quot;price_high_to_low&quot;,
+        &quot;top_rated&quot;,
+        &quot;newest&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Top Sellers&quot;,
+        &quot;Price: Low to High&quot;,
+        &quot;Price: High to Low&quot;,
+        &quot;Top Rated&quot;,
+        &quot;Newest&quot;
+      ],
+      &quot;title&quot;: &quot;Sort Order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;storeId&quot;: {
+      &quot;default&quot;: &quot;121&quot;,
+      &quot;description&quot;: &quot;Home Depot store number for store-local prices and pickup stock. 121 is Cumberland, GA.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Store ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;zipCode&quot;: {
+      &quot;description&quot;: &quot;Used to find the nearest store when Store ID is empty, and for delivery estimates.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;ZIP Code (optional)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Home Depot Products, Prices &amp; Store Stock Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Home Depot product records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Home Depot products with store-local price, pickup and delivery stock, specifications, media, variants, and optional reviews and Q&amp;A.&quot;,
+  &quot;properties&quot;: {
+    &quot;products&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Home Depot product records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Home Depot products&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Home Depot Products, Prices &amp; Store Stock Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-home-depot-products-prices-store-stock">Home Depot Products, Prices &amp; Store Stock</h2>
+<p>Scrape Home Depot products from a keyword search, a category page or a list of item IDs. Every row can include the store-local price, pickup and delivery availability, aisle and bay, full specifications, media, variants, and optional reviews and Q&amp;A.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Three ways to start</strong> — search by keyword, browse a whole category, or look up specific item IDs and product URLs.</li>
+<li><strong>Store-local pricing and stock</strong> — pick a Home Depot store (or a ZIP to find the nearest one) and read that store's price and shelf pickup quantity.</li>
+<li><strong>Pickup and delivery kept separate</strong> — shelf pickup quantity, ship-to-store availability, and online/delivery quantity are separate fields and are never mixed.</li>
+<li><strong>Full product detail</strong> — description, highlights, specification groups, key features, dimensions, UPC/GTIN, all images, videos, 360/AR links, bundle contents and variant swatches.</li>
+<li><strong>Optional reviews and Q&amp;A</strong> — add a capped set of customer reviews with rating breakdown, and customer questions with their answers.</li>
+<li><strong>Filters and pagination</strong> — price, brand, rating, sale, clearance, stock, sponsored and title filters, plus multi-page collection with duplicate removal.</li>
+<li><strong>Empty fields are omitted</strong> from each record instead of being returned as null or blank.</li>
+</ul>
+<h2 id="readme-output-per-product">Output per product</h2>
+<p><strong>Identity</strong> — <code>recordType</code>, <code>itemId</code>, <code>parentId</code>, <code>url</code>, <code>title</code>, <code>brand</code>, <code>modelNumber</code>, <code>storeSku</code>, <code>productType</code>, <code>upc</code>, <code>gtin13</code>, <code>brandUrl</code>, <code>collection</code>, <code>scrapedAt</code></p>
+<p><strong>Pricing</strong> — <code>price</code>, <code>originalPrice</code>, <code>currency</code>, <code>discountAmount</code>, <code>discountPercent</code>, <code>unitOfMeasure</code>, <code>unitPrice</code>, <code>bulkPrice</code>, <code>clearancePrice</code>, <code>isSpecialBuy</code>, <code>isClearance</code>, <code>onPromotion</code>, <code>promotionTag</code>, <code>savingsCenter</code>, <code>promotionStartsAt</code>, <code>promotionEndsAt</code>, <code>conditionalPromotions</code></p>
+<p><strong>Ratings and reviews</strong> — <code>rating</code>, <code>reviewCount</code>, <code>ratingDistribution</code>, <code>recommendedCount</code>, <code>notRecommendedCount</code>, <code>reviews[]</code> with text, author, date, verified purchase, photos, responses, and source</p>
+<p><strong>Media and content</strong> — <code>imageUrl</code>, <code>images[]</code>, <code>videos[]</code>, <code>threeSixty</code>, <code>augmentedReality</code>, <code>description</code>, <code>highlights[]</code>, <code>specifications[]</code>, <code>keyFeatures[]</code>, <code>dimensions[]</code>, <code>isBundle</code>, <code>bundleItems[]</code>, <code>subscription</code>, <code>installation</code>, <code>prop65</code>, <code>protectionPlanSkus[]</code></p>
+<p><strong>Variants and taxonomy</strong> — <code>hasVariants</code>, <code>variantCount</code>, <code>variants[]</code>, <code>categories[]</code>, <code>breadcrumbs[]</code>, <code>department</code>, <code>badges[]</code>, <code>isSponsored</code></p>
+<p><strong>Store and fulfillment</strong> — <code>storeId</code>, <code>storeName</code>, <code>storeCity</code>, <code>storeState</code>, <code>storePostalCode</code>, <code>storePhone</code>, <code>pickupAvailable</code>, <code>storeQuantity</code>, <code>pickupInStock</code>, <code>pickupLimited</code>, <code>curbsidePickup</code>, <code>pickupMaxQuantity</code>, <code>shipToStoreAvailable</code>, <code>deliveryAvailable</code>, <code>deliveryQuantity</code>, <code>deliveryEta</code>, <code>deliveryCharge</code>, <code>freeShipping</code>, <code>backordered</code>, <code>backorderDate</code>, <code>pickupOptions[]</code>, <code>deliveryOptions[]</code>, <code>aisle</code>, <code>bay</code>, <code>aisleBay</code>, <code>quantityLimit</code>, <code>returnPolicy</code>, <code>isBuyable</code>, <code>discontinued</code></p>
+<p><strong>Questions</strong> — <code>questions[]</code> with the question, author, date, answers and photos</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>category</code>, or <code>products</code></td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>list</td>
+<td>–</td>
+<td>Keywords for search mode, one per line</td>
+</tr>
+<tr>
+<td><code>categoryUrls</code></td>
+<td>list</td>
+<td>–</td>
+<td>Category <code>/b/...</code> URLs or browse codes (<code>N-...</code>)</td>
+</tr>
+<tr>
+<td><code>itemIds</code></td>
+<td>list</td>
+<td>–</td>
+<td>Item IDs or <code>/p/...</code> product URLs</td>
+</tr>
+<tr>
+<td><code>storeId</code></td>
+<td>string</td>
+<td><code>121</code></td>
+<td>Store number for price and shelf stock</td>
+</tr>
+<tr>
+<td><code>zipCode</code></td>
+<td>string</td>
+<td>–</td>
+<td>Finds the nearest store when <code>storeId</code> is empty; also used for delivery estimates</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>top_sellers</code>, <code>price_low_to_high</code>, <code>price_high_to_low</code>, <code>top_rated</code>, <code>newest</code></td>
+</tr>
+<tr>
+<td><code>priceMin</code> / <code>priceMax</code></td>
+<td>number</td>
+<td>–</td>
+<td>USD price bounds</td>
+</tr>
+<tr>
+<td><code>brand</code></td>
+<td>string</td>
+<td>–</td>
+<td>Case-insensitive brand filter</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td>–</td>
+<td>Drop products rated below this value (0–5)</td>
+</tr>
+<tr>
+<td><code>onlyOnSale</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep real discounts, promotions, special buys and clearance</td>
+</tr>
+<tr>
+<td><code>onlyClearance</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep clearance products only</td>
+</tr>
+<tr>
+<td><code>onlyInStock</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep products available for pickup or delivery</td>
+</tr>
+<tr>
+<td><code>includeSponsored</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Include paid placements</td>
+</tr>
+<tr>
+<td><code>filterKeywords</code></td>
+<td>string</td>
+<td>–</td>
+<td>Comma-separated title words to keep</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Overall product cap (1–5000)</td>
+</tr>
+<tr>
+<td><code>maxItemsPerQuery</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Cap per query or category</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td><code>30</code></td>
+<td>Pages per source (1–30; 24 products per page)</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add specs, description, UPC/GTIN, media and variants</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add reviews and rating breakdown</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerProduct</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Review cap per product</td>
+</tr>
+<tr>
+<td><code>reviewsSort</code></td>
+<td>select</td>
+<td><code>most_recent</code></td>
+<td><code>most_recent</code>, <code>most_helpful</code>, <code>oldest</code>, <code>highest_rating</code>, <code>lowest_rating</code>, <code>photos_first</code></td>
+</tr>
+<tr>
+<td><code>includeQuestions</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add customer questions and answers</td>
+</tr>
+<tr>
+<td><code>maxQuestionsPerProduct</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Question cap per product</td>
+</tr>
+<tr>
+<td><code>includeStoreAvailability</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add pickup/delivery stock fields</td>
+</tr>
+<tr>
+<td><code>includeAisleBay</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add aisle and bay for in-store SKUs</td>
+</tr>
+</tbody>
+</table></div>
+<p>Legacy inputs from earlier versions (<code>searchQuery</code>, <code>startUrls</code>) continue to work and are mapped automatically. No proxy setup or API key is needed.</p>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-search-for-drills-under-300">Search for drills under $300</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;cordless drill&quot;],
+  &quot;storeId&quot;: &quot;121&quot;,
+  &quot;priceMax&quot;: 300,
+  &quot;sortBy&quot;: &quot;top_sellers&quot;,
+  &quot;maxItems&quot;: 50,
+  &quot;includeDetails&quot;: true,
+  &quot;includeStoreAvailability&quot;: true
+}
+</code></pre>
+<h3 id="readme-browse-a-category-and-keep-only-clearance">Browse a category and keep only clearance</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;category&quot;,
+  &quot;categoryUrls&quot;: [&quot;https://www.homedepot.com/b/Tools-Power-Tools-Drills/N-5yc1vZc27f&quot;],
+  &quot;storeId&quot;: &quot;121&quot;,
+  &quot;onlyClearance&quot;: true,
+  &quot;maxItems&quot;: 200,
+  &quot;maxPages&quot;: 10
+}
+</code></pre>
+<h3 id="readme-look-up-specific-item-ids-with-reviews-and-aisle-locations">Look up specific item IDs with reviews and aisle locations</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;products&quot;,
+  &quot;itemIds&quot;: [&quot;320326787&quot;, &quot;https://www.homedepot.com/p/Milwaukee-M18-FUEL-18V-Lithium-Ion-Brushless-Cordless-Hammer-Drill-and-Impact-Driver-Combo-Kit-2-Tool-with-2-Batteries-3697-22/320326787&quot;],
+  &quot;storeId&quot;: &quot;121&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviewsPerProduct&quot;: 20,
+  &quot;includeStoreAvailability&quot;: true,
+  &quot;includeAisleBay&quot;: true
+}
+</code></pre>
+<h3 id="readme-find-the-nearest-store-from-a-zip">Find the nearest store from a ZIP</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;pressure washer&quot;],
+  &quot;storeId&quot;: &quot;&quot;,
+  &quot;zipCode&quot;: &quot;30339&quot;,
+  &quot;includeStoreAvailability&quot;: true,
+  &quot;maxItems&quot;: 25
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Price monitoring</strong> — compare store-local prices and promotions over time.</li>
+<li><strong>Restock and pickup tracking</strong> — watch shelf pickup quantities at one store.</li>
+<li><strong>Assortment and catalog research</strong> — pull a whole category with specs, brands and variants.</li>
+<li><strong>Comparison shopping</strong> — collect models, UPCs, ratings and media for a shortlist.</li>
+<li><strong>Voice-of-customer research</strong> — sample reviews and Q&amp;A across competing products.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Home Depot?</strong>
+No. This is an independent, third-party actor that reads publicly visible Home Depot product data. It is not operated by or affiliated with The Home Depot.</p>
+<p><strong>Which store are the prices and stock from?</strong>
+They come from the <code>storeId</code> you enter (default 121, Cumberland, GA). If you leave <code>storeId</code> empty and supply <code>zipCode</code>, the nearest store is used. Change the store to see that store's price and shelf quantity.</p>
+<p><strong>What is the difference between pickup and delivery stock?</strong>
+<code>storeQuantity</code> and <code>pickupInStock</code> are the shelf quantity available for pickup at the selected store. <code>deliveryQuantity</code>, <code>deliveryAvailable</code> and the delivery options describe the online/delivery pool. They are separate pools and are never added together.</p>
+<p><strong>Why are some fields missing on a product?</strong>
+Home Depot does not expose every field for every product. Fields with no real value are omitted rather than filled with null, zero or a placeholder. Variants, specs, videos and aisle locations appear only when the product has them. Aisle and bay are added only for products with pickup stock at the selected store.</p>
+<p><strong>How many products can one run return?</strong>
+<code>maxItems</code> is the overall cap and <code>maxItemsPerQuery</code> caps each query or category. Each page holds up to 24 products, and a category can be paged up to 30 times (720 products). For a larger category, narrow it by price or brand, or split it into smaller categories.</p>
+<p><strong>Can I get every review for a product with thousands of reviews?</strong>
+No. Reviews are optional and capped by <code>maxReviewsPerProduct</code> (default 20). The actor reads review pages until it reaches that cap or the end of the review list. The total review count and rating breakdown still show the full picture, but only the requested number of review texts is saved.</p>
+<p><strong>Do I need a proxy or an API key?</strong>
+No. Enter a store and the products you want; the actor handles access automatically.</p>
+<p><strong>What happens if Home Depot refuses a request?</strong>
+The actor retries with a few fresh browser sessions. If every attempt is refused, the run ends with a status message naming the source and saves no placeholder rows; re-run later.</p>
+<p><strong>Does this work for Home Depot Canada or Mexico?</strong>
+No. This actor covers the US storefront only. Canadian and Mexican stores are separate sites with different product IDs and stock.</p>
+<p><strong>Why does the price differ from the first page I see on the website?</strong>
+The site personalises price and availability by store. Make sure the <code>storeId</code> in your input is the store you are comparing against.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/QFcedaopb4W0h72DA/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>wuFfPsyQX2r5dL5kR</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

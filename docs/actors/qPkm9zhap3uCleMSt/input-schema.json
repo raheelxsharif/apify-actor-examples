@@ -1,0 +1,430 @@
+{
+  "description": "Search Singapore, Malaysia and Thailand property listings, or paste search, listing and project URLs. Filters, detail enrichment and listing limits are controlled here.",
+  "properties": {
+    "availability": {
+      "default": "any",
+      "description": "Move-in availability (mode=search, rent only).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "immediate",
+        "within1Month",
+        "oneToTwoMonths",
+        "twoToThreeMonths",
+        "afterThreeMonths"
+      ],
+      "enumTitles": [
+        "Any availability",
+        "Immediately",
+        "Within 1 month",
+        "1-2 months",
+        "2-3 months",
+        "After 3 months"
+      ],
+      "prefill": "any",
+      "title": "Available from",
+      "type": "string"
+    },
+    "bathrooms": {
+      "default": [],
+      "description": "Return any of these exact bathroom counts. Leave empty for all.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "enumTitles": [
+          "1 bathroom",
+          "2 bathrooms",
+          "3 bathrooms",
+          "4 bathrooms",
+          "5+ bathrooms"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Bathrooms",
+      "type": "array"
+    },
+    "bedrooms": {
+      "default": [],
+      "description": "Return any of these exact bedroom counts. 0 means studio. Leave empty for all.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "enumTitles": [
+          "Studio",
+          "1 bedroom",
+          "2 bedrooms",
+          "3 bedrooms",
+          "4 bedrooms",
+          "5+ bedrooms"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Bedrooms",
+      "type": "array"
+    },
+    "country": {
+      "default": "SG",
+      "description": "Market to search (mode=search). Singapore and Malaysia use PropertyGuru; Thailand uses DDProperty.",
+      "editor": "select",
+      "enum": [
+        "SG",
+        "MY",
+        "TH"
+      ],
+      "enumTitles": [
+        "Singapore (PropertyGuru)",
+        "Malaysia (PropertyGuru)",
+        "Thailand (DDProperty)"
+      ],
+      "prefill": "SG",
+      "title": "Country",
+      "type": "string"
+    },
+    "district": {
+      "default": "any",
+      "description": "Filter by Singapore district D01-D28 (mode=search). Ignored for Malaysia and Thailand.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18",
+        "D19",
+        "D20",
+        "D21",
+        "D22",
+        "D23",
+        "D24",
+        "D25",
+        "D26",
+        "D27",
+        "D28"
+      ],
+      "enumTitles": [
+        "Any district",
+        "D01 Boat Quay / Raffles Place / Marina",
+        "D02 Chinatown / Tanjong Pagar",
+        "D03 Alexandra / Commonwealth",
+        "D04 Harbourfront / Telok Blangah",
+        "D05 Buona Vista / West Coast / Clementi",
+        "D06 City Hall / Clarke Quay",
+        "D07 Beach Road / Bugis / Rochor",
+        "D08 Farrer Park / Serangoon Road",
+        "D09 Orchard / River Valley",
+        "D10 Tanglin / Holland / Bukit Timah",
+        "D11 Newton / Novena",
+        "D12 Balestier / Toa Payoh",
+        "D13 Macpherson / Potong Pasir",
+        "D14 Eunos / Geylang / Paya Lebar",
+        "D15 East Coast / Marine Parade",
+        "D16 Bedok / Upper East Coast",
+        "D17 Changi Airport / Changi Village",
+        "D18 Pasir Ris / Tampines",
+        "D19 Hougang / Punggol / Sengkang",
+        "D20 Ang Mo Kio / Bishan / Thomson",
+        "D21 Clementi Park / Upper Bukit Timah",
+        "D22 Boon Lay / Jurong / Tuas",
+        "D23 Dairy Farm / Bukit Panjang / Choa Chu Kang",
+        "D24 Lim Chu Kang / Tengah",
+        "D25 Admiralty / Woodlands",
+        "D26 Mandai / Upper Thomson",
+        "D27 Sembawang / Yishun",
+        "D28 Seletar / Yio Chu Kang"
+      ],
+      "prefill": "any",
+      "title": "Singapore district",
+      "type": "string"
+    },
+    "floorLevel": {
+      "default": "any",
+      "description": "Floor level of the unit (mode=search).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "ground",
+        "low",
+        "mid",
+        "high",
+        "penthouse"
+      ],
+      "enumTitles": [
+        "Any floor",
+        "Ground floor",
+        "Low floor",
+        "Mid floor",
+        "High floor",
+        "Penthouse"
+      ],
+      "prefill": "any",
+      "title": "Floor level",
+      "type": "string"
+    },
+    "furnishing": {
+      "default": "any",
+      "description": "Furnishing level of the property (mode=search).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "unfurnished",
+        "partially",
+        "fully"
+      ],
+      "enumTitles": [
+        "Any furnishing",
+        "Unfurnished",
+        "Partially furnished",
+        "Fully furnished"
+      ],
+      "prefill": "any",
+      "title": "Furnishing",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Open each listing page for description, agent mobile, coordinates, transit, schools, amenities and media. One extra request per listing.",
+      "prefill": false,
+      "title": "Include detail enrichment",
+      "type": "boolean"
+    },
+    "listingType": {
+      "default": "sale",
+      "description": "Sale or rental listings (mode=search).",
+      "editor": "select",
+      "enum": [
+        "sale",
+        "rent"
+      ],
+      "enumTitles": [
+        "For sale",
+        "For rent"
+      ],
+      "prefill": "sale",
+      "title": "Listing type",
+      "type": "string"
+    },
+    "maxDistanceToMrt": {
+      "default": "any",
+      "description": "Maximum walking distance to an MRT/LRT station (Singapore and Thailand).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "250m",
+        "500m",
+        "750m",
+        "1km",
+        "1.5km"
+      ],
+      "enumTitles": [
+        "Any distance",
+        "Under 250 m",
+        "Under 500 m",
+        "Under 750 m",
+        "Under 1 km",
+        "Under 1.5 km"
+      ],
+      "prefill": "any",
+      "title": "Maximum distance to MRT",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Stop after this many listings.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Maximum listings",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 50,
+      "description": "Stop after this many search-result pages. The site's own last page also stops the run.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Maximum search pages",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum asking price in the market's local currency (SGD, MYR or THB).",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Maximum price",
+      "type": "integer"
+    },
+    "maxSize": {
+      "description": "Maximum floor area in square feet for Singapore and Malaysia, square metres for Thailand.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Maximum floor area",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Minimum asking price in the market's local currency (SGD, MYR or THB).",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum price",
+      "type": "integer"
+    },
+    "minSize": {
+      "description": "Minimum floor area in square feet for Singapore and Malaysia, square metres for Thailand.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum floor area",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Search listings by filters, or scrape specific search, listing and project URLs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search listings by filters",
+        "Scrape these URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Filter by property type (mode=search). Types a market does not have are ignored with a status note.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "condo",
+        "apartment",
+        "hdb",
+        "landed",
+        "bungalow",
+        "semiDetached",
+        "terrace",
+        "land",
+        "commercial"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Condominium",
+        "Apartment",
+        "HDB flat (Singapore)",
+        "Landed house",
+        "Bungalow",
+        "Semi-detached house",
+        "Terrace house",
+        "Land",
+        "Commercial"
+      ],
+      "prefill": "any",
+      "title": "Property type",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Free-text area, project, MRT station or keyword, for example 'Thomson', 'Mont Kiara' or 'Sukhumvit' (mode=search).",
+      "editor": "textfield",
+      "title": "Keyword or area",
+      "type": "string"
+    },
+    "sort": {
+      "default": "recommended",
+      "description": "Order of the results (mode=search).",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "newest",
+        "priceAsc",
+        "priceDesc",
+        "psfAsc",
+        "psfDesc",
+        "sizeAsc",
+        "sizeDesc"
+      ],
+      "enumTitles": [
+        "Recommended",
+        "Newest first",
+        "Price: low to high",
+        "Price: high to low",
+        "Price per area: low to high",
+        "Price per area: high to low",
+        "Size: low to high",
+        "Size: high to low"
+      ],
+      "prefill": "recommended",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Paste PropertyGuru SG/MY or DDProperty TH search-result, listing or project URLs (mode=byUrl).",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "PropertyGuru or DDProperty URL.",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "Search, listing or project URLs",
+      "type": "array"
+    },
+    "tenure": {
+      "default": "any",
+      "description": "Freehold or leasehold (mode=search, sale only).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "freehold",
+        "leasehold"
+      ],
+      "enumTitles": [
+        "Any tenure",
+        "Freehold",
+        "Leasehold"
+      ],
+      "prefill": "any",
+      "title": "Tenure",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "PropertyGuru & DDProperty Scraper Input",
+  "type": "object"
+}

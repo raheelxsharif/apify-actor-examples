@@ -1,0 +1,709 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-w0lfK2GdG5yE2JB//fAI2cUJFXfvO8p0njbkm99RIYQ=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Houzz Pro Directory Finder by City &amp; Category | Dataspryva</title><meta name="description" content="Find Houzz contractors, architects, and designers by city and category across 16 countries, with ratings, reviews, hires, services, license status, and location for each profession"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/"><meta property="og:title" content="Houzz Pro Directory Finder by City &amp; Category | Dataspryva"><meta property="og:description" content="Find Houzz contractors, architects, and designers by city and category across 16 countries, with ratings, reviews, hires, services, license status, and location for each profession"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#webpage","name":"Houzz Pro Directory Finder by City & Category","description":"Find Houzz contractors, architects, and designers by city and category across 16 countries, with ratings, reviews, hires, services, license status, and location for each professional.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#article","headline":"Houzz Pro Directory Finder by City & Category","name":"Houzz Pro Directory Finder by City & Category","description":"Find Houzz contractors, architects, and designers by city and category across 16 countries, with ratings, reviews, hires, services, license status, and location for each professional.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Houzz Pro Directory Finder by City & Category","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/MLZXQoVRusx3cGvm5/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Houzz Pro Directory Finder by City &amp; Category</span></div><section id="overview"><h1 class="doc-title">Houzz Pro Directory Finder by City &amp; Category</h1><p class="lede">Find Houzz contractors, architects, and designers by city and category across 16 countries, with ratings, reviews, hires, services, license status, and location for each professional.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/houzz-pro-directory-finder-by-city-and-category">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/MLZXQoVRusx3cGvm5/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape. `search` builds a directory from country + city + profession; `byUrls` reads directory URLs; `profiles` reads profile URLs; `reviews` emits review rows; `photos` browses photo inspiration.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Houzz market used for search and profile URLs.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>City or city + state to search, e.g. `Los Angeles, CA`, `London`, `Berlin`. Used with profession or categorySlug in search mode.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to scrape. `search` builds a directory from country + city + profession; `byUrls` reads directory URLs; `profiles` reads profile URLs; `reviews` emits review rows; `photos` browses photo inspiration.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Houzz market used for search and profile URLs.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>City or city + state to search, e.g. `Los Angeles, CA`, `London`, `Berlin`. Used with profession or categorySlug in search mode.</td></tr><tr><td><code>profession</code></td><td>string</td><td>optional</td><td>Universal profession mapped to the selected market&#x27;s Houzz category. Used in search mode.</td></tr><tr><td><code>categorySlug</code></td><td>string</td><td>optional</td><td>Exact Houzz category slug, used instead of the mapped profession, e.g. `general-contractor`, `architekten`, `architectes`. Use a direct directory URL if you are unsure.</td></tr><tr><td><code>keyword</code></td><td>string</td><td>optional</td><td>Optional keyword filter for professional search, or the search term for photo mode.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Server-side order for professional directory results.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Drop professionals below this star rating. Set 0 to keep all.</td></tr><tr><td><code>minReviewCount</code></td><td>integer</td><td>optional</td><td>Drop professionals with fewer reviews. Set 0 to keep all.</td></tr><tr><td><code>directoryUrls</code></td><td>array</td><td>optional</td><td>Houzz professional directory, category or search-result URLs. All live markets and localised paths are accepted.</td></tr><tr><td><code>profileUrls</code></td><td>array</td><td>optional</td><td>Direct Houzz professional profile URLs, including localised paths such as /experten/, /professionnels/ and /profesionales/.</td></tr><tr><td><code>photoUrls</code></td><td>array</td><td>optional</td><td>Direct Houzz photo detail URLs. Use mode=photos.</td></tr><tr><td><code>photoCategory</code></td><td>string</td><td>optional</td><td>Room category for photo inspiration browsing. Use keyword to search instead.</td></tr><tr><td><code>photoStyle</code></td><td>string</td><td>optional</td><td>Optional design style filter for photo inspiration.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Attach review history to each professional record.</td></tr><tr><td><code>maxReviewsPerPro</code></td><td>integer</td><td>optional</td><td>Review cap per professional. Set 0 to fetch the full history (up to 1,024).</td></tr><tr><td><code>fetchDetails</code></td><td>boolean</td><td>optional</td><td>Open each professional profile for services, awards, socials, counts and licensing. Turn off for directory-card-only records.</td></tr><tr><td><code>fetchPhotoDetails</code></td><td>boolean</td><td>optional</td><td>Open each photo for full image sizes, owner, location and question count.</td></tr><tr><td><code>enrichEmails</code></td><td>boolean</td><td>optional</td><td>Best-effort email lookup on each professional&#x27;s own website. Adds requests and is optional.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Optional page cap. Set 0 to use the source ceiling: 100 directory pages, 30 keyword pages, 250 photo pages or 10 photo keyword pages.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape Houzz professionals by market, city, profession or keyword, enrich profiles with reviews and contact details, or browse photo inspiration by room and style.&quot;,
+  &quot;properties&quot;: {
+    &quot;categorySlug&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Exact Houzz category slug, used instead of the mapped profession, e.g. `general-contractor`, `architekten`, `architectes`. Use a direct directory URL if you are unsure.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Category slug override&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;city&quot;: {
+      &quot;default&quot;: &quot;Los Angeles, CA&quot;,
+      &quot;description&quot;: &quot;City or city + state to search, e.g. `Los Angeles, CA`, `London`, `Berlin`. Used with profession or categorySlug in search mode.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;Los Angeles, CA&quot;,
+      &quot;title&quot;: &quot;City&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;us&quot;,
+      &quot;description&quot;: &quot;Houzz market used for search and profile URLs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;us&quot;,
+        &quot;ca&quot;,
+        &quot;uk&quot;,
+        &quot;ie&quot;,
+        &quot;au&quot;,
+        &quot;nz&quot;,
+        &quot;de&quot;,
+        &quot;fr&quot;,
+        &quot;it&quot;,
+        &quot;es&quot;,
+        &quot;in&quot;,
+        &quot;sg&quot;,
+        &quot;jp&quot;,
+        &quot;dk&quot;,
+        &quot;se&quot;,
+        &quot;ru&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States (houzz.com)&quot;,
+        &quot;Canada (houzz.com)&quot;,
+        &quot;United Kingdom (houzz.co.uk)&quot;,
+        &quot;Ireland (houzz.ie)&quot;,
+        &quot;Australia (houzz.com.au)&quot;,
+        &quot;New Zealand (houzz.co.nz)&quot;,
+        &quot;Germany (houzz.de)&quot;,
+        &quot;France (houzz.fr)&quot;,
+        &quot;Italy (houzz.it)&quot;,
+        &quot;Spain (houzz.es)&quot;,
+        &quot;India (houzz.in)&quot;,
+        &quot;Singapore (houzz.com.sg)&quot;,
+        &quot;Japan (houzz.jp)&quot;,
+        &quot;Denmark (houzz.dk)&quot;,
+        &quot;Sweden (houzz.se)&quot;,
+        &quot;Russia (legacy, site unavailable)&quot;
+      ],
+      &quot;prefill&quot;: &quot;us&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;directoryUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Houzz professional directory, category or search-result URLs. All live markets and localised paths are accepted.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Directory URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;enrichEmails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Best-effort email lookup on each professional&#x27;s own website. Adds requests and is optional.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Enrich contact emails&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;fetchDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Open each professional profile for services, awards, socials, counts and licensing. Turn off for directory-card-only records.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Fetch full profiles&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;fetchPhotoDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Open each photo for full image sizes, owner, location and question count.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Fetch photo details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Attach review history to each professional record.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;keyword&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Optional keyword filter for professional search, or the search term for photo mode.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Keyword&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 25,
+      &quot;description&quot;: &quot;Hard cap on emitted records.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Optional page cap. Set 0 to use the source ceiling: 100 directory pages, 30 keyword pages, 250 photo pages or 10 photo keyword pages.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Max pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerPro&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Review cap per professional. Set 0 to fetch the full history (up to 1,024).&quot;,
+      &quot;maximum&quot;: 1024,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Max reviews per professional&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Drop professionals below this star rating. Set 0 to keep all.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minReviewCount&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Drop professionals with fewer reviews. Set 0 to keep all.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum review count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to scrape. `search` builds a directory from country + city + profession; `byUrls` reads directory URLs; `profiles` reads profile URLs; `reviews` emits review rows; `photos` browses photo inspiration.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;byUrls&quot;,
+        &quot;profiles&quot;,
+        &quot;reviews&quot;,
+        &quot;photos&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search by city and profession&quot;,
+        &quot;Directory URLs&quot;,
+        &quot;Professional profile URLs&quot;,
+        &quot;Reviews&quot;,
+        &quot;Photo inspiration&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;photoCategory&quot;: {
+      &quot;default&quot;: &quot;kitchen&quot;,
+      &quot;description&quot;: &quot;Room category for photo inspiration browsing. Use keyword to search instead.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;kitchen&quot;,
+        &quot;bathroom&quot;,
+        &quot;bedroom&quot;,
+        &quot;living-room&quot;,
+        &quot;dining-room&quot;,
+        &quot;outdoor&quot;,
+        &quot;baby-kids&quot;,
+        &quot;home-office&quot;,
+        &quot;storage-closet&quot;,
+        &quot;exterior&quot;,
+        &quot;basement&quot;,
+        &quot;entry&quot;,
+        &quot;garage-shed&quot;,
+        &quot;gym&quot;,
+        &quot;home-bar&quot;,
+        &quot;hallway&quot;,
+        &quot;laundry&quot;,
+        &quot;staircase&quot;,
+        &quot;wine-cellar&quot;,
+        &quot;all-rooms&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Kitchen&quot;,
+        &quot;Bathroom&quot;,
+        &quot;Bedroom&quot;,
+        &quot;Living room&quot;,
+        &quot;Dining room&quot;,
+        &quot;Outdoor&quot;,
+        &quot;Baby &amp; kids&quot;,
+        &quot;Home office&quot;,
+        &quot;Storage &amp; closet&quot;,
+        &quot;Exterior&quot;,
+        &quot;Basement&quot;,
+        &quot;Entryway&quot;,
+        &quot;Garage &amp; shed&quot;,
+        &quot;Home gym&quot;,
+        &quot;Home bar&quot;,
+        &quot;Hallway&quot;,
+        &quot;Laundry&quot;,
+        &quot;Staircase&quot;,
+        &quot;Wine cellar&quot;,
+        &quot;All rooms&quot;
+      ],
+      &quot;prefill&quot;: &quot;kitchen&quot;,
+      &quot;title&quot;: &quot;Photo room&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;photoStyle&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Optional design style filter for photo inspiration.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;asian&quot;,
+        &quot;contemporary&quot;,
+        &quot;eclectic&quot;,
+        &quot;modern&quot;,
+        &quot;traditional&quot;,
+        &quot;tropical&quot;,
+        &quot;mediterranean&quot;,
+        &quot;coastal&quot;,
+        &quot;rustic&quot;,
+        &quot;transitional&quot;,
+        &quot;industrial&quot;,
+        &quot;farmhouse&quot;,
+        &quot;mid-century-modern&quot;,
+        &quot;craftsman&quot;,
+        &quot;southwestern&quot;,
+        &quot;shabby-chic-style&quot;,
+        &quot;scandinavian&quot;,
+        &quot;victorian&quot;,
+        &quot;french-country&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any style&quot;,
+        &quot;Asian&quot;,
+        &quot;Contemporary&quot;,
+        &quot;Eclectic&quot;,
+        &quot;Modern&quot;,
+        &quot;Traditional&quot;,
+        &quot;Tropical&quot;,
+        &quot;Mediterranean&quot;,
+        &quot;Coastal&quot;,
+        &quot;Rustic&quot;,
+        &quot;Transitional&quot;,
+        &quot;Industrial&quot;,
+        &quot;Farmhouse&quot;,
+        &quot;Mid-Century Modern&quot;,
+        &quot;Craftsman&quot;,
+        &quot;Southwestern&quot;,
+        &quot;Shabby-Chic Style&quot;,
+        &quot;Scandinavian&quot;,
+        &quot;Victorian&quot;,
+        &quot;French Country&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Photo style&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;photoUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Direct Houzz photo detail URLs. Use mode=photos.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Photo URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;profession&quot;: {
+      &quot;default&quot;: &quot;general-contractor&quot;,
+      &quot;description&quot;: &quot;Universal profession mapped to the selected market&#x27;s Houzz category. Used in search mode.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;general-contractor&quot;,
+        &quot;architect&quot;,
+        &quot;interior-designer&quot;,
+        &quot;kitchen-bath&quot;,
+        &quot;home-builder&quot;,
+        &quot;design-build&quot;,
+        &quot;landscape&quot;,
+        &quot;painter&quot;,
+        &quot;roofer&quot;,
+        &quot;flooring&quot;,
+        &quot;tile-stone&quot;,
+        &quot;cabinet-maker&quot;,
+        &quot;carpenter&quot;,
+        &quot;pool-spa&quot;,
+        &quot;windows-doors&quot;,
+        &quot;home-stager&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;General contractor&quot;,
+        &quot;Architect&quot;,
+        &quot;Interior designer&quot;,
+        &quot;Kitchen &amp; bath specialist&quot;,
+        &quot;Home builder&quot;,
+        &quot;Design-build firm&quot;,
+        &quot;Landscape contractor&quot;,
+        &quot;Painter&quot;,
+        &quot;Roofer&quot;,
+        &quot;Flooring specialist&quot;,
+        &quot;Tile &amp; stone specialist&quot;,
+        &quot;Cabinet maker&quot;,
+        &quot;Carpenter&quot;,
+        &quot;Pool &amp; spa builder&quot;,
+        &quot;Windows &amp; doors specialist&quot;,
+        &quot;Home stager&quot;
+      ],
+      &quot;prefill&quot;: &quot;general-contractor&quot;,
+      &quot;title&quot;: &quot;Profession&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;profileUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Direct Houzz professional profile URLs, including localised paths such as /experten/, /professionnels/ and /profesionales/.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Profile URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Server-side order for professional directory results.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;reviews&quot;,
+        &quot;rating&quot;,
+        &quot;distance&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Most reviewed&quot;,
+        &quot;Highest rated&quot;,
+        &quot;Nearest&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Sort professionals by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Houzz Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>professionals</code></td><td>string</td><td>optional</td><td>Dataset containing Houzz professional records with contact, service, award, social and review data.</td></tr><tr><td><code>reviews</code></td><td>string</td><td>optional</td><td>Dataset containing Houzz review rows with reviewer, project and owner-response detail.</td></tr><tr><td><code>photos</code></td><td>string</td><td>optional</td><td>Dataset containing Houzz photo inspiration records with room, style, owner and image detail.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Houzz professional profiles with contacts, services, awards, socials and reviews, review rows, and photo inspiration records.&quot;,
+  &quot;properties&quot;: {
+    &quot;photos&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Houzz photo inspiration records with room, style, owner and image detail.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Houzz photos&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;professionals&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Houzz professional records with contact, service, award, social and review data.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Houzz professionals&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;reviews&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Houzz review rows with reviewer, project and owner-response detail.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Houzz reviews&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Houzz Professionals, Reviews &amp; Photos Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;photos&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Photos&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;category&quot;,
+          &quot;style&quot;,
+          &quot;ownerName&quot;,
+          &quot;metroArea&quot;,
+          &quot;canonicalUrl&quot;
+        ]
+      }
+    },
+    &quot;professionals&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Professionals&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;category&quot;,
+          &quot;phoneNumber&quot;,
+          &quot;ratingValue&quot;,
+          &quot;reviewCount&quot;,
+          &quot;city&quot;,
+          &quot;state&quot;
+        ]
+      }
+    },
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;proName&quot;,
+          &quot;rating&quot;,
+          &quot;reviewerName&quot;,
+          &quot;projectDate&quot;,
+          &quot;relationship&quot;,
+          &quot;profileUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-houzz-professionals-reviews-photos-scraper">Houzz Professionals, Reviews &amp; Photos Scraper</h2>
+<p>Scrape <strong>Houzz</strong> professional directories across 15 country sites, open each pro's profile for contact, service, award, social and licensing detail, pull their full review history, and browse the photo inspiration library by room, style or keyword. Everything is public and cookieless: no Houzz account, browser, API key or proxy setup is needed.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Five modes:</strong> <code>search</code>, <code>byUrls</code>, <code>profiles</code>, <code>reviews</code>, <code>photos</code></li>
+<li><strong>Every live market:</strong> US, Canada, UK, Ireland, Australia, New Zealand, Germany, France, Italy, Spain, India, Singapore, Japan, Denmark and Sweden, with localised profile paths</li>
+<li><strong>Search by city + profession or keyword</strong>, with rating and review-count filters and server-side sort</li>
+<li><strong>Deep directory pagination:</strong> up to 100 pages per category and 30 pages for keyword-filtered searches</li>
+<li><strong>Rich profiles:</strong> business name, contact person, phone, website, full address, services, awards, badges, credentials, social links, licence status, project/photo/follower counts and review aspect scores</li>
+<li><strong>Full reviews:</strong> reviewer, rating, body, project date and price, review photos and the professional's reply</li>
+<li><strong>Photo inspiration:</strong> room category, keyword, 19 design styles, optional detail enrichment for full image sets, owner and location</li>
+<li><strong>Optional email enrichment</strong> from each professional's own website</li>
+<li>Empty fields are omitted from every record instead of being returned as null</li>
+</ul>
+<h2 id="readme-output-per-professional">Output per professional</h2>
+<ul>
+<li><code>title</code>, <code>businessName</code>, <code>description</code></li>
+<li><code>phoneNumber</code>, <code>websiteUrl</code>, <code>contactName</code>, <code>contactEmail</code>, <code>emails[]</code>, <code>emailSourceUrl</code></li>
+<li><code>licenseNumber</code>, <code>licenseType</code>, <code>licenseVerifiedDate</code>, <code>licenseIssuedBy</code>, <code>verifiedLicense</code></li>
+<li><code>ratingValue</code>, <code>reviewCount</code>, <code>hiresOnHouzz</code>, <code>followersCount</code>, <code>projectCount</code>, <code>photoCount</code>, <code>galleryCount</code></li>
+<li><code>isProVerified</code>, <code>isPaidPro</code>, <code>reviewAspectRatings{workQuality, communication, onTime, value}</code></li>
+<li><code>servicesProvided[]</code>, <code>awards[]</code>, <code>badges[]</code>, <code>credentials[]</code>, <code>faq[]</code></li>
+<li><code>socialLinks{facebook, instagram, twitter, pinterest, youtube, linkedin, tiktok}</code></li>
+<li><code>proId</code>, <code>userId</code>, <code>userName</code>, <code>category</code>, <code>categories[]</code></li>
+<li><code>streetAddress</code>, <code>city</code>, <code>state</code>, <code>postalCode</code>, <code>country</code>, <code>countryCode</code>, <code>fullAddress</code></li>
+<li><code>latitude</code>, <code>longitude</code>, <code>areaServed[]</code>, <code>imageUrl</code></li>
+<li><code>reviews[]</code>, <code>reviewsFetched</code>, <code>reviewsTotalAvailable</code> when reviews are requested</li>
+<li><code>sourceUrl</code>, <code>profileUrl</code>, <code>canonicalUrl</code>, <code>slug</code></li>
+<li><code>siteName</code>, <code>recordType: &quot;professional&quot;</code>, <code>recordSource</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-review">Output per review</h2>
+<ul>
+<li><code>reviewId</code>, <code>proId</code>, <code>proName</code>, <code>profileUrl</code></li>
+<li><code>rating</code>, <code>body</code>, <code>relationship</code>, <code>projectDate</code>, <code>projectPrice</code></li>
+<li><code>reviewerName</code>, <code>reviewerUserName</code>, <code>reviewerProfileUrl</code>, <code>reviewerIsPro</code></li>
+<li><code>createdAt</code>, <code>numberOfLikes</code>, <code>photos[]</code></li>
+<li><code>proResponse</code>, <code>proResponseAt</code></li>
+<li><code>recordType: &quot;review&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-photo">Output per photo</h2>
+<ul>
+<li><code>photoId</code>, <code>title</code>, <code>description</code>, <code>url</code>, <code>canonicalUrl</code></li>
+<li><code>imageUrl</code>, <code>heroImageUrl</code>, <code>images[]</code>, <code>imageWidth</code>, <code>imageHeight</code></li>
+<li><code>categoryId</code>, <code>category</code>, <code>styleId</code>, <code>style</code></li>
+<li><code>ownerId</code>, <code>ownerName</code>, <code>ownerProfileUrl</code>, <code>ownerIsPro</code></li>
+<li><code>projectId</code>, <code>questionCount</code>, <code>comments</code>, <code>recentBuzz</code></li>
+<li><code>metroArea</code>, <code>city</code>, <code>state</code>, <code>countryCode</code></li>
+<li><code>isFeatured</code>, <code>isGated</code>, <code>sourceUrl</code></li>
+<li><code>recordType: &quot;photo&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code> / <code>byUrls</code> / <code>profiles</code> / <code>reviews</code> / <code>photos</code></td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>us</code></td>
+<td>Houzz market: <code>us</code>, <code>ca</code>, <code>uk</code>, <code>ie</code>, <code>au</code>, <code>nz</code>, <code>de</code>, <code>fr</code>, <code>it</code>, <code>es</code>, <code>in</code>, <code>sg</code>, <code>jp</code>, <code>dk</code>, <code>se</code>; legacy <code>ru</code> is accepted for saved tasks but Houzz Russia is offline</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td><code>Los Angeles, CA</code></td>
+<td>City or city + state for search mode</td>
+</tr>
+<tr>
+<td><code>profession</code></td>
+<td>string</td>
+<td><code>general-contractor</code></td>
+<td>16 universal professions mapped to each market</td>
+</tr>
+<tr>
+<td><code>categorySlug</code></td>
+<td>string</td>
+<td>–</td>
+<td>Exact Houzz category slug override</td>
+</tr>
+<tr>
+<td><code>keyword</code></td>
+<td>string</td>
+<td>–</td>
+<td>Professional keyword filter or photo search term</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code> / <code>reviews</code> / <code>rating</code> / <code>distance</code></td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td><code>0</code></td>
+<td>Drop professionals below this rating</td>
+</tr>
+<tr>
+<td><code>minReviewCount</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Drop professionals below this review count</td>
+</tr>
+<tr>
+<td><code>directoryUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Houzz directory, category or search-result URLs</td>
+</tr>
+<tr>
+<td><code>profileUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Direct Houzz professional profile URLs</td>
+</tr>
+<tr>
+<td><code>photoUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Direct Houzz photo detail URLs</td>
+</tr>
+<tr>
+<td><code>photoCategory</code></td>
+<td>string</td>
+<td><code>kitchen</code></td>
+<td>Room category for photo browsing</td>
+</tr>
+<tr>
+<td><code>photoStyle</code></td>
+<td>string</td>
+<td>–</td>
+<td>Optional design style filter</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Attach review history to professional records</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerPro</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Review cap per professional; <code>0</code> means all</td>
+</tr>
+<tr>
+<td><code>fetchDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Open each professional profile</td>
+</tr>
+<tr>
+<td><code>fetchPhotoDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Open each photo for full image and owner detail</td>
+</tr>
+<tr>
+<td><code>enrichEmails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Best-effort email lookup on the pro's own website</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>25</code></td>
+<td>Hard record cap (1–5,000)</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Optional page cap; <code>0</code> uses the source ceiling</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-contractors-in-los-angeles">Example: contractors in Los Angeles</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;us&quot;,
+  &quot;city&quot;: &quot;Los Angeles, CA&quot;,
+  &quot;profession&quot;: &quot;general-contractor&quot;,
+  &quot;minRating&quot;: 4.5,
+  &quot;minReviewCount&quot;: 10,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-london-interior-designers-with-reviews">Example: London interior designers with reviews</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;uk&quot;,
+  &quot;city&quot;: &quot;London&quot;,
+  &quot;profession&quot;: &quot;interior-designer&quot;,
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviewsPerPro&quot;: 50,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-example-specific-profiles-and-directory-urls">Example: specific profiles and directory URLs</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrls&quot;,
+  &quot;directoryUrls&quot;: [
+    &quot;https://www.houzz.de/professionals/architekten/berlin-16-de-probr0-bo~t_11973~r_2950159&quot;
+  ],
+  &quot;profileUrls&quot;: [
+    &quot;https://www.houzz.com/professionals/general-contractors/goldenline-remodeling-pfvwus-pf~28977151&quot;
+  ],
+  &quot;fetchDetails&quot;: true,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-kitchen-photo-inspiration">Example: kitchen photo inspiration</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;photos&quot;,
+  &quot;photoCategory&quot;: &quot;kitchen&quot;,
+  &quot;photoStyle&quot;: &quot;scandinavian&quot;,
+  &quot;fetchPhotoDetails&quot;: true,
+  &quot;maxItems&quot;: 60
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Contractor lead generation</strong> — build a city list with phone, website, address, licence and review proof</li>
+<li><strong>Competitive benchmarking</strong> — compare services, awards and review scores across firms in one category</li>
+<li><strong>Market expansion research</strong> — compare the same profession across 15 Houzz country sites</li>
+<li><strong>Vendor due diligence</strong> — check credentials, licence status, project volume and owner replies</li>
+<li><strong>Review intelligence</strong> — export reviewer sentiment, project budgets and response behaviour</li>
+<li><strong>Design trend research</strong> — collect photo records by room, style and metro area for moodboards or analysis</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Houzz?</strong>
+No. This is an independent third-party actor that reads publicly visible Houzz pages. It is not operated by or affiliated with Houzz.</p>
+<p><strong>Do I need a Houzz account, cookies or an API key?</strong>
+No. Every supported mode works anonymously on public pages. There is no login step.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. The actor makes direct requests and does not require proxy setup. Just choose a mode and run it.</p>
+<p><strong>Why does Houzz Japan sometimes return no professionals?</strong>
+Houzz Japan intermittently blocks datacenter IPs or serves 404 profile pages. The actor reports the failed fetch and keeps any directory cards it already parsed instead of inventing rows. Other 14 markets run directly.</p>
+<p><strong>Why do some records have fewer fields than others?</strong>
+Professionals publish different amounts of information, and some categories show fewer badges or services. Fields with no value on the source page are omitted, never returned as null.</p>
+<p><strong>How many professionals can one search return?</strong>
+A category or city directory serves up to 100 pages, and a keyword-filtered search stops at 30 pages. Coverage also depends on how many professionals are actually active in that city and profession.</p>
+<p><strong>Why is <code>phoneNumber</code> sometimes a toll-free number?</strong>
+Houzz may display a business tracking number on the profile while the directory card shows a local number. The actor prefers the local directory number when both are available.</p>
+<p><strong>Why do photo keyword searches stop before a room browse does?</strong>
+Houzz caps photo keyword results at 200 items (10 pages), while room browsing goes much deeper. The actor reports the ceiling instead of silently returning fewer photos.</p>
+<p><strong>Why is there no product mode?</strong>
+Shop Houzz closed in 2026. The product pages now show &quot;No Longer Available&quot; or return 404, so there is no live product data to scrape. Professional and photo data are unaffected.</p>
+<p><strong>Can I combine several inputs in one run?</strong>
+Yes. Directory URLs and profile URLs can be mixed, and <code>search</code> accepts a city plus profession while also honouring any direct URLs you add.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/MLZXQoVRusx3cGvm5/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>TRlqaqbv6wYcl6cdj</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Graded company records with hiring, funding, news, executive-change, layoff and technology evidence, plus monitor diffs.",
+  "properties": {
+    "companies": {
+      "description": "One record per company with score, grade, signals and evidence; company_error records when all enabled sources fail.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Company intent records",
+      "type": "string"
+    }
+  },
+  "title": "Company Intent Scorer: Hiring, Funding & News Signals Output"
+}

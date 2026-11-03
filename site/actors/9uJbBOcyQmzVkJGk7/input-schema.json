@@ -1,0 +1,45 @@
+{
+  "properties": {
+    "includeShowSeasons": {
+      "default": true,
+      "description": "Extract the show season list with season IDs, season numbers, and episode counts.",
+      "title": "Include Show Seasons",
+      "type": "boolean"
+    },
+    "includeSpotlights": {
+      "default": true,
+      "description": "Extract publisher Spotlight story cards with media URLs, thumbnails, creator info, and engagement stats.",
+      "title": "Include Publisher Spotlights",
+      "type": "boolean"
+    },
+    "includeStories": {
+      "default": true,
+      "description": "Extract the premium story/episode list with titles, thumbnails, episode/season numbers, and timestamps.",
+      "title": "Include Premium Stories",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy configuration. Publisher pages are publicly accessible without a proxy.",
+      "editor": "proxy",
+      "nullable": true,
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "publisherUrlsOrIds": {
+      "description": "Publisher page URLs (snapchat.com/p/{id}, story.snapchat.com/p/{id}) or bare businessProfileId UUIDs",
+      "editor": "stringList",
+      "prefill": [
+        "5551edcb-8d47-489c-aa13-7aecfedc814e",
+        "efd8a13d-b69a-41d0-9c04-d19f87829798"
+      ],
+      "title": "Publisher URLs or IDs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "publisherUrlsOrIds"
+  ],
+  "schemaVersion": 1,
+  "title": "Snapchat Publisher Scraper",
+  "type": "object"
+}

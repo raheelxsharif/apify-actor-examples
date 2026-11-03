@@ -1,0 +1,514 @@
+{
+  "description": "Choose a location or paste listing URLs, then narrow by price, size, rooms, amenities and more.",
+  "properties": {
+    "acceptsPets": {
+      "default": "any",
+      "description": "Include only listings that accept pets, or all listings.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "yes"
+      ],
+      "enumTitles": [
+        "Any",
+        "Accepts pets only"
+      ],
+      "prefill": "any",
+      "title": "Accepts pets",
+      "type": "string"
+    },
+    "amenities": {
+      "description": "Property feature codes that must all be present, e.g. VARANDA, AR_CONDICIONADO (mode=rent or buy).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Unit amenities",
+      "type": "array"
+    },
+    "areaMax": {
+      "description": "Largest usable area to include, in square metres.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum area (m²)",
+      "type": "integer"
+    },
+    "areaMin": {
+      "description": "Smallest usable area to include, in square metres.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum area (m²)",
+      "type": "integer"
+    },
+    "availability": {
+      "default": "any",
+      "description": "When the property can be occupied (mode=rent).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "immediate",
+        "soon"
+      ],
+      "enumTitles": [
+        "Any",
+        "Available immediately",
+        "Available soon"
+      ],
+      "prefill": "any",
+      "title": "Availability",
+      "type": "string"
+    },
+    "bathroomsMax": {
+      "description": "Most bathrooms a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Maximum bathrooms",
+      "type": "integer"
+    },
+    "bathroomsMin": {
+      "description": "Fewest bathrooms a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum bathrooms",
+      "type": "integer"
+    },
+    "bedroomsMax": {
+      "description": "Most bedrooms a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Maximum bedrooms",
+      "type": "integer"
+    },
+    "bedroomsMin": {
+      "description": "Fewest bedrooms a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum bedrooms",
+      "type": "integer"
+    },
+    "city": {
+      "default": "sao-paulo-sp-brasil",
+      "description": "QuintoAndar location to search (mode=rent or buy).",
+      "editor": "select",
+      "enum": [
+        "sao-paulo-sp-brasil",
+        "rio-de-janeiro-rj-brasil",
+        "belo-horizonte-mg-brasil",
+        "porto-alegre-rs-brasil",
+        "brasilia-df-brasil",
+        "curitiba-pr-brasil",
+        "goiania-go-brasil",
+        "campinas-sp-brasil",
+        "canoas-rs-brasil",
+        "guarulhos-sp-brasil",
+        "jundiai-sp-brasil",
+        "nova-lima-mg-brasil",
+        "novo-hamburgo-rs-brasil",
+        "niteroi-rj-brasil",
+        "osasco-sp-brasil",
+        "santo-andre-sp-brasil",
+        "sao-bernardo-do-campo-sp-brasil",
+        "sao-caetano-do-sul-sp-brasil",
+        "barueri-sp-brasil",
+        "sao-leopoldo-rs-brasil",
+        "florianopolis-sc-brasil",
+        "sao-jose-sc-brasil",
+        "palhoca-sc-brasil",
+        "contagem-mg-brasil",
+        "taboao-da-serra-sp-brasil",
+        "diadema-sp-brasil",
+        "sao-jose-dos-pinhais-pr-brasil",
+        "varzea-paulista-sp-brasil",
+        "pinhais-pr-brasil",
+        "santana-de-parnaiba-sp-brasil",
+        "santos-sp-brasil",
+        "salvador-ba-brasil",
+        "mogi-das-cruzes-sp-brasil",
+        "sao-jose-dos-campos-sp-brasil",
+        "cotia-sp-brasil",
+        "ribeirao-preto-sp-brasil",
+        "sorocaba-sp-brasil",
+        "uberlandia-mg-brasil",
+        "maua-sp-brasil",
+        "valinhos-sp-brasil",
+        "vinhedo-sp-brasil",
+        "indaiatuba-sp-brasil",
+        "nova-iguacu-rj-brasil",
+        "americana-sp-brasil",
+        "hortolandia-sp-brasil",
+        "paulinia-sp-brasil",
+        "praia-grande-sp-brasil",
+        "guaruja-sp-brasil",
+        "carapicuiba-sp-brasil",
+        "votorantim-sp-brasil",
+        "sao-vicente-sp-brasil",
+        "duque-de-caxias-rj-brasil",
+        "sao-goncalo-rj-brasil",
+        "betim-mg-brasil",
+        "aparecida-de-goiania-go-brasil",
+        "suzano-sp-brasil",
+        "itaquaquecetuba-sp-brasil",
+        "sumare-sp-brasil",
+        "embu-das-artes-sp-brasil",
+        "ferraz-de-vasconcelos-sp-brasil",
+        "poa-sp-brasil",
+        "gravatai-rs-brasil",
+        "viamao-rs-brasil",
+        "alvorada-rs-brasil",
+        "belford-roxo-rj-brasil",
+        "nilopolis-rj-brasil",
+        "mesquita-rj-brasil",
+        "taubate-sp-brasil",
+        "jacarei-sp-brasil",
+        "ribeirao-das-neves-mg-brasil",
+        "ribeirao-pires-sp-brasil",
+        "brumadinho-mg-brasil",
+        "itabirito-mg-brasil",
+        "lagoa-santa-mg-brasil",
+        "sabara-mg-brasil",
+        "vespasiano-mg-brasil",
+        "rio-acima-mg-brasil",
+        "santa-luzia-mg-brasil",
+        "marica-rj-brasil",
+        "cabo-frio-rj-brasil",
+        "petropolis-rj-brasil",
+        "sapucaia-do-sul-rs-brasil",
+        "macae-rj-brasil",
+        "cachoeirinha-rs-brasil",
+        "juiz-de-fora-mg-brasil",
+        "rio-das-ostras-rj-brasil",
+        "sao-carlos-sp-brasil",
+        "piracicaba-sp-brasil",
+        "limeira-sp-brasil",
+        "montes-claros-mg-brasil",
+        "londrina-pr-brasil",
+        "maringa-pr-brasil",
+        "ponta-grossa-pr-brasil",
+        "volta-redonda-rj-brasil",
+        "santa-maria-rs-brasil",
+        "caxias-do-sul-rs-brasil",
+        "uberaba-mg-brasil",
+        "campos-dos-goytacazes-rj-brasil",
+        "anapolis-go-brasil"
+      ],
+      "enumTitles": [
+        "São Paulo",
+        "Rio de Janeiro",
+        "Belo Horizonte",
+        "Porto Alegre",
+        "Brasília",
+        "Curitiba",
+        "Goiânia",
+        "Campinas",
+        "Canoas",
+        "Guarulhos",
+        "Jundiaí",
+        "Nova Lima",
+        "Novo Hamburgo",
+        "Niterói",
+        "Osasco",
+        "Santo André",
+        "São Bernardo do Campo",
+        "São Caetano do Sul",
+        "Barueri",
+        "São Leopoldo",
+        "Florianópolis",
+        "São José",
+        "Palhoça",
+        "Contagem",
+        "Taboão da Serra",
+        "Diadema",
+        "São José dos Pinhais",
+        "Várzea Paulista",
+        "Pinhais",
+        "Santana de Parnaíba",
+        "Santos",
+        "Salvador",
+        "Mogi das Cruzes",
+        "São José dos Campos",
+        "Cotia",
+        "Ribeirão Preto",
+        "Sorocaba",
+        "Uberlândia",
+        "Mauá",
+        "Valinhos",
+        "Vinhedo",
+        "Indaiatuba",
+        "Nova Iguaçu",
+        "Americana",
+        "Hortolândia",
+        "Paulínia",
+        "Praia Grande",
+        "Guarujá",
+        "Carapicuíba",
+        "Votorantim",
+        "São Vicente",
+        "Duque de Caxias",
+        "São Gonçalo",
+        "Betim",
+        "Aparecida de Goiânia",
+        "Suzano",
+        "Itaquaquecetuba",
+        "Sumaré",
+        "Embu das Artes",
+        "Ferraz de Vasconcelos",
+        "Poá",
+        "Gravataí",
+        "Viamão",
+        "Alvorada",
+        "Belford Roxo",
+        "Nilópolis",
+        "Mesquita",
+        "Taubaté",
+        "Jacareí",
+        "Ribeirão das Neves",
+        "Ribeirão Pires",
+        "Brumadinho",
+        "Itabirito",
+        "Lagoa Santa",
+        "Sabará",
+        "Vespasiano",
+        "Rio Acima",
+        "Santa Luzia",
+        "Maricá",
+        "Cabo Frio",
+        "Petrópolis",
+        "Sapucaia do Sul",
+        "Macaé",
+        "Cachoeirinha",
+        "Juiz de Fora",
+        "Rio das Ostras",
+        "São Carlos",
+        "Piracicaba",
+        "Limeira",
+        "Montes Claros",
+        "Londrina",
+        "Maringá",
+        "Ponta Grossa",
+        "Volta Redonda",
+        "Santa Maria",
+        "Caxias do Sul",
+        "Uberaba",
+        "Campos dos Goytacazes",
+        "Anápolis"
+      ],
+      "prefill": "sao-paulo-sp-brasil",
+      "title": "City or region",
+      "type": "string"
+    },
+    "developmentsOnly": {
+      "default": false,
+      "description": "Show only new-development listings (mode=buy).",
+      "prefill": false,
+      "title": "New developments only",
+      "type": "boolean"
+    },
+    "exactCityOnly": {
+      "default": false,
+      "description": "Drop listings from neighbouring municipalities that QuintoAndar includes in a city search.",
+      "prefill": false,
+      "title": "Exact city only",
+      "type": "boolean"
+    },
+    "furnished": {
+      "default": "any",
+      "description": "Include only furnished listings, only unfurnished listings, or both.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "yes",
+        "no"
+      ],
+      "enumTitles": [
+        "Any",
+        "Furnished only",
+        "Unfurnished only"
+      ],
+      "prefill": "any",
+      "title": "Furnished",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Load each listing's detail page for description, separate condo fee and IPTU, ZIP code, coordinates and full photo captions.",
+      "prefill": false,
+      "title": "Include detail fields",
+      "type": "boolean"
+    },
+    "installations": {
+      "description": "Building facility codes that must all be present, e.g. PISCINA, ACADEMIA (mode=rent or buy).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Building facilities",
+      "type": "array"
+    },
+    "listingUrls": {
+      "description": "QuintoAndar listing links or numeric property IDs (mode=byUrls). Duplicates are ignored.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Listing URLs or IDs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 500,
+      "description": "Hard cap on the number of listings returned (1-5000). Values above 1000 use price-slice partitioning.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum listings",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "rent",
+      "description": "Search rentals, search properties for sale, or load specific listings by URL or ID.",
+      "editor": "select",
+      "enum": [
+        "rent",
+        "buy",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Rentals by location",
+        "Properties for sale by location",
+        "Specific listings by URL or ID"
+      ],
+      "prefill": "rent",
+      "title": "Mode",
+      "type": "string"
+    },
+    "nearSubway": {
+      "default": "any",
+      "description": "Include only listings marked close to a metro or train station, or all listings.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "yes"
+      ],
+      "enumTitles": [
+        "Any",
+        "Near subway only"
+      ],
+      "prefill": "any",
+      "title": "Near subway",
+      "type": "string"
+    },
+    "neighborhood": {
+      "description": "Optional neighborhood inside the selected city, e.g. Pinheiros or Copacabana (mode=rent or buy).",
+      "editor": "textfield",
+      "title": "Neighborhood",
+      "type": "string"
+    },
+    "parkingMax": {
+      "description": "Most parking spaces a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Maximum parking spaces",
+      "type": "integer"
+    },
+    "parkingMin": {
+      "description": "Fewest parking spaces a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum parking spaces",
+      "type": "integer"
+    },
+    "priceBasis": {
+      "default": "rent",
+      "description": "Whether price filters apply to the base rent or the total monthly cost (mode=rent). Buy mode always uses the sale price.",
+      "editor": "select",
+      "enum": [
+        "rent",
+        "total"
+      ],
+      "enumTitles": [
+        "Base rent",
+        "Total monthly cost"
+      ],
+      "prefill": "rent",
+      "title": "Price basis",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Highest price to include, in Brazilian reais.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Maximum price (BRL)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Lowest price to include, in Brazilian reais.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum price (BRL)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "ANY",
+      "description": "Restrict results to one property type (mode=rent or buy).",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "APARTMENT",
+        "HOUSE",
+        "HOUSE_CONDO",
+        "STUDIO"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Apartment",
+        "House",
+        "House in a condominium",
+        "Studio or kitchenette"
+      ],
+      "prefill": "ANY",
+      "title": "Property type",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order of the returned listings. Cheapest and most expensive use total monthly cost; highest rental return is the investor yield order.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "cheapest",
+        "expensive",
+        "highestRent"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Newest",
+        "Cheapest",
+        "Most expensive",
+        "Highest rental return"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "suitesMax": {
+      "description": "Most suites a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Maximum suites",
+      "type": "integer"
+    },
+    "suitesMin": {
+      "description": "Fewest suites a listing may have.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum suites",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "QuintoAndar Brazil Listings Input",
+  "type": "object"
+}

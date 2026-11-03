@@ -1,0 +1,832 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-sIm9wgwuE+IIw1zLuuae3mB7FtZCymggElvKVHKMOzc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Brazil Rental &amp; Sale Listings by City (QuintoAndar) | Dataspryva</title><meta name="description" content="Search Brazilian rental and sale property listings by city and transaction type: price breakdown, bedrooms, bathrooms, area, furnishing, and address across 15 major cities."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/"><meta property="og:title" content="Brazil Rental &amp; Sale Listings by City (QuintoAndar) | Dataspryva"><meta property="og:description" content="Search Brazilian rental and sale property listings by city and transaction type: price breakdown, bedrooms, bathrooms, area, furnishing, and address across 15 major cities."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#webpage","name":"Brazil Rental & Sale Listings by City (QuintoAndar)","description":"Search Brazilian rental and sale property listings by city and transaction type: price breakdown, bedrooms, bathrooms, area, furnishing, and address across 15 major cities.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#article","headline":"Brazil Rental & Sale Listings by City (QuintoAndar)","name":"Brazil Rental & Sale Listings by City (QuintoAndar)","description":"Search Brazilian rental and sale property listings by city and transaction type: price breakdown, bedrooms, bathrooms, area, furnishing, and address across 15 major cities.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Brazil Rental & Sale Listings by City (QuintoAndar)","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/L7dXVmQ0gTb3XRpsx/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Brazil Rental &amp; Sale Listings by City (QuintoAndar)</span></div><section id="overview"><h1 class="doc-title">Brazil Rental &amp; Sale Listings by City (QuintoAndar)</h1><p class="lede">Search Brazilian rental and sale property listings by city and transaction type: price breakdown, bedrooms, bathrooms, area, furnishing, and address across 15 major cities.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/brazil-rental-and-sale-listings-by-city">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/L7dXVmQ0gTb3XRpsx/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search rentals, search properties for sale, or load specific listings by URL or ID.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>QuintoAndar location to search (mode=rent or buy).</td></tr><tr><td><code>neighborhood</code></td><td>string</td><td>optional</td><td>Optional neighborhood inside the selected city, e.g. Pinheiros or Copacabana (mode=rent or buy).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search rentals, search properties for sale, or load specific listings by URL or ID.</td></tr><tr><td><code>city</code></td><td>string</td><td>optional</td><td>QuintoAndar location to search (mode=rent or buy).</td></tr><tr><td><code>neighborhood</code></td><td>string</td><td>optional</td><td>Optional neighborhood inside the selected city, e.g. Pinheiros or Copacabana (mode=rent or buy).</td></tr><tr><td><code>propertyType</code></td><td>string</td><td>optional</td><td>Restrict results to one property type (mode=rent or buy).</td></tr><tr><td><code>priceBasis</code></td><td>string</td><td>optional</td><td>Whether price filters apply to the base rent or the total monthly cost (mode=rent). Buy mode always uses the sale price.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Lowest price to include, in Brazilian reais.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Highest price to include, in Brazilian reais.</td></tr><tr><td><code>areaMin</code></td><td>integer</td><td>optional</td><td>Smallest usable area to include, in square metres.</td></tr><tr><td><code>areaMax</code></td><td>integer</td><td>optional</td><td>Largest usable area to include, in square metres.</td></tr><tr><td><code>bedroomsMin</code></td><td>integer</td><td>optional</td><td>Fewest bedrooms a listing may have.</td></tr><tr><td><code>bedroomsMax</code></td><td>integer</td><td>optional</td><td>Most bedrooms a listing may have.</td></tr><tr><td><code>bathroomsMin</code></td><td>integer</td><td>optional</td><td>Fewest bathrooms a listing may have.</td></tr><tr><td><code>bathroomsMax</code></td><td>integer</td><td>optional</td><td>Most bathrooms a listing may have.</td></tr><tr><td><code>parkingMin</code></td><td>integer</td><td>optional</td><td>Fewest parking spaces a listing may have.</td></tr><tr><td><code>parkingMax</code></td><td>integer</td><td>optional</td><td>Most parking spaces a listing may have.</td></tr><tr><td><code>suitesMin</code></td><td>integer</td><td>optional</td><td>Fewest suites a listing may have.</td></tr><tr><td><code>suitesMax</code></td><td>integer</td><td>optional</td><td>Most suites a listing may have.</td></tr><tr><td><code>furnished</code></td><td>string</td><td>optional</td><td>Include only furnished listings, only unfurnished listings, or both.</td></tr><tr><td><code>acceptsPets</code></td><td>string</td><td>optional</td><td>Include only listings that accept pets, or all listings.</td></tr><tr><td><code>nearSubway</code></td><td>string</td><td>optional</td><td>Include only listings marked close to a metro or train station, or all listings.</td></tr><tr><td><code>amenities</code></td><td>array</td><td>optional</td><td>Property feature codes that must all be present, e.g. VARANDA, AR_CONDICIONADO (mode=rent or buy).</td></tr><tr><td><code>installations</code></td><td>array</td><td>optional</td><td>Building facility codes that must all be present, e.g. PISCINA, ACADEMIA (mode=rent or buy).</td></tr><tr><td><code>availability</code></td><td>string</td><td>optional</td><td>When the property can be occupied (mode=rent).</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of the returned listings. Cheapest and most expensive use total monthly cost; highest rental return is the investor yield order.</td></tr><tr><td><code>developmentsOnly</code></td><td>boolean</td><td>optional</td><td>Show only new-development listings (mode=buy).</td></tr><tr><td><code>exactCityOnly</code></td><td>boolean</td><td>optional</td><td>Drop listings from neighbouring municipalities that QuintoAndar includes in a city search.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Load each listing&#x27;s detail page for description, separate condo fee and IPTU, ZIP code, coordinates and full photo captions.</td></tr><tr><td><code>listingUrls</code></td><td>array</td><td>optional</td><td>QuintoAndar listing links or numeric property IDs (mode=byUrls). Duplicates are ignored.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on the number of listings returned (1-5000). Values above 1000 use price-slice partitioning.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Choose a location or paste listing URLs, then narrow by price, size, rooms, amenities and more.&quot;,
+  &quot;properties&quot;: {
+    &quot;acceptsPets&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Include only listings that accept pets, or all listings.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;yes&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Accepts pets only&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Accepts pets&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;amenities&quot;: {
+      &quot;description&quot;: &quot;Property feature codes that must all be present, e.g. VARANDA, AR_CONDICIONADO (mode=rent or buy).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Unit amenities&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;areaMax&quot;: {
+      &quot;description&quot;: &quot;Largest usable area to include, in square metres.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum area (m²)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;areaMin&quot;: {
+      &quot;description&quot;: &quot;Smallest usable area to include, in square metres.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum area (m²)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;availability&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;When the property can be occupied (mode=rent).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;immediate&quot;,
+        &quot;soon&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Available immediately&quot;,
+        &quot;Available soon&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Availability&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;bathroomsMax&quot;: {
+      &quot;description&quot;: &quot;Most bathrooms a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum bathrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bathroomsMin&quot;: {
+      &quot;description&quot;: &quot;Fewest bathrooms a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum bathrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bedroomsMax&quot;: {
+      &quot;description&quot;: &quot;Most bedrooms a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum bedrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;bedroomsMin&quot;: {
+      &quot;description&quot;: &quot;Fewest bedrooms a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum bedrooms&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;city&quot;: {
+      &quot;default&quot;: &quot;sao-paulo-sp-brasil&quot;,
+      &quot;description&quot;: &quot;QuintoAndar location to search (mode=rent or buy).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;sao-paulo-sp-brasil&quot;,
+        &quot;rio-de-janeiro-rj-brasil&quot;,
+        &quot;belo-horizonte-mg-brasil&quot;,
+        &quot;porto-alegre-rs-brasil&quot;,
+        &quot;brasilia-df-brasil&quot;,
+        &quot;curitiba-pr-brasil&quot;,
+        &quot;goiania-go-brasil&quot;,
+        &quot;campinas-sp-brasil&quot;,
+        &quot;canoas-rs-brasil&quot;,
+        &quot;guarulhos-sp-brasil&quot;,
+        &quot;jundiai-sp-brasil&quot;,
+        &quot;nova-lima-mg-brasil&quot;,
+        &quot;novo-hamburgo-rs-brasil&quot;,
+        &quot;niteroi-rj-brasil&quot;,
+        &quot;osasco-sp-brasil&quot;,
+        &quot;santo-andre-sp-brasil&quot;,
+        &quot;sao-bernardo-do-campo-sp-brasil&quot;,
+        &quot;sao-caetano-do-sul-sp-brasil&quot;,
+        &quot;barueri-sp-brasil&quot;,
+        &quot;sao-leopoldo-rs-brasil&quot;,
+        &quot;florianopolis-sc-brasil&quot;,
+        &quot;sao-jose-sc-brasil&quot;,
+        &quot;palhoca-sc-brasil&quot;,
+        &quot;contagem-mg-brasil&quot;,
+        &quot;taboao-da-serra-sp-brasil&quot;,
+        &quot;diadema-sp-brasil&quot;,
+        &quot;sao-jose-dos-pinhais-pr-brasil&quot;,
+        &quot;varzea-paulista-sp-brasil&quot;,
+        &quot;pinhais-pr-brasil&quot;,
+        &quot;santana-de-parnaiba-sp-brasil&quot;,
+        &quot;santos-sp-brasil&quot;,
+        &quot;salvador-ba-brasil&quot;,
+        &quot;mogi-das-cruzes-sp-brasil&quot;,
+        &quot;sao-jose-dos-campos-sp-brasil&quot;,
+        &quot;cotia-sp-brasil&quot;,
+        &quot;ribeirao-preto-sp-brasil&quot;,
+        &quot;sorocaba-sp-brasil&quot;,
+        &quot;uberlandia-mg-brasil&quot;,
+        &quot;maua-sp-brasil&quot;,
+        &quot;valinhos-sp-brasil&quot;,
+        &quot;vinhedo-sp-brasil&quot;,
+        &quot;indaiatuba-sp-brasil&quot;,
+        &quot;nova-iguacu-rj-brasil&quot;,
+        &quot;americana-sp-brasil&quot;,
+        &quot;hortolandia-sp-brasil&quot;,
+        &quot;paulinia-sp-brasil&quot;,
+        &quot;praia-grande-sp-brasil&quot;,
+        &quot;guaruja-sp-brasil&quot;,
+        &quot;carapicuiba-sp-brasil&quot;,
+        &quot;votorantim-sp-brasil&quot;,
+        &quot;sao-vicente-sp-brasil&quot;,
+        &quot;duque-de-caxias-rj-brasil&quot;,
+        &quot;sao-goncalo-rj-brasil&quot;,
+        &quot;betim-mg-brasil&quot;,
+        &quot;aparecida-de-goiania-go-brasil&quot;,
+        &quot;suzano-sp-brasil&quot;,
+        &quot;itaquaquecetuba-sp-brasil&quot;,
+        &quot;sumare-sp-brasil&quot;,
+        &quot;embu-das-artes-sp-brasil&quot;,
+        &quot;ferraz-de-vasconcelos-sp-brasil&quot;,
+        &quot;poa-sp-brasil&quot;,
+        &quot;gravatai-rs-brasil&quot;,
+        &quot;viamao-rs-brasil&quot;,
+        &quot;alvorada-rs-brasil&quot;,
+        &quot;belford-roxo-rj-brasil&quot;,
+        &quot;nilopolis-rj-brasil&quot;,
+        &quot;mesquita-rj-brasil&quot;,
+        &quot;taubate-sp-brasil&quot;,
+        &quot;jacarei-sp-brasil&quot;,
+        &quot;ribeirao-das-neves-mg-brasil&quot;,
+        &quot;ribeirao-pires-sp-brasil&quot;,
+        &quot;brumadinho-mg-brasil&quot;,
+        &quot;itabirito-mg-brasil&quot;,
+        &quot;lagoa-santa-mg-brasil&quot;,
+        &quot;sabara-mg-brasil&quot;,
+        &quot;vespasiano-mg-brasil&quot;,
+        &quot;rio-acima-mg-brasil&quot;,
+        &quot;santa-luzia-mg-brasil&quot;,
+        &quot;marica-rj-brasil&quot;,
+        &quot;cabo-frio-rj-brasil&quot;,
+        &quot;petropolis-rj-brasil&quot;,
+        &quot;sapucaia-do-sul-rs-brasil&quot;,
+        &quot;macae-rj-brasil&quot;,
+        &quot;cachoeirinha-rs-brasil&quot;,
+        &quot;juiz-de-fora-mg-brasil&quot;,
+        &quot;rio-das-ostras-rj-brasil&quot;,
+        &quot;sao-carlos-sp-brasil&quot;,
+        &quot;piracicaba-sp-brasil&quot;,
+        &quot;limeira-sp-brasil&quot;,
+        &quot;montes-claros-mg-brasil&quot;,
+        &quot;londrina-pr-brasil&quot;,
+        &quot;maringa-pr-brasil&quot;,
+        &quot;ponta-grossa-pr-brasil&quot;,
+        &quot;volta-redonda-rj-brasil&quot;,
+        &quot;santa-maria-rs-brasil&quot;,
+        &quot;caxias-do-sul-rs-brasil&quot;,
+        &quot;uberaba-mg-brasil&quot;,
+        &quot;campos-dos-goytacazes-rj-brasil&quot;,
+        &quot;anapolis-go-brasil&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;São Paulo&quot;,
+        &quot;Rio de Janeiro&quot;,
+        &quot;Belo Horizonte&quot;,
+        &quot;Porto Alegre&quot;,
+        &quot;Brasília&quot;,
+        &quot;Curitiba&quot;,
+        &quot;Goiânia&quot;,
+        &quot;Campinas&quot;,
+        &quot;Canoas&quot;,
+        &quot;Guarulhos&quot;,
+        &quot;Jundiaí&quot;,
+        &quot;Nova Lima&quot;,
+        &quot;Novo Hamburgo&quot;,
+        &quot;Niterói&quot;,
+        &quot;Osasco&quot;,
+        &quot;Santo André&quot;,
+        &quot;São Bernardo do Campo&quot;,
+        &quot;São Caetano do Sul&quot;,
+        &quot;Barueri&quot;,
+        &quot;São Leopoldo&quot;,
+        &quot;Florianópolis&quot;,
+        &quot;São José&quot;,
+        &quot;Palhoça&quot;,
+        &quot;Contagem&quot;,
+        &quot;Taboão da Serra&quot;,
+        &quot;Diadema&quot;,
+        &quot;São José dos Pinhais&quot;,
+        &quot;Várzea Paulista&quot;,
+        &quot;Pinhais&quot;,
+        &quot;Santana de Parnaíba&quot;,
+        &quot;Santos&quot;,
+        &quot;Salvador&quot;,
+        &quot;Mogi das Cruzes&quot;,
+        &quot;São José dos Campos&quot;,
+        &quot;Cotia&quot;,
+        &quot;Ribeirão Preto&quot;,
+        &quot;Sorocaba&quot;,
+        &quot;Uberlândia&quot;,
+        &quot;Mauá&quot;,
+        &quot;Valinhos&quot;,
+        &quot;Vinhedo&quot;,
+        &quot;Indaiatuba&quot;,
+        &quot;Nova Iguaçu&quot;,
+        &quot;Americana&quot;,
+        &quot;Hortolândia&quot;,
+        &quot;Paulínia&quot;,
+        &quot;Praia Grande&quot;,
+        &quot;Guarujá&quot;,
+        &quot;Carapicuíba&quot;,
+        &quot;Votorantim&quot;,
+        &quot;São Vicente&quot;,
+        &quot;Duque de Caxias&quot;,
+        &quot;São Gonçalo&quot;,
+        &quot;Betim&quot;,
+        &quot;Aparecida de Goiânia&quot;,
+        &quot;Suzano&quot;,
+        &quot;Itaquaquecetuba&quot;,
+        &quot;Sumaré&quot;,
+        &quot;Embu das Artes&quot;,
+        &quot;Ferraz de Vasconcelos&quot;,
+        &quot;Poá&quot;,
+        &quot;Gravataí&quot;,
+        &quot;Viamão&quot;,
+        &quot;Alvorada&quot;,
+        &quot;Belford Roxo&quot;,
+        &quot;Nilópolis&quot;,
+        &quot;Mesquita&quot;,
+        &quot;Taubaté&quot;,
+        &quot;Jacareí&quot;,
+        &quot;Ribeirão das Neves&quot;,
+        &quot;Ribeirão Pires&quot;,
+        &quot;Brumadinho&quot;,
+        &quot;Itabirito&quot;,
+        &quot;Lagoa Santa&quot;,
+        &quot;Sabará&quot;,
+        &quot;Vespasiano&quot;,
+        &quot;Rio Acima&quot;,
+        &quot;Santa Luzia&quot;,
+        &quot;Maricá&quot;,
+        &quot;Cabo Frio&quot;,
+        &quot;Petrópolis&quot;,
+        &quot;Sapucaia do Sul&quot;,
+        &quot;Macaé&quot;,
+        &quot;Cachoeirinha&quot;,
+        &quot;Juiz de Fora&quot;,
+        &quot;Rio das Ostras&quot;,
+        &quot;São Carlos&quot;,
+        &quot;Piracicaba&quot;,
+        &quot;Limeira&quot;,
+        &quot;Montes Claros&quot;,
+        &quot;Londrina&quot;,
+        &quot;Maringá&quot;,
+        &quot;Ponta Grossa&quot;,
+        &quot;Volta Redonda&quot;,
+        &quot;Santa Maria&quot;,
+        &quot;Caxias do Sul&quot;,
+        &quot;Uberaba&quot;,
+        &quot;Campos dos Goytacazes&quot;,
+        &quot;Anápolis&quot;
+      ],
+      &quot;prefill&quot;: &quot;sao-paulo-sp-brasil&quot;,
+      &quot;title&quot;: &quot;City or region&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;developmentsOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Show only new-development listings (mode=buy).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;New developments only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;exactCityOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Drop listings from neighbouring municipalities that QuintoAndar includes in a city search.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exact city only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;furnished&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Include only furnished listings, only unfurnished listings, or both.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;yes&quot;,
+        &quot;no&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Furnished only&quot;,
+        &quot;Unfurnished only&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Furnished&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Load each listing&#x27;s detail page for description, separate condo fee and IPTU, ZIP code, coordinates and full photo captions.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include detail fields&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;installations&quot;: {
+      &quot;description&quot;: &quot;Building facility codes that must all be present, e.g. PISCINA, ACADEMIA (mode=rent or buy).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Building facilities&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;listingUrls&quot;: {
+      &quot;description&quot;: &quot;QuintoAndar listing links or numeric property IDs (mode=byUrls). Duplicates are ignored.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Listing URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 500,
+      &quot;description&quot;: &quot;Hard cap on the number of listings returned (1-5000). Values above 1000 use price-slice partitioning.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum listings&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;rent&quot;,
+      &quot;description&quot;: &quot;Search rentals, search properties for sale, or load specific listings by URL or ID.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;rent&quot;,
+        &quot;buy&quot;,
+        &quot;byUrls&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Rentals by location&quot;,
+        &quot;Properties for sale by location&quot;,
+        &quot;Specific listings by URL or ID&quot;
+      ],
+      &quot;prefill&quot;: &quot;rent&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;nearSubway&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Include only listings marked close to a metro or train station, or all listings.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;yes&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Near subway only&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Near subway&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;neighborhood&quot;: {
+      &quot;description&quot;: &quot;Optional neighborhood inside the selected city, e.g. Pinheiros or Copacabana (mode=rent or buy).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Neighborhood&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;parkingMax&quot;: {
+      &quot;description&quot;: &quot;Most parking spaces a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum parking spaces&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;parkingMin&quot;: {
+      &quot;description&quot;: &quot;Fewest parking spaces a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum parking spaces&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;priceBasis&quot;: {
+      &quot;default&quot;: &quot;rent&quot;,
+      &quot;description&quot;: &quot;Whether price filters apply to the base rent or the total monthly cost (mode=rent). Buy mode always uses the sale price.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;rent&quot;,
+        &quot;total&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Base rent&quot;,
+        &quot;Total monthly cost&quot;
+      ],
+      &quot;prefill&quot;: &quot;rent&quot;,
+      &quot;title&quot;: &quot;Price basis&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;priceMax&quot;: {
+      &quot;description&quot;: &quot;Highest price to include, in Brazilian reais.&quot;,
+      &quot;maximum&quot;: 100000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum price (BRL)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;priceMin&quot;: {
+      &quot;description&quot;: &quot;Lowest price to include, in Brazilian reais.&quot;,
+      &quot;maximum&quot;: 100000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum price (BRL)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;propertyType&quot;: {
+      &quot;default&quot;: &quot;ANY&quot;,
+      &quot;description&quot;: &quot;Restrict results to one property type (mode=rent or buy).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ANY&quot;,
+        &quot;APARTMENT&quot;,
+        &quot;HOUSE&quot;,
+        &quot;HOUSE_CONDO&quot;,
+        &quot;STUDIO&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any type&quot;,
+        &quot;Apartment&quot;,
+        &quot;House&quot;,
+        &quot;House in a condominium&quot;,
+        &quot;Studio or kitchenette&quot;
+      ],
+      &quot;prefill&quot;: &quot;ANY&quot;,
+      &quot;title&quot;: &quot;Property type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Order of the returned listings. Cheapest and most expensive use total monthly cost; highest rental return is the investor yield order.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;newest&quot;,
+        &quot;cheapest&quot;,
+        &quot;expensive&quot;,
+        &quot;highestRent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Newest&quot;,
+        &quot;Cheapest&quot;,
+        &quot;Most expensive&quot;,
+        &quot;Highest rental return&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Sort by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;suitesMax&quot;: {
+      &quot;description&quot;: &quot;Most suites a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum suites&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;suitesMin&quot;: {
+      &quot;description&quot;: &quot;Fewest suites a listing may have.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum suites&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;QuintoAndar Brazil Listings Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped QuintoAndar property listings.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Brazilian property listings with transaction prices, monthly costs, size, rooms, address and coordinates, amenities, photos, project details and publication dates.&quot;,
+  &quot;properties&quot;: {
+    &quot;listings&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped QuintoAndar property listings.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Property listings&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Brazil Rental &amp; Sale Listings by City (QuintoAndar) Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Property Listings&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;propertyType&quot;,
+          &quot;rentPrice&quot;,
+          &quot;salePrice&quot;,
+          &quot;totalMonthlyCost&quot;,
+          &quot;bedrooms&quot;,
+          &quot;areaSqM&quot;,
+          &quot;city&quot;,
+          &quot;neighborhood&quot;,
+          &quot;propertyUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-brazil-rental-sale-listings-by-city-quintoandar">Brazil Rental &amp; Sale Listings by City (QuintoAndar)</h2>
+<p>QuintoAndar is one of Brazil's largest home rental and sale marketplaces, covering São Paulo, Rio de Janeiro, Belo Horizonte and dozens of other metro areas. This actor searches its public listings by city or neighborhood and returns structured property records: transaction prices, monthly costs, size, rooms, address, amenities, photos and optional detail-page enrichment. No account, cookie or proxy setup is needed.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Three modes:</strong> search rentals (<code>rent</code>), search properties for sale (<code>buy</code>), or load specific listings by URL or numeric ID (<code>byUrls</code>)</li>
+<li><strong>99 locations</strong>, with optional neighborhood search inside any city</li>
+<li><strong>Server-side filters:</strong> property type, price (base rent, total monthly cost or sale price), area, bedrooms, bathrooms, parking, suites, furnished, pets, near subway, amenities, building facilities, availability and sort order (<code>cheapest</code>/<code>expensive</code> use total monthly cost; <code>highestRent</code> is the rental-return order)</li>
+<li><strong>Large result sets:</strong> up to 1,000 listings per query and up to 5,000 per run through automatic price-slice partitioning</li>
+<li><strong>Optional detail enrichment:</strong> description, separate condo fee and IPTU, ZIP code, state, coordinates, full photo gallery with captions, construction year, floor range and project data</li>
+<li><strong>Empty fields are omitted</strong> from each record instead of being returned as null</li>
+</ul>
+<h2 id="readme-output-per-property">Output per property</h2>
+<ul>
+<li><code>propertyId</code> — QuintoAndar property ID</li>
+<li><code>title</code> — composed title with property type, bedrooms, neighborhood and city</li>
+<li><code>propertyType</code> — Apartamento, Casa, CasaCondominio or StudioOuKitchenette</li>
+<li><code>rentPrice</code> — base monthly rent in BRL</li>
+<li><code>salePrice</code> — sale price in BRL</li>
+<li><code>totalMonthlyCost</code> — rent plus condo fee and IPTU, in BRL</li>
+<li><code>condoAndIptu</code> — combined condo fee and IPTU, in BRL</li>
+<li><code>condoFee</code> — monthly condo fee in BRL (with detail enrichment)</li>
+<li><code>iptu</code> — monthly IPTU in BRL (with detail enrichment)</li>
+<li><code>iptuPeriod</code> — always <code>monthly</code> when <code>iptu</code> is present</li>
+<li><code>currency</code> — always <code>BRL</code></li>
+<li><code>areaSqM</code> — usable area in square metres</li>
+<li><code>bedrooms</code>, <code>bathrooms</code>, <code>suites</code>, <code>parkingSpots</code> — room counts; real zero values are kept</li>
+<li><code>street</code>, <code>neighborhood</code>, <code>region</code>, <code>city</code> — address fields</li>
+<li><code>state</code>, <code>stateCode</code>, <code>zipCode</code> — state and postal code (with detail enrichment)</li>
+<li><code>latitude</code>, <code>longitude</code> — map coordinates (with detail enrichment)</li>
+<li><code>amenities[]</code> — unit feature codes, e.g. <code>VARANDA</code>, <code>AR_CONDICIONADO</code></li>
+<li><code>amenitiesText[]</code> — human-readable amenity labels (with detail enrichment)</li>
+<li><code>installations[]</code> — building facility codes, e.g. <code>PISCINA</code>, <code>ACADEMIA</code></li>
+<li><code>installationsText[]</code> — human-readable facility labels (with detail enrichment)</li>
+<li><code>photos[]</code> — every property photo as a working image URL</li>
+<li><code>photoCaptions[]</code> — captions parallel to <code>photos[]</code> when every photo has one</li>
+<li><code>imageUrl</code> — primary property image URL</li>
+<li><code>isFurnished</code>, <code>forSale</code>, <code>forRent</code>, <code>acceptsPets</code>, <code>nearSubway</code> — listing flags</li>
+<li><code>yieldRate</code>, <code>yieldStrategy</code> — rental yield and its calculation basis, when published</li>
+<li><code>visitStatus</code> — current visit availability</li>
+<li><code>lastPublishedDate</code>, <code>firstPublishedDate</code> — publication timestamps</li>
+<li><code>listingTags[]</code>, <code>specialConditions[]</code> — listing tags and exclusivity-style conditions</li>
+<li><code>isPrimaryMarket</code>, <code>developmentId</code>, <code>developmentName</code>, <code>constructionStatus</code>, <code>forecastDeliveryDate</code> — new-development fields</li>
+<li><code>condoName</code>, <code>condoSlug</code> — condominium/project name and slug</li>
+<li><code>constructionYear</code>, <code>floorMin</code>, <code>floorMax</code> — building year and floor range</li>
+<li><code>shortDescription</code>, <code>description</code> — short and long listing text</li>
+<li><code>propertyUrl</code> — canonical QuintoAndar listing page</li>
+<li><code>mode</code> — transaction type of the record (<code>rent</code>, <code>buy</code> or <code>byUrls</code>)</li>
+<li><code>recordType</code> — always <code>property</code></li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of when the listing was scraped</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>rent</code></td>
+<td><code>rent</code>, <code>buy</code> or <code>byUrls</code></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td><code>sao-paulo-sp-brasil</code></td>
+<td>One of 99 QuintoAndar locations (mode=rent or buy)</td>
+</tr>
+<tr>
+<td><code>neighborhood</code></td>
+<td>string</td>
+<td>–</td>
+<td>Optional neighborhood inside the city, e.g. Pinheiros (mode=rent or buy)</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>string</td>
+<td><code>ANY</code></td>
+<td><code>ANY</code>, <code>APARTMENT</code>, <code>HOUSE</code>, <code>HOUSE_CONDO</code> or <code>STUDIO</code></td>
+</tr>
+<tr>
+<td><code>priceBasis</code></td>
+<td>string</td>
+<td><code>rent</code></td>
+<td><code>rent</code> or <code>total</code> (mode=rent); ignored for buy</td>
+</tr>
+<tr>
+<td><code>priceMin</code> / <code>priceMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Price range in BRL</td>
+</tr>
+<tr>
+<td><code>areaMin</code> / <code>areaMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Usable area range in m²</td>
+</tr>
+<tr>
+<td><code>bedroomsMin</code> / <code>bedroomsMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Bedroom range</td>
+</tr>
+<tr>
+<td><code>bathroomsMin</code> / <code>bathroomsMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Bathroom range</td>
+</tr>
+<tr>
+<td><code>parkingMin</code> / <code>parkingMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Parking space range</td>
+</tr>
+<tr>
+<td><code>suitesMin</code> / <code>suitesMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Suite range</td>
+</tr>
+<tr>
+<td><code>furnished</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>yes</code> or <code>no</code></td>
+</tr>
+<tr>
+<td><code>acceptsPets</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code> or <code>yes</code></td>
+</tr>
+<tr>
+<td><code>nearSubway</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code> or <code>yes</code></td>
+</tr>
+<tr>
+<td><code>amenities</code></td>
+<td>array</td>
+<td>–</td>
+<td>Required unit feature codes</td>
+</tr>
+<tr>
+<td><code>installations</code></td>
+<td>array</td>
+<td>–</td>
+<td>Required building facility codes</td>
+</tr>
+<tr>
+<td><code>availability</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>immediate</code> or <code>soon</code> (mode=rent)</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>newest</code>, <code>cheapest</code>, <code>expensive</code> or <code>highestRent</code> (highest rental return / yield)</td>
+</tr>
+<tr>
+<td><code>developmentsOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Show only new developments (mode=buy)</td>
+</tr>
+<tr>
+<td><code>exactCityOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Drop listings from neighbouring municipalities</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Load description, condo/IPTU split, ZIP, coordinates and full captions</td>
+</tr>
+<tr>
+<td><code>listingUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Listing URLs or numeric IDs (mode=byUrls)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>500</code></td>
+<td>Hard cap, 1–5,000</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-rentals-in-s-o-paulo">Example: rentals in São Paulo</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;rent&quot;,
+  &quot;city&quot;: &quot;sao-paulo-sp-brasil&quot;,
+  &quot;maxItems&quot;: 200,
+  &quot;includeDetails&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-family-sized-apartments-for-sale-in-rio-de-janeiro">Example: family-sized apartments for sale in Rio de Janeiro</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;buy&quot;,
+  &quot;city&quot;: &quot;rio-de-janeiro-rj-brasil&quot;,
+  &quot;propertyType&quot;: &quot;APARTMENT&quot;,
+  &quot;bedroomsMin&quot;: 3,
+  &quot;priceMin&quot;: 800000,
+  &quot;priceMax&quot;: 2500000,
+  &quot;sortBy&quot;: &quot;newest&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-pet-friendly-rentals-in-pinheiros-with-a-pool">Example: pet-friendly rentals in Pinheiros with a pool</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;rent&quot;,
+  &quot;city&quot;: &quot;sao-paulo-sp-brasil&quot;,
+  &quot;neighborhood&quot;: &quot;Pinheiros&quot;,
+  &quot;acceptsPets&quot;: &quot;yes&quot;,
+  &quot;installations&quot;: [&quot;PISCINA&quot;],
+  &quot;priceMax&quot;: 6000,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-load-specific-listings">Example: load specific listings</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrls&quot;,
+  &quot;listingUrls&quot;: [
+    &quot;https://www.quintoandar.com.br/imovel/893977588&quot;,
+    &quot;895686771&quot;
+  ]
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Rental budgeting</strong> — compare base rent, condo fee, IPTU and total monthly cost across neighborhoods</li>
+<li><strong>Relocation research</strong> — scan a new city or a single neighborhood before an apartment hunt</li>
+<li><strong>Market analysis</strong> — measure price per square metre by city, property type and size band</li>
+<li><strong>Investment screening</strong> — compare sale prices and published rental yields for similar properties</li>
+<li><strong>Portfolio monitoring</strong> — re-run the same city and filters to spot new listings and price changes</li>
+<li><strong>Project tracking</strong> — follow new developments with construction status and delivery forecasts</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-is-this-actor-affiliated-with-quintoandar">Is this actor affiliated with QuintoAndar?</h3>
+<p>No. It is an independent, third-party tool that reads publicly visible QuintoAndar listings. It is not operated by or affiliated with QuintoAndar.</p>
+<h3 id="readme-do-i-need-a-quintoandar-account-cookies-or-a-proxy">Do I need a QuintoAndar account, cookies or a proxy?</h3>
+<p>No. All supported modes work without an account or cookies, and no proxy setup is required.</p>
+<h3 id="readme-what-is-the-difference-between-rentprice-totalmonthlycost-and-condoandiptu">What is the difference between <code>rentPrice</code>, <code>totalMonthlyCost</code> and <code>condoAndIptu</code>?</h3>
+<p><code>rentPrice</code> is the base rent. <code>condoAndIptu</code> is the combined condo fee and IPTU. <code>totalMonthlyCost</code> adds those extras to the rent, matching the total QuintoAndar displays for rent listings.</p>
+<h3 id="readme-why-does-a-rental-listing-sometimes-have-a-saleprice">Why does a rental listing sometimes have a <code>salePrice</code>?</h3>
+<p>Some owners list the same property for both rent and sale. When QuintoAndar publishes both prices, both fields are included.</p>
+<h3 id="readme-how-many-listings-can-one-run-return">How many listings can one run return?</h3>
+<p>A single location query yields at most 1,000 listings, which is QuintoAndar's own per-query limit. Runs above 1,000 automatically split the price range into slices and merge the results, up to <code>maxItems</code> (5,000). If the source has fewer matching listings, the run stops honestly with the real count.</p>
+<h3 id="readme-why-do-results-include-cities-other-than-the-one-i-selected">Why do results include cities other than the one I selected?</h3>
+<p>QuintoAndar city searches cover the surrounding metro region, so a São Paulo search can include Mauá or Guarulhos. Set <code>exactCityOnly</code> to keep only the city you selected.</p>
+<h3 id="readme-why-are-suites-iptu-description-or-coordinates-missing-on-some-records">Why are <code>suites</code>, <code>iptu</code>, <code>description</code> or coordinates missing on some records?</h3>
+<p>Those fields are conditional in the source: some listings do not publish a suite count, IPTU value or description. They are omitted rather than filled with a placeholder. Turning on <code>includeDetails</code> fills them whenever the listing page has them.</p>
+<h3 id="readme-can-i-get-the-agent-s-name-phone-or-email">Can I get the agent's name, phone or email?</h3>
+<p>No. QuintoAndar does not expose listing-agent contact details on public pages, so the actor cannot return them.</p>
+<h3 id="readme-what-do-the-amenity-and-facility-codes-mean">What do the amenity and facility codes mean?</h3>
+<p>They are QuintoAndar's own codes, such as <code>VARANDA</code> (balcony), <code>AR_CONDICIONADO</code> (air conditioning), <code>PISCINA</code> (pool) and <code>ACADEMIA</code> (gym). With <code>includeDetails</code> enabled, the actor also returns the Portuguese labels in <code>amenitiesText</code> and <code>installationsText</code>.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li><strong>1,000 listings per location query.</strong> Larger requests are split by price, but a slice with more than 1,000 listings at the same price can still be capped.</li>
+<li><strong>Source inventory is finite.</strong> A run cannot return more listings than QuintoAndar currently has for the chosen location and filters.</li>
+<li><strong>City searches include metro municipalities.</strong> Use <code>exactCityOnly</code> when you need the city boundary only.</li>
+<li><strong>No agent or advertiser contact details.</strong> QuintoAndar does not publish them.</li>
+<li><strong>No total area or land area.</strong> QuintoAndar exposes usable area (<code>areaSqM</code>) only.</li>
+<li><strong>Some fields are conditional.</strong> Suites, IPTU, descriptions, construction year and project data appear only when the listing provides them.</li>
+<li><strong>Price-slice partitioning changes ordering.</strong> Runs above 1,000 are assembled from multiple price slices, so the final order differs from a single sorted page.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/L7dXVmQ0gTb3XRpsx/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>zT1Qzg0VWyjBONG32</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

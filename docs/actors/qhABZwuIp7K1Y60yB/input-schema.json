@@ -1,0 +1,331 @@
+{
+  "description": "Search products or suppliers, browse a category, or scrape product/supplier URLs from Made-in-China.com.",
+  "properties": {
+    "auditedSupplierOnly": {
+      "default": false,
+      "description": "Only return listings whose supplier carries an 'Audited Supplier' badge from an independent inspection agency.",
+      "prefill": false,
+      "title": "Audited suppliers only",
+      "type": "boolean"
+    },
+    "businessType": {
+      "default": "",
+      "description": "Only return suppliers of this business type. Leave blank for no filter. Used by product and supplier search modes.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Manufacturer/Factory",
+        "Trading Company",
+        "Group Corporation",
+        "Other"
+      ],
+      "enumTitles": [
+        "Any business type",
+        "Manufacturer/Factory",
+        "Trading Company",
+        "Group Corporation",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Filter by business type",
+      "type": "string"
+    },
+    "categoryPaths": {
+      "default": [],
+      "description": "Made-in-China.com catalog paths (or full catalog URLs) to browse in 'Browse a product category' mode, e.g. 'Agriculture-Food-Catalog/Beverage'.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Category paths",
+      "type": "array"
+    },
+    "certification": {
+      "default": "",
+      "description": "Only return products from suppliers who advertise this quality or safety certification. Leave blank for no filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "CE",
+        "ISO",
+        "RoHS",
+        "CCC",
+        "ISO9001"
+      ],
+      "enumTitles": [
+        "Any certification",
+        "CE",
+        "ISO",
+        "RoHS",
+        "CCC",
+        "ISO 9001"
+      ],
+      "prefill": "",
+      "title": "Filter by certification",
+      "type": "string"
+    },
+    "goldSupplierOnly": {
+      "default": false,
+      "description": "Only return listings from suppliers with a Gold Member, Diamond Member, or higher paid membership badge.",
+      "prefill": false,
+      "title": "Gold/Diamond suppliers only",
+      "type": "boolean"
+    },
+    "includeContactDetails": {
+      "default": false,
+      "description": "Open the public contact page in supplier modes to add contact person, position, postal code, and showroom URL. Phone and email are not public.",
+      "prefill": false,
+      "title": "Fetch supplier contact pages",
+      "type": "boolean"
+    },
+    "includeProductDetails": {
+      "default": true,
+      "description": "Open each product page to add description, specifications, price tiers, images, video, categories, FAQ, and deeper supplier data. Adds one request per product.",
+      "prefill": false,
+      "title": "Fetch product detail pages",
+      "type": "boolean"
+    },
+    "includeSupplierProfile": {
+      "default": true,
+      "description": "Open supplier storefront and company-profile pages to add firmographics, trade terms, audit report, product groups, and verification data. Adds requests per supplier.",
+      "prefill": false,
+      "title": "Fetch supplier profiles",
+      "type": "boolean"
+    },
+    "leadingFactoryOnly": {
+      "default": false,
+      "description": "Only return listings whose supplier holds an 'Industry-leading Audited Factory' badge.",
+      "prefill": false,
+      "title": "Leading factories only",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of records to return across all keywords, categories, or URLs.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxMinOrder": {
+      "description": "Only return products whose Minimum Order Quantity is at or below this number. Leave blank for no filter.",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Maximum minimum-order quantity",
+      "type": "integer"
+    },
+    "maxPagesPerQuery": {
+      "default": 20,
+      "description": "Maximum listing pages to walk for each keyword, category, or supplier catalog. Each page holds about 24-30 records.",
+      "maximum": 400,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max pages per query",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchProducts",
+      "description": "What to scrape from Made-in-China.com.",
+      "editor": "select",
+      "enum": [
+        "searchProducts",
+        "searchSuppliers",
+        "categoryBrowse",
+        "productDetails",
+        "supplierDetails",
+        "supplierProducts"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Find suppliers by keyword",
+        "Browse a product category",
+        "Scrape these product URLs/IDs",
+        "Scrape these supplier storefronts",
+        "Scrape a supplier's catalog"
+      ],
+      "prefill": "searchProducts",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Only return products whose listed price is at or below this USD value. Must be used together with the minimum; a lone bound is ignored.",
+      "editor": "number",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Price range — maximum (USD)",
+      "type": "number"
+    },
+    "priceMin": {
+      "description": "Only return products whose listed price is at or above this USD value. Must be used together with the maximum; a lone bound is ignored.",
+      "editor": "number",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Price range — minimum (USD)",
+      "type": "number"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Product page URLs or product IDs to scrape in 'Scrape these product URLs/IDs' mode. A bare ID is resolved through the site's own search.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Product URLs or IDs",
+      "type": "array"
+    },
+    "province": {
+      "default": "",
+      "description": "Only return listings whose supplier is located in this Chinese province, municipality, or region. Leave blank for no filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Anhui",
+        "Beijing",
+        "Chongqing",
+        "Fujian",
+        "Gansu",
+        "Guangdong",
+        "Guangxi",
+        "Guizhou",
+        "Hainan",
+        "Hebei",
+        "Heilongjiang",
+        "Henan",
+        "Hong Kong",
+        "Hubei",
+        "Hunan",
+        "Inner Mongolia",
+        "Jiangsu",
+        "Jiangxi",
+        "Jilin",
+        "Liaoning",
+        "Macau",
+        "Ningxia",
+        "Qinghai",
+        "Shaanxi",
+        "Shandong",
+        "Shanghai",
+        "Shanxi",
+        "Sichuan",
+        "Taiwan",
+        "Tianjin",
+        "Tibet",
+        "Xinjiang",
+        "Yunnan",
+        "Zhejiang"
+      ],
+      "enumTitles": [
+        "Any province",
+        "Anhui",
+        "Beijing",
+        "Chongqing",
+        "Fujian",
+        "Gansu",
+        "Guangdong",
+        "Guangxi",
+        "Guizhou",
+        "Hainan",
+        "Hebei",
+        "Heilongjiang",
+        "Henan",
+        "Hong Kong",
+        "Hubei",
+        "Hunan",
+        "Inner Mongolia",
+        "Jiangsu",
+        "Jiangxi",
+        "Jilin",
+        "Liaoning",
+        "Macau",
+        "Ningxia",
+        "Qinghai",
+        "Shaanxi",
+        "Shandong",
+        "Shanghai",
+        "Shanxi",
+        "Sichuan",
+        "Taiwan",
+        "Tianjin",
+        "Tibet",
+        "Xinjiang",
+        "Yunnan",
+        "Zhejiang"
+      ],
+      "prefill": "",
+      "title": "Filter by province",
+      "type": "string"
+    },
+    "rdCapacity": {
+      "default": "",
+      "description": "Only return products from suppliers with this R&D or production capability. Leave blank for no filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "OEM",
+        "ODM",
+        "Own Brand",
+        "Others"
+      ],
+      "enumTitles": [
+        "Any R&D capability",
+        "OEM",
+        "ODM",
+        "Own Brand",
+        "Others"
+      ],
+      "prefill": "",
+      "title": "Filter by R&D/production capability",
+      "type": "string"
+    },
+    "sampleAvailableOnly": {
+      "default": false,
+      "description": "Only return products whose supplier offers a paid sample order ('Buy Sample').",
+      "prefill": false,
+      "title": "Sample available only",
+      "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [
+        "industrial pump"
+      ],
+      "description": "One or more product or supplier keywords. Used by 'Search products' and 'Find suppliers' modes (e.g. 'industrial pump', 'LED lights').",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "industrial pump"
+      ],
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "securedTradingOnly": {
+      "default": false,
+      "description": "Only return listings that offer Secured Trading (payment protection and after-sales support through Made-in-China.com).",
+      "prefill": false,
+      "title": "Secured Trading listings only",
+      "type": "boolean"
+    },
+    "supplierUrls": {
+      "default": [],
+      "description": "Supplier storefront URLs or subdomains, e.g. 'allslorm.en.made-in-china.com' or just 'allslorm'. Used by 'Scrape these supplier storefronts' and 'Scrape a supplier's catalog'.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Supplier URLs or subdomains",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Made-in-China Scraper Input",
+  "type": "object"
+}

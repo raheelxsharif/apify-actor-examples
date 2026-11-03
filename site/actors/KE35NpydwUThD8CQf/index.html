@@ -1,0 +1,959 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-zmRMziitpy1XZPQuRQAstqFF98OyKZq26JjZK3r2vug=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Meetup &amp; Lu.ma Event Finder by City, Group &amp; Calendar | Dataspryva</title><meta name="description" content="Search, browse, or look up events on Meetup and Lu.ma by city, group, or calendar: dates, venue, organizer, attendee count, photo and RSVP status from one actor and input shape."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/"><meta property="og:title" content="Meetup &amp; Lu.ma Event Finder by City, Group &amp; Calendar | Dataspryva"><meta property="og:description" content="Search, browse, or look up events on Meetup and Lu.ma by city, group, or calendar: dates, venue, organizer, attendee count, photo and RSVP status from one actor and input shape."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#webpage","name":"Meetup & Lu.ma Event Finder by City, Group & Calendar","description":"Search, browse, or look up events on Meetup and Lu.ma by city, group, or calendar: dates, venue, organizer, attendee count, photo and RSVP status from one actor and input shape.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#article","headline":"Meetup & Lu.ma Event Finder by City, Group & Calendar","name":"Meetup & Lu.ma Event Finder by City, Group & Calendar","description":"Search, browse, or look up events on Meetup and Lu.ma by city, group, or calendar: dates, venue, organizer, attendee count, photo and RSVP status from one actor and input shape.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Meetup & Lu.ma Event Finder by City, Group & Calendar","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/KE35NpydwUThD8CQf/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Meetup &amp; Lu.ma Event Finder by City, Group &amp; Calendar</span></div><section id="overview"><h1 class="doc-title">Meetup &amp; Lu.ma Event Finder by City, Group &amp; Calendar</h1><p class="lede">Search, browse, or look up events on Meetup and Lu.ma by city, group, or calendar: dates, venue, organizer, attendee count, photo and RSVP status from one actor and input shape.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/meetup-and-lu-ma-event-finder-by-city-group">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/KE35NpydwUThD8CQf/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>platform</code></td><td>string</td><td>required</td><td>Which platform to query. All modes are HTTP-only and need no login.</td></tr><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape: search, specific event/group/calendar URLs, group/calendar event lists, nearby discovery, or auto-routed URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Free-text keyword. Required for Meetup search. Lu.ma keyword search caps at 50 results per run.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>platform</code></td><td>string</td><td>required</td><td>Which platform to query. All modes are HTTP-only and need no login.</td></tr><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to scrape: search, specific event/group/calendar URLs, group/calendar event lists, nearby discovery, or auto-routed URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Free-text keyword. Required for Meetup search. Lu.ma keyword search caps at 50 results per run.</td></tr><tr><td><code>location</code></td><td>string</td><td>optional</td><td>City, state, or country. Meetup resolves it server-side; Lu.ma resolves the featured city. Examples: `san francisco`, `New York, NY`, `London, UK`.</td></tr><tr><td><code>lat</code></td><td>number</td><td>optional</td><td>Explicit latitude. Bypasses location geocoding and anchors Lu.ma category feeds.</td></tr><tr><td><code>lng</code></td><td>number</td><td>optional</td><td>Explicit longitude. Bypasses location geocoding and anchors Lu.ma category feeds.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Optional ISO country code used when resolving a Meetup location.</td></tr><tr><td><code>meetupCategory</code></td><td>string</td><td>optional</td><td>Browse or filter Meetup by a live topic category. Use `all` with a query for no category filter.</td></tr><tr><td><code>lumaCategory</code></td><td>string</td><td>optional</td><td>Lu.ma category feed. Needs a city or `lat`/`lng` to anchor the feed.</td></tr><tr><td><code>eventType</code></td><td>string</td><td>optional</td><td>Meetup server-side event format filter. Lu.ma location types are not reliable, so Lu.ma ignores this field.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Meetup sorts server-side. Lu.ma sorts client-side by start date; relevance keeps source order.</td></tr><tr><td><code>dateFrom</code></td><td>string</td><td>optional</td><td>Earliest event date (inclusive). Accepts `YYYY-MM-DD` or an ISO date-time.</td></tr><tr><td><code>dateTo</code></td><td>string</td><td>optional</td><td>Latest event date (inclusive). Accepts `YYYY-MM-DD` or an ISO date-time.</td></tr><tr><td><code>radiusKm</code></td><td>integer</td><td>optional</td><td>Meetup search radius around the resolved location.</td></tr><tr><td><code>minAttendees</code></td><td>integer</td><td>optional</td><td>Drop events below this RSVP/guest count. Meetup filters server-side; Lu.ma filters client-side.</td></tr><tr><td><code>freeOnly</code></td><td>boolean</td><td>optional</td><td>Drop events that are known to charge. Events with an unknown price are kept.</td></tr><tr><td><code>eventPeriod</code></td><td>string</td><td>optional</td><td>Upcoming, past, or both. Past is reliable on Meetup groups and Lu.ma calendars; Lu.ma city/category feeds are upcoming-only.</td></tr><tr><td><code>urls</code></td><td>array</td><td>optional</td><td>One or more Meetup or Lu.ma URLs. `mode=byUrl` auto-routes each one; `byEvent`, `byGroup`, and calendar modes also accept URLs.</td></tr><tr><td><code>slugs</code></td><td>array</td><td>optional</td><td>Meetup group urlnames or Lu.ma event/calendar slugs. For Meetup events, pair index-aligned with `eventIds`.</td></tr><tr><td><code>eventIds</code></td><td>array</td><td>optional</td><td>Numeric Meetup event IDs or Lu.ma `evt-...` ids. Meetup numeric IDs can be used alone or index-aligned with `slugs` (group urlnames).</td></tr><tr><td><code>lumaCity</code></td><td>string</td><td>optional</td><td>Featured Lu.ma city feed. Alternatively supply `location` or `lat`/`lng`.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records.</td></tr><tr><td><code>includeAttendees</code></td><td>boolean</td><td>optional</td><td>Add public RSVP names/photos to Meetup events (one extra request per event, capped at 250).</td></tr><tr><td><code>includeMembers</code></td><td>boolean</td><td>optional</td><td>Add a public member sample to Meetup group records (one extra request per group).</td></tr><tr><td><code>enrichDetails</code></td><td>boolean</td><td>optional</td><td>Fetch each Lu.ma event&#x27;s detail endpoint for description, ticket tiers, and featured guests. Off by default for speed.</td></tr><tr><td><code>onlyNewSinceLastRun</code></td><td>boolean</td><td>optional</td><td>Remember emitted IDs for this exact input and skip them on later runs. The first run emits everything.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Find events on Meetup and Lu.ma by keyword, city, group, calendar, URL, or event ID. No login or API key required.&quot;,
+  &quot;properties&quot;: {
+    &quot;country&quot;: {
+      &quot;description&quot;: &quot;Optional ISO country code used when resolving a Meetup location.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;us&quot;,
+        &quot;ca&quot;,
+        &quot;gb&quot;,
+        &quot;de&quot;,
+        &quot;fr&quot;,
+        &quot;es&quot;,
+        &quot;it&quot;,
+        &quot;nl&quot;,
+        &quot;se&quot;,
+        &quot;ch&quot;,
+        &quot;ie&quot;,
+        &quot;au&quot;,
+        &quot;nz&quot;,
+        &quot;in&quot;,
+        &quot;sg&quot;,
+        &quot;jp&quot;,
+        &quot;br&quot;,
+        &quot;mx&quot;,
+        &quot;ar&quot;,
+        &quot;be&quot;,
+        &quot;at&quot;,
+        &quot;pl&quot;,
+        &quot;pt&quot;,
+        &quot;dk&quot;,
+        &quot;fi&quot;,
+        &quot;no&quot;,
+        &quot;cz&quot;,
+        &quot;il&quot;,
+        &quot;ae&quot;,
+        &quot;za&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States&quot;,
+        &quot;Canada&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Germany&quot;,
+        &quot;France&quot;,
+        &quot;Spain&quot;,
+        &quot;Italy&quot;,
+        &quot;Netherlands&quot;,
+        &quot;Sweden&quot;,
+        &quot;Switzerland&quot;,
+        &quot;Ireland&quot;,
+        &quot;Australia&quot;,
+        &quot;New Zealand&quot;,
+        &quot;India&quot;,
+        &quot;Singapore&quot;,
+        &quot;Japan&quot;,
+        &quot;Brazil&quot;,
+        &quot;Mexico&quot;,
+        &quot;Argentina&quot;,
+        &quot;Belgium&quot;,
+        &quot;Austria&quot;,
+        &quot;Poland&quot;,
+        &quot;Portugal&quot;,
+        &quot;Denmark&quot;,
+        &quot;Finland&quot;,
+        &quot;Norway&quot;,
+        &quot;Czechia&quot;,
+        &quot;Israel&quot;,
+        &quot;United Arab Emirates&quot;,
+        &quot;South Africa&quot;
+      ],
+      &quot;title&quot;: &quot;Country (Meetup)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;dateFrom&quot;: {
+      &quot;description&quot;: &quot;Earliest event date (inclusive). Accepts `YYYY-MM-DD` or an ISO date-time.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Start date&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;dateTo&quot;: {
+      &quot;description&quot;: &quot;Latest event date (inclusive). Accepts `YYYY-MM-DD` or an ISO date-time.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;End date&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;enrichDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch each Lu.ma event&#x27;s detail endpoint for description, ticket tiers, and featured guests. Off by default for speed.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Enrich Lu.ma details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;eventIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Numeric Meetup event IDs or Lu.ma `evt-...` ids. Meetup numeric IDs can be used alone or index-aligned with `slugs` (group urlnames).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Event IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;eventPeriod&quot;: {
+      &quot;default&quot;: &quot;upcoming&quot;,
+      &quot;description&quot;: &quot;Upcoming, past, or both. Past is reliable on Meetup groups and Lu.ma calendars; Lu.ma city/category feeds are upcoming-only.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;upcoming&quot;,
+        &quot;past&quot;,
+        &quot;all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Upcoming&quot;,
+        &quot;Past&quot;,
+        &quot;Upcoming + past&quot;
+      ],
+      &quot;prefill&quot;: &quot;upcoming&quot;,
+      &quot;title&quot;: &quot;Event period&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;eventType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Meetup server-side event format filter. Lu.ma location types are not reliable, so Lu.ma ignores this field.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;physical&quot;,
+        &quot;online&quot;,
+        &quot;hybrid&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;In person&quot;,
+        &quot;Online&quot;,
+        &quot;Hybrid&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Event type (Meetup)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;freeOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Drop events that are known to charge. Events with an unknown price are kept.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Free events only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeAttendees&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add public RSVP names/photos to Meetup events (one extra request per event, capped at 250).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Meetup attendees&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeMembers&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add a public member sample to Meetup group records (one extra request per group).&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Meetup group members&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;lat&quot;: {
+      &quot;description&quot;: &quot;Explicit latitude. Bypasses location geocoding and anchors Lu.ma category feeds.&quot;,
+      &quot;maximum&quot;: 90,
+      &quot;minimum&quot;: -90,
+      &quot;title&quot;: &quot;Latitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;lng&quot;: {
+      &quot;description&quot;: &quot;Explicit longitude. Bypasses location geocoding and anchors Lu.ma category feeds.&quot;,
+      &quot;maximum&quot;: 180,
+      &quot;minimum&quot;: -180,
+      &quot;title&quot;: &quot;Longitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;location&quot;: {
+      &quot;description&quot;: &quot;City, state, or country. Meetup resolves it server-side; Lu.ma resolves the featured city. Examples: `san francisco`, `New York, NY`, `London, UK`.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;san francisco&quot;,
+      &quot;title&quot;: &quot;Location&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;lumaCategory&quot;: {
+      &quot;description&quot;: &quot;Lu.ma category feed. Needs a city or `lat`/`lng` to anchor the feed.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;family&quot;,
+        &quot;books&quot;,
+        &quot;games&quot;,
+        &quot;tech&quot;,
+        &quot;food&quot;,
+        &quot;ai&quot;,
+        &quot;running&quot;,
+        &quot;arts&quot;,
+        &quot;climate&quot;,
+        &quot;fitness&quot;,
+        &quot;wellness&quot;,
+        &quot;crypto&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Family&quot;,
+        &quot;Books&quot;,
+        &quot;Games&quot;,
+        &quot;Tech&quot;,
+        &quot;Food &amp; Drink&quot;,
+        &quot;AI&quot;,
+        &quot;Running&quot;,
+        &quot;Arts &amp; Culture&quot;,
+        &quot;Climate&quot;,
+        &quot;Fitness&quot;,
+        &quot;Wellness&quot;,
+        &quot;Crypto&quot;
+      ],
+      &quot;title&quot;: &quot;Lu.ma category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;lumaCity&quot;: {
+      &quot;description&quot;: &quot;Featured Lu.ma city feed. Alternatively supply `location` or `lat`/`lng`.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;nyc&quot;,
+        &quot;sf&quot;,
+        &quot;london&quot;,
+        &quot;berlin&quot;,
+        &quot;tokyo&quot;,
+        &quot;amsterdam&quot;,
+        &quot;la&quot;,
+        &quot;lisbon&quot;,
+        &quot;toronto&quot;,
+        &quot;helsinki&quot;,
+        &quot;paris&quot;,
+        &quot;stockholm&quot;,
+        &quot;mumbai&quot;,
+        &quot;singapore&quot;,
+        &quot;barcelona&quot;,
+        &quot;hongkong&quot;,
+        &quot;boston&quot;,
+        &quot;madrid&quot;,
+        &quot;montreal&quot;,
+        &quot;tel-aviv&quot;,
+        &quot;dc&quot;,
+        &quot;austin&quot;,
+        &quot;zurich&quot;,
+        &quot;philadelphia&quot;,
+        &quot;chicago&quot;,
+        &quot;atlanta&quot;,
+        &quot;copenhagen&quot;,
+        &quot;sydney&quot;,
+        &quot;bangkok&quot;,
+        &quot;buenos-aires&quot;,
+        &quot;seattle&quot;,
+        &quot;vancouver&quot;,
+        &quot;warsaw&quot;,
+        &quot;hamburg&quot;,
+        &quot;munich&quot;,
+        &quot;prague&quot;,
+        &quot;sd&quot;,
+        &quot;mexico-city&quot;,
+        &quot;milan&quot;,
+        &quot;saopaulo&quot;,
+        &quot;bengaluru&quot;,
+        &quot;melbourne&quot;,
+        &quot;bogota&quot;,
+        &quot;brussels&quot;,
+        &quot;calgary&quot;,
+        &quot;dublin&quot;,
+        &quot;kuala-lumpur&quot;,
+        &quot;miami&quot;,
+        &quot;oslo&quot;,
+        &quot;houston&quot;,
+        &quot;phoenix&quot;,
+        &quot;salt-lake-city&quot;,
+        &quot;taipei&quot;,
+        &quot;dubai&quot;,
+        &quot;ho-chi-minh-city&quot;,
+        &quot;portland&quot;,
+        &quot;raleigh&quot;,
+        &quot;vienna&quot;,
+        &quot;dallas&quot;,
+        &quot;denver&quot;,
+        &quot;istanbul&quot;,
+        &quot;las-vegas&quot;,
+        &quot;minneapolis&quot;,
+        &quot;sacramento&quot;,
+        &quot;seoul&quot;,
+        &quot;frankfurt&quot;,
+        &quot;geneva&quot;,
+        &quot;pittsburgh&quot;,
+        &quot;waterloo_ca&quot;,
+        &quot;budapest&quot;,
+        &quot;capetown&quot;,
+        &quot;cincinnati&quot;,
+        &quot;edmonton&quot;,
+        &quot;manila&quot;,
+        &quot;new-delhi&quot;,
+        &quot;rome&quot;,
+        &quot;detroit&quot;,
+        &quot;lagos&quot;,
+        &quot;lausanne&quot;,
+        &quot;nairobi&quot;,
+        &quot;osaka&quot;,
+        &quot;rio&quot;,
+        &quot;auckland&quot;,
+        &quot;brisbane&quot;,
+        &quot;honolulu&quot;,
+        &quot;jakarta&quot;,
+        &quot;medellin&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;New York&quot;,
+        &quot;San Francisco&quot;,
+        &quot;London&quot;,
+        &quot;Berlin&quot;,
+        &quot;Tokyo&quot;,
+        &quot;Amsterdam&quot;,
+        &quot;Los Angeles&quot;,
+        &quot;Lisbon&quot;,
+        &quot;Toronto&quot;,
+        &quot;Helsinki&quot;,
+        &quot;Paris&quot;,
+        &quot;Stockholm&quot;,
+        &quot;Mumbai&quot;,
+        &quot;Singapore&quot;,
+        &quot;Barcelona&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Boston&quot;,
+        &quot;Madrid&quot;,
+        &quot;Montréal&quot;,
+        &quot;Tel Aviv-Yafo&quot;,
+        &quot;Washington, DC&quot;,
+        &quot;Austin&quot;,
+        &quot;Zurich&quot;,
+        &quot;Philadelphia&quot;,
+        &quot;Chicago&quot;,
+        &quot;Atlanta&quot;,
+        &quot;Copenhagen&quot;,
+        &quot;Sydney&quot;,
+        &quot;Bangkok&quot;,
+        &quot;Buenos Aires&quot;,
+        &quot;Seattle&quot;,
+        &quot;Vancouver&quot;,
+        &quot;Warsaw&quot;,
+        &quot;Hamburg&quot;,
+        &quot;Munich&quot;,
+        &quot;Prague&quot;,
+        &quot;San Diego&quot;,
+        &quot;Mexico City&quot;,
+        &quot;Milan&quot;,
+        &quot;São Paulo&quot;,
+        &quot;Bengaluru&quot;,
+        &quot;Melbourne&quot;,
+        &quot;Bogotá&quot;,
+        &quot;Brussels&quot;,
+        &quot;Calgary&quot;,
+        &quot;Dublin&quot;,
+        &quot;Kuala Lumpur&quot;,
+        &quot;Miami&quot;,
+        &quot;Oslo&quot;,
+        &quot;Houston&quot;,
+        &quot;Phoenix&quot;,
+        &quot;Salt Lake City&quot;,
+        &quot;Taipei&quot;,
+        &quot;Dubai&quot;,
+        &quot;Ho Chi Minh City&quot;,
+        &quot;Portland&quot;,
+        &quot;Raleigh&quot;,
+        &quot;Vienna&quot;,
+        &quot;Dallas&quot;,
+        &quot;Denver&quot;,
+        &quot;Istanbul&quot;,
+        &quot;Las Vegas&quot;,
+        &quot;Minneapolis&quot;,
+        &quot;Sacramento&quot;,
+        &quot;Seoul&quot;,
+        &quot;Frankfurt&quot;,
+        &quot;Geneva&quot;,
+        &quot;Pittsburgh&quot;,
+        &quot;Waterloo&quot;,
+        &quot;Budapest&quot;,
+        &quot;Cape Town&quot;,
+        &quot;Cincinnati&quot;,
+        &quot;Edmonton&quot;,
+        &quot;Manila&quot;,
+        &quot;New Delhi&quot;,
+        &quot;Rome&quot;,
+        &quot;Detroit&quot;,
+        &quot;Lagos&quot;,
+        &quot;Lausanne&quot;,
+        &quot;Nairobi&quot;,
+        &quot;Osaka&quot;,
+        &quot;Rio de Janeiro&quot;,
+        &quot;Auckland&quot;,
+        &quot;Brisbane&quot;,
+        &quot;Honolulu&quot;,
+        &quot;Jakarta&quot;,
+        &quot;Medellín&quot;
+      ],
+      &quot;title&quot;: &quot;Lu.ma city&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Hard cap on emitted records.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;meetupCategory&quot;: {
+      &quot;description&quot;: &quot;Browse or filter Meetup by a live topic category. Use `all` with a query for no category filter.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;social-activities&quot;,
+        &quot;hobbies-passions&quot;,
+        &quot;sports-fitness&quot;,
+        &quot;travel-outdoor&quot;,
+        &quot;career-business&quot;,
+        &quot;technology&quot;,
+        &quot;community-environment&quot;,
+        &quot;identity-language&quot;,
+        &quot;games&quot;,
+        &quot;dancing&quot;,
+        &quot;support-coaching&quot;,
+        &quot;music&quot;,
+        &quot;health-wellbeing&quot;,
+        &quot;art-culture&quot;,
+        &quot;science-education&quot;,
+        &quot;pets-animals&quot;,
+        &quot;religion-spirituality&quot;,
+        &quot;writing&quot;,
+        &quot;parents-family&quot;,
+        &quot;movements-politics&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All categories&quot;,
+        &quot;Social Activities&quot;,
+        &quot;Hobbies &amp; Passions&quot;,
+        &quot;Sports &amp; Fitness&quot;,
+        &quot;Travel &amp; Outdoor&quot;,
+        &quot;Career &amp; Business&quot;,
+        &quot;Technology&quot;,
+        &quot;Community &amp; Environment&quot;,
+        &quot;Identity &amp; Language&quot;,
+        &quot;Games&quot;,
+        &quot;Dancing&quot;,
+        &quot;Support &amp; Coaching&quot;,
+        &quot;Music&quot;,
+        &quot;Health &amp; Wellbeing&quot;,
+        &quot;Art &amp; Culture&quot;,
+        &quot;Science &amp; Education&quot;,
+        &quot;Pets &amp; Animals&quot;,
+        &quot;Religion &amp; Spirituality&quot;,
+        &quot;Writing&quot;,
+        &quot;Parents &amp; Family&quot;,
+        &quot;Movements &amp; Politics&quot;
+      ],
+      &quot;title&quot;: &quot;Meetup category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;minAttendees&quot;: {
+      &quot;description&quot;: &quot;Drop events below this RSVP/guest count. Meetup filters server-side; Lu.ma filters client-side.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum attendees&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchEvents&quot;,
+      &quot;description&quot;: &quot;What to scrape: search, specific event/group/calendar URLs, group/calendar event lists, nearby discovery, or auto-routed URLs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchEvents&quot;,
+        &quot;byEvent&quot;,
+        &quot;byGroup&quot;,
+        &quot;groupEvents&quot;,
+        &quot;byCalendar&quot;,
+        &quot;discoverNearby&quot;,
+        &quot;discoverTrending&quot;,
+        &quot;byUrl&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search events&quot;,
+        &quot;By event URL/slug/ID&quot;,
+        &quot;By group or calendar profile&quot;,
+        &quot;Group/calendar event list&quot;,
+        &quot;By calendar (profile + events)&quot;,
+        &quot;Discover nearby&quot;,
+        &quot;Discover trending&quot;,
+        &quot;By URL (auto-routes)&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchEvents&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNewSinceLastRun&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Remember emitted IDs for this exact input and skip them on later runs. The first run emits everything.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new since last run&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;platform&quot;: {
+      &quot;default&quot;: &quot;meetup&quot;,
+      &quot;description&quot;: &quot;Which platform to query. All modes are HTTP-only and need no login.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;meetup&quot;,
+        &quot;luma&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Meetup.com&quot;,
+        &quot;Lu.ma&quot;
+      ],
+      &quot;prefill&quot;: &quot;meetup&quot;,
+      &quot;title&quot;: &quot;Platform&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;query&quot;: {
+      &quot;description&quot;: &quot;Free-text keyword. Required for Meetup search. Lu.ma keyword search caps at 50 results per run.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;tech&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;radiusKm&quot;: {
+      &quot;description&quot;: &quot;Meetup search radius around the resolved location.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Radius (km)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;slugs&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Meetup group urlnames or Lu.ma event/calendar slugs. For Meetup events, pair index-aligned with `eventIds`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Slugs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Meetup sorts server-side. Lu.ma sorts client-side by start date; relevance keeps source order.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;dateAsc&quot;,
+        &quot;dateDesc&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Date: soonest first&quot;,
+        &quot;Date: latest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;urls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more Meetup or Lu.ma URLs. `mode=byUrl` auto-routes each one; `byEvent`, `byGroup`, and calendar modes also accept URLs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Event / group / calendar URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;platform&quot;,
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Meetup + Lu.ma Events Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset of scraped events, groups, calendars, and per-URL errors.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Event, group, calendar, city, and error records from Meetup and Lu.ma with dates, venue, pricing, hosts, topics, attendance, and optional attendee details.&quot;,
+  &quot;properties&quot;: {
+    &quot;records&quot;: {
+      &quot;description&quot;: &quot;Dataset of scraped events, groups, calendars, and per-URL errors.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Event records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Meetup &amp; Lu.ma Event Finder Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Events&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;platform&quot;,
+          &quot;recordType&quot;,
+          &quot;name&quot;,
+          &quot;startAt&quot;,
+          &quot;venueName&quot;,
+          &quot;city&quot;,
+          &quot;country&quot;,
+          &quot;guestCount&quot;,
+          &quot;isFree&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-meetup-lu-ma-event-finder-by-city-group-calendar">Meetup &amp; Lu.ma Event Finder by City, Group &amp; Calendar</h2>
+<p>Meetup and Lu.ma host two very different event ecosystems. This actor reads both from one input shape: search by keyword and city, browse a group or calendar, open a specific event URL, or discover what is happening around a city — with pagination, filters, and rich event details.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>One actor, two platforms</strong> — set <code>platform</code> to <code>meetup</code> or <code>luma</code> and reuse the same fields</li>
+<li><strong>Eight intent modes</strong> — keyword search, event lookup, group profile, group/calendar event lists, nearby discovery, trending discovery, and URL auto-routing</li>
+<li><strong>Full result pages</strong> — Meetup cursor pagination and Lu.ma cursor pagination, not just the first page</li>
+<li><strong>Useful filters</strong> — dates, event format, radius, minimum attendance, free-only, category, and sort order</li>
+<li><strong>Rich records</strong> — venue and coordinates, group size, topics, hosts, prices, ticket tiers, and RSVP/guest counts</li>
+<li><strong>Optional enrichment</strong> — Meetup attendee names/photos and Lu.ma event descriptions/ticket tiers/featured guests, both off by default</li>
+<li><strong>Monitoring</strong> — <code>onlyNewSinceLastRun</code> remembers IDs for the same input and skips them next time</li>
+<li><strong>Clean data</strong> — empty fields are omitted at every depth; no <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code>, or <code>{}</code></li>
+</ul>
+<p>No login, cookie, API key, or browser is required.</p>
+<h2 id="readme-modes">Modes</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Meetup</th>
+<th>Lu.ma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>searchEvents</code></td>
+<td>Keyword search with location, dates, type, radius, category, attendance</td>
+<td>Keyword search, city feed, or category feed</td>
+</tr>
+<tr>
+<td><code>byEvent</code></td>
+<td>Event URL, <code>group/eventId</code> URL, or numeric event ID</td>
+<td>Event URL (<code>lu.ma</code> or <code>luma.com</code>), slug, or <code>evt-...</code> ID</td>
+</tr>
+<tr>
+<td><code>byGroup</code></td>
+<td>Group profile and stats</td>
+<td>Calendar/community profile</td>
+</tr>
+<tr>
+<td><code>groupEvents</code></td>
+<td>Group's upcoming or past events</td>
+<td>Calendar's upcoming or past events</td>
+</tr>
+<tr>
+<td><code>byCalendar</code></td>
+<td>Alias for <code>groupEvents</code></td>
+<td>Calendar profile plus its events</td>
+</tr>
+<tr>
+<td><code>discoverNearby</code></td>
+<td>Recommended events near a location/category</td>
+<td>City or nearest featured city feed</td>
+</tr>
+<tr>
+<td><code>discoverTrending</code></td>
+<td>Recommended events by category/location</td>
+<td>Featured city/category feeds</td>
+</tr>
+<tr>
+<td><code>byUrl</code></td>
+<td>Auto-routes event and group URLs</td>
+<td>Auto-routes event and calendar URLs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-per-meetup-event">Output per Meetup event</h2>
+<ul>
+<li><code>id</code>, <code>name</code>, <code>url</code> — event identity and link</li>
+<li><code>startAt</code>, <code>endAt</code>, <code>timezone</code> — scheduling (timezone falls back to the group's timezone)</li>
+<li><code>description</code> — full description from the event payload</li>
+<li><code>eventType</code>, <code>rsvpState</code>, <code>status</code>, <code>waitlistMode</code> — event state</li>
+<li><code>imageUrl</code>, <code>imageId</code> — event photo</li>
+<li><code>guestCount</code>, <code>attendeeCount</code>, <code>waitlistCount</code>, <code>capacity</code> — attendance and capacity</li>
+<li><code>isFree</code>, <code>feeAmount</code>, <code>feeCurrency</code>, <code>feeAccepts</code>, <code>feeRequired</code> — pricing</li>
+<li><code>group</code>, <code>groupName</code>, <code>groupUrlname</code>, <code>groupMemberCount</code>, <code>groupCategory</code> — group summary</li>
+<li><code>venueName</code>, <code>venueAddress</code>, <code>city</code>, <code>state</code>, <code>country</code>, <code>postalCode</code>, <code>latitude</code>, <code>longitude</code>, <code>googleMapsUrl</code> — venue</li>
+<li><code>topics[]</code> — topic id, name, and urlkey</li>
+<li><code>hosts[]</code> — host name and photo</li>
+<li><code>attendees[]</code> — optional public RSVP names/photos when <code>includeAttendees</code> is on (capped at 250)</li>
+<li><code>seriesId</code>, <code>seriesName</code> — recurring series, when present</li>
+<li><code>recordType</code>, <code>platform</code>, <code>siteName</code>, <code>scrapedAt</code> — record metadata</li>
+</ul>
+<h2 id="readme-output-per-meetup-group">Output per Meetup group</h2>
+<ul>
+<li><code>id</code>, <code>name</code>, <code>urlname</code>, <code>url</code>, <code>timezone</code>, <code>description</code>, <code>photoUrl</code></li>
+<li><code>foundedDate</code>, <code>city</code>, <code>state</code>, <code>country</code>, <code>latitude</code>, <code>longitude</code></li>
+<li><code>memberCount</code>, <code>rating</code>, <code>ratingCount</code>, <code>isNewGroup</code></li>
+<li><code>category</code>, <code>categoryId</code>, <code>categoryUrlkey</code>, <code>topics[]</code></li>
+<li><code>organizer</code>, <code>socials</code> — organizer profile and linked social accounts</li>
+<li><code>upcomingEventCount</code>, <code>pastEventCount</code></li>
+<li><code>memberSample[]</code> — optional public members when <code>includeMembers</code> is on</li>
+</ul>
+<h2 id="readme-output-per-lu-ma-event">Output per Lu.ma event</h2>
+<ul>
+<li><code>id</code>, <code>name</code>, <code>url</code>, <code>slug</code>, <code>startAt</code>, <code>endAt</code>, <code>timezone</code></li>
+<li><code>description</code> — full ProseMirror text on detail/enrichment</li>
+<li><code>imageUrl</code>, <code>eventType</code>, <code>locationType</code>, <code>waitlistActive</code>, <code>hideRsvp</code></li>
+<li><code>guestCount</code>, <code>ticketCount</code>, <code>isFree</code>, <code>feeAmount</code>, <code>maxFeeAmount</code>, <code>currency</code></li>
+<li><code>ticketTiers[]</code> — tier name, price, currency, type, spots remaining, registration count</li>
+<li><code>isSoldOut</code>, <code>requireApproval</code>, <code>isNearCapacity</code>, <code>spotsRemaining</code>, <code>registrationAvailability</code></li>
+<li><code>venues</code> and <code>location</code> fields — <code>venueName</code>, <code>fullAddress</code>, <code>venueAddress</code>, <code>city</code>, <code>state</code>, <code>country</code>, <code>latitude</code>, <code>longitude</code></li>
+<li><code>hosts[]</code>, <code>organizerName</code>, <code>featuredGuests[]</code></li>
+<li><code>calendar</code>, <code>calendarName</code> — calendar identity, socials, website, and location</li>
+<li><code>categories[]</code>, <code>featuredCity</code></li>
+<li><code>recordType</code>, <code>platform</code>, <code>siteName</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-lu-ma-calendar">Output per Lu.ma calendar</h2>
+<ul>
+<li><code>id</code>, <code>name</code>, <code>slug</code>, <code>url</code>, <code>description</code></li>
+<li><code>avatarUrl</code>, <code>coverImageUrl</code></li>
+<li><code>instagram</code>, <code>linkedin</code>, <code>twitter</code>, <code>website</code>, <code>socials</code></li>
+<li><code>timezone</code>, <code>city</code>, <code>state</code>, <code>country</code></li>
+<li><code>eventCount</code>, <code>subscriberCount</code>, <code>upcomingEventCount</code>, <code>pastEventCount</code></li>
+<li><code>recordType</code> (<code>calendar</code> or <code>city</code>), <code>platform</code>, <code>siteName</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-error-record">Output per error record</h2>
+<p>If a specific URL, slug, or event ID cannot be fetched or parsed, the actor emits an error record rather than silently dropping it:</p>
+<ul>
+<li><code>recordType</code> — <code>error</code></li>
+<li><code>platform</code>, <code>reason</code>, <code>source</code>, <code>httpStatus</code></li>
+<li><code>url</code>, <code>slug</code>, <code>eventId</code>, or <code>groupUrlname</code> — the identifier that failed</li>
+<li><code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>platform</code></td>
+<td>select, required</td>
+<td><code>meetup</code></td>
+<td><code>meetup</code> or <code>luma</code></td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td>select, required</td>
+<td><code>searchEvents</code></td>
+<td>One of the eight modes above</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keyword; required for Meetup search unless a category is supplied</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>string</td>
+<td>–</td>
+<td>City or region used to resolve the search area</td>
+</tr>
+<tr>
+<td><code>lat</code>, <code>lng</code></td>
+<td>number</td>
+<td>–</td>
+<td>Explicit coordinates; bypasses geocoding</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>select</td>
+<td>–</td>
+<td>Optional Meetup country hint</td>
+</tr>
+<tr>
+<td><code>meetupCategory</code></td>
+<td>select</td>
+<td>–</td>
+<td>Live Meetup topic category (<code>all</code> plus 20 current topics)</td>
+</tr>
+<tr>
+<td><code>lumaCategory</code></td>
+<td>select</td>
+<td>–</td>
+<td>Lu.ma category feed (needs a city or coordinates)</td>
+</tr>
+<tr>
+<td><code>eventType</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Meetup: <code>any</code>, <code>physical</code>, <code>online</code>, <code>hybrid</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>dateAsc</code>, or <code>dateDesc</code></td>
+</tr>
+<tr>
+<td><code>dateFrom</code>, <code>dateTo</code></td>
+<td>string</td>
+<td>–</td>
+<td>Inclusive date bounds (<code>YYYY-MM-DD</code> or ISO date-time)</td>
+</tr>
+<tr>
+<td><code>radiusKm</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Meetup search radius, 1–500 km</td>
+</tr>
+<tr>
+<td><code>minAttendees</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum RSVPs/guests, 0–100000</td>
+</tr>
+<tr>
+<td><code>freeOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Drop events known to charge</td>
+</tr>
+<tr>
+<td><code>eventPeriod</code></td>
+<td>select</td>
+<td><code>upcoming</code></td>
+<td><code>upcoming</code>, <code>past</code>, or <code>all</code> for group/calendar modes</td>
+</tr>
+<tr>
+<td><code>urls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Meetup or Lu.ma event/group/calendar URLs</td>
+</tr>
+<tr>
+<td><code>slugs</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Meetup group urlnames or Lu.ma slugs</td>
+</tr>
+<tr>
+<td><code>eventIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Numeric Meetup event IDs (alone or paired with <code>slugs</code>) or Lu.ma <code>evt-...</code> ids</td>
+</tr>
+<tr>
+<td><code>lumaCity</code></td>
+<td>select</td>
+<td>–</td>
+<td>Any of the 87 live Lu.ma featured cities</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Hard cap on records, 1–1000</td>
+</tr>
+<tr>
+<td><code>includeAttendees</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Meetup: add public RSVP names/photos</td>
+</tr>
+<tr>
+<td><code>includeMembers</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Meetup groups: add a public member sample</td>
+</tr>
+<tr>
+<td><code>enrichDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Lu.ma: fetch detail for descriptions, tiers, featured guests</td>
+</tr>
+<tr>
+<td><code>onlyNewSinceLastRun</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Skip IDs already emitted for this exact input</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-search-meetup-events-in-a-city">Search Meetup events in a city</h3>
+<pre><code class="language-json">{
+  &quot;platform&quot;: &quot;meetup&quot;,
+  &quot;mode&quot;: &quot;searchEvents&quot;,
+  &quot;query&quot;: &quot;tech&quot;,
+  &quot;location&quot;: &quot;san francisco&quot;,
+  &quot;dateFrom&quot;: &quot;2026-11-01&quot;,
+  &quot;eventType&quot;: &quot;physical&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-browse-a-lu-ma-city-feed-with-more-than-one-page">Browse a Lu.ma city feed with more than one page</h3>
+<pre><code class="language-json">{
+  &quot;platform&quot;: &quot;luma&quot;,
+  &quot;mode&quot;: &quot;discoverNearby&quot;,
+  &quot;lumaCity&quot;: &quot;sf&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-read-a-meetup-group-s-past-events">Read a Meetup group's past events</h3>
+<pre><code class="language-json">{
+  &quot;platform&quot;: &quot;meetup&quot;,
+  &quot;mode&quot;: &quot;groupEvents&quot;,
+  &quot;slugs&quot;: [&quot;real-time-analytics-and-ai&quot;],
+  &quot;eventPeriod&quot;: &quot;past&quot;,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-auto-route-mixed-meetup-and-lu-ma-urls">Auto-route mixed Meetup and Lu.ma URLs</h3>
+<pre><code class="language-json">{
+  &quot;platform&quot;: &quot;meetup&quot;,
+  &quot;mode&quot;: &quot;byUrl&quot;,
+  &quot;urls&quot;: [
+    &quot;https://www.meetup.com/real-time-analytics-and-ai/events/316657797/&quot;,
+    &quot;https://luma.com/fireworks-8kmc&quot;
+  ],
+  &quot;includeAttendees&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Build a combined Meetup + Lu.ma event feed for a city or topic</li>
+<li>Track a community group's or calendar's upcoming and past schedule</li>
+<li>Research venues, prices, hosts, and attendance before attending</li>
+<li>Monitor new events for a saved search with <code>onlyNewSinceLastRun</code></li>
+<li>Compare how a topic is represented across both platforms</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Meetup or Lu.ma?</strong>
+No. This is an independent actor that reads publicly available data from both platforms and is not operated by or affiliated with either.</p>
+<p><strong>Do I need an account, cookie, or API key?</strong>
+No. Every supported path works anonymously and cookielessly; nothing is required beyond the input fields.</p>
+<p><strong>Why does a Lu.ma keyword search stop at 50 results?</strong>
+Lu.ma's public keyword search is capped at 50 results per query. For more coverage, split the keyword into narrower terms or use a city or category feed, which supports cursor pagination.</p>
+<p><strong>Can I get past events?</strong>
+Yes for Meetup groups (<code>groupEvents</code> with <code>eventPeriod: &quot;past&quot;</code>) and Lu.ma calendars (<code>byCalendar</code>, <code>groupEvents</code>, or <code>eventPeriod</code>). Meetup keyword search and Lu.ma city/category feeds do not expose past events.</p>
+<p><strong>Why are Lu.ma attendee names missing?</strong>
+Lu.ma only publishes counts, featured guests, and first-name previews. The full guest list requires a signed-in user with access to the event, so this actor returns counts and featured guests only.</p>
+<p><strong>Are Meetup attendee names public?</strong>
+On many events the public RSVP list is visible and can be included with <code>includeAttendees</code>. Some organizers hide it; in that case the field is omitted. Attendee data is opt-in and never part of the small default run.</p>
+<p><strong>Why are some prices or venues missing?</strong>
+Hosts can hide prices, and some events are online-only or use an obfuscated address. The actor reports only what the platform discloses; it never invents a price or address.</p>
+<p><strong>What happens if a request is blocked?</strong>
+The actor retries politely and, only after a real block, makes one automatic proxy retry. There is no proxy field to configure.</p>
+<p><strong>How many records can one run return?</strong>
+Up to <code>maxItems</code> (maximum 1000). Coverage depends on what the platform publishes for the query, city, group, or calendar.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/KE35NpydwUThD8CQf/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>FFqtvn0WerZ7vwqc7</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

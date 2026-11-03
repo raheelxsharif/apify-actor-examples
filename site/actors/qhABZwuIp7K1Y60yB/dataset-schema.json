@@ -1,0 +1,64 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "All results",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "title",
+          "supplier",
+          "price",
+          "minOrder",
+          "supplierProvince",
+          "productUrl",
+          "supplierUrl"
+        ]
+      }
+    },
+    "products": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Products",
+      "transformation": {
+        "fields": [
+          "title",
+          "priceMin",
+          "priceMax",
+          "priceCurrency",
+          "minOrder",
+          "supplier",
+          "supplierProvince",
+          "supplierRating",
+          "auditedSupplier",
+          "productUrl"
+        ]
+      }
+    },
+    "suppliers": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Suppliers",
+      "transformation": {
+        "fields": [
+          "supplier",
+          "supplierProvince",
+          "businessType",
+          "membership",
+          "auditedSupplier",
+          "employees",
+          "leadScore",
+          "supplierUrl"
+        ]
+      }
+    }
+  }
+}

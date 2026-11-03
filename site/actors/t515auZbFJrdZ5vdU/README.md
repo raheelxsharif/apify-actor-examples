@@ -1,0 +1,183 @@
+# Sephora Catalog Price & Rating Finder
+
+Sephora's beauty catalog changes constantly: new launches, rotating sale prices, shade and size variants, and thousands of reviews arriving every week. This actor turns that catalog into structured records for price tracking, assortment analysis, ingredient research and review intelligence. Search by keyword, browse categories or brands, or paste product URLs, then optionally add full product details, variants, stock, images, review samples, rating histograms and Q&A. Works in the United States and Canada (English and French), with no login, cookie or proxy setup.
+
+## What this actor does
+
+- **Nine modes:** `search`, `category`, `brand`, `product`, `bestsellers`, `newArrivals`, `sale`, `reviews` and `questions`
+- **Three storefronts:** US (USD), Canada English (CAD) and Canada French (CAD), with French product text for Quebec
+- **Rich product detail:** descriptions, how-to-use, ingredients, highlights, brand copy, category path, variants/SKUs, stock, sale prices and full-size image links
+- **Review intelligence:** review text, ratings, titles, verified/incentivized/staff badges, helpful votes, photos, reviewer demographics, rating histograms and GTIN/UPC/EAN identifiers
+- **Q&A export:** questions with their answers, authors, dates, brand-answer and best-answer flags
+- **Server-side filters and six sort orders:** brand, category, rating, price, new, sale, advanced facet refinements, and relevance / best selling / top rated / price / newest ordering
+- **Empty fields are omitted** from each record instead of being returned as null
+
+## Output per product
+
+- `productId`, `brandName`, `brandId`, `displayName`, `productName`, `skuId` — product identity
+- `market`, `country`, `locale`, `currency` — storefront context
+- `rating`, `reviews`, `lovesCount` — rating and engagement
+- `price`, `priceMin`, `priceMax`, `priceText` — current price, or price range for multi-variant products
+- `listPrice`, `listPriceMin`, `listPriceMax`, `salePrice`, `salePriceMin`, `salePriceMax`, `savingsAmount`, `savingsPercent` — original and discounted pricing
+- `isNew`, `isBestseller`, `isSephoraExclusive`, `isLimitedEdition`, `isLimitedTimeOffer`, `isOnlineOnly`, `isOnSale`, `sponsored` — merchandising flags
+- `inStock`, `outOfStockSkus`, `isReturnable`, `maxPurchaseQuantity` — stock and purchase limits
+- `size`, `shade`, `variationType`, `variantsCount`, `variants[]` — size/shade matrix with per-variant price, sale price, stock, image and product URL
+- `description`, `shortDescription`, `howToUse`, `ingredients`, `highlights[]` — product content
+- `categoryPath[]`, `categoryId`, `categoryUrl`, `brandDescription`, `brandUrl`, `seoTitle`, `seoDescription` — taxonomy and brand context
+- `images[]` with `url` (rehosted when available) and `originalUrl`; `imageOriginal`, `altImage`, `altImageOriginal`, `imageAltText`
+- `reviewStats` with `ratingHistogram[]`, `averageRating`, `totalReviews`, recommendation counts, photo/video counts, review dates and vote totals
+- `reviewSamples[]` — review samples with demographics and badges
+- `questions[]`, `questionCount` — Q&A embedded in product rows
+- `gtins[]`, `upcs[]`, `eans[]` — product identifiers when available
+- `sourceType`, `searchTerm`, `rank`, `page`, `searchUrl`, `categorySlug`, `brandSlug`, `sourceUrl`, `canonicalUrl` — where the record came from
+- `pickupEligible`, `pickupNearbyEligible`, `sameDayEligible`, `nextDayEligible`, `shipToHomeEligible` — fulfillment flags
+- `productUrl`, `recordType`, `scrapedAt`
+
+## Output: per review (mode = `reviews`)
+
+`reviewId`, `productId`, `productName`, `brandName`, `productUrl`, `market`, `country`, `locale`, `currency`, `rating`, `title`, `text`, `author`, `submittedAt`, `isRecommended`, `isVerifiedPurchase`, `isIncentivized`, `isStaff`, `helpfulVotes`, `notHelpfulVotes`, `photos[]`, `contentLocale`, `reviewer` (`skinType`, `skinTone`, `eyeColor`, `hairColor`, `ageRange`, `skinConcerns`), `recordType`, `scrapedAt`.
+
+## Output: per question (mode = `questions`)
+
+`questionId`, `productId`, `productName`, `brandName`, `productUrl`, `question`, `author`, `submittedAt`, `answersCount`, `answers[]` (`text`, `author`, `submittedAt`, `isBrandAnswer`, `isBestAnswer`, `helpfulVotes`), `market`, `country`, `locale`, `currency`, `recordType`, `scrapedAt`.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search`, `category`, `brand`, `product`, `bestsellers`, `newArrivals`, `sale`, `reviews`, `questions` |
+| `searchQueries` | array | `[]` | Keywords for `search` (1–100) |
+| `categories` | array | `[]` | Category slugs, `cat...` IDs or URLs (`category`, browse modes; search filter) |
+| `brands` | array | `[]` | Brand names, slugs or URLs (`brand`; optional filter in listing modes) |
+| `productUrls` | array | `[]` | Product URLs or `P...` IDs (`product`, `reviews`, `questions`) |
+| `market` | string | `us` | `us`, `ca-en`, `ca-fr` |
+| `sortBy` | string | `relevance` | `relevance`, `bestSelling`, `topRated`, `priceLowToHigh`, `priceHighToLow`, `newArrivals` |
+| `minRating` | integer | – | Minimum average rating (1–5) |
+| `priceMin` / `priceMax` | integer | – | Current-price bounds in the selected market's currency |
+| `includeNewOnly` | boolean | `false` | Only products flagged new |
+| `includeBestsellersOnly` | boolean | `false` | Only products flagged as bestsellers in listing modes |
+| `saleOnly` | boolean | `false` | Only discounted products |
+| `refinements` | array | `[]` | Facet values such as `filters[skinType]=drySk` (maximum 20) |
+| `includeDetails` | boolean | `false` | Fetch full detail, variants and stock for listing results |
+| `includeImages` | boolean | `true` | Rehost product images for public access |
+| `maxImagesPerProduct` | integer | `3` | Image cap per product (1–20) |
+| `includeReviews` | boolean | `false` | Add review samples to product rows |
+| `maxReviewsPerProduct` | integer | `20` | Review cap per product (1–1000) |
+| `reviewsSort` | string | `mostHelpful` | `mostHelpful`, `newest`, `oldest`, `highestRating`, `lowestRating` |
+| `includeReviewStats` | boolean | `false` | Add histograms, dates, recommendation counts and identifiers |
+| `includeQuestions` | boolean | `false` | Add Q&A to product rows |
+| `maxQuestionsPerProduct` | integer | `10` | Question cap per product (1–200) |
+| `maxItems` | integer | `50` | Overall record cap (1–10000) |
+| `maxItemsPerQuery` | integer | `0` | Per-keyword/category/brand/URL cap; `0` means unlimited |
+| `onlyNewProducts` | boolean | `false` | Skip product IDs already seen under `stateKey` |
+| `stateKey` | string | `default` | Name of the saved product-ID state |
+| `resetState` | boolean | `false` | Clear saved product IDs before the run |
+| `proxyConfiguration` | object | off | Optional; the catalog and review data work without a proxy |
+
+### Example: US search with variants, reviews and stock
+
+```json
+{
+  "mode": "search",
+  "searchQueries": ["moisturizer", "serum"],
+  "market": "us",
+  "sortBy": "topRated",
+  "minRating": 4,
+  "priceMin": 15,
+  "priceMax": 80,
+  "includeDetails": true,
+  "includeReviewStats": true,
+  "maxItems": 20
+}
+```
+
+### Example: Canada French product with a selected size
+
+```json
+{
+  "mode": "product",
+  "productUrls": [
+    "https://www.sephora.com/ca/fr/product/the-ordinary-hyaluronic-acid-2-b5-hydrating-serum-P427419?skuId=2735140"
+  ],
+  "includeImages": true,
+  "includeReviews": true,
+  "maxReviewsPerProduct": 5
+}
+```
+
+### Example: category browse with sale and rating filters
+
+```json
+{
+  "mode": "category",
+  "categories": ["skincare"],
+  "market": "us",
+  "saleOnly": true,
+  "minRating": 4,
+  "sortBy": "priceLowToHigh",
+  "includeDetails": true,
+  "maxItems": 100
+}
+```
+
+### Example: brand review and Q&A export
+
+```json
+{
+  "mode": "reviews",
+  "productUrls": ["P427419", "P511921"],
+  "reviewsSort": "newest",
+  "maxReviewsPerProduct": 50,
+  "maxItems": 100
+}
+```
+
+```json
+{
+  "mode": "questions",
+  "productUrls": ["P427419"],
+  "maxQuestionsPerProduct": 25,
+  "maxItems": 25
+}
+```
+
+## Use cases
+
+- **Price and promotion tracking** — snapshot current and sale prices, discounts and stock for a watchlist
+- **Assortment analysis** — compare brand and category catalogs, shade ranges and size options
+- **Ingredient and INCI research** — export ingredients and highlights for formulation or clean-beauty screening
+- **Review intelligence** — analyze ratings, review text, photos and reviewer demographics by product or brand
+- **Launch monitoring** — use `newArrivals` with `onlyNewProducts` to capture only newly listed products
+- **Q&A and customer-care research** — collect questions with answers, including brand and best answers
+
+## FAQ
+
+**Is this affiliated with Sephora?**
+No. This is an independent third-party actor that reads publicly accessible Sephora catalog and review data. It is not operated by or affiliated with Sephora.
+
+**Do I need an account, cookies or an API key?**
+No. The actor uses public catalog and review data and works without login or credentials.
+
+**Do I need to configure a proxy?**
+No. Direct requests work for the catalog and review endpoints. A proxy input is available only if you want to route traffic yourself.
+
+**Why are some products missing ingredients, highlights or size?**
+Those fields are product-specific. When Sephora does not publish them for a product, the field is omitted rather than filled with a placeholder.
+
+**Why do some products show a price range and others a single price?**
+Multi-size or multi-shade products can have different prices. `priceMin` and `priceMax` show the current range; `price` is the default variant's current price. `listPrice*` and `salePrice*` keep the original and discounted values separate.
+
+**Why are review demographics missing on some reviews?**
+Reviewers choose whether to share skin type, tone, eye color, hair color, age range and concerns. Fields are included only when the reviewer provided them.
+
+**Why isn't mainland France supported?**
+The US and Canada storefronts (English and French) are supported. Mainland France is not reachable reliably from the actor's network path, so it is not offered as a market.
+
+**Why aren't product videos included?**
+Sephora's video media links are not publicly reachable without a browser session. Product images, descriptions, ingredients and variants are included instead.
+
+**Why does a product page show a different price than the dataset?**
+Prices and promotions change frequently, and the dataset reflects the moment of the run. Prices also differ by market and currency; use the `market` field to compare like with like.
+
+**How many records can I get?**
+`maxItems` caps the run at up to 10,000 records. Search returns up to 60 products per page, while category and brand browsing return up to 200 per page. Very large result sets are split across categories, brands and filters, and duplicates are removed by product, review or question ID.

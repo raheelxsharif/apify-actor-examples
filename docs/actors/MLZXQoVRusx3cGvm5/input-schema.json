@@ -1,0 +1,363 @@
+{
+  "description": "Scrape Houzz professionals by market, city, profession or keyword, enrich profiles with reviews and contact details, or browse photo inspiration by room and style.",
+  "properties": {
+    "categorySlug": {
+      "default": "",
+      "description": "Exact Houzz category slug, used instead of the mapped profession, e.g. `general-contractor`, `architekten`, `architectes`. Use a direct directory URL if you are unsure.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Category slug override",
+      "type": "string"
+    },
+    "city": {
+      "default": "Los Angeles, CA",
+      "description": "City or city + state to search, e.g. `Los Angeles, CA`, `London`, `Berlin`. Used with profession or categorySlug in search mode.",
+      "editor": "textfield",
+      "prefill": "Los Angeles, CA",
+      "title": "City",
+      "type": "string"
+    },
+    "country": {
+      "default": "us",
+      "description": "Houzz market used for search and profile URLs.",
+      "editor": "select",
+      "enum": [
+        "us",
+        "ca",
+        "uk",
+        "ie",
+        "au",
+        "nz",
+        "de",
+        "fr",
+        "it",
+        "es",
+        "in",
+        "sg",
+        "jp",
+        "dk",
+        "se",
+        "ru"
+      ],
+      "enumTitles": [
+        "United States (houzz.com)",
+        "Canada (houzz.com)",
+        "United Kingdom (houzz.co.uk)",
+        "Ireland (houzz.ie)",
+        "Australia (houzz.com.au)",
+        "New Zealand (houzz.co.nz)",
+        "Germany (houzz.de)",
+        "France (houzz.fr)",
+        "Italy (houzz.it)",
+        "Spain (houzz.es)",
+        "India (houzz.in)",
+        "Singapore (houzz.com.sg)",
+        "Japan (houzz.jp)",
+        "Denmark (houzz.dk)",
+        "Sweden (houzz.se)",
+        "Russia (legacy, site unavailable)"
+      ],
+      "prefill": "us",
+      "title": "Country",
+      "type": "string"
+    },
+    "directoryUrls": {
+      "default": [],
+      "description": "Houzz professional directory, category or search-result URLs. All live markets and localised paths are accepted.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Directory URLs",
+      "type": "array"
+    },
+    "enrichEmails": {
+      "default": false,
+      "description": "Best-effort email lookup on each professional's own website. Adds requests and is optional.",
+      "prefill": false,
+      "title": "Enrich contact emails",
+      "type": "boolean"
+    },
+    "fetchDetails": {
+      "default": true,
+      "description": "Open each professional profile for services, awards, socials, counts and licensing. Turn off for directory-card-only records.",
+      "prefill": true,
+      "title": "Fetch full profiles",
+      "type": "boolean"
+    },
+    "fetchPhotoDetails": {
+      "default": false,
+      "description": "Open each photo for full image sizes, owner, location and question count.",
+      "prefill": false,
+      "title": "Fetch photo details",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Attach review history to each professional record.",
+      "prefill": false,
+      "title": "Include reviews",
+      "type": "boolean"
+    },
+    "keyword": {
+      "default": "",
+      "description": "Optional keyword filter for professional search, or the search term for photo mode.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted records.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 0,
+      "description": "Optional page cap. Set 0 to use the source ceiling: 100 directory pages, 30 keyword pages, 250 photo pages or 10 photo keyword pages.",
+      "maximum": 500,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max pages",
+      "type": "integer"
+    },
+    "maxReviewsPerPro": {
+      "default": 20,
+      "description": "Review cap per professional. Set 0 to fetch the full history (up to 1,024).",
+      "maximum": 1024,
+      "minimum": 0,
+      "prefill": 20,
+      "title": "Max reviews per professional",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Drop professionals below this star rating. Set 0 to keep all.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "minReviewCount": {
+      "default": 0,
+      "description": "Drop professionals with fewer reviews. Set 0 to keep all.",
+      "maximum": 100000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum review count",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to scrape. `search` builds a directory from country + city + profession; `byUrls` reads directory URLs; `profiles` reads profile URLs; `reviews` emits review rows; `photos` browses photo inspiration.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrls",
+        "profiles",
+        "reviews",
+        "photos"
+      ],
+      "enumTitles": [
+        "Search by city and profession",
+        "Directory URLs",
+        "Professional profile URLs",
+        "Reviews",
+        "Photo inspiration"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "photoCategory": {
+      "default": "kitchen",
+      "description": "Room category for photo inspiration browsing. Use keyword to search instead.",
+      "editor": "select",
+      "enum": [
+        "kitchen",
+        "bathroom",
+        "bedroom",
+        "living-room",
+        "dining-room",
+        "outdoor",
+        "baby-kids",
+        "home-office",
+        "storage-closet",
+        "exterior",
+        "basement",
+        "entry",
+        "garage-shed",
+        "gym",
+        "home-bar",
+        "hallway",
+        "laundry",
+        "staircase",
+        "wine-cellar",
+        "all-rooms"
+      ],
+      "enumTitles": [
+        "Kitchen",
+        "Bathroom",
+        "Bedroom",
+        "Living room",
+        "Dining room",
+        "Outdoor",
+        "Baby & kids",
+        "Home office",
+        "Storage & closet",
+        "Exterior",
+        "Basement",
+        "Entryway",
+        "Garage & shed",
+        "Home gym",
+        "Home bar",
+        "Hallway",
+        "Laundry",
+        "Staircase",
+        "Wine cellar",
+        "All rooms"
+      ],
+      "prefill": "kitchen",
+      "title": "Photo room",
+      "type": "string"
+    },
+    "photoStyle": {
+      "default": "",
+      "description": "Optional design style filter for photo inspiration.",
+      "editor": "select",
+      "enum": [
+        "",
+        "asian",
+        "contemporary",
+        "eclectic",
+        "modern",
+        "traditional",
+        "tropical",
+        "mediterranean",
+        "coastal",
+        "rustic",
+        "transitional",
+        "industrial",
+        "farmhouse",
+        "mid-century-modern",
+        "craftsman",
+        "southwestern",
+        "shabby-chic-style",
+        "scandinavian",
+        "victorian",
+        "french-country"
+      ],
+      "enumTitles": [
+        "Any style",
+        "Asian",
+        "Contemporary",
+        "Eclectic",
+        "Modern",
+        "Traditional",
+        "Tropical",
+        "Mediterranean",
+        "Coastal",
+        "Rustic",
+        "Transitional",
+        "Industrial",
+        "Farmhouse",
+        "Mid-Century Modern",
+        "Craftsman",
+        "Southwestern",
+        "Shabby-Chic Style",
+        "Scandinavian",
+        "Victorian",
+        "French Country"
+      ],
+      "prefill": "",
+      "title": "Photo style",
+      "type": "string"
+    },
+    "photoUrls": {
+      "default": [],
+      "description": "Direct Houzz photo detail URLs. Use mode=photos.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Photo URLs",
+      "type": "array"
+    },
+    "profession": {
+      "default": "general-contractor",
+      "description": "Universal profession mapped to the selected market's Houzz category. Used in search mode.",
+      "editor": "select",
+      "enum": [
+        "general-contractor",
+        "architect",
+        "interior-designer",
+        "kitchen-bath",
+        "home-builder",
+        "design-build",
+        "landscape",
+        "painter",
+        "roofer",
+        "flooring",
+        "tile-stone",
+        "cabinet-maker",
+        "carpenter",
+        "pool-spa",
+        "windows-doors",
+        "home-stager"
+      ],
+      "enumTitles": [
+        "General contractor",
+        "Architect",
+        "Interior designer",
+        "Kitchen & bath specialist",
+        "Home builder",
+        "Design-build firm",
+        "Landscape contractor",
+        "Painter",
+        "Roofer",
+        "Flooring specialist",
+        "Tile & stone specialist",
+        "Cabinet maker",
+        "Carpenter",
+        "Pool & spa builder",
+        "Windows & doors specialist",
+        "Home stager"
+      ],
+      "prefill": "general-contractor",
+      "title": "Profession",
+      "type": "string"
+    },
+    "profileUrls": {
+      "default": [],
+      "description": "Direct Houzz professional profile URLs, including localised paths such as /experten/, /professionnels/ and /profesionales/.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Profile URLs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Server-side order for professional directory results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "reviews",
+        "rating",
+        "distance"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Most reviewed",
+        "Highest rated",
+        "Nearest"
+      ],
+      "prefill": "relevance",
+      "title": "Sort professionals by",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Houzz Scraper Input",
+  "type": "object"
+}

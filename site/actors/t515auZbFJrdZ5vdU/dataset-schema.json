@@ -1,0 +1,206 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "products": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "brandName": {
+            "format": "text",
+            "label": "Brand"
+          },
+          "displayName": {
+            "format": "text",
+            "label": "Product"
+          },
+          "inStock": {
+            "format": "boolean",
+            "label": "In stock"
+          },
+          "market": {
+            "format": "text",
+            "label": "Market"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price"
+          },
+          "priceMax": {
+            "format": "number",
+            "label": "Price max"
+          },
+          "priceMin": {
+            "format": "number",
+            "label": "Price min"
+          },
+          "productId": {
+            "format": "text",
+            "label": "Product ID"
+          },
+          "productUrl": {
+            "format": "link",
+            "label": "Product URL"
+          },
+          "rating": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "reviews": {
+            "format": "number",
+            "label": "Reviews"
+          },
+          "salePrice": {
+            "format": "number",
+            "label": "Sale price"
+          },
+          "variantsCount": {
+            "format": "number",
+            "label": "Variants"
+          }
+        }
+      },
+      "title": "Products",
+      "transformation": {
+        "fields": [
+          "productId",
+          "brandName",
+          "displayName",
+          "rating",
+          "reviews",
+          "price",
+          "priceMin",
+          "priceMax",
+          "salePrice",
+          "inStock",
+          "variantsCount",
+          "market",
+          "productUrl"
+        ]
+      }
+    },
+    "questions": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "answersCount": {
+            "format": "number",
+            "label": "Answers"
+          },
+          "author": {
+            "format": "text",
+            "label": "Author"
+          },
+          "brandName": {
+            "format": "text",
+            "label": "Brand"
+          },
+          "market": {
+            "format": "text",
+            "label": "Market"
+          },
+          "productName": {
+            "format": "text",
+            "label": "Product"
+          },
+          "question": {
+            "format": "text",
+            "label": "Question"
+          },
+          "questionId": {
+            "format": "text",
+            "label": "Question ID"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "submittedAt": {
+            "format": "text",
+            "label": "Submitted"
+          }
+        }
+      },
+      "title": "Questions",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "questionId",
+          "productName",
+          "brandName",
+          "question",
+          "author",
+          "submittedAt",
+          "answersCount",
+          "market"
+        ]
+      }
+    },
+    "reviews": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "author": {
+            "format": "text",
+            "label": "Author"
+          },
+          "brandName": {
+            "format": "text",
+            "label": "Brand"
+          },
+          "helpfulVotes": {
+            "format": "number",
+            "label": "Helpful"
+          },
+          "isVerifiedPurchase": {
+            "format": "boolean",
+            "label": "Verified"
+          },
+          "market": {
+            "format": "text",
+            "label": "Market"
+          },
+          "productName": {
+            "format": "text",
+            "label": "Product"
+          },
+          "rating": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "reviewId": {
+            "format": "text",
+            "label": "Review ID"
+          },
+          "submittedAt": {
+            "format": "text",
+            "label": "Submitted"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          }
+        }
+      },
+      "title": "Reviews",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "reviewId",
+          "productName",
+          "brandName",
+          "rating",
+          "title",
+          "author",
+          "submittedAt",
+          "isVerifiedPurchase",
+          "helpfulVotes",
+          "market"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "description": "Choose score or monitor, paste companies, and select the buying signals to check.",
+  "properties": {
+    "companies": {
+      "description": "Advanced list. Each item can include companyName (or name), domain, careersUrl, ats, atsToken and disambiguator. Plain strings are also accepted. If provided, this overrides the text list.",
+      "editor": "json",
+      "items": {
+        "properties": {
+          "ats": {
+            "description": "Optional provider name when you already know it: greenhouse, ashby, lever, workable, smartrecruiters, recruitee, personio, breezy or workday.",
+            "title": "ATS provider",
+            "type": "string"
+          },
+          "atsToken": {
+            "description": "Optional board token for the provider, e.g. the token in jobs.ashbyhq.com/linear.",
+            "title": "ATS token",
+            "type": "string"
+          },
+          "careersUrl": {
+            "description": "Optional careers page or job-board URL, e.g. https://jobs.lever.co/acme.",
+            "title": "Careers URL",
+            "type": "string"
+          },
+          "companyName": {
+            "description": "The company's legal or brand name.",
+            "title": "Company Name",
+            "type": "string"
+          },
+          "disambiguator": {
+            "description": "Optional word that must appear in news headlines, e.g. software for a common-word company name.",
+            "title": "Disambiguator",
+            "type": "string"
+          },
+          "domain": {
+            "description": "Optional root domain, e.g. notion.so. Avoids domain lookup.",
+            "title": "Domain",
+            "type": "string"
+          },
+          "name": {
+            "description": "Alias for companyName.",
+            "title": "Name (alias)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Companies (advanced)",
+      "type": "array"
+    },
+    "companiesText": {
+      "description": "Paste company names, one per line. Domains and careers URLs are accepted in the advanced list below.",
+      "editor": "textarea",
+      "prefill": "Figma\nNotion\nLinear",
+      "title": "Companies (one per line)",
+      "type": "string"
+    },
+    "emitUnchanged": {
+      "default": false,
+      "description": "(mode=monitor) Include companies with no new or resolved signals and no score change.",
+      "prefill": false,
+      "title": "Emit unchanged companies",
+      "type": "boolean"
+    },
+    "includeRawSignals": {
+      "default": false,
+      "description": "In full output, add sample job titles and the top news headlines for auditing.",
+      "prefill": false,
+      "title": "Include raw evidence",
+      "type": "boolean"
+    },
+    "lookbackDays": {
+      "default": 90,
+      "description": "Funding, news and executive-change window. News trend counts also cover 7, 30 and 90 days.",
+      "maximum": 365,
+      "minimum": 7,
+      "prefill": 90,
+      "title": "Lookback days",
+      "type": "integer"
+    },
+    "maxCompanies": {
+      "default": 100,
+      "description": "Hard cap on companies processed per run.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max companies",
+      "type": "integer"
+    },
+    "maxConcurrency": {
+      "default": 3,
+      "description": "How many companies to process in parallel. Lower values are gentler on public sources.",
+      "maximum": 10,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max concurrency",
+      "type": "integer"
+    },
+    "minScore": {
+      "default": 0,
+      "description": "Drop scored companies below this intent score. Error records are always kept.",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum score",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "score",
+      "description": "Score every company, or compare this run with the previous run for the same monitor key.",
+      "editor": "select",
+      "enum": [
+        "score",
+        "monitor"
+      ],
+      "enumTitles": [
+        "Score companies",
+        "Monitor changes since previous run"
+      ],
+      "prefill": "score",
+      "title": "Mode",
+      "type": "string"
+    },
+    "monitorKey": {
+      "description": "(mode=monitor) Name of the tracking history. Use the same key each run to compare against the previous snapshot.",
+      "editor": "textfield",
+      "title": "Monitor key",
+      "type": "string"
+    },
+    "outputFormat": {
+      "default": "compact",
+      "description": "compact returns ranking fields plus top signals. full adds the score breakdown and per-signal detail.",
+      "editor": "select",
+      "enum": [
+        "compact",
+        "full"
+      ],
+      "enumTitles": [
+        "Compact (ranking)",
+        "Full (all signal detail)"
+      ],
+      "prefill": "compact",
+      "title": "Output format",
+      "type": "string"
+    },
+    "signals": {
+      "default": [
+        "hiring",
+        "funding",
+        "news",
+        "execChanges",
+        "layoffs",
+        "techStack"
+      ],
+      "description": "Buying signals to check. Disabling a scored signal normalizes the remaining weights to 100.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "hiring",
+          "funding",
+          "news",
+          "execChanges",
+          "layoffs",
+          "techStack"
+        ],
+        "enumTitles": [
+          "Hiring (ATS boards)",
+          "Funding (SEC Form D + press)",
+          "News momentum",
+          "Executive changes",
+          "Layoffs / risk",
+          "Tech stack enrichment"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "hiring",
+        "funding",
+        "news",
+        "execChanges",
+        "layoffs",
+        "techStack"
+      ],
+      "title": "Signals",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "targetTechnology": {
+      "description": "Optional technology to check on the company homepage, e.g. HubSpot or Marketo. The gap result does not change the intent score.",
+      "editor": "textfield",
+      "title": "Target technology",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "B2B Sales Trigger Intelligence Input",
+  "type": "object"
+}

@@ -1,0 +1,161 @@
+# MagicBricks Listings Finder: Sale, Rent & Detail Pages
+
+Collect **MagicBricks** property listings across 108 Indian cities. Search for sale, rent, or both with BHK, budget, area, furnishing, possession and locality filters; paste search-result links to keep the site's own filters; or paste property-detail links for a single enriched record. Every listing keeps a clean, human-readable set of price, size, project, seller, RERA, GPS, amenity and image fields.
+
+## What this actor does
+
+- **Five modes:** `searchForSale`, `searchForRent`, `searchProperties`, `bySearchUrl`, `byPropertyUrl`
+- **108 cities** with the site's own canonical names, plus locality filters and 13 residential and commercial property types
+- **Server-side filters:** BHK, budget, area, furnishing, possession, tenant preference, last-24-hours posting age and six sort orders
+- **Optional detail pages** add project, developer, RERA registrations, full address, GPS, complete amenities, estimated deposit, maintenance, booking amount and brokerage
+- **Clean output:** numeric INR prices, carpet and covered areas, ISO dates, absolute links, and empty fields omitted instead of returned as null
+
+## Output per property
+
+- `propertyId` — MagicBricks listing id
+- `title` — listing headline
+- `propertyType` — Apartment, Builder Floor, Independent House, Villa, Plot, Penthouse, Studio Apartment, Farm House, Serviced Apartment, Commercial Office, Office in IT Park/SEZ, Commercial Shop or Commercial Showroom
+- `transactionType` — Sale or Rent
+- `saleType` — New Property or Resale (sale listings)
+- `price` — price as shown on MagicBricks (e.g. `1.10 Cr`)
+- `priceInr` — numeric asking price in Indian Rupees
+- `priceCurrency` — `INR`
+- `pricePerSqft` — rate per square foot (the site's own value, or derived from price and carpet area when it is missing)
+- `priceBreakdown` — all-inclusive price, stamp duty and brokerage (detail pages)
+- `bookingAmount`, `maintenanceCharges`, `maintenancePeriod`, `securityDeposit` (MagicBricks estimate), `brokerage`
+- `area` — covered or carpet area as a display string
+- `carpetArea`, `carpetAreaUnit`, `coveredArea`, `coveredAreaUnit`
+- `bedrooms`, `bathrooms`, `balconies`
+- `floorNumber`, `totalFloors`, `floorDisplay`
+- `furnishing`, `facing`, `ownershipType`, `ageOfProperty`, `parking`
+- `possessionStatus`, `availableFrom`
+- `postedAt`, `postedLabel`, `expiresAt`
+- `city`, `locality`, `address`, `landmark`
+- `latitude`, `longitude` — real coordinates, omitted when the source only carries a zero placeholder
+- `projectName`, `projectId`, `projectUrl`, `developerName`
+- `reraIds[]`, `reraUrl`, `agentReraId`, `approvedBy`
+- `postedBy` — publicly displayed owner, agent or builder name
+- `listerName`, `listerType`, `companyName`
+- `agentId`, `agentUrl`, `agentRating`, `agentExperienceSince`, `agentBuyersServed`
+- `description`, `autoDescription`
+- `amenities[]`, `luxuryAmenities[]`, `amenitiesFacing`
+- `images[]`, `imageUrl`, `imageCount`
+- `searchUrl` — the search that produced the record
+- `detailFetched` — present when detail-page data was merged
+- `source` — `magicbricks`
+- `recordType` — `property`
+- `scrapedAt` — ISO 8601 timestamp
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `searchForSale` | `searchForSale`, `searchForRent`, `searchProperties`, `bySearchUrl` or `byPropertyUrl` |
+| `startUrls` | array | – | MagicBricks search or property links (URL modes) |
+| `city` | string | `Mumbai` | One of 108 Indian cities (search modes) |
+| `localities` | array | – | Locality names inside the city; one search per locality (search modes) |
+| `propertyType` | string | `Apartment` | 13 residential and commercial types (search modes) |
+| `bedrooms` | string | `Any` | `Any`, `1`, `2`, `3`, `4` or `5+` (search modes) |
+| `priceMin` | integer | – | Minimum price in INR (search modes) |
+| `priceMax` | integer | – | Maximum price in INR (search modes) |
+| `areaMin` | integer | – | Minimum area in sq.ft (search modes) |
+| `areaMax` | integer | – | Maximum area in sq.ft (search modes) |
+| `furnishing` | string | `Any` | `Any`, `Furnished`, `Semi-Furnished` or `Unfurnished` (search modes) |
+| `possessionStatus` | string | `Any` | `Any`, `Ready to Move` or `Under Construction` (sale searches) |
+| `postedSince` | string | `Any` | `Any` or `1` (last 24 hours; search modes). MagicBricks exposes only this server-side window. |
+| `tenantType` | string | `Any` | `Any`, `Bachelors` or `Family` (rent searches). MagicBricks exposes these two server-side. |
+| `sortBy` | string | `Relevance` | Relevance, price, recency or rate per sq.ft (search modes) |
+| `maxItems` | integer | `50` | Hard cap on returned listings (1–10,000) |
+| `includeDetails` | boolean | `false` | Open each listing's detail page for project, RERA, address, GPS, amenities and cost data |
+
+### Example: 2 BHK flats for sale in Mumbai
+
+```json
+{
+  "mode": "searchForSale",
+  "city": "Mumbai",
+  "propertyType": "Apartment",
+  "bedrooms": "2",
+  "priceMin": 10000000,
+  "priceMax": 30000000,
+  "maxItems": 100
+}
+```
+
+### Example: rentals in two Bangalore localities
+
+```json
+{
+  "mode": "searchForRent",
+  "city": "Bangalore",
+  "localities": ["Whitefield", "Hebbal"],
+  "bedrooms": "2",
+  "furnishing": "Furnished",
+  "tenantType": "Bachelors",
+  "maxItems": 60
+}
+```
+
+### Example: keep the filters from a MagicBricks search link
+
+```json
+{
+  "mode": "bySearchUrl",
+  "startUrls": [
+    {"url": "https://www.magicbricks.com/property-for-sale/residential-real-estate?cityName=Pune&proptype=Villa"}
+  ],
+  "maxItems": 50
+}
+```
+
+### Example: enrich a handful of property links
+
+```json
+{
+  "mode": "byPropertyUrl",
+  "startUrls": [
+    {"url": "https://www.magicbricks.com/propertyDetails/3-BHK-1600-Sq-ft-Multistorey-Apartment-FOR-Sale-Juhu-in-Mumbai&id=4d423836393237353637"}
+  ],
+  "maxItems": 10
+}
+```
+
+## Use cases
+
+- **Home buyers** — shortlist flats by BHK, budget, locality and ready-to-move status
+- **Tenants** — compare furnished rentals by locality, deposit and maintenance
+- **Real-estate agencies** — monitor new listings and seller types in target micro-markets
+- **Market research** — compare asking prices and rates per sq.ft across cities and property types
+- **PropTech products** — feed structured listing, project and RERA data into search and valuation tools
+
+## FAQ
+
+**Is this affiliated with MagicBricks?**
+No. This is an independent, third-party actor that reads publicly visible MagicBricks pages. It is not operated by or endorsed by MagicBricks.
+
+**Do I need a MagicBricks account or cookies?**
+No. Every supported mode works without a login, cookies or API keys.
+
+**How many listings can one run return?**
+`maxItems` is a hard cap up to 10,000. MagicBricks serves 30 listings per page and exposes a finite number of results for each filter set. Once that ceiling is reached, narrow the city, locality, property type or budget to reach more listings. The run summary says when the ceiling was hit.
+
+**Why do some records have more fields than others?**
+Fields are filled only when the source publishes them. A listing without a project, RERA number or agent rating simply omits those fields. Empty strings, nulls and empty lists are never emitted.
+
+**What does `includeDetails` add?**
+It opens each listing's detail page for project name, developer, RERA registrations, full address, GPS, complete amenities, description, image gallery, estimated deposit, maintenance, booking amount, brokerage and price breakup. It is slower and uses more resources than a plain search, so it is off by default.
+
+**Which URLs can I paste?**
+A search-results URL that contains `property-for-sale` or `property-for-rent` and `cityName=`, or a `/propertyDetails/...` link. City landing pages such as `property-for-sale-rent-in-Mumbai` do not contain listings; the actor reports that instead of returning zero silently.
+
+**Can I get phone numbers or email addresses?**
+No. MagicBricks reveals contact details only after an OTP or login flow, so this actor does not return phones, emails or masked numbers.
+
+**Why does the listing count change between pages?**
+MagicBricks updates results continuously. The actor removes duplicate listings by id and stops when a page repeats, so a run can finish slightly below the site's displayed result count.
+
+**Do I need to configure a proxy?**
+No. The actor chooses a working connection to MagicBricks automatically. Fill in the input and run it.
+
+**Can I search several localities at once?**
+Yes. Add each locality to `localities`; the actor runs a separate search per locality and removes duplicates. Multiple localities are not combined into one AND filter.

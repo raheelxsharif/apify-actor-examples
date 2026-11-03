@@ -1,0 +1,303 @@
+{
+  "description": "Search or browse Sephora products, fetch product URLs, exports reviews or questions. Choose a mode, then set keywords, categories, brands, market, filters and optional detail enrichment.",
+  "properties": {
+    "brands": {
+      "default": [],
+      "description": "Brand names, slugs or Sephora brand URLs (mode=brand; also an optional filter in other listing modes). Example: `Rare Beauty` or `/brand/rare-beauty-by-selena-gomez`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Brands",
+      "type": "array"
+    },
+    "categories": {
+      "default": [],
+      "description": "Category slugs, `cat...` IDs or Sephora category URLs (mode=category, bestsellers, newArrivals, sale; also a filter in search). Empty browse modes use the six top-level categories.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Categories",
+      "type": "array"
+    },
+    "includeBestsellersOnly": {
+      "default": false,
+      "description": "Only include products flagged as bestsellers in listing modes. Not available in product-URL mode.",
+      "prefill": false,
+      "title": "Bestsellers only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch descriptions, ingredients, highlights, variants, stock, category path and brand information for every product in listing modes. Product-URL mode always includes details.",
+      "prefill": false,
+      "title": "Include product details",
+      "type": "boolean"
+    },
+    "includeImages": {
+      "default": true,
+      "description": "Copy product images into the run's key-value store so the image links stay publicly accessible.",
+      "prefill": false,
+      "title": "Include rehosted images",
+      "type": "boolean"
+    },
+    "includeNewOnly": {
+      "default": false,
+      "description": "Only include products Sephora flags as new.",
+      "prefill": false,
+      "title": "New products only",
+      "type": "boolean"
+    },
+    "includeQuestions": {
+      "default": false,
+      "description": "Add questions with their answers to product records, and fetch question rows in questions mode.",
+      "prefill": false,
+      "title": "Include questions and answers",
+      "type": "boolean"
+    },
+    "includeReviewStats": {
+      "default": false,
+      "description": "Add the rating histogram, recommendation counts, review dates and GTIN/UPC/EAN identifiers.",
+      "prefill": false,
+      "title": "Include review statistics",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Add recent or most-helpful review samples to product records, and fetch review samples in reviews mode.",
+      "prefill": false,
+      "title": "Include review samples",
+      "type": "boolean"
+    },
+    "market": {
+      "default": "us",
+      "description": "Storefront and currency: United States (USD), Canada English (CAD) or Canada French (CAD).",
+      "editor": "select",
+      "enum": [
+        "us",
+        "ca-en",
+        "ca-fr"
+      ],
+      "enumTitles": [
+        "United States (USD)",
+        "Canada - English (CAD)",
+        "Canada - French (CAD)"
+      ],
+      "prefill": "us",
+      "title": "Market",
+      "type": "string"
+    },
+    "maxImagesPerProduct": {
+      "default": 3,
+      "description": "Maximum number of product images to keep and rehost for each product.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum images per product",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on all records emitted by the run.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Maximum records",
+      "type": "integer"
+    },
+    "maxItemsPerQuery": {
+      "default": 0,
+      "description": "Cap records per keyword, category, brand or product URL. 0 means no per-source cap.",
+      "maximum": 10000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Maximum records per source",
+      "type": "integer"
+    },
+    "maxQuestionsPerProduct": {
+      "default": 10,
+      "description": "Maximum question rows or embedded questions per product.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum questions per product",
+      "type": "integer"
+    },
+    "maxReviewsPerProduct": {
+      "default": 20,
+      "description": "Maximum review rows or samples per product.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Maximum reviews per product",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only include products rated at or above this value (1-5).",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch: keyword search, category or brand browse, product URLs, bestsellers, new arrivals, sale, reviews or questions.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "category",
+        "brand",
+        "product",
+        "bestsellers",
+        "newArrivals",
+        "sale",
+        "reviews",
+        "questions"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse categories",
+        "Browse brands",
+        "Fetch product URLs or IDs",
+        "Bestsellers by category",
+        "New arrivals by category",
+        "Products on sale",
+        "Reviews for product URLs",
+        "Questions and answers for product URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onlyNewProducts": {
+      "default": false,
+      "description": "Skip product IDs that were already returned under the same state key in earlier runs.",
+      "prefill": false,
+      "title": "Only new products",
+      "type": "boolean"
+    },
+    "priceMax": {
+      "description": "Only include products whose current price is at or below this amount, in the selected market's currency.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum price",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Only include products whose current price is at or above this amount, in the selected market's currency.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum price",
+      "type": "integer"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Sephora product URLs or `P...` IDs (mode=product, reviews, questions). A `?skuId=` in the URL selects that variant.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs or IDs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": false
+      },
+      "description": "Optional. Sephora's public catalog and review endpoints work without a proxy.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": false
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "refinements": {
+      "default": [],
+      "description": "Optional Sephora facet values, e.g. `filters[skinType]=drySk` or `filters[ingredientPreferences]=crueltyFree`. Up to 20.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Advanced refinements",
+      "type": "array"
+    },
+    "resetState": {
+      "default": false,
+      "description": "Forget previously seen product IDs for this state key before the run.",
+      "prefill": false,
+      "title": "Reset saved state",
+      "type": "boolean"
+    },
+    "reviewsSort": {
+      "default": "mostHelpful",
+      "description": "Ordering for review rows and review samples.",
+      "editor": "select",
+      "enum": [
+        "mostHelpful",
+        "newest",
+        "oldest",
+        "highestRating",
+        "lowestRating"
+      ],
+      "enumTitles": [
+        "Most helpful",
+        "Newest first",
+        "Oldest first",
+        "Highest rating",
+        "Lowest rating"
+      ],
+      "prefill": "mostHelpful",
+      "title": "Review order",
+      "type": "string"
+    },
+    "saleOnly": {
+      "default": false,
+      "description": "Only include products currently discounted by Sephora.",
+      "prefill": false,
+      "title": "On sale only",
+      "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to search (mode=search). Enter one or more terms, e.g. `moisturizer`, `vitamin c serum`.",
+      "editor": "stringList",
+      "prefill": [
+        "moisturizer"
+      ],
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Result ordering for listing modes. Bestsellers and sale default to best selling; new arrivals default to newest.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "bestSelling",
+        "topRated",
+        "priceLowToHigh",
+        "priceHighToLow",
+        "newArrivals"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Best selling",
+        "Top rated",
+        "Price: low to high",
+        "Price: high to low",
+        "Newest first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "stateKey": {
+      "default": "default",
+      "description": "Name for the saved product-ID state used by 'Only new products'.",
+      "editor": "textfield",
+      "prefill": "default",
+      "title": "State key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Sephora Catalog Price & Rating Finder Input",
+  "type": "object"
+}

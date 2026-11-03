@@ -1,0 +1,216 @@
+{
+  "actorSpecification": 1,
+  "description": "Graded company records with hiring, funding, news, executive-change, layoff and technology evidence, plus monitor diffs.",
+  "title": "Company Intent Scorer: Hiring, Funding & News Signals Output",
+  "views": {
+    "funding": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "fundingSignal": {
+            "format": "object",
+            "label": "Funding"
+          }
+        }
+      },
+      "title": "Funding Signals",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "fundingSignal"
+        ]
+      }
+    },
+    "hiring": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "ats": {
+            "format": "text",
+            "label": "ATS"
+          },
+          "careersUrl": {
+            "format": "text",
+            "label": "Careers"
+          },
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "hiringSignal": {
+            "format": "object",
+            "label": "Hiring"
+          }
+        }
+      },
+      "title": "Hiring Signals",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "ats",
+          "careersUrl",
+          "hiringSignal"
+        ]
+      }
+    },
+    "monitor": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "grade": {
+            "format": "text",
+            "label": "Grade"
+          },
+          "monitor": {
+            "format": "object",
+            "label": "Changes"
+          },
+          "score": {
+            "format": "number",
+            "label": "Score"
+          }
+        }
+      },
+      "title": "Monitor Changes",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "grade",
+          "score",
+          "monitor"
+        ]
+      }
+    },
+    "news": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "newsSignal": {
+            "format": "object",
+            "label": "News"
+          }
+        }
+      },
+      "title": "News Signals",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "newsSignal"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "domain": {
+            "format": "text",
+            "label": "Domain"
+          },
+          "grade": {
+            "format": "text",
+            "label": "Grade"
+          },
+          "priorityFlag": {
+            "format": "boolean",
+            "label": "Priority"
+          },
+          "rationale": {
+            "format": "text",
+            "label": "Rationale"
+          },
+          "score": {
+            "format": "number",
+            "label": "Score"
+          },
+          "topSignal": {
+            "format": "text",
+            "label": "Top Signal"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "domain",
+          "grade",
+          "score",
+          "priorityFlag",
+          "topSignal",
+          "rationale"
+        ]
+      }
+    },
+    "risk": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "execChangeSignal": {
+            "format": "object",
+            "label": "Executive changes"
+          },
+          "riskSignal": {
+            "format": "object",
+            "label": "Layoff risk"
+          }
+        }
+      },
+      "title": "Executive & Risk Signals",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "execChangeSignal",
+          "riskSignal"
+        ]
+      }
+    },
+    "technology": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "companyName": {
+            "format": "text",
+            "label": "Company"
+          },
+          "targetTechnology": {
+            "format": "object",
+            "label": "Target technology"
+          },
+          "techStackSignal": {
+            "format": "object",
+            "label": "Tech stack"
+          }
+        }
+      },
+      "title": "Technology",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "techStackSignal",
+          "targetTechnology"
+        ]
+      }
+    }
+  }
+}

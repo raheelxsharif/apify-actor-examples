@@ -1,0 +1,261 @@
+{
+  "properties": {
+    "brand": {
+      "description": "Keep only products whose brand contains this text, for example Milwaukee.",
+      "editor": "textfield",
+      "title": "Brand (optional)",
+      "type": "string"
+    },
+    "categoryUrls": {
+      "description": "Home Depot category URLs (/b/...) or browse codes (N-...). Used in category mode.",
+      "editor": "stringList",
+      "title": "Category URLs or Browse Codes",
+      "type": "array"
+    },
+    "filterKeywords": {
+      "description": "Comma-separated words; keep only products whose title contains at least one, for example chainsaw,chain saw.",
+      "editor": "textfield",
+      "title": "Title Keywords (optional)",
+      "type": "string"
+    },
+    "includeAisleBay": {
+      "default": false,
+      "description": "Add the aisle and bay where the product sits at the selected store.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Aisle and Bay",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Add description, specs, key features, UPC/GTIN, all images, videos and variants for every product.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Product Details",
+      "type": "boolean"
+    },
+    "includeQuestions": {
+      "default": false,
+      "description": "Add customer questions and their answers for every product.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Questions & Answers",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Add customer reviews and the rating breakdown for every product.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Reviews",
+      "type": "boolean"
+    },
+    "includeSponsored": {
+      "default": false,
+      "description": "Include paid product placements alongside organic results.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Sponsored Products",
+      "type": "boolean"
+    },
+    "includeStoreAvailability": {
+      "default": true,
+      "description": "Add store-local pickup quantity, pickup/delivery split and delivery details.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include Store Availability",
+      "type": "boolean"
+    },
+    "itemIds": {
+      "description": "Home Depot item IDs or product URLs (/p/...). Used in products mode.",
+      "editor": "stringList",
+      "title": "Item IDs or Product URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Overall maximum number of products to save.",
+      "editor": "number",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum Products",
+      "type": "integer"
+    },
+    "maxItemsPerQuery": {
+      "default": 100,
+      "description": "Maximum products to save from each search query or category.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum Products Per Query or Category",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 30,
+      "description": "Maximum result pages to read for each search or category. Home Depot returns up to 24 products per page and 30 pages per browse.",
+      "editor": "number",
+      "maximum": 30,
+      "minimum": 1,
+      "title": "Maximum Pages Per Source",
+      "type": "integer"
+    },
+    "maxQuestionsPerProduct": {
+      "default": 10,
+      "description": "Question cap for each product when questions are enabled.",
+      "editor": "number",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Maximum Questions Per Product",
+      "type": "integer"
+    },
+    "maxReviewsPerProduct": {
+      "default": 20,
+      "description": "Review cap for each product when reviews are enabled.",
+      "editor": "number",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Maximum Reviews Per Product",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop products rated below this average, from 0 to 5.",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum Rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Choose what to scrape: a keyword search, a category browse page, or specific Home Depot item IDs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "category",
+        "products"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Browse a category",
+        "Look up item IDs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onlyClearance": {
+      "default": false,
+      "description": "Keep only products with a clearance price.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Only Clearance Products",
+      "type": "boolean"
+    },
+    "onlyInStock": {
+      "default": false,
+      "description": "Keep only products available for pickup at the selected store or for delivery.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Only Products In Stock",
+      "type": "boolean"
+    },
+    "onlyOnSale": {
+      "default": false,
+      "description": "Keep only products with a real discount, promotion, special buy or clearance.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Only Products On Sale",
+      "type": "boolean"
+    },
+    "priceMax": {
+      "description": "Only keep products at or below this price.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Maximum Price (USD)",
+      "type": "number"
+    },
+    "priceMin": {
+      "description": "Only keep products at or above this price.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Minimum Price (USD)",
+      "type": "number"
+    },
+    "reviewsSort": {
+      "default": "most_recent",
+      "description": "How to order reviews when reviews are enabled.",
+      "editor": "select",
+      "enum": [
+        "most_recent",
+        "most_helpful",
+        "oldest",
+        "highest_rating",
+        "lowest_rating",
+        "photos_first"
+      ],
+      "enumTitles": [
+        "Most recent",
+        "Most helpful",
+        "Oldest",
+        "Highest rating",
+        "Lowest rating",
+        "Photos first"
+      ],
+      "title": "Review Order",
+      "type": "string"
+    },
+    "searchQueries": {
+      "description": "One keyword per line, for example 'cordless drill'. Used in search mode.",
+      "editor": "stringList",
+      "prefill": [
+        "drill"
+      ],
+      "title": "Search Queries",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How to order the products in each search or category.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "top_sellers",
+        "price_low_to_high",
+        "price_high_to_low",
+        "top_rated",
+        "newest"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Top Sellers",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Top Rated",
+        "Newest"
+      ],
+      "title": "Sort Order",
+      "type": "string"
+    },
+    "storeId": {
+      "default": "121",
+      "description": "Home Depot store number for store-local prices and pickup stock. 121 is Cumberland, GA.",
+      "editor": "textfield",
+      "title": "Store ID",
+      "type": "string"
+    },
+    "zipCode": {
+      "description": "Used to find the nearest store when Store ID is empty, and for delivery estimates.",
+      "editor": "textfield",
+      "title": "ZIP Code (optional)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Home Depot Products, Prices & Store Stock Input",
+  "type": "object"
+}

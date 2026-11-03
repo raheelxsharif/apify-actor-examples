@@ -1,0 +1,254 @@
+{
+  "description": "Collect public X Community info, rules, moderators, active members and top/media posts with no login or cookies.",
+  "properties": {
+    "authorVerifiedOnly": {
+      "default": false,
+      "description": "Keep only posts whose author is verified or blue-verified.",
+      "prefill": false,
+      "title": "Verified authors only",
+      "type": "boolean"
+    },
+    "communityUrls": {
+      "description": "Paste the links of the X communities you want to collect. Community links look like https://x.com/i/communities/1493446837214187523. You can also paste the numeric community ID on its own.",
+      "editor": "stringList",
+      "example": [
+        "https://x.com/i/communities/1493446837214187523",
+        "1493446837214187523"
+      ],
+      "maxItems": 100,
+      "minItems": 1,
+      "prefill": [
+        "https://x.com/i/communities/1493446837214187523"
+      ],
+      "title": "Community links or IDs",
+      "type": "array"
+    },
+    "dateFrom": {
+      "description": "Only keep posts created on or after this date.",
+      "editor": "datepicker",
+      "sectionCaption": "Filters",
+      "sectionDescription": "Optional. Leave everything empty to collect all available posts.",
+      "title": "Posts from (optional)",
+      "type": "string"
+    },
+    "dateTo": {
+      "description": "Only keep posts created on or before this date.",
+      "editor": "datepicker",
+      "title": "Posts until (optional)",
+      "type": "string"
+    },
+    "includeAbout": {
+      "default": true,
+      "description": "Add a community row with the name, description, member count, creation date, banner, topic, join policy and rules.",
+      "prefill": true,
+      "title": "Include community info",
+      "type": "boolean"
+    },
+    "includeActiveMembers": {
+      "default": false,
+      "description": "Add the authors of the collected posts as member rows with role active. This is the cookieless substitute for a full member directory, which requires login on X.",
+      "prefill": false,
+      "title": "Include active members",
+      "type": "boolean"
+    },
+    "includeMembers": {
+      "default": false,
+      "description": "Add one row per publicly visible member: the creator, the full exposed moderator list and the community facepile, expanded with public profile details.",
+      "prefill": false,
+      "title": "Include creator, moderators and facepile",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "any",
+      "description": "Only keep posts written in this language.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "en",
+        "es",
+        "pt",
+        "fr",
+        "de",
+        "it",
+        "nl",
+        "tr",
+        "ar",
+        "fa",
+        "ur",
+        "hi",
+        "bn",
+        "id",
+        "ms",
+        "ja",
+        "ko",
+        "zh",
+        "ru",
+        "uk",
+        "pl",
+        "sv",
+        "no",
+        "da",
+        "fi",
+        "cs",
+        "ro",
+        "el",
+        "he",
+        "th",
+        "vi",
+        "ta",
+        "te",
+        "mr",
+        "gu",
+        "pa",
+        "sw",
+        "am",
+        "ha",
+        "ne"
+      ],
+      "enumTitles": [
+        "Any language",
+        "English",
+        "Spanish",
+        "Portuguese",
+        "French",
+        "German",
+        "Italian",
+        "Dutch",
+        "Turkish",
+        "Arabic",
+        "Persian",
+        "Urdu",
+        "Hindi",
+        "Bengali",
+        "Indonesian",
+        "Malay",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Russian",
+        "Ukrainian",
+        "Polish",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "Finnish",
+        "Czech",
+        "Romanian",
+        "Greek",
+        "Hebrew",
+        "Thai",
+        "Vietnamese",
+        "Tamil",
+        "Telugu",
+        "Marathi",
+        "Gujarati",
+        "Punjabi",
+        "Swahili",
+        "Amharic",
+        "Hausa",
+        "Nepali"
+      ],
+      "prefill": "any",
+      "title": "Post language",
+      "type": "string"
+    },
+    "maxMembers": {
+      "default": 50,
+      "description": "Cap on member rows per community when either member option is on. The creator and moderators are kept first.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum members per community",
+      "type": "integer"
+    },
+    "maxPosts": {
+      "default": 50,
+      "description": "Upper bound on posts per community. X exposes roughly 1-66 unique public posts per community (typically 20-66), so a larger number is not a guarantee.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Maximum posts per community",
+      "type": "integer"
+    },
+    "minimumLikes": {
+      "description": "Only keep posts with at least this many likes.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum likes (optional)",
+      "type": "integer"
+    },
+    "minimumReplies": {
+      "description": "Only keep posts with at least this many replies.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum replies (optional)",
+      "type": "integer"
+    },
+    "minimumRetweets": {
+      "description": "Only keep posts with at least this many retweets.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum retweets (optional)",
+      "type": "integer"
+    },
+    "minimumViews": {
+      "description": "Only keep posts with at least this many views.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum views (optional)",
+      "type": "integer"
+    },
+    "postSource": {
+      "default": "all",
+      "description": "Which public post feed to collect. All merges the popular and media feeds; Top keeps X's ranked posts; Media keeps posts with photos or videos.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "top",
+        "media"
+      ],
+      "enumTitles": [
+        "All posts (top + media)",
+        "Top posts only",
+        "Media posts only"
+      ],
+      "prefill": "all",
+      "title": "Post source",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional. The actor works without a proxy; use one only for large or repeated runs.",
+      "editor": "proxy",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Optional settings for large or repeated runs.",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "sort": {
+      "default": "top",
+      "description": "How to order the collected posts. Top keeps X's popular order; Latest and Most liked/Viewed re-sort the collected rows.",
+      "editor": "select",
+      "enum": [
+        "top",
+        "latest",
+        "mostLiked",
+        "mostViewed"
+      ],
+      "enumTitles": [
+        "Top (X's popular order)",
+        "Latest (newest first)",
+        "Most liked",
+        "Most viewed"
+      ],
+      "prefill": "top",
+      "title": "Post order",
+      "type": "string"
+    }
+  },
+  "required": [
+    "communityUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "X Community Activity & Member Finder",
+  "type": "object"
+}

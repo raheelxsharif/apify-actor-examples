@@ -1,110 +1,637 @@
 {
-  "description": "Search Washington State hiking trails from wta.org by region, keyword, or get detailed trail info.",
+  "description": "Search 4,278 Washington Trails Association hikes, fetch trail details, or stream trail-level and global trip reports.",
   "properties": {
+    "author": {
+      "description": "Exact WTA author username (mode searchTripReports).",
+      "editor": "textfield",
+      "title": "Report author",
+      "type": "string"
+    },
+    "boundingBox": {
+      "description": "Map area as `south,west,north,east` (mode searchTrails). Takes priority over latitude/longitude/radius.",
+      "editor": "textfield",
+      "title": "Bounding box",
+      "type": "string"
+    },
+    "dogPolicy": {
+      "default": "any",
+      "description": "Filter by dog access (mode searchTrails).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "allowed-on-leash",
+        "not-allowed"
+      ],
+      "enumTitles": [
+        "Any dog policy",
+        "Dogs allowed on leash",
+        "Dogs not allowed"
+      ],
+      "prefill": "any",
+      "title": "Dog policy",
+      "type": "string"
+    },
+    "features": {
+      "default": [],
+      "description": "Require all selected features (mode searchTrails). Empty = no feature filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Coast",
+          "Rivers",
+          "Lakes",
+          "Waterfalls",
+          "Old growth",
+          "Fall foliage",
+          "Wildflowers/Meadows",
+          "Mountain views",
+          "Summits",
+          "Wildlife",
+          "Ridges/passes",
+          "Established campsites"
+        ],
+        "enumTitles": [
+          "Coast",
+          "Rivers",
+          "Lakes",
+          "Waterfalls",
+          "Old growth",
+          "Fall foliage",
+          "Wildflowers/Meadows",
+          "Mountain views",
+          "Summits",
+          "Wildlife",
+          "Ridges/passes",
+          "Established campsites"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Trail features",
+      "type": "array",
+      "uniqueItems": true
+    },
     "fetchDetails": {
       "default": false,
-      "description": "When enabled, fetches the detail page for each trail to get lat/lon, full description, and rating. Slower but more complete.",
+      "description": "Add difficulty, description, parking pass, land manager, directions, alerts and trip-report count with one detail page per trail (modes searchTrails, getTripReports).",
       "prefill": false,
-      "title": "Fetch detailed trail info",
+      "title": "Fetch trail details",
       "type": "boolean"
+    },
+    "fetchReportDetails": {
+      "default": false,
+      "description": "Open each report page for trail URL, hike type, trail/road/bug/snow conditions and full photo URLs (mode searchTripReports).",
+      "prefill": false,
+      "title": "Fetch report details",
+      "type": "boolean"
+    },
+    "hikeTypes": {
+      "default": [],
+      "description": "Keep reports matching any selected hike type (mode searchTripReports).",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "day-hike",
+          "overnight",
+          "multi-night-backpack",
+          "snowshoe-xc-ski"
+        ],
+        "enumTitles": [
+          "Day hike",
+          "Overnight",
+          "Multi-night backpack",
+          "Snowshoe / XC ski"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Hike types",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "includeReportText": {
+      "default": false,
+      "description": "Attach full text and tags to the recent reports (mode getTripReports; up to 5 per trail).",
+      "prefill": false,
+      "title": "Include report text",
+      "type": "boolean"
+    },
+    "kidFriendly": {
+      "default": false,
+      "description": "Only kid-friendly trails (mode searchTrails).",
+      "prefill": false,
+      "title": "Good for kids",
+      "type": "boolean"
+    },
+    "latitude": {
+      "description": "Center latitude for a radius search (mode searchTrails). Requires longitude and radiusMiles.",
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "description": "Center longitude for a radius search (mode searchTrails). Requires latitude and radiusMiles.",
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "maxElevationGainFeet": {
+      "description": "Only trails with at most this gain (mode searchTrails). Unknown gain is excluded.",
+      "maximum": 30000,
+      "minimum": 0,
+      "title": "Maximum elevation gain (ft)",
+      "type": "integer"
+    },
+    "maxHighPointFeet": {
+      "description": "Only trails whose highest point is at most this elevation (mode searchTrails).",
+      "maximum": 15000,
+      "minimum": 0,
+      "title": "Maximum high point (ft)",
+      "type": "integer"
     },
     "maxItems": {
       "default": 50,
       "description": "Hard cap on emitted records.",
-      "maximum": 500,
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
     "maxLengthMiles": {
-      "description": "Filter: only include trails <= this length in miles.",
+      "description": "Only trails at most this long (mode searchTrails). Trails with unknown length are excluded.",
       "maximum": 200,
       "minimum": 0,
-      "title": "Max trail length (miles)",
+      "title": "Maximum length (miles)",
       "type": "number"
     },
+    "minElevationGainFeet": {
+      "description": "Only trails with at least this gain (mode searchTrails). Unknown gain is excluded.",
+      "maximum": 30000,
+      "minimum": 0,
+      "title": "Minimum elevation gain (ft)",
+      "type": "integer"
+    },
     "minLengthMiles": {
-      "description": "Filter: only include trails >= this length in miles.",
+      "description": "Only trails at least this long (mode searchTrails). Trails with unknown length are excluded.",
       "maximum": 200,
       "minimum": 0,
-      "title": "Min trail length (miles)",
+      "title": "Minimum length (miles)",
       "type": "number"
     },
     "minRating": {
-      "description": "Filter: only include trails with average rating >= this value (0–5).",
+      "description": "Minimum average community rating, 0–5 (mode searchTrails).",
       "maximum": 5,
       "minimum": 0,
-      "title": "Min rating",
+      "title": "Minimum rating",
       "type": "number"
+    },
+    "minVoteCount": {
+      "description": "Minimum number of rating votes (mode searchTrails; applied after the listing fetch).",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum rating votes",
+      "type": "integer"
     },
     "mode": {
       "default": "searchTrails",
-      "description": "What to fetch from WTA.",
+      "description": "What to fetch from wta.org.",
       "editor": "select",
       "enum": [
         "searchTrails",
         "getTrailDetails",
-        "getTripReports"
+        "getTripReports",
+        "searchTripReports"
       ],
       "enumTitles": [
-        "Search trails by region / keyword",
-        "Get detailed trail info by URL",
-        "Get trip reports for trails"
+        "Search trails",
+        "Get trail details by URL",
+        "Get trip reports for trails",
+        "Search trip reports"
       ],
       "prefill": "searchTrails",
       "title": "Mode",
       "type": "string"
     },
+    "nameQuery": {
+      "description": "Match the hike name only (modes searchTrails, getTripReports, searchTripReports).",
+      "editor": "textfield",
+      "title": "Hike name",
+      "type": "string"
+    },
+    "passes": {
+      "default": [],
+      "description": "Keep trails that require at least one selected pass (mode searchTrails). Empty = no pass filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "none",
+          "discover-pass",
+          "national-park-pass",
+          "northwest-forest-pass",
+          "interagency-pass",
+          "oregon-state-parks-day-use",
+          "sno-parks-permit"
+        ],
+        "enumTitles": [
+          "No pass",
+          "Discover Pass",
+          "National Park pass",
+          "Northwest Forest Pass",
+          "Interagency pass",
+          "Oregon State Parks day-use",
+          "Sno-Parks permit"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Required pass",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "proxyConfiguration": {
+      "description": "Optional override. The actor works without any proxy.",
+      "editor": "proxy",
+      "title": "Proxy configuration (optional)",
+      "type": "object"
+    },
+    "radiusMiles": {
+      "description": "Search radius in miles (mode searchTrails).",
+      "maximum": 200,
+      "minimum": 1,
+      "title": "Radius (miles)",
+      "type": "number"
+    },
     "region": {
-      "default": "Snoqualmie Region",
-      "description": "Washington State region to filter trails. Examples: Snoqualmie Region, North Cascades, Olympics, Mount Rainier Area, Puget Sound and Islands.",
+      "description": "Washington region. Choose All Washington to search statewide (modes searchTrails, getTripReports, searchTripReports).",
       "editor": "select",
       "enum": [
-        "Snoqualmie Region",
+        "all",
         "Central Cascades",
-        "North Cascades",
-        "Olympics",
-        "Mount Rainier Area",
-        "South Cascades",
-        "Puget Sound and Islands",
         "Central Washington",
+        "Eastern Washington",
+        "Issaquah Alps",
+        "Mount Rainier Area",
+        "North Cascades",
+        "Olympic Peninsula",
+        "Puget Sound and Islands",
+        "Snoqualmie Region",
+        "South Cascades",
         "Southwest Washington"
       ],
       "enumTitles": [
-        "Snoqualmie Region",
+        "All Washington",
         "Central Cascades",
-        "North Cascades",
-        "Olympics Peninsula",
-        "Mount Rainier Area",
-        "South Cascades",
-        "Puget Sound and Islands",
         "Central Washington",
+        "Eastern Washington",
+        "Issaquah Alps",
+        "Mount Rainier Area",
+        "North Cascades",
+        "Olympic Peninsula",
+        "Puget Sound and Islands",
+        "Snoqualmie Region",
+        "South Cascades",
         "Southwest Washington"
       ],
       "prefill": "Snoqualmie Region",
       "title": "Region",
       "type": "string"
     },
-    "regionFilter": {
-      "description": "Additional free-text filter on region field (e.g. Snoqualmie Pass).",
-      "editor": "textfield",
-      "title": "Region text filter",
+    "reportFeatures": {
+      "default": [],
+      "description": "Keep reports matching any selected feature (mode searchTripReports).",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "has-photos",
+          "hiked-by-kids",
+          "hiked-with-dog",
+          "was-workparty"
+        ],
+        "enumTitles": [
+          "Has photos",
+          "Hiked by kids",
+          "Hiked with a dog",
+          "Was a work party"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Report features",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "reportHighlights": {
+      "default": [],
+      "description": "Keep reports mentioning any selected highlight (mode searchTripReports).",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "wildflowers-blooming",
+          "fall-foliage",
+          "ripe-berries"
+        ],
+        "enumTitles": [
+          "Wildflowers blooming",
+          "Fall foliage",
+          "Ripe berries"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Report highlights",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "reportRecency": {
+      "default": "anytime",
+      "description": "Filter by how recently a trail received a trip report (mode searchTrails).",
+      "editor": "select",
+      "enum": [
+        "anytime",
+        "30-to-90-days",
+        "90-plus-days"
+      ],
+      "enumTitles": [
+        "Any time",
+        "30–90 days ago",
+        "90+ days ago"
+      ],
+      "prefill": "anytime",
+      "title": "Trip-report recency",
       "type": "string"
     },
+    "roadConditions": {
+      "default": [],
+      "description": "Keep reports matching any selected road condition (mode searchTripReports).",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "all-vehicles",
+          "high-clearance",
+          "impassable"
+        ],
+        "enumTitles": [
+          "All vehicles",
+          "High clearance",
+          "Impassable"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Road conditions",
+      "type": "array",
+      "uniqueItems": true
+    },
     "searchQuery": {
-      "description": "Free-text keyword search for trail names or features.",
+      "description": "Free-text search of WTA hike descriptions (modes searchTrails, searchTripReports).",
       "editor": "textfield",
-      "title": "Search query",
+      "title": "Full-text query",
       "type": "string"
+    },
+    "sortBy": {
+      "default": "recently-updated",
+      "description": "Result order (mode searchTrails).",
+      "editor": "select",
+      "enum": [
+        "recently-updated",
+        "rating",
+        "difficulty",
+        "mileage",
+        "elevation-gain",
+        "high-point",
+        "name"
+      ],
+      "enumTitles": [
+        "Most recently updated",
+        "Rating (best first)",
+        "Difficulty (easiest first)",
+        "Distance (shortest first)",
+        "Elevation gain (least first)",
+        "High point (lowest first)",
+        "Hike name (A–Z)"
+      ],
+      "prefill": "recently-updated",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "subregion": {
+      "default": "all",
+      "description": "Optional sub-region. Selecting one also selects its parent region.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "83c2ab06fbf236015c8848042f706d58",
+        "2b0ca41464d9baca77ced16fb4d40760",
+        "684278bc46c11ebe3c5b7212b6f8e486",
+        "f6845d37f1edba9dc2bc8a75346f5bd5",
+        "637634387ca38685f89162475c7fc1d2",
+        "39c3197019b541c4b4b2970281fd85ed",
+        "3a415482d61dc1f893288c1bcf5cd8ae",
+        "6febb0079f87770b5e790a71aafa3770",
+        "b4be8a42f05d2054cbb2ca031b9a6a03",
+        "7a4397f2ffde7d0b490ff1ca77cceb9e",
+        "fe742c316d095b81d23d712efa977d3d",
+        "3eff611193d7d4b57590df1f40b48800",
+        "d305615b5db417f18661c5233d2ce950",
+        "bec6f9858a88f32a0912ed21d9c63b51",
+        "325fdb0c3072b1b9acca522fb9e69ec2",
+        "70056b3c13ba158deec7750ef9701a94",
+        "9f13d8a3fcd2e1ab7a5b5aaab5997a9e",
+        "98ea7186f4ff4bbba5329613f9a89bfb",
+        "883e708ab442592f904fd87c1c909f6b",
+        "c8814620167ff2c018e9b0d6e961f0c1",
+        "cbe4acbaa2c01f9a5dbf4deece4e6ad9",
+        "3b53cfc78db378ecf7599df0fa14a51c",
+        "cc329f21ff637826168e61bc9db77d65",
+        "6194b417d1ae41b1ecd0d297b3fd2dea",
+        "5674705352f9b856f2df1da7cbb8e0b1",
+        "5952810559bc6d85f808011a53ea6fcf",
+        "b52b426625b55325e408adfacae3b6c5",
+        "425fd9e8fd7edb23fc53782f16c2ea05",
+        "bfbc0abe0fd04783aaad717ea2699866",
+        "3b2e0197b8be6c19a273c919b3301405",
+        "3ca3cd096bfedde6ff95b0859278cc75",
+        "6135b6a861b5ac0c9b17a2f9b60c9295",
+        "e4421728558408ef04e0a46afb2aa7ea",
+        "92528ff6af30075eec65f35159defc50",
+        "7e0a6ce03ba1204d6bd3fdf64d3ad805",
+        "df2c2da1637452abe74a5d10837c2e03",
+        "d9dddf65d66479f065d40c1aeac18da3",
+        "db086e5e85941a02ae188f726f7e9e2c",
+        "5d45ee6e4b5b077d069382b6aac9d388",
+        "f06510bd295c2d640ee2594d1b7a2ff6",
+        "767d751df8b6495999e96486d4d32d49",
+        "ac28fa6c89800fca796a2e61b879f416",
+        "b1376aba679a6bf3d6402cf91f16a44e",
+        "73b109ca9145e4433f3089a1789d29bf",
+        "17dcd22410be73abfd45d2703e123a35",
+        "6f227fc5711324cee6170aa6d4b52cec",
+        "74fe67d98acee7d0decda17c2441a4d2",
+        "7f27f833998f4bf38a1c816fdb4cac51",
+        "35adb6fb84290947f778381d9d24a470",
+        "f0095f8e8f394f4210f50999bf8abf2c",
+        "99c63956051e489f96527d6e4ed0915c"
+      ],
+      "enumTitles": [
+        "Any sub-region",
+        "Central Cascades > Blewett Pass",
+        "Central Cascades > Entiat Mountains/Lake Chelan",
+        "Central Cascades > Leavenworth Area",
+        "Central Cascades > Stevens Pass - East",
+        "Central Cascades > Stevens Pass - West",
+        "Central Washington > Grand Coulee",
+        "Central Washington > Potholes Region",
+        "Central Washington > Tri-Cities",
+        "Central Washington > Wenatchee",
+        "Central Washington > Yakima",
+        "Eastern Washington > Okanogan Highlands/Kettle River Range",
+        "Eastern Washington > Palouse and Blue Mountains",
+        "Eastern Washington > Selkirk Range",
+        "Eastern Washington > Spokane Area/Coeur d'Alene",
+        "Issaquah Alps > Cougar Mountain",
+        "Issaquah Alps > Squak Mountain",
+        "Issaquah Alps > Tiger Mountain",
+        "Issaquah Alps > Taylor Mountain",
+        "Mount Rainier Area > Chinook Pass - Hwy 410",
+        "Mount Rainier Area > NE - Sunrise/White River",
+        "Mount Rainier Area > NW - Carbon River/Mowich",
+        "Mount Rainier Area > SW - Longmire/Paradise",
+        "Mount Rainier Area > SE - Cayuse Pass/Stevens Canyon",
+        "North Cascades > Mountain Loop Highway",
+        "North Cascades > Mount Baker Area",
+        "North Cascades > Methow/Sawtooth",
+        "North Cascades > North Cascades Highway - Hwy 20",
+        "North Cascades > Pasayten",
+        "Olympic Peninsula > Hood Canal",
+        "Olympic Peninsula > Kitsap Peninsula",
+        "Olympic Peninsula > Olympia",
+        "Olympic Peninsula > Pacific Coast",
+        "Olympic Peninsula > Northern Coast",
+        "Puget Sound and Islands > Bellingham Area",
+        "Puget Sound and Islands > San Juan Islands",
+        "Puget Sound and Islands > Seattle-Tacoma Area",
+        "Puget Sound and Islands > Whidbey Island",
+        "Snoqualmie Region > North Bend Area",
+        "Snoqualmie Region > Snoqualmie Pass",
+        "Snoqualmie Region > Salmon La Sac/Teanaway",
+        "Snoqualmie Region > Cle Elum Area",
+        "South Cascades > Dark Divide",
+        "South Cascades > Goat Rocks",
+        "South Cascades > Mount Adams Area",
+        "South Cascades > Mount St. Helens",
+        "South Cascades > White Pass/Cowlitz River Valley",
+        "Southwest Washington > Columbia River Gorge - WA",
+        "Southwest Washington > Columbia River Gorge - OR",
+        "Southwest Washington > Lewis River Region",
+        "Southwest Washington > Long Beach Area",
+        "Southwest Washington > Vancouver Area"
+      ],
+      "prefill": "all",
+      "title": "Sub-region",
+      "type": "string"
+    },
+    "trailConditions": {
+      "default": [],
+      "description": "Keep reports matching any selected trail condition (mode searchTripReports).",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "good",
+          "difficult",
+          "bugs-ok",
+          "snow-free",
+          "snow-on-trail"
+        ],
+        "enumTitles": [
+          "Good",
+          "Difficult",
+          "Bugs okay",
+          "Snow free",
+          "Snow on trail"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Trail conditions",
+      "type": "array",
+      "uniqueItems": true
     },
     "trailUrls": {
       "default": [],
-      "description": "List of WTA trail page URLs to fetch details for.",
+      "description": "WTA hike URLs, /go-hiking/hikes/<slug> paths, or bare slugs (modes getTrailDetails, getTripReports).",
       "editor": "stringList",
       "prefill": [],
-      "title": "Trail URLs (mode=getTrailDetails)",
+      "title": "Trail URLs or slugs",
       "type": "array"
+    },
+    "tripDateFrom": {
+      "description": "Earliest trip date, YYYY-MM-DD (mode searchTripReports).",
+      "editor": "textfield",
+      "title": "Report date from",
+      "type": "string"
+    },
+    "tripDateTo": {
+      "description": "Latest trip date, YYYY-MM-DD (mode searchTripReports).",
+      "editor": "textfield",
+      "title": "Report date to",
+      "type": "string"
+    },
+    "tripMonth": {
+      "default": "all",
+      "description": "Trip month across any year (mode searchTripReports).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "enumTitles": [
+        "All months",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      "prefill": "all",
+      "title": "Month",
+      "type": "string"
+    },
+    "tripReportsPerTrail": {
+      "default": 5,
+      "description": "Recent reports to include per trail (mode getTripReports).",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Reports per trail",
+      "type": "integer"
+    },
+    "wheelchairFriendly": {
+      "default": false,
+      "description": "Only wheelchair-friendly trails (mode searchTrails).",
+      "prefill": false,
+      "title": "Wheelchair friendly",
+      "type": "boolean"
     }
   },
   "required": [

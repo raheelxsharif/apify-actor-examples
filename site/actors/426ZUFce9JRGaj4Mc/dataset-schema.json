@@ -1,0 +1,82 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "community": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Community info",
+      "transformation": {
+        "fields": [
+          "name",
+          "memberCount",
+          "moderatorCount",
+          "topic",
+          "createdAt",
+          "description",
+          "url"
+        ]
+      }
+    },
+    "members": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Members",
+      "transformation": {
+        "fields": [
+          "role",
+          "username",
+          "name",
+          "followers",
+          "accountCreatedAt",
+          "communityName",
+          "profileUrl"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "All records",
+      "transformation": {
+        "fields": [
+          "type",
+          "communityName",
+          "name",
+          "text",
+          "author.username",
+          "createdAt",
+          "likeCount",
+          "memberCount",
+          "feed",
+          "url"
+        ]
+      }
+    },
+    "posts": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Posts",
+      "transformation": {
+        "fields": [
+          "text",
+          "author.username",
+          "createdAt",
+          "likeCount",
+          "retweetCount",
+          "replyCount",
+          "viewCount",
+          "feed",
+          "url"
+        ]
+      }
+    }
+  }
+}

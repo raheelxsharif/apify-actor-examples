@@ -1,0 +1,358 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "authorCount": {
+        "description": "Number of distinct review authors",
+        "type": "integer"
+      },
+      "averageRating": {
+        "description": "Average visitor rating from Naver stats",
+        "type": "number"
+      },
+      "blogContents": {
+        "description": "Blog post excerpt",
+        "type": "string"
+      },
+      "blogContentsLength": {
+        "description": "Length of the blog excerpt",
+        "type": "integer"
+      },
+      "blogDate": {
+        "description": "Blog post publish date (YYYY-MM-DD)",
+        "type": "string"
+      },
+      "blogRank": {
+        "description": "Position in Naver's blog review list for this place",
+        "type": "integer"
+      },
+      "blogReviewCount": {
+        "description": "Linked blog/cafe review total for the place",
+        "type": "integer"
+      },
+      "blogSource": {
+        "description": "Source type: blog or cafe",
+        "type": "string"
+      },
+      "blogThumbnailUrl": {
+        "description": "Blog post thumbnail image URL",
+        "type": "string"
+      },
+      "blogThumbnailUrls": {
+        "description": "All blog post thumbnail image URLs",
+        "type": "array"
+      },
+      "blogTitle": {
+        "description": "Blog post title",
+        "type": "string"
+      },
+      "blogTypeName": {
+        "description": "Localized source label",
+        "type": "string"
+      },
+      "blogUrl": {
+        "description": "Link to the full blog post",
+        "type": "string"
+      },
+      "bloggerHome": {
+        "description": "Blogger's blog home URL",
+        "type": "string"
+      },
+      "bloggerName": {
+        "description": "Blogger name",
+        "type": "string"
+      },
+      "bloggerProfileImageUrl": {
+        "description": "Blogger profile image URL",
+        "type": "string"
+      },
+      "hasReply": {
+        "description": "True when the owner replied with text",
+        "type": "boolean"
+      },
+      "imageReviewCount": {
+        "description": "Number of reviews with images",
+        "type": "integer"
+      },
+      "isRepresentative": {
+        "description": "Whether Naver marks this blog post as representative",
+        "type": "boolean"
+      },
+      "isSelfPaid": {
+        "description": "Whether the blog review is marked as self-paid",
+        "type": "boolean"
+      },
+      "language": {
+        "description": "Review language code",
+        "type": "string"
+      },
+      "mediaCount": {
+        "description": "Number of photos and videos attached to the review",
+        "type": "integer"
+      },
+      "menuItem": {
+        "description": "Menu item mentioned in the review",
+        "type": "string"
+      },
+      "originType": {
+        "description": "Review origin, e.g. 영수증 for receipt-verified reviews",
+        "type": "string"
+      },
+      "placeAddress": {
+        "description": "Place street address",
+        "type": "string"
+      },
+      "placeBlogReviewCount": {
+        "description": "Total linked blog/cafe review count on the place",
+        "type": "integer"
+      },
+      "placeBusinessCategory": {
+        "description": "Naver business category, e.g. restaurant or cafe",
+        "type": "string"
+      },
+      "placeCategory": {
+        "description": "Place category (Korean)",
+        "type": "string"
+      },
+      "placeId": {
+        "description": "Naver Place ID",
+        "type": "string"
+      },
+      "placeName": {
+        "description": "Place name",
+        "type": "string"
+      },
+      "placeRating": {
+        "description": "Place-level average visitor review score",
+        "type": "number"
+      },
+      "placeRoadAddress": {
+        "description": "Place road address",
+        "type": "string"
+      },
+      "placeTotalReviews": {
+        "description": "Total visitor review count on the place",
+        "type": "integer"
+      },
+      "placeUrl": {
+        "description": "Canonical place URL",
+        "type": "string"
+      },
+      "ratingDistribution": {
+        "description": "Half-star distribution keyed 0.5 to 5.0",
+        "type": "object"
+      },
+      "ratingReviewCount": {
+        "description": "Rating-only visitor reviews",
+        "type": "integer"
+      },
+      "replyStatus": {
+        "description": "replied, no_reply, or unknown",
+        "type": "string"
+      },
+      "reviewCreatedAt": {
+        "description": "Review creation timestamp in ISO 8601 (KST)",
+        "type": "string"
+      },
+      "reviewDate": {
+        "description": "Review creation date (YYYY-MM-DD, KST)",
+        "type": "string"
+      },
+      "reviewHasText": {
+        "description": "False when the review is rating-only",
+        "type": "boolean"
+      },
+      "reviewId": {
+        "description": "Visitor review ID",
+        "type": "string"
+      },
+      "reviewPhotos": {
+        "description": "Photo and video-thumbnail URLs, when includeReviewPhotos is enabled",
+        "type": "array"
+      },
+      "reviewRating": {
+        "description": "Review star rating from 1 to 5, in 0.5 increments, when Naver exposes it; older anonymous reviews often omit it",
+        "type": "number"
+      },
+      "reviewReactionCount": {
+        "description": "Number of reactions on the review",
+        "type": "integer"
+      },
+      "reviewReplyDate": {
+        "description": "Owner reply date",
+        "type": "string"
+      },
+      "reviewReplyText": {
+        "description": "Business owner's reply to the review",
+        "type": "string"
+      },
+      "reviewText": {
+        "description": "Full review body (Korean), omitted for rating-only reviews",
+        "type": "string"
+      },
+      "reviewThemes": {
+        "description": "Theme labels with review counts",
+        "type": "array"
+      },
+      "reviewType": {
+        "description": "Record type: visitor, blog, or stats",
+        "type": "string"
+      },
+      "reviewViewCount": {
+        "description": "Number of views on the review",
+        "type": "integer"
+      },
+      "reviewerAverageRating": {
+        "description": "Reviewer's average rating across their reviews",
+        "type": "number"
+      },
+      "reviewerFollowerCount": {
+        "description": "Reviewer follower count",
+        "type": "integer"
+      },
+      "reviewerImageUrl": {
+        "description": "Reviewer profile image URL",
+        "type": "string"
+      },
+      "reviewerName": {
+        "description": "Reviewer nickname (masked by Naver)",
+        "type": "string"
+      },
+      "reviewerProfileUrl": {
+        "description": "Reviewer profile URL",
+        "type": "string"
+      },
+      "reviewerReviewCount": {
+        "description": "Total reviews authored by the reviewer",
+        "type": "integer"
+      },
+      "runKeywordDistribution": {
+        "description": "Voted-keyword counts across visitor reviews emitted for this place",
+        "type": "array"
+      },
+      "runRatingDistribution": {
+        "description": "Rating distribution across visitor reviews emitted for this place",
+        "type": "object"
+      },
+      "scrapedAt": {
+        "description": "ISO 8601 scrape timestamp",
+        "type": "string"
+      },
+      "scrapedBlogReviews": {
+        "description": "Blog reviews emitted for this place in this run",
+        "type": "integer"
+      },
+      "scrapedVisitorReviews": {
+        "description": "Visitor reviews emitted for this place in this run",
+        "type": "integer"
+      },
+      "searchKeyword": {
+        "description": "Keyword that discovered this place (keyword-search mode only)",
+        "type": "string"
+      },
+      "searchRank": {
+        "description": "1-based rank of the place in the keyword search result",
+        "type": "integer"
+      },
+      "starDistribution": {
+        "description": "Integer star distribution {5: n, 4: n, ...} when Naver supplies integer scores",
+        "type": "object"
+      },
+      "textReviewCount": {
+        "description": "Visitor reviews with written text",
+        "type": "integer"
+      },
+      "topMenus": {
+        "description": "Most-mentioned menu items with counts",
+        "type": "array"
+      },
+      "totalReviewCount": {
+        "description": "Total visitor review count from Naver stats",
+        "type": "integer"
+      },
+      "totalVisitorReviews": {
+        "description": "Total visitor reviews reported by Naver stats",
+        "type": "integer"
+      },
+      "translatedText": {
+        "description": "Auto-translated review text, when Naver provides it",
+        "type": "string"
+      },
+      "visitCount": {
+        "description": "Number of visits reported by the reviewer",
+        "type": "integer"
+      },
+      "visitCountLabel": {
+        "description": "Korean visit label, e.g. 2번째 방문",
+        "type": "string"
+      },
+      "visitDate": {
+        "description": "Actual visit date (YYYY-MM-DD)",
+        "type": "string"
+      },
+      "visitTags": {
+        "description": "Visit-context tags, e.g. 예약 없이 이용 or 혼자",
+        "type": "array"
+      },
+      "votedKeywordStats": {
+        "description": "Most-voted keyword tags with counts",
+        "type": "array"
+      },
+      "votedKeywords": {
+        "description": "Naver voted keyword tags, e.g. 음식이 맛있어요",
+        "type": "array"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Naver Place Reviews + Blog",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "blogDate": {
+            "format": "text",
+            "label": "Blog Date"
+          },
+          "blogTitle": {
+            "format": "text",
+            "label": "Blog Post"
+          },
+          "placeName": {
+            "format": "text",
+            "label": "Place"
+          },
+          "reviewRating": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "reviewText": {
+            "format": "text",
+            "label": "Review"
+          },
+          "reviewType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "searchKeyword": {
+            "format": "text",
+            "label": "Keyword"
+          }
+        }
+      },
+      "title": "Reviews Overview",
+      "transformation": {
+        "fields": [
+          "reviewType",
+          "placeName",
+          "searchKeyword",
+          "reviewRating",
+          "reviewText",
+          "blogTitle",
+          "blogDate"
+        ]
+      }
+    }
+  }
+}

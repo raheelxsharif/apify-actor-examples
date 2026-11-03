@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Product and supplier records from Made-in-China.com with price tiers, MOQ, specifications, supplier firmographics, audit metadata, contact page fields, and a computed lead score.",
+  "properties": {
+    "results": {
+      "description": "Dataset containing product records (searchProducts, categoryBrowse, productDetails, supplierProducts) and supplier records (searchSuppliers, supplierDetails). Product rows include legacy title/price/minOrder plus numeric priceMin/priceMax, priceTiers, minOrderQuantity, specifications, images, video, categories, FAQ, supplier profile, audit data, and leadScore. Supplier rows include legacy supplier/products/certifications plus firmographics, trade terms, membership, audit report, contact page fields, product groups, verified fields, and leadScore.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Made-in-China results",
+      "type": "string"
+    }
+  },
+  "title": "Made-in-China B2B Sourcing & Supplier Finder Output"
+}

@@ -1,0 +1,121 @@
+{
+  "description": "Collect Naver Place visitor reviews, linked Naver Blog posts, and aggregated rating statistics. Provide place URLs/IDs directly, or search by keyword to discover places first.",
+  "properties": {
+    "excludeReviewIds": {
+      "description": "Visitor review IDs and blog post URLs to skip. Useful for incremental runs that only want new reviews.",
+      "editor": "stringList",
+      "title": "Exclude review IDs or blog URLs",
+      "type": "array"
+    },
+    "includeBlogReviews": {
+      "default": true,
+      "description": "Collect Naver Blog and cafe posts linked to the place, with exact publish dates.",
+      "prefill": false,
+      "title": "Include blog reviews",
+      "type": "boolean"
+    },
+    "includeRatingOnlyReviews": {
+      "default": true,
+      "description": "Also collect reviews that have a star rating but no written text. These come from a separate Naver review stream and count toward maxReviews.",
+      "prefill": false,
+      "title": "Include rating-only reviews",
+      "type": "boolean"
+    },
+    "includeReviewPhotos": {
+      "default": false,
+      "description": "Include photo and video-thumbnail URLs attached to each visitor review.",
+      "prefill": false,
+      "title": "Include review photos",
+      "type": "boolean"
+    },
+    "includeReviewStats": {
+      "default": true,
+      "description": "Emit one stats record per place: average rating, rating distribution, themes, top menus, voted keywords, and review counts.",
+      "prefill": false,
+      "title": "Include review statistics",
+      "type": "boolean"
+    },
+    "includeVisitorReviews": {
+      "default": true,
+      "description": "Collect visitor reviews. Turn off for a blog-only or stats-only run.",
+      "prefill": true,
+      "title": "Include visitor reviews",
+      "type": "boolean"
+    },
+    "maxBlogReviews": {
+      "default": 100,
+      "description": "Maximum linked blog/cafe posts per place. Naver exposes at most 100 per place.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max blog reviews per place",
+      "type": "integer"
+    },
+    "maxConcurrency": {
+      "default": 3,
+      "description": "How many places to scrape in parallel. Higher is faster but increases rate-limit risk.",
+      "maximum": 10,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max concurrent places",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Hard cap on total records emitted across all places.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPlacesPerKeyword": {
+      "default": 3,
+      "description": "Maximum places to scrape per keyword search. Naver's search page returns up to 100 places per keyword.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max places per keyword",
+      "type": "integer"
+    },
+    "maxReviews": {
+      "default": 100,
+      "description": "Maximum visitor reviews to collect per place, across both the text-review stream and the rating-only stream. Naver paginates 50 reviews per request.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max visitor reviews per place",
+      "type": "integer"
+    },
+    "placeUrls": {
+      "description": "Naver Place URLs, naver.me short links, or bare numeric Place IDs. Examples: 'https://map.naver.com/p/entry/place/38239053', 'https://pcmap.place.naver.com/place/38239053/home', '38239053'.",
+      "editor": "stringList",
+      "prefill": [
+        "https://map.naver.com/p/entry/place/38239053"
+      ],
+      "title": "Place URLs or IDs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Optional. Leave empty to use direct requests; the actor escalates to an Apify datacenter proxy only after a real block.",
+      "editor": "proxy",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchKeywords": {
+      "description": "Keywords to discover places first, then scrape their reviews. Example: ['강남 맛집', '홍대 카페']. Can be combined with placeUrls.",
+      "editor": "stringList",
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "visitedSince": {
+      "description": "Only keep visitor reviews whose visit date is on or after this date. Reviews without a visit date are skipped when this filter is set.",
+      "editor": "datepicker",
+      "title": "Visited since (YYYY-MM-DD)",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Naver Place Reviews + Blog Scraper Input",
+  "type": "object"
+}

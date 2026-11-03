@@ -1,0 +1,132 @@
+{
+  "description": "Search Kompass global B2B directory for companies by name, product, country, or industry.",
+  "properties": {
+    "companyUrls": {
+      "default": [],
+      "description": "List of Kompass company profile URLs to fetch details for.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Company URLs (mode=companyDetails)",
+      "type": "array"
+    },
+    "country": {
+      "default": "US",
+      "description": "ISO 2-letter country code to filter results (e.g. 'US', 'DE', 'FR', 'GB'). Leave blank for all countries.",
+      "editor": "select",
+      "enum": [
+        "",
+        "US",
+        "DE",
+        "FR",
+        "GB",
+        "IT",
+        "ES",
+        "NL",
+        "BE",
+        "CH",
+        "AT",
+        "SE",
+        "DK",
+        "NO",
+        "FI",
+        "PL",
+        "CZ",
+        "HU",
+        "RO",
+        "PT",
+        "GR",
+        "TR",
+        "RU",
+        "CN",
+        "JP",
+        "KR",
+        "IN",
+        "BR",
+        "MX",
+        "CA",
+        "AU",
+        "ZA"
+      ],
+      "enumTitles": [
+        "All countries",
+        "United States",
+        "Germany",
+        "France",
+        "United Kingdom",
+        "Italy",
+        "Spain",
+        "Netherlands",
+        "Belgium",
+        "Switzerland",
+        "Austria",
+        "Sweden",
+        "Denmark",
+        "Norway",
+        "Finland",
+        "Poland",
+        "Czech Republic",
+        "Hungary",
+        "Romania",
+        "Portugal",
+        "Greece",
+        "Turkey",
+        "Russia",
+        "China",
+        "Japan",
+        "South Korea",
+        "India",
+        "Brazil",
+        "Mexico",
+        "Canada",
+        "Australia",
+        "South Africa"
+      ],
+      "prefill": "US",
+      "title": "Country code",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of company records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchCompanies",
+      "description": "What to search for on Kompass.",
+      "editor": "select",
+      "enum": [
+        "searchCompanies",
+        "searchByProduct",
+        "searchByCountry",
+        "companyDetails"
+      ],
+      "enumTitles": [
+        "Search companies by query",
+        "Search companies by product/service",
+        "Browse companies by country",
+        "Fetch company details by URL"
+      ],
+      "prefill": "searchCompanies",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "default": "machine tools",
+      "description": "Company name or keyword to search for (used in searchCompanies and searchByProduct modes).",
+      "editor": "textfield",
+      "prefill": "machine tools",
+      "title": "Search query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Kompass Scraper Input",
+  "type": "object"
+}
