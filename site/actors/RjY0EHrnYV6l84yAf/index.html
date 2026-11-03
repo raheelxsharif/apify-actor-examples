@@ -682,5 +682,342 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-wta-washington-trails-hike-details-trip-reports">WTA Washington Trails, Hike Details &amp; Trip Reports</h2>
-<p>See the main README for modes, input fields, output fields and FAQ.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/RjY0EHrnYV6l84yAf/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>8QXZwDEG2zR4Dzrlw</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<p>Scrape <strong>Washington Trails Association (wta.org)</strong> — the state's largest hiking guide — with four modes covering trail search, trail details, trail-level trip reports and report-level search. Pull all 4,278 hikes across 11 regions and 51 sub-regions, with length, elevation, coordinates, difficulty, access rules, parking passes, alerts and recent trail conditions. No account, cookies or proxy setup required.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Four modes:</strong> <code>searchTrails</code>, <code>getTrailDetails</code>, <code>getTripReports</code>, <code>searchTripReports</code></li>
+<li><strong>Complete trail inventory:</strong> all 4,278 WTA hikes, 11 regions and 51 sub-regions, paginated in one run</li>
+<li><strong>Hiking filters:</strong> region, sub-region, name/full-text search, features, dog policy, kid/wheelchair access, rating, votes, length, gain, high point, required pass, report recency and seven sort orders</li>
+<li><strong>Map search:</strong> radius around a latitude/longitude or a <code>south,west,north,east</code> bounding box</li>
+<li><strong>Real trip reports:</strong> trail-level report counts and latest dates, or a filtered feed from 288,600 reports with conditions, photos, highlights and helpful votes</li>
+<li><strong>Detail enrichment:</strong> difficulty, parking pass, land manager, directions, closures and full description</li>
+<li><strong>Dual units:</strong> miles/feet from the source plus derived kilometres/metres</li>
+<li><strong>Empty fields are omitted</strong> — records never contain <code>null</code>, empty strings or empty arrays</li>
+</ul>
+<h2 id="readme-output-per-trail">Output per trail</h2>
+<ul>
+<li><code>recordType</code> — <code>&quot;trail&quot;</code></li>
+<li><code>trailName</code>, <code>trailUrl</code>, <code>trailId</code>, <code>hikeUid</code>, <code>trailSlug</code></li>
+<li><code>region</code>, <code>regionName</code>, <code>subregionName</code></li>
+<li><code>lengthMiles</code>, <code>lengthText</code>, <code>lengthKm</code>, <code>routeType</code></li>
+<li><code>elevationGainFeet</code>, <code>elevationGainText</code>, <code>elevationGainMeters</code></li>
+<li><code>highPointFeet</code>, <code>highPointText</code>, <code>highPointMeters</code></li>
+<li><code>difficulty</code> — Easy through Hard (detail mode or <code>fetchDetails</code>)</li>
+<li><code>rating</code>, <code>reviewCount</code> — community rating and number of rating votes</li>
+<li><code>tripReportCount</code>, <code>lastTripReportDate</code>, <code>lastTripReportUrl</code></li>
+<li><code>features[]</code> — Lakes, Waterfalls, Mountain views, Summits and other WTA tags</li>
+<li><code>latitude</code>, <code>longitude</code>, <code>distanceMiles</code> (radius searches)</li>
+<li><code>parkingPass</code>, <code>passes[]</code>, <code>landManager</code>, <code>directions</code></li>
+<li><code>alerts[]</code>, <code>hasAlerts</code> — closures and access warnings checked with the trail</li>
+<li><code>companions[]</code>, <code>dogsAllowed</code>, <code>dogPolicy</code>, <code>kidFriendly</code>, <code>wheelchairAccess</code></li>
+<li><code>summary</code>, <code>description</code>, <code>imageUrl</code></li>
+<li><code>scrapedAt</code> — ISO-8601 UTC timestamp</li>
+</ul>
+<h2 id="readme-output-per-trip-report">Output per trip report</h2>
+<ul>
+<li><code>recordType</code> — <code>&quot;tripReport&quot;</code></li>
+<li><code>tripReportId</code>, <code>tripReportUrl</code></li>
+<li><code>trailName</code>, <code>trailUrl</code>, <code>trailId</code>, <code>hikeUid</code></li>
+<li><code>reportDate</code>, <code>region</code>, <code>regionName</code>, <code>subregionName</code></li>
+<li><code>author</code>, <code>authorUrl</code>, <code>authorBadges[]</code></li>
+<li><code>text</code>, <code>photoCount</code>, <code>imageUrl</code>, <code>photoUrls[]</code></li>
+<li><code>helpfulCount</code>, <code>features[]</code></li>
+<li><code>hikeType</code>, <code>trailConditions</code>, <code>roadConditions</code>, <code>bugs</code>, <code>snow</code></li>
+<li><code>warnings</code>, <code>scrapedAt</code></li>
+</ul>
+<p><code>getTripReports</code> returns trail records with <code>tripReportCount</code>, <code>lastTripReportDate</code>, <code>lastTripReportUrl</code> and a <code>recentTripReports[]</code> array containing each report's date, author, URL, warnings and optional text/tags when <code>includeReportText</code> is on.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select</td>
+<td><code>searchTrails</code></td>
+<td><code>searchTrails</code>, <code>getTrailDetails</code>, <code>getTripReports</code> or <code>searchTripReports</code></td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Full-text search of hike descriptions (searchTrails, searchTripReports)</td>
+</tr>
+<tr>
+<td><code>nameQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Match the hike name only (searchTrails, getTripReports, searchTripReports)</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>select</td>
+<td>–</td>
+<td>All Washington or one of 11 regions</td>
+</tr>
+<tr>
+<td><code>subregion</code></td>
+<td>select</td>
+<td><code>all</code></td>
+<td>Any of 51 sub-regions; also selects its parent region</td>
+</tr>
+<tr>
+<td><code>features</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Require all selected trail features (searchTrails)</td>
+</tr>
+<tr>
+<td><code>dogPolicy</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>allowed-on-leash</code> or <code>not-allowed</code></td>
+</tr>
+<tr>
+<td><code>kidFriendly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only kid-friendly trails</td>
+</tr>
+<tr>
+<td><code>wheelchairFriendly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only wheelchair-friendly trails</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td>–</td>
+<td>Minimum average rating (0–5)</td>
+</tr>
+<tr>
+<td><code>minVoteCount</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum number of rating votes</td>
+</tr>
+<tr>
+<td><code>minLengthMiles</code> / <code>maxLengthMiles</code></td>
+<td>number</td>
+<td>–</td>
+<td>Trail length range (miles)</td>
+</tr>
+<tr>
+<td><code>minElevationGainFeet</code> / <code>maxElevationGainFeet</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Elevation gain range (feet)</td>
+</tr>
+<tr>
+<td><code>maxHighPointFeet</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum highest point (feet)</td>
+</tr>
+<tr>
+<td><code>passes</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keep trails requiring at least one selected pass</td>
+</tr>
+<tr>
+<td><code>reportRecency</code></td>
+<td>select</td>
+<td><code>anytime</code></td>
+<td><code>anytime</code>, <code>30-to-90-days</code> or <code>90-plus-days</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>recently-updated</code></td>
+<td>Recently updated, rating, difficulty, distance, gain, high point or name</td>
+</tr>
+<tr>
+<td><code>latitude</code>, <code>longitude</code>, <code>radiusMiles</code></td>
+<td>numbers</td>
+<td>–</td>
+<td>Radius search; all three are required together</td>
+</tr>
+<tr>
+<td><code>boundingBox</code></td>
+<td>string</td>
+<td>–</td>
+<td><code>south,west,north,east</code>; takes priority over radius</td>
+</tr>
+<tr>
+<td><code>trailUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>WTA URLs, <code>/go-hiking/hikes/&lt;slug&gt;</code> paths or bare slugs</td>
+</tr>
+<tr>
+<td><code>fetchDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add detail-page fields per trail</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>string</td>
+<td>–</td>
+<td>Report author username (searchTripReports)</td>
+</tr>
+<tr>
+<td><code>tripDateFrom</code> / <code>tripDateTo</code></td>
+<td>string</td>
+<td>–</td>
+<td>Report date range, YYYY-MM-DD</td>
+</tr>
+<tr>
+<td><code>tripMonth</code></td>
+<td>select</td>
+<td><code>all</code></td>
+<td>All months or January–December</td>
+</tr>
+<tr>
+<td><code>hikeTypes</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Day hike, overnight, multi-night backpack, snowshoe/XC ski</td>
+</tr>
+<tr>
+<td><code>reportFeatures</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Has photos, hiked by kids, hiked with a dog, work party</td>
+</tr>
+<tr>
+<td><code>reportHighlights</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Wildflowers, fall foliage, ripe berries</td>
+</tr>
+<tr>
+<td><code>trailConditions</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Good, difficult, bugs okay, snow free, snow on trail</td>
+</tr>
+<tr>
+<td><code>roadConditions</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>All vehicles, high clearance, impassable</td>
+</tr>
+<tr>
+<td><code>fetchReportDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Open each report page for conditions and photo URLs</td>
+</tr>
+<tr>
+<td><code>tripReportsPerTrail</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Recent reports per trail (getTripReports)</td>
+</tr>
+<tr>
+<td><code>includeReportText</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Attach text and tags to recent reports</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Hard cap on emitted records (1–10,000)</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>–</td>
+<td>Optional override; the actor works without a proxy</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-browse-a-region-with-hiking-filters">Example: browse a region with hiking filters</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchTrails&quot;,
+  &quot;region&quot;: &quot;Snoqualmie Region&quot;,
+  &quot;features&quot;: [&quot;Waterfalls&quot;, &quot;Lakes&quot;],
+  &quot;minLengthMiles&quot;: 3,
+  &quot;maxLengthMiles&quot;: 10,
+  &quot;minRating&quot;: 4,
+  &quot;maxItems&quot;: 40
+}
+</code></pre>
+<h3 id="readme-example-full-details-for-specific-trails">Example: full details for specific trails</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;getTrailDetails&quot;,
+  &quot;trailUrls&quot;: [
+    &quot;https://www.wta.org/go-hiking/hikes/mount-si&quot;,
+    &quot;snow-lake-1&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-reports-near-a-map-point">Example: reports near a map point</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchTrails&quot;,
+  &quot;latitude&quot;: 47.4880,
+  &quot;longitude&quot;: -121.7231,
+  &quot;radiusMiles&quot;: 25,
+  &quot;maxItems&quot;: 25
+}
+</code></pre>
+<h3 id="readme-example-recent-trip-reports-with-conditions">Example: recent trip reports with conditions</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchTripReports&quot;,
+  &quot;region&quot;: &quot;Snoqualmie Region&quot;,
+  &quot;tripDateFrom&quot;: &quot;2026-09-01&quot;,
+  &quot;reportFeatures&quot;: [&quot;has-photos&quot;],
+  &quot;fetchReportDetails&quot;: true,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-report-history-for-one-trail">Example: report history for one trail</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;getTripReports&quot;,
+  &quot;trailUrls&quot;: [&quot;https://www.wta.org/go-hiking/hikes/mount-si&quot;],
+  &quot;tripReportsPerTrail&quot;: 10,
+  &quot;includeReportText&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Trip planning</strong> — shortlist hikes by region, distance, gain, rating, dog rules and required pass</li>
+<li><strong>Outdoor publishing</strong> — build a Washington hiking guide with descriptions, difficulty and photos</li>
+<li><strong>Trail-condition monitoring</strong> — track recent reports, snow, road access and closure alerts</li>
+<li><strong>Mapping and GIS</strong> — export trailhead coordinates for every trail that publishes a location</li>
+<li><strong>Recreation research</strong> — compare trail density, length and elevation across 11 regions</li>
+<li><strong>Trip-report analysis</strong> — study seasonality, highlights and helpful votes across 288,600 reports</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with the Washington Trails Association?</strong>
+No. This is an independent, third-party actor that reads publicly available pages on wta.org. It is not operated by or endorsed by WTA.</p>
+<p><strong>What is the difference between the four modes?</strong>
+<code>searchTrails</code> browses or filters the full trail database. <code>getTrailDetails</code> returns one complete record for each WTA URL or slug you paste. <code>getTripReports</code> returns trails with report counts, latest report dates and recent report metadata. <code>searchTripReports</code> returns individual reports from the global report feed.</p>
+<p><strong>How many trails and reports are available?</strong>
+WTA currently lists 4,278 hikes in 11 regions and 51 sub-regions. The global report feed contains about 288,600 reports. A full trail run returns the complete inventory; a full report run is capped by <code>maxItems</code> (up to 10,000 per run).</p>
+<p><strong>Why are <code>lengthMiles</code>, <code>rating</code>, coordinates or features missing on some trails?</strong>
+Roughly one fifth to one quarter of WTA records genuinely do not publish every field, and about 620 trails have no coordinates. Those fields are omitted rather than filled with guesses. Filters that need a missing length, elevation, rating, feature or coordinate exclude that record; WTA's own server-side filters enforce dog, kid and wheelchair access.</p>
+<p><strong>What is the difference between <code>reviewCount</code> and <code>tripReportCount</code>?</strong>
+<code>reviewCount</code> is the number of community rating votes behind <code>rating</code>. <code>tripReportCount</code> is the separate count of trip reports published for the trail.</p>
+<p><strong>How do I get coordinates, difficulty and access details?</strong>
+Set <code>fetchDetails</code> to <code>true</code> in <code>searchTrails</code> or use <code>getTrailDetails</code>. Search results already include coordinates and access attributes for the 85% of trails that publish them in WTA's map data; difficulty, parking pass, land manager, directions and alerts come from the trail page.</p>
+<p><strong>Do I need an account, cookies or a proxy?</strong>
+No. The actor uses public WTA pages and works without credentials or proxy setup. <code>proxyConfiguration</code> is an optional override only.</p>
+<p><strong>Why does a report search return different reports than a trail's report history?</strong>
+<code>searchTripReports</code> reads WTA's global report feed and applies report-level filters such as author, month, hike type and conditions. <code>getTripReports</code> reads each selected trail's own report history, which is the better choice when you care about one trail.</p>
+<p><strong>How current is the data?</strong>
+Each run reads the live WTA pages. Trail stats, report counts and report dates reflect the site at run time. Hikers post new reports continuously, so recent-report fields change from day to day.</p>
+<p><strong>Can I get every trail in one run?</strong>
+Yes. Run <code>searchTrails</code> with <code>region</code> set to All Washington and <code>maxItems</code> at least 4,278. Region-by-region runs work too if you want smaller batches.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/RjY0EHrnYV6l84yAf/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>Mnfe02NPtoG0Bk2Br</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
