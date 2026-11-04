@@ -1,10 +1,11 @@
 {
   "properties": {
     "asins": {
-      "description": "Amazon ASINs to look up. Each ASIN is searched (/s?k={ASIN}) and the matching search-result card is scraped, reusing the same search-card parser as other input modes.",
+      "description": "Amazon ASINs to fetch exactly. Each ASIN opens its own product page (/dp/{ASIN}) directly, never a keyword search.",
       "editor": "stringList",
       "example": [
-        "B08N5WRWNW"
+        "B08N5WRWNW",
+        "B09X7MPX8L"
       ],
       "items": {
         "type": "string"
@@ -13,7 +14,7 @@
       "type": "array"
     },
     "categoryNodeIds": {
-      "description": "Amazon browse-node IDs. Each node ID builds a browse-node/category landing URL (/b?node={id}).",
+      "description": "Amazon browse-node IDs. Each node builds a real category listing (/s?rh=n:{node}&fs=true), with a merchandising fallback only when Amazon renders no listing grid.",
       "editor": "stringList",
       "example": [
         "172282"
@@ -25,65 +26,128 @@
       "type": "array"
     },
     "categoryUrls": {
-      "description": "List of Amazon category or search result URLs to scrape. Supports search pages (e.g., amazon.com/s?k=laptops) and browse nodes (e.g., amazon.com/b?node=123). At least one of Category/Search URLs, Keywords, ASINs, Seller IDs, or Category Node IDs is required.",
+      "description": "Amazon search, category, seller-profile, or exact product URLs. Search pages (/s?k=), browse nodes (/b?node=), seller profiles (/sp?seller=), and product pages (/dp/) are routed automatically. Combine with any other mode.",
       "editor": "stringList",
       "example": [
         "https://www.amazon.com/s?k=laptops",
-        "https://www.amazon.com/s?k=wireless+headphones"
+        "https://www.amazon.com/dp/B08N5WRWNW"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Search, Category & Product URLs",
+      "type": "array"
+    },
+    "includeSpecifications": {
+      "default": true,
+      "description": "If true (and detail pages are scraped), return the specifications object parsed from the overview and technical-detail tables.",
+      "prefill": false,
+      "title": "Include Specifications",
+      "type": "boolean"
+    },
+    "includeSponsored": {
+      "default": true,
+      "description": "If true (default), sponsored/ad placements are included. Set false to return organic results only.",
+      "title": "Include Sponsored Results",
+      "type": "boolean"
+    },
+    "keywords": {
+      "description": "Plain search keywords or phrases. Each keyword builds an Amazon search URL (/s?k={query}).",
+      "editor": "stringList",
+      "example": [
+        "wireless earbuds",
+        "bluetooth speaker"
       ],
       "items": {
         "type": "string"
       },
       "prefill": [
-        "https://www.amazon.com/s?k=laptops"
+        "wireless earbuds"
       ],
-      "title": "Category/Search URLs",
-      "type": "array"
-    },
-    "includeSponsored": {
-      "default": true,
-      "description": "If true (default), sponsored/ad results are included in the output. Set to false to only return organic results.",
-      "title": "Include Sponsored Results",
-      "type": "boolean"
-    },
-    "keywords": {
-      "description": "Plain search keywords/phrases. Each keyword builds an Amazon search URL (/s?k={query}) automatically.",
-      "editor": "stringList",
-      "example": [
-        "running shoes",
-        "wireless headphones"
-      ],
-      "items": {
-        "type": "string"
-      },
-      "title": "Keywords",
+      "title": "Search Keywords",
       "type": "array"
     },
     "marketplaceDomain": {
       "default": "amazon.com",
-      "description": "Amazon marketplace domain used to build URLs for the Keywords/ASINs/Seller IDs/Category Node IDs input modes (ignored for Category/Search URLs, which are used as-is).",
-      "editor": "textfield",
+      "description": "Amazon marketplace used for keyword, ASIN, seller, and node modes. URLs in categoryUrls/productUrls keep their own marketplace.",
+      "editor": "select",
+      "enum": [
+        "amazon.com",
+        "amazon.co.uk",
+        "amazon.de",
+        "amazon.fr",
+        "amazon.it",
+        "amazon.es",
+        "amazon.ca",
+        "amazon.com.au",
+        "amazon.co.jp",
+        "amazon.in",
+        "amazon.com.br",
+        "amazon.com.mx",
+        "amazon.nl",
+        "amazon.se",
+        "amazon.pl",
+        "amazon.com.tr",
+        "amazon.ae",
+        "amazon.sa",
+        "amazon.sg",
+        "amazon.com.be",
+        "amazon.eg"
+      ],
+      "enumTitles": [
+        "United States (amazon.com)",
+        "United Kingdom (amazon.co.uk)",
+        "Germany (amazon.de)",
+        "France (amazon.fr)",
+        "Italy (amazon.it)",
+        "Spain (amazon.es)",
+        "Canada (amazon.ca)",
+        "Australia (amazon.com.au)",
+        "Japan (amazon.co.jp)",
+        "India (amazon.in)",
+        "Brazil (amazon.com.br)",
+        "Mexico (amazon.com.mx)",
+        "Netherlands (amazon.nl)",
+        "Sweden (amazon.se)",
+        "Poland (amazon.pl)",
+        "Turkey (amazon.com.tr)",
+        "United Arab Emirates (amazon.ae)",
+        "Saudi Arabia (amazon.sa)",
+        "Singapore (amazon.sg)",
+        "Belgium (amazon.com.be)",
+        "Egypt (amazon.eg)"
+      ],
       "prefill": "amazon.com",
-      "title": "Marketplace Domain",
+      "title": "Marketplace",
       "type": "string"
+    },
+    "maxItems": {
+      "default": 0,
+      "description": "Global cap across every source in the run. 0 means no global cap.",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Maximum Items (all sources)",
+      "type": "integer"
     },
     "maxItemsPerCategory": {
       "default": 10,
-      "description": "Maximum number of products to scrape per category URL",
+      "description": "Maximum products to return from each keyword, URL, seller, or node source.",
       "editor": "number",
-      "maximum": 1000,
+      "maximum": 10000,
       "minimum": 1,
       "prefill": 3,
-      "title": "Max Items Per Category",
+      "title": "Maximum Items Per Source",
       "type": "integer"
     },
     "maxPages": {
       "default": 1,
-      "description": "Maximum number of pages to scrape per category",
+      "description": "Maximum listing pages per source. Amazon keyword search itself stops at page 7; category listings go deeper.",
       "editor": "number",
       "maximum": 50,
       "minimum": 1,
-      "title": "Max Pages",
+      "title": "Maximum Pages",
       "type": "integer"
     },
     "minRating": {
@@ -96,70 +160,60 @@
     },
     "onlyDeals": {
       "default": false,
-      "description": "If true, only return products with evidence of a deal (coupon, limited-time-deal badge, or a visible list/strike-through price).",
+      "description": "If true, only return products with visible deal evidence (coupon, limited-time-deal badge, or genuine strike-through list price).",
       "title": "Only Deals",
       "type": "boolean"
     },
     "priceMax": {
-      "description": "Only return products priced at or below this amount (in dollars).",
+      "description": "Only return products priced at or below this amount (marketplace currency).",
       "editor": "number",
       "minimum": 0,
-      "title": "Maximum Price ($)",
+      "title": "Maximum Price",
       "type": "number"
     },
     "priceMin": {
-      "description": "Only return products priced at or above this amount (in dollars).",
+      "description": "Only return products priced at or above this amount (marketplace currency).",
       "editor": "number",
       "minimum": 0,
-      "title": "Minimum Price ($)",
+      "title": "Minimum Price",
       "type": "number"
     },
     "primeOnly": {
       "default": false,
-      "description": "If true, only return products with a visible Amazon Prime badge.",
+      "description": "If true, only return products with a visible Amazon Prime badge. Badges are render-dependent in some marketplaces.",
       "title": "Prime Only",
       "type": "boolean"
     },
-    "proxyCountry": {
-      "default": "AUTO",
-      "description": "Proxy country for geo-targeting. Use AUTO to automatically select based on Amazon domain.",
-      "editor": "select",
-      "enum": [
-        "AUTO",
-        "US",
-        "GB",
-        "DE",
-        "FR",
-        "ES",
-        "IT",
-        "CA",
-        "AU",
-        "JP",
-        "IN",
-        "BR",
-        "MX"
+    "productUrls": {
+      "description": "Exact Amazon product URLs. Each URL is normalized to /dp/{ASIN} on its own marketplace and fetched directly (never as a search).",
+      "editor": "stringList",
+      "example": [
+        "https://www.amazon.com/dp/B08N5WRWNW"
       ],
-      "title": "Proxy Country",
-      "type": "string"
+      "items": {
+        "type": "string"
+      },
+      "title": "Product URLs",
+      "type": "array"
     },
     "rateLimitDelay": {
       "default": 2,
-      "description": "Base delay between requests in seconds to avoid rate limiting",
+      "description": "Base pacing delay between live requests. Product-detail requests always add human-like jitter.",
       "editor": "number",
       "maximum": 30,
       "minimum": 1,
-      "title": "Rate Limit Delay (seconds)",
+      "title": "Base Request Delay (seconds)",
       "type": "integer"
     },
     "scrapeProductDetails": {
       "default": true,
-      "description": "If true, scrapes full product details from individual product pages. If false, returns only data visible on category pages (faster).",
+      "description": "If true, visit each accepted product's own page for specs, gallery images, seller, BSR, variants, and histogram. ASIN/product-URL modes always use detail pages. If false, only listing-card fields are returned.",
       "prefill": false,
       "title": "Scrape Product Details",
       "type": "boolean"
     },
     "sellerIds": {
-      "description": "Amazon seller/merchant IDs. Each seller ID builds a storefront search URL (/s?me={sellerId}) listing that seller's products.",
+      "description": "Amazon seller/merchant IDs. Each ID builds that seller's storefront listing (/s?me={sellerId}).",
       "editor": "stringList",
       "example": [
         "A1B2C3D4E5F6G7"
@@ -172,7 +226,7 @@
     },
     "sortBy": {
       "default": "relevanceblender",
-      "description": "Sort order applied to search/category results.",
+      "description": "Sort order applied to search and category listings.",
       "editor": "select",
       "enum": [
         "relevanceblender",
@@ -192,16 +246,10 @@
       ],
       "title": "Sort By",
       "type": "string"
-    },
-    "useResidentialProxy": {
-      "default": false,
-      "description": "Start every session on residential proxies (more reliable but more expensive ~$12.50/GB). Default (false) uses datacenter proxies (~$0.50/GB) and automatically escalates a session to residential only after repeated blocks.",
-      "title": "Use Residential Proxy",
-      "type": "boolean"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Amazon Category Scraper Input",
+  "title": "Amazon Listings Extractor Input",
   "type": "object"
 }

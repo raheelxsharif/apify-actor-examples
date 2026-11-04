@@ -3,7 +3,7 @@
   "description": "Amazon product records from search, category, and seller listings with price, rating, badges, and delivery details.",
   "properties": {
     "answeredQuestions": {
-      "description": "Number of answered customer questions, from the product detail page",
+      "description": "Answered-question count, only when the detail page renders it",
       "template": "{{answeredQuestions}}",
       "title": "Answered Questions",
       "type": "string"
@@ -74,6 +74,18 @@
       "title": "Coupon",
       "type": "string"
     },
+    "currency": {
+      "description": "ISO currency code resolved from the product price, when available",
+      "template": "{{currency}}",
+      "title": "Currency",
+      "type": "string"
+    },
+    "dealText": {
+      "description": "Raw deal/percent-off text shown on the listing card",
+      "template": "{{dealText}}",
+      "title": "Deal Text",
+      "type": "string"
+    },
     "delivery": {
       "description": "Delivery information and estimated date",
       "template": "{{delivery}}",
@@ -92,6 +104,12 @@
       "title": "Description",
       "type": "string"
     },
+    "discountPercent": {
+      "description": "Discount percentage, calculated only from a genuine current price and strike-through list price",
+      "template": "{{discountPercent}}",
+      "title": "Discount Percent",
+      "type": "string"
+    },
     "facets": {
       "description": "Refinement facets available on this results page (JSON array)",
       "template": "{{facets}}",
@@ -99,7 +117,7 @@
       "type": "string"
     },
     "fastestDelivery": {
-      "description": "Fastest available delivery estimate, from the product detail page",
+      "description": "Fastest delivery estimate, only when the detail page renders it",
       "template": "{{fastestDelivery}}",
       "title": "Fastest Delivery",
       "type": "string"
@@ -108,6 +126,18 @@
       "description": "List of product features and bullet points (JSON array)",
       "template": "{{features}}",
       "title": "Features",
+      "type": "string"
+    },
+    "imageLarge": {
+      "description": "Largest product image URL available (upscaled Amazon media URL)",
+      "template": "{{imageLarge}}",
+      "title": "Large Image",
+      "type": "string"
+    },
+    "images": {
+      "description": "All deduplicated image URLs for the product (JSON array)",
+      "template": "{{images}}",
+      "title": "Images",
       "type": "string"
     },
     "inStock": {
@@ -135,7 +165,7 @@
       "type": "string"
     },
     "listPrice": {
-      "description": "Original list price before discounts",
+      "description": "Genuine list/strike-through price only; never Amazon's \"Typical price\" reference",
       "template": "{{listPrice}}",
       "title": "List Price",
       "type": "string"
@@ -152,10 +182,28 @@
       "title": "Lowest Offer Price",
       "type": "string"
     },
+    "marketplace": {
+      "description": "Bare Amazon marketplace domain this record came from (e.g. amazon.com)",
+      "template": "{{marketplace}}",
+      "title": "Marketplace",
+      "type": "string"
+    },
+    "moreOptionsText": {
+      "description": "Raw \"More options\" hint shown on the listing card",
+      "template": "{{moreOptionsText}}",
+      "title": "More Options Text",
+      "type": "string"
+    },
     "offerCount": {
       "description": "Number of \"More Buying Choices\" offers shown on the card",
       "template": "{{offerCount}}",
       "title": "Offer Count",
+      "type": "string"
+    },
+    "organicPosition": {
+      "description": "Position among organic results (sponsored rows are excluded from this count)",
+      "template": "{{organicPosition}}",
+      "title": "Organic Position",
       "type": "string"
     },
     "position": {
@@ -165,13 +213,13 @@
       "type": "string"
     },
     "price": {
-      "description": "Current price (JSON object with value and currency)",
+      "description": "Current price (JSON object with value, currency, display)",
       "template": "{{price}}",
       "title": "Price",
       "type": "string"
     },
     "priceVariants": {
-      "description": "Price by variant, when the product detail page exposes one (JSON object)",
+      "description": "Per-variant price map, only when the detail page exposes one",
       "template": "{{priceVariants}}",
       "title": "Price Variants",
       "type": "string"
@@ -225,7 +273,7 @@
       "type": "string"
     },
     "reviewsLink": {
-      "description": "Link to all product reviews",
+      "description": "Absolute link to the full reviews page, when available",
       "template": "{{reviewsLink}}",
       "title": "Reviews Link",
       "type": "string"
@@ -236,14 +284,20 @@
       "title": "Scraped At",
       "type": "string"
     },
+    "searchQuery": {
+      "description": "Keyword, node ID, or seller ID that produced this listing record",
+      "template": "{{searchQuery}}",
+      "title": "Search Query",
+      "type": "string"
+    },
     "seller": {
-      "description": "Seller information (JSON object)",
+      "description": "Seller identity {name, id, url}; omitted when no real seller ID can be resolved",
       "template": "{{seller}}",
       "title": "Seller",
       "type": "string"
     },
     "shippingPrice": {
-      "description": "Shipping cost (JSON object)",
+      "description": "Shipping cost when explicitly shown (0 means free shipping)",
       "template": "{{shippingPrice}}",
       "title": "Shipping Price",
       "type": "string"
@@ -254,10 +308,28 @@
       "title": "Ships To",
       "type": "string"
     },
+    "soldByText": {
+      "description": "Raw \"Sold by\" line shown on the listing card",
+      "template": "{{soldByText}}",
+      "title": "Sold By Text",
+      "type": "string"
+    },
     "sourceLayout": {
       "description": "Which page layout this card was extracted from: SEARCH_GRID, MERCHANDISING_LANDING, or MIXED",
       "template": "{{sourceLayout}}",
       "title": "Source Layout",
+      "type": "string"
+    },
+    "sourceMode": {
+      "description": "Input mode that produced this record: keywords, categoryUrls, categoryNodeIds, sellerIds, asins, or productUrls",
+      "template": "{{sourceMode}}",
+      "title": "Source Mode",
+      "type": "string"
+    },
+    "specifications": {
+      "description": "Deduplicated product specifications (JSON object), from the overview and technical-detail tables",
+      "template": "{{specifications}}",
+      "title": "Specifications",
       "type": "string"
     },
     "sponsored": {
@@ -273,13 +345,19 @@
       "type": "string"
     },
     "starsBreakdown": {
-      "description": "Rating breakdown by star count (JSON object), from the product detail page",
+      "description": "Rating breakdown by star count as a share per star, 0.0-1.0 (JSON object), from the product detail page when rendered",
       "template": "{{starsBreakdown}}",
       "title": "Rating Breakdown",
       "type": "string"
     },
+    "stockText": {
+      "description": "Raw stock hint shown on the listing card",
+      "template": "{{stockText}}",
+      "title": "Stock Text",
+      "type": "string"
+    },
     "support": {
-      "description": "Support/warranty information, from the product detail page",
+      "description": "Support/warranty information, only when the detail page renders it",
       "template": "{{support}}",
       "title": "Support",
       "type": "string"
@@ -302,6 +380,18 @@
       "title": "Product Title",
       "type": "string"
     },
+    "typicalPrice": {
+      "description": "Amazon's separate \"Typical price\" reference price (never used as listPrice)",
+      "template": "{{typicalPrice}}",
+      "title": "Typical Price",
+      "type": "string"
+    },
+    "unitPrice": {
+      "description": "Per-unit price text shown on the listing card",
+      "template": "{{unitPrice}}",
+      "title": "Unit Price",
+      "type": "string"
+    },
     "url": {
       "description": "Direct Amazon URL for the product page",
       "template": "{{url}}",
@@ -315,7 +405,7 @@
       "type": "string"
     },
     "variantAttributes": {
-      "description": "Available variant options (JSON array)",
+      "description": "Visible variant dimensions (JSON array of {name, values}), when a twister widget exists",
       "template": "{{variantAttributes}}",
       "title": "Variant Attributes",
       "type": "string"

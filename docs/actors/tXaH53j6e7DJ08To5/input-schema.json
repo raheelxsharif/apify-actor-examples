@@ -1,0 +1,72 @@
+{
+  "description": "Extract restaurant menu items, popular dishes, photos, and external menu links from any Google Maps place page.",
+  "properties": {
+    "language": {
+      "default": "en",
+      "description": "Interface language for the Google Maps UI.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ja",
+        "ko",
+        "zh",
+        "ar",
+        "ru"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Arabic",
+        "Russian"
+      ],
+      "prefill": "en",
+      "title": "Language",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of menu items to extract (1-100000). Google may expose fewer inline menu cards.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "placeId": {
+      "description": "Canonical Google Place ID beginning with ChIJ. Use this instead of placeUrl when available.",
+      "editor": "textfield",
+      "example": "ChIJabtoT7hlwokRLECK0SW3_8I",
+      "title": "Google Place ID",
+      "type": "string"
+    },
+    "placeUrl": {
+      "description": "Google Maps URL of the restaurant whose menu should be scraped. Copy from the address bar after opening the place on Google Maps.",
+      "editor": "textfield",
+      "prefill": "https://www.google.com/maps/place/McDonald's/@40.7577297,-73.9853627,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2597777397641:0x4387a82ee10d3e3b!8m2!3d40.7577297!4d-73.9853627!16s%2Fg%2F11fld77pvs?hl=en",
+      "title": "Place URL",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Proxy settings (optional). The scraper works reliably without a proxy by default.",
+      "editor": "proxy",
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Google Maps Menu Scraper",
+  "type": "object"
+}
