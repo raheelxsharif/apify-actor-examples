@@ -1,139 +1,174 @@
-# Myntra Fashion Catalog Finder by Category & Brand
+# Myntra Fashion Catalog & Review Scraper
 
-Myntra's catalog spans thousands of fashion brands across dozens of categories, each with its own pricing, discounts, and size availability. This actor searches that catalog by keyword, browses a category or brand, or fetches specific product pages directly, returning pricing, ratings, and variant detail for every match. No login required.
+Scrape **Myntra** fashion listings and product pages for pricing, discounts, coupons, sellers, size-level stock, specifications, and written reviews. Start from a keyword search, a category, a brand, a listing URL, or a list of product IDs, then export clean records that are ready for pricing research, catalog monitoring, or review analysis.
 
 ## What this actor does
 
-- **Four modes**: keyword search, browse by category, browse by brand, or fetch specific product URLs
-- **Covers 48 curated categories** — from T-shirts and jeans to sarees, sneakers, and jewellery
-- **Returns pricing and discount detail** — MRP, selling price, discount amount and percentage
-- **Filters before you see results** — gender, sort order, price range, minimum rating, and a keyword match on the product name
-- **Optional detail enrichment** — fetch each product's own page for description, material & care, and manufacturer info
-- **Empty fields are omitted** from each record instead of being returned as null
+- **Five input modes:** keyword search, category browse, brand browse, listing/product URLs, and numeric product IDs
+- **Multiple inputs per run:** several queries, categories, brands, URLs, or IDs are fetched in one job and deduplicated by product
+- **Real pagination:** walks past the first listing page and splits large searches by gender, price band, and sort order
+- **Server-side filters:** gender, sort order, and price range are applied by Myntra before records are collected; discount, rating, and name keywords are checked on each record
+- **Full product enrichment:** sellers and addresses, per-size stock and garment measurements, specifications, rating breakdown, return/COD policies, videos, tags, and coupons
+- **Optional review rows:** written reviews with rating, text, size bought, photos, votes, and dates
+- **Empty fields are omitted** — records never contain `null`, `""`, `[]`, or `{}`
 
 ## Output per product
 
-- `productId` — Myntra's product/style ID
-- `productName`, `brand`, `additionalInfo` — naming
-- `mrp`, `price` — list price and selling price, in INR
-- `discountAmount`, `discountPercent`, `discountDisplayLabel` — discount detail (e.g. `(51% OFF)`)
-- `rating`, `ratingCount` — average rating and number of ratings
-- `primaryColour`, `gender`, `season`, `year` — product attributes
-- `category`, `subCategory`, `masterCategory`, `categoryPath` — Myntra's category hierarchy
-- `sizes[]`, `hasMultipleSizes` — available size labels
-- `imageUrl`, `imageUrls[]` — product images
-- `colourVariantImages[]`, `relatedColoursCount` — other color variants of the same product
-- `isFastFashion` — Myntra's fast-fashion flag
-- `productUrl`, `sourceUrl` — canonical product URL
-- `recordType` — always `"product"`
-- `scrapedAt` — timestamp of when the record was scraped
+Product rows have `recordType: "product"`.
 
-When `includePdpDetails` is enabled (or in `byUrl` mode, which always fetches the product page), records also include:
+- `productId`, `productName`, `brand`, `additionalInfo`
+- `currency` — always `INR`
+- `mrp`, `price`, `discountAmount`, `discountPercent`, `discountDisplayLabel`
+- `couponCode`, `couponDiscount`, `priceWithCoupon`, `couponValidUntil`
+- `rating`, `ratingCount`, `reviewsCount`, `reviewCount`, `ratingDistribution`
+- `primaryColour`, `baseColour`, `gender`, `season`, `year`
+- `sizes[]`, `availableSizes[]`, `sizeOptions[]` — per-size SKU, availability, stock, price, sellers, and measurements
+- `hasMultipleSizes`, `inStock`, `totalStock`, `colourVariantImages[]`, `colours[]`, `relatedColoursCount`
+- `sellerId`, `sellerName`, `sellerCity`, `sellerState`, `sellers[]` — partner ID, name, display name, and full address
+- `description`, `materialCare`, `sizeFit`, `manufacturer`, `countryOfOrigin`
+- `specifications` — garment attributes such as fabric, fit, pattern, sleeve, occasion, and wash care
+- `tags[]`, `offers[]`, `videoUrls[]`, `brandLogoUrl`
+- `imageUrl`, `imageUrls[]`
+- `category`, `subCategory`, `masterCategory`, `categoryPath`, `listedAt`
+- `isReturnable`, `isExchangeable`, `codAvailable`, `returnDays`, `tryAndBuy`
+- `productUrl`, `sourceUrl`, `query`, `sourceKind`, `detailsFetched`, `position`, `scrapedAt`
 
-- `description`, `materialCare`, `sizeFit` — detail-page copy
-- `manufacturer`, `countryOfOrigin`, `baseColour`
-- `reviewsCount`, `pdpViews`
-- `availableSizes[]` — sizes currently in stock
-- `colours[]` — other colors, each with `styleId`, `label`, `imageUrl`, `productUrl`
-- `offers[]` — active promotional offers on the product
-- `descriptor_<section>` — extra labeled detail sections Myntra publishes on the product page (e.g. a fit or wash-care section); field name depends on the section title. Only present in `byUrl` mode, not when `includePdpDetails` enriches a listing
+## Output per review
+
+Review rows have `recordType: "review"` and are saved only when `includeReviews` is enabled.
+
+- `reviewId`, `productId`, `reviewedProductId`
+- `rating`, `text`, `sizeBought`
+- `images[]`, `videoUrl`
+- `upvotes`, `downvotes`
+- `reviewerName`, `reviewedAt`
+- `productName`, `brand`, `productUrl`, `sourceUrl`, `scrapedAt`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (enum, required) | `search` | `search`, `browseByCategory`, `browseByBrand`, or `byUrl` |
-| `searchQuery` | string | `tshirts` | Free-text keyword (mode `search`) |
-| `category` | string (enum) | `tshirts` | One of 48 curated category slugs (mode `browseByCategory`) |
-| `brandName` | string | – | Brand name as it appears on Myntra, e.g. `adidas`, `levis` (mode `browseByBrand`) |
-| `productUrls` | array | `[]` | Full Myntra product URLs to fetch directly (mode `byUrl`) |
-| `gender` | string (enum) | `` (any) | `men`, `women`, `boys`, or `girls` |
-| `sortBy` | string (enum) | `` (default) | `recommended`, `popularity`, `new`, `price_asc`, `price_desc`, `discount`, or `customer_rating` |
-| `minPrice` | integer | – | Drop products below this selling price (INR) |
-| `maxPrice` | integer | – | Drop products above this selling price (INR) |
-| `minRating` | number | – | Drop products rated below this value (0–5) |
-| `containsKeyword` | string | – | Only keep products whose name contains this keyword |
-| `includePdpDetails` | boolean | `false` | Also fetch each product's detail page for description, material, and manufacturer |
-| `maxItems` | integer | `50` | Maximum number of records to return (1–1000) |
-| `proxyConfiguration` | object | off | Optional Apify proxy; engaged automatically only if requests get blocked |
+| `mode` | string | `search` | `search` / `browseByCategory` / `browseByBrand` / `byUrl` / `byProductIds` |
+| `searchQueries` | array | `[]` | Keyword searches (mode=search) |
+| `categories` | array | `[]` | Category listings (mode=browseByCategory) |
+| `brands` | array | `[]` | Brand listings (mode=browseByBrand) |
+| `startUrls` | array | `[]` | Myntra listing or product URLs (mode=byUrl) |
+| `productIds` | array | `[]` | Numeric IDs or product URLs (mode=byProductIds) |
+| `gender` | string | `""` | `""` / `men` / `women` / `boys` / `girls` |
+| `sortBy` | string | `""` | Default relevance, newest, popularity, price, discount, or rating |
+| `minPrice` | integer | `0` | Minimum selling price in INR; 0 means any |
+| `maxPrice` | integer | `0` | Maximum selling price in INR; 0 means any |
+| `minDiscount` | integer | `0` | Minimum discount percentage; 0 means any |
+| `minRating` | number | `0` | Minimum product rating; products without a rating are excluded when set |
+| `containsKeyword` | string | `""` | Keep only product names containing this text |
+| `includeDetails` | boolean | `true` | Add sellers, stock, specifications, policies, media, and tags |
+| `includeReviews` | boolean | `false` | Emit written-review rows |
+| `maxReviewsPerProduct` | integer | `20` | Review rows per product when reviews are enabled |
+| `maxItems` | integer | `100` | Total product rows across all inputs (1–10000) |
+| `splitLargeSearches` | boolean | `true` | Split large searches by gender, price, and sort for more depth |
+| `proxyConfiguration` | object | `{}` | Optional override; leave untouched for automatic connection selection |
 
-### Example: filtered keyword search
+## Examples
+
+### Example: keyword search with filters
 
 ```json
 {
   "mode": "search",
-  "searchQuery": "printed tshirts",
+  "searchQueries": ["running shoes", "polo tshirts"],
   "gender": "men",
-  "minPrice": 300,
-  "maxPrice": 1000,
-  "minRating": 4,
-  "maxItems": 20
+  "minPrice": 500,
+  "maxPrice": 3000,
+  "minDiscount": 30,
+  "sortBy": "price_asc",
+  "maxItems": 200
 }
 ```
 
-### Example: browse a category sorted by popularity
+### Example: category and brand browse
 
 ```json
 {
   "mode": "browseByCategory",
-  "category": "sneakers",
-  "sortBy": "popularity",
-  "maxItems": 30
+  "categories": ["sneakers", "watches"],
+  "gender": "women",
+  "includeDetails": true,
+  "maxItems": 150
 }
 ```
 
-### Example: a brand's catalog with full detail
-
-```json
-{
-  "mode": "browseByBrand",
-  "brandName": "adidas",
-  "includePdpDetails": true,
-  "maxItems": 10
-}
-```
-
-### Example: fetch specific product pages
+### Example: product URLs and IDs with reviews
 
 ```json
 {
   "mode": "byUrl",
-  "productUrls": [
-    "https://www.myntra.com/tshirts/keesor/keesor-girls-pack-of-3-multi-cotton-tshirts/36385830/buy"
-  ]
+  "startUrls": [
+    "https://www.myntra.com/tshirts/puma/puma-unisex-train-all-day-essentials-slim-fit-drycell-polo-sports-t-shirt/36674095/buy",
+    "36674095"
+  ],
+  "includeReviews": true,
+  "maxReviewsPerProduct": 40,
+  "maxItems": 20
+}
+```
+
+### Example: deep export from a listing URL
+
+```json
+{
+  "mode": "byUrl",
+  "startUrls": [
+    "https://www.myntra.com/kurtas?f=Gender%3Amen%2Cwomen"
+  ],
+  "splitLargeSearches": true,
+  "sortBy": "popularity",
+  "maxItems": 1000
 }
 ```
 
 ## Use cases
 
-- **Price tracking** — monitor MRP versus selling price and discount percentage across a brand or category
-- **Competitive monitoring** — watch new arrivals and price moves for competing fashion brands
-- **Assortment research** — export a category's full catalog with sizes, colors, and ratings
-- **Merchandising and recommendation** — feed product names, categories, and images into your own storefront
-- **Market studies** — analyze Indian fashion e-commerce pricing and assortment patterns
+- **Price and discount monitoring** — track selling price, MRP, coupon price, and discount depth across a catalog
+- **Seller intelligence** — see which seller owns the buy box, its location, and its stock position
+- **Catalog enrichment** — add fabric, fit, pattern, occasion, and garment measurements to an internal product feed
+- **Review analysis** — export ratings, review text, size feedback, photos, and helpfulness votes
+- **Assortment research** — compare brands and categories by price band, rating, and available sizes
+- **Stock and variant tracking** — monitor per-size availability and total inventory for key styles
 
 ## FAQ
 
-**Is this affiliated with Myntra?**
-No. This is an independent, third-party actor that reads Myntra's publicly visible product pages; it isn't operated by or affiliated with Myntra.
+### Is any login or API key required?
 
-**Do I need an account or proxy?**
-No. The actor runs without cookies or an account; a proxy is only engaged automatically if Myntra blocks a request.
+No. The actor reads publicly available Myntra catalog pages and does not need cookies, accounts, or API keys.
 
-**Why does a listing mode return a capped number of products rather than paginating further?**
-Myntra's public listing pages render a single page of results per request; deeper pagination isn't publicly available. For a larger export, split your run by brand, category, or gender instead.
+### Do I need to set up a proxy?
 
-**What happens if I search using non-Latin characters (e.g. Chinese or Japanese text)?**
-The actor falls back to Myntra's general search page for such queries. If Myntra has no matching inventory for that query, the run returns zero records with a status message rather than erroring out.
+No. The actor selects a working connection to Myntra automatically, starting with the cheapest path and escalating only when needed.
 
-**What happens if I enter a brand that isn't on Myntra?**
-Myntra can redirect an unknown brand name to an unrelated listing page. The actor detects this redirect and returns zero records with a "brand not found" message instead of emitting mismatched products.
+### Why do I get fewer products than I requested?
 
-**What currency are prices in?**
-Indian Rupees (INR), as shown on myntra.com.
+Myntra limits how deep a single listing can be paged. Enable `splitLargeSearches` to partition a large request by gender, price band, and sort order; the actor then removes duplicates. Extremely broad categories can still have practical limits.
 
-**Why are fields like `rating` or `offers` sometimes missing?**
-Not every product has a rating or an active offer. Fields with no value on the source page are omitted from the record rather than returned empty.
+### Why are some fields missing on some products?
 
-**How fresh is the data?**
-Each run reads Myntra's live pages, so prices, discounts, and availability reflect what's live at run time.
+Fields are omitted when Myntra does not publish them for that product. For example, some listings have no rating yet, some have no video, and some have no coupon.
+
+### What is the difference between `price` and `priceWithCoupon`?
+
+`price` is the current selling price. `priceWithCoupon` is the best price after applying the displayed coupon, and `couponCode` contains that coupon's code.
+
+### What does `detailsFetched` mean?
+
+It is `true` when the product page was opened successfully and the detail fields came from that page. Listing-only modes can still return a product row without it if a detail page is temporarily unavailable.
+
+### Why do review rows not count toward `maxItems`?
+
+`maxItems` controls product rows. Review rows are additional records so that enabling reviews does not reduce the number of products you receive.
+
+### Are the images and videos permanent?
+
+The actor returns the media URLs published by Myntra. They are public links, but Myntra may change or remove media over time.
+
+### Is this affiliated with Myntra?
+
+No. This is an independent third-party actor that reads publicly available catalog pages.

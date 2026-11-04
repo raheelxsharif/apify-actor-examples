@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Myntra products with brand, MRP, selling price, discount, rating, sizes, colors, and category path.",
+  "description": "Myntra products with prices, discounts, coupons, ratings, sellers, per-size stock, specifications, policies, media, and optional written-review rows.",
   "properties": {
     "products": {
-      "description": "Dataset containing all scraped Myntra products.",
+      "description": "Dataset containing scraped Myntra products and written reviews, separated by recordType.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Myntra products",
+      "title": "Myntra products and reviews",
       "type": "string"
     }
   },
-  "title": "Myntra Fashion Catalog Finder by Category & Brand Output"
+  "title": "Myntra Fashion Catalog & Review Scraper Output"
 }

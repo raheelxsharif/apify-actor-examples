@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Hyperlocal US news, local events, and classifieds from Patch.com with headline, summary, author, date, town, category/tags, and image.",
+  "description": "Hyperlocal Patch.com articles, events and classifieds with headline, summary, full body text, author, dates, town/category metadata, coordinates, media and optional detail-page enrichment.",
   "properties": {
     "articles": {
-      "description": "Dataset containing all scraped Patch.com records (articles, events, or classifieds, depending on the input `mode`).",
+      "description": "Dataset containing all scraped Patch.com records (articles, events or classifieds, depending on the input mode), each tagged with recordType.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Patch articles / events / classifieds",
       "type": "string"

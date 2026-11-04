@@ -1,8 +1,9 @@
 {
-  "description": "Scrape hyperlocal US news from Patch.com. Search by keyword, browse the latest headlines for a town/city, or browse by category.",
+  "description": "Scrape hyperlocal US news, events and classifieds from Patch.com by keyword, town, category, author, tag or URL, with optional full body text, detail-page enrichment and new-record monitoring.",
   "properties": {
     "authorName": {
-      "description": "Exact byline/reporter/poster name (required for mode=byAuthor; on any other mode -- including events/classifieds -- it's applied as an extra filter, e.g. combine mode=search + searchQuery + authorName to search one reporter's own articles). Find it in the `author` field of any article/event/classified this actor returns, e.g. \"Eric Heyl\".",
+      "default": "",
+      "description": "Exact byline/reporter/poster name (required for mode=byAuthor; on any other mode it is an extra server-side filter). Copy it from this actor's `author` output field, e.g. \"Eric Heyl\".",
       "editor": "textfield",
       "prefill": "",
       "title": "Author name",
@@ -114,12 +115,35 @@
       "title": "Event date before (YYYY-MM-DD)",
       "type": "string"
     },
+    "includeBodyText": {
+      "default": true,
+      "description": "Add bodyHtml (the original HTML), bodyText (readable plain text) and bodyLength to each record. Article/event/classified bodies come from Patch's own search payload, so this costs no extra request.",
+      "prefill": false,
+      "title": "Include full body text",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch each record's Patch page and add gallery images/captions/credits, author avatar and points, comment/reply counts, breaking/sponsored flags, town grade/weekly views/ZIPs/timezone/county/metro, event venue/type/website, and classified contact state. One extra request per record; failed pages never discard the base record.",
+      "prefill": false,
+      "title": "Enrich from detail pages",
+      "type": "boolean"
+    },
+    "maxDetails": {
+      "default": 100,
+      "description": "How many records to enrich when `includeDetails` is on. 0 means every emitted record (up to `maxItems`). Ignored when detail enrichment is off.",
+      "maximum": 1000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max detail pages",
+      "type": "integer"
+    },
     "maxItems": {
       "default": 25,
-      "description": "Maximum number of articles/events/classifieds to return.",
-      "maximum": 250,
+      "description": "Maximum number of articles, events or classifieds to return (1-1000). Requests above 250 are automatically split into date partitions to bypass Patch's 250-hit search-key window.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 25,
+      "prefill": 3,
       "title": "Max results",
       "type": "integer"
     },
@@ -134,7 +158,8 @@
         "byAuthor",
         "byTag",
         "events",
-        "classifieds"
+        "classifieds",
+        "byUrl"
       ],
       "enumTitles": [
         "Search by keyword",
@@ -143,11 +168,27 @@
         "Browse articles by author/reporter",
         "Browse articles by editorial tag",
         "Browse local events (calendar)",
-        "Browse local classifieds (marketplace listings)"
+        "Browse local classifieds (marketplace listings)",
+        "Scrape Patch URLs (article, event, classified, town, topic, state or search)"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
+    },
+    "monitorKey": {
+      "default": "",
+      "description": "Optional namespace for monitor state. Give different saved tasks different keys to keep their seen-ID lists separate. Derived automatically from the mode and filters when empty.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Monitor key",
+      "type": "string"
+    },
+    "monitorMode": {
+      "default": false,
+      "description": "Emit only records whose Patch ID has not been seen by an earlier run with the same monitor key. State is stored in the actor's key-value store.",
+      "prefill": false,
+      "title": "Monitor: only new records",
+      "type": "boolean"
     },
     "nearLat": {
       "description": "Latitude of a point to search near (combine with `nearLng` and `radiusMiles`). News modes only (search/byTown/byCategory/byAuthor/byTag) -- not available for mode=events/classifieds, whose Patch indexes don't expose a filterable location field. Both `nearLat` and `nearLng` must be set together; otherwise this filter is ignored.",
@@ -188,10 +229,11 @@
     },
     "regionSlug": {
       "default": "",
-      "description": "US state to scope results to (required for mode=byTown; optional scope filter on every other mode, including events/classifieds). Leave as \"(any state)\" for nationwide results.",
+      "description": "US state/edition to scope results to (required for mode=byTown; optional filter on every other mode). \"Across America\" is Patch's national edition (code US); \"US Territories\" is a valid Patch region with no current articles.",
       "editor": "select",
       "enum": [
         "",
+        "across-america",
         "alabama",
         "alaska",
         "arizona",
@@ -247,6 +289,7 @@
       ],
       "enumTitles": [
         "(any state - nationwide)",
+        "Across America (national edition)",
         "Alabama",
         "Alaska",
         "Arizona",
@@ -304,8 +347,24 @@
       "title": "State",
       "type": "string"
     },
+    "searchMatch": {
+      "default": "allWords",
+      "description": "How multi-word searches match. \"All words\" requires every word anywhere in the headline/summary/topic (more results). \"Exact phrase\" requires the words to appear together (the old behavior).",
+      "editor": "select",
+      "enum": [
+        "allWords",
+        "exactPhrase"
+      ],
+      "enumTitles": [
+        "All words anywhere",
+        "Exact phrase"
+      ],
+      "prefill": "allWords",
+      "title": "Search match",
+      "type": "string"
+    },
     "searchQuery": {
-      "description": "Free-text keyword to search for (mode=search; also applies as a keyword filter on mode=events/classifieds). Leave empty on other modes to browse without a keyword filter, or leave empty on mode=search to browse the newest articles matching the other filters below.",
+      "description": "Free-text keyword to search for (mode=search; also applies to mode=events/classifieds and to scope URLs). Leave empty to browse the newest articles matching the other filters.",
       "editor": "textfield",
       "prefill": "city council",
       "title": "Search query",
@@ -333,8 +392,25 @@
       "title": "Sort by",
       "type": "string"
     },
+    "startUrls": {
+      "description": "mode=byUrl only. Paste Patch article, event, classified, town, category/topic, state or search URLs. Article/event/classified URLs are scraped directly; town/topic/state/search URLs are converted into the equivalent scoped query.",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "A full Patch.com URL (or patch.com/... path).",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Patch URLs",
+      "type": "array"
+    },
     "tagName": {
-      "description": "Exact editorial tag (required for mode=byTag; on mode=search/byTown/byCategory/byAuthor it's applied as an extra filter, e.g. combine mode=byCategory + category + tagName to browse one category narrowed to a tag). Find it in the `tags` field of any article this actor returns, e.g. \"Back To School\". Only a minority of articles carry tags, so run another mode first to discover one. Not applicable to mode=events/classifieds -- Patch doesn't tag those content types.",
+      "default": "",
+      "description": "Exact editorial tag (required for mode=byTag; on article modes it is an extra filter). Copy it from this actor's `tags` field, e.g. \"Back To School\". Only a minority of articles carry tags.",
       "editor": "textfield",
       "prefill": "",
       "title": "Tag name",
