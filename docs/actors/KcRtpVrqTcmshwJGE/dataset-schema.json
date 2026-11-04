@@ -6,13 +6,17 @@
       "display": {
         "component": "table",
         "properties": {
+          "authorName": {
+            "format": "text",
+            "label": "Author"
+          },
           "authorPlaytimeForever": {
             "format": "number",
             "label": "Playtime (hrs)"
           },
           "authorSteamId": {
             "format": "text",
-            "label": "Author"
+            "label": "Author ID"
           },
           "gameTitle": {
             "format": "text",
@@ -22,13 +26,17 @@
             "format": "text",
             "label": "Language"
           },
+          "primarilySteamDeck": {
+            "format": "text",
+            "label": "Steam Deck"
+          },
           "rating": {
             "format": "text",
             "label": "Rating"
           },
-          "receivedForFree": {
+          "recordType": {
             "format": "text",
-            "label": "Free Copy"
+            "label": "Type"
           },
           "reviewText": {
             "format": "text",
@@ -38,6 +46,10 @@
             "format": "text",
             "label": "Scraped At"
           },
+          "steamPurchase": {
+            "format": "text",
+            "label": "Steam Purchase"
+          },
           "timestampCreated": {
             "format": "text",
             "label": "Date"
@@ -45,26 +57,24 @@
           "votesHelpful": {
             "format": "number",
             "label": "Helpful Votes"
-          },
-          "writtenDuringEarlyAccess": {
-            "format": "text",
-            "label": "Early Access"
           }
         }
       },
-      "title": "Overview",
+      "title": "Steam Reviews",
       "transformation": {
         "fields": [
           "gameTitle",
           "rating",
           "reviewText",
+          "authorName",
           "authorSteamId",
           "authorPlaytimeForever",
           "votesHelpful",
           "timestampCreated",
           "language",
-          "receivedForFree",
-          "writtenDuringEarlyAccess",
+          "steamPurchase",
+          "primarilySteamDeck",
+          "recordType",
           "scrapedAt"
         ]
       }

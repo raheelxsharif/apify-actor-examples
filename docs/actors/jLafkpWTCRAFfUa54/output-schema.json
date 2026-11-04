@@ -1,0 +1,337 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Amazon product records from search, category, and seller listings with price, rating, badges, and delivery details.",
+  "properties": {
+    "answeredQuestions": {
+      "description": "Number of answered customer questions, from the product detail page",
+      "template": "{{answeredQuestions}}",
+      "title": "Answered Questions",
+      "type": "string"
+    },
+    "asin": {
+      "description": "Amazon Standard Identification Number",
+      "template": "{{asin}}",
+      "title": "ASIN",
+      "type": "string"
+    },
+    "badge": {
+      "description": "Merchandising badge shown on the card (e.g. BestSeller, AmazonsChoice)",
+      "template": "{{badge}}",
+      "title": "Badge",
+      "type": "string"
+    },
+    "bestsellerRanks": {
+      "description": "Bestseller rankings in different categories (JSON array)",
+      "template": "{{bestsellerRanks}}",
+      "title": "Bestseller Ranks",
+      "type": "string"
+    },
+    "boughtInPastMonth": {
+      "description": "Number of units bought in the past month, parsed from the card's compact-count hint",
+      "template": "{{boughtInPastMonth}}",
+      "title": "Bought In Past Month",
+      "type": "string"
+    },
+    "boughtInPastMonthText": {
+      "description": "Raw \"X+ bought in past month\" card text",
+      "template": "{{boughtInPastMonthText}}",
+      "title": "Bought In Past Month (raw text)",
+      "type": "string"
+    },
+    "brand": {
+      "description": "Product brand name",
+      "template": "{{brand}}",
+      "title": "Brand",
+      "type": "string"
+    },
+    "breadCrumbs": {
+      "description": "Product category breadcrumb path",
+      "template": "{{breadCrumbs}}",
+      "title": "Categories",
+      "type": "string"
+    },
+    "categoryPage": {
+      "description": "Page number in search results",
+      "template": "{{categoryPage}}",
+      "title": "Category Page",
+      "type": "string"
+    },
+    "categoryPosition": {
+      "description": "Position in search results",
+      "template": "{{categoryPosition}}",
+      "title": "Position",
+      "type": "string"
+    },
+    "categoryUrl": {
+      "description": "Source category/search URL",
+      "template": "{{categoryUrl}}",
+      "title": "Category URL",
+      "type": "string"
+    },
+    "coupon": {
+      "description": "Coupon text shown on the card, if any",
+      "template": "{{coupon}}",
+      "title": "Coupon",
+      "type": "string"
+    },
+    "delivery": {
+      "description": "Delivery information and estimated date",
+      "template": "{{delivery}}",
+      "title": "Delivery",
+      "type": "string"
+    },
+    "deliveryEstimate": {
+      "description": "Estimated delivery text shown on the card",
+      "template": "{{deliveryEstimate}}",
+      "title": "Delivery Estimate",
+      "type": "string"
+    },
+    "description": {
+      "description": "Full product description",
+      "template": "{{description}}",
+      "title": "Description",
+      "type": "string"
+    },
+    "facets": {
+      "description": "Refinement facets available on this results page (JSON array)",
+      "template": "{{facets}}",
+      "title": "Facets",
+      "type": "string"
+    },
+    "fastestDelivery": {
+      "description": "Fastest available delivery estimate, from the product detail page",
+      "template": "{{fastestDelivery}}",
+      "title": "Fastest Delivery",
+      "type": "string"
+    },
+    "features": {
+      "description": "List of product features and bullet points (JSON array)",
+      "template": "{{features}}",
+      "title": "Features",
+      "type": "string"
+    },
+    "inStock": {
+      "description": "Whether the product is currently in stock",
+      "template": "{{inStock}}",
+      "title": "In Stock",
+      "type": "string"
+    },
+    "inStockText": {
+      "description": "Detailed stock availability text",
+      "template": "{{inStockText}}",
+      "title": "Stock Status",
+      "type": "string"
+    },
+    "isPrime": {
+      "description": "Same true/false value as `prime`",
+      "template": "{{isPrime}}",
+      "title": "Is Prime",
+      "type": "string"
+    },
+    "isSponsored": {
+      "description": "Same true/false value as `sponsored`",
+      "template": "{{isSponsored}}",
+      "title": "Is Sponsored",
+      "type": "string"
+    },
+    "listPrice": {
+      "description": "Original list price before discounts",
+      "template": "{{listPrice}}",
+      "title": "List Price",
+      "type": "string"
+    },
+    "locationText": {
+      "description": "Delivery destination the product detail page rendered for",
+      "template": "{{locationText}}",
+      "title": "Delivery Location",
+      "type": "string"
+    },
+    "lowestOfferPrice": {
+      "description": "Lowest \"More Buying Choices\" offer price (JSON object with value and currency)",
+      "template": "{{lowestOfferPrice}}",
+      "title": "Lowest Offer Price",
+      "type": "string"
+    },
+    "offerCount": {
+      "description": "Number of \"More Buying Choices\" offers shown on the card",
+      "template": "{{offerCount}}",
+      "title": "Offer Count",
+      "type": "string"
+    },
+    "position": {
+      "description": "Position metadata (JSON object with page, positionOnPage, globalPosition, uuid)",
+      "template": "{{position}}",
+      "title": "Position",
+      "type": "string"
+    },
+    "price": {
+      "description": "Current price (JSON object with value and currency)",
+      "template": "{{price}}",
+      "title": "Price",
+      "type": "string"
+    },
+    "priceVariants": {
+      "description": "Price by variant, when the product detail page exposes one (JSON object)",
+      "template": "{{priceVariants}}",
+      "title": "Price Variants",
+      "type": "string"
+    },
+    "prime": {
+      "description": "Whether the card shows an Amazon Prime badge (evidence-only)",
+      "template": "{{prime}}",
+      "title": "Prime",
+      "type": "string"
+    },
+    "relatedSearches": {
+      "description": "Related search suggestions shown on this results page (JSON array of text/url pairs)",
+      "template": "{{relatedSearches}}",
+      "title": "Related Searches",
+      "type": "string"
+    },
+    "resultType": {
+      "description": "Result classification: ORGANIC, SPONSORED, EDITORIAL, or OTHER",
+      "template": "{{resultType}}",
+      "title": "Result Type",
+      "type": "string"
+    },
+    "resultsFrom": {
+      "description": "Starting result index reported by the results-info bar",
+      "template": "{{resultsFrom}}",
+      "title": "Results From",
+      "type": "string"
+    },
+    "resultsTo": {
+      "description": "Ending result index reported by the results-info bar",
+      "template": "{{resultsTo}}",
+      "title": "Results To",
+      "type": "string"
+    },
+    "resultsTotal": {
+      "description": "Total number of results reported by the results-info bar",
+      "template": "{{resultsTotal}}",
+      "title": "Results Total",
+      "type": "string"
+    },
+    "returnPolicy": {
+      "description": "Return policy text, from the product detail page",
+      "template": "{{returnPolicy}}",
+      "title": "Return Policy",
+      "type": "string"
+    },
+    "reviewsCount": {
+      "description": "Total number of customer reviews",
+      "template": "{{reviewsCount}}",
+      "title": "Reviews Count",
+      "type": "string"
+    },
+    "reviewsLink": {
+      "description": "Link to all product reviews",
+      "template": "{{reviewsLink}}",
+      "title": "Reviews Link",
+      "type": "string"
+    },
+    "scrapedAt": {
+      "description": "ISO timestamp when the data was scraped",
+      "template": "{{scrapedAt}}",
+      "title": "Scraped At",
+      "type": "string"
+    },
+    "seller": {
+      "description": "Seller information (JSON object)",
+      "template": "{{seller}}",
+      "title": "Seller",
+      "type": "string"
+    },
+    "shippingPrice": {
+      "description": "Shipping cost (JSON object)",
+      "template": "{{shippingPrice}}",
+      "title": "Shipping Price",
+      "type": "string"
+    },
+    "shipsTo": {
+      "description": "Ships-to location text shown on the card, if any",
+      "template": "{{shipsTo}}",
+      "title": "Ships To",
+      "type": "string"
+    },
+    "sourceLayout": {
+      "description": "Which page layout this card was extracted from: SEARCH_GRID, MERCHANDISING_LANDING, or MIXED",
+      "template": "{{sourceLayout}}",
+      "title": "Source Layout",
+      "type": "string"
+    },
+    "sponsored": {
+      "description": "Whether this result is a sponsored/ad placement (evidence-only)",
+      "template": "{{sponsored}}",
+      "title": "Sponsored",
+      "type": "string"
+    },
+    "stars": {
+      "description": "Average star rating from 1 to 5",
+      "template": "{{stars}}",
+      "title": "Rating",
+      "type": "string"
+    },
+    "starsBreakdown": {
+      "description": "Rating breakdown by star count (JSON object), from the product detail page",
+      "template": "{{starsBreakdown}}",
+      "title": "Rating Breakdown",
+      "type": "string"
+    },
+    "support": {
+      "description": "Support/warranty information, from the product detail page",
+      "template": "{{support}}",
+      "title": "Support",
+      "type": "string"
+    },
+    "sustainabilityFeatures": {
+      "description": "Sustainability/Climate Pledge Friendly badge labels (JSON array)",
+      "template": "{{sustainabilityFeatures}}",
+      "title": "Sustainability Features",
+      "type": "string"
+    },
+    "thumbnailImage": {
+      "description": "Main product image URL",
+      "template": "{{thumbnailImage}}",
+      "title": "Image",
+      "type": "string"
+    },
+    "title": {
+      "description": "Product title",
+      "template": "{{title}}",
+      "title": "Product Title",
+      "type": "string"
+    },
+    "url": {
+      "description": "Direct Amazon URL for the product page",
+      "template": "{{url}}",
+      "title": "Product URL",
+      "type": "string"
+    },
+    "variantAsins": {
+      "description": "List of variant product ASINs (JSON array)",
+      "template": "{{variantAsins}}",
+      "title": "Variant ASINs",
+      "type": "string"
+    },
+    "variantAttributes": {
+      "description": "Available variant options (JSON array)",
+      "template": "{{variantAttributes}}",
+      "title": "Variant Attributes",
+      "type": "string"
+    },
+    "variantsCount": {
+      "description": "Number of additional color/style variants shown via the card's \"+N\" hint",
+      "template": "{{variantsCount}}",
+      "title": "Variants Count",
+      "type": "string"
+    }
+  },
+  "required": [
+    "url",
+    "asin",
+    "scrapedAt"
+  ],
+  "title": "Amazon Search, Category & Seller Listings Extractor Output",
+  "type": "object"
+}

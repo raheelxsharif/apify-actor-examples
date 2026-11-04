@@ -1,0 +1,209 @@
+# Amazon Search, Category & Seller Listings Extractor
+
+Scrape **Amazon search results, category/browse-node pages, seller storefronts, and ASIN
+lookups** in one actor. Extract prices, ratings, reviews, badges, deals, delivery info, and
+(optionally) full product-detail-page data — across 20+ Amazon marketplaces. No login,
+cookies, or API key required.
+
+## What this actor does
+
+- **5 input modes, combinable in a single run:** plain search keywords, ASINs, seller/
+  merchant storefront IDs, browse-node (category) IDs, or full category/search URLs.
+- **Server-side + client-side filters:** sort order, price range, minimum rating, sponsored/
+  deals/Prime toggles.
+- **Optional full product-detail enrichment:** turn on `scrapeProductDetails` to also visit
+  each product's own page for description, features, seller info, bestseller ranks, and
+  variants.
+- **Rich search-card metadata:** badges (Best Seller, Amazon's Choice, Limited Time Deal),
+  "bought in past month", coupons, delivery estimates, sponsored/organic classification, and
+  result position — across up to 50 pages per category/search, deduplicated by ASIN.
+- **Empty fields are omitted** — a field only appears on a record when Amazon actually
+  displayed that information for that product.
+
+## Output per product
+
+- `title` — product title
+- `url` — direct Amazon product URL
+- `asin` — Amazon Standard Identification Number
+- `price` — current price `{value, currency, display}`
+- `listPrice` — original/strike-through price, if a genuine discount is shown
+- `stars` — average star rating (0-5)
+- `reviewsCount` — total number of customer reviews
+- `thumbnailImage` — main product thumbnail image URL
+- `badge` — merchandising badge (e.g. `BestSeller`, `AmazonsChoice`, `LimitedTimeDeal`)
+- `boughtInPastMonth`, `boughtInPastMonthText` — units bought in the past month (parsed value
+  + raw "X+ bought in past month" text)
+- `coupon` — coupon text shown on the card, if any
+- `deliveryEstimate`, `shipsTo` — estimated delivery text and ships-to location, if shown
+- `sustainabilityFeatures` — Climate Pledge Friendly / sustainability badge labels
+- `variantsCount` — number of additional color/style variants shown via the card's "+N" hint
+- `offerCount`, `lowestOfferPrice` — number and lowest price of "More Buying Choices" offers
+- `sponsored` / `isSponsored`, `resultType` — whether this is a sponsored/ad placement
+  (`ORGANIC`, `SPONSORED`, or `OTHER`)
+- `prime` / `isPrime` — whether the card shows an Amazon Prime badge (evidence-only)
+- `sourceLayout` — page layout this card came from: `SEARCH_GRID`, `MERCHANDISING_LANDING`,
+  or `MIXED`
+- `categoryUrl`, `categoryPage`, `categoryPosition` — the source URL, page number, and overall
+  position across all pages of that source
+- `position` — position metadata `{page, positionOnPage, globalPosition, uuid}`
+- `resultsTotal`, `resultsFrom`, `resultsTo` — result-count metadata from the page's own
+  results-info bar
+- `facets` — refinement facets available on this results page
+- `relatedSearches` — related search suggestions shown on this results page
+- `scrapedAt` — ISO timestamp when the item was scraped
+
+### Additional fields when `scrapeProductDetails` is true
+
+- `brand` — product brand name
+- `inStock`, `inStockText` — whether the product is currently in stock + raw availability text
+- `shippingPrice` — shipping cost, when explicitly shown
+- `starsBreakdown` — rating breakdown by star count
+- `answeredQuestions` — number of answered customer questions
+- `breadCrumbs` — category breadcrumb path
+- `description` — full product description
+- `features` — product feature bullet points
+- `variantAsins`, `variantAttributes` — ASINs of other variants (color/size/style) and their
+  attribute names
+- `priceVariants` — price by variant, when the page exposes one
+- `reviewsLink` — link to the full reviews page
+- `delivery`, `fastestDelivery` — delivery estimates
+- `returnPolicy` — return policy text
+- `support` — support/warranty information
+- `seller` — seller info `{name, id, url, ...}`
+- `bestsellerRanks` — bestseller rankings by category
+- `locationText` — delivery destination the page rendered for
+
+## Input
+
+At least one of `categoryUrls`, `keywords`, `asins`, `sellerIds`, or `categoryNodeIds` is
+required. All five modes are additive — combine several in one run and every URL they
+produce is scraped.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `categoryUrls` | array | – | Amazon category/search result URLs, used as-is (e.g. `amazon.com/s?k=laptops`, `amazon.com/b?node=123`) |
+| `keywords` | array | – | Plain search keywords/phrases — each builds a search URL automatically |
+| `asins` | array | – | Amazon ASINs to look up (searched, then the matching result card is scraped) |
+| `sellerIds` | array | – | Seller/merchant IDs — each builds that seller's storefront search |
+| `categoryNodeIds` | array | – | Amazon browse-node IDs — each builds a category landing-page URL |
+| `marketplaceDomain` | string | `amazon.com` | Amazon domain used to build URLs for the keywords/ASINs/sellerIds/categoryNodeIds modes (ignored for `categoryUrls`, used as-is) |
+| `maxItemsPerCategory` | integer | `10` | Maximum products to return per URL (1-1000) |
+| `maxPages` | integer | `1` | Maximum pages to paginate through per URL (1-50) |
+| `scrapeProductDetails` | boolean | `true` | If true, also visits each product's own page for full detail-page fields. If false, returns only what's visible on the search/category card (much faster) |
+| `sortBy` | select | `relevanceblender` | Sort order: Featured/Relevance, Price Low-to-High, Price High-to-Low, Avg. Customer Review, Newest Arrivals, Best Sellers |
+| `priceMin` | number | – | Only return products priced at or above this amount |
+| `priceMax` | number | – | Only return products priced at or below this amount |
+| `minRating` | number | – | Only return products with a star rating at or above this value (0-5) |
+| `includeSponsored` | boolean | `true` | If false, sponsored/ad results are excluded |
+| `onlyDeals` | boolean | `false` | If true, only return products with a visible coupon, "Limited Time Deal" badge, or list/strike-through price |
+| `primeOnly` | boolean | `false` | If true, only return products with a visible Amazon Prime badge |
+| `proxyCountry` | select | `AUTO` | Proxy country for geo-targeting; `AUTO` picks a country based on the Amazon domain |
+| `useResidentialProxy` | boolean | `false` | Start every session on residential proxies instead of datacenter proxies. Default (false) uses datacenter and escalates to residential automatically only after repeated blocks |
+| `rateLimitDelay` | integer | `2` | Base delay in seconds between requests (1-30) |
+
+### Example: keyword search with filters, cards only (fast mode)
+
+```json
+{
+  "keywords": ["wireless earbuds", "bluetooth speaker"],
+  "maxItemsPerCategory": 100,
+  "maxPages": 5,
+  "scrapeProductDetails": false,
+  "sortBy": "review-rank",
+  "minRating": 4,
+  "primeOnly": true
+}
+```
+
+### Example: full product-detail enrichment for a category URL
+
+```json
+{
+  "categoryUrls": ["https://www.amazon.com/s?k=laptops"],
+  "maxItemsPerCategory": 20,
+  "scrapeProductDetails": true
+}
+```
+
+### Example: look up specific ASINs
+
+```json
+{
+  "asins": ["B08N5WRWNW", "B09X7MPX8L"],
+  "scrapeProductDetails": true
+}
+```
+
+### Example: seller storefront + browse-node category, non-US marketplace
+
+```json
+{
+  "sellerIds": ["A1B2C3D4E5F6G7"],
+  "categoryNodeIds": ["172282"],
+  "marketplaceDomain": "amazon.co.uk",
+  "onlyDeals": true
+}
+```
+
+## Supported Amazon Marketplaces
+
+amazon.com (US), amazon.co.uk (UK), amazon.de (Germany), amazon.fr (France),
+amazon.it (Italy), amazon.es (Spain), amazon.ca (Canada), amazon.com.au (Australia),
+amazon.co.jp (Japan), amazon.in (India), amazon.com.br (Brazil), amazon.com.mx (Mexico),
+amazon.nl (Netherlands), amazon.se (Sweden), amazon.pl (Poland), amazon.com.tr (Turkey),
+amazon.ae (UAE), amazon.sa (Saudi Arabia), amazon.sg (Singapore), amazon.com.be
+(Belgium), amazon.eg (Egypt), and more.
+
+## Use cases
+
+- **Competitor price monitoring** — track price, list price, and deal status for a set of
+  competing products or keywords over time.
+- **Market research** — pull the top products for a category or keyword to understand what
+  sells, what's rated highly, and which brands dominate.
+- **Sponsored-ad tracking** — measure how many sponsored placements appear for a keyword and
+  which brands are bidding on it.
+- **Seller storefront audits** — list every product a given seller ID currently has listed.
+- **Deal & Prime coverage analysis** — filter by `onlyDeals`/`primeOnly` to see which products
+  in a category currently have an active deal or Prime badge.
+- **Product-detail enrichment for a shortlist** — combine `asins` with
+  `scrapeProductDetails: true` to fetch full descriptions, variants, and seller info for a
+  known list of products.
+
+## FAQ
+
+**Do I need to provide Amazon login cookies or an API key?**
+No. This actor scrapes public search/category/storefront pages and product pages directly —
+no account, cookies, or API key required.
+
+**What's the fastest way to get a lot of products quickly?**
+Set `scrapeProductDetails` to `false`. This skips visiting each individual product page and
+only returns the fields already visible on the search/category card — much faster and
+cheaper for large `maxItemsPerCategory` values.
+
+**Can I combine a keyword search with a price/rating filter?**
+Yes — `priceMin`/`priceMax`/`minRating`/`primeOnly`/`onlyDeals`/`includeSponsored` all apply
+uniformly regardless of whether you used `keywords`, `asins`, `sellerIds`,
+`categoryNodeIds`, or `categoryUrls`.
+
+**Why are some fields missing from a record instead of showing `null`?**
+Only fields that were actually found on the page are included. A missing field means Amazon
+didn't display that information for that specific product (e.g. no visible price, no rating
+yet, no Prime badge) — the actor never fabricates a placeholder value.
+
+**Why did I get 0 results for some searches?**
+Very restrictive filter combinations (e.g. a tight price range plus a high minimum rating)
+can legitimately return 0 matching products. Also, some ASIN lookups may not have an exact
+Amazon search match, in which case Amazon's own search may return related products instead.
+
+**Does this actor need a proxy?**
+A proxy is used automatically (datacenter by default) to reduce blocking; you don't need to
+configure your own. `useResidentialProxy` switches every session to residential proxies for
+higher reliability on harder-to-scrape marketplaces.
+
+**How many pages/products can I scrape per source?**
+Up to `maxPages` (max 50) pages and `maxItemsPerCategory` (max 1000) products per
+category/search/seller/node URL, with automatic deduplication by ASIN across pages.
+
+**Is this affiliated with Amazon?**
+No, this is an independent third-party actor that scrapes Amazon's public search, category,
+and storefront pages.

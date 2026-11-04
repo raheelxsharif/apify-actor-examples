@@ -4,115 +4,159 @@
 
 # Steam Game Reviews & Playtime Extractor
 
-Pull the actual customer-review feed for any Steam game — the same text, thumbs up/down verdict, playtime, and helpfulness votes that shoppers read on a store page before buying. Point the actor at a store URL or just type the game's name, and it resolves the app, paginates through Steam's review feed, and returns one record per review with reviewer playtime and vote weight attached.
+Export the actual customer-review feed for any Steam game — the review text, thumbs up/down verdict, reviewer profile, playtime, votes, and hardware shown on a store page. Pick games by app ID, store URL, community review URL, or plain name, then walk the full review history or stop at a fixed count. Every row is real Steam data; empty values are omitted instead of being filled with `0`, `false`, or `""`.
 
 ## What this actor does
 
-- **Two ways to pick a game:** a Steam store page URL, or a plain-text game name that gets resolved to the matching store listing
-- **Multi-game runs:** list several URLs or names in one job; each game is deduplicated by its Steam app ID and scraped independently
-- **Review filters:** narrow to positive-only or negative-only reviews, and to a single Steam language code
-- **Reviewer context on every row:** playtime at the time of review vs. total playtime, review count, and whether the copy was free or written during Early Access
-- **Every field is always present** — Steam fields with no recorded value come back as `0`, `0.0`, `false`, or `""` rather than being left out
+- **Two output modes:** `reviews` emits one row per review; `gameSummary` emits one row per game with metadata, price, and the overall review score.
+- **Flexible game selection:** numeric app IDs, store URLs, community review URLs, old review URLs, and game-name search all work in one run. Names prefer an exact title match.
+- **Complete review filters:** language, review type, purchase type, sort order, helpfulness window, exact UTC date window, playtime range, Steam Deck, off-topic reviews, and review-quality ranking.
+- **Rich reviewer context:** display name, profile and avatar URLs, SteamID, review counts, total/at-review/recent playtime, last played, Deck playtime, votes, comment count, reactions, purchase/refund/Early Access/Deck flags, and optional hardware details.
+- **Unlimited history:** `maxReviews: 0` follows the review cursor until Steam runs out, with no 500-row ceiling.
+- **Empty fields are omitted** at every nesting level, so a missing value is never confused with a real zero.
 
-## Output per review
+## Output per review (`mode` = `reviews`)
 
-- `appId` — Steam application ID
-- `gameTitle` — the matched store title when the game came from `gameNames`; when it came from `startUrls`, this is the Steam `appId` instead, since the actor doesn't fetch the store page title for direct URLs
-- `gameUrl` — canonical store page URL
-- `reviewId` — Steam's recommendation ID
-- `reviewText` — full review body
-- `rating` — `Positive` or `Negative` (from Steam's thumbs up/down)
-- `authorSteamId` — reviewer's SteamID64
-- `authorNumReviews` — total reviews this author has posted on Steam
-- `authorPlaytimeForever` — total hours the author has played the game
-- `authorPlaytimeAtReview` — hours played at the moment the review was written
-- `votesHelpful` — "helpful" votes from other Steam users
-- `votesFunny` — "funny" votes from other Steam users
-- `weightedVoteScore` — Steam's internal helpfulness ranking (0–1)
-- `timestampCreated` — when the review was posted (ISO 8601)
-- `timestampUpdated` — when the review was last edited (ISO 8601)
-- `receivedForFree` — whether the reviewer got the game for free
-- `writtenDuringEarlyAccess` — whether the game was still in Early Access when reviewed
-- `language` — Steam language code the review was written in
-- `scrapedAt` — when this record was collected (ISO 8601)
+- `appId`, `gameTitle`, `gameUrl` — the game's Steam identity
+- `reviewId`, `reviewText`, `reviewUrl` — Steam recommendation ID, body, and permalink
+- `rating` — `Positive` or `Negative`; `votedUp` boolean form
+- `authorSteamId`, `authorName`, `authorProfileUrl`, `authorAvatarUrl`
+- `authorNumReviews`, `authorNumGamesOwned` — profile activity (games owned is omitted when private or zero)
+- `authorPlaytimeForever`, `authorPlaytimeAtReview`, `authorPlaytimeLastTwoWeeks`, `authorDeckPlaytimeAtReview` — hours, one decimal
+- `authorLastPlayed` — ISO 8601 UTC
+- `votesHelpful`, `votesFunny`, `weightedVoteScore`, `commentCount`, `reactionCount`
+- `steamPurchase`, `receivedForFree`, `refunded`, `writtenDuringEarlyAccess`, `primarilySteamDeck`
+- `language`, `timestampCreated`, `timestampUpdated` — Steam language code and ISO 8601 UTC timestamps
+- `developerResponse`, `developerResponseAt` — only when Steam returns a developer reply
+- `hardware` — optional `{ os, cpu, gpu, systemRamMb, vramMb }`
+- `game` — optional metadata block when `includeGameDetails` is on
+- `recordType: "review"`, `scrapedAt`
+
+## Output per game (`mode` = `gameSummary`)
+
+- `appId`, `gameTitle`, `gameUrl`, `gameType`, `isFree`, `shortDescription`
+- `developers[]`, `publishers[]`, `genres[]`, `categories[]`
+- `platforms` — `{ windows, mac, linux }`
+- `releaseDate`, `metacriticScore`, `headerImage`
+- `price` — `{ currency, initial, final, discountPercent, formatted }` when a price exists
+- `reviewSummary` — `{ reviewScore, reviewScoreDesc, totalPositive, totalNegative, totalReviews, positivePercent }`
+- `recordType: "game"`, `scrapedAt`
+
+`reviewSummary` is the game's overall score across all languages and purchase types, not the filtered review query.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `startUrls` | array | – | Steam store page URLs to pull reviews for |
-| `gameNames` | array | – | Game names to search; the top Steam search result is used |
-| `maxReviews` | integer | `50` | Maximum reviews to collect per game (1–500) |
+| `mode` | string | `reviews` | `reviews` (one row per review) or `gameSummary` (one row per game) |
+| `appIds` | array | – | Numeric IDs, store URLs, community review URLs, or old review URLs |
+| `startUrls` | array | – | Legacy-compatible Steam store URLs; merged with `appIds` |
+| `gameNames` | array | – | Names resolved through Steam search; exact title match preferred |
+| `maxReviews` | int | `50` | Per-game review cap; `0` means all matching reviews |
+| `maxGames` | int | `0` | Cap the merged game list; `0` means no cap |
 | `reviewType` | string | `all` | `all`, `positive`, or `negative` |
-| `language` | string | `all` | Steam language code (`english`, `german`, `schinese`, etc.) or `all` for every language |
+| `language` | string | `all` | Steam language code or `all` |
+| `sortBy` | string | `recent` | `recent`, `helpful`, `updated`, or `funny`; helpful and funny are ranked, not exhaustive |
+| `helpfulWithinDays` | int | `30` | Helpful sort window (1–365 days) |
+| `purchaseType` | string | `all` | `all`, `steam`, or `nonSteamPurchase` |
+| `minPlaytimeHours` | int | `0` | Minimum hours at review; `0` = no minimum |
+| `maxPlaytimeHours` | int | `0` | Maximum hours at review; `0` = no maximum |
+| `steamDeckOnly` | boolean | `false` | Only reviews played primarily on Steam Deck |
+| `includeOffTopic` | boolean | `false` | Include review-bomb/off-topic activity Steam hides by default |
+| `useReviewQuality` | boolean | `true` | Apply Steam's quality ranking to `sortBy=helpful` |
+| `reviewsFromDate` | string | – | Include reviews created on/after this UTC date (`YYYY-MM-DD`) |
+| `reviewsToDate` | string | – | Include reviews created on/before this UTC date (`YYYY-MM-DD`) |
+| `includeGameDetails` | boolean | `false` | Attach game metadata, price, and score to every review row |
 
-At least one of `startUrls` or `gameNames` must be provided.
+At least one game source (`appIds`, `startUrls`, or `gameNames`) is required.
 
-### Example: reviews for a single game by URL
+### Example: the smallest daily run
 
 ```json
 {
+    "mode": "reviews",
     "startUrls": [{ "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/" }],
-    "maxReviews": 100,
-    "reviewType": "all",
-    "language": "all"
+    "maxReviews": 3,
+    "sortBy": "recent"
 }
 ```
 
-### Example: negative English reviews only
+### Example: negative English reviews in an exact date window
 
 ```json
 {
-    "startUrls": [{ "url": "https://store.steampowered.com/app/252490/Rust/" }],
-    "maxReviews": 200,
+    "mode": "reviews",
+    "appIds": ["570"],
     "reviewType": "negative",
-    "language": "english"
+    "language": "english",
+    "reviewsFromDate": "2024-01-01",
+    "reviewsToDate": "2024-03-31",
+    "maxReviews": 500
 }
 ```
 
-### Example: look up games by name instead of URL
+### Example: long sessions on a Steam Deck
 
 ```json
 {
-    "gameNames": ["Hades", "Baldur's Gate 3"],
-    "maxReviews": 50,
-    "reviewType": "positive"
+    "mode": "reviews",
+    "gameNames": ["Hades"],
+    "steamDeckOnly": true,
+    "minPlaytimeHours": 20,
+    "sortBy": "helpful",
+    "helpfulWithinDays": 90,
+    "maxReviews": 200
+}
+```
+
+### Example: game metadata and score summaries
+
+```json
+{
+    "mode": "gameSummary",
+    "appIds": ["1145360", "1245620"],
+    "gameNames": ["Baldur's Gate 3"],
+    "maxGames": 3
 }
 ```
 
 ## Use cases
 
-- **Sentiment tracking** — monitor how the tone of reviews shifts after a patch, DLC launch, or price change
-- **Competitor research** — compare review volume, rating mix, and complaint themes across similar games
-- **QA and community management** — surface negative reviews mentioning bugs or crashes for triage
-- **Influencer and playtester vetting** — check an author's total playtime and review history before trusting their opinion
-- **Localization planning** — filter by language to see sentiment in specific markets before expanding support
+- **Patch and DLC sentiment** — pull reviews from a narrow date window to see reaction before and after a release.
+- **Competitive benchmarking** — compare review volume, positive share, playtime, and hardware mix across titles.
+- **Community management** — filter negative reviews by language and date to triage bugs and crashes.
+- **Reviewer vetting** — check total playtime, review history, and whether a copy was free or refunded.
+- **Store dashboards** — run `gameSummary` for a clean one-row-per-game view of price, score, and metadata.
+- **Localization research** — compare sentiment in specific Steam language markets.
 
 ## FAQ
 
-**Where does this data come from?**
-Steam's own public review feed for the app, the same data shown on a game's store page under "Customer Reviews."
+**Where does the data come from?**
+Steam's public store review services and store metadata endpoints — the same information shown under "Customer Reviews" and on a game's store page.
 
-**Do I need a Steam account or API key?**
-No. The review feed is public and requires no login.
+**Do I need a Steam account, API key, or proxy?**
+No. The actor uses anonymous public endpoints, needs no login or key, and is configured without a proxy input.
 
-**What's the difference between using a URL and a game name?**
-A URL points to an exact app ID, so it's always precise. A name runs a Steam search and uses the top match, which is usually correct but can occasionally resolve to the wrong edition (e.g. a bundle) for games with similar titles.
+**Are the date filters inclusive?**
+Yes. `reviewsFromDate` starts at 00:00:00 UTC and `reviewsToDate` ends at 23:59:59 UTC, using the review's creation time. Reviews edited later do not move into an older window.
 
-**Why is `authorPlaytimeAtReview` sometimes `0`?**
-Steam doesn't record playtime-at-review for every review, particularly older ones or ones from accounts with private profiles; when that happens the field comes back as `0.0` rather than a real hours value.
+**Why are some fields missing from a row?**
+Empty values are omitted deliberately. Hardware is only recorded when a reviewer shares it, reactions and developer responses are rare, and private profiles hide games-owned. If Steam's rich review service is unavailable, the actor switches to Valve's official review API, which omits reviewer display names and avatars. Absence means Steam did not provide the value.
 
-**Can I scrape more than 500 reviews for one game?**
-No, 500 per game per run is the current cap.
+**Does `maxReviews: 0` really return everything?**
+With `recent` or `updated` it follows Steam's cursor until the source is exhausted. Ranked sorts (`helpful`, `funny`) only expose Steam's ranked subset. A safety cap of 1,000,000 reviews per game prevents runaway runs; narrow the date window or use `maxReviews` for very large titles.
 
-**What does `weightedVoteScore` mean?**
-It's Steam's own ranking score that blends helpful and funny votes to estimate how useful a review is — higher values surface near the top of Steam's own review list.
+**Is `sortBy=helpful` a full export?**
+No. Helpful is Steam's ranked view inside `helpfulWithinDays`, and `funny` is likewise a ranked subset of the game's reviews; neither is exhaustive. Use `recent` or `updated` for full-history exports.
 
-**Can I combine URLs and game names in one run?**
-Yes. Both lists are merged and deduplicated by app ID before scraping starts.
+**What does `purchaseType` mean?**
+`steam` means Steam records the copy as bought through Steam; `nonSteamPurchase` covers keys, gifts, and other acquisitions. On some free-to-play titles Steam's own purchase flag does not split cleanly, so treat that filter as Steam's classification rather than an independent audit.
 
-**Are language codes the same as ISO codes?**
-No. Steam uses its own codes (e.g. `schinese`, `brazilian`, `latam`) rather than standard ISO 639-1 codes — use the values listed in the Input table.
+**Why does `gameSummary` show a different score than a filtered review run?**
+`reviewSummary` is always the game's overall score across all languages and purchase types. The review filters only affect which individual review rows are emitted.
+
+**Can I mix IDs, URLs, and names in one run?**
+Yes. All sources are merged and deduplicated by app ID, then capped by `maxGames`.
 
 **Is this affiliated with Steam or Valve?**
-No. This is an independent, third-party actor that reads Steam's public review API; it isn't operated by Valve.
+No. This is an independent, third-party actor that reads Steam's public endpoints; it is not operated by Valve.

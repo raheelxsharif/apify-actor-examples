@@ -1,0 +1,207 @@
+{
+  "properties": {
+    "asins": {
+      "description": "Amazon ASINs to look up. Each ASIN is searched (/s?k={ASIN}) and the matching search-result card is scraped, reusing the same search-card parser as other input modes.",
+      "editor": "stringList",
+      "example": [
+        "B08N5WRWNW"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "ASINs",
+      "type": "array"
+    },
+    "categoryNodeIds": {
+      "description": "Amazon browse-node IDs. Each node ID builds a browse-node/category landing URL (/b?node={id}).",
+      "editor": "stringList",
+      "example": [
+        "172282"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Category Node IDs",
+      "type": "array"
+    },
+    "categoryUrls": {
+      "description": "List of Amazon category or search result URLs to scrape. Supports search pages (e.g., amazon.com/s?k=laptops) and browse nodes (e.g., amazon.com/b?node=123). At least one of Category/Search URLs, Keywords, ASINs, Seller IDs, or Category Node IDs is required.",
+      "editor": "stringList",
+      "example": [
+        "https://www.amazon.com/s?k=laptops",
+        "https://www.amazon.com/s?k=wireless+headphones"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.amazon.com/s?k=laptops"
+      ],
+      "title": "Category/Search URLs",
+      "type": "array"
+    },
+    "includeSponsored": {
+      "default": true,
+      "description": "If true (default), sponsored/ad results are included in the output. Set to false to only return organic results.",
+      "title": "Include Sponsored Results",
+      "type": "boolean"
+    },
+    "keywords": {
+      "description": "Plain search keywords/phrases. Each keyword builds an Amazon search URL (/s?k={query}) automatically.",
+      "editor": "stringList",
+      "example": [
+        "running shoes",
+        "wireless headphones"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Keywords",
+      "type": "array"
+    },
+    "marketplaceDomain": {
+      "default": "amazon.com",
+      "description": "Amazon marketplace domain used to build URLs for the Keywords/ASINs/Seller IDs/Category Node IDs input modes (ignored for Category/Search URLs, which are used as-is).",
+      "editor": "textfield",
+      "prefill": "amazon.com",
+      "title": "Marketplace Domain",
+      "type": "string"
+    },
+    "maxItemsPerCategory": {
+      "default": 10,
+      "description": "Maximum number of products to scrape per category URL",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max Items Per Category",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 1,
+      "description": "Maximum number of pages to scrape per category",
+      "editor": "number",
+      "maximum": 50,
+      "minimum": 1,
+      "title": "Max Pages",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only return products with a star rating at or above this value (0-5).",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum Rating",
+      "type": "number"
+    },
+    "onlyDeals": {
+      "default": false,
+      "description": "If true, only return products with evidence of a deal (coupon, limited-time-deal badge, or a visible list/strike-through price).",
+      "title": "Only Deals",
+      "type": "boolean"
+    },
+    "priceMax": {
+      "description": "Only return products priced at or below this amount (in dollars).",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Maximum Price ($)",
+      "type": "number"
+    },
+    "priceMin": {
+      "description": "Only return products priced at or above this amount (in dollars).",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Minimum Price ($)",
+      "type": "number"
+    },
+    "primeOnly": {
+      "default": false,
+      "description": "If true, only return products with a visible Amazon Prime badge.",
+      "title": "Prime Only",
+      "type": "boolean"
+    },
+    "proxyCountry": {
+      "default": "AUTO",
+      "description": "Proxy country for geo-targeting. Use AUTO to automatically select based on Amazon domain.",
+      "editor": "select",
+      "enum": [
+        "AUTO",
+        "US",
+        "GB",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "CA",
+        "AU",
+        "JP",
+        "IN",
+        "BR",
+        "MX"
+      ],
+      "title": "Proxy Country",
+      "type": "string"
+    },
+    "rateLimitDelay": {
+      "default": 2,
+      "description": "Base delay between requests in seconds to avoid rate limiting",
+      "editor": "number",
+      "maximum": 30,
+      "minimum": 1,
+      "title": "Rate Limit Delay (seconds)",
+      "type": "integer"
+    },
+    "scrapeProductDetails": {
+      "default": true,
+      "description": "If true, scrapes full product details from individual product pages. If false, returns only data visible on category pages (faster).",
+      "prefill": false,
+      "title": "Scrape Product Details",
+      "type": "boolean"
+    },
+    "sellerIds": {
+      "description": "Amazon seller/merchant IDs. Each seller ID builds a storefront search URL (/s?me={sellerId}) listing that seller's products.",
+      "editor": "stringList",
+      "example": [
+        "A1B2C3D4E5F6G7"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Seller IDs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "relevanceblender",
+      "description": "Sort order applied to search/category results.",
+      "editor": "select",
+      "enum": [
+        "relevanceblender",
+        "price-asc-rank",
+        "price-desc-rank",
+        "review-rank",
+        "date-desc-rank",
+        "exact-aware-popularity-rank"
+      ],
+      "enumTitles": [
+        "Featured/Relevance",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Avg. Customer Review",
+        "Newest Arrivals",
+        "Best Sellers"
+      ],
+      "title": "Sort By",
+      "type": "string"
+    },
+    "useResidentialProxy": {
+      "default": false,
+      "description": "Start every session on residential proxies (more reliable but more expensive ~$12.50/GB). Default (false) uses datacenter proxies (~$0.50/GB) and automatically escalates a session to residential only after repeated blocks.",
+      "title": "Use Residential Proxy",
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Amazon Category Scraper Input",
+  "type": "object"
+}

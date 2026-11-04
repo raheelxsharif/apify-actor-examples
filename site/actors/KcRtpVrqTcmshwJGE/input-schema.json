@@ -1,15 +1,49 @@
 {
+  "description": "Choose games by app ID, URL or name, then export reviews or a per-game summary.",
   "properties": {
+    "appIds": {
+      "default": [],
+      "description": "Numeric app IDs, store URLs, community review URLs, or old appreviews URLs. Example: 1174180 or https://store.steampowered.com/app/1174180/",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Steam App IDs",
+      "type": "array"
+    },
     "gameNames": {
-      "description": "Search Steam by game name. The first search result will be used to scrape reviews.",
+      "default": [],
+      "description": "Search Steam by name. An exact case-insensitive title match is preferred over the first search result.",
       "editor": "stringList",
       "prefill": [],
       "title": "Game Names",
       "type": "array"
     },
+    "helpfulWithinDays": {
+      "default": 30,
+      "description": "Only for sortBy=helpful: rank reviews from the last 1-365 days. Use recent for full history.",
+      "editor": "number",
+      "maximum": 365,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Helpful Window (days)",
+      "type": "integer"
+    },
+    "includeGameDetails": {
+      "default": false,
+      "description": "mode=reviews: attach game metadata, price and overall review summary to every review row.",
+      "prefill": false,
+      "title": "Attach Game Details",
+      "type": "boolean"
+    },
+    "includeOffTopic": {
+      "default": false,
+      "description": "Include reviews Steam hides as off-topic review-bomb activity. Off by default, matching the store.",
+      "prefill": false,
+      "title": "Include Off-Topic Reviews",
+      "type": "boolean"
+    },
     "language": {
       "default": "all",
-      "description": "Filter reviews by language. Select 'All Languages' to include reviews in every language.",
+      "description": "Steam language code for review text. Select All Languages to include every language.",
       "editor": "select",
       "enum": [
         "all",
@@ -75,21 +109,87 @@
         "Swedish",
         "Ukrainian"
       ],
+      "prefill": "all",
       "title": "Language",
       "type": "string"
     },
+    "maxGames": {
+      "default": 0,
+      "description": "Cap the merged game list. Use 0 for no cap.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max Games",
+      "type": "integer"
+    },
+    "maxPlaytimeHours": {
+      "default": 0,
+      "description": "Maximum hours played at the time of review. Use 0 for no maximum.",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Maximum Playtime (hours)",
+      "type": "integer"
+    },
     "maxReviews": {
       "default": 50,
-      "description": "Maximum number of reviews to extract per game.",
+      "description": "Reviews to collect per game. Use 0 for every matching review (hard safety cap 1,000,000 per game).",
       "editor": "number",
-      "maximum": 500,
-      "minimum": 1,
-      "title": "Max Reviews",
+      "maximum": 1000000,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Max Reviews per Game",
       "type": "integer"
+    },
+    "minPlaytimeHours": {
+      "default": 0,
+      "description": "Minimum hours played at the time of review. Use 0 for no minimum.",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum Playtime (hours)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "reviews",
+      "description": "reviews = one row per review; gameSummary = one row per game with metadata and overall score.",
+      "editor": "select",
+      "enum": [
+        "reviews",
+        "gameSummary"
+      ],
+      "enumTitles": [
+        "Reviews (one row per review)",
+        "Game summaries (one row per game)"
+      ],
+      "prefill": "reviews",
+      "title": "Mode",
+      "type": "string"
+    },
+    "purchaseType": {
+      "default": "all",
+      "description": "Whether the reviewer acquired the game through Steam, outside Steam, or either.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "steam",
+        "nonSteamPurchase"
+      ],
+      "enumTitles": [
+        "All Purchases",
+        "Steam Purchase",
+        "Non-Steam Purchase (key, gift, free)"
+      ],
+      "prefill": "all",
+      "title": "Purchase Type",
+      "type": "string"
     },
     "reviewType": {
       "default": "all",
-      "description": "Filter reviews by type.",
+      "description": "Filter reviews by recommendation verdict.",
       "editor": "select",
       "enum": [
         "all",
@@ -101,21 +201,71 @@
         "Positive Only",
         "Negative Only"
       ],
+      "prefill": "all",
       "title": "Review Type",
       "type": "string"
     },
+    "reviewsFromDate": {
+      "description": "Include reviews created on or after this UTC date.",
+      "editor": "datepicker",
+      "title": "Reviews From (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "reviewsToDate": {
+      "description": "Include reviews created on or before this UTC date.",
+      "editor": "datepicker",
+      "title": "Reviews To (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "recent",
+      "description": "recent and updated walk the full history; helpful is a ranked sample inside the helpfulness window; funny is also ranked and not exhaustive.",
+      "editor": "select",
+      "enum": [
+        "recent",
+        "helpful",
+        "updated",
+        "funny"
+      ],
+      "enumTitles": [
+        "Most Recent",
+        "Most Helpful (ranked)",
+        "Recently Updated",
+        "Funniest"
+      ],
+      "prefill": "recent",
+      "title": "Sort",
+      "type": "string"
+    },
     "startUrls": {
-      "description": "Steam store page URLs for the games you want to scrape reviews for. Example: https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/",
+      "description": "Steam store page URLs for the games to scrape. Merged with appIds.",
       "editor": "requestListSources",
       "prefill": [
         {
           "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/"
         }
       ],
-      "title": "Steam Game URLs",
+      "title": "Steam Game URLs (legacy)",
       "type": "array"
+    },
+    "steamDeckOnly": {
+      "default": false,
+      "description": "Only reviews written while playing primarily on a Steam Deck.",
+      "prefill": false,
+      "title": "Steam Deck Only",
+      "type": "boolean"
+    },
+    "useReviewQuality": {
+      "default": true,
+      "description": "Only for sortBy=helpful: rank low-quality reviews lower.",
+      "prefill": true,
+      "title": "Use Review Quality Ranking",
+      "type": "boolean"
     }
   },
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
   "title": "Steam Review Scraper Input",
   "type": "object"

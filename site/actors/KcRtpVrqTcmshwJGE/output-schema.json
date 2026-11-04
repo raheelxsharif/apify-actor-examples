@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Steam review records with game info, reviewer playtime, rating, and helpfulness votes.",
+  "description": "Steam review rows with reviewer profile, playtime, votes, hardware and flags, plus per-game metadata and overall score summaries.",
   "properties": {
     "reviews": {
-      "description": "Dataset containing all scraped Steam reviews",
+      "description": "Dataset containing scraped Steam review records or per-game summary records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Steam Reviews",
       "type": "string"
