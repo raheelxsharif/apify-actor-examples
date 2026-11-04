@@ -1,0 +1,73 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "authorPlaytimeForever": {
+            "format": "number",
+            "label": "Playtime (hrs)"
+          },
+          "authorSteamId": {
+            "format": "text",
+            "label": "Author"
+          },
+          "gameTitle": {
+            "format": "text",
+            "label": "Game"
+          },
+          "language": {
+            "format": "text",
+            "label": "Language"
+          },
+          "rating": {
+            "format": "text",
+            "label": "Rating"
+          },
+          "receivedForFree": {
+            "format": "text",
+            "label": "Free Copy"
+          },
+          "reviewText": {
+            "format": "text",
+            "label": "Review"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "timestampCreated": {
+            "format": "text",
+            "label": "Date"
+          },
+          "votesHelpful": {
+            "format": "number",
+            "label": "Helpful Votes"
+          },
+          "writtenDuringEarlyAccess": {
+            "format": "text",
+            "label": "Early Access"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "gameTitle",
+          "rating",
+          "reviewText",
+          "authorSteamId",
+          "authorPlaytimeForever",
+          "votesHelpful",
+          "timestampCreated",
+          "language",
+          "receivedForFree",
+          "writtenDuringEarlyAccess",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

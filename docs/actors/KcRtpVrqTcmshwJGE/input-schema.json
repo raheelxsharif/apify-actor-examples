@@ -1,0 +1,122 @@
+{
+  "properties": {
+    "gameNames": {
+      "description": "Search Steam by game name. The first search result will be used to scrape reviews.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Game Names",
+      "type": "array"
+    },
+    "language": {
+      "default": "all",
+      "description": "Filter reviews by language. Select 'All Languages' to include reviews in every language.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "english",
+        "german",
+        "french",
+        "spanish",
+        "latam",
+        "portuguese",
+        "brazilian",
+        "russian",
+        "schinese",
+        "tchinese",
+        "japanese",
+        "koreana",
+        "turkish",
+        "italian",
+        "dutch",
+        "polish",
+        "thai",
+        "vietnamese",
+        "indonesian",
+        "bulgarian",
+        "czech",
+        "danish",
+        "finnish",
+        "greek",
+        "hungarian",
+        "norwegian",
+        "romanian",
+        "swedish",
+        "ukrainian"
+      ],
+      "enumTitles": [
+        "All Languages",
+        "English",
+        "German",
+        "French",
+        "Spanish (Spain)",
+        "Spanish (Latin America)",
+        "Portuguese (Portugal)",
+        "Portuguese (Brazil)",
+        "Russian",
+        "Chinese (Simplified)",
+        "Chinese (Traditional)",
+        "Japanese",
+        "Korean",
+        "Turkish",
+        "Italian",
+        "Dutch",
+        "Polish",
+        "Thai",
+        "Vietnamese",
+        "Indonesian",
+        "Bulgarian",
+        "Czech",
+        "Danish",
+        "Finnish",
+        "Greek",
+        "Hungarian",
+        "Norwegian",
+        "Romanian",
+        "Swedish",
+        "Ukrainian"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "maxReviews": {
+      "default": 50,
+      "description": "Maximum number of reviews to extract per game.",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "title": "Max Reviews",
+      "type": "integer"
+    },
+    "reviewType": {
+      "default": "all",
+      "description": "Filter reviews by type.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "positive",
+        "negative"
+      ],
+      "enumTitles": [
+        "All Reviews",
+        "Positive Only",
+        "Negative Only"
+      ],
+      "title": "Review Type",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Steam store page URLs for the games you want to scrape reviews for. Example: https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/"
+        }
+      ],
+      "title": "Steam Game URLs",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Steam Review Scraper Input",
+  "type": "object"
+}
