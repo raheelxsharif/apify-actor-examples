@@ -1,0 +1,54 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Optional. Leave empty to scrape public profiles without signing in. Paste your own Instagram cookies in JSON format to also scrape private profiles your account follows and age-restricted posts. It is a secret input, so the Apify Console hides and encrypts it.\n\nFormat: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "maxPosts": {
+      "default": 12,
+      "description": "Maximum number of posts to extract per profile (after the date and pinned-post filters below). Set to 0 to only extract profile data without posts. Public profiles need no sign-in, however many posts you ask for.",
+      "example": 50,
+      "maximum": 500,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Maximum Posts to Scrape",
+      "type": "integer"
+    },
+    "newerThan": {
+      "dateType": "absolute",
+      "description": "Skip posts published before this date. Leave empty for no date filter. Must be a date from 2000-01-01 up to the day before the run. The date is read from the post's id, so it can be off by up to a day.",
+      "editor": "datepicker",
+      "nullable": true,
+      "title": "Only posts newer than",
+      "type": "string"
+    },
+    "skipPinnedPosts": {
+      "default": false,
+      "description": "Leave out the posts a profile has pinned to the top of its grid. A pinned post that is also the newest post cannot be recognised and stays in.",
+      "title": "Skip pinned posts",
+      "type": "boolean"
+    },
+    "usernames": {
+      "description": "Instagram profiles to scrape. Each entry can be a username (with or without @) or a profile link such as https://www.instagram.com/natgeo/. Each profile is scraped in turn. Example: 'instagram', '@instagram' or 'https://www.instagram.com/instagram/'.",
+      "editor": "stringList",
+      "example": [
+        "instagram"
+      ],
+      "minItems": 1,
+      "prefill": [
+        "instagram"
+      ],
+      "title": "Instagram Usernames",
+      "type": "array"
+    }
+  },
+  "required": [
+    "usernames"
+  ],
+  "schemaVersion": 1,
+  "title": "Instagram Profile Scraper Input",
+  "type": "object"
+}

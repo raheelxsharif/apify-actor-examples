@@ -1,0 +1,258 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "accessibility_caption": {
+        "description": "Instagram's auto-generated alt-text description of the media",
+        "nullable": true,
+        "type": "string"
+      },
+      "author_meta": {
+        "description": "Full profile data of the scraped account",
+        "properties": {
+          "biography": {
+            "nullable": true,
+            "type": "string"
+          },
+          "category": {
+            "nullable": true,
+            "type": "string"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string"
+          },
+          "external_urls": {
+            "type": "array"
+          },
+          "followers_count": {
+            "type": "integer"
+          },
+          "following_count": {
+            "type": "integer"
+          },
+          "full_name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "is_business": {
+            "type": "boolean"
+          },
+          "is_private": {
+            "type": "boolean"
+          },
+          "is_verified": {
+            "type": "boolean"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "posts_count": {
+            "type": "integer"
+          },
+          "profile_pic_url": {
+            "nullable": true,
+            "type": "string"
+          },
+          "profile_url": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "caption": {
+        "description": "Full caption text of the post",
+        "nullable": true,
+        "type": "string"
+      },
+      "caption_is_edited": {
+        "description": "Whether the caption was edited after posting",
+        "type": "boolean"
+      },
+      "collaborators": {
+        "description": "Usernames listed as co-authors of the post",
+        "type": "array"
+      },
+      "comment_count": {
+        "description": "Number of comments on the post",
+        "nullable": true,
+        "type": "integer"
+      },
+      "comments_disabled": {
+        "description": "Whether commenting is disabled on the post",
+        "type": "boolean"
+      },
+      "hashtags": {
+        "description": "Hashtags extracted from the caption",
+        "type": "array"
+      },
+      "like_count": {
+        "description": "Number of likes on the post",
+        "nullable": true,
+        "type": "integer"
+      },
+      "likes_hidden": {
+        "description": "Whether the author hid the like count",
+        "type": "boolean"
+      },
+      "location": {
+        "description": "Tagged location, when present",
+        "nullable": true,
+        "type": "object"
+      },
+      "media_count": {
+        "description": "Number of media items in the post (1 for single image/video)",
+        "nullable": true,
+        "type": "integer"
+      },
+      "media_items": {
+        "description": "Every image/video in the post, in order, with per-item url/dimensions",
+        "nullable": true,
+        "type": "array"
+      },
+      "media_type": {
+        "description": "Type of post: Photo, Video, Carousel, Reel, or IGTV",
+        "type": "string"
+      },
+      "mentions": {
+        "description": "@mentions extracted from the caption",
+        "type": "array"
+      },
+      "music": {
+        "description": "Music/audio attribution, when present (reels)",
+        "nullable": true,
+        "type": "object"
+      },
+      "post_id": {
+        "description": "Internal Instagram media id of the post",
+        "type": "string"
+      },
+      "post_url": {
+        "description": "Direct URL to the Instagram post",
+        "type": "string"
+      },
+      "pub_date": {
+        "description": "ISO 8601 datetime when the post was published",
+        "nullable": true,
+        "type": "string"
+      },
+      "scraped_at": {
+        "description": "ISO 8601 datetime when this record was scraped",
+        "type": "string"
+      },
+      "shortcode": {
+        "description": "Instagram shortcode identifying the post",
+        "type": "string"
+      },
+      "status": {
+        "description": "success for a scraped post or profile. Otherwise the reason there is none: post_age_restricted, post_is_private, post_not_found, blocked, error, invalid_url, cookies_unusable, profile_not_found, profile_is_private, profile_age_restricted or profile_restricted. The log explains each one",
+        "type": "string"
+      },
+      "tagged_users": {
+        "description": "Usernames tagged in the post",
+        "type": "array"
+      },
+      "thumbnail_url": {
+        "description": "Direct URL to the post's cover image",
+        "nullable": true,
+        "type": "string"
+      },
+      "username": {
+        "description": "Instagram username of the post author",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram Posts & Profiles",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "author_meta.followers_count": {
+            "format": "number",
+            "label": "Followers"
+          },
+          "author_meta.full_name": {
+            "format": "text",
+            "label": "Name"
+          },
+          "author_meta.is_business": {
+            "format": "boolean",
+            "label": "Business"
+          },
+          "author_meta.is_verified": {
+            "format": "boolean",
+            "label": "Verified"
+          },
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "comment_count": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "like_count": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "media_count": {
+            "format": "number",
+            "label": "Media Count"
+          },
+          "media_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "post_url": {
+            "format": "text",
+            "label": "Post URL"
+          },
+          "pub_date": {
+            "format": "text",
+            "label": "Published"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "thumbnail_url": {
+            "format": "text",
+            "label": "Thumbnail"
+          },
+          "username": {
+            "format": "text",
+            "label": "Username"
+          }
+        }
+      },
+      "title": "Posts",
+      "transformation": {
+        "fields": [
+          "username",
+          "post_url",
+          "media_type",
+          "caption",
+          "like_count",
+          "comment_count",
+          "pub_date",
+          "media_count",
+          "thumbnail_url",
+          "status",
+          "scraped_at",
+          "author_meta.full_name",
+          "author_meta.followers_count",
+          "author_meta.is_verified",
+          "author_meta.is_business",
+          "author_meta.category"
+        ]
+      }
+    }
+  }
+}
