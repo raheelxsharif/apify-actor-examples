@@ -9,6 +9,14 @@
             "format": "text",
             "label": "Badges"
           },
+          "category": {
+            "format": "text",
+            "label": "Category"
+          },
+          "channelAvatarUrl": {
+            "format": "link",
+            "label": "Channel Avatar"
+          },
           "channelCount": {
             "format": "number",
             "label": "Total Channel Count"
@@ -16,6 +24,10 @@
           "channelCountText": {
             "format": "text",
             "label": "Total Channels"
+          },
+          "channelHandle": {
+            "format": "text",
+            "label": "Channel Handle"
           },
           "channelId": {
             "format": "text",
@@ -25,13 +37,45 @@
             "format": "text",
             "label": "Channel"
           },
+          "channelSubscriberCount": {
+            "format": "number",
+            "label": "Subscriber Count"
+          },
+          "channelSubscriberCountText": {
+            "format": "text",
+            "label": "Subscribers"
+          },
           "channelUrl": {
             "format": "link",
             "label": "Channel URL"
           },
+          "commentCount": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "commentCountText": {
+            "format": "text",
+            "label": "Comments (label)"
+          },
+          "description": {
+            "format": "text",
+            "label": "Description"
+          },
+          "durationSeconds": {
+            "format": "number",
+            "label": "Duration (seconds)"
+          },
           "durationText": {
             "format": "text",
             "label": "Duration"
+          },
+          "error": {
+            "format": "text",
+            "label": "Error"
+          },
+          "errorCode": {
+            "format": "text",
+            "label": "Error Code"
           },
           "hashtag": {
             "format": "text",
@@ -41,21 +85,49 @@
             "format": "text",
             "label": "Hashtag Title"
           },
+          "hashtagUrl": {
+            "format": "link",
+            "label": "Hashtag URL"
+          },
           "isShort": {
             "format": "boolean",
             "label": "Is Short"
+          },
+          "keywords": {
+            "format": "text",
+            "label": "Keywords"
+          },
+          "likeCount": {
+            "format": "number",
+            "label": "Like Count"
+          },
+          "likeCountText": {
+            "format": "text",
+            "label": "Likes"
           },
           "position": {
             "format": "number",
             "label": "Position"
           },
+          "publishedAt": {
+            "format": "text",
+            "label": "Published At"
+          },
           "publishedTimeText": {
             "format": "text",
-            "label": "Published"
+            "label": "Published (relative)"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Record Type"
           },
           "scrapedAt": {
             "format": "text",
             "label": "Scraped At"
+          },
+          "success": {
+            "format": "boolean",
+            "label": "Success"
           },
           "thumbnailUrl": {
             "format": "link",
@@ -64,6 +136,10 @@
           "title": {
             "format": "text",
             "label": "Title"
+          },
+          "type": {
+            "format": "text",
+            "label": "Type"
           },
           "url": {
             "format": "link",
@@ -81,6 +157,10 @@
             "format": "text",
             "label": "Video ID"
           },
+          "viewCount": {
+            "format": "number",
+            "label": "View Count"
+          },
           "viewCountText": {
             "format": "text",
             "label": "Views"
@@ -91,25 +171,45 @@
       "transformation": {
         "fields": [
           "hashtag",
+          "hashtagUrl",
           "hashtagTitle",
           "videoCountText",
           "videoCount",
           "channelCountText",
           "channelCount",
           "position",
+          "recordType",
+          "success",
+          "type",
           "videoId",
           "title",
           "url",
           "channelName",
           "channelId",
           "channelUrl",
+          "channelHandle",
+          "channelAvatarUrl",
+          "channelSubscriberCountText",
+          "channelSubscriberCount",
           "viewCountText",
+          "viewCount",
+          "likeCountText",
+          "likeCount",
+          "commentCountText",
+          "commentCount",
           "publishedTimeText",
+          "publishedAt",
           "durationText",
+          "durationSeconds",
           "thumbnailUrl",
           "isShort",
+          "description",
+          "keywords",
+          "category",
           "badges",
-          "scrapedAt"
+          "scrapedAt",
+          "errorCode",
+          "error"
         ]
       }
     },
@@ -125,17 +225,21 @@
             "format": "text",
             "label": "Hashtag"
           },
-          "isShort": {
-            "format": "boolean",
-            "label": "Is Short"
-          },
           "position": {
             "format": "number",
             "label": "Position"
           },
+          "publishedAt": {
+            "format": "text",
+            "label": "Published"
+          },
           "title": {
             "format": "text",
             "label": "Title"
+          },
+          "type": {
+            "format": "text",
+            "label": "Type"
           },
           "url": {
             "format": "link",
@@ -145,8 +249,8 @@
             "format": "text",
             "label": "Video ID"
           },
-          "viewCountText": {
-            "format": "text",
+          "viewCount": {
+            "format": "number",
             "label": "Views"
           }
         }
@@ -156,12 +260,13 @@
         "fields": [
           "hashtag",
           "position",
+          "type",
           "videoId",
           "title",
           "url",
           "channelName",
-          "viewCountText",
-          "isShort"
+          "viewCount",
+          "publishedAt"
         ]
       }
     }

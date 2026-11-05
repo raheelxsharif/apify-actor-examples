@@ -4,108 +4,151 @@
 
 # YouTube Hashtag Video & Shorts Ranking Scraper
 
-Every YouTube hashtag page ranks the videos and Shorts currently tagged with it. This actor reads that ranking for one or more hashtags and returns each video or Short in position order, with its view count, channel, and (for regular videos) duration and publish time — no login or cookies needed.
+YouTube's hashtag pages are live rankings of the videos and Shorts carrying a tag. This actor reads that feed for any hashtag, pages as deep as YouTube allows, and returns each card with its channel, engagement, publish date and hashtag totals — with no login, cookies, API key or proxy setup.
 
 ## What this actor does
 
-- **Looks up one or more hashtags** at once, with or without the `#` prefix
-- **Returns both regular videos and Shorts**, or either one alone
-- **Preserves ranking order** — each result carries its 1-indexed position on the hashtag page
-- **Reports the hashtag's own totals** — total video count and total channel count, when YouTube's page exposes them
-- **Localizes results** to a chosen country/region
-- **Empty fields are omitted** — a record only contains the values that were actually present for that item
+- **Reads one or many hashtags** in a single run, from bare tags, `#tags` or full YouTube hashtag URLs
+- **Pages the whole reachable feed** instead of stopping at the first screen, and handles both regular videos and Shorts
+- **Adds detail data on request** — exact views, likes, comments, subscriber counts, ISO publish dates, descriptions, keywords, categories, channel handles and avatars
+- **Sorts and filters locally** by views, duration, publish date, minimum views or earliest publish date
+- **Localizes correctly** with a market and language pair, including localized tab names and count formats
+- **Empty fields are omitted** — each record contains only the values YouTube actually supplied
 
 ## Output per video or Short
 
 | Field | Description |
 |---|---|
-| `hashtag` | Normalized hashtag, without the `#` prefix |
-| `hashtagTitle` | The hashtag page's own display title, when YouTube exposes one |
-| `videoCountText` / `videoCount` | Total videos tagged with this hashtag, as displayed text and as a parsed number |
-| `channelCountText` / `channelCount` | Total channels that have posted under this hashtag, as displayed text and as a parsed number |
-| `position` | 1-indexed rank within this hashtag's results |
+| `recordType` | `video` for content rows, `error` for a hashtag-level failure |
+| `success` | `false` on error rows, omitted on content rows |
+| `type` | `video` or `short` |
+| `hashtag` | Normalized hashtag, without `#` |
+| `hashtagUrl` | Canonical hashtag page URL |
+| `hashtagTitle` | The hashtag page's own display title |
+| `videoCountText` / `videoCount` | Total videos tagged with the hashtag, as displayed and as an exact number when YouTube shows one |
+| `channelCountText` / `channelCount` | Total channels posting under the hashtag, as displayed and as an exact number when available |
+| `position` | 1-indexed position in the returned, deduplicated result set |
 | `videoId` | YouTube video ID |
-| `title` | Video title |
-| `channelName` | Name of the channel that posted it |
+| `title` | Video or Short title |
+| `url` | Watch URL for videos, Shorts URL for Shorts |
+| `channelName` | Channel display name |
 | `channelId` | YouTube channel ID |
-| `channelUrl` | Full URL to the channel page |
-| `viewCountText` | View count as displayed, e.g. `1.2M views` |
-| `viewCount` | View count as an exact number, when YouTube shows an unabridged count rather than a rounded label |
-| `publishedTimeText` | Relative publish time, e.g. `3 days ago` (regular videos only) |
-| `durationText` | Video duration, e.g. `12:34` (regular videos only) |
-| `durationSeconds` | Video duration in seconds, parsed from `durationText` (regular videos only) |
-| `thumbnailUrl` | URL of the highest-resolution thumbnail available |
-| `isShort` | `true` for a YouTube Short, `false` for a regular video |
-| `badges` | Content badges when present, e.g. `["CC", "4K"]` |
+| `channelUrl` | Channel page URL |
+| `channelHandle` | Channel handle such as `@creator`, when YouTube exposes it |
+| `channelAvatarUrl` | Channel avatar image URL |
+| `channelSubscriberCountText` | Subscriber label as displayed, e.g. `1.2M subscribers` |
+| `channelSubscriberCount` | Exact subscriber count only when the label is not rounded |
+| `viewCountText` | Views as displayed, in the selected language |
+| `viewCount` | Exact view count when available; rounded labels stay text-only |
+| `likeCountText` | Likes as displayed, e.g. `11K` |
+| `likeCount` | Exact like count only when the label is not rounded |
+| `commentCountText` / `commentCount` | Comment count as displayed, and as an exact number when available |
+| `publishedTimeText` | Relative publish label, e.g. `3 days ago` |
+| `publishedAt` | ISO 8601 publish date; includes the time and source offset when YouTube exposes them |
+| `durationText` | Duration label such as `12:34` |
+| `durationSeconds` | Duration in seconds, including Shorts when details are on |
+| `thumbnailUrl` | Highest-resolution thumbnail available |
+| `isShort` | `true` for a Short, `false` for a regular video |
+| `description` | Video description |
+| `keywords` | Video keywords/tags array |
+| `category` | YouTube category name |
+| `badges` | Content badges such as `CC` or `4K` |
 | `scrapedAt` | ISO 8601 UTC timestamp of the run |
+| `errorCode` / `error` | Present on error rows: `INVALID_HASHTAG`, `HASHTAG_NOT_FOUND`, `NO_VIDEOS` or `BLOCKED` |
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `hashtags` | array | – | Hashtags to scrape, with or without the `#` prefix (required) |
-| `maxResultsPerHashtag` | integer | `50` | Maximum videos/Shorts to return per hashtag (1–500) |
-| `contentType` | string | `all` | `all`, `videos` (regular videos only), or `shorts` (Shorts only) |
-| `market` | string | `US` | Country/region for localized ranking, e.g. `US`, `GB`, `DE`, `JP`, `IN`, `BR` |
+| `hashtags` | array | – | Tags to scrape, with or without `#`, or full hashtag URLs (required) |
+| `maxResultsPerHashtag` | integer | `50` | Records to return per hashtag after sorting and filters (1–500) |
+| `contentType` | string | `all` | `all`, `videos` (regular only) or `shorts` (Shorts only) |
+| `market` | string | `US` | Country/region for the feed |
+| `language` | string | `auto` | Label language; `auto` follows the market |
+| `includeVideoDetails` | boolean | `true` | Add exact counts, dates, descriptions and channel metadata |
+| `sortBy` | string | `default` | `default`, `viewCount`, `durationSeconds` or `publishedAt` |
+| `minViewCount` | integer | – | Drop videos below this exact view count |
+| `publishedAfter` | string | – | Keep only videos published on or after this date (`YYYY-MM-DD`) |
 
-### Example: single hashtag, all content types
+### Example: one hashtag, ranked by views
 
 ```json
 {
   "hashtags": ["#webscraping"],
+  "contentType": "all",
   "maxResultsPerHashtag": 100,
-  "market": "US"
+  "sortBy": "viewCount",
+  "includeVideoDetails": true
 }
 ```
 
-### Example: multiple hashtags, Shorts only
+### Example: regular videos in Germany
 
 ```json
 {
-  "hashtags": ["#travel", "#food"],
-  "contentType": "shorts",
+  "hashtags": ["cooking"],
+  "contentType": "videos",
+  "market": "DE",
+  "language": "de",
   "maxResultsPerHashtag": 50
 }
 ```
 
-### Example: regular videos localized to Japan
+### Example: recent Shorts with a view floor
 
 ```json
 {
-  "hashtags": ["anime"],
+  "hashtags": ["travel", "food"],
+  "contentType": "shorts",
+  "minViewCount": 100000,
+  "publishedAfter": "2026-01-01",
+  "sortBy": "publishedAt",
+  "maxResultsPerHashtag": 100
+}
+```
+
+### Example: paste a hashtag URL
+
+```json
+{
+  "hashtags": ["https://www.youtube.com/hashtag/artificialintelligence"],
   "contentType": "videos",
   "market": "JP",
-  "maxResultsPerHashtag": 200
+  "language": "ja",
+  "maxResultsPerHashtag": 75
 }
 ```
 
 ## Use cases
 
-- **Trend discovery** — see which videos and Shorts are currently ranking under a topic hashtag
-- **Influencer sourcing** — spot creators who repeatedly rank under a niche hashtag
-- **Campaign tracking** — monitor a branded hashtag's ranked videos over time
-- **Content research** — compare view counts and formats (video vs Short) across a topic
-- **Regional analysis** — compare how a hashtag ranks differently across markets with the `market` input
+- **Trend discovery** — see which videos and Shorts currently rank under a topic, in a chosen market
+- **Creator sourcing** — find channels that repeatedly appear under a niche hashtag
+- **Campaign tracking** — monitor a branded hashtag's ranking and engagement over time
+- **Format research** — compare regular videos with Shorts using exact views, likes, comments and duration
+- **Regional analysis** — compare the same hashtag across markets and languages
 
 ## FAQ
 
-**Do I need a YouTube account, API key, or cookies?**
-No. Hashtag pages are public, and this actor reads them without any authentication.
+**Do I need a YouTube account, API key or cookies?**
+No. Hashtag pages and the detail data are public and the actor reads them anonymously.
 
-**Why are some fields missing from Shorts results?**
-YouTube's Shorts cards don't carry the same metadata as regular video cards — notably no `publishedTimeText` or `durationText`. Those fields are simply left out rather than filled with a placeholder.
+**Why are some fields missing from Shorts?**
+Shorts cards carry less metadata than regular video cards. With `includeVideoDetails` on, channel, exact views, publish date and duration are filled from each Short's detail data. Rounded labels such as `1.2M views` remain text-only and are never presented as exact numbers.
 
 **How many results can I get per hashtag?**
-Up to `maxResultsPerHashtag` (maximum 500), limited by how many videos the hashtag page actually ranks.
+Up to `maxResultsPerHashtag`, but YouTube's hashtag feed is a ranked sample rather than a complete index. Large tags typically expose a few hundred unique cards over many pages; small or new tags may expose only a handful.
 
-**What does `market` affect?**
-It changes the region/language used when loading the hashtag page, which can shift which videos rank and how counts/text are formatted.
+**Why does the same input return a different order on another run?**
+YouTube shuffles hashtag feeds between requests. The actor deduplicates by video ID and assigns `position` from the returned set; use `sortBy` when you need a stable order.
 
-**Can I scrape several hashtags in one run?**
-Yes — list them all under `hashtags`; the actor processes each one and combines the results into a single dataset.
+**What does `market` change?**
+It changes which videos rank and the default language. `language` controls only labels and formatting; set it explicitly if you want a different language from the market default.
 
-**What's the difference between the three `contentType` options?**
-`all` returns both regular videos and Shorts, `videos` returns only regular videos, and `shorts` returns only Shorts.
+**What is the difference between `viewCountText` and `viewCount`?**
+`viewCountText` is exactly what YouTube displayed. `viewCount` is an integer only when the source gives an unabridged number; compact labels remain text-only, so an estimate is never passed off as exact.
 
 **What happens if a hashtag has no results?**
-The run continues to the next hashtag in the list rather than failing.
+The run continues to the next hashtag and writes an error row with `recordType: "error"`, an `errorCode` and a readable message.
+
+**Can I scrape more than one hashtag at once?**
+Yes. List up to 200 unique hashtags; results are combined in one dataset with per-hashtag positions.

@@ -1,9 +1,9 @@
 {
-  "description": "Scrape YouTube videos and Shorts by hashtag. Provide one or more hashtags to extract all tagged videos including views, channel info, publish time, and more.",
+  "description": "Scrape YouTube videos and Shorts by hashtag. Provide one or more hashtags to extract ranked videos, channel details, exact engagement counts, publish dates and more.",
   "properties": {
     "contentType": {
       "default": "all",
-      "description": "Which type of content to collect from the hashtag page.",
+      "description": "Which cards to return: regular videos, Shorts, or both.",
       "editor": "select",
       "enum": [
         "all",
@@ -15,26 +15,105 @@
         "Regular videos only",
         "Shorts only"
       ],
+      "prefill": "videos",
       "title": "Content Type",
       "type": "string"
     },
     "hashtags": {
-      "description": "List of hashtags to scrape. You can include or omit the # prefix — both formats are accepted (e.g. '#programming' or 'programming').",
+      "description": "Hashtags to scrape. Accepts a bare tag, a #tag, or a full youtube.com/hashtag/<tag> URL. Up to 200 unique tags per run.",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "minItems": 1,
       "prefill": [
-        "#programming",
-        "cooking"
+        "programming"
       ],
       "title": "Hashtags",
       "type": "array"
     },
+    "includeVideoDetails": {
+      "default": true,
+      "description": "Fetch each video's detail data to fill exact views, likes, comments, subscriber counts, publish date, description, keywords, category and Shorts channel metadata. Slower but more complete.",
+      "prefill": false,
+      "title": "Include Video Details",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "auto",
+      "description": "Language used for YouTube labels, counts and dates. Auto follows the selected market.",
+      "editor": "select",
+      "enum": [
+        "auto",
+        "en",
+        "de",
+        "fr",
+        "ja",
+        "ko",
+        "pt",
+        "hi",
+        "es",
+        "it",
+        "nl",
+        "pl",
+        "ru",
+        "sv",
+        "no",
+        "da",
+        "fi",
+        "zh-Hant",
+        "id",
+        "ms",
+        "th",
+        "ar",
+        "tr",
+        "vi",
+        "uk",
+        "cs",
+        "ro",
+        "hu",
+        "el",
+        "he"
+      ],
+      "enumTitles": [
+        "Auto (match market)",
+        "English",
+        "German",
+        "French",
+        "Japanese",
+        "Korean",
+        "Portuguese",
+        "Hindi",
+        "Spanish",
+        "Italian",
+        "Dutch",
+        "Polish",
+        "Russian",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "Finnish",
+        "Traditional Chinese",
+        "Indonesian",
+        "Malay",
+        "Thai",
+        "Arabic",
+        "Turkish",
+        "Vietnamese",
+        "Ukrainian",
+        "Czech",
+        "Romanian",
+        "Hungarian",
+        "Greek",
+        "Hebrew"
+      ],
+      "prefill": "auto",
+      "title": "Language",
+      "type": "string"
+    },
     "market": {
       "default": "US",
-      "description": "Country/region for localized results. Sets the gl and hl URL parameters to return regionally relevant content.",
+      "description": "Country/region used for the hashtag feed. It changes which videos rank and the default language.",
       "editor": "select",
       "enum": [
         "US",
@@ -102,16 +181,51 @@
         "Colombia",
         "Chile"
       ],
+      "prefill": "US",
       "title": "Market / Region",
       "type": "string"
     },
     "maxResultsPerHashtag": {
       "default": 50,
-      "description": "Maximum number of videos to return per hashtag. Includes both regular videos and Shorts when content type is 'All'.",
+      "description": "Maximum records to return per hashtag after sorting and filters. YouTube's hashtag feed is a ranked sample, so large values may return fewer rows.",
       "maximum": 500,
       "minimum": 1,
+      "prefill": 2,
       "title": "Max Results Per Hashtag",
       "type": "integer"
+    },
+    "minViewCount": {
+      "description": "Drop videos with fewer than this many views. Turns on detail enrichment so compact Shorts labels are not mis-filtered.",
+      "maximum": 2000000000,
+      "minimum": 0,
+      "title": "Minimum View Count",
+      "type": "integer"
+    },
+    "publishedAfter": {
+      "description": "Only keep videos published on or after this date (YYYY-MM-DD). Turns on detail enrichment.",
+      "editor": "textfield",
+      "title": "Published After",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "default",
+      "description": "Order the collected results within each hashtag. Default keeps YouTube's first-seen feed order.",
+      "editor": "select",
+      "enum": [
+        "default",
+        "viewCount",
+        "durationSeconds",
+        "publishedAt"
+      ],
+      "enumTitles": [
+        "Feed order",
+        "Most views",
+        "Longest duration",
+        "Newest first"
+      ],
+      "prefill": "default",
+      "title": "Sort By",
+      "type": "string"
     }
   },
   "required": [
