@@ -1,0 +1,139 @@
+{
+  "properties": {
+    "cookie": {
+      "description": "LinkedIn session cookie for Voyager API search. Accepts: (1) the li_at value from browser DevTools, or (2) full cookies JSON array from an extension like EditThisCookie. Required for keyword search; optional for direct event URL scraping.",
+      "editor": "textarea",
+      "isSecret": true,
+      "prefill": "AQEDATMPDDwCAoa5AAABnt_t_AoAAAGfA_qACk0AguQORDqacHDSqrgQixiqhB8K4_IYQFGRE8n4odBUmDKTnfe8WrRsYLvnw1q-K_nOb_R_0VnqWtEGDRCCDFeN_GR1QUIccXLIu4kLu7CGfDDLNp5v",
+      "title": "LinkedIn Cookie",
+      "type": "string"
+    },
+    "datePosted": {
+      "default": "",
+      "description": "Filter events by when they were posted.",
+      "editor": "select",
+      "enum": [
+        "",
+        "r86400",
+        "r604800",
+        "r2592000"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Past 24 hours",
+        "Past week",
+        "Past month"
+      ],
+      "title": "Date Posted",
+      "type": "string"
+    },
+    "dateRange": {
+      "default": "",
+      "description": "Filter by event timing relative to today.",
+      "editor": "select",
+      "enum": [
+        "",
+        "UPCOMING",
+        "THIS_WEEK",
+        "THIS_MONTH",
+        "PAST"
+      ],
+      "enumTitles": [
+        "Any date",
+        "Upcoming",
+        "This week",
+        "This month",
+        "Past events"
+      ],
+      "title": "Date Range",
+      "type": "string"
+    },
+    "eventType": {
+      "default": "",
+      "description": "Filter by event format.",
+      "editor": "select",
+      "enum": [
+        "",
+        "VIRTUAL",
+        "IN_PERSON",
+        "HYBRID"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Virtual / Online",
+        "In person",
+        "Hybrid"
+      ],
+      "title": "Event Type",
+      "type": "string"
+    },
+    "eventUrls": {
+      "description": "Direct LinkedIn Event page URLs to scrape. Accepts formats: https://www.linkedin.com/events/6234567890123456789/ or https://www.linkedin.com/events/ai-summit-2025-123456789/",
+      "editor": "stringList",
+      "title": "Event URLs",
+      "type": "array"
+    },
+    "language": {
+      "default": "",
+      "description": "Filter events by primary language.",
+      "editor": "select",
+      "enum": [
+        "",
+        "en",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "it",
+        "nl",
+        "zh",
+        "ja"
+      ],
+      "enumTitles": [
+        "Any language",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Portuguese",
+        "Italian",
+        "Dutch",
+        "Chinese",
+        "Japanese"
+      ],
+      "title": "Event Language",
+      "type": "string"
+    },
+    "location": {
+      "description": "Filter events by location (e.g., 'New York', 'London', 'Remote').",
+      "editor": "textfield",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxEvents": {
+      "default": 50,
+      "description": "Maximum number of events to scrape. Default: 50, Max: 500.",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "title": "Max Events",
+      "type": "integer"
+    },
+    "proxyConfiguration": {
+      "description": "Optional Apify proxy configuration. Residential proxy recommended for best results with LinkedIn.",
+      "editor": "proxy",
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "description": "Keyword to search for LinkedIn Events (e.g., 'AI conference 2025', 'marketing summit'). Required unless eventUrls is provided.",
+      "editor": "textfield",
+      "prefill": "AI conference 2025",
+      "title": "Search Query",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "LinkedIn Events Scraper Input",
+  "type": "object"
+}

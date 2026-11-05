@@ -1,0 +1,58 @@
+{
+  "actorSpecification": 1,
+  "title": "LinkedIn Events",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "attendeesCount": {
+            "format": "number",
+            "label": "Attendees"
+          },
+          "endDate": {
+            "format": "datetime",
+            "label": "End Date"
+          },
+          "eventName": {
+            "format": "text",
+            "label": "Event Name"
+          },
+          "eventUrl": {
+            "format": "link",
+            "label": "Event URL"
+          },
+          "format": {
+            "format": "text",
+            "label": "Format"
+          },
+          "organizerName": {
+            "format": "text",
+            "label": "Organizer"
+          },
+          "scrapedAt": {
+            "format": "datetime",
+            "label": "Scraped At"
+          },
+          "startDate": {
+            "format": "datetime",
+            "label": "Start Date"
+          }
+        }
+      },
+      "title": "Events",
+      "transformation": {
+        "fields": [
+          "eventName",
+          "startDate",
+          "endDate",
+          "format",
+          "organizerName",
+          "attendeesCount",
+          "eventUrl",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}
