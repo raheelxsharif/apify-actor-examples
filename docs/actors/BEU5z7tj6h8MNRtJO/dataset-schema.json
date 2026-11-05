@@ -1,0 +1,144 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "actionType": {
+            "format": "text",
+            "label": "Action"
+          },
+          "category": {
+            "format": "text",
+            "label": "Category"
+          },
+          "categoryName": {
+            "format": "text",
+            "label": "Category Name"
+          },
+          "description": {
+            "format": "text",
+            "label": "Description"
+          },
+          "durationSeconds": {
+            "format": "number",
+            "label": "Duration (s)"
+          },
+          "endTime": {
+            "format": "number",
+            "label": "End (s)"
+          },
+          "error": {
+            "format": "text",
+            "label": "Error"
+          },
+          "locked": {
+            "format": "boolean",
+            "label": "Locked"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "segmentId": {
+            "format": "text",
+            "label": "Segment ID"
+          },
+          "startTime": {
+            "format": "number",
+            "label": "Start (s)"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "videoDurationSeconds": {
+            "format": "number",
+            "label": "Video Duration (s)"
+          },
+          "videoId": {
+            "format": "text",
+            "label": "Video ID"
+          },
+          "videoUrl": {
+            "format": "link",
+            "label": "Video URL"
+          },
+          "votes": {
+            "format": "number",
+            "label": "Votes"
+          }
+        }
+      },
+      "title": "Detailed",
+      "transformation": {
+        "fields": [
+          "videoId",
+          "videoUrl",
+          "segmentId",
+          "category",
+          "categoryName",
+          "actionType",
+          "startTime",
+          "endTime",
+          "durationSeconds",
+          "videoDurationSeconds",
+          "votes",
+          "locked",
+          "description",
+          "status",
+          "error",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "category": {
+            "format": "text",
+            "label": "Category"
+          },
+          "durationSeconds": {
+            "format": "number",
+            "label": "Duration (s)"
+          },
+          "endTime": {
+            "format": "number",
+            "label": "End (s)"
+          },
+          "startTime": {
+            "format": "number",
+            "label": "Start (s)"
+          },
+          "videoId": {
+            "format": "text",
+            "label": "Video ID"
+          },
+          "videoUrl": {
+            "format": "link",
+            "label": "Video URL"
+          },
+          "votes": {
+            "format": "number",
+            "label": "Votes"
+          }
+        }
+      },
+      "title": "SponsorBlock segments",
+      "transformation": {
+        "fields": [
+          "videoId",
+          "category",
+          "startTime",
+          "endTime",
+          "durationSeconds",
+          "votes",
+          "videoUrl"
+        ]
+      }
+    }
+  }
+}

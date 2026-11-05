@@ -1,0 +1,462 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-QYv9shP7tjeNsM5hdSIm9J12TcUUfZgYqMpL2vkx6Fg=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>YouTube SponsorBlock Segments Scraper | Dataspryva</title><meta name="description" content="Get community-reported SponsorBlock segments for any YouTube video: sponsor reads, intros, outros, self-promos, filler, highlights, and more, with start/end times and votes."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/"><meta property="og:title" content="YouTube SponsorBlock Segments Scraper | Dataspryva"><meta property="og:description" content="Get community-reported SponsorBlock segments for any YouTube video: sponsor reads, intros, outros, self-promos, filler, highlights, and more, with start/end times and votes."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#webpage","name":"YouTube SponsorBlock Segments Scraper","description":"Get community-reported SponsorBlock segments for any YouTube video: sponsor reads, intros, outros, self-promos, filler, highlights, and more, with start/end times and votes.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#article","headline":"YouTube SponsorBlock Segments Scraper","name":"YouTube SponsorBlock Segments Scraper","description":"Get community-reported SponsorBlock segments for any YouTube video: sponsor reads, intros, outros, self-promos, filler, highlights, and more, with start/end times and votes.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"YouTube SponsorBlock Segments Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/BEU5z7tj6h8MNRtJO/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>YouTube SponsorBlock Segments Scraper</span></div><section id="overview"><h1 class="doc-title">YouTube SponsorBlock Segments Scraper</h1><p class="lede">Get community-reported SponsorBlock segments for any YouTube video: sponsor reads, intros, outros, self-promos, filler, highlights, and more, with start/end times and votes.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/youtube-sponsorblock-segments-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/BEU5z7tj6h8MNRtJO/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videoUrls</code></td><td>array</td><td>required</td><td>YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, and embed links.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Only return these SponsorBlock categories. Leave empty to include every category.</td></tr><tr><td><code>actionTypes</code></td><td>array</td><td>optional</td><td>Only return segments whose action matches one of these. Leave empty to include every action.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videoUrls</code></td><td>array</td><td>required</td><td>YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, and embed links.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Only return these SponsorBlock categories. Leave empty to include every category.</td></tr><tr><td><code>actionTypes</code></td><td>array</td><td>optional</td><td>Only return segments whose action matches one of these. Leave empty to include every action.</td></tr><tr><td><code>minVotes</code></td><td>integer</td><td>optional</td><td>Skip segments with fewer community votes than this. Use 0 to keep every segment, or a higher value to keep only well-confirmed segments.</td></tr><tr><td><code>includeDescriptions</code></td><td>boolean</td><td>optional</td><td>Include the community-written note attached to a segment when one exists.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;actionTypes&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Only return segments whose action matches one of these. Leave empty to include every action.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;skip&quot;,
+          &quot;mute&quot;,
+          &quot;full&quot;,
+          &quot;poi&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Skip&quot;,
+          &quot;Mute&quot;,
+          &quot;Full video&quot;,
+          &quot;Highlight/POI&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Action types&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Only return these SponsorBlock categories. Leave empty to include every category.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;sponsor&quot;,
+          &quot;selfpromo&quot;,
+          &quot;interaction&quot;,
+          &quot;intro&quot;,
+          &quot;outro&quot;,
+          &quot;preview&quot;,
+          &quot;music_offtopic&quot;,
+          &quot;filler&quot;,
+          &quot;poi_highlight&quot;,
+          &quot;exclusive_access&quot;,
+          &quot;chapter&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Sponsor&quot;,
+          &quot;Unpaid/Self Promotion&quot;,
+          &quot;Interaction Reminder&quot;,
+          &quot;Intro&quot;,
+          &quot;Outro&quot;,
+          &quot;Preview/Recap&quot;,
+          &quot;Non-Music Section&quot;,
+          &quot;Filler Tangent&quot;,
+          &quot;Highlight&quot;,
+          &quot;Exclusive Access&quot;,
+          &quot;Chapter&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;sponsor&quot;,
+        &quot;intro&quot;
+      ],
+      &quot;title&quot;: &quot;Segment categories&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeDescriptions&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include the community-written note attached to a segment when one exists.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include segment descriptions&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;minVotes&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Skip segments with fewer community votes than this. Use 0 to keep every segment, or a higher value to keep only well-confirmed segments.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum votes&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;videoUrls&quot;: {
+      &quot;description&quot;: &quot;YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, and embed links.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;https://www.youtube.com/watch?v=aQp-iM0bCs4&quot;
+      ],
+      &quot;title&quot;: &quot;Video URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;videoUrls&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;YouTube SponsorBlock Segments Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>segments</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped sponsorblock segment rows or per-video status rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;SponsorBlock segment rows or per-video status rows.&quot;,
+  &quot;properties&quot;: {
+    &quot;segments&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped sponsorblock segment rows or per-video status rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;YouTube SponsorBlock Segments Scraper dataset&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;YouTube SponsorBlock Segments Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;detailed&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;actionType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Action&quot;
+          },
+          &quot;category&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Category&quot;
+          },
+          &quot;categoryName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Category Name&quot;
+          },
+          &quot;description&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Description&quot;
+          },
+          &quot;durationSeconds&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Duration (s)&quot;
+          },
+          &quot;endTime&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;End (s)&quot;
+          },
+          &quot;error&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Error&quot;
+          },
+          &quot;locked&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Locked&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Scraped At&quot;
+          },
+          &quot;segmentId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Segment ID&quot;
+          },
+          &quot;startTime&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Start (s)&quot;
+          },
+          &quot;status&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Status&quot;
+          },
+          &quot;videoDurationSeconds&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Video Duration (s)&quot;
+          },
+          &quot;videoId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Video ID&quot;
+          },
+          &quot;videoUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Video URL&quot;
+          },
+          &quot;votes&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Votes&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Detailed&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;videoId&quot;,
+          &quot;videoUrl&quot;,
+          &quot;segmentId&quot;,
+          &quot;category&quot;,
+          &quot;categoryName&quot;,
+          &quot;actionType&quot;,
+          &quot;startTime&quot;,
+          &quot;endTime&quot;,
+          &quot;durationSeconds&quot;,
+          &quot;videoDurationSeconds&quot;,
+          &quot;votes&quot;,
+          &quot;locked&quot;,
+          &quot;description&quot;,
+          &quot;status&quot;,
+          &quot;error&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;category&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Category&quot;
+          },
+          &quot;durationSeconds&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Duration (s)&quot;
+          },
+          &quot;endTime&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;End (s)&quot;
+          },
+          &quot;startTime&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Start (s)&quot;
+          },
+          &quot;videoId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Video ID&quot;
+          },
+          &quot;videoUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Video URL&quot;
+          },
+          &quot;votes&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Votes&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;SponsorBlock segments&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;videoId&quot;,
+          &quot;category&quot;,
+          &quot;startTime&quot;,
+          &quot;endTime&quot;,
+          &quot;durationSeconds&quot;,
+          &quot;votes&quot;,
+          &quot;videoUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-youtube-sponsorblock-segments-scraper">YouTube SponsorBlock Segments Scraper</h2>
+<p>Get community-reported <a href="https://sponsor.ajay.app/">SponsorBlock</a> segments for any public YouTube video: sponsor reads, intros, outros, self-promotions, filler tangents, highlights, and more — with exact start/end times, category, action type, and community votes.</p>
+<p>No cookies, no YouTube login, and no video download. The actor reads the public SponsorBlock database directly.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Video lookup:</strong> pass any YouTube video URL or ID</li>
+<li><strong>All segment categories:</strong> sponsor, intro, outro, self-promo, interaction, music, preview, and more</li>
+<li><strong>Timing data:</strong> start, end, and duration for every segment</li>
+<li><strong>Bulk input:</strong> multiple videos per run</li>
+<li><strong>Empty fields are omitted</strong> — records only contain values that are actually populated.</li>
+</ul>
+<h2 id="readme-output">Output</h2>
+<p>One dataset row per segment, plus a truthful status row when a video has no segments or the input is invalid.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>videoId</td>
+<td><code>&quot;aQp-iM0bCs4&quot;</code></td>
+<td>YouTube video ID</td>
+</tr>
+<tr>
+<td>videoUrl</td>
+<td><code>&quot;https://www.youtube.com/watch?v=aQp-iM0bCs4&quot;</code></td>
+<td>Canonical watch URL</td>
+</tr>
+<tr>
+<td>segmentId</td>
+<td><code>&quot;b772d4b7...&quot;</code></td>
+<td>SponsorBlock segment UUID</td>
+</tr>
+<tr>
+<td>category</td>
+<td><code>&quot;sponsor&quot;</code></td>
+<td>SponsorBlock category key</td>
+</tr>
+<tr>
+<td>categoryName</td>
+<td><code>&quot;Sponsor&quot;</code></td>
+<td>Human-readable category</td>
+</tr>
+<tr>
+<td>actionType</td>
+<td><code>&quot;skip&quot;</code></td>
+<td>Skip, mute, full video, or highlight/POI</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td><code>0</code></td>
+<td>Segment start in seconds</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td><code>31.861</code></td>
+<td>Segment end in seconds</td>
+</tr>
+<tr>
+<td>durationSeconds</td>
+<td><code>31.861</code></td>
+<td>Segment length in seconds</td>
+</tr>
+<tr>
+<td>videoDurationSeconds</td>
+<td><code>361</code></td>
+<td>Full video length in seconds</td>
+</tr>
+<tr>
+<td>votes</td>
+<td><code>0</code></td>
+<td>Community votes for the segment</td>
+</tr>
+<tr>
+<td>locked</td>
+<td><code>false</code></td>
+<td>Whether the segment is locked from edits</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>&quot;...&quot;</code></td>
+<td>Optional community note</td>
+</tr>
+<tr>
+<td>scrapedAt</td>
+<td><code>&quot;2026-10-02T...&quot;</code></td>
+<td>Capture timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<p>Status rows:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>no_segments</code></td>
+<td>The video is public and readable but has no SponsorBlock segments.</td>
+</tr>
+<tr>
+<td><code>invalid_video</code></td>
+<td>The input was not a YouTube video URL or ID.</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>SponsorBlock did not return a usable response after retries.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Status rows carry the same <code>videoId</code>, <code>videoUrl</code>, and <code>scrapedAt</code> fields as segment rows, plus an <code>error</code> field with a short explanation when <code>status</code> is <code>invalid_video</code> or <code>failed</code>.</p>
+<p>Every field is omitted when YouTube/SponsorBlock does not provide a value — there are no null placeholders.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>videoUrls</code></td>
+<td>array</td>
+<td>— (required)</td>
+<td>YouTube video URLs or 11-character video IDs. Watch, <code>youtu.be</code>, Shorts, live, and embed links are accepted.</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array (dropdown)</td>
+<td>all</td>
+<td>Filter to specific SponsorBlock categories: Sponsor, Unpaid/Self Promotion, Interaction Reminder, Intro, Outro, Preview/Recap, Non-Music Section, Filler Tangent, Highlight, Exclusive Access, Chapter.</td>
+</tr>
+<tr>
+<td><code>actionTypes</code></td>
+<td>array (dropdown)</td>
+<td>all</td>
+<td>Filter to segments whose action is Skip, Mute, Full video, or Highlight/POI.</td>
+</tr>
+<tr>
+<td><code>minVotes</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Drop segments with fewer community votes than this. <code>0</code> keeps every segment; higher values keep only well-confirmed segments.</td>
+</tr>
+<tr>
+<td><code>includeDescriptions</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include the community-written note attached to a segment when one exists.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-input">Example input</h3>
+<pre><code class="language-json">{
+    &quot;videoUrls&quot;: [&quot;https://www.youtube.com/watch?v=aQp-iM0bCs4&quot;],
+    &quot;categories&quot;: [&quot;sponsor&quot;, &quot;intro&quot;],
+    &quot;minVotes&quot;: 0,
+    &quot;includeDescriptions&quot;: true
+}
+</code></pre>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-example-one-video">Example: one video</h3>
+<pre><code class="language-json">{
+  &quot;videoUrls&quot;: [&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;]
+}
+</code></pre>
+<h3 id="readme-example-multiple-videos-with-all-categories">Example: multiple videos with all categories</h3>
+<pre><code class="language-json">{
+  &quot;videoUrls&quot;: [
+    &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;,
+    &quot;https://www.youtube.com/watch?v=9bZkp7q19f0&quot;
+  ]
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Skip sponsor reads automatically</strong> — build player overlays or cut lists from exact segment times.</li>
+<li><strong>Transcript cleanup</strong> — remove sponsor/intro/outro text before analysis; pairs with the YouTube Transcript Scraper.</li>
+<li><strong>Sponsor-load analytics</strong> — measure how much of a channel's runtime is sponsored content.</li>
+<li><strong>Dataset enrichment</strong> — join segments onto video metadata by <code>videoId</code>.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>What is SponsorBlock?</strong></p>
+<p>SponsorBlock is a public crowdsourced database of timestamped segments in YouTube videos (sponsors, intros, outros, and more).</p>
+<p><strong>Do I need an API key?</strong></p>
+<p>No. The actor reads SponsorBlock's public API.</p>
+<p><strong>What happens when a video has no segments?</strong></p>
+<p>The row is returned with an empty segment list omitted; a status message explains that no segments exist for the video.</p>
+<p><strong>How fresh is the data?</strong></p>
+<p>Segments are community-submitted and reflect the SponsorBlock database at run time.</p>
+<p><strong>Is this affiliated with YouTube or SponsorBlock?</strong></p>
+<p>No. This actor reads the public SponsorBlock API; it is not affiliated with, endorsed by, or sponsored by YouTube or the SponsorBlock project.</p>
+<p><strong>Why does <code>votes</code> sometimes show <code>0</code> for a segment that still appears valid?</strong></p>
+<p>SponsorBlock segments go live as soon as they're submitted and don't require positive votes to be returned by the API — a <code>0</code> simply means the segment hasn't yet accumulated community votes, not that it was rejected.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/BEU5z7tj6h8MNRtJO/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>pdqjZQF31MtPjlS77</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

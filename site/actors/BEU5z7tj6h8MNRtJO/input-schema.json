@@ -1,0 +1,100 @@
+{
+  "properties": {
+    "actionTypes": {
+      "default": [],
+      "description": "Only return segments whose action matches one of these. Leave empty to include every action.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "skip",
+          "mute",
+          "full",
+          "poi"
+        ],
+        "enumTitles": [
+          "Skip",
+          "Mute",
+          "Full video",
+          "Highlight/POI"
+        ],
+        "type": "string"
+      },
+      "title": "Action types",
+      "type": "array"
+    },
+    "categories": {
+      "default": [],
+      "description": "Only return these SponsorBlock categories. Leave empty to include every category.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "sponsor",
+          "selfpromo",
+          "interaction",
+          "intro",
+          "outro",
+          "preview",
+          "music_offtopic",
+          "filler",
+          "poi_highlight",
+          "exclusive_access",
+          "chapter"
+        ],
+        "enumTitles": [
+          "Sponsor",
+          "Unpaid/Self Promotion",
+          "Interaction Reminder",
+          "Intro",
+          "Outro",
+          "Preview/Recap",
+          "Non-Music Section",
+          "Filler Tangent",
+          "Highlight",
+          "Exclusive Access",
+          "Chapter"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "sponsor",
+        "intro"
+      ],
+      "title": "Segment categories",
+      "type": "array"
+    },
+    "includeDescriptions": {
+      "default": true,
+      "description": "Include the community-written note attached to a segment when one exists.",
+      "prefill": true,
+      "title": "Include segment descriptions",
+      "type": "boolean"
+    },
+    "minVotes": {
+      "default": 0,
+      "description": "Skip segments with fewer community votes than this. Use 0 to keep every segment, or a higher value to keep only well-confirmed segments.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum votes",
+      "type": "integer"
+    },
+    "videoUrls": {
+      "description": "YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, and embed links.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.youtube.com/watch?v=aQp-iM0bCs4"
+      ],
+      "title": "Video URLs or IDs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "videoUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "YouTube SponsorBlock Segments Scraper",
+  "type": "object"
+}
