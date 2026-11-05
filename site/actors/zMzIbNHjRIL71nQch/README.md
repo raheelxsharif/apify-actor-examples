@@ -1,122 +1,139 @@
-# LinkedIn Event Finder with Speaker & Venue Details
+# LinkedIn Community Event Scraper — Webinars & Past Events
 
-Find LinkedIn Events by keyword, or hand this actor specific event page URLs you already know about. Either way, it returns dates, format (online/in-person/hybrid), organizer, attendee count, the speaker lineup, venue address, cover image, and the full event description as structured rows.
+Scrape the public **LinkedIn Sales Community** and **LinkedIn Talent Community** event calendars without cookies, login, or proxy setup. Search by keyword, browse every upcoming or past event, or paste event URLs to get exact schedules, timezones, descriptions, cover images, registration links, categories, and languages as clean structured rows.
+
+The actor is fully cookieless: no cookies, no login, and no proxy configuration are required. It uses the two public LinkedIn community event sites, which publish their event pages openly. Main `www.linkedin.com/events/<id>` pages are login-walled, so those URLs return their real id and slug, plus optional archived guest-page details when a Wayback Machine snapshot exists.
 
 ## What this actor does
 
-- Searches LinkedIn Events by keyword across topics, conferences, and summits
-- Fetches full detail directly from specific LinkedIn event page URLs
-- Filters search results by format (virtual/in-person/hybrid), posting recency, event timing (upcoming/this week/this month/past), location text, and language
-- Paginates automatically through search results up to your configured maximum
-- Only fields LinkedIn actually publishes for an event are included — nothing is sent as an empty placeholder
-
-## Authentication
-
-Keyword search requires a LinkedIn session cookie, passed as the `cookie` input — either the `li_at` cookie value from your browser, or a full cookie export as a JSON array (which also carries session data that improves reliability). Direct URL scraping can work without a cookie but may return less data for non-public events. If the cookie is missing or has expired, the run completes with a single structured record describing the problem (`_status: "no_data"`, a `_reason` and a `_message`) instead of failing the run outright.
+- **Three modes:** `search` by keyword, `browse` the full inventory, `byUrls` for specific event pages
+- **Exact schedules:** ISO 8601 start/end timestamps in UTC plus the event's IANA timezone
+- **Rich event content:** description text, cover image, external registration URL and label, category, language
+- **Both communities:** Sales (scommunity) and Talent (tcommunity), upcoming and past
+- **Honest output:** empty fields are omitted, never filled with placeholders
 
 ## Output per event
 
-- `eventName` — full event name
-- `eventUrl`, `eventId` — the event's page URL and identifier
-- `startDate`, `endDate` — event start/end date-time, ISO 8601 UTC (duplicated as `startTime`/`endTime`)
-- `format` — raw format code: `ONLINE`, `IN_PERSON`, or `HYBRID`
-- `eventType` — human-friendly version of the same: `VIRTUAL`, `IN_PERSON`, or `HYBRID`
-- `timezone` — the event's IANA-style timezone identifier (e.g. `AMERICA_NEW_YORK`)
-- `organizerName`, `organizerUrl` — the organizer's name and LinkedIn profile/page
-- `organizerCompany` — `{name, slug}` when the organizer is a company page
-- `address` — `{line1, city, region, country}` venue address, for in-person events
-- `attendeesCount` — number of LinkedIn members attending (duplicated as `attendeeCount`)
-- `speakers[]` — each with `{name, profileUrl, title}`
-- `description` — full event description text
-- `coverImageUrl` — the event's cover/banner image
-- `registrationUrl` — external registration link, when the organizer set one
-- `streamUrl` — livestream link, for virtual/hybrid events
-- `eventCategory` — LinkedIn's category tag for the event
-- `isFromDiscoveryFeed` — `true` when a keyword search found no direct matches and the event instead came from the logged-in account's personalized events feed
-- `scrapedAt`
+- `eventName` — event title
+- `eventUrl` — canonical public event page
+- `eventId`, `eventSlug` — event identifier and URL slug
+- `community` — `LinkedIn Sales Community` or `LinkedIn Talent Community`
+- `organizerName`, `organizerUrl` — the publishing community
+- `startDate`, `endDate` — exact start/end, ISO 8601 UTC
+- `startTime`, `endTime` — legacy mirrors of the same values
+- `timezone` — IANA zone, e.g. `Europe/Dublin`
+- `format` — `ONLINE`, `IN_PERSON`, or `HYBRID`
+- `eventType` — `VIRTUAL`, `IN_PERSON`, or `HYBRID`
+- `eventCategory` — the source label, e.g. `ENGLISH`, `RECRUITER`, `SEARCH & STAFFING`
+- `language` — ISO code when the source label is a language (`en`, `es`, `fr`, `de`, `pt`, `it`, `nl`, `zh`, `ja`)
+- `description` — full event description text (omitted when `includeDescriptions` is false)
+- `coverImageUrl` — event cover image (live community events)
+- `registrationUrl`, `registrationUrlLabel` — external registration page and the source's button label
+- `attendeesCount`, `attendeeCount` — only when the source reports a non-zero count
+- `address` — structured venue, only for archived in-person main events that expose one
+- `locationText` — free-text venue from an archived guest page
+- `scheduleText` — date text from an archived guest page
+- `archiveSnapshotUrl` — Wayback snapshot used for a main event URL
+- `sourceType` — `community`, `archive`, or `linkedin`
+- `scrapedAt` — UTC scrape timestamp
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `searchQuery` | string | – | Keyword to search for (required unless `eventUrls` is set) |
-| `eventUrls` | array | – | Direct LinkedIn event page URLs to fetch instead of searching |
-| `maxEvents` | integer | `50` | Maximum number of events to collect (1–500) |
-| `datePosted` | string | – (any time) | `r86400` / `r604800` / `r2592000` — filter by how recently the event was posted (24h/week/month) |
-| `eventType` | string | – (any) | `VIRTUAL` / `IN_PERSON` / `HYBRID` |
-| `dateRange` | string | – (any) | `UPCOMING` / `THIS_WEEK` / `THIS_MONTH` / `PAST` |
-| `location` | string | – | Free-text location filter, e.g. `New York`, `Remote` |
-| `language` | string | – (any) | `en` / `es` / `fr` / `de` / `pt` / `it` / `nl` / `zh` / `ja` |
-| `cookie` | string | – | LinkedIn session cookie — required for `searchQuery`, optional for `eventUrls` |
-| `proxyConfiguration` | object | – | Optional Apify proxy; residential recommended for larger runs |
+| `mode` | string | `search` | `search` / `browse` / `byUrls` |
+| `searchQuery` | string | – | Keyword over event titles (mode=`search`); empty returns all events |
+| `eventUrls` | array | – | Event URLs (mode=`byUrls`) |
+| `communities` | string | `both` | `both` / `sales` / `talent` (mode=`search`/`browse`) |
+| `eventTiming` | string | `upcoming` | `upcoming` / `past` / `all` (mode=`search`/`browse`) |
+| `eventFormat` | string | any | `VIRTUAL` / `IN_PERSON` / `HYBRID` (mode=`search`/`browse`) |
+| `language` | string | any | ISO language code (mode=`search`/`browse`) |
+| `maxEvents` | integer | `50` | Hard cap, 1–1000 |
+| `includeDescriptions` | boolean | `true` | Add full description text |
+| `includeArchivedDetails` | boolean | `false` | Enrich main event URLs from the Wayback Machine |
 
-### Example: keyword search for upcoming virtual events
+### Example: keyword search across both communities
 
 ```json
 {
-  "searchQuery": "AI conference 2025",
-  "eventType": "VIRTUAL",
-  "dateRange": "UPCOMING",
-  "cookie": "YOUR_LI_AT_COOKIE",
-  "maxEvents": 50
+  "mode": "search",
+  "searchQuery": "sales navigator",
+  "communities": "both",
+  "eventTiming": "upcoming",
+  "maxEvents": 25
 }
 ```
 
-### Example: fetch specific events by URL
+### Example: every past Talent Community event
 
 ```json
 {
+  "mode": "browse",
+  "communities": "talent",
+  "eventTiming": "past",
+  "maxEvents": 100
+}
+```
+
+### Example: fetch community event URLs
+
+```json
+{
+  "mode": "byUrls",
   "eventUrls": [
-    "https://www.linkedin.com/events/7012345678901234567/"
+    "https://scommunity.linkedin.com/events/how-i-sell-with-sales-navigator-tamika-brunetti-231",
+    "https://tcommunity.linkedin.com/events/hiring-at-speed-how-recruiters-are-reducing-time-to-hire-123"
   ]
 }
 ```
 
-### Example: location- and language-filtered search
+### Example: a main LinkedIn event URL with archived details
 
 ```json
 {
-  "searchQuery": "marketing summit",
-  "location": "London",
-  "language": "en",
-  "cookie": "YOUR_LI_AT_COOKIE",
-  "maxEvents": 30
+  "mode": "byUrls",
+  "eventUrls": ["https://www.linkedin.com/events/040-thepowerofcelebration7350512302091104257/"],
+  "includeArchivedDetails": true
 }
 ```
 
 ## Use cases
 
-- **Event research** — discover conferences and meetups in a given field or region
-- **Lead generation** — find events where your target prospects are likely to gather
-- **Competitive intelligence** — track events organized by competitors or partners
-- **Speaker and sponsor sourcing** — pull speaker lineups across multiple events in a niche
-- **Recruitment** — surface tech talks, career fairs, and industry meetups
+- **Event marketing** — track the webinars LinkedIn's own communities run for sales and recruiting audiences
+- **Sales enablement** — build a calendar of Sales Navigator training sessions and product deep-dives
+- **Recruiting research** — follow Talent Community hiring webinars, recruiter workshops, and instructor-led sessions
+- **Content planning** — compare topics, categories, and languages across upcoming and past events
+- **Historical analysis** — export hundreds of past community events with schedules and registration links
+- **CRM enrichment** — add public event URLs, registration pages, and descriptions to your event records
 
 ## FAQ
 
-**Do I need a LinkedIn account to use this?**
-For keyword search, yes — you need a LinkedIn session cookie. Fetching specific event URLs can work without one, though you may get less data for events that aren't fully public.
+**Do I need a LinkedIn account or cookie?**
+No. The actor reads the public Sales and Talent community event pages, which are served without login. There is no cookie, token, or proxy input.
 
-**What's the difference between `searchQuery` and `eventUrls`?**
-`searchQuery` searches across LinkedIn events by keyword and filters. `eventUrls` fetches full detail for events you already know about. You can combine both in the same run.
+**Which LinkedIn events are covered?**
+The two public community calendars: `scommunity.linkedin.com/events` (Sales) and `tcommunity.linkedin.com/events` (Talent). Both upcoming and past tabs are supported, and every event detail page is parsed.
 
-**How do I get my LinkedIn cookie?**
-Log in to LinkedIn in your browser, open developer tools, find the `li_at` cookie under linkedin.com, and copy its value. For better reliability, export all LinkedIn cookies as a JSON array using a cookie-export browser extension and paste that whole array into `cookie` instead.
+**Why can't I get details for a normal www.linkedin.com/events link?**
+Live main LinkedIn event pages redirect to the login wall, so they are not publicly readable. The actor returns the event id and slug from the URL, and can optionally add name, host, date text, description, and venue from a public Wayback Machine guest snapshot. Archived cover images are omitted because their signed LinkedIn CDN URLs expire and Wayback replays them with 403/429.
 
-**Why is `attendeesCount` missing on some events?**
-LinkedIn only exposes an attendee count for events with the right visibility settings; private or low-visibility events may not have it.
+**Why are attendee counts and speaker lists missing?**
+Attendee identities and counts require a logged-in member, and the public event pages do not expose a structured speaker field. The actor does not fabricate them; it emits only fields the public source actually provides.
 
-**My cookie expired — what happens?**
-The run finishes with a single record describing the problem instead of failing outright. Export a fresh cookie from a logged-in browser session and run it again.
+**Why are all community events marked virtual?**
+The Sales and Talent communities currently publish virtual events only. If an in-person event appears later, the format is taken from the source rather than assumed.
 
-**Can I filter events by how recently they were posted and by when they happen?**
-Yes — `datePosted` filters on posting recency (last 24h/week/month), while `dateRange` filters on the event's own timing (upcoming, this week, this month, or past).
+**What is the difference between `eventCategory` and `language`?**
+The source uses one label for both topic and language. `eventCategory` keeps the raw label (e.g. `RECRUITER`), while `language` is filled only when that label is a known language (e.g. `DEUTSCH` becomes `de`).
 
-**Why would I get events that don't match my keyword?**
-If LinkedIn's own search index has no hits for your exact keyword, the actor falls back to the logged-in account's personalized events feed so the run still returns something instead of nothing. Those rows are flagged `isFromDiscoveryFeed: true` so you can tell them apart from genuine keyword matches.
+**Why does a language filter return fewer events?**
+Some community events are labelled with a topic such as `RECRUITER` instead of a language. When you set a language filter, those unlabelled events are omitted rather than guessed.
 
-**Does this cover private events?**
-Only if the cookie belongs to an account that already has access to that private event.
+**Does search look inside descriptions?**
+No. The public listing pages have no server-side search, so keyword matching runs over event titles. Browse the full inventory if you need every event in a category.
+
+**How fresh is the data?**
+Every run reads the live community calendars and event pages, so schedules, descriptions, images, and registration links reflect the source at scrape time.
 
 **Is this affiliated with LinkedIn?**
-No. This is an independent, third-party actor; it is not affiliated with or endorsed by LinkedIn Corporation.
+No. This is an independent, third-party actor. It uses publicly accessible event pages and is not affiliated with or endorsed by LinkedIn Corporation.

@@ -1,0 +1,763 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-H/IZcs67NpZTYeTKypEspwTXP1b8TCQb8HANr3VLekI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Reddit Subreddit Profile, Rules &amp; Post Filter Scraper | Dataspryva</title><meta name="description" content="Scrape full community intelligence for any subreddit: description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors and settings - plus opti"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/"><meta property="og:title" content="Reddit Subreddit Profile, Rules &amp; Post Filter Scraper | Dataspryva"><meta property="og:description" content="Scrape full community intelligence for any subreddit: description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors and settings - plus opti"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#webpage","name":"Reddit Subreddit Profile, Rules & Post Filter Scraper","description":"Scrape full community intelligence for any subreddit: description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors and settings - plus optional recent posts. No API key or login.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#article","headline":"Reddit Subreddit Profile, Rules & Post Filter Scraper","name":"Reddit Subreddit Profile, Rules & Post Filter Scraper","description":"Scrape full community intelligence for any subreddit: description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors and settings - plus optional recent posts. No API key or login.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Reddit Subreddit Profile, Rules & Post Filter Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/ArU0Lx9NfPdbDYHu8/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Reddit Subreddit Profile, Rules &amp; Post Filter Scraper</span></div><section id="overview"><h1 class="doc-title">Reddit Subreddit Profile, Rules &amp; Post Filter Scraper</h1><p class="lede">Scrape full community intelligence for any subreddit: description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors and settings - plus optional recent posts. No API key or login.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/reddit-subreddit-profile-rules-and-post-filter">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/ArU0Lx9NfPdbDYHu8/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>subreddits</code></td><td>array</td><td>optional</td><td>List of subreddits to analyze. Accepts bare names (python), r/ names or full URLs.</td></tr><tr><td><code>discoverMode</code></td><td>string</td><td>optional</td><td>Optional. How to find extra subreddits to add to the run (in addition to any names listed above). &#x27;Keyword search&#x27; uses the &#x27;Discover subreddits by keyword&#x27; field below. &#x27;Currently popular&#x27; and &#x27;Newest&#x27; browse Reddit&#x27;s curated community lists and need no keyword.</td></tr><tr><td><code>discoverQuery</code></td><td>string</td><td>optional</td><td>Search Reddit&#x27;s community directory for this keyword and add the matching subreddits to the run. Only used when &#x27;Discovery mode&#x27; is &#x27;Keyword search&#x27;. Leave empty to only use &#x27;Subreddits&#x27;.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>subreddits</code></td><td>array</td><td>optional</td><td>List of subreddits to analyze. Accepts bare names (python), r/ names or full URLs.</td></tr><tr><td><code>discoverMode</code></td><td>string</td><td>optional</td><td>Optional. How to find extra subreddits to add to the run (in addition to any names listed above). &#x27;Keyword search&#x27; uses the &#x27;Discover subreddits by keyword&#x27; field below. &#x27;Currently popular&#x27; and &#x27;Newest&#x27; browse Reddit&#x27;s curated community lists and need no keyword.</td></tr><tr><td><code>discoverQuery</code></td><td>string</td><td>optional</td><td>Search Reddit&#x27;s community directory for this keyword and add the matching subreddits to the run. Only used when &#x27;Discovery mode&#x27; is &#x27;Keyword search&#x27;. Leave empty to only use &#x27;Subreddits&#x27;.</td></tr><tr><td><code>discoverSort</code></td><td>string</td><td>optional</td><td>How to rank the subreddit search results. Only used when &#x27;Discovery mode&#x27; is &#x27;Keyword search&#x27; and &#x27;Discover subreddits by keyword&#x27; is set.</td></tr><tr><td><code>maxDiscoverResults</code></td><td>integer</td><td>optional</td><td>Maximum number of subreddits to add from the keyword search, or to browse from &#x27;Currently popular&#x27;/&#x27;Newest&#x27; when &#x27;Discovery mode&#x27; isn&#x27;t &#x27;Keyword search&#x27;.</td></tr><tr><td><code>includeRules</code></td><td>boolean</td><td>optional</td><td>Fetch the subreddit&#x27;s rules (name, description, kind, priority).</td></tr><tr><td><code>includeWiki</code></td><td>boolean</td><td>optional</td><td>Fetch the subreddit&#x27;s wiki pages with their markdown content.</td></tr><tr><td><code>maxWikiPages</code></td><td>integer</td><td>optional</td><td>Maximum number of wiki pages to fetch (when &#x27;Include wiki pages&#x27; is on).</td></tr><tr><td><code>includeWeeklyStats</code></td><td>boolean</td><td>optional</td><td>Include weekly active users and weekly contributions from the community header.</td></tr><tr><td><code>includeModerators</code></td><td>boolean</td><td>optional</td><td>Fetch the subreddit&#x27;s public moderator list (username, mod permissions, moderator-since date).</td></tr><tr><td><code>includePosts</code></td><td>boolean</td><td>optional</td><td>Also scrape the subreddit&#x27;s posts (full post data).</td></tr><tr><td><code>maxPosts</code></td><td>integer</td><td>optional</td><td>Maximum posts to scrape (when &#x27;Include recent posts&#x27; is on).</td></tr><tr><td><code>sort</code></td><td>string</td><td>optional</td><td>How to sort the included posts.</td></tr><tr><td><code>timeFilter</code></td><td>string</td><td>optional</td><td>Time filter when sorting included posts by top/controversial.</td></tr><tr><td><code>includeNSFW</code></td><td>boolean</td><td>optional</td><td>Include NSFW posts in the post listing.</td></tr><tr><td><code>onlyWithFlair</code></td><td>boolean</td><td>optional</td><td>When enabled, posts without a flair tag are dropped from the post listing.</td></tr><tr><td><code>postType</code></td><td>string</td><td>optional</td><td>Keep only posts of the selected content type in the post listing. Leave unset to keep all types.</td></tr><tr><td><code>minScore</code></td><td>integer</td><td>optional</td><td>Only keep posts with a score (upvotes minus downvotes) at or above this value. Leave unset to keep all scores.</td></tr><tr><td><code>maxScore</code></td><td>integer</td><td>optional</td><td>Only keep posts with a score (upvotes minus downvotes) at or below this value. Useful for finding overlooked/low-visibility posts. Leave unset to keep all scores.</td></tr><tr><td><code>minComments</code></td><td>integer</td><td>optional</td><td>Only keep posts with at least this many comments. Leave unset to keep all posts.</td></tr><tr><td><code>maxComments</code></td><td>integer</td><td>optional</td><td>Only keep posts with at most this many comments. Useful for finding under-discussed posts. Leave unset to keep all posts.</td></tr><tr><td><code>excludeStickied</code></td><td>boolean</td><td>optional</td><td>When enabled, posts pinned/stickied by moderators (e.g. rules, weekly threads) are dropped from the post listing.</td></tr><tr><td><code>minUpvoteRatio</code></td><td>number</td><td>optional</td><td>Only keep posts whose upvote ratio (fraction of votes that are upvotes, 0-1) is at or above this value. Useful for filtering out controversial/divisive posts. Leave unset to keep all ratios.</td></tr><tr><td><code>excludeRemoved</code></td><td>boolean</td><td>optional</td><td>When enabled, posts removed by a moderator, Reddit, or deleted by their author (marker: removed_by_category) are dropped from the post listing.</td></tr><tr><td><code>excludeCrossposts</code></td><td>boolean</td><td>optional</td><td>When enabled, posts that are crossposts from another subreddit are dropped, keeping only original submissions to the scraped subreddit.</td></tr><tr><td><code>excludeSpoilers</code></td><td>boolean</td><td>optional</td><td>When enabled, posts marked as a spoiler by their author are dropped from the post listing.</td></tr><tr><td><code>excludeLocked</code></td><td>boolean</td><td>optional</td><td>When enabled, posts with comments locked by a moderator are dropped from the post listing.</td></tr><tr><td><code>excludeDeletedAuthor</code></td><td>boolean</td><td>optional</td><td>When enabled, posts whose author account was deleted (shown as [deleted]/[removed]) are dropped from the post listing.</td></tr><tr><td><code>onlyOriginalContent</code></td><td>boolean</td><td>optional</td><td>When enabled, only posts the author tagged as original content are kept in the post listing.</td></tr><tr><td><code>minAwards</code></td><td>integer</td><td>optional</td><td>Only keep posts with at least this many total awards. Leave unset to keep all posts.</td></tr><tr><td><code>titleContains</code></td><td>string</td><td>optional</td><td>Only keep posts whose title contains this text (case-insensitive substring match). Leave empty to keep all titles.</td></tr><tr><td><code>contentContains</code></td><td>string</td><td>optional</td><td>Only keep self (text) posts whose body contains this text (case-insensitive substring match). Link/image/video posts have no body text and are excluded when this is set. Leave empty to keep all posts.</td></tr><tr><td><code>flairContains</code></td><td>string</td><td>optional</td><td>Only keep posts whose flair text contains this text (case-insensitive substring match). Leave empty to keep all flairs.</td></tr><tr><td><code>authorFlairContains</code></td><td>string</td><td>optional</td><td>Only keep posts whose author flair text contains this text (case-insensitive substring match). Leave empty to keep all.</td></tr><tr><td><code>authors</code></td><td>array</td><td>optional</td><td>Only keep posts submitted by one of these usernames (bare name or u/-prefixed, case-insensitive). Leave empty to keep posts from all authors.</td></tr><tr><td><code>domain</code></td><td>string</td><td>optional</td><td>Only keep posts whose link domain contains this text (case-insensitive, e.g. &#x27;youtube.com&#x27; or &#x27;self.python&#x27;). Leave empty to keep all domains.</td></tr><tr><td><code>distinguished</code></td><td>string</td><td>optional</td><td>Only keep posts distinguished by Reddit as moderator, admin or special (e.g. Reddit-team) posts, or only regular (non-distinguished) posts. Leave unset to keep all posts.</td></tr><tr><td><code>postedAfter</code></td><td>string</td><td>optional</td><td>Only keep posts created on or after this date (UTC). Note: when set, the listing walk starts from the newest posts.</td></tr><tr><td><code>postedBefore</code></td><td>string</td><td>optional</td><td>Only keep posts created on or before this date (interpreted as the end of that day, UTC).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;authorFlairContains&quot;: {
+      &quot;description&quot;: &quot;Only keep posts whose author flair text contains this text (case-insensitive substring match). Leave empty to keep all.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;Moderator&quot;,
+      &quot;title&quot;: &quot;Author flair contains keyword (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;authors&quot;: {
+      &quot;description&quot;: &quot;Only keep posts submitted by one of these usernames (bare name or u/-prefixed, case-insensitive). Leave empty to keep posts from all authors.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;spez&quot;
+      ],
+      &quot;title&quot;: &quot;Only posts by these authors (mode=posts)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;contentContains&quot;: {
+      &quot;description&quot;: &quot;Only keep self (text) posts whose body contains this text (case-insensitive substring match). Link/image/video posts have no body text and are excluded when this is set. Leave empty to keep all posts.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;tutorial&quot;,
+      &quot;title&quot;: &quot;Post text contains keyword (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;discoverMode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;Optional. How to find extra subreddits to add to the run (in addition to any names listed above). &#x27;Keyword search&#x27; uses the &#x27;Discover subreddits by keyword&#x27; field below. &#x27;Currently popular&#x27; and &#x27;Newest&#x27; browse Reddit&#x27;s curated community lists and need no keyword.&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;popular&quot;,
+        &quot;new&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Keyword search&quot;,
+        &quot;Currently popular communities&quot;,
+        &quot;Newest communities&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Discovery mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;discoverQuery&quot;: {
+      &quot;description&quot;: &quot;Search Reddit&#x27;s community directory for this keyword and add the matching subreddits to the run. Only used when &#x27;Discovery mode&#x27; is &#x27;Keyword search&#x27;. Leave empty to only use &#x27;Subreddits&#x27;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;machine learning&quot;,
+      &quot;title&quot;: &quot;Discover subreddits by keyword (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;discoverSort&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;How to rank the subreddit search results. Only used when &#x27;Discovery mode&#x27; is &#x27;Keyword search&#x27; and &#x27;Discover subreddits by keyword&#x27; is set.&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;activity&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Activity (most active first)&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Discovery sort (mode=search)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;distinguished&quot;: {
+      &quot;description&quot;: &quot;Only keep posts distinguished by Reddit as moderator, admin or special (e.g. Reddit-team) posts, or only regular (non-distinguished) posts. Leave unset to keep all posts.&quot;,
+      &quot;enum&quot;: [
+        &quot;moderator&quot;,
+        &quot;admin&quot;,
+        &quot;special&quot;,
+        &quot;none&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Moderator posts only&quot;,
+        &quot;Admin posts only&quot;,
+        &quot;Special (official) posts only&quot;,
+        &quot;Regular posts only (exclude all distinguished)&quot;
+      ],
+      &quot;title&quot;: &quot;Distinguished (official) posts only (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;domain&quot;: {
+      &quot;description&quot;: &quot;Only keep posts whose link domain contains this text (case-insensitive, e.g. &#x27;youtube.com&#x27; or &#x27;self.python&#x27;). Leave empty to keep all domains.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;youtube.com&quot;,
+      &quot;title&quot;: &quot;Domain contains (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;excludeCrossposts&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts that are crossposts from another subreddit are dropped, keeping only original submissions to the scraped subreddit.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude crossposts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;excludeDeletedAuthor&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts whose author account was deleted (shown as [deleted]/[removed]) are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude posts with a deleted/removed author (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;excludeLocked&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts with comments locked by a moderator are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude locked posts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;excludeRemoved&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts removed by a moderator, Reddit, or deleted by their author (marker: removed_by_category) are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude removed/deleted posts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;excludeSpoilers&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts marked as a spoiler by their author are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude spoiler-tagged posts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;excludeStickied&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts pinned/stickied by moderators (e.g. rules, weekly threads) are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Exclude stickied/pinned posts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;flairContains&quot;: {
+      &quot;description&quot;: &quot;Only keep posts whose flair text contains this text (case-insensitive substring match). Leave empty to keep all flairs.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;Discussion&quot;,
+      &quot;title&quot;: &quot;Flair contains keyword (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeModerators&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch the subreddit&#x27;s public moderator list (username, mod permissions, moderator-since date).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include moderator list&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeNSFW&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Include NSFW posts in the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include NSFW (18+) posts&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includePosts&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Also scrape the subreddit&#x27;s posts (full post data).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include recent posts&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeRules&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch the subreddit&#x27;s rules (name, description, kind, priority).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include community rules&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeWeeklyStats&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include weekly active users and weekly contributions from the community header.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include weekly active stats&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeWiki&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch the subreddit&#x27;s wiki pages with their markdown content.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include wiki pages&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxComments&quot;: {
+      &quot;description&quot;: &quot;Only keep posts with at most this many comments. Useful for finding under-discussed posts. Leave unset to keep all posts.&quot;,
+      &quot;example&quot;: 500,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum number of comments (mode=posts)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxDiscoverResults&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Maximum number of subreddits to add from the keyword search, or to browse from &#x27;Currently popular&#x27;/&#x27;Newest&#x27; when &#x27;Discovery mode&#x27; isn&#x27;t &#x27;Keyword search&#x27;.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Maximum discovered subreddits&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPosts&quot;: {
+      &quot;default&quot;: 25,
+      &quot;description&quot;: &quot;Maximum posts to scrape (when &#x27;Include recent posts&#x27; is on).&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 25,
+      &quot;title&quot;: &quot;Maximum posts&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxScore&quot;: {
+      &quot;description&quot;: &quot;Only keep posts with a score (upvotes minus downvotes) at or below this value. Useful for finding overlooked/low-visibility posts. Leave unset to keep all scores.&quot;,
+      &quot;example&quot;: 1000,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: -100000,
+      &quot;title&quot;: &quot;Maximum score (mode=posts)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxWikiPages&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum number of wiki pages to fetch (when &#x27;Include wiki pages&#x27; is on).&quot;,
+      &quot;maximum&quot;: 200,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Maximum wiki pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minAwards&quot;: {
+      &quot;description&quot;: &quot;Only keep posts with at least this many total awards. Leave unset to keep all posts.&quot;,
+      &quot;example&quot;: 1,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum awards received (mode=posts)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minComments&quot;: {
+      &quot;description&quot;: &quot;Only keep posts with at least this many comments. Leave unset to keep all posts.&quot;,
+      &quot;example&quot;: 5,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum number of comments (mode=posts)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minScore&quot;: {
+      &quot;description&quot;: &quot;Only keep posts with a score (upvotes minus downvotes) at or above this value. Leave unset to keep all scores.&quot;,
+      &quot;example&quot;: 10,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: -1000000,
+      &quot;title&quot;: &quot;Minimum score (mode=posts)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minUpvoteRatio&quot;: {
+      &quot;description&quot;: &quot;Only keep posts whose upvote ratio (fraction of votes that are upvotes, 0-1) is at or above this value. Useful for filtering out controversial/divisive posts. Leave unset to keep all ratios.&quot;,
+      &quot;example&quot;: 0.8,
+      &quot;maximum&quot;: 1,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum upvote ratio (mode=posts)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;onlyOriginalContent&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, only posts the author tagged as original content are kept in the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only original content (OC) posts (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;onlyWithFlair&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;When enabled, posts without a flair tag are dropped from the post listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only posts that have a flair (mode=posts)&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;postType&quot;: {
+      &quot;description&quot;: &quot;Keep only posts of the selected content type in the post listing. Leave unset to keep all types.&quot;,
+      &quot;enum&quot;: [
+        &quot;self&quot;,
+        &quot;link&quot;,
+        &quot;image&quot;,
+        &quot;video&quot;,
+        &quot;gallery&quot;,
+        &quot;poll&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Text (self post)&quot;,
+        &quot;Link&quot;,
+        &quot;Image&quot;,
+        &quot;Video&quot;,
+        &quot;Gallery&quot;,
+        &quot;Poll&quot;
+      ],
+      &quot;title&quot;: &quot;Only posts of this type (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;postedAfter&quot;: {
+      &quot;description&quot;: &quot;Only keep posts created on or after this date (UTC). Note: when set, the listing walk starts from the newest posts.&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;example&quot;: &quot;2025-01-01&quot;,
+      &quot;title&quot;: &quot;Posts created on or after (YYYY-MM-DD)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;postedBefore&quot;: {
+      &quot;description&quot;: &quot;Only keep posts created on or before this date (interpreted as the end of that day, UTC).&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;example&quot;: &quot;2025-12-31&quot;,
+      &quot;title&quot;: &quot;Posts created on or before (YYYY-MM-DD)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sort&quot;: {
+      &quot;default&quot;: &quot;hot&quot;,
+      &quot;description&quot;: &quot;How to sort the included posts.&quot;,
+      &quot;enum&quot;: [
+        &quot;hot&quot;,
+        &quot;new&quot;,
+        &quot;top&quot;,
+        &quot;rising&quot;,
+        &quot;controversial&quot;,
+        &quot;best&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Hot&quot;,
+        &quot;New&quot;,
+        &quot;Top&quot;,
+        &quot;Rising&quot;,
+        &quot;Controversial&quot;,
+        &quot;Best&quot;
+      ],
+      &quot;prefill&quot;: &quot;hot&quot;,
+      &quot;title&quot;: &quot;Sort posts by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;subreddits&quot;: {
+      &quot;description&quot;: &quot;List of subreddits to analyze. Accepts bare names (python), r/ names or full URLs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;example&quot;: [
+        &quot;python&quot;,
+        &quot;r/programming&quot;,
+        &quot;https://www.reddit.com/r/webdev/&quot;
+      ],
+      &quot;prefill&quot;: [
+        &quot;python&quot;
+      ],
+      &quot;title&quot;: &quot;Subreddits&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;timeFilter&quot;: {
+      &quot;default&quot;: &quot;day&quot;,
+      &quot;description&quot;: &quot;Time filter when sorting included posts by top/controversial.&quot;,
+      &quot;enum&quot;: [
+        &quot;hour&quot;,
+        &quot;day&quot;,
+        &quot;week&quot;,
+        &quot;month&quot;,
+        &quot;year&quot;,
+        &quot;all&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Past Hour&quot;,
+        &quot;Past Day&quot;,
+        &quot;Past Week&quot;,
+        &quot;Past Month&quot;,
+        &quot;Past Year&quot;,
+        &quot;All Time&quot;
+      ],
+      &quot;prefill&quot;: &quot;day&quot;,
+      &quot;title&quot;: &quot;Time filter (for &#x27;top&#x27; and &#x27;controversial&#x27;)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;titleContains&quot;: {
+      &quot;description&quot;: &quot;Only keep posts whose title contains this text (case-insensitive substring match). Leave empty to keep all titles.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;launch&quot;,
+      &quot;title&quot;: &quot;Title contains keyword (mode=posts)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Reddit Community Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>communityAndPostRecords</code></td><td>string</td><td>optional</td><td>Dataset containing one community record per requested/discovered subreddit, plus one record per scraped post when &#x27;Include posts&#x27; is on. Records are distinguished by the `dataType` field (`community` or `post`).</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Community intelligence and posts for any subreddit — description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors, settings and optional recent posts.&quot;,
+  &quot;properties&quot;: {
+    &quot;communityAndPostRecords&quot;: {
+      &quot;description&quot;: &quot;Dataset containing one community record per requested/discovered subreddit, plus one record per scraped post when &#x27;Include posts&#x27; is on. Records are distinguished by the `dataType` field (`community` or `post`).&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Community &amp; post records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Reddit Subreddit Profile, Rules &amp; Post Filter Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Community &amp; Post Records&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;dataType&quot;,
+          &quot;subreddit_prefixed&quot;,
+          &quot;title&quot;,
+          &quot;author&quot;,
+          &quot;score&quot;,
+          &quot;num_comments&quot;,
+          &quot;subscribers&quot;,
+          &quot;created_at&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-reddit-subreddit-profile-rules-post-filter-scraper">Reddit Subreddit Profile, Rules &amp; Post Filter Scraper</h2>
+<p>Scrape <strong>complete community intelligence</strong> for any subreddit — subscriber count, weekly active users &amp; contributions, posting rules, moderator list, wiki pages, branding (icon/banner/colors) and community settings — plus optional, filterable recent posts. Discover subreddits by keyword or browse currently popular / newest communities instead of typing exact names. No API key, no login required.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Full community profile</strong> — title, description, submit text, subscriber count, weekly active users &amp; weekly contributions, creation date, community type, NSFW/quarantine flags, branding and settings</li>
+<li><strong>Community rules, moderator list and wiki pages</strong> — each fetched only when its input toggle is enabled</li>
+<li><strong>Optional recent posts</strong> — the full post contract (score, flair, awards, media, gallery, poll, crosspost data) with 20+ filters: sort/time window, date range, score/comment/award thresholds, post type, flair/title/body keyword matches, author allowlist, domain, and exclusion toggles for stickied/removed/crossposted/spoiler/locked/deleted-author posts</li>
+<li><strong>Discover subreddits</strong> — search Reddit's community directory by keyword, or browse currently popular / newest communities, and the matching subreddits are added to the run automatically</li>
+<li><strong>Empty fields are omitted</strong> — every record only contains fields Reddit actually returned for that community or post</li>
+</ul>
+<h2 id="readme-output-per-community">Output: per-community</h2>
+<p>Every subreddit produces one record with <code>dataType: &quot;community&quot;</code>.</p>
+<ul>
+<li><code>subreddit</code>, <code>subreddit_prefixed</code>, <code>subreddit_id</code>, <code>url</code> — identity</li>
+<li><code>title</code>, <code>description</code>, <code>description_html</code>, <code>public_description</code>, <code>public_description_html</code>, <code>submit_text</code>, <code>submit_text_html</code>, <code>submit_text_label</code>, <code>submit_link_label</code> — descriptive text</li>
+<li><code>subscribers</code>, <code>active_user_count</code> — subscriber/active-user counts (<code>active_user_count</code> only when Reddit's API returns it)</li>
+<li><code>weekly_active_users</code>, <code>weekly_contributions</code> — Reddit's weekly-activity metric (when &quot;Include weekly active stats&quot; is on)</li>
+<li><code>created_utc</code>, <code>created_at</code>, <code>subreddit_type</code>, <code>submission_type</code>, <code>restrict_posting</code>, <code>restrict_commenting</code>, <code>over18</code>, <code>quarantine</code>, <code>wiki_enabled</code>, <code>lang</code>, <code>advertiser_category</code> — metadata</li>
+<li><code>community_icon</code>, <code>icon_img</code>, <code>icon_width</code>, <code>icon_height</code>, <code>banner_img</code>, <code>banner_background_image</code>, <code>banner_background_color</code>, <code>banner_width</code>, <code>banner_height</code>, <code>mobile_banner_image</code>, <code>header_img</code>, <code>header_title</code>, <code>header_width</code>, <code>header_height</code>, <code>primary_color</code>, <code>key_color</code> — branding (dimensions only when the community set a custom size)</li>
+<li><code>allow_images</code>, <code>allow_videos</code>, <code>allow_videogifs</code>, <code>allow_galleries</code>, <code>allow_polls</code>, <code>allow_predictions</code>, <code>allow_predictions_tournament</code>, <code>allow_prediction_contributors</code>, <code>allow_talks</code>, <code>allow_discovery</code>, <code>allowed_media_in_comments</code>, <code>spoilers_enabled</code>, <code>original_content_tag_enabled</code>, <code>all_original_content</code>, <code>is_crosspostable_subreddit</code>, <code>link_flair_enabled</code>, <code>link_flair_position</code>, <code>user_flair_enabled_in_sr</code>, <code>user_flair_position</code>, <code>user_flair_type</code>, <code>user_flair_text</code>, <code>user_flair_richtext</code>, <code>user_flair_template_id</code>, <code>user_flair_background_color</code>, <code>user_flair_text_color</code>, <code>can_assign_link_flair</code>, <code>can_assign_user_flair</code>, <code>suggested_comment_sort</code>, <code>accept_followers</code>, <code>emojis_enabled</code>, <code>comment_score_hide_mins</code>, <code>collapse_deleted_comments</code>, <code>free_form_reports</code>, <code>hide_ads</code>, <code>public_traffic</code>, <code>community_reviewed</code>, <code>has_menu_widget</code>, <code>disable_contributor_requests</code>, <code>should_archive_posts</code>, <code>show_media</code>, <code>show_media_preview</code>, <code>should_show_media_in_comments_setting</code>, <code>user_sr_theme_enabled</code> — community settings</li>
+<li><code>rules[]</code> — <code>short_name</code>, <code>description</code>, <code>description_html</code>, <code>kind</code>, <code>violation_reason</code>, <code>priority</code>, <code>created_utc</code> (when &quot;Include community rules&quot; is on)</li>
+<li><code>moderators[]</code> — <code>name</code>, <code>mod_permissions</code>, <code>author_flair_text</code>, <code>moderator_since_at</code> (when &quot;Include moderator list&quot; is on — see FAQ below, this list is often unavailable)</li>
+<li><code>wiki_pages[]</code> — <code>name</code>, <code>content_md</code>, <code>content_html</code>, <code>reason</code>, <code>revision_id</code>, <code>revision_date</code>, <code>revision_by</code> (when &quot;Include wiki pages&quot; is on)</li>
+<li><code>search_term</code> — the discovery keyword that surfaced this subreddit (only present when found via <code>discoverQuery</code>)</li>
+<li><code>crawled_at</code>, <code>source</code> — fetch timestamp and data source</li>
+</ul>
+<h2 id="readme-output-per-post">Output: per-post</h2>
+<p>Each scraped post produces one record with <code>dataType: &quot;post&quot;</code>, when &quot;Include recent posts&quot; is on.</p>
+<ul>
+<li><code>post_id</code>, <code>post_name</code>, <code>subreddit</code>, <code>subreddit_prefixed</code>, <code>subreddit_id</code>, <code>subreddit_subscribers</code>, <code>subreddit_type</code> — identity</li>
+<li><code>title</code>, <code>content</code>, <code>content_html</code>, <code>content_url</code>, <code>url</code>, <code>permalink</code>, <code>url_overridden_by_dest</code>, <code>domain</code>, <code>post_hint</code>, <code>is_self</code>, <code>post_type</code>, <code>media_type</code> — content</li>
+<li><code>author</code>, <code>author_id</code>, <code>author_flair</code>, <code>author_flair_background_color</code>, <code>author_flair_text_color</code>, <code>author_flair_type</code>, <code>author_flair_css_class</code>, <code>author_flair_richtext</code>, <code>author_flair_template_id</code>, <code>author_premium</code>, <code>author_is_blocked</code>, <code>author_patreon_flair</code> — author</li>
+<li><code>score</code>, <code>ups</code>, <code>downs</code>, <code>upvote_ratio</code>, <code>num_comments</code>, <code>num_crossposts</code>, <code>num_duplicates</code>, <code>gilded</code>, <code>total_awards_received</code>, <code>awards[]</code> (<code>name</code>, <code>count</code>, <code>coin_price</code>, <code>icon_url</code>) — engagement</li>
+<li><code>link_flair</code>, <code>link_flair_background_color</code>, <code>link_flair_text_color</code>, <code>link_flair_type</code>, <code>link_flair_css_class</code>, <code>link_flair_richtext</code>, <code>link_flair_template_id</code> — post flair</li>
+<li><code>thumbnail_url</code>, <code>thumbnail_width</code>, <code>thumbnail_height</code>, <code>has_media</code>, <code>images[]</code>, <code>gallery_images[]</code>, <code>gallery_count</code>, <code>video_url</code>, <code>poll_data</code> — media (galleries/video/polls populate their own fields, otherwise omitted)</li>
+<li><code>is_stickied</code>, <code>is_locked</code>, <code>is_archived</code>, <code>is_pinned</code>, <code>is_nsfw</code>, <code>is_spoiler</code>, <code>is_original_content</code>, <code>is_crosspost</code>, <code>crosspost_parent_id</code>, <code>is_crosspostable</code>, <code>is_meta</code>, <code>is_robot_indexable</code>, <code>is_reddit_media_domain</code>, <code>media_only</code>, <code>no_follow</code>, <code>send_replies</code>, <code>allow_live_comments</code>, <code>contest_mode</code>, <code>hide_score</code>, <code>suggested_sort</code>, <code>quarantine</code>, <code>content_categories</code>, <code>removed_by_category</code>, <code>distinguished</code>, <code>hidden</code> — flags</li>
+<li><code>created_utc</code>, <code>created_at</code>, <code>edited</code>, <code>edited_at</code> — timing</li>
+<li><code>crawled_at</code>, <code>source</code> — fetch timestamp and data source</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>subreddits</code></td>
+<td>array</td>
+<td>–</td>
+<td>Names, <code>r/</code> names or full URLs. Optional if <code>discoverQuery</code> is set.</td>
+</tr>
+<tr>
+<td><code>discoverMode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code> (use <code>discoverQuery</code>), <code>popular</code> (browse currently popular communities) or <code>new</code> (browse newest communities) — adds matching subreddits to the run in addition to <code>subreddits</code></td>
+</tr>
+<tr>
+<td><code>discoverQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Search Reddit's community directory for this keyword and add the matching subreddits to the run (mode=search)</td>
+</tr>
+<tr>
+<td><code>discoverSort</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code> or <code>activity</code> (most active first) (mode=search)</td>
+</tr>
+<tr>
+<td><code>maxDiscoverResults</code></td>
+<td>int</td>
+<td><code>10</code></td>
+<td>Max subreddits to add from the keyword search, or to browse from <code>popular</code>/<code>new</code> (1–100)</td>
+</tr>
+<tr>
+<td><code>includeRules</code></td>
+<td>bool</td>
+<td><code>true</code></td>
+<td>Fetch community rules</td>
+</tr>
+<tr>
+<td><code>includeWiki</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Fetch wiki pages (markdown + HTML + revisions)</td>
+</tr>
+<tr>
+<td><code>maxWikiPages</code></td>
+<td>int</td>
+<td><code>20</code></td>
+<td>Max wiki pages (0–200)</td>
+</tr>
+<tr>
+<td><code>includeWeeklyStats</code></td>
+<td>bool</td>
+<td><code>true</code></td>
+<td>Weekly active users &amp; contributions</td>
+</tr>
+<tr>
+<td><code>includeModerators</code></td>
+<td>bool</td>
+<td><code>true</code></td>
+<td>Fetch the public moderator list</td>
+</tr>
+<tr>
+<td><code>includePosts</code></td>
+<td>bool</td>
+<td><code>true</code></td>
+<td>Also scrape recent posts</td>
+</tr>
+<tr>
+<td><code>maxPosts</code></td>
+<td>int</td>
+<td><code>25</code></td>
+<td>Max posts per subreddit (1–1,000)</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>string</td>
+<td><code>hot</code></td>
+<td><code>hot</code>, <code>new</code>, <code>top</code>, <code>rising</code>, <code>controversial</code>, <code>best</code></td>
+</tr>
+<tr>
+<td><code>timeFilter</code></td>
+<td>string</td>
+<td><code>day</code></td>
+<td><code>hour</code>/<code>day</code>/<code>week</code>/<code>month</code>/<code>year</code>/<code>all</code> (used when <code>sort</code> is <code>top</code> or <code>controversial</code>)</td>
+</tr>
+<tr>
+<td><code>includeNSFW</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Include 18+ posts</td>
+</tr>
+<tr>
+<td><code>onlyWithFlair</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Keep only posts that have a flair</td>
+</tr>
+<tr>
+<td><code>postType</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only <code>self</code>/<code>link</code>/<code>image</code>/<code>video</code>/<code>gallery</code>/<code>poll</code> posts</td>
+</tr>
+<tr>
+<td><code>minScore</code></td>
+<td>int</td>
+<td>–</td>
+<td>Keep only posts with a score at or above this value</td>
+</tr>
+<tr>
+<td><code>maxScore</code></td>
+<td>int</td>
+<td>–</td>
+<td>Keep only posts with a score at or below this value</td>
+</tr>
+<tr>
+<td><code>minComments</code></td>
+<td>int</td>
+<td>–</td>
+<td>Keep only posts with at least this many comments</td>
+</tr>
+<tr>
+<td><code>maxComments</code></td>
+<td>int</td>
+<td>–</td>
+<td>Keep only posts with at most this many comments</td>
+</tr>
+<tr>
+<td><code>excludeStickied</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop stickied/pinned posts</td>
+</tr>
+<tr>
+<td><code>minUpvoteRatio</code></td>
+<td>number</td>
+<td>–</td>
+<td>Keep only posts with an upvote ratio (0–1) at or above this value</td>
+</tr>
+<tr>
+<td><code>excludeRemoved</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop posts removed by a mod/Reddit or deleted by their author</td>
+</tr>
+<tr>
+<td><code>excludeCrossposts</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop crossposted posts, keeping only original submissions</td>
+</tr>
+<tr>
+<td><code>excludeSpoilers</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop posts marked as a spoiler</td>
+</tr>
+<tr>
+<td><code>excludeLocked</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop posts with comments locked by a moderator</td>
+</tr>
+<tr>
+<td><code>excludeDeletedAuthor</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Drop posts whose author account was deleted</td>
+</tr>
+<tr>
+<td><code>onlyOriginalContent</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Keep only posts tagged as original content (OC)</td>
+</tr>
+<tr>
+<td><code>minAwards</code></td>
+<td>int</td>
+<td>–</td>
+<td>Keep only posts with at least this many total awards</td>
+</tr>
+<tr>
+<td><code>titleContains</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only posts whose title contains this text (case-insensitive)</td>
+</tr>
+<tr>
+<td><code>contentContains</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only self (text) posts whose body contains this text (case-insensitive)</td>
+</tr>
+<tr>
+<td><code>flairContains</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only posts whose flair text contains this text (case-insensitive)</td>
+</tr>
+<tr>
+<td><code>authorFlairContains</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only posts whose author flair text contains this text (case-insensitive)</td>
+</tr>
+<tr>
+<td><code>authors</code></td>
+<td>array</td>
+<td>–</td>
+<td>Keep only posts submitted by one of these usernames</td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only posts whose link domain contains this text</td>
+</tr>
+<tr>
+<td><code>distinguished</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only <code>moderator</code>/<code>admin</code>/<code>special</code> posts, or <code>none</code> for regular posts only</td>
+</tr>
+<tr>
+<td><code>postedAfter</code></td>
+<td>date</td>
+<td>–</td>
+<td>Posts created on or after this date (UTC)</td>
+</tr>
+<tr>
+<td><code>postedBefore</code></td>
+<td>date</td>
+<td>–</td>
+<td>Posts created on or before this date (end of day, UTC)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-full-community-profile-with-posts">Example: full community profile with posts</h3>
+<pre><code class="language-json">{
+  &quot;subreddits&quot;: [&quot;python&quot;, &quot;learnpython&quot;],
+  &quot;includeRules&quot;: true,
+  &quot;includeWiki&quot;: true,
+  &quot;includeModerators&quot;: true,
+  &quot;includeWeeklyStats&quot;: true,
+  &quot;includePosts&quot;: true,
+  &quot;maxPosts&quot;: 50,
+  &quot;sort&quot;: &quot;top&quot;,
+  &quot;timeFilter&quot;: &quot;week&quot;
+}
+</code></pre>
+<h3 id="readme-example-community-metadata-only-no-posts">Example: community metadata only, no posts</h3>
+<pre><code class="language-json">{
+  &quot;subreddits&quot;: [&quot;dataisbeautiful&quot;],
+  &quot;includePosts&quot;: false,
+  &quot;includeWiki&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-filtered-posts-from-a-subreddit">Example: filtered posts from a subreddit</h3>
+<pre><code class="language-json">{
+  &quot;subreddits&quot;: [&quot;technology&quot;],
+  &quot;includePosts&quot;: true,
+  &quot;maxPosts&quot;: 100,
+  &quot;sort&quot;: &quot;top&quot;,
+  &quot;timeFilter&quot;: &quot;month&quot;,
+  &quot;minScore&quot;: 500,
+  &quot;minComments&quot;: 50,
+  &quot;postType&quot;: &quot;self&quot;,
+  &quot;excludeStickied&quot;: true,
+  &quot;excludeCrossposts&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-discover-subreddits-by-keyword">Example: discover subreddits by keyword</h3>
+<pre><code class="language-json">{
+  &quot;subreddits&quot;: [],
+  &quot;discoverMode&quot;: &quot;search&quot;,
+  &quot;discoverQuery&quot;: &quot;machine learning&quot;,
+  &quot;discoverSort&quot;: &quot;activity&quot;,
+  &quot;maxDiscoverResults&quot;: 15,
+  &quot;includePosts&quot;: false
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Community research</strong> — profile a subreddit before entering a market</li>
+<li><strong>Brand monitoring</strong> — track weekly activity spikes in your niche's subreddits (schedule runs)</li>
+<li><strong>Moderation research</strong> — study rules and posting policies across communities</li>
+<li><strong>Content strategy</strong> — understand what a community allows before posting</li>
+<li><strong>Competitive intelligence</strong> — compare the size and activity of competitor communities</li>
+<li><strong>Subreddit discovery</strong> — find relevant communities for a topic without knowing exact names upfront</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Reddit API key or login?</strong> No — the actor uses Reddit's public web data.</p>
+<p><strong>Why is <code>moderators[]</code> sometimes missing?</strong> Reddit has been intermittently blocking its public, unauthenticated moderator-list endpoint (<code>about/moderators.json</code>) for many subreddits. When that happens the actor falls back to the community's moderators page, and if that's also unavailable, <code>moderators[]</code> is simply omitted from the record rather than returned empty. All other community fields, rules, wiki and posts are unaffected. This is a platform-side limitation, not a run failure.</p>
+<p><strong>What are weekly active users?</strong> Reddit's own community-activity metric shown on subreddit pages — a better engagement signal than subscriber count alone.</p>
+<p><strong>Why does a subreddit return no records?</strong> Private, banned or nonexistent subreddits return nothing. NSFW-marked subreddits are also gated for logged-out access and return no records even with <code>includeNSFW</code> on — that filter only affects NSFW <em>posts</em> inside otherwise-public subreddits.</p>
+<p><strong>Does this include follower counts or traffic stats?</strong> No — follower counts and traffic stats require moderator authentication and aren't public data, so they're not returned.</p>
+<p><strong>What happens if a subreddit has the wiki disabled?</strong> <code>wiki_pages</code> is simply omitted for that subreddit — no error.</p>
+<p><strong>Can I export the data?</strong> Yes — JSON, CSV, Excel, XML or HTML, plus REST API and integrations with n8n, Zapier, Make and AI agents via the Apify MCP server.</p>
+<p><strong>Is this affiliated with Reddit?</strong> No — this is a third-party actor built on Reddit's public web data.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/ArU0Lx9NfPdbDYHu8/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>baQyKxlFC36Ng5tQX</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

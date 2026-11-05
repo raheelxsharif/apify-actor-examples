@@ -1,56 +1,27 @@
 {
+  "description": "Browse or search public LinkedIn Sales and Talent community events, or fetch specific event URLs. No cookies, login, or proxy required.",
   "properties": {
-    "cookie": {
-      "description": "LinkedIn session cookie for Voyager API search. Accepts: (1) the li_at value from browser DevTools, or (2) full cookies JSON array from an extension like EditThisCookie. Required for keyword search; optional for direct event URL scraping.",
-      "editor": "textarea",
-      "isSecret": true,
-      "prefill": "AQEDATMPDDwCAoa5AAABnt_t_AoAAAGfA_qACk0AguQORDqacHDSqrgQixiqhB8K4_IYQFGRE8n4odBUmDKTnfe8WrRsYLvnw1q-K_nOb_R_0VnqWtEGDRCCDFeN_GR1QUIccXLIu4kLu7CGfDDLNp5v",
-      "title": "LinkedIn Cookie",
-      "type": "string"
-    },
-    "datePosted": {
-      "default": "",
-      "description": "Filter events by when they were posted.",
+    "communities": {
+      "default": "both",
+      "description": "Which public LinkedIn community sites to scan (mode=search/browse).",
       "editor": "select",
       "enum": [
-        "",
-        "r86400",
-        "r604800",
-        "r2592000"
+        "both",
+        "sales",
+        "talent"
       ],
       "enumTitles": [
-        "Any time",
-        "Past 24 hours",
-        "Past week",
-        "Past month"
+        "Sales and Talent",
+        "LinkedIn Sales Community",
+        "LinkedIn Talent Community"
       ],
-      "title": "Date Posted",
+      "prefill": "both",
+      "title": "Communities",
       "type": "string"
     },
-    "dateRange": {
+    "eventFormat": {
       "default": "",
-      "description": "Filter by event timing relative to today.",
-      "editor": "select",
-      "enum": [
-        "",
-        "UPCOMING",
-        "THIS_WEEK",
-        "THIS_MONTH",
-        "PAST"
-      ],
-      "enumTitles": [
-        "Any date",
-        "Upcoming",
-        "This week",
-        "This month",
-        "Past events"
-      ],
-      "title": "Date Range",
-      "type": "string"
-    },
-    "eventType": {
-      "default": "",
-      "description": "Filter by event format.",
+      "description": "Filter by format (mode=search/browse). Public community events are virtual; other values legitimately return 0.",
       "editor": "select",
       "enum": [
         "",
@@ -59,23 +30,59 @@
         "HYBRID"
       ],
       "enumTitles": [
-        "Any type",
-        "Virtual / Online",
+        "Any format",
+        "Virtual / online",
         "In person",
         "Hybrid"
       ],
-      "title": "Event Type",
+      "prefill": "",
+      "title": "Event format",
+      "type": "string"
+    },
+    "eventTiming": {
+      "default": "upcoming",
+      "description": "Which listing tab to scan (mode=search/browse).",
+      "editor": "select",
+      "enum": [
+        "upcoming",
+        "past",
+        "all"
+      ],
+      "enumTitles": [
+        "Upcoming events",
+        "Past events",
+        "Upcoming and past"
+      ],
+      "prefill": "all",
+      "title": "Event timing",
       "type": "string"
     },
     "eventUrls": {
-      "description": "Direct LinkedIn Event page URLs to scrape. Accepts formats: https://www.linkedin.com/events/6234567890123456789/ or https://www.linkedin.com/events/ai-summit-2025-123456789/",
+      "description": "Community event URLs (scommunity.linkedin.com/events/... or tcommunity.linkedin.com/events/...) or main www.linkedin.com/events/<id> URLs (mode=byUrls).",
       "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
       "title": "Event URLs",
       "type": "array"
     },
+    "includeArchivedDetails": {
+      "default": false,
+      "description": "For main www.linkedin.com/events URLs only (mode=byUrls): look for a public Wayback Machine guest snapshot with name, host, date text, description and venue (when archived). Archived cover images are omitted because their signed CDN URLs are expired.",
+      "prefill": false,
+      "title": "Include archived details for main event URLs",
+      "type": "boolean"
+    },
+    "includeDescriptions": {
+      "default": true,
+      "description": "Add the full event description text. Schedules, timezones, images, registration links and categories are always fetched.",
+      "prefill": false,
+      "title": "Include descriptions",
+      "type": "boolean"
+    },
     "language": {
       "default": "",
-      "description": "Filter events by primary language.",
+      "description": "Keep events whose source label is this language (mode=search/browse). Events labelled with a topic instead of a language are omitted when this filter is set.",
       "editor": "select",
       "enum": [
         "",
@@ -101,39 +108,50 @@
         "Chinese",
         "Japanese"
       ],
-      "title": "Event Language",
-      "type": "string"
-    },
-    "location": {
-      "description": "Filter events by location (e.g., 'New York', 'London', 'Remote').",
-      "editor": "textfield",
-      "title": "Location",
+      "prefill": "",
+      "title": "Event language",
       "type": "string"
     },
     "maxEvents": {
       "default": 50,
-      "description": "Maximum number of events to scrape. Default: 50, Max: 500.",
-      "editor": "number",
-      "maximum": 500,
+      "description": "Hard cap on emitted records. A direct event URL always returns its one event.",
+      "maximum": 1000,
       "minimum": 1,
-      "title": "Max Events",
+      "prefill": 1,
+      "title": "Max events",
       "type": "integer"
     },
-    "proxyConfiguration": {
-      "description": "Optional Apify proxy configuration. Residential proxy recommended for best results with LinkedIn.",
-      "editor": "proxy",
-      "title": "Proxy Configuration",
-      "type": "object"
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "browse",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Search events by keyword",
+        "Browse all upcoming/past events",
+        "Fetch specific event URLs"
+      ],
+      "prefill": "browse",
+      "title": "Mode",
+      "type": "string"
     },
     "searchQuery": {
-      "description": "Keyword to search for LinkedIn Events (e.g., 'AI conference 2025', 'marketing summit'). Required unless eventUrls is provided.",
+      "default": "",
+      "description": "Keyword filter over event titles (mode=search). Leave empty to return every event. Matching is case- and accent-insensitive.",
       "editor": "textfield",
-      "prefill": "AI conference 2025",
-      "title": "Search Query",
+      "prefill": "",
+      "title": "Search query",
       "type": "string"
     }
   },
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
-  "title": "LinkedIn Events Scraper Input",
+  "title": "LinkedIn Community Events Scraper Input",
   "type": "object"
 }

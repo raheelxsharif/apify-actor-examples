@@ -1,18 +1,18 @@
 {
   "actorSpecification": 1,
-  "title": "LinkedIn Events",
+  "title": "LinkedIn Community Events",
   "views": {
     "overview": {
       "display": {
         "component": "table",
         "properties": {
-          "attendeesCount": {
-            "format": "number",
-            "label": "Attendees"
+          "community": {
+            "format": "text",
+            "label": "Community"
           },
           "endDate": {
             "format": "datetime",
-            "label": "End Date"
+            "label": "End"
           },
           "eventName": {
             "format": "text",
@@ -30,13 +30,17 @@
             "format": "text",
             "label": "Organizer"
           },
+          "registrationUrl": {
+            "format": "link",
+            "label": "Registration"
+          },
           "scrapedAt": {
             "format": "datetime",
             "label": "Scraped At"
           },
           "startDate": {
             "format": "datetime",
-            "label": "Start Date"
+            "label": "Start"
           }
         }
       },
@@ -44,11 +48,12 @@
       "transformation": {
         "fields": [
           "eventName",
+          "community",
           "startDate",
           "endDate",
           "format",
           "organizerName",
-          "attendeesCount",
+          "registrationUrl",
           "eventUrl",
           "scrapedAt"
         ]

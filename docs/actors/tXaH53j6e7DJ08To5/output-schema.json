@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Dataset of observed Google Maps menu items. When a place loads but Google exposes no inline cards, the actor emits one typed menuSummary row containing only observed place-level menu facts, such as an external menu URL.",
+  "description": "Restaurant menu rows with dish name, section, description, price, currency, photo, menu provenance and full Google Maps place context.",
   "properties": {
     "menuItems": {
-      "description": "Each item contains only menu fields observed on the public place page.",
+      "description": "Dataset containing menu item rows and one summary row per place without a readable menu.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Menu Items",
       "type": "string"
     }
   },
-  "title": "Google Maps Restaurant Menu & Popular Dish Extractor Output"
+  "title": "Google Maps Restaurant Menu & Price Scraper Output"
 }

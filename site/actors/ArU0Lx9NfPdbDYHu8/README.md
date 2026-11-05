@@ -1,0 +1,169 @@
+# Reddit Subreddit Profile, Rules & Post Filter Scraper
+
+Scrape **complete community intelligence** for any subreddit — subscriber count, weekly active users & contributions, posting rules, moderator list, wiki pages, branding (icon/banner/colors) and community settings — plus optional, filterable recent posts. Discover subreddits by keyword or browse currently popular / newest communities instead of typing exact names. No API key, no login required.
+
+## What this actor does
+
+- **Full community profile** — title, description, submit text, subscriber count, weekly active users & weekly contributions, creation date, community type, NSFW/quarantine flags, branding and settings
+- **Community rules, moderator list and wiki pages** — each fetched only when its input toggle is enabled
+- **Optional recent posts** — the full post contract (score, flair, awards, media, gallery, poll, crosspost data) with 20+ filters: sort/time window, date range, score/comment/award thresholds, post type, flair/title/body keyword matches, author allowlist, domain, and exclusion toggles for stickied/removed/crossposted/spoiler/locked/deleted-author posts
+- **Discover subreddits** — search Reddit's community directory by keyword, or browse currently popular / newest communities, and the matching subreddits are added to the run automatically
+- **Empty fields are omitted** — every record only contains fields Reddit actually returned for that community or post
+
+## Output: per-community
+
+Every subreddit produces one record with `dataType: "community"`.
+
+- `subreddit`, `subreddit_prefixed`, `subreddit_id`, `url` — identity
+- `title`, `description`, `description_html`, `public_description`, `public_description_html`, `submit_text`, `submit_text_html`, `submit_text_label`, `submit_link_label` — descriptive text
+- `subscribers`, `active_user_count` — subscriber/active-user counts (`active_user_count` only when Reddit's API returns it)
+- `weekly_active_users`, `weekly_contributions` — Reddit's weekly-activity metric (when "Include weekly active stats" is on)
+- `created_utc`, `created_at`, `subreddit_type`, `submission_type`, `restrict_posting`, `restrict_commenting`, `over18`, `quarantine`, `wiki_enabled`, `lang`, `advertiser_category` — metadata
+- `community_icon`, `icon_img`, `icon_width`, `icon_height`, `banner_img`, `banner_background_image`, `banner_background_color`, `banner_width`, `banner_height`, `mobile_banner_image`, `header_img`, `header_title`, `header_width`, `header_height`, `primary_color`, `key_color` — branding (dimensions only when the community set a custom size)
+- `allow_images`, `allow_videos`, `allow_videogifs`, `allow_galleries`, `allow_polls`, `allow_predictions`, `allow_predictions_tournament`, `allow_prediction_contributors`, `allow_talks`, `allow_discovery`, `allowed_media_in_comments`, `spoilers_enabled`, `original_content_tag_enabled`, `all_original_content`, `is_crosspostable_subreddit`, `link_flair_enabled`, `link_flair_position`, `user_flair_enabled_in_sr`, `user_flair_position`, `user_flair_type`, `user_flair_text`, `user_flair_richtext`, `user_flair_template_id`, `user_flair_background_color`, `user_flair_text_color`, `can_assign_link_flair`, `can_assign_user_flair`, `suggested_comment_sort`, `accept_followers`, `emojis_enabled`, `comment_score_hide_mins`, `collapse_deleted_comments`, `free_form_reports`, `hide_ads`, `public_traffic`, `community_reviewed`, `has_menu_widget`, `disable_contributor_requests`, `should_archive_posts`, `show_media`, `show_media_preview`, `should_show_media_in_comments_setting`, `user_sr_theme_enabled` — community settings
+- `rules[]` — `short_name`, `description`, `description_html`, `kind`, `violation_reason`, `priority`, `created_utc` (when "Include community rules" is on)
+- `moderators[]` — `name`, `mod_permissions`, `author_flair_text`, `moderator_since_at` (when "Include moderator list" is on — see FAQ below, this list is often unavailable)
+- `wiki_pages[]` — `name`, `content_md`, `content_html`, `reason`, `revision_id`, `revision_date`, `revision_by` (when "Include wiki pages" is on)
+- `search_term` — the discovery keyword that surfaced this subreddit (only present when found via `discoverQuery`)
+- `crawled_at`, `source` — fetch timestamp and data source
+
+## Output: per-post
+
+Each scraped post produces one record with `dataType: "post"`, when "Include recent posts" is on.
+
+- `post_id`, `post_name`, `subreddit`, `subreddit_prefixed`, `subreddit_id`, `subreddit_subscribers`, `subreddit_type` — identity
+- `title`, `content`, `content_html`, `content_url`, `url`, `permalink`, `url_overridden_by_dest`, `domain`, `post_hint`, `is_self`, `post_type`, `media_type` — content
+- `author`, `author_id`, `author_flair`, `author_flair_background_color`, `author_flair_text_color`, `author_flair_type`, `author_flair_css_class`, `author_flair_richtext`, `author_flair_template_id`, `author_premium`, `author_is_blocked`, `author_patreon_flair` — author
+- `score`, `ups`, `downs`, `upvote_ratio`, `num_comments`, `num_crossposts`, `num_duplicates`, `gilded`, `total_awards_received`, `awards[]` (`name`, `count`, `coin_price`, `icon_url`) — engagement
+- `link_flair`, `link_flair_background_color`, `link_flair_text_color`, `link_flair_type`, `link_flair_css_class`, `link_flair_richtext`, `link_flair_template_id` — post flair
+- `thumbnail_url`, `thumbnail_width`, `thumbnail_height`, `has_media`, `images[]`, `gallery_images[]`, `gallery_count`, `video_url`, `poll_data` — media (galleries/video/polls populate their own fields, otherwise omitted)
+- `is_stickied`, `is_locked`, `is_archived`, `is_pinned`, `is_nsfw`, `is_spoiler`, `is_original_content`, `is_crosspost`, `crosspost_parent_id`, `is_crosspostable`, `is_meta`, `is_robot_indexable`, `is_reddit_media_domain`, `media_only`, `no_follow`, `send_replies`, `allow_live_comments`, `contest_mode`, `hide_score`, `suggested_sort`, `quarantine`, `content_categories`, `removed_by_category`, `distinguished`, `hidden` — flags
+- `created_utc`, `created_at`, `edited`, `edited_at` — timing
+- `crawled_at`, `source` — fetch timestamp and data source
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `subreddits` | array | – | Names, `r/` names or full URLs. Optional if `discoverQuery` is set. |
+| `discoverMode` | string | `search` | `search` (use `discoverQuery`), `popular` (browse currently popular communities) or `new` (browse newest communities) — adds matching subreddits to the run in addition to `subreddits` |
+| `discoverQuery` | string | – | Search Reddit's community directory for this keyword and add the matching subreddits to the run (mode=search) |
+| `discoverSort` | string | `relevance` | `relevance` or `activity` (most active first) (mode=search) |
+| `maxDiscoverResults` | int | `10` | Max subreddits to add from the keyword search, or to browse from `popular`/`new` (1–100) |
+| `includeRules` | bool | `true` | Fetch community rules |
+| `includeWiki` | bool | `false` | Fetch wiki pages (markdown + HTML + revisions) |
+| `maxWikiPages` | int | `20` | Max wiki pages (0–200) |
+| `includeWeeklyStats` | bool | `true` | Weekly active users & contributions |
+| `includeModerators` | bool | `true` | Fetch the public moderator list |
+| `includePosts` | bool | `true` | Also scrape recent posts |
+| `maxPosts` | int | `25` | Max posts per subreddit (1–1,000) |
+| `sort` | string | `hot` | `hot`, `new`, `top`, `rising`, `controversial`, `best` |
+| `timeFilter` | string | `day` | `hour`/`day`/`week`/`month`/`year`/`all` (used when `sort` is `top` or `controversial`) |
+| `includeNSFW` | bool | `false` | Include 18+ posts |
+| `onlyWithFlair` | bool | `false` | Keep only posts that have a flair |
+| `postType` | string | – | Keep only `self`/`link`/`image`/`video`/`gallery`/`poll` posts |
+| `minScore` | int | – | Keep only posts with a score at or above this value |
+| `maxScore` | int | – | Keep only posts with a score at or below this value |
+| `minComments` | int | – | Keep only posts with at least this many comments |
+| `maxComments` | int | – | Keep only posts with at most this many comments |
+| `excludeStickied` | bool | `false` | Drop stickied/pinned posts |
+| `minUpvoteRatio` | number | – | Keep only posts with an upvote ratio (0–1) at or above this value |
+| `excludeRemoved` | bool | `false` | Drop posts removed by a mod/Reddit or deleted by their author |
+| `excludeCrossposts` | bool | `false` | Drop crossposted posts, keeping only original submissions |
+| `excludeSpoilers` | bool | `false` | Drop posts marked as a spoiler |
+| `excludeLocked` | bool | `false` | Drop posts with comments locked by a moderator |
+| `excludeDeletedAuthor` | bool | `false` | Drop posts whose author account was deleted |
+| `onlyOriginalContent` | bool | `false` | Keep only posts tagged as original content (OC) |
+| `minAwards` | int | – | Keep only posts with at least this many total awards |
+| `titleContains` | string | – | Keep only posts whose title contains this text (case-insensitive) |
+| `contentContains` | string | – | Keep only self (text) posts whose body contains this text (case-insensitive) |
+| `flairContains` | string | – | Keep only posts whose flair text contains this text (case-insensitive) |
+| `authorFlairContains` | string | – | Keep only posts whose author flair text contains this text (case-insensitive) |
+| `authors` | array | – | Keep only posts submitted by one of these usernames |
+| `domain` | string | – | Keep only posts whose link domain contains this text |
+| `distinguished` | string | – | Keep only `moderator`/`admin`/`special` posts, or `none` for regular posts only |
+| `postedAfter` | date | – | Posts created on or after this date (UTC) |
+| `postedBefore` | date | – | Posts created on or before this date (end of day, UTC) |
+
+### Example: full community profile with posts
+
+```json
+{
+  "subreddits": ["python", "learnpython"],
+  "includeRules": true,
+  "includeWiki": true,
+  "includeModerators": true,
+  "includeWeeklyStats": true,
+  "includePosts": true,
+  "maxPosts": 50,
+  "sort": "top",
+  "timeFilter": "week"
+}
+```
+
+### Example: community metadata only, no posts
+
+```json
+{
+  "subreddits": ["dataisbeautiful"],
+  "includePosts": false,
+  "includeWiki": false
+}
+```
+
+### Example: filtered posts from a subreddit
+
+```json
+{
+  "subreddits": ["technology"],
+  "includePosts": true,
+  "maxPosts": 100,
+  "sort": "top",
+  "timeFilter": "month",
+  "minScore": 500,
+  "minComments": 50,
+  "postType": "self",
+  "excludeStickied": true,
+  "excludeCrossposts": true
+}
+```
+
+### Example: discover subreddits by keyword
+
+```json
+{
+  "subreddits": [],
+  "discoverMode": "search",
+  "discoverQuery": "machine learning",
+  "discoverSort": "activity",
+  "maxDiscoverResults": 15,
+  "includePosts": false
+}
+```
+
+## Use cases
+
+- **Community research** — profile a subreddit before entering a market
+- **Brand monitoring** — track weekly activity spikes in your niche's subreddits (schedule runs)
+- **Moderation research** — study rules and posting policies across communities
+- **Content strategy** — understand what a community allows before posting
+- **Competitive intelligence** — compare the size and activity of competitor communities
+- **Subreddit discovery** — find relevant communities for a topic without knowing exact names upfront
+
+## FAQ
+
+**Do I need a Reddit API key or login?** No — the actor uses Reddit's public web data.
+
+**Why is `moderators[]` sometimes missing?** Reddit has been intermittently blocking its public, unauthenticated moderator-list endpoint (`about/moderators.json`) for many subreddits. When that happens the actor falls back to the community's moderators page, and if that's also unavailable, `moderators[]` is simply omitted from the record rather than returned empty. All other community fields, rules, wiki and posts are unaffected. This is a platform-side limitation, not a run failure.
+
+**What are weekly active users?** Reddit's own community-activity metric shown on subreddit pages — a better engagement signal than subscriber count alone.
+
+**Why does a subreddit return no records?** Private, banned or nonexistent subreddits return nothing. NSFW-marked subreddits are also gated for logged-out access and return no records even with `includeNSFW` on — that filter only affects NSFW *posts* inside otherwise-public subreddits.
+
+**Does this include follower counts or traffic stats?** No — follower counts and traffic stats require moderator authentication and aren't public data, so they're not returned.
+
+**What happens if a subreddit has the wiki disabled?** `wiki_pages` is simply omitted for that subreddit — no error.
+
+**Can I export the data?** Yes — JSON, CSV, Excel, XML or HTML, plus REST API and integrations with n8n, Zapier, Make and AI agents via the Apify MCP server.
+
+**Is this affiliated with Reddit?** No — this is a third-party actor built on Reddit's public web data.

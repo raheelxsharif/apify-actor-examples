@@ -1,9 +1,23 @@
 {
-  "description": "Extract restaurant menu items, popular dishes, photos, and external menu links from any Google Maps place page.",
+  "description": "Choose restaurant menus by Google Maps place URL/ID or search by cuisine and city, then collect dishes, sections, descriptions, prices and place context.",
   "properties": {
+    "includePlacesWithoutMenu": {
+      "default": true,
+      "description": "Return one summary row for a restaurant whose menu cannot be read, so every input place is accounted for.",
+      "prefill": true,
+      "title": "Include places without a menu",
+      "type": "boolean"
+    },
+    "includePopularDishes": {
+      "default": false,
+      "description": "Also check Google's own inline menu when it is available and mark dishes Google labels Popular. This uses a browser and is slower.",
+      "prefill": false,
+      "title": "Include popular dishes",
+      "type": "boolean"
+    },
     "language": {
       "default": "en",
-      "description": "Interface language for the Google Maps UI.",
+      "description": "Language used for Google Maps place lookups and search results.",
       "editor": "select",
       "enum": [
         "en",
@@ -16,7 +30,22 @@
         "ko",
         "zh",
         "ar",
-        "ru"
+        "ru",
+        "nl",
+        "pl",
+        "tr",
+        "sv",
+        "da",
+        "no",
+        "fi",
+        "cs",
+        "el",
+        "he",
+        "hi",
+        "th",
+        "vi",
+        "id",
+        "uk"
       ],
       "enumTitles": [
         "English",
@@ -29,44 +58,87 @@
         "Korean",
         "Chinese",
         "Arabic",
-        "Russian"
+        "Russian",
+        "Dutch",
+        "Polish",
+        "Turkish",
+        "Swedish",
+        "Danish",
+        "Norwegian",
+        "Finnish",
+        "Czech",
+        "Greek",
+        "Hebrew",
+        "Hindi",
+        "Thai",
+        "Vietnamese",
+        "Indonesian",
+        "Ukrainian"
       ],
       "prefill": "en",
       "title": "Language",
       "type": "string"
     },
-    "maxItems": {
+    "maxItemsPerPlace": {
       "default": 100,
-      "description": "Maximum number of menu items to extract (1-100000). Google may expose fewer inline menu cards.",
-      "maximum": 100000,
+      "description": "Maximum menu rows to return for each restaurant.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Max items per place",
       "type": "integer"
     },
-    "placeId": {
-      "description": "Canonical Google Place ID beginning with ChIJ. Use this instead of placeUrl when available.",
-      "editor": "textfield",
-      "example": "ChIJabtoT7hlwokRLECK0SW3_8I",
-      "title": "Google Place ID",
+    "maxPlacesPerQuery": {
+      "default": 20,
+      "description": "Maximum restaurants to process from each search query (mode=bySearch).",
+      "maximum": 120,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max places per query",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byPlace",
+      "description": "How to choose restaurants: paste place URLs/IDs or run a Google Maps search query.",
+      "editor": "select",
+      "enum": [
+        "byPlace",
+        "bySearch"
+      ],
+      "enumTitles": [
+        "Restaurants by URL or Place ID",
+        "Restaurants by search query"
+      ],
+      "prefill": "byPlace",
+      "title": "Mode",
       "type": "string"
     },
-    "placeUrl": {
-      "description": "Google Maps URL of the restaurant whose menu should be scraped. Copy from the address bar after opening the place on Google Maps.",
-      "editor": "textfield",
-      "prefill": "https://www.google.com/maps/place/McDonald's/@40.7577297,-73.9853627,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2597777397641:0x4387a82ee10d3e3b!8m2!3d40.7577297!4d-73.9853627!16s%2Fg%2F11fld77pvs?hl=en",
-      "title": "Place URL",
-      "type": "string"
+    "placeUrls": {
+      "default": [],
+      "description": "One restaurant per line (mode=byPlace). Accepts Google Maps place URLs, short maps.app.goo.gl links, canonical ChIJ Place IDs, and 0x…:0x… feature IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.google.com/maps/place/Sicily+Osteria/@40.7601601,-73.9891863,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25932322b79d3:0x7c085aeae6751161!8m2!3d40.7601601!4d-73.9891863"
+      ],
+      "title": "Place URLs or Place IDs",
+      "type": "array"
     },
-    "proxyConfiguration": {
-      "description": "Proxy settings (optional). The scraper works reliably without a proxy by default.",
-      "editor": "proxy",
-      "title": "Proxy Configuration",
-      "type": "object"
+    "searchQueries": {
+      "default": [],
+      "description": "Cuisine + city queries, e.g. `italian restaurant, New York` or `sushi in Austin` (mode=bySearch). Each query returns up to Max places per query.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search queries",
+      "type": "array"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Google Maps Menu Scraper",
+  "title": "Google Maps Restaurant Menu Scraper Input",
   "type": "object"
 }
