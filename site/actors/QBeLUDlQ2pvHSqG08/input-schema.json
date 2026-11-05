@@ -1,0 +1,99 @@
+{
+  "properties": {
+    "category": {
+      "description": "Type of place to search for near the given location (e.g., 'coffee shop', 'pharmacy', 'restaurant', 'gas station', 'hotel').",
+      "editor": "textfield",
+      "prefill": "coffee shop",
+      "title": "Category / Search Query",
+      "type": "string"
+    },
+    "language": {
+      "default": "en",
+      "description": "Language for Google Maps interface and results.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ja",
+        "ko",
+        "zh",
+        "ar",
+        "ru"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Arabic",
+        "Russian"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "location": {
+      "description": "Latitude / longitude center point. Object with 'lat' and 'lng' numeric fields.",
+      "editor": "json",
+      "prefill": {
+        "lat": 40.7484,
+        "lng": -73.9857
+      },
+      "title": "Center Location",
+      "type": "object"
+    },
+    "maxResults": {
+      "default": 30,
+      "description": "Maximum number of places to extract. Google Maps returns at most 120 results per query.",
+      "maximum": 120,
+      "minimum": 1,
+      "prefill": 8,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only include places rated at or above this value (1.0–5.0). Leave blank to include all.",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum Rating",
+      "type": "number"
+    },
+    "openNow": {
+      "default": false,
+      "description": "Keep only places Google reports as open right now. A place whose open/closed state cannot be read is dropped too, so every returned row is verified open and an openNow run can return fewer rows — even none — than an unfiltered run.",
+      "prefill": false,
+      "title": "Open Now Only",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy settings. Datacenter IPs usually work fine for Google Maps; only enable if your runs are getting blocked.",
+      "editor": "proxy",
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "radiusKm": {
+      "default": 1,
+      "description": "Search radius in kilometers. Used to pick the Google Maps zoom level (smaller radius = tighter zoom = more local results) and enforced as a hard filter: places beyond this radius are dropped.",
+      "maximum": 10,
+      "minimum": 0.1,
+      "prefill": 1,
+      "title": "Radius (km)",
+      "type": "number"
+    }
+  },
+  "required": [
+    "category",
+    "location"
+  ],
+  "schemaVersion": 1,
+  "title": "Google Maps Nearby Places",
+  "type": "object"
+}

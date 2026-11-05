@@ -17,9 +17,9 @@
             "format": "text",
             "label": "Category Name"
           },
-          "description": {
+          "channelName": {
             "format": "text",
-            "label": "Description"
+            "label": "Channel"
           },
           "durationSeconds": {
             "format": "number",
@@ -37,6 +37,10 @@
             "format": "boolean",
             "label": "Locked"
           },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
           "scrapedAt": {
             "format": "text",
             "label": "Scraped At"
@@ -53,6 +57,14 @@
             "format": "text",
             "label": "Status"
           },
+          "submitterName": {
+            "format": "text",
+            "label": "Submitter"
+          },
+          "thumbnailUrl": {
+            "format": "image",
+            "label": "Thumbnail"
+          },
           "videoDurationSeconds": {
             "format": "number",
             "label": "Video Duration (s)"
@@ -61,9 +73,17 @@
             "format": "text",
             "label": "Video ID"
           },
+          "videoTitle": {
+            "format": "text",
+            "label": "Video title"
+          },
           "videoUrl": {
             "format": "link",
             "label": "Video URL"
+          },
+          "views": {
+            "format": "number",
+            "label": "Views"
           },
           "votes": {
             "format": "number",
@@ -74,19 +94,37 @@
       "title": "Detailed",
       "transformation": {
         "fields": [
+          "recordType",
           "videoId",
           "videoUrl",
           "segmentId",
           "category",
           "categoryName",
           "actionType",
+          "actionName",
           "startTime",
           "endTime",
           "durationSeconds",
           "videoDurationSeconds",
           "votes",
           "locked",
+          "views",
+          "timeSubmitted",
+          "hidden",
+          "shadowHidden",
+          "submitterId",
+          "submitterName",
+          "submitterSegmentCount",
           "description",
+          "videoTitle",
+          "channelName",
+          "channelUrl",
+          "channelId",
+          "thumbnailUrl",
+          "youtubeDurationSeconds",
+          "videoViewCount",
+          "publishedAt",
+          "isLive",
           "status",
           "error",
           "scrapedAt"
@@ -97,6 +135,10 @@
       "display": {
         "component": "table",
         "properties": {
+          "actionType": {
+            "format": "text",
+            "label": "Action"
+          },
           "category": {
             "format": "text",
             "label": "Category"
@@ -109,6 +151,10 @@
             "format": "number",
             "label": "End (s)"
           },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
           "startTime": {
             "format": "number",
             "label": "Start (s)"
@@ -116,6 +162,10 @@
           "videoId": {
             "format": "text",
             "label": "Video ID"
+          },
+          "videoTitle": {
+            "format": "text",
+            "label": "Video title"
           },
           "videoUrl": {
             "format": "link",
@@ -130,13 +180,85 @@
       "title": "SponsorBlock segments",
       "transformation": {
         "fields": [
+          "recordType",
           "videoId",
           "category",
+          "actionType",
           "startTime",
           "endTime",
           "durationSeconds",
           "votes",
+          "videoTitle",
           "videoUrl"
+        ]
+      }
+    },
+    "summaries": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "averageSegmentSeconds": {
+            "format": "number",
+            "label": "Average seconds"
+          },
+          "channelName": {
+            "format": "text",
+            "label": "Channel"
+          },
+          "longestSegmentSeconds": {
+            "format": "number",
+            "label": "Longest seconds"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "segmentCount": {
+            "format": "number",
+            "label": "Segments"
+          },
+          "source": {
+            "format": "text",
+            "label": "Source"
+          },
+          "totalSegmentSeconds": {
+            "format": "number",
+            "label": "Total seconds"
+          },
+          "videoDurationSeconds": {
+            "format": "number",
+            "label": "Video duration (s)"
+          },
+          "videoId": {
+            "format": "text",
+            "label": "Video ID"
+          },
+          "videoTitle": {
+            "format": "text",
+            "label": "Video title"
+          }
+        }
+      },
+      "title": "Summaries",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "videoId",
+          "videoTitle",
+          "channelName",
+          "source",
+          "segmentCount",
+          "totalSegmentSeconds",
+          "averageSegmentSeconds",
+          "longestSegmentSeconds",
+          "videoDurationSeconds",
+          "categories",
+          "actions",
+          "scrapedAt"
         ]
       }
     }

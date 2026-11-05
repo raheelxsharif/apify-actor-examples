@@ -1,0 +1,93 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "full": {
+      "display": {
+        "component": "table"
+      },
+      "title": "Complete Place Data",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "name",
+          "categoryName",
+          "totalScore",
+          "reviewsCount",
+          "address",
+          "phone",
+          "website",
+          "priceLevel",
+          "placeId",
+          "featureId",
+          "plusCode",
+          "location",
+          "distanceFromCenter",
+          "distanceFromCenterMeters",
+          "googleMapsUrl",
+          "sourceUrl",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "address": {
+            "format": "text",
+            "label": "Address"
+          },
+          "categoryName": {
+            "format": "text",
+            "label": "Category"
+          },
+          "distanceFromCenter": {
+            "format": "text",
+            "label": "Distance"
+          },
+          "googleMapsUrl": {
+            "format": "link",
+            "label": "Maps URL"
+          },
+          "name": {
+            "format": "text",
+            "label": "Name"
+          },
+          "phone": {
+            "format": "text",
+            "label": "Phone"
+          },
+          "reviewsCount": {
+            "format": "number",
+            "label": "Reviews"
+          },
+          "totalScore": {
+            "format": "number",
+            "label": "Rating"
+          },
+          "website": {
+            "format": "link",
+            "label": "Website"
+          }
+        }
+      },
+      "title": "Nearby Places",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "name",
+          "categoryName",
+          "totalScore",
+          "reviewsCount",
+          "address",
+          "phone",
+          "website",
+          "distanceFromCenter",
+          "googleMapsUrl",
+          "sourceUrl",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

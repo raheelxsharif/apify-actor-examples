@@ -1,124 +1,178 @@
 # YouTube SponsorBlock Segments Scraper
 
-Get community-reported [SponsorBlock](https://sponsor.ajay.app/) segments for any public YouTube video: sponsor reads, intros, outros, self-promotions, filler tangents, highlights, and more — with exact start/end times, category, action type, and community votes.
+Export crowdsourced SponsorBlock timestamps for any batch of YouTube videos. Every row is one segment: what it is, when it starts and ends, how the community voted, who submitted it when that is public, and the YouTube title, channel, and thumbnail that make the segment easy to join onto other datasets.
 
-No cookies, no YouTube login, and no video download. The actor reads the public SponsorBlock database directly.
+No YouTube login, SponsorBlock account, API key, browser, or proxy is needed. The actor reads the public SponsorBlock database and YouTube's public metadata endpoints.
 
-## What this actor does
+## Two ways to read the data
 
-- **Video lookup:** pass any YouTube video URL or ID
-- **All segment categories:** sponsor, intro, outro, self-promo, interaction, music, preview, and more
-- **Timing data:** start, end, and duration for every segment
-- **Bulk input:** multiple videos per run
-- **Empty fields are omitted** — records only contain values that are actually populated.
+- **Visible segments (default)** — exactly what SponsorBlock returns to its extension: the segments viewers are currently offered, with the video duration attached to each segment.
+- **All submissions** — the full search database, with views and submission time. Hidden, shadow-hidden, and disputed submissions are included only when **Include hidden submissions** is enabled. This mode is for research and moderation work, not for deciding what to skip.
 
-## Output
+Both modes accept the same category, action, vote, and per-video cap filters.
 
+## What you get
 
-One dataset row per segment, plus a truthful status row when a video has no segments or the input is invalid.
+One dataset row per segment. Status rows explain videos with no matching segments, invalid inputs, or a failed lookup. Optional summary rows give per-video and whole-run totals.
 
-| Field | Example | Description |
+| Field | Example | Meaning |
 |---|---|---|
-| videoId | `"aQp-iM0bCs4"` | YouTube video ID |
-| videoUrl | `"https://www.youtube.com/watch?v=aQp-iM0bCs4"` | Canonical watch URL |
-| segmentId | `"b772d4b7..."` | SponsorBlock segment UUID |
-| category | `"sponsor"` | SponsorBlock category key |
-| categoryName | `"Sponsor"` | Human-readable category |
-| actionType | `"skip"` | Skip, mute, full video, or highlight/POI |
-| startTime | `0` | Segment start in seconds |
-| endTime | `31.861` | Segment end in seconds |
+| recordType | `segment` | `segment`, `status`, `videoSummary`, or `runSummary` |
+| videoId | `7wtfhZwyrcc` | 11-character YouTube ID |
+| videoUrl | `https://www.youtube.com/watch?v=7wtfhZwyrcc` | Canonical watch URL |
+| segmentId | `1561e818...` | SponsorBlock segment UUID |
+| category / categoryName | `sponsor` / `Sponsor` | Category key and readable label |
+| actionType / actionName | `skip` / `Skip` | Skip, mute, full video, highlight/POI, or chapter |
+| startTime / endTime | `0` / `31.861` | Seconds from the start of the video |
 | durationSeconds | `31.861` | Segment length in seconds |
-| videoDurationSeconds | `361` | Full video length in seconds |
-| votes | `0` | Community votes for the segment |
+| videoDurationSeconds | `361` | Video duration reported by SponsorBlock or YouTube |
+| votes | `0` | Community vote score |
 | locked | `false` | Whether the segment is locked from edits |
-| description | `"..."` | Optional community note |
-| scrapedAt | `"2026-10-02T..."` | Capture timestamp |
+| views | `213` | Reported views on the submission (when available) |
+| timeSubmitted | `2021-06-07T01:55:42+00:00` | Submission time (when available) |
+| hidden / shadowHidden | `false` | Moderation or shadowban state (all-submissions mode) |
+| description | `Pre-Lyrics` | Community note, when one exists |
+| submitterId | `62fc5a8d...` | Public SponsorBlock submitter ID |
+| submitterName | `blabdude` | Public username, when the submitter set one |
+| submitterSegmentCount | `23402` | Public submitter segment count |
+| submitterReputation | `27` | Public submitter reputation score |
+| submitterMinutesSaved | `13669789.992` | Public minutes-saved total |
+| submitterViewCount | `41955231` | Public submitter view total |
+| submitterVip | `true` | Public VIP flag |
+| videoTitle | `Imagine Dragons - Believer...` | YouTube title from oEmbed/player |
+| channelName / channelId | `ImagineDragonsVEVO` / `UCpx_k...` | Channel name and ID |
+| channelUrl | `https://www.youtube.com/@ImagineDragonsVEVO` | Channel URL |
+| thumbnailUrl | `https://i.ytimg.com/...` | Public thumbnail |
+| youtubeDurationSeconds | `217` | Duration reported by YouTube |
+| videoViewCount | `3072396590` | YouTube view count |
+| publishedAt | `2017-03-07` | YouTube publish date |
+| isLive | `false` | Live-stream flag |
+| status | `no_segments` | Status rows only |
+| error | `...` | Status rows only |
+| scrapedAt | `2026-11-05T...` | Capture timestamp |
 
-Status rows:
+Every empty value is omitted at every depth. There are no null placeholders, empty strings, empty lists, or empty objects in the dataset.
+
+### Status rows
 
 | status | Meaning |
 |---|---|
-| `no_segments` | The video is public and readable but has no SponsorBlock segments. |
+| `no_segments` | The lookup succeeded but no segment matched the category, action, vote, hidden, or cap filters. |
 | `invalid_video` | The input was not a YouTube video URL or ID. |
 | `failed` | SponsorBlock did not return a usable response after retries. |
 
-Status rows carry the same `videoId`, `videoUrl`, and `scrapedAt` fields as segment rows, plus an `error` field with a short explanation when `status` is `invalid_video` or `failed`.
+### Summary rows
 
-Every field is omitted when YouTube/SponsorBlock does not provide a value — there are no null placeholders.
+Set **Include summary rows** to add:
+
+- `videoSummary` per processed video: `segmentCount`, `totalSegmentSeconds`, `averageSegmentSeconds`, `longestSegmentSeconds`, category and action counts, and the YouTube metadata.
+- `runSummary` once per run: requested/processed/with-segments/without-segments/failed counts, total segment count and seconds, category and action totals.
 
 ## Input
 
-
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `videoUrls` | array | — (required) | YouTube video URLs or 11-character video IDs. Watch, `youtu.be`, Shorts, live, and embed links are accepted. |
-| `categories` | array (dropdown) | all | Filter to specific SponsorBlock categories: Sponsor, Unpaid/Self Promotion, Interaction Reminder, Intro, Outro, Preview/Recap, Non-Music Section, Filler Tangent, Highlight, Exclusive Access, Chapter. |
-| `actionTypes` | array (dropdown) | all | Filter to segments whose action is Skip, Mute, Full video, or Highlight/POI. |
-| `minVotes` | integer | `0` | Drop segments with fewer community votes than this. `0` keeps every segment; higher values keep only well-confirmed segments. |
-| `includeDescriptions` | boolean | `true` | Include the community-written note attached to a segment when one exists. |
+| `videoUrls` | string array, required | — | YouTube URLs or 11-character IDs. Watch, `youtu.be`, Shorts, live, embed, music, and no-cookie links are accepted. Add as many as you need. |
+| `categories` | multi-select | all | Sponsor, Unpaid/Self Promotion, Interaction Reminder, Intro, Outro, Preview/Recap, Hook, Non-Music Section, Filler Tangent, Highlight, Exclusive Access, Chapter. |
+| `actionTypes` | multi-select | all | Skip, Mute, Full video, Highlight/POI, Chapter. |
+| `source` | select | `visible` | Visible segments or all submissions. |
+| `minVotes` | integer | `0` | `-2` includes every submission, `0` drops downvoted ones, higher values keep only well-confirmed segments. |
+| `includeHiddenSegments` | boolean | `false` | Include hidden/shadow-hidden submissions in all-submissions mode. |
+| `includeDescriptions` | boolean | `true` | Include community notes. |
+| `includeSubmitterInfo` | boolean | `true` | Add public submitter name and stats, cached per submitter. |
+| `includeYouTubeMetadata` | boolean | `true` | Add YouTube title, channel, thumbnail, duration, views, publish date, and live flag. |
+| `includeSummary` | boolean | `false` | Add per-video and run summary rows. |
+| `maxSegmentsPerVideo` | integer | `0` | Keep at most N segments per video after filtering and sorting. `0` means no limit. |
+| `concurrency` | integer | `4` | Videos processed at once, from 1 to 10. |
 
-### Example input
+Legacy input keys from older tasks are still honored in code: `videoIds`, `videoIDs`, `videos`, `urls`, `videoId`, `videoUrl`, `category`, `actionType`, `actions`, and `includeDescription`. A comma- or newline-separated `videoUrls` string also works. They are intentionally not shown in the input form.
 
-```json
-{
-    "videoUrls": ["https://www.youtube.com/watch?v=aQp-iM0bCs4"],
-    "categories": ["sponsor", "intro"],
-    "minVotes": 0,
-    "includeDescriptions": true
-}
-```
-
-## Examples
-
-### Example: one video
-
-```json
-{
-  "videoUrls": ["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]
-}
-```
-
-### Example: multiple videos with all categories
+### Example: batch with filters
 
 ```json
 {
   "videoUrls": [
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "https://www.youtube.com/watch?v=9bZkp7q19f0"
-  ]
+    "https://www.youtube.com/watch?v=9bZkp7q19f0",
+    "https://youtu.be/kJQP7kiw5Fk",
+    "dQw4w9WgXcQ"
+  ],
+  "categories": ["sponsor", "selfpromo", "intro", "outro"],
+  "actionTypes": ["skip"],
+  "minVotes": 0,
+  "includeYouTubeMetadata": true,
+  "includeSummary": true,
+  "maxSegmentsPerVideo": 25,
+  "concurrency": 4
+}
+```
+
+### Example: full research mode
+
+```json
+{
+  "videoUrls": ["kJQP7kiw5Fk"],
+  "source": "all",
+  "minVotes": -2,
+  "includeHiddenSegments": true,
+  "includeSubmitterInfo": true,
+  "includeYouTubeMetadata": true
 }
 ```
 
 ## Use cases
 
-
-- **Skip sponsor reads automatically** — build player overlays or cut lists from exact segment times.
-- **Transcript cleanup** — remove sponsor/intro/outro text before analysis; pairs with the YouTube Transcript Scraper.
-- **Sponsor-load analytics** — measure how much of a channel's runtime is sponsored content.
-- **Dataset enrichment** — join segments onto video metadata by `videoId`.
+- **Player overlays and cut lists** — exact start/end times and the recommended action.
+- **Sponsor-load analytics** — sponsor seconds as a share of total runtime, by video or channel.
+- **Dataset enrichment** — stable segment UUIDs plus video/channel/thumbnail join keys.
+- **Transcript cleanup** — remove sponsor, intro, outro, and self-promo spans before analysis.
+- **Community research** — compare submissions, votes, lock state, and public submitter stats.
 
 ## FAQ
 
 **What is SponsorBlock?**
 
-SponsorBlock is a public crowdsourced database of timestamped segments in YouTube videos (sponsors, intros, outros, and more).
+SponsorBlock is a public crowdsourced database of timestamped YouTube segments such as sponsor reads, intros, outros, and self-promotions.
 
-**Do I need an API key?**
+**Do I need cookies, an API key, or a proxy?**
 
-No. The actor reads SponsorBlock's public API.
+No. Every request uses public endpoints. The actor never asks for credentials and never configures a proxy.
 
-**What happens when a video has no segments?**
+**Why does one video return no rows?**
 
-The row is returned with an empty segment list omitted; a status message explains that no segments exist for the video.
+SponsorBlock is crowdsourced. A video may have no submissions, or every submission may be filtered out by the selected categories, actions, votes, hidden setting, or per-video cap. A `no_segments` status row tells you which case occurred.
 
-**How fresh is the data?**
+**What is the difference between visible segments and all submissions?**
 
-Segments are community-submitted and reflect the SponsorBlock database at run time.
+Visible segments are what SponsorBlock would currently act on. All submissions also includes hidden, shadow-hidden, and disputed records, which is useful for research but should not be used to build a skip list.
+
+**Why do some rows have no thumbnail or title?**
+
+Age-restricted, private, or deleted videos can reject the public YouTube metadata endpoints. Segments are still returned; the unavailable metadata fields are simply omitted.
+
+**Why is `submitterName` sometimes missing?**
+
+SponsorBlock only exposes a public username when the submitter set one and the public lookup succeeds. Otherwise the row keeps the public `submitterId` and any aggregate stats that were available.
+
+**Why do some segments have zero duration or start and end at zero?**
+
+`full` and some `chapter`/`poi` submissions use a single point or the whole video. The actor preserves exactly what SponsorBlock stores and does not invent times.
+
+**Can I get the global SponsorBlock leaderboard?**
+
+No. The public `getTopUsers` endpoint is disabled and returns 404. The actor does not expose a mode that cannot return real data.
+
+**Does this download videos, captions, or promo codes?**
+
+No. It reads timestamps and public metadata only. Promo codes are not part of the SponsorBlock database and are out of scope.
 
 **Is this affiliated with YouTube or SponsorBlock?**
 
-No. This actor reads the public SponsorBlock API; it is not affiliated with, endorsed by, or sponsored by YouTube or the SponsorBlock project.
+No. It is an independent reader of public APIs and is not endorsed by either project.
 
-**Why does `votes` sometimes show `0` for a segment that still appears valid?**
+## Limits
 
-SponsorBlock segments go live as soon as they're submitted and don't require positive votes to be returned by the API — a `0` simply means the segment hasn't yet accumulated community votes, not that it was rejected.
+- SponsorBlock coverage is community-driven and varies by video and channel.
+- Votes, views, hidden state, and lock state are a snapshot at fetch time.
+- `source=all` is a separate database view, not a moderation tool; it never submits, votes, or edits anything.
+- `getTopUsers` is disabled upstream, and `mute` submissions may be absent for a given video.
+- The actor keeps every existing output field and adds new ones; old tasks continue to work.

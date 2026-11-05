@@ -9,13 +9,15 @@
           "skip",
           "mute",
           "full",
-          "poi"
+          "poi",
+          "chapter"
         ],
         "enumTitles": [
           "Skip",
           "Mute",
           "Full video",
-          "Highlight/POI"
+          "Highlight/POI",
+          "Chapter"
         ],
         "type": "string"
       },
@@ -34,6 +36,7 @@
           "intro",
           "outro",
           "preview",
+          "hook",
           "music_offtopic",
           "filler",
           "poi_highlight",
@@ -47,6 +50,7 @@
           "Intro",
           "Outro",
           "Preview/Recap",
+          "Hook",
           "Non-Music Section",
           "Filler Tangent",
           "Highlight",
@@ -62,6 +66,15 @@
       "title": "Segment categories",
       "type": "array"
     },
+    "concurrency": {
+      "default": 4,
+      "description": "How many videos to process at the same time. Higher is faster but can trigger rate limits.",
+      "maximum": 10,
+      "minimum": 1,
+      "prefill": 4,
+      "title": "Simultaneous videos",
+      "type": "integer"
+    },
     "includeDescriptions": {
       "default": true,
       "description": "Include the community-written note attached to a segment when one exists.",
@@ -69,23 +82,76 @@
       "title": "Include segment descriptions",
       "type": "boolean"
     },
-    "minVotes": {
+    "includeHiddenSegments": {
+      "default": false,
+      "description": "When the source is 'All submissions', also return segments hidden by moderation or a shadowbanned submitter.",
+      "prefill": false,
+      "title": "Include hidden submissions",
+      "type": "boolean"
+    },
+    "includeSubmitterInfo": {
+      "default": true,
+      "description": "Resolve each segment's public SponsorBlock submitter ID to a username and aggregate stats when available. Never exposes private IDs.",
+      "prefill": true,
+      "title": "Include public submitter info",
+      "type": "boolean"
+    },
+    "includeSummary": {
+      "default": false,
+      "description": "Add one per-video summary row (segment count, total seconds, category/action breakdown) and one run summary row.",
+      "prefill": false,
+      "title": "Include summary rows",
+      "type": "boolean"
+    },
+    "includeYouTubeMetadata": {
+      "default": true,
+      "description": "Add the video title, channel name/URL/ID, thumbnail, YouTube duration, view count, publish date, and live status from YouTube's public oEmbed and player endpoints.",
+      "prefill": true,
+      "title": "Include YouTube metadata",
+      "type": "boolean"
+    },
+    "maxSegmentsPerVideo": {
       "default": 0,
-      "description": "Skip segments with fewer community votes than this. Use 0 to keep every segment, or a higher value to keep only well-confirmed segments.",
+      "description": "Keep at most this many segments per video after filtering and sorting by start time. Use 0 for no limit.",
       "maximum": 1000000,
       "minimum": 0,
+      "prefill": 0,
+      "title": "Maximum segments per video",
+      "type": "integer"
+    },
+    "minVotes": {
+      "default": 0,
+      "description": "Drop segments with fewer community votes than this. Use -2 to include every submission, 0 to drop downvoted ones, or a higher value to keep only well-confirmed segments.",
+      "maximum": 1000000,
+      "minimum": -2,
       "prefill": 0,
       "title": "Minimum votes",
       "type": "integer"
     },
+    "source": {
+      "default": "visible",
+      "description": "Use 'Visible segments' for the segments SponsorBlock currently acts on. Use 'All submissions' to include hidden and disputed submissions from the search database.",
+      "editor": "select",
+      "enum": [
+        "visible",
+        "all"
+      ],
+      "enumTitles": [
+        "Visible segments",
+        "All submissions (includes hidden)"
+      ],
+      "prefill": "visible",
+      "title": "Segment source",
+      "type": "string"
+    },
     "videoUrls": {
-      "description": "YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, and embed links.",
+      "description": "YouTube video URLs or 11-character video IDs. Accepts watch, youtu.be, Shorts, live, embed, and music links. Add multiple videos for a batch.",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "prefill": [
-        "https://www.youtube.com/watch?v=aQp-iM0bCs4"
+        "https://www.youtube.com/watch?v=7wtfhZwyrcc"
       ],
       "title": "Video URLs or IDs",
       "type": "array"
