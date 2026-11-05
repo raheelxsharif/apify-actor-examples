@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Community intelligence and posts for any subreddit — description, subscriber count, active users, weekly activity, posting rules, wiki pages, icons/colors, settings and optional recent posts.",
+  "description": "Community profiles (with rules, wiki and weekly activity), filtered posts and capped comment trees from Reddit's public pages. Records are distinguished by the `dataType` field.",
   "properties": {
-    "communityAndPostRecords": {
-      "description": "Dataset containing one community record per requested/discovered subreddit, plus one record per scraped post when 'Include posts' is on. Records are distinguished by the `dataType` field (`community` or `post`).",
+    "records": {
+      "description": "Dataset with one record per community, one per collected post and one per comment. Records are distinguished by `dataType`: `community`, `post` or `comment`. Empty fields are omitted.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Community & post records",
+      "title": "Community, post & comment records",
       "type": "string"
     }
   },
-  "title": "Reddit Subreddit Profile, Rules & Post Filter Scraper Output"
+  "title": "Reddit Community, Posts & Comments Scraper Output"
 }

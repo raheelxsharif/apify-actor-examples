@@ -1,0 +1,123 @@
+{
+  "description": "Scrape YouTube videos and Shorts by hashtag. Provide one or more hashtags to extract all tagged videos including views, channel info, publish time, and more.",
+  "properties": {
+    "contentType": {
+      "default": "all",
+      "description": "Which type of content to collect from the hashtag page.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "videos",
+        "shorts"
+      ],
+      "enumTitles": [
+        "All content",
+        "Regular videos only",
+        "Shorts only"
+      ],
+      "title": "Content Type",
+      "type": "string"
+    },
+    "hashtags": {
+      "description": "List of hashtags to scrape. You can include or omit the # prefix — both formats are accepted (e.g. '#programming' or 'programming').",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "prefill": [
+        "#programming",
+        "cooking"
+      ],
+      "title": "Hashtags",
+      "type": "array"
+    },
+    "market": {
+      "default": "US",
+      "description": "Country/region for localized results. Sets the gl and hl URL parameters to return regionally relevant content.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "JP",
+        "KR",
+        "BR",
+        "IN",
+        "MX",
+        "IT",
+        "ES",
+        "NL",
+        "PL",
+        "RU",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "ZA",
+        "SG",
+        "HK",
+        "TW",
+        "ID",
+        "MY",
+        "TH",
+        "PH",
+        "AR",
+        "CO",
+        "CL"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Germany",
+        "France",
+        "Japan",
+        "South Korea",
+        "Brazil",
+        "India",
+        "Mexico",
+        "Italy",
+        "Spain",
+        "Netherlands",
+        "Poland",
+        "Russia",
+        "Sweden",
+        "Norway",
+        "Denmark",
+        "Finland",
+        "South Africa",
+        "Singapore",
+        "Hong Kong",
+        "Taiwan",
+        "Indonesia",
+        "Malaysia",
+        "Thailand",
+        "Philippines",
+        "Argentina",
+        "Colombia",
+        "Chile"
+      ],
+      "title": "Market / Region",
+      "type": "string"
+    },
+    "maxResultsPerHashtag": {
+      "default": 50,
+      "description": "Maximum number of videos to return per hashtag. Includes both regular videos and Shorts when content type is 'All'.",
+      "maximum": 500,
+      "minimum": 1,
+      "title": "Max Results Per Hashtag",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "hashtags"
+  ],
+  "schemaVersion": 1,
+  "title": "YouTube Hashtag Scraper Input",
+  "type": "object"
+}

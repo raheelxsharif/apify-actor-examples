@@ -1,0 +1,169 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "full": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "badges": {
+            "format": "text",
+            "label": "Badges"
+          },
+          "channelCount": {
+            "format": "number",
+            "label": "Total Channel Count"
+          },
+          "channelCountText": {
+            "format": "text",
+            "label": "Total Channels"
+          },
+          "channelId": {
+            "format": "text",
+            "label": "Channel ID"
+          },
+          "channelName": {
+            "format": "text",
+            "label": "Channel"
+          },
+          "channelUrl": {
+            "format": "link",
+            "label": "Channel URL"
+          },
+          "durationText": {
+            "format": "text",
+            "label": "Duration"
+          },
+          "hashtag": {
+            "format": "text",
+            "label": "Hashtag"
+          },
+          "hashtagTitle": {
+            "format": "text",
+            "label": "Hashtag Title"
+          },
+          "isShort": {
+            "format": "boolean",
+            "label": "Is Short"
+          },
+          "position": {
+            "format": "number",
+            "label": "Position"
+          },
+          "publishedTimeText": {
+            "format": "text",
+            "label": "Published"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "thumbnailUrl": {
+            "format": "link",
+            "label": "Thumbnail"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          },
+          "videoCount": {
+            "format": "number",
+            "label": "Total Video Count"
+          },
+          "videoCountText": {
+            "format": "text",
+            "label": "Total Videos"
+          },
+          "videoId": {
+            "format": "text",
+            "label": "Video ID"
+          },
+          "viewCountText": {
+            "format": "text",
+            "label": "Views"
+          }
+        }
+      },
+      "title": "Full Details",
+      "transformation": {
+        "fields": [
+          "hashtag",
+          "hashtagTitle",
+          "videoCountText",
+          "videoCount",
+          "channelCountText",
+          "channelCount",
+          "position",
+          "videoId",
+          "title",
+          "url",
+          "channelName",
+          "channelId",
+          "channelUrl",
+          "viewCountText",
+          "publishedTimeText",
+          "durationText",
+          "thumbnailUrl",
+          "isShort",
+          "badges",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "channelName": {
+            "format": "text",
+            "label": "Channel"
+          },
+          "hashtag": {
+            "format": "text",
+            "label": "Hashtag"
+          },
+          "isShort": {
+            "format": "boolean",
+            "label": "Is Short"
+          },
+          "position": {
+            "format": "number",
+            "label": "Position"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          },
+          "videoId": {
+            "format": "text",
+            "label": "Video ID"
+          },
+          "viewCountText": {
+            "format": "text",
+            "label": "Views"
+          }
+        }
+      },
+      "title": "Hashtag Overview",
+      "transformation": {
+        "fields": [
+          "hashtag",
+          "position",
+          "videoId",
+          "title",
+          "url",
+          "channelName",
+          "viewCountText",
+          "isShort"
+        ]
+      }
+    }
+  }
+}

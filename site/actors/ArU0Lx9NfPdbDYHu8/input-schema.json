@@ -1,31 +1,55 @@
 {
+  "description": "Choose a mode, then list subreddits or post URLs. Community profiles, rules, wiki pages, posts and capped comment trees all work without an API key or login.",
   "properties": {
     "authorFlairContains": {
-      "description": "Only keep posts whose author flair text contains this text (case-insensitive substring match). Leave empty to keep all.",
+      "description": "Keep posts whose author flair text contains this text (case-insensitive).",
       "editor": "textfield",
       "example": "Moderator",
-      "title": "Author flair contains keyword (mode=posts)",
+      "title": "Author flair contains",
       "type": "string"
     },
     "authors": {
-      "description": "Only keep posts submitted by one of these usernames (bare name or u/-prefixed, case-insensitive). Leave empty to keep posts from all authors.",
+      "description": "Keep posts submitted by one of these usernames (bare or u/-prefixed, case-insensitive).",
       "editor": "stringList",
       "example": [
         "spez"
       ],
-      "title": "Only posts by these authors (mode=posts)",
+      "title": "Only these authors",
       "type": "array"
     },
+    "commentSort": {
+      "default": "confidence",
+      "description": "How Reddit orders the comment tree. 'Confidence' is Reddit's default best-first order; the other four are the verified alternate sorts.",
+      "editor": "select",
+      "enum": [
+        "confidence",
+        "top",
+        "new",
+        "controversial",
+        "old"
+      ],
+      "enumTitles": [
+        "Confidence (best first)",
+        "Top",
+        "New",
+        "Controversial",
+        "Old"
+      ],
+      "prefill": "confidence",
+      "title": "Sort comments by",
+      "type": "string"
+    },
     "contentContains": {
-      "description": "Only keep self (text) posts whose body contains this text (case-insensitive substring match). Link/image/video posts have no body text and are excluded when this is set. Leave empty to keep all posts.",
+      "description": "Keep self posts whose body contains this text (case-insensitive). Requires 'Fetch full post details' so post bodies are available; link/image posts are excluded.",
       "editor": "textfield",
       "example": "tutorial",
-      "title": "Post text contains keyword (mode=posts)",
+      "title": "Post text contains",
       "type": "string"
     },
     "discoverMode": {
       "default": "search",
-      "description": "Optional. How to find extra subreddits to add to the run (in addition to any names listed above). 'Keyword search' uses the 'Discover subreddits by keyword' field below. 'Currently popular' and 'Newest' browse Reddit's curated community lists and need no keyword.",
+      "description": "How to find extra communities. 'Keyword search' uses the field below. 'Currently popular' and 'Newest' browse Reddit's curated lists (best-effort: those pages expose only a few communities).",
+      "editor": "select",
       "enum": [
         "search",
         "popular",
@@ -37,33 +61,35 @@
         "Newest communities"
       ],
       "prefill": "search",
-      "title": "Discovery mode",
+      "title": "Discovery source",
       "type": "string"
     },
     "discoverQuery": {
-      "description": "Search Reddit's community directory for this keyword and add the matching subreddits to the run. Only used when 'Discovery mode' is 'Keyword search'. Leave empty to only use 'Subreddits'.",
+      "description": "Search Reddit's community directory for this keyword and add the matching communities to the run. Only used with 'Keyword search'. Leave empty to skip discovery.",
       "editor": "textfield",
       "example": "machine learning",
-      "title": "Discover subreddits by keyword (mode=search)",
+      "title": "Discover communities by keyword",
       "type": "string"
     },
     "discoverSort": {
       "default": "relevance",
-      "description": "How to rank the subreddit search results. Only used when 'Discovery mode' is 'Keyword search' and 'Discover subreddits by keyword' is set.",
+      "description": "How to rank keyword-discovered communities: relevance keeps Reddit's order, activity sorts by weekly active users.",
+      "editor": "select",
       "enum": [
         "relevance",
         "activity"
       ],
       "enumTitles": [
         "Relevance",
-        "Activity (most active first)"
+        "Activity (most weekly visitors first)"
       ],
       "prefill": "relevance",
-      "title": "Discovery sort (mode=search)",
+      "title": "Discovery ranking",
       "type": "string"
     },
     "distinguished": {
-      "description": "Only keep posts distinguished by Reddit as moderator, admin or special (e.g. Reddit-team) posts, or only regular (non-distinguished) posts. Leave unset to keep all posts.",
+      "description": "Keep posts distinguished by Reddit as moderator, admin or special, or keep only regular posts. Leave unset to keep all.",
+      "editor": "select",
       "enum": [
         "moderator",
         "admin",
@@ -74,146 +100,184 @@
         "Moderator posts only",
         "Admin posts only",
         "Special (official) posts only",
-        "Regular posts only (exclude all distinguished)"
+        "Regular posts only"
       ],
-      "title": "Distinguished (official) posts only (mode=posts)",
+      "title": "Official posts only",
       "type": "string"
     },
     "domain": {
-      "description": "Only keep posts whose link domain contains this text (case-insensitive, e.g. 'youtube.com' or 'self.python'). Leave empty to keep all domains.",
+      "description": "Keep posts whose link domain contains this text (case-insensitive), e.g. youtube.com or self.python.",
       "editor": "textfield",
       "example": "youtube.com",
-      "title": "Domain contains (mode=posts)",
+      "title": "Domain contains",
       "type": "string"
     },
     "excludeCrossposts": {
       "default": false,
-      "description": "When enabled, posts that are crossposts from another subreddit are dropped, keeping only original submissions to the scraped subreddit.",
+      "description": "Drop crossposts from another community, keeping original submissions.",
       "prefill": false,
-      "title": "Exclude crossposts (mode=posts)",
+      "title": "Exclude crossposts",
       "type": "boolean"
     },
     "excludeDeletedAuthor": {
       "default": false,
-      "description": "When enabled, posts whose author account was deleted (shown as [deleted]/[removed]) are dropped from the post listing.",
+      "description": "Drop posts whose author appears as [deleted] or [removed].",
       "prefill": false,
-      "title": "Exclude posts with a deleted/removed author (mode=posts)",
+      "title": "Exclude deleted authors",
       "type": "boolean"
     },
     "excludeLocked": {
       "default": false,
-      "description": "When enabled, posts with comments locked by a moderator are dropped from the post listing.",
+      "description": "Drop posts whose comments were locked by a moderator.",
       "prefill": false,
-      "title": "Exclude locked posts (mode=posts)",
+      "title": "Exclude locked posts",
       "type": "boolean"
     },
     "excludeRemoved": {
       "default": false,
-      "description": "When enabled, posts removed by a moderator, Reddit, or deleted by their author (marker: removed_by_category) are dropped from the post listing.",
+      "description": "Drop posts removed by a moderator or Reddit. Deleted post markers are only visible on post detail pages.",
       "prefill": false,
-      "title": "Exclude removed/deleted posts (mode=posts)",
+      "title": "Exclude removed/deleted posts",
       "type": "boolean"
     },
     "excludeSpoilers": {
       "default": false,
-      "description": "When enabled, posts marked as a spoiler by their author are dropped from the post listing.",
+      "description": "Drop posts marked as a spoiler by their author.",
       "prefill": false,
-      "title": "Exclude spoiler-tagged posts (mode=posts)",
+      "title": "Exclude spoiler-tagged posts",
       "type": "boolean"
     },
     "excludeStickied": {
       "default": false,
-      "description": "When enabled, posts pinned/stickied by moderators (e.g. rules, weekly threads) are dropped from the post listing.",
+      "description": "Drop posts pinned by moderators (rules, weekly threads, announcements).",
       "prefill": false,
-      "title": "Exclude stickied/pinned posts (mode=posts)",
+      "title": "Exclude stickied posts",
       "type": "boolean"
     },
     "flairContains": {
-      "description": "Only keep posts whose flair text contains this text (case-insensitive substring match). Leave empty to keep all flairs.",
+      "description": "Keep posts whose flair text contains this text (case-insensitive). Leave empty to keep all flairs.",
       "editor": "textfield",
       "example": "Discussion",
-      "title": "Flair contains keyword (mode=posts)",
+      "title": "Flair contains",
       "type": "string"
     },
-    "includeModerators": {
-      "default": true,
-      "description": "Fetch the subreddit's public moderator list (username, mod permissions, moderator-since date).",
-      "prefill": true,
-      "title": "Include moderator list",
+    "includeComments": {
+      "default": false,
+      "description": "Fetch capped comment trees for every post collected in communities or posts mode. In comments mode this is always on.",
+      "prefill": false,
+      "sectionCaption": "Comments",
+      "title": "Include comments for collected posts",
       "type": "boolean"
     },
     "includeNSFW": {
       "default": false,
-      "description": "Include NSFW posts in the post listing.",
+      "description": "Keep posts marked NSFW. NSFW-only communities are gated for signed-out visitors and return nothing regardless of this setting.",
       "prefill": false,
       "title": "Include NSFW (18+) posts",
       "type": "boolean"
     },
+    "includePostDetails": {
+      "default": false,
+      "description": "Open each collected post page to fill body, media and detail-only flags. In comments mode this also saves the parent post record. Slower: one extra page per post.",
+      "prefill": false,
+      "title": "Fetch full post details",
+      "type": "boolean"
+    },
     "includePosts": {
       "default": true,
-      "description": "Also scrape the subreddit's posts (full post data).",
-      "prefill": true,
+      "description": "Also scrape the community's recent posts, with the full filter set below.",
+      "prefill": false,
+      "sectionCaption": "Posts",
       "title": "Include recent posts",
       "type": "boolean"
     },
     "includeRules": {
       "default": true,
-      "description": "Fetch the subreddit's rules (name, description, kind, priority).",
+      "description": "Add posting rules (name, description, priority) to community profiles in communities mode.",
       "prefill": true,
+      "sectionCaption": "Community profile",
       "title": "Include community rules",
       "type": "boolean"
     },
     "includeWeeklyStats": {
       "default": true,
-      "description": "Include weekly active users and weekly contributions from the community header.",
-      "prefill": true,
-      "title": "Include weekly active stats",
+      "description": "Include Reddit's weekly active users and weekly contributions from the community header.",
+      "prefill": false,
+      "title": "Include weekly activity",
       "type": "boolean"
     },
     "includeWiki": {
       "default": false,
-      "description": "Fetch the subreddit's wiki pages with their markdown content.",
+      "description": "Fetch the community wiki index and each page's Markdown source. Wiki pages are omitted when the wiki is disabled or empty.",
       "prefill": false,
       "title": "Include wiki pages",
       "type": "boolean"
     },
+    "maxCommentDepth": {
+      "default": 3,
+      "description": "Keep comments up to this nesting depth. 0 keeps top-level comments only; each extra level adds replies (0-100).",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Maximum comment depth",
+      "type": "integer"
+    },
     "maxComments": {
-      "description": "Only keep posts with at most this many comments. Useful for finding under-discussed posts. Leave unset to keep all posts.",
+      "description": "Keep posts with at most this many comments. Leave unset to keep all posts.",
       "example": 500,
       "maximum": 1000000,
       "minimum": 0,
-      "title": "Maximum number of comments (mode=posts)",
+      "title": "Maximum number of comments",
+      "type": "integer"
+    },
+    "maxCommentsPerPost": {
+      "default": 25,
+      "description": "Stop collecting a thread after this many comments (1-10,000). The global 'Maximum records' cap still applies.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 25,
+      "title": "Maximum comments per post",
       "type": "integer"
     },
     "maxDiscoverResults": {
       "default": 10,
-      "description": "Maximum number of subreddits to add from the keyword search, or to browse from 'Currently popular'/'Newest' when 'Discovery mode' isn't 'Keyword search'.",
+      "description": "Maximum number of communities to add from keyword search or browse (1-100).",
       "maximum": 100,
       "minimum": 1,
       "prefill": 10,
-      "title": "Maximum discovered subreddits",
+      "title": "Maximum discovered communities",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 1000,
+      "description": "Hard cap on all records pushed by the run (communities, posts and comments together). The run stops cleanly when it is reached.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 1,
+      "sectionCaption": "Output control",
+      "title": "Maximum records",
       "type": "integer"
     },
     "maxPosts": {
       "default": 25,
-      "description": "Maximum posts to scrape (when 'Include recent posts' is on).",
+      "description": "Maximum posts to collect per subreddit (1-1,000). The global 'Maximum records' cap still applies.",
       "maximum": 1000,
       "minimum": 1,
       "prefill": 25,
-      "title": "Maximum posts",
+      "title": "Maximum posts per subreddit",
       "type": "integer"
     },
     "maxScore": {
-      "description": "Only keep posts with a score (upvotes minus downvotes) at or below this value. Useful for finding overlooked/low-visibility posts. Leave unset to keep all scores.",
+      "description": "Keep posts with a score at or below this value. Useful for finding overlooked posts. Leave unset to keep all scores.",
       "example": 1000,
       "maximum": 1000000,
-      "minimum": -100000,
-      "title": "Maximum score (mode=posts)",
+      "minimum": -1000000,
+      "title": "Maximum score",
       "type": "integer"
     },
     "maxWikiPages": {
       "default": 20,
-      "description": "Maximum number of wiki pages to fetch (when 'Include wiki pages' is on).",
+      "description": "Maximum number of wiki pages to fetch per community when 'Include wiki pages' is on (0-200).",
       "maximum": 200,
       "minimum": 0,
       "prefill": 20,
@@ -221,53 +285,75 @@
       "type": "integer"
     },
     "minAwards": {
-      "description": "Only keep posts with at least this many total awards. Leave unset to keep all posts.",
+      "description": "Keep posts with at least this many total awards. Leave unset to keep all posts.",
       "example": 1,
       "maximum": 1000000,
       "minimum": 0,
-      "title": "Minimum awards received (mode=posts)",
+      "title": "Minimum awards",
       "type": "integer"
     },
     "minComments": {
-      "description": "Only keep posts with at least this many comments. Leave unset to keep all posts.",
+      "description": "Keep posts with at least this many comments. Leave unset to keep all posts.",
       "example": 5,
       "maximum": 1000000,
       "minimum": 0,
-      "title": "Minimum number of comments (mode=posts)",
+      "title": "Minimum number of comments",
       "type": "integer"
     },
     "minScore": {
-      "description": "Only keep posts with a score (upvotes minus downvotes) at or above this value. Leave unset to keep all scores.",
+      "description": "Keep posts with a score (upvotes minus downvotes) at or above this value. Leave unset to keep all scores.",
       "example": 10,
       "maximum": 1000000,
       "minimum": -1000000,
-      "title": "Minimum score (mode=posts)",
+      "title": "Minimum score",
       "type": "integer"
     },
     "minUpvoteRatio": {
-      "description": "Only keep posts whose upvote ratio (fraction of votes that are upvotes, 0-1) is at or above this value. Useful for filtering out controversial/divisive posts. Leave unset to keep all ratios.",
+      "description": "Keep posts whose upvote ratio (0-1) is at or above this value. Leave unset to keep all ratios.",
       "example": 0.8,
       "maximum": 1,
       "minimum": 0,
-      "title": "Minimum upvote ratio (mode=posts)",
+      "title": "Minimum upvote ratio",
       "type": "number"
+    },
+    "mode": {
+      "default": "communities",
+      "description": "Pick the result you want. 'Communities' returns one profile per subreddit (plus optional posts and comments). 'Discover' finds communities by keyword or browse. 'Posts' returns post records only. 'Comments' returns capped comment trees for post URLs or a subreddit's top posts.",
+      "editor": "select",
+      "enum": [
+        "communities",
+        "discover",
+        "posts",
+        "comments"
+      ],
+      "enumTitles": [
+        "Community profiles (plus optional posts/comments)",
+        "Discover communities by keyword or browse",
+        "Posts from subreddits",
+        "Comments from post URLs or top posts"
+      ],
+      "prefill": "communities",
+      "sectionCaption": "Mode and sources",
+      "title": "What to scrape",
+      "type": "string"
     },
     "onlyOriginalContent": {
       "default": false,
-      "description": "When enabled, only posts the author tagged as original content are kept in the post listing.",
+      "description": "Keep only posts the author tagged as original content.",
       "prefill": false,
-      "title": "Only original content (OC) posts (mode=posts)",
+      "title": "Only original content (OC)",
       "type": "boolean"
     },
     "onlyWithFlair": {
       "default": false,
-      "description": "When enabled, posts without a flair tag are dropped from the post listing.",
+      "description": "Drop posts that have no flair tag.",
       "prefill": false,
-      "title": "Only posts that have a flair (mode=posts)",
+      "title": "Only posts with a flair",
       "type": "boolean"
     },
     "postType": {
-      "description": "Keep only posts of the selected content type in the post listing. Leave unset to keep all types.",
+      "description": "Keep only one content type. Leave unset to keep all types.",
+      "editor": "select",
       "enum": [
         "self",
         "link",
@@ -284,26 +370,36 @@
         "Gallery",
         "Poll"
       ],
-      "title": "Only posts of this type (mode=posts)",
+      "title": "Only this post type",
       "type": "string"
     },
+    "postUrls": {
+      "description": "Reddit post or comment URLs (or bare post IDs) to scrape in comments mode. When set, these take priority over subreddit top posts. Example: https://www.reddit.com/r/pics/comments/1x1xbpb/",
+      "editor": "stringList",
+      "example": [
+        "https://www.reddit.com/r/pics/comments/1x1xbpb/expressing_multiple_emotions_at_one_time/"
+      ],
+      "title": "Post URLs (comments mode)",
+      "type": "array"
+    },
     "postedAfter": {
-      "description": "Only keep posts created on or after this date (UTC). Note: when set, the listing walk starts from the newest posts.",
+      "description": "Keep posts created on or after this date (UTC). When set, the post feed is walked from newest first.",
       "editor": "datepicker",
       "example": "2025-01-01",
-      "title": "Posts created on or after (YYYY-MM-DD)",
+      "title": "Created on or after",
       "type": "string"
     },
     "postedBefore": {
-      "description": "Only keep posts created on or before this date (interpreted as the end of that day, UTC).",
+      "description": "Keep posts created on or before this date (end of day, UTC).",
       "editor": "datepicker",
       "example": "2025-12-31",
-      "title": "Posts created on or before (YYYY-MM-DD)",
+      "title": "Created on or before",
       "type": "string"
     },
     "sort": {
       "default": "hot",
-      "description": "How to sort the included posts.",
+      "description": "How to order the post feed.",
+      "editor": "select",
       "enum": [
         "hot",
         "new",
@@ -325,7 +421,7 @@
       "type": "string"
     },
     "subreddits": {
-      "description": "List of subreddits to analyze. Accepts bare names (python), r/ names or full URLs.",
+      "description": "Subreddit names to scrape. Accepts bare names, r/ names or full URLs. Use the name as shown in the subreddit URL (Reddit redirects are challenged on some networks). Not needed when 'postUrls' is set or when discovery finds enough communities.",
       "editor": "stringList",
       "example": [
         "python",
@@ -333,14 +429,15 @@
         "https://www.reddit.com/r/webdev/"
       ],
       "prefill": [
-        "python"
+        "Python"
       ],
       "title": "Subreddits",
       "type": "array"
     },
     "timeFilter": {
       "default": "day",
-      "description": "Time filter when sorting included posts by top/controversial.",
+      "description": "Time window used when sorting posts by top or controversial.",
+      "editor": "select",
       "enum": [
         "hour",
         "day",
@@ -350,26 +447,28 @@
         "all"
       ],
       "enumTitles": [
-        "Past Hour",
-        "Past Day",
-        "Past Week",
-        "Past Month",
-        "Past Year",
-        "All Time"
+        "Past hour",
+        "Past day",
+        "Past week",
+        "Past month",
+        "Past year",
+        "All time"
       ],
       "prefill": "day",
-      "title": "Time filter (for 'top' and 'controversial')",
+      "title": "Time window for top/controversial",
       "type": "string"
     },
     "titleContains": {
-      "description": "Only keep posts whose title contains this text (case-insensitive substring match). Leave empty to keep all titles.",
+      "description": "Keep posts whose title contains this text (case-insensitive). Leave empty to keep all titles.",
       "editor": "textfield",
       "example": "launch",
-      "title": "Title contains keyword (mode=posts)",
+      "title": "Title contains",
       "type": "string"
     }
   },
-  "required": [],
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
   "title": "Reddit Community Scraper Input",
   "type": "object"
