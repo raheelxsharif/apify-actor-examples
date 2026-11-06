@@ -1,128 +1,154 @@
 # Google Maps Top List & Ranked Places Extractor
 
-Google Maps shows curated "Top" lists for queries like *Top hotels in Paris* or *Best coffee in Brooklyn*, each place ranked in the order Google displays it. This actor captures that ranked feed — from a text query or from a Google Maps list/search URL you already have — and can enrich every entry with the detail a place's own page publishes.
+Google Maps ranks the places in a "Top hotels in Paris" search and in every shared list you save. This actor reads that ranked order — directly from Google's public Maps endpoints, without a browser, cookies, an API key, or proxy setup — and writes one row per place.
 
-## What this actor does
+It handles two kinds of inputs:
 
-- Runs a curated "top list" style query and returns the ranked feed Google shows for it.
-- Scrapes a specific Google Maps list or search URL directly instead of a query.
-- Keeps each place's `rank` so you can preserve Google's own ordering.
-- Optionally visits each place's own page to add phone, website, exact address, coordinates, hours, amenities and more.
-- Omits any field Google didn't show for that place — no record contains `null` or empty-string placeholders.
+- **Top-list queries** such as *Top hotels in Paris*, *Best coffee in Brooklyn*, or *Things to do in Tokyo*.
+- **Shared list links** such as `https://www.google.com/maps/placelists/list/...` or a short `maps.app.goo.gl` link. A Maps search URL is accepted too.
 
-## Output per place
+## What you get
+
+- The **rank** Google gives each place, plus the query or list it came from.
+- Shared-list context: list title and description, list ID, owner, the saver's note, and the saved date.
+- Business facts: category, rating, review count, address, phone, website, hours, open/closed status, coordinates, price, and Place IDs.
+- Optional detail enrichment: Plus Code, rating histogram, photos, amenities, service options, booking links, hotel stars and amenities, fuel prices, and closure flags.
+
+No record contains `null`, empty strings, or empty arrays. A field Google does not publish for a place is omitted.
+
+## Example row
 
 ```json
 {
   "recordType": "business",
-  "listSource": "Top hotels in Paris",
   "rank": 1,
-  "name": "Hôtel Le Bristol Paris",
-  "categoryName": "5-star hotel",
-  "totalScore": 4.7,
-  "reviewsCount": 2891,
-  "address": "112 Rue du Faubourg Saint-Honoré, 75008 Paris, France",
-  "phone": "+33 1 53 43 43 00",
-  "website": "https://www.oetkercollection.com/...",
-  "priceLevel": "$$$$",
-  "price": "PKR 980K",
-  "placeId": "ChIJ...",
-  "featureId": "0x...:0x...",
-  "location": { "lat": 48.8718, "lng": 2.3163 },
-  "googleMapsUrl": "https://www.google.com/maps/place/...",
-  "highlights": ["Pool", "Spa", "Restaurant"],
-  "amenities": ["Free Wi-Fi", "Paid breakfast", "Parking", "Accessible", "Indoor pool"],
-  "sourceUrl": "https://www.google.com/maps/place/...",
-  "scrapedAt": "2026-06-16T08:00:00+00:00"
+  "listSource": "Top hotels in Paris",
+  "name": "Four Seasons Hotel George V, Paris",
+  "categoryName": "Hotel",
+  "categories": ["Hotel", "Spa", "Wedding venue"],
+  "totalScore": 4.8,
+  "reviewsCount": 7414,
+  "address": "31 Av. George V, 75008 Paris, France",
+  "phone": "+33 1 49 52 70 00",
+  "website": "https://www.fourseasons.com/paris/",
+  "price": "PKR 663K",
+  "priceLevel": "€€€€",
+  "highlights": ["Pool", "Spa", "Hot tub", "Free parking"],
+  "placeId": "ChIJAcNYmcJv5kcR7EQ_IeMZp8c",
+  "featureId": "0x47e66fc29958c301:0xc7a719e3213f44ec",
+  "location": { "lat": 48.8688005, "lng": 2.3008313 },
+  "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJAcNYmcJv5kcR7EQ_IeMZp8c",
+  "scrapedAt": "2026-11-06T09:00:00+00:00"
 }
 ```
 
-Key fields explained:
+### Field notes
 
-- `placeId` is the canonical `ChIJ...` token. A legacy `0x...:0x...` token, when that's all the page exposes, is reported separately as `featureId` and never relabeled as `placeId`.
-- `priceLevel` and `price` are different signals: `priceLevel` is Google's standing price band (`$$$$`), while `price` is whatever price string Google prints on the list card itself (often a nightly rate), returned verbatim since it's viewer-localized and can vary between page loads. It's omitted when no price is shown on the card.
-- `highlights` is the short set of feature pills on the **list card** (typically 3–5 items). `amenities`, only present with `enrichDetails: true`, is the fuller set of amenity badges from the place's own page, including ones behind "View more amenities" — published exactly as Google displays them, with negative badges (e.g. "Pool unavailable") excluded.
-- With `enrichDetails: true`, a record may also carry `description`, `plusCode`, `ratingHistogram`, `hours`, `hoursStatus`, `isOpenNow`, `serviceOptions`, `menuLink`, `bookingLinks`, `photosSample`, `photoCount`, `popularTimesSummary`, `claimed`, `temporarilyClosed`, and `permanentlyClosed`, whenever Google publishes them for that place.
+- `rank` is the position Google returned for that query or list, starting at 1. Filtering never renumbers it.
+- `placeId` is the canonical `ChIJ...` ID. A legacy `0x...:0x...` token is kept separately in `featureId`.
+- `price` is the amount Google prints on a hotel card, kept verbatim (currency and K/M shorthand included). `priceLevel` is Google's standing band such as `$$$` or a dining price range.
+- `highlights` are the short feature pills on a hotel list card. `amenities` is the fuller badge set from the place page.
+- `note` and `savedAt` come from the shared list and are present only for list rows. `listTitle` and `listDescription` carry the list's own title and description.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | String (select) | `topList` | `topList` (text query) or `listUrl` (direct URL). |
-| `query` | String | – | Curated list query, e.g. "Best Italian restaurants in Rome" (required when `mode=topList`). |
-| `listUrl` | String | – | A Google Maps list or search URL (required when `mode=listUrl`). |
-| `maxResults` | Integer | `30` | Requested ceiling on places returned (1–100,000); Google's own feed may expose fewer. |
-| `enrichDetails` | Boolean | `true` | Visit each place's own page for full details. |
-| `language` | String (select) | `en` | Google Maps interface language — `en`, `es`, `fr`, `de`, `it`, `pt`, `ja`, `ko`, `zh`, `ar`, or `ru`. |
-| `proxyConfiguration` | Object | – | Optional proxy settings; the actor works without one in normal use. |
+| `mode` | Select | `topList` | `topList` for ranked queries, `listUrl` for shared-list or Maps URLs. |
+| `queries` | String list | – (prefill: `["Top hotels in Paris"]`) | One or more ranked queries. |
+| `location` | String | – | Appended to every query when the query does not already mention it. |
+| `listUrls` | String list | – | Public shared-list links or Maps search URLs. |
+| `maxResults` | Integer | `30` | Maximum places per query or list. |
+| `enrichDetails` | Boolean | `true` | Visit each place record for the detail-only fields. |
+| `language` | Select | `en` | 70+ Google Maps interface languages. |
+| `minRating` / `maxRating` | Number | – | Rating bounds (0–5). |
+| `minReviews` / `maxReviews` | Integer | – | Review-count bounds. |
+| `openNow` | Boolean | `false` | Keep places Google marks open now. |
+| `hasWebsite` / `hasPhone` | Boolean | `false` | Require a published website or phone. |
+| `includeClosed` | Boolean | `true` | When off, permanently closed places are dropped. |
+| `nameFilter` | String | – | Keep names containing this text. |
+| `excludeCategories` | String list | – | Drop categories containing any listed word. |
+| `includeCategories` | String list | – | Keep categories containing any listed word. |
+| `countryCodes` | String list | – | Keep places in these two-letter countries (FR, US, JP…). |
+
+Saved tasks that still send the old single-value `query` or `listUrl` keep working: the actor maps those keys in code.
 
 ## Examples
 
-### Curated hotel list
+### Ranked hotels
 
 ```json
 {
   "mode": "topList",
-  "query": "Top hotels in Paris",
+  "queries": ["Top hotels in Paris"],
   "maxResults": 10,
+  "enrichDetails": true,
   "language": "en"
 }
 ```
 
-### Lightweight restaurant list (card data only)
+### Fast card-only run
 
 ```json
 {
   "mode": "topList",
-  "query": "Best sushi restaurants in Tokyo",
+  "queries": ["Best sushi restaurants in Tokyo"],
   "maxResults": 25,
   "enrichDetails": false,
   "language": "ja"
 }
 ```
 
-### A specific Google Maps list URL
+### A shared list
 
 ```json
 {
   "mode": "listUrl",
-  "listUrl": "https://www.google.com/maps/search/top+coffee+shops+in+Seattle",
-  "maxResults": 50
+  "listUrls": ["https://www.google.com/maps/placelists/list/oMnWVsXSvFX9Bh2O5-71TApDgffWvg"],
+  "maxResults": 5000,
+  "enrichDetails": false
 }
 ```
 
 ## Use cases
 
-- Travel and hospitality research — compile top hotels or restaurants per city.
-- Local SEO and competitor analysis for a category and area.
-- Lead generation for hospitality or food-and-beverage outreach.
-- Building "things to do" content from curated city lists.
-- Site-selection research by comparing ranked places across cities.
+- Travel research: compile ranked hotels, restaurants and attractions per city.
+- Local SEO: compare how a category ranks across markets.
+- Lead generation: export name, rating, phone, website and address from a shortlist.
+- Content: turn shared "best of" lists into structured tables.
+- Site selection: measure the density and quality of a category in an area.
 
 ## FAQ
 
-**Does it need cookies or an API key?**
-No, every mode works against public Google Maps pages.
+**Does it need cookies, a login or an API key?**
+No. Every mode reads public Google Maps data.
 
-**Will it work on the Apify free plan?**
-Yes, no login or cookies are required.
+**Do I need to configure a proxy?**
+No. The actor chooses its connection automatically. There is no proxy field to fill in.
 
-**How many places can I actually get?**
-You can set `maxResults` up to 100,000, but a single public Google feed commonly exposes around 120 or fewer cards; the actor keeps going if Google's feed exposes more.
+**How many places can a query return?**
+It varies by query and city. Broad categories commonly expose 150–450 ranked places; narrow queries expose fewer. The actor follows Google's pages until `maxResults`, the end of the result window, or the source's own stop signal.
 
-**Will `highlights` show up for every place?**
-No, Google only prints feature pills on certain card types, mainly hotels. Restaurants, cafés and attractions usually get a short description instead.
+**How many places can a shared list have?**
+The public list endpoint returns the whole list in one response. This actor requests up to 5,000 places per list; that is the practical source window for very large lists.
 
-**How complete is `amenities`?**
-It's the whole set of badges Google publishes on the place's own page with `enrichDetails: true`, including ones only revealed behind "View more amenities" — never a hand-picked subset. It's omitted entirely when Google shows no amenity strip for that place.
+**Why did I get fewer rows than `maxResults`?**
+Google's result window ended, the list was shorter, or filters removed rows. The run status says which case applies and how many rows the filters skipped.
 
-**Does it support non-English Google Maps?**
-Yes, pick any of the 11 languages in the `language` dropdown.
+**What does `enrichDetails` add?**
+Plus Code, rating histogram, photos, amenities, service options, booking links, hotel details, fuel prices and closure flags. It costs one extra request per place; turn it off when the list-card fields are enough.
 
-**What happens if Google blocks the request or serves a degraded page?**
-The run's status message tells the two cases apart: a genuinely empty result set reads "No places found for this query or list URL," while a page that never rendered a results view reads as an upstream block, so a failed fetch is never reported as a legitimate zero-result run.
+**Are sponsored places included?**
+No. Google can print paid hotel cards at the top of a feed. They are excluded, so `rank` follows the organic list, as in the previous version.
+
+**Are `popularTimesSummary` and `menuLink` filled?**
+`popularTimesSummary` is not published by the public Maps feed used here, so it is not emitted. `menuLink` appears only when a place's detail data exposes a menu URL, which is rare. Use the dedicated popular-times or menu actor when you need those fields.
+
+**Does it support non-English Maps?**
+Yes. Pick any language in the dropdown; names, categories, addresses and hours are localized by Google.
+
+**What happens when Google blocks a request?**
+The actor retries and escalates its connection automatically. If no result view ever arrives, the run status says it was an upstream block or degraded response — never "no places found".
 
 **Is this affiliated with Google?**
-No. This actor is an independent tool that reads publicly available Google Maps pages and is not affiliated with, endorsed by, or sponsored by Google.
-
-You are responsible for using this public data lawfully and in keeping with Google's own terms.
+No. It is an independent tool that reads publicly available Google Maps pages. You are responsible for using the data lawfully and consistently with Google's terms.

@@ -1,0 +1,203 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-HFg8bbYArzD7ZsMVdUqkmE2w4+/0WFY4UWylxwlONCo=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Maps Timezone &amp; Local Time Lookup | Dataspryva</title><meta name="description" content="Resolve the IANA timezone, current local time, UTC offset, and daylight-saving information for any coordinate. Accepts single or batch lat/lng inputs."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/"><meta property="og:title" content="Google Maps Timezone &amp; Local Time Lookup | Dataspryva"><meta property="og:description" content="Resolve the IANA timezone, current local time, UTC offset, and daylight-saving information for any coordinate. Accepts single or batch lat/lng inputs."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#webpage","name":"Google Maps Timezone & Local Time Lookup","description":"Resolve the IANA timezone, current local time, UTC offset, and daylight-saving information for any coordinate. Accepts single or batch lat/lng inputs.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#article","headline":"Google Maps Timezone & Local Time Lookup","name":"Google Maps Timezone & Local Time Lookup","description":"Resolve the IANA timezone, current local time, UTC offset, and daylight-saving information for any coordinate. Accepts single or batch lat/lng inputs.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Maps Timezone & Local Time Lookup","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/3gGc1bBnFZySrtNrc/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Maps Timezone &amp; Local Time Lookup</span></div><section id="overview"><h1 class="doc-title">Google Maps Timezone &amp; Local Time Lookup</h1><p class="lede">Resolve the IANA timezone, current local time, UTC offset, and daylight-saving information for any coordinate. Accepts single or batch lat/lng inputs.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-maps-timezone-and-local-time-lookup">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/3gGc1bBnFZySrtNrc/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>location</code></td><td>object</td><td>optional</td><td>A single {lat, lng} coordinate to resolve. Use either this or &#x27;locations&#x27;.</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Multiple {lat, lng} coordinates to resolve in one run.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional proxy. Not normally required; timeapi.io accepts direct datacenter requests.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Look up the IANA timezone, current local time, UTC offset, and daylight-saving status for any latitude/longitude. Useful for normalising business hours, scheduling notifications, and enriching geocoded data.&quot;,
+  &quot;properties&quot;: {
+    &quot;location&quot;: {
+      &quot;description&quot;: &quot;A single {lat, lng} coordinate to resolve. Use either this or &#x27;locations&#x27;.&quot;,
+      &quot;editor&quot;: &quot;json&quot;,
+      &quot;prefill&quot;: {
+        &quot;lat&quot;: 40.7128,
+        &quot;lng&quot;: -74.006
+      },
+      &quot;title&quot;: &quot;Single Location&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;locations&quot;: {
+      &quot;description&quot;: &quot;Multiple {lat, lng} coordinates to resolve in one run.&quot;,
+      &quot;editor&quot;: &quot;json&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;prefill&quot;: [
+        {
+          &quot;lat&quot;: 40.7128,
+          &quot;lng&quot;: -74.006
+        },
+        {
+          &quot;lat&quot;: 51.5074,
+          &quot;lng&quot;: -0.1278
+        },
+        {
+          &quot;lat&quot;: 35.6762,
+          &quot;lng&quot;: 139.6503
+        },
+        {
+          &quot;lat&quot;: -33.8688,
+          &quot;lng&quot;: 151.2093
+        }
+      ],
+      &quot;title&quot;: &quot;Batch Locations&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Optional proxy. Not normally required; timeapi.io accepts direct datacenter requests.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: false
+      },
+      &quot;title&quot;: &quot;Proxy Configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Google Maps Timezone &amp; Local Time Lookup&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>timezones</code></td><td>string</td><td>optional</td><td>Dataset containing all resolved timezone records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One record per input coordinate with IANA timezone, current local &amp; UTC time, UTC offset, and daylight-saving details.&quot;,
+  &quot;properties&quot;: {
+    &quot;timezones&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all resolved timezone records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Timezone records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Google Maps Timezone &amp; Local Time Lookup Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Timezones&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;inputLocation&quot;,
+          &quot;timezone&quot;,
+          &quot;timezoneAbbreviation&quot;,
+          &quot;utcOffset&quot;,
+          &quot;utcOffsetSeconds&quot;,
+          &quot;currentLocalTime&quot;,
+          &quot;currentUtcTime&quot;,
+          &quot;dayOfWeek&quot;,
+          &quot;unixTimestamp&quot;,
+          &quot;isDaylightSavingTime&quot;,
+          &quot;daylightSavings&quot;,
+          &quot;sourceUrl&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-maps-timezone-local-time-lookup">Google Maps Timezone &amp; Local Time Lookup</h2>
+<p>Resolve the IANA timezone, current local time, UTC offset and daylight-saving status for any latitude/longitude on Earth — a single coordinate or a batch of them in one run. Useful whenever you have geocoded data and need to know what time it actually is at that point on the map right now.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Resolves a single <code>{lat, lng}</code> coordinate, or a batch of many, to its IANA timezone name</li>
+<li>Returns the current local wall-clock time and the equivalent UTC time for each coordinate</li>
+<li>Reports the current UTC offset (both formatted and in seconds) and whether daylight saving time is currently active</li>
+<li>Includes daylight-saving transition details — standard offset, DST offset, and start/end dates — when the source has that data for the zone</li>
+<li>Leaves a field out of the record entirely when no valid value is available, rather than guessing a timezone or offset</li>
+</ul>
+<h2 id="readme-output-per-location">Output per location</h2>
+<ul>
+<li><code>inputLocation</code> — the exact <code>{lat, lng}</code> coordinate you submitted</li>
+<li><code>timezone</code> — IANA zone name (e.g. <code>America/New_York</code>, <code>Asia/Tokyo</code>, <code>Australia/Sydney</code>)</li>
+<li><code>timezoneAbbreviation</code> — short zone code when one applies and DST status is known (e.g. <code>EDT</code>, <code>BST</code>)</li>
+<li><code>utcOffset</code> — current offset formatted as <code>+HH:MM</code> / <code>-HH:MM</code></li>
+<li><code>utcOffsetSeconds</code> — current offset in seconds (positive east of UTC)</li>
+<li><code>currentLocalTime</code> — wall-clock time at the coordinate, ISO 8601</li>
+<li><code>currentUtcTime</code> — the equivalent UTC time, ISO 8601</li>
+<li><code>dayOfWeek</code> — day of the week at the coordinate's local time, when available</li>
+<li><code>unixTimestamp</code> — Unix timestamp in seconds, when available</li>
+<li><code>isDaylightSavingTime</code> — <code>true</code> when daylight saving time is currently in effect</li>
+<li><code>daylightSavings</code> — an object with <code>inEffect</code> and <code>observed</code>, plus (when known) <code>nextTransition</code>, <code>dstName</code>, <code>standardUtcOffset</code>, <code>standardUtcOffsetSeconds</code>, <code>dstOffsetSeconds</code>, <code>dstUtcOffsetSeconds</code>, <code>startsAt</code>, and <code>endsAt</code></li>
+<li><code>sourceUrl</code> — the exact lookup URL used to resolve this coordinate</li>
+<li><code>recordType</code> — always <code>&quot;timezone&quot;</code></li>
+<li><code>scrapedAt</code> — UTC timestamp of when the lookup was performed</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>location</code></td>
+<td>object</td>
+<td>–</td>
+<td>A single <code>{lat, lng}</code> coordinate to resolve. Provide this or <code>locations</code></td>
+</tr>
+<tr>
+<td><code>locations</code></td>
+<td>array</td>
+<td>–</td>
+<td>Multiple <code>{lat, lng}</code> coordinates to resolve in one run</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>off</td>
+<td>Optional Apify proxy configuration; not normally required</td>
+</tr>
+</tbody>
+</table></div>
+<p>At least one of <code>location</code> or <code>locations</code> must be provided. Latitude must fall within <code>[-90, 90]</code> and longitude within <code>[-180, 180]</code>; the keys <code>latitude</code>/<code>longitude</code>/<code>lon</code> are also accepted as synonyms for <code>lat</code>/<code>lng</code>.</p>
+<h3 id="readme-example-a-single-coordinate">Example: a single coordinate</h3>
+<pre><code class="language-json">{
+  &quot;location&quot;: { &quot;lat&quot;: 27.7172, &quot;lng&quot;: 85.3240 }
+}
+</code></pre>
+<h3 id="readme-example-a-worldwide-batch">Example: a worldwide batch</h3>
+<pre><code class="language-json">{
+  &quot;locations&quot;: [
+    { &quot;lat&quot;: 40.7128, &quot;lng&quot;: -74.0060 },
+    { &quot;lat&quot;: 51.5074, &quot;lng&quot;: -0.1278 },
+    { &quot;lat&quot;: 35.6762, &quot;lng&quot;: 139.6503 },
+    { &quot;lat&quot;: -33.8688, &quot;lng&quot;: 151.2093 }
+  ]
+}
+</code></pre>
+<h3 id="readme-example-two-cities-to-compare-local-time">Example: two cities to compare local time</h3>
+<pre><code class="language-json">{
+  &quot;locations&quot;: [
+    { &quot;lat&quot;: 40.7128, &quot;lng&quot;: -74.0060 },
+    { &quot;lat&quot;: 35.6762, &quot;lng&quot;: 139.6503 }
+  ]
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Normalize business hours</strong> — pair with a places or geocoding actor to convert local opening hours into UTC ranges</li>
+<li><strong>Schedule outreach across regions</strong> — only trigger notifications during local business hours for each recipient</li>
+<li><strong>Enrich geocoded datasets</strong> — attach a timezone and current local time to addresses or coordinates you already have</li>
+<li><strong>Travel and logistics planning</strong> — check the local time and DST status at a destination before scheduling a call or delivery</li>
+<li><strong>Compliance and audit logging</strong> — stamp events with the correct local time and DST flag for the location they occurred at</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Does this need a Google Maps API key?</strong>
+No. Timezone lookups work from latitude/longitude alone with no API key, login, or cookies required.</p>
+<p><strong>Why are some fields missing from a record?</strong>
+The actor never invents a timezone, offset or DST detail. If the underlying time-zone directory doesn't return a particular value for a coordinate (for example, a DST abbreviation when the zone has no DST), that field is simply left out of the record.</p>
+<p><strong>How accurate is the timezone near borders or disputed regions?</strong>
+The actor returns the IANA timezone identifier exactly as resolved for the coordinate, without inferring a zone from longitude alone. Boundary and disputed-area assignments reflect the underlying time-zone directory's own data. Fractional offsets (such as <code>+05:45</code>) are preserved in seconds.</p>
+<p><strong>What happens if I submit an invalid coordinate?</strong>
+Out-of-range or non-numeric latitude/longitude values are rejected with a clear error before any lookup is attempted.</p>
+<p><strong>Can I resolve a large batch of coordinates in one run?</strong>
+Yes — <code>locations</code> accepts many coordinates, processed one after another. For very large batches, test with a smaller sample first to confirm the result shape fits your pipeline.</p>
+<p><strong>Does this return the country for a coordinate?</strong>
+No — country information isn't part of this lookup. Pair this actor with a geocoding actor if you need the country or address for the same coordinate.</p>
+<p><strong>Is this affiliated with Google?</strong>
+No. This actor resolves timezone data independently from public coordinate data; it is not affiliated with or endorsed by Google.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/3gGc1bBnFZySrtNrc/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>hMfsbP6ECI5MjaABa</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

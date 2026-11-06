@@ -1,24 +1,66 @@
 {
   "properties": {
-    "maxSnapsPerUser": {
-      "default": 50,
-      "description": "Maximum number of story snaps to extract per user across all their highlights.",
+    "downloadMedia": {
+      "default": false,
+      "description": "Download each image/video into this run's Apify key-value store and return permanent public URLs. The original Snapchat CDN URL stays in a matching *Original field. Capped at 200 files and 50 MB per file per run; failures keep the direct URL. Costs extra storage and bandwidth; off by default because Snapchat CDN links work for immediate downloads.",
+      "prefill": false,
+      "title": "Store Durable Media Copies",
+      "type": "boolean"
+    },
+    "maxHighlightsPerUser": {
+      "default": 0,
+      "description": "How many of a profile's saved highlight albums to read, in the order Snapchat renders them. 0 uses every highlight on the page.",
       "editor": "number",
-      "maximum": 500,
-      "minimum": 1,
-      "prefill": 20,
-      "title": "Max Snaps Per User",
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Max Highlights Per Profile",
       "type": "integer"
     },
+    "maxItems": {
+      "default": 5000,
+      "description": "Hard cap on snap records saved in the run across all targets. The actor stops cleanly when it reaches this number.",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max Records",
+      "type": "integer"
+    },
+    "maxSnapsPerUser": {
+      "default": 50,
+      "description": "Maximum snaps to save per profile, highlight or story-snap target. Supports large highlight albums up to the clip length shown by Snapchat.",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max Snaps Per Target",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "profiles",
+      "description": "What to scrape. profiles = look up usernames or profile URLs and collect their highlights and active story. urls = process pasted profile, highlight or active-story snap links, including highlights that are not on the rendered profile page.",
+      "editor": "select",
+      "enum": [
+        "profiles",
+        "urls"
+      ],
+      "enumTitles": [
+        "Profiles by username",
+        "Pasted profile / highlight / story links"
+      ],
+      "prefill": "profiles",
+      "title": "Mode",
+      "type": "string"
+    },
     "postedAfter": {
-      "description": "Only return snaps posted on or after this date (YYYY-MM-DD). Many creators' curated highlights stay live for months or years, so re-running without this filter re-collects the same old content every time — set it to your last run's date to fetch only new snaps. Leave empty to collect all available snaps (default).",
+      "description": "Only keep snaps posted on or after this date (YYYY-MM-DD or full ISO 8601). Saved highlights can stay live for years, so set this to your last run date when you only want new snaps. Leave empty for everything.",
       "editor": "datepicker",
       "nullable": true,
       "title": "Posted After",
       "type": "string"
     },
     "proxyConfiguration": {
-      "description": "Optional Apify proxy configuration. Public Snapchat profiles work without proxy; include for resilience.",
+      "description": "Optional Apify proxy override. Public Snapchat profiles work without a proxy.",
       "editor": "proxy",
       "nullable": true,
       "title": "Proxy Configuration",
@@ -29,7 +71,7 @@
         "curatedHighlights",
         "activeStory"
       ],
-      "description": "Which story sources to extract. curatedHighlights = saved highlight albums. activeStory = current public ephemeral story snaps.",
+      "description": "Which story surfaces to collect in profiles mode. curatedHighlights = saved highlight albums. activeStory = the currently public 24-hour story. Highlight-link mode always returns the linked highlight.",
       "editor": "select",
       "items": {
         "enum": [
@@ -37,8 +79,8 @@
           "activeStory"
         ],
         "enumTitles": [
-          "Curated Highlights",
-          "Active Story"
+          "Curated highlights",
+          "Active story"
         ],
         "type": "string"
       },
@@ -49,8 +91,14 @@
       "title": "Story Sources",
       "type": "array"
     },
+    "startUrls": {
+      "description": "(mode=urls) Paste profile links, highlight links (https://www.snapchat.com/@user/highlight/<id>) or active-story snap links (https://www.snapchat.com/@user/<snapId>). Each link is resolved to exactly the content it names.",
+      "editor": "requestListSources",
+      "title": "Profile, Highlight or Story Links",
+      "type": "array"
+    },
     "usernames": {
-      "description": "One or more Snapchat usernames or profile URLs. Accepted formats: bare username (djkhaled), @-prefixed (@djkhaled), add URL (https://www.snapchat.com/add/djkhaled), or profile URL (https://www.snapchat.com/@djkhaled).",
+      "description": "(mode=profiles) One or more Snapchat usernames or profile URLs. Accepts bare username (brentrivera), @-prefixed (@brentrivera), add URL (https://www.snapchat.com/add/brentrivera) and profile URL (https://www.snapchat.com/@brentrivera).",
       "editor": "stringList",
       "prefill": [
         "khaby.lame"
@@ -59,9 +107,6 @@
       "type": "array"
     }
   },
-  "required": [
-    "usernames"
-  ],
   "schemaVersion": 1,
   "title": "Snapchat User Stories Scraper Input",
   "type": "object"

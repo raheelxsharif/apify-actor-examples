@@ -1,0 +1,54 @@
+{
+  "description": "Look up the IANA timezone, current local time, UTC offset, and daylight-saving status for any latitude/longitude. Useful for normalising business hours, scheduling notifications, and enriching geocoded data.",
+  "properties": {
+    "location": {
+      "description": "A single {lat, lng} coordinate to resolve. Use either this or 'locations'.",
+      "editor": "json",
+      "prefill": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "title": "Single Location",
+      "type": "object"
+    },
+    "locations": {
+      "description": "Multiple {lat, lng} coordinates to resolve in one run.",
+      "editor": "json",
+      "items": {
+        "type": "object"
+      },
+      "prefill": [
+        {
+          "lat": 40.7128,
+          "lng": -74.006
+        },
+        {
+          "lat": 51.5074,
+          "lng": -0.1278
+        },
+        {
+          "lat": 35.6762,
+          "lng": 139.6503
+        },
+        {
+          "lat": -33.8688,
+          "lng": 151.2093
+        }
+      ],
+      "title": "Batch Locations",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy. Not normally required; timeapi.io accepts direct datacenter requests.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": false
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Google Maps Timezone & Local Time Lookup",
+  "type": "object"
+}
