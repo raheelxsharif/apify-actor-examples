@@ -1,16 +1,27 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "full": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "Timezones",
+      "title": "All fields",
       "transformation": {
         "fields": [
           "recordType",
+          "mode",
+          "resolved",
+          "inputAddress",
           "inputLocation",
+          "inputPlaceId",
+          "placeName",
+          "formattedAddress",
+          "location",
+          "placeId",
+          "featureId",
+          "countryCode",
+          "categories",
           "timezone",
           "timezoneAbbreviation",
           "utcOffset",
@@ -21,7 +32,36 @@
           "unixTimestamp",
           "isDaylightSavingTime",
           "daylightSavings",
+          "distanceMeters",
+          "language",
+          "googleMapsUrl",
           "sourceUrl",
+          "scrapedAt"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Timezones",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "mode",
+          "inputAddress",
+          "inputLocation",
+          "placeName",
+          "formattedAddress",
+          "timezone",
+          "timezoneAbbreviation",
+          "utcOffset",
+          "currentLocalTime",
+          "currentUtcTime",
+          "dayOfWeek",
+          "isDaylightSavingTime",
+          "googleMapsUrl",
           "scrapedAt"
         ]
       }

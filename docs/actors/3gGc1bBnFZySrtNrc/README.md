@@ -4,102 +4,172 @@
 
 # Google Maps Timezone & Local Time Lookup
 
-Resolve the IANA timezone, current local time, UTC offset and daylight-saving status for any latitude/longitude on Earth — a single coordinate or a batch of them in one run. Useful whenever you have geocoded data and need to know what time it actually is at that point on the map right now.
+Find the IANA timezone and the current local time for any Google Maps place, address, Place ID or latitude/longitude pair. Submit one item or a batch and get a clean record per match: timezone name, local wall-clock time, UTC time, current UTC offset, weekday, Unix timestamp and daylight-saving detail, plus the matched place and a Google Maps link.
 
-## What this actor does
+No Google API key, browser, login or cookie is required.
 
-- Resolves a single `{lat, lng}` coordinate, or a batch of many, to its IANA timezone name
-- Returns the current local wall-clock time and the equivalent UTC time for each coordinate
-- Reports the current UTC offset (both formatted and in seconds) and whether daylight saving time is currently active
-- Includes daylight-saving transition details — standard offset, DST offset, and start/end dates — when the source has that data for the zone
-- Leaves a field out of the record entirely when no valid value is available, rather than guessing a timezone or offset
+## What you can look up
 
-## Output per location
+| Mode | What you provide | What Google Maps resolves |
+|---|---|---|
+| **Coordinates** | One `{lat, lng}` pair or a batch of pairs | The nearest address or named place at that point and its timezone |
+| **Place or address** | An address, landmark, business name or postcode | The best matching place, its address, coordinates and timezone |
+| **Place ID** | A Google Place ID (starts with `ChIJ`) or a full Google Maps place URL | The exact place and its timezone |
+| **Mixed batch** | Any combination of the three lists | Every filled list in one run |
 
-- `inputLocation` — the exact `{lat, lng}` coordinate you submitted
-- `timezone` — IANA zone name (e.g. `America/New_York`, `Asia/Tokyo`, `Australia/Sydney`)
-- `timezoneAbbreviation` — short zone code when one applies and DST status is known (e.g. `EDT`, `BST`)
-- `utcOffset` — current offset formatted as `+HH:MM` / `-HH:MM`
-- `utcOffsetSeconds` — current offset in seconds (positive east of UTC)
-- `currentLocalTime` — wall-clock time at the coordinate, ISO 8601
-- `currentUtcTime` — the equivalent UTC time, ISO 8601
-- `dayOfWeek` — day of the week at the coordinate's local time, when available
-- `unixTimestamp` — Unix timestamp in seconds, when available
-- `isDaylightSavingTime` — `true` when daylight saving time is currently in effect
-- `daylightSavings` — an object with `inEffect` and `observed`, plus (when known) `nextTransition`, `dstName`, `standardUtcOffset`, `standardUtcOffsetSeconds`, `dstOffsetSeconds`, `dstUtcOffsetSeconds`, `startsAt`, and `endsAt`
-- `sourceUrl` — the exact lookup URL used to resolve this coordinate
-- `recordType` — always `"timezone"`
-- `scrapedAt` — UTC timestamp of when the lookup was performed
+When `mode` is omitted, every filled list is processed, so old coordinate-only tasks keep working unchanged.
 
-## Input
+## Inputs
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `location` | object | – | A single `{lat, lng}` coordinate to resolve. Provide this or `locations` |
-| `locations` | array | – | Multiple `{lat, lng}` coordinates to resolve in one run |
-| `proxyConfiguration` | object | off | Optional Apify proxy configuration; not normally required |
+| `mode` | select | – | `coordinates`, `place`, `placeId` or `mixed` |
+| `location` | object | – | One coordinate: `{"lat": 40.7128, "lng": -74.006}` |
+| `locations` | array | – | A batch of `{lat, lng}` coordinates |
+| `address` | string | – | One address, landmark, business name or postcode |
+| `addresses` | array | – | A batch of addresses or place names |
+| `placeId` | string | – | One Google Place ID or Maps place URL |
+| `placeIds` | array | – | A batch of Place IDs or Maps URLs |
+| `language` | select | `en` | Language for returned place names and addresses (35 options) |
+| `country` | select | – | Optional country bias for ambiguous place/address searches |
 
-At least one of `location` or `locations` must be provided. Latitude must fall within `[-90, 90]` and longitude within `[-180, 180]`; the keys `latitude`/`longitude`/`lon` are also accepted as synonyms for `lat`/`lng`.
+Latitude must be within `[-90, 90]` and longitude within `[-180, 180]`. The keys `latitude`/`longitude`/`lon` are accepted as synonyms for `lat`/`lng`. Duplicate coordinates, addresses and Place IDs are removed before lookup; blank values are skipped and invalid coordinates or Place IDs are reported in the run status.
 
-### Example: a single coordinate
+### Daily prefill
+
+The default run resolves one New York coordinate and returns one record, which keeps the daily platform test cheap.
+
+## Output fields
+
+| Field | Description |
+|---|---|
+| `recordType` | Always `timezone` |
+| `mode` | `coordinates`, `place` or `placeId` |
+| `inputLocation` / `inputAddress` / `inputPlaceId` | The exact input that produced the row |
+| `placeName` | Matched Google Maps place name |
+| `formattedAddress` | Matched formatted address |
+| `location` | Resolved `{lat, lng}` |
+| `placeId` | Google Place ID, when Google returns one |
+| `featureId` | Google feature identifier, when available |
+| `countryCode` | ISO 3166-1 alpha-2 country code, when available |
+| `categories` | Google Maps place categories, when available |
+| `timezone` | IANA timezone identifier, e.g. `America/New_York` |
+| `timezoneAbbreviation` | Current short code, e.g. `EST`, `EDT`, `JST`, `+0545` |
+| `utcOffset` | Current offset formatted as `+HH:MM` / `-HH:MM` |
+| `utcOffsetSeconds` | Current offset in seconds |
+| `currentLocalTime` | Current wall-clock time at the place, ISO 8601 with offset |
+| `currentUtcTime` | Current UTC time, ISO 8601 |
+| `dayOfWeek` | Local weekday name |
+| `unixTimestamp` | Unix timestamp in seconds |
+| `isDaylightSavingTime` | `true` while daylight saving is in effect |
+| `daylightSavings` | `inEffect`, `observed`, next transition, standard/DST offsets and the current DST interval when applicable |
+| `distanceMeters` | For coordinates, distance from your point to the matched place |
+| `googleMapsUrl` | Google Maps place link |
+| `sourceUrl` | A Google Maps link for the matched place or search |
+| `language` | Language used for returned names |
+| `scrapedAt` | UTC timestamp of the lookup |
+
+Fields the source does not provide for a particular item are left out of that record. No field is ever filled with `null`, an empty string or a guessed value.
+
+## Examples
+
+### One coordinate
 
 ```json
 {
-  "location": { "lat": 27.7172, "lng": 85.3240 }
+  "mode": "coordinates",
+  "location": {"lat": 40.7128, "lng": -74.006}
 }
 ```
 
-### Example: a worldwide batch
+### A worldwide coordinate batch
 
 ```json
 {
+  "mode": "coordinates",
   "locations": [
-    { "lat": 40.7128, "lng": -74.0060 },
-    { "lat": 51.5074, "lng": -0.1278 },
-    { "lat": 35.6762, "lng": 139.6503 },
-    { "lat": -33.8688, "lng": 151.2093 }
+    {"lat": 40.7128, "lng": -74.006},
+    {"lat": 51.5074, "lng": -0.1278},
+    {"lat": 35.6762, "lng": 139.6503},
+    {"lat": -33.8688, "lng": 151.2093}
   ]
 }
 ```
 
-### Example: two cities to compare local time
+### Addresses
 
 ```json
 {
-  "locations": [
-    { "lat": 40.7128, "lng": -74.0060 },
-    { "lat": 35.6762, "lng": 139.6503 }
+  "mode": "place",
+  "addresses": [
+    "Eiffel Tower, Paris",
+    "1600 Amphitheatre Parkway, Mountain View, CA",
+    "Tokyo Station"
   ]
+}
+```
+
+### Place IDs or Maps URLs
+
+```json
+{
+  "mode": "placeId",
+  "placeIds": [
+    "ChIJrbS_8-Fv5kcRzSjPvnUT03s",
+    "https://www.google.com/maps/place/?q=place_id:ChIJmQJIxlVYwokRLgeuocVOGVU"
+  ]
+}
+```
+
+### Mixed batch
+
+```json
+{
+  "addresses": ["Burj Khalifa, Dubai"],
+  "locations": [{"lat": 48.8584, "lng": 2.2945}],
+  "placeIds": ["ChIJmQJIxlVYwokRLgeuocVOGVU"]
 }
 ```
 
 ## Use cases
 
-- **Normalize business hours** — pair with a places or geocoding actor to convert local opening hours into UTC ranges
-- **Schedule outreach across regions** — only trigger notifications during local business hours for each recipient
-- **Enrich geocoded datasets** — attach a timezone and current local time to addresses or coordinates you already have
-- **Travel and logistics planning** — check the local time and DST status at a destination before scheduling a call or delivery
-- **Compliance and audit logging** — stamp events with the correct local time and DST flag for the location they occurred at
+- **Normalise business hours** — convert local opening hours from a places dataset into UTC ranges
+- **Schedule across regions** — send notifications only during local business hours
+- **Enrich geocoded data** — attach a timezone and current local time to addresses or coordinates
+- **Travel and logistics** — check the local time and DST state at a destination before planning a call or delivery
+- **Audit and compliance** — stamp events with the correct local time and DST flag for the location where they happened
 
 ## FAQ
 
 **Does this need a Google Maps API key?**
-No. Timezone lookups work from latitude/longitude alone with no API key, login, or cookies required.
+No. It reads Google Maps' public place and timezone information, so there is no key, login or cookie to configure.
 
-**Why are some fields missing from a record?**
-The actor never invents a timezone, offset or DST detail. If the underlying time-zone directory doesn't return a particular value for a coordinate (for example, a DST abbreviation when the zone has no DST), that field is simply left out of the record.
+**Why is the timezone sometimes a different city from the coordinate?**
+Google Maps resolves the nearest place that belongs to a timezone. Near a border the nearest address can sit on the other side, and Google's own boundary data decides the zone. The actor reports Google's answer and does not infer a zone from longitude.
 
-**How accurate is the timezone near borders or disputed regions?**
-The actor returns the IANA timezone identifier exactly as resolved for the coordinate, without inferring a zone from longitude alone. Boundary and disputed-area assignments reflect the underlying time-zone directory's own data. Fractional offsets (such as `+05:45`) are preserved in seconds.
+**Why do some coordinates return no record?**
+Points in the open ocean or in unclaimed areas may not resolve to a place with a timezone. Those inputs are named in the run status instead of receiving a guessed zone.
 
-**What happens if I submit an invalid coordinate?**
-Out-of-range or non-numeric latitude/longitude values are rejected with a clear error before any lookup is attempted.
+**How is the local time calculated?**
+Google Maps supplies the IANA timezone identifier. The current local time, offset and daylight-saving state are then calculated from the bundled IANA timezone database at lookup time.
 
-**Can I resolve a large batch of coordinates in one run?**
-Yes — `locations` accepts many coordinates, processed one after another. For very large batches, test with a smaller sample first to confirm the result shape fits your pipeline.
+**Are fractional offsets supported?**
+Yes. Nepal (`+05:45`), Chatham Islands (`+12:45`), Newfoundland (`-03:30`) and other fractional zones are preserved exactly.
 
-**Does this return the country for a coordinate?**
-No — country information isn't part of this lookup. Pair this actor with a geocoding actor if you need the country or address for the same coordinate.
+**Does DST work in both hemispheres?**
+Yes. Southern-hemisphere zones such as `Australia/Sydney` and `Pacific/Chatham` report DST correctly, including their opposite-season transition dates.
+
+**Can I resolve a large batch?**
+Yes. Lists accept many items and are processed concurrently. For very large batches, start with a small sample to confirm the output shape fits your pipeline.
+
+**Does this return the country or address of a coordinate?**
+Yes, when Google Maps resolves one. The matched place name, formatted address, coordinates and country code are included alongside the timezone fields.
 
 **Is this affiliated with Google?**
-No. This actor resolves timezone data independently from public coordinate data; it is not affiliated with or endorsed by Google.
+No. This actor is not affiliated with or endorsed by Google.
+
+## Limits
+
+- A timezone requires a resolved place. Open-ocean and unmapped coordinates can return no timezone.
+- Timezone boundaries follow Google Maps' own place data; this actor does not maintain a separate boundary map.
+- Google Maps place names and addresses follow the selected `language`, while the timezone identifier is always IANA English.
