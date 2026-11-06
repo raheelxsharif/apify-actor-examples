@@ -1,0 +1,179 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "audioUrl": {
+        "description": "Link to the audio track",
+        "type": "string"
+      },
+      "avatarUri": {
+        "description": "Link to the creator's profile picture",
+        "type": "string"
+      },
+      "commentCount": {
+        "description": "Number of comments",
+        "type": "integer"
+      },
+      "createdAt": {
+        "description": "When the row was created (ISO 8601, UTC)",
+        "type": "string"
+      },
+      "fullText": {
+        "description": "The whole transcript; empty when the video has no speech",
+        "type": "string"
+      },
+      "id": {
+        "description": "Instagram's full media id",
+        "type": "string"
+      },
+      "likeCount": {
+        "description": "Number of likes",
+        "type": "integer"
+      },
+      "pk": {
+        "description": "Instagram's numeric id of the video",
+        "type": "string"
+      },
+      "postDescription": {
+        "description": "Caption of the post",
+        "type": "string"
+      },
+      "postUrl": {
+        "description": "Link to the post or Reel",
+        "type": "string"
+      },
+      "profileUrl": {
+        "description": "Link to the profile, on a record about a username that gave no posts",
+        "type": "string"
+      },
+      "pubDate": {
+        "description": "When the video was published (ISO 8601, UTC)",
+        "type": "string"
+      },
+      "segments": {
+        "description": "Phrases with timestamps in seconds; only present when includeSegments is on",
+        "items": {
+          "properties": {
+            "end": {
+              "type": "number"
+            },
+            "index": {
+              "type": "integer"
+            },
+            "start": {
+              "type": "number"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "shortCode": {
+        "description": "The short code in the post link",
+        "type": "string"
+      },
+      "status": {
+        "description": "success when a transcript was produced (an empty one counts when the video has no speech). Otherwise the reason no transcript was produced: post_age_restricted, post_is_private, post_not_found, blocked, error, invalid_url, not_a_video, no_video_file, no_transcript, charge_limit_reached, no_posts, cookies_unusable, profile_not_found, profile_is_private, profile_age_restricted or profile_restricted. The log explains each one",
+        "type": "string"
+      },
+      "thumbnailUrl": {
+        "description": "Link to the cover image",
+        "type": "string"
+      },
+      "transcriptionMethod": {
+        "description": "native (Instagram captions) or whisper (AI speech-to-text)",
+        "type": "string"
+      },
+      "userFullName": {
+        "description": "Display name of the creator",
+        "type": "string"
+      },
+      "userId": {
+        "description": "Numeric id of the creator",
+        "type": "string"
+      },
+      "userName": {
+        "description": "Username of the creator",
+        "type": "string"
+      },
+      "videoIndex": {
+        "description": "Which video of the post this record is, counting only its videos (1 for a reel or a single video; a carousel with several videos has one record each)",
+        "type": "integer"
+      },
+      "videoUrl": {
+        "description": "Link to the video file",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram Transcripts",
+  "views": {
+    "overview": {
+      "description": "One row per Instagram video with its transcript and nested segments; a video that could not be transcribed has only its link and a status",
+      "display": {
+        "component": "table",
+        "properties": {
+          "columns": [
+            {
+              "field": "status",
+              "format": "text",
+              "label": "Status"
+            },
+            {
+              "field": "userName",
+              "format": "text",
+              "label": "Username"
+            },
+            {
+              "field": "pubDate",
+              "format": "text",
+              "label": "Posted At"
+            },
+            {
+              "field": "transcriptionMethod",
+              "format": "text",
+              "label": "Method"
+            },
+            {
+              "field": "fullText",
+              "format": "text",
+              "label": "Full Transcript"
+            },
+            {
+              "field": "likeCount",
+              "format": "number",
+              "label": "Likes"
+            },
+            {
+              "field": "commentCount",
+              "format": "number",
+              "label": "Comments"
+            }
+          ]
+        }
+      },
+      "title": "Instagram Transcripts Overview",
+      "transformation": {
+        "fields": [
+          "status",
+          "postUrl",
+          "shortCode",
+          "videoIndex",
+          "userName",
+          "userFullName",
+          "pubDate",
+          "likeCount",
+          "commentCount",
+          "fullText",
+          "transcriptionMethod",
+          "segments",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "properties": {
+    "transcripts": {
+      "description": "One dataset item per Instagram video URL. Each item includes the full transcript text and complete video metadata. A nested segments array with per-segment timestamps and text is included only when the 'includeSegments' input option is enabled.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Video Transcripts",
+      "type": "string"
+    }
+  },
+  "title": "Instagram Transcript Scraper Output",
+  "type": "object"
+}

@@ -1,0 +1,182 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Optional. Leave empty to transcribe public videos without signing in. Paste your own Instagram cookies in JSON format to also transcribe age-restricted videos and videos of private accounts your account follows. It is a secret input, so the Apify Console hides and encrypts it.\n\nFormat: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "includeSegments": {
+      "default": false,
+      "description": "When enabled, the output will include a 'segments' array with per-segment timestamps and text alongside the full transcript. Each segment represents a distinct phrase with start/end times in seconds. Note: enabling this feature incurs an additional charge per run.",
+      "prefill": false,
+      "title": "Include Timestamped Segments",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "",
+      "description": "Language of the video audio. Leave empty for automatic detection. Only used when Whisper is active.",
+      "editor": "select",
+      "enum": [
+        "",
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ru",
+        "zh",
+        "ja",
+        "ko",
+        "ar",
+        "hi",
+        "nl",
+        "pl",
+        "tr",
+        "sv",
+        "da",
+        "fi",
+        "no",
+        "cs",
+        "ro",
+        "hu",
+        "id",
+        "vi",
+        "th",
+        "uk",
+        "he",
+        "fa",
+        "ms"
+      ],
+      "enumTitles": [
+        "Auto-detect",
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Russian",
+        "Chinese",
+        "Japanese",
+        "Korean",
+        "Arabic",
+        "Hindi",
+        "Dutch",
+        "Polish",
+        "Turkish",
+        "Swedish",
+        "Danish",
+        "Finnish",
+        "Norwegian",
+        "Czech",
+        "Romanian",
+        "Hungarian",
+        "Indonesian",
+        "Vietnamese",
+        "Thai",
+        "Ukrainian",
+        "Hebrew",
+        "Persian",
+        "Malay"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "maxPosts_per_username": {
+      "default": 10,
+      "description": "How many of each username's newest posts to check (after the date and pinned-post filters below). Every video among them is transcribed (each video of a carousel on its own); a post without a video gets a record with the status not_a_video. Public profiles need no sign-in, however many posts you ask for; a private profile needs your cookies.",
+      "example": 5,
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max Posts Per Username",
+      "type": "integer"
+    },
+    "newerThan": {
+      "dateType": "absolute",
+      "description": "Skip posts published before this date. Leave empty for no date filter. Must be a date from 2000-01-01 up to the day before the run. Applies to usernames only. The date is read from the post's id, so it can be off by up to a day.",
+      "editor": "datepicker",
+      "nullable": true,
+      "title": "Only posts newer than",
+      "type": "string"
+    },
+    "skipPinnedPosts": {
+      "default": false,
+      "description": "Leave out the posts a profile has pinned to the top of its grid. Applies to usernames only. A pinned post that is also the newest post cannot be recognised and stays in.",
+      "title": "Skip pinned posts",
+      "type": "boolean"
+    },
+    "transcriptionMethod": {
+      "default": "auto",
+      "description": "How to extract transcripts. 'auto' tries native Instagram captions first, then falls back to Whisper AI. 'native' only uses Instagram captions. 'whisper' always uses AI speech-to-text.",
+      "enum": [
+        "auto",
+        "native",
+        "whisper"
+      ],
+      "enumTitles": [
+        "Auto (recommended)",
+        "Native captions only",
+        "Whisper AI only"
+      ],
+      "prefill": "auto",
+      "title": "Transcription Method",
+      "type": "string"
+    },
+    "usernames": {
+      "description": "Usernames whose newest posts should be checked for videos. Each entry can be a username (with or without @) or a profile link such as https://www.instagram.com/natgeo/. Every video is transcribed (each video of a carousel on its own); a post without a video gets a record with the status not_a_video.",
+      "editor": "stringList",
+      "example": [
+        "natgeo",
+        "@nasa",
+        "https://www.instagram.com/bbcnews/"
+      ],
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 0,
+      "prefill": [],
+      "title": "Instagram Usernames or Profile Links",
+      "type": "array"
+    },
+    "videoUrls": {
+      "description": "List of Instagram video or reel URLs to transcribe. Supports /p/, /reel/, and /tv/ formats. Provide this, usernames, or both.",
+      "editor": "stringList",
+      "example": [
+        "https://www.instagram.com/reel/abc123xyz/",
+        "https://www.instagram.com/p/Dew5IIlNfMW/"
+      ],
+      "prefill": [
+        "https://www.instagram.com/p/Dew5IIlNfMW/"
+      ],
+      "title": "Instagram Video URLs",
+      "type": "array"
+    },
+    "whisperModel": {
+      "default": "base",
+      "description": "Whisper AI model size. Larger models are more accurate but use more memory and time. Only used when transcription method involves Whisper.",
+      "enum": [
+        "tiny",
+        "base",
+        "small"
+      ],
+      "enumTitles": [
+        "Tiny (fastest, ~39MB)",
+        "Base (balanced, ~74MB)",
+        "Small (most accurate, ~244MB)"
+      ],
+      "prefill": "base",
+      "title": "Whisper Model Size",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Instagram Transcript Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,458 @@
+# Instagram Transcript Scraper - Reels & Video
+
+Turn the spoken words of Instagram Reels and videos into clean, searchable text. Paste a list of `/reel/`, `/p/` or `/tv/` links and get one record per video: the full transcript, the creator, the caption, like and comment counts, and optionally a phrase-by-phrase breakdown with start and end times. You choose whether to rely on Instagram's own captions, on AI speech-to-text (Whisper), or on both. It is built for content teams, researchers, journalists and anyone who needs to read, quote or analyse what is said in short-form video instead of watching it.
+
+## What this actor does
+
+- **Three transcription methods:** Instagram's own captions, AI speech-to-text (Whisper), or `auto`, which tries captions first and falls back to Whisper.
+- **Timestamped segments:** optionally add a list of phrases, each with start and end time in seconds, for subtitles and quoting.
+- **Language control:** automatic language detection, or pick one of 29 languages for the AI transcription.
+- **Batch input:** transcribe many reels, posts and IGTV videos in a single run, with every record carrying its own status.
+- **Whole profiles:** give usernames or profile links and the actor transcribes the videos among each profile's newest posts. Public profiles need no sign-in, however many posts you ask for.
+- **Empty fields are omitted:** values Instagram does not provide are left out of the record rather than returned as `null`.
+
+## Output per video
+
+Every successfully processed video produces one record with these fields. A post with several videos (a carousel that mixes photos and videos) gets one record for each video, told apart by `videoIndex`; the photos in it are ignored.
+
+- `status` — `success` for a transcribed video (see the status table below for the failures)
+- `postUrl` — canonical Instagram URL of the video
+- `shortCode` — the short code in the URL that identifies the post
+- `videoIndex` — which video of the post this record is, counting only its videos (`1` for a reel or a single video)
+- `pk` — Instagram's numeric media ID
+- `id` — Instagram's combined media ID
+- `userId` — numeric ID of the creator
+- `userName` — creator's Instagram handle
+- `userFullName` — creator's display name
+- `avatarUri` — link to the creator's profile picture
+- `postDescription` — the caption written by the creator
+- `pubDate` — when the video was posted, ISO 8601 UTC (for example `2025-05-10T14:32:03Z`)
+- `likeCount` — number of likes at the time of the run
+- `commentCount` — number of comments at the time of the run
+- `thumbnailUrl` — link to the video's cover image
+- `videoUrl` — link to the highest-quality MP4
+- `audioUrl` — link to the audio track (only when Instagram exposes one)
+- `fullText` — the complete transcript as one string
+- `transcriptionMethod` — `native` (Instagram captions) or `whisper` (AI speech-to-text), showing how the transcript was produced
+- `segments` — only when `includeSegments` is on and phrases are available; a list of objects with `index` (starting at 0), `start` and `end` (seconds) and `text`
+- `createdAt` — when this record was created, ISO 8601 UTC
+
+A video that could not be transcribed gets a short record with only `postUrl` and a `status` that names the cause. The explanation, which video it was and what you can do about it, is in the run log, one line per video, followed by a closing `Done:` summary:
+
+| `status` | Meaning |
+|---|---|
+| `success` | A transcript was produced (an empty one when the video has no speech) |
+| `post_age_restricted` | The video sits behind an age check; it opens only with `cookies` of an account that may view it |
+| `post_is_private` | The video is in a private account; it opens only with `cookies` of an account that follows it |
+| `post_not_found` | The post was deleted, never existed, or is visible only to signed-in users |
+| `profile_not_found` | The profile does not exist, or was deleted or suspended |
+| `profile_is_private` | The profile is private; it opens only with `cookies` of an account that follows it |
+| `profile_age_restricted` | The profile sits behind an age check ("You must be 18 years old or over"); it opens only with `cookies` of an account that is old enough |
+| `profile_restricted` | Instagram hides the profile from visitors who are not signed in ("unavailable for certain audiences"); it may open with `cookies` |
+| `blocked` | Instagram kept refusing the request after several tries; run it again later |
+| `error` | Something unexpected went wrong; the log has the details |
+| `invalid_url` | The entry is not an Instagram post link |
+| `not_a_video` | The post is a photo or a photo-only carousel. A post found through a username gets this record too |
+| `no_video_file` | Instagram gave no video file for the post |
+| `no_transcript` | No captions exist and speech-to-text found nothing to transcribe |
+| `charge_limit_reached` | The run stopped at the limit you set |
+| `no_posts` | A profile you listed in `usernames` has no posts |
+| `cookies_unusable` | A private profile needed your `cookies` and Instagram did not accept them or could not be reached to check them |
+
+A profile that gives no posts is reported with the profile link as `profileUrl` (and no `postUrl`). While the run is going, the status message of the run shows a live count such as `Transcribed 12/20 videos - 2 need a sign-in`.
+
+A video that has no speech or no audio track is not treated as a failure: you get a normal record with an empty `fullText`.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `videoUrls` | array | – | Instagram video or reel links to transcribe. Supports `/p/`, `/reel/` and `/tv/` formats. Provide this, `usernames`, or both |
+| `usernames` | array | – | Instagram usernames whose newest posts should be checked for videos (up to 100). Each entry can be a username, `@username` or a profile link such as `https://www.instagram.com/natgeo/` |
+| `maxPosts_per_username` | integer | `10` | How many of each username's newest posts to check. Range 0–100; `0` reads nothing from usernames. Posts left out by the two filters below do not count. Every video among them is transcribed; a post without a video gets a `not_a_video` record. Public profiles need no sign-in; a private profile needs your `cookies` |
+| `newerThan` | string | – | Optional date (`YYYY-MM-DD`). Posts of a username published before it are skipped. Empty means no date filter. It must be from 2000-01-01 up to the day before the run, otherwise it is ignored with a warning in the log. Does not apply to links you give. The date is read from the post's id, so it can be off by up to a day |
+| `skipPinnedPosts` | boolean | `false` | Leave out the posts a profile has pinned to the top of its grid. Does not apply to links you give. Instagram does not mark pinned posts for a visitor who is not signed in, so they are recognised by their place and date; a pinned post that is also the profile's newest post cannot be told apart and stays in |
+| `transcriptionMethod` | string | `auto` | `auto` (captions first, then Whisper), `native` (Instagram captions only) or `whisper` (AI speech-to-text only) |
+| `whisperModel` | string | `base` | Whisper model size: `tiny`, `base` or `small`. Only used when Whisper is involved |
+| `language` | string | empty (auto-detect) | Language of the spoken audio: `en`, `es`, `fr`, `de`, `it`, `pt`, `ru`, `zh`, `ja`, `ko`, `ar`, `hi`, `nl`, `pl`, `tr`, `sv`, `da`, `fi`, `no`, `cs`, `ro`, `hu`, `id`, `vi`, `th`, `uk`, `he`, `fa`, `ms`. Only used when Whisper is active |
+| `includeSegments` | boolean | `false` | Add a `segments` list with per-phrase start and end times to each result |
+| `cookies` | string | – | Optional. Your own Instagram cookies as JSON, used for age-restricted videos and videos from private accounts your account follows. See Authentication below |
+
+### Example: transcribe a single reel
+
+```json
+{
+  "videoUrls": ["https://www.instagram.com/reel/DV29mBcMQwp/"],
+  "transcriptionMethod": "auto",
+  "whisperModel": "base"
+}
+```
+
+### Example: transcribe the latest videos of two profiles
+
+```json
+{
+  "usernames": ["natgeo", "https://www.instagram.com/nasa/"],
+  "maxPosts_per_username": 6
+}
+```
+
+Each profile's 6 newest posts are checked, and every video or Reel among them is transcribed. Posts without a video get a `not_a_video` record. Keep the number small until you know what a profile posts.
+
+### Example: timestamped transcripts for subtitles
+
+```json
+{
+  "videoUrls": [
+    "https://www.instagram.com/reel/DV29mBcMQwp/",
+    "https://www.instagram.com/p/DULBkEngpxg/"
+  ],
+  "transcriptionMethod": "auto",
+  "includeSegments": true
+}
+```
+
+### Example: Instagram captions only, using your own cookies
+
+```json
+{
+  "videoUrls": ["https://www.instagram.com/reel/DV29mBcMQwp/"],
+  "transcriptionMethod": "native",
+  "cookies": "<your cookies JSON>"
+}
+```
+
+## Example output
+
+```json
+{
+  "status": "success",
+  "postUrl": "https://www.instagram.com/p/DV29mBcMQwp/",
+  "shortCode": "DV29mBcMQwp",
+  "pk": "3852537424986049577",
+  "id": "3852537424986049577_16278726",
+  "postDescription": "Three quick tips for a calmer morning routine...",
+  "thumbnailUrl": "https://scontent-iad6-1.cdninstagram.com/v/thumbnail.jpg",
+  "videoUrl": "https://scontent-iad6-1.cdninstagram.com/v/video.mp4",
+  "pubDate": "2025-05-11T05:12:03Z",
+  "likeCount": 16799,
+  "commentCount": 1159,
+  "userId": "16278726",
+  "userName": "sample_wellness",
+  "userFullName": "Sample Wellness",
+  "avatarUri": "https://scontent-iad3-1.cdninstagram.com/v/avatar.jpg",
+  "fullText": "Here are three quick tips for a calmer morning routine. First, ...",
+  "transcriptionMethod": "whisper",
+  "createdAt": "2026-06-08T06:09:05.841Z"
+}
+```
+
+## Transcription methods
+
+### Auto (recommended)
+
+Tries Instagram's own captions first and falls back to Whisper when no captions exist. A good balance of speed and coverage for most jobs.
+
+### Native captions only
+
+Reads the captions Instagram generated for the video. This is the quickest option and needs no speech recognition, but captions may be missing on older posts, non-Reel content, or videos without speech. If none exist, the record comes back with the status `no_transcript` instead of a transcript.
+
+### Whisper AI
+
+Always runs AI speech-to-text (Whisper) on the video's audio, so any video with speech can be covered regardless of whether Instagram produced captions. Whisper transcripts (`transcriptionMethod: "whisper"`) are machine-generated and may contain errors.
+
+| Model | Size | Best for |
+|---|---|---|
+| `tiny` | ~39 MB | Fastest results, quick previews |
+| `base` | ~74 MB | Balanced speed and accuracy, most uses |
+| `small` | ~244 MB | Most accurate: accented speech, technical or specialised vocabulary |
+
+## Authentication
+
+Public videos need no sign-in. Instagram does not show every video to logged-out visitors, so some posts (age-restricted ones, or videos from private accounts) need a signed-in session, and only your own cookies can give one. Export your instagram.com cookies as JSON from a logged-in browser session using any cookie-export browser extension, then paste the JSON into the optional `cookies` field. The field is a secret input, so the Apify Console hides and encrypts it. Before a video is retried with them, the actor asks Instagram whether it recognises the cookies; if they are invalid, expired or signed out, the run log says so. Without cookies, those videos get their status (`age_restricted` or `is_private`) and no transcript, and the log says why. The actor does not sign in with any account of its own.
+
+For usernames the same applies: a public profile is always read without signing in, with or without cookies in the input, and any number of its posts can be listed. Only a private profile is read with your cookies, and it opens only if your account follows it. Without cookies a private profile is reported with the status `profile_is_private`.
+
+If your own cookies expire during a run, export them again from your browser and restart the run.
+
+### Cookie format
+
+The `cookies` field takes a **JSON array** of cookie objects, the format most cookie-export browser extensions call "JSON". Other export formats are not supported: a Netscape `cookies.txt` file or a raw `Cookie:` header string will be rejected. Each cookie needs at least `name`, `value` and `domain`, and the export must include the `sessionid` and `ds_user_id` cookies of the signed-in account. A cookie that has an expiry date (`expirationDate`, in seconds since 1970) must not be expired.
+
+One cookie looks like this (the value shown is a placeholder, paste your own export unchanged):
+
+```json
+[
+  {
+    "name": "sessionid",
+    "value": "<your sessionid value>",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  }
+]
+```
+
+<details>
+<summary>Show a complete example export (placeholder values)</summary>
+
+```json
+[
+  {
+    "name": "ps_n",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "datr",
+    "value": "EXAMPLE-datr-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ig_nrcb",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ds_user_id",
+    "value": "1234567890",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "csrftoken",
+    "value": "EXAMPLE-csrftoken-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ig_did",
+    "value": "00000000-0000-0000-0000-000000000000",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "ps_l",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "lax",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "wd",
+    "value": "1280x720",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "lax",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "mid",
+    "value": "EXAMPLE-mid-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "sessionid",
+    "value": "<your sessionid value>",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": null,
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "dpr",
+    "value": "1",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "no_restriction",
+    "session": false,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "expirationDate": 1893456000,
+    "storeId": null
+  },
+  {
+    "name": "rur",
+    "value": "EXAMPLE-rur-value",
+    "domain": ".instagram.com",
+    "hostOnly": false,
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "lax",
+    "session": true,
+    "firstPartyDomain": "",
+    "partitionKey": null,
+    "storeId": null
+  }
+]
+```
+
+</details>
+
+Treat the cookies like a password: they give access to your Instagram account, so never share them or post them publicly.
+
+## Things to know
+
+- **Media links expire.** `videoUrl`, `audioUrl`, `thumbnailUrl` and `avatarUri` are time-limited Instagram links that stop working after hours or days. Download anything you want to keep soon after the run, and do not treat them as permanent addresses.
+- **Private accounts.** A video from a private account can only be transcribed if the session used belongs to an account allowed to view it. Otherwise the record has the status `post_is_private`.
+- **Audio quality matters.** Whisper is less accurate with loud background music, several people talking at once, or very poor recordings.
+- **Captions are not guaranteed.** Instagram does not generate captions for every video; in `auto` mode those videos fall through to Whisper.
+- **Videos in carousels.** Every video of a carousel is transcribed on its own, with its own record. Instagram's own captions exist only for reels and video posts, so videos inside a carousel are always transcribed with speech-to-text.
+- **Posts without video.** A photo or a photo-only carousel, whether you linked it or it was found through a username, returns a record with the status `not_a_video`.
+- **Media rights.** Videos belong to their creators. The transcript is derived from their speech, so make sure you have the rights or permission before republishing it.
+
+## Use cases
+
+- **Podcast and video repurposing** — turn reels into blog posts, newsletters and quote cards without retyping them.
+- **Journalists and fact-checkers** — search what public figures and news accounts said in short clips and cite it accurately.
+- **Social media managers** — build subtitle files from timestamped segments for reposting in other formats.
+- **Market and trend researchers** — analyse spoken themes, product mentions and slang across a hashtag or niche of reels.
+- **Language learners and teachers** — collect transcripts of native-speaker clips in dozens of languages for study material.
+- **Accessibility teams** — provide text versions of video content for people who cannot listen to it.
+
+## Responsible use
+
+Instagram videos are public, but a transcript captures what identifiable people said, in their own voices and words, and that is personal data. Make sure you have a lawful basis (for example under the GDPR) for transcribing and storing it, keep transcripts only as long as you need them, and respect the people who appear in or speak in the videos. Do not use transcripts to profile, track or target minors, and do not extract or infer special categories of personal data from what speakers say, such as health, religion, political opinions or sexual orientation.
+
+## FAQ
+
+### Do I need an Instagram account?
+
+No, not for public videos. Only age-restricted videos and videos from private accounts need cookies of an account that can view them, which you paste into the optional `cookies` field.
+
+### Do I need to set up a proxy?
+
+No. The actor handles its connection to Instagram automatically. Just add your video links and run it.
+
+### Which transcription method should I pick?
+
+Start with `auto`. Choose `native` when you only want Instagram's own captions and do not need a transcript for videos that lack them. Choose `whisper` when you want consistent AI transcription for every video, or when you need to set the spoken language.
+
+### Which languages are supported?
+
+You can pick from 29 languages (English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Korean, Arabic, Hindi and more) or leave the field empty to detect the language automatically. The language setting applies to Whisper transcription only.
+
+### What happens if a video has no speech or only music?
+
+The record is still returned with an empty `fullText`. A silent video is not a failure and gets the status `success`.
+
+### How accurate are the transcripts?
+
+Whisper transcripts are machine-generated and can contain mistakes, especially with accents, fast speech, background music or specialised terms. The `small` model is the most accurate, and setting `language` explicitly helps with non-English videos. Always review important quotes before publishing.
+
+### Can I get timestamps for each phrase?
+
+Yes. Turn on `includeSegments` and each record gets a `segments` list with the start and end time of every phrase, in seconds.
+
+### Can I transcribe many videos at once?
+
+Yes. Add as many links as you need to `videoUrls`, or give `usernames` to transcribe the videos on whole profiles. They are processed one after another, and each gets its own record. Very large batches are subject to your plan limits.
+
+### Are the video and audio links in the output permanent?
+
+No. They are signed Instagram links that expire within hours or days. Download the media soon after the run if you need to keep it.
+
+### Is this affiliated with Instagram or Meta?
+
+No. This is an independent tool and is not affiliated with, endorsed by or sponsored by Instagram or Meta Platforms.
