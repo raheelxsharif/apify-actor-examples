@@ -1,0 +1,68 @@
+{
+  "properties": {
+    "maxSnapsPerUser": {
+      "default": 50,
+      "description": "Maximum number of story snaps to extract per user across all their highlights.",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max Snaps Per User",
+      "type": "integer"
+    },
+    "postedAfter": {
+      "description": "Only return snaps posted on or after this date (YYYY-MM-DD). Many creators' curated highlights stay live for months or years, so re-running without this filter re-collects the same old content every time — set it to your last run's date to fetch only new snaps. Leave empty to collect all available snaps (default).",
+      "editor": "datepicker",
+      "nullable": true,
+      "title": "Posted After",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional Apify proxy configuration. Public Snapchat profiles work without proxy; include for resilience.",
+      "editor": "proxy",
+      "nullable": true,
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "sources": {
+      "default": [
+        "curatedHighlights",
+        "activeStory"
+      ],
+      "description": "Which story sources to extract. curatedHighlights = saved highlight albums. activeStory = current public ephemeral story snaps.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "curatedHighlights",
+          "activeStory"
+        ],
+        "enumTitles": [
+          "Curated Highlights",
+          "Active Story"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "curatedHighlights",
+        "activeStory"
+      ],
+      "title": "Story Sources",
+      "type": "array"
+    },
+    "usernames": {
+      "description": "One or more Snapchat usernames or profile URLs. Accepted formats: bare username (djkhaled), @-prefixed (@djkhaled), add URL (https://www.snapchat.com/add/djkhaled), or profile URL (https://www.snapchat.com/@djkhaled).",
+      "editor": "stringList",
+      "prefill": [
+        "khaby.lame"
+      ],
+      "title": "Usernames or Profile URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "usernames"
+  ],
+  "schemaVersion": 1,
+  "title": "Snapchat User Stories Scraper Input",
+  "type": "object"
+}
