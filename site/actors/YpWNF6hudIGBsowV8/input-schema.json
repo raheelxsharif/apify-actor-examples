@@ -1,0 +1,90 @@
+{
+  "properties": {
+    "enrichDetails": {
+      "default": true,
+      "description": "If enabled, visits each place page to populate full details (placeId, phone, website, exact address, coordinates). Disables for faster runs that rely only on list-card data.",
+      "prefill": true,
+      "title": "Fetch full place details",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "en",
+      "description": "Language for Google Maps interface and results.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ja",
+        "ko",
+        "zh",
+        "ar",
+        "ru"
+      ],
+      "enumTitles": [
+        "English",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Japanese",
+        "Korean",
+        "Chinese",
+        "Arabic",
+        "Russian"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "listUrl": {
+      "description": "A Google Maps list / search URL (e.g. https://www.google.com/maps/search/Top+hotels+in+Paris or a shareable list URL with !3e3). Required when mode is 'listUrl'.",
+      "editor": "textfield",
+      "title": "List URL",
+      "type": "string"
+    },
+    "maxResults": {
+      "default": 30,
+      "description": "Maximum number of places to return from the public list/search feed; records are emitted progressively for large lists.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "topList",
+      "description": "Use 'topList' for a query like 'Top hotels in Paris' or 'Best coffee in Brooklyn'. Use 'listUrl' to scrape a specific Google Maps list/search URL.",
+      "editor": "select",
+      "enum": [
+        "topList",
+        "listUrl"
+      ],
+      "enumTitles": [
+        "Top list (text query)",
+        "Direct list URL"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy settings. The actor works reliably without a proxy from Apify cloud; enable proxy only if you hit rate limits.",
+      "editor": "proxy",
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "query": {
+      "description": "Curated list query — e.g. 'Top hotels in Paris', 'Best Italian restaurants in Rome', 'Things to do in Tokyo'. Required when mode is 'topList'.",
+      "editor": "textfield",
+      "prefill": "Top hotels in Paris",
+      "title": "Query (top list)",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Google Maps Place List Scraper",
+  "type": "object"
+}

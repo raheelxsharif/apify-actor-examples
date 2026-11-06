@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Dataset of Google Maps places within a set radius of a coordinate, each with name, rating, address, distance from center, and coordinates.",
+  "description": "Dataset of Google Maps places inside the requested radius, each with identity, contact, rating, hours, coordinates and distance from the center.",
   "properties": {
     "places": {
-      "description": "Dataset of places found near the input coordinates. Each record includes name, categoryName, totalScore, reviewsCount, address, phone, website, priceLevel, placeId, plusCode, location (lat/lng), distanceFromCenter (human-readable), distanceFromCenterMeters (numeric), googleMapsUrl, and scrapedAt.",
+      "description": "One row per place inside the radius. Fields are omitted when Google does not publish them.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Nearby Places",
       "type": "string"
     }
   },
-  "title": "Google Maps Radius Search Around a Coordinate Output"
+  "title": "Google Maps Nearby Radius Search Output"
 }

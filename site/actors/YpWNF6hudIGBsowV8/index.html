@@ -1,0 +1,356 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-k8D2DtYNt4tWS8J3OmyrgVBv6C3HrPRb4UZ6KJzudvo=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Maps Top List &amp; Ranked Places Extractor | Dataspryva</title><meta name="description" content="Pull the ranked places from a Google Maps Top list query like &#x27;Top hotels in Paris&#x27;, or from a list/search URL, with optional full place-page enrichment."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/"><meta property="og:title" content="Google Maps Top List &amp; Ranked Places Extractor | Dataspryva"><meta property="og:description" content="Pull the ranked places from a Google Maps Top list query like &#x27;Top hotels in Paris&#x27;, or from a list/search URL, with optional full place-page enrichment."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#webpage","name":"Google Maps Top List & Ranked Places Extractor","description":"Pull the ranked places from a Google Maps Top list query like 'Top hotels in Paris', or from a list/search URL, with optional full place-page enrichment.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#article","headline":"Google Maps Top List & Ranked Places Extractor","name":"Google Maps Top List & Ranked Places Extractor","description":"Pull the ranked places from a Google Maps Top list query like 'Top hotels in Paris', or from a list/search URL, with optional full place-page enrichment.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Maps Top List & Ranked Places Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/YpWNF6hudIGBsowV8/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Maps Top List &amp; Ranked Places Extractor</span></div><section id="overview"><h1 class="doc-title">Google Maps Top List &amp; Ranked Places Extractor</h1><p class="lede">Pull the ranked places from a Google Maps Top list query like &#x27;Top hotels in Paris&#x27;, or from a list/search URL, with optional full place-page enrichment.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-maps-top-list-and-ranked-places-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/YpWNF6hudIGBsowV8/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Use &#x27;topList&#x27; for a query like &#x27;Top hotels in Paris&#x27; or &#x27;Best coffee in Brooklyn&#x27;. Use &#x27;listUrl&#x27; to scrape a specific Google Maps list/search URL.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Curated list query — e.g. &#x27;Top hotels in Paris&#x27;, &#x27;Best Italian restaurants in Rome&#x27;, &#x27;Things to do in Tokyo&#x27;. Required when mode is &#x27;topList&#x27;.</td></tr><tr><td><code>listUrl</code></td><td>string</td><td>optional</td><td>A Google Maps list / search URL (e.g. https://www.google.com/maps/search/Top+hotels+in+Paris or a shareable list URL with !3e3). Required when mode is &#x27;listUrl&#x27;.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Use &#x27;topList&#x27; for a query like &#x27;Top hotels in Paris&#x27; or &#x27;Best coffee in Brooklyn&#x27;. Use &#x27;listUrl&#x27; to scrape a specific Google Maps list/search URL.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Curated list query — e.g. &#x27;Top hotels in Paris&#x27;, &#x27;Best Italian restaurants in Rome&#x27;, &#x27;Things to do in Tokyo&#x27;. Required when mode is &#x27;topList&#x27;.</td></tr><tr><td><code>listUrl</code></td><td>string</td><td>optional</td><td>A Google Maps list / search URL (e.g. https://www.google.com/maps/search/Top+hotels+in+Paris or a shareable list URL with !3e3). Required when mode is &#x27;listUrl&#x27;.</td></tr><tr><td><code>maxResults</code></td><td>integer</td><td>optional</td><td>Maximum number of places to return from the public list/search feed; records are emitted progressively for large lists.</td></tr><tr><td><code>enrichDetails</code></td><td>boolean</td><td>optional</td><td>If enabled, visits each place page to populate full details (placeId, phone, website, exact address, coordinates). Disables for faster runs that rely only on list-card data.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Language for Google Maps interface and results.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional proxy settings. The actor works reliably without a proxy from Apify cloud; enable proxy only if you hit rate limits.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;enrichDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;If enabled, visits each place page to populate full details (placeId, phone, website, exact address, coordinates). Disables for faster runs that rely only on list-card data.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Fetch full place details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;language&quot;: {
+      &quot;default&quot;: &quot;en&quot;,
+      &quot;description&quot;: &quot;Language for Google Maps interface and results.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;en&quot;,
+        &quot;es&quot;,
+        &quot;fr&quot;,
+        &quot;de&quot;,
+        &quot;it&quot;,
+        &quot;pt&quot;,
+        &quot;ja&quot;,
+        &quot;ko&quot;,
+        &quot;zh&quot;,
+        &quot;ar&quot;,
+        &quot;ru&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;English&quot;,
+        &quot;Spanish&quot;,
+        &quot;French&quot;,
+        &quot;German&quot;,
+        &quot;Italian&quot;,
+        &quot;Portuguese&quot;,
+        &quot;Japanese&quot;,
+        &quot;Korean&quot;,
+        &quot;Chinese&quot;,
+        &quot;Arabic&quot;,
+        &quot;Russian&quot;
+      ],
+      &quot;title&quot;: &quot;Language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;listUrl&quot;: {
+      &quot;description&quot;: &quot;A Google Maps list / search URL (e.g. https://www.google.com/maps/search/Top+hotels+in+Paris or a shareable list URL with !3e3). Required when mode is &#x27;listUrl&#x27;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;List URL&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxResults&quot;: {
+      &quot;default&quot;: 30,
+      &quot;description&quot;: &quot;Maximum number of places to return from the public list/search feed; records are emitted progressively for large lists.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Max Results&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;topList&quot;,
+      &quot;description&quot;: &quot;Use &#x27;topList&#x27; for a query like &#x27;Top hotels in Paris&#x27; or &#x27;Best coffee in Brooklyn&#x27;. Use &#x27;listUrl&#x27; to scrape a specific Google Maps list/search URL.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;topList&quot;,
+        &quot;listUrl&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Top list (text query)&quot;,
+        &quot;Direct list URL&quot;
+      ],
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Optional proxy settings. The actor works reliably without a proxy from Apify cloud; enable proxy only if you hit rate limits.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;title&quot;: &quot;Proxy Configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;query&quot;: {
+      &quot;description&quot;: &quot;Curated list query — e.g. &#x27;Top hotels in Paris&#x27;, &#x27;Best Italian restaurants in Rome&#x27;, &#x27;Things to do in Tokyo&#x27;. Required when mode is &#x27;topList&#x27;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;Top hotels in Paris&quot;,
+      &quot;title&quot;: &quot;Query (top list)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Google Maps Place List Scraper&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>places</code></td><td>string</td><td>optional</td><td>Each item contains only fields observed on the public list or place page.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Ranked places from a Google Maps Top list or list/search URL, with rank, rating and optional full place details.&quot;,
+  &quot;properties&quot;: {
+    &quot;places&quot;: {
+      &quot;description&quot;: &quot;Each item contains only fields observed on the public list or place page.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Places&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Google Maps Top List &amp; Ranked Places Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;detailed&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;
+      },
+      &quot;title&quot;: &quot;Detailed Place Data&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;rank&quot;,
+          &quot;listSource&quot;,
+          &quot;name&quot;,
+          &quot;categoryName&quot;,
+          &quot;description&quot;,
+          &quot;totalScore&quot;,
+          &quot;reviewsCount&quot;,
+          &quot;ratingHistogram&quot;,
+          &quot;priceLevel&quot;,
+          &quot;price&quot;,
+          &quot;address&quot;,
+          &quot;plusCode&quot;,
+          &quot;location&quot;,
+          &quot;phone&quot;,
+          &quot;website&quot;,
+          &quot;menuLink&quot;,
+          &quot;bookingLinks&quot;,
+          &quot;hours&quot;,
+          &quot;hoursStatus&quot;,
+          &quot;isOpenNow&quot;,
+          &quot;serviceOptions&quot;,
+          &quot;amenities&quot;,
+          &quot;highlights&quot;,
+          &quot;popularTimesSummary&quot;,
+          &quot;photosSample&quot;,
+          &quot;photoCount&quot;,
+          &quot;claimed&quot;,
+          &quot;temporarilyClosed&quot;,
+          &quot;permanentlyClosed&quot;,
+          &quot;placeId&quot;,
+          &quot;featureId&quot;,
+          &quot;googleMapsUrl&quot;,
+          &quot;sourceUrl&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;address&quot;: {
+            &quot;label&quot;: &quot;Address&quot;
+          },
+          &quot;categoryName&quot;: {
+            &quot;label&quot;: &quot;Category&quot;
+          },
+          &quot;googleMapsUrl&quot;: {
+            &quot;label&quot;: &quot;Maps URL&quot;
+          },
+          &quot;highlights&quot;: {
+            &quot;label&quot;: &quot;Highlights&quot;
+          },
+          &quot;name&quot;: {
+            &quot;label&quot;: &quot;Name&quot;
+          },
+          &quot;price&quot;: {
+            &quot;label&quot;: &quot;Price (as shown)&quot;
+          },
+          &quot;priceLevel&quot;: {
+            &quot;label&quot;: &quot;Price Level&quot;
+          },
+          &quot;rank&quot;: {
+            &quot;label&quot;: &quot;Rank&quot;
+          },
+          &quot;reviewsCount&quot;: {
+            &quot;label&quot;: &quot;Reviews&quot;
+          },
+          &quot;totalScore&quot;: {
+            &quot;label&quot;: &quot;Rating&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Top List Places&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;rank&quot;,
+          &quot;name&quot;,
+          &quot;categoryName&quot;,
+          &quot;totalScore&quot;,
+          &quot;reviewsCount&quot;,
+          &quot;address&quot;,
+          &quot;priceLevel&quot;,
+          &quot;price&quot;,
+          &quot;highlights&quot;,
+          &quot;googleMapsUrl&quot;,
+          &quot;sourceUrl&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-maps-top-list-ranked-places-extractor">Google Maps Top List &amp; Ranked Places Extractor</h2>
+<p>Google Maps shows curated &quot;Top&quot; lists for queries like <em>Top hotels in Paris</em> or <em>Best coffee in Brooklyn</em>, each place ranked in the order Google displays it. This actor captures that ranked feed — from a text query or from a Google Maps list/search URL you already have — and can enrich every entry with the detail a place's own page publishes.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Runs a curated &quot;top list&quot; style query and returns the ranked feed Google shows for it.</li>
+<li>Scrapes a specific Google Maps list or search URL directly instead of a query.</li>
+<li>Keeps each place's <code>rank</code> so you can preserve Google's own ordering.</li>
+<li>Optionally visits each place's own page to add phone, website, exact address, coordinates, hours, amenities and more.</li>
+<li>Omits any field Google didn't show for that place — no record contains <code>null</code> or empty-string placeholders.</li>
+</ul>
+<h2 id="readme-output-per-place">Output per place</h2>
+<pre><code class="language-json">{
+  &quot;recordType&quot;: &quot;business&quot;,
+  &quot;listSource&quot;: &quot;Top hotels in Paris&quot;,
+  &quot;rank&quot;: 1,
+  &quot;name&quot;: &quot;Hôtel Le Bristol Paris&quot;,
+  &quot;categoryName&quot;: &quot;5-star hotel&quot;,
+  &quot;totalScore&quot;: 4.7,
+  &quot;reviewsCount&quot;: 2891,
+  &quot;address&quot;: &quot;112 Rue du Faubourg Saint-Honoré, 75008 Paris, France&quot;,
+  &quot;phone&quot;: &quot;+33 1 53 43 43 00&quot;,
+  &quot;website&quot;: &quot;https://www.oetkercollection.com/...&quot;,
+  &quot;priceLevel&quot;: &quot;$$$$&quot;,
+  &quot;price&quot;: &quot;PKR 980K&quot;,
+  &quot;placeId&quot;: &quot;ChIJ...&quot;,
+  &quot;featureId&quot;: &quot;0x...:0x...&quot;,
+  &quot;location&quot;: { &quot;lat&quot;: 48.8718, &quot;lng&quot;: 2.3163 },
+  &quot;googleMapsUrl&quot;: &quot;https://www.google.com/maps/place/...&quot;,
+  &quot;highlights&quot;: [&quot;Pool&quot;, &quot;Spa&quot;, &quot;Restaurant&quot;],
+  &quot;amenities&quot;: [&quot;Free Wi-Fi&quot;, &quot;Paid breakfast&quot;, &quot;Parking&quot;, &quot;Accessible&quot;, &quot;Indoor pool&quot;],
+  &quot;sourceUrl&quot;: &quot;https://www.google.com/maps/place/...&quot;,
+  &quot;scrapedAt&quot;: &quot;2026-06-16T08:00:00+00:00&quot;
+}
+</code></pre>
+<p>Key fields explained:</p>
+<ul>
+<li><code>placeId</code> is the canonical <code>ChIJ...</code> token. A legacy <code>0x...:0x...</code> token, when that's all the page exposes, is reported separately as <code>featureId</code> and never relabeled as <code>placeId</code>.</li>
+<li><code>priceLevel</code> and <code>price</code> are different signals: <code>priceLevel</code> is Google's standing price band (<code>$$$$</code>), while <code>price</code> is whatever price string Google prints on the list card itself (often a nightly rate), returned verbatim since it's viewer-localized and can vary between page loads. It's omitted when no price is shown on the card.</li>
+<li><code>highlights</code> is the short set of feature pills on the <strong>list card</strong> (typically 3–5 items). <code>amenities</code>, only present with <code>enrichDetails: true</code>, is the fuller set of amenity badges from the place's own page, including ones behind &quot;View more amenities&quot; — published exactly as Google displays them, with negative badges (e.g. &quot;Pool unavailable&quot;) excluded.</li>
+<li>With <code>enrichDetails: true</code>, a record may also carry <code>description</code>, <code>plusCode</code>, <code>ratingHistogram</code>, <code>hours</code>, <code>hoursStatus</code>, <code>isOpenNow</code>, <code>serviceOptions</code>, <code>menuLink</code>, <code>bookingLinks</code>, <code>photosSample</code>, <code>photoCount</code>, <code>popularTimesSummary</code>, <code>claimed</code>, <code>temporarilyClosed</code>, and <code>permanentlyClosed</code>, whenever Google publishes them for that place.</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>String (select)</td>
+<td><code>topList</code></td>
+<td><code>topList</code> (text query) or <code>listUrl</code> (direct URL).</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>String</td>
+<td>–</td>
+<td>Curated list query, e.g. &quot;Best Italian restaurants in Rome&quot; (required when <code>mode=topList</code>).</td>
+</tr>
+<tr>
+<td><code>listUrl</code></td>
+<td>String</td>
+<td>–</td>
+<td>A Google Maps list or search URL (required when <code>mode=listUrl</code>).</td>
+</tr>
+<tr>
+<td><code>maxResults</code></td>
+<td>Integer</td>
+<td><code>30</code></td>
+<td>Requested ceiling on places returned (1–100,000); Google's own feed may expose fewer.</td>
+</tr>
+<tr>
+<td><code>enrichDetails</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Visit each place's own page for full details.</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>String (select)</td>
+<td><code>en</code></td>
+<td>Google Maps interface language — <code>en</code>, <code>es</code>, <code>fr</code>, <code>de</code>, <code>it</code>, <code>pt</code>, <code>ja</code>, <code>ko</code>, <code>zh</code>, <code>ar</code>, or <code>ru</code>.</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>Object</td>
+<td>–</td>
+<td>Optional proxy settings; the actor works without one in normal use.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-curated-hotel-list">Curated hotel list</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;topList&quot;,
+  &quot;query&quot;: &quot;Top hotels in Paris&quot;,
+  &quot;maxResults&quot;: 10,
+  &quot;language&quot;: &quot;en&quot;
+}
+</code></pre>
+<h3 id="readme-lightweight-restaurant-list-card-data-only">Lightweight restaurant list (card data only)</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;topList&quot;,
+  &quot;query&quot;: &quot;Best sushi restaurants in Tokyo&quot;,
+  &quot;maxResults&quot;: 25,
+  &quot;enrichDetails&quot;: false,
+  &quot;language&quot;: &quot;ja&quot;
+}
+</code></pre>
+<h3 id="readme-a-specific-google-maps-list-url">A specific Google Maps list URL</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;listUrl&quot;,
+  &quot;listUrl&quot;: &quot;https://www.google.com/maps/search/top+coffee+shops+in+Seattle&quot;,
+  &quot;maxResults&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Travel and hospitality research — compile top hotels or restaurants per city.</li>
+<li>Local SEO and competitor analysis for a category and area.</li>
+<li>Lead generation for hospitality or food-and-beverage outreach.</li>
+<li>Building &quot;things to do&quot; content from curated city lists.</li>
+<li>Site-selection research by comparing ranked places across cities.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Does it need cookies or an API key?</strong>
+No, every mode works against public Google Maps pages.</p>
+<p><strong>Will it work on the Apify free plan?</strong>
+Yes, no login or cookies are required.</p>
+<p><strong>How many places can I actually get?</strong>
+You can set <code>maxResults</code> up to 100,000, but a single public Google feed commonly exposes around 120 or fewer cards; the actor keeps going if Google's feed exposes more.</p>
+<p><strong>Will <code>highlights</code> show up for every place?</strong>
+No, Google only prints feature pills on certain card types, mainly hotels. Restaurants, cafés and attractions usually get a short description instead.</p>
+<p><strong>How complete is <code>amenities</code>?</strong>
+It's the whole set of badges Google publishes on the place's own page with <code>enrichDetails: true</code>, including ones only revealed behind &quot;View more amenities&quot; — never a hand-picked subset. It's omitted entirely when Google shows no amenity strip for that place.</p>
+<p><strong>Does it support non-English Google Maps?</strong>
+Yes, pick any of the 11 languages in the <code>language</code> dropdown.</p>
+<p><strong>What happens if Google blocks the request or serves a degraded page?</strong>
+The run's status message tells the two cases apart: a genuinely empty result set reads &quot;No places found for this query or list URL,&quot; while a page that never rendered a results view reads as an upstream block, so a failed fetch is never reported as a legitimate zero-result run.</p>
+<p><strong>Is this affiliated with Google?</strong>
+No. This actor is an independent tool that reads publicly available Google Maps pages and is not affiliated with, endorsed by, or sponsored by Google.</p>
+<p>You are responsible for using this public data lawfully and in keeping with Google's own terms.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/YpWNF6hudIGBsowV8/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>jo4hOrzXjpTCM8LcA</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
