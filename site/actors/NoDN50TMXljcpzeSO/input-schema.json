@@ -1,0 +1,92 @@
+{
+  "description": "Crawl an Amazon Brand Store (/stores/{Brand}/page/{ID}) - navigation, creative modules, and every validated product link on the page(s). Provide storeUrls directly, or productUrls/asins to auto-resolve the brand's store link from the product page.",
+  "properties": {
+    "asins": {
+      "default": [],
+      "description": "Product ASINs on amazon.com. Same resolution behavior as productUrls.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "ASINs (resolve brand store, amazon.com)",
+      "type": "array"
+    },
+    "crawlSubpages": {
+      "default": true,
+      "description": "Follow the store's navigation menu (HOME, FEATURED DEALS, SSD, ...) and crawl every linked subpage, not just the landing page.",
+      "prefill": false,
+      "title": "Crawl subpages",
+      "type": "boolean"
+    },
+    "includeAssets": {
+      "default": true,
+      "description": "Also emit module/creative-asset records (images, video, CTA text, shoppable-image hotspots) found on each store page, not just product records.",
+      "prefill": true,
+      "title": "Include creative assets",
+      "type": "boolean"
+    },
+    "maxDepth": {
+      "default": 1,
+      "description": "How many navigation-link hops to follow from the landing page when crawlSubpages is enabled (1 = landing page's direct subpages only).",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max navigation depth",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 10,
+      "description": "Hard cap on the total number of store pages (landing + subpages) fetched per store.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max store pages to fetch",
+      "type": "integer"
+    },
+    "maxProducts": {
+      "default": 200,
+      "description": "Hard cap on the number of distinct product (ASIN) records emitted per store.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max products per store",
+      "type": "integer"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Amazon product (/dp/{ASIN}) URLs. The actor visits each product page, finds its \"Visit the {Brand} Store\" link, and crawls that store instead.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs (resolve brand store)",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Apify proxy. AUTO (datacenter) is used by default with homepage-priming; the actor escalates to RESIDENTIAL automatically only if it keeps getting blocked.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "storeUrls": {
+      "default": [
+        "https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633"
+      ],
+      "description": "Amazon Brand Store URLs, e.g. `https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633`. At least one of storeUrls / productUrls / asins is required.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633"
+      ],
+      "title": "Brand Store URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "storeUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "Amazon Brand Store Scraper Input",
+  "type": "object"
+}
