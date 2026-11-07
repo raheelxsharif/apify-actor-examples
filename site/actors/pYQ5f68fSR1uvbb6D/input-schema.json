@@ -1,0 +1,152 @@
+{
+  "properties": {
+    "channelUrls": {
+      "description": "Public YouTube channel URLs, handles, or channel IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "prefill": [
+        "https://www.youtube.com/@RickAstleyYT",
+        "https://www.youtube.com/@Apify"
+      ],
+      "title": "Channel URLs",
+      "type": "array"
+    },
+    "includeLinks": {
+      "default": true,
+      "description": "Include external links that YouTube exposes on the public About page.",
+      "prefill": true,
+      "title": "Include public external links",
+      "type": "boolean"
+    },
+    "includePlaylists": {
+      "default": false,
+      "description": "Add public playlist rows from the channel Playlists tab to the profile row. Use the dedicated playlist actor for larger catalogs.",
+      "prefill": false,
+      "title": "Include public playlists",
+      "type": "boolean"
+    },
+    "includePostComments": {
+      "default": false,
+      "description": "Include comments and exposed replies nested inside combined Community Posts rows when YouTube returns them publicly.",
+      "prefill": false,
+      "title": "Include post comments",
+      "type": "boolean"
+    },
+    "includePosts": {
+      "default": false,
+      "description": "Add public Community Posts rows, including exposed media and polls, to the profile row. Use the dedicated posts actor for larger catalogs.",
+      "prefill": false,
+      "title": "Include community posts",
+      "type": "boolean"
+    },
+    "market": {
+      "default": "US",
+      "description": "Country code used for the public localized YouTube page.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "JP",
+        "KR",
+        "BR",
+        "IN",
+        "MX",
+        "IT",
+        "ES",
+        "NL",
+        "PL",
+        "RU",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "ZA",
+        "SG",
+        "HK",
+        "TW",
+        "ID",
+        "MY",
+        "TH",
+        "PH",
+        "AR",
+        "CO",
+        "CL"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Germany",
+        "France",
+        "Japan",
+        "South Korea",
+        "Brazil",
+        "India",
+        "Mexico",
+        "Italy",
+        "Spain",
+        "Netherlands",
+        "Poland",
+        "Russia",
+        "Sweden",
+        "Norway",
+        "Denmark",
+        "Finland",
+        "South Africa",
+        "Singapore",
+        "Hong Kong",
+        "Taiwan",
+        "Indonesia",
+        "Malaysia",
+        "Thailand",
+        "Philippines",
+        "Argentina",
+        "Colombia",
+        "Chile"
+      ],
+      "title": "Market",
+      "type": "string"
+    },
+    "maxPlaylists": {
+      "default": 20,
+      "description": "Maximum public playlist rows to nest in each combined profile row when includePlaylists is enabled.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum combined playlists",
+      "type": "integer"
+    },
+    "maxPostComments": {
+      "default": 20,
+      "description": "Maximum public comments and replies to retain inside each combined post when includePostComments is enabled.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum comments per post",
+      "type": "integer"
+    },
+    "maxPosts": {
+      "default": 20,
+      "description": "Maximum public Community Posts rows to nest in each combined profile row when includePosts is enabled.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum combined posts",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "channelUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "YouTube Channel Profile Scraper Input",
+  "type": "object"
+}
