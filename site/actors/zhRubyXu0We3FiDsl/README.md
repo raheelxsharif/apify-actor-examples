@@ -1,69 +1,74 @@
-# Twitter (X) Space Scraper
+# X Space Collector — Metadata, Hosts, Replay & Transcripts
 
-Collect public X Spaces without login. Get the Space title, state, schedule, live and replay listener counts, host and participants, the replay audio link with a downloadable file, and an optional spoken-word transcript — all from public Space links, Space IDs or the post that announces a Space.
+Collect public X (Twitter) Spaces without an account, cookies or API keys. Start from Space links, IDs or announcement posts — or let the actor discover Spaces from a keyword, hashtag or host handle. Every run returns clean, omit-empty records for the Space, its people, its replay audio and, when requested, a timed transcript.
 
-## What this actor does
+## Three ways to find Spaces
 
-- **Multiple input styles:** Space links, bare Space IDs, or an announcement post link — the actor finds the Space automatically
-- **Full Space metadata:** title, state, schedule and run times, duration, listener counts, topics, host and participant profiles
-- **Participants as rows:** one row per host, speaker and listener for easy filtering and export
-- **Replay audio:** the streaming replay link plus a downloadable replay file
-- **Transcripts:** captions when available, Whisper AI otherwise, with an optional one-row-per-segment mode
-- **Empty fields are omitted**
+| Mode | Input | What happens |
+|---|---|---|
+| Exact Spaces | `spaceUrls` | Reads a Space link, a bare Space ID, or the post that announces a Space. The Space card is resolved automatically. |
+| Keyword / hashtag | `searchQueries` | Reads recent public posts matching the query and resolves the Spaces they announce. |
+| Host | `hostUsernames` | Reads a host's recent public posts (and their search results) and resolves the Spaces they announce. |
 
-## Output per Space
+All three modes can run in one go. Discovered Spaces are capped by `maxSpaces`; pasted links and IDs are always collected. When several inputs resolve to the same Space (for example its link and its announcement post), it is collected once. `spaceState` can keep only live, scheduled, ended or any Spaces.
 
-Every run returns rows with a `type`:
+## What you get
+
+Each run writes rows with a `type`:
 
 | type | Meaning |
 |---|---|
 | `space` | One Space with metadata, counts, host and participants |
 | `space participant` | One row per host, speaker or listener |
-| `video transcript` | The Space transcript with timed segments |
-| `space transcript segment` | One row per transcript segment (when segment rows are enabled) |
-| `status` | A problem row (invalid link, deleted Space, rate limit, unavailable replay); always contains a `message` |
+| `video transcript` | The transcript summary with timed segments |
+| `space transcript segment` | One row per timed segment (optional) |
+| `status` | An honest problem row (invalid link, deleted Space, rate limit, unavailable replay) |
 
-### Space row fields
+### Space row
 
-- `id`, `url`, `title`, `state` (`Live`, `Ended` or `Scheduled`)
-- `createdAt`, `scheduledStart`, `startedAt`, `endedAt`, `durationSeconds`, `updatedAt`
-- `listenersLive`, `listenersReplay`, `replayAvailable`
-- `mediaKey`, `topics[]`, `isMuted`
-- `creator` — full profile object (username, name, bio, followers, profile image, verification)
-- `participants[]` — each with `role` (`admin`, `speaker` or `listener`) and the full `user` profile
-- `sourceTweetId`, `sourceTweetUrl` — when you pasted the announcement post
-- `replayAudioUrl` — the streaming replay link (when replay audio is requested)
-- `replayAudioFileUrl`, `replayAudioFileBytes`, `replayAudioContentType` — the downloadable replay file (when one can be produced)
-- `collectedAt`
+- **Identity:** `id`, `url`, `title`, `state`, `contentType`
+- **Times:** `createdAt`, `scheduledStart`, `startedAt`, `endedAt`, `durationSeconds`, `updatedAt`, `replayStartSeconds`
+- **Audience:** `listenersLive`, `listenersReplay`, `replayAvailable`
+- **People:** `creator` (full public profile), `hostId`, `hostUsername`, `hostName`, `participants[]`, `participantCounts`
+- **Space settings:** `topics`, `topicIds`, `mentionedUserIds`, `isMuted`, `isLocked`, `isEmployeeOnly`, `disallowJoin`, `noIncognito`, `conversationControls`, `maxAdminCapacity`, `maxGuestSessions`, `narrowCastSpaceType`
+- **Replay:** `replayAudioUrl`, `replayAudioFileUrl`, `replayAudioFileBytes`, `replayAudioContentType`, `replayAudioDurationSeconds`
+- **Source:** `sourceTweetId`, `sourceTweetUrl` when you started from an announcement post
+- `mediaKey`, `collectedAt`
 
-### Participant row fields
+### Participant row
 
-- `spaceId`, `spaceUrl`, `spaceTitle`, `participantIndex`
-- `role`, `userId`, `username`, `name`, `bio`
-- `followers`, `following`, `profileImageUrl`, `isBlueVerified`, `verified`
-- `collectedAt`
+`spaceId`, `spaceUrl`, `spaceTitle`, `participantIndex`, `role`, `userId`, `username`, `name`, `bio`, `location`, `website`, `followers`, `following`, `postCount`, `profileImageUrl`, `bannerUrl`, `isBlueVerified`, `verified`, `verifiedType`, `periscopeUserId`, `isMutedByAdmin`, `isMutedByGuest`, `collectedAt`.
 
-### Transcript row fields
+### Transcript row
 
-- `spaceId`, `spaceUrl`, `title`
-- `language`, `transcriptionMethod` (`captions` or `ai`), `modelUsed`
-- `segmentCount`, `fullTranscript`, `segments[]` (`index`, `start`, `end`, `text`)
-- `collectedAt`
+`spaceId`, `spaceUrl`, `title`, `language`, `transcriptionMethod` (`captions` or `ai`), `modelUsed`, `segmentCount`, `fullTranscript`, `segments[]` (`index`, `start`, `end`, `text`), `collectedAt`.
+
+Empty fields are omitted at every depth. There are no `null` values in the dataset.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `spaceUrls` | array | – | Space links, Space IDs, or an announcement post link (at least one required) |
-| `includeParticipants` | boolean | `true` | Host and participants on the Space row + one participant row each |
-| `includeReplayAudio` | boolean | `false` | Streaming replay link + downloadable replay file |
-| `includeTranscript` | boolean | `false` | Produce a transcript of the replay audio |
-| `transcriptSegmentsAsRows` | boolean | `false` | Also emit one row per transcript segment |
-| `transcriptionMethod` | string | `auto` | `auto` (captions first, then AI), `captions` (fastest), `ai` (Whisper) |
-| `whisperModel` | string | `base` | `tiny`, `base`, `small`, `medium`, `large-v3` |
-| `proxyConfiguration` | object | – | Optional, for large or repeated runs |
+| `spaceUrls` | array | – | Space links, Space IDs, or announcement post links |
+| `searchQueries` | array | – | Keywords or hashtags for Space discovery |
+| `hostUsernames` | array | – | Handles whose recent posts announce Spaces |
+| `maxSpaces` | integer | `20` | Cap for discovered Spaces (1–200) |
+| `spaceState` | string | `any` | `any`, `live`, `upcoming` or `ended` |
+| `includeParticipants` | boolean | `true` | Participant list on the Space row + participant rows |
+| `includeParticipantProfiles` | boolean | `true` | Enrich participant stubs with public profile details |
+| `maxParticipantProfiles` | integer | `50` | Profile lookups per Space (0 = all) |
+| `includeReplayAudio` | boolean | `false` | Replay HLS link + downloadable audio file |
+| `includeTranscript` | boolean | `false` | Produce a transcript from captions or Whisper |
+| `transcriptSegmentsAsRows` | boolean | `false` | Emit one row per transcript segment |
+| `transcriptionMethod` | string | `auto` | `auto`, `captions` or `ai` |
+| `whisperModel` | string | `base` | `tiny`, `base`, `small`, `medium` or `large-v3` |
+| `proxyConfiguration` | object | – | Optional; automatic fallback is built in |
 
-### Example: metadata and participants
+At least one of `spaceUrls`, `searchQueries` or `hostUsernames` is needed.
+
+### Examples
+
+Metadata and participants:
 
 ```json
 {
@@ -72,27 +77,38 @@ Every run returns rows with a `type`:
 }
 ```
 
-### Example: replay audio file
+Discover by keyword, keep only ended Spaces:
 
 ```json
 {
-  "spaceUrls": ["1YpKkZgnrDXxj", "https://x.com/i/spaces/1YpKkZgnrDXxj"],
-  "includeReplayAudio": true
+  "searchQueries": ["#Space", "NASA"],
+  "spaceState": "ended",
+  "maxSpaces": 10
 }
 ```
 
-### Example: transcript with segment rows
+Discover from hosts:
 
 ```json
 {
-  "spaceUrls": ["https://x.com/i/spaces/1YpKkZgnrDXxj"],
+  "hostUsernames": ["NASA", "@SpaceX"],
+  "maxSpaces": 5
+}
+```
+
+Replay audio with a transcript:
+
+```json
+{
+  "spaceUrls": ["1YpKkZgnrDXxj"],
+  "includeReplayAudio": true,
   "includeTranscript": true,
   "transcriptionMethod": "auto",
   "transcriptSegmentsAsRows": true
 }
 ```
 
-### Example record
+### Example Space record
 
 ```json
 {
@@ -108,49 +124,51 @@ Every run returns rows with a `type`:
   "listenersLive": 47951,
   "listenersReplay": 112570,
   "replayAvailable": true,
-  "mediaKey": "28_1549415139677327362",
-  "topics": ["Space"],
-  "creator": { "username": "NASA", "name": "NASA" },
-  "participants": [{ "role": "speaker", "username": "Space_Station" }],
-  "collectedAt": "2026-10-08T09:15:00+00:00"
+  "hostUsername": "NASA",
+  "participantCounts": {"total": 10, "admin": 1, "speaker": 9},
+  "topics": ["NASA", "Science", "Space"],
+  "collectedAt": "2026-11-07T09:15:00+00:00"
 }
 ```
 
-## Use cases
+## How discovery works
 
-- **Community research** — capture speakers, topics and audience size for public Spaces
-- **Media monitoring** — archive broadcasts relevant to your industry as soon as they end
-- **Transcripts** — turn long-form audio into searchable, timestamped text
-- **Audience analytics** — compare live vs replay listeners across Spaces
-- **Creator tooling** — pull participant lists and replay files for recaps and show notes
-- **Compliance and archiving** — keep replay audio and metadata for public events
+Spaces are discovered from public posts, not from a private search index. The actor reads recent matching posts through X's public guest surfaces and resolves each post's Space card. This keeps the actor cookieless. Consequences:
+
+- Discovery looks at recent public posts, not the entire archive.
+- A Space with no public announcement post cannot be discovered by keyword or host. Paste its link or ID instead.
+- Guest search is the least reliable public surface; a query can return fewer posts at busy times. The actor retries and falls back to the host's own timeline.
+- X's signed-in Space search and topic browser are not available to guest callers. They are deliberately not faked.
 
 ## FAQ
 
-**Do I need a Twitter/X account or cookies?** No. The actor is fully cookieless and reads only public Spaces.
+**Do I need an X account, cookies or an API key?** No. The actor is fully cookieless and reads only public Spaces, public posts and public profiles.
 
-**Can it collect a Space from an announcement post?** Yes. Paste the post link and the actor finds the Space inside it automatically. If the post does not contain a Space, you get a clear `status` row.
+**Does it work with private or deleted Spaces?** No. They produce a clear `status` row.
 
-**Why is replay audio sometimes unavailable?** Live Spaces have no replay yet, and some Spaces are not kept available for replay. In both cases you get an honest `status` row explaining why.
+**Why is replay audio sometimes unavailable?** Live Spaces have no replay yet, and some hosts disable replay. You get a `status` row explaining which case applies.
 
-**How is the replay file produced?** The public replay stream is downloaded and combined into one playable audio file, then stored with a download link. Very large replays (above roughly 250 MB) may exceed the file cap — you still get the streaming replay link.
+**How is the replay file produced?** The public replay stream is downloaded and combined into one playable audio file, then stored with a stable download link. Very large replays (above roughly 250 MB) may exceed the file cap — you still get the streaming replay link.
 
-**How do transcripts work?** With `auto` the actor uses captions when the replay has them and otherwise runs Whisper AI over the audio. Captions are fast; AI takes time proportional to the Space length. `transcriptionMethod` lets you force one or the other.
+**How do transcripts work?** With `auto`, native captions are used when the replay has them; otherwise Whisper AI runs over the audio. Captions are fast. AI time grows with the Space length, and long Spaces are split into 10-minute chunks to bound memory.
 
-**Which Whisper model should I use?** `base` is a good balance. Larger models are more accurate but slower. Long Spaces are processed in 10-minute chunks, and the actor automatically falls back to a smaller model if the run does not have enough memory.
+**Which Whisper model should I use?** `base` is the best balance on the default 1 GB. Larger models need more actor memory. The actor downgrades safely instead of crashing, and reports the model it actually used in `modelUsed`.
 
-**How many rows will a full Space run produce?** A Space with participants and a full transcript can produce several hundred rows — longer Spaces with more participants and transcript segments produce proportionally more. There is no artificial row cap; the row count follows the Space's real length and participant count.
+**How many rows will a run produce?** A Space with participants and a full transcript can produce several hundred rows. Longer Spaces and larger participant lists produce more. Discovery is capped by `maxSpaces`; pasted Spaces are not capped.
 
-**Does it support private or deleted Spaces?** No. Private, deleted or never-existing Spaces return a `status` row.
+**Can I schedule it?** Yes. Use `searchQueries` or `hostUsernames` with a schedule to pick up newly announced Spaces, or run it after a recurring show with the host's handle.
 
-**Is this affiliated with X?** No. This is a third-party actor that reads publicly visible content.
+**Is this affiliated with X?** No. It is a third-party actor that reads publicly visible content.
 
 ## Limits
 
-- Public Spaces only; private, deleted or unavailable Spaces produce a `status` row.
-- AI transcription can take several minutes for long Spaces; captions are near-instant when available.
-- Live Spaces have no replay yet, so replay audio and transcript options require a finished Space.
+- Public Spaces only; private, deleted or unavailable Spaces return a `status` row.
+- Keyword/hashtag/host discovery covers recent public posts, not the full archive.
+- Signed-in Space search and the topic browser are not reachable without credentials and are not supported.
+- Replay audio and transcripts require a finished Space with replay enabled.
+- AI transcription is CPU-bound; on 1 GB the actor runs `tiny`/`base` and may downgrade a larger requested model.
+- Participant profile enrichment stops at `maxParticipantProfiles` per Space.
 
 ## Integrations
 
-Run it on a schedule and send Space summaries, participant lists or transcripts to Google Sheets, Airtable, Slack or any webhook through Apify's built-in integrations, or call the actor from the Apify API.
+Use Apify's built-in integrations to send Space summaries, participant lists or transcripts to Google Sheets, Airtable, Slack, a webhook or your own API.

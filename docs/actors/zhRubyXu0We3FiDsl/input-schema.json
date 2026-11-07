@@ -1,54 +1,124 @@
 {
   "properties": {
+    "hostUsernames": {
+      "description": "Find Spaces announced by specific X accounts. Paste handles with or without @, or a profile URL.",
+      "editor": "stringList",
+      "example": [
+        "NASA",
+        "https://x.com/elonmusk"
+      ],
+      "title": "Host usernames",
+      "type": "array"
+    },
+    "includeParticipantProfiles": {
+      "default": true,
+      "description": "Look up each participant's public profile (bio, followers, website, verification) instead of only the compact name shown in the Space. Adds one request per participant.",
+      "prefill": false,
+      "title": "Enrich participant profiles",
+      "type": "boolean"
+    },
     "includeParticipants": {
       "default": true,
-      "description": "Include the host, speakers and listeners on the Space row and emit one separate \"space participant\" row per participant with their profile details.",
+      "description": "Add the host, speakers and listeners to the Space row and emit one separate \"space participant\" row per person.",
       "prefill": true,
+      "sectionCaption": "What to include",
+      "sectionDescription": "Choose the extra data collected for every Space.",
       "title": "Include participants",
       "type": "boolean"
     },
     "includeReplayAudio": {
       "default": false,
-      "description": "Include the HLS replay audio link and, when a file can be produced, a downloadable replay file stored for you.",
+      "description": "Add the HLS replay link and, when a file can be produced, store a downloadable audio file with its duration and size.",
       "prefill": false,
-      "title": "Include replay audio link",
+      "title": "Include replay audio",
       "type": "boolean"
     },
     "includeTranscript": {
       "default": false,
-      "description": "Produce a spoken-word transcript of the Space replay. Uses captions when available and otherwise AI speech recognition (slower).",
+      "description": "Produce a spoken-word transcript. Captions are used when the replay has them; otherwise AI speech recognition runs (slower and memory-hungry).",
       "prefill": false,
       "title": "Include transcript",
       "type": "boolean"
     },
+    "maxParticipantProfiles": {
+      "default": 50,
+      "description": "Cap on profile lookups per Space. 0 means every participant. Large Spaces with many listeners can be expensive.",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 10,
+      "title": "Maximum enriched participant profiles",
+      "type": "integer"
+    },
+    "maxSpaces": {
+      "default": 20,
+      "description": "Upper limit for Spaces found through keywords and hosts. Spaces that you paste as links or IDs are always collected.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Maximum discovered Spaces",
+      "type": "integer"
+    },
     "proxyConfiguration": {
-      "description": "Optional. Use a proxy if you plan large runs or see frequent rate limits.",
+      "description": "Optional. The actor works without a proxy and switches to Apify Proxy automatically if X blocks the direct connection.",
       "editor": "proxy",
       "sectionCaption": "Advanced",
       "sectionDescription": "Optional settings for large or repeated runs.",
       "title": "Proxy configuration",
       "type": "object"
     },
+    "searchQueries": {
+      "description": "Find public Spaces from posts that match a keyword or hashtag, for example AI, crypto or #Space. Each query reads recent matching posts and resolves the Spaces they announce.",
+      "editor": "stringList",
+      "example": [
+        "AI",
+        "#Space"
+      ],
+      "sectionCaption": "Find Spaces automatically",
+      "sectionDescription": "Discover Spaces from recent public posts, or from the recent posts of specific hosts.",
+      "title": "Search keywords or hashtags",
+      "type": "array"
+    },
+    "spaceState": {
+      "default": "any",
+      "description": "Only keep Spaces in this state. Applies to links and discovery alike.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "live",
+        "upcoming",
+        "ended"
+      ],
+      "enumTitles": [
+        "Any state",
+        "Live now",
+        "Scheduled",
+        "Ended"
+      ],
+      "prefill": "any",
+      "title": "Space state",
+      "type": "string"
+    },
     "spaceUrls": {
-      "description": "Paste the links of the Spaces you want to collect, for example https://x.com/i/spaces/1YpKkZgnrDXxj. Space IDs work too, and you can also paste the post that announces a Space (the actor finds the Space from its card automatically). Accepts both x.com and twitter.com links.",
+      "description": "Paste Space links such as https://x.com/i/spaces/1YpKkZgnrDXxj, bare Space IDs, or the post that announces a Space (the actor finds the Space from its card). x.com and twitter.com links both work.",
       "editor": "stringList",
       "example": [
         "https://x.com/i/spaces/1YpKkZgnrDXxj",
         "1YpKkZgnrDXxj",
-        "https://x.com/NASA/status/2107095768821576019"
+        "https://x.com/i/status/2119157462183858414"
       ],
-      "minItems": 1,
       "prefill": [
         "https://x.com/i/spaces/1YpKkZgnrDXxj"
       ],
-      "title": "Space links, Space IDs or Space posts",
+      "sectionCaption": "Spaces to collect",
+      "sectionDescription": "Collect exact Spaces by link or ID. Leave empty when you use keyword or host discovery below.",
+      "title": "Space links, IDs or announcement posts",
       "type": "array"
     },
     "transcriptSegmentsAsRows": {
       "default": false,
-      "description": "In addition to the transcript summary row, push one \"space transcript segment\" row per timed segment (index, start, end, text). Useful for joining or exporting segment-level data.",
+      "description": "In addition to the transcript summary row, emit one \"space transcript segment\" row per timed segment.",
       "prefill": false,
-      "title": "Emit transcript segments as separate rows",
+      "title": "Emit transcript segments as rows",
       "type": "boolean"
     },
     "transcriptionMethod": {
@@ -71,7 +141,7 @@
     },
     "whisperModel": {
       "default": "base",
-      "description": "Which speech recognition model to use when AI transcription runs. Larger models are more accurate but slower.",
+      "description": "Whisper model for AI transcription. Larger models are more accurate but need more actor memory; on 1 GB the actor safely falls back to a smaller model.",
       "editor": "select",
       "enum": [
         "tiny",
@@ -92,10 +162,7 @@
       "type": "string"
     }
   },
-  "required": [
-    "spaceUrls"
-  ],
   "schemaVersion": 1,
-  "title": "Twitter (X) Space Scraper",
+  "title": "X Space Collector",
   "type": "object"
 }

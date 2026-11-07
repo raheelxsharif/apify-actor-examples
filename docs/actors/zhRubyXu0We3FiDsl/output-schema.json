@@ -1,19 +1,20 @@
 {
   "actorOutputSchemaVersion": 1,
+  "description": "Space metadata, participant rows, transcripts and downloadable replay audio collected from public X Spaces.",
   "properties": {
     "keyValueStore": {
-      "description": "Downloadable replay audio files, when requested.",
+      "description": "Downloadable replay audio files, stored when replay audio is requested.",
       "template": "{{links.apiDefaultKeyValueStoreUrl}}",
-      "title": "Key-value store",
+      "title": "Replay audio files",
       "type": "string"
     },
     "spaces": {
-      "description": "Collected Space rows, transcripts and status rows.",
+      "description": "Dataset with one Space row, one participant row per person, transcript rows and status rows.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Spaces",
+      "title": "Spaces and participants",
       "type": "string"
     }
   },
-  "title": "Twitter (X) Space Scraper Output",
+  "title": "X Space Collector Output",
   "type": "object"
 }
