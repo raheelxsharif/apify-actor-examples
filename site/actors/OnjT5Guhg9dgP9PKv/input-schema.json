@@ -1,0 +1,43 @@
+{
+  "properties": {
+    "includeSnapData": {
+      "default": true,
+      "description": "Fetch media URL and details for the first (most recent) snap at each place.",
+      "prefill": true,
+      "title": "Include Sample Snap Data",
+      "type": "boolean"
+    },
+    "keywords": {
+      "description": "Place names or landmarks to search on Snap Map. Examples: Times Square, Eiffel Tower, Tokyo Station, Colosseum",
+      "editor": "stringList",
+      "prefill": [
+        "Times Square",
+        "Eiffel Tower",
+        "Tokyo Station"
+      ],
+      "title": "Place Keywords",
+      "type": "array"
+    },
+    "maxPlacesPerKeyword": {
+      "default": 5,
+      "description": "Maximum number of matching places to return per keyword.",
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Max Places per Keyword",
+      "type": "integer"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy. Snapchat Explore pages are publicly accessible without proxy.",
+      "editor": "proxy",
+      "nullable": true,
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "required": [
+    "keywords"
+  ],
+  "schemaVersion": 1,
+  "title": "Snapchat Snap Map Scraper",
+  "type": "object"
+}

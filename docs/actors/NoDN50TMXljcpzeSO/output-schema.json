@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Amazon Brand Store pages, creative modules, and products, with brand identity, subpage navigation, and product links.",
+  "description": "One dataset of typed records: store pages (identity, navigation, counts), merchandising sections (type, heading, CTA, media, counts), products (price, rating, badge, section context), and links (typed, section-scoped).",
   "properties": {
     "storeRecords": {
-      "description": "Dataset containing all scraped Brand Store pages, modules/assets, and product records.",
+      "description": "Dataset containing storePage, section, product, link, and storePageError records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Store pages, assets & products",
+      "title": "Store pages, sections, products & links",
       "type": "string"
     }
   },
-  "title": "Amazon Brand Store Page & Merchandising Crawler Output"
+  "title": "Amazon Brand Store Pages, Sections, Products & Links Output"
 }

@@ -1,5 +1,5 @@
 {
-  "description": "Crawl an Amazon Brand Store (/stores/{Brand}/page/{ID}) - navigation, creative modules, and every validated product link on the page(s). Provide storeUrls directly, or productUrls/asins to auto-resolve the brand's store link from the product page.",
+  "description": "Crawl an Amazon Brand Store (/stores/{Brand}/page/{ID}) - pages, merchandising sections, products, and every link. Provide storeUrls directly, or productUrls/asins to auto-resolve the brand's store link from the product page.",
   "properties": {
     "asins": {
       "default": [],
@@ -16,11 +16,18 @@
       "title": "Crawl subpages",
       "type": "boolean"
     },
-    "includeAssets": {
+    "includeLinks": {
       "default": true,
-      "description": "Also emit module/creative-asset records (images, video, CTA text, shoppable-image hotspots) found on each store page, not just product records.",
+      "description": "Emit a typed `link` record for every unique target on each crawled page (navigation, store page, product, search, external), with its section context.",
       "prefill": true,
-      "title": "Include creative assets",
+      "title": "Include links",
+      "type": "boolean"
+    },
+    "includeSections": {
+      "default": true,
+      "description": "Emit a `section` record for every merchandising module on each crawled page: its type, ID, position, heading, body copy, CTA, primary image/video, and product/link counts.",
+      "prefill": true,
+      "title": "Include merchandising sections",
       "type": "boolean"
     },
     "maxDepth": {
@@ -71,9 +78,7 @@
       "type": "object"
     },
     "storeUrls": {
-      "default": [
-        "https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633"
-      ],
+      "default": [],
       "description": "Amazon Brand Store URLs, e.g. `https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633`. At least one of storeUrls / productUrls / asins is required.",
       "editor": "stringList",
       "prefill": [
@@ -83,9 +88,6 @@
       "type": "array"
     }
   },
-  "required": [
-    "storeUrls"
-  ],
   "schemaVersion": 1,
   "title": "Amazon Brand Store Scraper Input",
   "type": "object"
