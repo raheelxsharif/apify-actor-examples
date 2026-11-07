@@ -4,128 +4,162 @@
 
 # YouTube Channel About, Playlists & Posts Finder
 
-A channel's About page carries more than most people realize — join date, country, external links, total views — and this actor captures all of it in one row per channel, with optional playlist and Community Post snapshots folded in when you want them.
+A YouTube channel page hides its most useful facts behind three different tabs. This actor reads the public About panel, the Playlists tab (including shows, courses, and podcasts), and the Community Posts tab in one cookieless run — then returns clean rows you can filter, compare, or export.
 
 ## What this actor does
 
-- Resolves a channel from a handle, a full channel URL, or a raw channel ID, and reads its header plus About panel.
-- Returns the channel's external links from its public About page, when enabled.
-- Optionally nests a snapshot of the channel's public playlists into the same row.
-- Optionally nests a snapshot of the channel's public Community Posts, including images, polls, video attachments, and (on request) comments, into the same row.
-- Records which optional surface failed to load rather than guessing or leaving you uncertain about why a field is missing.
+- Resolves a channel from an `@handle`, a full channel URL, or a raw `UC…` channel ID.
+- Collects the public About details: description, subscriber and video counts, total views, country, join date, external links, avatar, banner, verification badge, family-safe flag, RSS URL, and owner keywords.
+- Lists every public playlist, show, course, and podcast on a channel with its item count, thumbnail, first video, and last-updated text.
+- Lists public Community Posts with text, images, videos, polls, quizzes, shared playlists, and reposts — plus optional exact publish dates, exact likes, and public comments.
+- Follows YouTube's continuation pages until the requested limit or the real end of the tab.
+- Emits an explanatory status row when a channel has no such tab or no public rows, instead of returning silence.
 
-## Output per channel
+## Modes
+
+| Mode | One row per… | Best for |
+|---|---|---|
+| `profiles` | Channel | A profile table with optional nested playlist and post snapshots |
+| `playlists` | Playlist / show / course / podcast | Building a catalog of a channel's collections |
+| `posts` | Community Post | Content research, engagement tracking, and giveaway or poll analysis |
+
+All rows include `recordType`, `channelId`, `channelName`, `channelHandle`, `channelUrl`, and `scrapedAt`, so rows from different modes can be combined in one dataset.
+
+## Channel profile fields
 
 | Field | Description |
 |---|---|
-| `recordType` | `"channel_profile"` for a normal row, or `"status"` if the channel couldn't be read at all |
 | `channelId` | Channel's `UC…` ID |
-| `channelName` | Channel display name |
-| `handle` | Channel's `@handle` |
+| `channelName` | Display name |
+| `handle` | Public `@handle` |
 | `channelUrl` | Canonical channel URL |
-| `description` | Channel description |
-| `subscriberCountText`, `subscriberCount` | Subscriber count as displayed, and parsed to a number |
-| `videoCountText`, `videoCount` | Video count as displayed, and parsed to a number |
-| `totalViewsText`, `totalViews` | Total channel views as displayed, and parsed to a number |
-| `country` | Channel's listed country |
-| `joinedDateText` | When the channel joined YouTube, as displayed |
-| `avatarUrl` | Channel avatar image |
-| `isVerified` | Whether the channel has a verification badge |
-| `links` | External links from the About page, each with `title` and `url` (when `includeLinks` is on) |
-| `playlists` | Snapshot of public playlists (see below), when `includePlaylists` is on |
-| `communityPosts` | Snapshot of public Community Posts (see below), when `includePosts` is on |
-| `surfaceStatus` | Notes which optional surface (`playlists`, `posts`) returned nothing public or was unavailable |
-| `scrapedAt` | When the actor collected the record |
+| `description` | Full About-panel description |
+| `subscriberCountText`, `subscriberCount` | Subscriber label as shown, and an exact integer only when YouTube shows an exact number |
+| `videoCountText`, `videoCount` | Video count as shown, and exact integer when available |
+| `totalViewsText`, `totalViews` | Total channel views |
+| `country`, `countryCode` | Country name from About and its ISO 3166-1 alpha-2 code |
+| `joinedDateText`, `joinedDate` | Join date as shown and as `YYYY-MM-DD` |
+| `avatarUrl`, `bannerUrl` | Channel avatar and banner images |
+| `isVerified`, `isFamilySafe` | Public badges and family-safe flag |
+| `keywords` | Owner-set channel keywords, when present |
+| `rssUrl` | Channel RSS URL (metadata only; the feed is not used as a data path) |
+| `links` | External links from About, each with `title`, `url`, and `faviconUrl` |
+| `playlists` | Nested playlist snapshot when `includePlaylists` is on |
+| `communityPosts` | Nested post snapshot when `includePosts` is on |
+| `surfaceStatus` | Explains an empty optional surface (`no_playlists_tab`, `no_posts_tab`, `no_public_playlists`, `no_public_posts`, `unavailable`) |
 
-### Nested playlist fields (inside `playlists`)
+## Playlist row fields
 
-`playlistId`, `title`, `playlistUrl`, `contentType`, `watchUrl`, `firstVideoId`, `watchEndpointPlaylistId`, `videoCountText`/`videoCount`, `thumbnailSources`, `metadataRowsRaw`, `scrapedAt`.
+`playlistId`, `playlistUrl`, `playlistType` (`playlist`, `show`, `course`, `podcast`), `title`, `videoCountText`, `videoCount`, `thumbnailUrl`, `thumbnailSources`, `firstVideoId`, `firstVideoUrl`, `watchUrl`, `lastUpdatedText`, `contentType`, `metadataRowsRaw`, plus channel context and `scrapedAt`.
 
-### Status row (when a channel can't be read)
+Counts cover videos, episodes, and items (for example `28 episodes`), so podcast shows and courses are not dropped.
 
-If a channel's public data can't be loaded at all, the row has `recordType: "status"`, `status: "failed"`, `channelUrl` (as you provided it), and `error` describing what happened, instead of the fields above.
+## Community Post row fields
 
-### Nested Community Post fields (inside `communityPosts`)
+`postId`, `postUrl`, `postType` (`text`, `image`, `video`, `poll`, `quiz`, `playlist`, `repost`), `authorName`, `authorChannelId`, `contentText`, `publishedTimeText`, `publishedAt` (exact ISO date), `voteCountText`, `likeCount` (exact), `commentCountText`, `commentCount`, `commentsDisabled`, `images`, `imageDetails`, `videoAttachments`, `poll`, `quiz`, `playlist`, `sharedPost`, `comments`, plus channel context and `scrapedAt`.
 
-`postId`, `postUrl`, `authorName`, `contentText`, `publishedTimeText`, `voteCountText`, `commentCountText`, `images`, `videoAttachments` (each with `videoId`, `title`, `url`, `viewCountText`, `publishedTimeText`, `lengthText`), `poll` (`pollChoices`, `pollTotalVotesText`, `pollType`), and `comments` (each with `commentId`, `authorName`, `authorChannelId`, `text`, `publishedTimeText`) when `includePostComments` is on.
+- Image rows keep one URL per image (the largest resolution), not every thumbnail size.
+- Poll rows include choice text, optional choice images, and the total vote count.
+- Quiz rows include the choices, correct answers, and explanations when YouTube exposes them.
+- Repost rows keep the original post inside `sharedPost`.
+- `comments` contains public top-level comments when comments are enabled.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `channelUrls` | Array of strings | – (required) | Channel handles, full URLs, or raw channel IDs to look up. |
-| `includeLinks` | Boolean | `true` | Include the channel's public external links. |
-| `includePlaylists` | Boolean | `false` | Nest a public playlist snapshot into each profile row. |
-| `maxPlaylists` | Integer | `20` | Maximum playlists to nest per channel (1–10000) when `includePlaylists` is on. |
-| `includePosts` | Boolean | `false` | Nest a public Community Posts snapshot into each profile row. |
-| `maxPosts` | Integer | `20` | Maximum posts to nest per channel (1–10000) when `includePosts` is on. |
-| `includePostComments` | Boolean | `false` | Nest comments and replies inside each Community Post, when public. |
-| `maxPostComments` | Integer | `20` | Maximum comments/replies to keep per post (1–1000) when `includePostComments` is on. |
-| `market` | Select | `US` | Country code used for the localized channel page. |
+| `mode` | Select | `profiles` | Channel profiles, channel playlists, or Community Posts |
+| `channelUrls` | Array | – | Required. Channel URLs, `@handles`, or `UC…` IDs |
+| `includeLinks` | Boolean | `true` | Include About-page external links in profile mode |
+| `includePlaylists` | Boolean | `false` | Nest a playlist snapshot in each profile row |
+| `maxPlaylists` | Integer | `20` | Maximum playlists per channel (1–10000) |
+| `includePosts` | Boolean | `false` | Nest a Community Post snapshot in each profile row |
+| `maxPosts` | Integer | `20` | Maximum posts per channel (YouTube exposes at most 200) |
+| `includePostDetails` | Boolean | `true` | Fetch exact post date and like count (one request per post) |
+| `includePostComments` | Boolean | `false` | Collect public comments on each post |
+| `maxPostComments` | Integer | `20` | Maximum top-level comments per post (1–1000) |
 
 ### Example: profile only
 
 ```json
 {
+  "mode": "profiles",
   "channelUrls": ["@MrBeast"],
   "includeLinks": true
 }
 ```
 
-### Example: profile with playlists and posts
+### Example: profile with nested playlists and posts
 
 ```json
 {
+  "mode": "profiles",
   "channelUrls": ["@MrBeast"],
   "includePlaylists": true,
   "maxPlaylists": 10,
   "includePosts": true,
-  "maxPosts": 5
+  "maxPosts": 5,
+  "includePostDetails": true
 }
 ```
 
-### Example: multiple channels in another market, with post comments
+### Example: every public playlist on two channels
 
 ```json
 {
-  "channelUrls": ["@MrBeast", "@Fireship"],
-  "market": "GB",
-  "includePosts": true,
+  "mode": "playlists",
+  "channelUrls": ["@Fireship", "@Kurzgesagt"],
+  "maxPlaylists": 100
+}
+```
+
+### Example: posts with exact engagement and comments
+
+```json
+{
+  "mode": "posts",
+  "channelUrls": ["@MrBeast"],
+  "maxPosts": 10,
+  "includePostDetails": true,
   "includePostComments": true,
   "maxPostComments": 20
 }
 ```
 
+## Output views
+
+The dataset ships three table views: **Channel profiles**, **Playlists & collections**, and **Community posts**. Each view shows only the fields relevant to that row type; records from different modes can share one dataset.
+
 ## Use cases
 
-- **Creator discovery and partnerships** build a shortlist of channels with audience size, country, and contact links in one row.
-- **Market research** compare subscriber, video, and view counts across a set of competing channels.
-- **Content teams** check which channels are actively posting Community updates and polls.
-- **Outreach and sponsorship scouting** export channel descriptions and external links for a campaign list.
-- **Longitudinal trackers** re-run the same `channelUrls` periodically to watch subscriber or view growth over time.
+- **Creator discovery and partnerships** — shortlist channels by audience size, country, and public contact links.
+- **Market research** — compare subscriber, video, and total-view figures across competitors in one table.
+- **Content teams** — audit which channels still post Community updates, run polls, or publish quizzes.
+- **Catalog building** — pull every playlist, show, course, and podcast a channel publishes.
+- **Campaign tracking** — re-run the same channels and compare exact post likes and publish dates over time.
 
 ## FAQ
 
 **Which channel identifiers can I use?**
-A handle like `@name`, a full channel URL, or a raw `UC…` channel ID.
+An `@handle`, a full channel URL (including `/about`, `/playlists`, or `/posts`), or a raw `UC…` channel ID. Duplicate inputs are collapsed.
 
 **Why are some fields missing for a channel?**
-A field is only included when YouTube actually published that value — a channel with a hidden subscriber count or no listed country simply won't have those fields, rather than showing a blank or guessed value.
+A field appears only when YouTube publishes it. A channel with a hidden subscriber count, no listed country, or no banner simply omits those fields instead of guessing.
 
-**What does `surfaceStatus` tell me?**
-It reports, per optional surface you requested (`playlists`, `posts`), whether that surface had nothing public to show or was unavailable for that channel — so a missing `playlists` array is explained rather than silent.
+**Why does a channel return no playlists or posts?**
+Some channels have no Playlists or Posts tab. The actor emits a status row that says `no_playlists_tab` or `no_posts_tab`, so an empty result is explained.
+
+**Why do some counts show only text?**
+YouTube rounds large subscriber counts (`525M`). The actor keeps the displayed text and only fills the numeric field when the displayed value is exact. Compact values are never expanded into a fake precise number.
+
+**How many posts can I get?**
+YouTube's public Posts tab stops at 200 posts per channel. Older posts are only reachable through their own URLs, so `maxPosts` is capped there and the run message says so when a larger limit was requested.
 
 **Do I need cookies or a login?**
-No. Every surface this actor reads — the channel header, About panel, playlists, and Community Posts — is public.
+No. Every surface is public. The actor uses YouTube's public pages and its automatic proxy fallback when a datacenter request is degraded.
 
-**Why would `includePostComments` return no comments even when enabled?**
-Comments on a Community Post are only included when YouTube exposes them publicly on that post; some posts have comments disabled or hidden.
-
-**Can I fetch a channel's entire video catalog with this actor?**
-No — this actor focuses on the channel's profile plus optional playlist and post snapshots. Use a dedicated channel-videos actor for a full video catalog.
-
-**What does `market` change?**
-It sets the country code used when requesting the channel's localized page, which can affect which language text fields like `joinedDateText` or `videoCountText` are rendered in.
+**Are comments and replies included?**
+`includePostComments` collects public top-level comments. Replies are not expanded in this actor; use a dedicated comment scraper when you need full reply trees.
 
 **Is this affiliated with YouTube?**
-No. This actor independently reads YouTube's public pages and is not affiliated with or endorsed by YouTube or Google.
+No. This actor independently reads public YouTube pages and is not affiliated with or endorsed by YouTube or Google.

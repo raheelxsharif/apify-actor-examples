@@ -1,57 +1,98 @@
 # LinkedIn Profile, Certifications & Company Data Extractor
 
-Turn a list of public LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details — all without a LinkedIn login.
+Give this actor a list of public LinkedIn profile URLs (or just usernames) and it returns one
+structured record per person: identity, About text, current company and school, the public
+connection indicator, work and education links, every self-authored section LinkedIn shows to
+logged-out visitors, and firmographics for the person's current employer. No LinkedIn account,
+cookie, session token, or proxy setup is required.
 
-## What this actor does
+## What it does
 
-- Reads any public LinkedIn profile from its URL or bare username, with no account or cookie required
-- Returns work history (current and past positions), education, and follower count
-- Extracts certifications with credential IDs and verification links, honors and awards, test scores, organization memberships, volunteer experience, personal projects, and personal website links — sections most basic extractors skip
-- Optionally enriches the current employer with company size, industry, headquarters, website and logo from that company's own LinkedIn page
-- Fields that aren't present on a given profile are left out of the record entirely rather than filled with a placeholder or guessed value
+- Reads the public guest view of each profile, plus the richer server-rendered view LinkedIn
+  sends to link-preview crawlers when available
+- Extracts certifications with credential IDs and verification links, honors and awards, test
+  scores, organization memberships, volunteer work, projects, publications, patents, courses,
+  instructor courses, language skills, services, recommendations received, public skill tokens,
+  badges, and listed websites
+- Reads the top-card layer for the current company link, current school, followers, and the
+  public connections figure
+- Optionally reads the current employer's own public LinkedIn page for company size, industry,
+  headquarters, address, founded year, follower count, website, logo, description, slogan,
+  organization type, and specialties
+- Never invents data: a field LinkedIn withholds or masks is omitted from that record, and a
+  profile that belongs to a different member is discarded rather than pushed
+- Omits empty values recursively — no `null`, empty string, or empty list reaches the dataset
 
 ## Output per profile
 
 - `name`, `headline`, `location`, `summary`
+- `headlineRedacted` — `true` when LinkedIn replaced a withheld headline with the current company
+  in its public preview line (the replacement itself is not pushed as a headline)
 - `profileUrl`, `profilePicture`
-- `currentTitle` — current job title, when LinkedIn's guest view exposes it for that profile
-- `allTitles[]` — every job title listed on the profile
-- `currentCompany` — current employer, with company enrichment when `enrichCompany` is on (see below)
-- `currentPositions[]`, `pastPositions[]` — each with `company`, `title`, `companyUrl`, `startDate`, `endDate`, `location`, `description`
-- `education[]` — each with `school`, `schoolUrl`, `degree`, `fieldOfStudy`, `startDate`, `endDate`
-- `followersCount`
-- `recentArticles[]` — recent posts/articles with title, URL, publish date and likes
-- `certifications[]` — name, issuer, issuer URL, issue date, credential ID, credential URL
-- `honorsAndAwards[]` — title, issuer, date, description
-- `testScores[]` — name, score, date
-- `organizations[]` — name, position, description
-- `volunteerExperience[]` — role, organization, description
-- `projects[]` — title, date range, description
-- `websites[]` — label and URL for personal/portfolio links
-- `inputUrl` — the URL or handle you supplied for this row
-- `order` — this row's position in your input list
-- `scrapedAt` — ISO 8601 timestamp of when the record was collected
+- `currentTitle` — current role title when LinkedIn exposes it publicly for this profile
+- `allTitles[]` — titles published in the profile's structured data (masked entries removed)
+- `currentCompany` — current employer with `name`, `url`, `slug`, `companyId` when the company
+  link is numeric. With `enrichCompany` on it also carries `employeeCount`, `size`, `industry`,
+  `website`, `headquarters`, `address`, `foundedYear`, `followersCount`, `description`, `slogan`,
+  `organizationType`, `logoUrl`, and `specialties[]`
+- `currentSchool` — school shown on the profile top card (`name`, `url`)
+- `currentPositions[]`, `pastPositions[]` — `company`, `companyUrl`, `startDate`, `endDate`,
+  `location`, `description`; when LinkedIn renders the full Experience list, entries also carry
+  `title`, `dateRange`, and `duration`
+- `experiences[]` — `currentPositions` and `pastPositions` combined
+- `education[]` and `educations[]` — the same list under both keys (`school`, `schoolUrl`,
+  `startDate`, `endDate`, plus `degree`, `fieldOfStudy`, `gpa`, `dateRange` when LinkedIn's
+  richer public view includes them)
+- `followersCount`, `connectionsCount` (exact number when public), `connectionsText` (for example
+  `"500+"` when only the capped indicator is public)
+- `recentArticles[]` — recent posts or articles with `title`, `url`, `publishedDate`, `text`, and
+  `likes`
+- `certifications[]` — `name`, `issuer`, `issuerUrl`, `issueDate`, `credentialId`,
+  `credentialUrl`
+- `recommendations[]` — `recommender`, `recommenderUrl`, `text`
+- `languages[]` — `language`, `proficiency`
+- `services[]` — `name`, `url`
+- `publications[]` — `title`, `url`, `publisher`, `date`, `description`
+- `patents[]` — `title`, `url`, `filedDate`, `number`, `description`
+- `courses[]` — `title`, `number`
+- `instructorCourses[]` — `title`, `url`, `duration`
+- `honorsAndAwards[]` — `title`, `issuer`, `date`, `description`
+- `testScores[]` — `name`, `score`, `date`
+- `organizations[]` — `name`, `position`, `description`
+- `volunteerExperience[]` — `role`, `organization`, `description`
+- `projects[]` — `title`, `dateRange`, `description`
+- `skills[]` — public skill names when the profile exposes them
+- `badges[]`, `isTopVoice`, `isCreator` — public profile badges
+- `websites[]` — `label`, `url` for personal or portfolio links
+- `inputUrl` — the value you supplied for this row
+- `order` — zero-based position in your input list
+- `scrapedAt` — ISO 8601 timestamp of extraction
 
-### `currentCompany` fields (when `enrichCompany` is enabled)
+When LinkedIn serves only a sign-up preview for a profile, the row is built from the available
+preview metadata and contains the identity-level fields only.
 
-- `name`, `url`, `slug`, `companyId`
-- `employeeCount` — exact headcount from the company's own LinkedIn page
-- `size` — LinkedIn's bucketed size range (e.g. `"10,001+ employees"`)
-- `industry`, `website`, `headquarters`, `organizationType`
-- `logoUrl`
-- `specialties[]` — only present when the company page lists them
+### Status rows
+
+A run can add one status row (disable with `includeStatusRows: false`):
+
+- No profiles readable: `_status: "no_data"`, `_reason`, `_message`, `_help`, `scrapedAt`
+- Some profiles readable: `_status: "partial_results"`, `_reason`, `_failureBreakdown`,
+  `_message`, `scrapedAt`, alongside the successful rows
+
+Failure reasons: `auth_wall` (profile hides itself from guests), `not_found` (confirmed 404),
+`blocked` (all access paths failed without a 404), `identity_mismatch` (LinkedIn resolved the URL
+to a different member), `invalid_url`, and `error`. Filter on `_status` if you want only profile
+rows.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `profileUrls` | array | – | LinkedIn profile URLs or bare usernames to scrape (required) |
-| `enrichCompany` | boolean | `true` | Fetch the current employer's own LinkedIn company page for extra detail; adds one request per unique company per run |
-| `proxyConfiguration` | object | – | Optional Apify proxy configuration |
+| `profileUrls` | array | – | Required. Public LinkedIn profile URLs or bare usernames. Accepts full URLs, `linkedin.com/in/name`, `in/name`, regional subdomains, and URLs with query parameters. |
+| `enrichCompany` | boolean | `true` | Also read the current employer's public company page for firmographics. One fetch per unique company per run. |
+| `includeStatusRows` | boolean | `true` | Add one structured status row when a run yields no profiles or only some of the requested profiles. |
 
-Accepted `profileUrls` formats include `https://www.linkedin.com/in/username`, `linkedin.com/in/username`, `in/username`, and a bare `username`.
-
-### Example: a short list of named profiles
+### Example: several profiles
 
 ```json
 {
@@ -63,48 +104,82 @@ Accepted `profileUrls` formats include `https://www.linkedin.com/in/username`, `
 }
 ```
 
-### Example: skip company enrichment for a faster run
+### Example: profile only, no employer enrichment
 
 ```json
 {
-  "profileUrls": ["https://www.linkedin.com/in/williamhgates"],
+  "profileUrls": ["https://www.linkedin.com/in/charlywargnier"],
   "enrichCompany": false
+}
+```
+
+### Example: records only, no status rows
+
+```json
+{
+  "profileUrls": ["https://www.linkedin.com/in/abdulmananraja"],
+  "includeStatusRows": false
 }
 ```
 
 ## Use cases
 
-- **Sales prospecting** — turn a list of prospect profile URLs into structured role, employer and company-size data
-- **Recruiting and candidate research** — verify work history, education and certifications before an outreach
-- **CRM enrichment** — append verified profile and employer fields to existing contact records
-- **Credential and background checks** — cross-reference certifications, honors and project history across candidates
-- **Account-based sales intelligence** — track key people and their current employer's size and industry over time
+- **Recruiting and candidate research** — review public certifications, education, languages,
+  and project history before an outreach
+- **Sales and CRM enrichment** — append current role, employer, and company firmographics to a
+  list of profile URLs
+- **Credential and award research** — collect public certifications, honors, publications, and
+  patents across a population
+- **Talent-market analysis** — study the distribution of public skills, languages, and employers
+  in a cohort
+- **Profile monitoring** — refresh a saved URL list and compare current employer, school, and
+  public sections over time
+
+## How access works
+
+The actor selects the cheapest working public access path automatically: a direct browser-style
+request, then LinkedIn's public link-preview view, then an anti-bot proxy only if both free
+paths are blocked. For company pages it also tries a regional host and a public translation
+mirror before the proxy. You never configure a proxy, and you never supply a cookie, login, or
+API key.
+
+## Honest limits
+
+- LinkedIn withholds the real headline, per-role titles, and degree/field for most logged-out
+  profiles. The actor pushes them only when the public page actually renders them; otherwise the
+  field is absent.
+- The exact connection count is usually hidden. The public `500+` form is returned as
+  `connectionsText`; `connectionsCount` appears only when an exact number is public.
+- Public skills are rare in the guest view, so `skills` is often absent.
+- Email addresses and phone numbers are not public. The actor never guesses or fabricates them.
+- A profile whose owner hides it from logged-out visitors returns a status row, not data.
+- Search by name and company-page listing are separate actors in this suite; this actor starts
+  from profile URLs or usernames.
 
 ## FAQ
 
 **Do I need a LinkedIn account or cookies?**
-No. This actor never asks for LinkedIn credentials or session cookies — it only reads what LinkedIn already shows to a logged-out visitor.
+No. The actor never asks for LinkedIn credentials, session cookies, or tokens.
 
-**Can I get someone's email address or phone number?**
-No. LinkedIn doesn't expose contact details on the public profile page to logged-out visitors, and this actor never guesses or fabricates one.
+**Does this work for ordinary profiles or only famous ones?**
+It is built for everyday professional profiles. LinkedIn's public link-preview view serves the
+same server-rendered sections for ordinary accounts; the actor reads that view, not a cached
+snapshot.
 
-**Why is the job title missing on some profiles?**
-LinkedIn's own visibility rules occasionally hide job-title and past-employer text from logged-out visitors on certain profiles. Rather than return placeholder text for it, the actor leaves that field out of the record. The employer's name under `currentCompany` is usually still available even when the title isn't.
+**Why are some fields missing on a particular profile?**
+LinkedIn either hides that field from logged-out visitors or the profile owner never filled it
+in. The record omits it instead of returning a placeholder.
 
-**Does this work on ordinary profiles, not just well-known public figures?**
-Yes — it's built for everyday professional profiles used in lead generation and recruiting, not just celebrities or executives.
+**Can I get an email address or phone number?**
+No. Those are not part of the public guest view, and this actor does not use third-party contact
+databases.
 
-**What happens if a profile is fully private?**
-If the profile owner has hidden their account entirely from logged-out visitors, no data is returned for it — that reflects their own privacy setting, not a gap in the actor.
+**Does it support non-US profiles?**
+Yes. Regional LinkedIn profile URLs are normalized to the canonical profile, and the public
+sections are read in the locale LinkedIn serves.
 
-**Are skills and languages included?**
-No. Those sections only exist behind LinkedIn's authenticated member view and aren't visible to logged-out visitors, so they're not part of the output. Certifications, honors, test scores, organizations, volunteer experience and projects are included, since LinkedIn does render those for logged-out visitors when the profile owner has filled them in.
-
-**How current is the data?**
-Every field is read from the live profile page at run time — nothing is cached or backfilled from an older snapshot.
-
-**Does this support profiles outside the US?**
-Yes, including profiles on regional LinkedIn domains (e.g. `uk.linkedin.com`, `de.linkedin.com`).
+**Is the data live?**
+Yes. Every record is read from the live public page at run time.
 
 **Is this affiliated with LinkedIn?**
-No. This actor reads publicly available LinkedIn profile pages and is not affiliated with or endorsed by LinkedIn.
+No. It reads publicly available pages and is not affiliated with or endorsed by LinkedIn.

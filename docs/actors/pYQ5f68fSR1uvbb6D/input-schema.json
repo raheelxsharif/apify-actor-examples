@@ -1,14 +1,13 @@
 {
   "properties": {
     "channelUrls": {
-      "description": "Public YouTube channel URLs, handles, or channel IDs.",
+      "description": "Public YouTube channel URLs, @handles, or UC… channel IDs. One row set is produced for each channel.",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "minItems": 1,
       "prefill": [
-        "https://www.youtube.com/@RickAstleyYT",
         "https://www.youtube.com/@Apify"
       ],
       "title": "Channel URLs",
@@ -16,117 +15,51 @@
     },
     "includeLinks": {
       "default": true,
-      "description": "Include external links that YouTube exposes on the public About page.",
+      "description": "In channel profile mode, include the external links shown on the public About page, with their titles and favicons.",
       "prefill": true,
       "title": "Include public external links",
       "type": "boolean"
     },
     "includePlaylists": {
       "default": false,
-      "description": "Add public playlist rows from the channel Playlists tab to the profile row. Use the dedicated playlist actor for larger catalogs.",
+      "description": "In channel profile mode, add a snapshot of the channel's public playlists, shows, courses, and podcasts to the same row. Use the playlists mode for one row per playlist.",
       "prefill": false,
-      "title": "Include public playlists",
+      "title": "Nest playlists in the profile row",
       "type": "boolean"
     },
     "includePostComments": {
       "default": false,
-      "description": "Include comments and exposed replies nested inside combined Community Posts rows when YouTube returns them publicly.",
+      "description": "Collect public comments on each Community Post, up to the per-post limit. Adds one detail and one or more comment requests per post.",
       "prefill": false,
       "title": "Include post comments",
       "type": "boolean"
     },
-    "includePosts": {
-      "default": false,
-      "description": "Add public Community Posts rows, including exposed media and polls, to the profile row. Use the dedicated posts actor for larger catalogs.",
+    "includePostDetails": {
+      "default": true,
+      "description": "Open each Community Post's public detail page to fill its exact ISO publish date and exact like count. Adds one request per post.",
       "prefill": false,
-      "title": "Include community posts",
+      "title": "Fetch exact post dates and likes",
       "type": "boolean"
     },
-    "market": {
-      "default": "US",
-      "description": "Country code used for the public localized YouTube page.",
-      "editor": "select",
-      "enum": [
-        "US",
-        "GB",
-        "CA",
-        "AU",
-        "DE",
-        "FR",
-        "JP",
-        "KR",
-        "BR",
-        "IN",
-        "MX",
-        "IT",
-        "ES",
-        "NL",
-        "PL",
-        "RU",
-        "SE",
-        "NO",
-        "DK",
-        "FI",
-        "ZA",
-        "SG",
-        "HK",
-        "TW",
-        "ID",
-        "MY",
-        "TH",
-        "PH",
-        "AR",
-        "CO",
-        "CL"
-      ],
-      "enumTitles": [
-        "United States",
-        "United Kingdom",
-        "Canada",
-        "Australia",
-        "Germany",
-        "France",
-        "Japan",
-        "South Korea",
-        "Brazil",
-        "India",
-        "Mexico",
-        "Italy",
-        "Spain",
-        "Netherlands",
-        "Poland",
-        "Russia",
-        "Sweden",
-        "Norway",
-        "Denmark",
-        "Finland",
-        "South Africa",
-        "Singapore",
-        "Hong Kong",
-        "Taiwan",
-        "Indonesia",
-        "Malaysia",
-        "Thailand",
-        "Philippines",
-        "Argentina",
-        "Colombia",
-        "Chile"
-      ],
-      "title": "Market",
-      "type": "string"
+    "includePosts": {
+      "default": false,
+      "description": "In channel profile mode, add a snapshot of the channel's public Community Posts to the same row. Use the posts mode for one row per post.",
+      "prefill": false,
+      "title": "Nest Community Posts in the profile row",
+      "type": "boolean"
     },
     "maxPlaylists": {
       "default": 20,
-      "description": "Maximum public playlist rows to nest in each combined profile row when includePlaylists is enabled.",
+      "description": "Maximum playlist, show, course, or podcast rows to collect per channel. Applies to the playlists mode and to nested profile snapshots.",
       "maximum": 10000,
       "minimum": 1,
       "prefill": 10,
-      "title": "Maximum combined playlists",
+      "title": "Maximum playlists per channel",
       "type": "integer"
     },
     "maxPostComments": {
       "default": 20,
-      "description": "Maximum public comments and replies to retain inside each combined post when includePostComments is enabled.",
+      "description": "Maximum public top-level comments to keep per Community Post when comments are included. Replies are not expanded.",
       "maximum": 1000,
       "minimum": 1,
       "prefill": 10,
@@ -135,12 +68,30 @@
     },
     "maxPosts": {
       "default": 20,
-      "description": "Maximum public Community Posts rows to nest in each combined profile row when includePosts is enabled.",
+      "description": "Maximum Community Posts to collect per channel. Applies to the posts mode and to nested profile snapshots. YouTube exposes at most 200 posts per channel.",
       "maximum": 10000,
       "minimum": 1,
       "prefill": 10,
-      "title": "Maximum combined posts",
+      "title": "Maximum Community Posts per channel",
       "type": "integer"
+    },
+    "mode": {
+      "default": "profiles",
+      "description": "Channel profile returns one row per channel with its About details. Playlists returns one row per public playlist, show, course, or podcast. Posts returns one row per public Community Post.",
+      "editor": "select",
+      "enum": [
+        "profiles",
+        "playlists",
+        "posts"
+      ],
+      "enumTitles": [
+        "Channel profiles (About page)",
+        "Channel playlists, shows & courses",
+        "Community posts"
+      ],
+      "prefill": "profiles",
+      "title": "What to collect",
+      "type": "string"
     }
   },
   "required": [

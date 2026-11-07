@@ -1,43 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-rqGI9LMACbtjOWiSPureumgQKq3ipuLgaipvGK/N9Xc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>LinkedIn Profile, Certifications &amp; Company Data Extractor | Dataspryva</title><meta name="description" content="Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, wit"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"><meta property="og:title" content="LinkedIn Profile, Certifications &amp; Company Data Extractor | Dataspryva"><meta property="og:description" content="Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, wit"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#webpage","name":"LinkedIn Profile, Certifications & Company Data Extractor","description":"Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#article","headline":"LinkedIn Profile, Certifications & Company Data Extractor","name":"LinkedIn Profile, Certifications & Company Data Extractor","description":"Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"LinkedIn Profile, Certifications & Company Data Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>LinkedIn Profile, Certifications &amp; Company Data Extractor</span></div><section id="overview"><h1 class="doc-title">LinkedIn Profile, Certifications &amp; Company Data Extractor</h1><p class="lede">Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/linkedin-profile-certifications-and-company-data">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/iIXoObnaUV7HWGusQ/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>profileUrls</code></td><td>array</td><td>required</td><td>LinkedIn profile URLs (https://linkedin.com/in/username) or usernames.</td></tr><tr><td><code>enrichCompany</code></td><td>boolean</td><td>optional</td><td>Fetch the current employer&#x27;s own LinkedIn company page for extra detail (size, industry, website, headquarters, logo). Adds one extra request per profile (~30-90s) but is cached per company within a run. Disable for faster runs.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional Apify proxy.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-rqGI9LMACbtjOWiSPureumgQKq3ipuLgaipvGK/N9Xc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>LinkedIn Profile, Certifications &amp; Company Data Extractor | Dataspryva</title><meta name="description" content="Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, wit"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"><meta property="og:title" content="LinkedIn Profile, Certifications &amp; Company Data Extractor | Dataspryva"><meta property="og:description" content="Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, wit"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#webpage","name":"LinkedIn Profile, Certifications & Company Data Extractor","description":"Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#article","headline":"LinkedIn Profile, Certifications & Company Data Extractor","name":"LinkedIn Profile, Certifications & Company Data Extractor","description":"Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"LinkedIn Profile, Certifications & Company Data Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iIXoObnaUV7HWGusQ/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>LinkedIn Profile, Certifications &amp; Company Data Extractor</span></div><section id="overview"><h1 class="doc-title">LinkedIn Profile, Certifications &amp; Company Data Extractor</h1><p class="lede">Turn LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details, with no login required.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/linkedin-profile-certifications-and-company-data">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/iIXoObnaUV7HWGusQ/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>profileUrls</code></td><td>array</td><td>required</td><td>Public LinkedIn profile URLs (https://www.linkedin.com/in/username) or bare usernames. Full URLs, &#x27;in/username&#x27; shorthand, regional subdomains and URLs with tracking parameters are all accepted.</td></tr><tr><td><code>enrichCompany</code></td><td>boolean</td><td>optional</td><td>Also read the current employer&#x27;s own public LinkedIn page for employee count, size range, industry, headquarters, address, founded year, followers, website, logo, description, slogan, type and specialties. Uses the actor&#x27;s free public access path; one fetch per unique company per run.</td></tr><tr><td><code>includeStatusRows</code></td><td>boolean</td><td>optional</td><td>Add one structured status row when a run returns no profiles or only some of the requested profiles (for example a 404 or a privacy-restricted profile). Turn off for a dataset of profile records only.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;properties&quot;: {
     &quot;enrichCompany&quot;: {
       &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Fetch the current employer&#x27;s own LinkedIn company page for extra detail (size, industry, website, headquarters, logo). Adds one extra request per profile (~30-90s) but is cached per company within a run. Disable for faster runs.&quot;,
+      &quot;description&quot;: &quot;Also read the current employer&#x27;s own public LinkedIn page for employee count, size range, industry, headquarters, address, founded year, followers, website, logo, description, slogan, type and specialties. Uses the actor&#x27;s free public access path; one fetch per unique company per run.&quot;,
       &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: true,
       &quot;title&quot;: &quot;Enrich Current Company&quot;,
       &quot;type&quot;: &quot;boolean&quot;
     },
+    &quot;includeStatusRows&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add one structured status row when a run returns no profiles or only some of the requested profiles (for example a 404 or a privacy-restricted profile). Turn off for a dataset of profile records only.&quot;,
+      &quot;editor&quot;: &quot;checkbox&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include Status Rows&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;profileUrls&quot;: {
-      &quot;description&quot;: &quot;LinkedIn profile URLs (https://linkedin.com/in/username) or usernames.&quot;,
+      &quot;description&quot;: &quot;Public LinkedIn profile URLs (https://www.linkedin.com/in/username) or bare usernames. Full URLs, &#x27;in/username&#x27; shorthand, regional subdomains and URLs with tracking parameters are all accepted.&quot;,
       &quot;editor&quot;: &quot;stringList&quot;,
       &quot;items&quot;: {
         &quot;type&quot;: &quot;string&quot;
       },
       &quot;minItems&quot;: 1,
       &quot;prefill&quot;: [
-        &quot;https://www.linkedin.com/in/williamhgates&quot;,
-        &quot;https://www.linkedin.com/in/satyanadella&quot;
+        &quot;https://www.linkedin.com/in/williamhgates&quot;
       ],
-      &quot;title&quot;: &quot;Profile URLs&quot;,
+      &quot;title&quot;: &quot;Profile URLs or Usernames&quot;,
       &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;proxyConfiguration&quot;: {
-      &quot;description&quot;: &quot;Optional Apify proxy.&quot;,
-      &quot;editor&quot;: &quot;proxy&quot;,
-      &quot;title&quot;: &quot;Proxy Configuration&quot;,
-      &quot;type&quot;: &quot;object&quot;
     }
   },
   &quot;required&quot;: [
     &quot;profileUrls&quot;
   ],
   &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;LinkedIn Profile Scraper Input&quot;,
+  &quot;title&quot;: &quot;LinkedIn Profile, Certifications &amp; Company Data Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
 </code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped LinkedIn profile records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;LinkedIn profile records with work history, education, certifications, honors, volunteer work, projects and current-employer company details.&quot;,
+  &quot;description&quot;: &quot;One record per requested LinkedIn profile: identity, About, current company and school, the public connections indicator, work/education links, every self-authored section LinkedIn renders to guests (certifications, recommendations, languages, services, publications, patents, courses, honors, organizations, volunteering, projects, skills, badges, websites), and optional current-employer firmographics.&quot;,
   &quot;properties&quot;: {
     &quot;results&quot;: {
       &quot;description&quot;: &quot;Dataset containing all scraped LinkedIn profile records.&quot;,
@@ -55,6 +57,26 @@
       &quot;display&quot;: {
         &quot;component&quot;: &quot;table&quot;,
         &quot;properties&quot;: {
+          &quot;certifications&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Certifications&quot;
+          },
+          &quot;connectionsCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Connections&quot;
+          },
+          &quot;connectionsText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Connections (text)&quot;
+          },
+          &quot;currentCompany&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Current Company&quot;
+          },
+          &quot;currentSchool&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Current School&quot;
+          },
           &quot;currentTitle&quot;: {
             &quot;format&quot;: &quot;text&quot;,
             &quot;label&quot;: &quot;Current Title&quot;
@@ -70,6 +92,10 @@
           &quot;inputUrl&quot;: {
             &quot;format&quot;: &quot;text&quot;,
             &quot;label&quot;: &quot;Input URL&quot;
+          },
+          &quot;languages&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Languages&quot;
           },
           &quot;location&quot;: {
             &quot;format&quot;: &quot;text&quot;,
@@ -91,9 +117,21 @@
             &quot;format&quot;: &quot;link&quot;,
             &quot;label&quot;: &quot;Profile URL&quot;
           },
+          &quot;publications&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Publications&quot;
+          },
+          &quot;recommendations&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Recommendations&quot;
+          },
           &quot;scrapedAt&quot;: {
             &quot;format&quot;: &quot;text&quot;,
             &quot;label&quot;: &quot;Scraped At&quot;
+          },
+          &quot;skills&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Skills&quot;
           },
           &quot;summary&quot;: {
             &quot;format&quot;: &quot;text&quot;,
@@ -111,7 +149,16 @@
           &quot;profileUrl&quot;,
           &quot;profilePicture&quot;,
           &quot;currentTitle&quot;,
+          &quot;currentCompany&quot;,
+          &quot;currentSchool&quot;,
           &quot;followersCount&quot;,
+          &quot;connectionsCount&quot;,
+          &quot;connectionsText&quot;,
+          &quot;certifications&quot;,
+          &quot;recommendations&quot;,
+          &quot;languages&quot;,
+          &quot;publications&quot;,
+          &quot;skills&quot;,
           &quot;inputUrl&quot;,
           &quot;order&quot;,
           &quot;scrapedAt&quot;
@@ -122,6 +169,10 @@
       &quot;display&quot;: {
         &quot;component&quot;: &quot;table&quot;,
         &quot;properties&quot;: {
+          &quot;connectionsText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Connections&quot;
+          },
           &quot;followersCount&quot;: {
             &quot;format&quot;: &quot;number&quot;,
             &quot;label&quot;: &quot;Followers&quot;
@@ -156,6 +207,7 @@
           &quot;location&quot;,
           &quot;profileUrl&quot;,
           &quot;followersCount&quot;,
+          &quot;connectionsText&quot;,
           &quot;scrapedAt&quot;
         ]
       }
@@ -163,46 +215,86 @@
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-linkedin-profile-certifications-company-data-extractor">LinkedIn Profile, Certifications &amp; Company Data Extractor</h2>
-<p>Turn a list of public LinkedIn profile URLs into structured records with work history, education, certifications, honors, volunteer work, personal projects and current-employer company details — all without a LinkedIn login.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<p>Give this actor a list of public LinkedIn profile URLs (or just usernames) and it returns one
+structured record per person: identity, About text, current company and school, the public
+connection indicator, work and education links, every self-authored section LinkedIn shows to
+logged-out visitors, and firmographics for the person's current employer. No LinkedIn account,
+cookie, session token, or proxy setup is required.</p>
+<h2 id="readme-what-it-does">What it does</h2>
 <ul>
-<li>Reads any public LinkedIn profile from its URL or bare username, with no account or cookie required</li>
-<li>Returns work history (current and past positions), education, and follower count</li>
-<li>Extracts certifications with credential IDs and verification links, honors and awards, test scores, organization memberships, volunteer experience, personal projects, and personal website links — sections most basic extractors skip</li>
-<li>Optionally enriches the current employer with company size, industry, headquarters, website and logo from that company's own LinkedIn page</li>
-<li>Fields that aren't present on a given profile are left out of the record entirely rather than filled with a placeholder or guessed value</li>
+<li>Reads the public guest view of each profile, plus the richer server-rendered view LinkedIn
+sends to link-preview crawlers when available</li>
+<li>Extracts certifications with credential IDs and verification links, honors and awards, test
+scores, organization memberships, volunteer work, projects, publications, patents, courses,
+instructor courses, language skills, services, recommendations received, public skill tokens,
+badges, and listed websites</li>
+<li>Reads the top-card layer for the current company link, current school, followers, and the
+public connections figure</li>
+<li>Optionally reads the current employer's own public LinkedIn page for company size, industry,
+headquarters, address, founded year, follower count, website, logo, description, slogan,
+organization type, and specialties</li>
+<li>Never invents data: a field LinkedIn withholds or masks is omitted from that record, and a
+profile that belongs to a different member is discarded rather than pushed</li>
+<li>Omits empty values recursively — no <code>null</code>, empty string, or empty list reaches the dataset</li>
 </ul>
 <h2 id="readme-output-per-profile">Output per profile</h2>
 <ul>
 <li><code>name</code>, <code>headline</code>, <code>location</code>, <code>summary</code></li>
+<li><code>headlineRedacted</code> — <code>true</code> when LinkedIn replaced a withheld headline with the current company
+in its public preview line (the replacement itself is not pushed as a headline)</li>
 <li><code>profileUrl</code>, <code>profilePicture</code></li>
-<li><code>currentTitle</code> — current job title, when LinkedIn's guest view exposes it for that profile</li>
-<li><code>allTitles[]</code> — every job title listed on the profile</li>
-<li><code>currentCompany</code> — current employer, with company enrichment when <code>enrichCompany</code> is on (see below)</li>
-<li><code>currentPositions[]</code>, <code>pastPositions[]</code> — each with <code>company</code>, <code>title</code>, <code>companyUrl</code>, <code>startDate</code>, <code>endDate</code>, <code>location</code>, <code>description</code></li>
-<li><code>education[]</code> — each with <code>school</code>, <code>schoolUrl</code>, <code>degree</code>, <code>fieldOfStudy</code>, <code>startDate</code>, <code>endDate</code></li>
-<li><code>followersCount</code></li>
-<li><code>recentArticles[]</code> — recent posts/articles with title, URL, publish date and likes</li>
-<li><code>certifications[]</code> — name, issuer, issuer URL, issue date, credential ID, credential URL</li>
-<li><code>honorsAndAwards[]</code> — title, issuer, date, description</li>
-<li><code>testScores[]</code> — name, score, date</li>
-<li><code>organizations[]</code> — name, position, description</li>
-<li><code>volunteerExperience[]</code> — role, organization, description</li>
-<li><code>projects[]</code> — title, date range, description</li>
-<li><code>websites[]</code> — label and URL for personal/portfolio links</li>
-<li><code>inputUrl</code> — the URL or handle you supplied for this row</li>
-<li><code>order</code> — this row's position in your input list</li>
-<li><code>scrapedAt</code> — ISO 8601 timestamp of when the record was collected</li>
+<li><code>currentTitle</code> — current role title when LinkedIn exposes it publicly for this profile</li>
+<li><code>allTitles[]</code> — titles published in the profile's structured data (masked entries removed)</li>
+<li><code>currentCompany</code> — current employer with <code>name</code>, <code>url</code>, <code>slug</code>, <code>companyId</code> when the company
+link is numeric. With <code>enrichCompany</code> on it also carries <code>employeeCount</code>, <code>size</code>, <code>industry</code>,
+<code>website</code>, <code>headquarters</code>, <code>address</code>, <code>foundedYear</code>, <code>followersCount</code>, <code>description</code>, <code>slogan</code>,
+<code>organizationType</code>, <code>logoUrl</code>, and <code>specialties[]</code></li>
+<li><code>currentSchool</code> — school shown on the profile top card (<code>name</code>, <code>url</code>)</li>
+<li><code>currentPositions[]</code>, <code>pastPositions[]</code> — <code>company</code>, <code>companyUrl</code>, <code>startDate</code>, <code>endDate</code>,
+<code>location</code>, <code>description</code>; when LinkedIn renders the full Experience list, entries also carry
+<code>title</code>, <code>dateRange</code>, and <code>duration</code></li>
+<li><code>experiences[]</code> — <code>currentPositions</code> and <code>pastPositions</code> combined</li>
+<li><code>education[]</code> and <code>educations[]</code> — the same list under both keys (<code>school</code>, <code>schoolUrl</code>,
+<code>startDate</code>, <code>endDate</code>, plus <code>degree</code>, <code>fieldOfStudy</code>, <code>gpa</code>, <code>dateRange</code> when LinkedIn's
+richer public view includes them)</li>
+<li><code>followersCount</code>, <code>connectionsCount</code> (exact number when public), <code>connectionsText</code> (for example
+<code>&quot;500+&quot;</code> when only the capped indicator is public)</li>
+<li><code>recentArticles[]</code> — recent posts or articles with <code>title</code>, <code>url</code>, <code>publishedDate</code>, <code>text</code>, and
+<code>likes</code></li>
+<li><code>certifications[]</code> — <code>name</code>, <code>issuer</code>, <code>issuerUrl</code>, <code>issueDate</code>, <code>credentialId</code>,
+<code>credentialUrl</code></li>
+<li><code>recommendations[]</code> — <code>recommender</code>, <code>recommenderUrl</code>, <code>text</code></li>
+<li><code>languages[]</code> — <code>language</code>, <code>proficiency</code></li>
+<li><code>services[]</code> — <code>name</code>, <code>url</code></li>
+<li><code>publications[]</code> — <code>title</code>, <code>url</code>, <code>publisher</code>, <code>date</code>, <code>description</code></li>
+<li><code>patents[]</code> — <code>title</code>, <code>url</code>, <code>filedDate</code>, <code>number</code>, <code>description</code></li>
+<li><code>courses[]</code> — <code>title</code>, <code>number</code></li>
+<li><code>instructorCourses[]</code> — <code>title</code>, <code>url</code>, <code>duration</code></li>
+<li><code>honorsAndAwards[]</code> — <code>title</code>, <code>issuer</code>, <code>date</code>, <code>description</code></li>
+<li><code>testScores[]</code> — <code>name</code>, <code>score</code>, <code>date</code></li>
+<li><code>organizations[]</code> — <code>name</code>, <code>position</code>, <code>description</code></li>
+<li><code>volunteerExperience[]</code> — <code>role</code>, <code>organization</code>, <code>description</code></li>
+<li><code>projects[]</code> — <code>title</code>, <code>dateRange</code>, <code>description</code></li>
+<li><code>skills[]</code> — public skill names when the profile exposes them</li>
+<li><code>badges[]</code>, <code>isTopVoice</code>, <code>isCreator</code> — public profile badges</li>
+<li><code>websites[]</code> — <code>label</code>, <code>url</code> for personal or portfolio links</li>
+<li><code>inputUrl</code> — the value you supplied for this row</li>
+<li><code>order</code> — zero-based position in your input list</li>
+<li><code>scrapedAt</code> — ISO 8601 timestamp of extraction</li>
 </ul>
-<h3 id="readme-currentcompany-fields-when-enrichcompany-is-enabled"><code>currentCompany</code> fields (when <code>enrichCompany</code> is enabled)</h3>
+<p>When LinkedIn serves only a sign-up preview for a profile, the row is built from the available
+preview metadata and contains the identity-level fields only.</p>
+<h3 id="readme-status-rows">Status rows</h3>
+<p>A run can add one status row (disable with <code>includeStatusRows: false</code>):</p>
 <ul>
-<li><code>name</code>, <code>url</code>, <code>slug</code>, <code>companyId</code></li>
-<li><code>employeeCount</code> — exact headcount from the company's own LinkedIn page</li>
-<li><code>size</code> — LinkedIn's bucketed size range (e.g. <code>&quot;10,001+ employees&quot;</code>)</li>
-<li><code>industry</code>, <code>website</code>, <code>headquarters</code>, <code>organizationType</code></li>
-<li><code>logoUrl</code></li>
-<li><code>specialties[]</code> — only present when the company page lists them</li>
+<li>No profiles readable: <code>_status: &quot;no_data&quot;</code>, <code>_reason</code>, <code>_message</code>, <code>_help</code>, <code>scrapedAt</code></li>
+<li>Some profiles readable: <code>_status: &quot;partial_results&quot;</code>, <code>_reason</code>, <code>_failureBreakdown</code>,
+<code>_message</code>, <code>scrapedAt</code>, alongside the successful rows</li>
 </ul>
+<p>Failure reasons: <code>auth_wall</code> (profile hides itself from guests), <code>not_found</code> (confirmed 404),
+<code>blocked</code> (all access paths failed without a 404), <code>identity_mismatch</code> (LinkedIn resolved the URL
+to a different member), <code>invalid_url</code>, and <code>error</code>. Filter on <code>_status</code> if you want only profile
+rows.</p>
 <h2 id="readme-input">Input</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -218,24 +310,23 @@
 <td><code>profileUrls</code></td>
 <td>array</td>
 <td>–</td>
-<td>LinkedIn profile URLs or bare usernames to scrape (required)</td>
+<td>Required. Public LinkedIn profile URLs or bare usernames. Accepts full URLs, <code>linkedin.com/in/name</code>, <code>in/name</code>, regional subdomains, and URLs with query parameters.</td>
 </tr>
 <tr>
 <td><code>enrichCompany</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
-<td>Fetch the current employer's own LinkedIn company page for extra detail; adds one request per unique company per run</td>
+<td>Also read the current employer's public company page for firmographics. One fetch per unique company per run.</td>
 </tr>
 <tr>
-<td><code>proxyConfiguration</code></td>
-<td>object</td>
-<td>–</td>
-<td>Optional Apify proxy configuration</td>
+<td><code>includeStatusRows</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add one structured status row when a run yields no profiles or only some of the requested profiles.</td>
 </tr>
 </tbody>
 </table></div>
-<p>Accepted <code>profileUrls</code> formats include <code>https://www.linkedin.com/in/username</code>, <code>linkedin.com/in/username</code>, <code>in/username</code>, and a bare <code>username</code>.</p>
-<h3 id="readme-example-a-short-list-of-named-profiles">Example: a short list of named profiles</h3>
+<h3 id="readme-example-several-profiles">Example: several profiles</h3>
 <pre><code class="language-json">{
   &quot;profileUrls&quot;: [
     &quot;https://www.linkedin.com/in/williamhgates&quot;,
@@ -244,37 +335,68 @@
   ]
 }
 </code></pre>
-<h3 id="readme-example-skip-company-enrichment-for-a-faster-run">Example: skip company enrichment for a faster run</h3>
+<h3 id="readme-example-profile-only-no-employer-enrichment">Example: profile only, no employer enrichment</h3>
 <pre><code class="language-json">{
-  &quot;profileUrls&quot;: [&quot;https://www.linkedin.com/in/williamhgates&quot;],
+  &quot;profileUrls&quot;: [&quot;https://www.linkedin.com/in/charlywargnier&quot;],
   &quot;enrichCompany&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-records-only-no-status-rows">Example: records only, no status rows</h3>
+<pre><code class="language-json">{
+  &quot;profileUrls&quot;: [&quot;https://www.linkedin.com/in/abdulmananraja&quot;],
+  &quot;includeStatusRows&quot;: false
 }
 </code></pre>
 <h2 id="readme-use-cases">Use cases</h2>
 <ul>
-<li><strong>Sales prospecting</strong> — turn a list of prospect profile URLs into structured role, employer and company-size data</li>
-<li><strong>Recruiting and candidate research</strong> — verify work history, education and certifications before an outreach</li>
-<li><strong>CRM enrichment</strong> — append verified profile and employer fields to existing contact records</li>
-<li><strong>Credential and background checks</strong> — cross-reference certifications, honors and project history across candidates</li>
-<li><strong>Account-based sales intelligence</strong> — track key people and their current employer's size and industry over time</li>
+<li><strong>Recruiting and candidate research</strong> — review public certifications, education, languages,
+and project history before an outreach</li>
+<li><strong>Sales and CRM enrichment</strong> — append current role, employer, and company firmographics to a
+list of profile URLs</li>
+<li><strong>Credential and award research</strong> — collect public certifications, honors, publications, and
+patents across a population</li>
+<li><strong>Talent-market analysis</strong> — study the distribution of public skills, languages, and employers
+in a cohort</li>
+<li><strong>Profile monitoring</strong> — refresh a saved URL list and compare current employer, school, and
+public sections over time</li>
+</ul>
+<h2 id="readme-how-access-works">How access works</h2>
+<p>The actor selects the cheapest working public access path automatically: a direct browser-style
+request, then LinkedIn's public link-preview view, then an anti-bot proxy only if both free
+paths are blocked. For company pages it also tries a regional host and a public translation
+mirror before the proxy. You never configure a proxy, and you never supply a cookie, login, or
+API key.</p>
+<h2 id="readme-honest-limits">Honest limits</h2>
+<ul>
+<li>LinkedIn withholds the real headline, per-role titles, and degree/field for most logged-out
+profiles. The actor pushes them only when the public page actually renders them; otherwise the
+field is absent.</li>
+<li>The exact connection count is usually hidden. The public <code>500+</code> form is returned as
+<code>connectionsText</code>; <code>connectionsCount</code> appears only when an exact number is public.</li>
+<li>Public skills are rare in the guest view, so <code>skills</code> is often absent.</li>
+<li>Email addresses and phone numbers are not public. The actor never guesses or fabricates them.</li>
+<li>A profile whose owner hides it from logged-out visitors returns a status row, not data.</li>
+<li>Search by name and company-page listing are separate actors in this suite; this actor starts
+from profile URLs or usernames.</li>
 </ul>
 <h2 id="readme-faq">FAQ</h2>
 <p><strong>Do I need a LinkedIn account or cookies?</strong>
-No. This actor never asks for LinkedIn credentials or session cookies — it only reads what LinkedIn already shows to a logged-out visitor.</p>
-<p><strong>Can I get someone's email address or phone number?</strong>
-No. LinkedIn doesn't expose contact details on the public profile page to logged-out visitors, and this actor never guesses or fabricates one.</p>
-<p><strong>Why is the job title missing on some profiles?</strong>
-LinkedIn's own visibility rules occasionally hide job-title and past-employer text from logged-out visitors on certain profiles. Rather than return placeholder text for it, the actor leaves that field out of the record. The employer's name under <code>currentCompany</code> is usually still available even when the title isn't.</p>
-<p><strong>Does this work on ordinary profiles, not just well-known public figures?</strong>
-Yes — it's built for everyday professional profiles used in lead generation and recruiting, not just celebrities or executives.</p>
-<p><strong>What happens if a profile is fully private?</strong>
-If the profile owner has hidden their account entirely from logged-out visitors, no data is returned for it — that reflects their own privacy setting, not a gap in the actor.</p>
-<p><strong>Are skills and languages included?</strong>
-No. Those sections only exist behind LinkedIn's authenticated member view and aren't visible to logged-out visitors, so they're not part of the output. Certifications, honors, test scores, organizations, volunteer experience and projects are included, since LinkedIn does render those for logged-out visitors when the profile owner has filled them in.</p>
-<p><strong>How current is the data?</strong>
-Every field is read from the live profile page at run time — nothing is cached or backfilled from an older snapshot.</p>
-<p><strong>Does this support profiles outside the US?</strong>
-Yes, including profiles on regional LinkedIn domains (e.g. <code>uk.linkedin.com</code>, <code>de.linkedin.com</code>).</p>
+No. The actor never asks for LinkedIn credentials, session cookies, or tokens.</p>
+<p><strong>Does this work for ordinary profiles or only famous ones?</strong>
+It is built for everyday professional profiles. LinkedIn's public link-preview view serves the
+same server-rendered sections for ordinary accounts; the actor reads that view, not a cached
+snapshot.</p>
+<p><strong>Why are some fields missing on a particular profile?</strong>
+LinkedIn either hides that field from logged-out visitors or the profile owner never filled it
+in. The record omits it instead of returning a placeholder.</p>
+<p><strong>Can I get an email address or phone number?</strong>
+No. Those are not part of the public guest view, and this actor does not use third-party contact
+databases.</p>
+<p><strong>Does it support non-US profiles?</strong>
+Yes. Regional LinkedIn profile URLs are normalized to the canonical profile, and the public
+sections are read in the locale LinkedIn serves.</p>
+<p><strong>Is the data live?</strong>
+Yes. Every record is read from the live public page at run time.</p>
 <p><strong>Is this affiliated with LinkedIn?</strong>
-No. This actor reads publicly available LinkedIn profile pages and is not affiliated with or endorsed by LinkedIn.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/iIXoObnaUV7HWGusQ/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>YGPuu9STGRFD4iWh8</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+No. It reads publicly available pages and is not affiliated with or endorsed by LinkedIn.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/iIXoObnaUV7HWGusQ/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>0lmeugxvN8unWYVXn</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

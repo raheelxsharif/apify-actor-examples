@@ -2,36 +2,38 @@
   "properties": {
     "enrichCompany": {
       "default": true,
-      "description": "Fetch the current employer's own LinkedIn company page for extra detail (size, industry, website, headquarters, logo). Adds one extra request per profile (~30-90s) but is cached per company within a run. Disable for faster runs.",
+      "description": "Also read the current employer's own public LinkedIn page for employee count, size range, industry, headquarters, address, founded year, followers, website, logo, description, slogan, type and specialties. Uses the actor's free public access path; one fetch per unique company per run.",
       "editor": "checkbox",
+      "prefill": true,
       "title": "Enrich Current Company",
       "type": "boolean"
     },
+    "includeStatusRows": {
+      "default": true,
+      "description": "Add one structured status row when a run returns no profiles or only some of the requested profiles (for example a 404 or a privacy-restricted profile). Turn off for a dataset of profile records only.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Include Status Rows",
+      "type": "boolean"
+    },
     "profileUrls": {
-      "description": "LinkedIn profile URLs (https://linkedin.com/in/username) or usernames.",
+      "description": "Public LinkedIn profile URLs (https://www.linkedin.com/in/username) or bare usernames. Full URLs, 'in/username' shorthand, regional subdomains and URLs with tracking parameters are all accepted.",
       "editor": "stringList",
       "items": {
         "type": "string"
       },
       "minItems": 1,
       "prefill": [
-        "https://www.linkedin.com/in/williamhgates",
-        "https://www.linkedin.com/in/satyanadella"
+        "https://www.linkedin.com/in/williamhgates"
       ],
-      "title": "Profile URLs",
+      "title": "Profile URLs or Usernames",
       "type": "array"
-    },
-    "proxyConfiguration": {
-      "description": "Optional Apify proxy.",
-      "editor": "proxy",
-      "title": "Proxy Configuration",
-      "type": "object"
     }
   },
   "required": [
     "profileUrls"
   ],
   "schemaVersion": 1,
-  "title": "LinkedIn Profile Scraper Input",
+  "title": "LinkedIn Profile, Certifications & Company Data Input",
   "type": "object"
 }

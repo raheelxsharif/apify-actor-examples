@@ -4,18 +4,139 @@
     "overview": {
       "display": {
         "component": "table",
-        "properties": {}
+        "properties": {
+          "channelName": {
+            "format": "text",
+            "label": "Channel"
+          },
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "handle": {
+            "format": "text",
+            "label": "Handle"
+          },
+          "isVerified": {
+            "format": "boolean",
+            "label": "Verified"
+          },
+          "joinedDateText": {
+            "format": "text",
+            "label": "Joined"
+          },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "subscriberCountText": {
+            "format": "text",
+            "label": "Subscribers"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "totalViewsText": {
+            "format": "text",
+            "label": "Total views"
+          },
+          "videoCountText": {
+            "format": "text",
+            "label": "Videos"
+          }
+        }
       },
       "title": "Channel profiles",
       "transformation": {
         "fields": [
+          "recordType",
           "channelName",
+          "title",
           "handle",
           "subscriberCountText",
           "videoCountText",
           "totalViewsText",
           "country",
+          "joinedDateText",
           "isVerified"
+        ]
+      }
+    },
+    "playlists": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "lastUpdatedText": {
+            "format": "text",
+            "label": "Updated"
+          },
+          "playlistType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "playlistUrl": {
+            "format": "link",
+            "label": "URL"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "videoCount": {
+            "format": "number",
+            "label": "Items"
+          }
+        }
+      },
+      "title": "Playlists & collections",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "playlistType",
+          "title",
+          "videoCount",
+          "lastUpdatedText",
+          "playlistUrl"
+        ]
+      }
+    },
+    "posts": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "contentText": {
+            "format": "text",
+            "label": "Text"
+          },
+          "likeCount": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "postType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "postUrl": {
+            "format": "link",
+            "label": "URL"
+          },
+          "publishedAt": {
+            "format": "text",
+            "label": "Published"
+          }
+        }
+      },
+      "title": "Community posts",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "postType",
+          "postId",
+          "publishedAt",
+          "likeCount",
+          "contentText",
+          "postUrl"
         ]
       }
     }
