@@ -1,0 +1,125 @@
+# Google Workspace Marketplace Category Tracker
+
+Monitor app rankings and metadata across all **26 categories** of the Google Workspace Marketplace. Each run returns apps sorted by their rank position within the chosen category, with rating, review count, pricing model, and direct URLs — useful for competitive research, market mapping, and daily rank monitoring.
+
+## What this actor does
+
+- Lists every app in a chosen Google Workspace Marketplace category, ordered by its on-site rank
+- Covers all 26 categories and subcategories, from "Most Popular" down to niche subcategories like HR & Legal
+- Returns rating, review count and pricing model for each app, directly from the marketplace listing
+- Returns the icon URL and a direct link to each app's marketplace page
+- Omits `rating` or `reviewCount` when an app has no ratings yet, rather than returning a zero or null
+
+## Output per app
+
+| Field | Type | Description |
+|---|---|---|
+| `rankInCategory` | integer | 1-based position in the category listing |
+| `appId` | string | Unique numeric app ID |
+| `name` | string | App display name |
+| `developer` | string | Developer / company name |
+| `rating` | float | Average star rating (0.0–5.0) |
+| `reviewCount` | integer | Total number of ratings |
+| `installCount` | integer | Reported install count, when the listing publishes one |
+| `pricingModel` | string | `Free`, `Paid`, or `Freemium` |
+| `categories` | array | Category slugs the app belongs to |
+| `shortDescription` | string | One-line description |
+| `appUrl` | string | Direct URL to the app listing |
+| `iconUrl` | string | App icon image URL |
+| `recordType` | string | Always `workspace_app` |
+| `scrapedAt` | string | ISO-8601 UTC timestamp |
+
+---
+
+## Input options
+
+| Field | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `category` | select | Yes | `popular-apps` | Category slug to scrape |
+| `maxItems` | integer | No | `50` | Max apps to return (1–200) |
+
+### Available categories
+
+| Slug | Label |
+|---|---|
+| `popular-apps` | Most Popular |
+| `top-rated` | Top Rated |
+| `featured-partner-apps` | Featured Partner Apps |
+| `recommended` | Recommended for Google Workspace |
+| `work-from-everywhere` | Work from Everywhere |
+| `business-essentials` | Business Essentials |
+| `apps-to-discover` | Apps to Discover |
+| `google-apps` | Built by Google |
+| `business-tools` | Business Tools (all) |
+| `business-tools/accounting-and-finance` | Business Tools — Accounting & Finance |
+| `business-tools/administration-and-management` | Business Tools — Administration & Management |
+| `business-tools/erp-and-logistics` | Business Tools — ERP & Logistics |
+| `business-tools/hr-and-legal` | Business Tools — HR & Legal |
+| `business-tools/marketing-and-analytics` | Business Tools — Marketing & Analytics |
+| `business-tools/sales-and-crm` | Business Tools — Sales & CRM |
+| `productivity` | Productivity (all) |
+| `productivity/creative-tools` | Productivity — Creative Tools |
+| `productivity/web-development` | Productivity — Web Development |
+| `productivity/office-applications` | Productivity — Office Applications |
+| `productivity/task-management` | Productivity — Task Management |
+| `education` | Education (all) |
+| `education/academic-resources` | Education — Academic Resources |
+| `education/teacher-and-admin-tools` | Education — Teacher & Admin Tools |
+| `communication` | Communication |
+| `utilities` | Utilities |
+| `enterprise-apps` | Enterprise / Admin Managed |
+
+---
+
+## Example output record
+
+```json
+{
+  "rankInCategory": 1,
+  "appId": "1008170693301",
+  "name": "Mailmeteor - Mail merge for Gmail",
+  "developer": "Mailmeteor",
+  "rating": 4.92,
+  "reviewCount": 11695,
+  "installCount": 3000000,
+  "pricingModel": "Free",
+  "categories": ["productivity/creative-tools", "productivity/web-development"],
+  "shortDescription": "Send hundreds of personalized emails with your Gmail.",
+  "appUrl": "https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301",
+  "iconUrl": "https://lh3.googleusercontent.com/QAmS5hDnm1HmpWO8ymEr18vEtLjpzG9hYRkJ0nQUkCaxxGj0tcxA",
+  "recordType": "workspace_app",
+  "scrapedAt": "2026-05-20T10:00:00+00:00"
+}
+```
+
+---
+
+## Use cases
+
+- **Competitive intelligence** — track where your app ranks across all relevant categories week over week.
+- **Market research** — identify top-rated apps in a niche before building your own.
+- **Partner discovery** — find integration partners across business tool categories.
+- **Price benchmarking** — compare free vs paid app distribution in a target category.
+- **Rank monitoring** — run daily with `maxItems: 50` and compare datasets over time.
+
+---
+
+## FAQ
+
+**How often should I run this?**
+For rank tracking, daily runs are ideal. Use Apify's scheduler and the dataset comparison features to detect rank changes.
+
+**Does it require a Google account or API key?**
+No. The scraper uses the public marketplace website and requires no authentication or credentials.
+
+**How many apps does each category page have?**
+Categories typically list 25–100 apps. Setting `maxItems` higher than the actual count returns all available apps.
+
+**Why do some records not have a `reviewCount` or `rating`?**
+Very new apps may have 0 ratings. Those fields are omitted when no data is available (never set to null).
+
+**What is `pricingModel`?**
+Three values: `Free` (no cost), `Paid` (requires payment), `Freemium` (free tier with paid features). Determined from the marketplace listing metadata.
+
+**Can I track subcategories like `business-tools/accounting-and-finance`?**
+Yes — all 26 category slugs including subcategories are available in the category dropdown.

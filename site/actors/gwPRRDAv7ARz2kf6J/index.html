@@ -1,0 +1,399 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-CPCNYbP22iFIIde14QVk/78HllQxoYCZ3SmTJlvJea4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Workspace Marketplace Category Tracker | Dataspryva</title><meta name="description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:title" content="Google Workspace Marketplace Category Tracker | Dataspryva"><meta property="og:description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article","headline":"Google Workspace Marketplace Category Tracker","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Workspace Marketplace Category Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Workspace Marketplace Category Tracker</span></div><section id="overview"><h1 class="doc-title">Google Workspace Marketplace Category Tracker</h1><p class="lede">Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-workspace-marketplace-category-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/gwPRRDAv7ARz2kf6J/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>category</code></td><td>string</td><td>required</td><td>Google Workspace Marketplace category to scrape. Use exact category slug from the URL.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of apps to return. Each category page typically contains 25–100 apps.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;List apps ranked in a Google Workspace Marketplace category with metadata.&quot;,
+  &quot;properties&quot;: {
+    &quot;category&quot;: {
+      &quot;default&quot;: &quot;popular-apps&quot;,
+      &quot;description&quot;: &quot;Google Workspace Marketplace category to scrape. Use exact category slug from the URL.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;popular-apps&quot;,
+        &quot;top-rated&quot;,
+        &quot;featured-partner-apps&quot;,
+        &quot;recommended&quot;,
+        &quot;work-from-everywhere&quot;,
+        &quot;business-essentials&quot;,
+        &quot;apps-to-discover&quot;,
+        &quot;google-apps&quot;,
+        &quot;business-tools&quot;,
+        &quot;business-tools/accounting-and-finance&quot;,
+        &quot;business-tools/administration-and-management&quot;,
+        &quot;business-tools/erp-and-logistics&quot;,
+        &quot;business-tools/hr-and-legal&quot;,
+        &quot;business-tools/marketing-and-analytics&quot;,
+        &quot;business-tools/sales-and-crm&quot;,
+        &quot;productivity&quot;,
+        &quot;productivity/creative-tools&quot;,
+        &quot;productivity/web-development&quot;,
+        &quot;productivity/office-applications&quot;,
+        &quot;productivity/task-management&quot;,
+        &quot;education&quot;,
+        &quot;education/academic-resources&quot;,
+        &quot;education/teacher-and-admin-tools&quot;,
+        &quot;communication&quot;,
+        &quot;utilities&quot;,
+        &quot;enterprise-apps&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most Popular&quot;,
+        &quot;Top Rated&quot;,
+        &quot;Featured Partner Apps&quot;,
+        &quot;Recommended for Google Workspace&quot;,
+        &quot;Work from Everywhere&quot;,
+        &quot;Business Essentials&quot;,
+        &quot;Apps to Discover&quot;,
+        &quot;Built by Google&quot;,
+        &quot;Business Tools (all)&quot;,
+        &quot;Business Tools — Accounting &amp; Finance&quot;,
+        &quot;Business Tools — Administration &amp; Management&quot;,
+        &quot;Business Tools — ERP &amp; Logistics&quot;,
+        &quot;Business Tools — HR &amp; Legal&quot;,
+        &quot;Business Tools — Marketing &amp; Analytics&quot;,
+        &quot;Business Tools — Sales &amp; CRM&quot;,
+        &quot;Productivity (all)&quot;,
+        &quot;Productivity — Creative Tools&quot;,
+        &quot;Productivity — Web Development&quot;,
+        &quot;Productivity — Office Applications&quot;,
+        &quot;Productivity — Task Management&quot;,
+        &quot;Education (all)&quot;,
+        &quot;Education — Academic Resources&quot;,
+        &quot;Education — Teacher &amp; Admin Tools&quot;,
+        &quot;Communication&quot;,
+        &quot;Utilities&quot;,
+        &quot;Enterprise / Admin Managed&quot;
+      ],
+      &quot;prefill&quot;: &quot;popular-apps&quot;,
+      &quot;title&quot;: &quot;Category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum number of apps to return. Each category page typically contains 25–100 apps.&quot;,
+      &quot;maximum&quot;: 200,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 50,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;category&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Google Workspace Marketplace Category Tracker Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>apps</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped apps with their rank, metadata, and URLs.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Ranked apps from a Google Workspace Marketplace category with metadata including rating, review count, pricing, and direct URLs.&quot;,
+  &quot;properties&quot;: {
+    &quot;apps&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped apps with their rank, metadata, and URLs.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Marketplace Apps&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Google Workspace Marketplace Category Tracker Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Marketplace Apps&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;rankInCategory&quot;,
+          &quot;name&quot;,
+          &quot;developer&quot;,
+          &quot;rating&quot;,
+          &quot;reviewCount&quot;,
+          &quot;pricingModel&quot;,
+          &quot;appUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-workspace-marketplace-category-tracker">Google Workspace Marketplace Category Tracker</h2>
+<p>Monitor app rankings and metadata across all <strong>26 categories</strong> of the Google Workspace Marketplace. Each run returns apps sorted by their rank position within the chosen category, with rating, review count, pricing model, and direct URLs — useful for competitive research, market mapping, and daily rank monitoring.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Lists every app in a chosen Google Workspace Marketplace category, ordered by its on-site rank</li>
+<li>Covers all 26 categories and subcategories, from &quot;Most Popular&quot; down to niche subcategories like HR &amp; Legal</li>
+<li>Returns rating, review count and pricing model for each app, directly from the marketplace listing</li>
+<li>Returns the icon URL and a direct link to each app's marketplace page</li>
+<li>Omits <code>rating</code> or <code>reviewCount</code> when an app has no ratings yet, rather than returning a zero or null</li>
+</ul>
+<h2 id="readme-output-per-app">Output per app</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rankInCategory</code></td>
+<td>integer</td>
+<td>1-based position in the category listing</td>
+</tr>
+<tr>
+<td><code>appId</code></td>
+<td>string</td>
+<td>Unique numeric app ID</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>App display name</td>
+</tr>
+<tr>
+<td><code>developer</code></td>
+<td>string</td>
+<td>Developer / company name</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>float</td>
+<td>Average star rating (0.0–5.0)</td>
+</tr>
+<tr>
+<td><code>reviewCount</code></td>
+<td>integer</td>
+<td>Total number of ratings</td>
+</tr>
+<tr>
+<td><code>installCount</code></td>
+<td>integer</td>
+<td>Reported install count, when the listing publishes one</td>
+</tr>
+<tr>
+<td><code>pricingModel</code></td>
+<td>string</td>
+<td><code>Free</code>, <code>Paid</code>, or <code>Freemium</code></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array</td>
+<td>Category slugs the app belongs to</td>
+</tr>
+<tr>
+<td><code>shortDescription</code></td>
+<td>string</td>
+<td>One-line description</td>
+</tr>
+<tr>
+<td><code>appUrl</code></td>
+<td>string</td>
+<td>Direct URL to the app listing</td>
+</tr>
+<tr>
+<td><code>iconUrl</code></td>
+<td>string</td>
+<td>App icon image URL</td>
+</tr>
+<tr>
+<td><code>recordType</code></td>
+<td>string</td>
+<td>Always <code>workspace_app</code></td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>string</td>
+<td>ISO-8601 UTC timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="readme-input-options">Input options</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>category</code></td>
+<td>select</td>
+<td>Yes</td>
+<td><code>popular-apps</code></td>
+<td>Category slug to scrape</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td>No</td>
+<td><code>50</code></td>
+<td>Max apps to return (1–200)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-available-categories">Available categories</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Slug</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>popular-apps</code></td>
+<td>Most Popular</td>
+</tr>
+<tr>
+<td><code>top-rated</code></td>
+<td>Top Rated</td>
+</tr>
+<tr>
+<td><code>featured-partner-apps</code></td>
+<td>Featured Partner Apps</td>
+</tr>
+<tr>
+<td><code>recommended</code></td>
+<td>Recommended for Google Workspace</td>
+</tr>
+<tr>
+<td><code>work-from-everywhere</code></td>
+<td>Work from Everywhere</td>
+</tr>
+<tr>
+<td><code>business-essentials</code></td>
+<td>Business Essentials</td>
+</tr>
+<tr>
+<td><code>apps-to-discover</code></td>
+<td>Apps to Discover</td>
+</tr>
+<tr>
+<td><code>google-apps</code></td>
+<td>Built by Google</td>
+</tr>
+<tr>
+<td><code>business-tools</code></td>
+<td>Business Tools (all)</td>
+</tr>
+<tr>
+<td><code>business-tools/accounting-and-finance</code></td>
+<td>Business Tools — Accounting &amp; Finance</td>
+</tr>
+<tr>
+<td><code>business-tools/administration-and-management</code></td>
+<td>Business Tools — Administration &amp; Management</td>
+</tr>
+<tr>
+<td><code>business-tools/erp-and-logistics</code></td>
+<td>Business Tools — ERP &amp; Logistics</td>
+</tr>
+<tr>
+<td><code>business-tools/hr-and-legal</code></td>
+<td>Business Tools — HR &amp; Legal</td>
+</tr>
+<tr>
+<td><code>business-tools/marketing-and-analytics</code></td>
+<td>Business Tools — Marketing &amp; Analytics</td>
+</tr>
+<tr>
+<td><code>business-tools/sales-and-crm</code></td>
+<td>Business Tools — Sales &amp; CRM</td>
+</tr>
+<tr>
+<td><code>productivity</code></td>
+<td>Productivity (all)</td>
+</tr>
+<tr>
+<td><code>productivity/creative-tools</code></td>
+<td>Productivity — Creative Tools</td>
+</tr>
+<tr>
+<td><code>productivity/web-development</code></td>
+<td>Productivity — Web Development</td>
+</tr>
+<tr>
+<td><code>productivity/office-applications</code></td>
+<td>Productivity — Office Applications</td>
+</tr>
+<tr>
+<td><code>productivity/task-management</code></td>
+<td>Productivity — Task Management</td>
+</tr>
+<tr>
+<td><code>education</code></td>
+<td>Education (all)</td>
+</tr>
+<tr>
+<td><code>education/academic-resources</code></td>
+<td>Education — Academic Resources</td>
+</tr>
+<tr>
+<td><code>education/teacher-and-admin-tools</code></td>
+<td>Education — Teacher &amp; Admin Tools</td>
+</tr>
+<tr>
+<td><code>communication</code></td>
+<td>Communication</td>
+</tr>
+<tr>
+<td><code>utilities</code></td>
+<td>Utilities</td>
+</tr>
+<tr>
+<td><code>enterprise-apps</code></td>
+<td>Enterprise / Admin Managed</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="readme-example-output-record">Example output record</h2>
+<pre><code class="language-json">{
+  &quot;rankInCategory&quot;: 1,
+  &quot;appId&quot;: &quot;1008170693301&quot;,
+  &quot;name&quot;: &quot;Mailmeteor - Mail merge for Gmail&quot;,
+  &quot;developer&quot;: &quot;Mailmeteor&quot;,
+  &quot;rating&quot;: 4.92,
+  &quot;reviewCount&quot;: 11695,
+  &quot;installCount&quot;: 3000000,
+  &quot;pricingModel&quot;: &quot;Free&quot;,
+  &quot;categories&quot;: [&quot;productivity/creative-tools&quot;, &quot;productivity/web-development&quot;],
+  &quot;shortDescription&quot;: &quot;Send hundreds of personalized emails with your Gmail.&quot;,
+  &quot;appUrl&quot;: &quot;https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301&quot;,
+  &quot;iconUrl&quot;: &quot;https://lh3.googleusercontent.com/QAmS5hDnm1HmpWO8ymEr18vEtLjpzG9hYRkJ0nQUkCaxxGj0tcxA&quot;,
+  &quot;recordType&quot;: &quot;workspace_app&quot;,
+  &quot;scrapedAt&quot;: &quot;2026-05-20T10:00:00+00:00&quot;
+}
+</code></pre>
+<hr />
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Competitive intelligence</strong> — track where your app ranks across all relevant categories week over week.</li>
+<li><strong>Market research</strong> — identify top-rated apps in a niche before building your own.</li>
+<li><strong>Partner discovery</strong> — find integration partners across business tool categories.</li>
+<li><strong>Price benchmarking</strong> — compare free vs paid app distribution in a target category.</li>
+<li><strong>Rank monitoring</strong> — run daily with <code>maxItems: 50</code> and compare datasets over time.</li>
+</ul>
+<hr />
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>How often should I run this?</strong>
+For rank tracking, daily runs are ideal. Use Apify's scheduler and the dataset comparison features to detect rank changes.</p>
+<p><strong>Does it require a Google account or API key?</strong>
+No. The scraper uses the public marketplace website and requires no authentication or credentials.</p>
+<p><strong>How many apps does each category page have?</strong>
+Categories typically list 25–100 apps. Setting <code>maxItems</code> higher than the actual count returns all available apps.</p>
+<p><strong>Why do some records not have a <code>reviewCount</code> or <code>rating</code>?</strong>
+Very new apps may have 0 ratings. Those fields are omitted when no data is available (never set to null).</p>
+<p><strong>What is <code>pricingModel</code>?</strong>
+Three values: <code>Free</code> (no cost), <code>Paid</code> (requires payment), <code>Freemium</code> (free tier with paid features). Determined from the marketplace listing metadata.</p>
+<p><strong>Can I track subcategories like <code>business-tools/accounting-and-finance</code>?</strong>
+Yes — all 26 category slugs including subcategories are available in the category dropdown.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/gwPRRDAv7ARz2kf6J/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>wMr31GLvqPu6aDngX</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
