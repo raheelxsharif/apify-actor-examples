@@ -1,42 +1,250 @@
 {
+  "description": "Collect Snap Map places, live public snaps and 7x24 popularity data from Snapchat's public web pages. Search by place keyword, look up specific places, or browse US cities and categories. No Snapchat account, cookies or proxy setup required.",
   "properties": {
+    "categories": {
+      "default": [],
+      "description": "Optional category slugs for Browse mode, such as bars, restaurants, coffee-shops, historic-landmarks or parks. Leave empty to use the city hub's six featured categories.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Categories",
+      "type": "array"
+    },
+    "cityUrls": {
+      "default": [],
+      "description": "US city names, Snapchat local URLs, or local paths for Browse mode. Examples: new-york, chicago, https://www.snapchat.com/local/united-states/california/los-angeles.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Cities",
+      "type": "array"
+    },
+    "includeNearbyPlaces": {
+      "default": false,
+      "description": "Add the places Snapchat lists at the same location, with their coordinates and categories.",
+      "prefill": false,
+      "title": "Include nearby places",
+      "type": "boolean"
+    },
+    "includePlaceDetails": {
+      "default": true,
+      "description": "Open each place page to fill coordinates, address, phone, website, category, rating, reviews, opening hours, popularity and nearby places. Turn off for a faster search-card-only run. Nearby places, reviews, favorite sorting, live-snap output and the live-snap filter open place pages automatically because those values only exist there.",
+      "prefill": true,
+      "title": "Include full place details",
+      "type": "boolean"
+    },
+    "includePopularityHours": {
+      "default": true,
+      "description": "Add Snapchat's 168 hourly popularity values per place (7 days x 24 hours) plus the peak hour and day index. This is the per-place heatmap signal.",
+      "prefill": true,
+      "title": "Include 7x24 popularity",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Add up to 20 public place reviews with rating, text, date and source URL.",
+      "prefill": false,
+      "title": "Include place reviews",
+      "type": "boolean"
+    },
     "includeSnapData": {
       "default": true,
-      "description": "Fetch media URL and details for the first (most recent) snap at each place.",
+      "description": "Add the public snap sample for each place with media URL, thumbnail, creator and timestamp. Snapchat mixes recent map posts with older Spotlight shares, so use the age filter below to keep only fresh posts. Also fills the legacy first-snap fields.",
       "prefill": true,
-      "title": "Include Sample Snap Data",
+      "title": "Include live snaps",
       "type": "boolean"
     },
     "keywords": {
-      "description": "Place names or landmarks to search on Snap Map. Examples: Times Square, Eiffel Tower, Tokyo Station, Colosseum",
+      "default": [],
+      "description": "Place names, landmarks, venues or addresses to search on Snap Map. Used in Search places mode. Examples: Times Square, Eiffel Tower, Tokyo Station.",
       "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
       "prefill": [
-        "Times Square",
-        "Eiffel Tower",
-        "Tokyo Station"
+        "Times Square"
       ],
-      "title": "Place Keywords",
+      "title": "Place keywords",
       "type": "array"
     },
-    "maxPlacesPerKeyword": {
-      "default": 5,
-      "description": "Maximum number of matching places to return per keyword.",
-      "maximum": 20,
+    "maxPlaces": {
+      "default": 100,
+      "description": "Maximum places to process in Get details mode.",
+      "maximum": 500,
       "minimum": 1,
-      "title": "Max Places per Keyword",
+      "prefill": 1,
+      "title": "Max places",
       "type": "integer"
     },
+    "maxPlacesPerCity": {
+      "default": 100,
+      "description": "Maximum places to keep per city in Browse mode after merging the hub categories.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max places per city",
+      "type": "integer"
+    },
+    "maxResultsPerKeyword": {
+      "default": 10,
+      "description": "Maximum rows to keep for each result type per keyword. Snapchat returns up to 10 places and roughly 20-24 items for the other groups.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max results per keyword",
+      "type": "integer"
+    },
+    "maxSnapsPerPlace": {
+      "default": 10,
+      "description": "Maximum live snaps to keep per place. Snapchat's public page exposes a sample of 2-36 current snaps per place.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max live snaps per place",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Keep only places whose public rating is at least this value. Places without a rating are dropped when this is above 0.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "sectionCaption": "Filters and sorting",
+      "sectionDescription": "Applied after the selected enrichment so every filter sees real values.",
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "searchPlaces",
+      "description": "Choose what to scrape: search Snap Map places by keyword, look up specific place URLs or IDs, or browse US cities and categories.",
+      "editor": "select",
+      "enum": [
+        "searchPlaces",
+        "placeDetails",
+        "browseLocal"
+      ],
+      "enumTitles": [
+        "Search places by keyword",
+        "Get details for specific places",
+        "Browse US cities and categories"
+      ],
+      "prefill": "searchPlaces",
+      "sectionCaption": "What to scrape",
+      "sectionDescription": "Pick one mode and fill the matching target fields. Empty fields from other modes are ignored.",
+      "title": "Mode",
+      "type": "string"
+    },
+    "outputType": {
+      "default": "placeRecords",
+      "description": "Place records keep one row per place with live snaps nested. Live snap records flatten every live snap into its own row with the place's coordinates, which is easier for maps and time-series analysis.",
+      "editor": "select",
+      "enum": [
+        "placeRecords",
+        "liveSnapRecords"
+      ],
+      "enumTitles": [
+        "One row per place",
+        "One row per live snap"
+      ],
+      "prefill": "placeRecords",
+      "title": "Output rows",
+      "type": "string"
+    },
+    "placeUrls": {
+      "default": [],
+      "description": "Snapchat place page URLs, /place/ paths, or bare place UUIDs. Used in Get details mode. Example: https://www.snapchat.com/place/times-square/c8b4f0ee-9992-11e8-88c9-673ed985ff70.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Place URLs or IDs",
+      "type": "array"
+    },
     "proxyConfiguration": {
-      "description": "Optional proxy. Snapchat Explore pages are publicly accessible without proxy.",
+      "description": "Optional. The public Snapchat pages used here work without a proxy.",
       "editor": "proxy",
       "nullable": true,
-      "title": "Proxy Configuration",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Optional infrastructure settings. No proxy or credentials are needed for normal runs.",
+      "title": "Proxy configuration",
       "type": "object"
+    },
+    "requireLiveSnaps": {
+      "default": false,
+      "description": "Drop places that currently have no public live snaps.",
+      "prefill": false,
+      "title": "Only places with live snaps",
+      "type": "boolean"
+    },
+    "resultTypes": {
+      "default": [
+        "places"
+      ],
+      "description": "Which Explore result groups to return in Search places mode. Places is the Snap Map place search; the other groups are the public entities Snapchat shows for the same keyword.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "places",
+          "spotlight",
+          "users",
+          "profiles",
+          "publishers",
+          "episodes",
+          "lenses"
+        ],
+        "enumTitles": [
+          "Places",
+          "Spotlight videos",
+          "Users",
+          "Public profiles",
+          "Publishers",
+          "Episodes",
+          "Lenses"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "places"
+      ],
+      "title": "Result types",
+      "type": "array"
+    },
+    "snapMaxAgeHours": {
+      "default": 0,
+      "description": "Keep only snaps posted within this many hours. Set 0 to keep every snap the public page returns. liveSnapCount and latestSnapAt describe only the kept snaps, and the live-snap filter uses that kept count.",
+      "maximum": 168,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Only snaps newer than (hours)",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "source",
+      "description": "Order places by Snapchat's source order, rating, favorite count or number of live snaps.",
+      "editor": "select",
+      "enum": [
+        "source",
+        "rating",
+        "favorites",
+        "liveSnaps"
+      ],
+      "enumTitles": [
+        "Snapchat source order",
+        "Rating (high to low)",
+        "Favorites (high to low)",
+        "Live snaps (high to low)"
+      ],
+      "prefill": "source",
+      "title": "Sort by",
+      "type": "string"
     }
   },
-  "required": [
-    "keywords"
-  ],
+  "required": [],
   "schemaVersion": 1,
   "title": "Snapchat Snap Map Scraper",
   "type": "object"

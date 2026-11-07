@@ -4,155 +4,151 @@
 
 # Snapchat Snap Map Place & Live Snap Extractor
 
-Snap Map is Snapchat's public map of places where users have posted snaps. This actor searches it for any landmark, venue or location name and returns each matching place's precise coordinates, category details, snap counts, and media from the most recent public snap posted there, without needing a Snapchat account.
+Snap Map shows the public snaps and places people are posting about right now. This actor reads Snapchat's public web pages and turns them into a clean dataset: place coordinates, address, category, rating, opening hours, a 7×24 popularity heatmap and the public snap sample at each place, with media URLs, creators and timestamps. Search by keyword, paste place links, or browse US cities and categories. No Snapchat account, cookies, API key or proxy setup is needed.
 
-## What This Actor Does
+## What you can collect
 
-- Searches Snapchat's public Explore pages for places matching your keywords
-- Returns up to 20 matching places per keyword with full geographic metadata
-- Optionally fetches the most recent public snap at each place — video URL, preview, duration, and creator info
-- Works without login, cookies, or proxy — uses Snapchat's publicly accessible Explore pages
+- **Place search** — one keyword returns the Snap Map places Snapchat matches, plus the public Spotlight videos, creators, profiles, publishers, episodes and lenses shown for the same query.
+- **Place details** — paste place URLs or UUIDs and get the full public place profile: geometry, address, phone, website, category, rating and reviews, opening hours, favorites and nearby places.
+- **Live snaps** — every place page carries a sample of public snaps posted at or shared about the place: media URL, thumbnail, video or image type, creator username and display name, timestamp and snap source (`map` or `spotlight`). Snapchat mixes recent map posts with older Spotlight shares, so use `snapMaxAgeHours` when you need a fresh-only feed.
+- **7×24 popularity** — Snapchat's hourly popularity values for the whole week (168 values), plus the peak hour and day index. Use it as a per-place heatmap signal.
+- **US city and category discovery** — browse a city hub or a category page such as bars, restaurants or historic landmarks. Each row includes the live-snap count, rating, popularity hours and coordinates, which makes it easy to map activity.
+- **Flat live-snap rows** — switch the output to one row per snap when you want a snap-level dataset instead of nested arrays.
+
+## Modes
+
+| Mode | What it does | Main input |
+|---|---|---|
+| `searchPlaces` | Search Snap Map and optionally the other Explore result groups | `keywords` |
+| `placeDetails` | Load full details for specific places | `placeUrls` |
+| `browseLocal` | Browse a US city hub or category pages | `cityUrls`, optional `categories` |
 
 ## Input
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `keywords` | string[] | Yes | — | Place names or landmarks to search on Snap Map. Examples: `Times Square`, `Eiffel Tower`, `Tokyo Station`, `Colosseum` |
-| `maxPlacesPerKeyword` | integer | No | `5` | Maximum number of matching places to return per keyword (1–20) |
-| `includeSnapData` | boolean | No | `true` | Fetch media URL and snap details for the most recent public snap at each place |
-| `proxyConfiguration` | object | No | — | Optional proxy. Snapchat Explore pages are publicly accessible without proxy |
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | select | `searchPlaces` | Which collection mode to run |
+| `keywords` | string list | — | Place names or landmarks for search mode; the form prefill uses `["Times Square"]` |
+| `placeUrls` | string list | — | Full place URLs, `/place/...` paths or bare place UUIDs |
+| `cityUrls` | string list | — | US city names, Snapchat local URLs or local paths |
+| `categories` | string list | — | Category slugs for browse mode, e.g. `bars`, `restaurants`, `historic-landmarks` |
+| `resultTypes` | multi-select | `["places"]` | Explore groups to return: places, spotlight, users, profiles, publishers, episodes, lenses |
+| `outputType` | select | `placeRecords` | One row per place, or one row per live snap |
+| `maxResultsPerKeyword` | integer | 10 | Cap per result type per keyword |
+| `maxPlaces` | integer | 100 | Cap for place-details mode |
+| `maxPlacesPerCity` | integer | 100 | Cap per city in browse mode |
+| `maxSnapsPerPlace` | integer | 10 | Live snaps to keep per place |
+| `includeSnapData` | boolean | true | Add the public snap sample and the legacy first-snap fields |
+| `includePlaceDetails` | boolean | true | Open each place page for coordinates, contact, rating and hours; nearby/reviews/live-snap output open pages automatically |
+| `includeNearbyPlaces` | boolean | false | Add the places Snapchat lists at the same location |
+| `includeReviews` | boolean | false | Add up to 20 public place reviews |
+| `includePopularityHours` | boolean | true | Add the 168-value popularity series and peak |
+| `minRating` | number | 0 | Keep places at or above this rating |
+| `requireLiveSnaps` | boolean | false | Keep only places that currently have public snaps |
+| `snapMaxAgeHours` | integer | 0 | Keep only snaps newer than this; 0 keeps all. Counts and `latestSnapAt` reflect kept snaps |
+| `sortBy` | select | `source` | Order by source, rating, favorites or live-snap count |
+| `proxyConfiguration` | proxy | — | Optional; the public pages work without a proxy |
 
-### Example Input
-
-```json
-{
-  "keywords": ["Times Square", "Eiffel Tower", "Tokyo Station"],
-  "maxPlacesPerKeyword": 5,
-  "includeSnapData": true
-}
-```
+Legacy tasks keep working: `maxPlacesPerKeyword` from older versions is read in code and mapped onto `maxResultsPerKeyword`.
 
 ## Output
 
-Each matching place produces one dataset record. Snap-specific fields are only present when the place has active snaps and `includeSnapData` is enabled.
+Every row has `recordType` so mixed datasets stay readable: `place`, `liveSnap`, `spotlight`, `user`, `profile`, `publisher`, `episode` or `lens`. Empty fields are omitted, never written as `null`, `""` or `[]`.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `placeId` | string | Unique Snapchat place identifier (UUID) |
-| `keyword` | string | Search keyword that returned this place |
-| `displayName` | string | Place display name (e.g. `Times Square`) |
-| `locality` | string | Address or city string for the place |
-| `lat` | number | Centroid latitude of the place |
-| `lng` | number | Centroid longitude of the place |
-| `boundingBox` | object | Geographic bounding box — `{p1: {lat, lng}, p2: {lat, lng}}` where p1 is southwest and p2 is northeast |
-| `categoryName` | string | Place category (e.g. `Monument / Landmark`, `Restaurant`, `University`) |
-| `categoryIconUrl` | string | CDN URL for the category icon image |
-| `profilePhotoUrl` | string | Profile photo URL of the place |
-| `favoriteCount` | integer | Number of Snapchat users who have favorited this place |
-| `snapCount` | integer | Number of public snaps currently at this place on the Snap Map |
-| `firstSnapId` | string | Snap ID of the most recent public snap at this place |
-| `thumbnailUrl` | string | Thumbnail preview URL for the place's snap story |
-| `mediaUrl` | string | CDN media URL of the most recent snap (video or image) |
-| `previewUrl` | string | Low-resolution preview thumbnail URL of the most recent snap |
-| `mediaType` | string | Media type of the most recent snap: `video` or `image` |
-| `duration` | integer | Duration of the snap video in milliseconds |
-| `width` | integer | Width of the snap video in pixels |
-| `height` | integer | Height of the snap video in pixels |
-| `postedAt` | string | ISO 8601 UTC timestamp when the most recent snap was posted |
-| `overlayText` | string | Text overlay shown on the snap |
-| `snapTitle` | string | Title shown with the snap (when present) |
-| `creatorUsername` | string | Snapchat username of the snap creator |
-| `creatorDisplayName` | string | Display name of the snap creator |
-| `isSponsored` | boolean | Present and `true` only when the most recent snap is a sponsored/branded snap |
-| `scrapedAt` | string | ISO 8601 UTC timestamp of when this record was collected |
+### Place fields
 
-### Example Output — Place with Snap
+| Field | Description |
+|---|---|
+| `placeId` | Snapchat place UUID |
+| `displayName`, `placeUrl` | Place name and canonical Snapchat URL |
+| `lat`, `lng`, `boundingBox` | Centroid and southwest/northeast bounds |
+| `address` | Street, city, region, postal code, country and formatted address |
+| `categoryName`, `categoryId`, `placeType` | Snapchat category and place type |
+| `phone`, `email`, `website`, `menuUrl`, `reservationUrl`, `storeUrl` | Public contact and action links |
+| `rating`, `reviewCount`, `ratingProvider`, `ratings` | Public rating summary (provider value is rounded to 2 decimals) |
+| `reviews` | Optional review rows with text, rating, date and source URL |
+| `openingHours` | Day-by-day ranges, special hours and time zone |
+| `isOpen` | Open-now flag from local discovery pages |
+| `favoriteCount`, `favoriteDisplayCount` | Snapchat favorite count |
+| `profilePhotoUrl`, `profilePhotoProvider`, `photoUrls` | Public photos |
+| `popularityHours` | 168 hourly values, 7 days × 24 hours |
+| `popularityPeakHour`, `popularityPeakDayIndex`, `popularityPeakValue` | Peak of the series (day index 0 = Sunday) |
+| `liveSnapCount`, `latestSnapAt`, `liveSnaps` | Public snap sample after `snapMaxAgeHours` filtering, its latest timestamp and up to `maxSnapsPerPlace` rows |
+| `nearbyPlaces` | Optional places at the same location |
+| `placeHierarchy` | Neighborhood, ZIP, city and state breadcrumbs |
+| `snapCount`, `firstSnapId`, `thumbnailUrl` | Legacy place-level snap fields |
+| `snapId`, `mediaUrl`, `previewUrl`, `mediaType`, `postedAt`, `creatorUsername`, `creatorDisplayName` | Legacy first-snap aliases |
+| `scrapedAt`, `sourcePage` | Collection timestamp and source surface |
 
-```json
-{
-  "placeId": "150f13bc-fe7f-498c-80a2-418ed3c70a4b",
-  "keyword": "Times Square",
-  "displayName": "Times Square",
-  "locality": "1560 Broadway, New York City",
-  "lat": 40.7579747,
-  "lng": -73.9855426,
-  "boundingBox": {
-    "p1": { "lat": 40.7579247, "lng": -73.9855926 },
-    "p2": { "lat": 40.7580247, "lng": -73.9854926 }
-  },
-  "categoryName": "Monument / Landmark",
-  "categoryIconUrl": "https://cf-st.sc-cdn.net/snapzen-assets/...",
-  "profilePhotoUrl": "https://cf-st.sc-cdn.net/snapzen-assets/...",
-  "favoriteCount": 42722,
-  "snapCount": 5,
-  "firstSnapId": "W7_EDlXWTBiXAEEniNoMPwAAYeWdidWZhaWZnAZ6-sUewAZ6-sUeWAAAAAQ",
-  "thumbnailUrl": "https://cf-st.sc-cdn.net/n/I124gGgubE0...",
-  "mediaUrl": "https://cf-st.sc-cdn.net/n/I124gGgubE0...",
-  "previewUrl": "https://cf-st.sc-cdn.net/n/I124gGgubE0...",
-  "mediaType": "video",
-  "duration": 8000,
-  "width": 540,
-  "height": 960,
-  "postedAt": "2026-06-13T01:55:49+00:00",
-  "overlayText": "Spotlight Snap",
-  "creatorUsername": "@exampleuser",
-  "creatorDisplayName": "Example User",
-  "scrapedAt": "2026-06-28T06:50:17.903547+00:00"
-}
-```
+### Live snap row fields (`outputType: liveSnapRecords`)
 
-### Example Output — Place without Active Snaps
+`snapId`, `placeId`, `placeName`, `categoryName`, `city`, `lat`, `lng`, `mediaUrl`, `thumbnailUrl`, `previewUrl`, `mediaType`, `storyType`, `duration`, `postedAt`, `creatorUsername`, `creatorDisplayName`, `creatorUserId`, `scrapedAt`.
+
+### Example: search
 
 ```json
 {
-  "placeId": "0bae027e-72ae-44d5-b1b7-c4c94f71e912",
-  "keyword": "Karachi Pakistan",
-  "displayName": "Karachi Pakistan",
-  "locality": "W5C3+JRW, کراچی",
-  "lat": 24.921605,
-  "lng": 67.154591,
-  "boundingBox": {
-    "p1": { "lat": 24.921555, "lng": 67.154541 },
-    "p2": { "lat": 24.921655, "lng": 67.154641 }
-  },
-  "categoryName": "Residential Area",
-  "categoryIconUrl": "https://cf-st.sc-cdn.net/aps/bolt/...",
-  "profilePhotoUrl": "https://cf-st.sc-cdn.net/aps/bolt/...",
-  "favoriteCount": 2,
-  "scrapedAt": "2026-06-28T06:50:15.993182+00:00"
+  "mode": "searchPlaces",
+  "keywords": ["Times Square"],
+  "maxResultsPerKeyword": 3,
+  "includePlaceDetails": true,
+  "includeSnapData": true,
+  "includePopularityHours": true
 }
 ```
 
-## Use Cases
+### Example: place details
 
-- **Location intelligence** — enrich a list of venues or landmarks with Snapchat Snap Map coverage data
-- **Event monitoring** — track snap activity at stadiums, concert venues, or public events in real time
-- **Tourism research** — identify which landmarks generate the most snaps and engagement on Snapchat
-- **Geospatial datasets** — collect precise coordinates and bounding boxes for landmarks using Snapchat's place database
-- **Social media monitoring** — observe what kinds of content appear at specific locations
+```json
+{
+  "mode": "placeDetails",
+  "placeUrls": ["https://www.snapchat.com/place/times-square/c8b4f0ee-9992-11e8-88c9-673ed985ff70"],
+  "includeNearbyPlaces": true,
+  "includeReviews": true
+}
+```
+
+### Example: city browse
+
+```json
+{
+  "mode": "browseLocal",
+  "cityUrls": ["new-york"],
+  "categories": ["bars", "restaurants"],
+  "outputType": "liveSnapRecords",
+  "maxSnapsPerPlace": 5
+}
+```
+
+## How the popularity heatmap works
+
+Snapchat publishes 168 popularity integers per place, one for every hour of the week. The array starts at hour 0 and runs through the week, so `popularityPeakHour` is `index % 24` and `popularityPeakDayIndex` is `index // 24` (0 = Sunday). The values are relative popularity, not absolute visitor counts.
+
+## Limits
+
+- **Snap Map mobile API is not used.** The app's private endpoints (`ms.sc-jpl.com`) refuse every web and cloud TLS client, so this actor uses Snapchat's public web pages instead. Live snaps and popularity come from the public place pages.
+- **Local discovery covers the United States.** Snapchat's `/local` directory returns 404 outside the US.
+- **20 places per city or category page.** The page reports a larger total but serves a 20-row display cap; split by category to get more rows.
+- **Search groups are capped by Snapchat.** Places return up to 10 rows and other groups about 20–24; there is no cursor.
+- **Live snaps are a public sample, not a real-time feed.** A place page exposes roughly 2–36 snaps mixing recent map posts with older Spotlight shares (verified samples span hours to over a year). `snapMaxAgeHours` keeps only the age you want, and `liveSnapCount` reflects the kept rows. City pages carry their own older story samples; the default `includePlaceDetails: true` and the `liveSnapRecords` output read the place pages instead.
+- **Some legacy snap fields are gone.** The 2026 page payload no longer publishes duration, width, height, overlay text or sponsored flags, so those keys appear only when Snapchat supplies them.
 
 ## FAQ
 
 **Do I need a Snapchat account or cookies?**
-No. The actor uses Snapchat's public Explore pages (`snapchat.com/explore/...`) which are fully accessible without login or authentication.
+No. Every surface used here is public.
 
 **Do I need a proxy?**
-No proxy is required. Snapchat Explore pages are served as standard HTML without IP-level restrictions. You can optionally add an Apify proxy for extra reliability at high volume.
+No. The pages load directly. A proxy field is available if you want extra redundancy.
 
-**Why do some records not have `mediaUrl` or snap fields?**
-Snaps expire. When the most recent snap at a place has expired, or when a place currently has no active public snaps, the snap-specific fields are absent. The place record is still returned with all place-level metadata.
+**Why is a field missing on some places?**
+Snapchat does not publish every field for every place. Missing values are omitted rather than filled with placeholders.
 
-**How many places are returned per keyword?**
-By default 5, configurable up to 20. The number of results depends on how many places Snapchat associates with the search term — well-known landmarks typically return several results while very specific queries may return fewer.
+**Can I get snaps for a radius or a map tile?**
+That is the Snap Map app API, which is not reachable from web clients. Use place details or city browse for public snap data, and join `lat`/`lng` with your own geometry.
 
-**Can I search for restaurants, neighborhoods, or addresses?**
-Yes. Any place name that Snapchat knows about works — landmarks, stadiums, restaurants, universities, parks, airports, and neighborhoods are all supported.
-
-**What is the `boundingBox` field?**
-The precise geographic rectangle that encloses the place, provided as `{p1: {lat, lng}, p2: {lat, lng}}` where p1 is the southwest corner and p2 is the northeast corner. Useful for mapping integrations and spatial queries.
-
-**Can I get all snaps at a place, not just the most recent one?**
-No. Snapchat's public Explore API exposes only the most recent public snap at each place. The full snap playlist requires the Snapchat mobile app API which is not accessible from web clients.
+**Are media URLs permanent?**
+They are public CDN links that work without cookies or a Referer and are cached for a day. Snapchat can expire them, so download the media promptly if you need the file.
 
 **Is this affiliated with Snapchat?**
-No. This actor independently reads Snapchat's public Explore pages and is not affiliated with or endorsed by Snap Inc.
+No. This actor independently reads Snapchat's public web pages and is not affiliated with or endorsed by Snap Inc.
