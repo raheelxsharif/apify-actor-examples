@@ -1,0 +1,61 @@
+{
+  "description": "Track reviews for a Google Workspace Marketplace app by its numeric App ID.",
+  "properties": {
+    "appId": {
+      "description": "Numeric App ID from the Google Workspace Marketplace URL. Example: 218858140275 for Yet Another Mail Merge, 1008170693301 for Mailmeteor.",
+      "editor": "textfield",
+      "prefill": "1008170693301",
+      "title": "App ID",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of reviews to collect (1–500).",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max reviews",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only include reviews with this star rating or higher (1–5). Leave blank for all ratings.",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum star rating",
+      "type": "integer"
+    },
+    "sinceDate": {
+      "description": "Only return reviews on or after this date, e.g. 2025-01-01. Leave blank for all dates.",
+      "editor": "textfield",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "title": "Since date (ISO-8601)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "Newest",
+      "description": "Order in which to retrieve reviews.",
+      "editor": "select",
+      "enum": [
+        "Newest",
+        "MostRelevant",
+        "HighestRated",
+        "LowestRated"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Most relevant",
+        "Highest rated first",
+        "Lowest rated first"
+      ],
+      "prefill": "Newest",
+      "title": "Sort reviews by",
+      "type": "string"
+    }
+  },
+  "required": [
+    "appId"
+  ],
+  "schemaVersion": 1,
+  "title": "Google Workspace Marketplace Review Tracker Input",
+  "type": "object"
+}
