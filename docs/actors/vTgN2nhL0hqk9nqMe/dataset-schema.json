@@ -1,0 +1,58 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "availability": {
+            "label": "Stock"
+          },
+          "brand": {
+            "label": "Brand"
+          },
+          "currentPrice": {
+            "label": "Current Price"
+          },
+          "model": {
+            "label": "Model"
+          },
+          "name": {
+            "label": "Product"
+          },
+          "rating": {
+            "label": "Rating"
+          },
+          "regularPrice": {
+            "label": "Regular Price"
+          },
+          "reviewCount": {
+            "label": "Reviews"
+          },
+          "sku": {
+            "label": "SKU"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Best Buy Products",
+      "transformation": {
+        "fields": [
+          "sku",
+          "name",
+          "brand",
+          "model",
+          "currentPrice",
+          "regularPrice",
+          "rating",
+          "reviewCount",
+          "availability",
+          "url"
+        ]
+      }
+    }
+  }
+}

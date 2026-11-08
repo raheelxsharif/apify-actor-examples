@@ -1,0 +1,37 @@
+{
+  "description": "Search Best Buy by keyword or scrape product URLs directly. Each result is a structured record with SKU, prices, rating, model, and availability.",
+  "properties": {
+    "keyword": {
+      "description": "Free-text search — product name, brand, category. Leave empty if you're using `productUrls` instead.",
+      "editor": "textfield",
+      "prefill": "sony headphones",
+      "title": "Search keyword",
+      "type": "string"
+    },
+    "maxResults": {
+      "default": 24,
+      "description": "Hard cap on records emitted across keyword search + URL scrape.",
+      "maximum": 240,
+      "minimum": 1,
+      "title": "Max results",
+      "type": "integer"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Specific Best Buy product page URLs to scrape (e.g. `https://www.bestbuy.com/site/.../6505729.p?skuId=6505729`). Used in addition to / instead of `keyword`.",
+      "editor": "stringList",
+      "title": "Product URLs",
+      "type": "array"
+    },
+    "skipOutOfStock": {
+      "default": false,
+      "description": "Drop products marked `out of stock` / `sold out` by Best Buy.",
+      "title": "Skip out-of-stock",
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Best Buy Scraper Input",
+  "type": "object"
+}
