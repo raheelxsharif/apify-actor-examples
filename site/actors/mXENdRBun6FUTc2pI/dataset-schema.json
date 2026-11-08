@@ -1,0 +1,47 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "archiveDate": {
+            "format": "date",
+            "label": "Archive date"
+          },
+          "archiveUrl": {
+            "format": "link",
+            "label": "Wayback URL"
+          },
+          "contentLength": {
+            "format": "number",
+            "label": "Bytes"
+          },
+          "mimeType": {
+            "format": "text",
+            "label": "MIME type"
+          },
+          "originalUrl": {
+            "format": "link",
+            "label": "Original URL"
+          },
+          "statusCode": {
+            "format": "number",
+            "label": "HTTP status"
+          }
+        }
+      },
+      "title": "Snapshots",
+      "transformation": {
+        "fields": [
+          "originalUrl",
+          "archiveDate",
+          "archiveUrl",
+          "statusCode",
+          "mimeType",
+          "contentLength"
+        ]
+      }
+    }
+  }
+}
