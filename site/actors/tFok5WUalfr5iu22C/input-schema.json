@@ -1,9 +1,9 @@
 {
-  "description": "Search Target.com products, browse categories, look up by TCIN, paste a URL, or fetch trending deals.",
+  "description": "Search Target.com products, browse a department, look up exact item numbers, paste a Target URL, or fetch trending deals — with prices, sale/clearance flags, ratings, UPC/DPCI, category breadcrumbs and product details.",
   "properties": {
     "categoryId": {
       "default": "electronics",
-      "description": "Top-level department to browse (mode=byCategory).",
+      "description": "Target department to browse.",
       "editor": "select",
       "enum": [
         "electronics",
@@ -28,14 +28,14 @@
         "music"
       ],
       "enumTitles": [
-        "Electronics",
+        "Electronics & Tech",
         "Clothing — Women",
         "Clothing — Men",
-        "Toys",
-        "Home",
+        "Toys & Games",
+        "Home & Decor",
         "Baby",
         "Beauty",
-        "Food & Beverage",
+        "Grocery",
         "Sports & Outdoors",
         "Books",
         "Video Games",
@@ -44,47 +44,63 @@
         "Health",
         "Pets",
         "Automotive",
-        "Office",
         "School & Office Supplies",
-        "Movies",
+        "School Supplies",
+        "Movies & TV Shows",
         "Music"
       ],
       "prefill": "electronics",
-      "title": "Category",
+      "title": "Department (mode=byCategory)",
       "type": "string"
     },
     "inStockOnly": {
       "default": true,
-      "description": "Only emit products with IN_STOCK availability.",
+      "description": "Exclude products Target reports as out of stock. Search, department and deals listings that carry no stock signal are kept and marked `UNKNOWN` unless full-detail enrichment resolves them.",
       "prefill": true,
-      "title": "In-stock only",
+      "title": "In stock only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Fetch each product page to add description, UPC/DPCI, category breadcrumbs, specifications, review counts and the online stock status Target publishes.",
+      "prefill": false,
+      "title": "Fetch full product details",
       "type": "boolean"
     },
     "maxItems": {
-      "default": 5,
-      "description": "Hard cap on emitted records (1–500).",
-      "maximum": 500,
+      "default": 24,
+      "description": "Hard cap on emitted records (1–1000). Target exposes up to 50 pages of 24 results per query.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 5,
+      "prefill": 2,
       "title": "Max items",
       "type": "integer"
     },
+    "maxPages": {
+      "default": 10,
+      "description": "Maximum result pages to request per query (1–50; 24 products per page).",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max pages",
+      "type": "integer"
+    },
     "maxPrice": {
-      "description": "Filter out products more expensive than this price.",
+      "description": "Drop products more expensive than this price.",
       "maximum": 99999,
       "minimum": 0,
       "title": "Max price (USD)",
       "type": "number"
     },
     "minPrice": {
-      "description": "Filter out products cheaper than this price.",
+      "description": "Drop products cheaper than this price.",
       "maximum": 99999,
       "minimum": 0,
       "title": "Min price (USD)",
       "type": "number"
     },
     "minRating": {
-      "description": "Filter out products with average rating below this value (0.0–5.0).",
+      "description": "Drop products with an average rating below this value (0–5).",
       "maximum": 5,
       "minimum": 0,
       "title": "Min rating",
@@ -96,17 +112,17 @@
       "editor": "select",
       "enum": [
         "search",
-        "byTcin",
         "byCategory",
+        "byTcin",
         "byUrl",
         "deals"
       ],
       "enumTitles": [
         "Search by keyword",
-        "Lookup by TCIN (product ID)",
-        "Browse by category",
+        "Browse a department",
+        "Look up exact item numbers (TCIN)",
         "Paste a Target URL",
-        "Trending deals / featured items"
+        "Trending deals"
       ],
       "prefill": "search",
       "title": "Mode",
@@ -114,7 +130,7 @@
     },
     "onSaleOnly": {
       "default": false,
-      "description": "Only emit products that are currently on sale.",
+      "description": "Only emit products currently marked on sale or clearance.",
       "prefill": false,
       "title": "On sale only",
       "type": "boolean"
@@ -127,18 +143,41 @@
       "title": "Search query",
       "type": "string"
     },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How Target should order results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "featured",
+        "priceLow",
+        "priceHigh",
+        "ratingHigh",
+        "bestSeller",
+        "newest"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Featured",
+        "Price: low to high",
+        "Price: high to low",
+        "Highest rated",
+        "Best sellers",
+        "Newest"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    },
     "tcins": {
       "default": [],
-      "description": "One or more Target product IDs (TCINs). Accepts numeric strings like '84512345'. Comma-separated strings are also accepted.",
+      "description": "One or more Target item numbers (TCINs), e.g. '94715153'. Comma-separated strings are also accepted.",
       "editor": "stringList",
-      "prefill": [
-        "94715153"
-      ],
-      "title": "TCINs (mode=byTcin)",
+      "title": "Target item numbers (mode=byTcin)",
       "type": "array"
     },
     "url": {
-      "description": "A Target product detail page URL or search URL. E.g. 'https://www.target.com/p/item/-/A-12345678' or a search result URL.",
+      "description": "A Target product, category, brand or search URL. E.g. 'https://www.target.com/p/item/-/A-12345678'.",
       "editor": "textfield",
       "title": "Target URL (mode=byUrl)",
       "type": "string"
