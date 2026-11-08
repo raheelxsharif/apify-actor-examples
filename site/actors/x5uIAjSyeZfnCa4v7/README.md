@@ -1,0 +1,128 @@
+# Amazon Wishlist & Registry Scraper
+
+Scrape **public and shareable Amazon wishlists, gift lists, baby registries, and wedding registries** from URLs you supply. Get list metadata (owner, item count, access status) and per-item details — ASIN, title, price, quantity needed/purchased, priority, and comments. This actor never searches for or enumerates people's lists; it only visits the exact URL(s) you provide.
+
+## What this actor does
+
+- **Scrapes any Amazon wishlist/registry URL you give it** — wishlists, Amazon's separate "Gift List" feature (`/registries/gl/guest-view/<ID>`), baby registries, wedding registries, custom registries (see the verification-scope note below for baby/wedding registries and Gift List pagination)
+- **Classifies access before extracting anything** — every list is tagged `PUBLIC`, `SHAREABLE`, `PRIVATE_OR_AUTH_REQUIRED`, `NOT_FOUND`, or `BLOCKED`; private/deleted lists always come back with zero item records, never a fake empty "success"
+- **Real quantities, not guesses** — `requestedQuantity` ("Needs N") and `purchasedQuantity` ("Has N") are separate, real fields straight off the page
+- **Sort order support** — matches the live sort dropdown Amazon itself shows on wishlists (most recently added, priority, price, custom)
+- **Empty fields are omitted**
+
+## Privacy — please read
+
+This actor is built around one hard rule: **it only ever scrapes the exact URL(s) you supply.** It does not, and will never, crawl Amazon's registry/wishlist search to discover or enumerate people or lists. It never infers or exposes a delivery address. Only use this actor on lists that are genuinely public or that were explicitly shared with you (e.g., a shared link from a friend, or a charity/hospital wishlist).
+
+**Verification scope note:** live extraction was verified against the classic `/hz/wishlist/ls/` wishlist page DOM (which also serves plain gift lists and custom gift lists) and against Amazon's separate "Gift List" feature (`/registries/gl/guest-view/<ID>`, e.g. school/classroom supply drives and birthday gift lists — a real, currently-used, distinct Amazon page type). `babyRegistry`/`weddingRegistry` URLs are correctly *classified* by URL pattern and fully item-verified against real registries. The Gift List path (`/registries/gl/guest-view/<ID>` or `owner-view`) was live-verified against one real, currently-public list (47 items) — its own "See more items" pagination control was not visible on that list (every item was already loaded), so scraping a Gift List with more items than fit on one page has not itself been live-verified; the actor defensively attempts to click that control if present, bounded by the same item-loading loop used for every other list type.
+
+## Output: per-list record (`recordType: "list"`)
+
+- `listId` — the wishlist/registry ID parsed from the URL
+- `type` — `wishlist` / `giftList` / `babyRegistry` / `weddingRegistry` / `customRegistry`
+- `title`, `ownerName` — the list's display name (only when Amazon shows it publicly)
+- `description` — only when the list has a visible description
+- `accessClassification` — `PUBLIC`, `SHAREABLE`, `PRIVATE_OR_AUTH_REQUIRED`, `NOT_FOUND`, or `BLOCKED` (every fetch attempt, including retries, hit an anti-bot/CAPTCHA challenge — re-run later or with a residential proxy; this is distinct from `NOT_FOUND` and does NOT mean the list doesn't exist)
+- `declaredItemCount` — Amazon's own displayed item count, when shown
+- `extractedItemCount` — how many item records this run actually produced (always 0 for non-public/shareable lists)
+- `sourceUrl`, `canonicalUrl` — the URL you supplied and the final resolved URL
+- `marketplace` — `{countryCode, domain, currency, language}`
+- `recordType: "list"`, `scrapedAt`
+
+## Output: per-item record (`recordType: "listItem"`)
+
+- `listId`, `listItemId` — Amazon's own stable item ID (from the page's `data-itemid` attribute on classic wishlists; on a Gift List, Amazon's own real per-entry UUID, or — for the small subset of items, e.g. books, whose Amazon-authored data carries no UUID segment — the item's own real ASIN instead — either way, never a synthetic hash this actor computes itself)
+- `position` — 1-based position in the list as scraped
+- `asin`, `title`, `url`, `imageUrl`, `brand`
+- `price`, `listPrice` — `{value, currency, display}`, only when Amazon shows a parseable amount
+- `rating`, `ratingsCount` — only when the item shows a star rating
+- `requestedQuantity` — "Needs N" (how many the owner wants)
+- `purchasedQuantity` — "Has N" (how many have already been bought/marked)
+- `priority` — the priority label text, only when the owner set one (classic wishlists: `high`/`medium`/`low`; a Gift List's own single "Most Wanted" badge, when present)
+- `comment` — the owner's note on the item, only when present
+- `variant` — selected size/color/style text, only when shown
+- `availabilityText` — raw availability text (e.g. "In Stock", "Currently unavailable"), only when explicitly shown
+- `discountText` — raw discount/price-drop text, only when shown
+- `badge` — `{label, category}`, e.g. `{"label": "Best Seller", "category": "in Packing Tape"}`, only when the item shows a real status badge
+- `isIdea` — `true` only on a free-text "idea" entry the list owner typed with no linked Amazon product (no `asin`/`url`/`imageUrl` will be present on these; omitted entirely for normal ASIN-linked items)
+- `listUrl`, `marketplace`
+- `recordType: "listItem"`, `scrapedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `listUrls` | array | – | Public/shareable wishlist or registry URLs to scrape (required) |
+| `maxItems` | int | `20` | Max items scraped per list (1–100) |
+| `sortBy` | string | – | `date-added` / `priority` / `price-asc` / `price-desc` / `custom` — matches the live sort dropdown |
+| `sessionCookie` | string (secret) | – | Optional — only for viewing a **private list you own** |
+| `proxyConfiguration` | object | AUTO | Apify proxy; escalates to residential automatically only if blocked |
+
+### Example: scrape a public wishlist
+
+```json
+{
+  "listUrls": ["https://www.amazon.com/hz/wishlist/ls/2PBHI0DGWAAAF"],
+  "maxItems": 20
+}
+```
+
+### Example: multiple lists, sorted by price
+
+```json
+{
+  "listUrls": [
+    "https://www.amazon.com/hz/wishlist/ls/2PBHI0DGWAAAF",
+    "https://www.amazon.com/baby-reg/example-name/EXAMPLEID123"
+  ],
+  "sortBy": "price-asc",
+  "maxItems": 50
+}
+```
+
+### Example: a Gift List (school supply drive / birthday gift list)
+
+```json
+{
+  "listUrls": ["https://www.amazon.com/registries/gl/guest-view/EXAMPLEID123"],
+  "maxItems": 50
+}
+```
+
+## Use cases
+
+- **Charity & hospital donation drives** — bulk-export a shared "hospital wishlist" so donors/volunteers can see current needs
+- **Classroom/school wish lists** — teachers and PTA groups tracking supply-drive lists
+- **Wedding/baby registry gift coordination** — see what's still needed vs. already purchased
+- **Content creators** — export an "Idea List"-style public wishlist for a video description
+- **Gift-list monitoring** — track price drops on items on a shared list
+
+## FAQ
+
+**Can this actor find someone's wishlist for me?** No. It only scrapes URLs you provide. It never searches Amazon's registry directory.
+
+**What happens if I give it a private or deleted list URL?** You get back a list record with `accessClassification: "PRIVATE_OR_AUTH_REQUIRED"` or `"NOT_FOUND"` and zero item records — never a fake "0 items, success" result.
+
+**What does `accessClassification: "BLOCKED"` mean?** Every fetch attempt for that URL (the actor retries automatically with a fresh session, escalating to a residential proxy) hit an Amazon anti-bot/CAPTCHA challenge instead of a real page. This is honestly reported as `BLOCKED`, never `NOT_FOUND` — the list may well exist and be perfectly public, we simply couldn't verify it this run. Re-run the actor (ideally with a residential proxy configuration) to try again.
+
+**Does it show delivery addresses?** No, never. Even if a registry's event-location field contains address-like text, we omit anything that looks like a delivery address.
+
+**What's the difference between `PUBLIC` and `SHAREABLE`?** Amazon doesn't expose a page-level flag for this distinction. We classify a link containing an explicit share-tracking parameter (e.g. `ref_=wl_share`) as `SHAREABLE` (a direct link the owner shared), and other openly-loadable lists as `PUBLIC`.
+
+**Why are some fields missing on some items?** Amazon only shows priority labels, comments, ratings, and variant text when the list owner or the product actually has that data. We only include a field when there's real evidence for it — never a placeholder.
+
+**Why does an item have no `asin`/`url`/`imageUrl`?** Amazon lets a list owner add a plain-text "idea" (e.g. just typing "dog treats") with no linked product at all — these come back with `isIdea: true` and no `asin`/`url`/`imageUrl`, since there's no real product page to link to. This is distinct from any extraction gap.
+
+**Why does a Gift List / baby / wedding registry item have an `asin` and `url` but no `title`, `imageUrl`, or `price`?** This is a real, non-idea product that Amazon itself now shows as deleted or out of stock on that specific registry page (a distinct DOM state from a normal item, with no product name or image rendered anywhere on the page) — `url` is still built from the real ASIN so the item remains identifiable, but nothing is fabricated for the fields Amazon genuinely no longer shows.
+
+**Can I scrape my own private list?** Yes — provide your Amazon `session-token` cookie value in `sessionCookie`. Never use someone else's credentials.
+
+**What if I supply the same list twice in `listUrls`?** It's only fetched and returned once. The actor recognizes the same underlying list even when the URL differs slightly (an exact duplicate, or a share-link variant of the same URL, e.g. with/without a `?ref_=wl_share` parameter) — useful if you're compiling URLs from multiple sources that might overlap.
+
+**What's `type: "giftList"`?** Amazon has a separate "Gift List" feature (shared via `/registries/gl/guest-view/<ID>`, commonly used for school supply drives and birthday/holiday gift lists) with its own distinct page design from the classic wishlist — supplying that URL shape gets you `type: "giftList"` and the same output record shape as every other list type (`listItemId` is Amazon's own real per-entry UUID here rather than the classic wishlist's `data-itemid` — except for a small subset of items, e.g. books, whose Amazon-authored data carries no UUID segment, where `listItemId` is that item's own real ASIN instead; see the per-item field notes above).
+
+**How many items can I get per list?** Up to `maxItems` (max 100). The actor scrolls the live page to load more items the same way a browser would.
+
+**Is `sortBy: "price-asc"`/`"price-desc"` always strictly ascending/descending?** Yes. We pass your chosen sort through to Amazon's own `?sort=` control, but Amazon's own DOM order for a price sort is not always reliably monotonic on longer lists (live-verified: a real 36-item public wishlist deterministically produced a non-monotonic price sequence past around position 8, reproduced across repeated fresh sessions). To guarantee a correctly-ordered result, this actor re-sorts the already-parsed, real `price.value` of each item in Python before returning it — items with no parseable price (multi-offer/no-buybox listings, free-text "idea" entries) keep their original relative order and are placed after every priced item, rather than a fabricated position being invented for them.
+
+**For a non-English marketplace (e.g. amazon.de, amazon.co.jp, amazon.fr), do I get native-language titles?** The actor always requests Amazon's English cross-border view, and most marketplaces (confirmed: Germany, Japan) honor this and render text fields (`title`, `byline`-derived `brand`, `comment`, `priority`, `badge`) in English. A few marketplaces (confirmed: Turkey; likely also Saudi Arabia/Sweden/UAE/Egypt) render their page natively in the local language regardless of this setting — on those, text fields may come back in the native language or be omitted rather than fabricated. `price`/`listPrice` (value and `currency`), `asin`, `imageUrl`, `rating`, and `ratingsCount` are locale-agnostic and always reflect the real marketplace data correctly regardless of display language. `requestedQuantity`/`purchasedQuantity` are parsed from English "Needs N"/"Has: N" marker text and may be omitted (never fabricated) on a marketplace that renders this specific row in its native language.
