@@ -1,21 +1,42 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "apps": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "Marketplace Apps",
+      "title": "Marketplace apps",
       "transformation": {
         "fields": [
+          "recordType",
           "rankInCategory",
           "name",
           "developer",
           "rating",
           "reviewCount",
+          "installCount",
           "pricingModel",
+          "worksWith",
           "appUrl"
+        ]
+      }
+    },
+    "reviews": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "App reviews",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "appName",
+          "rating",
+          "reviewText",
+          "reviewDate",
+          "helpfulCount",
+          "reviewerName"
         ]
       }
     }

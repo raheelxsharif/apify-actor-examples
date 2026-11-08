@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "B2B company records from the Kompass directory with location, contacts, employee count, revenue, products, and certifications.",
+  "description": "Kompass company records with identity, contacts, address, geo, legal identifiers, activities, certifications, executives, products, catalogues, dataSource/archivedAt provenance, and explicit status rows.",
   "properties": {
     "companies": {
-      "description": "Dataset containing all scraped Kompass company records.",
+      "description": "Dataset containing Kompass company records and status rows.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Kompass companies",
       "type": "string"
     }
   },
-  "title": "Global B2B Supplier Finder by Product & Country Output"
+  "title": "Kompass B2B Company & Supplier Scraper Output"
 }

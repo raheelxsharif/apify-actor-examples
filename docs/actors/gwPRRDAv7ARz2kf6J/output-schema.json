@@ -1,11 +1,17 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Ranked apps from a Google Workspace Marketplace category with metadata including rating, review count, pricing, and direct URLs.",
+  "description": "Ranked marketplace apps with exact installs, ratings, pricing, works-with hosts, OAuth permissions, links and optional user reviews.",
   "properties": {
     "apps": {
-      "description": "Dataset containing all scraped apps with their rank, metadata, and URLs.",
+      "description": "Dataset containing apps with rank, metadata, URLs, works-with hosts and optional OAuth permission data.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Marketplace Apps",
+      "title": "Marketplace apps",
+      "type": "string"
+    },
+    "reviews": {
+      "description": "Dataset containing review rows when includeReviews is on or mode=reviews.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "App reviews",
       "type": "string"
     }
   },

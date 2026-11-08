@@ -1,82 +1,302 @@
 {
-  "description": "List apps ranked in a Google Workspace Marketplace category with metadata.",
+  "description": "Track Google Workspace Marketplace apps, categories, search results and reviews. No login or API key required.",
   "properties": {
-    "category": {
-      "default": "popular-apps",
-      "description": "Google Workspace Marketplace category to scrape. Use exact category slug from the URL.",
+    "appIds": {
+      "default": [],
+      "description": "Numeric app IDs or full marketplace app URLs, e.g. 7081045131 or https://workspace.google.com/marketplace/app/lucidchart/7081045131.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "App IDs or URLs (mode=appDetails or reviews)",
+      "type": "array"
+    },
+    "categories": {
+      "default": [
+        "popular-apps"
+      ],
+      "description": "One or more marketplace categories or curated lists. All selected categories are unioned and deduplicated.",
       "editor": "select",
-      "enum": [
-        "popular-apps",
-        "top-rated",
-        "featured-partner-apps",
-        "recommended",
-        "work-from-everywhere",
-        "business-essentials",
-        "apps-to-discover",
-        "google-apps",
-        "business-tools",
-        "business-tools/accounting-and-finance",
-        "business-tools/administration-and-management",
-        "business-tools/erp-and-logistics",
-        "business-tools/hr-and-legal",
-        "business-tools/marketing-and-analytics",
-        "business-tools/sales-and-crm",
-        "productivity",
-        "productivity/creative-tools",
-        "productivity/web-development",
-        "productivity/office-applications",
-        "productivity/task-management",
-        "education",
-        "education/academic-resources",
-        "education/teacher-and-admin-tools",
-        "communication",
-        "utilities",
-        "enterprise-apps"
+      "items": {
+        "enum": [
+          "popular-apps",
+          "top-rated",
+          "featured-partner-apps",
+          "recommended",
+          "work-from-everywhere",
+          "business-essentials",
+          "apps-to-discover",
+          "google-apps",
+          "connectors",
+          "business-tools",
+          "business-tools/accounting-and-finance",
+          "business-tools/administration-and-management",
+          "business-tools/erp-and-logistics",
+          "business-tools/hr-and-legal",
+          "business-tools/marketing-and-analytics",
+          "business-tools/sales-and-crm",
+          "productivity",
+          "productivity/creative-tools",
+          "productivity/web-development",
+          "productivity/office-applications",
+          "productivity/task-management",
+          "education",
+          "education/academic-resources",
+          "education/teacher-and-admin-tools",
+          "communication",
+          "utilities",
+          "enterprise-apps"
+        ],
+        "enumTitles": [
+          "Most Popular",
+          "Top Rated",
+          "Featured Partner Apps",
+          "Recommended for Google Workspace",
+          "Work from Everywhere",
+          "Business Essentials",
+          "Apps to Discover",
+          "Built by Google",
+          "Connectors (Gemini / Studio)",
+          "Business Tools (all)",
+          "Business Tools — Accounting & Finance",
+          "Business Tools — Administration & Management",
+          "Business Tools — ERP & Logistics",
+          "Business Tools — HR & Legal",
+          "Business Tools — Marketing & Analytics",
+          "Business Tools — Sales & CRM",
+          "Productivity (all)",
+          "Productivity — Creative Tools",
+          "Productivity — Web Development",
+          "Productivity — Office Applications",
+          "Productivity — Task Management",
+          "Education (all)",
+          "Education — Academic Resources",
+          "Education — Teacher & Admin Tools",
+          "Communication",
+          "Utilities",
+          "Enterprise / Admin Managed"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "popular-apps"
       ],
-      "enumTitles": [
-        "Most Popular",
-        "Top Rated",
-        "Featured Partner Apps",
-        "Recommended for Google Workspace",
-        "Work from Everywhere",
-        "Business Essentials",
-        "Apps to Discover",
-        "Built by Google",
-        "Business Tools (all)",
-        "Business Tools — Accounting & Finance",
-        "Business Tools — Administration & Management",
-        "Business Tools — ERP & Logistics",
-        "Business Tools — HR & Legal",
-        "Business Tools — Marketing & Analytics",
-        "Business Tools — Sales & CRM",
-        "Productivity (all)",
-        "Productivity — Creative Tools",
-        "Productivity — Web Development",
-        "Productivity — Office Applications",
-        "Productivity — Task Management",
-        "Education (all)",
-        "Education — Academic Resources",
-        "Education — Teacher & Admin Tools",
-        "Communication",
-        "Utilities",
-        "Enterprise / Admin Managed"
-      ],
-      "prefill": "popular-apps",
-      "title": "Category",
+      "sectionCaption": "Category and search",
+      "title": "Categories (mode=category)",
+      "type": "array"
+    },
+    "developerFilter": {
+      "default": "",
+      "description": "Only keep apps whose developer name or website contains this text, e.g. \"zoho\" or \"lucidchart.com\".",
+      "editor": "textfield",
+      "title": "Developer contains",
       "type": "string"
     },
+    "includeCategoryMembership": {
+      "default": false,
+      "description": "Scan all 27 category listings to fill each app's categories list (top-100 listings only). Adds 27 requests.",
+      "prefill": false,
+      "sectionCaption": "Output",
+      "title": "Resolve category membership",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Open each app page to add the exact OAuth scopes, sensitive-access flags and independent security-verification badge. Adds one request per app.",
+      "prefill": false,
+      "sectionCaption": "Extra app data",
+      "title": "Include OAuth permissions and security badge",
+      "type": "boolean"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Also output the reviews of every matched app as separate rows (recordType workspace_review). Adds one app page request plus up to maxReviewsPerApp / 10 review-page requests per app.",
+      "prefill": false,
+      "title": "Include reviews",
+      "type": "boolean"
+    },
     "maxItems": {
+      "default": 100,
+      "description": "Maximum app rows to return. Listings are fetched in slices until this many matching apps are found (or the marketplace is exhausted). In reviews mode this caps review rows instead.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max app records",
+      "type": "integer"
+    },
+    "maxReviewRating": {
+      "default": 5,
+      "description": "Only include reviews with at most this star rating (1–5). Set 2 for complaints only.",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Maximum review stars",
+      "type": "integer"
+    },
+    "maxReviewsPerApp": {
       "default": 50,
-      "description": "Maximum number of apps to return. Each category page typically contains 25–100 apps.",
-      "maximum": 200,
+      "description": "Stop after this many matching reviews per app.",
+      "maximum": 2000,
       "minimum": 1,
       "prefill": 50,
-      "title": "Max items",
+      "title": "Max reviews per app",
       "type": "integer"
+    },
+    "minInstalls": {
+      "default": 0,
+      "description": "Only keep apps with at least this many exact installs. Leave 0 for any.",
+      "maximum": 1000000000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum installs",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Only keep apps rated at least this (0–5). Leave 0 for any rating.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum rating",
+      "type": "number"
+    },
+    "minReviewRating": {
+      "default": 1,
+      "description": "Only include reviews with at least this star rating (1–5).",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Minimum review stars",
+      "type": "integer"
+    },
+    "minReviews": {
+      "default": 0,
+      "description": "Only keep apps with at least this many ratings. Leave 0 for any.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum review count",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "category",
+      "description": "Pick a category/curated list, a keyword search, specific apps, or their reviews.",
+      "editor": "select",
+      "enum": [
+        "category",
+        "search",
+        "appDetails",
+        "reviews"
+      ],
+      "enumTitles": [
+        "Category or curated list",
+        "Keyword search",
+        "Specific apps (ID or URL)",
+        "App reviews"
+      ],
+      "prefill": "category",
+      "sectionCaption": "What to scrape",
+      "title": "What to scrape",
+      "type": "string"
+    },
+    "pricing": {
+      "default": "any",
+      "description": "Only keep apps with this pricing model. Apps that do not state pricing are excluded when a specific model is selected.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "free",
+        "free-trial",
+        "freemium",
+        "paid"
+      ],
+      "enumTitles": [
+        "Any",
+        "Free of charge",
+        "Free trial",
+        "Freemium",
+        "Paid"
+      ],
+      "prefill": "any",
+      "title": "Pricing model",
+      "type": "string"
+    },
+    "reviewsSince": {
+      "default": "",
+      "description": "Only include reviews posted on or after this date, e.g. 2026-01-01. Leave blank for no date limit.",
+      "editor": "textfield",
+      "title": "Reviews since",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords to search in the marketplace, e.g. \"mail merge\", \"crm\", \"pdf\". Each query is ranked separately and results are deduplicated.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search queries (mode=search)",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "helpful",
+      "description": "Order of reviews when reviews are collected.",
+      "editor": "select",
+      "enum": [
+        "helpful",
+        "recent"
+      ],
+      "enumTitles": [
+        "Most helpful",
+        "Newest first"
+      ],
+      "prefill": "helpful",
+      "sectionCaption": "Review options",
+      "title": "Review order",
+      "type": "string"
+    },
+    "worksWith": {
+      "default": "any",
+      "description": "Only keep apps that integrate with this Google app. Applied to listings and app lookups.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "drive",
+        "docs",
+        "sheets",
+        "slides",
+        "forms",
+        "gmail",
+        "calendar",
+        "chat",
+        "meet",
+        "classroom",
+        "gemini",
+        "studio"
+      ],
+      "enumTitles": [
+        "Any",
+        "Google Drive",
+        "Google Docs",
+        "Google Sheets",
+        "Google Slides",
+        "Google Forms",
+        "Gmail",
+        "Google Calendar",
+        "Google Chat",
+        "Google Meet",
+        "Google Classroom",
+        "Gemini",
+        "Workspace Studio"
+      ],
+      "prefill": "any",
+      "sectionCaption": "Filters",
+      "title": "Works with",
+      "type": "string"
     }
   },
   "required": [
-    "category"
+    "mode"
   ],
   "schemaVersion": 1,
   "title": "Google Workspace Marketplace Category Tracker Input",

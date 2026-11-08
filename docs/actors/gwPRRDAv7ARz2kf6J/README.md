@@ -4,126 +4,202 @@
 
 # Google Workspace Marketplace Category Tracker
 
-Monitor app rankings and metadata across all **26 categories** of the Google Workspace Marketplace. Each run returns apps sorted by their rank position within the chosen category, with rating, review count, pricing model, and direct URLs — useful for competitive research, market mapping, and daily rank monitoring.
+Track ranked apps across every Google Workspace Marketplace category, run keyword searches, look up specific apps, and pull their public reviews — without a Google account, API key or proxy.
 
-## What this actor does
+The actor reads the same public pages and embedded JSON the marketplace serves to a browser. Listings are capped at 100 apps per request, so the actor automatically unions Google's own rating, pricing and "works with" slices to reach deeper into a category when you ask for more rows.
 
-- Lists every app in a chosen Google Workspace Marketplace category, ordered by its on-site rank
-- Covers all 26 categories and subcategories, from "Most Popular" down to niche subcategories like HR & Legal
-- Returns rating, review count and pricing model for each app, directly from the marketplace listing
-- Returns the icon URL and a direct link to each app's marketplace page
-- Omits `rating` or `reviewCount` when an app has no ratings yet, rather than returning a zero or null
+## What it does
 
-## Output per app
+- **Category tracking** — 27 categories and curated lists (Most Popular, Top Rated, Featured Partner Apps, Business Tools, Productivity, Education, Connectors and every subcategory), with site rank preserved for the default slice.
+- **Keyword search** — one or more queries, ranked separately and deduplicated.
+- **App lookup** — pass numeric IDs or full marketplace URLs and get the complete public listing.
+- **Reviews** — paginated review rows (10 at a time) with rating, text, date, helpful votes and reviewer name; filter by star range and date, sort by helpful or newest.
+- **Real filters** — works-with host, pricing model, minimum rating, review count, installs and developer substring.
+- **Extra detail** — exact OAuth scopes, sensitive-access flags and the independent security-verification badge for each app.
+- **Deep listings** — when `maxItems` exceeds what the default page returns, the actor fetches additional rating/pricing/host slices and deduplicates by app ID.
+- **Omit-empty output** — a field the marketplace does not publish is left out of that record, never `null` or a placeholder.
 
-| Field | Type | Description |
+## Modes
+
+| Mode | What it returns | Required input |
 |---|---|---|
-| `rankInCategory` | integer | 1-based position in the category listing |
-| `appId` | string | Unique numeric app ID |
-| `name` | string | App display name |
-| `developer` | string | Developer / company name |
-| `rating` | float | Average star rating (0.0–5.0) |
-| `reviewCount` | integer | Total number of ratings |
-| `installCount` | integer | Reported install count, when the listing publishes one |
-| `pricingModel` | string | `Free`, `Paid`, or `Freemium` |
-| `categories` | array | Category slugs the app belongs to |
-| `shortDescription` | string | One-line description |
-| `appUrl` | string | Direct URL to the app listing |
-| `iconUrl` | string | App icon image URL |
-| `recordType` | string | Always `workspace_app` |
-| `scrapedAt` | string | ISO-8601 UTC timestamp |
+| `category` (default) | Ranked apps from one or more categories or curated lists | `categories` (defaults to `popular-apps`) |
+| `search` | Ranked apps for one or more keyword queries | `searchQueries` |
+| `appDetails` | Full records for specific apps | `appIds` |
+| `reviews` | Review rows only | `appIds` |
 
----
+Add `includeReviews` to `category`, `search` or `appDetails` to emit app rows and review rows in the same run.
 
 ## Input options
 
-| Field | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `category` | select | Yes | `popular-apps` | Category slug to scrape |
-| `maxItems` | integer | No | `50` | Max apps to return (1–200) |
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | select | `category` | What to scrape |
+| `categories` | multi-select | `["popular-apps"]` | Category/curated-list slugs (mode=category) |
+| `searchQueries` | string list | — | Keywords (mode=search) |
+| `appIds` | string list | — | Numeric IDs or marketplace URLs (appDetails/reviews) |
+| `worksWith` | select | `any` | Drive, Docs, Sheets, Slides, Forms, Gmail, Calendar, Chat, Meet, Classroom, Gemini, Studio |
+| `pricing` | select | `any` | Free, Free trial, Freemium, Paid |
+| `minRating` | number | `0` | Keep apps rated at least this (0–5) |
+| `minReviews` | integer | `0` | Keep apps with at least this many ratings |
+| `minInstalls` | integer | `0` | Keep apps with at least this many exact installs |
+| `developerFilter` | text | — | Keep apps whose developer name or website contains this text |
+| `includeDetails` | boolean | `false` | Add OAuth scopes, sensitive-access flags and security badge |
+| `includeReviews` | boolean | `false` | Emit review rows for matched apps |
+| `sortBy` | select | `helpful` | `helpful` or `recent` |
+| `minReviewRating` | integer | `1` | Lowest review star rating to keep |
+| `maxReviewRating` | integer | `5` | Highest review star rating to keep |
+| `reviewsSince` | text | — | ISO date, e.g. `2026-01-01` |
+| `maxReviewsPerApp` | integer | `50` | Review cap per app |
+| `includeCategoryMembership` | boolean | `false` | Scan all 27 listings to fill each app's `categories` |
+| `maxItems` | integer | `100` | Max app rows (max review rows in `reviews` mode) |
 
-### Available categories
+## Output fields
 
-| Slug | Label |
+### App rows (`recordType: "workspace_app"`)
+
+| Field | Description |
 |---|---|
-| `popular-apps` | Most Popular |
-| `top-rated` | Top Rated |
-| `featured-partner-apps` | Featured Partner Apps |
-| `recommended` | Recommended for Google Workspace |
-| `work-from-everywhere` | Work from Everywhere |
-| `business-essentials` | Business Essentials |
-| `apps-to-discover` | Apps to Discover |
-| `google-apps` | Built by Google |
-| `business-tools` | Business Tools (all) |
-| `business-tools/accounting-and-finance` | Business Tools — Accounting & Finance |
-| `business-tools/administration-and-management` | Business Tools — Administration & Management |
-| `business-tools/erp-and-logistics` | Business Tools — ERP & Logistics |
-| `business-tools/hr-and-legal` | Business Tools — HR & Legal |
-| `business-tools/marketing-and-analytics` | Business Tools — Marketing & Analytics |
-| `business-tools/sales-and-crm` | Business Tools — Sales & CRM |
-| `productivity` | Productivity (all) |
-| `productivity/creative-tools` | Productivity — Creative Tools |
-| `productivity/web-development` | Productivity — Web Development |
-| `productivity/office-applications` | Productivity — Office Applications |
-| `productivity/task-management` | Productivity — Task Management |
-| `education` | Education (all) |
-| `education/academic-resources` | Education — Academic Resources |
-| `education/teacher-and-admin-tools` | Education — Teacher & Admin Tools |
-| `communication` | Communication |
-| `utilities` | Utilities |
-| `enterprise-apps` | Enterprise / Admin Managed |
+| `rankInCategory` | 1-based rank in the category's default listing (omitted for apps only found in later slices) |
+| `rankInResults` | 1-based rank in the keyword search default listing |
+| `category` / `categories` | Selected category and (when resolved) the app's category memberships |
+| `searchQuery` / `searchQueries` | Keyword that matched the app |
+| `appId`, `slug`, `name` | Identity |
+| `shortDescription`, `longDescription` | Listing descriptions |
+| `developer`, `developerWebsite` | Publisher |
+| `rating`, `reviewCount` | Average stars and rating count |
+| `installCount`, `installsLabel` | Exact installs (e.g. `97456341`) and the public band (e.g. `97M+`) |
+| `pricingModel` | `Free`, `Free trial`, `Freemium` or `Paid` (omitted when the listing does not state pricing) |
+| `worksWith` | Google apps the listing works with |
+| `lastUpdated` | Listing update date (`YYYY-MM-DD`) |
+| `iconUrl`, `bannerUrl`, `screenshots` | Public image URLs |
+| `supportUrl`, `privacyPolicyUrl`, `termsOfServiceUrl` | Links published on the listing |
+| `appUrl`, `sourceUrl` | Canonical marketplace app page |
+| `securityVerified` | `true` when the independent security-verification badge is shown |
+| `oauthScopes`, `oauthScopeCount`, `sensitiveAccess` | Requested OAuth scopes and flags such as `gmailFullAccess` |
+| `recordType`, `scrapedAt` | Row metadata |
 
----
+### Review rows (`recordType: "workspace_review"`)
 
-## Example output record
+`reviewId`, `appId`, `appName`, `appUrl`, `reviewerName`, `reviewerAvatarUrl`, `rating`, `reviewText`, `reviewDate`, `helpfulCount`, `sourceUrl`, `scrapedAt`.
+
+## Example inputs
+
+Track the top 50 apps in a category, including OAuth permissions:
 
 ```json
 {
-  "rankInCategory": 1,
-  "appId": "1008170693301",
-  "name": "Mailmeteor - Mail merge for Gmail",
-  "developer": "Mailmeteor",
-  "rating": 4.92,
-  "reviewCount": 11695,
-  "installCount": 3000000,
-  "pricingModel": "Free",
-  "categories": ["productivity/creative-tools", "productivity/web-development"],
-  "shortDescription": "Send hundreds of personalized emails with your Gmail.",
-  "appUrl": "https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301",
-  "iconUrl": "https://lh3.googleusercontent.com/QAmS5hDnm1HmpWO8ymEr18vEtLjpzG9hYRkJ0nQUkCaxxGj0tcxA",
-  "recordType": "workspace_app",
-  "scrapedAt": "2026-05-20T10:00:00+00:00"
+  "mode": "category",
+  "categories": ["business-tools/sales-and-crm"],
+  "maxItems": 50,
+  "includeDetails": true
 }
 ```
 
----
+Deep-scan productivity with a filter, plus reviews:
 
-## Use cases
+```json
+{
+  "mode": "category",
+  "categories": ["productivity"],
+  "worksWith": "sheets",
+  "minRating": 4,
+  "maxItems": 250,
+  "includeReviews": true,
+  "sortBy": "recent",
+  "maxReviewRating": 2,
+  "maxReviewsPerApp": 20
+}
+```
 
-- **Competitive intelligence** — track where your app ranks across all relevant categories week over week.
-- **Market research** — identify top-rated apps in a niche before building your own.
-- **Partner discovery** — find integration partners across business tool categories.
-- **Price benchmarking** — compare free vs paid app distribution in a target category.
-- **Rank monitoring** — run daily with `maxItems: 50` and compare datasets over time.
+Look up apps by URL or ID:
 
----
+```json
+{
+  "mode": "appDetails",
+  "appIds": [
+    "https://workspace.google.com/marketplace/app/lucidchart/7081045131",
+    "1014160490159"
+  ],
+  "includeDetails": true
+}
+```
+
+Pull 100 newest reviews for one app:
+
+```json
+{
+  "mode": "reviews",
+  "appIds": ["7081045131"],
+  "sortBy": "recent",
+  "maxItems": 100
+}
+```
+
+## Example output
+
+```json
+{
+  "recordType": "workspace_app",
+  "rankInCategory": 1,
+  "category": "productivity",
+  "categories": ["productivity"],
+  "appId": "1014160490159",
+  "slug": "colaboratory",
+  "name": "Colaboratory",
+  "shortDescription": "This allows Google Colaboratory to open and create files in Google Drive.",
+  "developer": "Colaboratory team",
+  "developerWebsite": "https://colab.research.google.com",
+  "rating": 4.68,
+  "reviewCount": 3824,
+  "installCount": 97456341,
+  "installsLabel": "97M+",
+  "worksWith": ["Drive"],
+  "lastUpdated": "2025-08-25",
+  "iconUrl": "https://lh3.googleusercontent.com/bY20qlnjiFpsT_MtcuOGIAZ70lsnGe00yNVFF4hWT3QCz0-r7Rk",
+  "appUrl": "https://workspace.google.com/marketplace/app/colaboratory/1014160490159",
+  "sourceUrl": "https://workspace.google.com/marketplace/app/colaboratory/1014160490159",
+  "scrapedAt": "2026-11-08T10:00:00+00:00"
+}
+```
 
 ## FAQ
 
-**How often should I run this?**
-For rank tracking, daily runs are ideal. Use Apify's scheduler and the dataset comparison features to detect rank changes.
+**Do I need a Google account, API key or proxy?**
+No. Every field comes from public marketplace pages and their embedded JSON. The actor makes direct HTTP requests and needs no credentials.
 
-**Does it require a Google account or API key?**
-No. The scraper uses the public marketplace website and requires no authentication or credentials.
+**How do I get more than 100 apps from one category?**
+The marketplace returns at most 100 apps per request. The actor works around this by fetching the category through Google's own rating, pricing and works-with slices and merging the results. Set `maxItems` above 100 to enable the extra slices. Very broad categories can still be deeper than the slice union; split them by subcategory or add a works-with filter for full coverage of a narrower slice.
 
-**How many apps does each category page have?**
-Categories typically list 25–100 apps. Setting `maxItems` higher than the actual count returns all available apps.
+**Why is `rankInCategory` missing on some rows?**
+Rank comes from the category's default (unsliced) page. Apps that only appear in a later slice have no position on that page, so the field is omitted rather than invented.
 
-**Why do some records not have a `reviewCount` or `rating`?**
-Very new apps may have 0 ratings. Those fields are omitted when no data is available (never set to null).
+**Why do some apps have no `pricingModel`?**
+Some listings do not state pricing. That row simply omits the field instead of guessing "Free".
 
-**What is `pricingModel`?**
-Three values: `Free` (no cost), `Paid` (requires payment), `Freemium` (free tier with paid features). Determined from the marketplace listing metadata.
+**How many reviews can I get?**
+The actor pages through the marketplace's review endpoint 10 at a time, up to `maxReviewsPerApp` (maximum 2,000). The marketplace may report slightly different totals between calls, so reviews are deduplicated by review ID and the actor stops when a page adds nothing new.
 
-**Can I track subcategories like `business-tools/accounting-and-finance`?**
-Yes — all 26 category slugs including subcategories are available in the category dropdown.
+**Can I get developer replies to reviews?**
+No. The public review payload does not contain developer replies, so the actor does not invent them.
+
+**What does `includeCategoryMembership` do?**
+The marketplace does not expose an app's category list on its app page. That option scans all 27 category listings and records which ones include the app. Because each listing shows at most 100 apps, membership is limited to those listing pages.
+
+**What are `sensitiveAccess` flags?**
+They summarise OAuth scopes: `gmailFullAccess`, `driveFullAccess`, `calendarFullAccess`, `contacts` and `adminDirectory`. Use them to audit what an add-on can access before installing it.
+
+**Can I monitor changes between runs?**
+Export the dataset on a schedule and compare snapshots. This actor returns current data; it does not store state.
+
+## Limitations
+
+- Each marketplace listing request is capped at 100 apps. Deep listing coverage is best-effort through Google's rating, pricing and works-with slices.
+- Google ignores the Gemini and Studio host filters on listing URLs; those works-with values are applied to the rows the actor already fetched.
+- Category membership is limited to the top-100 page of each category.
+- Review totals reported by the marketplace fluctuate; review pagination stops at the reported total or when three consecutive pages add nothing new.
+- Developer replies, emails, phone numbers and trader addresses are not published in the listing payload and are not fabricated.
+
+## Data source
+
+Public pages under `workspace.google.com/marketplace`: category and curated-list pages, search results, app detail pages, and the marketplace's own review endpoint. This actor is independent and not affiliated with Google.

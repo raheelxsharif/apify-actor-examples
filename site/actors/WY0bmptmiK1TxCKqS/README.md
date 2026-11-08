@@ -1,59 +1,107 @@
-# Global B2B Supplier Finder by Product & Country
+# Kompass B2B Company & Supplier Scraper
 
-Kompass lists tens of millions of manufacturers, distributors, and service companies across dozens of countries. This actor searches that directory by company name, product keyword, or country, or pulls full details for profiles you already have the URL for, and returns structured company records for sourcing and lead work.
+Scrape **Kompass** — a global B2B directory of manufacturers, distributors, service providers, importers, and exporters. Search 62 country markets by keyword, product, or company name; browse country/type directories, sectors, activities, and regions; or fetch complete profiles from company URLs and IDs. Live pages are tried first, then archived snapshots from the Wayback Machine keep the run productive when Kompass blocks automated traffic. Records include contacts, address, geo, legal identifiers, activities, certifications, executives, products, catalogues, and social profiles.
 
 ## What this actor does
 
-- **Four search modes**: free-text company search, product/service keyword search, country browse, and direct profile lookup by URL
-- **Filters by country** using a 32-country dropdown covering North America, Europe, Asia, and more
-- **Returns firmographic detail** — employee count range, revenue range, certifications, and products/services offered
-- **Captures contact points** — primary contact name, phone number, and company website when listed
-- **Empty fields are omitted** from each record instead of being returned as null
+- **Four modes:** `searchCompanies`, `browseDirectory`, `browseCategoryOrRegion`, and `companyDetails`
+- **62 Kompass markets** with a country dropdown and automatic country filtering
+- **Company-type paths:** manufacturer, distributor, service provider, importer, and exporter
+- **15 sectors** plus activity and region page URLs for deeper lists
+- **Live first, archive fallback** — a cheap direct/datacenter probe runs once; blocked pages switch to Wayback CDX and snapshots automatically
+- **Conditional enrichment** — card-only runs are fast and cheap; `includeDetails` adds the full profile
+- **Omit-empty records** — fields with no source value are left out, never returned as `null`
 
 ## Output per company
 
-- `companyId` — Kompass's internal company identifier
-- `companyName` — full registered company name
-- `country` — company's country
-- `city` — city or region
-- `employees` — employee count range
-- `revenue` — revenue range
-- `products` — products and services offered
-- `certifications` — quality certifications (e.g. ISO)
-- `websiteUrl` — company's own website
-- `companyUrl` — Kompass profile URL
-- `contactName` — primary contact person name
-- `phone` — company phone number
-- `scrapedAt` — UTC timestamp of when the record was scraped
+- `companyId`, `companyName`, `slug`, `companyUrl`
+- `country`, `countryCode`, `city`, `street`, `postalCode`
+- `latitude`, `longitude`, `mapUrl`
+- `phone`, `phones[]`, `fax`, `email`
+- `websiteUrl`, `socialProfiles[]`, `logoUrl`
+- `description`, `companyTypes[]`
+- `employees`, `employeeCount`, `employeeRange`, `yearEstablished`
+- `legalForm`, `corporateCapital`, `registrationNumber`, `vatNumber`, `siteType`
+- `activities[]`, `activityCodes[]`, `industryCodes[]`
+- `certifications`, `certificationsList[]`, `isCertified`
+- `executives[]` — `name`, `role`, `linkedinUrl`, `languages`
+- `products`, `productSamples[]`, `productCount`, `productsUrl`
+- `catalogues[]` — `name`, `pages`, `pdfUrl`
+- `videos[]`
+- `searchQuery`, `searchType`
+- `sourceUrl`, `sourceMarket`
+- `dataSource` — `live` or `wayback`
+- `archivedAt` — Wayback capture timestamp (only when `dataSource` is `wayback`)
+- `recordType: "company"`, `scrapedAt`
+
+`certifications` and `products` remain strings for backward compatibility; the array forms sit beside them. `revenue` and `contactName` remain in the record shape but are omitted because Kompass does not publish them on public profiles.
+
+## Output status rows
+
+A run can include `recordType: "status"` rows for honest partial failures:
+
+- `status` — `invalid_input`, `not_found`, `blocked`, `no_results`, `source_cap`, `parse_drift`, `archive_miss`, or `archive_partial`
+- `message` — plain-language explanation
+- `sourceUrl` — the page that produced the status
+
+Status rows do not count toward `maxItems`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (enum, required) | `searchCompanies` | `searchCompanies`, `searchByProduct`, `searchByCountry`, or `companyDetails` |
-| `query` | string | `machine tools` | Company name or keyword (modes `searchCompanies` / `searchByProduct`) |
-| `country` | string (enum) | `US` | 2-letter country code filter, or blank for all countries |
-| `companyUrls` | array | `[]` | Kompass company profile URLs to fetch (mode `companyDetails`) |
-| `maxItems` | integer | `20` | Maximum number of company records to return (1–500) |
+| `mode` | string | `searchCompanies` | `searchCompanies`, `browseDirectory`, `browseCategoryOrRegion`, or `companyDetails` |
+| `query` | string | `pumps` | Company name, product, or service keyword (mode `searchCompanies`) |
+| `searchType` | string | `all` | `all`, `companyName`, or `products` (mode `searchCompanies`) |
+| `country` | string | `DE` | One of 62 Kompass markets; used for search and directory browsing |
+| `companyType` | string | `any` | `any`, `manufacturer`, `distributor`, `serviceProvider`, `importer`, or `exporter` |
+| `sector` | string | `any` | One of 15 sectors or `any` (mode `browseDirectory`) |
+| `directoryUrls` | array | `[]` | `/a/`, `/r/`, `/s/`, `/x/`, or `/y/` URLs (mode `browseCategoryOrRegion`) |
+| `companyUrls` | array | `[]` | Profile URLs or bare IDs such as `IT0050676` (mode `companyDetails`) |
+| `includeDetails` | boolean | `true` | Fetch full profiles; turn off for cheaper card-only results |
+| `maxItems` | integer | `100` | Company-record cap, 1–1000 |
+| `maxPages` | integer | `5` | Live keyword-search page cap, 1–5 |
+| `archivePages` | integer | `8` | Wayback CDX index pages to scan per market when live search is blocked, 1–64 |
 
-### Example: search by product keyword in one country
+### Example: keyword search in one country
 
 ```json
 {
-  "mode": "searchByProduct",
-  "query": "industrial valves",
+  "mode": "searchCompanies",
+  "query": "industrial pumps",
+  "searchType": "products",
   "country": "DE",
-  "maxItems": 30
+  "includeDetails": true,
+  "maxItems": 50,
+  "maxPages": 3,
+  "archivePages": 8
 }
 ```
 
-### Example: browse all companies listed for a country
+### Example: browse manufacturers in a sector
 
 ```json
 {
-  "mode": "searchByCountry",
-  "country": "IN",
-  "maxItems": 50
+  "mode": "browseDirectory",
+  "country": "IT",
+  "companyType": "manufacturer",
+  "sector": "metals-machinery-engineering",
+  "includeDetails": true,
+  "maxItems": 60
+}
+```
+
+### Example: browse a region and an activity
+
+```json
+{
+  "mode": "browseCategoryOrRegion",
+  "directoryUrls": [
+    "https://us.kompass.com/r/california-united-states/us_06/",
+    "https://de.kompass.com/a/teile-und-zubehor-fur-landwirtschaftliche-maschinen/48570/"
+  ],
+  "includeDetails": false,
+  "maxItems": 100
 }
 ```
 
@@ -63,38 +111,84 @@ Kompass lists tens of millions of manufacturers, distributors, and service compa
 {
   "mode": "companyDetails",
   "companyUrls": [
-    "https://www.kompass.com/c/example-company/de123456/"
-  ]
+    "https://fr.kompass.com/c/ipo-technologie/fr8380178/",
+    "https://it.kompass.com/c/gai-macchine-imbottigliatrici/it0009821/",
+    "IN490090"
+  ],
+  "maxItems": 3
 }
 ```
 
+## Live and archived data
+
+Each run tries a cheap live connection first. If Kompass returns a DataDome/login page, the actor switches to the Wayback Machine:
+
+- **Search** reads the Wayback CDX index for the selected market (`de.kompass.com/c/*`, `us.kompass.com/c/*`, and so on), filters archived company URLs by keyword stems and market, and fetches up to `maxItems` snapshots when `includeDetails` is on.
+- **Profiles and directory URLs** fetch `https://web.archive.org/web/<timestamp>id_/<original>`, so the original server-rendered HTML and JSON-LD are parsed by the same extractors as live pages.
+- **Provenance** is explicit: records carry `dataSource: "live"` or `"wayback"`, and archived records also carry `archivedAt`.
+- **Coverage is partial.** Archive density varies by market and year. At the time of writing, the CDX index had about 26 pages for `de.kompass.com/c/*` and 64 for `us.kompass.com/c/*`, with roughly 1,700 collapsed company URLs per page.
+- **Snapshots are historical.** An archived profile reflects the capture timestamp, not today: contacts, employees, products, and certifications may be outdated, and some companies have since closed. Check `archivedAt` before using a record for time-sensitive outreach.
+- **No credentials.** The Wayback Machine is public; the actor never asks for a Kompass login, cookie, proxy, or API key.
+
 ## Use cases
 
-- **B2B lead generation** — build a list of companies in a target country and product category
-- **Supplier sourcing** — shortlist manufacturers with the certifications a buyer requires
-- **Market mapping** — see how many and which companies serve a given product category per country
-- **Export/import partner search** — find counterparts in a specific country for a trade relationship
-- **Company verification** — pull employee count, revenue range, and contact details for due diligence
+- **B2B lead generation** — build country and product lists with phone, email, and website where published
+- **Supplier sourcing** — shortlist manufacturers that publish the certifications a buyer requires
+- **Market mapping** — compare company counts and roles across countries, sectors, and regions
+- **Trade research** — find importers and exporters in a target market
+- **CRM enrichment** — append address, legal identifiers, activities, and executives to known accounts
+- **Competitive tracking** — monitor catalogues, products, and profile changes over time
 
 ## FAQ
 
-**Is this affiliated with Kompass?**
-No. This is an independent, third-party actor that reads publicly visible Kompass pages; it isn't operated by or affiliated with Kompass.
+### Is this affiliated with Kompass?
 
-**Do I need a Kompass account?**
-No. Public search and company profile pages don't require a login.
+No. This is an independent, third-party actor that reads publicly visible Kompass pages. It is not operated by or affiliated with Kompass.
 
-**What's the difference between `searchCompanies` and `searchByProduct`?**
-`searchCompanies` matches your query against company names and general listing text. `searchByProduct` matches it specifically against the products and services companies list, which surfaces different results for the same keyword.
+### Do I need a Kompass account or a proxy?
 
-**Why is `revenue` or `certifications` sometimes missing?**
-Not every Kompass profile publishes every field. Fields with no value on the source page are omitted from the record rather than returned empty.
+No account, login, cookie, or proxy setup is required. The actor chooses a working connection to Kompass automatically.
 
-**Can I search without filtering by country?**
-Yes, leave `country` blank to search across all countries Kompass covers.
+### Why did a run return a blocked status?
 
-**How current is the data?**
-Each run reads Kompass's live pages, so company details reflect what's published at run time.
+Kompass sometimes serves a login or rate-limit page to automated requests. The actor records a `blocked` status row instead of inventing company data. When archive fallback is also unavailable, wait and rerun, or use a smaller `maxItems`/`maxPages` request.
 
-**What if I already have a list of company URLs?**
-Use `mode: "companyDetails"` with `companyUrls` to fetch full details for exactly those profiles instead of running a search.
+### Why do some records have `dataSource: "wayback"`?
+
+Kompass blocks some networks with DataDome. The actor then reads the public Wayback Machine index and snapshots, parses the same server-rendered fields, and marks each record with `dataSource` and `archivedAt`. Live records use `dataSource: "live"`.
+
+### Why are archived results missing companies I can see on Kompass today?
+
+Wayback only has snapshots that were captured. Archive density differs by country and year, so a keyword, directory URL, or company profile may simply never have been archived. `archive_miss` and `archive_partial` status rows explain those gaps; raising `archivePages` scans more of the index for `searchCompanies`.
+
+### Why are some fields missing from a company?
+
+Kompass publishes different fields per market and per company. Employees, email, fax, legal identifiers, certifications, social profiles, catalogues, and executives are conditional; a missing value is omitted rather than filled with `null`.
+
+### Why are executives missing for some countries?
+
+Kompass gates named executives behind its paid EasyBusiness product in several markets. Public executive lists are still captured where the profile shows them.
+
+### Why does a keyword search stop at about 100 companies?
+
+Kompass limits guest keyword search to roughly five pages. For deeper coverage, use `browseDirectory` with a sector, or supply activity and region URLs in `browseCategoryOrRegion`.
+
+### Why do search results include companies from other countries?
+
+Kompass search is relevance-ranked and can mix nearby or global companies. The actor filters records to the selected `country` when the card or profile identifies a country. If a card has no country marker, it is kept rather than dropped.
+
+### What is the difference between `browseDirectory` and `browseCategoryOrRegion`?
+
+`browseDirectory` builds the URL for you from `country`, `companyType`, and `sector`. `browseCategoryOrRegion` accepts the exact activity, region, sector, or directory URLs you paste, including page-2 and deeper URLs.
+
+### Can I pass company IDs instead of URLs?
+
+Yes. `companyDetails` accepts full profile URLs on any Kompass country site and bare Kompass IDs such as `IT0050676` or `DEEX226855`.
+
+### Are status rows errors?
+
+No. They explain a partial result, such as a company profile that was removed, a page that could not be reached, or a keyword-search cap. Other companies in the same run are still returned.
+
+### How current is the data?
+
+Live records reflect what Kompass publishes at run time. When the live site is blocked, records come from Wayback snapshots and reflect the capture time shown in `archivedAt`. Treat archived contacts, employee counts, products, and certifications as historical rather than current.

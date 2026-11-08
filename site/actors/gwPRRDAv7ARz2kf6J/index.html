@@ -1,95 +1,321 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-CPCNYbP22iFIIde14QVk/78HllQxoYCZ3SmTJlvJea4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Workspace Marketplace Category Tracker | Dataspryva</title><meta name="description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:title" content="Google Workspace Marketplace Category Tracker | Dataspryva"><meta property="og:description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article","headline":"Google Workspace Marketplace Category Tracker","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Workspace Marketplace Category Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Workspace Marketplace Category Tracker</span></div><section id="overview"><h1 class="doc-title">Google Workspace Marketplace Category Tracker</h1><p class="lede">Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-workspace-marketplace-category-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/gwPRRDAv7ARz2kf6J/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>category</code></td><td>string</td><td>required</td><td>Google Workspace Marketplace category to scrape. Use exact category slug from the URL.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of apps to return. Each category page typically contains 25–100 apps.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;List apps ranked in a Google Workspace Marketplace category with metadata.&quot;,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-CPCNYbP22iFIIde14QVk/78HllQxoYCZ3SmTJlvJea4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Workspace Marketplace Category Tracker | Dataspryva</title><meta name="description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:title" content="Google Workspace Marketplace Category Tracker | Dataspryva"><meta property="og:description" content="Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app U"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#article","headline":"Google Workspace Marketplace Category Tracker","name":"Google Workspace Marketplace Category Tracker","description":"Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Workspace Marketplace Category Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/gwPRRDAv7ARz2kf6J/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Workspace Marketplace Category Tracker</span></div><section id="overview"><h1 class="doc-title">Google Workspace Marketplace Category Tracker</h1><p class="lede">Track ranked apps in any Google Workspace Marketplace category. Returns app name, developer, rating, review count, pricing model, categories, description, icon URL and direct app URL - sorted by rank.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-workspace-marketplace-category-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/gwPRRDAv7ARz2kf6J/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Pick a category/curated list, a keyword search, specific apps, or their reviews.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>One or more marketplace categories or curated lists. All selected categories are unioned and deduplicated.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search in the marketplace, e.g. &quot;mail merge&quot;, &quot;crm&quot;, &quot;pdf&quot;. Each query is ranked separately and results are deduplicated.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Pick a category/curated list, a keyword search, specific apps, or their reviews.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>One or more marketplace categories or curated lists. All selected categories are unioned and deduplicated.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search in the marketplace, e.g. &quot;mail merge&quot;, &quot;crm&quot;, &quot;pdf&quot;. Each query is ranked separately and results are deduplicated.</td></tr><tr><td><code>appIds</code></td><td>array</td><td>optional</td><td>Numeric app IDs or full marketplace app URLs, e.g. 7081045131 or https://workspace.google.com/marketplace/app/lucidchart/7081045131.</td></tr><tr><td><code>worksWith</code></td><td>string</td><td>optional</td><td>Only keep apps that integrate with this Google app. Applied to listings and app lookups.</td></tr><tr><td><code>pricing</code></td><td>string</td><td>optional</td><td>Only keep apps with this pricing model. Apps that do not state pricing are excluded when a specific model is selected.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Only keep apps rated at least this (0–5). Leave 0 for any rating.</td></tr><tr><td><code>minReviews</code></td><td>integer</td><td>optional</td><td>Only keep apps with at least this many ratings. Leave 0 for any.</td></tr><tr><td><code>minInstalls</code></td><td>integer</td><td>optional</td><td>Only keep apps with at least this many exact installs. Leave 0 for any.</td></tr><tr><td><code>developerFilter</code></td><td>string</td><td>optional</td><td>Only keep apps whose developer name or website contains this text, e.g. &quot;zoho&quot; or &quot;lucidchart.com&quot;.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Open each app page to add the exact OAuth scopes, sensitive-access flags and independent security-verification badge. Adds one request per app.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Also output the reviews of every matched app as separate rows (recordType workspace_review). Adds one app page request plus up to maxReviewsPerApp / 10 review-page requests per app.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order of reviews when reviews are collected.</td></tr><tr><td><code>minReviewRating</code></td><td>integer</td><td>optional</td><td>Only include reviews with at least this star rating (1–5).</td></tr><tr><td><code>maxReviewRating</code></td><td>integer</td><td>optional</td><td>Only include reviews with at most this star rating (1–5). Set 2 for complaints only.</td></tr><tr><td><code>reviewsSince</code></td><td>string</td><td>optional</td><td>Only include reviews posted on or after this date, e.g. 2026-01-01. Leave blank for no date limit.</td></tr><tr><td><code>maxReviewsPerApp</code></td><td>integer</td><td>optional</td><td>Stop after this many matching reviews per app.</td></tr><tr><td><code>includeCategoryMembership</code></td><td>boolean</td><td>optional</td><td>Scan all 27 category listings to fill each app&#x27;s categories list (top-100 listings only). Adds 27 requests.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum app rows to return. Listings are fetched in slices until this many matching apps are found (or the marketplace is exhausted). In reviews mode this caps review rows instead.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Track Google Workspace Marketplace apps, categories, search results and reviews. No login or API key required.&quot;,
   &quot;properties&quot;: {
-    &quot;category&quot;: {
-      &quot;default&quot;: &quot;popular-apps&quot;,
-      &quot;description&quot;: &quot;Google Workspace Marketplace category to scrape. Use exact category slug from the URL.&quot;,
+    &quot;appIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Numeric app IDs or full marketplace app URLs, e.g. 7081045131 or https://workspace.google.com/marketplace/app/lucidchart/7081045131.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;App IDs or URLs (mode=appDetails or reviews)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categories&quot;: {
+      &quot;default&quot;: [
+        &quot;popular-apps&quot;
+      ],
+      &quot;description&quot;: &quot;One or more marketplace categories or curated lists. All selected categories are unioned and deduplicated.&quot;,
       &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;popular-apps&quot;,
-        &quot;top-rated&quot;,
-        &quot;featured-partner-apps&quot;,
-        &quot;recommended&quot;,
-        &quot;work-from-everywhere&quot;,
-        &quot;business-essentials&quot;,
-        &quot;apps-to-discover&quot;,
-        &quot;google-apps&quot;,
-        &quot;business-tools&quot;,
-        &quot;business-tools/accounting-and-finance&quot;,
-        &quot;business-tools/administration-and-management&quot;,
-        &quot;business-tools/erp-and-logistics&quot;,
-        &quot;business-tools/hr-and-legal&quot;,
-        &quot;business-tools/marketing-and-analytics&quot;,
-        &quot;business-tools/sales-and-crm&quot;,
-        &quot;productivity&quot;,
-        &quot;productivity/creative-tools&quot;,
-        &quot;productivity/web-development&quot;,
-        &quot;productivity/office-applications&quot;,
-        &quot;productivity/task-management&quot;,
-        &quot;education&quot;,
-        &quot;education/academic-resources&quot;,
-        &quot;education/teacher-and-admin-tools&quot;,
-        &quot;communication&quot;,
-        &quot;utilities&quot;,
-        &quot;enterprise-apps&quot;
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;popular-apps&quot;,
+          &quot;top-rated&quot;,
+          &quot;featured-partner-apps&quot;,
+          &quot;recommended&quot;,
+          &quot;work-from-everywhere&quot;,
+          &quot;business-essentials&quot;,
+          &quot;apps-to-discover&quot;,
+          &quot;google-apps&quot;,
+          &quot;connectors&quot;,
+          &quot;business-tools&quot;,
+          &quot;business-tools/accounting-and-finance&quot;,
+          &quot;business-tools/administration-and-management&quot;,
+          &quot;business-tools/erp-and-logistics&quot;,
+          &quot;business-tools/hr-and-legal&quot;,
+          &quot;business-tools/marketing-and-analytics&quot;,
+          &quot;business-tools/sales-and-crm&quot;,
+          &quot;productivity&quot;,
+          &quot;productivity/creative-tools&quot;,
+          &quot;productivity/web-development&quot;,
+          &quot;productivity/office-applications&quot;,
+          &quot;productivity/task-management&quot;,
+          &quot;education&quot;,
+          &quot;education/academic-resources&quot;,
+          &quot;education/teacher-and-admin-tools&quot;,
+          &quot;communication&quot;,
+          &quot;utilities&quot;,
+          &quot;enterprise-apps&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Most Popular&quot;,
+          &quot;Top Rated&quot;,
+          &quot;Featured Partner Apps&quot;,
+          &quot;Recommended for Google Workspace&quot;,
+          &quot;Work from Everywhere&quot;,
+          &quot;Business Essentials&quot;,
+          &quot;Apps to Discover&quot;,
+          &quot;Built by Google&quot;,
+          &quot;Connectors (Gemini / Studio)&quot;,
+          &quot;Business Tools (all)&quot;,
+          &quot;Business Tools — Accounting &amp; Finance&quot;,
+          &quot;Business Tools — Administration &amp; Management&quot;,
+          &quot;Business Tools — ERP &amp; Logistics&quot;,
+          &quot;Business Tools — HR &amp; Legal&quot;,
+          &quot;Business Tools — Marketing &amp; Analytics&quot;,
+          &quot;Business Tools — Sales &amp; CRM&quot;,
+          &quot;Productivity (all)&quot;,
+          &quot;Productivity — Creative Tools&quot;,
+          &quot;Productivity — Web Development&quot;,
+          &quot;Productivity — Office Applications&quot;,
+          &quot;Productivity — Task Management&quot;,
+          &quot;Education (all)&quot;,
+          &quot;Education — Academic Resources&quot;,
+          &quot;Education — Teacher &amp; Admin Tools&quot;,
+          &quot;Communication&quot;,
+          &quot;Utilities&quot;,
+          &quot;Enterprise / Admin Managed&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;popular-apps&quot;
       ],
-      &quot;enumTitles&quot;: [
-        &quot;Most Popular&quot;,
-        &quot;Top Rated&quot;,
-        &quot;Featured Partner Apps&quot;,
-        &quot;Recommended for Google Workspace&quot;,
-        &quot;Work from Everywhere&quot;,
-        &quot;Business Essentials&quot;,
-        &quot;Apps to Discover&quot;,
-        &quot;Built by Google&quot;,
-        &quot;Business Tools (all)&quot;,
-        &quot;Business Tools — Accounting &amp; Finance&quot;,
-        &quot;Business Tools — Administration &amp; Management&quot;,
-        &quot;Business Tools — ERP &amp; Logistics&quot;,
-        &quot;Business Tools — HR &amp; Legal&quot;,
-        &quot;Business Tools — Marketing &amp; Analytics&quot;,
-        &quot;Business Tools — Sales &amp; CRM&quot;,
-        &quot;Productivity (all)&quot;,
-        &quot;Productivity — Creative Tools&quot;,
-        &quot;Productivity — Web Development&quot;,
-        &quot;Productivity — Office Applications&quot;,
-        &quot;Productivity — Task Management&quot;,
-        &quot;Education (all)&quot;,
-        &quot;Education — Academic Resources&quot;,
-        &quot;Education — Teacher &amp; Admin Tools&quot;,
-        &quot;Communication&quot;,
-        &quot;Utilities&quot;,
-        &quot;Enterprise / Admin Managed&quot;
-      ],
-      &quot;prefill&quot;: &quot;popular-apps&quot;,
-      &quot;title&quot;: &quot;Category&quot;,
+      &quot;sectionCaption&quot;: &quot;Category and search&quot;,
+      &quot;title&quot;: &quot;Categories (mode=category)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;developerFilter&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only keep apps whose developer name or website contains this text, e.g. \&quot;zoho\&quot; or \&quot;lucidchart.com\&quot;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Developer contains&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
+    &quot;includeCategoryMembership&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Scan all 27 category listings to fill each app&#x27;s categories list (top-100 listings only). Adds 27 requests.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;sectionCaption&quot;: &quot;Output&quot;,
+      &quot;title&quot;: &quot;Resolve category membership&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Open each app page to add the exact OAuth scopes, sensitive-access flags and independent security-verification badge. Adds one request per app.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;sectionCaption&quot;: &quot;Extra app data&quot;,
+      &quot;title&quot;: &quot;Include OAuth permissions and security badge&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Also output the reviews of every matched app as separate rows (recordType workspace_review). Adds one app page request plus up to maxReviewsPerApp / 10 review-page requests per app.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Maximum app rows to return. Listings are fetched in slices until this many matching apps are found (or the marketplace is exhausted). In reviews mode this caps review rows instead.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max app records&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewRating&quot;: {
+      &quot;default&quot;: 5,
+      &quot;description&quot;: &quot;Only include reviews with at most this star rating (1–5). Set 2 for complaints only.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 5,
+      &quot;title&quot;: &quot;Maximum review stars&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerApp&quot;: {
       &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Maximum number of apps to return. Each category page typically contains 25–100 apps.&quot;,
-      &quot;maximum&quot;: 200,
+      &quot;description&quot;: &quot;Stop after this many matching reviews per app.&quot;,
+      &quot;maximum&quot;: 2000,
       &quot;minimum&quot;: 1,
       &quot;prefill&quot;: 50,
-      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;title&quot;: &quot;Max reviews per app&quot;,
       &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minInstalls&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only keep apps with at least this many exact installs. Leave 0 for any.&quot;,
+      &quot;maximum&quot;: 1000000000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum installs&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only keep apps rated at least this (0–5). Leave 0 for any rating.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minReviewRating&quot;: {
+      &quot;default&quot;: 1,
+      &quot;description&quot;: &quot;Only include reviews with at least this star rating (1–5).&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Minimum review stars&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minReviews&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only keep apps with at least this many ratings. Leave 0 for any.&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum review count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;category&quot;,
+      &quot;description&quot;: &quot;Pick a category/curated list, a keyword search, specific apps, or their reviews.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;category&quot;,
+        &quot;search&quot;,
+        &quot;appDetails&quot;,
+        &quot;reviews&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Category or curated list&quot;,
+        &quot;Keyword search&quot;,
+        &quot;Specific apps (ID or URL)&quot;,
+        &quot;App reviews&quot;
+      ],
+      &quot;prefill&quot;: &quot;category&quot;,
+      &quot;sectionCaption&quot;: &quot;What to scrape&quot;,
+      &quot;title&quot;: &quot;What to scrape&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;pricing&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only keep apps with this pricing model. Apps that do not state pricing are excluded when a specific model is selected.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;free&quot;,
+        &quot;free-trial&quot;,
+        &quot;freemium&quot;,
+        &quot;paid&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Free of charge&quot;,
+        &quot;Free trial&quot;,
+        &quot;Freemium&quot;,
+        &quot;Paid&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Pricing model&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;reviewsSince&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only include reviews posted on or after this date, e.g. 2026-01-01. Leave blank for no date limit.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Reviews since&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords to search in the marketplace, e.g. \&quot;mail merge\&quot;, \&quot;crm\&quot;, \&quot;pdf\&quot;. Each query is ranked separately and results are deduplicated.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Search queries (mode=search)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;helpful&quot;,
+      &quot;description&quot;: &quot;Order of reviews when reviews are collected.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;helpful&quot;,
+        &quot;recent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most helpful&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;helpful&quot;,
+      &quot;sectionCaption&quot;: &quot;Review options&quot;,
+      &quot;title&quot;: &quot;Review order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;worksWith&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Only keep apps that integrate with this Google app. Applied to listings and app lookups.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;drive&quot;,
+        &quot;docs&quot;,
+        &quot;sheets&quot;,
+        &quot;slides&quot;,
+        &quot;forms&quot;,
+        &quot;gmail&quot;,
+        &quot;calendar&quot;,
+        &quot;chat&quot;,
+        &quot;meet&quot;,
+        &quot;classroom&quot;,
+        &quot;gemini&quot;,
+        &quot;studio&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Google Drive&quot;,
+        &quot;Google Docs&quot;,
+        &quot;Google Sheets&quot;,
+        &quot;Google Slides&quot;,
+        &quot;Google Forms&quot;,
+        &quot;Gmail&quot;,
+        &quot;Google Calendar&quot;,
+        &quot;Google Chat&quot;,
+        &quot;Google Meet&quot;,
+        &quot;Google Classroom&quot;,
+        &quot;Gemini&quot;,
+        &quot;Workspace Studio&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;sectionCaption&quot;: &quot;Filters&quot;,
+      &quot;title&quot;: &quot;Works with&quot;,
+      &quot;type&quot;: &quot;string&quot;
     }
   },
   &quot;required&quot;: [
-    &quot;category&quot;
+    &quot;mode&quot;
   ],
   &quot;schemaVersion&quot;: 1,
   &quot;title&quot;: &quot;Google Workspace Marketplace Category Tracker Input&quot;,
   &quot;type&quot;: &quot;object&quot;
 }
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>apps</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped apps with their rank, metadata, and URLs.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>apps</code></td><td>string</td><td>optional</td><td>Dataset containing apps with rank, metadata, URLs, works-with hosts and optional OAuth permission data.</td></tr><tr><td><code>reviews</code></td><td>string</td><td>optional</td><td>Dataset containing review rows when includeReviews is on or mode=reviews.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Ranked apps from a Google Workspace Marketplace category with metadata including rating, review count, pricing, and direct URLs.&quot;,
+  &quot;description&quot;: &quot;Ranked marketplace apps with exact installs, ratings, pricing, works-with hosts, OAuth permissions, links and optional user reviews.&quot;,
   &quot;properties&quot;: {
     &quot;apps&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped apps with their rank, metadata, and URLs.&quot;,
+      &quot;description&quot;: &quot;Dataset containing apps with rank, metadata, URLs, works-with hosts and optional OAuth permission data.&quot;,
       &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Marketplace Apps&quot;,
+      &quot;title&quot;: &quot;Marketplace apps&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;reviews&quot;: {
+      &quot;description&quot;: &quot;Dataset containing review rows when includeReviews is on or mode=reviews.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;App reviews&quot;,
       &quot;type&quot;: &quot;string&quot;
     }
   },
@@ -98,302 +324,398 @@
 </code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
   &quot;actorSpecification&quot;: 1,
   &quot;views&quot;: {
-    &quot;overview&quot;: {
+    &quot;apps&quot;: {
       &quot;display&quot;: {
         &quot;component&quot;: &quot;table&quot;,
         &quot;properties&quot;: {}
       },
-      &quot;title&quot;: &quot;Marketplace Apps&quot;,
+      &quot;title&quot;: &quot;Marketplace apps&quot;,
       &quot;transformation&quot;: {
         &quot;fields&quot;: [
+          &quot;recordType&quot;,
           &quot;rankInCategory&quot;,
           &quot;name&quot;,
           &quot;developer&quot;,
           &quot;rating&quot;,
           &quot;reviewCount&quot;,
+          &quot;installCount&quot;,
           &quot;pricingModel&quot;,
+          &quot;worksWith&quot;,
           &quot;appUrl&quot;
+        ]
+      }
+    },
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;App reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;appName&quot;,
+          &quot;rating&quot;,
+          &quot;reviewText&quot;,
+          &quot;reviewDate&quot;,
+          &quot;helpfulCount&quot;,
+          &quot;reviewerName&quot;
         ]
       }
     }
   }
 }
 </code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-workspace-marketplace-category-tracker">Google Workspace Marketplace Category Tracker</h2>
-<p>Monitor app rankings and metadata across all <strong>26 categories</strong> of the Google Workspace Marketplace. Each run returns apps sorted by their rank position within the chosen category, with rating, review count, pricing model, and direct URLs — useful for competitive research, market mapping, and daily rank monitoring.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<p>Track ranked apps across every Google Workspace Marketplace category, run keyword searches, look up specific apps, and pull their public reviews — without a Google account, API key or proxy.</p>
+<p>The actor reads the same public pages and embedded JSON the marketplace serves to a browser. Listings are capped at 100 apps per request, so the actor automatically unions Google's own rating, pricing and &quot;works with&quot; slices to reach deeper into a category when you ask for more rows.</p>
+<h2 id="readme-what-it-does">What it does</h2>
 <ul>
-<li>Lists every app in a chosen Google Workspace Marketplace category, ordered by its on-site rank</li>
-<li>Covers all 26 categories and subcategories, from &quot;Most Popular&quot; down to niche subcategories like HR &amp; Legal</li>
-<li>Returns rating, review count and pricing model for each app, directly from the marketplace listing</li>
-<li>Returns the icon URL and a direct link to each app's marketplace page</li>
-<li>Omits <code>rating</code> or <code>reviewCount</code> when an app has no ratings yet, rather than returning a zero or null</li>
+<li><strong>Category tracking</strong> — 27 categories and curated lists (Most Popular, Top Rated, Featured Partner Apps, Business Tools, Productivity, Education, Connectors and every subcategory), with site rank preserved for the default slice.</li>
+<li><strong>Keyword search</strong> — one or more queries, ranked separately and deduplicated.</li>
+<li><strong>App lookup</strong> — pass numeric IDs or full marketplace URLs and get the complete public listing.</li>
+<li><strong>Reviews</strong> — paginated review rows (10 at a time) with rating, text, date, helpful votes and reviewer name; filter by star range and date, sort by helpful or newest.</li>
+<li><strong>Real filters</strong> — works-with host, pricing model, minimum rating, review count, installs and developer substring.</li>
+<li><strong>Extra detail</strong> — exact OAuth scopes, sensitive-access flags and the independent security-verification badge for each app.</li>
+<li><strong>Deep listings</strong> — when <code>maxItems</code> exceeds what the default page returns, the actor fetches additional rating/pricing/host slices and deduplicates by app ID.</li>
+<li><strong>Omit-empty output</strong> — a field the marketplace does not publish is left out of that record, never <code>null</code> or a placeholder.</li>
 </ul>
-<h2 id="readme-output-per-app">Output per app</h2>
+<h2 id="readme-modes">Modes</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
+<th>Mode</th>
+<th>What it returns</th>
+<th>Required input</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>rankInCategory</code></td>
-<td>integer</td>
-<td>1-based position in the category listing</td>
+<td><code>category</code> (default)</td>
+<td>Ranked apps from one or more categories or curated lists</td>
+<td><code>categories</code> (defaults to <code>popular-apps</code>)</td>
 </tr>
 <tr>
-<td><code>appId</code></td>
-<td>string</td>
-<td>Unique numeric app ID</td>
+<td><code>search</code></td>
+<td>Ranked apps for one or more keyword queries</td>
+<td><code>searchQueries</code></td>
 </tr>
 <tr>
-<td><code>name</code></td>
-<td>string</td>
-<td>App display name</td>
+<td><code>appDetails</code></td>
+<td>Full records for specific apps</td>
+<td><code>appIds</code></td>
 </tr>
 <tr>
-<td><code>developer</code></td>
-<td>string</td>
-<td>Developer / company name</td>
-</tr>
-<tr>
-<td><code>rating</code></td>
-<td>float</td>
-<td>Average star rating (0.0–5.0)</td>
-</tr>
-<tr>
-<td><code>reviewCount</code></td>
-<td>integer</td>
-<td>Total number of ratings</td>
-</tr>
-<tr>
-<td><code>installCount</code></td>
-<td>integer</td>
-<td>Reported install count, when the listing publishes one</td>
-</tr>
-<tr>
-<td><code>pricingModel</code></td>
-<td>string</td>
-<td><code>Free</code>, <code>Paid</code>, or <code>Freemium</code></td>
-</tr>
-<tr>
-<td><code>categories</code></td>
-<td>array</td>
-<td>Category slugs the app belongs to</td>
-</tr>
-<tr>
-<td><code>shortDescription</code></td>
-<td>string</td>
-<td>One-line description</td>
-</tr>
-<tr>
-<td><code>appUrl</code></td>
-<td>string</td>
-<td>Direct URL to the app listing</td>
-</tr>
-<tr>
-<td><code>iconUrl</code></td>
-<td>string</td>
-<td>App icon image URL</td>
-</tr>
-<tr>
-<td><code>recordType</code></td>
-<td>string</td>
-<td>Always <code>workspace_app</code></td>
-</tr>
-<tr>
-<td><code>scrapedAt</code></td>
-<td>string</td>
-<td>ISO-8601 UTC timestamp</td>
+<td><code>reviews</code></td>
+<td>Review rows only</td>
+<td><code>appIds</code></td>
 </tr>
 </tbody>
 </table></div>
-<hr />
+<p>Add <code>includeReviews</code> to <code>category</code>, <code>search</code> or <code>appDetails</code> to emit app rows and review rows in the same run.</p>
 <h2 id="readme-input-options">Input options</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
-<th>Required</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>category</code></td>
+<td><code>mode</code></td>
 <td>select</td>
-<td>Yes</td>
-<td><code>popular-apps</code></td>
-<td>Category slug to scrape</td>
+<td><code>category</code></td>
+<td>What to scrape</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>multi-select</td>
+<td><code>[&quot;popular-apps&quot;]</code></td>
+<td>Category/curated-list slugs (mode=category)</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>string list</td>
+<td>—</td>
+<td>Keywords (mode=search)</td>
+</tr>
+<tr>
+<td><code>appIds</code></td>
+<td>string list</td>
+<td>—</td>
+<td>Numeric IDs or marketplace URLs (appDetails/reviews)</td>
+</tr>
+<tr>
+<td><code>worksWith</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Drive, Docs, Sheets, Slides, Forms, Gmail, Calendar, Chat, Meet, Classroom, Gemini, Studio</td>
+</tr>
+<tr>
+<td><code>pricing</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Free, Free trial, Freemium, Paid</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td><code>0</code></td>
+<td>Keep apps rated at least this (0–5)</td>
+</tr>
+<tr>
+<td><code>minReviews</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Keep apps with at least this many ratings</td>
+</tr>
+<tr>
+<td><code>minInstalls</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Keep apps with at least this many exact installs</td>
+</tr>
+<tr>
+<td><code>developerFilter</code></td>
+<td>text</td>
+<td>—</td>
+<td>Keep apps whose developer name or website contains this text</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add OAuth scopes, sensitive-access flags and security badge</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Emit review rows for matched apps</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>helpful</code></td>
+<td><code>helpful</code> or <code>recent</code></td>
+</tr>
+<tr>
+<td><code>minReviewRating</code></td>
+<td>integer</td>
+<td><code>1</code></td>
+<td>Lowest review star rating to keep</td>
+</tr>
+<tr>
+<td><code>maxReviewRating</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Highest review star rating to keep</td>
+</tr>
+<tr>
+<td><code>reviewsSince</code></td>
+<td>text</td>
+<td>—</td>
+<td>ISO date, e.g. <code>2026-01-01</code></td>
+</tr>
+<tr>
+<td><code>maxReviewsPerApp</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Review cap per app</td>
+</tr>
+<tr>
+<td><code>includeCategoryMembership</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Scan all 27 listings to fill each app's <code>categories</code></td>
 </tr>
 <tr>
 <td><code>maxItems</code></td>
 <td>integer</td>
-<td>No</td>
-<td><code>50</code></td>
-<td>Max apps to return (1–200)</td>
+<td><code>100</code></td>
+<td>Max app rows (max review rows in <code>reviews</code> mode)</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-available-categories">Available categories</h3>
+<h2 id="readme-output-fields">Output fields</h2>
+<h3 id="readme-app-rows-recordtype-workspace-app">App rows (<code>recordType: &quot;workspace_app&quot;</code>)</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Slug</th>
-<th>Label</th>
+<th>Field</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>popular-apps</code></td>
-<td>Most Popular</td>
+<td><code>rankInCategory</code></td>
+<td>1-based rank in the category's default listing (omitted for apps only found in later slices)</td>
 </tr>
 <tr>
-<td><code>top-rated</code></td>
-<td>Top Rated</td>
+<td><code>rankInResults</code></td>
+<td>1-based rank in the keyword search default listing</td>
 </tr>
 <tr>
-<td><code>featured-partner-apps</code></td>
-<td>Featured Partner Apps</td>
+<td><code>category</code> / <code>categories</code></td>
+<td>Selected category and (when resolved) the app's category memberships</td>
 </tr>
 <tr>
-<td><code>recommended</code></td>
-<td>Recommended for Google Workspace</td>
+<td><code>searchQuery</code> / <code>searchQueries</code></td>
+<td>Keyword that matched the app</td>
 </tr>
 <tr>
-<td><code>work-from-everywhere</code></td>
-<td>Work from Everywhere</td>
+<td><code>appId</code>, <code>slug</code>, <code>name</code></td>
+<td>Identity</td>
 </tr>
 <tr>
-<td><code>business-essentials</code></td>
-<td>Business Essentials</td>
+<td><code>shortDescription</code>, <code>longDescription</code></td>
+<td>Listing descriptions</td>
 </tr>
 <tr>
-<td><code>apps-to-discover</code></td>
-<td>Apps to Discover</td>
+<td><code>developer</code>, <code>developerWebsite</code></td>
+<td>Publisher</td>
 </tr>
 <tr>
-<td><code>google-apps</code></td>
-<td>Built by Google</td>
+<td><code>rating</code>, <code>reviewCount</code></td>
+<td>Average stars and rating count</td>
 </tr>
 <tr>
-<td><code>business-tools</code></td>
-<td>Business Tools (all)</td>
+<td><code>installCount</code>, <code>installsLabel</code></td>
+<td>Exact installs (e.g. <code>97456341</code>) and the public band (e.g. <code>97M+</code>)</td>
 </tr>
 <tr>
-<td><code>business-tools/accounting-and-finance</code></td>
-<td>Business Tools — Accounting &amp; Finance</td>
+<td><code>pricingModel</code></td>
+<td><code>Free</code>, <code>Free trial</code>, <code>Freemium</code> or <code>Paid</code> (omitted when the listing does not state pricing)</td>
 </tr>
 <tr>
-<td><code>business-tools/administration-and-management</code></td>
-<td>Business Tools — Administration &amp; Management</td>
+<td><code>worksWith</code></td>
+<td>Google apps the listing works with</td>
 </tr>
 <tr>
-<td><code>business-tools/erp-and-logistics</code></td>
-<td>Business Tools — ERP &amp; Logistics</td>
+<td><code>lastUpdated</code></td>
+<td>Listing update date (<code>YYYY-MM-DD</code>)</td>
 </tr>
 <tr>
-<td><code>business-tools/hr-and-legal</code></td>
-<td>Business Tools — HR &amp; Legal</td>
+<td><code>iconUrl</code>, <code>bannerUrl</code>, <code>screenshots</code></td>
+<td>Public image URLs</td>
 </tr>
 <tr>
-<td><code>business-tools/marketing-and-analytics</code></td>
-<td>Business Tools — Marketing &amp; Analytics</td>
+<td><code>supportUrl</code>, <code>privacyPolicyUrl</code>, <code>termsOfServiceUrl</code></td>
+<td>Links published on the listing</td>
 </tr>
 <tr>
-<td><code>business-tools/sales-and-crm</code></td>
-<td>Business Tools — Sales &amp; CRM</td>
+<td><code>appUrl</code>, <code>sourceUrl</code></td>
+<td>Canonical marketplace app page</td>
 </tr>
 <tr>
-<td><code>productivity</code></td>
-<td>Productivity (all)</td>
+<td><code>securityVerified</code></td>
+<td><code>true</code> when the independent security-verification badge is shown</td>
 </tr>
 <tr>
-<td><code>productivity/creative-tools</code></td>
-<td>Productivity — Creative Tools</td>
+<td><code>oauthScopes</code>, <code>oauthScopeCount</code>, <code>sensitiveAccess</code></td>
+<td>Requested OAuth scopes and flags such as <code>gmailFullAccess</code></td>
 </tr>
 <tr>
-<td><code>productivity/web-development</code></td>
-<td>Productivity — Web Development</td>
-</tr>
-<tr>
-<td><code>productivity/office-applications</code></td>
-<td>Productivity — Office Applications</td>
-</tr>
-<tr>
-<td><code>productivity/task-management</code></td>
-<td>Productivity — Task Management</td>
-</tr>
-<tr>
-<td><code>education</code></td>
-<td>Education (all)</td>
-</tr>
-<tr>
-<td><code>education/academic-resources</code></td>
-<td>Education — Academic Resources</td>
-</tr>
-<tr>
-<td><code>education/teacher-and-admin-tools</code></td>
-<td>Education — Teacher &amp; Admin Tools</td>
-</tr>
-<tr>
-<td><code>communication</code></td>
-<td>Communication</td>
-</tr>
-<tr>
-<td><code>utilities</code></td>
-<td>Utilities</td>
-</tr>
-<tr>
-<td><code>enterprise-apps</code></td>
-<td>Enterprise / Admin Managed</td>
+<td><code>recordType</code>, <code>scrapedAt</code></td>
+<td>Row metadata</td>
 </tr>
 </tbody>
 </table></div>
-<hr />
-<h2 id="readme-example-output-record">Example output record</h2>
+<h3 id="readme-review-rows-recordtype-workspace-review">Review rows (<code>recordType: &quot;workspace_review&quot;</code>)</h3>
+<p><code>reviewId</code>, <code>appId</code>, <code>appName</code>, <code>appUrl</code>, <code>reviewerName</code>, <code>reviewerAvatarUrl</code>, <code>rating</code>, <code>reviewText</code>, <code>reviewDate</code>, <code>helpfulCount</code>, <code>sourceUrl</code>, <code>scrapedAt</code>.</p>
+<h2 id="readme-example-inputs">Example inputs</h2>
+<p>Track the top 50 apps in a category, including OAuth permissions:</p>
 <pre><code class="language-json">{
-  &quot;rankInCategory&quot;: 1,
-  &quot;appId&quot;: &quot;1008170693301&quot;,
-  &quot;name&quot;: &quot;Mailmeteor - Mail merge for Gmail&quot;,
-  &quot;developer&quot;: &quot;Mailmeteor&quot;,
-  &quot;rating&quot;: 4.92,
-  &quot;reviewCount&quot;: 11695,
-  &quot;installCount&quot;: 3000000,
-  &quot;pricingModel&quot;: &quot;Free&quot;,
-  &quot;categories&quot;: [&quot;productivity/creative-tools&quot;, &quot;productivity/web-development&quot;],
-  &quot;shortDescription&quot;: &quot;Send hundreds of personalized emails with your Gmail.&quot;,
-  &quot;appUrl&quot;: &quot;https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301&quot;,
-  &quot;iconUrl&quot;: &quot;https://lh3.googleusercontent.com/QAmS5hDnm1HmpWO8ymEr18vEtLjpzG9hYRkJ0nQUkCaxxGj0tcxA&quot;,
-  &quot;recordType&quot;: &quot;workspace_app&quot;,
-  &quot;scrapedAt&quot;: &quot;2026-05-20T10:00:00+00:00&quot;
+  &quot;mode&quot;: &quot;category&quot;,
+  &quot;categories&quot;: [&quot;business-tools/sales-and-crm&quot;],
+  &quot;maxItems&quot;: 50,
+  &quot;includeDetails&quot;: true
 }
 </code></pre>
-<hr />
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Competitive intelligence</strong> — track where your app ranks across all relevant categories week over week.</li>
-<li><strong>Market research</strong> — identify top-rated apps in a niche before building your own.</li>
-<li><strong>Partner discovery</strong> — find integration partners across business tool categories.</li>
-<li><strong>Price benchmarking</strong> — compare free vs paid app distribution in a target category.</li>
-<li><strong>Rank monitoring</strong> — run daily with <code>maxItems: 50</code> and compare datasets over time.</li>
-</ul>
-<hr />
+<p>Deep-scan productivity with a filter, plus reviews:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;category&quot;,
+  &quot;categories&quot;: [&quot;productivity&quot;],
+  &quot;worksWith&quot;: &quot;sheets&quot;,
+  &quot;minRating&quot;: 4,
+  &quot;maxItems&quot;: 250,
+  &quot;includeReviews&quot;: true,
+  &quot;sortBy&quot;: &quot;recent&quot;,
+  &quot;maxReviewRating&quot;: 2,
+  &quot;maxReviewsPerApp&quot;: 20
+}
+</code></pre>
+<p>Look up apps by URL or ID:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;appDetails&quot;,
+  &quot;appIds&quot;: [
+    &quot;https://workspace.google.com/marketplace/app/lucidchart/7081045131&quot;,
+    &quot;1014160490159&quot;
+  ],
+  &quot;includeDetails&quot;: true
+}
+</code></pre>
+<p>Pull 100 newest reviews for one app:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;reviews&quot;,
+  &quot;appIds&quot;: [&quot;7081045131&quot;],
+  &quot;sortBy&quot;: &quot;recent&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h2 id="readme-example-output">Example output</h2>
+<pre><code class="language-json">{
+  &quot;recordType&quot;: &quot;workspace_app&quot;,
+  &quot;rankInCategory&quot;: 1,
+  &quot;category&quot;: &quot;productivity&quot;,
+  &quot;categories&quot;: [&quot;productivity&quot;],
+  &quot;appId&quot;: &quot;1014160490159&quot;,
+  &quot;slug&quot;: &quot;colaboratory&quot;,
+  &quot;name&quot;: &quot;Colaboratory&quot;,
+  &quot;shortDescription&quot;: &quot;This allows Google Colaboratory to open and create files in Google Drive.&quot;,
+  &quot;developer&quot;: &quot;Colaboratory team&quot;,
+  &quot;developerWebsite&quot;: &quot;https://colab.research.google.com&quot;,
+  &quot;rating&quot;: 4.68,
+  &quot;reviewCount&quot;: 3824,
+  &quot;installCount&quot;: 97456341,
+  &quot;installsLabel&quot;: &quot;97M+&quot;,
+  &quot;worksWith&quot;: [&quot;Drive&quot;],
+  &quot;lastUpdated&quot;: &quot;2025-08-25&quot;,
+  &quot;iconUrl&quot;: &quot;https://lh3.googleusercontent.com/bY20qlnjiFpsT_MtcuOGIAZ70lsnGe00yNVFF4hWT3QCz0-r7Rk&quot;,
+  &quot;appUrl&quot;: &quot;https://workspace.google.com/marketplace/app/colaboratory/1014160490159&quot;,
+  &quot;sourceUrl&quot;: &quot;https://workspace.google.com/marketplace/app/colaboratory/1014160490159&quot;,
+  &quot;scrapedAt&quot;: &quot;2026-11-08T10:00:00+00:00&quot;
+}
+</code></pre>
 <h2 id="readme-faq">FAQ</h2>
-<p><strong>How often should I run this?</strong>
-For rank tracking, daily runs are ideal. Use Apify's scheduler and the dataset comparison features to detect rank changes.</p>
-<p><strong>Does it require a Google account or API key?</strong>
-No. The scraper uses the public marketplace website and requires no authentication or credentials.</p>
-<p><strong>How many apps does each category page have?</strong>
-Categories typically list 25–100 apps. Setting <code>maxItems</code> higher than the actual count returns all available apps.</p>
-<p><strong>Why do some records not have a <code>reviewCount</code> or <code>rating</code>?</strong>
-Very new apps may have 0 ratings. Those fields are omitted when no data is available (never set to null).</p>
-<p><strong>What is <code>pricingModel</code>?</strong>
-Three values: <code>Free</code> (no cost), <code>Paid</code> (requires payment), <code>Freemium</code> (free tier with paid features). Determined from the marketplace listing metadata.</p>
-<p><strong>Can I track subcategories like <code>business-tools/accounting-and-finance</code>?</strong>
-Yes — all 26 category slugs including subcategories are available in the category dropdown.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/gwPRRDAv7ARz2kf6J/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>wMr31GLvqPu6aDngX</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<p><strong>Do I need a Google account, API key or proxy?</strong>
+No. Every field comes from public marketplace pages and their embedded JSON. The actor makes direct HTTP requests and needs no credentials.</p>
+<p><strong>How do I get more than 100 apps from one category?</strong>
+The marketplace returns at most 100 apps per request. The actor works around this by fetching the category through Google's own rating, pricing and works-with slices and merging the results. Set <code>maxItems</code> above 100 to enable the extra slices. Very broad categories can still be deeper than the slice union; split them by subcategory or add a works-with filter for full coverage of a narrower slice.</p>
+<p><strong>Why is <code>rankInCategory</code> missing on some rows?</strong>
+Rank comes from the category's default (unsliced) page. Apps that only appear in a later slice have no position on that page, so the field is omitted rather than invented.</p>
+<p><strong>Why do some apps have no <code>pricingModel</code>?</strong>
+Some listings do not state pricing. That row simply omits the field instead of guessing &quot;Free&quot;.</p>
+<p><strong>How many reviews can I get?</strong>
+The actor pages through the marketplace's review endpoint 10 at a time, up to <code>maxReviewsPerApp</code> (maximum 2,000). The marketplace may report slightly different totals between calls, so reviews are deduplicated by review ID and the actor stops when a page adds nothing new.</p>
+<p><strong>Can I get developer replies to reviews?</strong>
+No. The public review payload does not contain developer replies, so the actor does not invent them.</p>
+<p><strong>What does <code>includeCategoryMembership</code> do?</strong>
+The marketplace does not expose an app's category list on its app page. That option scans all 27 category listings and records which ones include the app. Because each listing shows at most 100 apps, membership is limited to those listing pages.</p>
+<p><strong>What are <code>sensitiveAccess</code> flags?</strong>
+They summarise OAuth scopes: <code>gmailFullAccess</code>, <code>driveFullAccess</code>, <code>calendarFullAccess</code>, <code>contacts</code> and <code>adminDirectory</code>. Use them to audit what an add-on can access before installing it.</p>
+<p><strong>Can I monitor changes between runs?</strong>
+Export the dataset on a schedule and compare snapshots. This actor returns current data; it does not store state.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>Each marketplace listing request is capped at 100 apps. Deep listing coverage is best-effort through Google's rating, pricing and works-with slices.</li>
+<li>Google ignores the Gemini and Studio host filters on listing URLs; those works-with values are applied to the rows the actor already fetched.</li>
+<li>Category membership is limited to the top-100 page of each category.</li>
+<li>Review totals reported by the marketplace fluctuate; review pagination stops at the reported total or when three consecutive pages add nothing new.</li>
+<li>Developer replies, emails, phone numbers and trader addresses are not published in the listing payload and are not fabricated.</li>
+</ul>
+<h2 id="readme-data-source">Data source</h2>
+<p>Public pages under <code>workspace.google.com/marketplace</code>: category and curated-list pages, search results, app detail pages, and the marketplace's own review endpoint. This actor is independent and not affiliated with Google.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/gwPRRDAv7ARz2kf6J/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>mQKNO4t6I3leVDPHs</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
