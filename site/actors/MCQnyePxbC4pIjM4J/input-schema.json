@@ -1,20 +1,68 @@
 {
-  "description": "Track reviews for a Google Workspace Marketplace app by its numeric App ID.",
+  "description": "Track public reviews, developer replies, languages and rating changes for Google Workspace Marketplace apps. Use app IDs/URLs for a watchlist, or search the public Marketplace index by keyword.",
   "properties": {
-    "appId": {
-      "description": "Numeric App ID from the Google Workspace Marketplace URL. Example: 218858140275 for Yet Another Mail Merge, 1008170693301 for Mailmeteor.",
-      "editor": "textfield",
-      "prefill": "1008170693301",
-      "title": "App ID",
-      "type": "string"
+    "appIds": {
+      "default": [
+        "1008170693301"
+      ],
+      "description": "Numeric App IDs or full Google Workspace Marketplace app URLs. Add one app per item. Example: 1008170693301 or https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301. Used by the 'Reviews for specific apps' mode.",
+      "editor": "stringList",
+      "prefill": [
+        "1008170693301"
+      ],
+      "title": "App IDs or URLs",
+      "type": "array"
+    },
+    "maxApps": {
+      "default": 10,
+      "description": "How many top matching apps to track for each search keyword.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max apps per keyword",
+      "type": "integer"
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of reviews to collect (1–500).",
-      "maximum": 500,
+      "description": "Maximum number of review rows to return across all apps (1–5000).",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max reviews",
+      "prefill": 3,
+      "title": "Max reviews per run",
+      "type": "integer"
+    },
+    "maxRating": {
+      "description": "Only include reviews with this star rating or lower (1–5). Leave blank for all ratings.",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Maximum star rating",
+      "type": "integer"
+    },
+    "maxReviewsPerApp": {
+      "default": 50,
+      "description": "Stop after this many matching reviews for each app (1–2000). Raise it to collect full history; the Marketplace serves 10 per page.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max reviews per app",
+      "type": "integer"
+    },
+    "minAppRating": {
+      "default": 0,
+      "description": "Skip apps rated below this value (0–5). Use 0 for no app-rating filter.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum app rating",
+      "type": "number"
+    },
+    "minAppReviews": {
+      "default": 0,
+      "description": "Skip apps with fewer total reviews than this. Use 0 for no app-review-count filter.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum app review count",
       "type": "integer"
     },
     "minRating": {
@@ -24,36 +72,184 @@
       "title": "Minimum star rating",
       "type": "integer"
     },
-    "sinceDate": {
-      "description": "Only return reviews on or after this date, e.g. 2025-01-01. Leave blank for all dates.",
+    "mode": {
+      "default": "appReviews",
+      "description": "Choose 'Reviews for specific apps' to watch an app list, or 'Search apps by keyword' to discover popular Marketplace apps.",
+      "editor": "select",
+      "enum": [
+        "appReviews",
+        "search"
+      ],
+      "enumTitles": [
+        "Reviews for specific apps",
+        "Search apps by keyword"
+      ],
+      "prefill": "appReviews",
+      "sectionCaption": "What to track",
+      "title": "What to track",
+      "type": "string"
+    },
+    "outputMode": {
+      "default": "all",
+      "description": "Use 'Only new reviews' or 'New + changed reviews' with a state key to compare this run with the previous run.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "new",
+        "changed"
+      ],
+      "enumTitles": [
+        "All matching reviews",
+        "Only new reviews",
+        "New + changed reviews"
+      ],
+      "prefill": "all",
+      "sectionCaption": "Monitor new reviews",
+      "title": "Monitor output",
+      "type": "string"
+    },
+    "resetState": {
+      "default": false,
+      "description": "Clear the saved snapshot before this run so every review is treated as new.",
+      "prefill": false,
+      "title": "Reset monitor before run",
+      "type": "boolean"
+    },
+    "reviewKeyword": {
+      "description": "Only include reviews whose text contains this phrase (case-insensitive). Leave blank for all review text.",
       "editor": "textfield",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-      "title": "Since date (ISO-8601)",
+      "title": "Review text contains",
+      "type": "string"
+    },
+    "reviewLanguage": {
+      "default": "all",
+      "description": "Choose a language, or 'All languages' to check every supported language slice until Max reviews per app is reached.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "en",
+        "de",
+        "es",
+        "fr",
+        "pt-BR",
+        "it",
+        "ru",
+        "ja",
+        "ko",
+        "zh-CN",
+        "zh-TW",
+        "id",
+        "vi",
+        "nl",
+        "pl",
+        "tr",
+        "ar",
+        "hi",
+        "th",
+        "he",
+        "uk",
+        "sv",
+        "da",
+        "fi",
+        "no",
+        "cs",
+        "hu",
+        "fil"
+      ],
+      "enumTitles": [
+        "All languages",
+        "English",
+        "German",
+        "Spanish",
+        "French",
+        "Portuguese (Brazil)",
+        "Italian",
+        "Russian",
+        "Japanese",
+        "Korean",
+        "Chinese (Simplified)",
+        "Chinese (Traditional)",
+        "Indonesian",
+        "Vietnamese",
+        "Dutch",
+        "Polish",
+        "Turkish",
+        "Arabic",
+        "Hindi",
+        "Thai",
+        "Hebrew",
+        "Ukrainian",
+        "Swedish",
+        "Danish",
+        "Finnish",
+        "Norwegian",
+        "Czech",
+        "Hungarian",
+        "Filipino"
+      ],
+      "prefill": "all",
+      "title": "Review language",
+      "type": "string"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Keywords for the 'Search apps by keyword' mode, for example 'mail merge' or 'crm'. Each keyword ranks the Marketplace's public app index; niche apps should be added by ID or URL instead.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "sinceDate": {
+      "description": "Only include reviews posted on or after this date. Use YYYY-MM-DD, or a period such as '30 days', '2 weeks' or '6 months'. Leave blank for all dates.",
+      "editor": "textfield",
+      "title": "Reviews on or after",
       "type": "string"
     },
     "sortBy": {
       "default": "Newest",
-      "description": "Order in which to retrieve reviews.",
+      "description": "Order in which to retrieve reviews. The Marketplace supports newest and most helpful; legacy rating sorts are computed over the collected reviews.",
       "editor": "select",
       "enum": [
         "Newest",
+        "MostHelpful",
         "MostRelevant",
         "HighestRated",
         "LowestRated"
       ],
       "enumTitles": [
         "Newest first",
-        "Most relevant",
-        "Highest rated first",
-        "Lowest rated first"
+        "Most helpful first",
+        "Most relevant (legacy alias for most helpful)",
+        "Highest rated first (computed over collected reviews)",
+        "Lowest rated first (computed over collected reviews)"
       ],
       "prefill": "Newest",
+      "sectionCaption": "Review filters",
       "title": "Sort reviews by",
+      "type": "string"
+    },
+    "stateKey": {
+      "description": "Name of the saved snapshot. Use a different name for each schedule or watchlist. Leave blank to derive one from the app list and review language.",
+      "editor": "textfield",
+      "title": "Monitor name (state key)",
+      "type": "string"
+    },
+    "trackChanges": {
+      "default": false,
+      "description": "In 'All matching reviews' mode, add isNew/changeTypes and save a snapshot for the next run.",
+      "prefill": false,
+      "title": "Track changes in All mode",
+      "type": "boolean"
+    },
+    "untilDate": {
+      "description": "Only include reviews posted on or before this date (YYYY-MM-DD). Leave blank for no end date.",
+      "editor": "textfield",
+      "title": "Reviews on or before",
       "type": "string"
     }
   },
   "required": [
-    "appId"
+    "mode"
   ],
   "schemaVersion": 1,
   "title": "Google Workspace Marketplace Review Tracker Input",

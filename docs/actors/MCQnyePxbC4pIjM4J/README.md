@@ -4,108 +4,137 @@
 
 # Google Workspace Marketplace Review Tracker
 
-Monitor user reviews for any Google Workspace Marketplace app. Provide an App ID and get back reviewer names, star ratings, review text, dates, and helpful counts — useful for daily sentiment monitoring, competitor analysis, and reputation tracking.
+Follow the public review stream for Google Workspace Marketplace add-ons. Point the actor at one
+or more app IDs or app URLs, choose the review language and filters, and get a clean dataset of
+reviewer names, stars, review text, dates, helpful votes and developer replies. Schedule it with a
+state key to receive only reviews that appeared or changed since the previous run.
 
-## What this actor does
+No Google account, API key, cookie or proxy is needed.
 
-- Collects every public review for one Workspace Marketplace app, identified by its numeric App ID
-- Filters reviews by minimum star rating and by a "posted on or after" date
-- Sorts reviews newest-first, most-relevant, highest-rated-first, or lowest-rated-first
-- Returns the "helpful" vote count the Marketplace shows for each review
-- Omits `reviewText` or `helpfulCount` when a review has no written text or no helpful votes, rather than returning an empty string or zero
+## What you can do
 
-## Output per review
+| Task | How |
+|---|---|
+| Watch your app and competitors | Add each numeric App ID or full Marketplace app URL to `appIds` |
+| Discover popular apps by keyword | Set `mode` to search and add keywords to `searchQueries` |
+| Read reviews in another language | Pick a language, or keep all supported languages |
+| Find complaints | Set a maximum star rating and a review-text keyword |
+| Collect recent feedback only | Set a relative `sinceDate` such as `30 days` |
+| Alert on new or changed reviews | Use `outputMode` `new` or `changed` with a `stateKey` |
+| Re-baseline a monitor | Turn on `resetState` for one run |
 
-| Field | Type | Description |
-|---|---|---|
-| `reviewId` | string | Unique review identifier |
-| `appId` | string | Numeric App ID |
-| `appName` | string | App display name |
-| `appUrl` | string | Direct URL to the app listing |
-| `reviewerName` | string | Display name of the reviewer |
-| `rating` | integer | Star rating (1–5) |
-| `reviewText` | string | Full text of the review |
-| `reviewDate` | string | ISO-8601 date when the review was posted (YYYY-MM-DD) |
-| `helpfulCount` | integer | Number of users who marked the review as helpful |
-| `recordType` | string | Always `workspace_review` |
-| `scrapedAt` | string | ISO-8601 UTC timestamp of when this record was scraped |
+## Inputs
 
----
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | select | `appReviews` | `appReviews` watches the app list; `search` ranks the public Marketplace index by keyword. |
+| `appIds` | stringList | `["1008170693301"]` | Numeric IDs or full app URLs. One app per item. |
+| `searchQueries` | stringList | `[]` | Keywords for search mode, e.g. `mail merge`. |
+| `maxApps` | integer | `10` | Top matches to track per search keyword. |
+| `minAppRating` | number | `0` | Skip apps below this average rating. |
+| `minAppReviews` | integer | `0` | Skip apps with fewer total reviews. |
+| `sortBy` | select | `Newest` | `Newest` or `MostHelpful` from the server; legacy `MostRelevant`, `HighestRated` and `LowestRated` are also accepted (rating sorts are computed over the collected reviews). |
+| `reviewLanguage` | select | `all` | `all` or one of 28 supported language codes. |
+| `minRating` | integer | – | Lowest star rating to include (1–5). |
+| `maxRating` | integer | – | Highest star rating to include (1–5). |
+| `sinceDate` | string | – | ISO date or relative period (`30 days`, `2 weeks`, `6 months`). |
+| `untilDate` | string | – | Latest review date, inclusive (YYYY-MM-DD). |
+| `reviewKeyword` | string | – | Keep reviews containing this phrase, case-insensitive. |
+| `maxReviewsPerApp` | integer | `50` | Per-app cap after filters (1–2000). |
+| `maxItems` | integer | `50` | Total rows for the run (1–5000). |
+| `outputMode` | select | `all` | `all`, `new` (only unseen reviews) or `changed` (new plus helpful/rating/reply changes). |
+| `trackChanges` | boolean | `false` | Add `isNew`/`changeTypes` and save a snapshot while returning all rows. |
+| `stateKey` | string | – | Snapshot name; use one per schedule or watchlist. Derived when blank. |
+| `resetState` | boolean | `false` | Clear the snapshot before the run. |
 
-## Input options
+### How to find an App ID
 
-| Field | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `appId` | string | Yes | — | Numeric App ID from the Marketplace URL |
-| `maxItems` | integer | No | `50` | Max reviews to return (1–500) |
-| `sinceDate` | string | No | — | Only return reviews on or after this date (YYYY-MM-DD) |
-| `minRating` | integer | No | — | Minimum star rating (1–5). Leave blank for all |
-| `sortBy` | select | No | `Newest` | Sort order: Newest, MostRelevant, HighestRated, LowestRated |
-
-### How to find the App ID
-
-The App ID is the numeric part at the end of a Google Workspace Marketplace URL:
+Open the app in the Marketplace. The numeric part after the final slash is the App ID:
 
 ```
-https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301
-                                                                              ↑
-                                                                       This is the App ID
+https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301
+                                                                                       ^^^^^^^^^^^^^
 ```
 
----
+Both that full URL and the bare `1008170693301` are accepted. If you only have the ID, the actor
+resolves the listing automatically.
 
-## Example output record
+## Output
 
-```json
-{
-  "reviewId": "06060438314121439815",
-  "appId": "1008170693301",
-  "appName": "Mailmeteor - Mail merge for Gmail",
-  "appUrl": "https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_gmail/1008170693301",
-  "reviewerName": "Alice Reviewer",
-  "rating": 5,
-  "reviewText": "Excellent tool for sending personalized emails at scale. Works perfectly with Gmail.",
-  "reviewDate": "2026-04-19",
-  "helpfulCount": 12,
-  "recordType": "workspace_review",
-  "scrapedAt": "2026-05-20T10:00:00+00:00"
-}
-```
+Every row has `recordType` `workspace_review` and these fields when the source provides them:
 
----
+| Field | Meaning |
+|---|---|
+| `reviewId` | Marketplace review identifier. |
+| `appId`, `appName`, `appUrl` | The reviewed app and its listing URL. |
+| `reviewerName`, `reviewerAvatarUrl` | Public reviewer name and profile image. |
+| `rating` | Star rating, 1–5. |
+| `reviewText` | Written review text; omitted for rating-only reviews. |
+| `reviewDate`, `reviewTimestamp` | UTC date and full ISO timestamp. |
+| `helpfulCount` | Helpful votes; omitted when zero, matching earlier versions of this actor. |
+| `developerReply`, `developerReplyDate`, `developerReplyAuthor`, `developerReplies` | Latest developer reply plus every reply thread entry (`replyId`, `author`, `text`, `date`, `timestamp`). |
+| `reviewLanguage` | Language slice the review came from (for example `de`). |
+| `appDeveloper`, `appRating`, `appReviewCount`, `appInstallCount`, `appInstallsLabel` | App context from the listing. |
+| `appPricingModel`, `appIconUrl`, `appWorksWith`, `appLastUpdated` | Pricing, icon, Google products and listing-update date. |
+| `searchQuery`, `appRankInSearch` | Present in search mode. |
+| `isNew`, `changeTypes` | Present when monitor tracking is on. |
+| `scrapedAt` | UTC timestamp of this run. |
 
-## Use cases
+Empty values are omitted at every level; a row never contains `null`, `""`, `[]` or `{}`.
 
-- **Reputation monitoring** — run daily on your own app to catch new negative reviews quickly.
-- **Competitor analysis** — track what users say about competing apps over time.
-- **Sentiment trending** — collect reviews with `sinceDate` set to last month and analyze sentiment shifts.
-- **Review alerting** — use `minRating: 1` with `sortBy: Newest` to catch only critical 1-star reviews.
-- **Product research** — harvest user pain points from competitor reviews to inform your roadmap.
+## Monitoring new reviews
 
----
+1. Set `outputMode` to `new` or `changed`.
+2. Give the watchlist a memorable `stateKey`, for example `my-app-reviews`.
+3. Schedule the actor daily. The first run is the baseline and returns the matching reviews.
+4. Later runs load the saved review fingerprints and emit only unseen reviews (`new`), or unseen
+   reviews plus reviews whose helpful count, rating or reply count moved (`changed`).
+
+The snapshot lives in a named key-value store, so separate scheduled runs share it. It holds up to
+50,000 reviews; if a very large history is trimmed, the oldest entries are dropped first.
+`resetState` clears the snapshot without deleting the dataset.
+
+## Search mode
+
+Search ranks the Marketplace's public top-100 app index, then collects reviews for the best
+keyword matches. It is a discovery shortcut, not a full catalogue search: niche add-ons that are
+not in that index must be added by ID or URL in appReviews mode. The run status says when no app
+matched.
+
+## Languages and pagination
+
+Reviews are served in 10-row pages per language. The actor requests the pages itself, follows the
+language totals, deduplicates by review ID, and stops on the per-app cap. Sparse filters scan at
+most `max(10, maxReviewsPerApp)` pages per language, so raise `maxReviewsPerApp` to look deeper
+into the history. With `reviewLanguage: all`, it visits the supported language slices in turn, so
+a single language cannot use up the whole cap. The supported list covers English, German, Spanish,
+French, Portuguese (Brazil), Italian, Russian, Japanese, Korean, Chinese (Simplified and
+Traditional), Indonesian, Vietnamese, Dutch, Polish, Turkish, Arabic, Hindi, Thai, Hebrew,
+Ukrainian, Swedish, Danish, Finnish, Norwegian, Czech, Hungarian and Filipino.
 
 ## FAQ
 
-**How do I find the App ID for any Workspace Marketplace app?**
-Navigate to the app listing and copy the numeric ID from the URL. Example: for the URL `...app/mailmeteor_mail_merge_for_gmail/1008170693301`, the App ID is `1008170693301`.
+**Does this need a Google login or API key?**
+No. It reads the same public review data the Marketplace shows to signed-out visitors.
 
-**Does it require a Google account or API key?**
-No. The scraper uses the public marketplace website and requires no authentication or credentials.
+**Why does the app page show more ratings than I receive?**
+The rating count includes every star rating, including rating-only submissions and every language.
+Written reviews are also split by language. Raise `maxReviewsPerApp` and keep `reviewLanguage` on
+`all` for the widest coverage.
 
-**How many reviews can I collect?**
-Up to 500 per run. Most popular apps have thousands of reviews.
+**Can I sort by highest or lowest rating?**
+The Marketplace itself only offers Newest and Most Helpful. Old saved tasks that still send
+`HighestRated` or `LowestRated` keep working: the actor fetches recent reviews and sorts the
+collected set by stars. The status message explains the fallback.
 
-**What is `sinceDate` used for?**
-Set `sinceDate` to `2025-01-01` to only collect reviews posted on or after January 1, 2025. Combine with `sortBy: Newest` to collect only recent reviews for incremental tracking.
+**Why are some reviews missing text?**
+Some visitors leave only a star rating. Those rows keep the rating and omit `reviewText`.
 
-**What does `helpfulCount` represent?**
-The number of other users who clicked "Helpful" on that review. Reviews with 0 helpful votes will not have this field.
+**Are developer replies included?**
+Yes. Replies appear in the public review list and are attached to their review, including the
+reply author and date. A reply to a review outside the fetched window is not attached; raise
+`maxReviewsPerApp` or use a recent date filter to widen the window.
 
-**Why are some reviews missing `reviewText`?**
-A small number of reviews consist only of a star rating with no written text. The `reviewText` field is omitted for those.
-
-**What sort orders are available?**
-- `Newest` — most recent reviews first (best for daily monitoring)
-- `MostRelevant` — Google's relevance ranking
-- `HighestRated` — 5-star reviews first
-- `LowestRated` — 1-star reviews first (useful for finding complaints)
+**What if an app has no reviews in the chosen language?**
+The run moves to the next language in `all` mode and finishes cleanly with zero rows for that
+language slice. A completely empty result is reported in the status message, not as a failure.

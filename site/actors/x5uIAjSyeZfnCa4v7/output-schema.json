@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "List metadata (recordType=list) and list-item records (recordType=listItem) scraped from public/shareable Amazon wishlists and registries — ASINs, prices, quantities, priority, and comments.",
+  "description": "List metadata (recordType=list: title, owner, description, event date/location, counts, access classification) and list-item records (recordType=listItem: ASIN, title, price, quantities needed/purchased, priority, rating, comments, variant, availability) scraped from public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries.",
   "properties": {
     "items": {
-      "description": "Dataset containing all scraped list records and their items.",
+      "description": "Dataset containing all scraped list records and their item records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Lists and list items",
       "type": "string"

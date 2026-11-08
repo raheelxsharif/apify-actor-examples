@@ -1,0 +1,153 @@
+{
+  "description": "Search Target.com products, browse categories, look up by TCIN, paste a URL, or fetch trending deals.",
+  "properties": {
+    "categoryId": {
+      "default": "electronics",
+      "description": "Top-level department to browse (mode=byCategory).",
+      "editor": "select",
+      "enum": [
+        "electronics",
+        "clothing-women",
+        "clothing-men",
+        "toys",
+        "home",
+        "baby",
+        "beauty",
+        "food",
+        "sports-outdoors",
+        "books",
+        "video-games",
+        "furniture",
+        "kitchen",
+        "health",
+        "pets",
+        "automotive",
+        "office",
+        "school-supplies",
+        "movies",
+        "music"
+      ],
+      "enumTitles": [
+        "Electronics",
+        "Clothing — Women",
+        "Clothing — Men",
+        "Toys",
+        "Home",
+        "Baby",
+        "Beauty",
+        "Food & Beverage",
+        "Sports & Outdoors",
+        "Books",
+        "Video Games",
+        "Furniture",
+        "Kitchen & Dining",
+        "Health",
+        "Pets",
+        "Automotive",
+        "Office",
+        "School & Office Supplies",
+        "Movies",
+        "Music"
+      ],
+      "prefill": "electronics",
+      "title": "Category",
+      "type": "string"
+    },
+    "inStockOnly": {
+      "default": true,
+      "description": "Only emit products with IN_STOCK availability.",
+      "prefill": true,
+      "title": "In-stock only",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 5,
+      "description": "Hard cap on emitted records (1–500).",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Filter out products more expensive than this price.",
+      "maximum": 99999,
+      "minimum": 0,
+      "title": "Max price (USD)",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Filter out products cheaper than this price.",
+      "maximum": 99999,
+      "minimum": 0,
+      "title": "Min price (USD)",
+      "type": "number"
+    },
+    "minRating": {
+      "description": "Filter out products with average rating below this value (0.0–5.0).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Min rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from Target.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byTcin",
+        "byCategory",
+        "byUrl",
+        "deals"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Lookup by TCIN (product ID)",
+        "Browse by category",
+        "Paste a Target URL",
+        "Trending deals / featured items"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onSaleOnly": {
+      "default": false,
+      "description": "Only emit products that are currently on sale.",
+      "prefill": false,
+      "title": "On sale only",
+      "type": "boolean"
+    },
+    "query": {
+      "default": "iPhone case",
+      "description": "Keyword to search for (mode=search). E.g. 'iPhone case'.",
+      "editor": "textfield",
+      "prefill": "iPhone case",
+      "title": "Search query",
+      "type": "string"
+    },
+    "tcins": {
+      "default": [],
+      "description": "One or more Target product IDs (TCINs). Accepts numeric strings like '84512345'. Comma-separated strings are also accepted.",
+      "editor": "stringList",
+      "prefill": [
+        "94715153"
+      ],
+      "title": "TCINs (mode=byTcin)",
+      "type": "array"
+    },
+    "url": {
+      "description": "A Target product detail page URL or search URL. E.g. 'https://www.target.com/p/item/-/A-12345678' or a search result URL.",
+      "editor": "textfield",
+      "title": "Target URL (mode=byUrl)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Target Product Scraper Input",
+  "type": "object"
+}

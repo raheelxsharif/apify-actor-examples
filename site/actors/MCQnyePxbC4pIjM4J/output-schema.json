@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Reviews for a Google Workspace Marketplace app with reviewer info, rating, text, and date.",
+  "description": "Review rows for one or more Marketplace apps, with reviewer details, developer replies, app context and optional monitor flags. Empty fields are omitted from every record.",
   "properties": {
     "reviews": {
-      "description": "Dataset containing all scraped reviews with reviewer name, rating, text, date, and helpful count.",
+      "description": "Dataset containing one row per review, plus developer reply fields, app context, review language and monitor flags when enabled.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "App Reviews",
+      "title": "Reviews",
       "type": "string"
     }
   },

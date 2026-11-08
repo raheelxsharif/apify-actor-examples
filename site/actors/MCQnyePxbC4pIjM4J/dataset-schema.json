@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "reviews": {
       "display": {
         "component": "table",
         "properties": {
@@ -9,21 +9,29 @@
             "format": "text",
             "label": "App"
           },
+          "developerReply": {
+            "format": "text",
+            "label": "Developer reply"
+          },
           "helpfulCount": {
             "format": "number",
             "label": "Helpful"
+          },
+          "isNew": {
+            "format": "boolean",
+            "label": "New"
           },
           "rating": {
             "format": "number",
             "label": "Stars"
           },
+          "recordType": {
+            "format": "text",
+            "label": "Type"
+          },
           "reviewDate": {
             "format": "text",
             "label": "Date"
-          },
-          "reviewId": {
-            "format": "text",
-            "label": "Review ID"
           },
           "reviewText": {
             "format": "text",
@@ -35,16 +43,18 @@
           }
         }
       },
-      "title": "App Reviews",
+      "title": "App reviews",
       "transformation": {
         "fields": [
-          "reviewId",
+          "recordType",
           "appName",
           "reviewerName",
           "rating",
-          "reviewText",
           "reviewDate",
-          "helpfulCount"
+          "reviewText",
+          "helpfulCount",
+          "developerReply",
+          "isNew"
         ]
       }
     }

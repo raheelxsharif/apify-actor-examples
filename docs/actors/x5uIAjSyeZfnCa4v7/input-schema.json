@@ -1,8 +1,14 @@
 {
-  "description": "Scrape public/shareable Amazon wishlists and registries from URLs you supply.",
+  "description": "Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs or bare wishlist IDs.",
   "properties": {
+    "listIds": {
+      "description": "Bare wishlist IDs copied from a list URL (for example `2PBHI0DGWAAAF` from `/hz/wishlist/ls/2PBHI0DGWAAAF`). Each ID is opened on the marketplace selected below. Use this instead of `listUrls` when you only have the ID.",
+      "editor": "stringList",
+      "title": "Wishlist IDs",
+      "type": "array"
+    },
     "listUrls": {
-      "description": "Direct, public/shareable Amazon wishlist or registry URLs to scrape (e.g. `https://www.amazon.com/hz/wishlist/ls/XXXXXXXXXXXX`, `https://www.amazon.com/baby-reg/name/ID`, `https://www.amazon.com/wedding/name/registry/ID`). This actor never searches for or enumerates lists on its own — it only visits the exact URLs you provide.",
+      "description": "Direct, public/shareable Amazon list URLs. Accepted shapes: `/hz/wishlist/ls/<ID>`, the mobile `/gp/aw/ls?lid=<ID>`, `/gp/registry/wishlist/<ID>`, `/baby-reg/<name>/<ID>`, `/wedding/guest-view/<ID>` (or `/wedding/<name>/registry/<ID>`), and `/registries/gl/guest-view/<ID>`. This actor never searches for or enumerates lists; it only visits the exact URLs you provide.",
       "editor": "stringList",
       "prefill": [
         "https://www.amazon.com/hz/wishlist/ls/2PBHI0DGWAAAF"
@@ -10,10 +16,68 @@
       "title": "Wishlist / registry URLs",
       "type": "array"
     },
+    "marketplace": {
+      "default": "amazon.com",
+      "description": "Amazon marketplace used to build URLs from `listIds`. Ignored for `listUrls` because each URL already carries its own marketplace.",
+      "editor": "select",
+      "enum": [
+        "amazon.com",
+        "amazon.co.uk",
+        "amazon.de",
+        "amazon.ca",
+        "amazon.fr",
+        "amazon.it",
+        "amazon.es",
+        "amazon.com.au",
+        "amazon.co.jp",
+        "amazon.in",
+        "amazon.com.mx",
+        "amazon.com.br",
+        "amazon.nl",
+        "amazon.se",
+        "amazon.pl",
+        "amazon.com.tr",
+        "amazon.ae",
+        "amazon.sa",
+        "amazon.sg",
+        "amazon.com.be",
+        "amazon.eg",
+        "amazon.ie",
+        "amazon.co.za"
+      ],
+      "enumTitles": [
+        "United States (amazon.com)",
+        "United Kingdom (amazon.co.uk)",
+        "Germany (amazon.de)",
+        "Canada (amazon.ca)",
+        "France (amazon.fr)",
+        "Italy (amazon.it)",
+        "Spain (amazon.es)",
+        "Australia (amazon.com.au)",
+        "Japan (amazon.co.jp)",
+        "India (amazon.in)",
+        "Mexico (amazon.com.mx)",
+        "Brazil (amazon.com.br)",
+        "Netherlands (amazon.nl)",
+        "Sweden (amazon.se)",
+        "Poland (amazon.pl)",
+        "Turkey (amazon.com.tr)",
+        "United Arab Emirates (amazon.ae)",
+        "Saudi Arabia (amazon.sa)",
+        "Singapore (amazon.sg)",
+        "Belgium (amazon.com.be)",
+        "Egypt (amazon.eg)",
+        "Ireland (amazon.ie)",
+        "South Africa (amazon.co.za)"
+      ],
+      "prefill": "amazon.com",
+      "title": "Marketplace for list IDs",
+      "type": "string"
+    },
     "maxItems": {
-      "default": 20,
-      "description": "Hard cap on the number of list items scraped per list URL.",
-      "maximum": 100,
+      "default": 100,
+      "description": "Hard cap on the number of list items scraped per list URL. The full list is followed through Amazon's own pagination until this cap is reached or the list ends.",
+      "maximum": 10000,
       "minimum": 1,
       "prefill": 20,
       "title": "Max items per list",
@@ -31,16 +95,9 @@
       "title": "Proxy configuration",
       "type": "object"
     },
-    "sessionCookie": {
-      "description": "Optional Amazon `session-token` cookie value. Only use this to view a PRIVATE list that YOU own and are explicitly authorized to access — never use another person's credentials. Leave blank for public/shareable lists (the default and recommended use of this actor).",
-      "editor": "textfield",
-      "isSecret": true,
-      "title": "Session cookie (optional, own list only)",
-      "type": "string"
-    },
     "sortBy": {
       "default": "",
-      "description": "Sort order for list items, matching the sort control shown on the live wishlist page. Not every list type exposes every option; the actor falls back to the list's own default order if unsupported.",
+      "description": "Sort order for wishlist items, matching the sort control shown on the live wishlist page. Registry pages expose their own fixed sort set; unsupported values fall back to the list's default order.",
       "editor": "select",
       "enum": [
         "",
@@ -63,9 +120,6 @@
       "type": "string"
     }
   },
-  "required": [
-    "listUrls"
-  ],
   "schemaVersion": 1,
   "title": "Amazon Wishlist & Registry Scraper Input",
   "type": "object"
