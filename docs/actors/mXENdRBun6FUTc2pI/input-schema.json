@@ -1,47 +1,84 @@
 {
+  "description": "Collect Wayback Machine capture history, closest snapshots, or archived page text for one URL or a bulk list.",
   "properties": {
     "collapseBy": {
       "default": "digest",
-      "description": "Deduplicate adjacent snapshots. 'digest' drops duplicates with identical content fingerprint (best for unchanged pages). 'monthly' / 'daily' / 'hourly' keep one snapshot per time bucket. 'none' returns every raw snapshot.",
+      "description": "Deduplicate adjacent captures in 'search' mode. 'digest' keeps one record per distinct content fingerprint; 'urlkey' keeps one capture per URL; 'monthly', 'daily', and 'hourly' keep one capture per time bucket; 'none' returns every raw capture. 'timeline' and 'summary' always read raw captures so their counts and durations stay accurate.",
       "editor": "select",
       "enum": [
         "none",
         "digest",
+        "urlkey",
         "monthly",
         "daily",
         "hourly"
       ],
       "enumTitles": [
-        "None (every snapshot)",
-        "Content digest (drop duplicates)",
+        "None (every capture)",
+        "Content digest (distinct versions)",
+        "One per URL",
         "One per month",
         "One per day",
         "One per hour"
       ],
-      "title": "Collapse (deduplicate) by",
+      "prefill": "none",
+      "title": "Collapse duplicates",
       "type": "string"
     },
     "dateFrom": {
-      "description": "Earliest snapshot date (inclusive). Accepts YYYY, YYYYMM, or YYYYMMDD (e.g., '2020', '202001', '20200115'). Leave blank for no lower bound.",
+      "description": "Earliest capture date, inclusive. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp such as 2024-01-31T12:00:00.",
       "editor": "textfield",
+      "sectionCaption": "Capture filters",
+      "sectionDescription": "These filters are applied by the Wayback CDX API before records are returned.",
       "title": "From date",
       "type": "string"
     },
     "dateTo": {
-      "description": "Latest snapshot date (inclusive). Accepts YYYY, YYYYMM, or YYYYMMDD (e.g., '2024', '202412', '20241231'). Leave blank for no upper bound.",
+      "description": "Latest capture date, inclusive. Uses the same formats as From date. A date without a time includes the whole day.",
       "editor": "textfield",
       "title": "To date",
       "type": "string"
     },
-    "includeContent": {
+    "detectChanges": {
+      "default": true,
+      "description": "In 'search' mode, compare each capture with the previous capture of the same URL and add changed, changeType, previousTimestamp, and related fields.",
+      "prefill": false,
+      "title": "Annotate content changes",
+      "type": "boolean"
+    },
+    "enrichWithContent": {
       "default": false,
-      "description": "When enabled, downloads the archived HTML for the first N snapshots (see 'Max content fetch') and extracts the readable text. Adds latency and bandwidth but yields searchable content.",
-      "title": "Fetch archived page text",
+      "description": "In 'search' mode, fetch the archived HTML for the first Max content fetches rows and add its readable text and metadata. Off by default because it costs extra requests.",
+      "prefill": false,
+      "title": "Add archived text to search rows",
+      "type": "boolean"
+    },
+    "excludeMimeTypes": {
+      "default": [],
+      "description": "Drop captures with these MIME types, e.g. ['image/png','video/mp4']. Leave empty to exclude nothing.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Exclude MIME types",
+      "type": "array"
+    },
+    "excludeStatusCodes": {
+      "default": [],
+      "description": "Drop captures with these HTTP status codes, e.g. ['404','500']. Leave empty to exclude nothing.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Exclude HTTP status codes",
+      "type": "array"
+    },
+    "includeHeadings": {
+      "default": true,
+      "description": "Add the page's H1-H6 headings as structured records when archived text is extracted.",
+      "prefill": false,
+      "title": "Include headings",
       "type": "boolean"
     },
     "matchType": {
       "default": "exact",
-      "description": "How the input URL is matched against archived snapshots. 'exact' = only the exact URL. 'prefix' = the URL and anything beneath it (e.g., example.com/blog/*). 'host' = all snapshots on the same host. 'domain' = the host and all its subdomains.",
+      "description": "How the target is matched against the archive. 'exact' = that URL only; 'prefix' = the URL and every path beneath it; 'host' = every path on the same host; 'domain' = the host and all subdomains.",
       "editor": "select",
       "enum": [
         "exact",
@@ -55,50 +92,123 @@
         "Same host",
         "Same domain (includes subdomains)"
       ],
-      "title": "Match type",
+      "prefill": "exact",
+      "title": "URL match type",
       "type": "string"
+    },
+    "maxContentChars": {
+      "default": 500000,
+      "description": "Truncate extracted text at this many characters. The full word count and text hash are still recorded, and contentTruncated is set when clipping happens.",
+      "maximum": 2000000,
+      "minimum": 1000,
+      "prefill": 500000,
+      "title": "Max characters per archived page",
+      "type": "integer"
     },
     "maxContentFetch": {
       "default": 10,
-      "description": "Upper bound on how many archived pages to download when 'Fetch archived page text' is enabled. Each fetch is rate-limited to be polite to the Wayback Machine.",
+      "description": "Cap on archived pages downloaded when 'Add archived text to search rows' is on. 0 disables enrichment. This setting is ignored by 'content' mode, which uses Max items instead.",
       "maximum": 500,
       "minimum": 0,
-      "title": "Max content fetches",
+      "prefill": 0,
+      "title": "Max text fetches for search rows",
       "type": "integer"
     },
-    "maxResults": {
+    "maxItems": {
       "default": 500,
-      "description": "Maximum number of snapshot records to return (1-10000).",
-      "maximum": 10000,
+      "description": "Hard cap on emitted records. For bulk search the budget is split evenly across targets. In 'summary' mode it is also the per-target capture scan budget, split between the oldest and newest ends. Up to 100,000 captures are supported through automatic resume-key pagination.",
+      "maximum": 100000,
       "minimum": 1,
-      "prefill": 500,
-      "title": "Max results",
+      "prefill": 1,
+      "sectionCaption": "Output",
+      "sectionDescription": "Control row volume and change annotations.",
+      "title": "Max items",
       "type": "integer"
     },
-    "mimeFilter": {
-      "description": "Only return snapshots matching this MIME type (e.g., 'text/html', 'application/pdf', 'image/png'). Leave blank to include all MIME types.",
-      "editor": "textfield",
-      "title": "MIME type filter",
+    "mimeTypes": {
+      "default": [],
+      "description": "Only keep captures with these MIME types, e.g. ['text/html','application/pdf']. Leave empty for all MIME types.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Keep MIME types",
+      "type": "array"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to collect. 'search' returns every matching capture; 'timeline' returns one row per distinct content version; 'summary' returns archive coverage per target; 'closest' returns the nearest capture to a date; 'content' returns readable text from the archived page.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "timeline",
+        "summary",
+        "closest",
+        "content"
+      ],
+      "enumTitles": [
+        "Search capture history",
+        "Version timeline",
+        "Archive coverage summary",
+        "Closest snapshot to a date",
+        "Archived page text"
+      ],
+      "prefill": "closest",
+      "sectionCaption": "What to collect",
+      "sectionDescription": "Pick the result shape first, then set the target and filters below.",
+      "title": "Mode",
       "type": "string"
     },
-    "statusFilter": {
-      "description": "Only return snapshots matching this HTTP status code (e.g., '200' for successful fetches, '404' for not-found, '301' for redirects). Leave blank to include all status codes.",
+    "sortDirection": {
+      "default": "earliest",
+      "description": "Choose whether the limited result set comes from the oldest or newest captures. Search rows are emitted in chronological order; 'latest' reverses the final rows so the newest appears first.",
+      "editor": "select",
+      "enum": [
+        "earliest",
+        "latest"
+      ],
+      "enumTitles": [
+        "Oldest captures first",
+        "Newest captures first"
+      ],
+      "prefill": "earliest",
+      "title": "Which end of the archive",
+      "type": "string"
+    },
+    "statusCodes": {
+      "default": [],
+      "description": "Only keep captures with these HTTP status codes, e.g. ['200','301']. Leave empty for all statuses. Values may also be comma-separated.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Keep HTTP status codes",
+      "type": "array"
+    },
+    "targetDate": {
+      "description": "Date used by 'closest' and 'content' modes, and as the reference when a playback URL does not include a timestamp. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp. Defaults to now when empty.",
       "editor": "textfield",
-      "title": "HTTP status filter",
+      "prefill": "2024-01-01",
+      "sectionCaption": "Closest snapshot and archived text",
+      "sectionDescription": "These settings control date matching and text extraction.",
+      "title": "Target date",
       "type": "string"
     },
     "url": {
-      "description": "The URL or domain to search for historical snapshots. Examples: 'apify.com', 'https://example.com/blog', 'nytimes.com/2024/01/15/story.html'. Combine with 'Match type' to broaden or narrow the search.",
+      "description": "One URL, host, domain, or Wayback playback URL. Examples: 'apify.com', 'https://example.com/blog', 'https://web.archive.org/web/20240101000000/https://apify.com/'. Wildcards like 'example.com/*' and '*.example.com' are detected automatically.",
       "editor": "textfield",
       "prefill": "apify.com",
-      "title": "URL or domain",
+      "sectionCaption": "Targets",
+      "sectionDescription": "Use the single field or the bulk list; both are merged and deduplicated.",
+      "title": "URL or domain (single target)",
       "type": "string"
+    },
+    "urls": {
+      "default": [],
+      "description": "One or more targets for batch collection. Each target is queried independently and the Max items budget is split across them.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "URLs or domains (bulk)",
+      "type": "array"
     }
   },
-  "required": [
-    "url"
-  ],
   "schemaVersion": 1,
-  "title": "Wayback Machine Search Input",
+  "title": "Wayback Machine Snapshot History & Archived Text Input",
   "type": "object"
 }

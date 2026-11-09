@@ -1,110 +1,170 @@
 # Best Buy Price Drop & Stock Tracker
 
-Pull structured product data straight off Best Buy.com by typing a search keyword, pasting product page URLs, or both. Each result is a flat record carrying current price, regular price, sale savings, rating, review count, brand, model and stock status — handy for watching a shopping list for a price drop or a restock.
+Watch Best Buy prices and availability without opening a browser tab for every product. Give this actor a few keywords, a category link, product links or SKU numbers, and it returns one structured row per product: what the item is, what it costs now, what it used to cost, whether it is in stock, how shoppers rated it, and where it sits in the result grid.
 
-## What this actor does
+The actor runs without a Best Buy account, API key, cookie or proxy setup. It reads the public Best Buy storefront and its public price endpoint, then writes clean product records to the Apify dataset.
 
-- Searches Best Buy by free-text keyword (product name, brand or category) and collects matching product pages
-- Accepts specific Best Buy product URLs directly, in addition to or instead of a keyword
-- Computes savings amount, savings percent and an `onSale` flag whenever a regular price and a lower current price both exist
-- Can skip items currently marked out-of-stock or sold out
-- Empty fields are omitted from records — a field only appears when Best Buy actually published that data
+## Four ways to build a product list
 
-## Output per product
+| Mode | Field | Best for |
+|---|---|---|
+| Keyword search | `searchQueries` | Exploring a category, brand or product idea |
+| Category or search URL | `categoryUrls` | Reusing a Best Buy browse/search link you already trust |
+| Product URL | `productUrls` | Watching exact items you found on the site |
+| SKU | `skuIds` | Feeding a restock or price watchlist from another system |
 
-- `sku` — Best Buy's product SKU, parsed from the product URL
-- `url` — link to the product detail page that was scraped
-- `name` — product title
-- `description` — marketing description text
-- `brand` — manufacturer name
-- `model` — model number / MPN
-- `gtin13` — GTIN-13 / barcode, when published
-- `image` / `imageUrl` — primary product image URL (same value under both keys)
-- `currentPrice` — price shown to the shopper at scrape time
-- `regularPrice` — non-sale list price
-- `salePrice` — promotional price, when the item is on sale
-- `savings` — `regularPrice` minus the lower of `salePrice`/`currentPrice`
-- `savingsPercent` — savings expressed as a percentage of `regularPrice`
-- `onSale` — `true` when a sale price below the regular price was detected
-- `currency` — ISO currency code of the prices
-- `currencySymbol` — display symbol matching `currency` (e.g. `$`)
-- `availability` — stock status as published by Best Buy, e.g. `InStock`, `OutOfStock`, `SoldOut`, `PreOrder`, `BackOrder` or `LimitedAvailability`
-- `seller` — name of the seller fulfilling the listing (usually Best Buy, sometimes a marketplace seller)
-- `rating` — average customer rating
-- `reviewCount` — number of customer reviews behind the rating
-- `scrapedAt` — ISO-8601 UTC timestamp of when the record was collected
+All four modes can be combined in a single run. Results are de-duplicated by SKU, filtered, sorted and capped by `maxResults`.
 
-## Output: no-results notice (`type: "bestbuy_error"`)
+## What you can do with it
 
-Pushed instead of product records when nothing could be parsed for the given keyword/URLs (typically a persistent bot-challenge).
-
-- `reason` — short code, e.g. `no_results`
-- `message` — human-readable explanation
-- `keyword`, `productUrls` — the input that produced no results
-- `scrapedAt`
+- **Price-drop watchlist** — run the same `skuIds` or `productUrls` on a schedule and compare `currentPrice` between datasets. A lower value is a drop; `regularPrice` tells you the reference price.
+- **Restock monitor** — keep `inStockOnly` off and watch `availability` flip from `OutOfStock` to `InStock`.
+- **Category deal scan** — pass a category URL with `sortBy: "Best-Discount"` or `condition: "open-box"` to surface markdowns and open-box units.
+- **Competitive snapshot** — collect brand, model, rating and review count for every product in a search grid.
+- **Rank tracking** — `position`, `searchPage` and `isSponsored` preserve the grid order Best Buy returned, so you can compare placement across runs.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | What it does |
 |---|---|---|---|
-| `keyword` | string | – | Free-text search — product name, brand or category. Use `keyword`, `productUrls`, or both. |
-| `productUrls` | array | `[]` | Specific Best Buy product page URLs to scrape directly |
-| `maxResults` | integer | `24` | Maximum number of product records to return (1–240), combining keyword search and URL results |
-| `skipOutOfStock` | boolean | `false` | When `true`, drop products currently marked out-of-stock or sold out |
+| `searchQueries` | array | – | One or more keyword searches (the input form prefills `["sony headphones"]`). Each is paginated until the global result cap is reached. |
+| `categoryUrls` | array | `[]` | Best Buy category, browse or search-result links. `cp` pagination, sort and condition filters are added automatically. |
+| `productUrls` | array | `[]` | Exact product links in new `/product/.../sku/...` or legacy `/site/.../<sku>.p?skuId=...` form. |
+| `skuIds` | array | `[]` | Best Buy SKUs (6–9 digits). Product links are accepted here too. |
+| `maxResults` | integer | `24` | Total records across all modes, 1–1000. |
+| `maxPages` | integer | `50` | Page guard per keyword or category link, 1–100. |
+| `sortBy` | select | `Best-Match` | One of Best-Match, Best-Selling, Best-Discount, Price-Low-To-High, Price-High-To-Low, Customer-Rating, New-Arrivals. |
+| `condition` | select | `all` | `all`, `new`, `open-box` or `refurbished`. |
+| `minPrice` | integer | `0` | Minimum current price in dollars; `0` disables the bound. |
+| `maxPrice` | integer | `0` | Maximum current price in dollars; `0` disables the bound. |
+| `inStockOnly` | boolean | `false` | Drop products Best Buy marks sold out, out of stock or unavailable. |
+| `includeDetails` | boolean | `false` | Open each product page to add description, model, GTIN/UPC and seller where Best Buy publishes them. Slower. |
 
-### Example: track a watch-list of exact products
+Every field in the input form is used by the actor. Older saved tasks that still send `keyword`, `searchQuery`, `categoryUrl`, `skus`, `maxItems`, `sort`, `skipOutOfStock` or `openBoxOnly` keep working: those legacy keys are mapped onto the current fields in code.
+
+### Example: exact-product watchlist
 
 ```json
 {
-  "productUrls": [
-    "https://www.bestbuy.com/site/sony-wh-1000xm5-wireless-noise-canceling-over-the-ear-headphones-black/6505729.p?skuId=6505729"
-  ],
-  "skipOutOfStock": false
+  "skuIds": ["6505727", "6620467", "6689192"],
+  "inStockOnly": false,
+  "maxResults": 10
 }
 ```
 
-### Example: scan a category for in-stock deals
+### Example: open-box deals in a category
 
 ```json
 {
-  "keyword": "sony headphones",
-  "maxResults": 48,
-  "skipOutOfStock": true
-}
-```
-
-### Example: combine search and specific SKUs in one run
-
-```json
-{
-  "keyword": "robot vacuum",
-  "productUrls": [
-    "https://www.bestbuy.com/site/irobot-roomba-694-wi-fi-connected-robot-vacuum/6485800.p?skuId=6485800"
+  "categoryUrls": [
+    "https://www.bestbuy.com/site/headphones/wireless-headphones/pcmcat331200050015.c?id=pcmcat331200050015"
   ],
+  "condition": "open-box",
+  "sortBy": "Price-Low-To-High",
   "maxResults": 60
 }
 ```
 
-## Use cases
+### Example: keyword search with a price window
 
-- **Price-drop alerts** — re-run against the same `productUrls` on a schedule and diff `currentPrice` over time
-- **Restock monitoring** — pair `skipOutOfStock: false` with the `availability` field to catch when a sold-out item comes back
-- **Category research** — search a keyword like "robot vacuum" to see every matching listing's price and rating side by side
-- **Competitive pricing** — compare Best Buy's `currentPrice` and `savingsPercent` against the same SKU on other retailers
-- **Review trend tracking** — snapshot `rating` and `reviewCount` over successive runs to see how reception changes
+```json
+{
+  "searchQueries": ["sony headphones", "noise cancelling earbuds"],
+  "minPrice": 100,
+  "maxPrice": 400,
+  "inStockOnly": true,
+  "sortBy": "Customer-Rating",
+  "maxResults": 50
+}
+```
+
+### Example: one exact link
+
+```json
+{
+  "productUrls": [
+    "https://www.bestbuy.com/product/sony-wh1000xm5-wireless-noise-canceling-over-the-ear-headphones-black/J7XSRH5CXG/sku/6505727"
+  ],
+  "includeDetails": true
+}
+```
+
+## Output fields
+
+| Field | Type | Meaning |
+|---|---|---|
+| `sku` | string | Best Buy SKU. |
+| `url` | string | Canonical product page URL. |
+| `bsin` | string | Best Buy canonical product-family identifier, when the URL exposes it. |
+| `name` | string | Product title. |
+| `description` | string | Product description, from the optional detail pass. |
+| `brand` | string | Manufacturer brand. |
+| `model` | string | Model number or MPN, from the optional detail pass. |
+| `gtin13` | string | GTIN/UPC, from the optional detail pass. |
+| `image`, `imageUrl` | string | Primary product image (same value under both keys). |
+| `currentPrice` | number | Price shown to a shopper now. |
+| `regularPrice` | number | Non-sale reference price. |
+| `salePrice` | number | Current price when it is below the regular price. |
+| `savings` | number | Regular price minus current price. |
+| `savingsPercent` | number | Savings as a percentage of the regular price. |
+| `onSale` | boolean | True when the current price is below the regular price. |
+| `currency`, `currencySymbol` | string | ISO currency code and display symbol. |
+| `availability` | string | Normalized stock state, e.g. `InStock`, `OutOfStock`, `PreOrder`, `BackOrder`, `LimitedAvailability`. |
+| `availabilityText` | string | Best Buy's own button text, e.g. `Add to Cart` or `Sold Out`. |
+| `buttonState` | string | Raw Best Buy button state. |
+| `priceType` | string | Best Buy price event type, e.g. `onSale` or `clearance`. |
+| `condition` | string | `new`, `open-box` or `refurbished` when known. |
+| `productType` | string | Best Buy product type, e.g. `hardgood`. |
+| `department`, `productClass`, `subclass` | string | Best Buy taxonomy labels. |
+| `categoryPath` | array | Department → class → subclass path. |
+| `rating` | number | Average customer rating. |
+| `reviewCount` | integer | Number of customer reviews. |
+| `seller` | string | Seller name, from the optional detail pass. |
+| `isSponsored` | boolean | True when the result card is labelled Sponsored. |
+| `dealBadge` | string | Best Buy promotional badge, e.g. `Trending Deal` or `Holiday Deal`. |
+| `position` | integer | 1-based position in this run's output after sorting. |
+| `searchPage` | integer | Result page where a search/category product was found. |
+| `searchTotalResults` | integer | Best Buy's reported result count for that query or category. |
+| `searchQuery` | string | Keyword or category URL that produced the record. |
+| `source` | string | `search`, `category`, `productUrl` or `sku`. |
+| `scrapedAt` | string | ISO-8601 UTC collection timestamp. |
+
+Fields Best Buy does not publish for a product are omitted rather than sent as `null` or an empty string. Missing price, rating or detail fields therefore mean “not available on this page”, not zero.
+
+## How it works
+
+1. Keyword and category modes load Best Buy's result grid in a real headless browser, scroll it to hydrate lazy cards, and read the rendered product cards. A direct-HTML fallback reads the server-rendered product data if the browser grid is empty.
+2. Product URL and SKU modes skip search and go straight to Best Buy's public price endpoint, batching up to 20 SKUs per request.
+3. Every mode merges the card data with the price/stock response, so price, savings and availability come from Best Buy's current price source rather than a cached grid tile. If that endpoint omits a SKU, the price shown on the hydrated result card fills the row.
+4. Optional detail enrichment opens each product page and reads its structured product data for description, model, GTIN and seller.
+5. Filters and sorting are applied once the merged records exist; duplicates are removed by SKU.
+
+The actor adds `intl=nosplash` to every request. That tells Best Buy to serve the US storefront instead of its international country selector.
+
+## Limitations and honest notes
+
+- **Online availability only.** Best Buy's per-store, per-ZIP inventory needs a location-bound fulfillment session. This actor reports the national online stock state and does not claim store-level counts.
+- **No stored price history.** The actor is stateless. Schedule it and keep each dataset, or write the rows to a spreadsheet, to build a price timeline.
+- **Detail fields are best-effort and often unavailable.** Best Buy resets product-page requests from many datacenter IPs. In cloud runs `description`, `model`, `gtin13` and `seller` are therefore usually omitted; the price and stock row still ships, and `includeDetails` never blocks it.
+- **SKUs with no usable data are skipped.** If Best Buy returns neither a name nor a price for a product (retired, region-locked, or a price-endpoint miss), that row is not emitted. `maxResults` is a cap, not a guarantee, so a run can return fewer rows. A run that finds no product at all returns one `bestbuy_error` row with `reason: "no_results"`.
+- **Full specification sheets are not included.** The detail pass reads structured product data, not the interactive spec table.
+- **Individual reviews are not included.** Use `rating` and `reviewCount` for reception; review text belongs to a dedicated reviews actor.
+- **Marketplace offers are summarized, not enumerated.** The record follows the primary offer Best Buy displays.
 
 ## FAQ
 
-**Do I need a keyword and URLs, or just one?** Either works on its own, and you can combine them — `productUrls` results are included alongside whatever the keyword search finds, up to `maxResults`.
+**Do I need a Best Buy API key?** No. The actor reads public storefront and price data. It does not use the gated developer API.
 
-**Why is a field like `salePrice` or `gtin13` missing from a record?** Best Buy doesn't publish every field on every product page. If a field wasn't present on the page, it's left out of the record instead of being returned empty or null.
+**Do I need a proxy?** No. There is no proxy field and no proxy setup step. The actor uses a normal browser session and the public price endpoint.
 
-**What does `onSale` mean exactly?** It's set to `true` only when the actor finds a sale/current price that is actually lower than the regular price on the same page — not just whenever a `salePrice` field exists.
+**Why does a SKU sometimes have no `rating` or `image`?** Those values come from the search card. Direct SKU and product-URL lookups skip the grid, so the actor can fill price, stock, name, brand and taxonomy but may not see the card-only fields. Add a keyword search for the richest row.
 
-**Can I scrape an entire category page?** `productUrls` expects individual product page URLs, not category/collection pages. To cover a whole category, run a `keyword` search instead — Best Buy's own search matches category and collection terms too.
+**Why is `availability` different from what I see in a store?** The field tracks Best Buy's online button state. Store pickup and nearby inventory depend on a ZIP code and a different fulfillment call, which this actor does not make.
 
-**How is `currentPrice` different from `regularPrice` and `salePrice`?** `currentPrice` is whatever price is shown to a shopper right now. `regularPrice` is the non-discounted list price, and `salePrice` only appears when the item is actively on promotion.
+**Can I get more than 24 results?** Yes. Raise `maxResults` and, if needed, `maxPages`. Best Buy caps a search at roughly 200 results for many queries; category pages can expose more.
 
-**Is this the official Best Buy API?** No. This actor reads the publicly visible Best Buy product pages; it is not affiliated with or endorsed by Best Buy.
+**What happens when a keyword finds nothing?** The dataset receives a single `bestbuy_error` row with `reason: "no_results"` and the inputs that produced it, so a failed run is visible instead of silently empty.
 
-**Why did some SKUs come back with no record at all?** A product page that failed to load or didn't contain enough identifying data (no name and no SKU) is skipped rather than pushed as an empty record.
+**How do I track a price drop?** Run the same `skuIds` or `productUrls` daily, keep the datasets, and compare `currentPrice` or `savingsPercent` between consecutive runs.
+
+**Is this affiliated with Best Buy?** No. It reads publicly visible product information and is not endorsed by Best Buy.

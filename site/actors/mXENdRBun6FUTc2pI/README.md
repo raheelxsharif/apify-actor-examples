@@ -1,119 +1,158 @@
 # Wayback Machine Snapshot History & Archived Text Extractor
 
-Turn the Internet Archive's Wayback Machine into a queryable dataset. Give the actor a URL, host, or domain and it enumerates every capture the Wayback Machine holds — timestamps, playback links, HTTP status, MIME type, and a content fingerprint — then optionally pulls the readable text of the archived pages themselves.
+Turn the Internet Archive's public Wayback Machine into a structured dataset. Give this actor one URL, a host, an entire domain, or a bulk list, then choose a capture history, a version timeline, an archive-coverage summary, the closest snapshot to a date, or the readable text of the archived page itself.
 
-## What this actor does
+No account, API key, cookie, or proxy setup is needed. The actor talks to the same public CDX and availability endpoints that power the Wayback Machine website.
 
-- **Four match modes:** `exact` URL, `prefix` (URL and everything beneath it), `host` (one hostname), or `domain` (host plus all subdomains)
-- **Date, status, and MIME filters:** narrow by capture date range, HTTP status code (e.g. only archived 404s), or MIME type (e.g. only PDFs)
-- **Duplicate control:** collapse adjacent identical captures by content fingerprint, or bucket to one snapshot per month/day/hour
-- **Optional full-text retrieval:** download a capped number of the matched snapshots and extract their readable page text
-- **Empty fields are omitted** from each record
+## Modes
 
-## Output per snapshot
+| Mode | What you get | Typical use |
+|---|---|---|
+| `search` | One row per archived capture with timestamp, playback URL, HTTP status, MIME type, digest, and size | Full capture history, broken-link recovery, redirect mapping |
+| `timeline` | One row per distinct content version, with first/last seen dates, capture count, and duration | See how a page changed without reading every duplicate capture |
+| `summary` | One archive-coverage row per target: scanned capture count, version count, first/last capture, days covered, status and year breakdowns | Vet expired domains, measure archive density, compare sites |
+| `closest` | The capture nearest to a target date, with its playback URL and distance in days | Legal, compliance, and journalism checks: "what did the page say on this date?" |
+| `content` | Readable text plus title, description, language, canonical URL, headings, word count, character count, and text hash from archived HTML | Recover deleted copy, search archived text, build text corpora |
 
-- `originalUrl` — the URL that was captured
-- `timestamp` — the Wayback Machine's raw capture timestamp (`YYYYMMDDHHMMSS`)
-- `archiveDate` — the same capture time as an ISO 8601 string
-- `archiveUrl` — direct playback link in the Wayback Machine viewer
-- `mimeType` — MIME type recorded at capture time
-- `statusCode` — HTTP status code recorded at capture time
-- `contentDigest` — content fingerprint, used for deduplication
-- `contentLength` — captured response body size in bytes
-- `content` — extracted readable page text, present only when `includeContent` is enabled and the fetch succeeded
-- `contentTruncated` — `true` when the extracted text was cut off at the size cap
-- `scrapedAt` — ISO 8601 timestamp of when this record was produced
+## Bulk targets and pagination
 
-If no snapshot matches the filters, or the query itself is invalid, the actor emits a single diagnostic record instead (`type: "wayback_search_error"`, with a `reason` of `no_snapshots`, `cdx_fetch_failed`, or `invalid_input`) rather than an empty dataset.
+- Put one target in `url` or many in `urls`; both are merged and deduplicated.
+- The `maxItems` budget is split evenly across targets so every target gets a fair share.
+- Capture history uses automatic resume-key pagination, so a single run can retrieve up to 100,000 captures instead of stopping at the first CDX page.
+- `sortDirection` chooses whether the limited result set comes from the oldest or newest end of the archive. Search rows are chronological; `latest` reverses the final rows so the newest capture appears first.
+- `collapseBy` applies to `search` mode: keep every raw capture, one per distinct content digest, one per URL, or one per month/day/hour. `timeline` and `summary` always read raw captures so version durations and coverage counts are not flattened.
+- `summary` scans up to `maxItems` captures per target, split between the oldest and newest ends, so the first and last capture stay accurate even on dense domains. `captureCount`, `versionCount`, and the breakdowns describe that scanned window; raise `maxItems` for a fuller census.
+
+## Output fields
+
+### Capture rows (`search`)
+
+`originalUrl`, `urlKey`, `timestamp`, `archiveDate`, `archiveUrl`, `rawArchiveUrl`, `sourceUrl`, `statusCode`, `statusText`, `statusClass`, `mimeType`, `contentDigest`, `contentLength`, `host`, `urlPath`, `fileExtension`, `captureYear`, `matchType`, `isRevisit`, `recordType`, `resultIndex`, `scrapedAt`.
+
+With `detectChanges` on, each row also gets `captureIndex`, `changed`, `changeType` (`initial`, `content`, `status`, `contentAndStatus`, `unchanged`), `isInitialCapture`, `previousTimestamp`, `previousStatusCode`, `previousContentDigest`, and `daysSincePrevious`.
+
+With `enrichWithContent` on, rows also get the archived-text fields below, up to `maxContentFetch` rows.
+
+### Version rows (`timeline`)
+
+`originalUrl`, `firstTimestamp`, `lastTimestamp`, `firstArchiveDate`, `lastArchiveDate`, `captureCount`, `durationDays`, `archiveUrl`, `rawArchiveUrl`, `contentDigest`, `mimeType`, `statusCode`, `statusText`, `contentLength`, `sourceUrl`, `recordType`, `resultIndex`, `scrapedAt`.
+
+### Summary rows (`summary`)
+
+`originalUrl`, `matchType`, `archived`, `captureCount`, `versionCount`, `firstTimestamp`, `lastTimestamp`, `firstArchiveDate`, `lastArchiveDate`, `firstArchiveUrl`, `lastArchiveUrl`, `spanDays`, `statusBreakdown`, `mimeTypeBreakdown`, `activeYears`, `yearBreakdown`, `sourceUrl`, `recordType`, `resultIndex`, `scrapedAt`.
+
+### Closest-snapshot rows (`closest`)
+
+`originalUrl`, `available`, `requestedTimestamp`, `requestedDate`, `timestamp`, `archiveDate`, `archiveUrl`, `rawArchiveUrl`, `statusCode`, `statusClass`, `statusText`, `captureDistanceDays`, `sourceUrl`, `recordType`, `resultIndex`, `scrapedAt`.
+
+### Archived-page rows (`content`)
+
+`originalUrl`, `timestamp`, `archiveDate`, `archiveUrl`, `rawArchiveUrl`, `statusCode`, `mimeType`, `contentDigest`, `contentLength`, `title`, `description`, `language`, `canonicalUrl`, `metaKeywords`, `headings`, `text`, `wordCount`, `characterCount`, `textHash`, `contentTruncated`, `fetchContentLength`, `fetchContentTruncated`, `contentMimeType`, `sourceUrl`, `recordType`, `resultIndex`, `scrapedAt`.
+
+Empty values are omitted at every depth, so a field appears only when the archive actually supplied it.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `url` | string | – | **Required.** URL, host, or domain to look up, e.g. `apify.com` or `https://nytimes.com/2024/01/15/story.html` |
-| `matchType` | string | `exact` | `exact`, `prefix`, `host`, or `domain` |
-| `dateFrom` | string | – | Earliest capture date, inclusive (`YYYY`, `YYYYMM`, or `YYYYMMDD`) |
-| `dateTo` | string | – | Latest capture date, inclusive (same formats) |
-| `statusFilter` | string | – | Keep only this HTTP status code, e.g. `200` or `404` |
-| `mimeFilter` | string | – | Keep only this MIME type, e.g. `text/html` or `application/pdf` |
-| `collapseBy` | string | `digest` | `none`, `digest`, `monthly`, `daily`, or `hourly` |
-| `maxResults` | integer | `500` | Maximum snapshot records to return (1–10000) |
-| `includeContent` | boolean | `false` | Download matched snapshots and extract their readable text |
-| `maxContentFetch` | integer | `10` | Cap on how many snapshots to download when `includeContent` is on (0–500) |
+| `mode` | string | `search` | `search`, `timeline`, `summary`, `closest`, or `content` |
+| `url` | string | – | Single URL, host, domain, or playback URL |
+| `urls` | array | `[]` | Bulk targets; merged with `url` |
+| `matchType` | string | `exact` | `exact`, `prefix`, `host`, or `domain`; wildcards are auto-detected |
+| `dateFrom` | string | – | Earliest capture date, inclusive |
+| `dateTo` | string | – | Latest capture date, inclusive |
+| `statusCodes` | array | `[]` | Keep only these HTTP status codes |
+| `excludeStatusCodes` | array | `[]` | Drop these HTTP status codes |
+| `mimeTypes` | array | `[]` | Keep only these MIME types |
+| `excludeMimeTypes` | array | `[]` | Drop these MIME types |
+| `collapseBy` | string | `digest` | `none`, `digest`, `urlkey`, `monthly`, `daily`, or `hourly`; applies to `search` only |
+| `sortDirection` | string | `earliest` | `earliest` or `latest` |
+| `targetDate` | string | – | Reference date for `closest` and `content`; defaults to now |
+| `enrichWithContent` | boolean | `false` | Add archived text to search rows |
+| `maxContentFetch` | integer | `10` | Text-fetch cap for search enrichment (0–500) |
+| `maxContentChars` | integer | `500000` | Text cap per archived page (1,000–2,000,000) |
+| `includeHeadings` | boolean | `true` | Include H1–H6 headings in archived text |
+| `maxItems` | integer | `500` | Record cap (1–100,000) |
+| `detectChanges` | boolean | `true` | Annotate content/status changes in search rows |
 
-### Example: every archived HTML page under a domain, deduplicated
+The daily-test prefill is the cheapest possible run: `mode=closest`, `url=apify.com`, `targetDate=2024-01-01`, `maxItems=1`. It performs one availability lookup and returns one snapshot record.
 
-```json
-{
-    "url": "example.com",
-    "matchType": "domain",
-    "mimeFilter": "text/html",
-    "statusFilter": "200",
-    "collapseBy": "digest",
-    "maxResults": 2000
-}
-```
-
-### Example: monthly snapshot of one page through a year
+### Example: full capture history with changes
 
 ```json
 {
-    "url": "https://news.ycombinator.com/",
+    "mode": "search",
+    "url": "https://example.com/",
     "matchType": "exact",
-    "dateFrom": "2024",
-    "dateTo": "2024",
-    "collapseBy": "monthly"
+    "dateFrom": "2020-01-01",
+    "dateTo": "2024-12-31",
+    "statusCodes": ["200"],
+    "collapseBy": "none",
+    "detectChanges": true,
+    "maxItems": 500
 }
 ```
 
-### Example: pull readable text from a page's archived history
+### Example: bulk closest snapshots
 
 ```json
 {
-    "url": "apify.com",
-    "matchType": "exact",
-    "includeContent": true,
-    "maxContentFetch": 20,
-    "collapseBy": "digest"
+    "mode": "closest",
+    "urls": ["apify.com", "example.com", "wikipedia.org"],
+    "targetDate": "2020-06-15",
+    "maxItems": 3
 }
 ```
+
+### Example: archived text from a playback URL
+
+```json
+{
+    "mode": "content",
+    "url": "https://web.archive.org/web/20240101000000/https://apify.com/",
+    "maxItems": 1,
+    "includeHeadings": true
+}
+```
+
+## Legacy inputs
+
+Saved tasks and integrations from earlier versions keep working. The actor still accepts `url` as a single target. Old field names `maxResults`, `includeContent`, `statusFilter`, and `mimeFilter` are mapped onto `maxItems`, `enrichWithContent`, `statusCodes`, and `mimeTypes` in code. Collapse aliases `timestamp:6`, `timestamp:8`, and `timestamp:10` are accepted alongside `monthly`, `daily`, and `hourly`.
 
 ## Use cases
 
-- **Content audits** — recover every historical version of a page's copy or structure to diff changes over time
-- **Broken-link recovery** — enumerate archived 404s on a domain to know exactly what to redirect or restore
-- **Competitive tracking** — watch how a competitor's pricing or landing pages evolved month by month
-- **Legal and journalism research** — pin down what a page actually said on a specific date
-- **Dataset building** — bulk-export archived page text from reference sites for downstream text analysis
+- **Content recovery** — pull the text of pages that no longer exist
+- **SEO link-rot audits** — list archived 404s, redirects, and deleted pages on a domain
+- **Competitive history** — compare pricing, messaging, or product pages month by month
+- **Legal and journalism evidence** — pin the closest capture to a specific date
+- **Domain due diligence** — measure archive age, density, gaps, and version count before buying an expired domain
+- **Dataset building** — export archived text and metadata for search, NLP, or research
 
 ## FAQ
 
-**Where does this data come from?**
-The Internet Archive's own public Wayback Machine CDX search API — no scraping of the viewer UI involved.
+**Where does the data come from?**
+The Internet Archive's public Wayback CDX search API, its availability API, and archived playback pages. No browser UI is scraped.
 
-**Do I need a Wayback Machine account or API key?**
-No. The CDX search API is free and open; the actor makes no authenticated requests.
+**Do I need an Internet Archive account or API key?**
+No. Every request is anonymous and cookieless.
 
-**What's the difference between `matchType=host` and `matchType=domain`?**
-`host` matches one exact hostname (`www.example.com` won't include `blog.example.com`); `domain` matches that host plus every subdomain.
+**Can I search the archive by keyword?**
+The CDX API indexes URLs and capture metadata, not full text. Use `mode=content` to download page text and filter it in your own pipeline.
 
-**Why is `collapseBy=digest` the default?**
-Many pages are captured repeatedly with no changes. Collapsing by content fingerprint keeps one record per actual change instead of dozens of identical captures.
+**Why are some captures marked `warc/revisit`?**
+The archive sometimes records a revisit instead of a full copy. Those rows keep the digest and size but may not have an HTTP status code.
 
-**When should I use `monthly`/`daily`/`hourly` instead of `digest`?**
-Use a time bucket when you want an evenly spaced sample regardless of content change — one capture per month for a long trend line, one per day for tighter tracking.
+**Why is `content` missing from a row?**
+The row was beyond the text-fetch budget, the archived resource was not HTML/text, or replay returned an error. `contentTruncated` is set when text was clipped at `maxContentChars`.
 
-**Can I search by keyword instead of URL?**
-No. The Wayback Machine's search API indexes by URL/host/domain, not full text. Enable `includeContent` to pull page text, then filter it downstream yourself.
+**Why does `closest` mode omit MIME type and digest?**
+The availability endpoint returns the nearest capture URL, timestamp, and status only. Use `search` mode with a narrow date range when you need full CDX metadata.
 
-**Why would `content` be missing from a record?**
-Either `includeContent` was off, the `maxContentFetch` budget ran out before reaching that snapshot, or the archived page didn't replay successfully.
+**Can I retrieve more than 10,000 captures?**
+Yes. The actor pages through the CDX index with resume keys, so `maxItems` can go up to 100,000. Very broad host/domain queries and `collapseBy=urlkey` can be slower on the archive side.
 
-**Why is `content` sometimes cut short with `contentTruncated: true`?**
-Extracted text is capped per page to keep dataset rows manageable; anything beyond the cap is truncated rather than dropped entirely.
-
-**Is archive coverage complete for any URL I search?**
-No. The Wayback Machine only has what crawlers happened to capture — popular pages tend to have dense history, obscure ones may have none.
+**Is archive coverage complete?**
+No. The Wayback Machine only stores what its crawlers captured. Popular pages usually have dense history; obscure pages may have none, and a summary row with `captureCount=0` is still a valid result.
 
 **Is this affiliated with the Internet Archive?**
-No. This is an independent, third-party actor that reads the Internet Archive's public Wayback Machine API; it is not operated by the Internet Archive.
+No. It is an independent tool that reads the Internet Archive's public Wayback Machine endpoints.

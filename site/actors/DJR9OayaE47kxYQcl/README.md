@@ -1,47 +1,58 @@
 # eBay Motors Search & Listing Detail Extractor
 
-eBay Motors carries hundreds of thousands of vehicle and parts listings from private sellers and dealers across the US. This actor runs an eBay Motors search for a vehicle type or parts category, or reads a list of specific item URLs you already have, and turns every listing into a structured record with pricing, vehicle specs, seller details and images.
+eBay Motors lists vehicles and parts from private sellers and dealers across the US. This actor runs a vehicle or parts search, or opens specific item pages you already have, and returns structured records with pricing, vehicle identity, title status, VIN, mileage, seller details, returns and images.
 
 ## What this actor does
 
-- Searches eBay Motors vehicle listings by keyword, vehicle category (cars & trucks, motorcycles, boats, RVs, ATVs, commercial trucks), condition, price range, model-year range and sort order
-- Searches eBay Motors parts & accessories listings by keyword and parts category
-- Enriches a list of specific eBay item URLs with full listing detail instead of running a search
-- Captures auction-specific data (bid count, time remaining) alongside Buy It Now pricing
-- Empty fields are omitted from records — a field only appears when the listing actually shows that data
+- Searches eBay Motors vehicle listings by keyword, vehicle category (cars & trucks, motorcycles, boats, RVs, ATVs, commercial trucks), condition, price range, model-year range, maximum mileage, transmission, fuel type, buying format, seller and ZIP-radius search
+- Searches parts & accessories by keyword, parts category, condition, price and buying format
+- Enriches specific item URLs, bare item IDs or saved search URLs with full listing detail instead of running a new search
+- Paginates at eBay's 240-row page size through up to 200 result pages, with cross-page deduplication
+- Omits empty fields from every record — a field appears only when the listing actually shows that data
+
+## Modes
+
+| Mode | What it returns |
+|---|---|
+| `searchVehicles` | Vehicle search-result records |
+| `searchParts` | Parts & accessories search-result records |
+| `byListingUrls` | Full detail records for item IDs/URLs; search URLs are parsed as search-result pages |
 
 ## Output per listing
+
+Core fields:
 
 - `listingId` — eBay item ID
 - `title` — full listing title
 - `url` — canonical eBay listing URL
-- `price` — numeric price in USD
-- `priceFormatted` — price as displayed (e.g. `$22,500`)
+- `price` — numeric price
+- `priceFormatted` — price as displayed (e.g. `$22,500.00`)
 - `currency` — currency code for `price`
-- `originalPrice` — pre-discount price, when the listing shows a markdown
-- `condition` — listing condition (e.g. `Used`, `New`)
-- `titleStatus` — vehicle title status (e.g. `Clean title`, `Salvage title`), when shown
-- `mileage` — vehicle mileage
-- `year`, `make`, `model`, `trim` — vehicle identity fields
-- `bodyStyle` — e.g. `Sedan`, `SUV`
-- `fuelType` — e.g. `Gasoline`, `Electric`
-- `transmission` — e.g. `Automatic`, `Manual`
-- `drivetrain` — e.g. `FWD`, `AWD`, `4WD`
-- `exteriorColor`
-- `sellerName`, `sellerUrl` — seller username and profile URL
-- `sellerFeedbackScore`, `sellerPositivePercent` — seller reputation stats
-- `dealerName`, `dealerFeedbackPercent`, `dealerFeedbackCount` — present when the listing is sold by a dealership rather than a private seller
-- `shippingCost`, `shippingType` — shipping cost in USD and type (`Free`, `Calculated`, `Freight`)
-- `location` — seller's city/state
-- `deliveryOrPickupAvailable` — `true` when delivery or local pickup is offered
-- `imageUrl` — primary listing image
-- `images` — every image URL on the listing
+- `originalPrice`, `discountPercent` — pre-discount price and markdown, when shown
+- `condition` — listing condition (e.g. `Used`, `Pre-Owned`)
+- `titleStatus` — vehicle title status (e.g. `Clean`, `Salvage`), when shown
+- `vin` — Vehicle Identification Number (detail pages, when eBay prints it)
+- `year`, `make`, `model`, `trim`, `submodel` — vehicle identity
+- `bodyStyle`, `fuelType`, `transmission`, `drivetrain`, `exteriorColor`, `interiorColor`
+- `engine`, `cylinders`, `doors`, `seats` — engine and body configuration
+- `mileage` — odometer reading in miles
+- `categoryPath` — eBay breadcrumb for the listing (`eBay > eBay Motors > …`)
+- `itemSpecifics` — complete item-specifics table (detail mode, when `includeItemSpecifics` is on)
+- `warranty`, `countryOfOrigin`, `forSaleBy`, `sellerNotes`
+- `sellerName`, `sellerUrl`, `sellerFeedbackScore`, `sellerPositivePercent`, `sellerFeedbackPercent`, `sellerFeedbackCount`
+- `dealerName`, `dealerFeedbackPercent`, `dealerFeedbackCount` — dealer block on Motors search cards
+- `storeName`, `storeUrl`, `isTopRatedSeller`
+- `shippingCost`, `shippingType`, `shippingEstimatedDelivery`
+- `returnsAccepted`, `returnDays`, `paymentMethods`
+- `location`, `deliveryOrPickupAvailable`
+- `imageUrl`, `images`, `imageCount`
 - `listingType` — `BuyItNow`, `Auction` or `BestOffer`
-- `timeRemaining`, `bids` — auction countdown text and bid count (auction listings)
-- `watchCount`, `viewCount`
+- `bestOfferEnabled`, `timeRemaining`, `bids`, `watchCount`, `viewCount`, `soldCount`
+- `quantityAvailable`
+- `isSponsored` — present and `true` only on sponsored search cards
 - `vehicleType` — vehicle category searched (e.g. `cars-trucks`)
-- `partType` — parts category, present on parts listings
-- `isTrendingRecommendation` — present and `true` only when `searchVehicles` runs with no `searchQuery` and no price/year/condition filters, meaning eBay served its curated "Trending Vehicles" module rather than real filtered search matches; omitted entirely on normal searches
+- `partType`, `brand`, `mpn`, `partNumber`, `placementOnVehicle` — parts fields when shown
+- `isTrendingRecommendation` — present and `true` only when `searchVehicles` runs with no keyword and no filters, meaning eBay served its curated "Trending Vehicles" module
 - `recordType` — always `ebayMotorsListing`
 - `scrapedAt` — ISO 8601 UTC timestamp
 
@@ -49,18 +60,25 @@ eBay Motors carries hundreds of thousands of vehicle and parts listings from pri
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `searchVehicles` | `searchVehicles`, `searchParts`, or `byListingUrls` to enrich specific item URLs |
-| `searchQuery` | string | – | Keyword(s), e.g. `honda civic`. Leave empty in `searchVehicles` mode to browse eBay's trending vehicles for `vehicleType` instead (see `isTrendingRecommendation`) |
-| `vehicleType` | string | `cars-trucks` | Vehicle category for `searchVehicles` mode |
-| `partCategory` | string | `car-truck-parts` | Parts category for `searchParts` mode |
-| `condition` | string | `all` | `all`, `new`, `used`, `certified-pre-owned`, or `for-parts-not-working` |
-| `sortBy` | string | `best-match` | `best-match`, `price-asc`, `price-desc`, `distance-nearest`, `newly-listed`, or `ending-soonest` |
-| `minPrice` | integer | – | Minimum listing price in USD |
-| `maxPrice` | integer | – | Maximum listing price in USD |
-| `minYear` | integer | – | Minimum model year, for `searchVehicles` mode |
-| `maxYear` | integer | – | Maximum model year, for `searchVehicles` mode |
-| `startUrls` | array | – | eBay Motors item URLs to scrape directly, for `byListingUrls` mode |
-| `maxItems` | integer | `50` | Maximum listings to return (1–5000) |
+| `mode` | string | `searchVehicles` | `searchVehicles`, `searchParts`, or `byListingUrls` |
+| `searchQuery` | string | – | Keyword(s), e.g. `honda civic`. Empty in `searchVehicles` mode browses trending vehicles for the selected category |
+| `vehicleType` | string | – (defaults to `cars-trucks`) | Vehicle category for `searchVehicles` |
+| `partCategory` | string | – (defaults to `car-truck-parts`) | Parts category for `searchParts` |
+| `condition` | string | – (defaults to `all`) | `all`, `new`, `used`, `certified-pre-owned`, `for-parts-not-working` |
+| `buyingFormat` | string | – (defaults to `all`) | `all`, `buy-it-now`, `auction` |
+| `sortBy` | string | – (defaults to `best-match`) | `best-match`, `price-asc`, `price-desc`, `distance-nearest`, `newly-listed`, `ending-soonest`, `mileage-asc`, `year-newest`, `year-oldest` (last three are vehicle-mode sorts) |
+| `minPrice`, `maxPrice` | integer | – | Price range in USD |
+| `minYear`, `maxYear` | integer | – | Model-year range (`searchVehicles`) |
+| `maxMileage` | integer | – | Maximum odometer reading in miles (`searchVehicles`) |
+| `transmission` | string | – (defaults to `all`) | `all`, `automatic`, `manual` |
+| `fuelType` | string | – (defaults to `all`) | `all`, `gasoline`, `diesel`, `electric`, `hybrid` |
+| `sellerUsername` | string | – | Only listings from this seller/dealer |
+| `postalCode` | string | – | US ZIP for local-inventory searches |
+| `distanceMiles` | string | – | Radius around the ZIP: `10` … `2000` |
+| `startUrls` | array | – | Item URLs, bare item IDs or search URLs for `byListingUrls` |
+| `maxItems` | integer | – (defaults to `50`) | Maximum listings to return (1–10,000) |
+| `maxPages` | integer | – (defaults to `200`) | Maximum result pages to request (eBay caps each query at 200) |
+| `includeItemSpecifics` | boolean | `true` | Attach the full item-specifics table to detail records |
 
 ### Example: used Honda Civics under $15,000
 
@@ -71,6 +89,22 @@ eBay Motors carries hundreds of thousands of vehicle and parts listings from pri
   "condition": "used",
   "maxPrice": 15000,
   "maxItems": 50
+}
+```
+
+### Example: 2015–2020 automatic trucks with under 80,000 miles
+
+```json
+{
+  "mode": "searchVehicles",
+  "searchQuery": "ford f-150",
+  "vehicleType": "cars-trucks",
+  "minYear": 2015,
+  "maxYear": 2020,
+  "maxMileage": 80000,
+  "transmission": "automatic",
+  "sortBy": "mileage-asc",
+  "maxItems": 100
 }
 ```
 
@@ -85,53 +119,43 @@ eBay Motors carries hundreds of thousands of vehicle and parts listings from pri
 }
 ```
 
-### Example: enrich specific listing URLs
+### Example: enrich specific listings
 
 ```json
 {
   "mode": "byListingUrls",
   "startUrls": [
     "https://www.ebay.com/itm/256789012345",
-    "https://www.ebay.com/itm/198765432109"
-  ]
-}
-```
-
-### Example: 2015–2020 trucks sorted by lowest price
-
-```json
-{
-  "mode": "searchVehicles",
-  "vehicleType": "cars-trucks",
-  "minYear": 2015,
-  "maxYear": 2020,
-  "sortBy": "price-asc",
-  "maxItems": 75
+    "256789012346"
+  ],
+  "includeItemSpecifics": true
 }
 ```
 
 ## Use cases
 
-- **Vehicle shopping research** — pull every matching listing for a make/model to compare price, mileage and title status side by side
-- **Dealer inventory tracking** — re-run a saved search to see which dealer listings are new, price-changed or sold
-- **Parts sourcing** — search a specific parts category and keyword to find available stock and pricing across sellers
-- **Auction monitoring** — track `bids`, `timeRemaining` and `watchCount` on listings you're bidding on
-- **Listing enrichment** — feed a list of item URLs gathered elsewhere into `byListingUrls` mode to get full structured detail on each
+- **Vehicle shopping research** — compare price, mileage, title status and VIN across every matching listing
+- **Dealer inventory tracking** — re-run a seller search or ZIP-radius search to see what changed
+- **Parts sourcing** — search a parts category and keyword to compare available stock and pricing
+- **Auction monitoring** — track bids, time remaining and watchers on listings you are bidding on
+- **Listing enrichment** — feed a list of item IDs or URLs into `byListingUrls` for full structured detail
 
 ## FAQ
 
-**What's the difference between the three modes?** `searchVehicles` and `searchParts` run an eBay Motors search with your filters and return the matching listings. `byListingUrls` skips search entirely and scrapes exactly the item URLs you supply.
+**What is the difference between the three modes?** `searchVehicles` and `searchParts` run an eBay Motors search with your filters. `byListingUrls` skips search and opens exactly the item URLs or IDs you supply; search URLs passed there are parsed as search-result pages.
 
-**Why do I get `isTrendingRecommendation: true` records?** That only happens in `searchVehicles` mode when you leave `searchQuery` empty and apply no price/year/condition filters — eBay shows a curated "Trending Vehicles" module instead of a real search results page in that case. Add a keyword or any filter to get genuine matched search results.
+**Which filters actually work on eBay Motors?** Price, condition, model year, transmission, fuel type, buying format, seller, ZIP radius and sort order are eBay's own server-side parameters. There is no reliable server-side maximum-mileage parameter, so `maxMileage` is applied by the actor after parsing — a tight cap may need more pages to fill `maxItems`. Listings with no printed mileage are kept rather than dropped blindly.
 
-**Can I filter parts listings by price or model year?** `minPrice`/`maxPrice` apply to both vehicle and parts searches; `minYear`/`maxYear` only apply to `searchVehicles` mode since most parts listings aren't tied to a single model year.
+**Why is VIN or title status missing on some records?** eBay prints VIN on most dealer detail pages but omits it for some private/classified listings. Title status appears on Motors cards and detail pages when the seller provides it. Both fields are omitted rather than guessed.
 
-**Why are `mileage`, `year`, `make` or `model` missing from a parts listing?** Those are vehicle-specific fields. Parts listings instead carry `partType` and whatever specs eBay shows for that part.
+**What is in `itemSpecifics`?** The detail page's full `dt`/`dd` specification table (VIN, engine, colours, warranty, country of origin, and any other rows eBay prints). Turn `includeItemSpecifics` off to keep records smaller.
 
-**Why might `dealerName` appear but not `sellerName`, or vice versa?** A listing is sold either by a private seller or by a dealership, not both — the actor reports whichever eBay actually shows on that listing.
+**Why do I get `isTrendingRecommendation: true` records?** That only happens in `searchVehicles` mode when you leave `searchQuery` empty and apply no vehicle filter — eBay shows a curated "Trending Vehicles" module instead of a real search page. Add a keyword or any filter for genuine matches.
 
-**Does this include sold or ended listings?** No, only currently active listings are returned.
+**How many listings can one run return?** Up to `maxItems`, capped at 10,000. Pages hold up to 240 cards and eBay caps every query at 200 pages; split by category, price or mileage for larger sweeps.
+
+**Does this include sold or ended listings?** No. Sold/completed results require an eBay sign-in, and this actor never asks for cookies or logins.
+
+**Do I need a proxy or API key?** No. The actor tries a direct request, then a public cookieless mirror, then an Apify proxy if needed, and chooses automatically. There are no credentials to configure.
 
 **Is this affiliated with eBay?** No. This is an independent, third-party actor that reads eBay Motors' public listing pages; it is not operated by or affiliated with eBay Inc.
-
-**How many listings can one run return?** Up to the `maxItems` value you set, capped at 5000; eBay serializes result pages at roughly 25 listings each, so very large runs take proportionally longer.

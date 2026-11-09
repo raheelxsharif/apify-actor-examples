@@ -1,37 +1,136 @@
 {
-  "description": "Search Best Buy by keyword or scrape product URLs directly. Each result is a structured record with SKU, prices, rating, model, and availability.",
+  "description": "Find Best Buy products by keyword, category/search URL, product URL or SKU. Each record carries current and regular price, savings, stock status, rating, brand and product details.",
   "properties": {
-    "keyword": {
-      "description": "Free-text search — product name, brand, category. Leave empty if you're using `productUrls` instead.",
-      "editor": "textfield",
-      "prefill": "sony headphones",
-      "title": "Search keyword",
+    "categoryUrls": {
+      "default": [],
+      "description": "Best Buy category, browse or search-result links, e.g. `https://www.bestbuy.com/site/headphones/.../pcmcat....c?id=...`. Pagination, sorting and condition filters are applied automatically.",
+      "editor": "stringList",
+      "title": "Category or search URLs",
+      "type": "array"
+    },
+    "condition": {
+      "default": "all",
+      "description": "Keep only new, open-box or refurbished products. `All conditions` disables this filter.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "new",
+        "open-box",
+        "refurbished"
+      ],
+      "enumTitles": [
+        "All conditions",
+        "New",
+        "Open-box",
+        "Refurbished"
+      ],
+      "title": "Condition",
       "type": "string"
+    },
+    "inStockOnly": {
+      "default": false,
+      "description": "Drop products that Best Buy marks sold out, out of stock or unavailable.",
+      "title": "In stock only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Open each product page for description, model number, GTIN/UPC and seller. Slower; unavailable fields are omitted honestly.",
+      "sectionCaption": "Product details",
+      "sectionDescription": "The optional detail pass uses a real browser and is best for small watchlists.",
+      "title": "Include product-page details",
+      "type": "boolean"
+    },
+    "maxPages": {
+      "default": 50,
+      "description": "Pagination guard for each keyword or category link. Each page carries up to about 24 products.",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max pages per query or category",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "default": 0,
+      "description": "Drop products above this current price. `0` means no maximum.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Maximum price ($)",
+      "type": "integer"
     },
     "maxResults": {
       "default": 24,
-      "description": "Hard cap on records emitted across keyword search + URL scrape.",
-      "maximum": 240,
+      "description": "Hard cap on the total number of product records emitted across every mode.",
+      "maximum": 1000,
       "minimum": 1,
+      "prefill": 3,
+      "sectionCaption": "Limits and pagination",
+      "sectionDescription": "Control how many pages are read and how many records are returned.",
       "title": "Max results",
+      "type": "integer"
+    },
+    "minPrice": {
+      "default": 0,
+      "description": "Drop products below this current price. `0` means no minimum.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum price ($)",
       "type": "integer"
     },
     "productUrls": {
       "default": [],
-      "description": "Specific Best Buy product page URLs to scrape (e.g. `https://www.bestbuy.com/site/.../6505729.p?skuId=6505729`). Used in addition to / instead of `keyword`.",
+      "description": "Exact Best Buy product links in either the new `/product/.../sku/...` or legacy `/site/.../<sku>.p?skuId=...` format.",
       "editor": "stringList",
       "title": "Product URLs",
       "type": "array"
     },
-    "skipOutOfStock": {
-      "default": false,
-      "description": "Drop products marked `out of stock` / `sold out` by Best Buy.",
-      "title": "Skip out-of-stock",
-      "type": "boolean"
+    "searchQueries": {
+      "description": "One or more Best Buy searches, for example `sony headphones` or `oled tv`. Each query is paginated until `maxResults` is reached.",
+      "editor": "stringList",
+      "prefill": [
+        "sony headphones"
+      ],
+      "sectionCaption": "What to scrape",
+      "sectionDescription": "Use any combination of keyword searches, category links, product links and SKUs. Results are combined and de-duplicated by SKU.",
+      "title": "Search keywords",
+      "type": "array"
+    },
+    "skuIds": {
+      "default": [],
+      "description": "Best Buy SKU numbers (6–9 digits). Product links are also accepted here.",
+      "editor": "stringList",
+      "title": "SKUs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "Best-Match",
+      "description": "Best Buy's own sort order. Price, rating and discount orders are also enforced on the collected records.",
+      "editor": "select",
+      "enum": [
+        "Best-Match",
+        "Best-Selling",
+        "Best-Discount",
+        "Price-Low-To-High",
+        "Price-High-To-Low",
+        "Customer-Rating",
+        "New-Arrivals"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Best selling",
+        "Biggest discount",
+        "Price: low to high",
+        "Price: high to low",
+        "Customer rating",
+        "New arrivals"
+      ],
+      "sectionCaption": "Search filters",
+      "sectionDescription": "Filters apply to keyword searches and category links; price, condition and stock filters also apply to product URLs and SKUs.",
+      "title": "Sort results",
+      "type": "string"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Best Buy Scraper Input",
+  "title": "Best Buy Price Drop & Stock Tracker Input",
   "type": "object"
 }

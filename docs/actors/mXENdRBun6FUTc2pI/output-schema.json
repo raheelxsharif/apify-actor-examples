@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Wayback Machine snapshot records with capture timestamp, playback URL, HTTP status, MIME type, and optional archived page text.",
+  "description": "Wayback capture history, closest snapshots, archive coverage summaries, version timelines, and readable archived page text.",
   "properties": {
-    "snapshots": {
-      "description": "Dataset containing all scraped Wayback Machine snapshots.",
+    "records": {
+      "description": "Dataset containing snapshot, version, summary, closest-snapshot, archived-page, or diagnostic records for the selected mode.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Wayback Machine snapshots",
+      "title": "Wayback Machine records",
       "type": "string"
     }
   },
-  "title": "Wayback Machine Snapshot History & Archived Text Extractor Output"
+  "title": "Wayback Machine Snapshot History & Archived Text Output"
 }

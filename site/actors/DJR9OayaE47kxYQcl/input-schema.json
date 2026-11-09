@@ -1,7 +1,24 @@
 {
+  "description": "Search eBay Motors vehicles or parts, or enrich specific item URLs. Filters cover vehicle type, condition, price, model year, mileage, transmission, fuel type, buying format, seller and ZIP radius.",
   "properties": {
+    "buyingFormat": {
+      "description": "Restrict results to Buy It Now or auction listings. 'All formats' applies no filter.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "buy-it-now",
+        "auction"
+      ],
+      "enumTitles": [
+        "All Formats",
+        "Buy It Now",
+        "Auction"
+      ],
+      "prefill": "all",
+      "title": "Buying Format",
+      "type": "string"
+    },
     "condition": {
-      "default": "all",
       "description": "Filter listings by condition.",
       "editor": "select",
       "enum": [
@@ -22,14 +39,84 @@
       "title": "Condition",
       "type": "string"
     },
+    "distanceMiles": {
+      "description": "Radius around the ZIP code. Requires a ZIP code.",
+      "editor": "select",
+      "enum": [
+        "10",
+        "25",
+        "50",
+        "100",
+        "200",
+        "500",
+        "1000",
+        "2000"
+      ],
+      "enumTitles": [
+        "10 miles",
+        "25 miles",
+        "50 miles",
+        "100 miles",
+        "200 miles",
+        "500 miles",
+        "1,000 miles",
+        "2,000 miles"
+      ],
+      "title": "Distance (miles)",
+      "type": "string"
+    },
+    "fuelType": {
+      "description": "Filter vehicles by fuel type.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "gasoline",
+        "diesel",
+        "electric",
+        "hybrid"
+      ],
+      "enumTitles": [
+        "All Fuel Types",
+        "Gasoline",
+        "Diesel",
+        "Electric",
+        "Hybrid"
+      ],
+      "prefill": "all",
+      "title": "Fuel Type",
+      "type": "string"
+    },
+    "includeItemSpecifics": {
+      "default": true,
+      "description": "Attach the complete item-specifics table to listing-detail records (byListingUrls mode).",
+      "prefill": true,
+      "title": "Include Full Item Specifics",
+      "type": "boolean"
+    },
     "maxItems": {
-      "default": 50,
-      "description": "Maximum number of listings to scrape.",
+      "description": "Maximum number of listings to return (1–10,000).",
       "editor": "number",
-      "maximum": 5000,
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max Items",
+      "type": "integer"
+    },
+    "maxMileage": {
+      "description": "Highest odometer reading to include, in miles (searchVehicles mode).",
+      "editor": "number",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Maximum Mileage",
+      "type": "integer"
+    },
+    "maxPages": {
+      "description": "Maximum search result pages to request. eBay caps every query at 200 pages.",
+      "editor": "number",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max Pages",
       "type": "integer"
     },
     "maxPrice": {
@@ -41,11 +128,11 @@
       "type": "integer"
     },
     "maxYear": {
-      "description": "Maximum model year (e.g., 2024).",
+      "description": "Newest model year to include (searchVehicles mode).",
       "editor": "number",
       "maximum": 2030,
       "minimum": 1900,
-      "title": "Maximum Year",
+      "title": "Maximum Model Year",
       "type": "integer"
     },
     "minPrice": {
@@ -57,16 +144,16 @@
       "type": "integer"
     },
     "minYear": {
-      "description": "Minimum model year (e.g., 2015).",
+      "description": "Oldest model year to include (searchVehicles mode).",
       "editor": "number",
       "maximum": 2030,
       "minimum": 1900,
-      "title": "Minimum Year",
+      "title": "Minimum Model Year",
       "type": "integer"
     },
     "mode": {
       "default": "searchVehicles",
-      "description": "Choose what to scrape: search for vehicles, search for parts, or enrich specific listing URLs.",
+      "description": "Search vehicle listings, search parts & accessories, or enrich specific listing IDs/URLs.",
       "editor": "select",
       "enum": [
         "searchVehicles",
@@ -83,8 +170,7 @@
       "type": "string"
     },
     "partCategory": {
-      "default": "car-truck-parts",
-      "description": "Category of parts to search (used in searchParts mode).",
+      "description": "Parts category used in searchParts mode.",
       "editor": "select",
       "enum": [
         "car-truck-parts",
@@ -104,15 +190,27 @@
       "title": "Part Category",
       "type": "string"
     },
-    "searchQuery": {
-      "description": "Keyword(s) to search for (optional). When empty, browses trending vehicles in the selected category. Example: 'toyota camry', 'honda civic'.",
+    "postalCode": {
+      "description": "US ZIP code used with 'Distance' for local-inventory searches (optional).",
       "editor": "textfield",
+      "title": "ZIP Code",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keyword(s) to search for, e.g. 'toyota camry' or 'brake pads'. Leave empty in searchVehicles mode to browse eBay's trending vehicles for the selected category.",
+      "editor": "textfield",
+      "prefill": "honda civic",
       "title": "Search Query",
       "type": "string"
     },
+    "sellerUsername": {
+      "description": "Only return listings sold by this eBay seller or dealer (optional).",
+      "editor": "textfield",
+      "title": "Seller Username",
+      "type": "string"
+    },
     "sortBy": {
-      "default": "best-match",
-      "description": "How to sort the search results.",
+      "description": "How to order the search results.",
       "editor": "select",
       "enum": [
         "best-match",
@@ -120,7 +218,10 @@
         "price-desc",
         "distance-nearest",
         "newly-listed",
-        "ending-soonest"
+        "ending-soonest",
+        "mileage-asc",
+        "year-newest",
+        "year-oldest"
       ],
       "enumTitles": [
         "Best Match",
@@ -128,22 +229,41 @@
         "Price: Highest First",
         "Distance: Nearest First",
         "Newly Listed",
-        "Ending Soonest"
+        "Ending Soonest",
+        "Mileage: Lowest First",
+        "Year: Newest First",
+        "Year: Oldest First"
       ],
       "prefill": "best-match",
       "title": "Sort By",
       "type": "string"
     },
     "startUrls": {
-      "description": "Specific eBay Motors listing URLs to scrape (used in byListingUrls mode). Each should be an eBay item URL like https://www.ebay.com/itm/123456789.",
+      "description": "eBay item URLs, bare item IDs or eBay search URLs to scrape in byListingUrls mode.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Start URLs",
+      "title": "Start URLs / Item IDs",
       "type": "array"
     },
+    "transmission": {
+      "description": "Filter vehicles by transmission type.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "automatic",
+        "manual"
+      ],
+      "enumTitles": [
+        "All Transmissions",
+        "Automatic",
+        "Manual"
+      ],
+      "prefill": "all",
+      "title": "Transmission",
+      "type": "string"
+    },
     "vehicleType": {
-      "default": "cars-trucks",
-      "description": "Category of vehicle to search (used in searchVehicles mode).",
+      "description": "Vehicle category used in searchVehicles mode.",
       "editor": "select",
       "enum": [
         "cars-trucks",
@@ -168,6 +288,9 @@
       "type": "string"
     }
   },
+  "required": [
+    "mode"
+  ],
   "schemaVersion": 1,
   "title": "eBay Motors Vehicle & Parts Scraper Input",
   "type": "object"

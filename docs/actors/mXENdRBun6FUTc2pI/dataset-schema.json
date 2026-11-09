@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "archivedText": {
       "display": {
         "component": "table",
         "properties": {
@@ -13,6 +13,98 @@
             "format": "link",
             "label": "Wayback URL"
           },
+          "characterCount": {
+            "format": "number",
+            "label": "Characters"
+          },
+          "originalUrl": {
+            "format": "text",
+            "label": "Original URL"
+          },
+          "title": {
+            "format": "text",
+            "label": "Page title"
+          },
+          "wordCount": {
+            "format": "number",
+            "label": "Words"
+          }
+        }
+      },
+      "title": "Archived text",
+      "transformation": {
+        "fields": [
+          "originalUrl",
+          "archiveDate",
+          "title",
+          "wordCount",
+          "characterCount",
+          "archiveUrl"
+        ]
+      }
+    },
+    "closestSnapshots": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "archiveDate": {
+            "format": "date",
+            "label": "Archive date"
+          },
+          "archiveUrl": {
+            "format": "link",
+            "label": "Wayback URL"
+          },
+          "available": {
+            "format": "boolean",
+            "label": "Archived"
+          },
+          "originalUrl": {
+            "format": "text",
+            "label": "Original URL"
+          },
+          "requestedDate": {
+            "format": "date",
+            "label": "Requested date"
+          },
+          "statusCode": {
+            "format": "number",
+            "label": "HTTP status"
+          }
+        }
+      },
+      "title": "Closest snapshots",
+      "transformation": {
+        "fields": [
+          "originalUrl",
+          "requestedDate",
+          "archiveDate",
+          "available",
+          "statusCode",
+          "archiveUrl"
+        ]
+      }
+    },
+    "snapshots": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "archiveDate": {
+            "format": "date",
+            "label": "Archive date"
+          },
+          "archiveUrl": {
+            "format": "link",
+            "label": "Wayback URL"
+          },
+          "captureYear": {
+            "format": "number",
+            "label": "Year"
+          },
+          "changeType": {
+            "format": "text",
+            "label": "Change"
+          },
           "contentLength": {
             "format": "number",
             "label": "Bytes"
@@ -22,7 +114,98 @@
             "label": "MIME type"
           },
           "originalUrl": {
+            "format": "text",
+            "label": "Original URL"
+          },
+          "resultIndex": {
+            "format": "number",
+            "label": "Result #"
+          },
+          "statusCode": {
+            "format": "number",
+            "label": "HTTP status"
+          }
+        }
+      },
+      "title": "Capture history",
+      "transformation": {
+        "fields": [
+          "originalUrl",
+          "archiveDate",
+          "archiveUrl",
+          "statusCode",
+          "mimeType",
+          "contentLength",
+          "changeType",
+          "captureYear",
+          "resultIndex"
+        ]
+      }
+    },
+    "summaries": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "captureCount": {
+            "format": "number",
+            "label": "Captures"
+          },
+          "firstArchiveDate": {
+            "format": "date",
+            "label": "First capture"
+          },
+          "lastArchiveDate": {
+            "format": "date",
+            "label": "Last capture"
+          },
+          "originalUrl": {
+            "format": "text",
+            "label": "Original URL"
+          },
+          "spanDays": {
+            "format": "number",
+            "label": "Days covered"
+          },
+          "versionCount": {
+            "format": "number",
+            "label": "Versions"
+          }
+        }
+      },
+      "title": "Archive coverage",
+      "transformation": {
+        "fields": [
+          "originalUrl",
+          "captureCount",
+          "versionCount",
+          "firstArchiveDate",
+          "lastArchiveDate",
+          "spanDays"
+        ]
+      }
+    },
+    "versions": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "archiveUrl": {
             "format": "link",
+            "label": "Wayback URL"
+          },
+          "captureCount": {
+            "format": "number",
+            "label": "Captures"
+          },
+          "firstArchiveDate": {
+            "format": "date",
+            "label": "First seen"
+          },
+          "lastArchiveDate": {
+            "format": "date",
+            "label": "Last seen"
+          },
+          "originalUrl": {
+            "format": "text",
             "label": "Original URL"
           },
           "statusCode": {
@@ -31,15 +214,15 @@
           }
         }
       },
-      "title": "Snapshots",
+      "title": "Version timeline",
       "transformation": {
         "fields": [
           "originalUrl",
-          "archiveDate",
-          "archiveUrl",
+          "firstArchiveDate",
+          "lastArchiveDate",
+          "captureCount",
           "statusCode",
-          "mimeType",
-          "contentLength"
+          "archiveUrl"
         ]
       }
     }
