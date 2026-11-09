@@ -1,0 +1,64 @@
+{
+  "description": "Analyze GitHub org repos for tech stacks and languages.",
+  "properties": {
+    "language": {
+      "description": "Filter by primary language.",
+      "editor": "textfield",
+      "title": "Language filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum records to return.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "orgRepos",
+      "description": "Search repos, get org repos, or get repo detail.",
+      "editor": "select",
+      "enum": [
+        "orgRepos",
+        "search",
+        "repoDetail"
+      ],
+      "enumTitles": [
+        "Org Repos",
+        "Keyword Search",
+        "Repo Detail"
+      ],
+      "prefill": "orgRepos",
+      "title": "Mode",
+      "type": "string"
+    },
+    "org": {
+      "default": "microsoft",
+      "description": "GitHub organization name.",
+      "editor": "textfield",
+      "prefill": "microsoft",
+      "title": "GitHub org",
+      "type": "string"
+    },
+    "repoFullName": {
+      "description": "Full repo name e.g. owner/repo.",
+      "editor": "textfield",
+      "title": "Repo full name",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keywords for search mode.",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "GitHub Repository Tech Stack Scraper Input",
+  "type": "object"
+}
