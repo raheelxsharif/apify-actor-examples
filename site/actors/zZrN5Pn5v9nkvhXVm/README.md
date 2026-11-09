@@ -1,0 +1,100 @@
+# Medium Article Discovery & Metadata Extractor
+
+Medium hosts millions of posts across personal blogs and curated publications, but there's no single page that lists them all with structured metadata. This actor pulls Medium articles by tag, author, publication, keyword search, or a single article URL, and returns each one as a clean record — title, author, tags, reading time, publish date and paywall status — without logging in.
+
+## What this actor does
+
+- Fetches the latest articles for a topic/tag, a specific Medium username, or a publication slug
+- Searches Medium by keyword across articles
+- Looks up a single article directly by its URL
+- Filters results by publish date, a title/preview keyword match, and paywall status
+- Empty fields are omitted from records — a field only appears when Medium exposes that data for the article
+
+## Output per article
+
+- `articleId` — Medium's internal article identifier
+- `title` — article title
+- `previewText` — first ~300 characters of the article's preview/description
+- `authorName` — author's display name
+- `authorUsername` — Medium username (without `@`)
+- `publicationName`, `publicationSlug` — publication name and slug, when the article is published under one
+- `publishedDate` — ISO-8601 publish date
+- `tags` — article tags/categories
+- `readingTimeMinutes` — estimated reading time
+- `articleUrl` — full article URL
+- `canonicalUrl` — canonical URL, when different from `articleUrl`
+- `isPaywalled` — `true` when the article is member-only
+- `recordType` — always `article`
+- `siteName` — always `Medium`
+- `scrapedAt` — ISO-8601 scrape timestamp
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `byTag` | `byTag`, `byUser`, `byPublication`, `search`, or `byUrl` |
+| `tag` | string | `programming` | Tag/topic slug for `byTag` mode — pick from the dropdown or type a custom slug |
+| `username` | string | – | Medium username, without `@`, for `byUser` mode |
+| `publication` | string | – | Publication slug as it appears in the URL, for `byPublication` mode |
+| `query` | string | `artificial intelligence` | Search keywords, for `search` mode |
+| `articleUrl` | string | – | Full Medium article URL, for `byUrl` mode |
+| `fromDate` | string | – | Only include articles published on or after this ISO-8601 date |
+| `containsKeyword` | string | – | Only include articles whose title or preview text contains this keyword (case-insensitive) |
+| `excludePaywalled` | boolean | `false` | Skip articles that appear to be member-only |
+| `maxItems` | integer | `5` | Maximum number of articles to return (1–1000) |
+
+### Example: latest Python articles, free only
+
+```json
+{
+  "mode": "byTag",
+  "tag": "python",
+  "excludePaywalled": true,
+  "maxItems": 25
+}
+```
+
+### Example: everything a specific author has published
+
+```json
+{
+  "mode": "byUser",
+  "username": "towardsdatascience",
+  "maxItems": 50
+}
+```
+
+### Example: keyword search filtered by date
+
+```json
+{
+  "mode": "search",
+  "query": "artificial intelligence",
+  "fromDate": "2025-01-01",
+  "maxItems": 30
+}
+```
+
+## Use cases
+
+- **Content research** — pull recent articles on a topic to see what angles other writers are covering
+- **Author monitoring** — track a specific Medium writer's new posts as they publish
+- **Publication tracking** — watch a Medium publication for new submissions
+- **Newsletter curation** — gather tagged articles matching a keyword for a weekly roundup
+- **Paywall-aware sourcing** — filter out member-only posts when you only want fully public content
+
+## FAQ
+
+**Does this extract paywalled article content?** No. Only publicly available metadata (title, author, tags, preview text) is collected. Full text of member-only posts is never fetched; `isPaywalled` tells you which records are behind Medium's paywall.
+
+**Do I need a Medium account?** No — no login, cookies or API key are required.
+
+**How many articles come back per tag or author?** This depends on how many articles Medium's public feeds expose for that tag, user or publication; `maxItems` is a cap, not a guarantee of that many results.
+
+**Why does `search` mode sometimes return fewer results than a tag or author lookup?** Medium doesn't expose a full paginated search API publicly, so search results are necessarily more limited than browsing a specific tag, user or publication feed.
+
+**What's the difference between `articleUrl` and `canonicalUrl`?** `articleUrl` is the URL that was fetched or discovered. `canonicalUrl` only appears when Medium's own page metadata declares a different canonical URL for the same content (for example, a publication re-publishing a personal post).
+
+**Can I combine the date filter with keyword matching?** Yes — `fromDate` and `containsKeyword` can both be set together with any mode to narrow results further.
+
+**Is this affiliated with Medium?** No. This is an independent, third-party actor that reads Medium's publicly available article metadata; it is not operated by or affiliated with Medium.com.

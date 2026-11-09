@@ -1,57 +1,197 @@
 {
-  "description": "Analyze GitHub org repos for tech stacks and languages.",
+  "description": "Pick repositories by URL, pasted list, organization, user, keyword search, or GitHub topic. Choose the repository metrics and optional language, contributor, commit and release enrichment.",
   "properties": {
+    "contributorsLimit": {
+      "default": 10,
+      "description": "Maximum ranked contributors to keep when contributor enrichment is on.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Contributors per repository",
+      "type": "integer"
+    },
+    "includeArchived": {
+      "default": true,
+      "description": "Turn this off to drop archived repositories from discovery results.",
+      "prefill": true,
+      "title": "Include archived repositories",
+      "type": "boolean"
+    },
+    "includeCommitStats": {
+      "default": false,
+      "description": "Fetch weekly commit activity, participation, code frequency, and punch-card data, up to four extra API requests per repository.",
+      "prefill": false,
+      "title": "Include commit statistics",
+      "type": "boolean"
+    },
+    "includeContributors": {
+      "default": false,
+      "description": "Fetch ranked contributors and their contribution counts, up to one extra API request per repository.",
+      "prefill": false,
+      "title": "Include top contributors",
+      "type": "boolean"
+    },
+    "includeForks": {
+      "default": false,
+      "description": "Discovery modes skip forks by default. Turn this on to include forked repositories in organization, user, search, and topic results.",
+      "prefill": false,
+      "title": "Include forked repositories",
+      "type": "boolean"
+    },
+    "includeLanguages": {
+      "default": true,
+      "description": "Fetch byte counts per language and compute percentage shares, up to one extra API request per repository.",
+      "prefill": true,
+      "title": "Include language breakdown",
+      "type": "boolean"
+    },
+    "includeReleases": {
+      "default": false,
+      "description": "Fetch recent releases with tag, date, asset count, and download totals, up to one extra API request per repository.",
+      "prefill": false,
+      "title": "Include releases",
+      "type": "boolean"
+    },
     "language": {
-      "description": "Filter by primary language.",
+      "description": "Only return repositories whose primary language matches this name, for example Python, TypeScript, Rust, or Jupyter Notebook. Applied as a GitHub search qualifier where possible, otherwise as a client-side filter.",
       "editor": "textfield",
-      "title": "Language filter",
+      "example": "Rust",
+      "title": "Primary language",
       "type": "string"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum records to return.",
-      "maximum": 100,
+      "description": "Hard cap on repository records. GitHub search itself stops at 1,000 results.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max items",
+      "prefill": 1,
+      "title": "Maximum repositories",
       "type": "integer"
     },
     "mode": {
       "default": "orgRepos",
-      "description": "Search repos, get org repos, or get repo detail.",
+      "description": "One repository, a pasted list of repositories, every public repository in an organization or user account, a keyword search, or a GitHub topic.",
       "editor": "select",
       "enum": [
+        "repoDetail",
+        "repoList",
         "orgRepos",
+        "userRepos",
         "search",
-        "repoDetail"
+        "topicRepos"
       ],
       "enumTitles": [
-        "Org Repos",
-        "Keyword Search",
-        "Repo Detail"
+        "One repository",
+        "A list of repositories",
+        "Organization repositories",
+        "User repositories",
+        "Keyword search",
+        "Topic search"
       ],
-      "prefill": "orgRepos",
-      "title": "Mode",
+      "prefill": "repoDetail",
+      "title": "What to scrape",
       "type": "string"
     },
     "org": {
       "default": "microsoft",
-      "description": "GitHub organization name.",
+      "description": "GitHub organization login for Organization repositories mode.",
       "editor": "textfield",
       "prefill": "microsoft",
-      "title": "GitHub org",
+      "title": "Organization",
       "type": "string"
+    },
+    "releasesLimit": {
+      "default": 5,
+      "description": "Maximum recent releases to keep when release enrichment is on.",
+      "maximum": 30,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Releases per repository",
+      "type": "integer"
     },
     "repoFullName": {
-      "description": "Full repo name e.g. owner/repo.",
+      "description": "Repository for One repository mode. Accepts owner/repo, a full https://github.com/owner/repo URL, or the git@github.com:owner/repo.git form.",
       "editor": "textfield",
-      "title": "Repo full name",
+      "example": "https://github.com/facebook/react",
+      "prefill": "microsoft/vscode",
+      "title": "Repository (one repo)",
       "type": "string"
     },
+    "repoFullNames": {
+      "default": [],
+      "description": "Repositories for A list of repositories mode. Accepts owner/repo strings and full GitHub URLs; duplicates are removed and order is preserved before sorting.",
+      "editor": "stringList",
+      "example": [
+        "microsoft/vscode",
+        "https://github.com/facebook/react"
+      ],
+      "prefill": [],
+      "title": "Repositories (list)",
+      "type": "array"
+    },
     "searchQuery": {
-      "description": "Keywords for search mode.",
+      "default": "stars:>1000",
+      "description": "Keyword search for Keyword search mode. GitHub qualifiers work, for example stars:>1000, language:python, org:vercel, topic:llm, or pushed:>2025-01-01.",
       "editor": "textfield",
+      "prefill": "stars:>1000",
       "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "bestMatch",
+      "description": "Sort order for discovery results. Stars and forks work through GitHub search; created, pushed, and name use the organization/user listing. Keyword-only sort options fall back to recently updated.",
+      "editor": "select",
+      "enum": [
+        "bestMatch",
+        "stars",
+        "forks",
+        "updated",
+        "created",
+        "pushed",
+        "fullName"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Stars",
+        "Forks",
+        "Recently updated",
+        "Recently created",
+        "Recently pushed",
+        "Repository name"
+      ],
+      "prefill": "bestMatch",
+      "title": "Sort results by",
+      "type": "string"
+    },
+    "sortOrder": {
+      "default": "desc",
+      "description": "Descending (highest or newest first) or ascending.",
+      "editor": "select",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "enumTitles": [
+        "Descending",
+        "Ascending"
+      ],
+      "prefill": "desc",
+      "title": "Sort direction",
+      "type": "string"
+    },
+    "topic": {
+      "default": "machine-learning",
+      "description": "Topic slug for Topic search mode, for example machine-learning, web-scraping, or cli.",
+      "editor": "textfield",
+      "prefill": "machine-learning",
+      "title": "GitHub topic",
+      "type": "string"
+    },
+    "username": {
+      "description": "GitHub user login for User repositories mode.",
+      "editor": "textfield",
+      "example": "torvalds",
+      "title": "Username",
       "type": "string"
     }
   },
@@ -59,6 +199,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "GitHub Repository Tech Stack Scraper Input",
+  "title": "GitHub Repository Language Breakdown Analyzer Input",
   "type": "object"
 }

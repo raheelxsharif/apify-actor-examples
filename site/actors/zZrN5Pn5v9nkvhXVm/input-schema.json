@@ -1,0 +1,139 @@
+{
+  "description": "Scrape Medium articles by tag, user, publication, search, or direct URL.",
+  "properties": {
+    "articleUrl": {
+      "description": "Full URL of a single Medium article (e.g. `https://medium.com/@username/article-title-abc123`).",
+      "editor": "textfield",
+      "title": "Article URL (mode=byUrl)",
+      "type": "string"
+    },
+    "containsKeyword": {
+      "description": "Only include articles whose title or preview text contains this keyword (case-insensitive).",
+      "editor": "textfield",
+      "title": "Contains Keyword",
+      "type": "string"
+    },
+    "excludePaywalled": {
+      "default": false,
+      "description": "If true, skip articles that appear to be member-only (paywalled).",
+      "prefill": false,
+      "title": "Exclude Paywalled Articles",
+      "type": "boolean"
+    },
+    "fromDate": {
+      "description": "Only include articles published on or after this date (e.g. `2024-01-01`). Applied after fetching.",
+      "editor": "textfield",
+      "title": "Published After (ISO-8601 date)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 5,
+      "description": "Maximum number of articles to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byTag",
+      "description": "What to scrape from Medium.",
+      "editor": "select",
+      "enum": [
+        "byTag",
+        "byUser",
+        "byPublication",
+        "search",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "By Tag/Topic — articles tagged with a specific topic",
+        "By User — articles by a Medium username",
+        "By Publication — articles from a Medium publication",
+        "Search — search Medium articles by keyword",
+        "By URL — single article metadata from a Medium URL"
+      ],
+      "prefill": "byTag",
+      "title": "Mode",
+      "type": "string"
+    },
+    "publication": {
+      "description": "Medium publication slug as it appears in the URL (e.g. `better-programming`, `towards-data-science`).",
+      "editor": "textfield",
+      "title": "Publication Slug (mode=byPublication)",
+      "type": "string"
+    },
+    "query": {
+      "default": "artificial intelligence",
+      "description": "Keywords to search for on Medium.",
+      "editor": "textfield",
+      "prefill": "artificial intelligence",
+      "title": "Search Query (mode=search)",
+      "type": "string"
+    },
+    "tag": {
+      "default": "programming",
+      "description": "Tag slug to fetch articles for. Choose from the dropdown or type a custom slug (e.g. `python`, `startups`, `ux`).",
+      "editor": "select",
+      "enum": [
+        "programming",
+        "data-science",
+        "machine-learning",
+        "artificial-intelligence",
+        "python",
+        "javascript",
+        "startup",
+        "entrepreneurship",
+        "productivity",
+        "design",
+        "health",
+        "finance",
+        "technology",
+        "writing",
+        "science",
+        "self-improvement",
+        "business",
+        "education",
+        "travel",
+        "food"
+      ],
+      "enumTitles": [
+        "Programming",
+        "Data Science",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Python",
+        "JavaScript",
+        "Startup",
+        "Entrepreneurship",
+        "Productivity",
+        "Design",
+        "Health",
+        "Finance",
+        "Technology",
+        "Writing",
+        "Science",
+        "Self-Improvement",
+        "Business",
+        "Education",
+        "Travel",
+        "Food"
+      ],
+      "prefill": "programming",
+      "title": "Tag / Topic (mode=byTag)",
+      "type": "string"
+    },
+    "username": {
+      "description": "Medium username without the @ symbol (e.g. `towardsdatascience`).",
+      "editor": "textfield",
+      "title": "Medium Username (mode=byUser)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Medium Article Scraper Input",
+  "type": "object"
+}
