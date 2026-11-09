@@ -1,0 +1,75 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Optional. Leave empty to download public posts and the posts of public profiles without signing in. Paste your own Instagram cookies in JSON format to also download age-restricted posts and the posts of private profiles your account follows. It is a secret input, so the Apify Console hides and encrypts it.\n\nFormat: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "maxPosts_per_username": {
+      "default": 10,
+      "description": "Maximum number of posts to download per username (after the date and pinned-post filters below). Public profiles need no sign-in, however many posts you ask for; a private profile needs your cookies.",
+      "example": 2,
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max Posts Per Username",
+      "type": "integer"
+    },
+    "newerThan": {
+      "dateType": "absolute",
+      "description": "Skip posts published before this date. Leave empty for no date filter. Must be a date from 2000-01-01 up to the day before the run. Applies to usernames only. The date is read from the post's id, so it can be off by up to a day.",
+      "editor": "datepicker",
+      "nullable": true,
+      "title": "Only posts newer than",
+      "type": "string"
+    },
+    "postUrls": {
+      "description": "List of Instagram post/reel URLs to process.",
+      "editor": "stringList",
+      "example": [
+        "https://www.instagram.com/p/Dew5IIlNfMW/"
+      ],
+      "items": {
+        "pattern": "^https?://(www\\.)?instagram\\.com/([A-Za-z0-9._]+/)?(p|reels?|tv)/[A-Za-z0-9_-]+/?.*",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 0,
+      "prefill": [
+        "https://www.instagram.com/p/Dew5IIlNfMW/"
+      ],
+      "title": "Instagram Post URLs",
+      "type": "array"
+    },
+    "skipPinnedPosts": {
+      "default": false,
+      "description": "Leave out the posts a profile has pinned to the top of its grid. Applies to usernames only. A pinned post that is also the newest post cannot be recognised and stays in.",
+      "title": "Skip pinned posts",
+      "type": "boolean"
+    },
+    "usernames": {
+      "description": "Usernames whose recent posts should be processed. Each entry can be a username (with or without @) or a profile link such as https://www.instagram.com/natgeo/.",
+      "editor": "stringList",
+      "example": [
+        "espnfc",
+        "@leomessi",
+        "https://www.instagram.com/natgeo/"
+      ],
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 0,
+      "prefill": [],
+      "title": "Instagram Usernames or Profile Links",
+      "type": "array"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Instagram Downloader API Input",
+  "type": "object"
+}

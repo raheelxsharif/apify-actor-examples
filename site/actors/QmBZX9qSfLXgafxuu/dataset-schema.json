@@ -1,0 +1,192 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "authorMeta": {
+        "description": "Identifies the profile on rows about a username that gave no posts",
+        "properties": {
+          "profile_url": {
+            "description": "Link to the profile",
+            "type": "string"
+          },
+          "username": {
+            "description": "The username from the input",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "download_status": {
+        "description": "finished once the file is stored",
+        "type": "string"
+      },
+      "download_url": {
+        "description": "Direct link to download the file",
+        "type": "string"
+      },
+      "downloaded_at": {
+        "description": "When the file was downloaded (ISO 8601)",
+        "type": "string"
+      },
+      "filename": {
+        "description": "Name of the file in the key-value store",
+        "type": "string"
+      },
+      "media_meta_data": {
+        "description": "Size and format of the file",
+        "properties": {
+          "aspect_ratio": {
+            "description": "Width divided by height",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "duration": {
+            "description": "Length in seconds (videos)",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "ext": {
+            "description": "File extension",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "filesize_bytes": {
+            "description": "File size in bytes",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "fps": {
+            "description": "Frames per second (videos)",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "height": {
+            "description": "Height in pixels",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "total_bitrate_kbps": {
+            "description": "Overall bitrate in kilobits per second (videos)",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "video_codec": {
+            "description": "Video codec (videos)",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "width": {
+            "description": "Width in pixels",
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "post_url": {
+        "description": "Link to the post the file came from, or to the post that failed",
+        "type": "string"
+      },
+      "status": {
+        "description": "success for a downloaded file. Otherwise the reason a post or profile gave no download: post_age_restricted, post_is_private, post_not_found, blocked, error, invalid_url, no_media, download_failed, no_posts, cookies_unusable, profile_not_found, profile_is_private, profile_age_restricted or profile_restricted. The log explains each one",
+        "type": "string"
+      },
+      "storage_key": {
+        "description": "Key of the file in the run's key-value store",
+        "type": "string"
+      },
+      "type": {
+        "description": "video, image or unknown",
+        "type": "string"
+      },
+      "username": {
+        "description": "Username of the post owner",
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram Media Downloads",
+  "views": {
+    "overview": {
+      "description": "One row per downloaded file; a post or profile that could not be downloaded has only its link or username and a status",
+      "display": {
+        "component": "table",
+        "properties": {
+          "columns": [
+            {
+              "field": "status",
+              "format": "text",
+              "label": "Status"
+            },
+            {
+              "field": "filename",
+              "format": "text",
+              "label": "Filename"
+            },
+            {
+              "field": "post_url",
+              "format": "link",
+              "label": "Post URL"
+            },
+            {
+              "field": "username",
+              "format": "text",
+              "label": "Username"
+            },
+            {
+              "field": "type",
+              "format": "text",
+              "label": "Type"
+            },
+            {
+              "field": "download_status",
+              "format": "text",
+              "label": "Download"
+            },
+            {
+              "field": "download_url",
+              "format": "link",
+              "label": "Download link"
+            }
+          ]
+        }
+      },
+      "title": "Downloaded Instagram Media",
+      "transformation": {
+        "fields": [
+          "status",
+          "filename",
+          "post_url",
+          "username",
+          "type",
+          "download_status",
+          "downloaded_at",
+          "download_url",
+          "authorMeta"
+        ]
+      }
+    }
+  }
+}

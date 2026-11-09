@@ -1,0 +1,20 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Downloaded Instagram media files with metadata",
+  "properties": {
+    "mediaFiles": {
+      "description": "Key-value store containing the actual downloaded image and video files",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys",
+      "title": "Media Files",
+      "type": "string"
+    },
+    "results": {
+      "description": "Dataset containing downloaded media metadata (filename, post URL, username, type, download status, and media dimensions)",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Downloaded Media",
+      "type": "string"
+    }
+  },
+  "title": "Instagram Downloader API Output",
+  "type": "object"
+}
