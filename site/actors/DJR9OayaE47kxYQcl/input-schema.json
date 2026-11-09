@@ -1,0 +1,174 @@
+{
+  "properties": {
+    "condition": {
+      "default": "all",
+      "description": "Filter listings by condition.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "new",
+        "used",
+        "certified-pre-owned",
+        "for-parts-not-working"
+      ],
+      "enumTitles": [
+        "All Conditions",
+        "New",
+        "Used",
+        "Certified Pre-Owned",
+        "For Parts / Not Working"
+      ],
+      "prefill": "all",
+      "title": "Condition",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to scrape.",
+      "editor": "number",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum listing price in USD.",
+      "editor": "number",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Maximum Price ($)",
+      "type": "integer"
+    },
+    "maxYear": {
+      "description": "Maximum model year (e.g., 2024).",
+      "editor": "number",
+      "maximum": 2030,
+      "minimum": 1900,
+      "title": "Maximum Year",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Minimum listing price in USD.",
+      "editor": "number",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum Price ($)",
+      "type": "integer"
+    },
+    "minYear": {
+      "description": "Minimum model year (e.g., 2015).",
+      "editor": "number",
+      "maximum": 2030,
+      "minimum": 1900,
+      "title": "Minimum Year",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchVehicles",
+      "description": "Choose what to scrape: search for vehicles, search for parts, or enrich specific listing URLs.",
+      "editor": "select",
+      "enum": [
+        "searchVehicles",
+        "searchParts",
+        "byListingUrls"
+      ],
+      "enumTitles": [
+        "Search Vehicles",
+        "Search Parts & Accessories",
+        "By Listing URLs"
+      ],
+      "prefill": "searchVehicles",
+      "title": "Scraping Mode",
+      "type": "string"
+    },
+    "partCategory": {
+      "default": "car-truck-parts",
+      "description": "Category of parts to search (used in searchParts mode).",
+      "editor": "select",
+      "enum": [
+        "car-truck-parts",
+        "motorcycle-parts",
+        "boat-parts",
+        "atv-parts",
+        "other"
+      ],
+      "enumTitles": [
+        "Car & Truck Parts",
+        "Motorcycle Parts",
+        "Boat Parts",
+        "ATV & UTV Parts",
+        "Other Parts"
+      ],
+      "prefill": "car-truck-parts",
+      "title": "Part Category",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keyword(s) to search for (optional). When empty, browses trending vehicles in the selected category. Example: 'toyota camry', 'honda civic'.",
+      "editor": "textfield",
+      "title": "Search Query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "best-match",
+      "description": "How to sort the search results.",
+      "editor": "select",
+      "enum": [
+        "best-match",
+        "price-asc",
+        "price-desc",
+        "distance-nearest",
+        "newly-listed",
+        "ending-soonest"
+      ],
+      "enumTitles": [
+        "Best Match",
+        "Price: Lowest First",
+        "Price: Highest First",
+        "Distance: Nearest First",
+        "Newly Listed",
+        "Ending Soonest"
+      ],
+      "prefill": "best-match",
+      "title": "Sort By",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Specific eBay Motors listing URLs to scrape (used in byListingUrls mode). Each should be an eBay item URL like https://www.ebay.com/itm/123456789.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs",
+      "type": "array"
+    },
+    "vehicleType": {
+      "default": "cars-trucks",
+      "description": "Category of vehicle to search (used in searchVehicles mode).",
+      "editor": "select",
+      "enum": [
+        "cars-trucks",
+        "motorcycles",
+        "boats",
+        "rvs-campers",
+        "atvs-utvs-snowmobiles",
+        "commercial-trucks",
+        "other-vehicles"
+      ],
+      "enumTitles": [
+        "Cars & Trucks",
+        "Motorcycles",
+        "Boats",
+        "RVs & Campers",
+        "ATVs, UTVs & Snowmobiles",
+        "Commercial Trucks",
+        "Other Vehicles"
+      ],
+      "prefill": "cars-trucks",
+      "title": "Vehicle Type",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "eBay Motors Vehicle & Parts Scraper Input",
+  "type": "object"
+}
