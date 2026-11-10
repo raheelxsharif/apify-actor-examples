@@ -193,3 +193,26 @@ StockTwits protects its website pages with a browser challenge. The links are va
 
 **Does the actor invent price targets or text sentiment?**
 No. It returns StockTwits' own source-reported price predictions when an author attached one (`priceTarget*` fields) and never generates targets or model-based text sentiment. Empty fields are omitted rather than returned as `null`.
+
+## Use it as an API (server mode)
+
+Need one answer right away instead of a batch job? Send the input as an HTTP request and the results come back in the response. There's no run to start and poll.
+
+```bash
+curl -H "Authorization: Bearer $APIFY_TOKEN" \
+  "https://dataspryva--stocktwits-ticker-sentiment-and-trending-symbol.apify.actor/?mode=symbolMessages&symbols=AAPL&maxItems=3"
+```
+
+Or POST the same input as JSON:
+
+```bash
+curl -X POST -H "Authorization: Bearer $APIFY_TOKEN" -H "Content-Type: application/json" \
+  -d '{"mode": "symbolMessages", "symbols": ["AAPL"], "maxItems": 3}' \
+  "https://dataspryva--stocktwits-ticker-sentiment-and-trending-symbol.apify.actor/"
+```
+
+- The fields are the same as in the input above. With GET, repeat a parameter once for each value in a list.
+- You get back a JSON array with the same records a normal run saves. They're saved to the run's dataset too.
+- Each request is capped at 50 results and 4 minutes. For bigger jobs, start a normal run.
+- The request runs in your own Apify account at the Actor's normal price (a start fee plus a price per result). The server shuts down after a minute with no requests.
+- The Server tab on this page lists every parameter and lets you try a request from your browser.

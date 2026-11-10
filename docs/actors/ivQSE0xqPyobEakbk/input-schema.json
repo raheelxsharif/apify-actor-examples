@@ -1,0 +1,76 @@
+{
+  "properties": {
+    "condition": {
+      "default": "any",
+      "description": "Filter by item condition.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "new",
+        "used"
+      ],
+      "enumTitles": [
+        "Any",
+        "New",
+        "Used"
+      ],
+      "title": "Condition",
+      "type": "string"
+    },
+    "country": {
+      "default": "MX",
+      "description": "MercadoLibre country site to scrape. Currently only Mexico (MX) is supported reliably from Apify's residential proxy pool — AR/BR/other LATAM markets are heavily anti-bot gated and were removed because they return blocked stub pages on every retry.",
+      "editor": "select",
+      "enum": [
+        "MX"
+      ],
+      "enumTitles": [
+        "Mexico"
+      ],
+      "prefill": "MX",
+      "title": "Country",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum items to return.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "priceMax": {
+      "description": "Maximum price in the country's local currency.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Max Price",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in the country's local currency.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Min Price",
+      "type": "integer"
+    },
+    "searchQuery": {
+      "description": "Free-text keyword. Required if startUrls is empty.",
+      "editor": "textfield",
+      "prefill": "iphone",
+      "title": "Search Query",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Direct MercadoLibre API search URLs. If set, overrides structured filters.",
+      "editor": "stringList",
+      "title": "Start URLs (optional)",
+      "type": "array"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "MercadoLibre Scraper Input",
+  "type": "object"
+}

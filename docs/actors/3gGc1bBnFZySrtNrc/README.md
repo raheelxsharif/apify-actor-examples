@@ -173,3 +173,26 @@ No. This actor is not affiliated with or endorsed by Google.
 - A timezone requires a resolved place. Open-ocean and unmapped coordinates can return no timezone.
 - Timezone boundaries follow Google Maps' own place data; this actor does not maintain a separate boundary map.
 - Google Maps place names and addresses follow the selected `language`, while the timezone identifier is always IANA English.
+
+## Use it as an API (server mode)
+
+Need one answer right away instead of a batch job? Send the input as an HTTP request and the results come back in the response. There's no run to start and poll.
+
+```bash
+curl -H "Authorization: Bearer $APIFY_TOKEN" \
+  "https://dataspryva--google-maps-timezone-and-local-time-lookup.apify.actor/?mode=coordinates&location=%7B%22lat%22%3A40.7128%2C%22lng%22%3A-74.006%7D"
+```
+
+Or POST the same input as JSON:
+
+```bash
+curl -X POST -H "Authorization: Bearer $APIFY_TOKEN" -H "Content-Type: application/json" \
+  -d '{"mode": "coordinates", "location": {"lat": 40.7128, "lng": -74.006}}' \
+  "https://dataspryva--google-maps-timezone-and-local-time-lookup.apify.actor/"
+```
+
+- The fields are the same as in the input above. With GET, repeat a parameter once for each value in a list.
+- You get back a JSON array with the same records a normal run saves. They're saved to the run's dataset too.
+- Each request is capped at 30 results and 4 minutes. For bigger jobs, start a normal run.
+- The request runs in your own Apify account at the Actor's normal price (a start fee plus a price per result). The server shuts down after a minute with no requests.
+- The Server tab on this page lists every parameter and lets you try a request from your browser.
