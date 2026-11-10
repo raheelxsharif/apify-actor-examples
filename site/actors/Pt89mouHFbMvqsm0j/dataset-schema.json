@@ -1,0 +1,78 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "developers": {
+            "format": "text",
+            "label": "Developer"
+          },
+          "dlcCount": {
+            "format": "number",
+            "label": "DLC Count"
+          },
+          "genres": {
+            "format": "text",
+            "label": "Genres"
+          },
+          "platforms": {
+            "format": "text",
+            "label": "Platforms"
+          },
+          "priceFinal": {
+            "format": "number",
+            "label": "Price (USD)"
+          },
+          "releaseDate": {
+            "format": "text",
+            "label": "Release Date"
+          },
+          "reviewScore": {
+            "format": "text",
+            "label": "Review Score"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "tags": {
+            "format": "text",
+            "label": "Tags"
+          },
+          "title": {
+            "format": "text",
+            "label": "Game"
+          },
+          "totalAchievements": {
+            "format": "number",
+            "label": "Achievements"
+          },
+          "totalReviews": {
+            "format": "number",
+            "label": "Total Reviews"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "title",
+          "releaseDate",
+          "developers",
+          "genres",
+          "tags",
+          "priceFinal",
+          "platforms",
+          "reviewScore",
+          "totalReviews",
+          "totalAchievements",
+          "dlcCount",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

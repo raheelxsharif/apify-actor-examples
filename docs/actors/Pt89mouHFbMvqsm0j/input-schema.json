@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "gameNames": {
+      "description": "Search Steam by game name. The first search result will be scraped.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Game Names",
+      "type": "array"
+    },
+    "startUrls": {
+      "description": "Steam store page URLs for the games you want to scrape. Example: https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/"
+        }
+      ],
+      "title": "Steam Game URLs",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Steam Game Scraper Input",
+  "type": "object"
+}
