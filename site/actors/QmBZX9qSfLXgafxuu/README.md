@@ -62,7 +62,7 @@ Any technical detail that cannot be determined for a file is returned as `null`.
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `postUrls` | array | – | Instagram post, Reel or IGTV links to download (up to 100). Formats: `/p/`, `/reel/`, `/reels/`, `/tv/` |
+| `postUrls` | array | – | Instagram post, Reel or IGTV links to download, up to 10,000. Accepts `/p/`, `/reel/`, `/reels/`, `/tv/` and `username/p/shortcode` formats. Duplicate links are merged into one record. |
 | `usernames` | array | – | Instagram usernames whose recent posts should be downloaded (up to 100). Each entry can be a username, `@username` or a profile link such as `https://www.instagram.com/natgeo/` |
 | `maxPosts_per_username` | integer | `10` | How many recent posts to download for each username. Range 0–100; `0` downloads nothing from usernames. Posts left out by the two filters below do not count. Public profiles need no sign-in; a private profile needs your `cookies` |
 | `newerThan` | string | – | Optional date (`YYYY-MM-DD`). Posts of a username published before it are skipped. Empty means no date filter. It must be from 2000-01-01 up to the day before the run, otherwise it is ignored with a warning in the log. Does not apply to links you give. The date is read from the post's id, so it can be off by up to a day |

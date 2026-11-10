@@ -1,0 +1,103 @@
+# Bing Maps Local Business Finder
+
+Pull local business listings straight from Bing Maps — restaurants, shops, services, hotels, anything Bing's own map search returns for a keyword and place, or for an exact point and radius. Each listing comes back with contact details, rating, and coordinates so you can build a lead list or a local-market dataset without opening Bing Maps by hand.
+
+## What this actor does
+
+- **Keyword + location search** — e.g. "coffee shops" in "London"
+- **Nearby search** — a fixed latitude/longitude with a radius in metres, for scanning a precise area instead of a named place
+- **Pagination** — keeps collecting listings across result pages until `maxItems` is reached
+- **Contact and location data** — address, phone, website, coordinates, rating, and review count per listing
+- **Empty fields are omitted** — a listing without a published phone number or rating simply has no `phone`/`rating` field
+
+## Output per business
+
+- `listingId` — Bing's internal listing identifier for the place
+- `name` — business name
+- `category` — business category (e.g. "Coffee Shop")
+- `address` — full street address
+- `phone` — phone number, when published
+- `website` — business website, when published
+- `rating` — average rating (0–5), when Bing shows one
+- `reviewCount` — number of reviews behind that rating
+- `ratingSource` — the review source Bing attributes the rating to, when shown
+- `lat`, `lon` — coordinates
+- `openStatus` — Bing's current open/closed status label, when shown
+- `openHours` — Bing's raw hours text, when shown
+- `thumbnailUrl` — business photo URL, when available
+- `recordType` — always `business`
+- `scrapedAt` — when the listing was fetched
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` (keyword + location) or `nearbySearch` (lat/lon + radius) |
+| `searchQuery` | string | `coffee shops` | What to search for, used in `search` mode |
+| `location` | string | `London` | City, area, or address to search in, used in `search` mode |
+| `maxItems` | integer | `20` | Maximum number of business listings to return (1–200) |
+| `latitude` | number | – | Latitude for `nearbySearch` mode |
+| `longitude` | number | – | Longitude for `nearbySearch` mode |
+| `radius` | integer | `1000` | Search radius in metres for `nearbySearch` mode (100–50000) |
+| `proxyConfiguration` | object | `{"useApifyProxy": true}` | Apify Proxy configuration |
+
+### Example: search by keyword and city
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "coffee shops",
+  "location": "London",
+  "maxItems": 20
+}
+```
+
+### Example: search around a precise point
+
+```json
+{
+  "mode": "nearbySearch",
+  "latitude": 47.6062,
+  "longitude": -122.3321,
+  "radius": 2000,
+  "maxItems": 30
+}
+```
+
+### Example: broader category search in another city
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "dentist",
+  "location": "Manhattan, New York",
+  "maxItems": 50
+}
+```
+
+## Use cases
+
+- **Local lead generation** — build a contact list of businesses in a category and city
+- **Market coverage checks** — see which businesses Bing Maps surfaces around a specific point, independent of Google's listing set
+- **Competitive scans** — compare review counts and ratings across businesses in the same category
+- **Directory enrichment** — fill in address, phone, and website fields for an existing business list
+
+## FAQ
+
+**Is this affiliated with Microsoft or Bing?**
+No. This is an independent, third-party actor that reads Bing Maps' public listing pages and is not affiliated with or endorsed by Microsoft.
+
+**Do I need a Bing account or API key?**
+No. Bing Maps search results used here are publicly accessible, with no login or key required.
+
+**What's the difference between `search` and `nearbySearch`?**
+`search` matches a keyword against a named place (city, area, or address), the same as typing into Bing Maps' search box. `nearbySearch` instead scans a fixed radius around an exact latitude/longitude, useful when you already know the point you want to cover rather than a place name.
+
+**Why do some listings have no `rating` or `phone`?**
+Bing Maps only shows the fields a business listing actually has published. When a field isn't on the listing, the actor leaves it out rather than sending an empty value.
+
+**How many results can one run return?**
+Up to `maxItems`, capped at 200 per run. The actor pages through Bing's own result set to reach that number.
+
+**Should I use a proxy?**
+A proxy configuration is included by default to reduce the chance of rate limiting on larger runs; it isn't strictly required for small, occasional searches.

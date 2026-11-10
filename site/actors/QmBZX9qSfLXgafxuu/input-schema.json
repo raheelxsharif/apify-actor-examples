@@ -26,17 +26,12 @@
       "type": "string"
     },
     "postUrls": {
-      "description": "List of Instagram post/reel URLs to process.",
+      "description": "Instagram post, reel or IGTV URLs to download. Accepts /p/, /reel/, /reels/, /tv/, and canonical username/p/shortcode formats. Duplicates are silently de-duplicated.",
       "editor": "stringList",
       "example": [
         "https://www.instagram.com/p/Dew5IIlNfMW/"
       ],
-      "items": {
-        "pattern": "^https?://(www\\.)?instagram\\.com/([A-Za-z0-9._]+/)?(p|reels?|tv)/[A-Za-z0-9_-]+/?.*",
-        "type": "string"
-      },
-      "maxItems": 100,
-      "minItems": 0,
+      "maxItems": 10000,
       "prefill": [
         "https://www.instagram.com/p/Dew5IIlNfMW/"
       ],

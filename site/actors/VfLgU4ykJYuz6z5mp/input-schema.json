@@ -1,0 +1,85 @@
+{
+  "description": "Search for business listings on Bing Maps.",
+  "properties": {
+    "latitude": {
+      "description": "Latitude for 'nearbySearch' mode. E.g. 47.6062 for Seattle.",
+      "editor": "number",
+      "title": "Latitude",
+      "type": "number"
+    },
+    "location": {
+      "default": "London",
+      "description": "City, area, or address to search in. E.g. 'London', 'Manhattan, New York', 'Paris, France'.",
+      "editor": "textfield",
+      "prefill": "London",
+      "title": "Location",
+      "type": "string"
+    },
+    "longitude": {
+      "description": "Longitude for 'nearbySearch' mode. E.g. -122.3321 for Seattle.",
+      "editor": "number",
+      "title": "Longitude",
+      "type": "number"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of business listings to return. Min 1, max 200.",
+      "editor": "number",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Scraping mode. 'search' finds businesses matching a query. 'nearbySearch' finds businesses near a specific location.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "nearbySearch"
+      ],
+      "enumTitles": [
+        "Search by query + location",
+        "Nearby search"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Proxy settings. Recommended: use Apify Proxy AUTO group to avoid blocks.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "radius": {
+      "default": 1000,
+      "description": "Radius in metres for 'nearbySearch' mode. Min 100m, max 50000m.",
+      "editor": "number",
+      "maximum": 50000,
+      "minimum": 100,
+      "prefill": 1000,
+      "title": "Search Radius (metres)",
+      "type": "integer"
+    },
+    "searchQuery": {
+      "default": "coffee shops",
+      "description": "What to search for. E.g. 'coffee shops', 'pizza restaurant', 'dentist'.",
+      "editor": "textfield",
+      "prefill": "coffee shops",
+      "title": "Search Query",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Bing Maps Business Listings Scraper Input",
+  "type": "object"
+}
