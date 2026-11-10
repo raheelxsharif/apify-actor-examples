@@ -4,112 +4,129 @@
 
 # Steam Game Specs, Pricing & Media Extractor
 
-Every Steam store page packs pricing, system requirements, review scores, media and DLC data into one listing. This actor reads that page (plus Steam's underlying game-details data) for any game you name or link to, and returns it as a single structured record per title.
+Steam shows each game through a store page plus an underlying app-details feed. This actor collects both for every title you give it and returns one clean record with the commercial, technical and promotional data a catalog needs: store pricing and package options, system requirements, platform and language support, screenshots and trailers, DLC, tags, regional age ratings, review totals and Metacritic information.
 
-## What this actor does
+## Ways to select games
 
-- Resolves a game by its Steam store URL or by searching its name and taking Steam's own top match.
-- Collects pricing, genres, tags, platforms and system requirements for each title.
-- Pulls screenshots, trailer links, supported languages, and review statistics.
-- Resolves the recommended "More like this" titles into their own app IDs and names.
-- Deduplicates by Steam App ID when the same game is reachable through both a URL and a name in one run.
-- Every field is always present in the record; values that don't apply to a game come back as `0`, `""`, `false`, or `[]` instead of being left out.
+- **Store URLs** — paste full Steam store links, including age-gated links.
+- **App IDs** — send numeric IDs or store links in any mix.
+- **Name search** — search Steam by title and collect the top matches.
+- **Steam charts** — walk top sellers, new releases, current specials, coming soon or weeklong deals.
 
-## Output per game
+All four paths feed the same detail collector, and duplicate App IDs are removed across the whole run. Add the optional app-type filter when you only want games, DLC, demos, software, video, music, series or episodes.
 
-| Field | Description |
+## What each record contains
+
+| Group | Fields |
 | --- | --- |
-| `appId` / `url` | Steam App ID and the game's store page URL. |
-| `title` | Game title. |
-| `headerImage` / `capsuleImage` / `backgroundImage` | Store artwork URLs. |
-| `shortDescription` / `detailedDescription` / `aboutTheGame` | Marketing description text at three lengths. |
-| `releaseDate` / `comingSoon` | Release date text and whether the game is not yet released. |
-| `requiredAge` | Minimum age rating Steam enforces for the store page. |
-| `isFree` | Whether the game is free-to-play. |
-| `currency` / `priceInitial` / `priceFinal` / `discountPercent` / `priceFormatted` | Pricing in the store's reported currency, before and after any discount. |
-| `developers` / `publishers` / `website` | Credits and the game's official website. |
-| `genres` / `categories` / `tags` | Steam's genre labels, feature categories (e.g. "Single-player"), and user-defined tags. |
-| `platforms` | Supported platforms (windows, mac, linux). |
-| `windowsRequirements` / `macRequirements` / `linuxRequirements` | `{minimum, recommended}` system requirement text per platform. |
-| `screenshots` | Full-size screenshot URLs. |
-| `trailers` | List of `{name, videoUrl, thumbnail}` for each trailer. |
-| `supportedLanguages` / `fullyAudioLanguages` | Text-supported languages and the subset with full audio. |
-| `totalReviews` / `positiveReviews` / `negativeReviews` | Review counts. |
-| `reviewScore` / `reviewScorePercent` | Steam's review label (e.g. "Very Positive") and its underlying 1–9 scale score. |
-| `metacriticScore` / `metacriticUrl` | Metacritic score and review link, when Steam links one. |
-| `totalAchievements` | Number of Steam achievements the game has. |
-| `dlcCount` / `dlcAppIds` | Number of DLC items and their App IDs. |
-| `contentDescriptors` | Mature-content warning labels. |
-| `legalNotice` | Legal notice text shown on the store page. |
-| `similarGames` | List of `{appId, title}` for Steam's "More like this" recommendations. |
-| `awards` | List of `{name, year}` for Steam Awards the game has won. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+| Identity | `appId`, `appType`, `title`, `url`, `releaseDate`, `releaseDateIso`, `comingSoon`, `requiredAge`, `isFree`, `controllerSupport` |
+| Pricing | `currency`, `priceInitial`, `priceFinal`, `priceInitialFormatted`, `priceFormatted`, `discountPercent`, `packages`, `packageGroups` |
+| Descriptions | `shortDescription`, `detailedDescription`, `aboutTheGame`, `pressQuotes` |
+| Artwork | `headerImage`, `capsuleImage`, `capsuleImageV5`, `backgroundImage`, `backgroundRawImage` |
+| Media | `screenshots`, `screenshotThumbnails`, `trailers` (with HLS, DASH, MP4 and WebM links when Steam publishes them) |
+| Requirements | `windowsRequirements`, `macRequirements`, `linuxRequirements` (`minimum` / `recommended`) |
+| Support matrix | `platforms`, `supportedLanguages`, `fullyAudioLanguages` |
+| Taxonomy | `genres`, `genreIds`, `categories`, `categoryIds`, `tags` |
+| Credits and support | `developers`, `publishers`, `website`, `supportInfo` |
+| Reviews | `totalReviews`, `positiveReviews`, `negativeReviews`, `reviewScore`, `reviewScorePercent`, `positiveReviewPercent`, `recommendationsTotal`, `metacriticScore`, `metacriticUrl` |
+| Extras | `totalAchievements`, `dlcCount`, `dlcAppIds`, `dlc`, `contentDescriptors`, `contentDescriptorNotes`, `ratings`, `legalNotice`, `similarGames`, `awards`, `scrapedAt` |
 
-## Input
+Fields Steam genuinely does not publish for a particular app are left out of that record rather than filled with empty placeholders. That keeps every value real and makes schemas easier to validate.
 
-| Field | Type | Default | Description |
+`reviewScorePercent` is Steam's legacy 0–9 review-band index kept for backward compatibility; `positiveReviewPercent` is the actual share of positive reviews.
+
+## Input reference
+
+| Field | Type | Default | Purpose |
 | --- | --- | --- | --- |
-| `startUrls` | Array of URLs | – | Steam store page URLs to scrape, e.g. `https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/`. |
-| `gameNames` | Array of strings | `[]` | Game names to search for; Steam's top search result for each name is scraped. |
+| `mode` | select | `urls` | `urls`, `appIds`, `search` or `browse`. |
+| `startUrls` | URL list | – (prefill: Dota 2 page) | Steam store links for URL mode. |
+| `appIds` | string list | – | Numeric App IDs or store links for ID mode. |
+| `searchQueries` | string list | – | Game names for search mode. |
+| `browseCategory` | select | `topSellers` | Chart used by browse mode. |
+| `appType` | select | all | Keep only one Steam app type: game, DLC, demo, software, video, music, series, episode, hardware, mod or advertising. |
+| `maxItems` | integer | `10` | Maximum game records to return (1–1000). |
+| `maxResultsPerQuery` | integer | `10` | Search matches considered per name (1–100). |
+| `country` | select | `us` | Steam storefront used for prices, availability and ratings. |
+| `language` | select | `english` | Language for descriptions, requirements and review labels. |
+| `includeReviews` | boolean | `true` | Fetch the current review summary. |
+| `includeSimilarGames` | boolean | `true` | Include Steam's "More like this" games with titles. |
 
-At least one of `startUrls` or `gameNames` must be provided; you can mix both in the same run.
-
-### Example: scrape by store URL
+### URL mode
 
 ```json
 {
+  "mode": "urls",
   "startUrls": [
-    { "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/" }
-  ]
-}
-```
-
-### Example: scrape by game name
-
-```json
-{
-  "gameNames": ["Dota 2", "Hades II"]
-}
-```
-
-### Example: mix of both
-
-```json
-{
-  "startUrls": [
-    { "url": "https://store.steampowered.com/app/570/Dota_2/" }
+    { "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/" },
+    { "url": "https://store.steampowered.com/app/1245620/ELDEN_RING/" }
   ],
-  "gameNames": ["Baldur's Gate 3"]
+  "country": "gb",
+  "language": "english",
+  "maxItems": 2
 }
 ```
 
-## Use cases
+### App ID mode
 
-- **Price trackers** monitoring current price and discount percentage across a watchlist of games.
-- **Game databases** backfilling genres, tags, requirements and media for a catalog.
-- **Market researchers** comparing review scores and achievement counts across titles or genres.
-- **Recommendation tools** pulling Steam's own "More like this" suggestions as a seed for further discovery.
-- **Hardware compatibility tools** reading system requirements across platforms for a set of games.
+```json
+{
+  "mode": "appIds",
+  "appIds": ["570", "620", "https://store.steampowered.com/app/292030/"],
+  "maxItems": 3
+}
+```
+
+### Search mode
+
+```json
+{
+  "mode": "search",
+  "searchQueries": ["Hades II", "Baldur's Gate 3"],
+  "maxResultsPerQuery": 3,
+  "maxItems": 5,
+  "appType": "game"
+}
+```
+
+### Chart browsing
+
+```json
+{
+  "mode": "browse",
+  "browseCategory": "newReleases",
+  "maxItems": 20,
+  "country": "us"
+}
+```
+
+## Backward compatibility
+
+Existing tasks keep working. `startUrls` remains the native URL list; legacy `urls` and `appId` are mapped to their modern modes, and `gameNames` is mapped to name search. The old input keys are not shown in the form because the current form has clearer mode-based fields.
+
+## Practical notes
+
+- Prices are returned exactly as the chosen storefront reports them. Changing `country` changes both the currency and the available packages.
+- `releaseDateIso` is built from Steam's release timestamp, so it stays consistent when you change `country` or `language`; the localized `releaseDate` text is returned alongside it. Year-only and quarter-only dates get no fabricated day.
+- The review summary is a live snapshot. Counts move constantly on popular titles.
+- Screenshots and trailers are direct Steam CDN links. Some trailer formats are streaming manifests (HLS/DASH) rather than single files; `videoUrl` picks the best published link and the format-specific fields are also included.
+- DLC titles and links are read from the store page; `dlcAppIds` comes from the app-details feed. When both sources are present they are aligned by App ID.
+- Similar-game titles cost one extra small lookup per recommendation; turn `includeSimilarGames` off for large chart runs if you only need the App IDs.
+- No Steam account, cookie, API key or proxy configuration is needed.
 
 ## FAQ
 
-**Does this need a Steam account?**
-No. It reads the same public store pages and game details any visitor sees on steampowered.com.
+**Can I mix URLs, IDs and names in one run?**
+One mode runs per execution. Use URL or ID mode for exact titles, or search mode with several names; duplicates are removed automatically inside the chosen mode.
 
-**Does this work for free-to-play games?**
-Yes. Free games return `isFree: true` and their price fields as `0`.
+**Why is a price missing on a free game?**
+Free titles carry `isFree: true` and zero price fields instead of a paid price block. Steam does not publish a currency price for them.
 
-**Why does a field like `metacriticScore` or an award show as `0`, `""`, or an empty list?**
-Every record always contains the same fields. When a value doesn't apply to that game (no Metacritic review, no awards), it's returned as an empty value rather than omitted.
+**Why do some games have no Metacritic fields?**
+Steam only links Metacritic for games that have a matching review page. When the link is absent the fields are omitted.
 
-**What happens if I list the same game by both URL and name?**
-Games are deduplicated by Steam App ID, so it's only scraped and returned once.
+**Does this actor download the videos or screenshots?**
+No. It returns their CDN URLs so you can download only the media you need.
 
-**Why is `reviewScorePercent` a number from 1–9 instead of a percentage?**
-That's Steam's own rating scale, where 9 means "Overwhelmingly Positive" and 1 means "Overwhelmingly Negative". The `reviewScore` field gives the human-readable label for the same value.
-
-**How current is the pricing and review data?**
-Every run fetches live data at request time, so prices and review counts reflect what Steam shows right now.
-
-**Is this affiliated with Steam or Valve?**
-No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by Valve Corporation or Steam.
+**Is this affiliated with Valve or Steam?**
+No. This is an independent data tool and is not endorsed by or affiliated with Valve Corporation.

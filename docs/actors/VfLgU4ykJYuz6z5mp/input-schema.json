@@ -1,57 +1,273 @@
 {
-  "description": "Search for business listings on Bing Maps.",
+  "description": "Find local businesses on Bing Maps by keyword and place, by coordinates and radius, or by exact place ID or link. Optionally add weekly hours, description, amenities, reviews and photos.",
   "properties": {
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch each place's detail panel for weekly hours, description, amenities, reviews, rating breakdown, photos, menu and booking links. Slower because it adds one request per business.",
+      "prefill": false,
+      "sectionCaption": "Details",
+      "title": "Include Detail Fields",
+      "type": "boolean"
+    },
     "latitude": {
-      "description": "Latitude for 'nearbySearch' mode. E.g. 47.6062 for Seattle.",
+      "description": "Centre latitude for nearby search, e.g. 51.5074 for London.",
       "editor": "number",
+      "maximum": 90,
+      "minimum": -90,
+      "sectionCaption": "Nearby Search",
       "title": "Latitude",
       "type": "number"
     },
-    "location": {
-      "default": "London",
-      "description": "City, area, or address to search in. E.g. 'London', 'Manhattan, New York', 'Paris, France'.",
-      "editor": "textfield",
-      "prefill": "London",
-      "title": "Location",
-      "type": "string"
+    "locations": {
+      "default": [],
+      "description": "Cities, areas or full addresses to search in, e.g. 'London', 'Manhattan, New York', 'Paris, France'.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "London"
+      ],
+      "title": "Locations",
+      "type": "array"
     },
     "longitude": {
-      "description": "Longitude for 'nearbySearch' mode. E.g. -122.3321 for Seattle.",
+      "description": "Centre longitude for nearby search, e.g. -0.1278 for London.",
       "editor": "number",
+      "maximum": 180,
+      "minimum": -180,
       "title": "Longitude",
       "type": "number"
     },
+    "market": {
+      "default": "en-US",
+      "description": "Bing market (language and region) used for results, addresses and hours.",
+      "editor": "select",
+      "enum": [
+        "ar-SA",
+        "bg-BG",
+        "ca-ES",
+        "cs-CZ",
+        "da-DK",
+        "de-AT",
+        "de-CH",
+        "de-DE",
+        "el-GR",
+        "en-AU",
+        "en-CA",
+        "en-GB",
+        "en-IE",
+        "en-IN",
+        "en-MY",
+        "en-NZ",
+        "en-PH",
+        "en-SG",
+        "en-US",
+        "en-ZA",
+        "es-AR",
+        "es-CL",
+        "es-CO",
+        "es-ES",
+        "es-MX",
+        "es-PE",
+        "es-US",
+        "es-VE",
+        "et-EE",
+        "eu-ES",
+        "fi-FI",
+        "fr-BE",
+        "fr-CA",
+        "fr-CH",
+        "fr-FR",
+        "gl-ES",
+        "he-IL",
+        "hi-IN",
+        "hr-HR",
+        "hu-HU",
+        "id-ID",
+        "is-IS",
+        "it-IT",
+        "ja-JP",
+        "ko-KR",
+        "lt-LT",
+        "lv-LV",
+        "ms-MY",
+        "nb-NO",
+        "nl-BE",
+        "nl-NL",
+        "pl-PL",
+        "pt-BR",
+        "pt-PT",
+        "ro-RO",
+        "ru-RU",
+        "sk-SK",
+        "sl-SI",
+        "sr-Latn-RS",
+        "sv-SE",
+        "th-TH",
+        "tr-TR",
+        "uk-UA",
+        "vi-VN",
+        "zh-CN",
+        "zh-HK",
+        "zh-TW"
+      ],
+      "enumTitles": [
+        "Arabic (Saudi Arabia)",
+        "Bulgarian (Bulgaria)",
+        "Catalan (Spain)",
+        "Czech (Czechia)",
+        "Danish (Denmark)",
+        "German (Austria)",
+        "German (Switzerland)",
+        "German (Germany)",
+        "Greek (Greece)",
+        "English (Australia)",
+        "English (Canada)",
+        "English (United Kingdom)",
+        "English (Ireland)",
+        "English (India)",
+        "English (Malaysia)",
+        "English (New Zealand)",
+        "English (Philippines)",
+        "English (Singapore)",
+        "English (United States)",
+        "English (South Africa)",
+        "Spanish (Argentina)",
+        "Spanish (Chile)",
+        "Spanish (Colombia)",
+        "Spanish (Spain)",
+        "Spanish (Mexico)",
+        "Spanish (Peru)",
+        "Spanish (United States)",
+        "Spanish (Venezuela)",
+        "Estonian (Estonia)",
+        "Basque (Spain)",
+        "Finnish (Finland)",
+        "French (Belgium)",
+        "French (Canada)",
+        "French (Switzerland)",
+        "French (France)",
+        "Galician (Spain)",
+        "Hebrew (Israel)",
+        "Hindi (India)",
+        "Croatian (Croatia)",
+        "Hungarian (Hungary)",
+        "Indonesian (Indonesia)",
+        "Icelandic (Iceland)",
+        "Italian (Italy)",
+        "Japanese (Japan)",
+        "Korean (Korea)",
+        "Lithuanian (Lithuania)",
+        "Latvian (Latvia)",
+        "Malay (Malaysia)",
+        "Norwegian (Norway)",
+        "Dutch (Belgium)",
+        "Dutch (Netherlands)",
+        "Polish (Poland)",
+        "Portuguese (Brazil)",
+        "Portuguese (Portugal)",
+        "Romanian (Romania)",
+        "Russian (Russia)",
+        "Slovak (Slovakia)",
+        "Slovenian (Slovenia)",
+        "Serbian (Latin, Serbia)",
+        "Swedish (Sweden)",
+        "Thai (Thailand)",
+        "Turkish (Türkiye)",
+        "Ukrainian (Ukraine)",
+        "Vietnamese (Vietnam)",
+        "Chinese (Simplified, China)",
+        "Chinese (Traditional, Hong Kong)",
+        "Chinese (Traditional, Taiwan)"
+      ],
+      "prefill": "en-US",
+      "title": "Market",
+      "type": "string"
+    },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of business listings to return. Min 1, max 200.",
+      "description": "Maximum number of businesses to save across all queries and locations.",
       "editor": "number",
-      "maximum": 200,
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 10,
+      "prefill": 3,
+      "sectionCaption": "Output",
       "title": "Max Items",
       "type": "integer"
     },
+    "maxReviews": {
+      "default": 3,
+      "description": "How many recent reviews to include when detail fields are enabled. Set 0 for none.",
+      "editor": "number",
+      "maximum": 20,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max Reviews per Business",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": "0",
+      "description": "Only keep businesses at or above this rating. Businesses with no rating are left out when a minimum is set.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "2",
+        "3",
+        "4",
+        "4.5"
+      ],
+      "enumTitles": [
+        "Any rating",
+        "2+ stars",
+        "3+ stars",
+        "4+ stars",
+        "4.5+ stars"
+      ],
+      "prefill": "0",
+      "title": "Minimum Rating",
+      "type": "string"
+    },
     "mode": {
       "default": "search",
-      "description": "Scraping mode. 'search' finds businesses matching a query. 'nearbySearch' finds businesses near a specific location.",
+      "description": "Choose how to find businesses: by keyword and place, around a point, or by exact place IDs/links.",
       "editor": "select",
       "enum": [
         "search",
-        "nearbySearch"
+        "nearbySearch",
+        "placeDetails"
       ],
       "enumTitles": [
-        "Search by query + location",
-        "Nearby search"
+        "Search by keyword and location",
+        "Nearby search by coordinates",
+        "Place details by ID or URL"
       ],
       "prefill": "search",
+      "sectionCaption": "Search",
       "title": "Mode",
       "type": "string"
+    },
+    "openNow": {
+      "default": false,
+      "description": "Keep only businesses Bing marks as open at the time of the run.",
+      "prefill": false,
+      "title": "Open Now Only",
+      "type": "boolean"
+    },
+    "placeIds": {
+      "description": "Used by 'Place details by ID or URL'. Paste Bing place IDs (ypid:...) or full Bing Maps links that contain a place ID or a place name.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Place IDs or Bing Maps URLs",
+      "type": "array"
     },
     "proxyConfiguration": {
       "default": {
         "useApifyProxy": true
       },
-      "description": "Proxy settings. Recommended: use Apify Proxy AUTO group to avoid blocks.",
+      "description": "Optional proxy. Apify Proxy AUTO is enabled by default to reduce the chance of rate limiting on large runs.",
       "editor": "proxy",
       "prefill": {
         "useApifyProxy": true
@@ -61,7 +277,7 @@
     },
     "radius": {
       "default": 1000,
-      "description": "Radius in metres for 'nearbySearch' mode. Min 100m, max 50000m.",
+      "description": "How far around the centre point to search, in metres.",
       "editor": "number",
       "maximum": 50000,
       "minimum": 100,
@@ -69,17 +285,22 @@
       "title": "Search Radius (metres)",
       "type": "integer"
     },
-    "searchQuery": {
-      "default": "coffee shops",
-      "description": "What to search for. E.g. 'coffee shops', 'pizza restaurant', 'dentist'.",
-      "editor": "textfield",
-      "prefill": "coffee shops",
-      "title": "Search Query",
-      "type": "string"
+    "searchQueries": {
+      "default": [],
+      "description": "One or more business searches, e.g. 'coffee shops', 'dentist', 'hotel'. Each query is combined with every location.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "coffee shops"
+      ],
+      "title": "Search Queries",
+      "type": "array"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Bing Maps Business Listings Scraper Input",
+  "title": "Bing Maps Local Business Finder Input",
   "type": "object"
 }

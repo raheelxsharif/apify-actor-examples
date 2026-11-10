@@ -1,60 +1,87 @@
 # Medium Article Discovery & Metadata Extractor
 
-Medium hosts millions of posts across personal blogs and curated publications, but there's no single page that lists them all with structured metadata. This actor pulls Medium articles by tag, author, publication, keyword search, or a single article URL, and returns each one as a clean record — title, author, tags, reading time, publish date and paywall status — without logging in.
+Medium is full of useful writing, but browsing it by hand makes it hard to compare coverage across topics, authors and publications. This actor turns five common discovery paths — tag browsing, author feeds, publication feeds, keyword search and direct article URLs — into one consistent article dataset you can sort, filter and join with your own tools.
 
-## What this actor does
+Every record describes a single article: who wrote it, where it was published, when it went live, how long it takes to read, how much engagement it has, whether it sits behind Medium's member paywall, and which topics and tags it carries.
 
-- Fetches the latest articles for a topic/tag, a specific Medium username, or a publication slug
-- Searches Medium by keyword across articles
-- Looks up a single article directly by its URL
-- Filters results by publish date, a title/preview keyword match, and paywall status
-- Empty fields are omitted from records — a field only appears when Medium exposes that data for the article
+## Discovery modes
 
-## Output per article
+| Mode | What it collects | Best for |
+|---|---|---|
+| `byTag` | Articles tagged with a topic, newest first or by top stories from the week/month/year | Trend tracking and editorial research |
+| `byUser` | An author's articles, including posts distributed to publications | Monitoring a writer's output |
+| `byPublication` | Articles published under a publication | Following a publication's latest work |
+| `search` | Articles matching a keyword query | Broad topic discovery |
+| `byUrl` | Metadata for one or more article URLs | Enriching a list of links you already have |
 
-- `articleId` — Medium's internal article identifier
-- `title` — article title
-- `previewText` — first ~300 characters of the article's preview/description
-- `authorName` — author's display name
-- `authorUsername` — Medium username (without `@`)
-- `publicationName`, `publicationSlug` — publication name and slug, when the article is published under one
-- `publishedDate` — ISO-8601 publish date
-- `tags` — article tags/categories
-- `readingTimeMinutes` — estimated reading time
-- `articleUrl` — full article URL
-- `canonicalUrl` — canonical URL, when different from `articleUrl`
-- `isPaywalled` — `true` when the article is member-only
-- `recordType` — always `article`
-- `siteName` — always `Medium`
-- `scrapedAt` — ISO-8601 scrape timestamp
+Tag, author, publication and search modes walk the source's pagination until `maxItems` is reached or the source runs out, so a run can return thousands of records rather than a single page.
 
-## Input
+## Output fields
 
-| Field | Type | Default | Description |
+| Field | Description |
+|---|---|
+| `articleId` | Medium's short article identifier |
+| `title` | Article headline |
+| `subtitle` | Article subtitle or standfirst, when present |
+| `previewText` | Subtitle or search-style preview text, capped at 300 characters |
+| `authorName` | Author display name |
+| `authorUsername` | Medium handle without `@` |
+| `authorBio` | Author bio, when the profile has one |
+| `authorImageUrl` | Author avatar URL |
+| `authorUrl` | Author profile URL |
+| `publicationName` | Publication name, when the article belongs to one |
+| `publicationSlug` | Publication slug |
+| `publicationDomain` | Custom publication domain, when one is used |
+| `publicationUrl` | Publication home URL |
+| `publishedDate` | First publish time, ISO-8601 UTC |
+| `updatedDate` | Latest update time, when it differs from `publishedDate` |
+| `tags` | Article tag names |
+| `topics` | Medium topic names attached to the article |
+| `readingTimeMinutes` | Estimated reading time in whole minutes |
+| `wordCount` | Article word count |
+| `language` | Detected language code |
+| `clapCount` | Clap count reported by Medium |
+| `responseCount` | Number of responses on the article |
+| `isPaywalled` | `true` when the article is member-only |
+| `isSeries` | Present and `true` when the article belongs to a series |
+| `articleUrl` | Canonical article URL from Medium |
+| `canonicalUrl` | Canonical URL when it differs from `articleUrl` |
+| `imageUrl` | Article preview image URL |
+| `recordType` | Always `article` |
+| `siteName` | Always `Medium` |
+| `scrapedAt` | When the record was collected, ISO-8601 UTC |
+
+Empty fields are omitted rather than written as `null`. A field appears only when Medium exposes that value for the article.
+
+## Input fields
+
+| Field | Type | Default | Used by |
 |---|---|---|---|
-| `mode` | string | `byTag` | `byTag`, `byUser`, `byPublication`, `search`, or `byUrl` |
-| `tag` | string | `programming` | Tag/topic slug for `byTag` mode — pick from the dropdown or type a custom slug |
-| `username` | string | – | Medium username, without `@`, for `byUser` mode |
-| `publication` | string | – | Publication slug as it appears in the URL, for `byPublication` mode |
-| `query` | string | `artificial intelligence` | Search keywords, for `search` mode |
-| `articleUrl` | string | – | Full Medium article URL, for `byUrl` mode |
-| `fromDate` | string | – | Only include articles published on or after this ISO-8601 date |
-| `containsKeyword` | string | – | Only include articles whose title or preview text contains this keyword (case-insensitive) |
-| `excludePaywalled` | boolean | `false` | Skip articles that appear to be member-only |
-| `maxItems` | integer | `5` | Maximum number of articles to return (1–1000) |
+| `mode` | select | `byTag` | All modes |
+| `tag` | select | `programming` | `byTag` |
+| `customTag` | text | – | `byTag` (overrides `tag`) |
+| `sortBy` | select | `new` | `byTag` |
+| `username` | text | – | `byUser` |
+| `publication` | text | – | `byPublication` |
+| `query` | text | `artificial intelligence` | `search` |
+| `articleUrl` | text | – | `byUrl` |
+| `fromDate` | text | – | All modes |
+| `containsKeyword` | text | – | All modes |
+| `excludePaywalled` | boolean | `false` | All modes |
+| `maxItems` | integer | `5` | All modes |
 
-### Example: latest Python articles, free only
+### Example: newest Python articles
 
 ```json
 {
   "mode": "byTag",
   "tag": "python",
-  "excludePaywalled": true,
+  "sortBy": "new",
   "maxItems": 25
 }
 ```
 
-### Example: everything a specific author has published
+### Example: an author's recent work
 
 ```json
 {
@@ -64,37 +91,62 @@ Medium hosts millions of posts across personal blogs and curated publications, b
 }
 ```
 
-### Example: keyword search filtered by date
+### Example: a publication's archive
+
+```json
+{
+  "mode": "byPublication",
+  "publication": "better-programming",
+  "maxItems": 100
+}
+```
+
+### Example: keyword search with a date cut-off
 
 ```json
 {
   "mode": "search",
-  "query": "artificial intelligence",
+  "query": "large language models",
   "fromDate": "2025-01-01",
-  "maxItems": 30
+  "excludePaywalled": true,
+  "maxItems": 40
 }
 ```
 
-## Use cases
+### Example: enrich links you already have
 
-- **Content research** — pull recent articles on a topic to see what angles other writers are covering
-- **Author monitoring** — track a specific Medium writer's new posts as they publish
-- **Publication tracking** — watch a Medium publication for new submissions
-- **Newsletter curation** — gather tagged articles matching a keyword for a weekly roundup
-- **Paywall-aware sourcing** — filter out member-only posts when you only want fully public content
+```json
+{
+  "mode": "byUrl",
+  "articleUrl": "https://medium.com/@author/example-article-abc123def456\nhttps://medium.com/p/abcdef123456",
+  "maxItems": 10
+}
+```
+
+## What you can do with it
+
+- Build a topic monitoring sheet that shows which authors and publications are covering a subject each week.
+- Compare top and newest stories for a tag to separate evergreen hits from fresh coverage.
+- Filter out member-only posts before sending articles to a newsletter or internal digest.
+- Enrich a list of saved links with author, publication, date, engagement and topic metadata.
+- Track an author's or publication's output over time with scheduled runs.
 
 ## FAQ
 
-**Does this extract paywalled article content?** No. Only publicly available metadata (title, author, tags, preview text) is collected. Full text of member-only posts is never fetched; `isPaywalled` tells you which records are behind Medium's paywall.
+**Do I need a Medium account or cookies?** No. The actor reads publicly available article metadata without logging in.
 
-**Do I need a Medium account?** No — no login, cookies or API key are required.
+**Do I need to configure a proxy?** No. The actor picks a working connection automatically, so you never supply proxy settings, cookies or an API key.
 
-**How many articles come back per tag or author?** This depends on how many articles Medium's public feeds expose for that tag, user or publication; `maxItems` is a cap, not a guarantee of that many results.
+**Can I get the full article text?** This actor focuses on discovery and metadata. It returns titles, previews, author and publication details and engagement metrics, not the article body.
 
-**Why does `search` mode sometimes return fewer results than a tag or author lookup?** Medium doesn't expose a full paginated search API publicly, so search results are necessarily more limited than browsing a specific tag, user or publication feed.
+**How far back can it go?** It follows the source's own pagination until `maxItems` is reached or the source runs out. Very large requests can span many pages, so raise `maxItems` deliberately.
 
-**What's the difference between `articleUrl` and `canonicalUrl`?** `articleUrl` is the URL that was fetched or discovered. `canonicalUrl` only appears when Medium's own page metadata declares a different canonical URL for the same content (for example, a publication re-publishing a personal post).
+**Why are some fields missing on some records?** Medium does not expose every field for every article. A personal post may have no publication, an older post may have no subtitle, and some articles have no tags. Missing values are omitted instead of filled with placeholders.
 
-**Can I combine the date filter with keyword matching?** Yes — `fromDate` and `containsKeyword` can both be set together with any mode to narrow results further.
+**How are paywalled articles handled?** `isPaywalled` marks member-only articles, and `excludePaywalled` removes them. Only public metadata is collected; the actor never tries to read member-only body content.
 
-**Is this affiliated with Medium?** No. This is an independent, third-party actor that reads Medium's publicly available article metadata; it is not operated by or affiliated with Medium.com.
+**What counts as an article URL?** Standard Medium links, `medium.com/p/...` short links, and articles hosted on a custom Medium domain such as a publication's own website.
+
+**Can I combine filters?** Yes. `fromDate`, `containsKeyword` and `excludePaywalled` work together in every mode.
+
+**Is this affiliated with Medium?** No. This is an independent third-party actor that reads publicly available article metadata. It is not operated by or affiliated with Medium.

@@ -1,43 +1,49 @@
 {
-  "description": "Scrape Medium articles by tag, user, publication, search, or direct URL.",
+  "description": "Find Medium articles by tag, author, publication, keyword search, or direct URL.",
   "properties": {
     "articleUrl": {
-      "description": "Full URL of a single Medium article (e.g. `https://medium.com/@username/article-title-abc123`).",
-      "editor": "textfield",
-      "title": "Article URL (mode=byUrl)",
+      "description": "One or more article URLs, separated by new lines or commas. Medium URLs, custom-domain Medium articles, and `medium.com/p/...` links are accepted.",
+      "editor": "textarea",
+      "title": "Article URLs",
       "type": "string"
     },
     "containsKeyword": {
-      "description": "Only include articles whose title or preview text contains this keyword (case-insensitive).",
+      "description": "Only keep articles whose title or preview text contains this keyword (case-insensitive).",
       "editor": "textfield",
-      "title": "Contains Keyword",
+      "title": "Title/preview contains",
+      "type": "string"
+    },
+    "customTag": {
+      "description": "Use any Medium tag slug that is not in the list above. When set, it overrides the Tag selection.",
+      "editor": "textfield",
+      "title": "Custom tag slug (optional)",
       "type": "string"
     },
     "excludePaywalled": {
       "default": false,
-      "description": "If true, skip articles that appear to be member-only (paywalled).",
+      "description": "When enabled, member-only (paywalled) articles are skipped.",
       "prefill": false,
-      "title": "Exclude Paywalled Articles",
+      "title": "Exclude member-only articles",
       "type": "boolean"
     },
     "fromDate": {
-      "description": "Only include articles published on or after this date (e.g. `2024-01-01`). Applied after fetching.",
+      "description": "Only keep articles published on or after this ISO date (for example `2025-01-01`).",
       "editor": "textfield",
-      "title": "Published After (ISO-8601 date)",
+      "title": "Published on or after",
       "type": "string"
     },
     "maxItems": {
       "default": 5,
-      "description": "Maximum number of articles to return.",
-      "maximum": 1000,
+      "description": "Maximum number of article records to save. Pagination stops when this number is reached or the source runs out.",
+      "maximum": 5000,
       "minimum": 1,
       "prefill": 5,
-      "title": "Max Items",
+      "title": "Maximum articles",
       "type": "integer"
     },
     "mode": {
       "default": "byTag",
-      "description": "What to scrape from Medium.",
+      "description": "Choose how to find articles: browse a tag, list an author's posts, list a publication's posts, search by keyword, or look up article URLs.",
       "editor": "select",
       "enum": [
         "byTag",
@@ -47,86 +53,128 @@
         "byUrl"
       ],
       "enumTitles": [
-        "By Tag/Topic — articles tagged with a specific topic",
-        "By User — articles by a Medium username",
-        "By Publication — articles from a Medium publication",
-        "Search — search Medium articles by keyword",
-        "By URL — single article metadata from a Medium URL"
+        "Browse a tag",
+        "List an author's articles",
+        "List a publication's articles",
+        "Search articles by keyword",
+        "Look up article URLs"
       ],
       "prefill": "byTag",
-      "title": "Mode",
+      "title": "Discovery mode",
       "type": "string"
     },
     "publication": {
-      "description": "Medium publication slug as it appears in the URL (e.g. `better-programming`, `towards-data-science`).",
+      "description": "Publication slug as it appears in the URL (for example `towards-data-science`) or a full publication URL. Used by the publication mode.",
       "editor": "textfield",
-      "title": "Publication Slug (mode=byPublication)",
+      "title": "Publication slug or URL",
       "type": "string"
     },
     "query": {
       "default": "artificial intelligence",
-      "description": "Keywords to search for on Medium.",
+      "description": "Keywords to search for across Medium articles. Used by the search mode.",
       "editor": "textfield",
       "prefill": "artificial intelligence",
-      "title": "Search Query (mode=search)",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "new",
+      "description": "Order for tag browsing: newest first, or the most-clapped stories from the past week, month, or year.",
+      "editor": "select",
+      "enum": [
+        "new",
+        "topWeek",
+        "topMonth",
+        "topYear"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Top stories this week",
+        "Top stories this month",
+        "Top stories this year"
+      ],
+      "prefill": "new",
+      "title": "Tag order",
       "type": "string"
     },
     "tag": {
       "default": "programming",
-      "description": "Tag slug to fetch articles for. Choose from the dropdown or type a custom slug (e.g. `python`, `startups`, `ux`).",
+      "description": "Tag to browse. Pick a common topic or use the matching value in the dropdown; the latest or most-clapped stories for that tag are collected.",
       "editor": "select",
       "enum": [
         "programming",
+        "python",
+        "javascript",
+        "typescript",
+        "react",
+        "nodejs",
+        "java",
+        "golang",
+        "rust",
+        "devops",
+        "cybersecurity",
         "data-science",
         "machine-learning",
         "artificial-intelligence",
-        "python",
-        "javascript",
+        "ai",
+        "technology",
         "startup",
         "entrepreneurship",
         "productivity",
         "design",
-        "health",
-        "finance",
-        "technology",
+        "marketing",
         "writing",
         "science",
         "self-improvement",
         "business",
+        "finance",
+        "crypto",
+        "health",
         "education",
         "travel",
         "food"
       ],
       "enumTitles": [
         "Programming",
+        "Python",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Node.js",
+        "Java",
+        "Go",
+        "Rust",
+        "DevOps",
+        "Cybersecurity",
         "Data Science",
         "Machine Learning",
         "Artificial Intelligence",
-        "Python",
-        "JavaScript",
+        "AI",
+        "Technology",
         "Startup",
         "Entrepreneurship",
         "Productivity",
         "Design",
-        "Health",
-        "Finance",
-        "Technology",
+        "Marketing",
         "Writing",
         "Science",
         "Self-Improvement",
         "Business",
+        "Finance",
+        "Crypto",
+        "Health",
         "Education",
         "Travel",
         "Food"
       ],
       "prefill": "programming",
-      "title": "Tag / Topic (mode=byTag)",
+      "title": "Tag",
       "type": "string"
     },
     "username": {
-      "description": "Medium username without the @ symbol (e.g. `towardsdatascience`).",
+      "description": "Medium username (for example `towardsdatascience`) or a profile URL such as `https://medium.com/@towardsdatascience`. Used by the author mode.",
       "editor": "textfield",
-      "title": "Medium Username (mode=byUser)",
+      "title": "Author username or profile URL",
       "type": "string"
     }
   },
@@ -134,6 +182,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Medium Article Scraper Input",
+  "title": "Medium Article Discovery & Metadata Input",
   "type": "object"
 }

@@ -1,6 +1,23 @@
 {
   "actorSpecification": 1,
   "views": {
+    "fullDetails": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Business details",
+      "transformation": {
+        "fields": [
+          "name",
+          "description",
+          "hours",
+          "attributes",
+          "reviews",
+          "photos"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
@@ -16,6 +33,7 @@
           "rating",
           "reviewCount",
           "website",
+          "openStatus",
           "url"
         ]
       }

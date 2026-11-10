@@ -4,104 +4,129 @@
 
 # Bing Maps Local Business Finder
 
-Pull local business listings straight from Bing Maps — restaurants, shops, services, hotels, anything Bing's own map search returns for a keyword and place, or for an exact point and radius. Each listing comes back with contact details, rating, and coordinates so you can build a lead list or a local-market dataset without opening Bing Maps by hand.
+Build a clean list of local businesses from Bing Maps without opening a browser or signing in. Search by keyword and place, sweep a precise radius around a latitude/longitude, or look up exact places by ID or link. Every record carries the contact details Bing publishes, plus coordinates, rating and category. Turn on detail fields when you also need weekly hours, a description, amenities, recent reviews, rating breakdown and photos.
 
-## What this actor does
+Bing retired its Local Search REST API in August 2025, so this actor reads the same public listing and detail panels that Bing Maps serves to visitors. No API key, Bing account or cookie is needed.
 
-- **Keyword + location search** — e.g. "coffee shops" in "London"
-- **Nearby search** — a fixed latitude/longitude with a radius in metres, for scanning a precise area instead of a named place
-- **Pagination** — keeps collecting listings across result pages until `maxItems` is reached
-- **Contact and location data** — address, phone, website, coordinates, rating, and review count per listing
-- **Empty fields are omitted** — a listing without a published phone number or rating simply has no `phone`/`rating` field
+## Ways to search
 
-## Output per business
+- **Keyword + location** — `coffee shops` in `London`, `dentist` in `Manhattan, New York`, any category and place Bing recognises. Supply several queries and several locations in one run and they are combined into a queue.
+- **Nearby radius** — centre on a latitude/longitude and set a radius in metres. Useful when you care about a point (a store, a venue, a neighbourhood centroid) rather than a city name.
+- **Place details** — paste Bing place IDs (`ypid:...`) or full Bing Maps links and the actor returns those exact businesses, with the detail panel included.
+- **Optional detail enrichment** — enable it for keyword or nearby searches to add one detail request per business.
 
-- `listingId` — Bing's internal listing identifier for the place
-- `name` — business name
-- `category` — business category (e.g. "Coffee Shop")
-- `address` — full street address
-- `phone` — phone number, when published
-- `website` — business website, when published
-- `rating` — average rating (0–5), when Bing shows one
-- `reviewCount` — number of reviews behind that rating
-- `ratingSource` — the review source Bing attributes the rating to, when shown
-- `lat`, `lon` — coordinates
-- `openStatus` — Bing's current open/closed status label, when shown
-- `openHours` — Bing's raw hours text, when shown
-- `thumbnailUrl` — business photo URL, when available
-- `recordType` — always `business`
-- `scrapedAt` — when the listing was fetched
+Results are read page by page, deduplicated by listing ID, and stop when `maxItems` is reached or Bing stops returning new places. `rank` records where each business first appeared for its query, and `query`/`location`/`market` keep the provenance.
+
+## What each record contains
+
+Listing fields (always when Bing publishes them):
+
+`listingId`, `placeId`, `name`, `category`, `categoryPath`, `address`, `phone`, `website`, `chainId`, `rating`, `reviewCount`, `ratingSource`, `lat`, `lon`, `openStatus`, `openHours`, `thumbnailUrl`, `url`, `rank`, `query`, `location`, `market`, `recordType`, `scrapedAt`.
+
+Detail fields (when `includeDetails` is on):
+
+- `hours` — Monday–Sunday rows, each `{ "day": "Monday", "hours": "7 am - 4 am" }`
+- `description` — the business description shown in Bing's detail panel
+- `attributes` — amenities and service labels such as "Outdoor seating" or "Free Wi-Fi"
+- `reviews` — up to `maxReviews` recent reviews, each with author, rating, ISO date, text, source and original review link
+- `ratingDistribution` — star buckets with count and percentage
+- `photos` — Bing-hosted business photos
+- `detailsFetched` — `true` when the detail panel was read
+
+Fields Bing does not publish for a business are omitted, not sent as `null` or empty strings.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (keyword + location) or `nearbySearch` (lat/lon + radius) |
-| `searchQuery` | string | `coffee shops` | What to search for, used in `search` mode |
-| `location` | string | `London` | City, area, or address to search in, used in `search` mode |
-| `maxItems` | integer | `20` | Maximum number of business listings to return (1–200) |
-| `latitude` | number | – | Latitude for `nearbySearch` mode |
-| `longitude` | number | – | Longitude for `nearbySearch` mode |
-| `radius` | integer | `1000` | Search radius in metres for `nearbySearch` mode (100–50000) |
-| `proxyConfiguration` | object | `{"useApifyProxy": true}` | Apify Proxy configuration |
+| `mode` | select | `search` | `search`, `nearbySearch` or `placeDetails` |
+| `searchQueries` | string list | `[]` | One or more business searches; falls back to `coffee shops` when empty |
+| `locations` | string list | `[]` | One or more cities, areas or addresses; falls back to `London` when empty |
+| `placeIds` | string list | – | Place IDs or Bing Maps links for `placeDetails` |
+| `latitude`, `longitude` | number | – | Centre point for `nearbySearch` |
+| `radius` | integer | `1000` | Radius in metres (100–50000) for `nearbySearch` |
+| `maxItems` | integer | `20` | Maximum records across the whole run (1–1000) |
+| `market` | select | `en-US` | Bing language/region market |
+| `minRating` | select | `0` | Keep only businesses at or above this rating |
+| `openNow` | boolean | `false` | Keep only businesses Bing marks open now |
+| `includeDetails` | boolean | `false` | Add hours, description, amenities, reviews and photos |
+| `maxReviews` | integer | `3` | Reviews per business when details are on (0–20) |
+| `proxyConfiguration` | proxy | Apify Proxy AUTO | Optional proxy settings |
 
-### Example: search by keyword and city
+### Examples
+
+Keyword and city:
 
 ```json
 {
   "mode": "search",
-  "searchQuery": "coffee shops",
-  "location": "London",
-  "maxItems": 20
+  "searchQueries": ["coffee shops", "bakery"],
+  "locations": ["London", "Manchester"],
+  "maxItems": 40,
+  "includeDetails": true,
+  "maxReviews": 3
 }
 ```
 
-### Example: search around a precise point
+Nearby radius:
 
 ```json
 {
   "mode": "nearbySearch",
-  "latitude": 47.6062,
-  "longitude": -122.3321,
+  "searchQueries": ["restaurant"],
+  "latitude": 51.5074,
+  "longitude": -0.1278,
   "radius": 2000,
-  "maxItems": 30
+  "maxItems": 25
 }
 ```
 
-### Example: broader category search in another city
+Exact places:
 
 ```json
 {
-  "mode": "search",
-  "searchQuery": "dentist",
-  "location": "Manhattan, New York",
-  "maxItems": 50
+  "mode": "placeDetails",
+  "placeIds": [
+    "ypid:YNA290932D99230C7A",
+    "https://www.bing.com/maps/search?q=coffee+shops+London&secq=Bar+Italia&sece=ypid%3AYNA290932D99230C7A"
+  ],
+  "includeDetails": true,
+  "maxReviews": 5
 }
 ```
 
 ## Use cases
 
-- **Local lead generation** — build a contact list of businesses in a category and city
-- **Market coverage checks** — see which businesses Bing Maps surfaces around a specific point, independent of Google's listing set
-- **Competitive scans** — compare review counts and ratings across businesses in the same category
-- **Directory enrichment** — fill in address, phone, and website fields for an existing business list
+- Local lead generation with phone, website and address
+- Comparing Bing's local coverage with another maps index
+- Tracking rating and review-count changes over scheduled runs
+- Enriching a CRM or directory with hours, amenities and coordinates
+- Finding the businesses around a specific venue or site
+
+## Limits and data notes
+
+- Bing returns at most about 60 unique listings for one query and viewport; later pages repeat them. The actor deduplicates and stops at that source limit. Split by narrower categories or locations to go deeper.
+- `minRating` and `openNow` are applied after fetching because Bing's direct listing endpoint does not accept them without a signed page session. A very restrictive filter can scan the full result set and still return fewer rows than `maxItems`.
+- Detail fields depend on what Bing's providers publish for each business. Many listings have hours and reviews but no description or booking link.
+- Addresses are the provider's single-line address. Bing does not expose reliable locality/region/postal fields for every market, so the actor does not guess them.
+- Photo fields use Bing-hosted images so they stay reachable. Some listings have no photo.
 
 ## FAQ
 
-**Is this affiliated with Microsoft or Bing?**
-No. This is an independent, third-party actor that reads Bing Maps' public listing pages and is not affiliated with or endorsed by Microsoft.
-
 **Do I need a Bing account or API key?**
-No. Bing Maps search results used here are publicly accessible, with no login or key required.
+No. The actor reads public Bing Maps pages.
 
-**What's the difference between `search` and `nearbySearch`?**
-`search` matches a keyword against a named place (city, area, or address), the same as typing into Bing Maps' search box. `nearbySearch` instead scans a fixed radius around an exact latitude/longitude, useful when you already know the point you want to cover rather than a place name.
+**What is the difference between `search` and `nearbySearch`?**
+`search` combines a keyword with a named place. `nearbySearch` uses a precise point and radius, so it works even where there is no useful place name.
 
-**Why do some listings have no `rating` or `phone`?**
-Bing Maps only shows the fields a business listing actually has published. When a field isn't on the listing, the actor leaves it out rather than sending an empty value.
+**How do I get every business in a city?**
+Run several narrower queries (subcategories or neighbourhood names) because Bing caps a single query at about 60 unique places.
 
-**How many results can one run return?**
-Up to `maxItems`, capped at 200 per run. The actor pages through Bing's own result set to reach that number.
+**Why is `minRating` sometimes returning zero rows?**
+No business in the fetched result set matched the rating, or none had a published rating. Lower the threshold or broaden the query.
 
 **Should I use a proxy?**
-A proxy configuration is included by default to reduce the chance of rate limiting on larger runs; it isn't strictly required for small, occasional searches.
+Small runs usually work without one. Apify Proxy AUTO is the default to reduce rate limiting on larger runs; you can change it in the input.
+
+**Is this affiliated with Microsoft or Bing?**
+No. This is an independent third-party actor and is not endorsed by Microsoft.

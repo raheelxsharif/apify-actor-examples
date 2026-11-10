@@ -1,22 +1,41 @@
 {
   "actorSpecification": 1,
-  "fields": {},
   "views": {
     "overview": {
       "display": {
         "component": "table",
         "properties": {
+          "appId": {
+            "format": "text",
+            "label": "App ID"
+          },
+          "appType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "currency": {
+            "format": "text",
+            "label": "Currency"
+          },
           "developers": {
             "format": "text",
             "label": "Developer"
           },
+          "discountPercent": {
+            "format": "number",
+            "label": "Discount %"
+          },
           "dlcCount": {
             "format": "number",
-            "label": "DLC Count"
+            "label": "DLC"
           },
           "genres": {
             "format": "text",
             "label": "Genres"
+          },
+          "metacriticScore": {
+            "format": "number",
+            "label": "Metacritic"
           },
           "platforms": {
             "format": "text",
@@ -24,7 +43,7 @@
           },
           "priceFinal": {
             "format": "number",
-            "label": "Price (USD)"
+            "label": "Price"
           },
           "releaseDate": {
             "format": "text",
@@ -46,29 +65,29 @@
             "format": "text",
             "label": "Game"
           },
-          "totalAchievements": {
-            "format": "number",
-            "label": "Achievements"
-          },
           "totalReviews": {
             "format": "number",
-            "label": "Total Reviews"
+            "label": "Reviews"
           }
         }
       },
-      "title": "Overview",
+      "title": "Steam games",
       "transformation": {
         "fields": [
+          "appId",
           "title",
+          "appType",
           "releaseDate",
           "developers",
           "genres",
           "tags",
+          "currency",
           "priceFinal",
+          "discountPercent",
           "platforms",
           "reviewScore",
           "totalReviews",
-          "totalAchievements",
+          "metacriticScore",
           "dlcCount",
           "scrapedAt"
         ]
