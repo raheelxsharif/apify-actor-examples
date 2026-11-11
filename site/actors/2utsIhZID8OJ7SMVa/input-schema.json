@@ -1,0 +1,48 @@
+{
+  "properties": {
+    "country": {
+      "default": "us",
+      "description": "UberEats country context. Used to set the delivery location for the API request. Choose the country where the restaurants are located.",
+      "editor": "select",
+      "enum": [
+        "us",
+        "gb",
+        "au",
+        "ca"
+      ],
+      "enumTitles": [
+        "United States",
+        "United Kingdom",
+        "Australia",
+        "Canada"
+      ],
+      "title": "Country",
+      "type": "string"
+    },
+    "maxItemsPerRestaurant": {
+      "default": 200,
+      "description": "Maximum number of menu items to extract per restaurant. Set lower to reduce run time for large menus.",
+      "editor": "number",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Items Per Restaurant",
+      "type": "integer"
+    },
+    "restaurantUrls": {
+      "description": "List of UberEats restaurant page URLs to scrape. Each URL must be a valid https://www.ubereats.com/store/... URL. The store identifier is the last path segment (e.g. P21H_Lf3Se2wSmjGHfoFcQ).",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ"
+      ],
+      "title": "Restaurant URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "restaurantUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "UberEats Menu Scraper Input",
+  "type": "object"
+}

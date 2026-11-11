@@ -1,0 +1,395 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-Hurn7IvHTjKoLB0/aOcZ903XSTLePhEReKQP2hjHk88=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Uber Eats Restaurant Menu &amp; Price Extractor | Dataspryva</title><meta name="description" content="Pull full Uber Eats restaurant menus by store URL: rating, cuisines, delivery fee and ETA, plus every menu section and item with price, description and image."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/"><meta property="og:title" content="Uber Eats Restaurant Menu &amp; Price Extractor | Dataspryva"><meta property="og:description" content="Pull full Uber Eats restaurant menus by store URL: rating, cuisines, delivery fee and ETA, plus every menu section and item with price, description and image."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#webpage","name":"Uber Eats Restaurant Menu & Price Extractor","description":"Pull full Uber Eats restaurant menus by store URL: rating, cuisines, delivery fee and ETA, plus every menu section and item with price, description and image.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#article","headline":"Uber Eats Restaurant Menu & Price Extractor","name":"Uber Eats Restaurant Menu & Price Extractor","description":"Pull full Uber Eats restaurant menus by store URL: rating, cuisines, delivery fee and ETA, plus every menu section and item with price, description and image.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#webpage"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Uber Eats Restaurant Menu & Price Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/2utsIhZID8OJ7SMVa/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Uber Eats Restaurant Menu &amp; Price Extractor</span></div><section id="overview"><h1 class="doc-title">Uber Eats Restaurant Menu &amp; Price Extractor</h1><p class="lede">Pull full Uber Eats restaurant menus by store URL: rating, cuisines, delivery fee and ETA, plus every menu section and item with price, description and image.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/uber-eats-restaurant-menu-and-price-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/2utsIhZID8OJ7SMVa/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>restaurantUrls</code></td><td>array</td><td>required</td><td>List of UberEats restaurant page URLs to scrape. Each URL must be a valid https://www.ubereats.com/store/... URL. The store identifier is the last path segment (e.g. P21H_Lf3Se2wSmjGHfoFcQ).</td></tr><tr><td><code>maxItemsPerRestaurant</code></td><td>integer</td><td>optional</td><td>Maximum number of menu items to extract per restaurant. Set lower to reduce run time for large menus.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>UberEats country context. Used to set the delivery location for the API request. Choose the country where the restaurants are located.</td></tr></tbody></table></div><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;us&quot;,
+      &quot;description&quot;: &quot;UberEats country context. Used to set the delivery location for the API request. Choose the country where the restaurants are located.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;us&quot;,
+        &quot;gb&quot;,
+        &quot;au&quot;,
+        &quot;ca&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Australia&quot;,
+        &quot;Canada&quot;
+      ],
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItemsPerRestaurant&quot;: {
+      &quot;default&quot;: 200,
+      &quot;description&quot;: &quot;Maximum number of menu items to extract per restaurant. Set lower to reduce run time for large menus.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Max Items Per Restaurant&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;restaurantUrls&quot;: {
+      &quot;description&quot;: &quot;List of UberEats restaurant page URLs to scrape. Each URL must be a valid https://www.ubereats.com/store/... URL. The store identifier is the last path segment (e.g. P21H_Lf3Se2wSmjGHfoFcQ).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ&quot;
+      ],
+      &quot;title&quot;: &quot;Restaurant URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;restaurantUrls&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;UberEats Menu Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>menus</code></td><td>string</td><td>optional</td><td>Dataset of scraped UberEats restaurant menus</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Uber Eats restaurant records with rating, delivery details, and full nested menu sections with item prices.&quot;,
+  &quot;properties&quot;: {
+    &quot;menus&quot;: {
+      &quot;description&quot;: &quot;Dataset of scraped UberEats restaurant menus&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;UberEats Menus&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Uber Eats Restaurant Menu &amp; Price Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;address&quot;: {
+        &quot;description&quot;: &quot;Street address&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;city&quot;: {
+        &quot;description&quot;: &quot;City&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;cuisines&quot;: {
+        &quot;description&quot;: &quot;Cuisine category tags&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;deliveryFee&quot;: {
+        &quot;description&quot;: &quot;Delivery fee as displayed&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;estimatedDeliveryTime&quot;: {
+        &quot;description&quot;: &quot;ETA as displayed&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;heroImageUrl&quot;: {
+        &quot;description&quot;: &quot;Banner image URL&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;isOpen&quot;: {
+        &quot;description&quot;: &quot;Currently open for delivery&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;itemsWithDescCount&quot;: {
+        &quot;description&quot;: &quot;Items with a description&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;itemsWithImageCount&quot;: {
+        &quot;description&quot;: &quot;Items with an image&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;menu&quot;: {
+        &quot;description&quot;: &quot;Nested menu sections with items&quot;,
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;menuItemCount&quot;: {
+        &quot;description&quot;: &quot;Total menu items&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;menuSectionCount&quot;: {
+        &quot;description&quot;: &quot;Number of menu sections&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;priceRange&quot;: {
+        &quot;description&quot;: &quot;Price tier (e.g. $$)&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;rating&quot;: {
+        &quot;description&quot;: &quot;Aggregate star rating&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;ratingCount&quot;: {
+        &quot;description&quot;: &quot;Total ratings (may include suffix like &#x27;15000+&#x27;)&quot;,
+        &quot;nullable&quot;: true,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;restaurantId&quot;: {
+        &quot;description&quot;: &quot;UberEats store UUID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;restaurantName&quot;: {
+        &quot;description&quot;: &quot;Restaurant display name&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;restaurantUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical UberEats URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;scrapedAt&quot;: {
+        &quot;description&quot;: &quot;UTC scrape timestamp&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;UberEats Menus&quot;,
+  &quot;views&quot;: {
+    &quot;analytics&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;address&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Address&quot;
+          },
+          &quot;city&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;City&quot;
+          },
+          &quot;itemsWithDescCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Items w/ Desc&quot;
+          },
+          &quot;itemsWithImageCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Items w/ Image&quot;
+          },
+          &quot;menuItemCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Total Items&quot;
+          },
+          &quot;menuSectionCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Sections&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;ratingCount&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Reviews&quot;
+          },
+          &quot;restaurantName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Restaurant&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Scraped At&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Analytics&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;restaurantName&quot;,
+          &quot;menuSectionCount&quot;,
+          &quot;menuItemCount&quot;,
+          &quot;itemsWithImageCount&quot;,
+          &quot;itemsWithDescCount&quot;,
+          &quot;rating&quot;,
+          &quot;ratingCount&quot;,
+          &quot;address&quot;,
+          &quot;city&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;cuisines&quot;: {
+            &quot;format&quot;: &quot;array&quot;,
+            &quot;label&quot;: &quot;Cuisines&quot;
+          },
+          &quot;deliveryFee&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Delivery Fee&quot;
+          },
+          &quot;estimatedDeliveryTime&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;ETA&quot;
+          },
+          &quot;isOpen&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Open&quot;
+          },
+          &quot;menuItemCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Items&quot;
+          },
+          &quot;menuSectionCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Sections&quot;
+          },
+          &quot;priceRange&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Price&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;restaurantName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Restaurant&quot;
+          },
+          &quot;restaurantUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;URL&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;restaurantName&quot;,
+          &quot;cuisines&quot;,
+          &quot;rating&quot;,
+          &quot;priceRange&quot;,
+          &quot;isOpen&quot;,
+          &quot;deliveryFee&quot;,
+          &quot;estimatedDeliveryTime&quot;,
+          &quot;menuSectionCount&quot;,
+          &quot;menuItemCount&quot;,
+          &quot;restaurantUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-uber-eats-restaurant-menu-price-extractor">Uber Eats Restaurant Menu &amp; Price Extractor</h2>
+<p>Give this actor a handful of Uber Eats restaurant page links and it pulls back the full menu — every section, every item, prices and photos — plus the restaurant's own rating, cuisines, delivery fee and estimated delivery time.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Full menu extraction</strong> — every section and item on a restaurant's page, not just a preview.</li>
+<li><strong>Restaurant profile</strong> — rating, rating count, price tier, cuisines, open status, address and city alongside the menu.</li>
+<li><strong>Delivery details</strong> — delivery fee and estimated delivery time as shown on the page.</li>
+<li><strong>Menu completeness stats</strong> — section and item counts, plus how many items actually have a photo or description.</li>
+<li>Fields a restaurant doesn't publish (e.g. no item description, no delivery fee data) are omitted rather than returned empty.</li>
+</ul>
+<h2 id="readme-output-per-restaurant">Output per restaurant</h2>
+<ul>
+<li><code>restaurantId</code>, <code>restaurantName</code>, <code>restaurantUrl</code></li>
+<li><code>heroImageUrl</code></li>
+<li><code>rating</code>, <code>ratingCount</code></li>
+<li><code>priceRange</code> — e.g. <code>$</code>, <code>$$</code>, <code>$$$</code></li>
+<li><code>cuisines</code> — e.g. <code>[&quot;Burgers&quot;, &quot;Fast Food&quot;]</code></li>
+<li><code>isOpen</code></li>
+<li><code>address</code>, <code>city</code></li>
+<li><code>deliveryFee</code> — e.g. <code>Free</code>, <code>$0.49</code></li>
+<li><code>estimatedDeliveryTime</code> — e.g. <code>15–25 min</code></li>
+<li><code>menu</code> — array of <code>{sectionName, items[]}</code></li>
+<li><code>menuSectionCount</code>, <code>menuItemCount</code> — totals across the whole menu</li>
+<li><code>itemsWithImageCount</code>, <code>itemsWithDescCount</code> — how many items have a photo or description</li>
+<li><code>scrapedAt</code></li>
+</ul>
+<p>Each entry inside <code>menu[].items[]</code> has:</p>
+<ul>
+<li><code>itemId</code>, <code>name</code>, <code>description</code></li>
+<li><code>price</code>, <code>currency</code></li>
+<li><code>imageUrl</code></li>
+<li><code>isAvailable</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>restaurantUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td><strong>Required.</strong> Uber Eats restaurant page URLs to scrape</td>
+</tr>
+<tr>
+<td><code>maxItemsPerRestaurant</code></td>
+<td>integer</td>
+<td><code>200</code></td>
+<td>Maximum menu items to extract per restaurant (1–2000)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>us</code></td>
+<td><code>us</code>, <code>gb</code>, <code>au</code>, or <code>ca</code> — country context for the restaurant's delivery location</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-a-single-restaurant-full-menu">Example: a single restaurant, full menu</h3>
+<pre><code class="language-json">{
+  &quot;restaurantUrls&quot;: [
+    &quot;https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ&quot;
+  ],
+  &quot;country&quot;: &quot;us&quot;
+}
+</code></pre>
+<h3 id="readme-example-several-restaurants-capped-menu-size">Example: several restaurants, capped menu size</h3>
+<pre><code class="language-json">{
+  &quot;restaurantUrls&quot;: [
+    &quot;https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ&quot;,
+    &quot;https://www.ubereats.com/store/some-other-restaurant/AbCdEfGhIjKlMnOp&quot;
+  ],
+  &quot;maxItemsPerRestaurant&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-a-uk-restaurant">Example: a UK restaurant</h3>
+<pre><code class="language-json">{
+  &quot;restaurantUrls&quot;: [
+    &quot;https://www.ubereats.com/gb/store/some-london-restaurant/QrStUvWxYzAbCdEf&quot;
+  ],
+  &quot;country&quot;: &quot;gb&quot;
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Competitive intelligence</strong> — compare a competitor's prices and menu composition against your own.</li>
+<li><strong>Menu database building</strong> — collect structured menus across many restaurants in one run.</li>
+<li><strong>Price monitoring</strong> — rerun the same URLs on a schedule to track price changes over time.</li>
+<li><strong>Market analysis</strong> — look at cuisine and pricing patterns across a city or chain.</li>
+<li><strong>Catalog migration</strong> — import a restaurant's menu structure into another ordering or review platform.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Which countries are supported?</strong>
+<code>us</code>, <code>gb</code>, <code>au</code>, and <code>ca</code>. Pick the one matching the restaurant's physical location for the most accurate delivery details.</p>
+<p><strong>Can I scrape several restaurants in one run?</strong>
+Yes — list as many URLs as you want in <code>restaurantUrls</code>; each produces its own output record.</p>
+<p><strong>Where do I get a restaurant's URL?</strong>
+Open the restaurant on ubereats.com and copy the page URL from your browser — it looks like <code>https://www.ubereats.com/store/&lt;name&gt;/&lt;id&gt;</code>.</p>
+<p><strong>Why do some items have no <code>description</code>?</strong>
+Many Uber Eats restaurants simply don't write descriptions for their menu items. <code>itemsWithDescCount</code> tells you how many items on that menu actually have one; photos (<code>itemsWithImageCount</code>) are far more commonly present.</p>
+<p><strong>How fresh is the data?</strong>
+Each run fetches the menu live from Uber Eats at request time.</p>
+<p><strong>Does this need a login or proxy?</strong>
+No — restaurant menu pages are public, so no login, API key, or proxy is required.</p>
+<p><strong>Is this affiliated with Uber Eats?</strong>
+No. This is an independent, third-party actor that reads Uber Eats' publicly available restaurant pages.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/2utsIhZID8OJ7SMVa/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>4uHWByeygI47CoRzl</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
