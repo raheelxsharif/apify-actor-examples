@@ -1,0 +1,601 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-PjjRylgByqy2oj25sOcLAA8zOyAsE7S9uLNF2wxn9OE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>eBay Motors Search &amp; Listing Detail Extractor | Dataspryva</title><meta name="description" content="Search eBay Motors for vehicles or parts by keyword, type, condition, price and year, or enrich specific item URLs - returns price, mileage, specs, seller/dealer info and images pe"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/"><meta property="og:title" content="eBay Motors Search &amp; Listing Detail Extractor | Dataspryva"><meta property="og:description" content="Search eBay Motors for vehicles or parts by keyword, type, condition, price and year, or enrich specific item URLs - returns price, mileage, specs, seller/dealer info and images pe"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#webpage","name":"eBay Motors Search & Listing Detail Extractor","description":"Search eBay Motors for vehicles or parts by keyword, type, condition, price and year, or enrich specific item URLs - returns price, mileage, specs, seller/dealer info and images per listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#article","headline":"eBay Motors Search & Listing Detail Extractor","name":"eBay Motors Search & Listing Detail Extractor","description":"Search eBay Motors for vehicles or parts by keyword, type, condition, price and year, or enrich specific item URLs - returns price, mileage, specs, seller/dealer info and images per listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#webpage"},"inLanguage":"en","dateModified":"2026-11-09T06:44:36.178Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"eBay Motors Search & Listing Detail Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/ebay-motors-search-and-listing-detail-extractor/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>eBay Motors Search &amp; Listing Detail Extractor</span></div><section id="overview"><h1 class="doc-title">eBay Motors Search &amp; Listing Detail Extractor</h1><p class="lede">Search eBay Motors for vehicles or parts by keyword, type, condition, price and year, or enrich specific item URLs - returns price, mileage, specs, seller/dealer info and images per listing.</p><p class="summary">eBay Motors Search &amp; Listing Detail Extractor is an Apify Actor published by Dataspryva. It accepts 21 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/ebay-motors-search-and-listing-detail-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/DJR9OayaE47kxYQcl/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search vehicle listings, search parts &amp; accessories, or enrich specific listing IDs/URLs.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword(s) to search for, e.g. &#x27;toyota camry&#x27; or &#x27;brake pads&#x27;. Leave empty in searchVehicles mode to browse eBay&#x27;s trending vehicles for the selected category.</td></tr><tr><td><code>vehicleType</code></td><td>string</td><td>optional</td><td>Vehicle category used in searchVehicles mode.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search vehicle listings, search parts &amp; accessories, or enrich specific listing IDs/URLs.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword(s) to search for, e.g. &#x27;toyota camry&#x27; or &#x27;brake pads&#x27;. Leave empty in searchVehicles mode to browse eBay&#x27;s trending vehicles for the selected category.</td></tr><tr><td><code>vehicleType</code></td><td>string</td><td>optional</td><td>Vehicle category used in searchVehicles mode.</td></tr><tr><td><code>partCategory</code></td><td>string</td><td>optional</td><td>Parts category used in searchParts mode.</td></tr><tr><td><code>condition</code></td><td>string</td><td>optional</td><td>Filter listings by condition.</td></tr><tr><td><code>buyingFormat</code></td><td>string</td><td>optional</td><td>Restrict results to Buy It Now or auction listings. &#x27;All formats&#x27; applies no filter.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How to order the search results.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Minimum listing price in USD.</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Maximum listing price in USD.</td></tr><tr><td><code>minYear</code></td><td>integer</td><td>optional</td><td>Oldest model year to include (searchVehicles mode).</td></tr><tr><td><code>maxYear</code></td><td>integer</td><td>optional</td><td>Newest model year to include (searchVehicles mode).</td></tr><tr><td><code>maxMileage</code></td><td>integer</td><td>optional</td><td>Highest odometer reading to include, in miles (searchVehicles mode).</td></tr><tr><td><code>transmission</code></td><td>string</td><td>optional</td><td>Filter vehicles by transmission type.</td></tr><tr><td><code>fuelType</code></td><td>string</td><td>optional</td><td>Filter vehicles by fuel type.</td></tr><tr><td><code>sellerUsername</code></td><td>string</td><td>optional</td><td>Only return listings sold by this eBay seller or dealer (optional).</td></tr><tr><td><code>postalCode</code></td><td>string</td><td>optional</td><td>US ZIP code used with &#x27;Distance&#x27; for local-inventory searches (optional).</td></tr><tr><td><code>distanceMiles</code></td><td>string</td><td>optional</td><td>Radius around the ZIP code. Requires a ZIP code.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>eBay item URLs, bare item IDs or eBay search URLs to scrape in byListingUrls mode.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of listings to return (1–10,000).</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Maximum search result pages to request. eBay caps every query at 200 pages.</td></tr><tr><td><code>includeItemSpecifics</code></td><td>boolean</td><td>optional</td><td>Attach the complete item-specifics table to listing-detail records (byListingUrls mode).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search eBay Motors vehicles or parts, or enrich specific item URLs. Filters cover vehicle type, condition, price, model year, mileage, transmission, fuel type, buying format, seller and ZIP radius.&quot;,
+  &quot;properties&quot;: {
+    &quot;buyingFormat&quot;: {
+      &quot;description&quot;: &quot;Restrict results to Buy It Now or auction listings. &#x27;All formats&#x27; applies no filter.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;buy-it-now&quot;,
+        &quot;auction&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Formats&quot;,
+        &quot;Buy It Now&quot;,
+        &quot;Auction&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Buying Format&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;condition&quot;: {
+      &quot;description&quot;: &quot;Filter listings by condition.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;new&quot;,
+        &quot;used&quot;,
+        &quot;certified-pre-owned&quot;,
+        &quot;for-parts-not-working&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Conditions&quot;,
+        &quot;New&quot;,
+        &quot;Used&quot;,
+        &quot;Certified Pre-Owned&quot;,
+        &quot;For Parts / Not Working&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Condition&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;distanceMiles&quot;: {
+      &quot;description&quot;: &quot;Radius around the ZIP code. Requires a ZIP code.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;10&quot;,
+        &quot;25&quot;,
+        &quot;50&quot;,
+        &quot;100&quot;,
+        &quot;200&quot;,
+        &quot;500&quot;,
+        &quot;1000&quot;,
+        &quot;2000&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;10 miles&quot;,
+        &quot;25 miles&quot;,
+        &quot;50 miles&quot;,
+        &quot;100 miles&quot;,
+        &quot;200 miles&quot;,
+        &quot;500 miles&quot;,
+        &quot;1,000 miles&quot;,
+        &quot;2,000 miles&quot;
+      ],
+      &quot;title&quot;: &quot;Distance (miles)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;fuelType&quot;: {
+      &quot;description&quot;: &quot;Filter vehicles by fuel type.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;gasoline&quot;,
+        &quot;diesel&quot;,
+        &quot;electric&quot;,
+        &quot;hybrid&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Fuel Types&quot;,
+        &quot;Gasoline&quot;,
+        &quot;Diesel&quot;,
+        &quot;Electric&quot;,
+        &quot;Hybrid&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Fuel Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeItemSpecifics&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Attach the complete item-specifics table to listing-detail records (byListingUrls mode).&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include Full Item Specifics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;description&quot;: &quot;Maximum number of listings to return (1–10,000).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max Items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxMileage&quot;: {
+      &quot;description&quot;: &quot;Highest odometer reading to include, in miles (searchVehicles mode).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 2000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Mileage&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;description&quot;: &quot;Maximum search result pages to request. eBay caps every query at 200 pages.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 200,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max Pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPrice&quot;: {
+      &quot;description&quot;: &quot;Maximum listing price in USD.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Price ($)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxYear&quot;: {
+      &quot;description&quot;: &quot;Newest model year to include (searchVehicles mode).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 2030,
+      &quot;minimum&quot;: 1900,
+      &quot;title&quot;: &quot;Maximum Model Year&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minPrice&quot;: {
+      &quot;description&quot;: &quot;Minimum listing price in USD.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum Price ($)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minYear&quot;: {
+      &quot;description&quot;: &quot;Oldest model year to include (searchVehicles mode).&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 2030,
+      &quot;minimum&quot;: 1900,
+      &quot;title&quot;: &quot;Minimum Model Year&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchVehicles&quot;,
+      &quot;description&quot;: &quot;Search vehicle listings, search parts &amp; accessories, or enrich specific listing IDs/URLs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchVehicles&quot;,
+        &quot;searchParts&quot;,
+        &quot;byListingUrls&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search Vehicles&quot;,
+        &quot;Search Parts &amp; Accessories&quot;,
+        &quot;By Listing URLs&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchVehicles&quot;,
+      &quot;title&quot;: &quot;Scraping Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;partCategory&quot;: {
+      &quot;description&quot;: &quot;Parts category used in searchParts mode.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;car-truck-parts&quot;,
+        &quot;motorcycle-parts&quot;,
+        &quot;boat-parts&quot;,
+        &quot;atv-parts&quot;,
+        &quot;other&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Car &amp; Truck Parts&quot;,
+        &quot;Motorcycle Parts&quot;,
+        &quot;Boat Parts&quot;,
+        &quot;ATV &amp; UTV Parts&quot;,
+        &quot;Other Parts&quot;
+      ],
+      &quot;prefill&quot;: &quot;car-truck-parts&quot;,
+      &quot;title&quot;: &quot;Part Category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;postalCode&quot;: {
+      &quot;description&quot;: &quot;US ZIP code used with &#x27;Distance&#x27; for local-inventory searches (optional).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;ZIP Code&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;description&quot;: &quot;Keyword(s) to search for, e.g. &#x27;toyota camry&#x27; or &#x27;brake pads&#x27;. Leave empty in searchVehicles mode to browse eBay&#x27;s trending vehicles for the selected category.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;honda civic&quot;,
+      &quot;title&quot;: &quot;Search Query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sellerUsername&quot;: {
+      &quot;description&quot;: &quot;Only return listings sold by this eBay seller or dealer (optional).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Seller Username&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;description&quot;: &quot;How to order the search results.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;best-match&quot;,
+        &quot;price-asc&quot;,
+        &quot;price-desc&quot;,
+        &quot;distance-nearest&quot;,
+        &quot;newly-listed&quot;,
+        &quot;ending-soonest&quot;,
+        &quot;mileage-asc&quot;,
+        &quot;year-newest&quot;,
+        &quot;year-oldest&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Best Match&quot;,
+        &quot;Price: Lowest First&quot;,
+        &quot;Price: Highest First&quot;,
+        &quot;Distance: Nearest First&quot;,
+        &quot;Newly Listed&quot;,
+        &quot;Ending Soonest&quot;,
+        &quot;Mileage: Lowest First&quot;,
+        &quot;Year: Newest First&quot;,
+        &quot;Year: Oldest First&quot;
+      ],
+      &quot;prefill&quot;: &quot;best-match&quot;,
+      &quot;title&quot;: &quot;Sort By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;startUrls&quot;: {
+      &quot;description&quot;: &quot;eBay item URLs, bare item IDs or eBay search URLs to scrape in byListingUrls mode.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Start URLs / Item IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;transmission&quot;: {
+      &quot;description&quot;: &quot;Filter vehicles by transmission type.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;automatic&quot;,
+        &quot;manual&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All Transmissions&quot;,
+        &quot;Automatic&quot;,
+        &quot;Manual&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Transmission&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;vehicleType&quot;: {
+      &quot;description&quot;: &quot;Vehicle category used in searchVehicles mode.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;cars-trucks&quot;,
+        &quot;motorcycles&quot;,
+        &quot;boats&quot;,
+        &quot;rvs-campers&quot;,
+        &quot;atvs-utvs-snowmobiles&quot;,
+        &quot;commercial-trucks&quot;,
+        &quot;other-vehicles&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Cars &amp; Trucks&quot;,
+        &quot;Motorcycles&quot;,
+        &quot;Boats&quot;,
+        &quot;RVs &amp; Campers&quot;,
+        &quot;ATVs, UTVs &amp; Snowmobiles&quot;,
+        &quot;Commercial Trucks&quot;,
+        &quot;Other Vehicles&quot;
+      ],
+      &quot;prefill&quot;: &quot;cars-trucks&quot;,
+      &quot;title&quot;: &quot;Vehicle Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;eBay Motors Vehicle &amp; Parts Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped eBay Motors vehicle and parts listings.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Vehicle and parts listing records from eBay Motors with price, VIN, year/make/model, mileage, title status, condition, transmission, drivetrain, seller/dealer info, returns, payment methods, item specifics and images.&quot;,
+  &quot;properties&quot;: {
+    &quot;listings&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped eBay Motors vehicle and parts listings.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;eBay Motors Listings&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;eBay Motors Search &amp; Listing Detail Extractor Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;eBay Motors Listings&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;price&quot;,
+          &quot;priceFormatted&quot;,
+          &quot;condition&quot;,
+          &quot;titleStatus&quot;,
+          &quot;year&quot;,
+          &quot;make&quot;,
+          &quot;model&quot;,
+          &quot;trim&quot;,
+          &quot;vin&quot;,
+          &quot;mileage&quot;,
+          &quot;transmission&quot;,
+          &quot;drivetrain&quot;,
+          &quot;fuelType&quot;,
+          &quot;location&quot;,
+          &quot;sellerName&quot;,
+          &quot;dealerName&quot;,
+          &quot;listingType&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-ebay-motors-search-listing-detail-extractor">eBay Motors Search &amp; Listing Detail Extractor</h2>
+<p>eBay Motors lists vehicles and parts from private sellers and dealers across the US. This actor runs a vehicle or parts search, or opens specific item pages you already have, and returns structured records with pricing, vehicle identity, title status, VIN, mileage, seller details, returns and images.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Searches eBay Motors vehicle listings by keyword, vehicle category (cars &amp; trucks, motorcycles, boats, RVs, ATVs, commercial trucks), condition, price range, model-year range, maximum mileage, transmission, fuel type, buying format, seller and ZIP-radius search</li>
+<li>Searches parts &amp; accessories by keyword, parts category, condition, price and buying format</li>
+<li>Enriches specific item URLs, bare item IDs or saved search URLs with full listing detail instead of running a new search</li>
+<li>Paginates at eBay's 240-row page size through up to 200 result pages, with cross-page deduplication</li>
+<li>Omits empty fields from every record — a field appears only when the listing actually shows that data</li>
+</ul>
+<h2 id="readme-modes">Modes</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>searchVehicles</code></td>
+<td>Vehicle search-result records</td>
+</tr>
+<tr>
+<td><code>searchParts</code></td>
+<td>Parts &amp; accessories search-result records</td>
+</tr>
+<tr>
+<td><code>byListingUrls</code></td>
+<td>Full detail records for item IDs/URLs; search URLs are parsed as search-result pages</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-per-listing">Output per listing</h2>
+<p>Core fields:</p>
+<ul>
+<li><code>listingId</code> — eBay item ID</li>
+<li><code>title</code> — full listing title</li>
+<li><code>url</code> — canonical eBay listing URL</li>
+<li><code>price</code> — numeric price</li>
+<li><code>priceFormatted</code> — price as displayed (e.g. <code>$22,500.00</code>)</li>
+<li><code>currency</code> — currency code for <code>price</code></li>
+<li><code>originalPrice</code>, <code>discountPercent</code> — pre-discount price and markdown, when shown</li>
+<li><code>condition</code> — listing condition (e.g. <code>Used</code>, <code>Pre-Owned</code>)</li>
+<li><code>titleStatus</code> — vehicle title status (e.g. <code>Clean</code>, <code>Salvage</code>), when shown</li>
+<li><code>vin</code> — Vehicle Identification Number (detail pages, when eBay prints it)</li>
+<li><code>year</code>, <code>make</code>, <code>model</code>, <code>trim</code>, <code>submodel</code> — vehicle identity</li>
+<li><code>bodyStyle</code>, <code>fuelType</code>, <code>transmission</code>, <code>drivetrain</code>, <code>exteriorColor</code>, <code>interiorColor</code></li>
+<li><code>engine</code>, <code>cylinders</code>, <code>doors</code>, <code>seats</code> — engine and body configuration</li>
+<li><code>mileage</code> — odometer reading in miles</li>
+<li><code>categoryPath</code> — eBay breadcrumb for the listing (<code>eBay &gt; eBay Motors &gt; …</code>)</li>
+<li><code>itemSpecifics</code> — complete item-specifics table (detail mode, when <code>includeItemSpecifics</code> is on)</li>
+<li><code>warranty</code>, <code>countryOfOrigin</code>, <code>forSaleBy</code>, <code>sellerNotes</code></li>
+<li><code>sellerName</code>, <code>sellerUrl</code>, <code>sellerFeedbackScore</code>, <code>sellerPositivePercent</code>, <code>sellerFeedbackPercent</code>, <code>sellerFeedbackCount</code></li>
+<li><code>dealerName</code>, <code>dealerFeedbackPercent</code>, <code>dealerFeedbackCount</code> — dealer block on Motors search cards</li>
+<li><code>storeName</code>, <code>storeUrl</code>, <code>isTopRatedSeller</code></li>
+<li><code>shippingCost</code>, <code>shippingType</code>, <code>shippingEstimatedDelivery</code></li>
+<li><code>returnsAccepted</code>, <code>returnDays</code>, <code>paymentMethods</code></li>
+<li><code>location</code>, <code>deliveryOrPickupAvailable</code></li>
+<li><code>imageUrl</code>, <code>images</code>, <code>imageCount</code></li>
+<li><code>listingType</code> — <code>BuyItNow</code>, <code>Auction</code> or <code>BestOffer</code></li>
+<li><code>bestOfferEnabled</code>, <code>timeRemaining</code>, <code>bids</code>, <code>watchCount</code>, <code>viewCount</code>, <code>soldCount</code></li>
+<li><code>quantityAvailable</code></li>
+<li><code>isSponsored</code> — present and <code>true</code> only on sponsored search cards</li>
+<li><code>vehicleType</code> — vehicle category searched (e.g. <code>cars-trucks</code>)</li>
+<li><code>partType</code>, <code>brand</code>, <code>mpn</code>, <code>partNumber</code>, <code>placementOnVehicle</code> — parts fields when shown</li>
+<li><code>isTrendingRecommendation</code> — present and <code>true</code> only when <code>searchVehicles</code> runs with no keyword and no filters, meaning eBay served its curated &quot;Trending Vehicles&quot; module</li>
+<li><code>recordType</code> — always <code>ebayMotorsListing</code></li>
+<li><code>scrapedAt</code> — ISO 8601 UTC timestamp</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchVehicles</code></td>
+<td><code>searchVehicles</code>, <code>searchParts</code>, or <code>byListingUrls</code></td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keyword(s), e.g. <code>honda civic</code>. Empty in <code>searchVehicles</code> mode browses trending vehicles for the selected category</td>
+</tr>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td>– (defaults to <code>cars-trucks</code>)</td>
+<td>Vehicle category for <code>searchVehicles</code></td>
+</tr>
+<tr>
+<td><code>partCategory</code></td>
+<td>string</td>
+<td>– (defaults to <code>car-truck-parts</code>)</td>
+<td>Parts category for <code>searchParts</code></td>
+</tr>
+<tr>
+<td><code>condition</code></td>
+<td>string</td>
+<td>– (defaults to <code>all</code>)</td>
+<td><code>all</code>, <code>new</code>, <code>used</code>, <code>certified-pre-owned</code>, <code>for-parts-not-working</code></td>
+</tr>
+<tr>
+<td><code>buyingFormat</code></td>
+<td>string</td>
+<td>– (defaults to <code>all</code>)</td>
+<td><code>all</code>, <code>buy-it-now</code>, <code>auction</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td>– (defaults to <code>best-match</code>)</td>
+<td><code>best-match</code>, <code>price-asc</code>, <code>price-desc</code>, <code>distance-nearest</code>, <code>newly-listed</code>, <code>ending-soonest</code>, <code>mileage-asc</code>, <code>year-newest</code>, <code>year-oldest</code> (last three are vehicle-mode sorts)</td>
+</tr>
+<tr>
+<td><code>minPrice</code>, <code>maxPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Price range in USD</td>
+</tr>
+<tr>
+<td><code>minYear</code>, <code>maxYear</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Model-year range (<code>searchVehicles</code>)</td>
+</tr>
+<tr>
+<td><code>maxMileage</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Maximum odometer reading in miles (<code>searchVehicles</code>)</td>
+</tr>
+<tr>
+<td><code>transmission</code></td>
+<td>string</td>
+<td>– (defaults to <code>all</code>)</td>
+<td><code>all</code>, <code>automatic</code>, <code>manual</code></td>
+</tr>
+<tr>
+<td><code>fuelType</code></td>
+<td>string</td>
+<td>– (defaults to <code>all</code>)</td>
+<td><code>all</code>, <code>gasoline</code>, <code>diesel</code>, <code>electric</code>, <code>hybrid</code></td>
+</tr>
+<tr>
+<td><code>sellerUsername</code></td>
+<td>string</td>
+<td>–</td>
+<td>Only listings from this seller/dealer</td>
+</tr>
+<tr>
+<td><code>postalCode</code></td>
+<td>string</td>
+<td>–</td>
+<td>US ZIP for local-inventory searches</td>
+</tr>
+<tr>
+<td><code>distanceMiles</code></td>
+<td>string</td>
+<td>–</td>
+<td>Radius around the ZIP: <code>10</code> … <code>2000</code></td>
+</tr>
+<tr>
+<td><code>startUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Item URLs, bare item IDs or search URLs for <code>byListingUrls</code></td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td>– (defaults to <code>50</code>)</td>
+<td>Maximum listings to return (1–10,000)</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td>– (defaults to <code>200</code>)</td>
+<td>Maximum result pages to request (eBay caps each query at 200)</td>
+</tr>
+<tr>
+<td><code>includeItemSpecifics</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Attach the full item-specifics table to detail records</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-used-honda-civics-under-15-000">Example: used Honda Civics under $15,000</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchVehicles&quot;,
+  &quot;searchQuery&quot;: &quot;honda civic&quot;,
+  &quot;condition&quot;: &quot;used&quot;,
+  &quot;maxPrice&quot;: 15000,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-2015-2020-automatic-trucks-with-under-80-000-miles">Example: 2015–2020 automatic trucks with under 80,000 miles</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchVehicles&quot;,
+  &quot;searchQuery&quot;: &quot;ford f-150&quot;,
+  &quot;vehicleType&quot;: &quot;cars-trucks&quot;,
+  &quot;minYear&quot;: 2015,
+  &quot;maxYear&quot;: 2020,
+  &quot;maxMileage&quot;: 80000,
+  &quot;transmission&quot;: &quot;automatic&quot;,
+  &quot;sortBy&quot;: &quot;mileage-asc&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-motorcycle-parts-search">Example: motorcycle parts search</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchParts&quot;,
+  &quot;partCategory&quot;: &quot;motorcycle-parts&quot;,
+  &quot;searchQuery&quot;: &quot;exhaust system&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-enrich-specific-listings">Example: enrich specific listings</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byListingUrls&quot;,
+  &quot;startUrls&quot;: [
+    &quot;https://www.ebay.com/itm/256789012345&quot;,
+    &quot;256789012346&quot;
+  ],
+  &quot;includeItemSpecifics&quot;: true
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Vehicle shopping research</strong> — compare price, mileage, title status and VIN across every matching listing</li>
+<li><strong>Dealer inventory tracking</strong> — re-run a seller search or ZIP-radius search to see what changed</li>
+<li><strong>Parts sourcing</strong> — search a parts category and keyword to compare available stock and pricing</li>
+<li><strong>Auction monitoring</strong> — track bids, time remaining and watchers on listings you are bidding on</li>
+<li><strong>Listing enrichment</strong> — feed a list of item IDs or URLs into <code>byListingUrls</code> for full structured detail</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>What is the difference between the three modes?</strong> <code>searchVehicles</code> and <code>searchParts</code> run an eBay Motors search with your filters. <code>byListingUrls</code> skips search and opens exactly the item URLs or IDs you supply; search URLs passed there are parsed as search-result pages.</p>
+<p><strong>Which filters actually work on eBay Motors?</strong> Price, condition, model year, transmission, fuel type, buying format, seller, ZIP radius and sort order are eBay's own server-side parameters. There is no reliable server-side maximum-mileage parameter, so <code>maxMileage</code> is applied by the actor after parsing — a tight cap may need more pages to fill <code>maxItems</code>. Listings with no printed mileage are kept rather than dropped blindly.</p>
+<p><strong>Why is VIN or title status missing on some records?</strong> eBay prints VIN on most dealer detail pages but omits it for some private/classified listings. Title status appears on Motors cards and detail pages when the seller provides it. Both fields are omitted rather than guessed.</p>
+<p><strong>What is in <code>itemSpecifics</code>?</strong> The detail page's full <code>dt</code>/<code>dd</code> specification table (VIN, engine, colours, warranty, country of origin, and any other rows eBay prints). Turn <code>includeItemSpecifics</code> off to keep records smaller.</p>
+<p><strong>Why do I get <code>isTrendingRecommendation: true</code> records?</strong> That only happens in <code>searchVehicles</code> mode when you leave <code>searchQuery</code> empty and apply no vehicle filter — eBay shows a curated &quot;Trending Vehicles&quot; module instead of a real search page. Add a keyword or any filter for genuine matches.</p>
+<p><strong>How many listings can one run return?</strong> Up to <code>maxItems</code>, capped at 10,000. Pages hold up to 240 cards and eBay caps every query at 200 pages; split by category, price or mileage for larger sweeps.</p>
+<p><strong>Does this include sold or ended listings?</strong> No. Sold/completed results require an eBay sign-in, and this actor never asks for cookies or logins.</p>
+<p><strong>Do I need a proxy or API key?</strong> No. The actor tries a direct request, then a public cookieless mirror, then an Apify proxy if needed, and chooses automatically. There are no credentials to configure.</p>
+<p><strong>Is this affiliated with eBay?</strong> No. This is an independent, third-party actor that reads eBay Motors' public listing pages; it is not operated by or affiliated with eBay Inc.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/ebay-motors-search-and-listing-detail-extractor/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>Bn0UdOQIp6XVgxUMu</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

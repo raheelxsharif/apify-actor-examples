@@ -1,0 +1,747 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-fz5H9jOxVZofSTeWBs+tTXQykkwfZVTjUg/GioSwFhc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Maps Radius Search Around a Coordinate | Dataspryva</title><meta name="description" content="Find Google Maps places within a set radius of an exact latitude/longitude, with rating, reviews, address, phone, website, coordinates, and distance from the center point."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/"><meta property="og:title" content="Google Maps Radius Search Around a Coordinate | Dataspryva"><meta property="og:description" content="Find Google Maps places within a set radius of an exact latitude/longitude, with rating, reviews, address, phone, website, coordinates, and distance from the center point."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#webpage","name":"Google Maps Radius Search Around a Coordinate","description":"Find Google Maps places within a set radius of an exact latitude/longitude, with rating, reviews, address, phone, website, coordinates, and distance from the center point.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#article","headline":"Google Maps Radius Search Around a Coordinate","name":"Google Maps Radius Search Around a Coordinate","description":"Find Google Maps places within a set radius of an exact latitude/longitude, with rating, reviews, address, phone, website, coordinates, and distance from the center point.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#webpage"},"inLanguage":"en","dateModified":"2026-11-06T08:05:48.620Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Maps Radius Search Around a Coordinate","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-maps-radius-search-around-a-coordinate/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Maps Radius Search Around a Coordinate</span></div><section id="overview"><h1 class="doc-title">Google Maps Radius Search Around a Coordinate</h1><p class="lede">Find Google Maps places within a set radius of an exact latitude/longitude, with rating, reviews, address, phone, website, coordinates, and distance from the center point.</p><p class="summary">Google Maps Radius Search Around a Coordinate is an Apify Actor published by Dataspryva. It accepts 20 input fields, and <code>searchTerms</code> is required. Its build declares a results dataset with 2 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-maps-radius-search-around-a-coordinate">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/QBeLUDlQ2pvHSqG08/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>centerType</code></td><td>string</td><td>optional</td><td>How the center of the radius is supplied: exact latitude/longitude, a free-text address, or a Google Maps place URL / Place ID.</td></tr><tr><td><code>latitude</code></td><td>number</td><td>optional</td><td>Latitude of the center when the center type is Coordinates.</td></tr><tr><td><code>longitude</code></td><td>number</td><td>optional</td><td>Longitude of the center when the center type is Coordinates.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>centerType</code></td><td>string</td><td>optional</td><td>How the center of the radius is supplied: exact latitude/longitude, a free-text address, or a Google Maps place URL / Place ID.</td></tr><tr><td><code>latitude</code></td><td>number</td><td>optional</td><td>Latitude of the center when the center type is Coordinates.</td></tr><tr><td><code>longitude</code></td><td>number</td><td>optional</td><td>Longitude of the center when the center type is Coordinates.</td></tr><tr><td><code>address</code></td><td>string</td><td>optional</td><td>Address, landmark or place name to use as the center when the center type is Address. Google resolves it to its own coordinates.</td></tr><tr><td><code>place</code></td><td>string</td><td>optional</td><td>Google Maps place URL or canonical ChIJ Place ID to use as the center when the center type is Place.</td></tr><tr><td><code>searchTerms</code></td><td>array</td><td>required</td><td>One or more categories or free-text keywords, for example [&#x27;coffee shop&#x27;], [&#x27;dentist&#x27;, &#x27;pharmacy&#x27;] or [&#x27;restaurant&#x27;].</td></tr><tr><td><code>radiusKm</code></td><td>number</td><td>optional</td><td>Hard search radius in kilometres around the center. Places outside it are dropped; every returned row carries its exact distance from the center.</td></tr><tr><td><code>maxResults</code></td><td>integer</td><td>optional</td><td>Maximum places to return for each search term. Google&#x27;s ranked window usually contains roughly 130-180 places inside a dense radius; when the source runs out the run stops honestly instead of padding.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Add preview-panel fields such as plus code, price level, rating histogram, photos, description, attributes, service options, closing status and hotel/fuel/booking extras. Adds one request per place; listing fields and weekly hours are always collected.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Only keep places rated at or above this value. Places with no published rating are skipped.</td></tr><tr><td><code>maxRating</code></td><td>number</td><td>optional</td><td>Only keep places rated at or below this value. Places with no published rating are skipped.</td></tr><tr><td><code>minReviews</code></td><td>integer</td><td>optional</td><td>Only keep places with at least this many reviews. Places with no review count are skipped.</td></tr><tr><td><code>maxReviews</code></td><td>integer</td><td>optional</td><td>Only keep places with at most this many reviews. Places with no review count are skipped.</td></tr><tr><td><code>openNow</code></td><td>boolean</td><td>optional</td><td>Only keep places Google currently shows as open. A place whose open/closed state cannot be read is skipped, so this filter can return fewer rows.</td></tr><tr><td><code>hasWebsite</code></td><td>boolean</td><td>optional</td><td>Only keep places that publish a website on their Google Maps listing.</td></tr><tr><td><code>hasPhone</code></td><td>boolean</td><td>optional</td><td>Only keep places that publish a phone number on their Google Maps listing.</td></tr><tr><td><code>includeClosed</code></td><td>boolean</td><td>optional</td><td>When off, places Google marks as permanently closed are skipped. This requires reading each place&#x27;s preview panel.</td></tr><tr><td><code>nameFilter</code></td><td>string</td><td>optional</td><td>Only keep places whose name contains this text, for example &#x27;pizza&#x27;.</td></tr><tr><td><code>excludeCategories</code></td><td>array</td><td>optional</td><td>Skip places whose category contains any of these words, for example [&#x27;hotel&#x27;, &#x27;casino&#x27;].</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Language for place names, categories, addresses and hours.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;address&quot;: {
+      &quot;description&quot;: &quot;Address, landmark or place name to use as the center when the center type is Address. Google resolves it to its own coordinates.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;example&quot;: &quot;350 5th Ave, New York, NY 10118&quot;,
+      &quot;title&quot;: &quot;Address&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;centerType&quot;: {
+      &quot;default&quot;: &quot;coordinates&quot;,
+      &quot;description&quot;: &quot;How the center of the radius is supplied: exact latitude/longitude, a free-text address, or a Google Maps place URL / Place ID.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;coordinates&quot;,
+        &quot;address&quot;,
+        &quot;place&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Coordinates&quot;,
+        &quot;Address&quot;,
+        &quot;Place URL or Place ID&quot;
+      ],
+      &quot;prefill&quot;: &quot;coordinates&quot;,
+      &quot;sectionCaption&quot;: &quot;Search center&quot;,
+      &quot;title&quot;: &quot;Search Center Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;excludeCategories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Skip places whose category contains any of these words, for example [&#x27;hotel&#x27;, &#x27;casino&#x27;].&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Exclude Categories&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;hasPhone&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only keep places that publish a phone number on their Google Maps listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Must Have Phone&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;hasWebsite&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only keep places that publish a website on their Google Maps listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Must Have Website&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeClosed&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;When off, places Google marks as permanently closed are skipped. This requires reading each place&#x27;s preview panel.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include Permanently Closed&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Add preview-panel fields such as plus code, price level, rating histogram, photos, description, attributes, service options, closing status and hotel/fuel/booking extras. Adds one request per place; listing fields and weekly hours are always collected.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;sectionCaption&quot;: &quot;Output&quot;,
+      &quot;title&quot;: &quot;Include Place Details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;language&quot;: {
+      &quot;default&quot;: &quot;en&quot;,
+      &quot;description&quot;: &quot;Language for place names, categories, addresses and hours.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;en&quot;,
+        &quot;af&quot;,
+        &quot;az&quot;,
+        &quot;id&quot;,
+        &quot;ms&quot;,
+        &quot;bs&quot;,
+        &quot;ca&quot;,
+        &quot;cs&quot;,
+        &quot;da&quot;,
+        &quot;de&quot;,
+        &quot;et&quot;,
+        &quot;es&quot;,
+        &quot;es-419&quot;,
+        &quot;eu&quot;,
+        &quot;fil&quot;,
+        &quot;fr&quot;,
+        &quot;gl&quot;,
+        &quot;hr&quot;,
+        &quot;zu&quot;,
+        &quot;is&quot;,
+        &quot;it&quot;,
+        &quot;sw&quot;,
+        &quot;lv&quot;,
+        &quot;lt&quot;,
+        &quot;hu&quot;,
+        &quot;nl&quot;,
+        &quot;no&quot;,
+        &quot;uz&quot;,
+        &quot;pl&quot;,
+        &quot;pt-BR&quot;,
+        &quot;pt-PT&quot;,
+        &quot;ro&quot;,
+        &quot;sq&quot;,
+        &quot;sk&quot;,
+        &quot;sl&quot;,
+        &quot;fi&quot;,
+        &quot;sv&quot;,
+        &quot;vi&quot;,
+        &quot;tr&quot;,
+        &quot;el&quot;,
+        &quot;bg&quot;,
+        &quot;ky&quot;,
+        &quot;kk&quot;,
+        &quot;mk&quot;,
+        &quot;mn&quot;,
+        &quot;ru&quot;,
+        &quot;sr&quot;,
+        &quot;uk&quot;,
+        &quot;ka&quot;,
+        &quot;hy&quot;,
+        &quot;iw&quot;,
+        &quot;ur&quot;,
+        &quot;ar&quot;,
+        &quot;fa&quot;,
+        &quot;am&quot;,
+        &quot;ne&quot;,
+        &quot;hi&quot;,
+        &quot;mr&quot;,
+        &quot;bn&quot;,
+        &quot;pa&quot;,
+        &quot;gu&quot;,
+        &quot;ta&quot;,
+        &quot;te&quot;,
+        &quot;kn&quot;,
+        &quot;ml&quot;,
+        &quot;si&quot;,
+        &quot;th&quot;,
+        &quot;lo&quot;,
+        &quot;my&quot;,
+        &quot;km&quot;,
+        &quot;ko&quot;,
+        &quot;ja&quot;,
+        &quot;zh-CN&quot;,
+        &quot;zh-TW&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;English&quot;,
+        &quot;Afrikaans&quot;,
+        &quot;azərbaycan&quot;,
+        &quot;Bahasa Indonesia&quot;,
+        &quot;Bahasa Melayu&quot;,
+        &quot;bosanski&quot;,
+        &quot;català&quot;,
+        &quot;Čeština&quot;,
+        &quot;Dansk&quot;,
+        &quot;Deutsch&quot;,
+        &quot;eesti&quot;,
+        &quot;Español&quot;,
+        &quot;Español (Latinoamérica)&quot;,
+        &quot;euskara&quot;,
+        &quot;Filipino&quot;,
+        &quot;Français&quot;,
+        &quot;galego&quot;,
+        &quot;Hrvatski&quot;,
+        &quot;isiZulu&quot;,
+        &quot;íslenska&quot;,
+        &quot;Italiano&quot;,
+        &quot;Kiswahili&quot;,
+        &quot;latviešu&quot;,
+        &quot;lietuvių&quot;,
+        &quot;magyar&quot;,
+        &quot;Nederlands&quot;,
+        &quot;norsk&quot;,
+        &quot;oʻzbekcha&quot;,
+        &quot;polski&quot;,
+        &quot;Português (Brasil)&quot;,
+        &quot;Português (Portugal)&quot;,
+        &quot;română&quot;,
+        &quot;shqip&quot;,
+        &quot;Slovenčina&quot;,
+        &quot;slovenščina&quot;,
+        &quot;Suomi&quot;,
+        &quot;Svenska&quot;,
+        &quot;Tiếng Việt&quot;,
+        &quot;Türkçe&quot;,
+        &quot;Ελληνικά&quot;,
+        &quot;български&quot;,
+        &quot;кыргызча&quot;,
+        &quot;қазақ тілі&quot;,
+        &quot;македонски&quot;,
+        &quot;монгол&quot;,
+        &quot;Русский&quot;,
+        &quot;српски&quot;,
+        &quot;Українська&quot;,
+        &quot;ქართული&quot;,
+        &quot;հայերեն&quot;,
+        &quot;עברית&quot;,
+        &quot;اردو&quot;,
+        &quot;العربية&quot;,
+        &quot;فارسی&quot;,
+        &quot;አማርኛ&quot;,
+        &quot;नेपाली&quot;,
+        &quot;हिन्दी&quot;,
+        &quot;मराठी&quot;,
+        &quot;বাংলা&quot;,
+        &quot;ਪੰਜਾਬੀ&quot;,
+        &quot;ગુજરાતી&quot;,
+        &quot;தமிழ்&quot;,
+        &quot;తెలుగు&quot;,
+        &quot;ಕನ್ನಡ&quot;,
+        &quot;മലയാളം&quot;,
+        &quot;සිංහල&quot;,
+        &quot;ไทย&quot;,
+        &quot;ລາວ&quot;,
+        &quot;ဗမာ&quot;,
+        &quot;ខ្មែរ&quot;,
+        &quot;한국어&quot;,
+        &quot;日本語&quot;,
+        &quot;简体中文&quot;,
+        &quot;繁體中文&quot;
+      ],
+      &quot;prefill&quot;: &quot;en&quot;,
+      &quot;sectionCaption&quot;: &quot;Locale&quot;,
+      &quot;title&quot;: &quot;Language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;latitude&quot;: {
+      &quot;default&quot;: 40.7484,
+      &quot;description&quot;: &quot;Latitude of the center when the center type is Coordinates.&quot;,
+      &quot;maximum&quot;: 90,
+      &quot;minimum&quot;: -90,
+      &quot;prefill&quot;: 40.7484,
+      &quot;title&quot;: &quot;Latitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;longitude&quot;: {
+      &quot;default&quot;: -73.9857,
+      &quot;description&quot;: &quot;Longitude of the center when the center type is Coordinates.&quot;,
+      &quot;maximum&quot;: 180,
+      &quot;minimum&quot;: -180,
+      &quot;prefill&quot;: -73.9857,
+      &quot;title&quot;: &quot;Longitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxRating&quot;: {
+      &quot;description&quot;: &quot;Only keep places rated at or below this value. Places with no published rating are skipped.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Maximum Rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;maxResults&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum places to return for each search term. Google&#x27;s ranked window usually contains roughly 130-180 places inside a dense radius; when the source runs out the run stops honestly instead of padding.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 6,
+      &quot;title&quot;: &quot;Max Results per Term&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviews&quot;: {
+      &quot;description&quot;: &quot;Only keep places with at most this many reviews. Places with no review count are skipped.&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum Review Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;description&quot;: &quot;Only keep places rated at or above this value. Places with no published rating are skipped.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;sectionCaption&quot;: &quot;Filters&quot;,
+      &quot;title&quot;: &quot;Minimum Rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minReviews&quot;: {
+      &quot;description&quot;: &quot;Only keep places with at least this many reviews. Places with no review count are skipped.&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum Review Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;nameFilter&quot;: {
+      &quot;description&quot;: &quot;Only keep places whose name contains this text, for example &#x27;pizza&#x27;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Name Contains&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;openNow&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only keep places Google currently shows as open. A place whose open/closed state cannot be read is skipped, so this filter can return fewer rows.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Open Now Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;place&quot;: {
+      &quot;description&quot;: &quot;Google Maps place URL or canonical ChIJ Place ID to use as the center when the center type is Place.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Place URL or Place ID&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;radiusKm&quot;: {
+      &quot;default&quot;: 1,
+      &quot;description&quot;: &quot;Hard search radius in kilometres around the center. Places outside it are dropped; every returned row carries its exact distance from the center.&quot;,
+      &quot;maximum&quot;: 50,
+      &quot;minimum&quot;: 0.05,
+      &quot;prefill&quot;: 0.5,
+      &quot;sectionCaption&quot;: &quot;Radius and result limit&quot;,
+      &quot;title&quot;: &quot;Radius (km)&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;searchTerms&quot;: {
+      &quot;default&quot;: [
+        &quot;coffee shop&quot;
+      ],
+      &quot;description&quot;: &quot;One or more categories or free-text keywords, for example [&#x27;coffee shop&#x27;], [&#x27;dentist&#x27;, &#x27;pharmacy&#x27;] or [&#x27;restaurant&#x27;].&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;minItems&quot;: 1,
+      &quot;prefill&quot;: [
+        &quot;coffee shop&quot;
+      ],
+      &quot;sectionCaption&quot;: &quot;What to search for&quot;,
+      &quot;title&quot;: &quot;Categories / Keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;searchTerms&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Google Maps Nearby Radius Search Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>places</code></td><td>string</td><td>optional</td><td>One row per place inside the radius. Fields are omitted when Google does not publish them.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Dataset of Google Maps places inside the requested radius, each with identity, contact, rating, hours, coordinates and distance from the center.&quot;,
+  &quot;properties&quot;: {
+    &quot;places&quot;: {
+      &quot;description&quot;: &quot;One row per place inside the radius. Fields are omitted when Google does not publish them.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Nearby Places&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Google Maps Nearby Radius Search Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;full&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;
+      },
+      &quot;title&quot;: &quot;Complete Place Data&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;name&quot;,
+          &quot;categoryName&quot;,
+          &quot;categories&quot;,
+          &quot;totalScore&quot;,
+          &quot;reviewsCount&quot;,
+          &quot;ratingHistogram&quot;,
+          &quot;address&quot;,
+          &quot;phone&quot;,
+          &quot;website&quot;,
+          &quot;priceLevel&quot;,
+          &quot;placeId&quot;,
+          &quot;featureId&quot;,
+          &quot;kgmid&quot;,
+          &quot;cid&quot;,
+          &quot;plusCode&quot;,
+          &quot;location&quot;,
+          &quot;latitude&quot;,
+          &quot;longitude&quot;,
+          &quot;distanceFromCenter&quot;,
+          &quot;distanceFromCenterMeters&quot;,
+          &quot;hours&quot;,
+          &quot;hoursStatus&quot;,
+          &quot;isOpenNow&quot;,
+          &quot;timezone&quot;,
+          &quot;countryCode&quot;,
+          &quot;description&quot;,
+          &quot;placeAttributes&quot;,
+          &quot;attributes&quot;,
+          &quot;amenities&quot;,
+          &quot;serviceOptions&quot;,
+          &quot;fuelPrices&quot;,
+          &quot;hotelStars&quot;,
+          &quot;hotelStarRating&quot;,
+          &quot;priceOfferAmount&quot;,
+          &quot;priceOfferCurrency&quot;,
+          &quot;priceOfferDateRange&quot;,
+          &quot;hotelAmenities&quot;,
+          &quot;bookingLinks&quot;,
+          &quot;checkInTime&quot;,
+          &quot;checkOutTime&quot;,
+          &quot;hasStreetView&quot;,
+          &quot;streetViewCount&quot;,
+          &quot;photosSample&quot;,
+          &quot;photoCount&quot;,
+          &quot;permanentlyClosed&quot;,
+          &quot;temporarilyClosed&quot;,
+          &quot;claimed&quot;,
+          &quot;searchTerm&quot;,
+          &quot;rankInSearch&quot;,
+          &quot;googleMapsUrl&quot;,
+          &quot;sourceUrl&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;address&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Address&quot;
+          },
+          &quot;categoryName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Category&quot;
+          },
+          &quot;distanceFromCenter&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Distance&quot;
+          },
+          &quot;googleMapsUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Maps URL&quot;
+          },
+          &quot;name&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Name&quot;
+          },
+          &quot;phone&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Phone&quot;
+          },
+          &quot;reviewsCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Reviews&quot;
+          },
+          &quot;searchTerm&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Search term&quot;
+          },
+          &quot;totalScore&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;website&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Website&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Nearby Places&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;name&quot;,
+          &quot;categoryName&quot;,
+          &quot;totalScore&quot;,
+          &quot;reviewsCount&quot;,
+          &quot;address&quot;,
+          &quot;phone&quot;,
+          &quot;website&quot;,
+          &quot;distanceFromCenter&quot;,
+          &quot;searchTerm&quot;,
+          &quot;googleMapsUrl&quot;,
+          &quot;scrapedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-maps-nearby-radius-search-address-place-coordinates">Google Maps Nearby Radius Search — Address, Place &amp; Coordinates</h2>
+<p>Point this actor at a coordinate, an address, or a Google Maps place, give it a
+radius and one or more categories or keywords, and it returns the places Google
+shows inside that radius. Every row carries its straight-line distance from the
+center, so &quot;within 800 m of this address&quot; is an auditable number instead of a
+relevance guess.</p>
+<p>It reads Google Maps' public result feed without a browser, cookies or an API
+key. Runs are small (1 GB), fast, and do not need proxy configuration.</p>
+<h2 id="readme-search-center">Search center</h2>
+<p>Choose one center type:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Center type</th>
+<th>What to provide</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordinates</td>
+<td><code>latitude</code> + <code>longitude</code></td>
+<td><code>40.7484</code>, <code>-73.9857</code></td>
+</tr>
+<tr>
+<td>Address</td>
+<td><code>address</code></td>
+<td><code>350 5th Ave, New York, NY 10118</code></td>
+</tr>
+<tr>
+<td>Place</td>
+<td><code>place</code> (Maps URL or ChIJ Place ID)</td>
+<td><code>https://www.google.com/maps/place/?q=place_id:ChIJ...</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>An address or place is resolved to Google's own coordinates first, then the
+radius search is anchored there. A place can be a full Maps URL, a short
+<code>maps.app.goo.gl</code>-style link, or a canonical <code>ChIJ...</code> Place ID.</p>
+<h2 id="readme-what-it-collects">What it collects</h2>
+<p>For every place inside the radius:</p>
+<ul>
+<li><code>name</code>, <code>categoryName</code>, <code>categories</code></li>
+<li><code>totalScore</code>, <code>reviewsCount</code>, <code>ratingHistogram</code></li>
+<li><code>address</code>, <code>phone</code>, <code>website</code></li>
+<li><code>priceLevel</code>, <code>plusCode</code>, <code>description</code></li>
+<li><code>hours</code>, <code>hoursStatus</code>, <code>isOpenNow</code></li>
+<li><code>timezone</code>, <code>countryCode</code></li>
+<li><code>placeId</code>, <code>featureId</code>, <code>kgmid</code>, <code>cid</code></li>
+<li><code>location</code> (<code>{lat,lng}</code>), <code>latitude</code>, <code>longitude</code></li>
+<li><code>distanceFromCenter</code> (e.g. <code>450 m</code>), <code>distanceFromCenterMeters</code></li>
+<li><code>photosSample</code>, <code>photoCount</code></li>
+<li><code>placeAttributes</code>, <code>attributes</code>, <code>amenities</code>, <code>serviceOptions</code></li>
+<li><code>fuelPrices</code>, <code>hotelStars</code>, <code>hotelStarRating</code>, <code>priceOfferAmount</code>,
+<code>priceOfferCurrency</code>, <code>priceOfferDateRange</code>, <code>hotelAmenities</code></li>
+<li><code>bookingLinks</code>, <code>checkInTime</code>, <code>checkOutTime</code></li>
+<li><code>hasStreetView</code>, <code>streetViewCount</code></li>
+<li><code>permanentlyClosed</code>, <code>temporarilyClosed</code>, <code>claimed</code></li>
+<li><code>searchTerm</code>, <code>rankInSearch</code></li>
+<li><code>googleMapsUrl</code>, <code>sourceUrl</code>, <code>scrapedAt</code>, <code>recordType</code></li>
+</ul>
+<p>Fields Google does not publish for a place are omitted, never sent as <code>null</code> or
+an empty string. <code>includeDetails</code> adds the preview-panel fields (plus code,
+price, histogram, photos, description, attributes, service options, closure
+status and hotel/fuel/booking extras when Google publishes them) and costs one
+extra request per place; listing fields and weekly hours are collected either
+way.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>centerType</code></td>
+<td>select</td>
+<td><code>coordinates</code></td>
+<td><code>coordinates</code>, <code>address</code> or <code>place</code></td>
+</tr>
+<tr>
+<td><code>latitude</code></td>
+<td>number</td>
+<td><code>40.7484</code></td>
+<td>Center latitude for coordinate mode</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td>number</td>
+<td><code>-73.9857</code></td>
+<td>Center longitude for coordinate mode</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>string</td>
+<td>—</td>
+<td>Center for address mode</td>
+</tr>
+<tr>
+<td><code>place</code></td>
+<td>string</td>
+<td>—</td>
+<td>Maps URL or ChIJ Place ID for place mode</td>
+</tr>
+<tr>
+<td><code>searchTerms</code></td>
+<td>string list</td>
+<td><code>[&quot;coffee shop&quot;]</code></td>
+<td>One or more categories/keywords (required)</td>
+</tr>
+<tr>
+<td><code>radiusKm</code></td>
+<td>number</td>
+<td><code>1</code></td>
+<td>Hard radius, 0.05–50 km</td>
+</tr>
+<tr>
+<td><code>maxResults</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Maximum places per term</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Read each place's preview panel</td>
+</tr>
+<tr>
+<td><code>minRating</code> / <code>maxRating</code></td>
+<td>number</td>
+<td>—</td>
+<td>Inclusive rating bounds</td>
+</tr>
+<tr>
+<td><code>minReviews</code> / <code>maxReviews</code></td>
+<td>integer</td>
+<td>—</td>
+<td>Inclusive review-count bounds</td>
+</tr>
+<tr>
+<td><code>openNow</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep only places observed open</td>
+</tr>
+<tr>
+<td><code>hasWebsite</code> / <code>hasPhone</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Require the field</td>
+</tr>
+<tr>
+<td><code>includeClosed</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Keep permanently closed places</td>
+</tr>
+<tr>
+<td><code>nameFilter</code></td>
+<td>string</td>
+<td>—</td>
+<td>Name must contain this text</td>
+</tr>
+<tr>
+<td><code>excludeCategories</code></td>
+<td>string list</td>
+<td><code>[]</code></td>
+<td>Drop matching categories</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>select</td>
+<td><code>en</code></td>
+<td>74 Google Maps UI languages</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-examples">Examples</h3>
+<p>Coffee within 500 m of Times Square:</p>
+<pre><code class="language-json">{
+  &quot;centerType&quot;: &quot;coordinates&quot;,
+  &quot;latitude&quot;: 40.7484,
+  &quot;longitude&quot;: -73.9857,
+  &quot;searchTerms&quot;: [&quot;coffee shop&quot;],
+  &quot;radiusKm&quot;: 0.5,
+  &quot;maxResults&quot;: 30
+}
+</code></pre>
+<p>Highly rated, open-now restaurants around an address:</p>
+<pre><code class="language-json">{
+  &quot;centerType&quot;: &quot;address&quot;,
+  &quot;address&quot;: &quot;10 Downing St, London SW1A 2AA&quot;,
+  &quot;searchTerms&quot;: [&quot;restaurant&quot;],
+  &quot;radiusKm&quot;: 2,
+  &quot;minRating&quot;: 4.5,
+  &quot;openNow&quot;: true,
+  &quot;maxResults&quot;: 50
+}
+</code></pre>
+<p>Pharmacies and clinics around a place URL, in French:</p>
+<pre><code class="language-json">{
+  &quot;centerType&quot;: &quot;place&quot;,
+  &quot;place&quot;: &quot;https://www.google.com/maps/place/Eiffel+Tower/@48.8583701,2.2944813,17z&quot;,
+  &quot;searchTerms&quot;: [&quot;pharmacy&quot;, &quot;clinic&quot;],
+  &quot;radiusKm&quot;: 3,
+  &quot;includeDetails&quot;: false,
+  &quot;language&quot;: &quot;fr&quot;,
+  &quot;maxResults&quot;: 40
+}
+</code></pre>
+<h2 id="readme-how-pagination-works">How pagination works</h2>
+<p>Google serves the nearby feed in pages of 20 ranked places. The actor follows
+those pages until the per-term <code>maxResults</code> is reached, the feed returns an
+empty section, or two consecutive pages contain nothing inside the radius
+(Google appends unrelated places from other cities at the end of a window).
+Deduplication is by Place ID, then feature ID, then Maps URL, then name +
+address.</p>
+<p>A single term's ranked window usually holds roughly 130–180 places inside a
+dense radius. When that window ends, the actor stops and says so in the status
+message rather than padding the dataset. For more coverage, split the area into
+smaller radii or run several narrower category terms.</p>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Google Maps API key or cookies?</strong> No. The actor reads the same
+public result and preview endpoints the Maps website uses, with no account,
+cookie or key.</p>
+<p><strong>Do I need a proxy?</strong> No. It starts direct, and only if Google repeatedly
+blocks the connection does it move to Apify's datacenter pool and then US
+residential as a last resort. There is no proxy field to configure.</p>
+<p><strong>Why are there fewer rows than <code>maxResults</code>?</strong> The ranked window ends, or the
+radius/filters removed places. The status message reports how many rows were
+outside the radius and how many were filtered. A tight radius or strict
+<code>openNow</code> filter can legitimately return zero rows.</p>
+<p><strong>Why is <code>distanceFromCenter</code> missing?</strong> It is never missing on a returned row:
+a place without observed coordinates is dropped because it cannot be proven
+inside the radius.</p>
+<p><strong>Can I search more than one category in one run?</strong> Yes. Put several entries in
+<code>searchTerms</code>; each term is searched and paginated separately, and every row
+records which term found it. <code>maxResults</code> applies per term.</p>
+<p><strong>Why do some detail fields appear only sometimes?</strong> Plus code, price level,
+rating histogram, description and attributes are conditional on Google
+publishing them for that place. Omitted means Google did not show it.</p>
+<p><strong>Does a smaller radius return more accurate results?</strong> Yes. The radius also
+selects the map zoom used for the search, so a 500 m request is anchored on a
+much tighter viewport than a 20 km request.</p>
+<p><strong>Is this affiliated with Google?</strong> No. It reads publicly visible Google Maps
+data and is not affiliated with, endorsed by or sponsored by Google.</p>
+<h2 id="readme-limitations">Limitations</h2>
+<ul>
+<li>One term's ranked window is finite; the actor reports the honest source end
+instead of inventing rows.</li>
+<li>Popular times, menus, reviews, emails and social profiles belong to separate
+actors in this suite.</li>
+<li>Bounding-box, polygon and multi-cell grid scans belong to the area-scanner
+actor.</li>
+<li>Google localises names, addresses and hours with <code>language</code>; the values are
+returned exactly as Google serves them.</li>
+</ul>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/google-maps-radius-search-around-a-coordinate/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>tsEGdQm2g6T1hH81o</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,99 @@
+{
+  "description": "Search for hotel listings on Trip.com by city and date.",
+  "properties": {
+    "checkIn": {
+      "description": "Check-in date in YYYY-MM-DD format. Leave blank to use tomorrow's date.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Check-in Date",
+      "type": "string"
+    },
+    "checkOut": {
+      "description": "Check-out date in YYYY-MM-DD format. Leave blank to use the day after check-in.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Check-out Date",
+      "type": "string"
+    },
+    "cityName": {
+      "default": "London",
+      "description": "Name of the city to search for hotels. E.g. 'London', 'Paris', 'Tokyo', 'Bangkok'. Also accepts 'destination' as an alias. Supported regions: Europe, Asia, Middle East. US/Americas cities may return 0 results due to Trip.com frontend differences.",
+      "editor": "textfield",
+      "prefill": "London",
+      "title": "City Name",
+      "type": "string"
+    },
+    "hotelId": {
+      "description": "Trip.com hotel ID to fetch detail for. E.g. '732036'. Used in hotelDetail mode.",
+      "editor": "textfield",
+      "title": "Hotel ID (mode=hotelDetail)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of hotels to return. Min 1, max 200.",
+      "editor": "number",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum price per night in USD. Leave blank for no limit.",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Maximum Price Per Night (USD)",
+      "type": "number"
+    },
+    "minRating": {
+      "description": "Minimum guest rating score (0-10). E.g. 7.0 for 'Good', 8.0 for 'Very Good'.",
+      "editor": "number",
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Minimum Guest Score",
+      "type": "number"
+    },
+    "minStars": {
+      "description": "Minimum hotel star rating filter (1-5). Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum Star Rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchHotels",
+      "description": "Scraping mode: 'searchHotels' to search by city, 'hotelDetail' to fetch a single hotel by its Trip.com hotel ID.",
+      "editor": "select",
+      "enum": [
+        "searchHotels",
+        "hotelDetail"
+      ],
+      "enumTitles": [
+        "Search hotels by city",
+        "Hotel detail by ID"
+      ],
+      "prefill": "searchHotels",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Proxy settings. Recommended: use Apify Proxy AUTO group for reliable access.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Trip.com Hotels Scraper Input",
+  "type": "object"
+}

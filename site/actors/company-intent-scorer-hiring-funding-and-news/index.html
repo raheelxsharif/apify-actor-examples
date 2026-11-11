@@ -1,0 +1,629 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-/IoMBBlEL2kNCDYmR90VYfOZ0eOk8wuuljOH8K/9KI0=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Company Intent Scorer: Hiring, Funding &amp; News Signals | Dataspryva</title><meta name="description" content="Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prior"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/"><meta property="og:title" content="Company Intent Scorer: Hiring, Funding &amp; News Signals | Dataspryva"><meta property="og:description" content="Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prior"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#webpage","name":"Company Intent Scorer: Hiring, Funding & News Signals","description":"Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prioritization.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#article","headline":"Company Intent Scorer: Hiring, Funding & News Signals","name":"Company Intent Scorer: Hiring, Funding & News Signals","description":"Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prioritization.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#webpage"},"inLanguage":"en","dateModified":"2026-10-31T18:23:45.044Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Company Intent Scorer: Hiring, Funding & News Signals","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Company Intent Scorer: Hiring, Funding &amp; News Signals</span></div><section id="overview"><h1 class="doc-title">Company Intent Scorer: Hiring, Funding &amp; News Signals</h1><p class="lede">Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prioritization.</p><p class="summary">Company Intent Scorer: Hiring, Funding &amp; News Signals is an Apify Actor published by Dataspryva. It accepts 13 input fields, none of them required at the top level. Its build declares a results dataset with 7 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/company-intent-scorer-hiring-funding-and-news">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/3JAtBsQXU52QtnMZH/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Score every company, or compare this run with the previous run for the same monitor key.</td></tr><tr><td><code>companiesText</code></td><td>string</td><td>optional</td><td>Paste company names, one per line. Domains and careers URLs are accepted in the advanced list below.</td></tr><tr><td><code>companies</code></td><td>array</td><td>optional</td><td>Advanced list. Each item can include companyName (or name), domain, careersUrl, ats, atsToken and disambiguator. Plain strings are also accepted. If provided, this overrides the text list.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Score every company, or compare this run with the previous run for the same monitor key.</td></tr><tr><td><code>companiesText</code></td><td>string</td><td>optional</td><td>Paste company names, one per line. Domains and careers URLs are accepted in the advanced list below.</td></tr><tr><td><code>companies</code></td><td>array</td><td>optional</td><td>Advanced list. Each item can include companyName (or name), domain, careersUrl, ats, atsToken and disambiguator. Plain strings are also accepted. If provided, this overrides the text list.</td></tr><tr><td><code>signals</code></td><td>array</td><td>optional</td><td>Buying signals to check. Disabling a scored signal normalizes the remaining weights to 100.</td></tr><tr><td><code>lookbackDays</code></td><td>integer</td><td>optional</td><td>Funding, news and executive-change window. News trend counts also cover 7, 30 and 90 days.</td></tr><tr><td><code>minScore</code></td><td>integer</td><td>optional</td><td>Drop scored companies below this intent score. Error records are always kept.</td></tr><tr><td><code>targetTechnology</code></td><td>string</td><td>optional</td><td>Optional technology to check on the company homepage, e.g. HubSpot or Marketo. The gap result does not change the intent score.</td></tr><tr><td><code>includeRawSignals</code></td><td>boolean</td><td>optional</td><td>In full output, add sample job titles and the top news headlines for auditing.</td></tr><tr><td><code>outputFormat</code></td><td>string</td><td>optional</td><td>compact returns ranking fields plus top signals. full adds the score breakdown and per-signal detail.</td></tr><tr><td><code>maxCompanies</code></td><td>integer</td><td>optional</td><td>Hard cap on companies processed per run.</td></tr><tr><td><code>maxConcurrency</code></td><td>integer</td><td>optional</td><td>How many companies to process in parallel. Lower values are gentler on public sources.</td></tr><tr><td><code>monitorKey</code></td><td>string</td><td>optional</td><td>(mode=monitor) Name of the tracking history. Use the same key each run to compare against the previous snapshot.</td></tr><tr><td><code>emitUnchanged</code></td><td>boolean</td><td>optional</td><td>(mode=monitor) Include companies with no new or resolved signals and no score change.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Choose score or monitor, paste companies, and select the buying signals to check.&quot;,
+  &quot;properties&quot;: {
+    &quot;companies&quot;: {
+      &quot;description&quot;: &quot;Advanced list. Each item can include companyName (or name), domain, careersUrl, ats, atsToken and disambiguator. Plain strings are also accepted. If provided, this overrides the text list.&quot;,
+      &quot;editor&quot;: &quot;json&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;ats&quot;: {
+            &quot;description&quot;: &quot;Optional provider name when you already know it: greenhouse, ashby, lever, workable, smartrecruiters, recruitee, personio, breezy or workday.&quot;,
+            &quot;title&quot;: &quot;ATS provider&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;atsToken&quot;: {
+            &quot;description&quot;: &quot;Optional board token for the provider, e.g. the token in jobs.ashbyhq.com/linear.&quot;,
+            &quot;title&quot;: &quot;ATS token&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;careersUrl&quot;: {
+            &quot;description&quot;: &quot;Optional careers page or job-board URL, e.g. https://jobs.lever.co/acme.&quot;,
+            &quot;title&quot;: &quot;Careers URL&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;companyName&quot;: {
+            &quot;description&quot;: &quot;The company&#x27;s legal or brand name.&quot;,
+            &quot;title&quot;: &quot;Company Name&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;disambiguator&quot;: {
+            &quot;description&quot;: &quot;Optional word that must appear in news headlines, e.g. software for a common-word company name.&quot;,
+            &quot;title&quot;: &quot;Disambiguator&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;domain&quot;: {
+            &quot;description&quot;: &quot;Optional root domain, e.g. notion.so. Avoids domain lookup.&quot;,
+            &quot;title&quot;: &quot;Domain&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;name&quot;: {
+            &quot;description&quot;: &quot;Alias for companyName.&quot;,
+            &quot;title&quot;: &quot;Name (alias)&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;title&quot;: &quot;Companies (advanced)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;companiesText&quot;: {
+      &quot;description&quot;: &quot;Paste company names, one per line. Domains and careers URLs are accepted in the advanced list below.&quot;,
+      &quot;editor&quot;: &quot;textarea&quot;,
+      &quot;prefill&quot;: &quot;Figma\nNotion\nLinear&quot;,
+      &quot;title&quot;: &quot;Companies (one per line)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;emitUnchanged&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;(mode=monitor) Include companies with no new or resolved signals and no score change.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Emit unchanged companies&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeRawSignals&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;In full output, add sample job titles and the top news headlines for auditing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include raw evidence&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;lookbackDays&quot;: {
+      &quot;default&quot;: 90,
+      &quot;description&quot;: &quot;Funding, news and executive-change window. News trend counts also cover 7, 30 and 90 days.&quot;,
+      &quot;maximum&quot;: 365,
+      &quot;minimum&quot;: 7,
+      &quot;prefill&quot;: 90,
+      &quot;title&quot;: &quot;Lookback days&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxCompanies&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on companies processed per run.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max companies&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxConcurrency&quot;: {
+      &quot;default&quot;: 3,
+      &quot;description&quot;: &quot;How many companies to process in parallel. Lower values are gentler on public sources.&quot;,
+      &quot;maximum&quot;: 10,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max concurrency&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minScore&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Drop scored companies below this intent score. Error records are always kept.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum score&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;score&quot;,
+      &quot;description&quot;: &quot;Score every company, or compare this run with the previous run for the same monitor key.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;score&quot;,
+        &quot;monitor&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Score companies&quot;,
+        &quot;Monitor changes since previous run&quot;
+      ],
+      &quot;prefill&quot;: &quot;score&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;monitorKey&quot;: {
+      &quot;description&quot;: &quot;(mode=monitor) Name of the tracking history. Use the same key each run to compare against the previous snapshot.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Monitor key&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;outputFormat&quot;: {
+      &quot;default&quot;: &quot;compact&quot;,
+      &quot;description&quot;: &quot;compact returns ranking fields plus top signals. full adds the score breakdown and per-signal detail.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;compact&quot;,
+        &quot;full&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Compact (ranking)&quot;,
+        &quot;Full (all signal detail)&quot;
+      ],
+      &quot;prefill&quot;: &quot;compact&quot;,
+      &quot;title&quot;: &quot;Output format&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;signals&quot;: {
+      &quot;default&quot;: [
+        &quot;hiring&quot;,
+        &quot;funding&quot;,
+        &quot;news&quot;,
+        &quot;execChanges&quot;,
+        &quot;layoffs&quot;,
+        &quot;techStack&quot;
+      ],
+      &quot;description&quot;: &quot;Buying signals to check. Disabling a scored signal normalizes the remaining weights to 100.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;hiring&quot;,
+          &quot;funding&quot;,
+          &quot;news&quot;,
+          &quot;execChanges&quot;,
+          &quot;layoffs&quot;,
+          &quot;techStack&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Hiring (ATS boards)&quot;,
+          &quot;Funding (SEC Form D + press)&quot;,
+          &quot;News momentum&quot;,
+          &quot;Executive changes&quot;,
+          &quot;Layoffs / risk&quot;,
+          &quot;Tech stack enrichment&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;hiring&quot;,
+        &quot;funding&quot;,
+        &quot;news&quot;,
+        &quot;execChanges&quot;,
+        &quot;layoffs&quot;,
+        &quot;techStack&quot;
+      ],
+      &quot;title&quot;: &quot;Signals&quot;,
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;targetTechnology&quot;: {
+      &quot;description&quot;: &quot;Optional technology to check on the company homepage, e.g. HubSpot or Marketo. The gap result does not change the intent score.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Target technology&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;B2B Sales Trigger Intelligence Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>companies</code></td><td>string</td><td>optional</td><td>One record per company with score, grade, signals and evidence; company_error records when all enabled sources fail.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Graded company records with hiring, funding, news, executive-change, layoff and technology evidence, plus monitor diffs.&quot;,
+  &quot;properties&quot;: {
+    &quot;companies&quot;: {
+      &quot;description&quot;: &quot;One record per company with score, grade, signals and evidence; company_error records when all enabled sources fail.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Company intent records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Company Intent Scorer: Hiring, Funding &amp; News Signals Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;description&quot;: &quot;Graded company records with hiring, funding, news, executive-change, layoff and technology evidence, plus monitor diffs.&quot;,
+  &quot;title&quot;: &quot;Company Intent Scorer: Hiring, Funding &amp; News Signals Output&quot;,
+  &quot;views&quot;: {
+    &quot;funding&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;fundingSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Funding&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Funding Signals&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;fundingSignal&quot;
+        ]
+      }
+    },
+    &quot;hiring&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;ats&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;ATS&quot;
+          },
+          &quot;careersUrl&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Careers&quot;
+          },
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;hiringSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Hiring&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Hiring Signals&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;ats&quot;,
+          &quot;careersUrl&quot;,
+          &quot;hiringSignal&quot;
+        ]
+      }
+    },
+    &quot;monitor&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;grade&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Grade&quot;
+          },
+          &quot;monitor&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Changes&quot;
+          },
+          &quot;score&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Score&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Monitor Changes&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;grade&quot;,
+          &quot;score&quot;,
+          &quot;monitor&quot;
+        ]
+      }
+    },
+    &quot;news&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;newsSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;News&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;News Signals&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;newsSignal&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;domain&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Domain&quot;
+          },
+          &quot;grade&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Grade&quot;
+          },
+          &quot;priorityFlag&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Priority&quot;
+          },
+          &quot;rationale&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Rationale&quot;
+          },
+          &quot;score&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Score&quot;
+          },
+          &quot;topSignal&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Top Signal&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;domain&quot;,
+          &quot;grade&quot;,
+          &quot;score&quot;,
+          &quot;priorityFlag&quot;,
+          &quot;topSignal&quot;,
+          &quot;rationale&quot;
+        ]
+      }
+    },
+    &quot;risk&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;execChangeSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Executive changes&quot;
+          },
+          &quot;riskSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Layoff risk&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Executive &amp; Risk Signals&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;execChangeSignal&quot;,
+          &quot;riskSignal&quot;
+        ]
+      }
+    },
+    &quot;technology&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;companyName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Company&quot;
+          },
+          &quot;targetTechnology&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Target technology&quot;
+          },
+          &quot;techStackSignal&quot;: {
+            &quot;format&quot;: &quot;object&quot;,
+            &quot;label&quot;: &quot;Tech stack&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Technology&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;techStackSignal&quot;,
+          &quot;targetTechnology&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-company-intent-scorer-hiring-funding-news-signals">Company Intent Scorer: Hiring, Funding &amp; News Signals</h2>
+<p>Turn a list of target accounts into a ranked buying-signal report. For every company this actor checks public job boards, SEC Form D filings and funding coverage, entity-filtered news, executive changes, layoff risk and the company homepage, then returns one graded record with the evidence behind the score. No cookies, logins, API keys or proxy setup are needed.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Scores and ranks every company</strong> on a 0–100 intent score with an A–D grade, <code>priorityFlag</code>, <code>topSignal</code>, <code>topSignals[]</code> and a plain-English <code>rationale</code></li>
+<li><strong>Finds real hiring</strong> on nine public applicant-tracking systems, including Workday, with role counts, 7/30/90-day velocity, function/seniority mix, remote counts and locations</li>
+<li><strong>Finds real funding</strong> from SEC Form D filings and entity-matched press, with amount, round, valuation, date and confidence</li>
+<li><strong>Filters news to the company</strong>, then derives news momentum, executive changes and layoff risk from the same matched headlines</li>
+<li><strong>Adds a technology stack</strong> as enrichment and can check for one target technology without changing the intent score</li>
+<li><strong>Monitors changes</strong> between runs: new signals, resolved signals, score movement and whether a company changed at all</li>
+<li><strong>Omits empty fields</strong> at every depth instead of returning nulls</li>
+</ul>
+<h2 id="readme-output-per-company">Output per company</h2>
+<p>Every record includes:</p>
+<ul>
+<li><code>companyName</code> — company name as provided</li>
+<li><code>domain</code> — verified primary domain, when one can be confirmed</li>
+<li><code>companyUrl</code> — homepage URL built from the verified domain</li>
+<li><code>careersUrl</code> — careers page or public job-board URL when found</li>
+<li><code>ats</code> — job-board provider when a board was found</li>
+<li><code>grade</code> — A, B, C or D</li>
+<li><code>score</code> — intent score from 0 to 100</li>
+<li><code>priorityFlag</code> — true for grade A, funding in the last 180 days, or an executive change in the last 30 days</li>
+<li><code>topSignal</code> — one-line summary of the strongest signal</li>
+<li><code>topSignals[]</code> — up to three strongest signals with <code>type</code>, <code>label</code>, <code>summary</code>, <code>score</code>, <code>maxScore</code>, <code>latestDate</code>, <code>source</code> and <code>url</code></li>
+<li><code>rationale</code> — why the company received its grade, using the real counts and dates</li>
+<li><code>runTimestamp</code> — ISO 8601 run timestamp</li>
+<li><code>errors[]</code> — per-source notes when a signal could not be fetched or a board was not found</li>
+<li><code>targetTechnology</code> — when requested: <code>{ name, present, category?, confidence? }</code></li>
+<li><code>monitor</code> — in monitor mode: <code>previousRunAt</code>, <code>newSignals[]</code>, <code>resolvedSignals[]</code>, <code>scoreDelta</code> and <code>changed</code></li>
+</ul>
+<p>With <code>outputFormat: &quot;full&quot;</code> the record adds:</p>
+<ul>
+<li><code>scoreBreakdown</code> — normalized point contributions for <code>hiring</code>, <code>funding</code>, <code>news</code> and <code>execChanges</code>, plus <code>riskAdjustment</code></li>
+<li><code>hiringSignal</code> — <code>openRoles</code>, <code>postedLast7Days</code>, <code>postedLast30Days</code>, <code>postedLast90Days</code>, <code>remoteRoles</code>, <code>functionMix</code>, <code>seniorityMix</code>, <code>departmentMix</code>, <code>locations</code>, <code>newestPostingDate</code>, legacy <code>totalOpenRoles</code>, <code>rolesLast30Days</code>, <code>hasExecutiveRoles</code>, <code>hasSalesRoles</code>, <code>roleMix</code>, and sample titles/jobs when raw evidence is enabled</li>
+<li><code>fundingSignal</code> — <code>amountUsd</code>, <code>roundType</code>, <code>announcedDate</code>, <code>daysSinceRound</code>, <code>valuationUsd</code>, <code>source</code>, <code>sourceUrl</code>, <code>headline</code>, <code>confidence</code>, <code>secFilingUrl</code>, <code>investors[]</code></li>
+<li><code>newsSignal</code> — <code>mentionsLast7Days</code>, <code>articleCount30d</code>, <code>mentionsLast90Days</code>, positive/negative/neutral counts, <code>topicTags</code>, <code>topSourceDomains</code>, and top headlines when raw evidence is enabled</li>
+<li><code>techStackSignal</code> — <code>technologies[]</code> with name, category, confidence and evidence, plus <code>categories</code>, <code>detectedCount</code>, <code>homepageUrl</code> and the target-technology result</li>
+<li><code>execChangeSignal</code> — <code>changes[]</code> with title, person, level, date, source and URL</li>
+<li><code>riskSignal</code> — <code>events[]</code> with confirmed/hedged layoff items</li>
+<li><code>signals[]</code> — normalized evidence rows for every enabled signal</li>
+</ul>
+<p>If every enabled source fails for a company, the record instead contains <code>type: &quot;company_error&quot;</code>, <code>companyName</code>, <code>errors[]</code> and <code>runTimestamp</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>score</code></td>
+<td><code>score</code> or <code>monitor</code></td>
+</tr>
+<tr>
+<td><code>companiesText</code></td>
+<td>string</td>
+<td>–</td>
+<td>Company names, one per line</td>
+</tr>
+<tr>
+<td><code>companies</code></td>
+<td>array</td>
+<td>–</td>
+<td>Advanced list of objects (or plain strings); accepts <code>companyName</code>/<code>name</code>, <code>domain</code>, <code>careersUrl</code>, <code>ats</code>, <code>atsToken</code>, <code>disambiguator</code></td>
+</tr>
+<tr>
+<td><code>signals</code></td>
+<td>array</td>
+<td><code>[&quot;hiring&quot;,&quot;funding&quot;,&quot;news&quot;,&quot;execChanges&quot;,&quot;layoffs&quot;,&quot;techStack&quot;]</code></td>
+<td><code>hiring</code>, <code>funding</code>, <code>news</code>, <code>execChanges</code>, <code>layoffs</code>, <code>techStack</code></td>
+</tr>
+<tr>
+<td><code>lookbackDays</code></td>
+<td>integer</td>
+<td><code>90</code></td>
+<td>Funding, news and executive-change window (7–365)</td>
+</tr>
+<tr>
+<td><code>minScore</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Drop scored companies below this score</td>
+</tr>
+<tr>
+<td><code>targetTechnology</code></td>
+<td>string</td>
+<td>–</td>
+<td>Optional technology gap check, e.g. <code>HubSpot</code></td>
+</tr>
+<tr>
+<td><code>includeRawSignals</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>In full output, add sample job titles and top headlines</td>
+</tr>
+<tr>
+<td><code>outputFormat</code></td>
+<td>string</td>
+<td><code>compact</code></td>
+<td><code>compact</code> ranking or <code>full</code> evidence detail</td>
+</tr>
+<tr>
+<td><code>maxCompanies</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Hard cap per run (1–1000)</td>
+</tr>
+<tr>
+<td><code>maxConcurrency</code></td>
+<td>integer</td>
+<td><code>3</code></td>
+<td>Companies processed in parallel (1–10)</td>
+</tr>
+<tr>
+<td><code>monitorKey</code></td>
+<td>string</td>
+<td>–</td>
+<td>Tracking history name for <code>mode: &quot;monitor&quot;</code></td>
+</tr>
+<tr>
+<td><code>emitUnchanged</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>In monitor mode, also emit companies with no change</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-score-a-short-target-list">Example: score a short target list</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;score&quot;,
+  &quot;companiesText&quot;: &quot;Figma\nNotion\nLinear&quot;,
+  &quot;outputFormat&quot;: &quot;compact&quot;
+}
+</code></pre>
+<h3 id="readme-example-weekly-account-monitoring">Example: weekly account monitoring</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;monitor&quot;,
+  &quot;companiesText&quot;: &quot;Figma\nNotion\nLinear\nRamp\nDatabricks&quot;,
+  &quot;monitorKey&quot;: &quot;q4-enterprise-targets&quot;,
+  &quot;minScore&quot;: 40,
+  &quot;maxCompanies&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-full-evidence-with-a-technology-gap-check">Example: full evidence with a technology gap check</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;score&quot;,
+  &quot;companiesText&quot;: &quot;Databricks\nSupabase\nCloudflare&quot;,
+  &quot;outputFormat&quot;: &quot;full&quot;,
+  &quot;includeRawSignals&quot;: true,
+  &quot;targetTechnology&quot;: &quot;Marketo&quot;,
+  &quot;lookbackDays&quot;: 120
+}
+</code></pre>
+<h3 id="readme-example-known-domains-and-job-boards">Example: known domains and job boards</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;score&quot;,
+  &quot;companies&quot;: [
+    { &quot;companyName&quot;: &quot;Notion&quot;, &quot;domain&quot;: &quot;notion.so&quot;, &quot;disambiguator&quot;: &quot;workspace&quot; },
+    { &quot;companyName&quot;: &quot;Linear&quot;, &quot;careersUrl&quot;: &quot;https://jobs.ashbyhq.com/linear&quot; },
+    { &quot;companyName&quot;: &quot;Scale AI&quot;, &quot;ats&quot;: &quot;greenhouse&quot;, &quot;atsToken&quot;: &quot;scaleai&quot; }
+  ],
+  &quot;outputFormat&quot;: &quot;full&quot;
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>SDR and AE prioritization</strong> — sort a territory by intent grade before a prospecting block</li>
+<li><strong>Account-based marketing</strong> — trigger plays when a target starts hiring, raises a round or changes leadership</li>
+<li><strong>RevOps hygiene</strong> — re-score dormant accounts and filter out anything below the score your team acts on</li>
+<li><strong>Competitive and market research</strong> — compare hiring pace, funding events and technology choices across a market</li>
+<li><strong>Customer expansion</strong> — watch existing accounts for new funding, new executives and hiring surges</li>
+<li><strong>Weekly change monitoring</strong> — use <code>mode: &quot;monitor&quot;</code> to see only the accounts that changed since the last run</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>What sources does the score use?</strong>
+Public applicant-tracking boards for hiring, SEC Form D filings and press coverage for funding, Google News RSS for entity-matched news, and the company's public homepage for technology detection.</p>
+<p><strong>How is the score calculated?</strong>
+Hiring contributes up to 40 points, funding up to 35, news up to 15 and executive changes up to 10. If you disable a scored signal, the remaining weights are normalized to 100. A confirmed company-specific layoff in the last 90 days subtracts up to 10 points; risk can never raise the score. Grade A is 70+, B is 45–69, C is 20–44 and D is below 20.</p>
+<p><strong>Why is funding missing for some companies?</strong>
+The actor reports only funding it can verify from an SEC Form D or an entity-matched press headline with a real amount or round. Private companies without a recent filing or clear coverage are left without a funding signal rather than guessed at.</p>
+<p><strong>Why does a company have no hiring signal?</strong>
+Only public job boards are used. If the company's careers site does not expose one of the supported boards, the actor omits the hiring signal and adds a note instead of counting unrelated jobs.</p>
+<p><strong>Why is news missing or smaller than a web search?</strong>
+Headlines must contain the company name as the subject, and tracker pages, listicles, homonyms and another-entity mentions are removed. Add a <code>disambiguator</code> in the advanced list when a company name is a common word.</p>
+<p><strong>Do I need an API key or a proxy?</strong>
+No. The actor uses public, cookieless sources. Just fill in the input and run it.</p>
+<p><strong>How does monitor mode remember the previous run?</strong>
+It stores a compact snapshot under your <code>monitorKey</code>. Use the same key on every scheduled run; a new key starts a fresh baseline. <code>emitUnchanged</code> controls whether unchanged companies appear too.</p>
+<p><strong>What is the difference between compact and full output?</strong>
+Compact returns the ranking fields and top signals. Full adds the score breakdown and the detailed hiring, funding, news, technology, executive-change and risk objects.</p>
+<p><strong>Why are some Workday posting dates approximate?</strong>
+Workday normally shows relative dates such as &quot;Posted 5 Days Ago&quot; or &quot;30+ Days Ago&quot;. The actor maps those to dates and marks the hiring signal as approximate when a board uses them.</p>
+<p><strong>Is this affiliated with the job boards, SEC or news publishers?</strong>
+No. This is an independent actor that reads public information; it is not affiliated with or endorsed by those services.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/company-intent-scorer-hiring-funding-and-news/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>snh2nvfgk9s62uO6W</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

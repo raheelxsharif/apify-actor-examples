@@ -1,0 +1,626 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-DuuDZB7Fwb9lbs0Szc3McddTrE3qb851q+1EVMqM/zw=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Google Workspace Marketplace Review Tracker | Dataspryva</title><meta name="description" content="Track and monitor reviews for any Google Workspace Marketplace app. Filter by date, rating, and sort order - ideal for daily sentiment monitoring and competitor analysis."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/"><meta property="og:title" content="Google Workspace Marketplace Review Tracker | Dataspryva"><meta property="og:description" content="Track and monitor reviews for any Google Workspace Marketplace app. Filter by date, rating, and sort order - ideal for daily sentiment monitoring and competitor analysis."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#webpage","name":"Google Workspace Marketplace Review Tracker","description":"Track and monitor reviews for any Google Workspace Marketplace app. Filter by date, rating, and sort order - ideal for daily sentiment monitoring and competitor analysis.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#article","headline":"Google Workspace Marketplace Review Tracker","name":"Google Workspace Marketplace Review Tracker","description":"Track and monitor reviews for any Google Workspace Marketplace app. Filter by date, rating, and sort order - ideal for daily sentiment monitoring and competitor analysis.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#webpage"},"inLanguage":"en","dateModified":"2026-11-08T13:06:46.819Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Google Workspace Marketplace Review Tracker","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/google-workspace-marketplace-review-tracker/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Google Workspace Marketplace Review Tracker</span></div><section id="overview"><h1 class="doc-title">Google Workspace Marketplace Review Tracker</h1><p class="lede">Track and monitor reviews for any Google Workspace Marketplace app. Filter by date, rating, and sort order - ideal for daily sentiment monitoring and competitor analysis.</p><p class="summary">Google Workspace Marketplace Review Tracker is an Apify Actor published by Dataspryva. It accepts 19 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/google-workspace-marketplace-review-tracker">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/MCQnyePxbC4pIjM4J/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose &#x27;Reviews for specific apps&#x27; to watch an app list, or &#x27;Search apps by keyword&#x27; to discover popular Marketplace apps.</td></tr><tr><td><code>appIds</code></td><td>array</td><td>optional</td><td>Numeric App IDs or full Google Workspace Marketplace app URLs. Add one app per item. Example: 1008170693301 or https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301. Used by the &#x27;Reviews for specific apps&#x27; mode.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords for the &#x27;Search apps by keyword&#x27; mode, for example &#x27;mail merge&#x27; or &#x27;crm&#x27;. Each keyword ranks the Marketplace&#x27;s public app index; niche apps should be added by ID or URL instead.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose &#x27;Reviews for specific apps&#x27; to watch an app list, or &#x27;Search apps by keyword&#x27; to discover popular Marketplace apps.</td></tr><tr><td><code>appIds</code></td><td>array</td><td>optional</td><td>Numeric App IDs or full Google Workspace Marketplace app URLs. Add one app per item. Example: 1008170693301 or https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301. Used by the &#x27;Reviews for specific apps&#x27; mode.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords for the &#x27;Search apps by keyword&#x27; mode, for example &#x27;mail merge&#x27; or &#x27;crm&#x27;. Each keyword ranks the Marketplace&#x27;s public app index; niche apps should be added by ID or URL instead.</td></tr><tr><td><code>maxApps</code></td><td>integer</td><td>optional</td><td>How many top matching apps to track for each search keyword.</td></tr><tr><td><code>minAppRating</code></td><td>number</td><td>optional</td><td>Skip apps rated below this value (0–5). Use 0 for no app-rating filter.</td></tr><tr><td><code>minAppReviews</code></td><td>integer</td><td>optional</td><td>Skip apps with fewer total reviews than this. Use 0 for no app-review-count filter.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order in which to retrieve reviews. The Marketplace supports newest and most helpful; legacy rating sorts are computed over the collected reviews.</td></tr><tr><td><code>reviewLanguage</code></td><td>string</td><td>optional</td><td>Choose a language, or &#x27;All languages&#x27; to check every supported language slice until Max reviews per app is reached.</td></tr><tr><td><code>minRating</code></td><td>integer</td><td>optional</td><td>Only include reviews with this star rating or higher (1–5). Leave blank for all ratings.</td></tr><tr><td><code>maxRating</code></td><td>integer</td><td>optional</td><td>Only include reviews with this star rating or lower (1–5). Leave blank for all ratings.</td></tr><tr><td><code>sinceDate</code></td><td>string</td><td>optional</td><td>Only include reviews posted on or after this date. Use YYYY-MM-DD, or a period such as &#x27;30 days&#x27;, &#x27;2 weeks&#x27; or &#x27;6 months&#x27;. Leave blank for all dates.</td></tr><tr><td><code>untilDate</code></td><td>string</td><td>optional</td><td>Only include reviews posted on or before this date (YYYY-MM-DD). Leave blank for no end date.</td></tr><tr><td><code>reviewKeyword</code></td><td>string</td><td>optional</td><td>Only include reviews whose text contains this phrase (case-insensitive). Leave blank for all review text.</td></tr><tr><td><code>maxReviewsPerApp</code></td><td>integer</td><td>optional</td><td>Stop after this many matching reviews for each app (1–2000). Raise it to collect full history; the Marketplace serves 10 per page.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of review rows to return across all apps (1–5000).</td></tr><tr><td><code>outputMode</code></td><td>string</td><td>optional</td><td>Use &#x27;Only new reviews&#x27; or &#x27;New + changed reviews&#x27; with a state key to compare this run with the previous run.</td></tr><tr><td><code>trackChanges</code></td><td>boolean</td><td>optional</td><td>In &#x27;All matching reviews&#x27; mode, add isNew/changeTypes and save a snapshot for the next run.</td></tr><tr><td><code>stateKey</code></td><td>string</td><td>optional</td><td>Name of the saved snapshot. Use a different name for each schedule or watchlist. Leave blank to derive one from the app list and review language.</td></tr><tr><td><code>resetState</code></td><td>boolean</td><td>optional</td><td>Clear the saved snapshot before this run so every review is treated as new.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Track public reviews, developer replies, languages and rating changes for Google Workspace Marketplace apps. Use app IDs/URLs for a watchlist, or search the public Marketplace index by keyword.&quot;,
+  &quot;properties&quot;: {
+    &quot;appIds&quot;: {
+      &quot;default&quot;: [
+        &quot;1008170693301&quot;
+      ],
+      &quot;description&quot;: &quot;Numeric App IDs or full Google Workspace Marketplace app URLs. Add one app per item. Example: 1008170693301 or https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301. Used by the &#x27;Reviews for specific apps&#x27; mode.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;1008170693301&quot;
+      ],
+      &quot;title&quot;: &quot;App IDs or URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;maxApps&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;How many top matching apps to track for each search keyword.&quot;,
+      &quot;maximum&quot;: 100,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Max apps per keyword&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum number of review rows to return across all apps (1–5000).&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max reviews per run&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxRating&quot;: {
+      &quot;description&quot;: &quot;Only include reviews with this star rating or lower (1–5). Leave blank for all ratings.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Maximum star rating&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerApp&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Stop after this many matching reviews for each app (1–2000). Raise it to collect full history; the Marketplace serves 10 per page.&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Max reviews per app&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minAppRating&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Skip apps rated below this value (0–5). Use 0 for no app-rating filter.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum app rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;minAppReviews&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Skip apps with fewer total reviews than this. Use 0 for no app-review-count filter.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Minimum app review count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;description&quot;: &quot;Only include reviews with this star rating or higher (1–5). Leave blank for all ratings.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Minimum star rating&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;appReviews&quot;,
+      &quot;description&quot;: &quot;Choose &#x27;Reviews for specific apps&#x27; to watch an app list, or &#x27;Search apps by keyword&#x27; to discover popular Marketplace apps.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;appReviews&quot;,
+        &quot;search&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Reviews for specific apps&quot;,
+        &quot;Search apps by keyword&quot;
+      ],
+      &quot;prefill&quot;: &quot;appReviews&quot;,
+      &quot;sectionCaption&quot;: &quot;What to track&quot;,
+      &quot;title&quot;: &quot;What to track&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;outputMode&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Use &#x27;Only new reviews&#x27; or &#x27;New + changed reviews&#x27; with a state key to compare this run with the previous run.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;new&quot;,
+        &quot;changed&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All matching reviews&quot;,
+        &quot;Only new reviews&quot;,
+        &quot;New + changed reviews&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;sectionCaption&quot;: &quot;Monitor new reviews&quot;,
+      &quot;title&quot;: &quot;Monitor output&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;resetState&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Clear the saved snapshot before this run so every review is treated as new.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Reset monitor before run&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;reviewKeyword&quot;: {
+      &quot;description&quot;: &quot;Only include reviews whose text contains this phrase (case-insensitive). Leave blank for all review text.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Review text contains&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;reviewLanguage&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Choose a language, or &#x27;All languages&#x27; to check every supported language slice until Max reviews per app is reached.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;en&quot;,
+        &quot;de&quot;,
+        &quot;es&quot;,
+        &quot;fr&quot;,
+        &quot;pt-BR&quot;,
+        &quot;it&quot;,
+        &quot;ru&quot;,
+        &quot;ja&quot;,
+        &quot;ko&quot;,
+        &quot;zh-CN&quot;,
+        &quot;zh-TW&quot;,
+        &quot;id&quot;,
+        &quot;vi&quot;,
+        &quot;nl&quot;,
+        &quot;pl&quot;,
+        &quot;tr&quot;,
+        &quot;ar&quot;,
+        &quot;hi&quot;,
+        &quot;th&quot;,
+        &quot;he&quot;,
+        &quot;uk&quot;,
+        &quot;sv&quot;,
+        &quot;da&quot;,
+        &quot;fi&quot;,
+        &quot;no&quot;,
+        &quot;cs&quot;,
+        &quot;hu&quot;,
+        &quot;fil&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All languages&quot;,
+        &quot;English&quot;,
+        &quot;German&quot;,
+        &quot;Spanish&quot;,
+        &quot;French&quot;,
+        &quot;Portuguese (Brazil)&quot;,
+        &quot;Italian&quot;,
+        &quot;Russian&quot;,
+        &quot;Japanese&quot;,
+        &quot;Korean&quot;,
+        &quot;Chinese (Simplified)&quot;,
+        &quot;Chinese (Traditional)&quot;,
+        &quot;Indonesian&quot;,
+        &quot;Vietnamese&quot;,
+        &quot;Dutch&quot;,
+        &quot;Polish&quot;,
+        &quot;Turkish&quot;,
+        &quot;Arabic&quot;,
+        &quot;Hindi&quot;,
+        &quot;Thai&quot;,
+        &quot;Hebrew&quot;,
+        &quot;Ukrainian&quot;,
+        &quot;Swedish&quot;,
+        &quot;Danish&quot;,
+        &quot;Finnish&quot;,
+        &quot;Norwegian&quot;,
+        &quot;Czech&quot;,
+        &quot;Hungarian&quot;,
+        &quot;Filipino&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Review language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords for the &#x27;Search apps by keyword&#x27; mode, for example &#x27;mail merge&#x27; or &#x27;crm&#x27;. Each keyword ranks the Marketplace&#x27;s public app index; niche apps should be added by ID or URL instead.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sinceDate&quot;: {
+      &quot;description&quot;: &quot;Only include reviews posted on or after this date. Use YYYY-MM-DD, or a period such as &#x27;30 days&#x27;, &#x27;2 weeks&#x27; or &#x27;6 months&#x27;. Leave blank for all dates.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Reviews on or after&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;Newest&quot;,
+      &quot;description&quot;: &quot;Order in which to retrieve reviews. The Marketplace supports newest and most helpful; legacy rating sorts are computed over the collected reviews.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;Newest&quot;,
+        &quot;MostHelpful&quot;,
+        &quot;MostRelevant&quot;,
+        &quot;HighestRated&quot;,
+        &quot;LowestRated&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Newest first&quot;,
+        &quot;Most helpful first&quot;,
+        &quot;Most relevant (legacy alias for most helpful)&quot;,
+        &quot;Highest rated first (computed over collected reviews)&quot;,
+        &quot;Lowest rated first (computed over collected reviews)&quot;
+      ],
+      &quot;prefill&quot;: &quot;Newest&quot;,
+      &quot;sectionCaption&quot;: &quot;Review filters&quot;,
+      &quot;title&quot;: &quot;Sort reviews by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;stateKey&quot;: {
+      &quot;description&quot;: &quot;Name of the saved snapshot. Use a different name for each schedule or watchlist. Leave blank to derive one from the app list and review language.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Monitor name (state key)&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;trackChanges&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;In &#x27;All matching reviews&#x27; mode, add isNew/changeTypes and save a snapshot for the next run.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Track changes in All mode&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;untilDate&quot;: {
+      &quot;description&quot;: &quot;Only include reviews posted on or before this date (YYYY-MM-DD). Leave blank for no end date.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Reviews on or before&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Google Workspace Marketplace Review Tracker Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>reviews</code></td><td>string</td><td>optional</td><td>Dataset containing one row per review, plus developer reply fields, app context, review language and monitor flags when enabled.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Review rows for one or more Marketplace apps, with reviewer details, developer replies, app context and optional monitor flags. Empty fields are omitted from every record.&quot;,
+  &quot;properties&quot;: {
+    &quot;reviews&quot;: {
+      &quot;description&quot;: &quot;Dataset containing one row per review, plus developer reply fields, app context, review language and monitor flags when enabled.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Reviews&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Google Workspace Marketplace Review Tracker Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;appName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;App&quot;
+          },
+          &quot;developerReply&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Developer reply&quot;
+          },
+          &quot;helpfulCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Helpful&quot;
+          },
+          &quot;isNew&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;New&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Stars&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;reviewDate&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Date&quot;
+          },
+          &quot;reviewText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Review&quot;
+          },
+          &quot;reviewerName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Reviewer&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;App reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;appName&quot;,
+          &quot;reviewerName&quot;,
+          &quot;rating&quot;,
+          &quot;reviewDate&quot;,
+          &quot;reviewText&quot;,
+          &quot;helpfulCount&quot;,
+          &quot;developerReply&quot;,
+          &quot;isNew&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-google-workspace-marketplace-review-tracker">Google Workspace Marketplace Review Tracker</h2>
+<p>Follow the public review stream for Google Workspace Marketplace add-ons. Point the actor at one
+or more app IDs or app URLs, choose the review language and filters, and get a clean dataset of
+reviewer names, stars, review text, dates, helpful votes and developer replies. Schedule it with a
+state key to receive only reviews that appeared or changed since the previous run.</p>
+<p>No Google account, API key, cookie or proxy is needed.</p>
+<h2 id="readme-what-you-can-do">What you can do</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Watch your app and competitors</td>
+<td>Add each numeric App ID or full Marketplace app URL to <code>appIds</code></td>
+</tr>
+<tr>
+<td>Discover popular apps by keyword</td>
+<td>Set <code>mode</code> to search and add keywords to <code>searchQueries</code></td>
+</tr>
+<tr>
+<td>Read reviews in another language</td>
+<td>Pick a language, or keep all supported languages</td>
+</tr>
+<tr>
+<td>Find complaints</td>
+<td>Set a maximum star rating and a review-text keyword</td>
+</tr>
+<tr>
+<td>Collect recent feedback only</td>
+<td>Set a relative <code>sinceDate</code> such as <code>30 days</code></td>
+</tr>
+<tr>
+<td>Alert on new or changed reviews</td>
+<td>Use <code>outputMode</code> <code>new</code> or <code>changed</code> with a <code>stateKey</code></td>
+</tr>
+<tr>
+<td>Re-baseline a monitor</td>
+<td>Turn on <code>resetState</code> for one run</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-inputs">Inputs</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select</td>
+<td><code>appReviews</code></td>
+<td><code>appReviews</code> watches the app list; <code>search</code> ranks the public Marketplace index by keyword.</td>
+</tr>
+<tr>
+<td><code>appIds</code></td>
+<td>stringList</td>
+<td><code>[&quot;1008170693301&quot;]</code></td>
+<td>Numeric IDs or full app URLs. One app per item.</td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>stringList</td>
+<td><code>[]</code></td>
+<td>Keywords for search mode, e.g. <code>mail merge</code>.</td>
+</tr>
+<tr>
+<td><code>maxApps</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Top matches to track per search keyword.</td>
+</tr>
+<tr>
+<td><code>minAppRating</code></td>
+<td>number</td>
+<td><code>0</code></td>
+<td>Skip apps below this average rating.</td>
+</tr>
+<tr>
+<td><code>minAppReviews</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Skip apps with fewer total reviews.</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td><code>Newest</code></td>
+<td><code>Newest</code> or <code>MostHelpful</code> from the server; legacy <code>MostRelevant</code>, <code>HighestRated</code> and <code>LowestRated</code> are also accepted (rating sorts are computed over the collected reviews).</td>
+</tr>
+<tr>
+<td><code>reviewLanguage</code></td>
+<td>select</td>
+<td><code>all</code></td>
+<td><code>all</code> or one of 28 supported language codes.</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Lowest star rating to include (1–5).</td>
+</tr>
+<tr>
+<td><code>maxRating</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Highest star rating to include (1–5).</td>
+</tr>
+<tr>
+<td><code>sinceDate</code></td>
+<td>string</td>
+<td>–</td>
+<td>ISO date or relative period (<code>30 days</code>, <code>2 weeks</code>, <code>6 months</code>).</td>
+</tr>
+<tr>
+<td><code>untilDate</code></td>
+<td>string</td>
+<td>–</td>
+<td>Latest review date, inclusive (YYYY-MM-DD).</td>
+</tr>
+<tr>
+<td><code>reviewKeyword</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep reviews containing this phrase, case-insensitive.</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerApp</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Per-app cap after filters (1–2000).</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Total rows for the run (1–5000).</td>
+</tr>
+<tr>
+<td><code>outputMode</code></td>
+<td>select</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>new</code> (only unseen reviews) or <code>changed</code> (new plus helpful/rating/reply changes).</td>
+</tr>
+<tr>
+<td><code>trackChanges</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add <code>isNew</code>/<code>changeTypes</code> and save a snapshot while returning all rows.</td>
+</tr>
+<tr>
+<td><code>stateKey</code></td>
+<td>string</td>
+<td>–</td>
+<td>Snapshot name; use one per schedule or watchlist. Derived when blank.</td>
+</tr>
+<tr>
+<td><code>resetState</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Clear the snapshot before the run.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-how-to-find-an-app-id">How to find an App ID</h3>
+<p>Open the app in the Marketplace. The numeric part after the final slash is the App ID:</p>
+<pre><code>https://workspace.google.com/marketplace/app/mailmeteor_mail_merge_for_google_sheets/1008170693301
+                                                                                       ^^^^^^^^^^^^^
+</code></pre>
+<p>Both that full URL and the bare <code>1008170693301</code> are accepted. If you only have the ID, the actor
+resolves the listing automatically.</p>
+<h2 id="readme-output">Output</h2>
+<p>Every row has <code>recordType</code> <code>workspace_review</code> and these fields when the source provides them:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reviewId</code></td>
+<td>Marketplace review identifier.</td>
+</tr>
+<tr>
+<td><code>appId</code>, <code>appName</code>, <code>appUrl</code></td>
+<td>The reviewed app and its listing URL.</td>
+</tr>
+<tr>
+<td><code>reviewerName</code>, <code>reviewerAvatarUrl</code></td>
+<td>Public reviewer name and profile image.</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>Star rating, 1–5.</td>
+</tr>
+<tr>
+<td><code>reviewText</code></td>
+<td>Written review text; omitted for rating-only reviews.</td>
+</tr>
+<tr>
+<td><code>reviewDate</code>, <code>reviewTimestamp</code></td>
+<td>UTC date and full ISO timestamp.</td>
+</tr>
+<tr>
+<td><code>helpfulCount</code></td>
+<td>Helpful votes; omitted when zero, matching earlier versions of this actor.</td>
+</tr>
+<tr>
+<td><code>developerReply</code>, <code>developerReplyDate</code>, <code>developerReplyAuthor</code>, <code>developerReplies</code></td>
+<td>Latest developer reply plus every reply thread entry (<code>replyId</code>, <code>author</code>, <code>text</code>, <code>date</code>, <code>timestamp</code>).</td>
+</tr>
+<tr>
+<td><code>reviewLanguage</code></td>
+<td>Language slice the review came from (for example <code>de</code>).</td>
+</tr>
+<tr>
+<td><code>appDeveloper</code>, <code>appRating</code>, <code>appReviewCount</code>, <code>appInstallCount</code>, <code>appInstallsLabel</code></td>
+<td>App context from the listing.</td>
+</tr>
+<tr>
+<td><code>appPricingModel</code>, <code>appIconUrl</code>, <code>appWorksWith</code>, <code>appLastUpdated</code></td>
+<td>Pricing, icon, Google products and listing-update date.</td>
+</tr>
+<tr>
+<td><code>searchQuery</code>, <code>appRankInSearch</code></td>
+<td>Present in search mode.</td>
+</tr>
+<tr>
+<td><code>isNew</code>, <code>changeTypes</code></td>
+<td>Present when monitor tracking is on.</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>UTC timestamp of this run.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Empty values are omitted at every level; a row never contains <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code> or <code>{}</code>.</p>
+<h2 id="readme-monitoring-new-reviews">Monitoring new reviews</h2>
+<ol>
+<li>Set <code>outputMode</code> to <code>new</code> or <code>changed</code>.</li>
+<li>Give the watchlist a memorable <code>stateKey</code>, for example <code>my-app-reviews</code>.</li>
+<li>Schedule the actor daily. The first run is the baseline and returns the matching reviews.</li>
+<li>Later runs load the saved review fingerprints and emit only unseen reviews (<code>new</code>), or unseen
+reviews plus reviews whose helpful count, rating or reply count moved (<code>changed</code>).</li>
+</ol>
+<p>The snapshot lives in a named key-value store, so separate scheduled runs share it. It holds up to
+50,000 reviews; if a very large history is trimmed, the oldest entries are dropped first.
+<code>resetState</code> clears the snapshot without deleting the dataset.</p>
+<h2 id="readme-search-mode">Search mode</h2>
+<p>Search ranks the Marketplace's public top-100 app index, then collects reviews for the best
+keyword matches. It is a discovery shortcut, not a full catalogue search: niche add-ons that are
+not in that index must be added by ID or URL in appReviews mode. The run status says when no app
+matched.</p>
+<h2 id="readme-languages-and-pagination">Languages and pagination</h2>
+<p>Reviews are served in 10-row pages per language. The actor requests the pages itself, follows the
+language totals, deduplicates by review ID, and stops on the per-app cap. Sparse filters scan at
+most <code>max(10, maxReviewsPerApp)</code> pages per language, so raise <code>maxReviewsPerApp</code> to look deeper
+into the history. With <code>reviewLanguage: all</code>, it visits the supported language slices in turn, so
+a single language cannot use up the whole cap. The supported list covers English, German, Spanish,
+French, Portuguese (Brazil), Italian, Russian, Japanese, Korean, Chinese (Simplified and
+Traditional), Indonesian, Vietnamese, Dutch, Polish, Turkish, Arabic, Hindi, Thai, Hebrew,
+Ukrainian, Swedish, Danish, Finnish, Norwegian, Czech, Hungarian and Filipino.</p>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Does this need a Google login or API key?</strong>
+No. It reads the same public review data the Marketplace shows to signed-out visitors.</p>
+<p><strong>Why does the app page show more ratings than I receive?</strong>
+The rating count includes every star rating, including rating-only submissions and every language.
+Written reviews are also split by language. Raise <code>maxReviewsPerApp</code> and keep <code>reviewLanguage</code> on
+<code>all</code> for the widest coverage.</p>
+<p><strong>Can I sort by highest or lowest rating?</strong>
+The Marketplace itself only offers Newest and Most Helpful. Old saved tasks that still send
+<code>HighestRated</code> or <code>LowestRated</code> keep working: the actor fetches recent reviews and sorts the
+collected set by stars. The status message explains the fallback.</p>
+<p><strong>Why are some reviews missing text?</strong>
+Some visitors leave only a star rating. Those rows keep the rating and omit <code>reviewText</code>.</p>
+<p><strong>Are developer replies included?</strong>
+Yes. Replies appear in the public review list and are attached to their review, including the
+reply author and date. A reply to a review outside the fetched window is not attached; raise
+<code>maxReviewsPerApp</code> or use a recent date filter to widen the window.</p>
+<p><strong>What if an app has no reviews in the chosen language?</strong>
+The run moves to the next language in <code>all</code> mode and finishes cleanly with zero rows for that
+language slice. A completely empty result is reported in the status message, not as a failure.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/google-workspace-marketplace-review-tracker/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>Vfd1p69f7LBV99TxZ</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

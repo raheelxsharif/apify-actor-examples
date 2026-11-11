@@ -1,0 +1,540 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-JVS+1R0Al5a5gmMQachhe3YmNpC5Wf0kvVKs7uNKEKg=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Bing Maps Local Business Finder | Dataspryva</title><meta name="description" content="Find restaurants, shops, hotels, and other local businesses on Bing Maps by keyword and city, or by a precise latitude/longitude and radius, with address, phone, website, rating, a"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/"><meta property="og:title" content="Bing Maps Local Business Finder | Dataspryva"><meta property="og:description" content="Find restaurants, shops, hotels, and other local businesses on Bing Maps by keyword and city, or by a precise latitude/longitude and radius, with address, phone, website, rating, a"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#webpage","name":"Bing Maps Local Business Finder","description":"Find restaurants, shops, hotels, and other local businesses on Bing Maps by keyword and city, or by a precise latitude/longitude and radius, with address, phone, website, rating, and coordinates.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#article","headline":"Bing Maps Local Business Finder","name":"Bing Maps Local Business Finder","description":"Find restaurants, shops, hotels, and other local businesses on Bing Maps by keyword and city, or by a precise latitude/longitude and radius, with address, phone, website, rating, and coordinates.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#webpage"},"inLanguage":"en","dateModified":"2026-11-10T09:19:08.621Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Bing Maps Local Business Finder","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/bing-maps-local-business-finder/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Bing Maps Local Business Finder</span></div><section id="overview"><h1 class="doc-title">Bing Maps Local Business Finder</h1><p class="lede">Find restaurants, shops, hotels, and other local businesses on Bing Maps by keyword and city, or by a precise latitude/longitude and radius, with address, phone, website, rating, and coordinates.</p><p class="summary">Bing Maps Local Business Finder is an Apify Actor published by Dataspryva. It accepts 14 input fields, none of them required at the top level. Its build declares a results dataset with 2 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/bing-maps-local-business-finder">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/VfLgU4ykJYuz6z5mp/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose how to find businesses: by keyword and place, around a point, or by exact place IDs/links.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more business searches, e.g. &#x27;coffee shops&#x27;, &#x27;dentist&#x27;, &#x27;hotel&#x27;. Each query is combined with every location.</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Cities, areas or full addresses to search in, e.g. &#x27;London&#x27;, &#x27;Manhattan, New York&#x27;, &#x27;Paris, France&#x27;.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Choose how to find businesses: by keyword and place, around a point, or by exact place IDs/links.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more business searches, e.g. &#x27;coffee shops&#x27;, &#x27;dentist&#x27;, &#x27;hotel&#x27;. Each query is combined with every location.</td></tr><tr><td><code>locations</code></td><td>array</td><td>optional</td><td>Cities, areas or full addresses to search in, e.g. &#x27;London&#x27;, &#x27;Manhattan, New York&#x27;, &#x27;Paris, France&#x27;.</td></tr><tr><td><code>placeIds</code></td><td>array</td><td>optional</td><td>Used by &#x27;Place details by ID or URL&#x27;. Paste Bing place IDs (ypid:...) or full Bing Maps links that contain a place ID or a place name.</td></tr><tr><td><code>latitude</code></td><td>number</td><td>optional</td><td>Centre latitude for nearby search, e.g. 51.5074 for London.</td></tr><tr><td><code>longitude</code></td><td>number</td><td>optional</td><td>Centre longitude for nearby search, e.g. -0.1278 for London.</td></tr><tr><td><code>radius</code></td><td>integer</td><td>optional</td><td>How far around the centre point to search, in metres.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of businesses to save across all queries and locations.</td></tr><tr><td><code>market</code></td><td>string</td><td>optional</td><td>Bing market (language and region) used for results, addresses and hours.</td></tr><tr><td><code>minRating</code></td><td>string</td><td>optional</td><td>Only keep businesses at or above this rating. Businesses with no rating are left out when a minimum is set.</td></tr><tr><td><code>openNow</code></td><td>boolean</td><td>optional</td><td>Keep only businesses Bing marks as open at the time of the run.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Fetch each place&#x27;s detail panel for weekly hours, description, amenities, reviews, rating breakdown, photos, menu and booking links. Slower because it adds one request per business.</td></tr><tr><td><code>maxReviews</code></td><td>integer</td><td>optional</td><td>How many recent reviews to include when detail fields are enabled. Set 0 for none.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional proxy. Apify Proxy AUTO is enabled by default to reduce the chance of rate limiting on large runs.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Find local businesses on Bing Maps by keyword and place, by coordinates and radius, or by exact place ID or link. Optionally add weekly hours, description, amenities, reviews and photos.&quot;,
+  &quot;properties&quot;: {
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch each place&#x27;s detail panel for weekly hours, description, amenities, reviews, rating breakdown, photos, menu and booking links. Slower because it adds one request per business.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;sectionCaption&quot;: &quot;Details&quot;,
+      &quot;title&quot;: &quot;Include Detail Fields&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;latitude&quot;: {
+      &quot;description&quot;: &quot;Centre latitude for nearby search, e.g. 51.5074 for London.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 90,
+      &quot;minimum&quot;: -90,
+      &quot;sectionCaption&quot;: &quot;Nearby Search&quot;,
+      &quot;title&quot;: &quot;Latitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;locations&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Cities, areas or full addresses to search in, e.g. &#x27;London&#x27;, &#x27;Manhattan, New York&#x27;, &#x27;Paris, France&#x27;.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;London&quot;
+      ],
+      &quot;title&quot;: &quot;Locations&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;longitude&quot;: {
+      &quot;description&quot;: &quot;Centre longitude for nearby search, e.g. -0.1278 for London.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 180,
+      &quot;minimum&quot;: -180,
+      &quot;title&quot;: &quot;Longitude&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;market&quot;: {
+      &quot;default&quot;: &quot;en-US&quot;,
+      &quot;description&quot;: &quot;Bing market (language and region) used for results, addresses and hours.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;ar-SA&quot;,
+        &quot;bg-BG&quot;,
+        &quot;ca-ES&quot;,
+        &quot;cs-CZ&quot;,
+        &quot;da-DK&quot;,
+        &quot;de-AT&quot;,
+        &quot;de-CH&quot;,
+        &quot;de-DE&quot;,
+        &quot;el-GR&quot;,
+        &quot;en-AU&quot;,
+        &quot;en-CA&quot;,
+        &quot;en-GB&quot;,
+        &quot;en-IE&quot;,
+        &quot;en-IN&quot;,
+        &quot;en-MY&quot;,
+        &quot;en-NZ&quot;,
+        &quot;en-PH&quot;,
+        &quot;en-SG&quot;,
+        &quot;en-US&quot;,
+        &quot;en-ZA&quot;,
+        &quot;es-AR&quot;,
+        &quot;es-CL&quot;,
+        &quot;es-CO&quot;,
+        &quot;es-ES&quot;,
+        &quot;es-MX&quot;,
+        &quot;es-PE&quot;,
+        &quot;es-US&quot;,
+        &quot;es-VE&quot;,
+        &quot;et-EE&quot;,
+        &quot;eu-ES&quot;,
+        &quot;fi-FI&quot;,
+        &quot;fr-BE&quot;,
+        &quot;fr-CA&quot;,
+        &quot;fr-CH&quot;,
+        &quot;fr-FR&quot;,
+        &quot;gl-ES&quot;,
+        &quot;he-IL&quot;,
+        &quot;hi-IN&quot;,
+        &quot;hr-HR&quot;,
+        &quot;hu-HU&quot;,
+        &quot;id-ID&quot;,
+        &quot;is-IS&quot;,
+        &quot;it-IT&quot;,
+        &quot;ja-JP&quot;,
+        &quot;ko-KR&quot;,
+        &quot;lt-LT&quot;,
+        &quot;lv-LV&quot;,
+        &quot;ms-MY&quot;,
+        &quot;nb-NO&quot;,
+        &quot;nl-BE&quot;,
+        &quot;nl-NL&quot;,
+        &quot;pl-PL&quot;,
+        &quot;pt-BR&quot;,
+        &quot;pt-PT&quot;,
+        &quot;ro-RO&quot;,
+        &quot;ru-RU&quot;,
+        &quot;sk-SK&quot;,
+        &quot;sl-SI&quot;,
+        &quot;sr-Latn-RS&quot;,
+        &quot;sv-SE&quot;,
+        &quot;th-TH&quot;,
+        &quot;tr-TR&quot;,
+        &quot;uk-UA&quot;,
+        &quot;vi-VN&quot;,
+        &quot;zh-CN&quot;,
+        &quot;zh-HK&quot;,
+        &quot;zh-TW&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Arabic (Saudi Arabia)&quot;,
+        &quot;Bulgarian (Bulgaria)&quot;,
+        &quot;Catalan (Spain)&quot;,
+        &quot;Czech (Czechia)&quot;,
+        &quot;Danish (Denmark)&quot;,
+        &quot;German (Austria)&quot;,
+        &quot;German (Switzerland)&quot;,
+        &quot;German (Germany)&quot;,
+        &quot;Greek (Greece)&quot;,
+        &quot;English (Australia)&quot;,
+        &quot;English (Canada)&quot;,
+        &quot;English (United Kingdom)&quot;,
+        &quot;English (Ireland)&quot;,
+        &quot;English (India)&quot;,
+        &quot;English (Malaysia)&quot;,
+        &quot;English (New Zealand)&quot;,
+        &quot;English (Philippines)&quot;,
+        &quot;English (Singapore)&quot;,
+        &quot;English (United States)&quot;,
+        &quot;English (South Africa)&quot;,
+        &quot;Spanish (Argentina)&quot;,
+        &quot;Spanish (Chile)&quot;,
+        &quot;Spanish (Colombia)&quot;,
+        &quot;Spanish (Spain)&quot;,
+        &quot;Spanish (Mexico)&quot;,
+        &quot;Spanish (Peru)&quot;,
+        &quot;Spanish (United States)&quot;,
+        &quot;Spanish (Venezuela)&quot;,
+        &quot;Estonian (Estonia)&quot;,
+        &quot;Basque (Spain)&quot;,
+        &quot;Finnish (Finland)&quot;,
+        &quot;French (Belgium)&quot;,
+        &quot;French (Canada)&quot;,
+        &quot;French (Switzerland)&quot;,
+        &quot;French (France)&quot;,
+        &quot;Galician (Spain)&quot;,
+        &quot;Hebrew (Israel)&quot;,
+        &quot;Hindi (India)&quot;,
+        &quot;Croatian (Croatia)&quot;,
+        &quot;Hungarian (Hungary)&quot;,
+        &quot;Indonesian (Indonesia)&quot;,
+        &quot;Icelandic (Iceland)&quot;,
+        &quot;Italian (Italy)&quot;,
+        &quot;Japanese (Japan)&quot;,
+        &quot;Korean (Korea)&quot;,
+        &quot;Lithuanian (Lithuania)&quot;,
+        &quot;Latvian (Latvia)&quot;,
+        &quot;Malay (Malaysia)&quot;,
+        &quot;Norwegian (Norway)&quot;,
+        &quot;Dutch (Belgium)&quot;,
+        &quot;Dutch (Netherlands)&quot;,
+        &quot;Polish (Poland)&quot;,
+        &quot;Portuguese (Brazil)&quot;,
+        &quot;Portuguese (Portugal)&quot;,
+        &quot;Romanian (Romania)&quot;,
+        &quot;Russian (Russia)&quot;,
+        &quot;Slovak (Slovakia)&quot;,
+        &quot;Slovenian (Slovenia)&quot;,
+        &quot;Serbian (Latin, Serbia)&quot;,
+        &quot;Swedish (Sweden)&quot;,
+        &quot;Thai (Thailand)&quot;,
+        &quot;Turkish (Türkiye)&quot;,
+        &quot;Ukrainian (Ukraine)&quot;,
+        &quot;Vietnamese (Vietnam)&quot;,
+        &quot;Chinese (Simplified, China)&quot;,
+        &quot;Chinese (Traditional, Hong Kong)&quot;,
+        &quot;Chinese (Traditional, Taiwan)&quot;
+      ],
+      &quot;prefill&quot;: &quot;en-US&quot;,
+      &quot;title&quot;: &quot;Market&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum number of businesses to save across all queries and locations.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;sectionCaption&quot;: &quot;Output&quot;,
+      &quot;title&quot;: &quot;Max Items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviews&quot;: {
+      &quot;default&quot;: 3,
+      &quot;description&quot;: &quot;How many recent reviews to include when detail fields are enabled. Set 0 for none.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Max Reviews per Business&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;default&quot;: &quot;0&quot;,
+      &quot;description&quot;: &quot;Only keep businesses at or above this rating. Businesses with no rating are left out when a minimum is set.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;0&quot;,
+        &quot;2&quot;,
+        &quot;3&quot;,
+        &quot;4&quot;,
+        &quot;4.5&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any rating&quot;,
+        &quot;2+ stars&quot;,
+        &quot;3+ stars&quot;,
+        &quot;4+ stars&quot;,
+        &quot;4.5+ stars&quot;
+      ],
+      &quot;prefill&quot;: &quot;0&quot;,
+      &quot;title&quot;: &quot;Minimum Rating&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;Choose how to find businesses: by keyword and place, around a point, or by exact place IDs/links.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;nearbySearch&quot;,
+        &quot;placeDetails&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search by keyword and location&quot;,
+        &quot;Nearby search by coordinates&quot;,
+        &quot;Place details by ID or URL&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;sectionCaption&quot;: &quot;Search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;openNow&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep only businesses Bing marks as open at the time of the run.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Open Now Only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;placeIds&quot;: {
+      &quot;description&quot;: &quot;Used by &#x27;Place details by ID or URL&#x27;. Paste Bing place IDs (ypid:...) or full Bing Maps links that contain a place ID or a place name.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: &quot;Place IDs or Bing Maps URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;description&quot;: &quot;Optional proxy. Apify Proxy AUTO is enabled by default to reduce the chance of rate limiting on large runs.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;title&quot;: &quot;Proxy Configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;radius&quot;: {
+      &quot;default&quot;: 1000,
+      &quot;description&quot;: &quot;How far around the centre point to search, in metres.&quot;,
+      &quot;editor&quot;: &quot;number&quot;,
+      &quot;maximum&quot;: 50000,
+      &quot;minimum&quot;: 100,
+      &quot;prefill&quot;: 1000,
+      &quot;title&quot;: &quot;Search Radius (metres)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more business searches, e.g. &#x27;coffee shops&#x27;, &#x27;dentist&#x27;, &#x27;hotel&#x27;. Each query is combined with every location.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;coffee shops&quot;
+      ],
+      &quot;title&quot;: &quot;Search Queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Bing Maps Local Business Finder Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Bing Maps business records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Bing Maps local businesses with contact details, category, coordinates, rating, weekly hours, description, amenities, reviews and photos.&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Bing Maps business records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Bing Maps businesses&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Bing Maps Local Business Finder Output&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;fullDetails&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Business details&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;name&quot;,
+          &quot;description&quot;,
+          &quot;hours&quot;,
+          &quot;attributes&quot;,
+          &quot;reviews&quot;,
+          &quot;photos&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Businesses&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;name&quot;,
+          &quot;category&quot;,
+          &quot;address&quot;,
+          &quot;phone&quot;,
+          &quot;rating&quot;,
+          &quot;reviewCount&quot;,
+          &quot;website&quot;,
+          &quot;openStatus&quot;,
+          &quot;url&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-bing-maps-local-business-finder">Bing Maps Local Business Finder</h2>
+<p>Build a clean list of local businesses from Bing Maps without opening a browser or signing in. Search by keyword and place, sweep a precise radius around a latitude/longitude, or look up exact places by ID or link. Every record carries the contact details Bing publishes, plus coordinates, rating and category. Turn on detail fields when you also need weekly hours, a description, amenities, recent reviews, rating breakdown and photos.</p>
+<p>Bing retired its Local Search REST API in August 2025, so this actor reads the same public listing and detail panels that Bing Maps serves to visitors. No API key, Bing account or cookie is needed.</p>
+<h2 id="readme-ways-to-search">Ways to search</h2>
+<ul>
+<li><strong>Keyword + location</strong> — <code>coffee shops</code> in <code>London</code>, <code>dentist</code> in <code>Manhattan, New York</code>, any category and place Bing recognises. Supply several queries and several locations in one run and they are combined into a queue.</li>
+<li><strong>Nearby radius</strong> — centre on a latitude/longitude and set a radius in metres. Useful when you care about a point (a store, a venue, a neighbourhood centroid) rather than a city name.</li>
+<li><strong>Place details</strong> — paste Bing place IDs (<code>ypid:...</code>) or full Bing Maps links and the actor returns those exact businesses, with the detail panel included.</li>
+<li><strong>Optional detail enrichment</strong> — enable it for keyword or nearby searches to add one detail request per business.</li>
+</ul>
+<p>Results are read page by page, deduplicated by listing ID, and stop when <code>maxItems</code> is reached or Bing stops returning new places. <code>rank</code> records where each business first appeared for its query, and <code>query</code>/<code>location</code>/<code>market</code> keep the provenance.</p>
+<h2 id="readme-what-each-record-contains">What each record contains</h2>
+<p>Listing fields (always when Bing publishes them):</p>
+<p><code>listingId</code>, <code>placeId</code>, <code>name</code>, <code>category</code>, <code>categoryPath</code>, <code>address</code>, <code>phone</code>, <code>website</code>, <code>chainId</code>, <code>rating</code>, <code>reviewCount</code>, <code>ratingSource</code>, <code>lat</code>, <code>lon</code>, <code>openStatus</code>, <code>openHours</code>, <code>thumbnailUrl</code>, <code>url</code>, <code>rank</code>, <code>query</code>, <code>location</code>, <code>market</code>, <code>recordType</code>, <code>scrapedAt</code>.</p>
+<p>Detail fields (when <code>includeDetails</code> is on):</p>
+<ul>
+<li><code>hours</code> — Monday–Sunday rows, each <code>{ &quot;day&quot;: &quot;Monday&quot;, &quot;hours&quot;: &quot;7 am - 4 am&quot; }</code></li>
+<li><code>description</code> — the business description shown in Bing's detail panel</li>
+<li><code>attributes</code> — amenities and service labels such as &quot;Outdoor seating&quot; or &quot;Free Wi-Fi&quot;</li>
+<li><code>reviews</code> — up to <code>maxReviews</code> recent reviews, each with author, rating, ISO date, text, source and original review link</li>
+<li><code>ratingDistribution</code> — star buckets with count and percentage</li>
+<li><code>photos</code> — Bing-hosted business photos</li>
+<li><code>detailsFetched</code> — <code>true</code> when the detail panel was read</li>
+</ul>
+<p>Fields Bing does not publish for a business are omitted, not sent as <code>null</code> or empty strings.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>nearbySearch</code> or <code>placeDetails</code></td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>string list</td>
+<td><code>[]</code></td>
+<td>One or more business searches; falls back to <code>coffee shops</code> when empty</td>
+</tr>
+<tr>
+<td><code>locations</code></td>
+<td>string list</td>
+<td><code>[]</code></td>
+<td>One or more cities, areas or addresses; falls back to <code>London</code> when empty</td>
+</tr>
+<tr>
+<td><code>placeIds</code></td>
+<td>string list</td>
+<td>–</td>
+<td>Place IDs or Bing Maps links for <code>placeDetails</code></td>
+</tr>
+<tr>
+<td><code>latitude</code>, <code>longitude</code></td>
+<td>number</td>
+<td>–</td>
+<td>Centre point for <code>nearbySearch</code></td>
+</tr>
+<tr>
+<td><code>radius</code></td>
+<td>integer</td>
+<td><code>1000</code></td>
+<td>Radius in metres (100–50000) for <code>nearbySearch</code></td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Maximum records across the whole run (1–1000)</td>
+</tr>
+<tr>
+<td><code>market</code></td>
+<td>select</td>
+<td><code>en-US</code></td>
+<td>Bing language/region market</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>select</td>
+<td><code>0</code></td>
+<td>Keep only businesses at or above this rating</td>
+</tr>
+<tr>
+<td><code>openNow</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Keep only businesses Bing marks open now</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add hours, description, amenities, reviews and photos</td>
+</tr>
+<tr>
+<td><code>maxReviews</code></td>
+<td>integer</td>
+<td><code>3</code></td>
+<td>Reviews per business when details are on (0–20)</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>proxy</td>
+<td>Apify Proxy AUTO</td>
+<td>Optional proxy settings</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-examples">Examples</h3>
+<p>Keyword and city:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;coffee shops&quot;, &quot;bakery&quot;],
+  &quot;locations&quot;: [&quot;London&quot;, &quot;Manchester&quot;],
+  &quot;maxItems&quot;: 40,
+  &quot;includeDetails&quot;: true,
+  &quot;maxReviews&quot;: 3
+}
+</code></pre>
+<p>Nearby radius:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;nearbySearch&quot;,
+  &quot;searchQueries&quot;: [&quot;restaurant&quot;],
+  &quot;latitude&quot;: 51.5074,
+  &quot;longitude&quot;: -0.1278,
+  &quot;radius&quot;: 2000,
+  &quot;maxItems&quot;: 25
+}
+</code></pre>
+<p>Exact places:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;placeDetails&quot;,
+  &quot;placeIds&quot;: [
+    &quot;ypid:YNA290932D99230C7A&quot;,
+    &quot;https://www.bing.com/maps/search?q=coffee+shops+London&amp;secq=Bar+Italia&amp;sece=ypid%3AYNA290932D99230C7A&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxReviews&quot;: 5
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li>Local lead generation with phone, website and address</li>
+<li>Comparing Bing's local coverage with another maps index</li>
+<li>Tracking rating and review-count changes over scheduled runs</li>
+<li>Enriching a CRM or directory with hours, amenities and coordinates</li>
+<li>Finding the businesses around a specific venue or site</li>
+</ul>
+<h2 id="readme-limits-and-data-notes">Limits and data notes</h2>
+<ul>
+<li>Bing returns at most about 60 unique listings for one query and viewport; later pages repeat them. The actor deduplicates and stops at that source limit. Split by narrower categories or locations to go deeper.</li>
+<li><code>minRating</code> and <code>openNow</code> are applied after fetching because Bing's direct listing endpoint does not accept them without a signed page session. A very restrictive filter can scan the full result set and still return fewer rows than <code>maxItems</code>.</li>
+<li>Detail fields depend on what Bing's providers publish for each business. Many listings have hours and reviews but no description or booking link.</li>
+<li>Addresses are the provider's single-line address. Bing does not expose reliable locality/region/postal fields for every market, so the actor does not guess them.</li>
+<li>Photo fields use Bing-hosted images so they stay reachable. Some listings have no photo.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a Bing account or API key?</strong>
+No. The actor reads public Bing Maps pages.</p>
+<p><strong>What is the difference between <code>search</code> and <code>nearbySearch</code>?</strong>
+<code>search</code> combines a keyword with a named place. <code>nearbySearch</code> uses a precise point and radius, so it works even where there is no useful place name.</p>
+<p><strong>How do I get every business in a city?</strong>
+Run several narrower queries (subcategories or neighbourhood names) because Bing caps a single query at about 60 unique places.</p>
+<p><strong>Why is <code>minRating</code> sometimes returning zero rows?</strong>
+No business in the fetched result set matched the rating, or none had a published rating. Lower the threshold or broaden the query.</p>
+<p><strong>Should I use a proxy?</strong>
+Small runs usually work without one. Apify Proxy AUTO is the default to reduce rate limiting on larger runs; you can change it in the input.</p>
+<p><strong>Is this affiliated with Microsoft or Bing?</strong>
+No. This is an independent third-party actor and is not endorsed by Microsoft.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/bing-maps-local-business-finder/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>dJgtgQPdM213HBCHH</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

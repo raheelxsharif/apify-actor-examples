@@ -1,0 +1,611 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-otrO6GUE6DSQ+uHpjoi/+F3bwf1MVZnusrVg2SQSKBA=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Myntra Fashion Catalog Finder by Category &amp; Brand | Dataspryva</title><meta name="description" content="Search Myntra&#x27;s fashion catalog by keyword, category, or brand, or fetch specific products, for MRP, price, discount, ratings, sizes, colors, and category detail."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/"><meta property="og:title" content="Myntra Fashion Catalog Finder by Category &amp; Brand | Dataspryva"><meta property="og:description" content="Search Myntra&#x27;s fashion catalog by keyword, category, or brand, or fetch specific products, for MRP, price, discount, ratings, sizes, colors, and category detail."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#webpage","name":"Myntra Fashion Catalog Finder by Category & Brand","description":"Search Myntra's fashion catalog by keyword, category, or brand, or fetch specific products, for MRP, price, discount, ratings, sizes, colors, and category detail.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#article","headline":"Myntra Fashion Catalog Finder by Category & Brand","name":"Myntra Fashion Catalog Finder by Category & Brand","description":"Search Myntra's fashion catalog by keyword, category, or brand, or fetch specific products, for MRP, price, discount, ratings, sizes, colors, and category detail.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#webpage"},"inLanguage":"en","dateModified":"2026-11-03T23:51:38.091Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Myntra Fashion Catalog Finder by Category & Brand","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/myntra-fashion-catalog-finder-by-category/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Myntra Fashion Catalog Finder by Category &amp; Brand</span></div><section id="overview"><h1 class="doc-title">Myntra Fashion Catalog Finder by Category &amp; Brand</h1><p class="lede">Search Myntra&#x27;s fashion catalog by keyword, category, or brand, or fetch specific products, for MRP, price, discount, ratings, sizes, colors, and category detail.</p><p class="summary">Myntra Fashion Catalog Finder by Category &amp; Brand is an Apify Actor published by Dataspryva. It accepts 19 input fields, none of them required at the top level. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/myntra-fashion-catalog-finder-by-category">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/VF1ZCnsosUQJo2e7b/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to fetch. Each mode has its own input list below.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keyword searches (mode=search), e.g. `tshirts`, `printed kurtas`, `nike running shoes`. Each query is fetched separately and duplicates are removed.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>One or more category listings (mode=browseByCategory).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to fetch. Each mode has its own input list below.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keyword searches (mode=search), e.g. `tshirts`, `printed kurtas`, `nike running shoes`. Each query is fetched separately and duplicates are removed.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>One or more category listings (mode=browseByCategory).</td></tr><tr><td><code>brands</code></td><td>array</td><td>optional</td><td>One or more brands to browse (mode=browseByBrand), e.g. `nike`, `levis`, `tommy hilfiger`. Spaces and punctuation are normalized automatically.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>Myntra listing, search, category, brand, or product URLs (mode=byUrl). Product URLs are fetched as products; everything else is fetched as a listing.</td></tr><tr><td><code>productIds</code></td><td>array</td><td>optional</td><td>Numeric Myntra product IDs or product URLs (mode=byProductIds), e.g. `36674095`.</td></tr><tr><td><code>gender</code></td><td>string</td><td>optional</td><td>Restrict listing results to one gender segment. Applied on Myntra&#x27;s side.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>How Myntra orders listing results.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Only products whose selling price is at least this amount. 0 means no minimum.</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Only products whose selling price is at most this amount. 0 means no maximum.</td></tr><tr><td><code>minDiscount</code></td><td>integer</td><td>optional</td><td>Only products discounted by at least this percentage. 0 means no minimum.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Only products rated at least this value (0-5). Products without a rating are excluded when this is above 0.</td></tr><tr><td><code>containsKeyword</code></td><td>string</td><td>optional</td><td>Only products whose name contains this keyword (case-insensitive). Leave empty for all products.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Open each product page to add sellers, addresses, per-size stock and measurements, specifications, rating breakdown, policies, videos, and tags. Slower but much richer. URL and product-ID modes always fetch details.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Emit one row per written review with recordType `review`, in addition to product rows.</td></tr><tr><td><code>maxReviewsPerProduct</code></td><td>integer</td><td>optional</td><td>Review rows to fetch for each product when written reviews are enabled (1-2000).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Total product rows to save across all queries, categories, brands, and URLs (1-10000). Review rows are additional.</td></tr><tr><td><code>splitLargeSearches</code></td><td>boolean</td><td>optional</td><td>Go past the per-filter result cap by fetching gender, price-band, and sort slices, then removing duplicates. Recommended for deep exports.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional override. Leave untouched and the actor selects a working connection automatically.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Myntra by keyword, browse categories or brands, or fetch listings, product URLs, and product IDs.&quot;,
+  &quot;properties&quot;: {
+    &quot;brands&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more brands to browse (mode=browseByBrand), e.g. `nike`, `levis`, `tommy hilfiger`. Spaces and punctuation are normalized automatically.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Brands&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more category listings (mode=browseByCategory).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;tshirts&quot;,
+          &quot;shirts&quot;,
+          &quot;jeans&quot;,
+          &quot;trousers&quot;,
+          &quot;shorts&quot;,
+          &quot;trackpants&quot;,
+          &quot;sweatshirts&quot;,
+          &quot;sweaters&quot;,
+          &quot;jackets&quot;,
+          &quot;blazers&quot;,
+          &quot;coats&quot;,
+          &quot;kurtas&quot;,
+          &quot;kurtis&quot;,
+          &quot;sarees&quot;,
+          &quot;dresses&quot;,
+          &quot;tops&quot;,
+          &quot;skirts&quot;,
+          &quot;leggings&quot;,
+          &quot;innerwear&quot;,
+          &quot;socks&quot;,
+          &quot;swimwear&quot;,
+          &quot;shoes&quot;,
+          &quot;sneakers&quot;,
+          &quot;sports-shoes&quot;,
+          &quot;sandals&quot;,
+          &quot;flats&quot;,
+          &quot;heels&quot;,
+          &quot;boots&quot;,
+          &quot;slippers&quot;,
+          &quot;bags&quot;,
+          &quot;backpacks&quot;,
+          &quot;clutches&quot;,
+          &quot;wallets&quot;,
+          &quot;watches&quot;,
+          &quot;sunglasses&quot;,
+          &quot;belts&quot;,
+          &quot;caps&quot;,
+          &quot;scarves&quot;,
+          &quot;jewellery&quot;,
+          &quot;earrings&quot;,
+          &quot;rings&quot;,
+          &quot;bracelets&quot;,
+          &quot;chains&quot;,
+          &quot;dupattas&quot;,
+          &quot;stoles&quot;,
+          &quot;lehengas&quot;,
+          &quot;mens-grooming&quot;,
+          &quot;beauty&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;T-shirts&quot;,
+          &quot;Shirts&quot;,
+          &quot;Jeans&quot;,
+          &quot;Trousers&quot;,
+          &quot;Shorts&quot;,
+          &quot;Track pants&quot;,
+          &quot;Sweatshirts&quot;,
+          &quot;Sweaters&quot;,
+          &quot;Jackets&quot;,
+          &quot;Blazers&quot;,
+          &quot;Coats&quot;,
+          &quot;Kurtas&quot;,
+          &quot;Kurtis&quot;,
+          &quot;Sarees&quot;,
+          &quot;Dresses&quot;,
+          &quot;Tops&quot;,
+          &quot;Skirts&quot;,
+          &quot;Leggings&quot;,
+          &quot;Innerwear&quot;,
+          &quot;Socks&quot;,
+          &quot;Swimwear&quot;,
+          &quot;Shoes&quot;,
+          &quot;Sneakers&quot;,
+          &quot;Sports shoes&quot;,
+          &quot;Sandals&quot;,
+          &quot;Flats&quot;,
+          &quot;Heels&quot;,
+          &quot;Boots&quot;,
+          &quot;Slippers&quot;,
+          &quot;Bags&quot;,
+          &quot;Backpacks&quot;,
+          &quot;Clutches&quot;,
+          &quot;Wallets&quot;,
+          &quot;Watches&quot;,
+          &quot;Sunglasses&quot;,
+          &quot;Belts&quot;,
+          &quot;Caps&quot;,
+          &quot;Scarves&quot;,
+          &quot;Jewellery&quot;,
+          &quot;Earrings&quot;,
+          &quot;Rings&quot;,
+          &quot;Bracelets&quot;,
+          &quot;Chains&quot;,
+          &quot;Dupattas&quot;,
+          &quot;Stoles&quot;,
+          &quot;Lehengas&quot;,
+          &quot;Men&#x27;s grooming&quot;,
+          &quot;Beauty&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Categories&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;containsKeyword&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only products whose name contains this keyword (case-insensitive). Leave empty for all products.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Keyword in product name&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;gender&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Restrict listing results to one gender segment. Applied on Myntra&#x27;s side.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;men&quot;,
+        &quot;women&quot;,
+        &quot;boys&quot;,
+        &quot;girls&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any&quot;,
+        &quot;Men&quot;,
+        &quot;Women&quot;,
+        &quot;Boys&quot;,
+        &quot;Girls&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Gender&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Open each product page to add sellers, addresses, per-size stock and measurements, specifications, rating breakdown, policies, videos, and tags. Slower but much richer. URL and product-ID modes always fetch details.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Fetch product details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Emit one row per written review with recordType `review`, in addition to product rows.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include written reviews&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Total product rows to save across all queries, categories, brands, and URLs (1-10000). Review rows are additional.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 2,
+      &quot;title&quot;: &quot;Max products&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPrice&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only products whose selling price is at most this amount. 0 means no maximum.&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Max price (INR)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerProduct&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Review rows to fetch for each product when written reviews are enabled (1-2000).&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max reviews per product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minDiscount&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only products discounted by at least this percentage. 0 means no minimum.&quot;,
+      &quot;maximum&quot;: 90,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Min discount (%)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minPrice&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only products whose selling price is at least this amount. 0 means no minimum.&quot;,
+      &quot;maximum&quot;: 10000000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Min price (INR)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only products rated at least this value (0-5). Products without a rating are excluded when this is above 0.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Min rating&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch. Each mode has its own input list below.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;browseByCategory&quot;,
+        &quot;browseByBrand&quot;,
+        &quot;byUrl&quot;,
+        &quot;byProductIds&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search by keyword&quot;,
+        &quot;Browse by category&quot;,
+        &quot;Browse by brand&quot;,
+        &quot;Fetch listing or product URLs&quot;,
+        &quot;Fetch product IDs&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;productIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Numeric Myntra product IDs or product URLs (mode=byProductIds), e.g. `36674095`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Product IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {},
+      &quot;description&quot;: &quot;Optional override. Leave untouched and the actor selects a working connection automatically.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {},
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;One or more keyword searches (mode=search), e.g. `tshirts`, `printed kurtas`, `nike running shoes`. Each query is fetched separately and duplicates are removed.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [
+        &quot;tshirts&quot;
+      ],
+      &quot;title&quot;: &quot;Search queries&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;How Myntra orders listing results.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;new&quot;,
+        &quot;popularity&quot;,
+        &quot;price_asc&quot;,
+        &quot;price_desc&quot;,
+        &quot;discount&quot;,
+        &quot;customer_rating&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Default relevance&quot;,
+        &quot;What&#x27;s new&quot;,
+        &quot;Popularity&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;,
+        &quot;Better discount&quot;,
+        &quot;Customer rating&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;splitLargeSearches&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Go past the per-filter result cap by fetching gender, price-band, and sort slices, then removing duplicates. Recommended for deep exports.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Split large searches&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;startUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Myntra listing, search, category, brand, or product URLs (mode=byUrl). Product URLs are fetched as products; everything else is fetched as a listing.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Listing or product URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Myntra Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset containing scraped Myntra products and written reviews, separated by recordType.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Myntra products with prices, discounts, coupons, ratings, sellers, per-size stock, specifications, policies, media, and optional written-review rows.&quot;,
+  &quot;properties&quot;: {
+    &quot;products&quot;: {
+      &quot;description&quot;: &quot;Dataset containing scraped Myntra products and written reviews, separated by recordType.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Myntra products and reviews&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Myntra Fashion Catalog &amp; Review Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Products and reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;productName&quot;,
+          &quot;brand&quot;,
+          &quot;price&quot;,
+          &quot;mrp&quot;,
+          &quot;discountPercent&quot;,
+          &quot;couponCode&quot;,
+          &quot;rating&quot;,
+          &quot;sellerName&quot;,
+          &quot;inStock&quot;,
+          &quot;category&quot;,
+          &quot;productUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-myntra-fashion-catalog-review-scraper">Myntra Fashion Catalog &amp; Review Scraper</h2>
+<p>Scrape <strong>Myntra</strong> fashion listings and product pages for pricing, discounts, coupons, sellers, size-level stock, specifications, and written reviews. Start from a keyword search, a category, a brand, a listing URL, or a list of product IDs, then export clean records that are ready for pricing research, catalog monitoring, or review analysis.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Five input modes:</strong> keyword search, category browse, brand browse, listing/product URLs, and numeric product IDs</li>
+<li><strong>Multiple inputs per run:</strong> several queries, categories, brands, URLs, or IDs are fetched in one job and deduplicated by product</li>
+<li><strong>Real pagination:</strong> walks past the first listing page and splits large searches by gender, price band, and sort order</li>
+<li><strong>Server-side filters:</strong> gender, sort order, and price range are applied by Myntra before records are collected; discount, rating, and name keywords are checked on each record</li>
+<li><strong>Full product enrichment:</strong> sellers and addresses, per-size stock and garment measurements, specifications, rating breakdown, return/COD policies, videos, tags, and coupons</li>
+<li><strong>Optional review rows:</strong> written reviews with rating, text, size bought, photos, votes, and dates</li>
+<li><strong>Empty fields are omitted</strong> — records never contain <code>null</code>, <code>&quot;&quot;</code>, <code>[]</code>, or <code>{}</code></li>
+</ul>
+<h2 id="readme-output-per-product">Output per product</h2>
+<p>Product rows have <code>recordType: &quot;product&quot;</code>.</p>
+<ul>
+<li><code>productId</code>, <code>productName</code>, <code>brand</code>, <code>additionalInfo</code></li>
+<li><code>currency</code> — always <code>INR</code></li>
+<li><code>mrp</code>, <code>price</code>, <code>discountAmount</code>, <code>discountPercent</code>, <code>discountDisplayLabel</code></li>
+<li><code>couponCode</code>, <code>couponDiscount</code>, <code>priceWithCoupon</code>, <code>couponValidUntil</code></li>
+<li><code>rating</code>, <code>ratingCount</code>, <code>reviewsCount</code>, <code>reviewCount</code>, <code>ratingDistribution</code></li>
+<li><code>primaryColour</code>, <code>baseColour</code>, <code>gender</code>, <code>season</code>, <code>year</code></li>
+<li><code>sizes[]</code>, <code>availableSizes[]</code>, <code>sizeOptions[]</code> — per-size SKU, availability, stock, price, sellers, and measurements</li>
+<li><code>hasMultipleSizes</code>, <code>inStock</code>, <code>totalStock</code>, <code>colourVariantImages[]</code>, <code>colours[]</code>, <code>relatedColoursCount</code></li>
+<li><code>sellerId</code>, <code>sellerName</code>, <code>sellerCity</code>, <code>sellerState</code>, <code>sellers[]</code> — partner ID, name, display name, and full address</li>
+<li><code>description</code>, <code>materialCare</code>, <code>sizeFit</code>, <code>manufacturer</code>, <code>countryOfOrigin</code></li>
+<li><code>specifications</code> — garment attributes such as fabric, fit, pattern, sleeve, occasion, and wash care</li>
+<li><code>tags[]</code>, <code>offers[]</code>, <code>videoUrls[]</code>, <code>brandLogoUrl</code></li>
+<li><code>imageUrl</code>, <code>imageUrls[]</code></li>
+<li><code>category</code>, <code>subCategory</code>, <code>masterCategory</code>, <code>categoryPath</code>, <code>listedAt</code></li>
+<li><code>isReturnable</code>, <code>isExchangeable</code>, <code>codAvailable</code>, <code>returnDays</code>, <code>tryAndBuy</code></li>
+<li><code>productUrl</code>, <code>sourceUrl</code>, <code>query</code>, <code>sourceKind</code>, <code>detailsFetched</code>, <code>position</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-review">Output per review</h2>
+<p>Review rows have <code>recordType: &quot;review&quot;</code> and are saved only when <code>includeReviews</code> is enabled.</p>
+<ul>
+<li><code>reviewId</code>, <code>productId</code>, <code>reviewedProductId</code></li>
+<li><code>rating</code>, <code>text</code>, <code>sizeBought</code></li>
+<li><code>images[]</code>, <code>videoUrl</code></li>
+<li><code>upvotes</code>, <code>downvotes</code></li>
+<li><code>reviewerName</code>, <code>reviewedAt</code></li>
+<li><code>productName</code>, <code>brand</code>, <code>productUrl</code>, <code>sourceUrl</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code> / <code>browseByCategory</code> / <code>browseByBrand</code> / <code>byUrl</code> / <code>byProductIds</code></td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keyword searches (mode=search)</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Category listings (mode=browseByCategory)</td>
+</tr>
+<tr>
+<td><code>brands</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Brand listings (mode=browseByBrand)</td>
+</tr>
+<tr>
+<td><code>startUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Myntra listing or product URLs (mode=byUrl)</td>
+</tr>
+<tr>
+<td><code>productIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Numeric IDs or product URLs (mode=byProductIds)</td>
+</tr>
+<tr>
+<td><code>gender</code></td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+<td><code>&quot;&quot;</code> / <code>men</code> / <code>women</code> / <code>boys</code> / <code>girls</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+<td>Default relevance, newest, popularity, price, discount, or rating</td>
+</tr>
+<tr>
+<td><code>minPrice</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Minimum selling price in INR; 0 means any</td>
+</tr>
+<tr>
+<td><code>maxPrice</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Maximum selling price in INR; 0 means any</td>
+</tr>
+<tr>
+<td><code>minDiscount</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Minimum discount percentage; 0 means any</td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>number</td>
+<td><code>0</code></td>
+<td>Minimum product rating; products without a rating are excluded when set</td>
+</tr>
+<tr>
+<td><code>containsKeyword</code></td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+<td>Keep only product names containing this text</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add sellers, stock, specifications, policies, media, and tags</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Emit written-review rows</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerProduct</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Review rows per product when reviews are enabled</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Total product rows across all inputs (1–10000)</td>
+</tr>
+<tr>
+<td><code>splitLargeSearches</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Split large searches by gender, price, and sort for more depth</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td><code>{}</code></td>
+<td>Optional override; leave untouched for automatic connection selection</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-examples">Examples</h2>
+<h3 id="readme-example-keyword-search-with-filters">Example: keyword search with filters</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;running shoes&quot;, &quot;polo tshirts&quot;],
+  &quot;gender&quot;: &quot;men&quot;,
+  &quot;minPrice&quot;: 500,
+  &quot;maxPrice&quot;: 3000,
+  &quot;minDiscount&quot;: 30,
+  &quot;sortBy&quot;: &quot;price_asc&quot;,
+  &quot;maxItems&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-category-and-brand-browse">Example: category and brand browse</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;browseByCategory&quot;,
+  &quot;categories&quot;: [&quot;sneakers&quot;, &quot;watches&quot;],
+  &quot;gender&quot;: &quot;women&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 150
+}
+</code></pre>
+<h3 id="readme-example-product-urls-and-ids-with-reviews">Example: product URLs and IDs with reviews</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrl&quot;,
+  &quot;startUrls&quot;: [
+    &quot;https://www.myntra.com/tshirts/puma/puma-unisex-train-all-day-essentials-slim-fit-drycell-polo-sports-t-shirt/36674095/buy&quot;,
+    &quot;36674095&quot;
+  ],
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviewsPerProduct&quot;: 40,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-deep-export-from-a-listing-url">Example: deep export from a listing URL</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrl&quot;,
+  &quot;startUrls&quot;: [
+    &quot;https://www.myntra.com/kurtas?f=Gender%3Amen%2Cwomen&quot;
+  ],
+  &quot;splitLargeSearches&quot;: true,
+  &quot;sortBy&quot;: &quot;popularity&quot;,
+  &quot;maxItems&quot;: 1000
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Price and discount monitoring</strong> — track selling price, MRP, coupon price, and discount depth across a catalog</li>
+<li><strong>Seller intelligence</strong> — see which seller owns the buy box, its location, and its stock position</li>
+<li><strong>Catalog enrichment</strong> — add fabric, fit, pattern, occasion, and garment measurements to an internal product feed</li>
+<li><strong>Review analysis</strong> — export ratings, review text, size feedback, photos, and helpfulness votes</li>
+<li><strong>Assortment research</strong> — compare brands and categories by price band, rating, and available sizes</li>
+<li><strong>Stock and variant tracking</strong> — monitor per-size availability and total inventory for key styles</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-is-any-login-or-api-key-required">Is any login or API key required?</h3>
+<p>No. The actor reads publicly available Myntra catalog pages and does not need cookies, accounts, or API keys.</p>
+<h3 id="readme-do-i-need-to-set-up-a-proxy">Do I need to set up a proxy?</h3>
+<p>No. The actor selects a working connection to Myntra automatically, starting with the cheapest path and escalating only when needed.</p>
+<h3 id="readme-why-do-i-get-fewer-products-than-i-requested">Why do I get fewer products than I requested?</h3>
+<p>Myntra limits how deep a single listing can be paged. Enable <code>splitLargeSearches</code> to partition a large request by gender, price band, and sort order; the actor then removes duplicates. Extremely broad categories can still have practical limits.</p>
+<h3 id="readme-why-are-some-fields-missing-on-some-products">Why are some fields missing on some products?</h3>
+<p>Fields are omitted when Myntra does not publish them for that product. For example, some listings have no rating yet, some have no video, and some have no coupon.</p>
+<h3 id="readme-what-is-the-difference-between-price-and-pricewithcoupon">What is the difference between <code>price</code> and <code>priceWithCoupon</code>?</h3>
+<p><code>price</code> is the current selling price. <code>priceWithCoupon</code> is the best price after applying the displayed coupon, and <code>couponCode</code> contains that coupon's code.</p>
+<h3 id="readme-what-does-detailsfetched-mean">What does <code>detailsFetched</code> mean?</h3>
+<p>It is <code>true</code> when the product page was opened successfully and the detail fields came from that page. Listing-only modes can still return a product row without it if a detail page is temporarily unavailable.</p>
+<h3 id="readme-why-do-review-rows-not-count-toward-maxitems">Why do review rows not count toward <code>maxItems</code>?</h3>
+<p><code>maxItems</code> controls product rows. Review rows are additional records so that enabling reviews does not reduce the number of products you receive.</p>
+<h3 id="readme-are-the-images-and-videos-permanent">Are the images and videos permanent?</h3>
+<p>The actor returns the media URLs published by Myntra. They are public links, but Myntra may change or remove media over time.</p>
+<h3 id="readme-is-this-affiliated-with-myntra">Is this affiliated with Myntra?</h3>
+<p>No. This is an independent third-party actor that reads publicly available catalog pages.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/myntra-fashion-catalog-finder-by-category/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>1mGy2E6jqPmXqgRby</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

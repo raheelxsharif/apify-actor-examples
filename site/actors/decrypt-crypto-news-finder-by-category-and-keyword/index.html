@@ -1,0 +1,888 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-QuTr4VM3Vtt7EVkNcX5lewwhT+opDTolsgRV5j38zGs=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Decrypt Crypto News Finder by Category &amp; Keyword | Dataspryva</title><meta name="description" content="Search Decrypt&#x27;s crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/"><meta property="og:title" content="Decrypt Crypto News Finder by Category &amp; Keyword | Dataspryva"><meta property="og:description" content="Search Decrypt&#x27;s crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#webpage","name":"Decrypt Crypto News Finder by Category & Keyword","description":"Search Decrypt's crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#article","headline":"Decrypt Crypto News Finder by Category & Keyword","name":"Decrypt Crypto News Finder by Category & Keyword","description":"Search Decrypt's crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#webpage"},"inLanguage":"en","dateModified":"2026-11-02T14:58:05.179Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Decrypt Crypto News Finder by Category & Keyword","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Decrypt Crypto News Finder by Category &amp; Keyword</span></div><section id="overview"><h1 class="doc-title">Decrypt Crypto News Finder by Category &amp; Keyword</h1><p class="lede">Search Decrypt&#x27;s crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images.</p><p class="summary">Decrypt Crypto News Finder by Category &amp; Keyword is an Apify Actor published by Dataspryva. It accepts 16 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/decrypt-crypto-news-finder-by-category-and-keyword">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/khuWc0CVpBIzolNFr/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. Search matches titles, excerpts and article bodies. The latest mode returns the newest stories.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword or phrase matched against article titles, excerpts and bodies (mode=search). E.g. bitcoin, ethereum, NFT.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>One Decrypt category slug (mode=browseByCategory and as a filter in other modes). Leave empty for any category.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. Search matches titles, excerpts and article bodies. The latest mode returns the newest stories.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keyword or phrase matched against article titles, excerpts and bodies (mode=search). E.g. bitcoin, ethereum, NFT.</td></tr><tr><td><code>category</code></td><td>string</td><td>optional</td><td>One Decrypt category slug (mode=browseByCategory and as a filter in other modes). Leave empty for any category.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Filter by several category slugs at once. Applies to search, latest, tag, coin and author modes.</td></tr><tr><td><code>tagSlugs</code></td><td>array</td><td>optional</td><td>Filter by Decrypt tag slugs, e.g. bitcoin, ethereum, regulation. Tag names are not accepted; use the slugs returned in each record.</td></tr><tr><td><code>coinSlugs</code></td><td>array</td><td>optional</td><td>Filter by coin slugs, e.g. bitcoin, ethereum, solana. Names and ticker symbols are also accepted and mapped to slugs. The source can match articles with no explicit coin relation; those rows omit coins and coinSlugs.</td></tr><tr><td><code>authorSlugs</code></td><td>array</td><td>optional</td><td>Filter by author slugs, e.g. jose, stephengraves. Author names are not accepted; use the slugs returned in each record.</td></tr><tr><td><code>articleIds</code></td><td>array</td><td>optional</td><td>Article IDs or decrypt.co URLs (mode=byId). Accepts bare IDs, /id/slug, localized /es/id/slug, ?p=id and /resources/slug URLs.</td></tr><tr><td><code>locale</code></td><td>string</td><td>optional</td><td>Article language. Leave empty to include every locale.</td></tr><tr><td><code>dateRangeFrom</code></td><td>string</td><td>optional</td><td>Only articles published on or after this date (YYYY-MM-DD). The date range is applied by the source.</td></tr><tr><td><code>dateRangeTo</code></td><td>string</td><td>optional</td><td>Only articles published on or before this date (YYYY-MM-DD). The date range is applied by the source.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Newest first, oldest first, or best match. Best match needs a search query; otherwise newest is used.</td></tr><tr><td><code>includeContent</code></td><td>boolean</td><td>optional</td><td>Include full HTML and plain-text article bodies, TL;DR content and word count. Turn off for a lighter dataset.</td></tr><tr><td><code>onlyNew</code></td><td>boolean</td><td>optional</td><td>Skip article IDs returned by earlier runs of this actor. Useful for scheduled monitoring. State is kept automatically.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of articles to return (1-10,000).</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional. Leave off for a direct connection; the actor does not require a proxy.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Decrypt&#x27;s crypto, Web3 and AI news archive by keyword, category, tag, coin, author or article ID. Date ranges and sort order run on the source.&quot;,
+  &quot;properties&quot;: {
+    &quot;articleIds&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Article IDs or decrypt.co URLs (mode=byId). Accepts bare IDs, /id/slug, localized /es/id/slug, ?p=id and /resources/slug URLs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;375656&quot;
+      ],
+      &quot;title&quot;: &quot;Article IDs or URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;authorSlugs&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Filter by author slugs, e.g. jose, stephengraves. Author names are not accepted; use the slugs returned in each record.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Author slugs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Filter by several category slugs at once. Applies to search, latest, tag, coin and author modes.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;ai&quot;,
+          &quot;artificial-intelligence&quot;,
+          &quot;artificial-intelligence-learn&quot;,
+          &quot;build&quot;,
+          &quot;business&quot;,
+          &quot;course-articles&quot;,
+          &quot;courses&quot;,
+          &quot;cryptocurrencies&quot;,
+          &quot;cryptocurrency-guides&quot;,
+          &quot;daily-debrief&quot;,
+          &quot;dapps&quot;,
+          &quot;decrypt&quot;,
+          &quot;deep-dives&quot;,
+          &quot;defi&quot;,
+          &quot;exchanges&quot;,
+          &quot;games&quot;,
+          &quot;gaming&quot;,
+          &quot;gaming-guides&quot;,
+          &quot;health&quot;,
+          &quot;investigations&quot;,
+          &quot;investing&quot;,
+          &quot;landscape&quot;,
+          &quot;law&quot;,
+          &quot;learn&quot;,
+          &quot;legislation&quot;,
+          &quot;long-reads&quot;,
+          &quot;longevity&quot;,
+          &quot;markets&quot;,
+          &quot;news&quot;,
+          &quot;nft&quot;,
+          &quot;opinion&quot;,
+          &quot;other-reviews&quot;,
+          &quot;phones&quot;,
+          &quot;press-release&quot;,
+          &quot;press-releases&quot;,
+          &quot;press-releases-gaming&quot;,
+          &quot;profiles&quot;,
+          &quot;projects&quot;,
+          &quot;reviews&quot;,
+          &quot;social-media&quot;,
+          &quot;space&quot;,
+          &quot;technology&quot;,
+          &quot;technology-guides&quot;,
+          &quot;the-distributed-future&quot;,
+          &quot;the-people&quot;,
+          &quot;wallets&quot;,
+          &quot;web3&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Artificial Intelligence&quot;,
+          &quot;Artificial Intelligence&quot;,
+          &quot;Artificial Intelligence&quot;,
+          &quot;Build&quot;,
+          &quot;Business&quot;,
+          &quot;Course Articles&quot;,
+          &quot;Courses&quot;,
+          &quot;Coins&quot;,
+          &quot;The Coins&quot;,
+          &quot;Daily Debrief&quot;,
+          &quot;Dapps&quot;,
+          &quot;Our Company&quot;,
+          &quot;Deep Dives&quot;,
+          &quot;DeFi&quot;,
+          &quot;Exchanges&quot;,
+          &quot;Games&quot;,
+          &quot;Gaming&quot;,
+          &quot;Gaming&quot;,
+          &quot;Health&quot;,
+          &quot;Investigations&quot;,
+          &quot;Investing&quot;,
+          &quot;The Landscape&quot;,
+          &quot;Law and Order&quot;,
+          &quot;Learn&quot;,
+          &quot;Legislation&quot;,
+          &quot;Long Reads&quot;,
+          &quot;Longevity&quot;,
+          &quot;Markets&quot;,
+          &quot;News&quot;,
+          &quot;NFTs&quot;,
+          &quot;Opinion&quot;,
+          &quot;Others&quot;,
+          &quot;Phones&quot;,
+          &quot;Press Release&quot;,
+          &quot;Press Releases&quot;,
+          &quot;Press Releases - Gaming&quot;,
+          &quot;Profiles&quot;,
+          &quot;The Projects&quot;,
+          &quot;Reviews&quot;,
+          &quot;Social Media&quot;,
+          &quot;Space&quot;,
+          &quot;Technology&quot;,
+          &quot;Technology Guides&quot;,
+          &quot;The Future&quot;,
+          &quot;The People&quot;,
+          &quot;Wallets&quot;,
+          &quot;web3&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Multiple categories&quot;,
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;category&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;One Decrypt category slug (mode=browseByCategory and as a filter in other modes). Leave empty for any category.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;ai&quot;,
+        &quot;artificial-intelligence&quot;,
+        &quot;artificial-intelligence-learn&quot;,
+        &quot;build&quot;,
+        &quot;business&quot;,
+        &quot;course-articles&quot;,
+        &quot;courses&quot;,
+        &quot;cryptocurrencies&quot;,
+        &quot;cryptocurrency-guides&quot;,
+        &quot;daily-debrief&quot;,
+        &quot;dapps&quot;,
+        &quot;decrypt&quot;,
+        &quot;deep-dives&quot;,
+        &quot;defi&quot;,
+        &quot;exchanges&quot;,
+        &quot;games&quot;,
+        &quot;gaming&quot;,
+        &quot;gaming-guides&quot;,
+        &quot;health&quot;,
+        &quot;investigations&quot;,
+        &quot;investing&quot;,
+        &quot;landscape&quot;,
+        &quot;law&quot;,
+        &quot;learn&quot;,
+        &quot;legislation&quot;,
+        &quot;long-reads&quot;,
+        &quot;longevity&quot;,
+        &quot;markets&quot;,
+        &quot;news&quot;,
+        &quot;nft&quot;,
+        &quot;opinion&quot;,
+        &quot;other-reviews&quot;,
+        &quot;phones&quot;,
+        &quot;press-release&quot;,
+        &quot;press-releases&quot;,
+        &quot;press-releases-gaming&quot;,
+        &quot;profiles&quot;,
+        &quot;projects&quot;,
+        &quot;reviews&quot;,
+        &quot;social-media&quot;,
+        &quot;space&quot;,
+        &quot;technology&quot;,
+        &quot;technology-guides&quot;,
+        &quot;the-distributed-future&quot;,
+        &quot;the-people&quot;,
+        &quot;wallets&quot;,
+        &quot;web3&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any category&quot;,
+        &quot;Artificial Intelligence&quot;,
+        &quot;Artificial Intelligence&quot;,
+        &quot;Artificial Intelligence&quot;,
+        &quot;Build&quot;,
+        &quot;Business&quot;,
+        &quot;Course Articles&quot;,
+        &quot;Courses&quot;,
+        &quot;Coins&quot;,
+        &quot;The Coins&quot;,
+        &quot;Daily Debrief&quot;,
+        &quot;Dapps&quot;,
+        &quot;Our Company&quot;,
+        &quot;Deep Dives&quot;,
+        &quot;DeFi&quot;,
+        &quot;Exchanges&quot;,
+        &quot;Games&quot;,
+        &quot;Gaming&quot;,
+        &quot;Gaming&quot;,
+        &quot;Health&quot;,
+        &quot;Investigations&quot;,
+        &quot;Investing&quot;,
+        &quot;The Landscape&quot;,
+        &quot;Law and Order&quot;,
+        &quot;Learn&quot;,
+        &quot;Legislation&quot;,
+        &quot;Long Reads&quot;,
+        &quot;Longevity&quot;,
+        &quot;Markets&quot;,
+        &quot;News&quot;,
+        &quot;NFTs&quot;,
+        &quot;Opinion&quot;,
+        &quot;Others&quot;,
+        &quot;Phones&quot;,
+        &quot;Press Release&quot;,
+        &quot;Press Releases&quot;,
+        &quot;Press Releases - Gaming&quot;,
+        &quot;Profiles&quot;,
+        &quot;The Projects&quot;,
+        &quot;Reviews&quot;,
+        &quot;Social Media&quot;,
+        &quot;Space&quot;,
+        &quot;Technology&quot;,
+        &quot;Technology Guides&quot;,
+        &quot;The Future&quot;,
+        &quot;The People&quot;,
+        &quot;Wallets&quot;,
+        &quot;web3&quot;
+      ],
+      &quot;prefill&quot;: &quot;news&quot;,
+      &quot;title&quot;: &quot;Category&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;coinSlugs&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Filter by coin slugs, e.g. bitcoin, ethereum, solana. Names and ticker symbols are also accepted and mapped to slugs. The source can match articles with no explicit coin relation; those rows omit coins and coinSlugs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;1inch&quot;,
+          &quot;aave&quot;,
+          &quot;algorand&quot;,
+          &quot;apecoin&quot;,
+          &quot;aptos&quot;,
+          &quot;arbitrum&quot;,
+          &quot;arweave&quot;,
+          &quot;aster&quot;,
+          &quot;audius&quot;,
+          &quot;augur&quot;,
+          &quot;avalanche&quot;,
+          &quot;axie-infinity&quot;,
+          &quot;binance-coin&quot;,
+          &quot;basic-attention-token&quot;,
+          &quot;binance-usd&quot;,
+          &quot;bitcoin&quot;,
+          &quot;bitcoin-cash&quot;,
+          &quot;bitcoin-sv&quot;,
+          &quot;bitfinex&quot;,
+          &quot;bittensor&quot;,
+          &quot;blur&quot;,
+          &quot;bonk&quot;,
+          &quot;cardano&quot;,
+          &quot;celo&quot;,
+          &quot;celsius&quot;,
+          &quot;chainlink&quot;,
+          &quot;chia&quot;,
+          &quot;chiliz&quot;,
+          &quot;civic&quot;,
+          &quot;compound-comp-token&quot;,
+          &quot;cosmos&quot;,
+          &quot;crypto-com&quot;,
+          &quot;curve-dao-token&quot;,
+          &quot;dash&quot;,
+          &quot;decentraland&quot;,
+          &quot;digibyte&quot;,
+          &quot;dogecoin&quot;,
+          &quot;dogwifhat&quot;,
+          &quot;eos&quot;,
+          &quot;ethpow&quot;,
+          &quot;electroneum&quot;,
+          &quot;enjin&quot;,
+          &quot;ethereum&quot;,
+          &quot;ethereum-classic&quot;,
+          &quot;ftx&quot;,
+          &quot;94510&quot;,
+          &quot;fartcoin&quot;,
+          &quot;filecoin&quot;,
+          &quot;gemini-dollar&quot;,
+          &quot;gods-unchained&quot;,
+          &quot;toncoin&quot;,
+          &quot;harmony&quot;,
+          &quot;helium&quot;,
+          &quot;hive&quot;,
+          &quot;horizen&quot;,
+          &quot;iost&quot;,
+          &quot;immutablex&quot;,
+          &quot;injective&quot;,
+          &quot;70579&quot;,
+          &quot;kin&quot;,
+          &quot;kucoin-token&quot;,
+          &quot;kyber-network&quot;,
+          &quot;lido-dao-token&quot;,
+          &quot;lisk&quot;,
+          &quot;litecoin&quot;,
+          &quot;loom-network&quot;,
+          &quot;maker&quot;,
+          &quot;matic&quot;,
+          &quot;metal&quot;,
+          &quot;monero&quot;,
+          &quot;neo&quot;,
+          &quot;near-protocol&quot;,
+          &quot;nem&quot;,
+          &quot;okex&quot;,
+          &quot;oasis-network&quot;,
+          &quot;official-trump&quot;,
+          &quot;olympusdao&quot;,
+          &quot;omisego&quot;,
+          &quot;optimism&quot;,
+          &quot;orchid&quot;,
+          &quot;pengu&quot;,
+          &quot;pancakeswap&quot;,
+          &quot;paxos&quot;,
+          &quot;pepe&quot;,
+          &quot;polkadot&quot;,
+          &quot;polygon&quot;,
+          &quot;pooltogether&quot;,
+          &quot;provenance-blockchain&quot;,
+          &quot;render-network&quot;,
+          &quot;request-finance&quot;,
+          &quot;secret-network&quot;,
+          &quot;sei&quot;,
+          &quot;shiba-inu&quot;,
+          &quot;simple-token&quot;,
+          &quot;smooth-love-potion&quot;,
+          &quot;solana&quot;,
+          &quot;spankchain&quot;,
+          &quot;steem-token&quot;,
+          &quot;stellar&quot;,
+          &quot;sushi&quot;,
+          &quot;synthetix-network-token&quot;,
+          &quot;thorchain&quot;,
+          &quot;terra&quot;,
+          &quot;terra-classic&quot;,
+          &quot;tether&quot;,
+          &quot;tezos&quot;,
+          &quot;the-sandbox&quot;,
+          &quot;theta-network&quot;,
+          &quot;tron&quot;,
+          &quot;trueusd&quot;,
+          &quot;uniswap&quot;,
+          &quot;vechain&quot;,
+          &quot;wax&quot;,
+          &quot;wbtc&quot;,
+          &quot;walletconnect-token&quot;,
+          &quot;world-liberty-financial&quot;,
+          &quot;worldcoin&quot;,
+          &quot;xrp&quot;,
+          &quot;zrx&quot;,
+          &quot;zcash&quot;,
+          &quot;zilliqa&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;1inch (1INCH)&quot;,
+          &quot;Aave (AAVE)&quot;,
+          &quot;Algorand (ALGO)&quot;,
+          &quot;ApeCoin (APE)&quot;,
+          &quot;Aptos (APT)&quot;,
+          &quot;Arbitrum (ARB)&quot;,
+          &quot;Arweave (AR)&quot;,
+          &quot;Aster (ASTER)&quot;,
+          &quot;Audius (AUDIO)&quot;,
+          &quot;Augur (REP)&quot;,
+          &quot;Avalanche (AVAX)&quot;,
+          &quot;Axie Infinity (AXS)&quot;,
+          &quot;BNB (BNB)&quot;,
+          &quot;Basic Attention Token (BAT)&quot;,
+          &quot;Binance USD (BUSD)&quot;,
+          &quot;Bitcoin (BTC)&quot;,
+          &quot;Bitcoin Cash (BCH)&quot;,
+          &quot;Bitcoin SV (BSV)&quot;,
+          &quot;Bitfinex (LEO)&quot;,
+          &quot;Bittensor (TAO)&quot;,
+          &quot;Blur (BLUR)&quot;,
+          &quot;Bonk (BONK)&quot;,
+          &quot;Cardano (ADA)&quot;,
+          &quot;Celo (CELO)&quot;,
+          &quot;Celsius (CEL)&quot;,
+          &quot;Chainlink (LINK)&quot;,
+          &quot;Chia (XCH)&quot;,
+          &quot;Chiliz (CHZ)&quot;,
+          &quot;Civic (CVC)&quot;,
+          &quot;Compound (COMP)&quot;,
+          &quot;Cosmos (ATOM)&quot;,
+          &quot;Crypto.com (CRO)&quot;,
+          &quot;Curve DAO Token (CRV)&quot;,
+          &quot;Dash (DASH)&quot;,
+          &quot;Decentraland (MANA)&quot;,
+          &quot;DigiByte (DGB)&quot;,
+          &quot;Dogecoin (DOGE)&quot;,
+          &quot;Dogwifhat (WIF)&quot;,
+          &quot;EOS (EOS)&quot;,
+          &quot;ETHPoW (ETHW)&quot;,
+          &quot;Electroneum (ETN)&quot;,
+          &quot;Enjin (ENJ)&quot;,
+          &quot;Ethereum (ETH)&quot;,
+          &quot;Ethereum Classic (ETC)&quot;,
+          &quot;FTX (FTT)&quot;,
+          &quot;Fantom (FTM)&quot;,
+          &quot;Fartcoin (FARTCOIN)&quot;,
+          &quot;Filecoin (FIL)&quot;,
+          &quot;Gemini Dollar (GUSD)&quot;,
+          &quot;Gods Unchained (GODS)&quot;,
+          &quot;Gram (prev. Toncoin) (GRAM)&quot;,
+          &quot;Harmony (ONE)&quot;,
+          &quot;Helium (HNT)&quot;,
+          &quot;Hive (HIVE)&quot;,
+          &quot;Horizen (ZEN)&quot;,
+          &quot;IOST (IOST)&quot;,
+          &quot;ImmutableX (IMX)&quot;,
+          &quot;Injective (INJ)&quot;,
+          &quot;Internet Computer (ICP)&quot;,
+          &quot;Kin (KIN)&quot;,
+          &quot;KuCoin Token (KCS)&quot;,
+          &quot;Kyber Network (KNC)&quot;,
+          &quot;Lido DAO Token (LDO)&quot;,
+          &quot;Lisk (LSK)&quot;,
+          &quot;Litecoin (LTC)&quot;,
+          &quot;Loom Network (LOOM)&quot;,
+          &quot;Maker (MKR)&quot;,
+          &quot;Matic (MATIC)&quot;,
+          &quot;Metal (MTL)&quot;,
+          &quot;Monero (XMR)&quot;,
+          &quot;NEO (NEO)&quot;,
+          &quot;Near Protocol (NEAR)&quot;,
+          &quot;Nem (XEM)&quot;,
+          &quot;OKEx (OKB)&quot;,
+          &quot;Oasis Network (ROSE)&quot;,
+          &quot;Official Trump (TRUMP)&quot;,
+          &quot;OlympusDAO (OHM)&quot;,
+          &quot;OmiseGo (OMG)&quot;,
+          &quot;Optimism (OP)&quot;,
+          &quot;Orchid (OXT)&quot;,
+          &quot;PENGU (PENGU)&quot;,
+          &quot;PancakeSwap (CAKE)&quot;,
+          &quot;Paxos (USDP)&quot;,
+          &quot;Pepe (PEPE)&quot;,
+          &quot;Polkadot (DOT)&quot;,
+          &quot;Polygon (POL)&quot;,
+          &quot;PoolTogether (POOL)&quot;,
+          &quot;Provenance Blockchain (HASH)&quot;,
+          &quot;Render Network (RNDR)&quot;,
+          &quot;Request Finance (REQ)&quot;,
+          &quot;Secret Network (SCRT)&quot;,
+          &quot;Sei (SEI)&quot;,
+          &quot;Shiba Inu (SHIB)&quot;,
+          &quot;Simple Token (OST)&quot;,
+          &quot;Smooth Love Potion (SLP)&quot;,
+          &quot;Solana (SOL)&quot;,
+          &quot;SpankChain (SPANK)&quot;,
+          &quot;Steem (STEEM)&quot;,
+          &quot;Stellar (XLM)&quot;,
+          &quot;Sushi (SUSHI)&quot;,
+          &quot;Synthetix Network Token (SNX)&quot;,
+          &quot;THORchain (RUNE)&quot;,
+          &quot;Terra (LUNA)&quot;,
+          &quot;Terra Luna Classic (LUNC)&quot;,
+          &quot;Tether (USDT)&quot;,
+          &quot;Tezos (XTZ)&quot;,
+          &quot;The Sandbox (SAND)&quot;,
+          &quot;Theta Network (THETA)&quot;,
+          &quot;Tron (TRX)&quot;,
+          &quot;TrueUSD (TUSD)&quot;,
+          &quot;Uniswap (UNI)&quot;,
+          &quot;VeChain (VET)&quot;,
+          &quot;WAX (WAXP)&quot;,
+          &quot;WBTC (WBTC)&quot;,
+          &quot;WalletConnect Token (WCT)&quot;,
+          &quot;World Liberty Financial (WLFI)&quot;,
+          &quot;Worldcoin (WLD)&quot;,
+          &quot;XRP (XRP)&quot;,
+          &quot;ZRX (ZRX)&quot;,
+          &quot;Zcash (ZEC)&quot;,
+          &quot;Zilliqa (ZIL)&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Coin slugs&quot;,
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;dateRangeFrom&quot;: {
+      &quot;description&quot;: &quot;Only articles published on or after this date (YYYY-MM-DD). The date range is applied by the source.&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;title&quot;: &quot;Published from&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;dateRangeTo&quot;: {
+      &quot;description&quot;: &quot;Only articles published on or before this date (YYYY-MM-DD). The date range is applied by the source.&quot;,
+      &quot;editor&quot;: &quot;datepicker&quot;,
+      &quot;title&quot;: &quot;Published until&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeContent&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Include full HTML and plain-text article bodies, TL;DR content and word count. Turn off for a lighter dataset.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include article body&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;locale&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Article language. Leave empty to include every locale.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;en&quot;,
+        &quot;es&quot;,
+        &quot;fr&quot;,
+        &quot;ar&quot;,
+        &quot;zh-hans&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All languages&quot;,
+        &quot;English&quot;,
+        &quot;Spanish&quot;,
+        &quot;French&quot;,
+        &quot;Arabic&quot;,
+        &quot;Simplified Chinese&quot;
+      ],
+      &quot;prefill&quot;: &quot;en&quot;,
+      &quot;title&quot;: &quot;Language / locale&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Maximum number of articles to return (1-10,000).&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max articles&quot;,
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;unit&quot;: &quot;articles&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch. Search matches titles, excerpts and article bodies. The latest mode returns the newest stories.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;browseByCategory&quot;,
+        &quot;byId&quot;,
+        &quot;trending&quot;,
+        &quot;byTag&quot;,
+        &quot;byCoin&quot;,
+        &quot;byAuthor&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search articles&quot;,
+        &quot;Browse a category&quot;,
+        &quot;Look up IDs or URLs&quot;,
+        &quot;Latest articles&quot;,
+        &quot;Browse a tag&quot;,
+        &quot;Browse a coin&quot;,
+        &quot;Browse an author&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNew&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Skip article IDs returned by earlier runs of this actor. Useful for scheduled monitoring. State is kept automatically.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new articles&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;description&quot;: &quot;Optional. Leave off for a direct connection; the actor does not require a proxy.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: false
+      },
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Keyword or phrase matched against article titles, excerpts and bodies (mode=search). E.g. bitcoin, ethereum, NFT.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;bitcoin&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;newest&quot;,
+      &quot;description&quot;: &quot;Newest first, oldest first, or best match. Best match needs a search query; otherwise newest is used.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;newest&quot;,
+        &quot;oldest&quot;,
+        &quot;relevance&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Newest first&quot;,
+        &quot;Oldest first&quot;,
+        &quot;Best match&quot;
+      ],
+      &quot;prefill&quot;: &quot;newest&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;tagSlugs&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Filter by Decrypt tag slugs, e.g. bitcoin, ethereum, regulation. Tag names are not accepted; use the slugs returned in each record.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Tag slugs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Decrypt Crypto News Finder Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>articles</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Decrypt articles.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Decrypt articles with full HTML and plain text, TL;DR, editors, author profiles, categories, tags, coins, collections, images, canonical URLs and reading metrics.&quot;,
+  &quot;properties&quot;: {
+    &quot;articles&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped Decrypt articles.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Decrypt articles&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Decrypt Crypto News Finder by Category &amp; Keyword Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Articles&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;title&quot;,
+          &quot;authors&quot;,
+          &quot;category&quot;,
+          &quot;publishedAt&quot;,
+          &quot;readingTimeMinutes&quot;,
+          &quot;wordCount&quot;,
+          &quot;sourceUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-decrypt-crypto-news-finder-by-category-keyword">Decrypt Crypto News Finder by Category &amp; Keyword</h2>
+<p>Decrypt publishes crypto, Web3, AI, policy and market news across a deep archive and five languages. This actor searches that archive by keyword, browses 47 categories, tags, 121 coins or authors, looks up specific articles by ID or URL, and returns full article records with HTML and plain text, TL;DR bullets, editors, author profiles, images, taxonomy and reading metrics. No account, cookies or proxy setup is required.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Seven modes:</strong> keyword search, browse by category, lookup by ID/URL, latest articles, browse by tag, browse by coin and browse by author</li>
+<li><strong>Deep archive access</strong> with server-side date ranges, newest/oldest/relevance sorting and up to 10,000 articles per run</li>
+<li><strong>Full article data:</strong> HTML body, plain-text body, TL;DR, editors, author bios and social profiles, tags, coins, collections, distinctions and images</li>
+<li><strong>Five locales:</strong> English, Spanish, French, Arabic and Simplified Chinese, with the correct localized article URL</li>
+<li><strong>Batch lookups:</strong> paste article IDs or decrypt.co URLs, including localized and <code>/resources/</code> links</li>
+<li><strong>Scheduled monitoring:</strong> <code>onlyNew</code> skips articles returned by earlier runs</li>
+<li><strong>Empty fields are omitted</strong> from every record instead of being returned as null</li>
+</ul>
+<h2 id="readme-output-per-article">Output per article</h2>
+<ul>
+<li><code>id</code> — Decrypt article ID</li>
+<li><code>title</code>, <code>slug</code>, <code>excerpt</code>, <code>blurb</code> — headline and summaries</li>
+<li><code>locale</code>, <code>status</code>, <code>publishedAt</code>, <code>modifiedAt</code> — language, publication status and ISO timestamps</li>
+<li><code>content</code> — full article body as HTML</li>
+<li><code>contentText</code> — plain-text article body for search, NLP and summaries</li>
+<li><code>wordCount</code>, <code>readingTimeMinutes</code> — body word count and reading time in minutes</li>
+<li><code>readingTime</code> — original reading-time label from the source</li>
+<li><code>tldrTitle</code>, <code>tldrContent</code>, <code>tldrText</code> — &quot;In brief&quot; heading, HTML bullets and plain-text bullets</li>
+<li><code>authors[]</code>, <code>authorSlugs[]</code> — byline names and slugs</li>
+<li><code>authorDetails[]</code> — <code>name</code>, <code>slug</code>, <code>title</code>, <code>bio</code>, <code>location</code>, <code>twitter</code>, <code>linkedin</code>, <code>avatarUrl</code>, <code>roles</code></li>
+<li><code>editors[]</code>, <code>editorSlugs[]</code> — editor names and slugs</li>
+<li><code>category</code>, <code>categorySlug</code>, <code>categoryParent</code>, <code>categoryParentSlug</code> — leaf category and its parent section</li>
+<li><code>tags[]</code>, <code>tagSlugs[]</code> — topic names and filterable slugs</li>
+<li><code>coins[]</code>, <code>coinSlugs[]</code>, <code>coinSymbols[]</code> — mentioned coins, slugs and ticker symbols</li>
+<li><code>collections[]</code>, <code>collectionSlugs[]</code> — editorial collections</li>
+<li><code>distinctions[]</code>, <code>distinctionSlugs[]</code> — editorial distinctions</li>
+<li><code>celebrities[]</code>, <code>celebritySlugs[]</code> — people linked to the article</li>
+<li><code>featuredImageUrl</code>, <code>featuredImageAlt</code>, <code>featuredImageWidth</code>, <code>featuredImageHeight</code> — featured image</li>
+<li><code>featuredVideoUrl</code> — featured video URL when the article has one</li>
+<li><code>metaDescription</code>, <code>socialImageUrl</code> — SEO description and social-sharing image</li>
+<li><code>sourceUrl</code>, <code>canonicalUrl</code> — localized article URL</li>
+<li><code>recordType</code> — always <code>&quot;article&quot;</code></li>
+<li><code>scrapedAt</code> — timestamp of when the record was scraped</li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string (enum, required)</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>browseByCategory</code>, <code>byId</code>, <code>trending</code>, <code>byTag</code>, <code>byCoin</code> or <code>byAuthor</code></td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+<td>Keyword matched against titles, excerpts and bodies (mode <code>search</code>)</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>string (enum)</td>
+<td><code>&quot;&quot;</code></td>
+<td>One of 47 category slugs; empty means any category</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Several category slugs at once</td>
+</tr>
+<tr>
+<td><code>tagSlugs</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Tag slugs, e.g. <code>bitcoin</code>, <code>regulation</code></td>
+</tr>
+<tr>
+<td><code>coinSlugs</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Coin slugs, names or tickers, e.g. <code>bitcoin</code>, <code>ethereum</code>, <code>SOL</code></td>
+</tr>
+<tr>
+<td><code>authorSlugs</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Author slugs, e.g. <code>jose</code></td>
+</tr>
+<tr>
+<td><code>articleIds</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>IDs or decrypt.co URLs (mode <code>byId</code>)</td>
+</tr>
+<tr>
+<td><code>locale</code></td>
+<td>string (enum)</td>
+<td><code>&quot;&quot;</code></td>
+<td><code>en</code>, <code>es</code>, <code>fr</code>, <code>ar</code>, <code>zh-hans</code>; empty means all languages</td>
+</tr>
+<tr>
+<td><code>dateRangeFrom</code></td>
+<td>string</td>
+<td>–</td>
+<td>Only articles published on or after this date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>dateRangeTo</code></td>
+<td>string</td>
+<td>–</td>
+<td>Only articles published on or before this date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string (enum)</td>
+<td><code>newest</code></td>
+<td><code>newest</code>, <code>oldest</code> or <code>relevance</code></td>
+</tr>
+<tr>
+<td><code>includeContent</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include HTML/plain-text bodies, TL;DR content and word count</td>
+</tr>
+<tr>
+<td><code>onlyNew</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Skip article IDs returned by earlier runs</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Maximum articles to return (1–10,000)</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>off</td>
+<td>Optional override; the actor works without a proxy</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-keyword-search-with-relevance-and-a-date-window">Example: keyword search with relevance and a date window</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQuery&quot;: &quot;etf inflows&quot;,
+  &quot;sortBy&quot;: &quot;relevance&quot;,
+  &quot;dateRangeFrom&quot;: &quot;2026-01-01&quot;,
+  &quot;dateRangeTo&quot;: &quot;2026-03-31&quot;,
+  &quot;locale&quot;: &quot;en&quot;,
+  &quot;maxItems&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-browse-a-category-in-spanish-without-article-bodies">Example: browse a category in Spanish without article bodies</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;browseByCategory&quot;,
+  &quot;category&quot;: &quot;markets&quot;,
+  &quot;locale&quot;: &quot;es&quot;,
+  &quot;includeContent&quot;: false,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-look-up-a-mixed-batch-of-ids-and-urls">Example: look up a mixed batch of IDs and URLs</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byId&quot;,
+  &quot;articleIds&quot;: [
+    &quot;382316&quot;,
+    &quot;https://decrypt.co/373492/bitcoin-64000-inflacion-ipc-junio-fed-tasas-interes&quot;,
+    &quot;https://decrypt.co/resources/what-is-eip-7702-the-ethereum-upgrade-behind-the-6-4b-binance-hack&quot;
+  ]
+}
+</code></pre>
+<h3 id="readme-example-monitor-one-coin-for-new-stories">Example: monitor one coin for new stories</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byCoin&quot;,
+  &quot;coinSlugs&quot;: [&quot;solana&quot;],
+  &quot;dateRangeFrom&quot;: &quot;2026-10-01&quot;,
+  &quot;onlyNew&quot;: true,
+  &quot;sortBy&quot;: &quot;newest&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Crypto news monitoring</strong> — track coverage of a coin, project, company or person across the archive</li>
+<li><strong>NLP and sentiment research</strong> — feed clean <code>contentText</code> and <code>tldrText</code> into your own models</li>
+<li><strong>Media intelligence</strong> — compare category, tag and author coverage over specific date windows</li>
+<li><strong>Content aggregation</strong> — power a newsletter, digest or research dashboard with full articles</li>
+<li><strong>Editorial archiving</strong> — build a localized archive across English, Spanish, French, Arabic and Chinese</li>
+<li><strong>Scheduled alerts</strong> — use <code>onlyNew</code> to pick up only stories published since the last run</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Decrypt?</strong>
+No. This is an independent, third-party actor that reads publicly available Decrypt article pages and feeds. It is not operated by or affiliated with Decrypt.</p>
+<p><strong>Do I need an account, API key or cookie?</strong>
+No. The actor runs without credentials and without proxy configuration.</p>
+<p><strong>Does it return full article text or just a summary?</strong>
+Both. <code>content</code> is the complete HTML body and <code>contentText</code> is a plain-text version. <code>excerpt</code>, <code>blurb</code> and the TL;DR fields are also included when the article has them.</p>
+<p><strong>Why are some fields missing from a record?</strong>
+Not every article has a coin, collection, distinction, editor, TL;DR or video. Fields with no value are omitted rather than returned empty or null. Decrypt's coin filter can also match stories whose article record has no explicit coin relation, so a <code>byCoin</code> run may include rows without <code>coins</code> or <code>coinSlugs</code>; the actor reports the article honestly instead of inventing a coin.</p>
+<p><strong>What do <code>tagSlugs</code>, <code>coinSlugs</code> and <code>authorSlugs</code> expect?</strong>
+Tag and author filters use the slugs returned in each record, not display names. Coin filters accept slugs plus common names and ticker symbols, which are mapped to slugs automatically.</p>
+<p><strong>How fresh is the data, and is <code>trending</code> a real trend signal?</strong>
+The archive is read live at run time. <code>trending</code> is the legacy name for the newest-first mode; it returns the latest published articles, not a proprietary popularity score.</p>
+<p><strong>How many articles can one run return?</strong>
+Up to 10,000 with <code>maxItems</code>. The source exposes a very large archive; for very broad queries, split the work by date range or category to keep each run focused.</p>
+<p><strong>Do localized articles have working URLs?</strong>
+Yes. <code>sourceUrl</code> and <code>canonicalUrl</code> use the article's own locale path, including <code>/es/</code>, <code>/fr/</code>, <code>/ar/</code> and <code>/zh-hans/</code>.</p>
+<p><strong>Are sentiment scores or AI analysis included?</strong>
+No. Those values are not published by the source, and the actor does not fabricate them. Use <code>contentText</code> or <code>tldrText</code> with your own analysis pipeline.</p>
+<p><strong>Can I run this on a schedule?</strong>
+Yes. Set <code>onlyNew</code> to <code>true</code> and the actor will skip article IDs returned by earlier runs, so each scheduled run returns only unseen stories.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/decrypt-crypto-news-finder-by-category-and-keyword/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>QymXnxwvFb54S2uVZ</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

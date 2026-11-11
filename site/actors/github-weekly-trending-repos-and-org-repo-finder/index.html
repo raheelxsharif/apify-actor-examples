@@ -1,0 +1,719 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-8xLBIWSrD2QbhPG6cKVYeUJN5aalQrAihkMEeXOhoKE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>GitHub Weekly Trending Repos &amp; Org Repo Finder | Dataspryva</title><meta name="description" content="Find GitHub repositories gaining stars this week, run keyword searches across all public repos, or list an organization&#x27;s public repos with stars, forks, language, topics and licen"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/"><meta property="og:title" content="GitHub Weekly Trending Repos &amp; Org Repo Finder | Dataspryva"><meta property="og:description" content="Find GitHub repositories gaining stars this week, run keyword searches across all public repos, or list an organization&#x27;s public repos with stars, forks, language, topics and licen"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#webpage","name":"GitHub Weekly Trending Repos & Org Repo Finder","description":"Find GitHub repositories gaining stars this week, run keyword searches across all public repos, or list an organization's public repos with stars, forks, language, topics and license for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#article","headline":"GitHub Weekly Trending Repos & Org Repo Finder","name":"GitHub Weekly Trending Repos & Org Repo Finder","description":"Find GitHub repositories gaining stars this week, run keyword searches across all public repos, or list an organization's public repos with stars, forks, language, topics and license for each one.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#webpage"},"inLanguage":"en","dateModified":"2026-11-10T11:34:16.481Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"GitHub Weekly Trending Repos & Org Repo Finder","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/github-weekly-trending-repos-and-org-repo-finder/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>GitHub Weekly Trending Repos &amp; Org Repo Finder</span></div><section id="overview"><h1 class="doc-title">GitHub Weekly Trending Repos &amp; Org Repo Finder</h1><p class="lede">Find GitHub repositories gaining stars this week, run keyword searches across all public repos, or list an organization&#x27;s public repos with stars, forks, language, topics and license for each one.</p><p class="summary">GitHub Weekly Trending Repos &amp; Org Repo Finder is an Apify Actor published by Dataspryva. It accepts 21 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/github-weekly-trending-repos-and-org-repo-finder">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/U0CWdV7bxFGtUC1Ne/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: GitHub Trending repositories, trending developers, keyword search, an organization&#x27;s repos, a user&#x27;s repos, or specific repository details.</td></tr><tr><td><code>since</code></td><td>string</td><td>optional</td><td>Time window for trending repositories and developers (mode=trending / developers).</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keywords to search in repository names, descriptions and READMEs (mode=search). GitHub search syntax such as `language:` or `topic:` also works.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: GitHub Trending repositories, trending developers, keyword search, an organization&#x27;s repos, a user&#x27;s repos, or specific repository details.</td></tr><tr><td><code>since</code></td><td>string</td><td>optional</td><td>Time window for trending repositories and developers (mode=trending / developers).</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Keywords to search in repository names, descriptions and READMEs (mode=search). GitHub search syntax such as `language:` or `topic:` also works.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Restrict results to one programming language (all modes except developers; trending uses the language&#x27;s trending page).</td></tr><tr><td><code>customLanguage</code></td><td>string</td><td>optional</td><td>Optional free-text GitHub language name that overrides the dropdown above (e.g. `Blade`, `QML`, `Tcl`).</td></tr><tr><td><code>spokenLanguage</code></td><td>string</td><td>optional</td><td>Only show trending repos whose README is written in this language (mode=trending).</td></tr><tr><td><code>customSpokenLanguage</code></td><td>string</td><td>optional</td><td>Optional ISO 639-1 code that overrides the spoken language dropdown (e.g. `fi`, `uk`, `vi`).</td></tr><tr><td><code>org</code></td><td>string</td><td>optional</td><td>GitHub organization login or profile URL (mode=orgRepos).</td></tr><tr><td><code>user</code></td><td>string</td><td>optional</td><td>GitHub user login or profile URL (mode=userRepos).</td></tr><tr><td><code>repoUrls</code></td><td>array</td><td>optional</td><td>Repository links or `owner/repo` paths, one per line (mode=repoDetails).</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result order for search, org and user modes. `Best match` uses GitHub relevance; other values rank by that metric.</td></tr><tr><td><code>minStars</code></td><td>integer</td><td>optional</td><td>Drop repositories with fewer stars than this. Set 0 to disable.</td></tr><tr><td><code>pushedWithinDays</code></td><td>integer</td><td>optional</td><td>Only repositories with a push in the last N days. Set 0 to disable (365 = one year).</td></tr><tr><td><code>aiOnly</code></td><td>boolean</td><td>optional</td><td>Keep repositories related to AI, machine learning, LLMs, computer vision and related topics (all repository modes).</td></tr><tr><td><code>filterTopics</code></td><td>array</td><td>optional</td><td>Keep repositories with at least one of these GitHub topics (e.g. `llm`, `rag`, `pytorch`). Empty = no topic filter.</td></tr><tr><td><code>includeForks</code></td><td>boolean</td><td>optional</td><td>Include forked repositories in search, org and user results. Off by default for a clean signal.</td></tr><tr><td><code>includeDeveloperProfiles</code></td><td>boolean</td><td>optional</td><td>Fetch bio, followers, public repo count, company and location for each trending developer (mode=developers). Adds one request per developer.</td></tr><tr><td><code>includeLanguages</code></td><td>boolean</td><td>optional</td><td>Fetch the byte-count language breakdown for each repository (mode=repoDetails). Adds one request per repository.</td></tr><tr><td><code>includeContributors</code></td><td>boolean</td><td>optional</td><td>Fetch the top 10 contributors for each repository (mode=repoDetails). Adds one request per repository.</td></tr><tr><td><code>includeReadme</code></td><td>boolean</td><td>optional</td><td>Fetch each repository&#x27;s README as markdown (mode=repoDetails). Adds one download per repository.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to return. GitHub search, org and user modes cap at 1,000 results; Trending exposes about 25 per page.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape GitHub trending repos and developers, search public repositories, list an org or user&#x27;s repos, or fetch full repository details.&quot;,
+  &quot;properties&quot;: {
+    &quot;aiOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Keep repositories related to AI, machine learning, LLMs, computer vision and related topics (all repository modes).&quot;,
+      &quot;title&quot;: &quot;AI / ML repositories only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;customLanguage&quot;: {
+      &quot;description&quot;: &quot;Optional free-text GitHub language name that overrides the dropdown above (e.g. `Blade`, `QML`, `Tcl`).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Custom language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;customSpokenLanguage&quot;: {
+      &quot;description&quot;: &quot;Optional ISO 639-1 code that overrides the spoken language dropdown (e.g. `fi`, `uk`, `vi`).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Custom spoken language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;filterTopics&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keep repositories with at least one of these GitHub topics (e.g. `llm`, `rag`, `pytorch`). Empty = no topic filter.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Topics filter&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeContributors&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch the top 10 contributors for each repository (mode=repoDetails). Adds one request per repository.&quot;,
+      &quot;title&quot;: &quot;Include contributors&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDeveloperProfiles&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch bio, followers, public repo count, company and location for each trending developer (mode=developers). Adds one request per developer.&quot;,
+      &quot;title&quot;: &quot;Include developer profiles&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeForks&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Include forked repositories in search, org and user results. Off by default for a clean signal.&quot;,
+      &quot;title&quot;: &quot;Include forks&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeLanguages&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch the byte-count language breakdown for each repository (mode=repoDetails). Adds one request per repository.&quot;,
+      &quot;title&quot;: &quot;Include language breakdown&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReadme&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch each repository&#x27;s README as markdown (mode=repoDetails). Adds one download per repository.&quot;,
+      &quot;title&quot;: &quot;Include README&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;language&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Restrict results to one programming language (all modes except developers; trending uses the language&#x27;s trending page).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;Python&quot;,
+        &quot;JavaScript&quot;,
+        &quot;TypeScript&quot;,
+        &quot;Rust&quot;,
+        &quot;Go&quot;,
+        &quot;Java&quot;,
+        &quot;C++&quot;,
+        &quot;C#&quot;,
+        &quot;C&quot;,
+        &quot;Ruby&quot;,
+        &quot;PHP&quot;,
+        &quot;Swift&quot;,
+        &quot;Kotlin&quot;,
+        &quot;Dart&quot;,
+        &quot;Scala&quot;,
+        &quot;Shell&quot;,
+        &quot;HTML&quot;,
+        &quot;CSS&quot;,
+        &quot;Vue&quot;,
+        &quot;Svelte&quot;,
+        &quot;Jupyter Notebook&quot;,
+        &quot;R&quot;,
+        &quot;MATLAB&quot;,
+        &quot;Lua&quot;,
+        &quot;Perl&quot;,
+        &quot;Haskell&quot;,
+        &quot;Elixir&quot;,
+        &quot;Erlang&quot;,
+        &quot;Clojure&quot;,
+        &quot;F#&quot;,
+        &quot;OCaml&quot;,
+        &quot;Zig&quot;,
+        &quot;Nim&quot;,
+        &quot;Julia&quot;,
+        &quot;Objective-C&quot;,
+        &quot;Assembly&quot;,
+        &quot;Solidity&quot;,
+        &quot;PowerShell&quot;,
+        &quot;Groovy&quot;,
+        &quot;Crystal&quot;,
+        &quot;Elm&quot;,
+        &quot;WebAssembly&quot;,
+        &quot;TeX&quot;,
+        &quot;Makefile&quot;,
+        &quot;Dockerfile&quot;,
+        &quot;Nix&quot;,
+        &quot;HCL&quot;,
+        &quot;Astro&quot;,
+        &quot;CMake&quot;,
+        &quot;CoffeeScript&quot;,
+        &quot;Emacs Lisp&quot;,
+        &quot;GDScript&quot;,
+        &quot;GLSL&quot;,
+        &quot;Gherkin&quot;,
+        &quot;Jsonnet&quot;,
+        &quot;PLpgSQL&quot;,
+        &quot;Prolog&quot;,
+        &quot;Racket&quot;,
+        &quot;Raku&quot;,
+        &quot;ReScript&quot;,
+        &quot;Sass&quot;,
+        &quot;SCSS&quot;,
+        &quot;Starlark&quot;,
+        &quot;TSQL&quot;,
+        &quot;Visual Basic .NET&quot;,
+        &quot;Wolfram Language&quot;,
+        &quot;XSLT&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All languages&quot;,
+        &quot;Python&quot;,
+        &quot;JavaScript&quot;,
+        &quot;TypeScript&quot;,
+        &quot;Rust&quot;,
+        &quot;Go&quot;,
+        &quot;Java&quot;,
+        &quot;C++&quot;,
+        &quot;C#&quot;,
+        &quot;C&quot;,
+        &quot;Ruby&quot;,
+        &quot;PHP&quot;,
+        &quot;Swift&quot;,
+        &quot;Kotlin&quot;,
+        &quot;Dart&quot;,
+        &quot;Scala&quot;,
+        &quot;Shell&quot;,
+        &quot;HTML&quot;,
+        &quot;CSS&quot;,
+        &quot;Vue&quot;,
+        &quot;Svelte&quot;,
+        &quot;Jupyter Notebook&quot;,
+        &quot;R&quot;,
+        &quot;MATLAB&quot;,
+        &quot;Lua&quot;,
+        &quot;Perl&quot;,
+        &quot;Haskell&quot;,
+        &quot;Elixir&quot;,
+        &quot;Erlang&quot;,
+        &quot;Clojure&quot;,
+        &quot;F#&quot;,
+        &quot;OCaml&quot;,
+        &quot;Zig&quot;,
+        &quot;Nim&quot;,
+        &quot;Julia&quot;,
+        &quot;Objective-C&quot;,
+        &quot;Assembly&quot;,
+        &quot;Solidity&quot;,
+        &quot;PowerShell&quot;,
+        &quot;Groovy&quot;,
+        &quot;Crystal&quot;,
+        &quot;Elm&quot;,
+        &quot;WebAssembly&quot;,
+        &quot;TeX&quot;,
+        &quot;Makefile&quot;,
+        &quot;Dockerfile&quot;,
+        &quot;Nix&quot;,
+        &quot;HCL&quot;,
+        &quot;Astro&quot;,
+        &quot;CMake&quot;,
+        &quot;CoffeeScript&quot;,
+        &quot;Emacs Lisp&quot;,
+        &quot;GDScript&quot;,
+        &quot;GLSL&quot;,
+        &quot;Gherkin&quot;,
+        &quot;Jsonnet&quot;,
+        &quot;PLpgSQL&quot;,
+        &quot;Prolog&quot;,
+        &quot;Racket&quot;,
+        &quot;Raku&quot;,
+        &quot;ReScript&quot;,
+        &quot;Sass&quot;,
+        &quot;SCSS&quot;,
+        &quot;Starlark&quot;,
+        &quot;TSQL&quot;,
+        &quot;Visual Basic .NET&quot;,
+        &quot;Wolfram Language&quot;,
+        &quot;XSLT&quot;
+      ],
+      &quot;title&quot;: &quot;Programming language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum number of records to return. GitHub search, org and user modes cap at 1,000 results; Trending exposes about 25 per page.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum records&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minStars&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Drop repositories with fewer stars than this. Set 0 to disable.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum stars&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;trending&quot;,
+      &quot;description&quot;: &quot;What to fetch: GitHub Trending repositories, trending developers, keyword search, an organization&#x27;s repos, a user&#x27;s repos, or specific repository details.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;trending&quot;,
+        &quot;search&quot;,
+        &quot;orgRepos&quot;,
+        &quot;userRepos&quot;,
+        &quot;repoDetails&quot;,
+        &quot;developers&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Trending repositories&quot;,
+        &quot;Trending developers&quot;,
+        &quot;Search repositories&quot;,
+        &quot;Organization repositories&quot;,
+        &quot;User repositories&quot;,
+        &quot;Repository details&quot;
+      ],
+      &quot;prefill&quot;: &quot;trending&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;org&quot;: {
+      &quot;default&quot;: &quot;openai&quot;,
+      &quot;description&quot;: &quot;GitHub organization login or profile URL (mode=orgRepos).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Organization&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;pushedWithinDays&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Only repositories with a push in the last N days. Set 0 to disable (365 = one year).&quot;,
+      &quot;maximum&quot;: 3650,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Pushed within (days)&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;repoUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Repository links or `owner/repo` paths, one per line (mode=repoDetails).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Repository URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;default&quot;: &quot;machine learning&quot;,
+      &quot;description&quot;: &quot;Keywords to search in repository names, descriptions and READMEs (mode=search). GitHub search syntax such as `language:` or `topic:` also works.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;since&quot;: {
+      &quot;default&quot;: &quot;weekly&quot;,
+      &quot;description&quot;: &quot;Time window for trending repositories and developers (mode=trending / developers).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;daily&quot;,
+        &quot;weekly&quot;,
+        &quot;monthly&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Today&quot;,
+        &quot;This week&quot;,
+        &quot;This month&quot;
+      ],
+      &quot;title&quot;: &quot;Trending period&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;stars&quot;,
+      &quot;description&quot;: &quot;Result order for search, org and user modes. `Best match` uses GitHub relevance; other values rank by that metric.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;stars&quot;,
+        &quot;forks&quot;,
+        &quot;updated&quot;,
+        &quot;help-wanted-issues&quot;,
+        &quot;best-match&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Stars&quot;,
+        &quot;Forks&quot;,
+        &quot;Recently updated&quot;,
+        &quot;Help wanted issues&quot;,
+        &quot;Best match&quot;
+      ],
+      &quot;title&quot;: &quot;Sort by&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;spokenLanguage&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Only show trending repos whose README is written in this language (mode=trending).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;en&quot;,
+        &quot;zh&quot;,
+        &quot;es&quot;,
+        &quot;hi&quot;,
+        &quot;ar&quot;,
+        &quot;pt&quot;,
+        &quot;fr&quot;,
+        &quot;de&quot;,
+        &quot;ja&quot;,
+        &quot;ko&quot;,
+        &quot;ru&quot;,
+        &quot;it&quot;,
+        &quot;tr&quot;,
+        &quot;vi&quot;,
+        &quot;pl&quot;,
+        &quot;nl&quot;,
+        &quot;id&quot;,
+        &quot;th&quot;,
+        &quot;fa&quot;,
+        &quot;he&quot;,
+        &quot;uk&quot;,
+        &quot;sv&quot;,
+        &quot;da&quot;,
+        &quot;fi&quot;,
+        &quot;no&quot;,
+        &quot;cs&quot;,
+        &quot;el&quot;,
+        &quot;ro&quot;,
+        &quot;hu&quot;,
+        &quot;ca&quot;,
+        &quot;sr&quot;,
+        &quot;hr&quot;,
+        &quot;sk&quot;,
+        &quot;sl&quot;,
+        &quot;bg&quot;,
+        &quot;lt&quot;,
+        &quot;lv&quot;,
+        &quot;et&quot;,
+        &quot;ms&quot;,
+        &quot;tl&quot;,
+        &quot;sw&quot;,
+        &quot;bn&quot;,
+        &quot;ta&quot;,
+        &quot;te&quot;,
+        &quot;ml&quot;,
+        &quot;kn&quot;,
+        &quot;gu&quot;,
+        &quot;mr&quot;,
+        &quot;pa&quot;,
+        &quot;ur&quot;,
+        &quot;ne&quot;,
+        &quot;si&quot;,
+        &quot;km&quot;,
+        &quot;lo&quot;,
+        &quot;my&quot;,
+        &quot;ka&quot;,
+        &quot;hy&quot;,
+        &quot;az&quot;,
+        &quot;kk&quot;,
+        &quot;uz&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All languages&quot;,
+        &quot;English&quot;,
+        &quot;Chinese&quot;,
+        &quot;Spanish&quot;,
+        &quot;Hindi&quot;,
+        &quot;Arabic&quot;,
+        &quot;Portuguese&quot;,
+        &quot;French&quot;,
+        &quot;German&quot;,
+        &quot;Japanese&quot;,
+        &quot;Korean&quot;,
+        &quot;Russian&quot;,
+        &quot;Italian&quot;,
+        &quot;Turkish&quot;,
+        &quot;Vietnamese&quot;,
+        &quot;Polish&quot;,
+        &quot;Dutch&quot;,
+        &quot;Indonesian&quot;,
+        &quot;Thai&quot;,
+        &quot;Persian&quot;,
+        &quot;Hebrew&quot;,
+        &quot;Ukrainian&quot;,
+        &quot;Swedish&quot;,
+        &quot;Danish&quot;,
+        &quot;Finnish&quot;,
+        &quot;Norwegian&quot;,
+        &quot;Czech&quot;,
+        &quot;Greek&quot;,
+        &quot;Romanian&quot;,
+        &quot;Hungarian&quot;,
+        &quot;Catalan&quot;,
+        &quot;Serbian&quot;,
+        &quot;Croatian&quot;,
+        &quot;Slovak&quot;,
+        &quot;Slovenian&quot;,
+        &quot;Bulgarian&quot;,
+        &quot;Lithuanian&quot;,
+        &quot;Latvian&quot;,
+        &quot;Estonian&quot;,
+        &quot;Malay&quot;,
+        &quot;Tagalog&quot;,
+        &quot;Swahili&quot;,
+        &quot;Bengali&quot;,
+        &quot;Tamil&quot;,
+        &quot;Telugu&quot;,
+        &quot;Malayalam&quot;,
+        &quot;Kannada&quot;,
+        &quot;Gujarati&quot;,
+        &quot;Marathi&quot;,
+        &quot;Punjabi&quot;,
+        &quot;Urdu&quot;,
+        &quot;Nepali&quot;,
+        &quot;Sinhala&quot;,
+        &quot;Khmer&quot;,
+        &quot;Lao&quot;,
+        &quot;Burmese&quot;,
+        &quot;Georgian&quot;,
+        &quot;Armenian&quot;,
+        &quot;Azerbaijani&quot;,
+        &quot;Kazakh&quot;,
+        &quot;Uzbek&quot;
+      ],
+      &quot;title&quot;: &quot;Spoken language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;user&quot;: {
+      &quot;default&quot;: &quot;torvalds&quot;,
+      &quot;description&quot;: &quot;GitHub user login or profile URL (mode=userRepos).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;User&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;GitHub Trending, Repository Search &amp; Org Repo Finder Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped GitHub repository and developer records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;GitHub repository and developer records — names, owners, stars, forks, star growth, languages, topics, licenses, dates, URLs, contributors and optional README content.&quot;,
+  &quot;properties&quot;: {
+    &quot;results&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped GitHub repository and developer records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Results&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;GitHub Trending, Repository Search &amp; Org Repo Finder Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;GitHub repositories&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;trendingRank&quot;,
+          &quot;fullName&quot;,
+          &quot;description&quot;,
+          &quot;stars&quot;,
+          &quot;starsGained&quot;,
+          &quot;language&quot;,
+          &quot;topics&quot;,
+          &quot;license&quot;,
+          &quot;repoUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-github-trending-developer-organization-repository-scraper">GitHub Trending, Developer &amp; Organization Repository Scraper</h2>
+<p>Track what GitHub is amplifying right now, then go deeper: scrape the Trending page for repositories and developers, search every public repository, list an organization's or user's repos, or pull complete details for repositories you already care about. Every request is cookieless and works without a GitHub account or token.</p>
+<h2 id="readme-what-you-can-collect">What you can collect</h2>
+<p>Six modes share one output shape:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trending</code></td>
+<td>The actual github.com/trending list, filtered by daily/weekly/monthly period, programming language and spoken language</td>
+</tr>
+<tr>
+<td><code>developers</code></td>
+<td>The github.com/trending/developers list: developer, avatar, profile URL and the repository that put them on the list</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td>Keyword search across public repository names, descriptions and READMEs, with server-side language, star and push-date filters</td>
+</tr>
+<tr>
+<td><code>orgRepos</code></td>
+<td>Every public repository owned by an organization, paginated up to 1,000 results</td>
+</tr>
+<tr>
+<td><code>userRepos</code></td>
+<td>Every public repository owned by a user, paginated up to 1,000 results</td>
+</tr>
+<tr>
+<td><code>repoDetails</code></td>
+<td>Full metadata for a list of <code>owner/repo</code> paths or GitHub URLs, with optional language breakdown, top contributors and README markdown</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-fields">Output fields</h2>
+<p>Repository records use these fields (empty values are omitted, never <code>null</code>):</p>
+<ul>
+<li><strong>Identity</strong> — <code>repoId</code>, <code>repoName</code>, <code>owner</code>, <code>ownerType</code>, <code>ownerUrl</code>, <code>ownerAvatarUrl</code>, <code>fullName</code></li>
+<li><strong>Visibility</strong> — <code>visibility</code>, <code>defaultBranch</code>, <code>isForked</code>, <code>isArchived</code>, <code>isTemplate</code>, <code>allowForking</code></li>
+<li><strong>Popularity</strong> — <code>stars</code>, <code>forks</code>, <code>watchers</code>, <code>subscribers</code>, <code>openIssues</code>, <code>networkCount</code></li>
+<li><strong>Trending</strong> — <code>trendingRank</code>, <code>trendingPeriod</code>, <code>starsGained</code>, <code>starsGrowthPercent</code>, <code>builtBy[]</code></li>
+<li><strong>Content</strong> — <code>description</code>, <code>homepage</code>, <code>topics[]</code>, <code>language</code>, <code>languages</code> (byte breakdown), <code>languagesCount</code></li>
+<li><strong>Dates</strong> — <code>createdAt</code>, <code>updatedAt</code>, <code>pushedAt</code></li>
+<li><strong>License</strong> — <code>license</code>, <code>licenseKey</code>, <code>licenseSpdxId</code>, <code>licenseUrl</code></li>
+<li><strong>Links</strong> — <code>repoUrl</code>, <code>cloneUrl</code>, <code>sshUrl</code>, <code>stargazersUrl</code>, <code>forksUrl</code>, <code>contributorsUrl</code>, <code>releasesUrl</code></li>
+<li><strong>Detail extras</strong> — <code>contributors[]</code>, <code>readme</code></li>
+<li><strong>Metadata</strong> — <code>recordType</code> (<code>github_repo</code> or <code>github_developer</code>), <code>scrapedAt</code></li>
+</ul>
+<p>Developer records carry <code>username</code>, <code>displayName</code>, <code>avatarUrl</code>, <code>profileUrl</code>, <code>popularRepoName</code>, <code>popularRepoFullName</code>, <code>popularRepoDescription</code>, <code>popularRepoUrl</code>, <code>trendingRank</code>, <code>trendingPeriod</code>, <code>recordType</code> and <code>scrapedAt</code>. Set <code>includeDeveloperProfiles</code> to add <code>bio</code>, <code>followers</code>, <code>following</code>, <code>publicRepos</code>, <code>company</code>, <code>location</code>, <code>blogUrl</code>, <code>twitterUsername</code>, <code>profileCreatedAt</code> and <code>profileUpdatedAt</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td><code>trending</code></td>
+<td>One of the six modes above</td>
+</tr>
+<tr>
+<td><code>since</code></td>
+<td><code>weekly</code></td>
+<td><code>daily</code>, <code>weekly</code> or <code>monthly</code> for trending/developers</td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td><code>machine learning</code></td>
+<td>Free-text query, GitHub search qualifiers allowed</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>all</td>
+<td>Programming language dropdown; <code>customLanguage</code> overrides it</td>
+</tr>
+<tr>
+<td><code>spokenLanguage</code></td>
+<td>all</td>
+<td>README language filter for trending</td>
+</tr>
+<tr>
+<td><code>customSpokenLanguage</code></td>
+<td>—</td>
+<td>Free-text ISO code that overrides the spoken-language dropdown</td>
+</tr>
+<tr>
+<td><code>org</code> / <code>user</code></td>
+<td><code>openai</code> / <code>torvalds</code></td>
+<td>Organization or user login (URLs accepted)</td>
+</tr>
+<tr>
+<td><code>repoUrls</code></td>
+<td><code>[]</code></td>
+<td><code>owner/repo</code> paths or GitHub URLs for <code>repoDetails</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td><code>stars</code></td>
+<td><code>stars</code>, <code>forks</code>, <code>updated</code>, <code>help-wanted-issues</code> or <code>best-match</code></td>
+</tr>
+<tr>
+<td><code>minStars</code></td>
+<td><code>0</code></td>
+<td>Minimum star count; 0 disables</td>
+</tr>
+<tr>
+<td><code>pushedWithinDays</code></td>
+<td><code>0</code></td>
+<td>Only repos pushed within N days; 0 disables</td>
+</tr>
+<tr>
+<td><code>aiOnly</code></td>
+<td><code>false</code></td>
+<td>Keep AI/ML-related repos based on topics and descriptions</td>
+</tr>
+<tr>
+<td><code>filterTopics</code></td>
+<td><code>[]</code></td>
+<td>Keep repos with at least one of these topics</td>
+</tr>
+<tr>
+<td><code>includeForks</code></td>
+<td><code>false</code></td>
+<td>Include forked repositories</td>
+</tr>
+<tr>
+<td><code>includeDeveloperProfiles</code></td>
+<td><code>false</code></td>
+<td>Profile bio and stats (developers)</td>
+</tr>
+<tr>
+<td><code>includeLanguages</code></td>
+<td><code>true</code></td>
+<td>Language byte breakdown (repoDetails)</td>
+</tr>
+<tr>
+<td><code>includeContributors</code></td>
+<td><code>false</code></td>
+<td>Top 10 contributors (repoDetails)</td>
+</tr>
+<tr>
+<td><code>includeReadme</code></td>
+<td><code>false</code></td>
+<td>README markdown (repoDetails)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td><code>20</code></td>
+<td>1–1,000</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-examples">Examples</h3>
+<p>This week's trending Rust repositories:</p>
+<pre><code class="language-json">{ &quot;mode&quot;: &quot;trending&quot;, &quot;language&quot;: &quot;Rust&quot;, &quot;since&quot;: &quot;weekly&quot;, &quot;maxItems&quot;: 20 }
+</code></pre>
+<p>Trending developers this month:</p>
+<pre><code class="language-json">{ &quot;mode&quot;: &quot;developers&quot;, &quot;since&quot;: &quot;monthly&quot;, &quot;maxItems&quot;: 25 }
+</code></pre>
+<p>Search for actively maintained vector databases:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQuery&quot;: &quot;vector database&quot;,
+  &quot;language&quot;: &quot;Python&quot;,
+  &quot;minStars&quot;: 500,
+  &quot;pushedWithinDays&quot;: 90,
+  &quot;sortBy&quot;: &quot;stars&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<p>Every public repo in an organization, newest activity first:</p>
+<pre><code class="language-json">{ &quot;mode&quot;: &quot;orgRepos&quot;, &quot;org&quot;: &quot;vercel&quot;, &quot;sortBy&quot;: &quot;updated&quot;, &quot;maxItems&quot;: 100 }
+</code></pre>
+<p>Full details plus contributors for three repositories:</p>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;repoDetails&quot;,
+  &quot;repoUrls&quot;: [&quot;openai/whisper&quot;, &quot;https://github.com/rust-lang/rust&quot;, &quot;pallets/flask&quot;],
+  &quot;includeContributors&quot;: true,
+  &quot;includeReadme&quot;: true,
+  &quot;maxItems&quot;: 3
+}
+</code></pre>
+<h2 id="readme-how-it-works">How it works</h2>
+<ul>
+<li><strong>Trending</strong> is scraped from the public GitHub Trending HTML page, so it reflects the same ordering GitHub shows. The page exposes about 25 repositories per period/language; filters are applied after parsing.</li>
+<li><strong>Search, org and user</strong> modes use GitHub's public search API. The search UI and API both cap a single query at 1,000 results; narrow with language, stars, dates or topics to cover more.</li>
+<li><strong>Repository details</strong> use the public repository endpoint and, only when you enable them, the languages, contributors and README endpoints.</li>
+<li>If the unauthenticated API limit is reached, the actor falls back to GitHub's public HTML pages where possible and says so in the run status. Trending mode does not depend on the API.</li>
+<li>Every field is written only when the source has a real value; empty values and empty lists are omitted at every depth.</li>
+</ul>
+<h2 id="readme-no-credentials-no-proxy-setup">No credentials, no proxy setup</h2>
+<p>The actor uses public GitHub pages and endpoints only. You do not need a GitHub token, cookie, login or proxy configuration. Unauthenticated GitHub API allowances are shared per IP, which is enough for normal runs; very large searches may pause briefly or fall back to HTML.</p>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this the same list as github.com/trending?</strong>
+Yes for <code>trending</code> and <code>developers</code>: those modes parse the Trending pages directly, including the selected period and language.</p>
+<p><strong>Why did trending return fewer than <code>maxItems</code>?</strong>
+GitHub Trending publishes roughly 25 repositories or developers per period/language combination. Switch language or period to see a different slice.</p>
+<p><strong>Why is my search capped at 1,000 records?</strong>
+That is GitHub's search API limit for any single query. Split the request by language, topic, star range or keyword to collect more.</p>
+<p><strong>Why are some fields missing on trending records?</strong>
+Trending-page fields are always present when GitHub shows them. Deeper metadata (repository ID, topics, license, dates) comes from the public repository endpoint; if that endpoint is rate-limited, the actor keeps the trending-page fields instead of inventing values.</p>
+<p><strong>Are forks included?</strong>
+No by default. Set <code>includeForks</code> to <code>true</code> for search, org and user modes.</p>
+<p><strong>Can I use saved inputs from the previous version?</strong>
+Yes. Existing <code>mode</code>, <code>searchQuery</code>, <code>language</code>, <code>org</code>, <code>sortBy</code> and <code>maxItems</code> inputs keep working. The actor also recognizes common legacy aliases such as <code>query</code>, <code>maxRepos</code>, <code>scrapeType</code> and <code>resultsPerQuery</code> in code, without cluttering the input form.</p>
+<p><strong>How does <code>aiOnly</code> work?</strong>
+A repository counts as AI-related when its GitHub topics match an AI/ML list or its name/description contains AI/ML phrases such as “large language model”, “computer vision”, “RAG” or “fine-tuning”. Use <code>filterTopics</code> for exact topic control.</p>
+<p><strong>Is this affiliated with GitHub?</strong>
+No. This is an independent third-party actor that reads publicly available GitHub data. It is not endorsed by or affiliated with GitHub, Inc.</p>
+<h2 id="readme-data-source">Data source</h2>
+<p>Public GitHub Trending pages (<code>github.com/trending</code>), the public GitHub REST API (<code>api.github.com</code>), and <code>raw.githubusercontent.com</code> for optional README downloads. No authentication is used.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/github-weekly-trending-repos-and-org-repo-finder/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>DGRXP7CBtuvak3Z5y</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

@@ -1,0 +1,516 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-lWoPOFIhxt/BsxNJU3D0DLwOE4pRfFp0amj7Vm9wo2A=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Amazon Brand Store Page &amp; Merchandising Crawler | Dataspryva</title><meta name="description" content="Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a produ"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/"><meta property="og:title" content="Amazon Brand Store Page &amp; Merchandising Crawler | Dataspryva"><meta property="og:description" content="Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a produ"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#webpage","name":"Amazon Brand Store Page & Merchandising Crawler","description":"Crawl an Amazon Brand Store's navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand's Store URL automatically from a product page or ASIN.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#article","headline":"Amazon Brand Store Page & Merchandising Crawler","name":"Amazon Brand Store Page & Merchandising Crawler","description":"Crawl an Amazon Brand Store's navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand's Store URL automatically from a product page or ASIN.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#webpage"},"inLanguage":"en","dateModified":"2026-11-07T12:33:23.338Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Amazon Brand Store Page & Merchandising Crawler","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Amazon Brand Store Page &amp; Merchandising Crawler</span></div><section id="overview"><h1 class="doc-title">Amazon Brand Store Page &amp; Merchandising Crawler</h1><p class="lede">Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p><p class="summary">Amazon Brand Store Page &amp; Merchandising Crawler is an Apify Actor published by Dataspryva. It accepts 10 input fields, none of them required at the top level. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/amazon-brand-store-page-and-merchandising-crawler">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/NoDN50TMXljcpzeSO/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>storeUrls</code></td><td>array</td><td>optional</td><td>Amazon Brand Store URLs, e.g. `https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633`. At least one of storeUrls / productUrls / asins is required.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Amazon product (/dp/{ASIN}) URLs. The actor visits each product page, finds its &quot;Visit the {Brand} Store&quot; link, and crawls that store instead.</td></tr><tr><td><code>asins</code></td><td>array</td><td>optional</td><td>Product ASINs on amazon.com. Same resolution behavior as productUrls.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>storeUrls</code></td><td>array</td><td>optional</td><td>Amazon Brand Store URLs, e.g. `https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633`. At least one of storeUrls / productUrls / asins is required.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Amazon product (/dp/{ASIN}) URLs. The actor visits each product page, finds its &quot;Visit the {Brand} Store&quot; link, and crawls that store instead.</td></tr><tr><td><code>asins</code></td><td>array</td><td>optional</td><td>Product ASINs on amazon.com. Same resolution behavior as productUrls.</td></tr><tr><td><code>crawlSubpages</code></td><td>boolean</td><td>optional</td><td>Follow the store&#x27;s navigation menu (HOME, FEATURED DEALS, SSD, ...) and crawl every linked subpage, not just the landing page.</td></tr><tr><td><code>maxDepth</code></td><td>integer</td><td>optional</td><td>How many navigation-link hops to follow from the landing page when crawlSubpages is enabled (1 = landing page&#x27;s direct subpages only).</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Hard cap on the total number of store pages (landing + subpages) fetched per store.</td></tr><tr><td><code>maxProducts</code></td><td>integer</td><td>optional</td><td>Hard cap on the number of distinct product (ASIN) records emitted per store.</td></tr><tr><td><code>includeSections</code></td><td>boolean</td><td>optional</td><td>Emit a `section` record for every merchandising module on each crawled page: its type, ID, position, heading, body copy, CTA, primary image/video, and product/link counts.</td></tr><tr><td><code>includeLinks</code></td><td>boolean</td><td>optional</td><td>Emit a typed `link` record for every unique target on each crawled page (navigation, store page, product, search, external), with its section context.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Apify proxy. AUTO (datacenter) is used by default with homepage-priming; the actor escalates to RESIDENTIAL automatically only if it keeps getting blocked.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Crawl an Amazon Brand Store (/stores/{Brand}/page/{ID}) - pages, merchandising sections, products, and every link. Provide storeUrls directly, or productUrls/asins to auto-resolve the brand&#x27;s store link from the product page.&quot;,
+  &quot;properties&quot;: {
+    &quot;asins&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Product ASINs on amazon.com. Same resolution behavior as productUrls.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;ASINs (resolve brand store, amazon.com)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;crawlSubpages&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Follow the store&#x27;s navigation menu (HOME, FEATURED DEALS, SSD, ...) and crawl every linked subpage, not just the landing page.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Crawl subpages&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeLinks&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Emit a typed `link` record for every unique target on each crawled page (navigation, store page, product, search, external), with its section context.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include links&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeSections&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Emit a `section` record for every merchandising module on each crawled page: its type, ID, position, heading, body copy, CTA, primary image/video, and product/link counts.&quot;,
+      &quot;prefill&quot;: true,
+      &quot;title&quot;: &quot;Include merchandising sections&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxDepth&quot;: {
+      &quot;default&quot;: 1,
+      &quot;description&quot;: &quot;How many navigation-link hops to follow from the landing page when crawlSubpages is enabled (1 = landing page&#x27;s direct subpages only).&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max navigation depth&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Hard cap on the total number of store pages (landing + subpages) fetched per store.&quot;,
+      &quot;maximum&quot;: 50,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max store pages to fetch&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxProducts&quot;: {
+      &quot;default&quot;: 200,
+      &quot;description&quot;: &quot;Hard cap on the number of distinct product (ASIN) records emitted per store.&quot;,
+      &quot;maximum&quot;: 2000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 30,
+      &quot;title&quot;: &quot;Max products per store&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Amazon product (/dp/{ASIN}) URLs. The actor visits each product page, finds its \&quot;Visit the {Brand} Store\&quot; link, and crawls that store instead.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Product URLs (resolve brand store)&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;description&quot;: &quot;Apify proxy. AUTO (datacenter) is used by default with homepage-priming; the actor escalates to RESIDENTIAL automatically only if it keeps getting blocked.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;storeUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Amazon Brand Store URLs, e.g. `https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633`. At least one of storeUrls / productUrls / asins is required.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633&quot;
+      ],
+      &quot;title&quot;: &quot;Brand Store URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Amazon Brand Store Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>storeRecords</code></td><td>string</td><td>optional</td><td>Dataset containing storePage, section, product, link, and storePageError records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;One dataset of typed records: store pages (identity, navigation, counts), merchandising sections (type, heading, CTA, media, counts), products (price, rating, badge, section context), and links (typed, section-scoped).&quot;,
+  &quot;properties&quot;: {
+    &quot;storeRecords&quot;: {
+      &quot;description&quot;: &quot;Dataset containing storePage, section, product, link, and storePageError records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Store pages, sections, products &amp; links&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Amazon Brand Store Pages, Sections, Products &amp; Links Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Store pages, sections, products &amp; links&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;brand&quot;,
+          &quot;pageName&quot;,
+          &quot;asin&quot;,
+          &quot;title&quot;,
+          &quot;url&quot;,
+          &quot;storeUrl&quot;,
+          &quot;sectionType&quot;,
+          &quot;sectionId&quot;,
+          &quot;linkType&quot;,
+          &quot;sectionPosition&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-amazon-brand-store-page-merchandising-crawler">Amazon Brand Store Page &amp; Merchandising Crawler</h2>
+<p>Brands design their Amazon Store page like a mini storefront — navigation tabs, banner creative, merchandising rows, and a curated product mix. This actor crawls that storefront, walking the navigation menu into subpages, and returns its structure at every level: pages, sections, products, and links.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li>Crawls a Brand Store's landing page and, optionally, the subpages reachable through its own navigation menu.</li>
+<li>Resolves a brand's Store URL automatically when you only have a product page URL or ASIN instead.</li>
+<li>Emits one record per store page, one per merchandising section, one per distinct product, and one per unique target link inside each section.</li>
+<li>Captures each section's widget type, position, heading, body copy, call-to-action, primary image/video, and product/link counts.</li>
+<li>Tags every product and link with the section it came from, so a merchandising audit can be grouped or filtered without re-parsing the page.</li>
+<li>Reports a page explicitly as blocked or missing rather than silently returning it as an empty store.</li>
+</ul>
+<p>A Brand Store is curated by the brand, not a full product catalog — Amazon doesn't guarantee every item a brand sells appears there. This actor reports every product link it can find on the pages it crawls; for a seller's complete catalog, a seller-shop scraper is the better tool.</p>
+<h2 id="readme-output-store-page-record-recordtype-storepage">Output: store page record (recordType: storePage)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>storeUrl</code></td>
+<td>The Brand Store URL this page belongs to</td>
+</tr>
+<tr>
+<td><code>brand</code></td>
+<td>Brand name</td>
+</tr>
+<tr>
+<td><code>storePageId</code></td>
+<td>Page identifier from the URL</td>
+</tr>
+<tr>
+<td><code>pageName</code></td>
+<td>Navigation label for this page, e.g. &quot;HOME&quot;, &quot;FEATURED DEALS&quot;</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Page meta description, when present</td>
+</tr>
+<tr>
+<td><code>logoUrl</code></td>
+<td>Brand logo image</td>
+</tr>
+<tr>
+<td><code>navigation</code></td>
+<td>Subpage links found on this page, each with <code>name</code>, <code>url</code>, <code>storePageId</code>, <code>order</code> (populated when <code>crawlSubpages</code> is on)</td>
+</tr>
+<tr>
+<td><code>sectionCount</code></td>
+<td>Merchandising sections found on this page</td>
+</tr>
+<tr>
+<td><code>productCount</code></td>
+<td>Distinct products linked from this page</td>
+</tr>
+<tr>
+<td><code>linkCount</code></td>
+<td>Unique links found on this page</td>
+</tr>
+<tr>
+<td><code>depth</code></td>
+<td>How many navigation hops from the landing page this page is</td>
+</tr>
+<tr>
+<td><code>pagePosition</code></td>
+<td>Position in the crawl order</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>When the actor collected the record</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-merchandising-section-record-recordtype-section-when-includesections-is-on">Output: merchandising section record (recordType: section, when includeSections is on)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>storeUrl</code>, <code>brand</code>, <code>pageName</code>, <code>storePageId</code></td>
+<td>Which store and page the section appears on</td>
+</tr>
+<tr>
+<td><code>sectionType</code></td>
+<td>Widget type, e.g. <code>Header</code>, <code>EditorialRow</code>, <code>MultiMediaCarousel</code>, <code>Hero</code></td>
+</tr>
+<tr>
+<td><code>sectionId</code></td>
+<td>Amazon's widget ID for this section</td>
+</tr>
+<tr>
+<td><code>sectionPosition</code></td>
+<td>Position of the section in page order</td>
+</tr>
+<tr>
+<td><code>heading</code>, <code>bodyText</code></td>
+<td>Section title and body copy, when present</td>
+</tr>
+<tr>
+<td><code>ctaText</code></td>
+<td>Section call-to-action text, e.g. &quot;Shop now&quot;, &quot;Learn more&quot;</td>
+</tr>
+<tr>
+<td><code>imageUrl</code>, <code>imageAlt</code>, <code>imageCount</code></td>
+<td>Primary section image and how many section-level images it contains</td>
+</tr>
+<tr>
+<td><code>videoUrl</code>, <code>videoThumbnail</code>, <code>videoTitle</code>, <code>videoCount</code></td>
+<td>Video module fields</td>
+</tr>
+<tr>
+<td><code>destinationUrl</code></td>
+<td>Primary non-product link target of the section</td>
+</tr>
+<tr>
+<td><code>productCount</code>, <code>linkCount</code></td>
+<td>Distinct products and unique links inside the section</td>
+</tr>
+<tr>
+<td><code>depth</code></td>
+<td>Navigation depth of the page</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>When the actor collected the record</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-product-record-recordtype-product">Output: product record (recordType: product)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>asin</code></td>
+<td>Amazon product ID</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Product title, when visible next to the link</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>Product page URL</td>
+</tr>
+<tr>
+<td><code>thumbnailImage</code></td>
+<td>Product thumbnail</td>
+</tr>
+<tr>
+<td><code>price</code>, <code>listPrice</code></td>
+<td>Price and list price, each with <code>value</code>, <code>currency</code>, <code>display</code>, only when visible on the page</td>
+</tr>
+<tr>
+<td><code>stars</code>, <code>reviewsCount</code></td>
+<td>Rating and review count, only when visible near the link</td>
+</tr>
+<tr>
+<td><code>badge</code></td>
+<td>One of <code>BestSeller</code>, <code>AmazonsChoice</code>, <code>OverallPick</code>, <code>LimitedTimeDeal</code>, <code>NewOnAmazon</code>, <code>SmallBusiness</code>, only when shown</td>
+</tr>
+<tr>
+<td><code>discountPercent</code></td>
+<td>Percent off, only when a discount badge is shown</td>
+</tr>
+<tr>
+<td><code>brand</code></td>
+<td>Brand name</td>
+</tr>
+<tr>
+<td><code>storeUrl</code>, <code>storeSubPage</code></td>
+<td>Store and page the product was found on</td>
+</tr>
+<tr>
+<td><code>sectionType</code>, <code>sectionId</code>, <code>sectionPosition</code></td>
+<td>The merchandising section that contains the product tile</td>
+</tr>
+<tr>
+<td><code>modulePosition</code></td>
+<td>Position of the product tile on the page</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>When the actor collected the record</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-link-record-recordtype-link-when-includelinks-is-on">Output: link record (recordType: link, when includeLinks is on)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>storeUrl</code>, <code>brand</code>, <code>pageName</code>, <code>storePageId</code></td>
+<td>Which store and page the link appears on</td>
+</tr>
+<tr>
+<td><code>linkType</code></td>
+<td><code>product</code>, <code>storePage</code>, <code>search</code>, <code>external</code>, or <code>other</code></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>Absolute target URL, with store-page tracking parameters removed</td>
+</tr>
+<tr>
+<td><code>text</code>, <code>ariaLabel</code></td>
+<td>Visible link text and accessibility label</td>
+</tr>
+<tr>
+<td><code>asin</code></td>
+<td>Product ID for product links</td>
+</tr>
+<tr>
+<td><code>destinationStorePageId</code></td>
+<td>Target page ID for store-page links</td>
+</tr>
+<tr>
+<td><code>isExternal</code></td>
+<td>Present and <code>true</code> for links that leave the store's Amazon domain</td>
+</tr>
+<tr>
+<td><code>sectionType</code>, <code>sectionId</code>, <code>sectionPosition</code></td>
+<td>The section the link appears in</td>
+</tr>
+<tr>
+<td><code>linkPosition</code></td>
+<td>Position of the link in page order</td>
+</tr>
+<tr>
+<td><code>depth</code></td>
+<td>Navigation depth of the page</td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>When the actor collected the record</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-output-page-error-record-recordtype-storepageerror">Output: page error record (recordType: storePageError)</h2>
+<p>Emitted instead of a <code>storePage</code> record when a page couldn't be read. Fields: <code>storeUrl</code>, <code>pageClassification</code> (e.g. <code>NOT_FOUND</code>, <code>CAPTCHA</code>, <code>AUTH_REQUIRED</code>), <code>depth</code>, <code>pagePosition</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>storeUrls</code></td>
+<td>Array of strings</td>
+<td><code>[]</code> (prefill: soundcore landing page)</td>
+<td>Brand Store URLs to crawl. At least one of <code>storeUrls</code>, <code>productUrls</code>, or <code>asins</code> is required.</td>
+</tr>
+<tr>
+<td><code>productUrls</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>Product page URLs; the actor finds that product's &quot;Visit the Store&quot; link and crawls the store instead.</td>
+</tr>
+<tr>
+<td><code>asins</code></td>
+<td>Array of strings</td>
+<td>–</td>
+<td>ASINs on amazon.com with the same auto-resolve behavior as <code>productUrls</code>.</td>
+</tr>
+<tr>
+<td><code>crawlSubpages</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Follow the store's own navigation menu into subpages.</td>
+</tr>
+<tr>
+<td><code>maxDepth</code></td>
+<td>Integer</td>
+<td><code>1</code></td>
+<td>How many navigation hops to follow from the landing page (1–5).</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>Integer</td>
+<td><code>10</code></td>
+<td>Maximum store pages fetched per store, landing page included (1–50).</td>
+</tr>
+<tr>
+<td><code>maxProducts</code></td>
+<td>Integer</td>
+<td><code>200</code></td>
+<td>Maximum distinct product records emitted per store (1–2000).</td>
+</tr>
+<tr>
+<td><code>includeSections</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Emit a <code>section</code> record for every merchandising module.</td>
+</tr>
+<tr>
+<td><code>includeLinks</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Emit a <code>link</code> record for every unique on-page link.</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>Proxy</td>
+<td>Apify Proxy</td>
+<td>Used for every request; automatically escalates to a different proxy tier if the store keeps blocking requests.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-crawl-a-brand-store-including-its-subpages">Example: crawl a Brand Store including its subpages</h3>
+<pre><code class="language-json">{
+  &quot;storeUrls&quot;: [&quot;https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633&quot;],
+  &quot;crawlSubpages&quot;: true,
+  &quot;maxDepth&quot;: 2,
+  &quot;maxPages&quot;: 15,
+  &quot;maxProducts&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-landing-page-only-pages-and-products-no-sections-or-links">Example: landing page only, pages and products (no sections or links)</h3>
+<pre><code class="language-json">{
+  &quot;storeUrls&quot;: [&quot;https://www.amazon.com/stores/soundcore/page/AD6AD8C0-90C7-4C65-8000-0AC741FA2633&quot;],
+  &quot;crawlSubpages&quot;: false,
+  &quot;includeSections&quot;: false,
+  &quot;includeLinks&quot;: false
+}
+</code></pre>
+<h3 id="readme-example-resolving-a-store-from-a-product-page">Example: resolving a store from a product page</h3>
+<pre><code class="language-json">{
+  &quot;storeUrls&quot;: [],
+  &quot;productUrls&quot;: [&quot;https://www.amazon.com/dp/B09X7MPX8L&quot;]
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Brand monitoring teams</strong> track how a competitor merchandises and navigates their Amazon storefront.</li>
+<li><strong>Merchandising researchers</strong> compare section types, headings, CTAs, and featured-product mix across brands.</li>
+<li><strong>Catalog discovery teams</strong> find every product a brand currently features on its Store page.</li>
+<li><strong>Creative audit teams</strong> collect a brand's storefront imagery, video, and CTA copy in one pass.</li>
+<li><strong>Link-integrity teams</strong> export every navigation, store-page, product, and external target in one dataset.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>What is the difference between a section and a link?</strong>
+A section is a merchandising module (one widget on the page). Links are the individual targets inside those sections. A target that appears in more than one section gets one link record per section, so <code>linkCount</code> on a page can be lower than the number of link records. Both carry <code>sectionType</code>/<code>sectionId</code>, so they join cleanly.</p>
+<p><strong>Why don't I see everything behind a &quot;See products&quot; modal?</strong>
+Shoppable-image modals load their product list only after a click. The actor reads the products already rendered on the page (carousels, grids, editorial tiles) and does not click through modals.</p>
+<p><strong>My saved task sends <code>includeAssets</code> — will it still work?</strong>
+Yes. The old key is still accepted and mapped in code. Tasks that send it keep receiving the original flat <code>asset</code> records; new tasks should use <code>includeSections</code> and <code>includeLinks</code>.</p>
+<p><strong>Is this the same as a seller's product catalog?</strong>
+No. A Brand Store is a curated page the brand designs; a seller catalog lists everything that seller has for sale. Use this actor for the storefront experience, and a seller-shop tool for the full catalog.</p>
+<p><strong>Why do some products have no price or rating?</strong>
+Brand Store product tiles don't always render price or rating in the page itself — a field is only included when it's actually visible next to the product link, never a guessed value.</p>
+<p><strong>What if I only have a product URL, not a store URL?</strong>
+Pass it via <code>productUrls</code> (or the ASIN via <code>asins</code>); the actor opens that product page, follows its &quot;Visit the Store&quot; link, and crawls that store instead.</p>
+<p><strong>Does this need a login or cookies?</strong>
+No. Brand Store pages are public.</p>
+<p><strong>Why does the actor sometimes report a <code>storePageError</code> instead of products?</strong>
+Amazon occasionally serves a block or rate-limit page instead of the real store. Rather than reporting zero products as if the store were simply empty, the actor records explicitly what happened on that page.</p>
+<p><strong>Does this capture every product a brand sells?</strong>
+No — see &quot;What this actor does&quot; above; a Brand Store is editorially curated, not a full catalog.</p>
+<p><strong>Which Amazon marketplaces are supported?</strong>
+Any Amazon domain — amazon.com, amazon.co.uk, amazon.de, and so on — just pass the full Store URL for that marketplace.</p>
+<p><strong>Is this affiliated with Amazon?</strong>
+No. This actor independently reads Amazon's public Brand Store pages and is not affiliated with or endorsed by Amazon.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/amazon-brand-store-page-and-merchandising-crawler/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>FPoln0nC5cwZuNgvj</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

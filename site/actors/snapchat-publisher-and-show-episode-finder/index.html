@@ -1,0 +1,1213 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-bnmLUjwbAM7V3pPiUE74x4MH4qRA1OrvWvvRNZlHmJk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Snapchat Publisher &amp; Show Episode Finder | Dataspryva</title><meta name="description" content="Look up Snapchat publisher and Snap Show profiles by URL or ID: subscriber count, premium episodes and seasons, and publisher Spotlight content with media links and engagement stat"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/"><meta property="og:title" content="Snapchat Publisher &amp; Show Episode Finder | Dataspryva"><meta property="og:description" content="Look up Snapchat publisher and Snap Show profiles by URL or ID: subscriber count, premium episodes and seasons, and publisher Spotlight content with media links and engagement stat"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#webpage","name":"Snapchat Publisher & Show Episode Finder","description":"Look up Snapchat publisher and Snap Show profiles by URL or ID: subscriber count, premium episodes and seasons, and publisher Spotlight content with media links and engagement stats.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#article","headline":"Snapchat Publisher & Show Episode Finder","name":"Snapchat Publisher & Show Episode Finder","description":"Look up Snapchat publisher and Snap Show profiles by URL or ID: subscriber count, premium episodes and seasons, and publisher Spotlight content with media links and engagement stats.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#webpage"},"inLanguage":"en","dateModified":"2026-11-03T21:37:02.561Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Snapchat Publisher & Show Episode Finder","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/snapchat-publisher-and-show-episode-finder/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Snapchat Publisher &amp; Show Episode Finder</span></div><section id="overview"><h1 class="doc-title">Snapchat Publisher &amp; Show Episode Finder</h1><p class="lede">Look up Snapchat publisher and Snap Show profiles by URL or ID: subscriber count, premium episodes and seasons, and publisher Spotlight content with media links and engagement stats.</p><p class="summary">Snapchat Publisher &amp; Show Episode Finder is an Apify Actor published by Dataspryva. It accepts 11 input fields, and <code>mode</code> is required. Its build declares no dataset schema; the published README describes the output. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/snapchat-publisher-and-show-episode-finder">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/9uJbBOcyQmzVkJGk7/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect: publisher catalogues, individual episodes, or the current Discover feed.</td></tr><tr><td><code>publisherUrlsOrIds</code></td><td>array</td><td>optional</td><td>(mode=byPublisher) Publisher or show page URLs, story.snapchat.com/p/{id} links, or bare businessProfileId UUIDs.</td></tr><tr><td><code>episodeUrls</code></td><td>array</td><td>optional</td><td>(mode=byEpisodeUrl) Episode page URLs of the form snapchat.com/p/{publisherId}/{episodeId} or story.snapchat.com/p/{publisherId}/{episodeId}.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect: publisher catalogues, individual episodes, or the current Discover feed.</td></tr><tr><td><code>publisherUrlsOrIds</code></td><td>array</td><td>optional</td><td>(mode=byPublisher) Publisher or show page URLs, story.snapchat.com/p/{id} links, or bare businessProfileId UUIDs.</td></tr><tr><td><code>episodeUrls</code></td><td>array</td><td>optional</td><td>(mode=byEpisodeUrl) Episode page URLs of the form snapchat.com/p/{publisherId}/{episodeId} or story.snapchat.com/p/{publisherId}/{episodeId}.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Country context for episode requests and the Discover feed.</td></tr><tr><td><code>locale</code></td><td>string</td><td>optional</td><td>(mode=discover) Language-region tag such as en-US, en-GB or de-DE. Invalid values fall back to en-US.</td></tr><tr><td><code>includeStories</code></td><td>boolean</td><td>optional</td><td>(mode=byPublisher) Walk every season and return every publicly listed episode in episodes[]. The page&#x27;s latest stories stay in premiumStories[] for compatibility.</td></tr><tr><td><code>includeShowSeasons</code></td><td>boolean</td><td>optional</td><td>(mode=byPublisher) Include premiumShowSeasons[] with season IDs, numbers and declared episode counts.</td></tr><tr><td><code>includeSpotlights</code></td><td>boolean</td><td>optional</td><td>(mode=byPublisher) Include publisherSpotlights[] with media URLs, creator info and engagement stats.</td></tr><tr><td><code>includeEpisodeMedia</code></td><td>boolean</td><td>optional</td><td>(mode=byPublisher) Fetch episode-level HLS video tracks and snap media for each returned episode. Adds extra requests per episode.</td></tr><tr><td><code>maxEpisodesPerPublisher</code></td><td>integer</td><td>optional</td><td>(mode=byPublisher) Hard cap on episodes[] per publisher.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on dataset rows across all modes, including error rows.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Look up Snapchat publishers, Snap Shows and episodes, or read the country Discover feed.&quot;,
+  &quot;properties&quot;: {
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;US&quot;,
+      &quot;description&quot;: &quot;Country context for episode requests and the Discover feed.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;AF&quot;,
+        &quot;AL&quot;,
+        &quot;DZ&quot;,
+        &quot;AS&quot;,
+        &quot;AD&quot;,
+        &quot;AO&quot;,
+        &quot;AI&quot;,
+        &quot;AQ&quot;,
+        &quot;AG&quot;,
+        &quot;AR&quot;,
+        &quot;AM&quot;,
+        &quot;AW&quot;,
+        &quot;AU&quot;,
+        &quot;AT&quot;,
+        &quot;AZ&quot;,
+        &quot;BS&quot;,
+        &quot;BH&quot;,
+        &quot;BD&quot;,
+        &quot;BB&quot;,
+        &quot;BY&quot;,
+        &quot;BE&quot;,
+        &quot;BZ&quot;,
+        &quot;BJ&quot;,
+        &quot;BM&quot;,
+        &quot;BT&quot;,
+        &quot;BO&quot;,
+        &quot;BQ&quot;,
+        &quot;BA&quot;,
+        &quot;BW&quot;,
+        &quot;BV&quot;,
+        &quot;BR&quot;,
+        &quot;IO&quot;,
+        &quot;BN&quot;,
+        &quot;BG&quot;,
+        &quot;BF&quot;,
+        &quot;BI&quot;,
+        &quot;CV&quot;,
+        &quot;KH&quot;,
+        &quot;CM&quot;,
+        &quot;CA&quot;,
+        &quot;KY&quot;,
+        &quot;CF&quot;,
+        &quot;TD&quot;,
+        &quot;CL&quot;,
+        &quot;CN&quot;,
+        &quot;CX&quot;,
+        &quot;CC&quot;,
+        &quot;CO&quot;,
+        &quot;KM&quot;,
+        &quot;CG&quot;,
+        &quot;CD&quot;,
+        &quot;CK&quot;,
+        &quot;CR&quot;,
+        &quot;HR&quot;,
+        &quot;CU&quot;,
+        &quot;CW&quot;,
+        &quot;CY&quot;,
+        &quot;CZ&quot;,
+        &quot;CI&quot;,
+        &quot;DK&quot;,
+        &quot;DJ&quot;,
+        &quot;DM&quot;,
+        &quot;DO&quot;,
+        &quot;EC&quot;,
+        &quot;EG&quot;,
+        &quot;SV&quot;,
+        &quot;GQ&quot;,
+        &quot;ER&quot;,
+        &quot;EE&quot;,
+        &quot;SZ&quot;,
+        &quot;ET&quot;,
+        &quot;FK&quot;,
+        &quot;FO&quot;,
+        &quot;FJ&quot;,
+        &quot;FI&quot;,
+        &quot;FR&quot;,
+        &quot;GF&quot;,
+        &quot;PF&quot;,
+        &quot;TF&quot;,
+        &quot;GA&quot;,
+        &quot;GM&quot;,
+        &quot;GE&quot;,
+        &quot;DE&quot;,
+        &quot;GH&quot;,
+        &quot;GI&quot;,
+        &quot;GR&quot;,
+        &quot;GL&quot;,
+        &quot;GD&quot;,
+        &quot;GP&quot;,
+        &quot;GU&quot;,
+        &quot;GT&quot;,
+        &quot;GG&quot;,
+        &quot;GN&quot;,
+        &quot;GW&quot;,
+        &quot;GY&quot;,
+        &quot;HT&quot;,
+        &quot;HM&quot;,
+        &quot;VA&quot;,
+        &quot;HN&quot;,
+        &quot;HK&quot;,
+        &quot;HU&quot;,
+        &quot;IS&quot;,
+        &quot;IN&quot;,
+        &quot;ID&quot;,
+        &quot;IR&quot;,
+        &quot;IQ&quot;,
+        &quot;IE&quot;,
+        &quot;IM&quot;,
+        &quot;IL&quot;,
+        &quot;IT&quot;,
+        &quot;JM&quot;,
+        &quot;JP&quot;,
+        &quot;JE&quot;,
+        &quot;JO&quot;,
+        &quot;KZ&quot;,
+        &quot;KE&quot;,
+        &quot;KI&quot;,
+        &quot;KP&quot;,
+        &quot;KR&quot;,
+        &quot;KW&quot;,
+        &quot;KG&quot;,
+        &quot;LA&quot;,
+        &quot;LV&quot;,
+        &quot;LB&quot;,
+        &quot;LS&quot;,
+        &quot;LR&quot;,
+        &quot;LY&quot;,
+        &quot;LI&quot;,
+        &quot;LT&quot;,
+        &quot;LU&quot;,
+        &quot;MO&quot;,
+        &quot;MG&quot;,
+        &quot;MW&quot;,
+        &quot;MY&quot;,
+        &quot;MV&quot;,
+        &quot;ML&quot;,
+        &quot;MT&quot;,
+        &quot;MH&quot;,
+        &quot;MQ&quot;,
+        &quot;MR&quot;,
+        &quot;MU&quot;,
+        &quot;YT&quot;,
+        &quot;MX&quot;,
+        &quot;FM&quot;,
+        &quot;MD&quot;,
+        &quot;MC&quot;,
+        &quot;MN&quot;,
+        &quot;ME&quot;,
+        &quot;MS&quot;,
+        &quot;MA&quot;,
+        &quot;MZ&quot;,
+        &quot;MM&quot;,
+        &quot;NA&quot;,
+        &quot;NR&quot;,
+        &quot;NP&quot;,
+        &quot;NL&quot;,
+        &quot;NC&quot;,
+        &quot;NZ&quot;,
+        &quot;NI&quot;,
+        &quot;NE&quot;,
+        &quot;NG&quot;,
+        &quot;NU&quot;,
+        &quot;NF&quot;,
+        &quot;MK&quot;,
+        &quot;MP&quot;,
+        &quot;NO&quot;,
+        &quot;OM&quot;,
+        &quot;PK&quot;,
+        &quot;PW&quot;,
+        &quot;PS&quot;,
+        &quot;PA&quot;,
+        &quot;PG&quot;,
+        &quot;PY&quot;,
+        &quot;PE&quot;,
+        &quot;PH&quot;,
+        &quot;PN&quot;,
+        &quot;PL&quot;,
+        &quot;PT&quot;,
+        &quot;PR&quot;,
+        &quot;QA&quot;,
+        &quot;RO&quot;,
+        &quot;RU&quot;,
+        &quot;RW&quot;,
+        &quot;RE&quot;,
+        &quot;BL&quot;,
+        &quot;SH&quot;,
+        &quot;KN&quot;,
+        &quot;LC&quot;,
+        &quot;MF&quot;,
+        &quot;PM&quot;,
+        &quot;VC&quot;,
+        &quot;WS&quot;,
+        &quot;SM&quot;,
+        &quot;ST&quot;,
+        &quot;SA&quot;,
+        &quot;SN&quot;,
+        &quot;RS&quot;,
+        &quot;SC&quot;,
+        &quot;SL&quot;,
+        &quot;SG&quot;,
+        &quot;SX&quot;,
+        &quot;SK&quot;,
+        &quot;SI&quot;,
+        &quot;SB&quot;,
+        &quot;SO&quot;,
+        &quot;ZA&quot;,
+        &quot;GS&quot;,
+        &quot;SS&quot;,
+        &quot;ES&quot;,
+        &quot;LK&quot;,
+        &quot;SD&quot;,
+        &quot;SR&quot;,
+        &quot;SJ&quot;,
+        &quot;SE&quot;,
+        &quot;CH&quot;,
+        &quot;SY&quot;,
+        &quot;TW&quot;,
+        &quot;TJ&quot;,
+        &quot;TZ&quot;,
+        &quot;TH&quot;,
+        &quot;TL&quot;,
+        &quot;TG&quot;,
+        &quot;TK&quot;,
+        &quot;TO&quot;,
+        &quot;TT&quot;,
+        &quot;TN&quot;,
+        &quot;TM&quot;,
+        &quot;TC&quot;,
+        &quot;TV&quot;,
+        &quot;TR&quot;,
+        &quot;UG&quot;,
+        &quot;UA&quot;,
+        &quot;AE&quot;,
+        &quot;GB&quot;,
+        &quot;US&quot;,
+        &quot;UM&quot;,
+        &quot;UY&quot;,
+        &quot;UZ&quot;,
+        &quot;VU&quot;,
+        &quot;VE&quot;,
+        &quot;VN&quot;,
+        &quot;VG&quot;,
+        &quot;VI&quot;,
+        &quot;WF&quot;,
+        &quot;EH&quot;,
+        &quot;YE&quot;,
+        &quot;ZM&quot;,
+        &quot;ZW&quot;,
+        &quot;AX&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Afghanistan&quot;,
+        &quot;Albania&quot;,
+        &quot;Algeria&quot;,
+        &quot;American Samoa&quot;,
+        &quot;Andorra&quot;,
+        &quot;Angola&quot;,
+        &quot;Anguilla&quot;,
+        &quot;Antarctica&quot;,
+        &quot;Antigua and Barbuda&quot;,
+        &quot;Argentina&quot;,
+        &quot;Armenia&quot;,
+        &quot;Aruba&quot;,
+        &quot;Australia&quot;,
+        &quot;Austria&quot;,
+        &quot;Azerbaijan&quot;,
+        &quot;Bahamas&quot;,
+        &quot;Bahrain&quot;,
+        &quot;Bangladesh&quot;,
+        &quot;Barbados&quot;,
+        &quot;Belarus&quot;,
+        &quot;Belgium&quot;,
+        &quot;Belize&quot;,
+        &quot;Benin&quot;,
+        &quot;Bermuda&quot;,
+        &quot;Bhutan&quot;,
+        &quot;Bolivia, Plurinational State of&quot;,
+        &quot;Bonaire, Sint Eustatius and Saba&quot;,
+        &quot;Bosnia and Herzegovina&quot;,
+        &quot;Botswana&quot;,
+        &quot;Bouvet Island&quot;,
+        &quot;Brazil&quot;,
+        &quot;British Indian Ocean Territory&quot;,
+        &quot;Brunei Darussalam&quot;,
+        &quot;Bulgaria&quot;,
+        &quot;Burkina Faso&quot;,
+        &quot;Burundi&quot;,
+        &quot;Cabo Verde&quot;,
+        &quot;Cambodia&quot;,
+        &quot;Cameroon&quot;,
+        &quot;Canada&quot;,
+        &quot;Cayman Islands&quot;,
+        &quot;Central African Republic&quot;,
+        &quot;Chad&quot;,
+        &quot;Chile&quot;,
+        &quot;China&quot;,
+        &quot;Christmas Island&quot;,
+        &quot;Cocos (Keeling) Islands&quot;,
+        &quot;Colombia&quot;,
+        &quot;Comoros&quot;,
+        &quot;Congo&quot;,
+        &quot;Congo, The Democratic Republic of the&quot;,
+        &quot;Cook Islands&quot;,
+        &quot;Costa Rica&quot;,
+        &quot;Croatia&quot;,
+        &quot;Cuba&quot;,
+        &quot;Curaçao&quot;,
+        &quot;Cyprus&quot;,
+        &quot;Czechia&quot;,
+        &quot;Côte d&#x27;Ivoire&quot;,
+        &quot;Denmark&quot;,
+        &quot;Djibouti&quot;,
+        &quot;Dominica&quot;,
+        &quot;Dominican Republic&quot;,
+        &quot;Ecuador&quot;,
+        &quot;Egypt&quot;,
+        &quot;El Salvador&quot;,
+        &quot;Equatorial Guinea&quot;,
+        &quot;Eritrea&quot;,
+        &quot;Estonia&quot;,
+        &quot;Eswatini&quot;,
+        &quot;Ethiopia&quot;,
+        &quot;Falkland Islands (Malvinas)&quot;,
+        &quot;Faroe Islands&quot;,
+        &quot;Fiji&quot;,
+        &quot;Finland&quot;,
+        &quot;France&quot;,
+        &quot;French Guiana&quot;,
+        &quot;French Polynesia&quot;,
+        &quot;French Southern Territories&quot;,
+        &quot;Gabon&quot;,
+        &quot;Gambia&quot;,
+        &quot;Georgia&quot;,
+        &quot;Germany&quot;,
+        &quot;Ghana&quot;,
+        &quot;Gibraltar&quot;,
+        &quot;Greece&quot;,
+        &quot;Greenland&quot;,
+        &quot;Grenada&quot;,
+        &quot;Guadeloupe&quot;,
+        &quot;Guam&quot;,
+        &quot;Guatemala&quot;,
+        &quot;Guernsey&quot;,
+        &quot;Guinea&quot;,
+        &quot;Guinea-Bissau&quot;,
+        &quot;Guyana&quot;,
+        &quot;Haiti&quot;,
+        &quot;Heard Island and McDonald Islands&quot;,
+        &quot;Holy See (Vatican City State)&quot;,
+        &quot;Honduras&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Hungary&quot;,
+        &quot;Iceland&quot;,
+        &quot;India&quot;,
+        &quot;Indonesia&quot;,
+        &quot;Iran, Islamic Republic of&quot;,
+        &quot;Iraq&quot;,
+        &quot;Ireland&quot;,
+        &quot;Isle of Man&quot;,
+        &quot;Israel&quot;,
+        &quot;Italy&quot;,
+        &quot;Jamaica&quot;,
+        &quot;Japan&quot;,
+        &quot;Jersey&quot;,
+        &quot;Jordan&quot;,
+        &quot;Kazakhstan&quot;,
+        &quot;Kenya&quot;,
+        &quot;Kiribati&quot;,
+        &quot;Korea, Democratic People&#x27;s Republic of&quot;,
+        &quot;Korea, Republic of&quot;,
+        &quot;Kuwait&quot;,
+        &quot;Kyrgyzstan&quot;,
+        &quot;Lao People&#x27;s Democratic Republic&quot;,
+        &quot;Latvia&quot;,
+        &quot;Lebanon&quot;,
+        &quot;Lesotho&quot;,
+        &quot;Liberia&quot;,
+        &quot;Libya&quot;,
+        &quot;Liechtenstein&quot;,
+        &quot;Lithuania&quot;,
+        &quot;Luxembourg&quot;,
+        &quot;Macao&quot;,
+        &quot;Madagascar&quot;,
+        &quot;Malawi&quot;,
+        &quot;Malaysia&quot;,
+        &quot;Maldives&quot;,
+        &quot;Mali&quot;,
+        &quot;Malta&quot;,
+        &quot;Marshall Islands&quot;,
+        &quot;Martinique&quot;,
+        &quot;Mauritania&quot;,
+        &quot;Mauritius&quot;,
+        &quot;Mayotte&quot;,
+        &quot;Mexico&quot;,
+        &quot;Micronesia, Federated States of&quot;,
+        &quot;Moldova, Republic of&quot;,
+        &quot;Monaco&quot;,
+        &quot;Mongolia&quot;,
+        &quot;Montenegro&quot;,
+        &quot;Montserrat&quot;,
+        &quot;Morocco&quot;,
+        &quot;Mozambique&quot;,
+        &quot;Myanmar&quot;,
+        &quot;Namibia&quot;,
+        &quot;Nauru&quot;,
+        &quot;Nepal&quot;,
+        &quot;Netherlands&quot;,
+        &quot;New Caledonia&quot;,
+        &quot;New Zealand&quot;,
+        &quot;Nicaragua&quot;,
+        &quot;Niger&quot;,
+        &quot;Nigeria&quot;,
+        &quot;Niue&quot;,
+        &quot;Norfolk Island&quot;,
+        &quot;North Macedonia&quot;,
+        &quot;Northern Mariana Islands&quot;,
+        &quot;Norway&quot;,
+        &quot;Oman&quot;,
+        &quot;Pakistan&quot;,
+        &quot;Palau&quot;,
+        &quot;Palestine, State of&quot;,
+        &quot;Panama&quot;,
+        &quot;Papua New Guinea&quot;,
+        &quot;Paraguay&quot;,
+        &quot;Peru&quot;,
+        &quot;Philippines&quot;,
+        &quot;Pitcairn&quot;,
+        &quot;Poland&quot;,
+        &quot;Portugal&quot;,
+        &quot;Puerto Rico&quot;,
+        &quot;Qatar&quot;,
+        &quot;Romania&quot;,
+        &quot;Russian Federation&quot;,
+        &quot;Rwanda&quot;,
+        &quot;Réunion&quot;,
+        &quot;Saint Barthélemy&quot;,
+        &quot;Saint Helena, Ascension and Tristan da Cunha&quot;,
+        &quot;Saint Kitts and Nevis&quot;,
+        &quot;Saint Lucia&quot;,
+        &quot;Saint Martin (French part)&quot;,
+        &quot;Saint Pierre and Miquelon&quot;,
+        &quot;Saint Vincent and the Grenadines&quot;,
+        &quot;Samoa&quot;,
+        &quot;San Marino&quot;,
+        &quot;Sao Tome and Principe&quot;,
+        &quot;Saudi Arabia&quot;,
+        &quot;Senegal&quot;,
+        &quot;Serbia&quot;,
+        &quot;Seychelles&quot;,
+        &quot;Sierra Leone&quot;,
+        &quot;Singapore&quot;,
+        &quot;Sint Maarten (Dutch part)&quot;,
+        &quot;Slovakia&quot;,
+        &quot;Slovenia&quot;,
+        &quot;Solomon Islands&quot;,
+        &quot;Somalia&quot;,
+        &quot;South Africa&quot;,
+        &quot;South Georgia and the South Sandwich Islands&quot;,
+        &quot;South Sudan&quot;,
+        &quot;Spain&quot;,
+        &quot;Sri Lanka&quot;,
+        &quot;Sudan&quot;,
+        &quot;Suriname&quot;,
+        &quot;Svalbard and Jan Mayen&quot;,
+        &quot;Sweden&quot;,
+        &quot;Switzerland&quot;,
+        &quot;Syrian Arab Republic&quot;,
+        &quot;Taiwan, Province of China&quot;,
+        &quot;Tajikistan&quot;,
+        &quot;Tanzania, United Republic of&quot;,
+        &quot;Thailand&quot;,
+        &quot;Timor-Leste&quot;,
+        &quot;Togo&quot;,
+        &quot;Tokelau&quot;,
+        &quot;Tonga&quot;,
+        &quot;Trinidad and Tobago&quot;,
+        &quot;Tunisia&quot;,
+        &quot;Turkmenistan&quot;,
+        &quot;Turks and Caicos Islands&quot;,
+        &quot;Tuvalu&quot;,
+        &quot;Türkiye&quot;,
+        &quot;Uganda&quot;,
+        &quot;Ukraine&quot;,
+        &quot;United Arab Emirates&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;United States&quot;,
+        &quot;United States Minor Outlying Islands&quot;,
+        &quot;Uruguay&quot;,
+        &quot;Uzbekistan&quot;,
+        &quot;Vanuatu&quot;,
+        &quot;Venezuela, Bolivarian Republic of&quot;,
+        &quot;Viet Nam&quot;,
+        &quot;Virgin Islands, British&quot;,
+        &quot;Virgin Islands, U.S.&quot;,
+        &quot;Wallis and Futuna&quot;,
+        &quot;Western Sahara&quot;,
+        &quot;Yemen&quot;,
+        &quot;Zambia&quot;,
+        &quot;Zimbabwe&quot;,
+        &quot;Åland Islands&quot;
+      ],
+      &quot;prefill&quot;: &quot;US&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;episodeUrls&quot;: {
+      &quot;description&quot;: &quot;(mode=byEpisodeUrl) Episode page URLs of the form snapchat.com/p/{publisherId}/{episodeId} or story.snapchat.com/p/{publisherId}/{episodeId}.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Episode URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeEpisodeMedia&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;(mode=byPublisher) Fetch episode-level HLS video tracks and snap media for each returned episode. Adds extra requests per episode.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include episode media&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeShowSeasons&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;(mode=byPublisher) Include premiumShowSeasons[] with season IDs, numbers and declared episode counts.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include season summary&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeSpotlights&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;(mode=byPublisher) Include publisherSpotlights[] with media URLs, creator info and engagement stats.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include publisher Spotlights&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeStories&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;(mode=byPublisher) Walk every season and return every publicly listed episode in episodes[]. The page&#x27;s latest stories stay in premiumStories[] for compatibility.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include full episode history&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;locale&quot;: {
+      &quot;default&quot;: &quot;en-US&quot;,
+      &quot;description&quot;: &quot;(mode=discover) Language-region tag such as en-US, en-GB or de-DE. Invalid values fall back to en-US.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;en-US&quot;,
+      &quot;title&quot;: &quot;Locale&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxEpisodesPerPublisher&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;(mode=byPublisher) Hard cap on episodes[] per publisher.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Max episodes per publisher&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on dataset rows across all modes, including error rows.&quot;,
+      &quot;maximum&quot;: 5000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max dataset rows&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;byPublisher&quot;,
+      &quot;description&quot;: &quot;What to collect: publisher catalogues, individual episodes, or the current Discover feed.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;byPublisher&quot;,
+        &quot;byEpisodeUrl&quot;,
+        &quot;discover&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Publishers and shows&quot;,
+        &quot;Episode URLs&quot;,
+        &quot;Discover feed by country&quot;
+      ],
+      &quot;prefill&quot;: &quot;byPublisher&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;publisherUrlsOrIds&quot;: {
+      &quot;description&quot;: &quot;(mode=byPublisher) Publisher or show page URLs, story.snapchat.com/p/{id} links, or bare businessProfileId UUIDs.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;efd8a13d-b69a-41d0-9c04-d19f87829798&quot;
+      ],
+      &quot;title&quot;: &quot;Publisher URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Snapchat Publisher &amp; Show Episode Finder Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>publishers</code></td><td>string</td><td>optional</td><td>Dataset containing scraped Snapchat publisher, episode, Discover story and error rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Snapchat publisher and Snap Show profiles with subscriber counts, full season and episode catalogues, HLS media, Spotlight cards and Discover feed stories.&quot;,
+  &quot;properties&quot;: {
+    &quot;publishers&quot;: {
+      &quot;description&quot;: &quot;Dataset containing scraped Snapchat publisher, episode, Discover story and error rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Snapchat publisher, episode and Discover rows&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Snapchat Publisher &amp; Show Episode Finder Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;fields&quot;: {
+    &quot;properties&quot;: {
+      &quot;address&quot;: {
+        &quot;description&quot;: &quot;Publisher address when exposed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;bio&quot;: {
+        &quot;description&quot;: &quot;Publisher bio or show description&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;category&quot;: {
+        &quot;description&quot;: &quot;Publisher category identifier when exposed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;displayName&quot;: {
+        &quot;description&quot;: &quot;Publisher display name or show title&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;episodeCount&quot;: {
+        &quot;description&quot;: &quot;Number of episodes returned for the publisher&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;episodeId&quot;: {
+        &quot;description&quot;: &quot;Episode story ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;episodeNumber&quot;: {
+        &quot;description&quot;: &quot;Episode number within its season&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;episodeUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical episode page URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;episodes&quot;: {
+        &quot;description&quot;: &quot;Complete episode history for the publisher&quot;,
+        &quot;items&quot;: {
+          &quot;properties&quot;: {
+            &quot;episodeId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;episodeNumber&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;episodeUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;publishedAt&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;seasonId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;seasonNumber&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;snapCount&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;snaps&quot;: {
+              &quot;items&quot;: {
+                &quot;properties&quot;: {
+                  &quot;index&quot;: {
+                    &quot;type&quot;: &quot;integer&quot;
+                  },
+                  &quot;intervalStartMs&quot;: {
+                    &quot;type&quot;: &quot;integer&quot;
+                  },
+                  &quot;mediaType&quot;: {
+                    &quot;type&quot;: &quot;string&quot;
+                  },
+                  &quot;mediaUrl&quot;: {
+                    &quot;type&quot;: &quot;string&quot;
+                  },
+                  &quot;previewUrl&quot;: {
+                    &quot;type&quot;: &quot;string&quot;
+                  },
+                  &quot;snapId&quot;: {
+                    &quot;type&quot;: &quot;string&quot;
+                  }
+                },
+                &quot;type&quot;: &quot;object&quot;
+              },
+              &quot;type&quot;: &quot;array&quot;
+            },
+            &quot;thumbnailUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;title&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;videoTrackUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;error&quot;: {
+        &quot;description&quot;: &quot;Error message on an error row&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;hasCuratedHighlights&quot;: {
+        &quot;description&quot;: &quot;Whether the publisher has curated highlights&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;hasSpotlightHighlights&quot;: {
+        &quot;description&quot;: &quot;Whether the publisher has Spotlight highlights&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;hasStory&quot;: {
+        &quot;description&quot;: &quot;Whether the publisher currently has a story&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;hostUserId&quot;: {
+        &quot;description&quot;: &quot;Internal host user UUID when exposed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;input&quot;: {
+        &quot;description&quot;: &quot;Original input value on an error row&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;isVerified&quot;: {
+        &quot;description&quot;: &quot;Whether the publisher has a verification badge&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;mutableName&quot;: {
+        &quot;description&quot;: &quot;Mutable display name when exposed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;pageUrl&quot;: {
+        &quot;description&quot;: &quot;Canonical publisher or creator page URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;premiumShowSeasons&quot;: {
+        &quot;description&quot;: &quot;Season summary with IDs, numbers and declared episode counts&quot;,
+        &quot;items&quot;: {
+          &quot;properties&quot;: {
+            &quot;episodeCount&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;seasonId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;seasonNumber&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;premiumStories&quot;: {
+        &quot;description&quot;: &quot;Latest stories embedded in the publisher page for backward compatibility&quot;,
+        &quot;items&quot;: {
+          &quot;properties&quot;: {
+            &quot;episodeNumber&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;postedAt&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;seasonNumber&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;storyId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;storyTitle&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;storyType&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;thumbnailUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;preselectedStory&quot;: {
+        &quot;description&quot;: &quot;Featured episode with snap media when the page exposes one&quot;,
+        &quot;properties&quot;: {
+          &quot;episodeNumber&quot;: {
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;episodeUrl&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;seasonNumber&quot;: {
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;snaps&quot;: {
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;object&quot;
+            },
+            &quot;type&quot;: &quot;array&quot;
+          },
+          &quot;storyId&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;storyTitle&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;primaryColor&quot;: {
+        &quot;description&quot;: &quot;Publisher primary brand color&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;profilePictureUrl&quot;: {
+        &quot;description&quot;: &quot;Publisher profile or show logo URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;publishedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC publication time&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;publisherId&quot;: {
+        &quot;description&quot;: &quot;Publisher business profile ID (UUID)&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;publisherSpotlights&quot;: {
+        &quot;description&quot;: &quot;Publisher Spotlight story cards with media, creator and engagement data&quot;,
+        &quot;items&quot;: {
+          &quot;properties&quot;: {
+            &quot;caption&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;compositeStoryId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;createdAt&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;creatorDisplayName&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;creatorFollowerCount&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;creatorUsername&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;description&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;durationSeconds&quot;: {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;engagementStats&quot;: {
+              &quot;type&quot;: &quot;object&quot;
+            },
+            &quot;geoDisplayName&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;height&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;imageUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;lat&quot;: {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;latestUpdatedAt&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;lng&quot;: {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;snapId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;snapUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;storyId&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;thumbnailUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;videoUrl&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;width&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;publisherType&quot;: {
+        &quot;description&quot;: &quot;Publisher type, for example SHOW or NORMAL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;recordType&quot;: {
+        &quot;description&quot;: &quot;Row type: publisher, episode, discoverStory or error&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;scrapedAt&quot;: {
+        &quot;description&quot;: &quot;ISO 8601 UTC timestamp when the row was scraped&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;seasonCount&quot;: {
+        &quot;description&quot;: &quot;Number of seasons listed for the publisher&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;seasonId&quot;: {
+        &quot;description&quot;: &quot;Season UUID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;seasonNumber&quot;: {
+        &quot;description&quot;: &quot;Season number&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;shouldHideUsername&quot;: {
+        &quot;description&quot;: &quot;Whether the profile hides its username&quot;,
+        &quot;type&quot;: &quot;boolean&quot;
+      },
+      &quot;snapCount&quot;: {
+        &quot;description&quot;: &quot;Number of snaps attached to an episode or story&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;snapcodeImageUrl&quot;: {
+        &quot;description&quot;: &quot;Snapcode image URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;snaps&quot;: {
+        &quot;description&quot;: &quot;Snap preview and media records&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;type&quot;: &quot;array&quot;
+      },
+      &quot;squareHeroImageUrl&quot;: {
+        &quot;description&quot;: &quot;Square hero or banner image URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;statusCode&quot;: {
+        &quot;description&quot;: &quot;HTTP status code on an error row&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;storyId&quot;: {
+        &quot;description&quot;: &quot;Discover story ID&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;storyType&quot;: {
+        &quot;description&quot;: &quot;Discover story type, for example SHOW or PUBLIC_USER_STORY&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;subcategory&quot;: {
+        &quot;description&quot;: &quot;Publisher subcategory identifier when exposed&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;subscriberCount&quot;: {
+        &quot;description&quot;: &quot;Publisher subscriber count&quot;,
+        &quot;type&quot;: &quot;integer&quot;
+      },
+      &quot;tapId&quot;: {
+        &quot;description&quot;: &quot;Discover feed tap ID used for pagination&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;thumbnailUrl&quot;: {
+        &quot;description&quot;: &quot;Episode or story thumbnail URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;title&quot;: {
+        &quot;description&quot;: &quot;Episode or Discover story title&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;username&quot;: {
+        &quot;description&quot;: &quot;Snapchat username when the publisher has one&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;videoTrackUrl&quot;: {
+        &quot;description&quot;: &quot;Episode HLS video track URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;websiteUrl&quot;: {
+        &quot;description&quot;: &quot;Publisher website URL&quot;,
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;type&quot;: &quot;object&quot;
+  },
+  &quot;title&quot;: &quot;Snapchat Publisher, Episodes and Discover&quot;
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-snapchat-publisher-show-episode-finder">Snapchat Publisher &amp; Show Episode Finder</h2>
+<p>Read <strong>Snapchat</strong> publisher and Snap Show catalogues without logging in. Give the actor a publisher page URL, a bare business profile ID, or an episode URL and it returns the public profile, the latest page stories, every season, the full episode history, optional HLS media, and Spotlight cards. A Discover mode reads the current country feed with cursor-style pagination. HTTP-only, no cookies, no proxy setup.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Three modes:</strong> <code>byPublisher</code> for a profile and episode catalogue, <code>byEpisodeUrl</code> for one episode's snaps and HLS track, and <code>discover</code> for the country/locale feed</li>
+<li><strong>Complete episode history:</strong> walks every season with Snapchat's public <code>PublishedPremiumStories</code> cursor, not just the 13-14 stories embedded in the page</li>
+<li><strong>Optional episode media:</strong> adds the episode-level HLS <code>videoTrackUrl</code>, snap count and per-snap preview records</li>
+<li><strong>Publisher Spotlights:</strong> media URLs, creator details and engagement counters from the profile page</li>
+<li><strong>Discover feed:</strong> country and locale aware, paginated by tap IDs until the feed is exhausted or <code>maxItems</code> is reached</li>
+<li><strong>Empty fields are omitted:</strong> no nulls, no empty strings, no empty arrays and no 1970 placeholder dates</li>
+</ul>
+<h2 id="readme-output-per-publisher-mode-bypublisher">Output per publisher (<code>mode = byPublisher</code>)</h2>
+<ul>
+<li><code>recordType: &quot;publisher&quot;</code>, <code>publisherId</code>, <code>pageUrl</code></li>
+<li><code>displayName</code>, <code>username</code> — visible name and handle when the profile exposes one</li>
+<li><code>isVerified</code>, <code>subscriberCount</code>, <code>bio</code></li>
+<li><code>profilePictureUrl</code>, <code>snapcodeImageUrl</code>, <code>squareHeroImageUrl</code></li>
+<li><code>websiteUrl</code>, <code>category</code>, <code>subcategory</code>, <code>publisherType</code> (<code>SHOW</code> or <code>NORMAL</code> on publisher pages)</li>
+<li><code>primaryColor</code>, <code>hostUserId</code>, <code>address</code>, <code>mutableName</code></li>
+<li><code>hasStory</code>, <code>hasCuratedHighlights</code>, <code>hasSpotlightHighlights</code>, <code>shouldHideUsername</code></li>
+<li><code>seasonCount</code>, <code>episodeCount</code></li>
+<li><code>premiumShowSeasons[]</code> — <code>seasonId</code>, <code>seasonNumber</code>, <code>episodeCount</code> declared by the page</li>
+<li><code>episodes[]</code> — <code>episodeId</code>, <code>episodeUrl</code>, <code>title</code>, <code>thumbnailUrl</code>, <code>publishedAt</code>, <code>seasonId</code>, <code>seasonNumber</code>, <code>episodeNumber</code>, plus <code>videoTrackUrl</code>, <code>snapCount</code> and <code>snaps[]</code> when media is enabled</li>
+<li><code>premiumStories[]</code> — the latest stories embedded in the page, kept for compatibility: <code>storyId</code>, <code>storyTitle</code>, <code>storyType</code>, <code>thumbnailUrl</code>, <code>episodeNumber</code>, <code>seasonNumber</code>, <code>postedAt</code></li>
+<li><code>preselectedStory</code> — the featured episode, with <code>storyId</code>, <code>storyTitle</code>, <code>episodeNumber</code>, <code>seasonNumber</code>, <code>episodeUrl</code> and <code>snaps[]</code> when available</li>
+<li><code>publisherSpotlights[]</code> — <code>storyId</code>, <code>compositeStoryId</code>, <code>snapId</code>, <code>snapUrl</code>, <code>thumbnailUrl</code>, <code>videoUrl</code>, <code>imageUrl</code>, <code>durationSeconds</code>, <code>width</code>, <code>height</code>, <code>creatorUsername</code>, <code>creatorDisplayName</code>, <code>creatorFollowerCount</code>, <code>description</code>, <code>caption</code>, <code>lat</code>, <code>lng</code>, <code>geoDisplayName</code>, <code>engagementStats</code>, <code>createdAt</code>, <code>latestUpdatedAt</code></li>
+<li><code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-episode-mode-byepisodeurl">Output per episode (<code>mode = byEpisodeUrl</code>)</h2>
+<ul>
+<li><code>recordType: &quot;episode&quot;</code>, <code>episodeId</code>, <code>episodeUrl</code>, <code>publisherId</code></li>
+<li><code>displayName</code>, <code>username</code>, <code>subscriberCount</code>, <code>isVerified</code>, <code>profilePictureUrl</code>, <code>squareHeroImageUrl</code> — publisher context</li>
+<li><code>title</code>, <code>thumbnailUrl</code>, <code>publishedAt</code>, <code>episodeNumber</code>, <code>seasonNumber</code></li>
+<li><code>videoTrackUrl</code> — the episode-level HLS track</li>
+<li><code>snapCount</code>, <code>snaps[]</code> — <code>snapId</code>, <code>index</code>, <code>mediaType</code>, <code>mediaUrl</code> when public, <code>previewUrl</code>, <code>intervalStartMs</code></li>
+<li><code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-discover-story-mode-discover">Output per Discover story (<code>mode = discover</code>)</h2>
+<ul>
+<li><code>recordType: &quot;discoverStory&quot;</code>, <code>storyId</code>, <code>storyType</code>, <code>title</code>, <code>publishedAt</code>, <code>tapId</code></li>
+<li><code>thumbnailUrl</code>, <code>videoTrackUrl</code> when the feed supplies one</li>
+<li><code>pageUrl</code>, <code>publisherId</code>, <code>displayName</code>, <code>username</code>, <code>bio</code>, <code>profilePictureUrl</code>, <code>squareHeroImageUrl</code>, <code>snapcodeImageUrl</code>, <code>primaryColor</code>, <code>isVerified</code></li>
+<li><code>snapCount</code>, <code>snaps[]</code></li>
+<li><code>scrapedAt</code></li>
+</ul>
+<p>Rows that cannot be resolved are returned as <code>recordType: &quot;error&quot;</code> with <code>input</code>, optional <code>publisherId</code> / <code>episodeId</code>, <code>statusCode</code>, <code>error</code> and <code>scrapedAt</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>byPublisher</code></td>
+<td><code>byPublisher</code> / <code>byEpisodeUrl</code> / <code>discover</code></td>
+</tr>
+<tr>
+<td><code>publisherUrlsOrIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>Publisher URLs, <code>story.snapchat.com/p/{id}</code> links or bare UUIDs (mode=byPublisher)</td>
+</tr>
+<tr>
+<td><code>episodeUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td><code>snapchat.com/p/{publisherId}/{episodeId}</code> URLs (mode=byEpisodeUrl)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>US</code></td>
+<td>ISO country code used for episode requests and the Discover feed</td>
+</tr>
+<tr>
+<td><code>locale</code></td>
+<td>string</td>
+<td><code>en-US</code></td>
+<td>Language-region tag for Discover, e.g. <code>en-GB</code> or <code>de-DE</code></td>
+</tr>
+<tr>
+<td><code>includeStories</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Walk every season and fill <code>episodes[]</code> (mode=byPublisher); the latest page stories stay in <code>premiumStories[]</code> either way</td>
+</tr>
+<tr>
+<td><code>includeShowSeasons</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include <code>premiumShowSeasons[]</code> (mode=byPublisher)</td>
+</tr>
+<tr>
+<td><code>includeSpotlights</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Include <code>publisherSpotlights[]</code> (mode=byPublisher)</td>
+</tr>
+<tr>
+<td><code>includeEpisodeMedia</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Fetch HLS tracks and snaps for every returned episode (mode=byPublisher)</td>
+</tr>
+<tr>
+<td><code>maxEpisodesPerPublisher</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Hard cap on <code>episodes[]</code> per publisher (1–5000)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Hard cap on dataset rows, including error rows (1–5000)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-publisher-profile-with-the-latest-page-data-only">Example: publisher profile with the latest page data only</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byPublisher&quot;,
+  &quot;publisherUrlsOrIds&quot;: [&quot;efd8a13d-b69a-41d0-9c04-d19f87829798&quot;],
+  &quot;includeStories&quot;: false,
+  &quot;includeShowSeasons&quot;: false,
+  &quot;includeSpotlights&quot;: false,
+  &quot;maxItems&quot;: 1
+}
+</code></pre>
+<h3 id="readme-example-complete-episode-catalogue-for-a-snap-show">Example: complete episode catalogue for a Snap Show</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byPublisher&quot;,
+  &quot;publisherUrlsOrIds&quot;: [&quot;https://www.snapchat.com/p/f905ada7-32eb-4f9c-8ddf-daa529dcc79f&quot;],
+  &quot;includeStories&quot;: true,
+  &quot;includeShowSeasons&quot;: true,
+  &quot;includeSpotlights&quot;: true,
+  &quot;includeEpisodeMedia&quot;: false,
+  &quot;maxEpisodesPerPublisher&quot;: 1000,
+  &quot;maxItems&quot;: 10
+}
+</code></pre>
+<h3 id="readme-example-one-episode-with-its-hls-track-and-snaps">Example: one episode with its HLS track and snaps</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byEpisodeUrl&quot;,
+  &quot;episodeUrls&quot;: [
+    &quot;https://www.snapchat.com/p/f905ada7-32eb-4f9c-8ddf-daa529dcc79f/3298969776404480&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;maxItems&quot;: 1
+}
+</code></pre>
+<h3 id="readme-example-the-discover-feed-for-a-country">Example: the Discover feed for a country</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;discover&quot;,
+  &quot;country&quot;: &quot;GB&quot;,
+  &quot;locale&quot;: &quot;en-GB&quot;,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Media monitoring</strong> — track subscriber counts, season structure and publishing cadence for news outlets and entertainment channels</li>
+<li><strong>Show catalogues</strong> — build a complete season and episode index for a Snap Show instead of the handful of episodes on the page</li>
+<li><strong>Episode archives</strong> — capture every episode URL, title, thumbnail, publication time and HLS track for downstream processing</li>
+<li><strong>Content strategy research</strong> — compare episode volume and Spotlight performance across publishers</li>
+<li><strong>Discover trend tracking</strong> — sample the current Discover feed per country and locale for editorial or partnership research</li>
+<li><strong>Partnership scouting</strong> — check publisher categories, websites and audience size before outreach</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Snapchat?</strong>
+No. This is an independent third-party actor that reads publicly accessible Snapchat pages and feed responses. It is not operated by or affiliated with Snapchat.</p>
+<p><strong>What is the difference between a publisher and a Snap Show?</strong>
+A Snap Show is an episodic series with seasons and numbered episodes. A publisher is a media outlet or creator profile that may publish stories without a season structure. Both use <code>snapchat.com/p/{id}</code>, and <code>publisherType</code> tells you which kind of profile the page represents.</p>
+<p><strong>Where do I find a publisher ID?</strong>
+It is the UUID in the profile URL, for example <code>snapchat.com/p/{businessProfileId}</code>. A bare UUID is also accepted.</p>
+<p><strong>Why does <code>episodes[]</code> contain more episodes than <code>premiumStories[]</code>?</strong>
+<code>premiumStories[]</code> is the short list embedded in the profile page for compatibility. <code>episodes[]</code> is the full public catalogue assembled season by season, so it can contain hundreds or thousands of rows.</p>
+<p><strong>Why is a season's declared episode count sometimes higher than the number returned?</strong>
+Snapchat's season summary can declare more episodes than its public cursor returns. The actor reports the episodes it actually receives in <code>episodes[]</code> and keeps the page's declared count in <code>premiumShowSeasons[]</code>.</p>
+<p><strong>Why do some snaps have no <code>mediaUrl</code>?</strong>
+Snapchat only exposes a direct media URL for a small subset of snaps. The episode-level <code>videoTrackUrl</code> is the reliable playable media, while <code>previewUrl</code> gives the snap thumbnail.</p>
+<p><strong>Why is <code>durationSeconds</code> sometimes missing from a Spotlight card?</strong>
+Snapchat only sends a duration for some cards. When it is absent the field is omitted rather than set to zero.</p>
+<p><strong>Why does an invalid or removed publisher return an error row?</strong>
+Removed publishers, wrong IDs and region-restricted content would otherwise abort the run. The actor records them as typed error rows and continues with the next input.</p>
+<p><strong>Do I need a proxy or a Snapchat account?</strong>
+No. The actor works without cookies, logins or proxy setup. Country restrictions can still make some publishers unavailable from a given location, and those rows are reported as HTTP 451 errors.</p>
+<p><strong>How many rows can one run return?</strong>
+Use <code>maxItems</code> to set the global cap and <code>maxEpisodesPerPublisher</code> to bound a single publisher's <code>episodes[]</code>. Both are hard limits, and error rows count toward <code>maxItems</code>.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/snapchat-publisher-and-show-episode-finder/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>p0RhqUcEm1QryIgKH</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

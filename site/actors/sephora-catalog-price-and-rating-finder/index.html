@@ -1,0 +1,824 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-WvpjY7EvYsMmUkY9eid4kBuwBvj4Jtn/NfqAs0ITueQ=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Sephora Catalog Price &amp; Rating Finder | Dataspryva</title><meta name="description" content="Search Sephora&#x27;s product catalog by keyword, bestsellers, or new arrivals, filtered by rating, brand, and price, with merchandising flags, review counts, and images for every match"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/"><meta property="og:title" content="Sephora Catalog Price &amp; Rating Finder | Dataspryva"><meta property="og:description" content="Search Sephora&#x27;s product catalog by keyword, bestsellers, or new arrivals, filtered by rating, brand, and price, with merchandising flags, review counts, and images for every match"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#webpage","name":"Sephora Catalog Price & Rating Finder","description":"Search Sephora's product catalog by keyword, bestsellers, or new arrivals, filtered by rating, brand, and price, with merchandising flags, review counts, and images for every matching product.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#article","headline":"Sephora Catalog Price & Rating Finder","name":"Sephora Catalog Price & Rating Finder","description":"Search Sephora's product catalog by keyword, bestsellers, or new arrivals, filtered by rating, brand, and price, with merchandising flags, review counts, and images for every matching product.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#webpage"},"inLanguage":"en","dateModified":"2026-11-01T22:47:47.966Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Sephora Catalog Price & Rating Finder","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/sephora-catalog-price-and-rating-finder/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Sephora Catalog Price &amp; Rating Finder</span></div><section id="overview"><h1 class="doc-title">Sephora Catalog Price &amp; Rating Finder</h1><p class="lede">Search Sephora&#x27;s product catalog by keyword, bestsellers, or new arrivals, filtered by rating, brand, and price, with merchandising flags, review counts, and images for every matching product.</p><p class="summary">Sephora Catalog Price &amp; Rating Finder is an Apify Actor published by Dataspryva. It accepts 29 input fields, and <code>mode</code> is required. Its build declares a results dataset with 3 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/sephora-catalog-price-and-rating-finder">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/t515auZbFJrdZ5vdU/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: keyword search, category or brand browse, product URLs, bestsellers, new arrivals, sale, reviews or questions.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search (mode=search). Enter one or more terms, e.g. `moisturizer`, `vitamin c serum`.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Category slugs, `cat...` IDs or Sephora category URLs (mode=category, bestsellers, newArrivals, sale; also a filter in search). Empty browse modes use the six top-level categories.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch: keyword search, category or brand browse, product URLs, bestsellers, new arrivals, sale, reviews or questions.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Keywords to search (mode=search). Enter one or more terms, e.g. `moisturizer`, `vitamin c serum`.</td></tr><tr><td><code>categories</code></td><td>array</td><td>optional</td><td>Category slugs, `cat...` IDs or Sephora category URLs (mode=category, bestsellers, newArrivals, sale; also a filter in search). Empty browse modes use the six top-level categories.</td></tr><tr><td><code>brands</code></td><td>array</td><td>optional</td><td>Brand names, slugs or Sephora brand URLs (mode=brand; also an optional filter in other listing modes). Example: `Rare Beauty` or `/brand/rare-beauty-by-selena-gomez`.</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Sephora product URLs or `P...` IDs (mode=product, reviews, questions). A `?skuId=` in the URL selects that variant.</td></tr><tr><td><code>market</code></td><td>string</td><td>optional</td><td>Storefront and currency: United States (USD), Canada English (CAD) or Canada French (CAD).</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result ordering for listing modes. Bestsellers and sale default to best selling; new arrivals default to newest.</td></tr><tr><td><code>minRating</code></td><td>integer</td><td>optional</td><td>Only include products rated at or above this value (1-5).</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Only include products whose current price is at or above this amount, in the selected market&#x27;s currency.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Only include products whose current price is at or below this amount, in the selected market&#x27;s currency.</td></tr><tr><td><code>includeNewOnly</code></td><td>boolean</td><td>optional</td><td>Only include products Sephora flags as new.</td></tr><tr><td><code>includeBestsellersOnly</code></td><td>boolean</td><td>optional</td><td>Only include products flagged as bestsellers in listing modes. Not available in product-URL mode.</td></tr><tr><td><code>saleOnly</code></td><td>boolean</td><td>optional</td><td>Only include products currently discounted by Sephora.</td></tr><tr><td><code>refinements</code></td><td>array</td><td>optional</td><td>Optional Sephora facet values, e.g. `filters[skinType]=drySk` or `filters[ingredientPreferences]=crueltyFree`. Up to 20.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Fetch descriptions, ingredients, highlights, variants, stock, category path and brand information for every product in listing modes. Product-URL mode always includes details.</td></tr><tr><td><code>includeImages</code></td><td>boolean</td><td>optional</td><td>Copy product images into the run&#x27;s key-value store so the image links stay publicly accessible.</td></tr><tr><td><code>maxImagesPerProduct</code></td><td>integer</td><td>optional</td><td>Maximum number of product images to keep and rehost for each product.</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Add recent or most-helpful review samples to product records, and fetch review samples in reviews mode.</td></tr><tr><td><code>maxReviewsPerProduct</code></td><td>integer</td><td>optional</td><td>Maximum review rows or samples per product.</td></tr><tr><td><code>reviewsSort</code></td><td>string</td><td>optional</td><td>Ordering for review rows and review samples.</td></tr><tr><td><code>includeReviewStats</code></td><td>boolean</td><td>optional</td><td>Add the rating histogram, recommendation counts, review dates and GTIN/UPC/EAN identifiers.</td></tr><tr><td><code>includeQuestions</code></td><td>boolean</td><td>optional</td><td>Add questions with their answers to product records, and fetch question rows in questions mode.</td></tr><tr><td><code>maxQuestionsPerProduct</code></td><td>integer</td><td>optional</td><td>Maximum question rows or embedded questions per product.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on all records emitted by the run.</td></tr><tr><td><code>maxItemsPerQuery</code></td><td>integer</td><td>optional</td><td>Cap records per keyword, category, brand or product URL. 0 means no per-source cap.</td></tr><tr><td><code>onlyNewProducts</code></td><td>boolean</td><td>optional</td><td>Skip product IDs that were already returned under the same state key in earlier runs.</td></tr><tr><td><code>stateKey</code></td><td>string</td><td>optional</td><td>Name for the saved product-ID state used by &#x27;Only new products&#x27;.</td></tr><tr><td><code>resetState</code></td><td>boolean</td><td>optional</td><td>Forget previously seen product IDs for this state key before the run.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Optional. Sephora&#x27;s public catalog and review endpoints work without a proxy.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search or browse Sephora products, fetch product URLs, exports reviews or questions. Choose a mode, then set keywords, categories, brands, market, filters and optional detail enrichment.&quot;,
+  &quot;properties&quot;: {
+    &quot;brands&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Brand names, slugs or Sephora brand URLs (mode=brand; also an optional filter in other listing modes). Example: `Rare Beauty` or `/brand/rare-beauty-by-selena-gomez`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Brands&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;categories&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Category slugs, `cat...` IDs or Sephora category URLs (mode=category, bestsellers, newArrivals, sale; also a filter in search). Empty browse modes use the six top-level categories.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Categories&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeBestsellersOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only include products flagged as bestsellers in listing modes. Not available in product-URL mode.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Bestsellers only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Fetch descriptions, ingredients, highlights, variants, stock, category path and brand information for every product in listing modes. Product-URL mode always includes details.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include product details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeImages&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Copy product images into the run&#x27;s key-value store so the image links stay publicly accessible.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include rehosted images&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeNewOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only include products Sephora flags as new.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;New products only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeQuestions&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add questions with their answers to product records, and fetch question rows in questions mode.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include questions and answers&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviewStats&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add the rating histogram, recommendation counts, review dates and GTIN/UPC/EAN identifiers.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include review statistics&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;includeReviews&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Add recent or most-helpful review samples to product records, and fetch review samples in reviews mode.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include review samples&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;market&quot;: {
+      &quot;default&quot;: &quot;us&quot;,
+      &quot;description&quot;: &quot;Storefront and currency: United States (USD), Canada English (CAD) or Canada French (CAD).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;us&quot;,
+        &quot;ca-en&quot;,
+        &quot;ca-fr&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States (USD)&quot;,
+        &quot;Canada - English (CAD)&quot;,
+        &quot;Canada - French (CAD)&quot;
+      ],
+      &quot;prefill&quot;: &quot;us&quot;,
+      &quot;title&quot;: &quot;Market&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxImagesPerProduct&quot;: {
+      &quot;default&quot;: 3,
+      &quot;description&quot;: &quot;Maximum number of product images to keep and rehost for each product.&quot;,
+      &quot;maximum&quot;: 20,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 3,
+      &quot;title&quot;: &quot;Maximum images per product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Hard cap on all records emitted by the run.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Maximum records&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxItemsPerQuery&quot;: {
+      &quot;default&quot;: 0,
+      &quot;description&quot;: &quot;Cap records per keyword, category, brand or product URL. 0 means no per-source cap.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 0,
+      &quot;prefill&quot;: 0,
+      &quot;title&quot;: &quot;Maximum records per source&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxQuestionsPerProduct&quot;: {
+      &quot;default&quot;: 10,
+      &quot;description&quot;: &quot;Maximum question rows or embedded questions per product.&quot;,
+      &quot;maximum&quot;: 200,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 10,
+      &quot;title&quot;: &quot;Maximum questions per product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxReviewsPerProduct&quot;: {
+      &quot;default&quot;: 20,
+      &quot;description&quot;: &quot;Maximum review rows or samples per product.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Maximum reviews per product&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minRating&quot;: {
+      &quot;description&quot;: &quot;Only include products rated at or above this value (1-5).&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;title&quot;: &quot;Minimum rating&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;What to fetch: keyword search, category or brand browse, product URLs, bestsellers, new arrivals, sale, reviews or questions.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;category&quot;,
+        &quot;brand&quot;,
+        &quot;product&quot;,
+        &quot;bestsellers&quot;,
+        &quot;newArrivals&quot;,
+        &quot;sale&quot;,
+        &quot;reviews&quot;,
+        &quot;questions&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search products by keyword&quot;,
+        &quot;Browse categories&quot;,
+        &quot;Browse brands&quot;,
+        &quot;Fetch product URLs or IDs&quot;,
+        &quot;Bestsellers by category&quot;,
+        &quot;New arrivals by category&quot;,
+        &quot;Products on sale&quot;,
+        &quot;Reviews for product URLs&quot;,
+        &quot;Questions and answers for product URLs&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;onlyNewProducts&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Skip product IDs that were already returned under the same state key in earlier runs.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Only new products&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;priceMax&quot;: {
+      &quot;description&quot;: &quot;Only include products whose current price is at or below this amount, in the selected market&#x27;s currency.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum price&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;priceMin&quot;: {
+      &quot;description&quot;: &quot;Only include products whose current price is at or above this amount, in the selected market&#x27;s currency.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum price&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;productUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Sephora product URLs or `P...` IDs (mode=product, reviews, questions). A `?skuId=` in the URL selects that variant.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Product URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {
+        &quot;useApifyProxy&quot;: false
+      },
+      &quot;description&quot;: &quot;Optional. Sephora&#x27;s public catalog and review endpoints work without a proxy.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: false
+      },
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;refinements&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Optional Sephora facet values, e.g. `filters[skinType]=drySk` or `filters[ingredientPreferences]=crueltyFree`. Up to 20.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Advanced refinements&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;resetState&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Forget previously seen product IDs for this state key before the run.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Reset saved state&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;reviewsSort&quot;: {
+      &quot;default&quot;: &quot;mostHelpful&quot;,
+      &quot;description&quot;: &quot;Ordering for review rows and review samples.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;mostHelpful&quot;,
+        &quot;newest&quot;,
+        &quot;oldest&quot;,
+        &quot;highestRating&quot;,
+        &quot;lowestRating&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Most helpful&quot;,
+        &quot;Newest first&quot;,
+        &quot;Oldest first&quot;,
+        &quot;Highest rating&quot;,
+        &quot;Lowest rating&quot;
+      ],
+      &quot;prefill&quot;: &quot;mostHelpful&quot;,
+      &quot;title&quot;: &quot;Review order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;saleOnly&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Only include products currently discounted by Sephora.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;On sale only&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;searchQueries&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Keywords to search (mode=search). Enter one or more terms, e.g. `moisturizer`, `vitamin c serum`.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;moisturizer&quot;
+      ],
+      &quot;title&quot;: &quot;Search keywords&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;relevance&quot;,
+      &quot;description&quot;: &quot;Result ordering for listing modes. Bestsellers and sale default to best selling; new arrivals default to newest.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;relevance&quot;,
+        &quot;bestSelling&quot;,
+        &quot;topRated&quot;,
+        &quot;priceLowToHigh&quot;,
+        &quot;priceHighToLow&quot;,
+        &quot;newArrivals&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Relevance&quot;,
+        &quot;Best selling&quot;,
+        &quot;Top rated&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;relevance&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;stateKey&quot;: {
+      &quot;default&quot;: &quot;default&quot;,
+      &quot;description&quot;: &quot;Name for the saved product-ID state used by &#x27;Only new products&#x27;.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;default&quot;,
+      &quot;title&quot;: &quot;State key&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Sephora Catalog Price &amp; Rating Finder Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset containing Sephora products, reviews and questions, distinguished by recordType.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Sephora product, review and question records with prices, variants, ingredients, stock, ratings, review statistics and Q&amp;A across US, Canada English and Canada French.&quot;,
+  &quot;properties&quot;: {
+    &quot;products&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Sephora products, reviews and questions, distinguished by recordType.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Sephora records&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Sephora Catalog Price &amp; Rating Finder Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;products&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;brandName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Brand&quot;
+          },
+          &quot;displayName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Product&quot;
+          },
+          &quot;inStock&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;In stock&quot;
+          },
+          &quot;market&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Market&quot;
+          },
+          &quot;price&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Price&quot;
+          },
+          &quot;priceMax&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Price max&quot;
+          },
+          &quot;priceMin&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Price min&quot;
+          },
+          &quot;productId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Product ID&quot;
+          },
+          &quot;productUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Product URL&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;reviews&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Reviews&quot;
+          },
+          &quot;salePrice&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Sale price&quot;
+          },
+          &quot;variantsCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Variants&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Products&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;productId&quot;,
+          &quot;brandName&quot;,
+          &quot;displayName&quot;,
+          &quot;rating&quot;,
+          &quot;reviews&quot;,
+          &quot;price&quot;,
+          &quot;priceMin&quot;,
+          &quot;priceMax&quot;,
+          &quot;salePrice&quot;,
+          &quot;inStock&quot;,
+          &quot;variantsCount&quot;,
+          &quot;market&quot;,
+          &quot;productUrl&quot;
+        ]
+      }
+    },
+    &quot;questions&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;answersCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Answers&quot;
+          },
+          &quot;author&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
+          &quot;brandName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Brand&quot;
+          },
+          &quot;market&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Market&quot;
+          },
+          &quot;productName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Product&quot;
+          },
+          &quot;question&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Question&quot;
+          },
+          &quot;questionId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Question ID&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;submittedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Submitted&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Questions&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;questionId&quot;,
+          &quot;productName&quot;,
+          &quot;brandName&quot;,
+          &quot;question&quot;,
+          &quot;author&quot;,
+          &quot;submittedAt&quot;,
+          &quot;answersCount&quot;,
+          &quot;market&quot;
+        ]
+      }
+    },
+    &quot;reviews&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;author&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Author&quot;
+          },
+          &quot;brandName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Brand&quot;
+          },
+          &quot;helpfulVotes&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Helpful&quot;
+          },
+          &quot;isVerifiedPurchase&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Verified&quot;
+          },
+          &quot;market&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Market&quot;
+          },
+          &quot;productName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Product&quot;
+          },
+          &quot;rating&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Rating&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;reviewId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Review ID&quot;
+          },
+          &quot;submittedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Submitted&quot;
+          },
+          &quot;title&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Reviews&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;reviewId&quot;,
+          &quot;productName&quot;,
+          &quot;brandName&quot;,
+          &quot;rating&quot;,
+          &quot;title&quot;,
+          &quot;author&quot;,
+          &quot;submittedAt&quot;,
+          &quot;isVerifiedPurchase&quot;,
+          &quot;helpfulVotes&quot;,
+          &quot;market&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-sephora-catalog-price-rating-finder">Sephora Catalog Price &amp; Rating Finder</h2>
+<p>Sephora's beauty catalog changes constantly: new launches, rotating sale prices, shade and size variants, and thousands of reviews arriving every week. This actor turns that catalog into structured records for price tracking, assortment analysis, ingredient research and review intelligence. Search by keyword, browse categories or brands, or paste product URLs, then optionally add full product details, variants, stock, images, review samples, rating histograms and Q&amp;A. Works in the United States and Canada (English and French), with no login, cookie or proxy setup.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Nine modes:</strong> <code>search</code>, <code>category</code>, <code>brand</code>, <code>product</code>, <code>bestsellers</code>, <code>newArrivals</code>, <code>sale</code>, <code>reviews</code> and <code>questions</code></li>
+<li><strong>Three storefronts:</strong> US (USD), Canada English (CAD) and Canada French (CAD), with French product text for Quebec</li>
+<li><strong>Rich product detail:</strong> descriptions, how-to-use, ingredients, highlights, brand copy, category path, variants/SKUs, stock, sale prices and full-size image links</li>
+<li><strong>Review intelligence:</strong> review text, ratings, titles, verified/incentivized/staff badges, helpful votes, photos, reviewer demographics, rating histograms and GTIN/UPC/EAN identifiers</li>
+<li><strong>Q&amp;A export:</strong> questions with their answers, authors, dates, brand-answer and best-answer flags</li>
+<li><strong>Server-side filters and six sort orders:</strong> brand, category, rating, price, new, sale, advanced facet refinements, and relevance / best selling / top rated / price / newest ordering</li>
+<li><strong>Empty fields are omitted</strong> from each record instead of being returned as null</li>
+</ul>
+<h2 id="readme-output-per-product">Output per product</h2>
+<ul>
+<li><code>productId</code>, <code>brandName</code>, <code>brandId</code>, <code>displayName</code>, <code>productName</code>, <code>skuId</code> — product identity</li>
+<li><code>market</code>, <code>country</code>, <code>locale</code>, <code>currency</code> — storefront context</li>
+<li><code>rating</code>, <code>reviews</code>, <code>lovesCount</code> — rating and engagement</li>
+<li><code>price</code>, <code>priceMin</code>, <code>priceMax</code>, <code>priceText</code> — current price, or price range for multi-variant products</li>
+<li><code>listPrice</code>, <code>listPriceMin</code>, <code>listPriceMax</code>, <code>salePrice</code>, <code>salePriceMin</code>, <code>salePriceMax</code>, <code>savingsAmount</code>, <code>savingsPercent</code> — original and discounted pricing</li>
+<li><code>isNew</code>, <code>isBestseller</code>, <code>isSephoraExclusive</code>, <code>isLimitedEdition</code>, <code>isLimitedTimeOffer</code>, <code>isOnlineOnly</code>, <code>isOnSale</code>, <code>sponsored</code> — merchandising flags</li>
+<li><code>inStock</code>, <code>outOfStockSkus</code>, <code>isReturnable</code>, <code>maxPurchaseQuantity</code> — stock and purchase limits</li>
+<li><code>size</code>, <code>shade</code>, <code>variationType</code>, <code>variantsCount</code>, <code>variants[]</code> — size/shade matrix with per-variant price, sale price, stock, image and product URL</li>
+<li><code>description</code>, <code>shortDescription</code>, <code>howToUse</code>, <code>ingredients</code>, <code>highlights[]</code> — product content</li>
+<li><code>categoryPath[]</code>, <code>categoryId</code>, <code>categoryUrl</code>, <code>brandDescription</code>, <code>brandUrl</code>, <code>seoTitle</code>, <code>seoDescription</code> — taxonomy and brand context</li>
+<li><code>images[]</code> with <code>url</code> (rehosted when available) and <code>originalUrl</code>; <code>imageOriginal</code>, <code>altImage</code>, <code>altImageOriginal</code>, <code>imageAltText</code></li>
+<li><code>reviewStats</code> with <code>ratingHistogram[]</code>, <code>averageRating</code>, <code>totalReviews</code>, recommendation counts, photo/video counts, review dates and vote totals</li>
+<li><code>reviewSamples[]</code> — review samples with demographics and badges</li>
+<li><code>questions[]</code>, <code>questionCount</code> — Q&amp;A embedded in product rows</li>
+<li><code>gtins[]</code>, <code>upcs[]</code>, <code>eans[]</code> — product identifiers when available</li>
+<li><code>sourceType</code>, <code>searchTerm</code>, <code>rank</code>, <code>page</code>, <code>searchUrl</code>, <code>categorySlug</code>, <code>brandSlug</code>, <code>sourceUrl</code>, <code>canonicalUrl</code> — where the record came from</li>
+<li><code>pickupEligible</code>, <code>pickupNearbyEligible</code>, <code>sameDayEligible</code>, <code>nextDayEligible</code>, <code>shipToHomeEligible</code> — fulfillment flags</li>
+<li><code>productUrl</code>, <code>recordType</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-review-mode-reviews">Output: per review (mode = <code>reviews</code>)</h2>
+<p><code>reviewId</code>, <code>productId</code>, <code>productName</code>, <code>brandName</code>, <code>productUrl</code>, <code>market</code>, <code>country</code>, <code>locale</code>, <code>currency</code>, <code>rating</code>, <code>title</code>, <code>text</code>, <code>author</code>, <code>submittedAt</code>, <code>isRecommended</code>, <code>isVerifiedPurchase</code>, <code>isIncentivized</code>, <code>isStaff</code>, <code>helpfulVotes</code>, <code>notHelpfulVotes</code>, <code>photos[]</code>, <code>contentLocale</code>, <code>reviewer</code> (<code>skinType</code>, <code>skinTone</code>, <code>eyeColor</code>, <code>hairColor</code>, <code>ageRange</code>, <code>skinConcerns</code>), <code>recordType</code>, <code>scrapedAt</code>.</p>
+<h2 id="readme-output-per-question-mode-questions">Output: per question (mode = <code>questions</code>)</h2>
+<p><code>questionId</code>, <code>productId</code>, <code>productName</code>, <code>brandName</code>, <code>productUrl</code>, <code>question</code>, <code>author</code>, <code>submittedAt</code>, <code>answersCount</code>, <code>answers[]</code> (<code>text</code>, <code>author</code>, <code>submittedAt</code>, <code>isBrandAnswer</code>, <code>isBestAnswer</code>, <code>helpfulVotes</code>), <code>market</code>, <code>country</code>, <code>locale</code>, <code>currency</code>, <code>recordType</code>, <code>scrapedAt</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>search</code></td>
+<td><code>search</code>, <code>category</code>, <code>brand</code>, <code>product</code>, <code>bestsellers</code>, <code>newArrivals</code>, <code>sale</code>, <code>reviews</code>, <code>questions</code></td>
+</tr>
+<tr>
+<td><code>searchQueries</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Keywords for <code>search</code> (1–100)</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Category slugs, <code>cat...</code> IDs or URLs (<code>category</code>, browse modes; search filter)</td>
+</tr>
+<tr>
+<td><code>brands</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Brand names, slugs or URLs (<code>brand</code>; optional filter in listing modes)</td>
+</tr>
+<tr>
+<td><code>productUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Product URLs or <code>P...</code> IDs (<code>product</code>, <code>reviews</code>, <code>questions</code>)</td>
+</tr>
+<tr>
+<td><code>market</code></td>
+<td>string</td>
+<td><code>us</code></td>
+<td><code>us</code>, <code>ca-en</code>, <code>ca-fr</code></td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>relevance</code></td>
+<td><code>relevance</code>, <code>bestSelling</code>, <code>topRated</code>, <code>priceLowToHigh</code>, <code>priceHighToLow</code>, <code>newArrivals</code></td>
+</tr>
+<tr>
+<td><code>minRating</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Minimum average rating (1–5)</td>
+</tr>
+<tr>
+<td><code>priceMin</code> / <code>priceMax</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Current-price bounds in the selected market's currency</td>
+</tr>
+<tr>
+<td><code>includeNewOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only products flagged new</td>
+</tr>
+<tr>
+<td><code>includeBestsellersOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only products flagged as bestsellers in listing modes</td>
+</tr>
+<tr>
+<td><code>saleOnly</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Only discounted products</td>
+</tr>
+<tr>
+<td><code>refinements</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Facet values such as <code>filters[skinType]=drySk</code> (maximum 20)</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Fetch full detail, variants and stock for listing results</td>
+</tr>
+<tr>
+<td><code>includeImages</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Rehost product images for public access</td>
+</tr>
+<tr>
+<td><code>maxImagesPerProduct</code></td>
+<td>integer</td>
+<td><code>3</code></td>
+<td>Image cap per product (1–20)</td>
+</tr>
+<tr>
+<td><code>includeReviews</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add review samples to product rows</td>
+</tr>
+<tr>
+<td><code>maxReviewsPerProduct</code></td>
+<td>integer</td>
+<td><code>20</code></td>
+<td>Review cap per product (1–1000)</td>
+</tr>
+<tr>
+<td><code>reviewsSort</code></td>
+<td>string</td>
+<td><code>mostHelpful</code></td>
+<td><code>mostHelpful</code>, <code>newest</code>, <code>oldest</code>, <code>highestRating</code>, <code>lowestRating</code></td>
+</tr>
+<tr>
+<td><code>includeReviewStats</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add histograms, dates, recommendation counts and identifiers</td>
+</tr>
+<tr>
+<td><code>includeQuestions</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Add Q&amp;A to product rows</td>
+</tr>
+<tr>
+<td><code>maxQuestionsPerProduct</code></td>
+<td>integer</td>
+<td><code>10</code></td>
+<td>Question cap per product (1–200)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Overall record cap (1–10000)</td>
+</tr>
+<tr>
+<td><code>maxItemsPerQuery</code></td>
+<td>integer</td>
+<td><code>0</code></td>
+<td>Per-keyword/category/brand/URL cap; <code>0</code> means unlimited</td>
+</tr>
+<tr>
+<td><code>onlyNewProducts</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Skip product IDs already seen under <code>stateKey</code></td>
+</tr>
+<tr>
+<td><code>stateKey</code></td>
+<td>string</td>
+<td><code>default</code></td>
+<td>Name of the saved product-ID state</td>
+</tr>
+<tr>
+<td><code>resetState</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Clear saved product IDs before the run</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>off</td>
+<td>Optional; the catalog and review data work without a proxy</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-us-search-with-variants-reviews-and-stock">Example: US search with variants, reviews and stock</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [&quot;moisturizer&quot;, &quot;serum&quot;],
+  &quot;market&quot;: &quot;us&quot;,
+  &quot;sortBy&quot;: &quot;topRated&quot;,
+  &quot;minRating&quot;: 4,
+  &quot;priceMin&quot;: 15,
+  &quot;priceMax&quot;: 80,
+  &quot;includeDetails&quot;: true,
+  &quot;includeReviewStats&quot;: true,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-canada-french-product-with-a-selected-size">Example: Canada French product with a selected size</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;product&quot;,
+  &quot;productUrls&quot;: [
+    &quot;https://www.sephora.com/ca/fr/product/the-ordinary-hyaluronic-acid-2-b5-hydrating-serum-P427419?skuId=2735140&quot;
+  ],
+  &quot;includeImages&quot;: true,
+  &quot;includeReviews&quot;: true,
+  &quot;maxReviewsPerProduct&quot;: 5
+}
+</code></pre>
+<h3 id="readme-example-category-browse-with-sale-and-rating-filters">Example: category browse with sale and rating filters</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;category&quot;,
+  &quot;categories&quot;: [&quot;skincare&quot;],
+  &quot;market&quot;: &quot;us&quot;,
+  &quot;saleOnly&quot;: true,
+  &quot;minRating&quot;: 4,
+  &quot;sortBy&quot;: &quot;priceLowToHigh&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-brand-review-and-q-a-export">Example: brand review and Q&amp;A export</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;reviews&quot;,
+  &quot;productUrls&quot;: [&quot;P427419&quot;, &quot;P511921&quot;],
+  &quot;reviewsSort&quot;: &quot;newest&quot;,
+  &quot;maxReviewsPerProduct&quot;: 50,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;questions&quot;,
+  &quot;productUrls&quot;: [&quot;P427419&quot;],
+  &quot;maxQuestionsPerProduct&quot;: 25,
+  &quot;maxItems&quot;: 25
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Price and promotion tracking</strong> — snapshot current and sale prices, discounts and stock for a watchlist</li>
+<li><strong>Assortment analysis</strong> — compare brand and category catalogs, shade ranges and size options</li>
+<li><strong>Ingredient and INCI research</strong> — export ingredients and highlights for formulation or clean-beauty screening</li>
+<li><strong>Review intelligence</strong> — analyze ratings, review text, photos and reviewer demographics by product or brand</li>
+<li><strong>Launch monitoring</strong> — use <code>newArrivals</code> with <code>onlyNewProducts</code> to capture only newly listed products</li>
+<li><strong>Q&amp;A and customer-care research</strong> — collect questions with answers, including brand and best answers</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with Sephora?</strong>
+No. This is an independent third-party actor that reads publicly accessible Sephora catalog and review data. It is not operated by or affiliated with Sephora.</p>
+<p><strong>Do I need an account, cookies or an API key?</strong>
+No. The actor uses public catalog and review data and works without login or credentials.</p>
+<p><strong>Do I need to configure a proxy?</strong>
+No. Direct requests work for the catalog and review endpoints. A proxy input is available only if you want to route traffic yourself.</p>
+<p><strong>Why are some products missing ingredients, highlights or size?</strong>
+Those fields are product-specific. When Sephora does not publish them for a product, the field is omitted rather than filled with a placeholder.</p>
+<p><strong>Why do some products show a price range and others a single price?</strong>
+Multi-size or multi-shade products can have different prices. <code>priceMin</code> and <code>priceMax</code> show the current range; <code>price</code> is the default variant's current price. <code>listPrice*</code> and <code>salePrice*</code> keep the original and discounted values separate.</p>
+<p><strong>Why are review demographics missing on some reviews?</strong>
+Reviewers choose whether to share skin type, tone, eye color, hair color, age range and concerns. Fields are included only when the reviewer provided them.</p>
+<p><strong>Why isn't mainland France supported?</strong>
+The US and Canada storefronts (English and French) are supported. Mainland France is not reachable reliably from the actor's network path, so it is not offered as a market.</p>
+<p><strong>Why aren't product videos included?</strong>
+Sephora's video media links are not publicly reachable without a browser session. Product images, descriptions, ingredients and variants are included instead.</p>
+<p><strong>Why does a product page show a different price than the dataset?</strong>
+Prices and promotions change frequently, and the dataset reflects the moment of the run. Prices also differ by market and currency; use the <code>market</code> field to compare like with like.</p>
+<p><strong>How many records can I get?</strong>
+<code>maxItems</code> caps the run at up to 10,000 records. Search returns up to 60 products per page, while category and brand browsing return up to 200 per page. Very large result sets are split across categories, brands and filters, and duplicates are removed by product, review or question ID.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/sephora-catalog-price-and-rating-finder/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>CmWi1inWXx3Khxocm</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

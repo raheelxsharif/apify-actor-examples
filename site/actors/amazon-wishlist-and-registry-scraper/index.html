@@ -1,0 +1,316 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-a2jtDI+OSPZzzTTovtvy3315YlHTtIETJrfQlqBXVhI=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Amazon Wishlist &amp; Registry Scraper | Dataspryva</title><meta name="description" content="Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchas"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/"><meta property="og:title" content="Amazon Wishlist &amp; Registry Scraper | Dataspryva"><meta property="og:description" content="Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchas"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#webpage","name":"Amazon Wishlist & Registry Scraper","description":"Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#article","headline":"Amazon Wishlist & Registry Scraper","name":"Amazon Wishlist & Registry Scraper","description":"Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-11-08T13:02:57.879Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Amazon Wishlist & Registry Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Amazon Wishlist &amp; Registry Scraper</span></div><section id="overview"><h1 class="doc-title">Amazon Wishlist &amp; Registry Scraper</h1><p class="lede">Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p><p class="summary">Amazon Wishlist &amp; Registry Scraper is an Apify Actor published by Dataspryva. It accepts 6 input fields, none of them required at the top level. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/amazon-wishlist-and-registry-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/x5uIAjSyeZfnCa4v7/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listUrls</code></td><td>array</td><td>optional</td><td>Direct, public/shareable Amazon list URLs. Accepted shapes: `/hz/wishlist/ls/&lt;ID&gt;`, the mobile `/gp/aw/ls?lid=&lt;ID&gt;`, `/gp/registry/wishlist/&lt;ID&gt;`, `/baby-reg/&lt;name&gt;/&lt;ID&gt;`, `/wedding/guest-view/&lt;ID&gt;` (or `/wedding/&lt;name&gt;/registry/&lt;ID&gt;`), and `/registries/gl/guest-view/&lt;ID&gt;`. This actor never searches for or enumerates lists; it only visits the exact URLs you provide.</td></tr><tr><td><code>listIds</code></td><td>array</td><td>optional</td><td>Bare wishlist IDs copied from a list URL (for example `2PBHI0DGWAAAF` from `/hz/wishlist/ls/2PBHI0DGWAAAF`). Each ID is opened on the marketplace selected below. Use this instead of `listUrls` when you only have the ID.</td></tr><tr><td><code>marketplace</code></td><td>string</td><td>optional</td><td>Amazon marketplace used to build URLs from `listIds`. Ignored for `listUrls` because each URL already carries its own marketplace.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listUrls</code></td><td>array</td><td>optional</td><td>Direct, public/shareable Amazon list URLs. Accepted shapes: `/hz/wishlist/ls/&lt;ID&gt;`, the mobile `/gp/aw/ls?lid=&lt;ID&gt;`, `/gp/registry/wishlist/&lt;ID&gt;`, `/baby-reg/&lt;name&gt;/&lt;ID&gt;`, `/wedding/guest-view/&lt;ID&gt;` (or `/wedding/&lt;name&gt;/registry/&lt;ID&gt;`), and `/registries/gl/guest-view/&lt;ID&gt;`. This actor never searches for or enumerates lists; it only visits the exact URLs you provide.</td></tr><tr><td><code>listIds</code></td><td>array</td><td>optional</td><td>Bare wishlist IDs copied from a list URL (for example `2PBHI0DGWAAAF` from `/hz/wishlist/ls/2PBHI0DGWAAAF`). Each ID is opened on the marketplace selected below. Use this instead of `listUrls` when you only have the ID.</td></tr><tr><td><code>marketplace</code></td><td>string</td><td>optional</td><td>Amazon marketplace used to build URLs from `listIds`. Ignored for `listUrls` because each URL already carries its own marketplace.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on the number of list items scraped per list URL. The full list is followed through Amazon&#x27;s own pagination until this cap is reached or the list ends.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Sort order for wishlist items, matching the sort control shown on the live wishlist page. Registry pages expose their own fixed sort set; unsupported values fall back to the list&#x27;s default order.</td></tr><tr><td><code>proxyConfiguration</code></td><td>object</td><td>optional</td><td>Apify proxy used to fetch list pages. Defaults to the free AUTO (datacenter) group; the actor escalates to a residential session automatically only if a block is detected.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs or bare wishlist IDs.&quot;,
+  &quot;properties&quot;: {
+    &quot;listIds&quot;: {
+      &quot;description&quot;: &quot;Bare wishlist IDs copied from a list URL (for example `2PBHI0DGWAAAF` from `/hz/wishlist/ls/2PBHI0DGWAAAF`). Each ID is opened on the marketplace selected below. Use this instead of `listUrls` when you only have the ID.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;title&quot;: &quot;Wishlist IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;listUrls&quot;: {
+      &quot;description&quot;: &quot;Direct, public/shareable Amazon list URLs. Accepted shapes: `/hz/wishlist/ls/&lt;ID&gt;`, the mobile `/gp/aw/ls?lid=&lt;ID&gt;`, `/gp/registry/wishlist/&lt;ID&gt;`, `/baby-reg/&lt;name&gt;/&lt;ID&gt;`, `/wedding/guest-view/&lt;ID&gt;` (or `/wedding/&lt;name&gt;/registry/&lt;ID&gt;`), and `/registries/gl/guest-view/&lt;ID&gt;`. This actor never searches for or enumerates lists; it only visits the exact URLs you provide.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [
+        &quot;https://www.amazon.com/hz/wishlist/ls/2PBHI0DGWAAAF&quot;
+      ],
+      &quot;title&quot;: &quot;Wishlist / registry URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;marketplace&quot;: {
+      &quot;default&quot;: &quot;amazon.com&quot;,
+      &quot;description&quot;: &quot;Amazon marketplace used to build URLs from `listIds`. Ignored for `listUrls` because each URL already carries its own marketplace.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;amazon.com&quot;,
+        &quot;amazon.co.uk&quot;,
+        &quot;amazon.de&quot;,
+        &quot;amazon.ca&quot;,
+        &quot;amazon.fr&quot;,
+        &quot;amazon.it&quot;,
+        &quot;amazon.es&quot;,
+        &quot;amazon.com.au&quot;,
+        &quot;amazon.co.jp&quot;,
+        &quot;amazon.in&quot;,
+        &quot;amazon.com.mx&quot;,
+        &quot;amazon.com.br&quot;,
+        &quot;amazon.nl&quot;,
+        &quot;amazon.se&quot;,
+        &quot;amazon.pl&quot;,
+        &quot;amazon.com.tr&quot;,
+        &quot;amazon.ae&quot;,
+        &quot;amazon.sa&quot;,
+        &quot;amazon.sg&quot;,
+        &quot;amazon.com.be&quot;,
+        &quot;amazon.eg&quot;,
+        &quot;amazon.ie&quot;,
+        &quot;amazon.co.za&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States (amazon.com)&quot;,
+        &quot;United Kingdom (amazon.co.uk)&quot;,
+        &quot;Germany (amazon.de)&quot;,
+        &quot;Canada (amazon.ca)&quot;,
+        &quot;France (amazon.fr)&quot;,
+        &quot;Italy (amazon.it)&quot;,
+        &quot;Spain (amazon.es)&quot;,
+        &quot;Australia (amazon.com.au)&quot;,
+        &quot;Japan (amazon.co.jp)&quot;,
+        &quot;India (amazon.in)&quot;,
+        &quot;Mexico (amazon.com.mx)&quot;,
+        &quot;Brazil (amazon.com.br)&quot;,
+        &quot;Netherlands (amazon.nl)&quot;,
+        &quot;Sweden (amazon.se)&quot;,
+        &quot;Poland (amazon.pl)&quot;,
+        &quot;Turkey (amazon.com.tr)&quot;,
+        &quot;United Arab Emirates (amazon.ae)&quot;,
+        &quot;Saudi Arabia (amazon.sa)&quot;,
+        &quot;Singapore (amazon.sg)&quot;,
+        &quot;Belgium (amazon.com.be)&quot;,
+        &quot;Egypt (amazon.eg)&quot;,
+        &quot;Ireland (amazon.ie)&quot;,
+        &quot;South Africa (amazon.co.za)&quot;
+      ],
+      &quot;prefill&quot;: &quot;amazon.com&quot;,
+      &quot;title&quot;: &quot;Marketplace for list IDs&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Hard cap on the number of list items scraped per list URL. The full list is followed through Amazon&#x27;s own pagination until this cap is reached or the list ends.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 20,
+      &quot;title&quot;: &quot;Max items per list&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;proxyConfiguration&quot;: {
+      &quot;default&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;description&quot;: &quot;Apify proxy used to fetch list pages. Defaults to the free AUTO (datacenter) group; the actor escalates to a residential session automatically only if a block is detected.&quot;,
+      &quot;editor&quot;: &quot;proxy&quot;,
+      &quot;prefill&quot;: {
+        &quot;useApifyProxy&quot;: true
+      },
+      &quot;title&quot;: &quot;Proxy configuration&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;description&quot;: &quot;Sort order for wishlist items, matching the sort control shown on the live wishlist page. Registry pages expose their own fixed sort set; unsupported values fall back to the list&#x27;s default order.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;&quot;,
+        &quot;date-added&quot;,
+        &quot;priority&quot;,
+        &quot;price-asc&quot;,
+        &quot;price-desc&quot;,
+        &quot;custom&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;(list default order)&quot;,
+        &quot;Most recently added&quot;,
+        &quot;Priority (high to low)&quot;,
+        &quot;Price (low to high)&quot;,
+        &quot;Price (high to low)&quot;,
+        &quot;Custom (owner-defined order)&quot;
+      ],
+      &quot;prefill&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Amazon Wishlist &amp; Registry Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>items</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped list records and their item records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;List metadata (recordType=list: title, owner, description, event date/location, counts, access classification) and list-item records (recordType=listItem: ASIN, title, price, quantities needed/purchased, priority, rating, comments, variant, availability) scraped from public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries.&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped list records and their item records.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Lists and list items&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Amazon Wishlist &amp; Registry Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Lists &amp; items&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;recordType&quot;,
+          &quot;title&quot;,
+          &quot;type&quot;,
+          &quot;accessClassification&quot;,
+          &quot;asin&quot;,
+          &quot;price&quot;,
+          &quot;requestedQuantity&quot;,
+          &quot;purchasedQuantity&quot;,
+          &quot;eventDate&quot;,
+          &quot;description&quot;,
+          &quot;rating&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-amazon-wishlist-registry-scraper">Amazon Wishlist &amp; Registry Scraper</h2>
+<p>Scrape <strong>public and shareable Amazon wishlists, gift lists, baby registries, and wedding registries</strong> from URLs or bare wishlist IDs. Get list metadata (owner/title, description, event date, item counts) and per-item details — ASIN, title, price, quantity needed/purchased, priority, rating, and comments. This actor never searches for or enumerates people's lists; it only visits the exact URL(s) or ID(s) you provide.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Two input modes</strong> — paste full list URLs (<code>listUrls</code>) or bare wishlist IDs (<code>listIds</code> + <code>marketplace</code>)</li>
+<li><strong>Every current Amazon list URL shape</strong> — <code>/hz/wishlist/ls/&lt;ID&gt;</code>, the mobile <code>/gp/aw/ls?lid=&lt;ID&gt;</code>, <code>/gp/registry/wishlist/&lt;ID&gt;</code>, <code>/baby-reg/&lt;name&gt;/&lt;ID&gt;</code>, <code>/wedding/guest-view/&lt;ID&gt;</code> (and the older <code>/wedding/&lt;name&gt;/registry/&lt;ID&gt;</code>), and <code>/registries/gl/guest-view/&lt;ID&gt;</code></li>
+<li><strong>Classifies access before extracting anything</strong> — every list is tagged <code>PUBLIC</code>, <code>SHAREABLE</code>, <code>PRIVATE_OR_AUTH_REQUIRED</code>, <code>NOT_FOUND</code>, or <code>BLOCKED</code>; private/deleted lists return zero item records, never a fake empty &quot;success&quot;</li>
+<li><strong>Full pagination</strong> — follows Amazon's own &quot;See More&quot; pages until the list ends or <code>maxItems</code> is reached, so long lists are not silently truncated at the first screen</li>
+<li><strong>Real quantities, not guesses</strong> — <code>requestedQuantity</code> (&quot;Needs N&quot;) and <code>purchasedQuantity</code> (&quot;Has N&quot;) are separate, real fields</li>
+<li><strong>Registry metadata</strong> — baby/wedding/Gift List records include the real displayed event/arrival date and city-level event location, plus Amazon's own purchased-item count when shown</li>
+<li><strong>Empty fields are omitted</strong> — never a <code>null</code>/placeholder value</li>
+</ul>
+<h2 id="readme-privacy-please-read">Privacy — please read</h2>
+<p>This actor only scrapes the exact URL(s) or wishlist ID(s) you supply. It does not crawl Amazon's registry search to discover or enumerate people or lists. It never infers or exposes a delivery address. Only use it on lists that are genuinely public or explicitly shared with you.</p>
+<p><strong>Credential-free by design.</strong> No cookies, logins, API keys, or tokens are accepted or stored. A private list is reported honestly as <code>PRIVATE_OR_AUTH_REQUIRED</code>; the actor cannot open it.</p>
+<p><strong>Registry search is not supported</strong> — Amazon's public &quot;Find a registry&quot; search (<code>/registries/search</code>) redirects anonymous visitors to a sign-in page. That is a confirmed Amazon-side gate, not an actor limitation that extra code can bypass. Use the direct registry link instead.</p>
+<h2 id="readme-output-per-list-record-recordtype-list">Output: per-list record (<code>recordType: &quot;list&quot;</code>)</h2>
+<ul>
+<li><code>listId</code> — the wishlist/registry ID parsed from the URL or supplied in <code>listIds</code></li>
+<li><code>type</code> — <code>wishlist</code> / <code>giftList</code> / <code>babyRegistry</code> / <code>weddingRegistry</code> / <code>customRegistry</code></li>
+<li><code>title</code>, <code>ownerName</code> — the list/registry display name (only when Amazon shows it publicly)</li>
+<li><code>description</code> — the owner-written description, when the list shows one</li>
+<li><code>eventDate</code> — baby arrival/due date or registry event date, ISO <code>YYYY-MM-DD</code>, when displayed</li>
+<li><code>eventLocation</code> — city/state only (never a street address, unit, or postal code)</li>
+<li><code>declaredItemCount</code> — Amazon's own displayed item total, when shown</li>
+<li><code>purchasedItemCount</code> — Amazon's own &quot;N/M items purchased&quot; count, when shown</li>
+<li><code>extractedItemCount</code> — how many item records this run produced</li>
+<li><code>accessClassification</code> — <code>PUBLIC</code>, <code>SHAREABLE</code>, <code>PRIVATE_OR_AUTH_REQUIRED</code>, <code>NOT_FOUND</code>, or <code>BLOCKED</code></li>
+<li><code>sourceUrl</code>, <code>canonicalUrl</code> — the URL you supplied and the final resolved URL</li>
+<li><code>marketplace</code> — <code>{countryCode, domain, currency, language}</code></li>
+<li><code>recordType: &quot;list&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-output-per-item-record-recordtype-listitem">Output: per-item record (<code>recordType: &quot;listItem&quot;</code>)</h2>
+<ul>
+<li><code>listId</code>, <code>listItemId</code> — Amazon's own stable per-item ID (classic wishlist <code>data-itemid</code>, Gift List entry UUID, a wedding-registry card's ASIN, or the entry UUID of a wedding gift-fund card)</li>
+<li><code>position</code> — 1-based position in the list as scraped (output order may differ for price sorts)</li>
+<li><code>asin</code>, <code>title</code>, <code>url</code>, <code>imageUrl</code>, <code>brand</code></li>
+<li><code>price</code>, <code>listPrice</code> — <code>{value, currency, display}</code>, only when Amazon shows a parseable amount</li>
+<li><code>rating</code>, <code>ratingsCount</code> — only when the item shows a rating</li>
+<li><code>requestedQuantity</code> — &quot;Needs N&quot;/&quot;N of M purchased&quot; requested count</li>
+<li><code>purchasedQuantity</code> — &quot;Has N&quot;/purchased count</li>
+<li><code>priority</code> — <code>high</code>/<code>medium</code>/<code>low</code>, <code>Most Wanted</code> (Gift List), or <code>Must Have</code> (baby registry), only when the owner/badge sets one</li>
+<li><code>comment</code> — the owner's note, when present</li>
+<li><code>variant</code> — selected size/color/style text, when shown</li>
+<li><code>availabilityText</code>, <code>discountText</code> — raw availability/discount text, when shown</li>
+<li><code>badge</code> — real status badge (<code>{label, category}</code>), e.g. <code>{&quot;label&quot;: &quot;Best Seller&quot;, &quot;category&quot;: &quot;in Packing Tape&quot;}</code></li>
+<li><code>isIdea</code> — <code>true</code> only for a free-text &quot;idea&quot; entry with no linked product (no <code>asin</code>/<code>url</code>/<code>imageUrl</code>)</li>
+<li><code>listUrl</code>, <code>marketplace</code></li>
+<li><code>recordType: &quot;listItem&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>listUrls</code></td>
+<td>array</td>
+<td>–</td>
+<td>Public/shareable list URLs (any supported Amazon list/registry shape)</td>
+</tr>
+<tr>
+<td><code>listIds</code></td>
+<td>array</td>
+<td>–</td>
+<td>Bare wishlist IDs, opened on the selected marketplace</td>
+</tr>
+<tr>
+<td><code>marketplace</code></td>
+<td>select</td>
+<td><code>amazon.com</code></td>
+<td>Marketplace used to build URLs from <code>listIds</code> (23 Amazon domains)</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Max items per list (1–10,000); pagination stops at this cap or the real end of the list</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>select</td>
+<td>list default</td>
+<td><code>date-added</code> / <code>priority</code> / <code>price-asc</code> / <code>price-desc</code> / <code>custom</code> for wishlists</td>
+</tr>
+<tr>
+<td><code>proxyConfiguration</code></td>
+<td>object</td>
+<td>AUTO</td>
+<td>Apify proxy; the actor escalates automatically only if Amazon blocks the request</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-scrape-a-public-wishlist">Example: scrape a public wishlist</h3>
+<pre><code class="language-json">{
+  &quot;listUrls&quot;: [&quot;https://www.amazon.com/hz/wishlist/ls/2PBHI0DGWAAAF&quot;],
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-ids-mode-across-two-marketplaces">Example: IDs mode across two marketplaces</h3>
+<pre><code class="language-json">{
+  &quot;listIds&quot;: [&quot;2PBHI0DGWAAAF&quot;],
+  &quot;marketplace&quot;: &quot;amazon.co.uk&quot;,
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-baby-registry-and-wedding-registry">Example: baby registry and wedding registry</h3>
+<pre><code class="language-json">{
+  &quot;listUrls&quot;: [
+    &quot;https://www.amazon.com/baby-reg/example-name/EXAMPLEID123&quot;,
+    &quot;https://www.amazon.com/wedding/guest-view/EXAMPLEID456&quot;
+  ],
+  &quot;maxItems&quot;: 200
+}
+</code></pre>
+<h3 id="readme-example-a-gift-list-school-supply-drive-birthday-list">Example: a Gift List (school supply drive / birthday list)</h3>
+<pre><code class="language-json">{
+  &quot;listUrls&quot;: [&quot;https://www.amazon.com/registries/gl/guest-view/EXAMPLEID123&quot;],
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Charity and hospital donation drives</strong> — export a shared wishlist so volunteers see current needs</li>
+<li><strong>Classroom supply lists</strong> — track what teachers still need, including requested vs purchased counts</li>
+<li><strong>Wedding/baby registry gift coordination</strong> — see remaining needs and the registry's event date</li>
+<li><strong>Gift-list price monitoring</strong> — watch current prices and rating changes on a shared list</li>
+<li><strong>Archiving a list you own or administer</strong> — export it before editing or deleting it</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Can this actor find someone's wishlist for me?</strong> No. It only opens URLs or wishlist IDs you provide. Amazon's public registry search requires sign-in, and this actor never enumerates people.</p>
+<p><strong>What happens with a private or deleted list?</strong> You get a list record with <code>accessClassification: &quot;PRIVATE_OR_AUTH_REQUIRED&quot;</code> or <code>&quot;NOT_FOUND&quot;</code> and zero item records — never a fake &quot;0 items, success&quot; result.</p>
+<p><strong>What does <code>BLOCKED</code> mean?</strong> Every retry, including the automatic residential fallback, hit an Amazon anti-bot/CAPTCHA page instead of the list. The list may exist; re-run later. It is never reported as <code>NOT_FOUND</code>.</p>
+<p><strong>Does it show delivery addresses?</strong> No. It never infers or exposes a delivery address. Registry event locations are reduced to city/state and street-like text is refused.</p>
+<p><strong>Why is my price in a different currency than the marketplace?</strong> Amazon renders cross-border prices in the visitor's local currency (for example, a US registry viewed from Pakistan can show <code>PKR</code>). The <code>price.currency</code> field reports the currency Amazon actually displayed; <code>marketplace.currency</code> reports the list's own marketplace currency.</p>
+<p><strong>Why are some items missing?</strong> Classic wishlists hide items the owner marked as purchased (the public page only offers an &quot;Unpurchased&quot; filter); some registries hide purchased items the same way. Gift-fund/contribution entries and deleted items may have no product card at all. When a gift-fund card does render, it is returned with its displayed name and a stable entry ID, but with no fabricated ASIN, product URL, or price. Amazon's own counters can therefore be higher than <code>extractedItemCount</code>.</p>
+<p><strong>Why are some fields missing on some items?</strong> Amazon only shows priority labels, comments, ratings, variants, and availability text when the owner or product has that data. Fields are included only with real evidence.</p>
+<p><strong>Why does an item have no <code>asin</code>/<code>url</code>/<code>imageUrl</code>?</strong> It is a free-text &quot;idea&quot; entry with no linked product (<code>isIdea: true</code>). This is distinct from an extraction gap.</p>
+<p><strong>Can I scrape my own private list?</strong> No. This actor is credential-free and does not accept a session cookie. Set the list to public/shareable and use its link.</p>
+<p><strong>How many items can I get per list?</strong> Up to <code>maxItems</code> (maximum 10,000). Long lists are followed through Amazon's own pagination pages, not just the first screen.</p>
+<p><strong>Is <code>sortBy</code> honored on every list type?</strong> <code>date-added</code>, <code>priority</code>, <code>price-asc</code>, <code>price-desc</code>, and <code>custom</code> map to the live wishlist sort control. Registry pages expose their own fixed sort sets; an unsupported value falls back to the list's default order. For price sorts, the actor re-sorts the parsed prices in Python so the output is strictly monotonic even when Amazon's DOM order is not.</p>
+<p><strong>Why is a non-English marketplace showing English or native-language text?</strong> The actor requests Amazon's English cross-border view. Some marketplaces (confirmed: Germany, Japan) honor it; others (confirmed: Turkey; likely Saudi Arabia/Sweden/UAE/Egypt) render natively. Titles/comments may be English or native; prices, ratings, ASINs, and URLs remain correct. Machine-translation is never fabricated.</p>
+<p><strong>What if I supply the same list twice?</strong> It is fetched and returned once, even when the duplicate is a different URL form (exact, mobile <code>lid=</code>, or share-ref variant) of the same underlying list.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/amazon-wishlist-and-registry-scraper/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>4U8HxHY1EyImWcyfY</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

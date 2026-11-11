@@ -1,0 +1,757 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-ni5By0ozAsF+umYY1vpzk9O4LIMNFgD33Hnc+B/cx2c=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Southeast Asia Property Listings by Country &amp; Bedroom Count | Dataspryva</title><meta name="description" content="Search PropertyGuru for-sale and for-rent listings across Singapore, Malaysia, Thailand and Indonesia by property type, bedrooms and price, with agent details, area and photos per "><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/"><meta property="og:title" content="Southeast Asia Property Listings by Country &amp; Bedroom Count | Dataspryva"><meta property="og:description" content="Search PropertyGuru for-sale and for-rent listings across Singapore, Malaysia, Thailand and Indonesia by property type, bedrooms and price, with agent details, area and photos per "><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#webpage","name":"Southeast Asia Property Listings by Country & Bedroom Count","description":"Search PropertyGuru for-sale and for-rent listings across Singapore, Malaysia, Thailand and Indonesia by property type, bedrooms and price, with agent details, area and photos per listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#article","headline":"Southeast Asia Property Listings by Country & Bedroom Count","name":"Southeast Asia Property Listings by Country & Bedroom Count","description":"Search PropertyGuru for-sale and for-rent listings across Singapore, Malaysia, Thailand and Indonesia by property type, bedrooms and price, with agent details, area and photos per listing.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#webpage"},"inLanguage":"en","dateModified":"2026-11-01T04:43:17.883Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Southeast Asia Property Listings by Country & Bedroom Count","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/southeast-asia-property-listings-by-country/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Southeast Asia Property Listings by Country &amp; Bedroom Count</span></div><section id="overview"><h1 class="doc-title">Southeast Asia Property Listings by Country &amp; Bedroom Count</h1><p class="lede">Search PropertyGuru for-sale and for-rent listings across Singapore, Malaysia, Thailand and Indonesia by property type, bedrooms and price, with agent details, area and photos per listing.</p><p class="summary">Southeast Asia Property Listings by Country &amp; Bedroom Count is an Apify Actor published by Dataspryva. It accepts 22 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/southeast-asia-property-listings-by-country">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/qPkm9zhap3uCleMSt/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search listings by filters, or scrape specific search, listing and project URLs.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Market to search (mode=search). Singapore and Malaysia use PropertyGuru; Thailand uses DDProperty.</td></tr><tr><td><code>listingType</code></td><td>string</td><td>optional</td><td>Sale or rental listings (mode=search).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Search listings by filters, or scrape specific search, listing and project URLs.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Market to search (mode=search). Singapore and Malaysia use PropertyGuru; Thailand uses DDProperty.</td></tr><tr><td><code>listingType</code></td><td>string</td><td>optional</td><td>Sale or rental listings (mode=search).</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Free-text area, project, MRT station or keyword, for example &#x27;Thomson&#x27;, &#x27;Mont Kiara&#x27; or &#x27;Sukhumvit&#x27; (mode=search).</td></tr><tr><td><code>propertyType</code></td><td>string</td><td>optional</td><td>Filter by property type (mode=search). Types a market does not have are ignored with a status note.</td></tr><tr><td><code>district</code></td><td>string</td><td>optional</td><td>Filter by Singapore district D01-D28 (mode=search). Ignored for Malaysia and Thailand.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Minimum asking price in the market&#x27;s local currency (SGD, MYR or THB).</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Maximum asking price in the market&#x27;s local currency (SGD, MYR or THB).</td></tr><tr><td><code>bedrooms</code></td><td>array</td><td>optional</td><td>Return any of these exact bedroom counts. 0 means studio. Leave empty for all.</td></tr><tr><td><code>bathrooms</code></td><td>array</td><td>optional</td><td>Return any of these exact bathroom counts. Leave empty for all.</td></tr><tr><td><code>minSize</code></td><td>integer</td><td>optional</td><td>Minimum floor area in square feet for Singapore and Malaysia, square metres for Thailand.</td></tr><tr><td><code>maxSize</code></td><td>integer</td><td>optional</td><td>Maximum floor area in square feet for Singapore and Malaysia, square metres for Thailand.</td></tr><tr><td><code>tenure</code></td><td>string</td><td>optional</td><td>Freehold or leasehold (mode=search, sale only).</td></tr><tr><td><code>furnishing</code></td><td>string</td><td>optional</td><td>Furnishing level of the property (mode=search).</td></tr><tr><td><code>floorLevel</code></td><td>string</td><td>optional</td><td>Floor level of the unit (mode=search).</td></tr><tr><td><code>availability</code></td><td>string</td><td>optional</td><td>Move-in availability (mode=search, rent only).</td></tr><tr><td><code>maxDistanceToMrt</code></td><td>string</td><td>optional</td><td>Maximum walking distance to an MRT/LRT station (Singapore and Thailand).</td></tr><tr><td><code>sort</code></td><td>string</td><td>optional</td><td>Order of the results (mode=search).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Stop after this many listings.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Stop after this many search-result pages. The site&#x27;s own last page also stops the run.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Open each listing page for description, agent mobile, coordinates, transit, schools, amenities and media. One extra request per listing.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>Paste PropertyGuru SG/MY or DDProperty TH search-result, listing or project URLs (mode=byUrl).</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search Singapore, Malaysia and Thailand property listings, or paste search, listing and project URLs. Filters, detail enrichment and listing limits are controlled here.&quot;,
+  &quot;properties&quot;: {
+    &quot;availability&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Move-in availability (mode=search, rent only).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;immediate&quot;,
+        &quot;within1Month&quot;,
+        &quot;oneToTwoMonths&quot;,
+        &quot;twoToThreeMonths&quot;,
+        &quot;afterThreeMonths&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any availability&quot;,
+        &quot;Immediately&quot;,
+        &quot;Within 1 month&quot;,
+        &quot;1-2 months&quot;,
+        &quot;2-3 months&quot;,
+        &quot;After 3 months&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Available from&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;bathrooms&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Return any of these exact bathroom counts. Leave empty for all.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;1&quot;,
+          &quot;2&quot;,
+          &quot;3&quot;,
+          &quot;4&quot;,
+          &quot;5&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;1 bathroom&quot;,
+          &quot;2 bathrooms&quot;,
+          &quot;3 bathrooms&quot;,
+          &quot;4 bathrooms&quot;,
+          &quot;5+ bathrooms&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Bathrooms&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;bedrooms&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Return any of these exact bedroom counts. 0 means studio. Leave empty for all.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;0&quot;,
+          &quot;1&quot;,
+          &quot;2&quot;,
+          &quot;3&quot;,
+          &quot;4&quot;,
+          &quot;5&quot;
+        ],
+        &quot;enumTitles&quot;: [
+          &quot;Studio&quot;,
+          &quot;1 bedroom&quot;,
+          &quot;2 bedrooms&quot;,
+          &quot;3 bedrooms&quot;,
+          &quot;4 bedrooms&quot;,
+          &quot;5+ bedrooms&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Bedrooms&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;SG&quot;,
+      &quot;description&quot;: &quot;Market to search (mode=search). Singapore and Malaysia use PropertyGuru; Thailand uses DDProperty.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;SG&quot;,
+        &quot;MY&quot;,
+        &quot;TH&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Singapore (PropertyGuru)&quot;,
+        &quot;Malaysia (PropertyGuru)&quot;,
+        &quot;Thailand (DDProperty)&quot;
+      ],
+      &quot;prefill&quot;: &quot;SG&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;district&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by Singapore district D01-D28 (mode=search). Ignored for Malaysia and Thailand.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;D01&quot;,
+        &quot;D02&quot;,
+        &quot;D03&quot;,
+        &quot;D04&quot;,
+        &quot;D05&quot;,
+        &quot;D06&quot;,
+        &quot;D07&quot;,
+        &quot;D08&quot;,
+        &quot;D09&quot;,
+        &quot;D10&quot;,
+        &quot;D11&quot;,
+        &quot;D12&quot;,
+        &quot;D13&quot;,
+        &quot;D14&quot;,
+        &quot;D15&quot;,
+        &quot;D16&quot;,
+        &quot;D17&quot;,
+        &quot;D18&quot;,
+        &quot;D19&quot;,
+        &quot;D20&quot;,
+        &quot;D21&quot;,
+        &quot;D22&quot;,
+        &quot;D23&quot;,
+        &quot;D24&quot;,
+        &quot;D25&quot;,
+        &quot;D26&quot;,
+        &quot;D27&quot;,
+        &quot;D28&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any district&quot;,
+        &quot;D01 Boat Quay / Raffles Place / Marina&quot;,
+        &quot;D02 Chinatown / Tanjong Pagar&quot;,
+        &quot;D03 Alexandra / Commonwealth&quot;,
+        &quot;D04 Harbourfront / Telok Blangah&quot;,
+        &quot;D05 Buona Vista / West Coast / Clementi&quot;,
+        &quot;D06 City Hall / Clarke Quay&quot;,
+        &quot;D07 Beach Road / Bugis / Rochor&quot;,
+        &quot;D08 Farrer Park / Serangoon Road&quot;,
+        &quot;D09 Orchard / River Valley&quot;,
+        &quot;D10 Tanglin / Holland / Bukit Timah&quot;,
+        &quot;D11 Newton / Novena&quot;,
+        &quot;D12 Balestier / Toa Payoh&quot;,
+        &quot;D13 Macpherson / Potong Pasir&quot;,
+        &quot;D14 Eunos / Geylang / Paya Lebar&quot;,
+        &quot;D15 East Coast / Marine Parade&quot;,
+        &quot;D16 Bedok / Upper East Coast&quot;,
+        &quot;D17 Changi Airport / Changi Village&quot;,
+        &quot;D18 Pasir Ris / Tampines&quot;,
+        &quot;D19 Hougang / Punggol / Sengkang&quot;,
+        &quot;D20 Ang Mo Kio / Bishan / Thomson&quot;,
+        &quot;D21 Clementi Park / Upper Bukit Timah&quot;,
+        &quot;D22 Boon Lay / Jurong / Tuas&quot;,
+        &quot;D23 Dairy Farm / Bukit Panjang / Choa Chu Kang&quot;,
+        &quot;D24 Lim Chu Kang / Tengah&quot;,
+        &quot;D25 Admiralty / Woodlands&quot;,
+        &quot;D26 Mandai / Upper Thomson&quot;,
+        &quot;D27 Sembawang / Yishun&quot;,
+        &quot;D28 Seletar / Yio Chu Kang&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Singapore district&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;floorLevel&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Floor level of the unit (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;ground&quot;,
+        &quot;low&quot;,
+        &quot;mid&quot;,
+        &quot;high&quot;,
+        &quot;penthouse&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any floor&quot;,
+        &quot;Ground floor&quot;,
+        &quot;Low floor&quot;,
+        &quot;Mid floor&quot;,
+        &quot;High floor&quot;,
+        &quot;Penthouse&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Floor level&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;furnishing&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Furnishing level of the property (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;unfurnished&quot;,
+        &quot;partially&quot;,
+        &quot;fully&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any furnishing&quot;,
+        &quot;Unfurnished&quot;,
+        &quot;Partially furnished&quot;,
+        &quot;Fully furnished&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Furnishing&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Open each listing page for description, agent mobile, coordinates, transit, schools, amenities and media. One extra request per listing.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include detail enrichment&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;listingType&quot;: {
+      &quot;default&quot;: &quot;sale&quot;,
+      &quot;description&quot;: &quot;Sale or rental listings (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;sale&quot;,
+        &quot;rent&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;For sale&quot;,
+        &quot;For rent&quot;
+      ],
+      &quot;prefill&quot;: &quot;sale&quot;,
+      &quot;title&quot;: &quot;Listing type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxDistanceToMrt&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Maximum walking distance to an MRT/LRT station (Singapore and Thailand).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;250m&quot;,
+        &quot;500m&quot;,
+        &quot;750m&quot;,
+        &quot;1km&quot;,
+        &quot;1.5km&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any distance&quot;,
+        &quot;Under 250 m&quot;,
+        &quot;Under 500 m&quot;,
+        &quot;Under 750 m&quot;,
+        &quot;Under 1 km&quot;,
+        &quot;Under 1.5 km&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Maximum distance to MRT&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Stop after this many listings.&quot;,
+      &quot;maximum&quot;: 100000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 2,
+      &quot;title&quot;: &quot;Maximum listings&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Stop after this many search-result pages. The site&#x27;s own last page also stops the run.&quot;,
+      &quot;maximum&quot;: 10000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Maximum search pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPrice&quot;: {
+      &quot;description&quot;: &quot;Maximum asking price in the market&#x27;s local currency (SGD, MYR or THB).&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum price&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxSize&quot;: {
+      &quot;description&quot;: &quot;Maximum floor area in square feet for Singapore and Malaysia, square metres for Thailand.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Maximum floor area&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minPrice&quot;: {
+      &quot;description&quot;: &quot;Minimum asking price in the market&#x27;s local currency (SGD, MYR or THB).&quot;,
+      &quot;maximum&quot;: 1000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum price&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minSize&quot;: {
+      &quot;description&quot;: &quot;Minimum floor area in square feet for Singapore and Malaysia, square metres for Thailand.&quot;,
+      &quot;maximum&quot;: 1000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum floor area&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;search&quot;,
+      &quot;description&quot;: &quot;Search listings by filters, or scrape specific search, listing and project URLs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;search&quot;,
+        &quot;byUrl&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search listings by filters&quot;,
+        &quot;Scrape these URLs&quot;
+      ],
+      &quot;prefill&quot;: &quot;search&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;propertyType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by property type (mode=search). Types a market does not have are ignored with a status note.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;condo&quot;,
+        &quot;apartment&quot;,
+        &quot;hdb&quot;,
+        &quot;landed&quot;,
+        &quot;bungalow&quot;,
+        &quot;semiDetached&quot;,
+        &quot;terrace&quot;,
+        &quot;land&quot;,
+        &quot;commercial&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any type&quot;,
+        &quot;Condominium&quot;,
+        &quot;Apartment&quot;,
+        &quot;HDB flat (Singapore)&quot;,
+        &quot;Landed house&quot;,
+        &quot;Bungalow&quot;,
+        &quot;Semi-detached house&quot;,
+        &quot;Terrace house&quot;,
+        &quot;Land&quot;,
+        &quot;Commercial&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Property type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchQuery&quot;: {
+      &quot;description&quot;: &quot;Free-text area, project, MRT station or keyword, for example &#x27;Thomson&#x27;, &#x27;Mont Kiara&#x27; or &#x27;Sukhumvit&#x27; (mode=search).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Keyword or area&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sort&quot;: {
+      &quot;default&quot;: &quot;recommended&quot;,
+      &quot;description&quot;: &quot;Order of the results (mode=search).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;recommended&quot;,
+        &quot;newest&quot;,
+        &quot;priceAsc&quot;,
+        &quot;priceDesc&quot;,
+        &quot;psfAsc&quot;,
+        &quot;psfDesc&quot;,
+        &quot;sizeAsc&quot;,
+        &quot;sizeDesc&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Recommended&quot;,
+        &quot;Newest first&quot;,
+        &quot;Price: low to high&quot;,
+        &quot;Price: high to low&quot;,
+        &quot;Price per area: low to high&quot;,
+        &quot;Price per area: high to low&quot;,
+        &quot;Size: low to high&quot;,
+        &quot;Size: high to low&quot;
+      ],
+      &quot;prefill&quot;: &quot;recommended&quot;,
+      &quot;title&quot;: &quot;Sort order&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;startUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Paste PropertyGuru SG/MY or DDProperty TH search-result, listing or project URLs (mode=byUrl).&quot;,
+      &quot;editor&quot;: &quot;requestListSources&quot;,
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;url&quot;: {
+            &quot;description&quot;: &quot;PropertyGuru or DDProperty URL.&quot;,
+            &quot;title&quot;: &quot;URL&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Search, listing or project URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;tenure&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Freehold or leasehold (mode=search, sale only).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;freehold&quot;,
+        &quot;leasehold&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any tenure&quot;,
+        &quot;Freehold&quot;,
+        &quot;Leasehold&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Tenure&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;PropertyGuru &amp; DDProperty Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped property listings, including enriched detail fields when enabled.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Property listings from Singapore, Malaysia and Thailand with prices, property details, agent or developer contact, transit, schools, project unit types and media.&quot;,
+  &quot;properties&quot;: {
+    &quot;listings&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped property listings, including enriched detail fields when enabled.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Property listings&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;PropertyGuru &amp; DDProperty Listings Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Listings&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;listingId&quot;,
+          &quot;title&quot;,
+          &quot;price&quot;,
+          &quot;priceText&quot;,
+          &quot;currency&quot;,
+          &quot;propertyType&quot;,
+          &quot;bedrooms&quot;,
+          &quot;bathrooms&quot;,
+          &quot;floorArea&quot;,
+          &quot;floorAreaUnit&quot;,
+          &quot;address&quot;,
+          &quot;district&quot;,
+          &quot;country&quot;,
+          &quot;agentName&quot;,
+          &quot;agentMobile&quot;,
+          &quot;projectName&quot;,
+          &quot;listingUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-propertyguru-ddproperty-listings-scraper">PropertyGuru &amp; DDProperty Listings Scraper</h2>
+<p>Collect property listings from Singapore and Malaysia on PropertyGuru and from Thailand on DDProperty. Search by keyword, property type, district, price, bedrooms, bathrooms, size, tenure, furnishing, floor level, availability, MRT distance and sort order, or paste search, listing and project URLs. Every record keeps the source's price label, area unit and contact details instead of flattening them.</p>
+<h2 id="readme-what-it-does">What it does</h2>
+<ul>
+<li><strong>Three live markets</strong> — Singapore (<code>propertyguru.com.sg</code>), Malaysia (<code>propertyguru.com.my</code>) and Thailand (<code>ddproperty.com/en</code>) with local currencies and area units.</li>
+<li><strong>Filter-first search</strong> — keyword or area, sale or rent, property type, Singapore district D01-D28, price, exact bedroom and bathroom chips, floor size, tenure, furnishing, floor level, move-in availability, MRT distance and eight sort orders.</li>
+<li><strong>Paste any URL</strong> — search-result URLs paginate, listing URLs return one detailed record, project URLs include the project's unit types. The market is inferred from the host.</li>
+<li><strong>Optional detail enrichment</strong> — opens each listing page for the description, agent mobile, licence, rating, agency, coordinates, nearby transit and schools, amenities, facilities, floor plans, videos and virtual tours.</li>
+<li><strong>Project and new-launch aware</strong> — reads unit-level prices, bedroom and bathroom counts, floor-area ranges and floor plans; development contact replaces agent contact where the source publishes a developer instead of an agent.</li>
+<li><strong>Deep pagination with deduplication</strong> — follows the site's own page count until your item or page limit, and removes repeated promoted cards.</li>
+</ul>
+<h2 id="readme-output-per-listing">Output per listing</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td><code>recordType</code>, <code>listingId</code>, <code>title</code>, <code>listingUrl</code>, <code>transactionType</code>, <code>country</code>, <code>sourceDomain</code>, <code>sourceUrl</code>, <code>sourcePage</code>, <code>statusCode</code>, <code>listerType</code>, <code>accountType</code></td>
+</tr>
+<tr>
+<td>Price</td>
+<td><code>price</code>, <code>priceText</code>, <code>priceType</code>, <code>priceMin</code>, <code>priceMax</code>, <code>currency</code>, <code>pricePerSqft</code>, <code>pricePerSqm</code>, <code>pricePerArea</code>, <code>pricePerAreaUnit</code></td>
+</tr>
+<tr>
+<td>Property</td>
+<td><code>propertyType</code>, <code>propertyTypeCode</code>, <code>propertyTypeGroup</code>, <code>bedrooms</code>, <code>bathrooms</code>, <code>floorArea</code>, <code>floorAreaUnit</code>, <code>floorAreaSqft</code>, <code>floorAreaSqm</code>, <code>landArea</code>, <code>landAreaUnit</code>, <code>landAreaSqft</code>, <code>landAreaSqm</code>, <code>tenure</code>, <code>tenureCode</code>, <code>completionYear</code>, <code>furnishing</code>, <code>floorLevel</code>, <code>availability</code>, <code>isNewProject</code>, <code>isVerified</code>, <code>isOfficialListing</code>, <code>isDeveloperListing</code></td>
+</tr>
+<tr>
+<td>Project</td>
+<td><code>projectName</code>, <code>projectId</code>, <code>projectUrl</code>, <code>developer</code>, <code>developerUrl</code>, <code>developerWhatsapp</code>, <code>unitTypes</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>address</code>, <code>fullAddress</code>, <code>shortAddress</code>, <code>streetName</code>, <code>district</code>, <code>districtCode</code>, <code>region</code>, <code>regionCode</code>, <code>postalCode</code>, <code>latitude</code>, <code>longitude</code></td>
+</tr>
+<tr>
+<td>Nearby</td>
+<td><code>nearbyMrt</code>, <code>nearestTransit</code>, <code>nearbySchools</code></td>
+</tr>
+<tr>
+<td>Contact</td>
+<td><code>agentId</code>, <code>agentName</code>, <code>agentProfileUrl</code>, <code>agentLicense</code>, <code>agentVerified</code>, <code>agentJobTitle</code>, <code>agentMobile</code>, <code>agentRating</code>, <code>agentReviewCount</code>, <code>agencyName</code>, <code>agencyId</code></td>
+</tr>
+<tr>
+<td>Media</td>
+<td><code>imageUrls</code>, <code>imageCount</code>, <code>thumbnailUrl</code>, <code>floorPlanUrls</code>, <code>videoUrls</code>, <code>virtualTourUrls</code></td>
+</tr>
+<tr>
+<td>Detail</td>
+<td><code>headline</code>, <code>description</code>, <code>amenities</code>, <code>facilities</code>, <code>highlights</code></td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>postedOn</code>, <code>postedOnUnix</code>, <code>recency</code>, <code>scrapedAt</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Empty fields are omitted from each record instead of being returned as null. <code>area</code> is kept as an alias of <code>floorArea</code> for compatibility with older datasets.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>select, required</td>
+<td><code>search</code></td>
+<td>Search by filters, or scrape pasted URLs.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>select</td>
+<td><code>SG</code></td>
+<td><code>SG</code>, <code>MY</code> or <code>TH</code> (mode=search).</td>
+</tr>
+<tr>
+<td><code>listingType</code></td>
+<td>select</td>
+<td><code>sale</code></td>
+<td>Sale or rent.</td>
+</tr>
+<tr>
+<td><code>searchQuery</code></td>
+<td>text</td>
+<td>–</td>
+<td>Area, project, station or keyword.</td>
+</tr>
+<tr>
+<td><code>propertyType</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Condo, apartment, HDB, landed, bungalow, semi-detached, terrace, land or commercial.</td>
+</tr>
+<tr>
+<td><code>district</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Singapore district D01-D28.</td>
+</tr>
+<tr>
+<td><code>minPrice</code> / <code>maxPrice</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Price range in SGD, MYR or THB.</td>
+</tr>
+<tr>
+<td><code>bedrooms</code></td>
+<td>multi-select</td>
+<td>–</td>
+<td>Studio (0) through 5+.</td>
+</tr>
+<tr>
+<td><code>bathrooms</code></td>
+<td>multi-select</td>
+<td>–</td>
+<td>1 through 5+.</td>
+</tr>
+<tr>
+<td><code>minSize</code> / <code>maxSize</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Floor area in sqft (SG/MY) or sqm (TH).</td>
+</tr>
+<tr>
+<td><code>tenure</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Freehold or leasehold (sale only).</td>
+</tr>
+<tr>
+<td><code>furnishing</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Unfurnished, partially or fully furnished.</td>
+</tr>
+<tr>
+<td><code>floorLevel</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Ground, low, mid, high or penthouse.</td>
+</tr>
+<tr>
+<td><code>availability</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>Immediate to after three months (rent only).</td>
+</tr>
+<tr>
+<td><code>maxDistanceToMrt</code></td>
+<td>select</td>
+<td><code>any</code></td>
+<td>250 m to 1.5 km (SG/TH).</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>select</td>
+<td><code>recommended</code></td>
+<td>Newest, price, price per area or size.</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Stop after this many listings.</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Stop after this many search pages.</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Enrich each listing with detail-page fields.</td>
+</tr>
+<tr>
+<td><code>startUrls</code></td>
+<td>URL list</td>
+<td>–</td>
+<td>Search, listing or project URLs (mode=byUrl).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-two-bedroom-condos-in-singapore-district-20">Example: two-bedroom condos in Singapore District 20</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;SG&quot;,
+  &quot;listingType&quot;: &quot;sale&quot;,
+  &quot;propertyType&quot;: &quot;condo&quot;,
+  &quot;district&quot;: &quot;D20&quot;,
+  &quot;bedrooms&quot;: [&quot;2&quot;],
+  &quot;maxItems&quot;: 20,
+  &quot;includeDetails&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-rentals-in-kuala-lumpur">Example: rentals in Kuala Lumpur</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;MY&quot;,
+  &quot;listingType&quot;: &quot;rent&quot;,
+  &quot;searchQuery&quot;: &quot;Mont Kiara&quot;,
+  &quot;minPrice&quot;: 2000,
+  &quot;maxPrice&quot;: 6000,
+  &quot;furnishing&quot;: &quot;fully&quot;,
+  &quot;maxItems&quot;: 30
+}
+</code></pre>
+<h3 id="readme-example-bangkok-condos-near-the-mrt">Example: Bangkok condos near the MRT</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;country&quot;: &quot;TH&quot;,
+  &quot;listingType&quot;: &quot;sale&quot;,
+  &quot;propertyType&quot;: &quot;condo&quot;,
+  &quot;searchQuery&quot;: &quot;Sukhumvit&quot;,
+  &quot;maxDistanceToMrt&quot;: &quot;500m&quot;,
+  &quot;sort&quot;: &quot;priceAsc&quot;,
+  &quot;maxItems&quot;: 20
+}
+</code></pre>
+<h3 id="readme-example-paste-a-search-page-and-a-project-page">Example: paste a search page and a project page</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;byUrl&quot;,
+  &quot;startUrls&quot;: [
+    { &quot;url&quot;: &quot;https://www.propertyguru.com.sg/property-for-sale?district_code=D09&quot; },
+    { &quot;url&quot;: &quot;https://www.propertyguru.com.my/property-listing/project/enlace-suite-ii-for-sale-by-amona-development-sdn-bhd-501086101&quot; }
+  ],
+  &quot;maxItems&quot;: 50
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Market comparison</strong> — compare asking prices and price per area across Singapore, Malaysia and Thailand in one dataset.</li>
+<li><strong>Lead research</strong> — collect the public agent name, mobile, licence and agency for non-project listings, or the developer contact for project listings.</li>
+<li><strong>Investment screening</strong> — combine district, price, size, tenure and MRT filters to shortlist candidates.</li>
+<li><strong>New-launch tracking</strong> — follow project pages with unit-level prices, layouts and floor plans.</li>
+<li><strong>Listing audits</strong> — re-scrape a saved set of URLs to spot price or availability changes.</li>
+</ul>
+<h2 id="readme-notes-and-limitations">Notes and limitations</h2>
+<ul>
+<li><strong>Indonesia is not available.</strong> The PropertyGuru Indonesia marketplace closed on 2023-11-30, so the actor reports that closure instead of returning empty data.</li>
+<li><strong>Thailand uses DDProperty's English site.</strong> That is the live Thai marketplace for this listing data; the old PropertyGuru Thailand domain no longer serves listings.</li>
+<li><strong>Agent email is not published.</strong> The actor returns the public agent mobile, licence, profile and rating where the source shows them; it does not invent an email address.</li>
+<li><strong>Project pricing is a range or a &quot;from&quot; price.</strong> When the source only gives unit ranges, the record carries <code>priceMin</code> and <code>priceMax</code> plus the source label rather than a made-up single price.</li>
+<li><strong>Short links are not supported.</strong> Paste canonical search, listing or project URLs.</li>
+<li><strong>Pasted detail pages can be protected.</strong> If a Thai listing or project page is blocked but the same id still appears in search, the record is rebuilt from search-card data. Detail-only fields such as the description, amenities and coordinates are then omitted, and the run status reports how many records used this fallback.</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Is this affiliated with PropertyGuru or DDProperty?</strong>
+No. This is an independent, third-party actor that reads publicly visible listing pages. It is not operated by or affiliated with either marketplace.</p>
+<p><strong>Do I need an account, cookie or API key?</strong>
+No. The actor works without credentials or a proxy setup.</p>
+<p><strong>Why is the agent mobile missing on some records?</strong>
+Mobile numbers are only published on some listing pages. Project and new-launch listings usually show a developer contact instead, so those records carry developer fields rather than agent fields. Email addresses are not published at all.</p>
+<p><strong>Why does one listing have <code>price</code> and another only <code>priceMin</code>/<code>priceMax</code>?</strong>
+A fixed asking price becomes <code>price</code>; a range or a project with several unit prices becomes <code>priceMin</code>/<code>priceMax</code>. <code>priceText</code> always keeps the label shown by the source, including &quot;Price on ask&quot; or &quot;Starting From&quot;.</p>
+<p><strong>Why is <code>floorAreaUnit</code> sometimes sqft and sometimes sqm?</strong>
+Singapore and Malaysia publish square feet; Thailand publishes square metres. Both <code>floorAreaSqft</code> and <code>floorAreaSqm</code> are provided so records from different markets can be compared directly.</p>
+<p><strong>What happens when a filter is not available in a market?</strong>
+The actor ignores that filter and says so in the run's status message. Singapore districts, for example, do not apply to Malaysia or Thailand.</p>
+<p><strong>How many requests does a run make?</strong>
+One request per search page. With detail enrichment on, it also makes one request per emitted listing. Turning enrichment off gives the fastest and smallest run.</p>
+<p><strong>Can I scrape more than a few thousand listings?</strong>
+Yes. Pagination follows the site's own last page and stops at <code>maxItems</code> or <code>maxPages</code>; duplicate promoted cards are removed. Very large runs take longer because pages are read at a polite pace.</p>
+<p><strong>Are images and media links usable?</strong>
+Yes. Image, floor-plan, video and virtual-tour URLs are absolute links to the source's public media host.</p>
+<p><strong>Who is responsible for how the contact data is used?</strong>
+Agent and developer contact details are personal or business data. You are responsible for using them lawfully in your jurisdiction and for respecting the marketplace's terms.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/southeast-asia-property-listings-by-country/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>nYkOHZZmevFgyM1O5</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

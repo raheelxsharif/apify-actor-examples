@@ -1,0 +1,567 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-ezSi8wVo1cD03i7TE0a5IDwDOg45LsPRQXJ/xrVp9c4=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Global B2B Supplier Finder by Product &amp; Country | Dataspryva</title><meta name="description" content="Search the Kompass B2B directory by company name, product keyword, or country, or fetch specific profiles, for firmographic detail: employees, revenue, certifications, products, an"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/"><meta property="og:title" content="Global B2B Supplier Finder by Product &amp; Country | Dataspryva"><meta property="og:description" content="Search the Kompass B2B directory by company name, product keyword, or country, or fetch specific profiles, for firmographic detail: employees, revenue, certifications, products, an"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#webpage","name":"Global B2B Supplier Finder by Product & Country","description":"Search the Kompass B2B directory by company name, product keyword, or country, or fetch specific profiles, for firmographic detail: employees, revenue, certifications, products, and contact info.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#article","headline":"Global B2B Supplier Finder by Product & Country","name":"Global B2B Supplier Finder by Product & Country","description":"Search the Kompass B2B directory by company name, product keyword, or country, or fetch specific profiles, for firmographic detail: employees, revenue, certifications, products, and contact info.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#webpage"},"inLanguage":"en","dateModified":"2026-11-08T01:38:31.817Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Global B2B Supplier Finder by Product & Country","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/global-b2b-supplier-finder-by-product-and-country/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Global B2B Supplier Finder by Product &amp; Country</span></div><section id="overview"><h1 class="doc-title">Global B2B Supplier Finder by Product &amp; Country</h1><p class="lede">Search the Kompass B2B directory by company name, product keyword, or country, or fetch specific profiles, for firmographic detail: employees, revenue, certifications, products, and contact info.</p><p class="summary">Global B2B Supplier Finder by Product &amp; Country is an Apify Actor published by Dataspryva. It accepts 12 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/global-b2b-supplier-finder-by-product-and-country">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/WY0bmptmiK1TxCKqS/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to do: search by keyword, browse a country/type directory, browse activity/region URLs, or fetch profile URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Company name, product, or service keyword (mode=searchCompanies).</td></tr><tr><td><code>searchType</code></td><td>string</td><td>optional</td><td>Match all text, company names only, or products/services only (mode=searchCompanies).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose what to do: search by keyword, browse a country/type directory, browse activity/region URLs, or fetch profile URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Company name, product, or service keyword (mode=searchCompanies).</td></tr><tr><td><code>searchType</code></td><td>string</td><td>optional</td><td>Match all text, company names only, or products/services only (mode=searchCompanies).</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Kompass market used for search and directory browsing, and to filter records to that country.</td></tr><tr><td><code>companyType</code></td><td>string</td><td>optional</td><td>Filter by company role. Directory mode opens the matching country path; search mode filters card roles.</td></tr><tr><td><code>sector</code></td><td>string</td><td>optional</td><td>Kompass sector used by mode=browseDirectory. Choose any to skip the sector path.</td></tr><tr><td><code>directoryUrls</code></td><td>array</td><td>optional</td><td>Activity, region, sector, producer, distributor, service, importer, or exporter URLs (mode=browseCategoryOrRegion). Paste page URLs from any Kompass country site.</td></tr><tr><td><code>companyUrls</code></td><td>array</td><td>optional</td><td>Kompass company profile URLs or bare Kompass IDs such as IT0050676 (mode=companyDetails).</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Fetch each company profile for contacts, address, legal IDs, executives, products, and catalogues. Turn this off for cheaper card-only searches.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of company records to return. Status rows do not count toward this limit.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Maximum live keyword-search pages to read (mode=searchCompanies). Kompass exposes about five pages per keyword.</td></tr><tr><td><code>archivePages</code></td><td>integer</td><td>optional</td><td>Wayback CDX index pages to scan per market when live pages are blocked (mode=searchCompanies). Each page holds about 1,700 archived company URLs.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Search or browse the Kompass global B2B directory, or fetch company profiles.&quot;,
+  &quot;properties&quot;: {
+    &quot;archivePages&quot;: {
+      &quot;default&quot;: 8,
+      &quot;description&quot;: &quot;Wayback CDX index pages to scan per market when live pages are blocked (mode=searchCompanies). Each page holds about 1,700 archived company URLs.&quot;,
+      &quot;maximum&quot;: 64,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max archive index pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;companyType&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Filter by company role. Directory mode opens the matching country path; search mode filters card roles.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;manufacturer&quot;,
+        &quot;distributor&quot;,
+        &quot;serviceProvider&quot;,
+        &quot;importer&quot;,
+        &quot;exporter&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any company type&quot;,
+        &quot;Manufacturers / producers&quot;,
+        &quot;Distributors&quot;,
+        &quot;Service providers&quot;,
+        &quot;Importers&quot;,
+        &quot;Exporters&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Company type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;companyUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Kompass company profile URLs or bare Kompass IDs such as IT0050676 (mode=companyDetails).&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Company URLs or IDs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;country&quot;: {
+      &quot;default&quot;: &quot;DE&quot;,
+      &quot;description&quot;: &quot;Kompass market used for search and directory browsing, and to filter records to that country.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;AE&quot;,
+        &quot;AM&quot;,
+        &quot;AR&quot;,
+        &quot;AT&quot;,
+        &quot;AU&quot;,
+        &quot;AZ&quot;,
+        &quot;BE&quot;,
+        &quot;BG&quot;,
+        &quot;BR&quot;,
+        &quot;CA&quot;,
+        &quot;CH&quot;,
+        &quot;CN&quot;,
+        &quot;CO&quot;,
+        &quot;CZ&quot;,
+        &quot;DE&quot;,
+        &quot;DK&quot;,
+        &quot;DZ&quot;,
+        &quot;EG&quot;,
+        &quot;ES&quot;,
+        &quot;FI&quot;,
+        &quot;FR&quot;,
+        &quot;GB&quot;,
+        &quot;GE&quot;,
+        &quot;GR&quot;,
+        &quot;HK&quot;,
+        &quot;HR&quot;,
+        &quot;HU&quot;,
+        &quot;IE&quot;,
+        &quot;IN&quot;,
+        &quot;IT&quot;,
+        &quot;JP&quot;,
+        &quot;KG&quot;,
+        &quot;KR&quot;,
+        &quot;LB&quot;,
+        &quot;LU&quot;,
+        &quot;LV&quot;,
+        &quot;MA&quot;,
+        &quot;MC&quot;,
+        &quot;MD&quot;,
+        &quot;MX&quot;,
+        &quot;NL&quot;,
+        &quot;NO&quot;,
+        &quot;NZ&quot;,
+        &quot;PE&quot;,
+        &quot;PL&quot;,
+        &quot;PT&quot;,
+        &quot;RO&quot;,
+        &quot;RS&quot;,
+        &quot;SA&quot;,
+        &quot;SE&quot;,
+        &quot;SG&quot;,
+        &quot;SI&quot;,
+        &quot;SK&quot;,
+        &quot;TH&quot;,
+        &quot;TN&quot;,
+        &quot;TR&quot;,
+        &quot;TW&quot;,
+        &quot;UA&quot;,
+        &quot;US&quot;,
+        &quot;VN&quot;,
+        &quot;XK&quot;,
+        &quot;ZA&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United Arab Emirates&quot;,
+        &quot;Armenia&quot;,
+        &quot;Argentina&quot;,
+        &quot;Austria&quot;,
+        &quot;Australia&quot;,
+        &quot;Azerbaijan&quot;,
+        &quot;Belgium&quot;,
+        &quot;Bulgaria&quot;,
+        &quot;Brazil&quot;,
+        &quot;Canada&quot;,
+        &quot;Switzerland&quot;,
+        &quot;China&quot;,
+        &quot;Colombia&quot;,
+        &quot;Czech Republic&quot;,
+        &quot;Germany&quot;,
+        &quot;Denmark&quot;,
+        &quot;Algeria&quot;,
+        &quot;Egypt&quot;,
+        &quot;Spain&quot;,
+        &quot;Finland&quot;,
+        &quot;France&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Georgia&quot;,
+        &quot;Greece&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Croatia&quot;,
+        &quot;Hungary&quot;,
+        &quot;Ireland&quot;,
+        &quot;India&quot;,
+        &quot;Italy&quot;,
+        &quot;Japan&quot;,
+        &quot;Kyrgyzstan&quot;,
+        &quot;South Korea&quot;,
+        &quot;Lebanon&quot;,
+        &quot;Luxembourg&quot;,
+        &quot;Latvia&quot;,
+        &quot;Morocco&quot;,
+        &quot;Monaco&quot;,
+        &quot;Moldova&quot;,
+        &quot;Mexico&quot;,
+        &quot;Netherlands&quot;,
+        &quot;Norway&quot;,
+        &quot;New Zealand&quot;,
+        &quot;Peru&quot;,
+        &quot;Poland&quot;,
+        &quot;Portugal&quot;,
+        &quot;Romania&quot;,
+        &quot;Serbia&quot;,
+        &quot;Saudi Arabia&quot;,
+        &quot;Sweden&quot;,
+        &quot;Singapore&quot;,
+        &quot;Slovenia&quot;,
+        &quot;Slovakia&quot;,
+        &quot;Thailand&quot;,
+        &quot;Tunisia&quot;,
+        &quot;Turkey&quot;,
+        &quot;Taiwan&quot;,
+        &quot;Ukraine&quot;,
+        &quot;United States&quot;,
+        &quot;Vietnam&quot;,
+        &quot;Kosovo&quot;,
+        &quot;South Africa&quot;
+      ],
+      &quot;prefill&quot;: &quot;DE&quot;,
+      &quot;title&quot;: &quot;Country&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;directoryUrls&quot;: {
+      &quot;default&quot;: [],
+      &quot;description&quot;: &quot;Activity, region, sector, producer, distributor, service, importer, or exporter URLs (mode=browseCategoryOrRegion). Paste page URLs from any Kompass country site.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;prefill&quot;: [],
+      &quot;title&quot;: &quot;Directory URLs&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch each company profile for contacts, address, legal IDs, executives, products, and catalogues. Turn this off for cheaper card-only searches.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include company details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;maxItems&quot;: {
+      &quot;default&quot;: 100,
+      &quot;description&quot;: &quot;Maximum number of company records to return. Status rows do not count toward this limit.&quot;,
+      &quot;maximum&quot;: 1000,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max items&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;maxPages&quot;: {
+      &quot;default&quot;: 5,
+      &quot;description&quot;: &quot;Maximum live keyword-search pages to read (mode=searchCompanies). Kompass exposes about five pages per keyword.&quot;,
+      &quot;maximum&quot;: 5,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 1,
+      &quot;title&quot;: &quot;Max search pages&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;default&quot;: &quot;searchCompanies&quot;,
+      &quot;description&quot;: &quot;Choose what to do: search by keyword, browse a country/type directory, browse activity/region URLs, or fetch profile URLs.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;searchCompanies&quot;,
+        &quot;browseDirectory&quot;,
+        &quot;browseCategoryOrRegion&quot;,
+        &quot;companyDetails&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Search companies by keyword&quot;,
+        &quot;Browse a country/type directory&quot;,
+        &quot;Browse category, region, activity, or sector URLs&quot;,
+        &quot;Fetch details for company URLs or IDs&quot;
+      ],
+      &quot;prefill&quot;: &quot;searchCompanies&quot;,
+      &quot;title&quot;: &quot;Mode&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;query&quot;: {
+      &quot;default&quot;: &quot;pumps&quot;,
+      &quot;description&quot;: &quot;Company name, product, or service keyword (mode=searchCompanies).&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;prefill&quot;: &quot;pumps&quot;,
+      &quot;title&quot;: &quot;Search query&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;searchType&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Match all text, company names only, or products/services only (mode=searchCompanies).&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;companyName&quot;,
+        &quot;products&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All text&quot;,
+        &quot;Company names&quot;,
+        &quot;Products and services&quot;
+      ],
+      &quot;prefill&quot;: &quot;all&quot;,
+      &quot;title&quot;: &quot;Search type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sector&quot;: {
+      &quot;default&quot;: &quot;any&quot;,
+      &quot;description&quot;: &quot;Kompass sector used by mode=browseDirectory. Choose any to skip the sector path.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;any&quot;,
+        &quot;agriculture-food&quot;,
+        &quot;minerals&quot;,
+        &quot;energy-environment&quot;,
+        &quot;chemicals-pharmaceuticals-plastics&quot;,
+        &quot;textiles-clothing-leather-watchmaking-jewellery&quot;,
+        &quot;metals-machinery-engineering&quot;,
+        &quot;paper-printing-publishing&quot;,
+        &quot;electrical-electronics-optical&quot;,
+        &quot;construction&quot;,
+        &quot;transport-logistics&quot;,
+        &quot;business-services&quot;,
+        &quot;it-internet-r-d&quot;,
+        &quot;retail-traders&quot;,
+        &quot;education-training-organisations&quot;,
+        &quot;leisure-tourism&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Any sector&quot;,
+        &quot;Agriculture &amp; Food&quot;,
+        &quot;Minerals&quot;,
+        &quot;Energy &amp; Environment&quot;,
+        &quot;Chemicals, Pharmaceuticals &amp; Plastics&quot;,
+        &quot;Textiles, Clothing, Leather, Watchmaking &amp; Jewellery&quot;,
+        &quot;Metals, Machinery &amp; Engineering&quot;,
+        &quot;Paper, Printing &amp; Publishing&quot;,
+        &quot;Electrical, Electronics &amp; Optical&quot;,
+        &quot;Construction&quot;,
+        &quot;Transport &amp; Logistics&quot;,
+        &quot;Business Services&quot;,
+        &quot;IT, Internet &amp; R&amp;D&quot;,
+        &quot;Retail &amp; Traders&quot;,
+        &quot;Education &amp; Training Organisations&quot;,
+        &quot;Leisure &amp; Tourism&quot;
+      ],
+      &quot;prefill&quot;: &quot;any&quot;,
+      &quot;title&quot;: &quot;Sector&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;Kompass Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>companies</code></td><td>string</td><td>optional</td><td>Dataset containing Kompass company records and status rows.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Kompass company records with identity, contacts, address, geo, legal identifiers, activities, certifications, executives, products, catalogues, dataSource/archivedAt provenance, and explicit status rows.&quot;,
+  &quot;properties&quot;: {
+    &quot;companies&quot;: {
+      &quot;description&quot;: &quot;Dataset containing Kompass company records and status rows.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;Kompass companies&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;Kompass B2B Company &amp; Supplier Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {}
+      },
+      &quot;title&quot;: &quot;Kompass Companies&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;companyName&quot;,
+          &quot;country&quot;,
+          &quot;city&quot;,
+          &quot;companyTypes&quot;,
+          &quot;employees&quot;,
+          &quot;email&quot;,
+          &quot;phone&quot;,
+          &quot;companyUrl&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-kompass-b2b-company-supplier-scraper">Kompass B2B Company &amp; Supplier Scraper</h2>
+<p>Scrape <strong>Kompass</strong> — a global B2B directory of manufacturers, distributors, service providers, importers, and exporters. Search 62 country markets by keyword, product, or company name; browse country/type directories, sectors, activities, and regions; or fetch complete profiles from company URLs and IDs. Live pages are tried first, then archived snapshots from the Wayback Machine keep the run productive when Kompass blocks automated traffic. Records include contacts, address, geo, legal identifiers, activities, certifications, executives, products, catalogues, and social profiles.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Four modes:</strong> <code>searchCompanies</code>, <code>browseDirectory</code>, <code>browseCategoryOrRegion</code>, and <code>companyDetails</code></li>
+<li><strong>62 Kompass markets</strong> with a country dropdown and automatic country filtering</li>
+<li><strong>Company-type paths:</strong> manufacturer, distributor, service provider, importer, and exporter</li>
+<li><strong>15 sectors</strong> plus activity and region page URLs for deeper lists</li>
+<li><strong>Live first, archive fallback</strong> — a cheap direct/datacenter probe runs once; blocked pages switch to Wayback CDX and snapshots automatically</li>
+<li><strong>Conditional enrichment</strong> — card-only runs are fast and cheap; <code>includeDetails</code> adds the full profile</li>
+<li><strong>Omit-empty records</strong> — fields with no source value are left out, never returned as <code>null</code></li>
+</ul>
+<h2 id="readme-output-per-company">Output per company</h2>
+<ul>
+<li><code>companyId</code>, <code>companyName</code>, <code>slug</code>, <code>companyUrl</code></li>
+<li><code>country</code>, <code>countryCode</code>, <code>city</code>, <code>street</code>, <code>postalCode</code></li>
+<li><code>latitude</code>, <code>longitude</code>, <code>mapUrl</code></li>
+<li><code>phone</code>, <code>phones[]</code>, <code>fax</code>, <code>email</code></li>
+<li><code>websiteUrl</code>, <code>socialProfiles[]</code>, <code>logoUrl</code></li>
+<li><code>description</code>, <code>companyTypes[]</code></li>
+<li><code>employees</code>, <code>employeeCount</code>, <code>employeeRange</code>, <code>yearEstablished</code></li>
+<li><code>legalForm</code>, <code>corporateCapital</code>, <code>registrationNumber</code>, <code>vatNumber</code>, <code>siteType</code></li>
+<li><code>activities[]</code>, <code>activityCodes[]</code>, <code>industryCodes[]</code></li>
+<li><code>certifications</code>, <code>certificationsList[]</code>, <code>isCertified</code></li>
+<li><code>executives[]</code> — <code>name</code>, <code>role</code>, <code>linkedinUrl</code>, <code>languages</code></li>
+<li><code>products</code>, <code>productSamples[]</code>, <code>productCount</code>, <code>productsUrl</code></li>
+<li><code>catalogues[]</code> — <code>name</code>, <code>pages</code>, <code>pdfUrl</code></li>
+<li><code>videos[]</code></li>
+<li><code>searchQuery</code>, <code>searchType</code></li>
+<li><code>sourceUrl</code>, <code>sourceMarket</code></li>
+<li><code>dataSource</code> — <code>live</code> or <code>wayback</code></li>
+<li><code>archivedAt</code> — Wayback capture timestamp (only when <code>dataSource</code> is <code>wayback</code>)</li>
+<li><code>recordType: &quot;company&quot;</code>, <code>scrapedAt</code></li>
+</ul>
+<p><code>certifications</code> and <code>products</code> remain strings for backward compatibility; the array forms sit beside them. <code>revenue</code> and <code>contactName</code> remain in the record shape but are omitted because Kompass does not publish them on public profiles.</p>
+<h2 id="readme-output-status-rows">Output status rows</h2>
+<p>A run can include <code>recordType: &quot;status&quot;</code> rows for honest partial failures:</p>
+<ul>
+<li><code>status</code> — <code>invalid_input</code>, <code>not_found</code>, <code>blocked</code>, <code>no_results</code>, <code>source_cap</code>, <code>parse_drift</code>, <code>archive_miss</code>, or <code>archive_partial</code></li>
+<li><code>message</code> — plain-language explanation</li>
+<li><code>sourceUrl</code> — the page that produced the status</li>
+</ul>
+<p>Status rows do not count toward <code>maxItems</code>.</p>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>string</td>
+<td><code>searchCompanies</code></td>
+<td><code>searchCompanies</code>, <code>browseDirectory</code>, <code>browseCategoryOrRegion</code>, or <code>companyDetails</code></td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td><code>pumps</code></td>
+<td>Company name, product, or service keyword (mode <code>searchCompanies</code>)</td>
+</tr>
+<tr>
+<td><code>searchType</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>companyName</code>, or <code>products</code> (mode <code>searchCompanies</code>)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td><code>DE</code></td>
+<td>One of 62 Kompass markets; used for search and directory browsing</td>
+</tr>
+<tr>
+<td><code>companyType</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td><code>any</code>, <code>manufacturer</code>, <code>distributor</code>, <code>serviceProvider</code>, <code>importer</code>, or <code>exporter</code></td>
+</tr>
+<tr>
+<td><code>sector</code></td>
+<td>string</td>
+<td><code>any</code></td>
+<td>One of 15 sectors or <code>any</code> (mode <code>browseDirectory</code>)</td>
+</tr>
+<tr>
+<td><code>directoryUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td><code>/a/</code>, <code>/r/</code>, <code>/s/</code>, <code>/x/</code>, or <code>/y/</code> URLs (mode <code>browseCategoryOrRegion</code>)</td>
+</tr>
+<tr>
+<td><code>companyUrls</code></td>
+<td>array</td>
+<td><code>[]</code></td>
+<td>Profile URLs or bare IDs such as <code>IT0050676</code> (mode <code>companyDetails</code>)</td>
+</tr>
+<tr>
+<td><code>includeDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Fetch full profiles; turn off for cheaper card-only results</td>
+</tr>
+<tr>
+<td><code>maxItems</code></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td>Company-record cap, 1–1000</td>
+</tr>
+<tr>
+<td><code>maxPages</code></td>
+<td>integer</td>
+<td><code>5</code></td>
+<td>Live keyword-search page cap, 1–5</td>
+</tr>
+<tr>
+<td><code>archivePages</code></td>
+<td>integer</td>
+<td><code>8</code></td>
+<td>Wayback CDX index pages to scan per market when live search is blocked, 1–64</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-keyword-search-in-one-country">Example: keyword search in one country</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;searchCompanies&quot;,
+  &quot;query&quot;: &quot;industrial pumps&quot;,
+  &quot;searchType&quot;: &quot;products&quot;,
+  &quot;country&quot;: &quot;DE&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 50,
+  &quot;maxPages&quot;: 3,
+  &quot;archivePages&quot;: 8
+}
+</code></pre>
+<h3 id="readme-example-browse-manufacturers-in-a-sector">Example: browse manufacturers in a sector</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;browseDirectory&quot;,
+  &quot;country&quot;: &quot;IT&quot;,
+  &quot;companyType&quot;: &quot;manufacturer&quot;,
+  &quot;sector&quot;: &quot;metals-machinery-engineering&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 60
+}
+</code></pre>
+<h3 id="readme-example-browse-a-region-and-an-activity">Example: browse a region and an activity</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;browseCategoryOrRegion&quot;,
+  &quot;directoryUrls&quot;: [
+    &quot;https://us.kompass.com/r/california-united-states/us_06/&quot;,
+    &quot;https://de.kompass.com/a/teile-und-zubehor-fur-landwirtschaftliche-maschinen/48570/&quot;
+  ],
+  &quot;includeDetails&quot;: false,
+  &quot;maxItems&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-fetch-specific-company-profiles">Example: fetch specific company profiles</h3>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;companyDetails&quot;,
+  &quot;companyUrls&quot;: [
+    &quot;https://fr.kompass.com/c/ipo-technologie/fr8380178/&quot;,
+    &quot;https://it.kompass.com/c/gai-macchine-imbottigliatrici/it0009821/&quot;,
+    &quot;IN490090&quot;
+  ],
+  &quot;maxItems&quot;: 3
+}
+</code></pre>
+<h2 id="readme-live-and-archived-data">Live and archived data</h2>
+<p>Each run tries a cheap live connection first. If Kompass returns a DataDome/login page, the actor switches to the Wayback Machine:</p>
+<ul>
+<li><strong>Search</strong> reads the Wayback CDX index for the selected market (<code>de.kompass.com/c/*</code>, <code>us.kompass.com/c/*</code>, and so on), filters archived company URLs by keyword stems and market, and fetches up to <code>maxItems</code> snapshots when <code>includeDetails</code> is on.</li>
+<li><strong>Profiles and directory URLs</strong> fetch <code>https://web.archive.org/web/&lt;timestamp&gt;id_/&lt;original&gt;</code>, so the original server-rendered HTML and JSON-LD are parsed by the same extractors as live pages.</li>
+<li><strong>Provenance</strong> is explicit: records carry <code>dataSource: &quot;live&quot;</code> or <code>&quot;wayback&quot;</code>, and archived records also carry <code>archivedAt</code>.</li>
+<li><strong>Coverage is partial.</strong> Archive density varies by market and year. At the time of writing, the CDX index had about 26 pages for <code>de.kompass.com/c/*</code> and 64 for <code>us.kompass.com/c/*</code>, with roughly 1,700 collapsed company URLs per page.</li>
+<li><strong>Snapshots are historical.</strong> An archived profile reflects the capture timestamp, not today: contacts, employees, products, and certifications may be outdated, and some companies have since closed. Check <code>archivedAt</code> before using a record for time-sensitive outreach.</li>
+<li><strong>No credentials.</strong> The Wayback Machine is public; the actor never asks for a Kompass login, cookie, proxy, or API key.</li>
+</ul>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>B2B lead generation</strong> — build country and product lists with phone, email, and website where published</li>
+<li><strong>Supplier sourcing</strong> — shortlist manufacturers that publish the certifications a buyer requires</li>
+<li><strong>Market mapping</strong> — compare company counts and roles across countries, sectors, and regions</li>
+<li><strong>Trade research</strong> — find importers and exporters in a target market</li>
+<li><strong>CRM enrichment</strong> — append address, legal identifiers, activities, and executives to known accounts</li>
+<li><strong>Competitive tracking</strong> — monitor catalogues, products, and profile changes over time</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<h3 id="readme-is-this-affiliated-with-kompass">Is this affiliated with Kompass?</h3>
+<p>No. This is an independent, third-party actor that reads publicly visible Kompass pages. It is not operated by or affiliated with Kompass.</p>
+<h3 id="readme-do-i-need-a-kompass-account-or-a-proxy">Do I need a Kompass account or a proxy?</h3>
+<p>No account, login, cookie, or proxy setup is required. The actor chooses a working connection to Kompass automatically.</p>
+<h3 id="readme-why-did-a-run-return-a-blocked-status">Why did a run return a blocked status?</h3>
+<p>Kompass sometimes serves a login or rate-limit page to automated requests. The actor records a <code>blocked</code> status row instead of inventing company data. When archive fallback is also unavailable, wait and rerun, or use a smaller <code>maxItems</code>/<code>maxPages</code> request.</p>
+<h3 id="readme-why-do-some-records-have-datasource-wayback">Why do some records have <code>dataSource: &quot;wayback&quot;</code>?</h3>
+<p>Kompass blocks some networks with DataDome. The actor then reads the public Wayback Machine index and snapshots, parses the same server-rendered fields, and marks each record with <code>dataSource</code> and <code>archivedAt</code>. Live records use <code>dataSource: &quot;live&quot;</code>.</p>
+<h3 id="readme-why-are-archived-results-missing-companies-i-can-see-on-kompass-today">Why are archived results missing companies I can see on Kompass today?</h3>
+<p>Wayback only has snapshots that were captured. Archive density differs by country and year, so a keyword, directory URL, or company profile may simply never have been archived. <code>archive_miss</code> and <code>archive_partial</code> status rows explain those gaps; raising <code>archivePages</code> scans more of the index for <code>searchCompanies</code>.</p>
+<h3 id="readme-why-are-some-fields-missing-from-a-company">Why are some fields missing from a company?</h3>
+<p>Kompass publishes different fields per market and per company. Employees, email, fax, legal identifiers, certifications, social profiles, catalogues, and executives are conditional; a missing value is omitted rather than filled with <code>null</code>.</p>
+<h3 id="readme-why-are-executives-missing-for-some-countries">Why are executives missing for some countries?</h3>
+<p>Kompass gates named executives behind its paid EasyBusiness product in several markets. Public executive lists are still captured where the profile shows them.</p>
+<h3 id="readme-why-does-a-keyword-search-stop-at-about-100-companies">Why does a keyword search stop at about 100 companies?</h3>
+<p>Kompass limits guest keyword search to roughly five pages. For deeper coverage, use <code>browseDirectory</code> with a sector, or supply activity and region URLs in <code>browseCategoryOrRegion</code>.</p>
+<h3 id="readme-why-do-search-results-include-companies-from-other-countries">Why do search results include companies from other countries?</h3>
+<p>Kompass search is relevance-ranked and can mix nearby or global companies. The actor filters records to the selected <code>country</code> when the card or profile identifies a country. If a card has no country marker, it is kept rather than dropped.</p>
+<h3 id="readme-what-is-the-difference-between-browsedirectory-and-browsecategoryorregion">What is the difference between <code>browseDirectory</code> and <code>browseCategoryOrRegion</code>?</h3>
+<p><code>browseDirectory</code> builds the URL for you from <code>country</code>, <code>companyType</code>, and <code>sector</code>. <code>browseCategoryOrRegion</code> accepts the exact activity, region, sector, or directory URLs you paste, including page-2 and deeper URLs.</p>
+<h3 id="readme-can-i-pass-company-ids-instead-of-urls">Can I pass company IDs instead of URLs?</h3>
+<p>Yes. <code>companyDetails</code> accepts full profile URLs on any Kompass country site and bare Kompass IDs such as <code>IT0050676</code> or <code>DEEX226855</code>.</p>
+<h3 id="readme-are-status-rows-errors">Are status rows errors?</h3>
+<p>No. They explain a partial result, such as a company profile that was removed, a page that could not be reached, or a keyword-search cap. Other companies in the same run are still returned.</p>
+<h3 id="readme-how-current-is-the-data">How current is the data?</h3>
+<p>Live records reflect what Kompass publishes at run time. When the live site is blocked, records come from Wayback snapshots and reflect the capture time shown in <code>archivedAt</code>. Treat archived contacts, employee counts, products, and certifications as historical rather than current.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/global-b2b-supplier-finder-by-product-and-country/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>agk9jv5vejmlkFrqn</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>

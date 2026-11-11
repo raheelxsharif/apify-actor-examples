@@ -1,0 +1,820 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-ACI4Qv4uozdCfRwVTsulXzuwXMFtDIhyK2W/pkUYD2g=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>YouTube Hashtag Video &amp; Shorts Ranking Scraper | Dataspryva</title><meta name="description" content="Look up one or more YouTube hashtags and get the videos and Shorts currently ranked under them, in order, with view count, channel, duration and the hashtag&#x27;s own total video and c"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/"><meta property="og:title" content="YouTube Hashtag Video &amp; Shorts Ranking Scraper | Dataspryva"><meta property="og:description" content="Look up one or more YouTube hashtags and get the videos and Shorts currently ranked under them, in order, with view count, channel, duration and the hashtag&#x27;s own total video and c"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#webpage","name":"YouTube Hashtag Video & Shorts Ranking Scraper","description":"Look up one or more YouTube hashtags and get the videos and Shorts currently ranked under them, in order, with view count, channel, duration and the hashtag's own total video and channel counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#article","headline":"YouTube Hashtag Video & Shorts Ranking Scraper","name":"YouTube Hashtag Video & Shorts Ranking Scraper","description":"Look up one or more YouTube hashtags and get the videos and Shorts currently ranked under them, in order, with view count, channel, duration and the hashtag's own total video and channel counts.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-11-05T14:02:34.088Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"YouTube Hashtag Video & Shorts Ranking Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/youtube-hashtag-video-and-shorts-ranking-scraper/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>YouTube Hashtag Video &amp; Shorts Ranking Scraper</span></div><section id="overview"><h1 class="doc-title">YouTube Hashtag Video &amp; Shorts Ranking Scraper</h1><p class="lede">Look up one or more YouTube hashtags and get the videos and Shorts currently ranked under them, in order, with view count, channel, duration and the hashtag&#x27;s own total video and channel counts.</p><p class="summary">YouTube Hashtag Video &amp; Shorts Ranking Scraper is an Apify Actor published by Dataspryva. It accepts 9 input fields, and <code>hashtags</code> is required. Its build declares a results dataset with 2 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/youtube-hashtag-video-and-shorts-ranking-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mSw6ELIsZXjgPdFNp/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>hashtags</code></td><td>array</td><td>required</td><td>Hashtags to scrape. Accepts a bare tag, a #tag, or a full youtube.com/hashtag/&lt;tag&gt; URL. Up to 200 unique tags per run.</td></tr><tr><td><code>maxResultsPerHashtag</code></td><td>integer</td><td>optional</td><td>Maximum records to return per hashtag after sorting and filters. YouTube&#x27;s hashtag feed is a ranked sample, so large values may return fewer rows.</td></tr><tr><td><code>contentType</code></td><td>string</td><td>optional</td><td>Which cards to return: regular videos, Shorts, or both.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>hashtags</code></td><td>array</td><td>required</td><td>Hashtags to scrape. Accepts a bare tag, a #tag, or a full youtube.com/hashtag/&lt;tag&gt; URL. Up to 200 unique tags per run.</td></tr><tr><td><code>maxResultsPerHashtag</code></td><td>integer</td><td>optional</td><td>Maximum records to return per hashtag after sorting and filters. YouTube&#x27;s hashtag feed is a ranked sample, so large values may return fewer rows.</td></tr><tr><td><code>contentType</code></td><td>string</td><td>optional</td><td>Which cards to return: regular videos, Shorts, or both.</td></tr><tr><td><code>market</code></td><td>string</td><td>optional</td><td>Country/region used for the hashtag feed. It changes which videos rank and the default language.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Language used for YouTube labels, counts and dates. Auto follows the selected market.</td></tr><tr><td><code>includeVideoDetails</code></td><td>boolean</td><td>optional</td><td>Fetch each video&#x27;s detail data to fill exact views, likes, comments, subscriber counts, publish date, description, keywords, category and Shorts channel metadata. Slower but more complete.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order the collected results within each hashtag. Default keeps YouTube&#x27;s first-seen feed order.</td></tr><tr><td><code>minViewCount</code></td><td>integer</td><td>optional</td><td>Drop videos with fewer than this many views. Turns on detail enrichment so compact Shorts labels are not mis-filtered.</td></tr><tr><td><code>publishedAfter</code></td><td>string</td><td>optional</td><td>Only keep videos published on or after this date (YYYY-MM-DD). Turns on detail enrichment.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;description&quot;: &quot;Scrape YouTube videos and Shorts by hashtag. Provide one or more hashtags to extract ranked videos, channel details, exact engagement counts, publish dates and more.&quot;,
+  &quot;properties&quot;: {
+    &quot;contentType&quot;: {
+      &quot;default&quot;: &quot;all&quot;,
+      &quot;description&quot;: &quot;Which cards to return: regular videos, Shorts, or both.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;all&quot;,
+        &quot;videos&quot;,
+        &quot;shorts&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;All content&quot;,
+        &quot;Regular videos only&quot;,
+        &quot;Shorts only&quot;
+      ],
+      &quot;prefill&quot;: &quot;videos&quot;,
+      &quot;title&quot;: &quot;Content Type&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;hashtags&quot;: {
+      &quot;description&quot;: &quot;Hashtags to scrape. Accepts a bare tag, a #tag, or a full youtube.com/hashtag/&lt;tag&gt; URL. Up to 200 unique tags per run.&quot;,
+      &quot;editor&quot;: &quot;stringList&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;minItems&quot;: 1,
+      &quot;prefill&quot;: [
+        &quot;programming&quot;
+      ],
+      &quot;title&quot;: &quot;Hashtags&quot;,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;includeVideoDetails&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;Fetch each video&#x27;s detail data to fill exact views, likes, comments, subscriber counts, publish date, description, keywords, category and Shorts channel metadata. Slower but more complete.&quot;,
+      &quot;prefill&quot;: false,
+      &quot;title&quot;: &quot;Include Video Details&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;language&quot;: {
+      &quot;default&quot;: &quot;auto&quot;,
+      &quot;description&quot;: &quot;Language used for YouTube labels, counts and dates. Auto follows the selected market.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;auto&quot;,
+        &quot;en&quot;,
+        &quot;de&quot;,
+        &quot;fr&quot;,
+        &quot;ja&quot;,
+        &quot;ko&quot;,
+        &quot;pt&quot;,
+        &quot;hi&quot;,
+        &quot;es&quot;,
+        &quot;it&quot;,
+        &quot;nl&quot;,
+        &quot;pl&quot;,
+        &quot;ru&quot;,
+        &quot;sv&quot;,
+        &quot;no&quot;,
+        &quot;da&quot;,
+        &quot;fi&quot;,
+        &quot;zh-Hant&quot;,
+        &quot;id&quot;,
+        &quot;ms&quot;,
+        &quot;th&quot;,
+        &quot;ar&quot;,
+        &quot;tr&quot;,
+        &quot;vi&quot;,
+        &quot;uk&quot;,
+        &quot;cs&quot;,
+        &quot;ro&quot;,
+        &quot;hu&quot;,
+        &quot;el&quot;,
+        &quot;he&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Auto (match market)&quot;,
+        &quot;English&quot;,
+        &quot;German&quot;,
+        &quot;French&quot;,
+        &quot;Japanese&quot;,
+        &quot;Korean&quot;,
+        &quot;Portuguese&quot;,
+        &quot;Hindi&quot;,
+        &quot;Spanish&quot;,
+        &quot;Italian&quot;,
+        &quot;Dutch&quot;,
+        &quot;Polish&quot;,
+        &quot;Russian&quot;,
+        &quot;Swedish&quot;,
+        &quot;Norwegian&quot;,
+        &quot;Danish&quot;,
+        &quot;Finnish&quot;,
+        &quot;Traditional Chinese&quot;,
+        &quot;Indonesian&quot;,
+        &quot;Malay&quot;,
+        &quot;Thai&quot;,
+        &quot;Arabic&quot;,
+        &quot;Turkish&quot;,
+        &quot;Vietnamese&quot;,
+        &quot;Ukrainian&quot;,
+        &quot;Czech&quot;,
+        &quot;Romanian&quot;,
+        &quot;Hungarian&quot;,
+        &quot;Greek&quot;,
+        &quot;Hebrew&quot;
+      ],
+      &quot;prefill&quot;: &quot;auto&quot;,
+      &quot;title&quot;: &quot;Language&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;market&quot;: {
+      &quot;default&quot;: &quot;US&quot;,
+      &quot;description&quot;: &quot;Country/region used for the hashtag feed. It changes which videos rank and the default language.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;US&quot;,
+        &quot;GB&quot;,
+        &quot;CA&quot;,
+        &quot;AU&quot;,
+        &quot;DE&quot;,
+        &quot;FR&quot;,
+        &quot;JP&quot;,
+        &quot;KR&quot;,
+        &quot;BR&quot;,
+        &quot;IN&quot;,
+        &quot;MX&quot;,
+        &quot;IT&quot;,
+        &quot;ES&quot;,
+        &quot;NL&quot;,
+        &quot;PL&quot;,
+        &quot;RU&quot;,
+        &quot;SE&quot;,
+        &quot;NO&quot;,
+        &quot;DK&quot;,
+        &quot;FI&quot;,
+        &quot;ZA&quot;,
+        &quot;SG&quot;,
+        &quot;HK&quot;,
+        &quot;TW&quot;,
+        &quot;ID&quot;,
+        &quot;MY&quot;,
+        &quot;TH&quot;,
+        &quot;PH&quot;,
+        &quot;AR&quot;,
+        &quot;CO&quot;,
+        &quot;CL&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;United States&quot;,
+        &quot;United Kingdom&quot;,
+        &quot;Canada&quot;,
+        &quot;Australia&quot;,
+        &quot;Germany&quot;,
+        &quot;France&quot;,
+        &quot;Japan&quot;,
+        &quot;South Korea&quot;,
+        &quot;Brazil&quot;,
+        &quot;India&quot;,
+        &quot;Mexico&quot;,
+        &quot;Italy&quot;,
+        &quot;Spain&quot;,
+        &quot;Netherlands&quot;,
+        &quot;Poland&quot;,
+        &quot;Russia&quot;,
+        &quot;Sweden&quot;,
+        &quot;Norway&quot;,
+        &quot;Denmark&quot;,
+        &quot;Finland&quot;,
+        &quot;South Africa&quot;,
+        &quot;Singapore&quot;,
+        &quot;Hong Kong&quot;,
+        &quot;Taiwan&quot;,
+        &quot;Indonesia&quot;,
+        &quot;Malaysia&quot;,
+        &quot;Thailand&quot;,
+        &quot;Philippines&quot;,
+        &quot;Argentina&quot;,
+        &quot;Colombia&quot;,
+        &quot;Chile&quot;
+      ],
+      &quot;prefill&quot;: &quot;US&quot;,
+      &quot;title&quot;: &quot;Market / Region&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;maxResultsPerHashtag&quot;: {
+      &quot;default&quot;: 50,
+      &quot;description&quot;: &quot;Maximum records to return per hashtag after sorting and filters. YouTube&#x27;s hashtag feed is a ranked sample, so large values may return fewer rows.&quot;,
+      &quot;maximum&quot;: 500,
+      &quot;minimum&quot;: 1,
+      &quot;prefill&quot;: 2,
+      &quot;title&quot;: &quot;Max Results Per Hashtag&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;minViewCount&quot;: {
+      &quot;description&quot;: &quot;Drop videos with fewer than this many views. Turns on detail enrichment so compact Shorts labels are not mis-filtered.&quot;,
+      &quot;maximum&quot;: 2000000000,
+      &quot;minimum&quot;: 0,
+      &quot;title&quot;: &quot;Minimum View Count&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;publishedAfter&quot;: {
+      &quot;description&quot;: &quot;Only keep videos published on or after this date (YYYY-MM-DD). Turns on detail enrichment.&quot;,
+      &quot;editor&quot;: &quot;textfield&quot;,
+      &quot;title&quot;: &quot;Published After&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;sortBy&quot;: {
+      &quot;default&quot;: &quot;default&quot;,
+      &quot;description&quot;: &quot;Order the collected results within each hashtag. Default keeps YouTube&#x27;s first-seen feed order.&quot;,
+      &quot;editor&quot;: &quot;select&quot;,
+      &quot;enum&quot;: [
+        &quot;default&quot;,
+        &quot;viewCount&quot;,
+        &quot;durationSeconds&quot;,
+        &quot;publishedAt&quot;
+      ],
+      &quot;enumTitles&quot;: [
+        &quot;Feed order&quot;,
+        &quot;Most views&quot;,
+        &quot;Longest duration&quot;,
+        &quot;Newest first&quot;
+      ],
+      &quot;prefill&quot;: &quot;default&quot;,
+      &quot;title&quot;: &quot;Sort By&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;hashtags&quot;
+  ],
+  &quot;schemaVersion&quot;: 1,
+  &quot;title&quot;: &quot;YouTube Hashtag Scraper Input&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}
+</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videos</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped videos and shorts tagged with the requested hashtags.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorOutputSchemaVersion&quot;: 1,
+  &quot;description&quot;: &quot;Videos and Shorts ranked under the requested hashtags, with view count, channel info and hashtag totals.&quot;,
+  &quot;properties&quot;: {
+    &quot;videos&quot;: {
+      &quot;description&quot;: &quot;Dataset containing all scraped videos and shorts tagged with the requested hashtags.&quot;,
+      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
+      &quot;title&quot;: &quot;YouTube hashtag videos and Shorts&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;YouTube Hashtag Video &amp; Shorts Ranking Scraper Output&quot;
+}
+</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
+  &quot;actorSpecification&quot;: 1,
+  &quot;views&quot;: {
+    &quot;full&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;badges&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Badges&quot;
+          },
+          &quot;category&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Category&quot;
+          },
+          &quot;channelAvatarUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Channel Avatar&quot;
+          },
+          &quot;channelCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Total Channel Count&quot;
+          },
+          &quot;channelCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Total Channels&quot;
+          },
+          &quot;channelHandle&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Channel Handle&quot;
+          },
+          &quot;channelId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Channel ID&quot;
+          },
+          &quot;channelName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Channel&quot;
+          },
+          &quot;channelSubscriberCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Subscriber Count&quot;
+          },
+          &quot;channelSubscriberCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Subscribers&quot;
+          },
+          &quot;channelUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Channel URL&quot;
+          },
+          &quot;commentCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Comments&quot;
+          },
+          &quot;commentCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Comments (label)&quot;
+          },
+          &quot;description&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Description&quot;
+          },
+          &quot;durationSeconds&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Duration (seconds)&quot;
+          },
+          &quot;durationText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Duration&quot;
+          },
+          &quot;error&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Error&quot;
+          },
+          &quot;errorCode&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Error Code&quot;
+          },
+          &quot;hashtag&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Hashtag&quot;
+          },
+          &quot;hashtagTitle&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Hashtag Title&quot;
+          },
+          &quot;hashtagUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Hashtag URL&quot;
+          },
+          &quot;isShort&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Is Short&quot;
+          },
+          &quot;keywords&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Keywords&quot;
+          },
+          &quot;likeCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Like Count&quot;
+          },
+          &quot;likeCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Likes&quot;
+          },
+          &quot;position&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Position&quot;
+          },
+          &quot;publishedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Published At&quot;
+          },
+          &quot;publishedTimeText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Published (relative)&quot;
+          },
+          &quot;recordType&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Record Type&quot;
+          },
+          &quot;scrapedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Scraped At&quot;
+          },
+          &quot;success&quot;: {
+            &quot;format&quot;: &quot;boolean&quot;,
+            &quot;label&quot;: &quot;Success&quot;
+          },
+          &quot;thumbnailUrl&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;Thumbnail&quot;
+          },
+          &quot;title&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          },
+          &quot;type&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;URL&quot;
+          },
+          &quot;videoCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Total Video Count&quot;
+          },
+          &quot;videoCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Total Videos&quot;
+          },
+          &quot;videoId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Video ID&quot;
+          },
+          &quot;viewCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;View Count&quot;
+          },
+          &quot;viewCountText&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Views&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Full Details&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;hashtag&quot;,
+          &quot;hashtagUrl&quot;,
+          &quot;hashtagTitle&quot;,
+          &quot;videoCountText&quot;,
+          &quot;videoCount&quot;,
+          &quot;channelCountText&quot;,
+          &quot;channelCount&quot;,
+          &quot;position&quot;,
+          &quot;recordType&quot;,
+          &quot;success&quot;,
+          &quot;type&quot;,
+          &quot;videoId&quot;,
+          &quot;title&quot;,
+          &quot;url&quot;,
+          &quot;channelName&quot;,
+          &quot;channelId&quot;,
+          &quot;channelUrl&quot;,
+          &quot;channelHandle&quot;,
+          &quot;channelAvatarUrl&quot;,
+          &quot;channelSubscriberCountText&quot;,
+          &quot;channelSubscriberCount&quot;,
+          &quot;viewCountText&quot;,
+          &quot;viewCount&quot;,
+          &quot;likeCountText&quot;,
+          &quot;likeCount&quot;,
+          &quot;commentCountText&quot;,
+          &quot;commentCount&quot;,
+          &quot;publishedTimeText&quot;,
+          &quot;publishedAt&quot;,
+          &quot;durationText&quot;,
+          &quot;durationSeconds&quot;,
+          &quot;thumbnailUrl&quot;,
+          &quot;isShort&quot;,
+          &quot;description&quot;,
+          &quot;keywords&quot;,
+          &quot;category&quot;,
+          &quot;badges&quot;,
+          &quot;scrapedAt&quot;,
+          &quot;errorCode&quot;,
+          &quot;error&quot;
+        ]
+      }
+    },
+    &quot;overview&quot;: {
+      &quot;display&quot;: {
+        &quot;component&quot;: &quot;table&quot;,
+        &quot;properties&quot;: {
+          &quot;channelName&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Channel&quot;
+          },
+          &quot;hashtag&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Hashtag&quot;
+          },
+          &quot;position&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Position&quot;
+          },
+          &quot;publishedAt&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Published&quot;
+          },
+          &quot;title&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Title&quot;
+          },
+          &quot;type&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Type&quot;
+          },
+          &quot;url&quot;: {
+            &quot;format&quot;: &quot;link&quot;,
+            &quot;label&quot;: &quot;URL&quot;
+          },
+          &quot;videoId&quot;: {
+            &quot;format&quot;: &quot;text&quot;,
+            &quot;label&quot;: &quot;Video ID&quot;
+          },
+          &quot;viewCount&quot;: {
+            &quot;format&quot;: &quot;number&quot;,
+            &quot;label&quot;: &quot;Views&quot;
+          }
+        }
+      },
+      &quot;title&quot;: &quot;Hashtag Overview&quot;,
+      &quot;transformation&quot;: {
+        &quot;fields&quot;: [
+          &quot;hashtag&quot;,
+          &quot;position&quot;,
+          &quot;type&quot;,
+          &quot;videoId&quot;,
+          &quot;title&quot;,
+          &quot;url&quot;,
+          &quot;channelName&quot;,
+          &quot;viewCount&quot;,
+          &quot;publishedAt&quot;
+        ]
+      }
+    }
+  }
+}
+</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-youtube-hashtag-video-shorts-ranking-scraper">YouTube Hashtag Video &amp; Shorts Ranking Scraper</h2>
+<p>YouTube's hashtag pages are live rankings of the videos and Shorts carrying a tag. This actor reads that feed for any hashtag, pages as deep as YouTube allows, and returns each card with its channel, engagement, publish date and hashtag totals — with no login, cookies, API key or proxy setup.</p>
+<h2 id="readme-what-this-actor-does">What this actor does</h2>
+<ul>
+<li><strong>Reads one or many hashtags</strong> in a single run, from bare tags, <code>#tags</code> or full YouTube hashtag URLs</li>
+<li><strong>Pages the whole reachable feed</strong> instead of stopping at the first screen, and handles both regular videos and Shorts</li>
+<li><strong>Adds detail data on request</strong> — exact views, likes, comments, subscriber counts, ISO publish dates, descriptions, keywords, categories, channel handles and avatars</li>
+<li><strong>Sorts and filters locally</strong> by views, duration, publish date, minimum views or earliest publish date</li>
+<li><strong>Localizes correctly</strong> with a market and language pair, including localized tab names and count formats</li>
+<li><strong>Empty fields are omitted</strong> — each record contains only the values YouTube actually supplied</li>
+</ul>
+<h2 id="readme-output-per-video-or-short">Output per video or Short</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recordType</code></td>
+<td><code>video</code> for content rows, <code>error</code> for a hashtag-level failure</td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>false</code> on error rows, omitted on content rows</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>video</code> or <code>short</code></td>
+</tr>
+<tr>
+<td><code>hashtag</code></td>
+<td>Normalized hashtag, without <code>#</code></td>
+</tr>
+<tr>
+<td><code>hashtagUrl</code></td>
+<td>Canonical hashtag page URL</td>
+</tr>
+<tr>
+<td><code>hashtagTitle</code></td>
+<td>The hashtag page's own display title</td>
+</tr>
+<tr>
+<td><code>videoCountText</code> / <code>videoCount</code></td>
+<td>Total videos tagged with the hashtag, as displayed and as an exact number when YouTube shows one</td>
+</tr>
+<tr>
+<td><code>channelCountText</code> / <code>channelCount</code></td>
+<td>Total channels posting under the hashtag, as displayed and as an exact number when available</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>1-indexed position in the returned, deduplicated result set</td>
+</tr>
+<tr>
+<td><code>videoId</code></td>
+<td>YouTube video ID</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Video or Short title</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>Watch URL for videos, Shorts URL for Shorts</td>
+</tr>
+<tr>
+<td><code>channelName</code></td>
+<td>Channel display name</td>
+</tr>
+<tr>
+<td><code>channelId</code></td>
+<td>YouTube channel ID</td>
+</tr>
+<tr>
+<td><code>channelUrl</code></td>
+<td>Channel page URL</td>
+</tr>
+<tr>
+<td><code>channelHandle</code></td>
+<td>Channel handle such as <code>@creator</code>, when YouTube exposes it</td>
+</tr>
+<tr>
+<td><code>channelAvatarUrl</code></td>
+<td>Channel avatar image URL</td>
+</tr>
+<tr>
+<td><code>channelSubscriberCountText</code></td>
+<td>Subscriber label as displayed, e.g. <code>1.2M subscribers</code></td>
+</tr>
+<tr>
+<td><code>channelSubscriberCount</code></td>
+<td>Exact subscriber count only when the label is not rounded</td>
+</tr>
+<tr>
+<td><code>viewCountText</code></td>
+<td>Views as displayed, in the selected language</td>
+</tr>
+<tr>
+<td><code>viewCount</code></td>
+<td>Exact view count when available; rounded labels stay text-only</td>
+</tr>
+<tr>
+<td><code>likeCountText</code></td>
+<td>Likes as displayed, e.g. <code>11K</code></td>
+</tr>
+<tr>
+<td><code>likeCount</code></td>
+<td>Exact like count only when the label is not rounded</td>
+</tr>
+<tr>
+<td><code>commentCountText</code> / <code>commentCount</code></td>
+<td>Comment count as displayed, and as an exact number when available</td>
+</tr>
+<tr>
+<td><code>publishedTimeText</code></td>
+<td>Relative publish label, e.g. <code>3 days ago</code></td>
+</tr>
+<tr>
+<td><code>publishedAt</code></td>
+<td>ISO 8601 publish date; includes the time and source offset when YouTube exposes them</td>
+</tr>
+<tr>
+<td><code>durationText</code></td>
+<td>Duration label such as <code>12:34</code></td>
+</tr>
+<tr>
+<td><code>durationSeconds</code></td>
+<td>Duration in seconds, including Shorts when details are on</td>
+</tr>
+<tr>
+<td><code>thumbnailUrl</code></td>
+<td>Highest-resolution thumbnail available</td>
+</tr>
+<tr>
+<td><code>isShort</code></td>
+<td><code>true</code> for a Short, <code>false</code> for a regular video</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Video description</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>Video keywords/tags array</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>YouTube category name</td>
+</tr>
+<tr>
+<td><code>badges</code></td>
+<td>Content badges such as <code>CC</code> or <code>4K</code></td>
+</tr>
+<tr>
+<td><code>scrapedAt</code></td>
+<td>ISO 8601 UTC timestamp of the run</td>
+</tr>
+<tr>
+<td><code>errorCode</code> / <code>error</code></td>
+<td>Present on error rows: <code>INVALID_HASHTAG</code>, <code>HASHTAG_NOT_FOUND</code>, <code>NO_VIDEOS</code> or <code>BLOCKED</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="readme-input">Input</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hashtags</code></td>
+<td>array</td>
+<td>–</td>
+<td>Tags to scrape, with or without <code>#</code>, or full hashtag URLs (required)</td>
+</tr>
+<tr>
+<td><code>maxResultsPerHashtag</code></td>
+<td>integer</td>
+<td><code>50</code></td>
+<td>Records to return per hashtag after sorting and filters (1–500)</td>
+</tr>
+<tr>
+<td><code>contentType</code></td>
+<td>string</td>
+<td><code>all</code></td>
+<td><code>all</code>, <code>videos</code> (regular only) or <code>shorts</code> (Shorts only)</td>
+</tr>
+<tr>
+<td><code>market</code></td>
+<td>string</td>
+<td><code>US</code></td>
+<td>Country/region for the feed</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>string</td>
+<td><code>auto</code></td>
+<td>Label language; <code>auto</code> follows the market</td>
+</tr>
+<tr>
+<td><code>includeVideoDetails</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Add exact counts, dates, descriptions and channel metadata</td>
+</tr>
+<tr>
+<td><code>sortBy</code></td>
+<td>string</td>
+<td><code>default</code></td>
+<td><code>default</code>, <code>viewCount</code>, <code>durationSeconds</code> or <code>publishedAt</code></td>
+</tr>
+<tr>
+<td><code>minViewCount</code></td>
+<td>integer</td>
+<td>–</td>
+<td>Drop videos below this exact view count</td>
+</tr>
+<tr>
+<td><code>publishedAfter</code></td>
+<td>string</td>
+<td>–</td>
+<td>Keep only videos published on or after this date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="readme-example-one-hashtag-ranked-by-views">Example: one hashtag, ranked by views</h3>
+<pre><code class="language-json">{
+  &quot;hashtags&quot;: [&quot;#webscraping&quot;],
+  &quot;contentType&quot;: &quot;all&quot;,
+  &quot;maxResultsPerHashtag&quot;: 100,
+  &quot;sortBy&quot;: &quot;viewCount&quot;,
+  &quot;includeVideoDetails&quot;: true
+}
+</code></pre>
+<h3 id="readme-example-regular-videos-in-germany">Example: regular videos in Germany</h3>
+<pre><code class="language-json">{
+  &quot;hashtags&quot;: [&quot;cooking&quot;],
+  &quot;contentType&quot;: &quot;videos&quot;,
+  &quot;market&quot;: &quot;DE&quot;,
+  &quot;language&quot;: &quot;de&quot;,
+  &quot;maxResultsPerHashtag&quot;: 50
+}
+</code></pre>
+<h3 id="readme-example-recent-shorts-with-a-view-floor">Example: recent Shorts with a view floor</h3>
+<pre><code class="language-json">{
+  &quot;hashtags&quot;: [&quot;travel&quot;, &quot;food&quot;],
+  &quot;contentType&quot;: &quot;shorts&quot;,
+  &quot;minViewCount&quot;: 100000,
+  &quot;publishedAfter&quot;: &quot;2026-01-01&quot;,
+  &quot;sortBy&quot;: &quot;publishedAt&quot;,
+  &quot;maxResultsPerHashtag&quot;: 100
+}
+</code></pre>
+<h3 id="readme-example-paste-a-hashtag-url">Example: paste a hashtag URL</h3>
+<pre><code class="language-json">{
+  &quot;hashtags&quot;: [&quot;https://www.youtube.com/hashtag/artificialintelligence&quot;],
+  &quot;contentType&quot;: &quot;videos&quot;,
+  &quot;market&quot;: &quot;JP&quot;,
+  &quot;language&quot;: &quot;ja&quot;,
+  &quot;maxResultsPerHashtag&quot;: 75
+}
+</code></pre>
+<h2 id="readme-use-cases">Use cases</h2>
+<ul>
+<li><strong>Trend discovery</strong> — see which videos and Shorts currently rank under a topic, in a chosen market</li>
+<li><strong>Creator sourcing</strong> — find channels that repeatedly appear under a niche hashtag</li>
+<li><strong>Campaign tracking</strong> — monitor a branded hashtag's ranking and engagement over time</li>
+<li><strong>Format research</strong> — compare regular videos with Shorts using exact views, likes, comments and duration</li>
+<li><strong>Regional analysis</strong> — compare the same hashtag across markets and languages</li>
+</ul>
+<h2 id="readme-faq">FAQ</h2>
+<p><strong>Do I need a YouTube account, API key or cookies?</strong>
+No. Hashtag pages and the detail data are public and the actor reads them anonymously.</p>
+<p><strong>Why are some fields missing from Shorts?</strong>
+Shorts cards carry less metadata than regular video cards. With <code>includeVideoDetails</code> on, channel, exact views, publish date and duration are filled from each Short's detail data. Rounded labels such as <code>1.2M views</code> remain text-only and are never presented as exact numbers.</p>
+<p><strong>How many results can I get per hashtag?</strong>
+Up to <code>maxResultsPerHashtag</code>, but YouTube's hashtag feed is a ranked sample rather than a complete index. Large tags typically expose a few hundred unique cards over many pages; small or new tags may expose only a handful.</p>
+<p><strong>Why does the same input return a different order on another run?</strong>
+YouTube shuffles hashtag feeds between requests. The actor deduplicates by video ID and assigns <code>position</code> from the returned set; use <code>sortBy</code> when you need a stable order.</p>
+<p><strong>What does <code>market</code> change?</strong>
+It changes which videos rank and the default language. <code>language</code> controls only labels and formatting; set it explicitly if you want a different language from the market default.</p>
+<p><strong>What is the difference between <code>viewCountText</code> and <code>viewCount</code>?</strong>
+<code>viewCountText</code> is exactly what YouTube displayed. <code>viewCount</code> is an integer only when the source gives an unabridged number; compact labels remain text-only, so an estimate is never passed off as exact.</p>
+<p><strong>What happens if a hashtag has no results?</strong>
+The run continues to the next hashtag and writes an error row with <code>recordType: &quot;error&quot;</code>, an <code>errorCode</code> and a readable message.</p>
+<p><strong>Can I scrape more than one hashtag at once?</strong>
+Yes. List up to 200 unique hashtags; results are combined in one dataset with per-hashtag positions.</p>
+</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/youtube-hashtag-video-and-shorts-ranking-scraper/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>jVtydLgaRgAoNQmFS</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
