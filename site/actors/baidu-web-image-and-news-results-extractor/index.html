@@ -1,247 +1,74 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-l2FDRP/Ad+H91UnHJ0jUvuhM1oq7o4TDOdpc3BBdNFA=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Baidu Web, Image &amp; News Results Extractor | Dataspryva</title><meta name="description" content="Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exa"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"><meta property="og:title" content="Baidu Web, Image &amp; News Results Extractor | Dataspryva"><meta property="og:description" content="Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exa"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#webpage","name":"Baidu Web, Image & News Results Extractor","description":"Runs search queries against Baidu's web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#article","headline":"Baidu Web, Image & News Results Extractor","name":"Baidu Web, Image & News Results Extractor","description":"Runs search queries against Baidu's web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#webpage"},"inLanguage":"en","dateModified":"2026-10-19T20:50:54.435Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Baidu Web, Image & News Results Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Baidu Web, Image &amp; News Results Extractor</span></div><section id="overview"><h1 class="doc-title">Baidu Web, Image &amp; News Results Extractor</h1><p class="lede">Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.</p><p class="summary">Baidu Web, Image &amp; News Results Extractor is an Apify Actor published by Dataspryva. It accepts 14 input fields, and <code>queries</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/baidu-web-image-and-news-results-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/psB9o5eBtflSKjKWE/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Which Baidu surface to scrape: web results, news, images, or autocomplete suggestions.</td></tr><tr><td><code>queries</code></td><td>array</td><td>required</td><td>One or more search terms. Each query is scraped independently up to maxResults.</td></tr><tr><td><code>maxResults</code></td><td>integer</td><td>optional</td><td>Maximum number of results per query. Practical Baidu ceilings: web about 100, news about 140, images about 1500.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>Which Baidu surface to scrape: web results, news, images, or autocomplete suggestions.</td></tr><tr><td><code>queries</code></td><td>array</td><td>required</td><td>One or more search terms. Each query is scraped independently up to maxResults.</td></tr><tr><td><code>maxResults</code></td><td>integer</td><td>optional</td><td>Maximum number of results per query. Practical Baidu ceilings: web about 100, news about 140, images about 1500.</td></tr><tr><td><code>timeRange</code></td><td>string</td><td>optional</td><td>Restrict web results to a publication window. Applies to web search only; news has its own sort order.</td></tr><tr><td><code>dateFrom</code></td><td>string</td><td>optional</td><td>Start of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.</td></tr><tr><td><code>dateTo</code></td><td>string</td><td>optional</td><td>End of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.</td></tr><tr><td><code>fileType</code></td><td>string</td><td>optional</td><td>Restrict web results to a file format using Baidu&#x27;s filetype: operator. Web search only.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Order news results by relevance or by publication time. Applies to news search only.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Restrict web results to pages written in Simplified or Traditional Chinese. Web search only.</td></tr><tr><td><code>siteRestrict</code></td><td>string</td><td>optional</td><td>Limit web results to one website domain, e.g. wikipedia.org (site: operator). Web search only.</td></tr><tr><td><code>exactPhrase</code></td><td>string</td><td>optional</td><td>Require web results to contain this exact phrase (quoted automatically). Web search only.</td></tr><tr><td><code>excludeWords</code></td><td>array</td><td>optional</td><td>Words to exclude from web results, one per line. Web search only.</td></tr><tr><td><code>titleOnly</code></td><td>boolean</td><td>optional</td><td>Match the query against page titles only (intitle: operator). Web search only.</td></tr><tr><td><code>includeSerpFeatures</code></td><td>boolean</td><td>optional</td><td>Also return Baidu&#x27;s answer box, knowledge panel, related searches and related videos as separate rows. Web search only.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Extract web, news, image, and autocomplete results from Baidu by keyword.&quot;,
-  &quot;properties&quot;: {
-    &quot;dateFrom&quot;: {
-      &quot;description&quot;: &quot;Start of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.&quot;,
-      &quot;editor&quot;: &quot;datepicker&quot;,
-      &quot;title&quot;: &quot;From date&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;dateTo&quot;: {
-      &quot;description&quot;: &quot;End of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.&quot;,
-      &quot;editor&quot;: &quot;datepicker&quot;,
-      &quot;title&quot;: &quot;To date&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;exactPhrase&quot;: {
-      &quot;description&quot;: &quot;Require web results to contain this exact phrase (quoted automatically). Web search only.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Exact phrase&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;excludeWords&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Words to exclude from web results, one per line. Web search only.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Exclude words&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;fileType&quot;: {
-      &quot;default&quot;: &quot;any&quot;,
-      &quot;description&quot;: &quot;Restrict web results to a file format using Baidu&#x27;s filetype: operator. Web search only.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;any&quot;,
-        &quot;pdf&quot;,
-        &quot;doc&quot;,
-        &quot;docx&quot;,
-        &quot;xls&quot;,
-        &quot;ppt&quot;,
-        &quot;txt&quot;,
-        &quot;rtf&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;All file types&quot;,
-        &quot;PDF&quot;,
-        &quot;Word (doc)&quot;,
-        &quot;Word (docx)&quot;,
-        &quot;Excel (xls)&quot;,
-        &quot;PowerPoint (ppt)&quot;,
-        &quot;Text (txt)&quot;,
-        &quot;Rich text (rtf)&quot;
-      ],
-      &quot;prefill&quot;: &quot;any&quot;,
-      &quot;title&quot;: &quot;File type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;includeSerpFeatures&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Also return Baidu&#x27;s answer box, knowledge panel, related searches and related videos as separate rows. Web search only.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Include SERP features&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;language&quot;: {
-      &quot;default&quot;: &quot;any&quot;,
-      &quot;description&quot;: &quot;Restrict web results to pages written in Simplified or Traditional Chinese. Web search only.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;any&quot;,
-        &quot;simplified&quot;,
-        &quot;traditional&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;All languages&quot;,
-        &quot;Simplified Chinese only&quot;,
-        &quot;Traditional Chinese only&quot;
-      ],
-      &quot;prefill&quot;: &quot;any&quot;,
-      &quot;title&quot;: &quot;Chinese script filter&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;maxResults&quot;: {
-      &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Maximum number of results per query. Practical Baidu ceilings: web about 100, news about 140, images about 1500.&quot;,
-      &quot;editor&quot;: &quot;number&quot;,
-      &quot;maximum&quot;: 1000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 3,
-      &quot;title&quot;: &quot;Max results per query&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;webSearch&quot;,
-      &quot;description&quot;: &quot;Which Baidu surface to scrape: web results, news, images, or autocomplete suggestions.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;webSearch&quot;,
-        &quot;newsSearch&quot;,
-        &quot;imageSearch&quot;,
-        &quot;autocomplete&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Web search (organic results, related searches, SERP features)&quot;,
-        &quot;News search (articles with source, date, summary and image)&quot;,
-        &quot;Image search (original image URL, thumbnail, source page, dimensions)&quot;,
-        &quot;Autocomplete (up to 10 query suggestions per keyword)&quot;
-      ],
-      &quot;prefill&quot;: &quot;imageSearch&quot;,
-      &quot;title&quot;: &quot;Search mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;queries&quot;: {
-      &quot;default&quot;: [
-        &quot;人工智能&quot;
-      ],
-      &quot;description&quot;: &quot;One or more search terms. Each query is scraped independently up to maxResults.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;人工智能&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;siteRestrict&quot;: {
-      &quot;description&quot;: &quot;Limit web results to one website domain, e.g. wikipedia.org (site: operator). Web search only.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Restrict to domain&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;sortBy&quot;: {
-      &quot;default&quot;: &quot;relevance&quot;,
-      &quot;description&quot;: &quot;Order news results by relevance or by publication time. Applies to news search only.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;relevance&quot;,
-        &quot;time&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Relevance&quot;,
-        &quot;Newest first&quot;
-      ],
-      &quot;prefill&quot;: &quot;relevance&quot;,
-      &quot;title&quot;: &quot;News sort order&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;timeRange&quot;: {
-      &quot;default&quot;: &quot;any&quot;,
-      &quot;description&quot;: &quot;Restrict web results to a publication window. Applies to web search only; news has its own sort order.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;any&quot;,
-        &quot;day&quot;,
-        &quot;week&quot;,
-        &quot;month&quot;,
-        &quot;year&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Any time&quot;,
-        &quot;Past 24 hours&quot;,
-        &quot;Past week&quot;,
-        &quot;Past month&quot;,
-        &quot;Past year&quot;
-      ],
-      &quot;prefill&quot;: &quot;any&quot;,
-      &quot;title&quot;: &quot;Time range&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;titleOnly&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Match the query against page titles only (intitle: operator). Web search only.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Search titles only&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;queries&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Baidu Search Scraper Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>results</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Baidu results for the selected mode.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Baidu results — web organic rows (with real destination URLs, publisher, dates and images), news articles, image rows with original and thumbnail URLs, autocomplete suggestions, and optional SERP-feature rows.&quot;,
-  &quot;properties&quot;: {
-    &quot;results&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Baidu results for the selected mode.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Baidu search results&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Baidu Search Scraper Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Search Results&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;query&quot;,
-          &quot;position&quot;,
-          &quot;resultType&quot;,
-          &quot;title&quot;,
-          &quot;url&quot;,
-          &quot;source&quot;,
-          &quot;date&quot;,
-          &quot;imageUrl&quot;,
-          &quot;suggestion&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-baidu-web-image-news-results-extractor">Baidu Web, Image &amp; News Results Extractor</h2>
-<p>Baidu is the dominant search engine for Chinese-language content, and its result pages differ from Google's — different ranking signals, different SERP layouts, and separate verticals for web, image, news, and query suggestions. This actor collects any of those four surfaces as structured rows with real destination URLs, publisher names, dates, original image URLs, and autocomplete suggestions.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-f+1BRBUEh/JsqRSK2Oevpb8QmyJFrzNgcbMuD1QW//Q=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Baidu Web, Image &amp; News Results Extractor – docs, price and API | Dataspryva</title><meta name="description" content="Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase."><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"><meta property="og:title" content="Baidu Web, Image &amp; News Results Extractor – docs, price and API | Dataspryva"><meta property="og:description" content="Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase."><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-psB9o5eBtflSKjKWE-3t94luE5ba-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#webpage","name":"Baidu Web, Image & News Results Extractor – docs, price and API","description":"Runs search queries against Baidu's web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#article"},"dateModified":"2026-10-19T20:50:54.435Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#article","headline":"Baidu Web, Image & News Results Extractor – docs, price and API","name":"Baidu Web, Image & News Results Extractor – docs, price and API","description":"Runs search queries against Baidu's web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#webpage"},"inLanguage":"en","dateModified":"2026-10-19T20:50:54.435Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-psB9o5eBtflSKjKWE-3t94luE5ba-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"News","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/news/"},{"@type":"ListItem","position":4,"name":"Baidu Web, Image & News Results Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#software","name":"Baidu Web, Image & News Results Extractor","description":"Runs search queries against Baidu's web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.","url":"https://apify.com/dataspryva/baidu-web-image-and-news-results-extractor","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-psB9o5eBtflSKjKWE-3t94luE5ba-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/baidu-web-image-and-news-results-extractor","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#faq","mainEntity":[{"@type":"Question","name":"Why did a run return fewer rows than `maxResults`?","acceptedAnswer":{"@type":"Answer","text":"Because Baidu ran out of results for that query, or because its security check blocked the remaining pages. The status message names the affected queries."}},{"@type":"Question","name":"Does the actor need a proxy or cookies?","acceptedAnswer":{"@type":"Answer","text":"No. It creates an anonymous Baidu session at runtime. Proxy exits are handled automatically when Baidu challenges a request."}},{"@type":"Question","name":"Why does `imageUrl` sometimes equal `thumbnailUrl`?","acceptedAnswer":{"@type":"Answer","text":"A few source pages block direct hotlinking or do not expose an original URL. In that case the actor returns the Baidu-hosted image so the row still has a working URL."}},{"@type":"Question","name":"What is a `serpFeature` row?","acceptedAnswer":{"@type":"Answer","text":"Baidu's non-organic modules — direct answers, knowledge panels, related searches and related videos. Enable includeSerpFeatures to receive them; they are separate rows and do not reduce the organic result count."}},{"@type":"Question","name":"Can I use a custom date window?","acceptedAnswer":{"@type":"Answer","text":"Yes — set dateFrom and dateTo (YYYY-MM-DD). The window overrides timeRange and is applied by Baidu itself for web and news results."}},{"@type":"Question","name":"Why is `publishedAt` missing on some rows?","acceptedAnswer":{"@type":"Answer","text":"Baidu only shows a date on part of its results, and relative dates such as \"3天前\" are converted to an ISO timestamp. When the page shows no date, both date and publishedAt are omitted."}},{"@type":"Question","name":"Can I combine `exactPhrase`, `siteRestrict` and `excludeWords`?","acceptedAnswer":{"@type":"Answer","text":"Yes — these operators are combined into one Baidu query."}},{"@type":"Question","name":"Does `language` translate my query?","acceptedAnswer":{"@type":"Answer","text":"No. It restricts results to pages written in the chosen Chinese script; it does not translate or rewrite the search term."}},{"@type":"Question","name":"Is this affiliated with Baidu?","acceptedAnswer":{"@type":"Answer","text":"No. This actor reads public Baidu result pages and is not affiliated with Baidu, Inc."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/news/">News</a></li><li aria-current="page">Baidu Web, Image &amp; News Results Extractor</li></ol></nav><div class="doc"><div class="doc-head"><h1>Baidu Web, Image &amp; News Results Extractor</h1><p class="lead">Runs search queries against Baidu&#x27;s web, image, or news results and returns titles, URLs, snippets, dates, and image metadata, with filters for time range, file type, site, and exact phrase.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-19">19 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>14 fields, 1 required</dd></div><div><dt>Output</dt><dd>9 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/baidu-web-image-and-news-results-extractor/">Baidu</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/baidu-web-image-and-news-results-extractor">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#notes">Limits and notes</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Baidu Web, Image &amp; News Results Extractor is an Apify Actor published by Dataspryva. It accepts 14 input fields, and <code>queries</code> is required. Each result can carry up to 9 declared fields, including <code>query</code>, <code>position</code>, <code>resultType</code>, <code>title</code>, <code>url</code> and <code>source</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Baidu is the dominant search engine for Chinese-language content, and its result pages differ from Google's — different ranking signals, different SERP layouts, and separate verticals for web, image, news, and query suggestions. This actor collects any of those four surfaces as structured rows with real destination URLs, publisher names, dates, original image URLs, and autocomplete suggestions.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li><strong>Web search</strong> — organic results with title, real destination URL (decoded from Baidu's own result metadata), display domain, snippet, publisher, date text and normalized date, plus thumbnail and inline images when the result carries them. Optionally returns Baidu's answer box, knowledge panel, related searches and related videos as separate <code>serpFeature</code> rows.</li>
 <li><strong>News search</strong> — articles from Baidu's 资讯 feed with title, URL, summary, publication time, outlet name, site and image. A desktop news result page is used as a fallback when the feed is unavailable.</li>
 <li><strong>Image search</strong> — 30 images per page with the <strong>original image URL</strong>, Baidu thumbnail URL, source page URL and domain, pixel dimensions, image format and image id.</li>
 <li><strong>Autocomplete</strong> — up to 10 query suggestions per keyword.</li>
 </ul>
 <p>Only public pages are read. The actor starts a normal anonymous session on Baidu's homepage (Baidu issues its own session cookies), then requests the selected surface. No account, login, cookie input or proxy configuration is required.</p>
-<h2 id="readme-output-per-mode">Output per mode</h2>
-<h3 id="readme-web-mode-websearch">Web (<code>mode: webSearch</code>)</h3>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li><strong>Baidu SEO tracking</strong> — check where pages rank for target keywords over time.</li>
+<li><strong>Competitor and brand monitoring</strong> — see which domains, publishers and content types rank.</li>
+<li><strong>Chinese media monitoring</strong> — pull recent news coverage of a topic, brand or event.</li>
+<li><strong>Dataset building</strong> — collect original image URLs with their source pages for visual research.</li>
+<li><strong>Keyword discovery</strong> — expand a seed term with Baidu's autocomplete suggestions.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 9 fields in 1 dataset view. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>query</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>position</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>resultType</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>title</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>url</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>source</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>date</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>imageUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>suggestion</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr></tbody></table></div><h3 id="readme-output-per-mode">Output per mode</h3><!--readme--><h4 id="readme-web-mode-websearch">Web (<code>mode: webSearch</code>)</h4>
 <p><code>query</code>, <code>position</code>, <code>page</code>, <code>resultType</code> (<code>organic</code> or <code>serpFeature</code>), <code>title</code>, <code>url</code>, <code>displayUrl</code>, <code>domain</code>, <code>snippet</code>, <code>date</code> / <code>dateText</code>, <code>publishedAt</code>, <code>source</code>, <code>thumbnailUrl</code>, <code>images[{url,width,height}]</code>, <code>baiduUrl</code> (when the page only exposed a redirect link), <code>scrapedAt</code>.</p>
 <p>With <code>includeSerpFeatures</code> enabled, additional rows carry <code>featureType</code> (<code>answerBox</code>, <code>knowledgePanel</code>, <code>relatedSearches</code>, <code>relatedVideos</code>) and <code>featureText</code> (or a <code>relatedSearches</code> array).</p>
-<h3 id="readme-news-mode-newssearch">News (<code>mode: newsSearch</code>)</h3>
+<h4 id="readme-news-mode-newssearch">News (<code>mode: newsSearch</code>)</h4>
 <p><code>query</code>, <code>position</code>, <code>page</code>, <code>resultType: news</code>, <code>title</code>, <code>url</code>, <code>snippet</code>, <code>date</code> / <code>dateText</code>, <code>publishedAt</code>, <code>source</code>, <code>site</code>, <code>imageUrl</code>, <code>sourceAvatar</code> (publisher logo), <code>scrapedAt</code>.</p>
-<h3 id="readme-images-mode-imagesearch">Images (<code>mode: imageSearch</code>)</h3>
+<h4 id="readme-images-mode-imagesearch">Images (<code>mode: imageSearch</code>)</h4>
 <p><code>query</code>, <code>position</code>, <code>resultType: image</code>, <code>title</code>, <code>imageUrl</code> (original), <code>thumbnailUrl</code>, <code>sourceUrl</code>, <code>sourceDomain</code>, <code>width</code>, <code>height</code>, <code>imageFormat</code>, <code>imageId</code>, <code>scrapedAt</code>.</p>
-<h3 id="readme-autocomplete-mode-autocomplete">Autocomplete (<code>mode: autocomplete</code>)</h3>
+<h4 id="readme-autocomplete-mode-autocomplete">Autocomplete (<code>mode: autocomplete</code>)</h4>
 <p><code>query</code>, <code>position</code>, <code>resultType: suggestion</code>, <code>suggestion</code>, <code>scrapedAt</code>.</p>
 <p>Fields the source does not provide for a particular result are omitted, never sent as <code>null</code>.</p>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (chinese web results from the last month). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/baidu-web-image-and-news-results-extractor/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/baidu-web-image-and-news-results-extractor&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;webSearch&quot;,
+    &quot;queries&quot;: [&quot;人工智能 最新进展&quot;],
+    &quot;maxResults&quot;: 50,
+    &quot;timeRange&quot;: &quot;month&quot;,
+    &quot;language&quot;: &quot;simplified&quot;,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/baidu-web-image-and-news-results-extractor&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;webSearch&quot;,
+  &quot;queries&quot;: [
+    &quot;人工智能 最新进展&quot;
+  ],
+  &quot;maxResults&quot;: 50,
+  &quot;timeRange&quot;: &quot;month&quot;,
+  &quot;language&quot;: &quot;simplified&quot;
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~baidu-web-image-and-news-results-extractor/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;webSearch&quot;, &quot;queries&quot;: [&quot;人工智能 最新进展&quot;], &quot;maxResults&quot;: 50, &quot;timeRange&quot;: &quot;month&quot;, &quot;language&quot;: &quot;simplified&quot;}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/baidu-web-image-and-news-results-extractor&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Baidu Web, Image &amp; News Results Extractor uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/baidu-web-image-and-news-results-extractor">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 14 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Search mode</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Which Baidu surface to scrape: web results, news, images, or autocomplete suggestions.<!--/readme--><span class="field-meta">Default <code>&quot;webSearch&quot;</code>; Example <code>&quot;imageSearch&quot;</code>; Allowed webSearch, newsSearch, imageSearch, autocomplete</span></td></tr><tr><th scope="row"><code>queries</code><span class="field-title">Search queries</span></th><td data-label="Type">array <span class="req">required</span></td><td data-label="Description"><!--readme-->One or more search terms. Each query is scraped independently up to maxResults.<!--/readme--><span class="field-meta">Default <code>[&quot;人工智能&quot;]</code></span></td></tr><tr><th scope="row"><code>maxResults</code><span class="field-title">Max results per query</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum number of results per query. Practical Baidu ceilings: web about 100, news about 140, images about 1500.<!--/readme--><span class="field-meta">Default <code>50</code>; Example <code>3</code>; Allowed 1 to 1000</span></td></tr><tr><th scope="row"><code>timeRange</code><span class="field-title">Time range</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Restrict web results to a publication window. Applies to web search only; news has its own sort order.<!--/readme--><span class="field-meta">Default <code>&quot;any&quot;</code>; Allowed any, day, week, month, year</span></td></tr><tr><th scope="row"><code>dateFrom</code><span class="field-title">From date</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Start of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.<!--/readme--></td></tr><tr><th scope="row"><code>dateTo</code><span class="field-title">To date</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->End of a custom publication window (YYYY-MM-DD). Overrides the time range. Web and news search only.<!--/readme--></td></tr><tr><th scope="row"><code>fileType</code><span class="field-title">File type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Restrict web results to a file format using Baidu's filetype: operator. Web search only.<!--/readme--><span class="field-meta">Default <code>&quot;any&quot;</code>; Allowed any, pdf, doc, docx, xls, ppt, txt, rtf</span></td></tr><tr><th scope="row"><code>sortBy</code><span class="field-title">News sort order</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Order news results by relevance or by publication time. Applies to news search only.<!--/readme--><span class="field-meta">Default <code>&quot;relevance&quot;</code>; Allowed relevance, time</span></td></tr><tr><th scope="row"><code>language</code><span class="field-title">Chinese script filter</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Restrict web results to pages written in Simplified or Traditional Chinese. Web search only.<!--/readme--><span class="field-meta">Default <code>&quot;any&quot;</code>; Allowed any, simplified, traditional</span></td></tr><tr><th scope="row"><code>siteRestrict</code><span class="field-title">Restrict to domain</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Limit web results to one website domain, e.g. wikipedia.org (site: operator). Web search only.<!--/readme--></td></tr><tr><th scope="row"><code>exactPhrase</code><span class="field-title">Exact phrase</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Require web results to contain this exact phrase (quoted automatically). Web search only.<!--/readme--></td></tr><tr><th scope="row"><code>excludeWords</code><span class="field-title">Exclude words</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Words to exclude from web results, one per line. Web search only.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>titleOnly</code><span class="field-title">Search titles only</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Match the query against page titles only (intitle: operator). Web search only.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>includeSerpFeatures</code><span class="field-title">Include SERP features</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Also return Baidu's answer box, knowledge panel, related searches and related videos as separate rows. Web search only.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -337,7 +164,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-chinese-web-results-from-the-last-month">Example: Chinese web results from the last month</h3>
+<h4 id="readme-example-chinese-web-results-from-the-last-month">Example: Chinese web results from the last month</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;webSearch&quot;,
   &quot;queries&quot;: [&quot;人工智能 最新进展&quot;],
@@ -346,14 +173,14 @@
   &quot;language&quot;: &quot;simplified&quot;
 }
 </code></pre>
-<h3 id="readme-example-original-image-urls">Example: original image URLs</h3>
+<h4 id="readme-example-original-image-urls">Example: original image URLs</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;imageSearch&quot;,
   &quot;queries&quot;: [&quot;Great Wall of China&quot;],
   &quot;maxResults&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-newest-news-articles">Example: newest news articles</h3>
+<h4 id="readme-example-newest-news-articles">Example: newest news articles</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;newsSearch&quot;,
   &quot;queries&quot;: [&quot;technology innovation&quot;],
@@ -361,48 +188,28 @@
   &quot;sortBy&quot;: &quot;time&quot;
 }
 </code></pre>
-<h3 id="readme-example-query-suggestions">Example: query suggestions</h3>
+<h4 id="readme-example-query-suggestions">Example: query suggestions</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;autocomplete&quot;,
   &quot;queries&quot;: [&quot;coffee&quot;],
   &quot;maxResults&quot;: 10
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Baidu SEO tracking</strong> — check where pages rank for target keywords over time.</li>
-<li><strong>Competitor and brand monitoring</strong> — see which domains, publishers and content types rank.</li>
-<li><strong>Chinese media monitoring</strong> — pull recent news coverage of a topic, brand or event.</li>
-<li><strong>Dataset building</strong> — collect original image URLs with their source pages for visual research.</li>
-<li><strong>Keyword discovery</strong> — expand a seed term with Baidu's autocomplete suggestions.</li>
-</ul>
-<h2 id="readme-how-results-are-collected">How results are collected</h2>
-<p>The actor requests Baidu's public result pages directly, reusing only the anonymous session cookies Baidu sets on its own homepage. It paces requests, rotates network exits when Baidu shows a security check, and falls back from the desktop result page to the mobile one when needed. It does not use a browser, so runs stay fast and inexpensive.</p>
-<h2 id="readme-limits">Limits</h2>
-<ul>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-why-did-a-run-return-fewer-rows-than-maxresults"><!--readme-->Why did a run return fewer rows than <code>maxResults</code>?<!--/readme--></h3><!--readme--><p>Because Baidu ran out of results for that query, or because its security check blocked the remaining pages. The status message names the affected queries.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-does-the-actor-need-a-proxy-or-cookies"><!--readme-->Does the actor need a proxy or cookies?<!--/readme--></h3><!--readme--><p>No. It creates an anonymous Baidu session at runtime. Proxy exits are handled automatically when Baidu challenges a request.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-does-imageurl-sometimes-equal-thumbnailurl"><!--readme-->Why does <code>imageUrl</code> sometimes equal <code>thumbnailUrl</code>?<!--/readme--></h3><!--readme--><p>A few source pages block direct hotlinking or do not expose an original URL. In that case the actor returns the Baidu-hosted image so the row still has a working URL.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-what-is-a-serpfeature-row"><!--readme-->What is a <code>serpFeature</code> row?<!--/readme--></h3><!--readme--><p>Baidu's non-organic modules — direct answers, knowledge panels, related searches and related videos. Enable <code>includeSerpFeatures</code> to receive them; they are separate rows and do not reduce the organic result count.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-use-a-custom-date-window"><!--readme-->Can I use a custom date window?<!--/readme--></h3><!--readme--><p>Yes — set <code>dateFrom</code> and <code>dateTo</code> (YYYY-MM-DD). The window overrides <code>timeRange</code> and is applied by Baidu itself for web and news results.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-publishedat-missing-on-some-rows"><!--readme-->Why is <code>publishedAt</code> missing on some rows?<!--/readme--></h3><!--readme--><p>Baidu only shows a date on part of its results, and relative dates such as &quot;3天前&quot; are converted to an ISO timestamp. When the page shows no date, both <code>date</code> and <code>publishedAt</code> are omitted.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-combine-exactphrase-siterestrict-and-excludewords"><!--readme-->Can I combine <code>exactPhrase</code>, <code>siteRestrict</code> and <code>excludeWords</code>?<!--/readme--></h3><!--readme--><p>Yes — these operators are combined into one Baidu query.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-does-language-translate-my-query"><!--readme-->Does <code>language</code> translate my query?<!--/readme--></h3><!--readme--><p>No. It restricts results to pages written in the chosen Chinese script; it does not translate or rewrite the search term.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-is-this-affiliated-with-baidu"><!--readme-->Is this affiliated with Baidu?<!--/readme--></h3><!--readme--><p>No. This actor reads public Baidu result pages and is not affiliated with Baidu, Inc.</p>
+<!--/readme--></div></section><section id="notes"><h2>Limits and notes</h2><h3 id="readme-how-results-are-collected">How results are collected</h3><!--readme--><p>The actor requests Baidu's public result pages directly, reusing only the anonymous session cookies Baidu sets on its own homepage. It paces requests, rotates network exits when Baidu shows a security check, and falls back from the desktop result page to the mobile one when needed. It does not use a browser, so runs stay fast and inexpensive.</p>
+<!--/readme--><h3 id="readme-limits">Limits</h3><!--readme--><ul>
 <li>A single unfiltered Baidu query serves roughly <strong>10–28 organic rows on page 1</strong> and stops after a few pages. <strong>Partitioning works</strong>: different date windows, <code>site:</code>, <code>filetype:</code>, script (<code>language</code>) and the mobile view each return different pages, and unions of 160–240+ unique URLs per topic are reproducible. Split a broad topic into narrower queries to get deeper coverage.</li>
 <li>The realtime news feed serves roughly <strong>137–190 articles per query</strong> and then repeats its tail. The <strong>custom date range</strong> and narrower queries expose additional articles (measured +42 % coverage when adding date windows).</li>
 <li>Image search stops at about <strong>1,446 images per query</strong> regardless of the result-count label Baidu prints.</li>
 <li>About 60 % of web results show a date and most show a publisher name. Those fields are omitted when Baidu does not display them.</li>
 <li>English queries return fewer Chinese-news matches than Chinese queries; an empty news result can be a genuine &quot;no coverage&quot; answer.</li>
 </ul>
-<h2 id="readme-faq">FAQ</h2>
-<p><strong>Why did a run return fewer rows than <code>maxResults</code>?</strong>
-Because Baidu ran out of results for that query, or because its security check blocked the remaining pages. The status message names the affected queries.</p>
-<p><strong>Does the actor need a proxy or cookies?</strong>
-No. It creates an anonymous Baidu session at runtime. Proxy exits are handled automatically when Baidu challenges a request.</p>
-<p><strong>Why does <code>imageUrl</code> sometimes equal <code>thumbnailUrl</code>?</strong>
-A few source pages block direct hotlinking or do not expose an original URL. In that case the actor returns the Baidu-hosted image so the row still has a working URL.</p>
-<p><strong>What is a <code>serpFeature</code> row?</strong>
-Baidu's non-organic modules — direct answers, knowledge panels, related searches and related videos. Enable <code>includeSerpFeatures</code> to receive them; they are separate rows and do not reduce the organic result count.</p>
-<p><strong>Can I use a custom date window?</strong>
-Yes — set <code>dateFrom</code> and <code>dateTo</code> (YYYY-MM-DD). The window overrides <code>timeRange</code> and is applied by Baidu itself for web and news results.</p>
-<p><strong>Why is <code>publishedAt</code> missing on some rows?</strong>
-Baidu only shows a date on part of its results, and relative dates such as &quot;3天前&quot; are converted to an ISO timestamp. When the page shows no date, both <code>date</code> and <code>publishedAt</code> are omitted.</p>
-<p><strong>Can I combine <code>exactPhrase</code>, <code>siteRestrict</code> and <code>excludeWords</code>?</strong>
-Yes — these operators are combined into one Baidu query.</p>
-<p><strong>Does <code>language</code> translate my query?</strong>
-No. It restricts results to pages written in the chosen Chinese script; it does not translate or rewrite the search term.</p>
-<p><strong>Is this affiliated with Baidu?</strong>
-No. This actor reads public Baidu result pages and is not affiliated with Baidu, Inc.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/baidu-web-image-and-news-results-extractor/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>jthHKZPxOzYQB27j5</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/company-intent-scorer-hiring-funding-and-news/">Company Intent Scorer: Hiring, Funding &amp; News Signals</a><p>Grade a list of companies A-D on real buying-readiness signals - hiring activity, funding events, and news momentum - with a plain-English reason behind every score for sales prioritization.</p></li><li><a href="/apify-actor-examples/actors/decrypt-crypto-news-finder-by-category-and-keyword/">Decrypt Crypto News Finder by Category &amp; Keyword</a><p>Search Decrypt&#x27;s crypto, Web3, and AI news by keyword or category, or look up specific articles, for full article text, authors, tags, mentioned coins, and featured images.</p></li><li><a href="/apify-actor-examples/actors/hacker-news-story-comment-and-karma-scraper/">Hacker News Story, Comment &amp; Karma Scraper</a><p>Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.</p></li><li><a href="/apify-actor-examples/actors/medium-article-discovery-and-metadata-extractor/">Medium Article Discovery &amp; Metadata Extractor</a><p>Find Medium articles by tag, author, publication, keyword search or direct URL, returning title, author, tags, preview text, reading time, publish date and paywall status for each.</p></li><li><a href="/apify-actor-examples/actors/multi-league-season-results-and-team-lookup/">Multi-League Season Results &amp; Team Lookup</a><p>Get final scores for a season across 10 major soccer, football, basketball, baseball, and hockey leagues, or look up every team&#x27;s roster details for a league in one run.</p></li><li><a href="/apify-actor-examples/actors/patch-com-local-news-events-and-classifieds-finder/">Patch.com Local News, Events &amp; Classifieds Finder</a><p>Search Patch.com&#x27;s hyperlocal US news by keyword, town, category, author, or tag, and browse its local events calendar or classifieds board, with date-range and distance filters.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/news/">All news Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>jthHKZPxOzYQB27j5</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

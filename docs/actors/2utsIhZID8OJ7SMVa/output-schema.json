@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Uber Eats restaurant records with rating, delivery details, and full nested menu sections with item prices.",
+  "description": "Uber Eats restaurant search results and full menus with item prices, sections, ratings, delivery details, and location context.",
   "properties": {
-    "menus": {
-      "description": "Dataset of scraped UberEats restaurant menus",
+    "restaurants": {
+      "description": "Dataset of restaurant search results and menus",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "UberEats Menus",
+      "title": "Uber Eats restaurants",
       "type": "string"
     }
   },
-  "title": "Uber Eats Restaurant Menu & Price Extractor Output"
+  "title": "Uber Eats Restaurant Search & Menu Output"
 }

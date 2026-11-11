@@ -4,134 +4,204 @@
 
 # Reddit User Profile & Post History Crawler Pro
 
-This actor turns a list of Reddit usernames or profile URLs into structured user records: split karma, account age, staff/moderator badges, and each user's recent post history enriched with awards, media and gilding — plus optional trophies, moderated subreddits and recent comments.
+Turn Reddit usernames or profile links into structured user records: split karma, account age, badges, bio and avatar, plus the user's posts or comments with media, awards, upvote ratio, trophies and moderated communities.
 
-## What this actor does
+Runs on public pages without a Reddit account, login cookie, API key, or proxy setup.
 
-- **Flexible username input:** accepts plain usernames (`spez`), `u/`-prefixed names, or full profile URLs, and extracts the username automatically
-- **Split karma and status:** post, comment, awarder and awardee karma, account age, and admin/employee/moderator badges when Reddit shows them
-- **Per-post enrichment:** awards, total awards received, gilded count, upvote ratio (when exposed), video flag, media metadata and crosspost parent for every post
-- **Optional add-ons:** trophy case, moderated-subreddit list, and recent comments, each toggled independently so you only pay the extra data cost you ask for
-- **Post filters:** drop posts below a minimum score, older than a max age, or flagged NSFW, all applied after the posts are collected
-- **Empty fields are omitted** — a field only appears on a record when the profile actually has that data
+## Modes
 
-## Output per user
+| Mode | What it collects |
+|---|---|
+| **Posts** (`submitted`) | The user's submitted posts, with optional recent comments. |
+| **Overview** (`overview`) | Posts **and** comments in one record. |
+| **Comments** (`comments`) | The user's recent comments only. |
+| **Gilded** (legacy) | Reddit no longer exposes a gilded feed; accepted for saved tasks and treated as Posts with a warning. |
 
-- `username`
+Every mode supports Hot, New, Top and Controversial ordering. Top and Controversial use the `timeFilter` window.
+
+## What each record contains
+
+### User fields
+
+- `username`, `user_id`, `profile_url`
 - `post_karma`, `comment_karma`, `total_karma`
-- `awarder_karma`, `awardee_karma` — only present when Reddit's profile page exposes them
-- `account_created` — ISO 8601 cake-day timestamp
-- `account_age_years`
-- `is_admin`, `is_employee`, `is_moderator` — only present (and `true`) when Reddit shows that staff/mod badge on the profile
-- `posts[]` — post records after filtering (see below); always present, may be empty
-- `post_count` — number of posts in `posts[]` after filtering
-- `filtered_post_count` — only present when the user had posts but every one was filtered out
-- `posts_total_score` — sum of `score` across the kept posts, when non-zero
-- `section_empty` — only present when the requested `section` genuinely has no content for this user
-- `trophies[]`, `trophy_count` — only present when `includeTrophies` is on and the user has trophies
-- `moderated_subreddits[]`, `moderated_subreddit_count` — only present when `includeModeratedSubreddits` is on and the list is non-empty
-- `moderator_list_hidden` — only present when that list is on but the user has hidden it
-- `recent_comments[]`, `recent_comment_count`, `recent_comments_total_score` — only present when `includeComments` is on and the user has recent comments
-- `scraped_at` — ISO 8601 UTC timestamp
+- `account_created` (ISO 8601), `account_age_years`
+- `description`, `icon_img`
+- `contributions`
+- `is_admin`, `is_employee`, `is_moderator`, `is_gold`, `verified`, `has_verified_email` — only present when Reddit shows the badge
+- `posts[]`, `post_count`
+- `filtered_post_count` — only when posts existed but every one was filtered out
+- `section_empty` — only when the chosen feed genuinely has no content for that user
+- `trophies[]`, `trophy_count` — when Include trophy case is on
+- `moderated_subreddits[]`, `moderated_subreddit_count` — when Include moderated communities is on
+- `moderator_list_hidden` — when the public moderator list is hidden
+- `recent_comments[]`, `recent_comment_count`, `recent_comments_total_score` — for Overview, Comments, or when Include recent comments is on
+- `posts_total_score` — sum of kept post scores when non-zero
+- `scraped_at`
 
-### Post fields (inside `posts[]`)
+### Post fields
 
-- `post_id`, `post_name`, `title`
-- `author`, `author_fullname`
-- `subreddit`, `subreddit_prefixed`
-- `score`, `num_comments`
-- `url`, `permalink`, `external_url`, `domain`
-- `content` — self-text, capped at 1,000 characters
+- `post_id`, `post_name`, `title`, `author`, `author_fullname`
+- `subreddit` (bare name, e.g. `aww`), `subreddit_prefixed` (`r/aww`)
+- `score`, `num_comments`, `upvote_ratio`
+- `permalink`, `url`, `external_url`, `domain`, `post_type`, `post_hint`
+- `content` (self-text, up to 1,000 characters), `content_html`
 - `thumbnail_url`, `link_flair`
-- `created_utc`, `created_at`, `post_age_seconds`
-- `is_self`, `is_stickied`, `is_nsfw`, `is_promoted`, `is_spoiler`, `is_original_content`, `is_gallery`, `is_video`
-- `num_crossposts`, `crosspost_parent`
-- `awards[]`, `total_awards_received`, `gilded_count`, `upvote_ratio`
-- `media_metadata` — thumbnail URL/dimensions and media type/domain when present
-- `post_hint`, `title_word_count`
+- `created_utc`, `created_at`, `post_age_seconds`, `title_word_count`
+- `is_self`, `is_gallery`, `is_video`, `is_crosspost`, `is_stickied`, `is_locked`, `is_archived`, `is_nsfw`, `is_spoiler`, `is_original_content`, `is_promoted`
+- `awards[]`, `total_awards_received`, `gilded_count` (when Reddit labels the award as a gild)
+- `media_metadata` — type, thumbnail, gallery images, MP4/HLS video URL
+- `crosspost_parent` — original post id, subreddit and link
 
-If a username can't be resolved, the actor emits one error record (`recordType: "error"`, `type: "reddit_profile_crawler_pro_error"`) and keeps processing the rest of the list — `reason` is `user_not_found` when the profile doesn't exist, `scrape_failed` when fetching that username's page raised an error, or `no_valid_usernames` once per run when `usernames` contains no usable entry at all.
+### Comment fields
+
+- `comment_id`, `comment_name`, `post_id`, `post_title`
+- `author`, `text`, `body_html`
+- `score`, `subreddit`, `subreddit_prefixed`
+- `permalink`, `created_utc`, `created_at`
+- `is_edited`, `distinguished`
+
+A field the profile genuinely lacks is omitted, never emitted as `null`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `usernames` | array | – | Reddit usernames, `u/name` handles, or full profile URLs. |
-| `maxPosts` | integer | `100` | Maximum posts to collect per user (1–1000). |
-| `section` | string | `submitted` | `submitted`, `overview` (posts + comments), or `gilded`. |
-| `sort` | string | `new` | `hot`, `new`, `top`, or `controversial`. |
-| `includeComments` | boolean | `false` | Also collect the user's recent comments, adding `recent_comments[]`. |
-| `includeTrophies` | boolean | `false` | Also collect the user's trophy case, adding `trophies[]`. |
-| `includeModeratedSubreddits` | boolean | `false` | Also collect subreddits the user moderates, adding `moderated_subreddits[]`. |
-| `minPostScore` | integer | – | Drop posts with a score below this value. |
+| `usernames` | array | – | Usernames, `u/name` handles, or full profile URLs. Legacy `username` is also accepted. |
+| `section` | select | `submitted` | Posts, Overview, Comments, or legacy Gilded. |
+| `sort` | select | `new` | New, Hot, Top, or Controversial. |
+| `timeFilter` | select | `all` | All time, year, month, week, day, or hour. Used by Top/Controversial. |
+| `maxPosts` | integer | `50` | Posts to collect per user (1–1000). |
+| `maxComments` | integer | `25` | Comments to collect per user (1–1000). |
+| `includeComments` | boolean | `false` | Also collect comments when the section is Posts. |
+| `includeTrophies` | boolean | `false` | Add the trophy case. |
+| `includeModeratedSubreddits` | boolean | `false` | Add the public moderated-community list. |
+| `minPostScore` | integer | – | Drop posts below this score. |
 | `maxPostAgeDays` | integer | – | Drop posts older than this many days. |
-| `excludeNsfwPosts` | boolean | `false` | Drop posts flagged as NSFW. |
+| `excludeNsfwPosts` | boolean | `false` | Drop NSFW / not-brand-safe posts. |
+| `minPostComments` | integer | – | Drop posts with fewer comments. |
+| `maxPostComments` | integer | – | Drop posts with more comments. |
+| `postType` | select | `all` | Keep one type: text, link, image, video, gallery, crosspost, GIF, multi-media, or poll. |
+| `includeKeywords` | array | – | Keep posts matching these terms in title, body, flair, or subreddit. |
+| `excludeKeywords` | array | – | Drop posts matching any of these terms. |
+| `keywordMatch` | select | `any` | Include keywords may match any or all terms. |
+| `excludeStickied` | boolean | `false` | Drop pinned posts. |
 
-### Example: basic profile with recent posts
-
-```json
-{
-  "usernames": ["spez", "u/example_user"],
-  "maxPosts": 50,
-  "sort": "new"
-}
-```
-
-### Example: full enrichment with filters
+### Example: recent posts
 
 ```json
 {
-  "usernames": ["https://www.reddit.com/user/another_user"],
-  "maxPosts": 200,
-  "includeComments": true,
-  "includeTrophies": true,
-  "includeModeratedSubreddits": true,
-  "minPostScore": 10,
-  "maxPostAgeDays": 365,
-  "excludeNsfwPosts": true
+  "usernames": ["spez", "https://www.reddit.com/user/Poem_for_your_sprog"],
+  "section": "submitted",
+  "sort": "new",
+  "maxPosts": 25
 }
 ```
 
-### Example: gilded posts only
+### Example: top comments
 
 ```json
 {
   "usernames": ["spez"],
-  "section": "gilded",
-  "sort": "top"
+  "section": "comments",
+  "sort": "top",
+  "timeFilter": "year",
+  "maxComments": 50,
+  "excludeNsfwPosts": true
 }
 ```
 
+### Example: filtered image posts
+
+```json
+{
+  "usernames": ["GallowBoob"],
+  "section": "submitted",
+  "sort": "top",
+  "timeFilter": "month",
+  "maxPosts": 100,
+  "postType": "image",
+  "minPostScore": 500,
+  "excludeKeywords": ["giveaway"]
+}
+```
+
+### Example: full profile
+
+```json
+{
+  "usernames": ["spez"],
+  "section": "overview",
+  "maxPosts": 50,
+  "maxComments": 50,
+  "includeTrophies": true,
+  "includeModeratedSubreddits": true,
+  "excludeNsfwPosts": true
+}
+```
+
+## Error records
+
+Each unusable username emits one record with `recordType: "error"` and `type: "reddit_profile_crawler_pro_error"`. The run continues with the remaining users.
+
+| `reason` | Meaning |
+|---|---|
+| `user_not_found` | Reddit has no profile with that name. |
+| `profile_private` | The profile is private. |
+| `profile_suspended` | The account is suspended. |
+| `blocked` | Reddit blocked every anonymous route for this run. |
+| `scrape_failed` | The page raised an unexpected error. |
+| `no_valid_usernames` | The input contained no usable username. |
+
 ## Use cases
 
-- **User-activity research** — study posting cadence, top subreddits and karma split for a user
-- **Account-age and status checks** — combine `account_created`, `account_age_years` and staff/mod badges as a quick trust signal
-- **Influence mapping** — rank users by `posts_total_score` or `total_awards_received` across their history
-- **Moderator auditing** — list every subreddit a user moderates in one run
-- **Community datasets** — bulk-collect posts and comments with structured metadata for analysis
+- **User research** — posting cadence, top communities, karma split and account age.
+- **Trust and safety checks** — combine age, status badges, verification and trophy history.
+- **Influence analysis** — rank posts by score, comments, awards and upvote ratio.
+- **Community audits** — export the public list of communities a user moderates.
+- **Dataset building** — collect posts and comments with media and engagement metadata.
 
 ## FAQ
 
 ### Is this affiliated with Reddit?
-No. This is an independent, third-party actor that reads publicly available Reddit profile pages; it isn't operated by or affiliated with Reddit.
 
-### Do I need a Reddit account or login?
-No. Only public profile data is collected.
+No. This is an independent third-party actor that reads publicly available Reddit pages. It is not operated by or affiliated with Reddit.
 
-### What happens when a username doesn't exist?
-The actor emits an error record identifying that username and continues with the rest of the list rather than failing the whole run.
+### Do I need a Reddit account, API key, or proxy?
 
-### Why would `post_count` be `0` but the user clearly has posts?
-If every post was removed by `minPostScore`, `maxPostAgeDays` or `excludeNsfwPosts`, `post_count` is `0` and `filtered_post_count` tells you how many were dropped, so you can distinguish "no posts" from "all filtered out."
+No. The actor reads public pages anonymously. It handles Reddit's network challenges automatically and needs no credentials or proxy configuration from you.
 
-### Why are `awarder_karma` or `is_admin` sometimes missing?
-Reddit only shows these on a profile when they apply — a regular user without admin/employee/moderator status, or without a separate awarder-karma figure, simply won't have those fields in the record.
+### Why is `post_count` lower than `maxPosts`?
 
-### What's the difference between `submitted`, `overview` and `gilded` for `section`?
-`submitted` returns the user's own posts, `overview` mixes posts and comments together, and `gilded` returns only posts that received an award. Use `includeComments` if you want comments returned as a dedicated `recent_comments[]` array instead.
+The profile feed ran out of pages before reaching the limit, or the client-side filters removed posts. `filtered_post_count` appears when filters removed every post.
 
-### Can I get more than `maxPosts` worth of history?
-No — `maxPosts` (up to 1000) is the hard cap per user per run. Run the actor again later to pick up newer posts.
+### Why did a user return no comments?
 
-### How fresh is the data?
-Each run reads the live profile pages at request time, so karma, posts and comments reflect what's current on Reddit.
+The account may have no public comments, or Reddit's comments feed may be empty for that profile. `section_empty` flags the empty feed.
+
+### Why is `section: "gilded"` treated as Posts?
+
+Reddit's current public profile UI no longer has a gilded-only feed. Saved tasks that send `gilded` keep working as Posts, and the status log explains the substitution.
+
+### Why are awarder/awardee karma fields often missing?
+
+Reddit's current public profile header only shows post, comment and total karma for most accounts. Those fields appear only when the page carries them.
+
+### Are private or suspended profiles supported?
+
+No. They emit an error record explaining the reason; no personal data is collected from them.
+
+## Data source
+
+Public Reddit profile, posts and comments pages. The actor does not use Reddit's OAuth API, does not log in, and does not require cookies.
+
+## Legacy input compatibility
+
+Old saved tasks keep working. The actor maps these keys in code:
+
+- `username` (string) → `usernames`
+- `sortBy` → `sort`
+- `section: "gilded"` → `submitted`
+- old sort aliases `best` / `rising` / `relevance` → `hot` / `new` / `hot`
+
+Legacy keys are intentionally **not** shown in the input form, so the schema only contains fields the actor actually uses.

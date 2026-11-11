@@ -4,108 +4,121 @@
 
 # Uber Eats Restaurant Menu & Price Extractor
 
-Give this actor a handful of Uber Eats restaurant page links and it pulls back the full menu — every section, every item, prices and photos — plus the restaurant's own rating, cuisines, delivery fee and estimated delivery time.
+Turn Uber Eats into a structured dataset. Search restaurants by keyword, then read their menus item by item, or feed in restaurant links and pull every section and price. Everything runs without cookies, logins, or API keys.
 
-## What this actor does
+## Three ways to scrape
 
-- **Full menu extraction** — every section and item on a restaurant's page, not just a preview.
-- **Restaurant profile** — rating, rating count, price tier, cuisines, open status, address and city alongside the menu.
-- **Delivery details** — delivery fee and estimated delivery time as shown on the page.
-- **Menu completeness stats** — section and item counts, plus how many items actually have a photo or description.
-- Fields a restaurant doesn't publish (e.g. no item description, no delivery fee data) are omitted rather than returned empty.
+| Mode | Use it for | What you get |
+|---|---|---|
+| `search` | Discover restaurants for a keyword and delivery area | Restaurant name, URL, rating, review count, ETA, coordinates and rank |
+| `menus` | Export the full menu of restaurants you already know | Restaurant profile plus every menu section the public response exposes, with item price, currency, photo and availability |
+| `searchWithMenus` | Search, then export a menu for every match | Search fields, restaurant profile and complete menu in one record per restaurant |
 
-## Output per restaurant
+## Location matters
 
-- `restaurantId`, `restaurantName`, `restaurantUrl`
-- `heroImageUrl`
-- `rating`, `ratingCount`
-- `priceRange` — e.g. `$`, `$$`, `$$$`
-- `cuisines` — e.g. `["Burgers", "Fast Food"]`
-- `isOpen`
-- `address`, `city`
-- `deliveryFee` — e.g. `Free`, `$0.49`
-- `estimatedDeliveryTime` — e.g. `15–25 min`
-- `menu` — array of `{sectionName, items[]}`
-- `menuSectionCount`, `menuItemCount` — totals across the whole menu
-- `itemsWithImageCount`, `itemsWithDescCount` — how many items have a photo or description
+Uber Eats only serves restaurants that deliver to a specific address, so **results depend on `location`**. Pass a city, postcode, street address, or `latitude,longitude`. The actor resolves it to a real delivery point, then uses that context for both search and menu pricing. If the address cannot be resolved, it falls back to the default city for the selected `country`.
+
+## What is in each record
+
+- `mode`, `query`, `location`, `rank` — how the record was found
+- `restaurantId`, `restaurantName`, `restaurantUrl`, `heroImageUrl`
+- `rating`, `ratingCount`, `priceRange`, `cuisines`, `isOpen`
+- `address`, `city`, `postalCode`, `countryCode`, `latitude`, `longitude`
+- `phoneNumber`, `currencyCode`, `storeType`, `deliveryMethods`, `workingHours`
+- `deliveryFee`, `estimatedDeliveryTime`
+- `menu` — ordered sections, each with `sectionName` and `items`
+- `menuSectionCount`, `menuItemCount`, `itemsWithImageCount`, `itemsWithDescCount`
 - `scrapedAt`
 
-Each entry inside `menu[].items[]` has:
+Each menu item contains:
 
 - `itemId`, `name`, `description`
-- `price`, `currency`
-- `imageUrl`
-- `isAvailable`
+- `price` in major currency units (for example `12.50`), `currency`
+- `imageUrl`, `isAvailable`, `hasCustomizations`
 
-## Input
+Empty values are omitted, never returned as `null`.
 
-| Field | Type | Default | Description |
+## Input examples
+
+### Search pizza places in Brooklyn
+
+```json
+{
+  "mode": "search",
+  "searchQueries": ["pizza"],
+  "location": "Brooklyn, NY",
+  "maxRestaurants": 20
+}
+```
+
+### Export full menus for two restaurants
+
+```json
+{
+  "mode": "menus",
+  "restaurantUrls": [
+    "https://www.ubereats.com/store/cvs-129-fulton-streets/isOmPe5EU261CcRN3X7RMw",
+    "https://www.ubereats.com/store/atlantis-cafe-1049-grand-street/p1lWs-ecV5ySgxZXi1PRcw"
+  ],
+  "location": "Brooklyn, NY",
+  "maxMenuItemsPerRestaurant": 500
+}
+```
+
+### Search, then pull every menu
+
+```json
+{
+  "mode": "searchWithMenus",
+  "searchQueries": ["sushi", "ramen"],
+  "location": "Toronto, ON",
+  "country": "ca",
+  "maxRestaurants": 10,
+  "maxMenuItemsPerRestaurant": 150
+}
+```
+
+## How pagination works
+
+Search results are requested page by page until `maxRestaurants` unique stores are collected or Uber Eats runs out of matches. Menus follow the same rule: the actor reads Uber Eats' own section paging and keeps requesting until the source stops returning items or `maxMenuItemsPerRestaurant` is reached. Menu item caps are applied across the whole restaurant, not per section.
+
+## Inputs
+
+| Field | Type | Default | Notes |
 |---|---|---|---|
-| `restaurantUrls` | array | – | **Required.** Uber Eats restaurant page URLs to scrape |
-| `maxItemsPerRestaurant` | integer | `200` | Maximum menu items to extract per restaurant (1–2000) |
-| `country` | string | `us` | `us`, `gb`, `au`, or `ca` — country context for the restaurant's delivery location |
+| `mode` | select | — | `search`, `menus`, or `searchWithMenus` (prefilled with `search`) |
+| `searchQueries` | array | — | Keywords for search modes (prefilled with `["pizza"]`) |
+| `location` | string | `New York, NY` | Address, city, postcode, or `lat,lng` |
+| `country` | select | `us` | Fallback market and default city |
+| `maxRestaurants` | integer | `20` | 1–500 unique restaurants |
+| `restaurantUrls` | array | — | URLs or store IDs for menu modes |
+| `maxMenuItemsPerRestaurant` | integer | — | 1–2000 items per restaurant (prefilled with `10`) |
 
-### Example: a single restaurant, full menu
-
-```json
-{
-  "restaurantUrls": [
-    "https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ"
-  ],
-  "country": "us"
-}
-```
-
-### Example: several restaurants, capped menu size
-
-```json
-{
-  "restaurantUrls": [
-    "https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ",
-    "https://www.ubereats.com/store/some-other-restaurant/AbCdEfGhIjKlMnOp"
-  ],
-  "maxItemsPerRestaurant": 50
-}
-```
-
-### Example: a UK restaurant
-
-```json
-{
-  "restaurantUrls": [
-    "https://www.ubereats.com/gb/store/some-london-restaurant/QrStUvWxYzAbCdEf"
-  ],
-  "country": "gb"
-}
-```
+Existing tasks that send `restaurantUrls` and `maxItemsPerRestaurant` keep working. The older key is read in code and mapped to `maxMenuItemsPerRestaurant`; it does not need to stay in the form.
 
 ## Use cases
 
-- **Competitive intelligence** — compare a competitor's prices and menu composition against your own.
-- **Menu database building** — collect structured menus across many restaurants in one run.
-- **Price monitoring** — rerun the same URLs on a schedule to track price changes over time.
-- **Market analysis** — look at cuisine and pricing patterns across a city or chain.
-- **Catalog migration** — import a restaurant's menu structure into another ordering or review platform.
+- **Price monitoring** — snapshot competitor menus and track dish prices over time.
+- **Market research** — see which cuisines and restaurants serve a neighbourhood.
+- **Catalog enrichment** — add descriptions, photos, and availability to your own listings.
+- **Delivery benchmarking** — compare ratings, ETAs, and fees across an area.
 
 ## FAQ
 
-**Which countries are supported?**
-`us`, `gb`, `au`, and `ca`. Pick the one matching the restaurant's physical location for the most accurate delivery details.
+**Does this need an Uber Eats account or cookies?**
+No. The actor reads public restaurant and menu data and needs no login, cookie, or API key.
 
-**Can I scrape several restaurants in one run?**
-Yes — list as many URLs as you want in `restaurantUrls`; each produces its own output record.
+**Do I need to configure a proxy?**
+No. It works directly, and the actor chooses its network path automatically.
 
-**Where do I get a restaurant's URL?**
-Open the restaurant on ubereats.com and copy the page URL from your browser — it looks like `https://www.ubereats.com/store/<name>/<id>`.
+**Why do two nearby addresses return different restaurants?**
+Uber Eats filters by delivery radius. Change `location` to the exact area you care about.
 
-**Why do some items have no `description`?**
-Many Uber Eats restaurants simply don't write descriptions for their menu items. `itemsWithDescCount` tells you how many items on that menu actually have one; photos (`itemsWithImageCount`) are far more commonly present.
+**Why is a menu shorter than what I see in the app?**
+Some stores hide items that are unavailable at the current time, lazy-load category sections, or do not expose them in the public menu response. The actor returns everything the public menu response exposes up to your item cap.
 
-**How fresh is the data?**
-Each run fetches the menu live from Uber Eats at request time.
+**Are prices always in the same currency?**
+No. `currencyCode` and each item's `currency` tell you the local currency, which depends on the delivery market.
 
-**Does this need a login or proxy?**
-No — restaurant menu pages are public, so no login, API key, or proxy is required.
-
-**Is this affiliated with Uber Eats?**
-No. This is an independent, third-party actor that reads Uber Eats' publicly available restaurant pages.
+**Can I use restaurant IDs instead of full URLs?**
+Yes. Paste either a full Uber Eats URL or a store UUID in `restaurantUrls`.

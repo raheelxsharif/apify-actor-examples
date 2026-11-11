@@ -1,47 +1,65 @@
 # MercadoLibre Mexico Marketplace Price Scraper
 
-MercadoLibre Mexico is the country's largest online marketplace. This actor searches its product listings by keyword and returns price, discount, condition, seller and rating for each result — useful for tracking prices on a specific product line without browsing the site by hand.
+MercadoLibre Mexico (`mercadolibre.com.mx`) is the country's largest online marketplace. This actor reads its public listing pages and product pages without cookies, login or an API key, so you can track prices, discounts, sellers and stock for any product line.
 
 ## What this actor does
 
-- Searches MercadoLibre Mexico by free-text keyword, or accepts direct MercadoLibre Mexico search URLs to override the structured filters
-- Filters results by condition (new/used) and a price range in Mexican pesos
-- Captures the discount percentage and original ("before") price when an item is on sale
-- Picks up seller name, brand, shipping badge text, and star rating/review count when the listing shows them
-- Omits any field the listing didn't display — no empty strings or nulls in the output
+- **Search listings** by keyword, by pasted MercadoLibre Mexico listing URL, or by category — with pagination until `maxItems` is reached.
+- **Product details** by URL or item ID: title, price, original price, discount, condition, stock, sold count, seller, rating, specs, images and variations.
+- Filters for condition, price range, sort order and free shipping.
+- Optional `includeDetails` enrichment: open each search result's product page to add fields the listing card does not show.
+- Omits fields the source does not provide — no nulls, empty strings or placeholder rows.
+
+## Modes
+
+| Mode | What it returns | Required input |
+|---|---|---|
+| `search` | One row per listing card (optionally enriched with product-page fields) | `searchQuery` or `startUrls` |
+| `product` | One row per product page, with full detail fields | `productUrls` |
 
 ## Output per product
 
-- `id` — MercadoLibre item ID (e.g. `MLM1018500855`)
+Core fields (kept from earlier versions):
+
+- `id` — item ID (e.g. `MLM1018500855`)
 - `title`, `url`
 - `countryCode` — always `MX`
 - `price` — current price in MXN
-- `originalPrice` — pre-discount price, when the item is on sale
+- `originalPrice` — pre-discount price, when shown
 - `currency`, `currencySymbol`
-- `discountPercentage` — percent off (0–100), when discounted
-- `condition` — `new` or `used` (refurbished items are mapped to `used`)
+- `discountPercentage` — percent off, when discounted
+- `condition` — `new`, `used`, `refurbished` or `open_box`
 - `thumbnail` — product image URL
 - `sellerName`, `brand`
-- `shippingLabel` — shipping badge text as shown on the listing (e.g. "Envío gratis")
-- `rating`, `reviewsCount`
+- `shippingLabel` — shipping badge text (e.g. `Envío gratis`)
+- `rating` — average star rating
+- `reviewsCount` — number of ratings
 - `scrapedAt` — UTC scrape timestamp
+
+Additional detail fields appear when the page provides them: `itemId`, `catalogProductId`, `userProductId`, `itemUrl`, `imageUrl`, `imageCount`, `availableQuantity`, `hasStock`, `soldQuantity`, `soldText`, `sellerId`, `isOfficialStore`, `freeShipping`, `fullShipping`, `shippingText`, `logisticType`, `installments`, `specs`, `variations`, `categoryId`, `categoryPath`, `ratingDistribution`, `promotions`, `position`, `searchQuery`, `totalResults`, `sponsored` and `recordType`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `country` | string | `MX` | MercadoLibre country site; only Mexico is currently supported |
-| `searchQuery` | string | – | Free-text keyword (required unless `startUrls` is set) |
-| `condition` | string | `any` | `any`, `new` or `used` |
+| `mode` | string | `search` | `search` or `product` |
+| `country` | string | `MX` | Only Mexico is supported |
+| `searchQuery` | string | – | Keyword for search mode |
+| `startUrls` | array | – | MercadoLibre Mexico listing URLs; replaces the keyword, filters still apply |
+| `productUrls` | array | – | Product URLs or item IDs for product mode |
+| `condition` | string | `any` | `any`, `new`, `used`, `refurbished`, `open_box` |
+| `sort` | string | `relevance` | `relevance`, `price_asc`, `price_desc` |
 | `priceMin` | integer | – | Minimum price in MXN |
 | `priceMax` | integer | – | Maximum price in MXN |
-| `startUrls` | array | – | Direct MercadoLibre Mexico search URLs, overriding the structured filters above |
-| `maxItems` | integer | `50` | Maximum items to return (1–1000) |
+| `freeShippingOnly` | boolean | `false` | Only listings with free shipping |
+| `includeDetails` | boolean | `false` | Enrich each search card from its product page |
+| `maxItems` | integer | `50` | Maximum records (1–1000) |
 
 ### Example: new iPhones under a price cap
 
 ```json
 {
+  "mode": "search",
   "country": "MX",
   "searchQuery": "iphone",
   "condition": "new",
@@ -50,55 +68,72 @@ MercadoLibre Mexico is the country's largest online marketplace. This actor sear
 }
 ```
 
-### Example: used items in a price band
+### Example: used items in a price band, free shipping only
 
 ```json
 {
+  "mode": "search",
   "country": "MX",
   "searchQuery": "laptop gamer",
   "condition": "used",
   "priceMin": 5000,
   "priceMax": 15000,
+  "freeShippingOnly": true,
   "maxItems": 40
 }
 ```
 
-### Example: a direct search URL
+### Example: product details
 
 ```json
 {
-  "startUrls": ["https://listado.mercadolibre.com.mx/camara-fotografica"],
+  "mode": "product",
+  "productUrls": ["https://articulo.mercadolibre.com.mx/MLM-1234567890-producto", "MLM1018500855"]
+}
+```
+
+### Example: a category listing URL
+
+```json
+{
+  "mode": "search",
+  "startUrls": ["https://listado.mercadolibre.com.mx/camaras-fotograficas"],
   "maxItems": 20
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — run daily to track how a product's listed price moves on MercadoLibre Mexico
-- **Competitive research** — compare seller names, shipping offers and ratings across listings for the same keyword
-- **Secondary-market analysis** — filter `condition=used` to study the refurbished/used segment
-- **Discount tracking** — watch `discountPercentage` to catch newly discounted items
-- **Catalog enrichment** — pull thumbnails and titles into a product database by keyword
+- **Price monitoring** — run daily to track how a product's listed price moves.
+- **Competitive research** — compare sellers, shipping offers and ratings for the same keyword.
+- **Secondary-market analysis** — filter `condition=used` to study the refurbished/used segment.
+- **Discount tracking** — watch `discountPercentage` to catch newly discounted items.
+- **Catalog enrichment** — pull product details, specs, images and stock into a database.
 
 ## FAQ
 
 **Is this affiliated with MercadoLibre?**
-No. This is an independent actor that reads publicly available MercadoLibre Mexico listing pages; it is not operated by or affiliated with MercadoLibre.
+No. This is an independent actor that reads publicly available MercadoLibre Mexico pages.
+
+**Do I need cookies, a login or an API key?**
+No. The actor uses MercadoLibre's public webview route and needs no credentials.
 
 **Why is only Mexico supported?**
-MercadoLibre's other Latin American sites (Argentina, Brazil, Chile, Colombia, Peru and others) currently block automated requests far more aggressively than the Mexico site, so they were left out rather than ship an option that fails every time.
+Other MercadoLibre country sites are aggressively anti-bot gated and were removed rather than ship options that fail. The Mexico marketplace is verified end to end.
 
-**How do `condition` and the price filters interact?**
-Both are applied to the final result set, so a search with `condition=used` and a price range only returns used items whose price falls inside that range.
+**How does pagination work?**
+The actor requests 50 listings per page and keeps paging until `maxItems` is reached, the source reports no more results, or MercadoLibre's 2,000-row per-query window is exhausted. Use narrower filters or several queries for larger result sets.
 
-**Why do some products have no `rating` or `reviewsCount`?**
-Not every MercadoLibre listing shows a star rating or review count on the search results page; those fields are only included when the listing actually displays them.
+**Why do some products have no `rating`, `reviewsCount` or `condition`?**
+Listing cards often omit fields that product pages show. Set `includeDetails=true` to open each product page and fill them in.
 
-**What happens if MercadoLibre blocks the run?**
-On the rare occasion every attempt is blocked, the actor returns a single status record explaining why instead of failing with no output at all. Running again shortly afterward typically succeeds.
+**What happens if MercadoLibre blocks a request?**
+The actor retries with fresh sessions and alternating app user agents. If a page still cannot be read, it skips that page and reports the situation in the run status instead of fabricating rows.
 
 **How fresh is the data?**
-Each run reads the live MercadoLibre Mexico search results, so prices, discounts and availability reflect what's currently listed.
+Each run reads live MercadoLibre Mexico pages, so prices and availability reflect what is listed at run time.
 
-**Can I target a specific category or saved search instead of a keyword?**
-Yes — paste the MercadoLibre Mexico search URL for that category or filter combination into `startUrls`; it overrides `searchQuery`, `condition` and the price fields.
+**Do old saved tasks keep working?**
+Yes. Legacy mode names (`searchProducts`, `searchByCategory`, `getProductDetails`), old keys
+(`query`, `urls`, `startUrl`, `itemId`, `productId`, `countryCode`, `maxResults`) and
+`condition=all` are mapped in code. Old API search URLs are translated to the public listing route.

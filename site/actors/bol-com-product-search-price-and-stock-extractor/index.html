@@ -1,245 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-G7c0j35wL5YxO3BF/ekaKVtDtZaY4gRXkIGJHrstlDU=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Bol.com Product Search, Price &amp; Stock Extractor | Dataspryva</title><meta name="description" content="Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"><meta property="og:title" content="Bol.com Product Search, Price &amp; Stock Extractor | Dataspryva"><meta property="og:description" content="Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#webpage","name":"Bol.com Product Search, Price & Stock Extractor","description":"Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#article","headline":"Bol.com Product Search, Price & Stock Extractor","name":"Bol.com Product Search, Price & Stock Extractor","description":"Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#webpage"},"inLanguage":"en","dateModified":"2026-10-21T11:30:33.974Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Bol.com Product Search, Price & Stock Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Bol.com Product Search, Price &amp; Stock Extractor</span></div><section id="overview"><h1 class="doc-title">Bol.com Product Search, Price &amp; Stock Extractor</h1><p class="lede">Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.</p><p class="summary">Bol.com Product Search, Price &amp; Stock Extractor is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/bol-com-product-search-price-and-stock-extractor">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/5o3SucGekbCXdfc83/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect from Bol.com.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords to search for (mode=search).</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Bol.com product links, EAN-8/EAN-13 barcodes, or numeric product IDs (mode=productDetails).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to collect from Bol.com.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords to search for (mode=search).</td></tr><tr><td><code>productUrls</code></td><td>array</td><td>optional</td><td>Bol.com product links, EAN-8/EAN-13 barcodes, or numeric product IDs (mode=productDetails).</td></tr><tr><td><code>categoryUrls</code></td><td>array</td><td>optional</td><td>Bol.com listing links or numeric category IDs (mode=categoryBrowse).</td></tr><tr><td><code>marketplace</code></td><td>string</td><td>optional</td><td>Which Bol.com shop to use for keyword searches and numeric category IDs.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Shop language for keyword searches and numeric category IDs.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result ordering for search and browsing. Price sorts use the emitted numeric price; RATING_ASC follows Bol&#x27;s rating score, not the visible average.</td></tr><tr><td><code>minPrice</code></td><td>integer</td><td>optional</td><td>Only keep products at or above this price.</td></tr><tr><td><code>maxPrice</code></td><td>integer</td><td>optional</td><td>Only keep products at or below this price.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Only keep products rated at or above this value (0-5).</td></tr><tr><td><code>condition</code></td><td>string</td><td>optional</td><td>Only keep products with this offer condition.</td></tr><tr><td><code>inStockOnly</code></td><td>boolean</td><td>optional</td><td>Only keep products that are currently in stock.</td></tr><tr><td><code>includeSponsored</code></td><td>boolean</td><td>optional</td><td>Keep sponsored (advertised) products in search and browse results.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Visit each product page to add EAN, full description, specifications, all images, rating distribution, and recent reviews. Slower, but more complete.</td></tr><tr><td><code>includeOffers</code></td><td>boolean</td><td>optional</td><td>Add the first page of seller offers (price, shipping, condition, seller rating) for each product. Bol.com paginates offers; only the first page is returned.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of products to return across the whole run.</td></tr><tr><td><code>maxPages</code></td><td>integer</td><td>optional</td><td>Page limit per query or listing. 0 uses the source&#x27;s own page limit.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search, browse, look up products, or read deals from Bol.com in the Netherlands or Belgium.&quot;,
-  &quot;properties&quot;: {
-    &quot;categoryUrls&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Bol.com listing links or numeric category IDs (mode=categoryBrowse).&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Category, brand, series, or deals URLs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;condition&quot;: {
-      &quot;default&quot;: &quot;any&quot;,
-      &quot;description&quot;: &quot;Only keep products with this offer condition.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;any&quot;,
-        &quot;new&quot;,
-        &quot;refurbished&quot;,
-        &quot;secondhand&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Any condition&quot;,
-        &quot;New&quot;,
-        &quot;Refurbished&quot;,
-        &quot;Second-hand&quot;
-      ],
-      &quot;prefill&quot;: &quot;any&quot;,
-      &quot;title&quot;: &quot;Condition&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;inStockOnly&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Only keep products that are currently in stock.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;In stock only&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;includeDetails&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Visit each product page to add EAN, full description, specifications, all images, rating distribution, and recent reviews. Slower, but more complete.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Fetch product details&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;includeOffers&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Add the first page of seller offers (price, shipping, condition, seller rating) for each product. Bol.com paginates offers; only the first page is returned.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Fetch seller offers&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;includeSponsored&quot;: {
-      &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Keep sponsored (advertised) products in search and browse results.&quot;,
-      &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Include sponsored products&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;language&quot;: {
-      &quot;default&quot;: &quot;nl&quot;,
-      &quot;description&quot;: &quot;Shop language for keyword searches and numeric category IDs.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;nl&quot;,
-        &quot;fr&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Dutch&quot;,
-        &quot;French&quot;
-      ],
-      &quot;prefill&quot;: &quot;nl&quot;,
-      &quot;title&quot;: &quot;Language&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;marketplace&quot;: {
-      &quot;default&quot;: &quot;nl&quot;,
-      &quot;description&quot;: &quot;Which Bol.com shop to use for keyword searches and numeric category IDs.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;nl&quot;,
-        &quot;be&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Netherlands (bol.com/nl)&quot;,
-        &quot;Belgium (bol.com/be)&quot;
-      ],
-      &quot;prefill&quot;: &quot;nl&quot;,
-      &quot;title&quot;: &quot;Marketplace&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 20,
-      &quot;description&quot;: &quot;Maximum number of products to return across the whole run.&quot;,
-      &quot;maximum&quot;: 10000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 1,
-      &quot;title&quot;: &quot;Max products&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxPages&quot;: {
-      &quot;default&quot;: 0,
-      &quot;description&quot;: &quot;Page limit per query or listing. 0 uses the source&#x27;s own page limit.&quot;,
-      &quot;maximum&quot;: 500,
-      &quot;minimum&quot;: 0,
-      &quot;prefill&quot;: 0,
-      &quot;title&quot;: &quot;Max pages per source&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxPrice&quot;: {
-      &quot;description&quot;: &quot;Only keep products at or below this price.&quot;,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Maximum price (EUR)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;minPrice&quot;: {
-      &quot;description&quot;: &quot;Only keep products at or above this price.&quot;,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Minimum price (EUR)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;minRating&quot;: {
-      &quot;description&quot;: &quot;Only keep products rated at or above this value (0-5).&quot;,
-      &quot;maximum&quot;: 5,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Minimum rating&quot;,
-      &quot;type&quot;: &quot;number&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to collect from Bol.com.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;search&quot;,
-        &quot;productDetails&quot;,
-        &quot;categoryBrowse&quot;,
-        &quot;promotions&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Search products by keyword&quot;,
-        &quot;Look up products by URL, EAN, or product ID&quot;,
-        &quot;Browse a category, brand, series, or deals page&quot;,
-        &quot;Browse current promotions&quot;
-      ],
-      &quot;prefill&quot;: &quot;search&quot;,
-      &quot;title&quot;: &quot;Mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;productUrls&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Bol.com product links, EAN-8/EAN-13 barcodes, or numeric product IDs (mode=productDetails).&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Product URLs, EANs, or product IDs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;searchQueries&quot;: {
-      &quot;default&quot;: [
-        &quot;laptop&quot;
-      ],
-      &quot;description&quot;: &quot;One or more keywords to search for (mode=search).&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;laptop&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;sortBy&quot;: {
-      &quot;default&quot;: &quot;RELEVANCE&quot;,
-      &quot;description&quot;: &quot;Result ordering for search and browsing. Price sorts use the emitted numeric price; RATING_ASC follows Bol&#x27;s rating score, not the visible average.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;RELEVANCE&quot;,
-        &quot;POPULARITY&quot;,
-        &quot;PRICE_ASC&quot;,
-        &quot;PRICE_DESC&quot;,
-        &quot;RATING_ASC&quot;,
-        &quot;NEW&quot;,
-        &quot;WISHLIST&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Relevance&quot;,
-        &quot;Popularity&quot;,
-        &quot;Price: low to high&quot;,
-        &quot;Price: high to low&quot;,
-        &quot;Best rated (Bol score)&quot;,
-        &quot;Newest&quot;,
-        &quot;Most wanted&quot;
-      ],
-      &quot;prefill&quot;: &quot;RELEVANCE&quot;,
-      &quot;title&quot;: &quot;Sort by&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Bol.com Product Search, Price &amp; Stock Extractor Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>products</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Bol.com products.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Bol.com products with current price, list price, availability, seller, EAN, rating, images, specifications, reviews, and optional seller offers.&quot;,
-  &quot;properties&quot;: {
-    &quot;products&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Bol.com products.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Bol.com products&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Bol.com Product Search, Price &amp; Stock Extractor Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Bol.com Products&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;title&quot;,
-          &quot;brand&quot;,
-          &quot;price&quot;,
-          &quot;rating&quot;,
-          &quot;reviewCount&quot;,
-          &quot;inStock&quot;,
-          &quot;productUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-bol-com-product-search-price-stock-extractor">Bol.com Product Search, Price &amp; Stock Extractor</h2>
-<p>Collect live product data from <strong>Bol.com</strong>, the largest online retailer in the Netherlands and Belgium. Search by keyword, browse a category or brand, open a product by URL, EAN barcode, or product ID, or read the current promotions feed. Every record is real data from the public shop — prices, list prices, stock, sellers, ratings, images, and optional specifications and seller offers. No login, API key, or proxy setup is needed.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-iD0RSkK6hTCCsSm44p4R8bNlRrjsHWymyGsFhP8KnmE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Bol.com Product Search, Price &amp; Stock Extractor – docs and price | Dataspryva</title><meta name="description" content="Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required. From $0.99 per 1,000 results on the Free pl"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"><meta property="og:title" content="Bol.com Product Search, Price &amp; Stock Extractor – docs and price | Dataspryva"><meta property="og:description" content="Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required. From $0.99 per 1,000 results on the Free pl"><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-5o3SucGekbCXdfc83-1O8eoI6SRk-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#webpage","name":"Bol.com Product Search, Price & Stock Extractor – docs and price","description":"Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required. From $0.99 per 1,000 results on the Free plan.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#article"},"dateModified":"2026-10-21T11:30:33.974Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#article","headline":"Bol.com Product Search, Price & Stock Extractor – docs and price","name":"Bol.com Product Search, Price & Stock Extractor – docs and price","description":"Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required. From $0.99 per 1,000 results on the Free plan.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#webpage"},"inLanguage":"en","dateModified":"2026-10-21T11:30:33.974Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-5o3SucGekbCXdfc83-1O8eoI6SRk-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Developer Tools","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/developer-tools/"},{"@type":"ListItem","position":4,"name":"Bol.com Product Search, Price & Stock Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#software","name":"Bol.com Product Search, Price & Stock Extractor","description":"Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.","url":"https://apify.com/dataspryva/bol-com-product-search-price-and-stock-extractor","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-5o3SucGekbCXdfc83-1O8eoI6SRk-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/bol-com-product-search-price-and-stock-extractor","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#faq","mainEntity":[{"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"It is read from Bol.com's publicly accessible product, search, category, and deals pages at run time. The actor is not affiliated with Bol.com."}},{"@type":"Question","name":"Can I use it for both the Netherlands and Belgium?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set marketplace to nl or be. Both Dutch and French shop languages are supported."}},{"@type":"Question","name":"Why is ean missing from my search results?","acceptedAnswer":{"@type":"Answer","text":"Search result cards do not publish barcodes. Enable includeDetails to visit each product page, where the EAN is read when Bol.com publishes it."}},{"@type":"Question","name":"How many products can one search return?","acceptedAnswer":{"@type":"Answer","text":"Bol.com caps a single keyword result list at 10 pages (typically 24-30 products per page, about 250-270 products). For larger runs, the actor automatically splits broad searches into narrower category slices; a category or brand page also goes much deeper."}},{"@type":"Question","name":"Why are some fields absent from a record?","acceptedAnswer":{"@type":"Answer","text":"Bol.com does not publish every field for every product — for example, marketplace items may have no EAN or specifications, and new products may have no reviews yet. Absent values are omitted instead of written as null."}},{"@type":"Question","name":"How are results sorted?","acceptedAnswer":{"@type":"Answer","text":"RELEVANCE, POPULARITY, NEW, and WISHLIST follow Bol.com's own ordering. RATINGASC follows Bol.com's rating score, which can differ from the visible average rating. PRICEASC and PRICEDESC are sorted on the emitted numeric price after duplicate products are removed."}},{"@type":"Question","name":"Are sponsored products included?","acceptedAnswer":{"@type":"Answer","text":"Yes by default, with isSponsored and sponsor set. Turn includeSponsored off to remove them."}},{"@type":"Question","name":"Are all seller offers returned?","acceptedAnswer":{"@type":"Answer","text":"Bol.com paginates its offers page. The actor returns the first page of offers for each product (currently up to 10) and offerCount is the count on that page, not the total across all pages."}},{"@type":"Question","name":"How current are prices and stock?","acceptedAnswer":{"@type":"Answer","text":"Each run reads the live pages, so prices, delivery promises, and availability reflect the moment of collection."}},{"@type":"Question","name":"Do I need a proxy or an account?","acceptedAnswer":{"@type":"Answer","text":"No. The actor connects automatically; you do not configure a proxy, cookie, login, or API key."}},{"@type":"Question","name":"Why is the full review list not included?","acceptedAnswer":{"@type":"Answer","text":"Bol.com's product pages expose a rating summary and a short sample of recent reviews. The actor returns the rating distribution and up to six recent reviews when details are enabled."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/developer-tools/">Developer Tools</a></li><li aria-current="page">Bol.com Product Search, Price &amp; Stock Extractor</li></ol></nav><div class="doc"><div class="doc-head"><h1>Bol.com Product Search, Price &amp; Stock Extractor</h1><p class="lead">Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-21">21 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>17 fields, 1 required</dd></div><div><dt>Output</dt><dd>7 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/">Bol.com</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/bol-com-product-search-price-and-stock-extractor">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Bol.com Product Search, Price &amp; Stock Extractor is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Each result can carry up to 7 declared fields, including <code>title</code>, <code>brand</code>, <code>price</code>, <code>rating</code>, <code>reviewCount</code> and <code>inStock</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Collect live product data from <strong>Bol.com</strong>, the largest online retailer in the Netherlands and Belgium. Search by keyword, browse a category or brand, open a product by URL, EAN barcode, or product ID, or read the current promotions feed. Every record is real data from the public shop — prices, list prices, stock, sellers, ratings, images, and optional specifications and seller offers. No login, API key, or proxy setup is needed.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li><strong>Search</strong> one or more keywords with price, rating, condition, stock, and sponsored-product filters.</li>
 <li><strong>Browse</strong> category, brand, series, or deals pages, with deep pagination.</li>
 <li><strong>Look up products</strong> by direct URL, EAN-8/EAN-13, or Bol.com product ID.</li>
@@ -248,8 +8,14 @@
 <li>Supports the <strong>Netherlands and Belgium</strong> marketplaces in <strong>Dutch and French</strong>.</li>
 <li>Empty fields are omitted from each record rather than written as <code>null</code>.</li>
 </ul>
-<h2 id="readme-output-per-product">Output per product</h2>
-<ul>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li><strong>Price monitoring</strong> — track current and reference prices for a product set.</li>
+<li><strong>Assortment research</strong> — pull a category, brand, or search niche into a clean dataset.</li>
+<li><strong>EAN catalog enrichment</strong> — resolve barcodes to titles, brands, images, and specifications.</li>
+<li><strong>Stock and seller tracking</strong> — see availability, delivery promises, and who is selling each item.</li>
+<li><strong>Promotion analysis</strong> — collect the current deals feed and its category offers.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 7 fields in 1 dataset view, and the README documents 9 more. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>title</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>brand</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>price</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>rating</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>reviewCount</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>inStock</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>productUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>productId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Bol.com product identifier<!--/readme--></td></tr><tr><th scope="row"><code>ean</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->EAN/GTIN barcode when the product page publishes one (details mode)<!--/readme--></td></tr><tr><th scope="row"><code>listPrice</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->reference price when Bol.com shows one above the current price<!--/readme--></td></tr><tr><th scope="row"><code>ratingDistribution</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->star counts when details are fetched<!--/readme--></td></tr><tr><th scope="row"><code>recentReviews</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->up to six recent reviews when details are fetched<!--/readme--></td></tr><tr><th scope="row"><code>specifications</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->grouped key/value specifications when details are fetched<!--/readme--></td></tr><tr><th scope="row"><code>offers</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->first page of seller offers, and that page's count, when offers are enabled<!--/readme--></td></tr><tr><th scope="row"><code>offerCount</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->first page of seller offers, and that page's count, when offers are enabled<!--/readme--></td></tr><tr><th scope="row"><code>scrapedAt</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->collection timestamp<!--/readme--></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's output notes</summary><h3 id="readme-output-per-product">Output per product</h3><!--readme--><ul>
 <li><code>productId</code> — Bol.com product identifier</li>
 <li><code>ean</code> — EAN/GTIN barcode when the product page publishes one (details mode)</li>
 <li><code>title</code>, <code>shortDescription</code>, <code>description</code></li>
@@ -273,8 +39,67 @@
 <li><code>marketplace</code>, <code>language</code>, <code>sourceQuery</code></li>
 <li><code>scrapedAt</code> — collection timestamp</li>
 </ul>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></details></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (search with filters). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/bol-com-product-search-price-and-stock-extractor/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/bol-com-product-search-price-and-stock-extractor&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchQueries&quot;: [&quot;koptelefoon&quot;, &quot;laptop&quot;],
+    &quot;marketplace&quot;: &quot;nl&quot;,
+    &quot;language&quot;: &quot;nl&quot;,
+    &quot;minPrice&quot;: 50,
+    &quot;maxPrice&quot;: 300,
+    &quot;minRating&quot;: 4,
+    &quot;condition&quot;: &quot;new&quot;,
+    &quot;inStockOnly&quot;: True,
+    &quot;sortBy&quot;: &quot;PRICE_ASC&quot;,
+    &quot;includeDetails&quot;: True,
+    &quot;maxItems&quot;: 40,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/bol-com-product-search-price-and-stock-extractor&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [
+    &quot;koptelefoon&quot;,
+    &quot;laptop&quot;
+  ],
+  &quot;marketplace&quot;: &quot;nl&quot;,
+  &quot;language&quot;: &quot;nl&quot;,
+  &quot;minPrice&quot;: 50,
+  &quot;maxPrice&quot;: 300,
+  &quot;minRating&quot;: 4,
+  &quot;condition&quot;: &quot;new&quot;,
+  &quot;inStockOnly&quot;: true,
+  &quot;sortBy&quot;: &quot;PRICE_ASC&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 40
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~bol-com-product-search-price-and-stock-extractor/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;search&quot;, &quot;searchQueries&quot;: [&quot;koptelefoon&quot;, &quot;laptop&quot;], &quot;marketplace&quot;: &quot;nl&quot;, &quot;language&quot;: &quot;nl&quot;, &quot;minPrice&quot;: 50, &quot;maxPrice&quot;: 300, &quot;minRating&quot;: 4, &quot;condition&quot;: &quot;new&quot;, &quot;inStockOnly&quot;: true, &quot;sortBy&quot;: &quot;PRICE_ASC&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 40}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/bol-com-product-search-price-and-stock-extractor&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Bol.com Product Search, Price &amp; Stock Extractor uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/bol-com-product-search-price-and-stock-extractor">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 17 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Mode</span></th><td data-label="Type">string <span class="req">required</span></td><td data-label="Description"><!--readme-->What to collect from Bol.com.<!--/readme--><span class="field-meta">Default <code>&quot;search&quot;</code>; Allowed search, productDetails, categoryBrowse, promotions</span></td></tr><tr><th scope="row"><code>searchQueries</code><span class="field-title">Search queries</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more keywords to search for (mode=search).<!--/readme--><span class="field-meta">Default <code>[&quot;laptop&quot;]</code></span></td></tr><tr><th scope="row"><code>productUrls</code><span class="field-title">Product URLs, EANs, or product IDs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Bol.com product links, EAN-8/EAN-13 barcodes, or numeric product IDs (mode=productDetails).<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>categoryUrls</code><span class="field-title">Category, brand, series, or deals URLs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Bol.com listing links or numeric category IDs (mode=categoryBrowse).<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>marketplace</code><span class="field-title">Marketplace</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Which Bol.com shop to use for keyword searches and numeric category IDs.<!--/readme--><span class="field-meta">Default <code>&quot;nl&quot;</code>; Allowed nl, be</span></td></tr><tr><th scope="row"><code>language</code><span class="field-title">Language</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Shop language for keyword searches and numeric category IDs.<!--/readme--><span class="field-meta">Default <code>&quot;nl&quot;</code>; Allowed nl, fr</span></td></tr><tr><th scope="row"><code>sortBy</code><span class="field-title">Sort by</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Result ordering for search and browsing. Price sorts use the emitted numeric price; RATING_ASC follows Bol's rating score, not the visible average.<!--/readme--><span class="field-meta">Default <code>&quot;RELEVANCE&quot;</code>; Allowed RELEVANCE, POPULARITY, PRICE_ASC, PRICE_DESC, RATING_ASC, NEW, WISHLIST</span></td></tr><tr><th scope="row"><code>minPrice</code><span class="field-title">Minimum price (EUR)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Only keep products at or above this price.<!--/readme--><span class="field-meta">Allowed at least 0</span></td></tr><tr><th scope="row"><code>maxPrice</code><span class="field-title">Maximum price (EUR)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Only keep products at or below this price.<!--/readme--><span class="field-meta">Allowed at least 0</span></td></tr><tr><th scope="row"><code>minRating</code><span class="field-title">Minimum rating</span></th><td data-label="Type">number</td><td data-label="Description"><!--readme-->Only keep products rated at or above this value (0-5).<!--/readme--><span class="field-meta">Allowed 0 to 5</span></td></tr><tr><th scope="row"><code>condition</code><span class="field-title">Condition</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only keep products with this offer condition.<!--/readme--><span class="field-meta">Default <code>&quot;any&quot;</code>; Allowed any, new, refurbished, secondhand</span></td></tr><tr><th scope="row"><code>inStockOnly</code><span class="field-title">In stock only</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Only keep products that are currently in stock.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>includeSponsored</code><span class="field-title">Include sponsored products</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Keep sponsored (advertised) products in search and browse results.<!--/readme--><span class="field-meta">Default <code>true</code></span></td></tr><tr><th scope="row"><code>includeDetails</code><span class="field-title">Fetch product details</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Visit each product page to add EAN, full description, specifications, all images, rating distribution, and recent reviews. Slower, but more complete.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>includeOffers</code><span class="field-title">Fetch seller offers</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Add the first page of seller offers (price, shipping, condition, seller rating) for each product. Bol.com paginates offers; only the first page is returned.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max products</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum number of products to return across the whole run.<!--/readme--><span class="field-meta">Default <code>20</code>; Example <code>1</code>; Allowed 1 to 10000</span></td></tr><tr><th scope="row"><code>maxPages</code><span class="field-title">Max pages per source</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Page limit per query or listing. 0 uses the source's own page limit.<!--/readme--><span class="field-meta">Default <code>0</code>; Allowed 0 to 500</span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -388,7 +213,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-search-with-filters">Example: search with filters</h3>
+<h4 id="readme-example-search-with-filters">Example: search with filters</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
   &quot;searchQueries&quot;: [&quot;koptelefoon&quot;, &quot;laptop&quot;],
@@ -404,7 +229,7 @@
   &quot;maxItems&quot;: 40
 }
 </code></pre>
-<h3 id="readme-example-browse-a-category-or-brand">Example: browse a category or brand</h3>
+<h4 id="readme-example-browse-a-category-or-brand">Example: browse a category or brand</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;categoryBrowse&quot;,
   &quot;categoryUrls&quot;: [
@@ -417,7 +242,7 @@
   &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-product-lookup-by-ean-or-url">Example: product lookup by EAN or URL</h3>
+<h4 id="readme-example-product-lookup-by-ean-or-url">Example: product lookup by EAN or URL</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;productDetails&quot;,
   &quot;productUrls&quot;: [&quot;0199251730818&quot;, &quot;https://www.bol.com/nl/nl/p/hp-omnibook-5-16-ba1751nd-intel-core-i5-i5-1334u-laptop-406-cm-2k-16-gb-lpddr5x-sdram-1-tb-ssd-wi-fi-6-windows-11-home-zilver/9300000230842700/&quot;],
@@ -425,7 +250,7 @@
   &quot;maxItems&quot;: 10
 }
 </code></pre>
-<h3 id="readme-example-current-promotions">Example: current promotions</h3>
+<h4 id="readme-example-current-promotions">Example: current promotions</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;promotions&quot;,
   &quot;marketplace&quot;: &quot;nl&quot;,
@@ -433,35 +258,15 @@
   &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Price monitoring</strong> — track current and reference prices for a product set.</li>
-<li><strong>Assortment research</strong> — pull a category, brand, or search niche into a clean dataset.</li>
-<li><strong>EAN catalog enrichment</strong> — resolve barcodes to titles, brands, images, and specifications.</li>
-<li><strong>Stock and seller tracking</strong> — see availability, delivery promises, and who is selling each item.</li>
-<li><strong>Promotion analysis</strong> — collect the current deals feed and its category offers.</li>
-</ul>
-<h2 id="readme-faq">FAQ</h2>
-<h3 id="readme-where-does-the-data-come-from">Where does the data come from?</h3>
-<p>It is read from Bol.com's publicly accessible product, search, category, and deals pages at run time. The actor is not affiliated with Bol.com.</p>
-<h3 id="readme-can-i-use-it-for-both-the-netherlands-and-belgium">Can I use it for both the Netherlands and Belgium?</h3>
-<p>Yes. Set <code>marketplace</code> to <code>nl</code> or <code>be</code>. Both Dutch and French shop languages are supported.</p>
-<h3 id="readme-why-is-ean-missing-from-my-search-results">Why is <code>ean</code> missing from my search results?</h3>
-<p>Search result cards do not publish barcodes. Enable <code>includeDetails</code> to visit each product page, where the EAN is read when Bol.com publishes it.</p>
-<h3 id="readme-how-many-products-can-one-search-return">How many products can one search return?</h3>
-<p>Bol.com caps a single keyword result list at 10 pages (typically 24-30 products per page, about 250-270 products). For larger runs, the actor automatically splits broad searches into narrower category slices; a category or brand page also goes much deeper.</p>
-<h3 id="readme-why-are-some-fields-absent-from-a-record">Why are some fields absent from a record?</h3>
-<p>Bol.com does not publish every field for every product — for example, marketplace items may have no EAN or specifications, and new products may have no reviews yet. Absent values are omitted instead of written as null.</p>
-<h3 id="readme-how-are-results-sorted">How are results sorted?</h3>
-<p><code>RELEVANCE</code>, <code>POPULARITY</code>, <code>NEW</code>, and <code>WISHLIST</code> follow Bol.com's own ordering. <code>RATING_ASC</code> follows Bol.com's rating score, which can differ from the visible average rating. <code>PRICE_ASC</code> and <code>PRICE_DESC</code> are sorted on the emitted numeric price after duplicate products are removed.</p>
-<h3 id="readme-are-sponsored-products-included">Are sponsored products included?</h3>
-<p>Yes by default, with <code>isSponsored</code> and <code>sponsor</code> set. Turn <code>includeSponsored</code> off to remove them.</p>
-<h3 id="readme-are-all-seller-offers-returned">Are all seller offers returned?</h3>
-<p>Bol.com paginates its offers page. The actor returns the first page of offers for each product (currently up to 10) and <code>offerCount</code> is the count on that page, not the total across all pages.</p>
-<h3 id="readme-how-current-are-prices-and-stock">How current are prices and stock?</h3>
-<p>Each run reads the live pages, so prices, delivery promises, and availability reflect the moment of collection.</p>
-<h3 id="readme-do-i-need-a-proxy-or-an-account">Do I need a proxy or an account?</h3>
-<p>No. The actor connects automatically; you do not configure a proxy, cookie, login, or API key.</p>
-<h3 id="readme-why-is-the-full-review-list-not-included">Why is the full review list not included?</h3>
-<p>Bol.com's product pages expose a rating summary and a short sample of recent reviews. The actor returns the rating distribution and up to six recent reviews when details are enabled.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/bol-com-product-search-price-and-stock-extractor/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>bnIPi7NeXWQiwtRsR</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-where-does-the-data-come-from"><!--readme-->Where does the data come from?<!--/readme--></h3><!--readme--><p>It is read from Bol.com's publicly accessible product, search, category, and deals pages at run time. The actor is not affiliated with Bol.com.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-use-it-for-both-the-netherlands-and-belgium"><!--readme-->Can I use it for both the Netherlands and Belgium?<!--/readme--></h3><!--readme--><p>Yes. Set <code>marketplace</code> to <code>nl</code> or <code>be</code>. Both Dutch and French shop languages are supported.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-ean-missing-from-my-search-results"><!--readme-->Why is ean missing from my search results?<!--/readme--></h3><!--readme--><p>Search result cards do not publish barcodes. Enable <code>includeDetails</code> to visit each product page, where the EAN is read when Bol.com publishes it.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-many-products-can-one-search-return"><!--readme-->How many products can one search return?<!--/readme--></h3><!--readme--><p>Bol.com caps a single keyword result list at 10 pages (typically 24-30 products per page, about 250-270 products). For larger runs, the actor automatically splits broad searches into narrower category slices; a category or brand page also goes much deeper.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-some-fields-absent-from-a-record"><!--readme-->Why are some fields absent from a record?<!--/readme--></h3><!--readme--><p>Bol.com does not publish every field for every product — for example, marketplace items may have no EAN or specifications, and new products may have no reviews yet. Absent values are omitted instead of written as null.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-are-results-sorted"><!--readme-->How are results sorted?<!--/readme--></h3><!--readme--><p><code>RELEVANCE</code>, <code>POPULARITY</code>, <code>NEW</code>, and <code>WISHLIST</code> follow Bol.com's own ordering. <code>RATING_ASC</code> follows Bol.com's rating score, which can differ from the visible average rating. <code>PRICE_ASC</code> and <code>PRICE_DESC</code> are sorted on the emitted numeric price after duplicate products are removed.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-sponsored-products-included"><!--readme-->Are sponsored products included?<!--/readme--></h3><!--readme--><p>Yes by default, with <code>isSponsored</code> and <code>sponsor</code> set. Turn <code>includeSponsored</code> off to remove them.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-all-seller-offers-returned"><!--readme-->Are all seller offers returned?<!--/readme--></h3><!--readme--><p>Bol.com paginates its offers page. The actor returns the first page of offers for each product (currently up to 10) and <code>offerCount</code> is the count on that page, not the total across all pages.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-current-are-prices-and-stock"><!--readme-->How current are prices and stock?<!--/readme--></h3><!--readme--><p>Each run reads the live pages, so prices, delivery promises, and availability reflect the moment of collection.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-a-proxy-or-an-account"><!--readme-->Do I need a proxy or an account?<!--/readme--></h3><!--readme--><p>No. The actor connects automatically; you do not configure a proxy, cookie, login, or API key.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-the-full-review-list-not-included"><!--readme-->Why is the full review list not included?<!--/readme--></h3><!--readme--><p>Bol.com's product pages expose a rating summary and a short sample of recent reviews. The actor returns the rating distribution and up to six recent reviews when details are enabled.</p>
+<!--/readme--></div></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/">Amazon Brand Store Page &amp; Merchandising Crawler</a><p>Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p></li><li><a href="/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/">Amazon Wishlist &amp; Registry Scraper</a><p>Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p></li><li><a href="/apify-actor-examples/actors/brazilian-cnpj-bulk-lookup-and-partner-records/">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</a><p>Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.</p></li><li><a href="/apify-actor-examples/actors/dexscreener-token-pair-and-boosted-token-scraper/">DexScreener Token Pair &amp; Boosted Token Scraper</a><p>Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p></li><li><a href="/apify-actor-examples/actors/florida-sunbiz-registry-lookup-by-name-agent/">Florida Sunbiz Registry Lookup by Name, Agent &amp; FEI</a><p>Look up Florida business entities on the Sunbiz registry by entity name, officer, registered agent, FEI/EIN, document number, ZIP, or street address, and get status, addresses, officers, annual filings, and filed-document links for each match.</p></li><li><a href="/apify-actor-examples/actors/g2-software-reviews-product-info-and-competitor/">G2 Software Reviews, Product Info &amp; Competitor Extractor</a><p>Collects G2 software product reviews with ratings and pros/cons, product profile summaries, or competitor listings from any G2 product page.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/developer-tools/">All developer tools Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>bnIPi7NeXWQiwtRsR</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

@@ -12,15 +12,30 @@
         "nullable": true,
         "type": "string"
       },
+      "countryCode": {
+        "description": "ISO country code",
+        "nullable": true,
+        "type": "string"
+      },
       "cuisines": {
         "description": "Cuisine category tags",
         "nullable": true,
         "type": "array"
       },
+      "currencyCode": {
+        "description": "ISO currency code for menu prices",
+        "nullable": true,
+        "type": "string"
+      },
       "deliveryFee": {
         "description": "Delivery fee as displayed",
         "nullable": true,
         "type": "string"
+      },
+      "deliveryMethods": {
+        "description": "Available fulfillment methods such as DELIVERY or PICKUP",
+        "nullable": true,
+        "type": "array"
       },
       "estimatedDeliveryTime": {
         "description": "ETA as displayed",
@@ -39,11 +54,28 @@
       },
       "itemsWithDescCount": {
         "description": "Items with a description",
+        "nullable": true,
         "type": "integer"
       },
       "itemsWithImageCount": {
         "description": "Items with an image",
+        "nullable": true,
         "type": "integer"
+      },
+      "latitude": {
+        "description": "Restaurant latitude",
+        "nullable": true,
+        "type": "number"
+      },
+      "location": {
+        "description": "Resolved delivery location label",
+        "nullable": true,
+        "type": "string"
+      },
+      "longitude": {
+        "description": "Restaurant longitude",
+        "nullable": true,
+        "type": "number"
       },
       "menu": {
         "description": "Nested menu sections with items",
@@ -51,16 +83,42 @@
       },
       "menuItemCount": {
         "description": "Total menu items",
+        "nullable": true,
         "type": "integer"
       },
       "menuSectionCount": {
         "description": "Number of menu sections",
+        "nullable": true,
         "type": "integer"
       },
-      "priceRange": {
-        "description": "Price tier (e.g. $$)",
+      "mode": {
+        "description": "search, menus, or searchWithMenus",
+        "type": "string"
+      },
+      "phoneNumber": {
+        "description": "Restaurant phone number when published",
         "nullable": true,
         "type": "string"
+      },
+      "postalCode": {
+        "description": "Postal code",
+        "nullable": true,
+        "type": "string"
+      },
+      "priceRange": {
+        "description": "Price tier when Uber Eats publishes one",
+        "nullable": true,
+        "type": "string"
+      },
+      "query": {
+        "description": "Search keyword that produced this record",
+        "nullable": true,
+        "type": "string"
+      },
+      "rank": {
+        "description": "Position in the search result list",
+        "nullable": true,
+        "type": "integer"
       },
       "rating": {
         "description": "Aggregate star rating",
@@ -73,7 +131,7 @@
         "type": "string"
       },
       "restaurantId": {
-        "description": "UberEats store UUID",
+        "description": "Uber Eats store UUID",
         "type": "string"
       },
       "restaurantName": {
@@ -81,17 +139,27 @@
         "type": "string"
       },
       "restaurantUrl": {
-        "description": "Canonical UberEats URL",
+        "description": "Canonical Uber Eats URL",
         "type": "string"
       },
       "scrapedAt": {
         "description": "UTC scrape timestamp",
         "type": "string"
+      },
+      "storeType": {
+        "description": "Uber Eats store type (for example PHYSICAL or GROCERY_STORE)",
+        "nullable": true,
+        "type": "string"
+      },
+      "workingHours": {
+        "description": "Working-hours summary when published",
+        "nullable": true,
+        "type": "string"
       }
     },
     "type": "object"
   },
-  "title": "UberEats Menus",
+  "title": "Uber Eats Restaurants & Menus",
   "views": {
     "analytics": {
       "display": {
@@ -155,6 +223,28 @@
         ]
       }
     },
+    "menuItems": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "menu": {
+            "format": "array",
+            "label": "Menu"
+          },
+          "restaurantName": {
+            "format": "text",
+            "label": "Restaurant"
+          }
+        }
+      },
+      "title": "Menu items",
+      "transformation": {
+        "fields": [
+          "restaurantName",
+          "menu"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
@@ -175,6 +265,10 @@
             "format": "text",
             "label": "Open"
           },
+          "location": {
+            "format": "text",
+            "label": "Location"
+          },
           "menuItemCount": {
             "format": "number",
             "label": "Items"
@@ -183,6 +277,10 @@
             "format": "number",
             "label": "Sections"
           },
+          "mode": {
+            "format": "text",
+            "label": "Mode"
+          },
           "priceRange": {
             "format": "text",
             "label": "Price"
@@ -190,6 +288,10 @@
           "rating": {
             "format": "number",
             "label": "Rating"
+          },
+          "ratingCount": {
+            "format": "text",
+            "label": "Reviews"
           },
           "restaurantName": {
             "format": "text",
@@ -204,15 +306,18 @@
       "title": "Overview",
       "transformation": {
         "fields": [
+          "mode",
           "restaurantName",
           "cuisines",
           "rating",
+          "ratingCount",
           "priceRange",
           "isOpen",
           "deliveryFee",
           "estimatedDeliveryTime",
           "menuSectionCount",
           "menuItemCount",
+          "location",
           "restaurantUrl"
         ]
       }

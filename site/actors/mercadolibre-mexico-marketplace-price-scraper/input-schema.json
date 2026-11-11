@@ -1,25 +1,32 @@
 {
+  "description": "Search MercadoLibre Mexico listings by keyword or URL, or fetch full product details by URL or item ID. Filter by condition, price and shipping, and paginate through results.",
   "properties": {
     "condition": {
       "default": "any",
-      "description": "Filter by item condition.",
+      "description": "Filter listings by item condition.",
       "editor": "select",
       "enum": [
         "any",
         "new",
-        "used"
+        "used",
+        "refurbished",
+        "open_box",
+        "all"
       ],
       "enumTitles": [
         "Any",
         "New",
-        "Used"
+        "Used",
+        "Refurbished",
+        "Open box",
+        "Any (legacy task)"
       ],
       "title": "Condition",
       "type": "string"
     },
     "country": {
       "default": "MX",
-      "description": "MercadoLibre country site to scrape. Currently only Mexico (MX) is supported reliably from Apify's residential proxy pool — AR/BR/other LATAM markets are heavily anti-bot gated and were removed because they return blocked stub pages on every retry.",
+      "description": "MercadoLibre country site. Only Mexico (MX) is supported.",
       "editor": "select",
       "enum": [
         "MX"
@@ -31,9 +38,22 @@
       "title": "Country",
       "type": "string"
     },
+    "freeShippingOnly": {
+      "default": false,
+      "description": "Return only listings that advertise free shipping.",
+      "title": "Free shipping only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Open each search result's product page to add description, stock, sold count and seller fields. Slower and uses more requests.",
+      "prefill": false,
+      "title": "Include product details",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 50,
-      "description": "Maximum items to return.",
+      "description": "Maximum records to return. Search results paginate automatically.",
       "editor": "number",
       "maximum": 1000,
       "minimum": 1,
@@ -41,36 +61,91 @@
       "title": "Max Items",
       "type": "integer"
     },
+    "mode": {
+      "default": "search",
+      "description": "Search listings, or fetch details for specific products.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "product",
+        "searchProducts",
+        "searchByCategory",
+        "getProductDetails"
+      ],
+      "enumTitles": [
+        "Search listings",
+        "Product details",
+        "Search listings (legacy task)",
+        "Search by category (legacy task)",
+        "Product details (legacy task)"
+      ],
+      "prefill": "search",
+      "title": "What to scrape",
+      "type": "string"
+    },
     "priceMax": {
-      "description": "Maximum price in the country's local currency.",
+      "description": "Maximum price in Mexican pesos.",
       "editor": "number",
       "minimum": 0,
       "title": "Max Price",
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum price in the country's local currency.",
+      "description": "Minimum price in Mexican pesos.",
       "editor": "number",
       "minimum": 0,
       "title": "Min Price",
       "type": "integer"
     },
+    "productUrls": {
+      "default": [],
+      "description": "MercadoLibre Mexico product URLs or item IDs (for example MLM1234567890). Required for the product-details mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Product URLs or IDs",
+      "type": "array"
+    },
     "searchQuery": {
-      "description": "Free-text keyword. Required if startUrls is empty.",
+      "description": "Keyword to search for. Use this or Start URLs with the search mode.",
       "editor": "textfield",
       "prefill": "iphone",
       "title": "Search Query",
       "type": "string"
     },
+    "sort": {
+      "default": "relevance",
+      "description": "Order of search results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "price_asc",
+        "price_desc"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "title": "Sort order",
+      "type": "string"
+    },
     "startUrls": {
-      "description": "Direct MercadoLibre API search URLs. If set, overrides structured filters.",
+      "default": [],
+      "description": "MercadoLibre Mexico search or category listing URLs. When set, they replace the keyword; the filter and sort fields still apply.",
       "editor": "stringList",
-      "title": "Start URLs (optional)",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Start URLs",
       "type": "array"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "MercadoLibre Scraper Input",
+  "title": "MercadoLibre Mexico Marketplace Scraper Input",
   "type": "object"
 }

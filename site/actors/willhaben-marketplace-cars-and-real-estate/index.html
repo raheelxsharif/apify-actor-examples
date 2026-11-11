@@ -1,1062 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-USVg0iQr1ReCtBUrGcSJqVKgNIeb2TcB+Cue3P6rqb0=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper | Dataspryva</title><meta name="description" content="Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, a"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"><meta property="og:title" content="Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper | Dataspryva"><meta property="og:description" content="Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, a"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#webpage","name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","description":"Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#article","headline":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","description":"Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#webpage"},"inLanguage":"en","dateModified":"2026-10-28T08:01:53.638Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper</span></div><section id="overview"><h1 class="doc-title">Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper</h1><p class="lede">Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.</p><p class="summary">Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper is an Apify Actor published by Dataspryva. It accepts 48 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/willhaben-marketplace-cars-and-real-estate">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/sSrZYqOzOQO2bTYr4/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose a marketplace section, cars, real estate, jobs, or paste Willhaben URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Free-text keyword, e.g. &#x27;sofa&#x27;, &#x27;iPhone&#x27;, &#x27;BMW&#x27;, &#x27;Wohnung&#x27;. Leave empty to browse the category.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>(mode=byUrls) Paste search, category, single listing, job search or single job URLs. Filters already in the URL are preserved.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>Choose a marketplace section, cars, real estate, jobs, or paste Willhaben URLs.</td></tr><tr><td><code>query</code></td><td>string</td><td>optional</td><td>Free-text keyword, e.g. &#x27;sofa&#x27;, &#x27;iPhone&#x27;, &#x27;BMW&#x27;, &#x27;Wohnung&#x27;. Leave empty to browse the category.</td></tr><tr><td><code>startUrls</code></td><td>array</td><td>optional</td><td>(mode=byUrls) Paste search, category, single listing, job search or single job URLs. Filters already in the URL are preserved.</td></tr><tr><td><code>state</code></td><td>string</td><td>optional</td><td>Restrict listings to one Austrian federal state (or other countries). Location overrides this when both are set.</td></tr><tr><td><code>location</code></td><td>string</td><td>optional</td><td>e.g. &#x27;Wien&#x27;, &#x27;Graz&#x27;, &#x27;1050&#x27;. Resolved through Willhaben&#x27;s location search. For jobs it is sent as the job location.</td></tr><tr><td><code>radiusKm</code></td><td>integer</td><td>optional</td><td>(mode=searchJobs) Radius around the location, 1-100 km.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result ordering. Jobs support relevance and newest; other orders are mapped to newest for jobs.</td></tr><tr><td><code>priceMin</code></td><td>integer</td><td>optional</td><td>Minimum listing price in euros. Ignored for jobs.</td></tr><tr><td><code>priceMax</code></td><td>integer</td><td>optional</td><td>Maximum listing price in euros. Ignored for jobs.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum listings or jobs to return.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Add the full description, seller/contact data and extra car or real-estate details from each listing/job page. Slower and more expensive.</td></tr><tr><td><code>includeRawAttributes</code></td><td>boolean</td><td>optional</td><td>Add every source attribute as a rawAttributes list. Useful for category-specific analysis; increases output size.</td></tr><tr><td><code>sellerType</code></td><td>string</td><td>optional</td><td>Filter by private seller or commercial dealer. Applies to marketplace items and cars; ignored for real estate and jobs.</td></tr><tr><td><code>vehicleCategory</code></td><td>string</td><td>optional</td><td>(mode=searchCars) Which vehicle section to search.</td></tr><tr><td><code>carMake</code></td><td>string</td><td>optional</td><td>(mode=searchCars) Vehicle manufacturer.</td></tr><tr><td><code>carModel</code></td><td>string</td><td>optional</td><td>(mode=searchCars) Model name, e.g. &#x27;3er-Reihe&#x27; or &#x27;Golf&#x27;. Requires Car make.</td></tr><tr><td><code>yearFrom</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Earliest registration year.</td></tr><tr><td><code>yearTo</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Latest registration year.</td></tr><tr><td><code>mileageFrom</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Minimum mileage.</td></tr><tr><td><code>mileageTo</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Maximum mileage.</td></tr><tr><td><code>fuelType</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>transmission</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>bodyType</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>carCondition</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>driveType</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>color</code></td><td>string</td><td>optional</td><td>(mode=searchCars)</td></tr><tr><td><code>powerFrom</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Minimum engine power.</td></tr><tr><td><code>powerTo</code></td><td>integer</td><td>optional</td><td>(mode=searchCars) Maximum engine power.</td></tr><tr><td><code>realEstateCategory</code></td><td>string</td><td>optional</td><td>(mode=searchRealEstate) Which property market to search.</td></tr><tr><td><code>propertySubtype</code></td><td>string</td><td>optional</td><td>(mode=searchRealEstate) Optional subtype such as penthouse, detached house or building plot.</td></tr><tr><td><code>rooms</code></td><td>string</td><td>optional</td><td>(mode=searchRealEstate) Room-count bucket.</td></tr><tr><td><code>livingAreaFrom</code></td><td>integer</td><td>optional</td><td>(mode=searchRealEstate)</td></tr><tr><td><code>livingAreaTo</code></td><td>integer</td><td>optional</td><td>(mode=searchRealEstate)</td></tr><tr><td><code>plotAreaFrom</code></td><td>integer</td><td>optional</td><td>(mode=searchRealEstate)</td></tr><tr><td><code>plotAreaTo</code></td><td>integer</td><td>optional</td><td>(mode=searchRealEstate)</td></tr><tr><td><code>freeAreaType</code></td><td>string</td><td>optional</td><td>(mode=searchRealEstate) Balcony, terrace, garden, etc.</td></tr><tr><td><code>equipment</code></td><td>string</td><td>optional</td><td>(mode=searchRealEstate) e.g. lift, cellar, parking, built-in kitchen.</td></tr><tr><td><code>availableNow</code></td><td>boolean</td><td>optional</td><td>(mode=searchRealEstate) Only listings available now.</td></tr><tr><td><code>jobRegion</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>employmentMode</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>jobPosition</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>jobOperationArea</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>jobCompanyType</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>jobTimeLimit</code></td><td>string</td><td>optional</td><td>(mode=searchJobs)</td></tr><tr><td><code>incrementalMode</code></td><td>boolean</td><td>optional</td><td>Return only new/changed listings or jobs on recurring runs. The first run returns everything as NEW.</td></tr><tr><td><code>stateKey</code></td><td>string</td><td>optional</td><td>(incrementalMode) Stable name for this search so later runs compare against the right state. Leave empty to derive it from the filters.</td></tr><tr><td><code>emitUnchanged</code></td><td>boolean</td><td>optional</td><td>(incrementalMode) Also return records whose tracked fields did not change.</td></tr><tr><td><code>emitExpired</code></td><td>boolean</td><td>optional</td><td>(incrementalMode) After a complete scan, also emit listings/jobs that disappeared since the last run.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Scrape Willhaben.at marketplace items, cars, real estate or jobs — by keyword, location, price and category filters, or by pasting URLs.&quot;,
-  &quot;properties&quot;: {
-    &quot;availableNow&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;(mode=searchRealEstate) Only listings available now.&quot;,
-      &quot;title&quot;: &quot;Available immediately&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;bodyType&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;2&quot;,
-        &quot;4&quot;,
-        &quot;12&quot;,
-        &quot;5&quot;,
-        &quot;6&quot;,
-        &quot;3&quot;,
-        &quot;9&quot;,
-        &quot;10&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Convertible / roadster&quot;,
-        &quot;Small / compact car&quot;,
-        &quot;Minibus&quot;,
-        &quot;Estate / family van&quot;,
-        &quot;Saloon&quot;,
-        &quot;Microcar&quot;,
-        &quot;Sports car / coupé&quot;,
-        &quot;SUV / off-road&quot;
-      ],
-      &quot;title&quot;: &quot;Body type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;carCondition&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;20&quot;,
-        &quot;50&quot;,
-        &quot;10&quot;,
-        &quot;93&quot;,
-        &quot;91&quot;,
-        &quot;30&quot;,
-        &quot;40&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Used&quot;,
-        &quot;Year-old car&quot;,
-        &quot;New&quot;,
-        &quot;Classic / vintage&quot;,
-        &quot;Day registration&quot;,
-        &quot;Accident-damaged&quot;,
-        &quot;Demonstration car&quot;
-      ],
-      &quot;title&quot;: &quot;Vehicle condition&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;carMake&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Vehicle manufacturer.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;10004&quot;,
-        &quot;10012&quot;,
-        &quot;1000&quot;,
-        &quot;10031&quot;,
-        &quot;10025&quot;,
-        &quot;1002&quot;,
-        &quot;1003&quot;,
-        &quot;1734&quot;,
-        &quot;10042&quot;,
-        &quot;10066&quot;,
-        &quot;1004&quot;,
-        &quot;1005&quot;,
-        &quot;1069&quot;,
-        &quot;1006&quot;,
-        &quot;10034&quot;,
-        &quot;1007&quot;,
-        &quot;10017&quot;,
-        &quot;10001&quot;,
-        &quot;10057&quot;,
-        &quot;1008&quot;,
-        &quot;1012&quot;,
-        &quot;1009&quot;,
-        &quot;1010&quot;,
-        &quot;10018&quot;,
-        &quot;10026&quot;,
-        &quot;1011&quot;,
-        &quot;1013&quot;,
-        &quot;10037&quot;,
-        &quot;1014&quot;,
-        &quot;10061&quot;,
-        &quot;10019&quot;,
-        &quot;10043&quot;,
-        &quot;10032&quot;,
-        &quot;1015&quot;,
-        &quot;1016&quot;,
-        &quot;10044&quot;,
-        &quot;1017&quot;,
-        &quot;10071&quot;,
-        &quot;10062&quot;,
-        &quot;10067&quot;,
-        &quot;10039&quot;,
-        &quot;10030&quot;,
-        &quot;10016&quot;,
-        &quot;1018&quot;,
-        &quot;10041&quot;,
-        &quot;10065&quot;,
-        &quot;1019&quot;,
-        &quot;1020&quot;,
-        &quot;10035&quot;,
-        &quot;10009&quot;,
-        &quot;1021&quot;,
-        &quot;1022&quot;,
-        &quot;10027&quot;,
-        &quot;10052&quot;,
-        &quot;1023&quot;,
-        &quot;1024&quot;,
-        &quot;1059&quot;,
-        &quot;1025&quot;,
-        &quot;10005&quot;,
-        &quot;1026&quot;,
-        &quot;1027&quot;,
-        &quot;1028&quot;,
-        &quot;1029&quot;,
-        &quot;10048&quot;,
-        &quot;1030&quot;,
-        &quot;10014&quot;,
-        &quot;1031&quot;,
-        &quot;1032&quot;,
-        &quot;10045&quot;,
-        &quot;10003&quot;,
-        &quot;10028&quot;,
-        &quot;1033&quot;,
-        &quot;10055&quot;,
-        &quot;1035&quot;,
-        &quot;10020&quot;,
-        &quot;1036&quot;,
-        &quot;1037&quot;,
-        &quot;1038&quot;,
-        &quot;10013&quot;,
-        &quot;10058&quot;,
-        &quot;1039&quot;,
-        &quot;1040&quot;,
-        &quot;1041&quot;,
-        &quot;10054&quot;,
-        &quot;1042&quot;,
-        &quot;10069&quot;,
-        &quot;10047&quot;,
-        &quot;10053&quot;,
-        &quot;1043&quot;,
-        &quot;1045&quot;,
-        &quot;10029&quot;,
-        &quot;1047&quot;,
-        &quot;1048&quot;,
-        &quot;1049&quot;,
-        &quot;1051&quot;,
-        &quot;10063&quot;,
-        &quot;1052&quot;,
-        &quot;1053&quot;,
-        &quot;1054&quot;,
-        &quot;1056&quot;,
-        &quot;1057&quot;,
-        &quot;10033&quot;,
-        &quot;1058&quot;,
-        &quot;9999&quot;,
-        &quot;10050&quot;,
-        &quot;1060&quot;,
-        &quot;1061&quot;,
-        &quot;1073&quot;,
-        &quot;10002&quot;,
-        &quot;10008&quot;,
-        &quot;1062&quot;,
-        &quot;10023&quot;,
-        &quot;10015&quot;,
-        &quot;1064&quot;,
-        &quot;1065&quot;,
-        &quot;1066&quot;,
-        &quot;10051&quot;,
-        &quot;10070&quot;,
-        &quot;10024&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Abarth&quot;,
-        &quot;Aixam&quot;,
-        &quot;Alfa Romeo&quot;,
-        &quot;Alpina&quot;,
-        &quot;Alpine&quot;,
-        &quot;Aston Martin&quot;,
-        &quot;Audi&quot;,
-        &quot;Austin&quot;,
-        &quot;BAIC&quot;,
-        &quot;BAW&quot;,
-        &quot;Bentley&quot;,
-        &quot;BMW&quot;,
-        &quot;British Leyland&quot;,
-        &quot;Buick&quot;,
-        &quot;BYD&quot;,
-        &quot;Cadillac&quot;,
-        &quot;Casalini&quot;,
-        &quot;Caterham&quot;,
-        &quot;Chery&quot;,
-        &quot;Chevrolet&quot;,
-        &quot;Chevrolet / Daewoo&quot;,
-        &quot;Chrysler&quot;,
-        &quot;Citroën&quot;,
-        &quot;Corvette&quot;,
-        &quot;Cupra&quot;,
-        &quot;Dacia&quot;,
-        &quot;Daihatsu&quot;,
-        &quot;DFSK&quot;,
-        &quot;Dodge&quot;,
-        &quot;Dongfeng&quot;,
-        &quot;DS Automobiles&quot;,
-        &quot;Elaris&quot;,
-        &quot;Eli&quot;,
-        &quot;Ferrari&quot;,
-        &quot;Fiat&quot;,
-        &quot;Fisker&quot;,
-        &quot;Ford&quot;,
-        &quot;GAC&quot;,
-        &quot;Geco&quot;,
-        &quot;Geely&quot;,
-        &quot;Genesis&quot;,
-        &quot;GMC&quot;,
-        &quot;Graf Carello&quot;,
-        &quot;Honda&quot;,
-        &quot;Hongqi&quot;,
-        &quot;Hudson&quot;,
-        &quot;Hummer&quot;,
-        &quot;Hyundai&quot;,
-        &quot;Ineos&quot;,
-        &quot;Infiniti&quot;,
-        &quot;Isuzu&quot;,
-        &quot;IVECO&quot;,
-        &quot;JAC&quot;,
-        &quot;Jaecoo&quot;,
-        &quot;Jaguar&quot;,
-        &quot;Jeep&quot;,
-        &quot;KGM/SsangYong&quot;,
-        &quot;KIA&quot;,
-        &quot;KTM&quot;,
-        &quot;Lada&quot;,
-        &quot;Lamborghini&quot;,
-        &quot;Lancia&quot;,
-        &quot;Land Rover&quot;,
-        &quot;Leapmotor&quot;,
-        &quot;Lexus&quot;,
-        &quot;Ligier&quot;,
-        &quot;Lincoln&quot;,
-        &quot;Lotus&quot;,
-        &quot;LYNK &amp; Co&quot;,
-        &quot;Mahindra&quot;,
-        &quot;MAN&quot;,
-        &quot;Maserati&quot;,
-        &quot;Matra&quot;,
-        &quot;Mazda&quot;,
-        &quot;McLaren&quot;,
-        &quot;Mercedes-Benz&quot;,
-        &quot;Mercury&quot;,
-        &quot;MG&quot;,
-        &quot;Microcar&quot;,
-        &quot;Microlino&quot;,
-        &quot;MINI&quot;,
-        &quot;Mitsubishi&quot;,
-        &quot;Morgan&quot;,
-        &quot;NIO&quot;,
-        &quot;Nissan&quot;,
-        &quot;NSU&quot;,
-        &quot;Oldsmobile&quot;,
-        &quot;Omoda&quot;,
-        &quot;Opel&quot;,
-        &quot;Peugeot&quot;,
-        &quot;Polestar&quot;,
-        &quot;Pontiac&quot;,
-        &quot;Porsche&quot;,
-        &quot;Puch&quot;,
-        &quot;Renault&quot;,
-        &quot;Riley&quot;,
-        &quot;Rolls-Royce&quot;,
-        &quot;Rover&quot;,
-        &quot;Saab&quot;,
-        &quot;Seat&quot;,
-        &quot;Skoda&quot;,
-        &quot;Skywell Automobile&quot;,
-        &quot;smart&quot;,
-        &quot;Sonstige&quot;,
-        &quot;Steyr&quot;,
-        &quot;Subaru&quot;,
-        &quot;Suzuki&quot;,
-        &quot;Talbot&quot;,
-        &quot;Tata&quot;,
-        &quot;Tesla&quot;,
-        &quot;Toyota&quot;,
-        &quot;Trabant&quot;,
-        &quot;Triumph&quot;,
-        &quot;Volvo&quot;,
-        &quot;VW&quot;,
-        &quot;Wiesmann&quot;,
-        &quot;XPENG&quot;,
-        &quot;Zeekr&quot;,
-        &quot;ZhiDou&quot;
-      ],
-      &quot;title&quot;: &quot;Car make&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;carModel&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Model name, e.g. &#x27;3er-Reihe&#x27; or &#x27;Golf&#x27;. Requires Car make.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Car model&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;color&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;1&quot;,
-        &quot;2&quot;,
-        &quot;4&quot;,
-        &quot;3&quot;,
-        &quot;7&quot;,
-        &quot;8&quot;,
-        &quot;6&quot;,
-        &quot;5&quot;,
-        &quot;11&quot;,
-        &quot;13&quot;,
-        &quot;14&quot;,
-        &quot;15&quot;,
-        &quot;17&quot;,
-        &quot;10&quot;,
-        &quot;9&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Beige&quot;,
-        &quot;Blue&quot;,
-        &quot;Brown&quot;,
-        &quot;Bronze&quot;,
-        &quot;Yellow&quot;,
-        &quot;Gold&quot;,
-        &quot;Grey&quot;,
-        &quot;Green&quot;,
-        &quot;Orange&quot;,
-        &quot;Red&quot;,
-        &quot;Black&quot;,
-        &quot;Silver&quot;,
-        &quot;Other&quot;,
-        &quot;Purple&quot;,
-        &quot;White&quot;
-      ],
-      &quot;title&quot;: &quot;Exterior colour&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;driveType&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;2&quot;,
-        &quot;1&quot;,
-        &quot;3&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;All-wheel drive&quot;,
-        &quot;Rear-wheel drive&quot;,
-        &quot;Front-wheel drive&quot;
-      ],
-      &quot;title&quot;: &quot;Drive type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;emitExpired&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;(incrementalMode) After a complete scan, also emit listings/jobs that disappeared since the last run.&quot;,
-      &quot;title&quot;: &quot;Include expired records&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;emitUnchanged&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;(incrementalMode) Also return records whose tracked fields did not change.&quot;,
-      &quot;title&quot;: &quot;Include unchanged records&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;employmentMode&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;110&quot;,
-        &quot;113&quot;,
-        &quot;109&quot;,
-        &quot;11796&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Vollzeit (full-time)&quot;,
-        &quot;Teilzeit (part-time)&quot;,
-        &quot;Freiberuflich (freelance)&quot;,
-        &quot;Geringfügig (marginal)&quot;
-      ],
-      &quot;title&quot;: &quot;Employment type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;equipment&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate) e.g. lift, cellar, parking, built-in kitchen.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;24&quot;,
-        &quot;25&quot;,
-        &quot;26&quot;,
-        &quot;27&quot;,
-        &quot;4&quot;,
-        &quot;23&quot;,
-        &quot;250&quot;,
-        &quot;15&quot;,
-        &quot;28&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Storage room&quot;,
-        &quot;Barrier-free&quot;,
-        &quot;Carport&quot;,
-        &quot;Built-in kitchen&quot;,
-        &quot;Lift&quot;,
-        &quot;Garage&quot;,
-        &quot;Cellar&quot;,
-        &quot;Parking space&quot;,
-        &quot;Partially / fully furnished&quot;
-      ],
-      &quot;title&quot;: &quot;Real-estate equipment&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;freeAreaType&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate) Balcony, terrace, garden, etc.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;20&quot;,
-        &quot;40&quot;,
-        &quot;60&quot;,
-        &quot;30&quot;,
-        &quot;10&quot;,
-        &quot;50&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Balcony&quot;,
-        &quot;Roof terrace&quot;,
-        &quot;Garden&quot;,
-        &quot;Loggia&quot;,
-        &quot;Terrace&quot;,
-        &quot;Winter garden&quot;
-      ],
-      &quot;title&quot;: &quot;Outdoor area&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;fuelType&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;100001&quot;,
-        &quot;100003&quot;,
-        &quot;100004&quot;,
-        &quot;100011&quot;,
-        &quot;100013&quot;,
-        &quot;100022&quot;,
-        &quot;110000&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Petrol&quot;,
-        &quot;Diesel&quot;,
-        &quot;Electric&quot;,
-        &quot;Gas&quot;,
-        &quot;Hybrid petrol / electric&quot;,
-        &quot;Hybrid diesel / electric&quot;,
-        &quot;Hydrogen&quot;
-      ],
-      &quot;title&quot;: &quot;Fuel type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;includeDetails&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Add the full description, seller/contact data and extra car or real-estate details from each listing/job page. Slower and more expensive.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Fetch detail pages&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;includeRawAttributes&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Add every source attribute as a rawAttributes list. Useful for category-specific analysis; increases output size.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Include raw attributes&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;incrementalMode&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Return only new/changed listings or jobs on recurring runs. The first run returns everything as NEW.&quot;,
-      &quot;title&quot;: &quot;Incremental monitoring&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;jobCompanyType&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;agency&quot;,
-        &quot;direct_employer&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Staffing agency&quot;,
-        &quot;Direct employer&quot;
-      ],
-      &quot;title&quot;: &quot;Employer type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;jobOperationArea&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;12666&quot;,
-        &quot;12681&quot;,
-        &quot;12746&quot;,
-        &quot;12769&quot;,
-        &quot;17007&quot;,
-        &quot;12887&quot;,
-        &quot;12984&quot;,
-        &quot;13094&quot;,
-        &quot;13186&quot;,
-        &quot;13260&quot;,
-        &quot;13272&quot;,
-        &quot;13342&quot;,
-        &quot;13359&quot;,
-        &quot;13375&quot;,
-        &quot;13440&quot;,
-        &quot;12806&quot;,
-        &quot;13483&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Assistance / secretarial / administration&quot;,
-        &quot;Education / pedagogy / research&quot;,
-        &quot;Consulting / law&quot;,
-        &quot;Purchasing / logistics / transport&quot;,
-        &quot;Facility management / security / cleaning&quot;,
-        &quot;Finance / accounting / controlling&quot;,
-        &quot;Hospitality / tourism / leisure / helpers&quot;,
-        &quot;Crafts / skilled trades&quot;,
-        &quot;IT / EDP&quot;,
-        &quot;Management / executive&quot;,
-        &quot;Marketing / media / PR / graphics / culture&quot;,
-        &quot;Public service&quot;,
-        &quot;Human resources&quot;,
-        &quot;Care / social / health&quot;,
-        &quot;Production / manufacturing&quot;,
-        &quot;Technical professions / engineering / architecture&quot;,
-        &quot;Sales / retail&quot;
-      ],
-      &quot;title&quot;: &quot;Job field&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;jobPosition&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;13540&quot;,
-        &quot;13541&quot;,
-        &quot;13539&quot;,
-        &quot;13542&quot;,
-        &quot;13543&quot;,
-        &quot;13544&quot;,
-        &quot;28428&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Team lead&quot;,
-        &quot;Apprenticeship&quot;,
-        &quot;Management / executive&quot;,
-        &quot;Employee&quot;,
-        &quot;Internship&quot;,
-        &quot;Project management&quot;,
-        &quot;Traineeship&quot;
-      ],
-      &quot;title&quot;: &quot;Job position&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;jobRegion&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;13553&quot;,
-        &quot;13602&quot;,
-        &quot;13677&quot;,
-        &quot;13859&quot;,
-        &quot;14096&quot;,
-        &quot;13783&quot;,
-        &quot;14366&quot;,
-        &quot;14445&quot;,
-        &quot;14486&quot;,
-        &quot;13552&quot;,
-        &quot;14513&quot;,
-        &quot;14523&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Burgenland&quot;,
-        &quot;Kärnten&quot;,
-        &quot;Niederösterreich&quot;,
-        &quot;Oberösterreich&quot;,
-        &quot;Salzburg&quot;,
-        &quot;Steiermark&quot;,
-        &quot;Tirol&quot;,
-        &quot;Vorarlberg&quot;,
-        &quot;Wien&quot;,
-        &quot;Österreich&quot;,
-        &quot;Deutschland&quot;,
-        &quot;Schweiz&quot;
-      ],
-      &quot;title&quot;: &quot;Job region&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;jobTimeLimit&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;all&quot;,
-        &quot;last_24_hours&quot;,
-        &quot;last_72_hours&quot;,
-        &quot;last_week&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Any time&quot;,
-        &quot;Last 24 hours&quot;,
-        &quot;Last 72 hours&quot;,
-        &quot;Last week&quot;
-      ],
-      &quot;title&quot;: &quot;Job posting age&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;livingAreaFrom&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate)&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Living area from (m²)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;livingAreaTo&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate)&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Living area to (m²)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;location&quot;: {
-      &quot;description&quot;: &quot;e.g. &#x27;Wien&#x27;, &#x27;Graz&#x27;, &#x27;1050&#x27;. Resolved through Willhaben&#x27;s location search. For jobs it is sent as the job location.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;City / district / postcode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 20,
-      &quot;description&quot;: &quot;Maximum listings or jobs to return.&quot;,
-      &quot;maximum&quot;: 50000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 3,
-      &quot;title&quot;: &quot;Max items&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mileageFrom&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Minimum mileage.&quot;,
-      &quot;maximum&quot;: 2000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Mileage from (km)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mileageTo&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Maximum mileage.&quot;,
-      &quot;maximum&quot;: 2000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Mileage to (km)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;searchItems&quot;,
-      &quot;description&quot;: &quot;Choose a marketplace section, cars, real estate, jobs, or paste Willhaben URLs.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;searchItems&quot;,
-        &quot;searchCars&quot;,
-        &quot;searchRealEstate&quot;,
-        &quot;searchJobs&quot;,
-        &quot;byUrls&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Marketplace items&quot;,
-        &quot;Cars &amp; vehicles&quot;,
-        &quot;Real estate&quot;,
-        &quot;Jobs&quot;,
-        &quot;Paste URLs&quot;
-      ],
-      &quot;prefill&quot;: &quot;searchItems&quot;,
-      &quot;title&quot;: &quot;What to scrape&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;plotAreaFrom&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate)&quot;,
-      &quot;maximum&quot;: 10000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Plot area from (m²)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;plotAreaTo&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate)&quot;,
-      &quot;maximum&quot;: 10000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Plot area to (m²)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;powerFrom&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Minimum engine power.&quot;,
-      &quot;maximum&quot;: 2000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Power from (kW)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;powerTo&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Maximum engine power.&quot;,
-      &quot;maximum&quot;: 2000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Power to (kW)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;priceMax&quot;: {
-      &quot;description&quot;: &quot;Maximum listing price in euros. Ignored for jobs.&quot;,
-      &quot;maximum&quot;: 10000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Max price (EUR)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;priceMin&quot;: {
-      &quot;description&quot;: &quot;Minimum listing price in euros. Ignored for jobs.&quot;,
-      &quot;maximum&quot;: 10000000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Min price (EUR)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;propertySubtype&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate) Optional subtype such as penthouse, detached house or building plot.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;110&quot;,
-        &quot;105&quot;,
-        &quot;111&quot;,
-        &quot;113&quot;,
-        &quot;100&quot;,
-        &quot;101&quot;,
-        &quot;102&quot;,
-        &quot;112&quot;,
-        &quot;3&quot;,
-        &quot;16&quot;,
-        &quot;27&quot;,
-        &quot;2&quot;,
-        &quot;9&quot;,
-        &quot;11&quot;,
-        &quot;15&quot;,
-        &quot;1&quot;,
-        &quot;22&quot;,
-        &quot;17&quot;,
-        &quot;19&quot;,
-        &quot;21&quot;,
-        &quot;118&quot;,
-        &quot;14&quot;,
-        &quot;119&quot;,
-        &quot;116&quot;,
-        &quot;117&quot;,
-        &quot;18&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Attic apartment&quot;,
-        &quot;Ground-floor apartment&quot;,
-        &quot;Garconnière&quot;,
-        &quot;Co-operative apartment&quot;,
-        &quot;Loft / studio&quot;,
-        &quot;Maisonette&quot;,
-        &quot;Penthouse&quot;,
-        &quot;Roof-space conversion&quot;,
-        &quot;Apartment&quot;,
-        &quot;Room / shared flat&quot;,
-        &quot;Other apartment&quot;,
-        &quot;Alpine hut&quot;,
-        &quot;Farmhouse&quot;,
-        &quot;Bungalow&quot;,
-        &quot;Semi-detached house&quot;,
-        &quot;Detached house&quot;,
-        &quot;Garden house&quot;,
-        &quot;Co-operative house&quot;,
-        &quot;Country house&quot;,
-        &quot;Building plot&quot;,
-        &quot;Commercial plot&quot;,
-        &quot;Plot / land&quot;,
-        &quot;Industrial plot&quot;,
-        &quot;Allotment garden&quot;,
-        &quot;Agricultural / forestry land&quot;,
-        &quot;Other plot&quot;
-      ],
-      &quot;title&quot;: &quot;Property subtype&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;query&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Free-text keyword, e.g. &#x27;sofa&#x27;, &#x27;iPhone&#x27;, &#x27;BMW&#x27;, &#x27;Wohnung&#x27;. Leave empty to browse the category.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;sofa&quot;,
-      &quot;title&quot;: &quot;Search keyword&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;radiusKm&quot;: {
-      &quot;description&quot;: &quot;(mode=searchJobs) Radius around the location, 1-100 km.&quot;,
-      &quot;maximum&quot;: 100,
-      &quot;minimum&quot;: 1,
-      &quot;title&quot;: &quot;Job radius (km)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;realEstateCategory&quot;: {
-      &quot;default&quot;: &quot;rentApartment&quot;,
-      &quot;description&quot;: &quot;(mode=searchRealEstate) Which property market to search.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;rentApartment&quot;,
-        &quot;buyApartment&quot;,
-        &quot;rentHouse&quot;,
-        &quot;buyHouse&quot;,
-        &quot;land&quot;,
-        &quot;newBuild&quot;,
-        &quot;commercialRent&quot;,
-        &quot;commercialBuy&quot;,
-        &quot;holidayRent&quot;,
-        &quot;holidayBuy&quot;,
-        &quot;otherRealEstate&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Apartment for rent&quot;,
-        &quot;Apartment for sale&quot;,
-        &quot;House for rent&quot;,
-        &quot;House for sale&quot;,
-        &quot;Land / plot&quot;,
-        &quot;New-build project&quot;,
-        &quot;Commercial property for rent&quot;,
-        &quot;Commercial property for sale&quot;,
-        &quot;Holiday property for rent&quot;,
-        &quot;Holiday property for sale&quot;,
-        &quot;Other real estate&quot;
-      ],
-      &quot;title&quot;: &quot;Real-estate category&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;rooms&quot;: {
-      &quot;description&quot;: &quot;(mode=searchRealEstate) Room-count bucket.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;1X1&quot;,
-        &quot;2X2&quot;,
-        &quot;3X3&quot;,
-        &quot;4X4&quot;,
-        &quot;5X5&quot;,
-        &quot;6X9&quot;,
-        &quot;10X&quot;,
-        &quot;0X0&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;1 room&quot;,
-        &quot;2 rooms&quot;,
-        &quot;3 rooms&quot;,
-        &quot;4 rooms&quot;,
-        &quot;5 rooms&quot;,
-        &quot;6-9 rooms&quot;,
-        &quot;10+ rooms&quot;,
-        &quot;Not specified&quot;
-      ],
-      &quot;title&quot;: &quot;Rooms&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;sellerType&quot;: {
-      &quot;description&quot;: &quot;Filter by private seller or commercial dealer. Applies to marketplace items and cars; ignored for real estate and jobs.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;private&quot;,
-        &quot;dealer&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Private seller&quot;,
-        &quot;Dealer / business&quot;
-      ],
-      &quot;title&quot;: &quot;Seller type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;sortBy&quot;: {
-      &quot;default&quot;: &quot;relevance&quot;,
-      &quot;description&quot;: &quot;Result ordering. Jobs support relevance and newest; other orders are mapped to newest for jobs.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;relevance&quot;,
-        &quot;newest&quot;,
-        &quot;distance&quot;,
-        &quot;priceAsc&quot;,
-        &quot;priceDesc&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Relevance&quot;,
-        &quot;Newest first&quot;,
-        &quot;Distance (nearest first)&quot;,
-        &quot;Price: low to high&quot;,
-        &quot;Price: high to low&quot;
-      ],
-      &quot;prefill&quot;: &quot;relevance&quot;,
-      &quot;title&quot;: &quot;Sort order&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;startUrls&quot;: {
-      &quot;description&quot;: &quot;(mode=byUrls) Paste search, category, single listing, job search or single job URLs. Filters already in the URL are preserved.&quot;,
-      &quot;editor&quot;: &quot;requestListSources&quot;,
-      &quot;items&quot;: {
-        &quot;properties&quot;: {
-          &quot;url&quot;: {
-            &quot;description&quot;: &quot;Paste a Willhaben search, category, listing, job search or job URL.&quot;,
-            &quot;title&quot;: &quot;Willhaben URL&quot;,
-            &quot;type&quot;: &quot;string&quot;
-          }
-        },
-        &quot;type&quot;: &quot;object&quot;
-      },
-      &quot;title&quot;: &quot;Willhaben URLs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;state&quot;: {
-      &quot;description&quot;: &quot;Restrict listings to one Austrian federal state (or other countries). Location overrides this when both are set.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;Burgenland&quot;,
-        &quot;Kärnten&quot;,
-        &quot;Niederösterreich&quot;,
-        &quot;Oberösterreich&quot;,
-        &quot;Salzburg&quot;,
-        &quot;Steiermark&quot;,
-        &quot;Tirol&quot;,
-        &quot;Vorarlberg&quot;,
-        &quot;Wien&quot;,
-        &quot;andere Länder&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Burgenland&quot;,
-        &quot;Kärnten&quot;,
-        &quot;Niederösterreich&quot;,
-        &quot;Oberösterreich&quot;,
-        &quot;Salzburg&quot;,
-        &quot;Steiermark&quot;,
-        &quot;Tirol&quot;,
-        &quot;Vorarlberg&quot;,
-        &quot;Wien&quot;,
-        &quot;andere Länder&quot;
-      ],
-      &quot;title&quot;: &quot;Federal state&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;stateKey&quot;: {
-      &quot;description&quot;: &quot;(incrementalMode) Stable name for this search so later runs compare against the right state. Leave empty to derive it from the filters.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Monitoring campaign name&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;transmission&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars)&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;180004&quot;,
-        &quot;180001&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Automatic&quot;,
-        &quot;Manual&quot;
-      ],
-      &quot;title&quot;: &quot;Transmission&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;vehicleCategory&quot;: {
-      &quot;default&quot;: &quot;cars&quot;,
-      &quot;description&quot;: &quot;(mode=searchCars) Which vehicle section to search.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;cars&quot;,
-        &quot;motorcycles&quot;,
-        &quot;caravans&quot;,
-        &quot;commercial&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Cars &amp; used cars&quot;,
-        &quot;Motorcycles &amp; quads&quot;,
-        &quot;Caravans &amp; motorhomes&quot;,
-        &quot;Commercial vehicles &amp; pickups&quot;
-      ],
-      &quot;title&quot;: &quot;Vehicle category&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;yearFrom&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Earliest registration year.&quot;,
-      &quot;maximum&quot;: 2100,
-      &quot;minimum&quot;: 1900,
-      &quot;title&quot;: &quot;First registration from&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;yearTo&quot;: {
-      &quot;description&quot;: &quot;(mode=searchCars) Latest registration year.&quot;,
-      &quot;maximum&quot;: 2100,
-      &quot;minimum&quot;: 1900,
-      &quot;title&quot;: &quot;First registration to&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Willhaben Scraper Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>listings</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Willhaben listings and job ads.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Willhaben.at listings and jobs with prices, locations, seller data, car and property details, images and optional detail-page enrichment.&quot;,
-  &quot;properties&quot;: {
-    &quot;listings&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Willhaben listings and job ads.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Willhaben listings and jobs&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Willhaben Marketplace, Cars, Real Estate &amp; Jobs Scraper Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Willhaben Listings&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;recordType&quot;,
-          &quot;heading&quot;,
-          &quot;jobTitle&quot;,
-          &quot;price&quot;,
-          &quot;priceDisplay&quot;,
-          &quot;location&quot;,
-          &quot;state&quot;,
-          &quot;propertyType&quot;,
-          &quot;carMake&quot;,
-          &quot;roomsCount&quot;,
-          &quot;companyName&quot;,
-          &quot;adUrl&quot;,
-          &quot;jobUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-willhaben-marketplace-cars-real-estate-jobs-scraper">Willhaben Marketplace, Cars, Real Estate &amp; Jobs Scraper</h2>
-<p>Willhaben.at is Austria's largest classifieds site — marketplace goods, used cars, apartments, houses, land and jobs all live in one place. This actor turns those listings into structured records: prices, locations, seller details, car specifications, property areas and energy data, job salaries, images and direct links. Search by keyword and filters, or paste any Willhaben search or listing URL. No login, cookies, API key or proxy setup is needed.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-EaPl50qpzJ51TkXxIrBG8n8pn5tizPhZ2pJmDdOx9Fc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper docs | Dataspryva</title><meta name="description" content="Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"><meta property="og:title" content="Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper docs | Dataspryva"><meta property="og:description" content="Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific"><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-sSrZYqOzOQO2bTYr4-6fgQrxFIEf-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#webpage","name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper docs","description":"Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#article"},"dateModified":"2026-10-28T08:01:53.638Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#article","headline":"Willhaben Marketplace, Cars & Real Estate Listings Scraper docs","name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper docs","description":"Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#webpage"},"inLanguage":"en","dateModified":"2026-10-28T08:01:53.638Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-sSrZYqOzOQO2bTYr4-6fgQrxFIEf-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Ecommerce","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/ecommerce/"},{"@type":"ListItem","position":4,"name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#software","name":"Willhaben Marketplace, Cars & Real Estate Listings Scraper","description":"Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.","url":"https://apify.com/dataspryva/willhaben-marketplace-cars-and-real-estate","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-sSrZYqOzOQO2bTYr4-6fgQrxFIEf-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/willhaben-marketplace-cars-and-real-estate","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#faq","mainEntity":[{"@type":"Question","name":"Is this affiliated with Willhaben?","acceptedAnswer":{"@type":"Answer","text":"No. This actor reads publicly visible listings and has no relationship with Willhaben.at."}},{"@type":"Question","name":"Do I need an account, cookies or an API key?","acceptedAnswer":{"@type":"Answer","text":"No. Listings, search pages and job ads are read without logging in."}},{"@type":"Question","name":"Do I need to configure a proxy?","acceptedAnswer":{"@type":"Answer","text":"No. The actor chooses a working connection automatically. Just fill in the input and run it."}},{"@type":"Question","name":"Why are some fields missing on some records?","acceptedAnswer":{"@type":"Answer","text":"Sellers do not always publish every attribute. A field the source does not carry is omitted, never sent as null or a blank value."}},{"@type":"Question","name":"Why is car mileage or first registration missing on some cars?","acceptedAnswer":{"@type":"Answer","text":"Some sellers leave those fields empty. The actor returns the data the listing actually contains."}},{"@type":"Question","name":"What does \"Fetch detail pages\" add?","acceptedAnswer":{"@type":"Answer","text":"Full descriptions, seller/contact details, equipment lists, energy certificates, rent breakdowns, floor plans and extra car specification fields. It is optional because it makes the run slower."}},{"@type":"Question","name":"How many records can one run return?","acceptedAnswer":{"@type":"Answer","text":"Up to maxItems, which can be set to 50,000. Willhaben serves at most 199,800 records per search query; for larger jobs, split by state or price range and combine the results."}},{"@type":"Question","name":"Can I run this on a schedule and only get new listings?","acceptedAnswer":{"@type":"Answer","text":"Yes. Turn on incrementalMode; the first run establishes the baseline and later runs return new, changed, expired or reappeared records according to emitUnchanged and emitExpired."}},{"@type":"Question","name":"Do price and seller-type filters work for jobs and real estate?","acceptedAnswer":{"@type":"Answer","text":"Job ads have no listing price, so price filters are ignored for jobs. Willhaben does not apply seller-type filtering to real estate or jobs; those filters are ignored and the run reports it in its status message."}},{"@type":"Question","name":"Are image and listing links usable outside Apify?","acceptedAnswer":{"@type":"Answer","text":"Yes. Image URLs and listing/job links are public absolute URLs."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/ecommerce/">Ecommerce</a></li><li aria-current="page">Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper</li></ol></nav><div class="doc"><div class="doc-head"><h1>Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper</h1><p class="lead">Search Willhaben.at classifieds, used cars, and real estate (rent or buy apartments, houses, land) by keyword, price range, and sort order. Get listing prices, locations, images, and category-specific details such as car mileage or living area.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-28">28 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>48 fields, 1 required</dd></div><div><dt>Output</dt><dd>13 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/willhaben-marketplace-cars-and-real-estate/">Willhaben</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/willhaben-marketplace-cars-and-real-estate">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper is an Apify Actor published by Dataspryva. It accepts 48 input fields, and <code>mode</code> is required. Each result can carry up to 13 declared fields, including <code>recordType</code>, <code>heading</code>, <code>jobTitle</code>, <code>price</code>, <code>priceDisplay</code> and <code>location</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Willhaben.at is Austria's largest classifieds site — marketplace goods, used cars, apartments, houses, land and jobs all live in one place. This actor turns those listings into structured records: prices, locations, seller details, car specifications, property areas and energy data, job salaries, images and direct links. Search by keyword and filters, or paste any Willhaben search or listing URL. No login, cookies, API key or proxy setup is needed.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li><strong>Marketplace, cars, real estate and jobs in one actor</strong> — choose a section or paste URLs from any of them.</li>
 <li><strong>Location-aware search</strong> — filter by federal state, city, district or Austrian postcode.</li>
 <li><strong>Real filters, not post-filtering</strong> — price, car make/model/year/mileage/fuel/transmission/body/drive/colour/power, property type/rooms/area/outdoor space/equipment, and job region/field/employment type/employer type.</li>
@@ -1064,8 +7,15 @@
 <li><strong>Incremental monitoring</strong> — on recurring runs return only new, changed, expired or reappeared listings/jobs.</li>
 <li><strong>Omit-empty output</strong> — a field the source does not carry is left out, never sent as <code>null</code> or blank.</li>
 </ul>
-<h2 id="readme-output-per-listing">Output per listing</h2>
-<p>Every record has <code>recordType: &quot;listing&quot;</code> and the <code>mode</code> that produced it.</p>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li><strong>Car dealers and buyers</strong> — track make/model/year/mileage/price across Austria and compare private vs dealer offers.</li>
+<li><strong>Real-estate analysts</strong> — build €/m², rent, energy-class and availability datasets by district.</li>
+<li><strong>Property hunters</strong> — monitor Vienna or Graz rentals and new-build projects with incremental runs.</li>
+<li><strong>Recruiters and job analysts</strong> — export job ads with salary, company, employment type and location.</li>
+<li><strong>Resellers</strong> — watch marketplace categories for new listings and price reductions.</li>
+<li><strong>Market researchers</strong> — collect cross-section supply data for Austrian goods and property.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 13 fields in 1 dataset view, and the README documents 3 more. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>recordType</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>heading</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>jobTitle</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>price</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>priceDisplay</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>location</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>state</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>propertyType</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>carMake</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>roomsCount</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>companyName</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>adUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>jobUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>locations</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->objects with <code>name</code>, <code>federalState</code>, <code>country</code><!--/readme--></td></tr><tr><th scope="row"><code>changeType</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme--><code>NEW</code>, <code>UPDATED</code>, <code>UNCHANGED</code>, <code>REAPPEARED</code> or <code>EXPIRED</code><!--/readme--></td></tr><tr><th scope="row"><code>changedFields</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tracked fields that changed on an <code>UPDATED</code> record<!--/readme--></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's output notes</summary><h3 id="readme-output-per-listing">Output per listing</h3><!--readme--><p>Every record has <code>recordType: &quot;listing&quot;</code> and the <code>mode</code> that produced it.</p>
 <p><strong>Identity and pricing</strong></p>
 <ul>
 <li><code>adId</code>, <code>uuid</code>, <code>heading</code>, <code>description</code>, <code>descriptionSnippet</code></li>
@@ -1089,7 +39,7 @@
 <li><code>rawAttributes</code> (when &quot;Include raw attributes&quot; is on)</li>
 <li><code>scrapedAt</code></li>
 </ul>
-<h3 id="readme-cars-vehicles">Cars &amp; vehicles</h3>
+<h4 id="readme-cars-vehicles">Cars &amp; vehicles</h4>
 <ul>
 <li><code>carMake</code>, <code>carModel</code>, <code>carMakeId</code>, <code>carModelId</code>, <code>carModelDetail</code>, <code>vehicleCategory</code></li>
 <li><code>year</code>, <code>registrationMonth</code>, <code>mileageKm</code>, <code>fuelType</code>, <code>transmission</code></li>
@@ -1097,7 +47,7 @@
 <li><code>bodyType</code>, <code>condition</code>, <code>driveType</code>, <code>color</code>, <code>doors</code>, <code>seats</code>, <code>owners</code></li>
 <li><code>warranty</code>, <code>inspection</code>, <code>inspectionValidUntil</code>, <code>equipment[]</code></li>
 </ul>
-<h3 id="readme-real-estate">Real estate</h3>
+<h4 id="readme-real-estate">Real estate</h4>
 <ul>
 <li><code>propertyType</code>, <code>propertyTypeId</code>, <code>rooms</code>, <code>roomsCount</code>, <code>livingAreaSqm</code>, <code>usableAreaSqm</code>, <code>plotAreaSqm</code></li>
 <li><code>floor</code>, <code>floorSurface</code>, <code>freeAreaType</code>, <code>freeAreaSqm</code>, <code>heating</code>, <code>buildingCondition</code>, <code>constructionYear</code></li>
@@ -1106,8 +56,7 @@
 <li><code>rentPerMonth</code>, <code>rentNet</code>, <code>rentVat</code>, <code>totalEncumbrance</code>, <code>deposit</code>, <code>additionalCosts</code>, <code>monthlyCosts</code></li>
 <li><code>equipment[]</code></li>
 </ul>
-<h2 id="readme-output-per-job">Output per job</h2>
-<p>Job records have <code>recordType: &quot;job&quot;</code>.</p>
+<!--/readme--><h3 id="readme-output-per-job">Output per job</h3><!--readme--><p>Job records have <code>recordType: &quot;job&quot;</code>.</p>
 <ul>
 <li><code>jobId</code>, <code>jobTitle</code>, <code>description</code>, <code>jobUrl</code></li>
 <li><code>companyName</code>, <code>companyId</code>, <code>companySlug</code>, <code>companyUid</code>, <code>companyAddress</code>, <code>companyLogoUrl</code></li>
@@ -1119,8 +68,7 @@
 <li><code>mode</code>, <code>scrapedAt</code></li>
 </ul>
 <p>Add <code>includeDetails</code> to fill full descriptions, expiry dates, company addresses, contact details and language skills where the source publishes them. Contact email is only present on some job ads.</p>
-<h2 id="readme-incremental-output">Incremental output</h2>
-<p>When <code>incrementalMode</code> is on, each record also has:</p>
+<!--/readme--><h3 id="readme-incremental-output">Incremental output</h3><!--readme--><p>When <code>incrementalMode</code> is on, each record also has:</p>
 <ul>
 <li><code>changeType</code> — <code>NEW</code>, <code>UPDATED</code>, <code>UNCHANGED</code>, <code>REAPPEARED</code> or <code>EXPIRED</code></li>
 <li><code>changedFields[]</code> — tracked fields that changed on an <code>UPDATED</code> record</li>
@@ -1128,8 +76,52 @@
 <li><code>emitUnchanged</code> / <code>emitExpired</code> control whether unchanged or missing records are included</li>
 </ul>
 <p>The first run returns everything as <code>NEW</code>. Later runs compare against the saved state for the same <code>stateKey</code> (or the same filters when <code>stateKey</code> is empty).</p>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></details></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (marketplace furniture). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/willhaben-marketplace-cars-and-real-estate/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/willhaben-marketplace-cars-and-real-estate&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;searchItems&quot;,
+    &quot;query&quot;: &quot;sofa&quot;,
+    &quot;state&quot;: &quot;Wien&quot;,
+    &quot;priceMax&quot;: 800,
+    &quot;sortBy&quot;: &quot;priceAsc&quot;,
+    &quot;maxItems&quot;: 100,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/willhaben-marketplace-cars-and-real-estate&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;searchItems&quot;,
+  &quot;query&quot;: &quot;sofa&quot;,
+  &quot;state&quot;: &quot;Wien&quot;,
+  &quot;priceMax&quot;: 800,
+  &quot;sortBy&quot;: &quot;priceAsc&quot;,
+  &quot;maxItems&quot;: 100
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~willhaben-marketplace-cars-and-real-estate/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;searchItems&quot;, &quot;query&quot;: &quot;sofa&quot;, &quot;state&quot;: &quot;Wien&quot;, &quot;priceMax&quot;: 800, &quot;sortBy&quot;: &quot;priceAsc&quot;, &quot;maxItems&quot;: 100}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/willhaben-marketplace-cars-and-real-estate&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Willhaben Marketplace, Cars &amp; Real Estate Listings Scraper uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/willhaben-marketplace-cars-and-real-estate">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 48 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">What to scrape</span></th><td data-label="Type">string <span class="req">required</span></td><td data-label="Description"><!--readme-->Choose a marketplace section, cars, real estate, jobs, or paste Willhaben URLs.<!--/readme--><span class="field-meta">Default <code>&quot;searchItems&quot;</code>; Allowed searchItems, searchCars, searchRealEstate, searchJobs, byUrls</span></td></tr><tr><th scope="row"><code>query</code><span class="field-title">Search keyword</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Free-text keyword, e.g. 'sofa', 'iPhone', 'BMW', 'Wohnung'. Leave empty to browse the category.<!--/readme--><span class="field-meta">Default <code>&quot;&quot;</code>; Example <code>&quot;sofa&quot;</code></span></td></tr><tr><th scope="row"><code>startUrls</code><span class="field-title">Willhaben URLs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->(mode=byUrls) Paste search, category, single listing, job search or single job URLs. Filters already in the URL are preserved.<!--/readme--></td></tr><tr><th scope="row"><code>state</code><span class="field-title">Federal state</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Restrict listings to one Austrian federal state (or other countries). Location overrides this when both are set.<!--/readme--><span class="field-meta">Allowed Burgenland, Kärnten, Niederösterreich, Oberösterreich, Salzburg, Steiermark, Tirol, Vorarlberg and 2 more</span></td></tr><tr><th scope="row"><code>location</code><span class="field-title">City / district / postcode</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->e.g. 'Wien', 'Graz', '1050'. Resolved through Willhaben's location search. For jobs it is sent as the job location.<!--/readme--></td></tr><tr><th scope="row"><code>radiusKm</code><span class="field-title">Job radius (km)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchJobs) Radius around the location, 1-100 km.<!--/readme--><span class="field-meta">Allowed 1 to 100</span></td></tr><tr><th scope="row"><code>sortBy</code><span class="field-title">Sort order</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Result ordering. Jobs support relevance and newest; other orders are mapped to newest for jobs.<!--/readme--><span class="field-meta">Default <code>&quot;relevance&quot;</code>; Allowed relevance, newest, distance, priceAsc, priceDesc</span></td></tr><tr><th scope="row"><code>priceMin</code><span class="field-title">Min price (EUR)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Minimum listing price in euros. Ignored for jobs.<!--/readme--><span class="field-meta">Allowed 0 to 10000000</span></td></tr><tr><th scope="row"><code>priceMax</code><span class="field-title">Max price (EUR)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum listing price in euros. Ignored for jobs.<!--/readme--><span class="field-meta">Allowed 0 to 10000000</span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max items</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum listings or jobs to return.<!--/readme--><span class="field-meta">Default <code>20</code>; Example <code>3</code>; Allowed 1 to 50000</span></td></tr><tr><th scope="row"><code>includeDetails</code><span class="field-title">Fetch detail pages</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Add the full description, seller/contact data and extra car or real-estate details from each listing/job page. Slower and more expensive.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>includeRawAttributes</code><span class="field-title">Include raw attributes</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Add every source attribute as a rawAttributes list. Useful for category-specific analysis; increases output size.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>sellerType</code><span class="field-title">Seller type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Filter by private seller or commercial dealer. Applies to marketplace items and cars; ignored for real estate and jobs.<!--/readme--><span class="field-meta">Allowed private, dealer</span></td></tr><tr><th scope="row"><code>vehicleCategory</code><span class="field-title">Vehicle category</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars) Which vehicle section to search.<!--/readme--><span class="field-meta">Default <code>&quot;cars&quot;</code>; Allowed cars, motorcycles, caravans, commercial</span></td></tr><tr><th scope="row"><code>carMake</code><span class="field-title">Car make</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars) Vehicle manufacturer.<!--/readme--><span class="field-meta">Allowed 10004, 10012, 1000, 10031, 10025, 1002, 1003, 1734 and 111 more</span></td></tr><tr><th scope="row"><code>carModel</code><span class="field-title">Car model</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars) Model name, e.g. '3er-Reihe' or 'Golf'. Requires Car make.<!--/readme--></td></tr><tr><th scope="row"><code>yearFrom</code><span class="field-title">First registration from</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Earliest registration year.<!--/readme--><span class="field-meta">Allowed 1900 to 2100</span></td></tr><tr><th scope="row"><code>yearTo</code><span class="field-title">First registration to</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Latest registration year.<!--/readme--><span class="field-meta">Allowed 1900 to 2100</span></td></tr><tr><th scope="row"><code>mileageFrom</code><span class="field-title">Mileage from (km)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Minimum mileage.<!--/readme--><span class="field-meta">Allowed 0 to 2000000</span></td></tr><tr><th scope="row"><code>mileageTo</code><span class="field-title">Mileage to (km)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Maximum mileage.<!--/readme--><span class="field-meta">Allowed 0 to 2000000</span></td></tr><tr><th scope="row"><code>fuelType</code><span class="field-title">Fuel type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 100001, 100003, 100004, 100011, 100013, 100022, 110000</span></td></tr><tr><th scope="row"><code>transmission</code><span class="field-title">Transmission</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 180004, 180001</span></td></tr><tr><th scope="row"><code>bodyType</code><span class="field-title">Body type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 2, 4, 12, 5, 6, 3, 9, 10</span></td></tr><tr><th scope="row"><code>carCondition</code><span class="field-title">Vehicle condition</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 20, 50, 10, 93, 91, 30, 40</span></td></tr><tr><th scope="row"><code>driveType</code><span class="field-title">Drive type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 2, 1, 3</span></td></tr><tr><th scope="row"><code>color</code><span class="field-title">Exterior colour</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchCars)<!--/readme--><span class="field-meta">Allowed 1, 2, 4, 3, 7, 8, 6, 5 and 7 more</span></td></tr><tr><th scope="row"><code>powerFrom</code><span class="field-title">Power from (kW)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Minimum engine power.<!--/readme--><span class="field-meta">Allowed 0 to 2000</span></td></tr><tr><th scope="row"><code>powerTo</code><span class="field-title">Power to (kW)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchCars) Maximum engine power.<!--/readme--><span class="field-meta">Allowed 0 to 2000</span></td></tr><tr><th scope="row"><code>realEstateCategory</code><span class="field-title">Real-estate category</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) Which property market to search.<!--/readme--><span class="field-meta">Default <code>&quot;rentApartment&quot;</code>; Allowed rentApartment, buyApartment, rentHouse, buyHouse, land, newBuild, commercialRent, commercialBuy and 3 more</span></td></tr><tr><th scope="row"><code>propertySubtype</code><span class="field-title">Property subtype</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) Optional subtype such as penthouse, detached house or building plot.<!--/readme--><span class="field-meta">Allowed 110, 105, 111, 113, 100, 101, 102, 112 and 18 more</span></td></tr><tr><th scope="row"><code>rooms</code><span class="field-title">Rooms</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) Room-count bucket.<!--/readme--><span class="field-meta">Allowed 1X1, 2X2, 3X3, 4X4, 5X5, 6X9, 10X, 0X0</span></td></tr><tr><th scope="row"><code>livingAreaFrom</code><span class="field-title">Living area from (m²)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchRealEstate)<!--/readme--><span class="field-meta">Allowed 0 to 100000</span></td></tr><tr><th scope="row"><code>livingAreaTo</code><span class="field-title">Living area to (m²)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchRealEstate)<!--/readme--><span class="field-meta">Allowed 0 to 100000</span></td></tr><tr><th scope="row"><code>plotAreaFrom</code><span class="field-title">Plot area from (m²)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchRealEstate)<!--/readme--><span class="field-meta">Allowed 0 to 10000000</span></td></tr><tr><th scope="row"><code>plotAreaTo</code><span class="field-title">Plot area to (m²)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->(mode=searchRealEstate)<!--/readme--><span class="field-meta">Allowed 0 to 10000000</span></td></tr><tr><th scope="row"><code>freeAreaType</code><span class="field-title">Outdoor area</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) Balcony, terrace, garden, etc.<!--/readme--><span class="field-meta">Allowed 20, 40, 60, 30, 10, 50</span></td></tr><tr><th scope="row"><code>equipment</code><span class="field-title">Real-estate equipment</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) e.g. lift, cellar, parking, built-in kitchen.<!--/readme--><span class="field-meta">Allowed 24, 25, 26, 27, 4, 23, 250, 15 and 1 more</span></td></tr><tr><th scope="row"><code>availableNow</code><span class="field-title">Available immediately</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->(mode=searchRealEstate) Only listings available now.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>jobRegion</code><span class="field-title">Job region</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed 13553, 13602, 13677, 13859, 14096, 13783, 14366, 14445 and 4 more</span></td></tr><tr><th scope="row"><code>employmentMode</code><span class="field-title">Employment type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed 110, 113, 109, 11796</span></td></tr><tr><th scope="row"><code>jobPosition</code><span class="field-title">Job position</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed 13540, 13541, 13539, 13542, 13543, 13544, 28428</span></td></tr><tr><th scope="row"><code>jobOperationArea</code><span class="field-title">Job field</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed 12666, 12681, 12746, 12769, 17007, 12887, 12984, 13094 and 9 more</span></td></tr><tr><th scope="row"><code>jobCompanyType</code><span class="field-title">Employer type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed agency, direct_employer</span></td></tr><tr><th scope="row"><code>jobTimeLimit</code><span class="field-title">Job posting age</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(mode=searchJobs)<!--/readme--><span class="field-meta">Allowed all, last_24_hours, last_72_hours, last_week</span></td></tr><tr><th scope="row"><code>incrementalMode</code><span class="field-title">Incremental monitoring</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Return only new/changed listings or jobs on recurring runs. The first run returns everything as NEW.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>stateKey</code><span class="field-title">Monitoring campaign name</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->(incrementalMode) Stable name for this search so later runs compare against the right state. Leave empty to derive it from the filters.<!--/readme--></td></tr><tr><th scope="row"><code>emitUnchanged</code><span class="field-title">Include unchanged records</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->(incrementalMode) Also return records whose tracked fields did not change.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>emitExpired</code><span class="field-title">Include expired records</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->(incrementalMode) After a complete scan, also emit listings/jobs that disappeared since the last run.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -1393,7 +385,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-marketplace-furniture">Example: marketplace furniture</h3>
+<h4 id="readme-example-marketplace-furniture">Example: marketplace furniture</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;searchItems&quot;,
   &quot;query&quot;: &quot;sofa&quot;,
@@ -1403,7 +395,7 @@
   &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-used-bmw-with-detail-enrichment">Example: used BMW with detail enrichment</h3>
+<h4 id="readme-example-used-bmw-with-detail-enrichment">Example: used BMW with detail enrichment</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;searchCars&quot;,
   &quot;carMake&quot;: &quot;1005&quot;,
@@ -1416,7 +408,7 @@
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-vienna-rental-apartments">Example: Vienna rental apartments</h3>
+<h4 id="readme-example-vienna-rental-apartments">Example: Vienna rental apartments</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;searchRealEstate&quot;,
   &quot;realEstateCategory&quot;: &quot;rentApartment&quot;,
@@ -1427,7 +419,7 @@
   &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-chef-jobs-in-vienna">Example: chef jobs in Vienna</h3>
+<h4 id="readme-example-chef-jobs-in-vienna">Example: chef jobs in Vienna</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;searchJobs&quot;,
   &quot;query&quot;: &quot;Koch&quot;,
@@ -1438,7 +430,7 @@
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-paste-search-and-listing-urls">Example: paste search and listing URLs</h3>
+<h4 id="readme-example-paste-search-and-listing-urls">Example: paste search and listing URLs</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;byUrls&quot;,
   &quot;startUrls&quot;: [
@@ -1449,34 +441,14 @@
   &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Car dealers and buyers</strong> — track make/model/year/mileage/price across Austria and compare private vs dealer offers.</li>
-<li><strong>Real-estate analysts</strong> — build €/m², rent, energy-class and availability datasets by district.</li>
-<li><strong>Property hunters</strong> — monitor Vienna or Graz rentals and new-build projects with incremental runs.</li>
-<li><strong>Recruiters and job analysts</strong> — export job ads with salary, company, employment type and location.</li>
-<li><strong>Resellers</strong> — watch marketplace categories for new listings and price reductions.</li>
-<li><strong>Market researchers</strong> — collect cross-section supply data for Austrian goods and property.</li>
-</ul>
-<h2 id="readme-faq">FAQ</h2>
-<p><strong>Is this affiliated with Willhaben?</strong>
-No. This actor reads publicly visible listings and has no relationship with Willhaben.at.</p>
-<p><strong>Do I need an account, cookies or an API key?</strong>
-No. Listings, search pages and job ads are read without logging in.</p>
-<p><strong>Do I need to configure a proxy?</strong>
-No. The actor chooses a working connection automatically. Just fill in the input and run it.</p>
-<p><strong>Why are some fields missing on some records?</strong>
-Sellers do not always publish every attribute. A field the source does not carry is omitted, never sent as <code>null</code> or a blank value.</p>
-<p><strong>Why is car mileage or first registration missing on some cars?</strong>
-Some sellers leave those fields empty. The actor returns the data the listing actually contains.</p>
-<p><strong>What does &quot;Fetch detail pages&quot; add?</strong>
-Full descriptions, seller/contact details, equipment lists, energy certificates, rent breakdowns, floor plans and extra car specification fields. It is optional because it makes the run slower.</p>
-<p><strong>How many records can one run return?</strong>
-Up to <code>maxItems</code>, which can be set to 50,000. Willhaben serves at most 199,800 records per search query; for larger jobs, split by state or price range and combine the results.</p>
-<p><strong>Can I run this on a schedule and only get new listings?</strong>
-Yes. Turn on <code>incrementalMode</code>; the first run establishes the baseline and later runs return new, changed, expired or reappeared records according to <code>emitUnchanged</code> and <code>emitExpired</code>.</p>
-<p><strong>Do price and seller-type filters work for jobs and real estate?</strong>
-Job ads have no listing price, so price filters are ignored for jobs. Willhaben does not apply seller-type filtering to real estate or jobs; those filters are ignored and the run reports it in its status message.</p>
-<p><strong>Are image and listing links usable outside Apify?</strong>
-Yes. Image URLs and listing/job links are public absolute URLs.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/willhaben-marketplace-cars-and-real-estate/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>10AHfQXOlb4fyOst2</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-is-this-affiliated-with-willhaben"><!--readme-->Is this affiliated with Willhaben?<!--/readme--></h3><!--readme--><p>No. This actor reads publicly visible listings and has no relationship with Willhaben.at.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-an-account-cookies-or-an-api-key"><!--readme-->Do I need an account, cookies or an API key?<!--/readme--></h3><!--readme--><p>No. Listings, search pages and job ads are read without logging in.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-to-configure-a-proxy"><!--readme-->Do I need to configure a proxy?<!--/readme--></h3><!--readme--><p>No. The actor chooses a working connection automatically. Just fill in the input and run it.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-some-fields-missing-on-some-records"><!--readme-->Why are some fields missing on some records?<!--/readme--></h3><!--readme--><p>Sellers do not always publish every attribute. A field the source does not carry is omitted, never sent as <code>null</code> or a blank value.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-car-mileage-or-first-registration-missing-on-some-car"><!--readme-->Why is car mileage or first registration missing on some cars?<!--/readme--></h3><!--readme--><p>Some sellers leave those fields empty. The actor returns the data the listing actually contains.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-what-does-fetch-detail-pages-add"><!--readme-->What does &quot;Fetch detail pages&quot; add?<!--/readme--></h3><!--readme--><p>Full descriptions, seller/contact details, equipment lists, energy certificates, rent breakdowns, floor plans and extra car specification fields. It is optional because it makes the run slower.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-many-records-can-one-run-return"><!--readme-->How many records can one run return?<!--/readme--></h3><!--readme--><p>Up to <code>maxItems</code>, which can be set to 50,000. Willhaben serves at most 199,800 records per search query; for larger jobs, split by state or price range and combine the results.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-run-this-on-a-schedule-and-only-get-new-listings"><!--readme-->Can I run this on a schedule and only get new listings?<!--/readme--></h3><!--readme--><p>Yes. Turn on <code>incrementalMode</code>; the first run establishes the baseline and later runs return new, changed, expired or reappeared records according to <code>emitUnchanged</code> and <code>emitExpired</code>.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-price-and-seller-type-filters-work-for-jobs-and-real-esta"><!--readme-->Do price and seller-type filters work for jobs and real estate?<!--/readme--></h3><!--readme--><p>Job ads have no listing price, so price filters are ignored for jobs. Willhaben does not apply seller-type filtering to real estate or jobs; those filters are ignored and the run reports it in its status message.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-image-and-listing-links-usable-outside-apify"><!--readme-->Are image and listing links usable outside Apify?<!--/readme--></h3><!--readme--><p>Yes. Image URLs and listing/job links are public absolute URLs.</p>
+<!--/readme--></div></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/99acres-city-and-bhk-property-listing-scraper/">99acres City &amp; BHK Property Listing Scraper</a><p>Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and poster details.</p></li><li><a href="/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/">Amazon Brand Store Page &amp; Merchandising Crawler</a><p>Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p></li><li><a href="/apify-actor-examples/actors/amazon-deals-grid-tracker-by-category-and-discount/">Amazon Deals Grid Tracker by Category &amp; Discount</a><p>Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.</p></li><li><a href="/apify-actor-examples/actors/amazon-review-aggregates-and-extended-history/">Amazon Review Aggregates &amp; Extended History Scraper</a><p>Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional session for deeper review history.</p></li><li><a href="/apify-actor-examples/actors/amazon-search-category-and-seller-listings/">Amazon Search, Category &amp; Seller Listings Extractor</a><p>Get Amazon products from search results, categories, seller storefronts, or ASIN lookups across 20+ marketplaces, with price, rating, badges, deals, and delivery details.</p></li><li><a href="/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/">Amazon Wishlist &amp; Registry Scraper</a><p>Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/ecommerce/">All ecommerce Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>10AHfQXOlb4fyOst2</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

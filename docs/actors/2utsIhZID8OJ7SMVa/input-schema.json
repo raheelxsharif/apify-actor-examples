@@ -2,47 +2,112 @@
   "properties": {
     "country": {
       "default": "us",
-      "description": "UberEats country context. Used to set the delivery location for the API request. Choose the country where the restaurants are located.",
+      "description": "Fallback market when the delivery location cannot be resolved. Also sets the default city used for menu pricing context.",
       "editor": "select",
       "enum": [
         "us",
         "gb",
         "au",
-        "ca"
+        "ca",
+        "in",
+        "ie",
+        "nz",
+        "fr",
+        "de",
+        "es",
+        "it",
+        "nl",
+        "jp",
+        "mx",
+        "za"
       ],
       "enumTitles": [
         "United States",
         "United Kingdom",
         "Australia",
-        "Canada"
+        "Canada",
+        "India",
+        "Ireland",
+        "New Zealand",
+        "France",
+        "Germany",
+        "Spain",
+        "Italy",
+        "Netherlands",
+        "Japan",
+        "Mexico",
+        "South Africa"
       ],
       "title": "Country",
       "type": "string"
     },
-    "maxItemsPerRestaurant": {
-      "default": 200,
-      "description": "Maximum number of menu items to extract per restaurant. Set lower to reduce run time for large menus.",
+    "location": {
+      "default": "New York, NY",
+      "description": "Address, city, postcode, or 'latitude,longitude' used to resolve Uber Eats delivery results. Uber Eats gates restaurant availability by location, so results differ by area.",
+      "editor": "textfield",
+      "prefill": "New York, NY",
+      "title": "Delivery location",
+      "type": "string"
+    },
+    "maxMenuItemsPerRestaurant": {
+      "description": "Cap on menu items returned for each restaurant. Pagination stops as soon as this cap is reached.",
       "editor": "number",
       "maximum": 2000,
       "minimum": 1,
       "prefill": 10,
-      "title": "Max Items Per Restaurant",
+      "title": "Max menu items per restaurant",
       "type": "integer"
     },
+    "maxRestaurants": {
+      "default": 20,
+      "description": "Stop after this many unique restaurants across all search queries.",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max restaurants",
+      "type": "integer"
+    },
+    "mode": {
+      "description": "Search restaurants by keyword, scrape full menus from URLs/IDs, or search and pull the menu for every match.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "menus",
+        "searchWithMenus"
+      ],
+      "enumTitles": [
+        "Search restaurants (names, ratings, ETA)",
+        "Menus from restaurant URLs or IDs",
+        "Search restaurants + their menus"
+      ],
+      "prefill": "search",
+      "title": "What to scrape",
+      "type": "string"
+    },
     "restaurantUrls": {
-      "description": "List of UberEats restaurant page URLs to scrape. Each URL must be a valid https://www.ubereats.com/store/... URL. The store identifier is the last path segment (e.g. P21H_Lf3Se2wSmjGHfoFcQ).",
+      "description": "Uber Eats restaurant page URLs or store IDs (for example https://www.ubereats.com/store/name/AbCdEf123 or a full UUID). Used by menus and searchWithMenus modes.",
       "editor": "stringList",
       "prefill": [
-        "https://www.ubereats.com/store/mcdonalds-fillmore/P21H_Lf3Se2wSmjGHfoFcQ"
+        "https://www.ubereats.com/store/cvs-129-fulton-streets/isOmPe5EU261CcRN3X7RMw"
       ],
-      "title": "Restaurant URLs",
+      "sectionCaption": "Menus",
+      "title": "Restaurant URLs or IDs",
+      "type": "array"
+    },
+    "searchQueries": {
+      "description": "Restaurant, cuisine, or dish keywords. Required for search and searchWithMenus modes. Each query is paginated automatically until maxRestaurants is reached.",
+      "editor": "stringList",
+      "prefill": [
+        "pizza"
+      ],
+      "sectionCaption": "Search",
+      "title": "Search queries",
       "type": "array"
     }
   },
-  "required": [
-    "restaurantUrls"
-  ],
+  "required": [],
   "schemaVersion": 1,
-  "title": "UberEats Menu Scraper Input",
+  "title": "Uber Eats Restaurant Search & Menu Scraper",
   "type": "object"
 }

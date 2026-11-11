@@ -1,54 +1,160 @@
 {
-  "description": "Search for hotel listings on Trip.com by city and date.",
+  "description": "Search Trip.com hotels for a city and stay dates, or fetch full details and nightly prices for specific hotel IDs.",
   "properties": {
+    "adults": {
+      "default": 2,
+      "description": "Number of adults per room (1-8).",
+      "editor": "number",
+      "maximum": 8,
+      "minimum": 1,
+      "prefill": 2,
+      "sectionCaption": "Guests and stay",
+      "title": "Adults",
+      "type": "integer"
+    },
+    "breakfastIncluded": {
+      "default": false,
+      "description": "Only return rooms whose rate includes breakfast.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Breakfast Included Only",
+      "type": "boolean"
+    },
     "checkIn": {
-      "description": "Check-in date in YYYY-MM-DD format. Leave blank to use tomorrow's date.",
+      "description": "YYYY-MM-DD. Leave blank for tomorrow.",
       "editor": "textfield",
       "prefill": "",
       "title": "Check-in Date",
       "type": "string"
     },
     "checkOut": {
-      "description": "Check-out date in YYYY-MM-DD format. Leave blank to use the day after check-in.",
+      "description": "YYYY-MM-DD. Leave blank for the night after check-in.",
       "editor": "textfield",
       "prefill": "",
       "title": "Check-out Date",
       "type": "string"
     },
+    "cityId": {
+      "description": "Exact Trip.com geo code, if you already know it (London = 338). Overrides the city name.",
+      "editor": "number",
+      "maximum": 99999999,
+      "minimum": 1,
+      "title": "Trip.com City ID (optional)",
+      "type": "integer"
+    },
     "cityName": {
       "default": "London",
-      "description": "Name of the city to search for hotels. E.g. 'London', 'Paris', 'Tokyo', 'Bangkok'. Also accepts 'destination' as an alias. Supported regions: Europe, Asia, Middle East. US/Americas cities may return 0 results due to Trip.com frontend differences.",
+      "description": "City to search, e.g. London, Paris, Tokyo, Bangkok, Dubai. Country names also work: 'Paris, France'.",
       "editor": "textfield",
       "prefill": "London",
-      "title": "City Name",
+      "title": "City",
       "type": "string"
     },
-    "hotelId": {
-      "description": "Trip.com hotel ID to fetch detail for. E.g. '732036'. Used in hotelDetail mode.",
-      "editor": "textfield",
-      "title": "Hotel ID (mode=hotelDetail)",
+    "currency": {
+      "default": "USD",
+      "description": "Currency for all price fields.",
+      "editor": "select",
+      "enum": [
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "AUD",
+        "CAD",
+        "CNY",
+        "HKD",
+        "SGD",
+        "THB",
+        "KRW",
+        "INR",
+        "AED",
+        "CHF",
+        "MYR",
+        "TWD"
+      ],
+      "enumTitles": [
+        "US Dollar",
+        "Euro",
+        "British Pound",
+        "Japanese Yen",
+        "Australian Dollar",
+        "Canadian Dollar",
+        "Chinese Yuan",
+        "Hong Kong Dollar",
+        "Singapore Dollar",
+        "Thai Baht",
+        "South Korean Won",
+        "Indian Rupee",
+        "UAE Dirham",
+        "Swiss Franc",
+        "Malaysian Ringgit",
+        "New Taiwan Dollar"
+      ],
+      "prefill": "USD",
+      "title": "Currency",
       "type": "string"
+    },
+    "freeCancellation": {
+      "default": false,
+      "description": "Only return rooms with a free-cancellation policy.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Free Cancellation Only",
+      "type": "boolean"
+    },
+    "hotelId": {
+      "description": "One Trip.com hotel ID or detail URL, e.g. 731904. Used when mode is 'Hotel details by ID'.",
+      "editor": "textfield",
+      "sectionCaption": "Hotel details mode",
+      "title": "Hotel ID or URL (detail mode)",
+      "type": "string"
+    },
+    "hotelIds": {
+      "description": "Multiple Trip.com hotel IDs or detail URLs. Combined with 'hotelId' when both are provided.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Hotel IDs or URLs (batch detail mode)",
+      "type": "array"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch each hotel's detail page for its full address, facilities, description, phone and check-in times. Adds one request per hotel.",
+      "editor": "checkbox",
+      "prefill": false,
+      "sectionCaption": "Output size and detail",
+      "title": "Enrich Search Results with Hotel Details",
+      "type": "boolean"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of hotels to return. Min 1, max 200.",
+      "description": "Maximum records to return (1-200).",
       "editor": "number",
       "maximum": 200,
       "minimum": 1,
       "prefill": 5,
-      "title": "Max Items",
+      "title": "Maximum Hotels",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Maximum price per night in USD. Leave blank for no limit.",
+      "description": "Highest nightly room price in the selected currency, before taxes.",
       "editor": "number",
-      "maximum": 10000,
+      "maximum": 100000,
       "minimum": 0,
-      "title": "Maximum Price Per Night (USD)",
+      "title": "Maximum Nightly Price",
       "type": "number"
     },
+    "maxStars": {
+      "description": "Highest official star class to include (1-5).",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Maximum Star Rating",
+      "type": "integer"
+    },
     "minRating": {
-      "description": "Minimum guest rating score (0-10). E.g. 7.0 for 'Good', 8.0 for 'Very Good'.",
+      "description": "Trip.com guest score on a 0-10 scale, e.g. 8 for 'Very good'.",
       "editor": "number",
       "maximum": 10,
       "minimum": 0,
@@ -56,40 +162,82 @@
       "type": "number"
     },
     "minStars": {
-      "description": "Minimum hotel star rating filter (1-5). Leave blank for no minimum.",
+      "description": "Lowest official star class to include (1-5).",
       "editor": "number",
       "maximum": 5,
       "minimum": 1,
+      "sectionCaption": "Hotel filters",
       "title": "Minimum Star Rating",
       "type": "integer"
     },
     "mode": {
       "default": "searchHotels",
-      "description": "Scraping mode: 'searchHotels' to search by city, 'hotelDetail' to fetch a single hotel by its Trip.com hotel ID.",
+      "description": "Choose 'Search hotels' to browse a city, or 'Hotel details by ID' to fetch specific properties.",
       "editor": "select",
       "enum": [
         "searchHotels",
         "hotelDetail"
       ],
       "enumTitles": [
-        "Search hotels by city",
-        "Hotel detail by ID"
+        "Search hotels by city and dates",
+        "Hotel details by ID or URL"
       ],
       "prefill": "searchHotels",
+      "sectionCaption": "What to scrape",
       "title": "Mode",
       "type": "string"
     },
+    "payAtHotel": {
+      "default": false,
+      "description": "Only return rooms that can be paid for at the property.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Pay at Hotel Only",
+      "type": "boolean"
+    },
     "proxyConfiguration": {
       "default": {
-        "useApifyProxy": true
+        "useApifyProxy": false
       },
-      "description": "Proxy settings. Recommended: use Apify Proxy AUTO group for reliable access.",
+      "description": "Optional. Leave unchanged for a direct connection; the actor uses Apify Proxy automatically if Trip.com blocks the datacenter IP.",
       "editor": "proxy",
       "prefill": {
-        "useApifyProxy": true
+        "useApifyProxy": false
       },
       "title": "Proxy Configuration",
       "type": "object"
+    },
+    "rooms": {
+      "default": 1,
+      "description": "Number of rooms (1-5).",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Rooms",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "recommended",
+      "description": "Order of the returned hotels. Price and rating sorts scan extra result slices before trimming.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "priceLow",
+        "priceHigh",
+        "rating",
+        "stars"
+      ],
+      "enumTitles": [
+        "Trip.com recommendation",
+        "Price: low to high",
+        "Price: high to low",
+        "Guest score: best first",
+        "Star class: highest first"
+      ],
+      "prefill": "recommended",
+      "title": "Sort Results By",
+      "type": "string"
     }
   },
   "required": [],

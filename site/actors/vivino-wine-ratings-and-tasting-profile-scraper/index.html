@@ -1,538 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-u+gq5o+K/5DQowqSFSXauoqNw5/tT+zvJHJXn3vcf+A=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Vivino Wine Ratings &amp; Tasting Profile Scraper | Dataspryva</title><meta name="description" content="Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pa"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"><meta property="og:title" content="Vivino Wine Ratings &amp; Tasting Profile Scraper | Dataspryva"><meta property="og:description" content="Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pa"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#webpage","name":"Vivino Wine Ratings & Tasting Profile Scraper","description":"Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery's full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#article","headline":"Vivino Wine Ratings & Tasting Profile Scraper","name":"Vivino Wine Ratings & Tasting Profile Scraper","description":"Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery's full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-10-27T10:30:00.748Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Vivino Wine Ratings & Tasting Profile Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Vivino Wine Ratings &amp; Tasting Profile Scraper</span></div><section id="overview"><h1 class="doc-title">Vivino Wine Ratings &amp; Tasting Profile Scraper</h1><p class="lede">Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.</p><p class="summary">Vivino Wine Ratings &amp; Tasting Profile Scraper is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/vivino-wine-ratings-and-tasting-profile-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/g1kkodoLYUEZBw5Kk/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. `search` runs one or more free-text queries; `explore` browses with filters; `byWineId` resolves wine/vintage URLs or IDs; `winery` pages through a producer&#x27;s catalogue.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more free-text wine searches (mode=search). Searches match wine, winery, region and grape names. Example: `barolo`, `chateau petrus`, `napa valley cabernet`.</td></tr><tr><td><code>wineIds</code></td><td>array</td><td>optional</td><td>Vivino wine/vintage IDs or URLs (mode=byWineId). Accepts 171525306, https://www.vivino.com/w/1167880?year=2022, /vintages/171525306 and /wines/171525306.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch. `search` runs one or more free-text queries; `explore` browses with filters; `byWineId` resolves wine/vintage URLs or IDs; `winery` pages through a producer&#x27;s catalogue.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more free-text wine searches (mode=search). Searches match wine, winery, region and grape names. Example: `barolo`, `chateau petrus`, `napa valley cabernet`.</td></tr><tr><td><code>wineIds</code></td><td>array</td><td>optional</td><td>Vivino wine/vintage IDs or URLs (mode=byWineId). Accepts 171525306, https://www.vivino.com/w/1167880?year=2022, /vintages/171525306 and /wines/171525306.</td></tr><tr><td><code>winery</code></td><td>string</td><td>optional</td><td>Winery to scrape (mode=winery). Accepts 1945, michele-chiarlo, or a Vivino winery URL.</td></tr><tr><td><code>wineType</code></td><td>string</td><td>optional</td><td>Filter by wine type. Applies to search, explore and winery.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Filter wines by country of origin (ISO 2-letter code). Leave empty for all countries.</td></tr><tr><td><code>region</code></td><td>string</td><td>optional</td><td>Optional region filter, e.g. `Barolo`, `napa-valley`, or a Vivino region URL. Combine with Country when a name is ambiguous.</td></tr><tr><td><code>grape</code></td><td>string</td><td>optional</td><td>Optional grape filter, e.g. `Nebbiolo`, `pinot-noir`, or a Vivino grape URL.</td></tr><tr><td><code>minRating</code></td><td>number</td><td>optional</td><td>Only wines whose displayed rating is at or above this value (0-5).</td></tr><tr><td><code>maxRating</code></td><td>number</td><td>optional</td><td>Only wines whose displayed rating is at or below this value (0-5). Applied after fetching.</td></tr><tr><td><code>minPrice</code></td><td>number</td><td>optional</td><td>Only wines with a current offer at or above this price.</td></tr><tr><td><code>maxPrice</code></td><td>number</td><td>optional</td><td>Only wines with a current offer at or below this price. Leave empty for no cap.</td></tr><tr><td><code>orderBy</code></td><td>string</td><td>optional</td><td>How Vivino orders search and explore results.</td></tr><tr><td><code>order</code></td><td>string</td><td>optional</td><td>Descending (highest first) or ascending (lowest first).</td></tr><tr><td><code>includeReviews</code></td><td>boolean</td><td>optional</td><td>Attach the latest wine-level Vivino reviews to each record. Reviews span all vintages; each review keeps its own year.</td></tr><tr><td><code>maxReviewsPerWine</code></td><td>integer</td><td>optional</td><td>How many latest reviews to attach when Include reviews is on (1-50).</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum wine records to emit. Vivino exposes at most 2,500 rows per search/explore query; split broad queries into narrower filters for more.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Search Vivino wines, explore by type, country, region or grape, look up wines by URL or ID, or pull a winery catalogue. Optional reviews.&quot;,
-  &quot;properties&quot;: {
-    &quot;country&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Filter wines by country of origin (ISO 2-letter code). Leave empty for all countries.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;&quot;,
-        &quot;fr&quot;,
-        &quot;it&quot;,
-        &quot;us&quot;,
-        &quot;de&quot;,
-        &quot;es&quot;,
-        &quot;au&quot;,
-        &quot;at&quot;,
-        &quot;pt&quot;,
-        &quot;cl&quot;,
-        &quot;ar&quot;,
-        &quot;ch&quot;,
-        &quot;za&quot;,
-        &quot;cz&quot;,
-        &quot;ca&quot;,
-        &quot;hu&quot;,
-        &quot;nz&quot;,
-        &quot;br&quot;,
-        &quot;ge&quot;,
-        &quot;gr&quot;,
-        &quot;jp&quot;,
-        &quot;ru&quot;,
-        &quot;ro&quot;,
-        &quot;sk&quot;,
-        &quot;hr&quot;,
-        &quot;si&quot;,
-        &quot;mx&quot;,
-        &quot;il&quot;,
-        &quot;bg&quot;,
-        &quot;md&quot;,
-        &quot;ua&quot;,
-        &quot;gb&quot;,
-        &quot;uy&quot;,
-        &quot;pl&quot;,
-        &quot;tr&quot;,
-        &quot;rs&quot;,
-        &quot;lu&quot;,
-        &quot;cn&quot;,
-        &quot;nl&quot;,
-        &quot;be&quot;,
-        &quot;am&quot;,
-        &quot;mk&quot;,
-        &quot;dk&quot;,
-        &quot;cy&quot;,
-        &quot;lb&quot;,
-        &quot;az&quot;,
-        &quot;pe&quot;,
-        &quot;in&quot;,
-        &quot;se&quot;,
-        &quot;ba&quot;,
-        &quot;bo&quot;,
-        &quot;al&quot;,
-        &quot;mt&quot;,
-        &quot;ma&quot;,
-        &quot;tn&quot;,
-        &quot;me&quot;,
-        &quot;xk&quot;,
-        &quot;th&quot;,
-        &quot;uz&quot;,
-        &quot;kz&quot;,
-        &quot;by&quot;,
-        &quot;lt&quot;,
-        &quot;vn&quot;,
-        &quot;lv&quot;,
-        &quot;jo&quot;,
-        &quot;tw&quot;,
-        &quot;li&quot;,
-        &quot;co&quot;,
-        &quot;kr&quot;,
-        &quot;sm&quot;,
-        &quot;fi&quot;,
-        &quot;eg&quot;,
-        &quot;ec&quot;,
-        &quot;mu&quot;,
-        &quot;dz&quot;,
-        &quot;id&quot;,
-        &quot;na&quot;,
-        &quot;et&quot;,
-        &quot;ee&quot;,
-        &quot;ps&quot;,
-        &quot;tz&quot;,
-        &quot;no&quot;,
-        &quot;mm&quot;,
-        &quot;ve&quot;,
-        &quot;mg&quot;,
-        &quot;pr&quot;,
-        &quot;ie&quot;,
-        &quot;hk&quot;,
-        &quot;kg&quot;,
-        &quot;ad&quot;,
-        &quot;cr&quot;,
-        &quot;cv&quot;,
-        &quot;af&quot;,
-        &quot;py&quot;,
-        &quot;zm&quot;,
-        &quot;kp&quot;,
-        &quot;np&quot;,
-        &quot;cu&quot;,
-        &quot;gt&quot;,
-        &quot;ph&quot;,
-        &quot;we&quot;,
-        &quot;zw&quot;,
-        &quot;do&quot;,
-        &quot;ke&quot;,
-        &quot;pf&quot;,
-        &quot;bs&quot;,
-        &quot;nf&quot;,
-        &quot;sy&quot;,
-        &quot;vi&quot;,
-        &quot;tj&quot;,
-        &quot;aw&quot;,
-        &quot;bt&quot;,
-        &quot;im&quot;,
-        &quot;re&quot;,
-        &quot;ir&quot;,
-        &quot;my&quot;,
-        &quot;pa&quot;,
-        &quot;cw&quot;,
-        &quot;mn&quot;,
-        &quot;sn&quot;,
-        &quot;an&quot;,
-        &quot;ao&quot;,
-        &quot;hn&quot;,
-        &quot;is&quot;,
-        &quot;kh&quot;,
-        &quot;rw&quot;,
-        &quot;tt&quot;,
-        &quot;ls&quot;,
-        &quot;ae&quot;,
-        &quot;bb&quot;,
-        &quot;gh&quot;,
-        &quot;iq&quot;,
-        &quot;lk&quot;,
-        &quot;sg&quot;,
-        &quot;sr&quot;,
-        &quot;tm&quot;,
-        &quot;ug&quot;,
-        &quot;bz&quot;,
-        &quot;fk&quot;,
-        &quot;ga&quot;,
-        &quot;jm&quot;,
-        &quot;la&quot;,
-        &quot;lr&quot;,
-        &quot;mw&quot;,
-        &quot;ng&quot;,
-        &quot;pg&quot;,
-        &quot;sz&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Any country&quot;,
-        &quot;France&quot;,
-        &quot;Italy&quot;,
-        &quot;United States&quot;,
-        &quot;Germany&quot;,
-        &quot;Spain&quot;,
-        &quot;Australia&quot;,
-        &quot;Austria&quot;,
-        &quot;Portugal&quot;,
-        &quot;Chile&quot;,
-        &quot;Argentina&quot;,
-        &quot;Switzerland&quot;,
-        &quot;South Africa&quot;,
-        &quot;Czech Republic&quot;,
-        &quot;Canada&quot;,
-        &quot;Hungary&quot;,
-        &quot;New Zealand&quot;,
-        &quot;Brazil&quot;,
-        &quot;Georgia&quot;,
-        &quot;Greece&quot;,
-        &quot;Japan&quot;,
-        &quot;Russia&quot;,
-        &quot;Romania&quot;,
-        &quot;Slovakia&quot;,
-        &quot;Croatia&quot;,
-        &quot;Slovenia&quot;,
-        &quot;Mexico&quot;,
-        &quot;Israel&quot;,
-        &quot;Bulgaria&quot;,
-        &quot;Moldova&quot;,
-        &quot;Ukraine&quot;,
-        &quot;United Kingdom&quot;,
-        &quot;Uruguay&quot;,
-        &quot;Poland&quot;,
-        &quot;Turkey&quot;,
-        &quot;Serbia&quot;,
-        &quot;Luxembourg&quot;,
-        &quot;China&quot;,
-        &quot;Netherlands&quot;,
-        &quot;Belgium&quot;,
-        &quot;Armenia&quot;,
-        &quot;North Macedonia&quot;,
-        &quot;Denmark&quot;,
-        &quot;Cyprus&quot;,
-        &quot;Lebanon&quot;,
-        &quot;Azerbaijan&quot;,
-        &quot;Peru&quot;,
-        &quot;India&quot;,
-        &quot;Sweden&quot;,
-        &quot;Bosnia and Herzegovina&quot;,
-        &quot;Bolivia&quot;,
-        &quot;Albania&quot;,
-        &quot;Malta&quot;,
-        &quot;Morocco&quot;,
-        &quot;Tunisia&quot;,
-        &quot;Montenegro&quot;,
-        &quot;Kosovo&quot;,
-        &quot;Thailand&quot;,
-        &quot;Uzbekistan&quot;,
-        &quot;Kazakhstan&quot;,
-        &quot;Belarus&quot;,
-        &quot;Lithuania&quot;,
-        &quot;Viet Nam&quot;,
-        &quot;Latvia&quot;,
-        &quot;Jordan&quot;,
-        &quot;Taiwan&quot;,
-        &quot;Liechtenstein&quot;,
-        &quot;Colombia&quot;,
-        &quot;Korea (South)&quot;,
-        &quot;San Marino&quot;,
-        &quot;Finland&quot;,
-        &quot;Egypt&quot;,
-        &quot;Ecuador&quot;,
-        &quot;Mauritius&quot;,
-        &quot;Algeria&quot;,
-        &quot;Indonesia&quot;,
-        &quot;Namibia&quot;,
-        &quot;Ethiopia&quot;,
-        &quot;Estonia&quot;,
-        &quot;State of Palestine&quot;,
-        &quot;Tanzania&quot;,
-        &quot;Norway&quot;,
-        &quot;Myanmar&quot;,
-        &quot;Venezuela&quot;,
-        &quot;Madagascar&quot;,
-        &quot;Puerto Rico&quot;,
-        &quot;Ireland&quot;,
-        &quot;Hong Kong&quot;,
-        &quot;Kyrgyzstan&quot;,
-        &quot;Andorra&quot;,
-        &quot;Costa Rica&quot;,
-        &quot;Cape Verde&quot;,
-        &quot;Afghanistan&quot;,
-        &quot;Paraguay&quot;,
-        &quot;Zambia&quot;,
-        &quot;Korea (North)&quot;,
-        &quot;Nepal&quot;,
-        &quot;Cuba&quot;,
-        &quot;Guatemala&quot;,
-        &quot;Philippines&quot;,
-        &quot;Westeros&quot;,
-        &quot;Zimbabwe&quot;,
-        &quot;Dominican Republic&quot;,
-        &quot;Kenya&quot;,
-        &quot;French Polynesia&quot;,
-        &quot;Bahamas&quot;,
-        &quot;Norfolk Island&quot;,
-        &quot;Syria&quot;,
-        &quot;Virgin Islands (U.S.)&quot;,
-        &quot;Tajikistan&quot;,
-        &quot;Aruba&quot;,
-        &quot;Bhutan&quot;,
-        &quot;Isle of Man&quot;,
-        &quot;Réunion&quot;,
-        &quot;Iran&quot;,
-        &quot;Malaysia&quot;,
-        &quot;Panama&quot;,
-        &quot;Curaçao&quot;,
-        &quot;Mongolia&quot;,
-        &quot;Senegal&quot;,
-        &quot;Netherlands Antilles&quot;,
-        &quot;Angola&quot;,
-        &quot;Honduras&quot;,
-        &quot;Iceland&quot;,
-        &quot;Cambodia&quot;,
-        &quot;Rwanda&quot;,
-        &quot;Trinidad and Tobago&quot;,
-        &quot;Lesotho&quot;,
-        &quot;United Arab Emirates&quot;,
-        &quot;Barbados&quot;,
-        &quot;Ghana&quot;,
-        &quot;Iraq&quot;,
-        &quot;Sri Lanka&quot;,
-        &quot;Singapore&quot;,
-        &quot;Suriname&quot;,
-        &quot;Turkmenistan&quot;,
-        &quot;Uganda&quot;,
-        &quot;Belize&quot;,
-        &quot;Falkland Islands (Malvinas)&quot;,
-        &quot;Gabon&quot;,
-        &quot;Jamaica&quot;,
-        &quot;Laos&quot;,
-        &quot;Liberia&quot;,
-        &quot;Malawi&quot;,
-        &quot;Nigeria&quot;,
-        &quot;Papua New Guinea&quot;,
-        &quot;Swaziland&quot;
-      ],
-      &quot;prefill&quot;: &quot;&quot;,
-      &quot;title&quot;: &quot;Country of origin&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;grape&quot;: {
-      &quot;description&quot;: &quot;Optional grape filter, e.g. `Nebbiolo`, `pinot-noir`, or a Vivino grape URL.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Grape variety&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;includeReviews&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Attach the latest wine-level Vivino reviews to each record. Reviews span all vintages; each review keeps its own year.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Include reviews&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 50,
-      &quot;description&quot;: &quot;Maximum wine records to emit. Vivino exposes at most 2,500 rows per search/explore query; split broad queries into narrower filters for more.&quot;,
-      &quot;maximum&quot;: 2500,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 2,
-      &quot;title&quot;: &quot;Max items&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxPrice&quot;: {
-      &quot;description&quot;: &quot;Only wines with a current offer at or below this price. Leave empty for no cap.&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Maximum price (USD)&quot;,
-      &quot;type&quot;: &quot;number&quot;
-    },
-    &quot;maxRating&quot;: {
-      &quot;description&quot;: &quot;Only wines whose displayed rating is at or below this value (0-5). Applied after fetching.&quot;,
-      &quot;maximum&quot;: 5,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Maximum rating&quot;,
-      &quot;type&quot;: &quot;number&quot;
-    },
-    &quot;maxReviewsPerWine&quot;: {
-      &quot;default&quot;: 10,
-      &quot;description&quot;: &quot;How many latest reviews to attach when Include reviews is on (1-50).&quot;,
-      &quot;maximum&quot;: 50,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 10,
-      &quot;title&quot;: &quot;Max reviews per wine&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;minPrice&quot;: {
-      &quot;description&quot;: &quot;Only wines with a current offer at or above this price.&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Minimum price (USD)&quot;,
-      &quot;type&quot;: &quot;number&quot;
-    },
-    &quot;minRating&quot;: {
-      &quot;description&quot;: &quot;Only wines whose displayed rating is at or above this value (0-5).&quot;,
-      &quot;maximum&quot;: 5,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Minimum rating&quot;,
-      &quot;type&quot;: &quot;number&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to fetch. `search` runs one or more free-text queries; `explore` browses with filters; `byWineId` resolves wine/vintage URLs or IDs; `winery` pages through a producer&#x27;s catalogue.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;search&quot;,
-        &quot;explore&quot;,
-        &quot;byWineId&quot;,
-        &quot;winery&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Search wines (free-text queries)&quot;,
-        &quot;Explore wines (filter browse)&quot;,
-        &quot;Look up wines by URL or ID&quot;,
-        &quot;All wines from a winery&quot;
-      ],
-      &quot;prefill&quot;: &quot;search&quot;,
-      &quot;title&quot;: &quot;Mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;order&quot;: {
-      &quot;default&quot;: &quot;desc&quot;,
-      &quot;description&quot;: &quot;Descending (highest first) or ascending (lowest first).&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;desc&quot;,
-        &quot;asc&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Descending&quot;,
-        &quot;Ascending&quot;
-      ],
-      &quot;prefill&quot;: &quot;desc&quot;,
-      &quot;title&quot;: &quot;Sort order&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;orderBy&quot;: {
-      &quot;default&quot;: &quot;ratings_count&quot;,
-      &quot;description&quot;: &quot;How Vivino orders search and explore results.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;ratings_count&quot;,
-        &quot;ratings_average&quot;,
-        &quot;price&quot;,
-        &quot;relevance&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Most reviewed&quot;,
-        &quot;Highest rated&quot;,
-        &quot;Price&quot;,
-        &quot;Most relevant&quot;
-      ],
-      &quot;prefill&quot;: &quot;ratings_count&quot;,
-      &quot;title&quot;: &quot;Sort by&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;region&quot;: {
-      &quot;description&quot;: &quot;Optional region filter, e.g. `Barolo`, `napa-valley`, or a Vivino region URL. Combine with Country when a name is ambiguous.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Region or appellation&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;searchQueries&quot;: {
-      &quot;default&quot;: [
-        &quot;barolo&quot;
-      ],
-      &quot;description&quot;: &quot;One or more free-text wine searches (mode=search). Searches match wine, winery, region and grape names. Example: `barolo`, `chateau petrus`, `napa valley cabernet`.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;barolo&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;wineIds&quot;: {
-      &quot;default&quot;: [
-        &quot;171525306&quot;
-      ],
-      &quot;description&quot;: &quot;Vivino wine/vintage IDs or URLs (mode=byWineId). Accepts 171525306, https://www.vivino.com/w/1167880?year=2022, /vintages/171525306 and /wines/171525306.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;171525306&quot;
-      ],
-      &quot;title&quot;: &quot;Wine IDs or URLs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;wineType&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Filter by wine type. Applies to search, explore and winery.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;&quot;,
-        &quot;1&quot;,
-        &quot;2&quot;,
-        &quot;3&quot;,
-        &quot;4&quot;,
-        &quot;7&quot;,
-        &quot;24&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Any type&quot;,
-        &quot;Red&quot;,
-        &quot;White&quot;,
-        &quot;Sparkling&quot;,
-        &quot;Rose&quot;,
-        &quot;Dessert&quot;,
-        &quot;Fortified&quot;
-      ],
-      &quot;prefill&quot;: &quot;&quot;,
-      &quot;title&quot;: &quot;Wine type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;winery&quot;: {
-      &quot;description&quot;: &quot;Winery to scrape (mode=winery). Accepts 1945, michele-chiarlo, or a Vivino winery URL.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Winery ID, slug or URL&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Vivino Scraper Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>wines</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Vivino wine records.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Vivino wine records with ratings, taste profiles, alcohol, descriptions, critic scores, awards, rankings, prices, merchant offers and optional reviews.&quot;,
-  &quot;properties&quot;: {
-    &quot;wines&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Vivino wine records.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Vivino wines&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Vivino Wine Ratings &amp; Tasting Profile Scraper Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Wines&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;name&quot;,
-          &quot;winery&quot;,
-          &quot;vintage&quot;,
-          &quot;country&quot;,
-          &quot;displayRating&quot;,
-          &quot;ratingsCount&quot;,
-          &quot;price&quot;,
-          &quot;wineUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-vivino-wine-ratings-tasting-profile-scraper">Vivino Wine Ratings &amp; Tasting Profile Scraper</h2>
-<p>Vivino is the world's largest wine community, with ratings, reviews and tasting notes for millions of bottles. This actor turns that catalogue into clean, structured records: search by name, browse by type, country, region or grape, look up exact wines by URL or ID, or page through a producer's full range.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cLuuP/tZrgRMY1apNmgkFuLnKVVqYhBN8z3V65XcBAc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Vivino Wine Ratings &amp; Tasting Profile Scraper – docs, price and API | Dataspryva</title><meta name="description" content="Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"><meta property="og:title" content="Vivino Wine Ratings &amp; Tasting Profile Scraper – docs, price and API | Dataspryva"><meta property="og:description" content="Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine"><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-g1kkodoLYUEZBw5Kk-96z1dxktDC-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#webpage","name":"Vivino Wine Ratings & Tasting Profile Scraper – docs, price and API","description":"Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery's full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#article"},"dateModified":"2026-10-27T10:30:00.748Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#article","headline":"Vivino Wine Ratings & Tasting Profile Scraper – docs, price and API","name":"Vivino Wine Ratings & Tasting Profile Scraper – docs, price and API","description":"Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery's full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-10-27T10:30:00.748Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-g1kkodoLYUEZBw5Kk-96z1dxktDC-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Ecommerce","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/ecommerce/"},{"@type":"ListItem","position":4,"name":"Vivino Wine Ratings & Tasting Profile Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#software","name":"Vivino Wine Ratings & Tasting Profile Scraper","description":"Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery's full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.","url":"https://apify.com/dataspryva/vivino-wine-ratings-and-tasting-profile-scraper","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-g1kkodoLYUEZBw5Kk-96z1dxktDC-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/vivino-wine-ratings-and-tasting-profile-scraper","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#faq","mainEntity":[{"@type":"Question","name":"Is this affiliated with Vivino?","acceptedAnswer":{"@type":"Answer","text":"No. This actor reads Vivino's public wine pages and is not operated by or connected to Vivino."}},{"@type":"Question","name":"Do I need a Vivino account, cookie or API key?","acceptedAnswer":{"@type":"Answer","text":"No. Every mode works without logging in."}},{"@type":"Question","name":"How many wines can I get in one run?","acceptedAnswer":{"@type":"Answer","text":"Up to 2,500 records per run (maxItems is capped at 2,500). Vivino exposes at most 50 pages of 50 results per search or explore query, so split broad queries by country, region, type or price across runs to reach more wines. Winery mode follows the producer's catalogue page by page, up to 5,000 wines."}},{"@type":"Question","name":"How do I find a wine's ID or URL?","acceptedAnswer":{"@type":"Answer","text":"Open the wine on Vivino and copy its URL, or run search/explore first — each result includes wineUrl and vintageId. wineIds accepts full URLs, /w/\u003cid, /vintages/\u003cid and plain numeric IDs. A plain numeric ID is treated as a vintage ID first (the original behaviour); use a /w/\u003cid URL to look up a wine ID unambiguously."}},{"@type":"Question","name":"Why is `rating` missing for some wines?","acceptedAnswer":{"@type":"Answer","text":"Vivino does not publish a vintage average until it has enough ratings. Use displayRating for a ready-to-use score and read displayRatingScope: vintage means it is this bottle's score; wine means it is the wine's all-vintage score. ratingStatus shows BelowThreshold when the vintage average is not published."}},{"@type":"Question","name":"Are prices always available?","acceptedAnswer":{"@type":"Answer","text":"Prices and offers are for the US market and require a merchant listing. When no offer exists, price is omitted and priceStatus is nooffer. averagePrice is Vivino's market median and may be present even when no single offer is."}},{"@type":"Question","name":"Are the reviews for the vintage I selected?","acceptedAnswer":{"@type":"Answer","text":"Vivino exposes reviews at wine level, not vintage level. The optional reviews list contains the latest reviews across the wine's vintages; each review includes its own vintageYear, and reviewsScope is wine."}},{"@type":"Question","name":"Why do some wines have no description, alcohol, critic score or award?","acceptedAnswer":{"@type":"Answer","text":"Vivino does not have that data for every wine. Those fields are left out rather than sent as empty values. Taste traits are also conditional: for example, tannin is scored for reds and fizziness for sparkling wines."}},{"@type":"Question","name":"Can I search by grape or region instead of wine name?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the grape and region filters, or put a grape/region name in searchQueries. Filters resolve names, slugs and Vivino URLs. A region filter matches the region you pass; to cover a broad area, run its appellations or sub-regions separately."}},{"@type":"Question","name":"How fresh is the data?","acceptedAnswer":{"@type":"Answer","text":"Each run reads the current Vivino catalogue, including live ratings, prices and offers."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/ecommerce/">Ecommerce</a></li><li aria-current="page">Vivino Wine Ratings &amp; Tasting Profile Scraper</li></ol></nav><div class="doc"><div class="doc-head"><h1>Vivino Wine Ratings &amp; Tasting Profile Scraper</h1><p class="lead">Search Vivino wines by name, browse by type and country, look up specific vintages by ID, or pull a winery&#x27;s full catalogue. Get ratings, prices, grapes, tasting notes, and food pairings for each wine.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-27">27 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>17 fields, 1 required</dd></div><div><dt>Output</dt><dd>8 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/vivino-wine-ratings-and-tasting-profile-scraper/">Vivino</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/vivino-wine-ratings-and-tasting-profile-scraper">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Vivino Wine Ratings &amp; Tasting Profile Scraper is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Each result can carry up to 8 declared fields, including <code>name</code>, <code>winery</code>, <code>vintage</code>, <code>country</code>, <code>displayRating</code> and <code>ratingsCount</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Vivino is the world's largest wine community, with ratings, reviews and tasting notes for millions of bottles. This actor turns that catalogue into clean, structured records: search by name, browse by type, country, region or grape, look up exact wines by URL or ID, or page through a producer's full range.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li>Runs one or more free-text searches across wines, wineries, regions and grape varieties.</li>
 <li>Browses the catalogue with filters for wine type, country of origin, region/appellation, grape, rating range and price range.</li>
 <li>Accepts Vivino wine and vintage URLs as well as numeric IDs.</li>
@@ -541,8 +8,15 @@
 <li>Optionally attaches the latest community reviews.</li>
 <li>Omits fields Vivino does not have for a wine instead of sending empty values.</li>
 </ul>
-<h2 id="readme-output-per-wine">Output per wine</h2>
-<p><strong>Identity and place</strong></p>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li>Build a wine list with ratings, taste profiles and food pairings.</li>
+<li>Compare prices and merchant offers for a shortlist or a region.</li>
+<li>Track a winery's range and its vintage ratings over time.</li>
+<li>Enrich an e-commerce catalogue with grapes, alcohol, descriptions and images.</li>
+<li>Analyse critic scores, awards and value across a region or grape.</li>
+<li>Power a recommendation engine with structured taste and flavour data.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 8 fields in 1 dataset view, and the README documents 26 more. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>name</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->wine name and the full vintage name with winery and year<!--/readme--></td></tr><tr><th scope="row"><code>winery</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>vintage</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->harvest year; omitted for non-vintage wines, with <code>isNonVintage: true</code><!--/readme--></td></tr><tr><th scope="row"><code>country</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>displayRating</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the vintage rating, or the wine's all-vintage rating when the vintage is below Vivino's publication threshold<!--/readme--></td></tr><tr><th scope="row"><code>ratingsCount</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the vintage's own rating, count and status; <code>rating</code> is present only when Vivino publishes a vintage average<!--/readme--></td></tr><tr><th scope="row"><code>price</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->best current merchant offer<!--/readme--></td></tr><tr><th scope="row"><code>wineUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->canonical Vivino URLs<!--/readme--></td></tr><tr><th scope="row"><code>wineId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino identifiers for the wine and this vintage<!--/readme--></td></tr><tr><th scope="row"><code>vintageId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino identifiers for the wine and this vintage<!--/readme--></td></tr><tr><th scope="row"><code>fullName</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->wine name and the full vintage name with winery and year<!--/readme--></td></tr><tr><th scope="row"><code>tasteAcidity</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's 1–5 taste scores, present only for the traits it scores for that wine<!--/readme--></td></tr><tr><th scope="row"><code>tasteTannin</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's 1–5 taste scores, present only for the traits it scores for that wine<!--/readme--></td></tr><tr><th scope="row"><code>tasteSweetness</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's 1–5 taste scores, present only for the traits it scores for that wine<!--/readme--></td></tr><tr><th scope="row"><code>tasteIntensity</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's 1–5 taste scores, present only for the traits it scores for that wine<!--/readme--></td></tr><tr><th scope="row"><code>tasteFizziness</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's 1–5 taste scores, present only for the traits it scores for that wine<!--/readme--></td></tr><tr><th scope="row"><code>tastingNotes</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->flattened flavour keywords<!--/readme--></td></tr><tr><th scope="row"><code>flavorGroups</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->flavour groups with counts and keyword mentions<!--/readme--></td></tr><tr><th scope="row"><code>rating</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the vintage's own rating, count and status; <code>rating</code> is present only when Vivino publishes a vintage average<!--/readme--></td></tr><tr><th scope="row"><code>ratingStatus</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the vintage's own rating, count and status; <code>rating</code> is present only when Vivino publishes a vintage average<!--/readme--></td></tr><tr><th scope="row"><code>displayRatingScope</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the vintage rating, or the wine's all-vintage rating when the vintage is below Vivino's publication threshold<!--/readme--></td></tr><tr><th scope="row"><code>wineRating</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the wine's all-vintage rating<!--/readme--></td></tr><tr><th scope="row"><code>wineRatingsCount</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->the wine's all-vintage rating<!--/readme--></td></tr><tr><th scope="row"><code>reviews</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->optional latest community reviews, with rating, text, language, date, reviewer and the review's vintage year; <code>reviewsScope</code> is <code>wine</code> because Vivino exposes reviews at wine level<!--/readme--></td></tr><tr><th scope="row"><code>description</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->wine-specific description<!--/readme--></td></tr><tr><th scope="row"><code>alcohol</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->ABV percentage<!--/readme--></td></tr><tr><th scope="row"><code>averagePrice</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Vivino's market median<!--/readme--></td></tr><tr><th scope="row"><code>offerCount</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->up to five offers with merchant, price, currency, URL, bottle type, volume and stock<!--/readme--></td></tr><tr><th scope="row"><code>offers</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->up to five offers with merchant, price, currency, URL, bottle type, volume and stock<!--/readme--></td></tr><tr><th scope="row"><code>criticReviews</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->critic name, score, score scale and date<!--/readme--></td></tr><tr><th scope="row"><code>awards</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->competition, edition, medal, trophy, score and link<!--/readme--></td></tr><tr><th scope="row"><code>rankings</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->global, country, region and winery rank with totals<!--/readme--></td></tr><tr><th scope="row"><code>vintageUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->canonical Vivino URLs<!--/readme--></td></tr><tr><th scope="row"><code>sourceUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->canonical Vivino URLs<!--/readme--></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's output notes</summary><h3 id="readme-output-per-wine">Output per wine</h3><!--readme--><p><strong>Identity and place</strong></p>
 <ul>
 <li><code>wineId</code>, <code>vintageId</code> — Vivino identifiers for the wine and this vintage</li>
 <li><code>name</code>, <code>fullName</code> — wine name and the full vintage name with winery and year</li>
@@ -596,8 +70,49 @@
 <li><code>wineUrl</code>, <code>vintageUrl</code>, <code>sourceUrl</code> — canonical Vivino URLs</li>
 <li><code>recordType</code> (<code>wine</code>) and <code>scrapedAt</code></li>
 </ul>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></details></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (search for a wine). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/vivino-wine-ratings-and-tasting-profile-scraper/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/vivino-wine-ratings-and-tasting-profile-scraper&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchQueries&quot;: [&quot;barolo&quot;, &quot;chablis&quot;],
+    &quot;maxItems&quot;: 20,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/vivino-wine-ratings-and-tasting-profile-scraper&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [
+    &quot;barolo&quot;,
+    &quot;chablis&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~vivino-wine-ratings-and-tasting-profile-scraper/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;search&quot;, &quot;searchQueries&quot;: [&quot;barolo&quot;, &quot;chablis&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/vivino-wine-ratings-and-tasting-profile-scraper&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Vivino Wine Ratings &amp; Tasting Profile Scraper uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/vivino-wine-ratings-and-tasting-profile-scraper">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 17 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Mode</span></th><td data-label="Type">string <span class="req">required</span></td><td data-label="Description"><!--readme-->What to fetch. <code>search</code> runs one or more free-text queries; <code>explore</code> browses with filters; <code>byWineId</code> resolves wine/vintage URLs or IDs; <code>winery</code> pages through a producer's catalogue.<!--/readme--><span class="field-meta">Default <code>&quot;search&quot;</code>; Allowed search, explore, byWineId, winery</span></td></tr><tr><th scope="row"><code>searchQueries</code><span class="field-title">Search queries</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more free-text wine searches (mode=search). Searches match wine, winery, region and grape names. Example: <code>barolo</code>, <code>chateau petrus</code>, <code>napa valley cabernet</code>.<!--/readme--><span class="field-meta">Default <code>[&quot;barolo&quot;]</code></span></td></tr><tr><th scope="row"><code>wineIds</code><span class="field-title">Wine IDs or URLs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Vivino wine/vintage IDs or URLs (mode=byWineId). Accepts 171525306, https://www.vivino.com/w/1167880?year=2022, /vintages/171525306 and /wines/171525306.<!--/readme--><span class="field-meta">Default <code>[&quot;171525306&quot;]</code></span></td></tr><tr><th scope="row"><code>winery</code><span class="field-title">Winery ID, slug or URL</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Winery to scrape (mode=winery). Accepts 1945, michele-chiarlo, or a Vivino winery URL.<!--/readme--></td></tr><tr><th scope="row"><code>wineType</code><span class="field-title">Wine type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Filter by wine type. Applies to search, explore and winery.<!--/readme--><span class="field-meta">Default <code>&quot;&quot;</code>; Allowed , 1, 2, 3, 4, 7, 24</span></td></tr><tr><th scope="row"><code>country</code><span class="field-title">Country of origin</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Filter wines by country of origin (ISO 2-letter code). Leave empty for all countries.<!--/readme--><span class="field-meta">Default <code>&quot;&quot;</code>; Allowed , fr, it, us, de, es, au, at and 139 more</span></td></tr><tr><th scope="row"><code>region</code><span class="field-title">Region or appellation</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Optional region filter, e.g. <code>Barolo</code>, <code>napa-valley</code>, or a Vivino region URL. Combine with Country when a name is ambiguous.<!--/readme--></td></tr><tr><th scope="row"><code>grape</code><span class="field-title">Grape variety</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Optional grape filter, e.g. <code>Nebbiolo</code>, <code>pinot-noir</code>, or a Vivino grape URL.<!--/readme--></td></tr><tr><th scope="row"><code>minRating</code><span class="field-title">Minimum rating</span></th><td data-label="Type">number</td><td data-label="Description"><!--readme-->Only wines whose displayed rating is at or above this value (0-5).<!--/readme--><span class="field-meta">Allowed 0 to 5</span></td></tr><tr><th scope="row"><code>maxRating</code><span class="field-title">Maximum rating</span></th><td data-label="Type">number</td><td data-label="Description"><!--readme-->Only wines whose displayed rating is at or below this value (0-5). Applied after fetching.<!--/readme--><span class="field-meta">Allowed 0 to 5</span></td></tr><tr><th scope="row"><code>minPrice</code><span class="field-title">Minimum price (USD)</span></th><td data-label="Type">number</td><td data-label="Description"><!--readme-->Only wines with a current offer at or above this price.<!--/readme--><span class="field-meta">Allowed 0 to 100000</span></td></tr><tr><th scope="row"><code>maxPrice</code><span class="field-title">Maximum price (USD)</span></th><td data-label="Type">number</td><td data-label="Description"><!--readme-->Only wines with a current offer at or below this price. Leave empty for no cap.<!--/readme--><span class="field-meta">Allowed 0 to 100000</span></td></tr><tr><th scope="row"><code>orderBy</code><span class="field-title">Sort by</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->How Vivino orders search and explore results.<!--/readme--><span class="field-meta">Default <code>&quot;ratings_count&quot;</code>; Allowed ratings_count, ratings_average, price, relevance</span></td></tr><tr><th scope="row"><code>order</code><span class="field-title">Sort order</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Descending (highest first) or ascending (lowest first).<!--/readme--><span class="field-meta">Default <code>&quot;desc&quot;</code>; Allowed desc, asc</span></td></tr><tr><th scope="row"><code>includeReviews</code><span class="field-title">Include reviews</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Attach the latest wine-level Vivino reviews to each record. Reviews span all vintages; each review keeps its own year.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>maxReviewsPerWine</code><span class="field-title">Max reviews per wine</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->How many latest reviews to attach when Include reviews is on (1-50).<!--/readme--><span class="field-meta">Default <code>10</code>; Allowed 1 to 50</span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max items</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum wine records to emit. Vivino exposes at most 2,500 rows per search/explore query; split broad queries into narrower filters for more.<!--/readme--><span class="field-meta">Default <code>50</code>; Example <code>2</code>; Allowed 1 to 2500</span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -699,14 +214,14 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-search-for-a-wine">Example: search for a wine</h3>
+<h4 id="readme-example-search-for-a-wine">Example: search for a wine</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
   &quot;searchQueries&quot;: [&quot;barolo&quot;, &quot;chablis&quot;],
   &quot;maxItems&quot;: 20
 }
 </code></pre>
-<h3 id="readme-example-top-rated-italian-reds-under-100">Example: top-rated Italian reds under $100</h3>
+<h4 id="readme-example-top-rated-italian-reds-under-100">Example: top-rated Italian reds under $100</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;explore&quot;,
   &quot;wineType&quot;: &quot;1&quot;,
@@ -717,7 +232,7 @@
   &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-a-region-and-a-grape">Example: a region and a grape</h3>
+<h4 id="readme-example-a-region-and-a-grape">Example: a region and a grape</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;explore&quot;,
   &quot;region&quot;: &quot;napa-valley&quot;,
@@ -726,7 +241,7 @@
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-exact-wines-by-url-or-id">Example: exact wines by URL or ID</h3>
+<h4 id="readme-example-exact-wines-by-url-or-id">Example: exact wines by URL or ID</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;byWineId&quot;,
   &quot;wineIds&quot;: [
@@ -737,41 +252,21 @@
   &quot;maxReviewsPerWine&quot;: 5
 }
 </code></pre>
-<h3 id="readme-example-a-winery-catalogue">Example: a winery catalogue</h3>
+<h4 id="readme-example-a-winery-catalogue">Example: a winery catalogue</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;winery&quot;,
   &quot;winery&quot;: &quot;michele-chiarlo&quot;,
   &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li>Build a wine list with ratings, taste profiles and food pairings.</li>
-<li>Compare prices and merchant offers for a shortlist or a region.</li>
-<li>Track a winery's range and its vintage ratings over time.</li>
-<li>Enrich an e-commerce catalogue with grapes, alcohol, descriptions and images.</li>
-<li>Analyse critic scores, awards and value across a region or grape.</li>
-<li>Power a recommendation engine with structured taste and flavour data.</li>
-</ul>
-<h2 id="readme-faq">FAQ</h2>
-<p><strong>Is this affiliated with Vivino?</strong>
-No. This actor reads Vivino's public wine pages and is not operated by or connected to Vivino.</p>
-<p><strong>Do I need a Vivino account, cookie or API key?</strong>
-No. Every mode works without logging in.</p>
-<p><strong>How many wines can I get in one run?</strong>
-Up to 2,500 records per run (<code>maxItems</code> is capped at 2,500). Vivino exposes at most 50 pages of 50 results per search or explore query, so split broad queries by country, region, type or price across runs to reach more wines. Winery mode follows the producer's catalogue page by page, up to 5,000 wines.</p>
-<p><strong>How do I find a wine's ID or URL?</strong>
-Open the wine on Vivino and copy its URL, or run <code>search</code>/<code>explore</code> first — each result includes <code>wineUrl</code> and <code>vintageId</code>. <code>wineIds</code> accepts full URLs, <code>/w/&lt;id&gt;</code>, <code>/vintages/&lt;id&gt;</code> and plain numeric IDs. A plain numeric ID is treated as a vintage ID first (the original behaviour); use a <code>/w/&lt;id&gt;</code> URL to look up a wine ID unambiguously.</p>
-<p><strong>Why is <code>rating</code> missing for some wines?</strong>
-Vivino does not publish a vintage average until it has enough ratings. Use <code>displayRating</code> for a ready-to-use score and read <code>displayRatingScope</code>: <code>vintage</code> means it is this bottle's score; <code>wine</code> means it is the wine's all-vintage score. <code>ratingStatus</code> shows <code>BelowThreshold</code> when the vintage average is not published.</p>
-<p><strong>Are prices always available?</strong>
-Prices and offers are for the US market and require a merchant listing. When no offer exists, <code>price</code> is omitted and <code>priceStatus</code> is <code>no_offer</code>. <code>averagePrice</code> is Vivino's market median and may be present even when no single offer is.</p>
-<p><strong>Are the reviews for the vintage I selected?</strong>
-Vivino exposes reviews at wine level, not vintage level. The optional <code>reviews</code> list contains the latest reviews across the wine's vintages; each review includes its own <code>vintageYear</code>, and <code>reviewsScope</code> is <code>wine</code>.</p>
-<p><strong>Why do some wines have no description, alcohol, critic score or award?</strong>
-Vivino does not have that data for every wine. Those fields are left out rather than sent as empty values. Taste traits are also conditional: for example, tannin is scored for reds and fizziness for sparkling wines.</p>
-<p><strong>Can I search by grape or region instead of wine name?</strong>
-Yes. Use the <code>grape</code> and <code>region</code> filters, or put a grape/region name in <code>searchQueries</code>. Filters resolve names, slugs and Vivino URLs. A region filter matches the region you pass; to cover a broad area, run its appellations or sub-regions separately.</p>
-<p><strong>How fresh is the data?</strong>
-Each run reads the current Vivino catalogue, including live ratings, prices and offers.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/vivino-wine-ratings-and-tasting-profile-scraper/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>EKzBGehbk29hlDAtj</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-is-this-affiliated-with-vivino"><!--readme-->Is this affiliated with Vivino?<!--/readme--></h3><!--readme--><p>No. This actor reads Vivino's public wine pages and is not operated by or connected to Vivino.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-a-vivino-account-cookie-or-api-key"><!--readme-->Do I need a Vivino account, cookie or API key?<!--/readme--></h3><!--readme--><p>No. Every mode works without logging in.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-many-wines-can-i-get-in-one-run"><!--readme-->How many wines can I get in one run?<!--/readme--></h3><!--readme--><p>Up to 2,500 records per run (<code>maxItems</code> is capped at 2,500). Vivino exposes at most 50 pages of 50 results per search or explore query, so split broad queries by country, region, type or price across runs to reach more wines. Winery mode follows the producer's catalogue page by page, up to 5,000 wines.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-do-i-find-a-wine-s-id-or-url"><!--readme-->How do I find a wine's ID or URL?<!--/readme--></h3><!--readme--><p>Open the wine on Vivino and copy its URL, or run <code>search</code>/<code>explore</code> first — each result includes <code>wineUrl</code> and <code>vintageId</code>. <code>wineIds</code> accepts full URLs, <code>/w/&lt;id&gt;</code>, <code>/vintages/&lt;id&gt;</code> and plain numeric IDs. A plain numeric ID is treated as a vintage ID first (the original behaviour); use a <code>/w/&lt;id&gt;</code> URL to look up a wine ID unambiguously.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-rating-missing-for-some-wines"><!--readme-->Why is <code>rating</code> missing for some wines?<!--/readme--></h3><!--readme--><p>Vivino does not publish a vintage average until it has enough ratings. Use <code>displayRating</code> for a ready-to-use score and read <code>displayRatingScope</code>: <code>vintage</code> means it is this bottle's score; <code>wine</code> means it is the wine's all-vintage score. <code>ratingStatus</code> shows <code>BelowThreshold</code> when the vintage average is not published.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-prices-always-available"><!--readme-->Are prices always available?<!--/readme--></h3><!--readme--><p>Prices and offers are for the US market and require a merchant listing. When no offer exists, <code>price</code> is omitted and <code>priceStatus</code> is <code>no_offer</code>. <code>averagePrice</code> is Vivino's market median and may be present even when no single offer is.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-the-reviews-for-the-vintage-i-selected"><!--readme-->Are the reviews for the vintage I selected?<!--/readme--></h3><!--readme--><p>Vivino exposes reviews at wine level, not vintage level. The optional <code>reviews</code> list contains the latest reviews across the wine's vintages; each review includes its own <code>vintageYear</code>, and <code>reviewsScope</code> is <code>wine</code>.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-do-some-wines-have-no-description-alcohol-critic-score-o"><!--readme-->Why do some wines have no description, alcohol, critic score or award?<!--/readme--></h3><!--readme--><p>Vivino does not have that data for every wine. Those fields are left out rather than sent as empty values. Taste traits are also conditional: for example, tannin is scored for reds and fizziness for sparkling wines.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-search-by-grape-or-region-instead-of-wine-name"><!--readme-->Can I search by grape or region instead of wine name?<!--/readme--></h3><!--readme--><p>Yes. Use the <code>grape</code> and <code>region</code> filters, or put a grape/region name in <code>searchQueries</code>. Filters resolve names, slugs and Vivino URLs. A region filter matches the region you pass; to cover a broad area, run its appellations or sub-regions separately.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-fresh-is-the-data"><!--readme-->How fresh is the data?<!--/readme--></h3><!--readme--><p>Each run reads the current Vivino catalogue, including live ratings, prices and offers.</p>
+<!--/readme--></div></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/99acres-city-and-bhk-property-listing-scraper/">99acres City &amp; BHK Property Listing Scraper</a><p>Search 99acres by city, BHK size, property type, locality, and price range to get structured buy and rent listings across 25 major Indian cities, with price, area, location, and poster details.</p></li><li><a href="/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/">Amazon Brand Store Page &amp; Merchandising Crawler</a><p>Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p></li><li><a href="/apify-actor-examples/actors/amazon-deals-grid-tracker-by-category-and-discount/">Amazon Deals Grid Tracker by Category &amp; Discount</a><p>Pull Amazon&#x27;s Today&#x27;s Deals grid across 23 marketplaces, with deal price, list price, savings amount/percent, deal type, brand, and department for each product. Filter by category, brand, price range, and discount range.</p></li><li><a href="/apify-actor-examples/actors/amazon-review-aggregates-and-extended-history/">Amazon Review Aggregates &amp; Extended History Scraper</a><p>Collect Amazon customer reviews and rating summaries by product URL, ASIN, or keyword across 19 marketplaces, with star-rating and sort filters, reviewer images, and an optional session for deeper review history.</p></li><li><a href="/apify-actor-examples/actors/amazon-search-category-and-seller-listings/">Amazon Search, Category &amp; Seller Listings Extractor</a><p>Get Amazon products from search results, categories, seller storefronts, or ASIN lookups across 20+ marketplaces, with price, rating, badges, deals, and delivery details.</p></li><li><a href="/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/">Amazon Wishlist &amp; Registry Scraper</a><p>Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/ecommerce/">All ecommerce Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>EKzBGehbk29hlDAtj</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

@@ -1,261 +1,20 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-8ehh/dVYkCV41V78Xf4YYs+Dd009V3YLHxE+HWlB9WQ=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>iQIYI Album Profile &amp; Channel Ranking Scraper | Dataspryva</title><meta name="description" content="Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, e"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"><meta property="og:title" content="iQIYI Album Profile &amp; Channel Ranking Scraper | Dataspryva"><meta property="og:description" content="Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, e"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#webpage","name":"iQIYI Album Profile & Channel Ranking Scraper","description":"Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#article","headline":"iQIYI Album Profile & Channel Ranking Scraper","name":"iQIYI Album Profile & Channel Ranking Scraper","description":"Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-10-27T06:48:39.083Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"iQIYI Album Profile & Channel Ranking Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>iQIYI Album Profile &amp; Channel Ranking Scraper</span></div><section id="overview"><h1 class="doc-title">iQIYI Album Profile &amp; Channel Ranking Scraper</h1><p class="lede">Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.</p><p class="summary">iQIYI Album Profile &amp; Channel Ranking Scraper is an Apify Actor published by Dataspryva. It accepts 11 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/iqiyi-album-profile-and-channel-ranking-scraper">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/LkWGg07CebatgVipI/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch.</td></tr><tr><td><code>albumIds</code></td><td>array</td><td>optional</td><td>iQIYI album slugs, album URLs, play URLs or numeric album IDs. Examples: `genius-girlfriend-2026-28fzrln6il1`, `https://www.iq.com/album/fated-hearts-2025-d6iyehcx4p`, `https://www.iq.com/play/fated-hearts-episode-1-1ggw7a63yug`, `1324877168319701`.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Title keywords or iq.com search URLs. Each query is searched in the selected region and language.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch.</td></tr><tr><td><code>albumIds</code></td><td>array</td><td>optional</td><td>iQIYI album slugs, album URLs, play URLs or numeric album IDs. Examples: `genius-girlfriend-2026-28fzrln6il1`, `https://www.iq.com/album/fated-hearts-2025-d6iyehcx4p`, `https://www.iq.com/play/fated-hearts-episode-1-1ggw7a63yug`, `1324877168319701`.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>Title keywords or iq.com search URLs. Each query is searched in the selected region and language.</td></tr><tr><td><code>searchQuery</code></td><td>string</td><td>optional</td><td>Text used by the legacy search-box suggestion mode, e.g. `love`.</td></tr><tr><td><code>region</code></td><td>string</td><td>optional</td><td>iQIYI serves a different catalogue per region. `intl` is the global catalogue; the others are regional catalogues.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Language for titles and metadata. These are the languages iQIYI currently returns for search results.</td></tr><tr><td><code>includeDetails</code></td><td>boolean</td><td>optional</td><td>Add score, exact release year, description, genres, age rating and cast roles to search results by reading each matching album profile.</td></tr><tr><td><code>includeEpisodes</code></td><td>boolean</td><td>optional</td><td>Include every currently released episode for album profiles and search results. Planned episode counts are always returned.</td></tr><tr><td><code>rankingType</code></td><td>string</td><td>optional</td><td>Which ranking list to fetch.</td></tr><tr><td><code>channelId</code></td><td>string</td><td>optional</td><td>Legacy channel ranking selector. 0 = Top, 1 = Movie, 2 = Series, 4 = Anime, 6 = Variety.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Fetch album profiles, released episode lists, channel and global rankings, full search results, or suggestions from iQIYI (iq.com).&quot;,
-  &quot;properties&quot;: {
-    &quot;albumIds&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;iQIYI album slugs, album URLs, play URLs or numeric album IDs. Examples: `genius-girlfriend-2026-28fzrln6il1`, `https://www.iq.com/album/fated-hearts-2025-d6iyehcx4p`, `https://www.iq.com/play/fated-hearts-episode-1-1ggw7a63yug`, `1324877168319701`.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;genius-girlfriend-2026-28fzrln6il1&quot;,
-        &quot;fated-hearts-2025-d6iyehcx4p&quot;,
-        &quot;a-better-jianghu-2026-1qi696xihh0&quot;
-      ],
-      &quot;title&quot;: &quot;Album IDs or URLs (mode=byId)&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;channelId&quot;: {
-      &quot;default&quot;: &quot;2&quot;,
-      &quot;description&quot;: &quot;Legacy channel ranking selector. 0 = Top, 1 = Movie, 2 = Series, 4 = Anime, 6 = Variety.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;0&quot;,
-        &quot;1&quot;,
-        &quot;2&quot;,
-        &quot;4&quot;,
-        &quot;6&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Top&quot;,
-        &quot;Movie&quot;,
-        &quot;Series&quot;,
-        &quot;Anime&quot;,
-        &quot;Variety&quot;
-      ],
-      &quot;prefill&quot;: &quot;2&quot;,
-      &quot;title&quot;: &quot;Channel (mode=trending, legacy)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;includeDetails&quot;: {
-      &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Add score, exact release year, description, genres, age rating and cast roles to search results by reading each matching album profile.&quot;,
-      &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Include album details in search (mode=searchTitles)&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;includeEpisodes&quot;: {
-      &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Include every currently released episode for album profiles and search results. Planned episode counts are always returned.&quot;,
-      &quot;prefill&quot;: true,
-      &quot;title&quot;: &quot;Include episode lists&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;language&quot;: {
-      &quot;default&quot;: &quot;en_us&quot;,
-      &quot;description&quot;: &quot;Language for titles and metadata. These are the languages iQIYI currently returns for search results.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;en_us&quot;,
-        &quot;zh_cn&quot;,
-        &quot;zh_tw&quot;,
-        &quot;th_th&quot;,
-        &quot;vi_vn&quot;,
-        &quot;id_id&quot;,
-        &quot;ms_my&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;English&quot;,
-        &quot;Simplified Chinese&quot;,
-        &quot;Traditional Chinese&quot;,
-        &quot;Thai&quot;,
-        &quot;Vietnamese&quot;,
-        &quot;Indonesian&quot;,
-        &quot;Malay&quot;
-      ],
-      &quot;prefill&quot;: &quot;en_us&quot;,
-      &quot;title&quot;: &quot;Metadata language (mode=searchTitles)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 25,
-      &quot;description&quot;: &quot;Hard cap on emitted records.&quot;,
-      &quot;maximum&quot;: 1000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 3,
-      &quot;title&quot;: &quot;Max items&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;byId&quot;,
-      &quot;description&quot;: &quot;What to fetch.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;byId&quot;,
-        &quot;searchTitles&quot;,
-        &quot;rankings&quot;,
-        &quot;search&quot;,
-        &quot;trending&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Album profile by ID or URL&quot;,
-        &quot;Full title search&quot;,
-        &quot;Rankings and top 10&quot;,
-        &quot;Search-box suggestions (legacy)&quot;,
-        &quot;Channel ranking (legacy)&quot;
-      ],
-      &quot;prefill&quot;: &quot;byId&quot;,
-      &quot;title&quot;: &quot;Mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;rankingType&quot;: {
-      &quot;default&quot;: &quot;top10&quot;,
-      &quot;description&quot;: &quot;Which ranking list to fetch.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;top10&quot;,
-        &quot;hot&quot;,
-        &quot;anticipated&quot;,
-        &quot;rising&quot;,
-        &quot;mustWatch&quot;,
-        &quot;dramaPicks&quot;,
-        &quot;moviePicks&quot;,
-        &quot;animePicks&quot;,
-        &quot;varietyPicks&quot;,
-        &quot;channelDrama&quot;,
-        &quot;channelMovie&quot;,
-        &quot;channelAnime&quot;,
-        &quot;channelVariety&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Weekly top 10&quot;,
-        &quot;Hot chart&quot;,
-        &quot;Anticipated chart&quot;,
-        &quot;Rising chart&quot;,
-        &quot;Must-watch chart&quot;,
-        &quot;Drama picks&quot;,
-        &quot;Movie picks&quot;,
-        &quot;Anime picks&quot;,
-        &quot;Variety picks&quot;,
-        &quot;Drama channel hot list&quot;,
-        &quot;Movie channel hot list&quot;,
-        &quot;Anime channel hot list&quot;,
-        &quot;Variety channel hot list&quot;
-      ],
-      &quot;prefill&quot;: &quot;top10&quot;,
-      &quot;title&quot;: &quot;Ranking (mode=rankings)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;region&quot;: {
-      &quot;default&quot;: &quot;intl&quot;,
-      &quot;description&quot;: &quot;iQIYI serves a different catalogue per region. `intl` is the global catalogue; the others are regional catalogues.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;intl&quot;,
-        &quot;vn&quot;,
-        &quot;th&quot;,
-        &quot;id&quot;,
-        &quot;my&quot;,
-        &quot;ph&quot;,
-        &quot;sg&quot;,
-        &quot;kr&quot;,
-        &quot;jp&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;International&quot;,
-        &quot;Vietnam&quot;,
-        &quot;Thailand&quot;,
-        &quot;Indonesia&quot;,
-        &quot;Malaysia&quot;,
-        &quot;Philippines&quot;,
-        &quot;Singapore&quot;,
-        &quot;South Korea&quot;,
-        &quot;Japan&quot;
-      ],
-      &quot;prefill&quot;: &quot;intl&quot;,
-      &quot;title&quot;: &quot;Catalogue region (mode=searchTitles)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;searchQueries&quot;: {
-      &quot;default&quot;: [
-        &quot;love&quot;
-      ],
-      &quot;description&quot;: &quot;Title keywords or iq.com search URLs. Each query is searched in the selected region and language.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;love&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries (mode=searchTitles)&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;searchQuery&quot;: {
-      &quot;default&quot;: &quot;love&quot;,
-      &quot;description&quot;: &quot;Text used by the legacy search-box suggestion mode, e.g. `love`.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;love&quot;,
-      &quot;title&quot;: &quot;Suggestion query (mode=search)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;iQIYI Album Profile &amp; Channel Ranking Scraper Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>albums</code></td><td>string</td><td>optional</td><td>Dataset containing album profiles, ranking rows, search results, and suggestions.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Album profiles with released episodes and cast, channel and global rankings, the weekly top 10, full title search results, and search-box suggestions from iQIYI.&quot;,
-  &quot;properties&quot;: {
-    &quot;albums&quot;: {
-      &quot;description&quot;: &quot;Dataset containing album profiles, ranking rows, search results, and suggestions.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;iQIYI results&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;iQIYI Album Profile &amp; Channel Ranking Scraper Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Results&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;title&quot;,
-          &quot;name&quot;,
-          &quot;albumId&quot;,
-          &quot;releaseYear&quot;,
-          &quot;year&quot;,
-          &quot;score&quot;,
-          &quot;totalEpisodes&quot;,
-          &quot;episodeCount&quot;,
-          &quot;channelId&quot;,
-          &quot;rank&quot;,
-          &quot;rankingType&quot;,
-          &quot;iqiyiUrl&quot;,
-          &quot;albumUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-iqiyi-album-profile-channel-ranking-scraper">iQIYI Album Profile &amp; Channel Ranking Scraper</h2>
-<p>iQIYI (iq.com) is the international home of Chinese, Korean, Thai and other Asian dramas, movies, anime and variety shows. This actor reads the public catalogue without an account and returns album profiles with released episode lists, the current hot lists for four channels, eight ranking boards, a weekly top 10, full title search results across regional catalogues, and the autocomplete suggestions from iQIYI's own search box.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-wQvd+PhqhaZzNMtVB4cNm/NHsdRqiHUzGp6BIeEXrRk=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>iQIYI Album Profile &amp; Channel Ranking Scraper – docs, price and API | Dataspryva</title><meta name="description" content="Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratin"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"><meta property="og:title" content="iQIYI Album Profile &amp; Channel Ranking Scraper – docs, price and API | Dataspryva"><meta property="og:description" content="Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratin"><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-LkWGg07CebatgVipI-Rc1tXvoQc4-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#webpage","name":"iQIYI Album Profile & Channel Ranking Scraper – docs, price and API","description":"Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#article"},"dateModified":"2026-10-27T06:48:39.083Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#article","headline":"iQIYI Album Profile & Channel Ranking Scraper – docs, price and API","name":"iQIYI Album Profile & Channel Ranking Scraper – docs, price and API","description":"Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#webpage"},"inLanguage":"en","dateModified":"2026-10-27T06:48:39.083Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-LkWGg07CebatgVipI-Rc1tXvoQc4-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Developer Tools","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/developer-tools/"},{"@type":"ListItem","position":4,"name":"iQIYI Album Profile & Channel Ranking Scraper","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#software","name":"iQIYI Album Profile & Channel Ranking Scraper","description":"Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.","url":"https://apify.com/dataspryva/iqiyi-album-profile-and-channel-ranking-scraper","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-LkWGg07CebatgVipI-Rc1tXvoQc4-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/iqiyi-album-profile-and-channel-ranking-scraper","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#faq","mainEntity":[{"@type":"Question","name":"Is this affiliated with iQIYI?","acceptedAnswer":{"@type":"Answer","text":"No. This is an independent actor that reads public iQ.com pages and catalogue data. It is not endorsed by or connected to iQIYI."}},{"@type":"Question","name":"Do I need an iQIYI account or subscription?","acceptedAnswer":{"@type":"Answer","text":"No. No login, cookie or API key is required."}},{"@type":"Question","name":"Why are some fields missing from a record?","acceptedAnswer":{"@type":"Answer","text":"iQIYI does not publish every field for every title. Anime and some variety shows often have no cast list, unreleased shows have no episodes yet, and some titles have no description. Missing fields are omitted rather than sent as null or empty values."}},{"@type":"Question","name":"Why are there fewer episodes than totalEpisodes?","acceptedAnswer":{"@type":"Answer","text":"totalEpisodes is the planned episode count. The episodes array contains episodes that are currently released and listed by iQIYI. Ongoing shows can have a planned count above the released count, and some unreleased titles publish no episode list at all, so episodes is omitted even though totalEpisodes is present."}},{"@type":"Question","name":"Why is there no play count?","acceptedAnswer":{"@type":"Answer","text":"The international iq.com catalogue does not expose a cumulative play count. The weekly top-10 ranking does include weeklyViews, and that is the only view metric included."}},{"@type":"Question","name":"Which regions and languages are supported?","acceptedAnswer":{"@type":"Answer","text":"Search supports the international catalogue plus Vietnam, Thailand, Indonesia, Malaysia, the Philippines, Singapore, South Korea and Japan. Metadata languages are English, Simplified and Traditional Chinese, Thai, Vietnamese, Indonesian and Malay. Other iQIYI languages and the Taiwan region currently return no search results, so they are not offered."}},{"@type":"Question","name":"How many search results can one query return?","acceptedAnswer":{"@type":"Answer","text":"It depends on the query. Popular terms can return several hundred unique titles (currently around 400 for broad terms); narrow terms can return only a handful. The actor follows iQIYI's pages until they stop adding new titles and never promises the catalogue's reported total."}},{"@type":"Question","name":"Why are there only four channel hot lists?","acceptedAnswer":{"@type":"Answer","text":"The international catalogue publishes hot lists for Drama, Movie, Anime and Variety. Kids and documentary channels redirect to the home page and have no equivalent list. The eight global charts and the weekly top 10 cover the rest of the catalogue."}},{"@type":"Question","name":"Do I need to configure a proxy?","acceptedAnswer":{"@type":"Answer","text":"No. The actor connects directly to iq.com without a proxy; no proxy configuration is needed. Just fill in the input and run it."}},{"@type":"Question","name":"How current is the data?","acceptedAnswer":{"@type":"Answer","text":"Every run reads iQIYI live, so scores, rankings, episodes and availability reflect what iq.com shows at run time."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/developer-tools/">Developer Tools</a></li><li aria-current="page">iQIYI Album Profile &amp; Channel Ranking Scraper</li></ol></nav><div class="doc"><div class="doc-head"><h1>iQIYI Album Profile &amp; Channel Ranking Scraper</h1><p class="lead">Get iQIYI drama, movie, anime and variety-show details by album ID, pull the top-ranked titles for any channel, or fetch search-box suggestions for a query. Returns genres, cast, episode counts, ratings and licensed regions.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-27">27 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>11 fields, 1 required</dd></div><div><dt>Output</dt><dd>13 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/iqiyi-album-profile-and-channel-ranking-scraper/">iQIYI</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/iqiyi-album-profile-and-channel-ranking-scraper">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">iQIYI Album Profile &amp; Channel Ranking Scraper is an Apify Actor published by Dataspryva. It accepts 11 input fields, and <code>mode</code> is required. Each result can carry up to 13 declared fields, including <code>title</code>, <code>name</code>, <code>albumId</code>, <code>releaseYear</code>, <code>year</code> and <code>score</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>iQIYI (iq.com) is the international home of Chinese, Korean, Thai and other Asian dramas, movies, anime and variety shows. This actor reads the public catalogue without an account and returns album profiles with released episode lists, the current hot lists for four channels, eight ranking boards, a weekly top 10, full title search results across regional catalogues, and the autocomplete suggestions from iQIYI's own search box.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li><strong>Album profiles:</strong> look up a title by slug, album URL, play URL or numeric album ID and get its score, release year, age rating, genres, licensed regions, cast with roles, directors and every currently released episode with a direct play link.</li>
 <li><strong>Full title search:</strong> search the international catalogue, or one of eight regional catalogues, in seven metadata languages. Results include episodes, cast and optional album-level score/description enrichment.</li>
 <li><strong>Rankings:</strong> pull the hot list for Drama, Movie, Anime or Variety (up to 30 titles each), the eight global charts (hot, anticipated, rising, must-watch and four curated picks), or the weekly top 10 with view counts.</li>
 <li><strong>Legacy modes:</strong> the original search-box suggestions and channel-ranking modes still work for saved tasks.</li>
 <li><strong>Clean records:</strong> empty fields are omitted, image URLs are normalized, dates are ISO, scores are numeric, and IDs are kept as iQIYI publishes them.</li>
 </ul>
-<h2 id="readme-output-per-mode">Output per mode</h2>
-<h3 id="readme-byid-album-profile"><code>byId</code> — album profile</h3>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li>Build a catalogue of iQIYI dramas, movies, anime and variety shows with scores, genres and cast.</li>
+<li>Track which titles are on a channel hot list, a global chart or the weekly top 10 over time.</li>
+<li>Enrich a recommendation database with released episodes, cast roles and play links.</li>
+<li>Research regional catalogue differences across nine iQIYI markets.</li>
+<li>Monitor a genre or franchise with scheduled searches and deduplicated results.</li>
+<li>Check a title's licensed regions and premium status before planning a release.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 13 fields in 1 dataset view, and the README documents 34 more. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>title</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->title variants<!--/readme--></td></tr><tr><th scope="row"><code>name</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>albumId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->slug and internal content ID<!--/readme--></td></tr><tr><th scope="row"><code>releaseYear</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->release and content type<!--/readme--></td></tr><tr><th scope="row"><code>year</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>score</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->user score, vote count and age rating<!--/readme--></td></tr><tr><th scope="row"><code>totalEpisodes</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->planned count, released count, and episode rows (<code>order</code>, <code>name</code>, <code>episodeId</code>, <code>url</code>, <code>publishDate</code>, <code>durationSeconds</code>, plus <code>subtitle</code> when published)<!--/readme--></td></tr><tr><th scope="row"><code>episodeCount</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>channelId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->1 Movie, 2 TV series, 4 Anime, 6 Variety show<!--/readme--></td></tr><tr><th scope="row"><code>rank</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->1-based position<!--/readme--></td></tr><tr><th scope="row"><code>rankingType</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme--><code>top10</code>, <code>hot</code>, <code>anticipated</code>, <code>rising</code>, <code>mustWatch</code>, <code>dramaPicks</code>, <code>moviePicks</code>, <code>animePicks</code>, <code>varietyPicks</code>, <code>channelDrama</code>, <code>channelMovie</code>, <code>channelAnime</code>, <code>channelVariety</code><!--/readme--></td></tr><tr><th scope="row"><code>iqiyiUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->direct play and album links<!--/readme--></td></tr><tr><th scope="row"><code>albumUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>qipuId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->slug and internal content ID<!--/readme--></td></tr><tr><th scope="row"><code>subtitle</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->title variants<!--/readme--></td></tr><tr><th scope="row"><code>alterTitle</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->title variants<!--/readme--></td></tr><tr><th scope="row"><code>description</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->synopsis<!--/readme--></td></tr><tr><th scope="row"><code>releaseStatus</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->release and content type<!--/readme--></td></tr><tr><th scope="row"><code>type</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->release and content type<!--/readme--></td></tr><tr><th scope="row"><code>isSeries</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->release and content type<!--/readme--></td></tr><tr><th scope="row"><code>scoreVotes</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->user score, vote count and age rating<!--/readme--></td></tr><tr><th scope="row"><code>contentRating</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->user score, vote count and age rating<!--/readme--></td></tr><tr><th scope="row"><code>releasedEpisodeCount</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->planned count, released count, and episode rows (<code>order</code>, <code>name</code>, <code>episodeId</code>, <code>url</code>, <code>publishDate</code>, <code>durationSeconds</code>, plus <code>subtitle</code> when published)<!--/readme--></td></tr><tr><th scope="row"><code>episodes</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->planned count, released count, and episode rows (<code>order</code>, <code>name</code>, <code>episodeId</code>, <code>url</code>, <code>publishDate</code>, <code>durationSeconds</code>, plus <code>subtitle</code> when published)<!--/readme--></td></tr><tr><th scope="row"><code>durationMinutes</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->runtime for a movie, or the first released episode's runtime<!--/readme--></td></tr><tr><th scope="row"><code>TypeDsj</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tag groups<!--/readme--></td></tr><tr><th scope="row"><code>SubjectMatter</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tag groups<!--/readme--></td></tr><tr><th scope="row"><code>Language</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tag groups<!--/readme--></td></tr><tr><th scope="row"><code>Place</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tag groups<!--/readme--></td></tr><tr><th scope="row"><code>Adaptation</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->tag groups<!--/readme--></td></tr><tr><th scope="row"><code>genres</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->flattened genre and tag lists<!--/readme--></td></tr><tr><th scope="row"><code>tags</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->flattened genre and tag lists<!--/readme--></td></tr><tr><th scope="row"><code>starring</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->cast and directors; cast rows include <code>name</code>, <code>role</code>, <code>character</code> and <code>profileUrl</code> when published<!--/readme--></td></tr><tr><th scope="row"><code>cast</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->cast and directors; cast rows include <code>name</code>, <code>role</code>, <code>character</code> and <code>profileUrl</code> when published<!--/readme--></td></tr><tr><th scope="row"><code>creator</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->cast and directors; cast rows include <code>name</code>, <code>role</code>, <code>character</code> and <code>profileUrl</code> when published<!--/readme--></td></tr><tr><th scope="row"><code>directors</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->cast and directors; cast rows include <code>name</code>, <code>role</code>, <code>character</code> and <code>profileUrl</code> when published<!--/readme--></td></tr><tr><th scope="row"><code>posterUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->portrait and landscape artwork<!--/readme--></td></tr><tr><th scope="row"><code>bannerUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->portrait and landscape artwork<!--/readme--></td></tr><tr><th scope="row"><code>availableRegions</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->countries where the title is licensed<!--/readme--></td></tr><tr><th scope="row"><code>audioLanguages</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->published audio tracks<!--/readme--></td></tr><tr><th scope="row"><code>isPremium</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->availability flags<!--/readme--></td></tr><tr><th scope="row"><code>isFinished</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->availability flags<!--/readme--></td></tr><tr><th scope="row"><code>isExclusive</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->availability flags<!--/readme--></td></tr><tr><th scope="row"><code>isQiyiProduced</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->availability flags<!--/readme--></td></tr><tr><th scope="row"><code>playUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->direct play and album links<!--/readme--></td></tr><tr><th scope="row"><code>sourceUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->direct play and album links<!--/readme--></td></tr><tr><th scope="row"><code>weeklyViews</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->top-10 only<!--/readme--></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's output notes</summary><h3 id="readme-output-per-mode">Output per mode</h3><!--readme--><h4 id="readme-byid-album-profile"><code>byId</code> — album profile</h4>
 <ul>
 <li><code>albumId</code>, <code>qipuId</code> — slug and internal content ID</li>
 <li><code>title</code>, <code>subtitle</code>, <code>alterTitle</code> — title variants</li>
@@ -275,7 +34,7 @@
 <li><code>playUrl</code>, <code>iqiyiUrl</code>, <code>sourceUrl</code> — direct play and album links</li>
 <li><code>recordType: &quot;album&quot;</code>, <code>scrapedAt</code></li>
 </ul>
-<h3 id="readme-rankings-channel-and-global-rankings"><code>rankings</code> — channel and global rankings</h3>
+<h4 id="readme-rankings-channel-and-global-rankings"><code>rankings</code> — channel and global rankings</h4>
 <ul>
 <li><code>rankingType</code> — <code>top10</code>, <code>hot</code>, <code>anticipated</code>, <code>rising</code>, <code>mustWatch</code>, <code>dramaPicks</code>, <code>moviePicks</code>, <code>animePicks</code>, <code>varietyPicks</code>, <code>channelDrama</code>, <code>channelMovie</code>, <code>channelAnime</code>, <code>channelVariety</code></li>
 <li><code>rank</code> — 1-based position</li>
@@ -286,7 +45,7 @@
 <li><code>posterUrl</code>, <code>thumbnailUrl</code>, <code>albumUrl</code>, <code>playUrl</code></li>
 <li><code>isPremium</code>, <code>recordType: &quot;ranking&quot;</code>, <code>scrapedAt</code></li>
 </ul>
-<h3 id="readme-searchtitles-full-search-results"><code>searchTitles</code> — full search results</h3>
+<h4 id="readme-searchtitles-full-search-results"><code>searchTitles</code> — full search results</h4>
 <ul>
 <li><code>query</code>, <code>rank</code>, <code>title</code>, <code>albumId</code>, <code>qipuId</code></li>
 <li><code>type</code>, <code>channelId</code>, <code>isSeries</code>, <code>year</code>, <code>publishDate</code></li>
@@ -296,14 +55,62 @@
 <li><code>posterUrl</code>, <code>thumbnailUrl</code>, <code>albumUrl</code>, <code>playUrl</code></li>
 <li><code>isPremium</code>, <code>recordType: &quot;searchResult&quot;</code>, <code>scrapedAt</code></li>
 </ul>
-<h3 id="readme-search-suggestions-legacy"><code>search</code> — suggestions (legacy)</h3>
+<h4 id="readme-search-suggestions-legacy"><code>search</code> — suggestions (legacy)</h4>
 <ul>
 <li><code>suggestion</code>, <code>sourceUrl</code>, <code>recordType: &quot;suggestion&quot;</code>, <code>scrapedAt</code></li>
 </ul>
-<h3 id="readme-trending-channel-ranking-legacy"><code>trending</code> — channel ranking (legacy)</h3>
+<h4 id="readme-trending-channel-ranking-legacy"><code>trending</code> — channel ranking (legacy)</h4>
 <p>Keeps the original fields <code>name</code>, <code>qipuId</code>, <code>albumId</code>, <code>publishDate</code>, <code>posterUrl</code>, <code>iqiyiUrl</code>, <code>sourceUrl</code>, <code>recordType</code>, <code>scrapedAt</code>, and includes <code>rank</code>, <code>rating</code>, <code>contentRating</code>, <code>year</code>, <code>tags</code>, <code>updateText</code> and <code>episodeCount</code> where available. <code>playCount</code> is omitted because intl iq.com does not publish cumulative play counts.</p>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></details></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (three album profiles). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/iqiyi-album-profile-and-channel-ranking-scraper/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/iqiyi-album-profile-and-channel-ranking-scraper&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;byId&quot;,
+    &quot;albumIds&quot;: [
+        &quot;genius-girlfriend-2026-28fzrln6il1&quot;,
+        &quot;fated-hearts-2025-d6iyehcx4p&quot;,
+        &quot;a-better-jianghu-2026-1qi696xihh0&quot;,
+    ],
+    &quot;includeEpisodes&quot;: True,
+    &quot;maxItems&quot;: 3,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/iqiyi-album-profile-and-channel-ranking-scraper&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;byId&quot;,
+  &quot;albumIds&quot;: [
+    &quot;genius-girlfriend-2026-28fzrln6il1&quot;,
+    &quot;fated-hearts-2025-d6iyehcx4p&quot;,
+    &quot;a-better-jianghu-2026-1qi696xihh0&quot;
+  ],
+  &quot;includeEpisodes&quot;: true,
+  &quot;maxItems&quot;: 3
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~iqiyi-album-profile-and-channel-ranking-scraper/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;byId&quot;, &quot;albumIds&quot;: [&quot;genius-girlfriend-2026-28fzrln6il1&quot;, &quot;fated-hearts-2025-d6iyehcx4p&quot;, &quot;a-better-jianghu-2026-1qi696xihh0&quot;], &quot;includeEpisodes&quot;: true, &quot;maxItems&quot;: 3}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/iqiyi-album-profile-and-channel-ranking-scraper&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>iQIYI Album Profile &amp; Channel Ranking Scraper uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/iqiyi-album-profile-and-channel-ranking-scraper">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 11 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Mode</span></th><td data-label="Type">string <span class="req">required</span></td><td data-label="Description"><!--readme-->What to fetch.<!--/readme--><span class="field-meta">Default <code>&quot;byId&quot;</code>; Allowed byId, searchTitles, rankings, search, trending</span></td></tr><tr><th scope="row"><code>albumIds</code><span class="field-title">Album IDs or URLs (mode=byId)</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->iQIYI album slugs, album URLs, play URLs or numeric album IDs. Examples: <code>genius-girlfriend-2026-28fzrln6il1</code>, <code>https://www.iq.com/album/fated-hearts-2025-d6iyehcx4p</code>, <code>https://www.iq.com/play/fated-hearts-episode-1-1ggw7a63yug</code>, <code>1324877168319701</code>.<!--/readme--><span class="field-meta">Default <code>[]</code>; Example <code>[&quot;genius-girlfriend-2026-28fzrln6il1&quot;, &quot;fated-hearts-2025...</code></span></td></tr><tr><th scope="row"><code>searchQueries</code><span class="field-title">Search queries (mode=searchTitles)</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Title keywords or iq.com search URLs. Each query is searched in the selected region and language.<!--/readme--><span class="field-meta">Default <code>[&quot;love&quot;]</code></span></td></tr><tr><th scope="row"><code>searchQuery</code><span class="field-title">Suggestion query (mode=search)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Text used by the legacy search-box suggestion mode, e.g. <code>love</code>.<!--/readme--><span class="field-meta">Default <code>&quot;love&quot;</code></span></td></tr><tr><th scope="row"><code>region</code><span class="field-title">Catalogue region (mode=searchTitles)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->iQIYI serves a different catalogue per region. <code>intl</code> is the global catalogue; the others are regional catalogues.<!--/readme--><span class="field-meta">Default <code>&quot;intl&quot;</code>; Allowed intl, vn, th, id, my, ph, sg, kr and 1 more</span></td></tr><tr><th scope="row"><code>language</code><span class="field-title">Metadata language (mode=searchTitles)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Language for titles and metadata. These are the languages iQIYI currently returns for search results.<!--/readme--><span class="field-meta">Default <code>&quot;en_us&quot;</code>; Allowed en_us, zh_cn, zh_tw, th_th, vi_vn, id_id, ms_my</span></td></tr><tr><th scope="row"><code>includeDetails</code><span class="field-title">Include album details in search (mode=searchTitles)</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Add score, exact release year, description, genres, age rating and cast roles to search results by reading each matching album profile.<!--/readme--><span class="field-meta">Default <code>true</code></span></td></tr><tr><th scope="row"><code>includeEpisodes</code><span class="field-title">Include episode lists</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Include every currently released episode for album profiles and search results. Planned episode counts are always returned.<!--/readme--><span class="field-meta">Default <code>true</code></span></td></tr><tr><th scope="row"><code>rankingType</code><span class="field-title">Ranking (mode=rankings)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Which ranking list to fetch.<!--/readme--><span class="field-meta">Default <code>&quot;top10&quot;</code>; Allowed top10, hot, anticipated, rising, mustWatch, dramaPicks, moviePicks, animePicks and 5 more</span></td></tr><tr><th scope="row"><code>channelId</code><span class="field-title">Channel (mode=trending, legacy)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Legacy channel ranking selector. 0 = Top, 1 = Movie, 2 = Series, 4 = Anime, 6 = Variety.<!--/readme--><span class="field-meta">Default <code>&quot;2&quot;</code>; Allowed 0, 1, 2, 4, 6</span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max items</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Hard cap on emitted records.<!--/readme--><span class="field-meta">Default <code>25</code>; Example <code>3</code>; Allowed 1 to 1000</span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -381,7 +188,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-example-three-album-profiles">Example: three album profiles</h3>
+<h4 id="readme-example-three-album-profiles">Example: three album profiles</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;byId&quot;,
   &quot;albumIds&quot;: [
@@ -393,7 +200,7 @@
   &quot;maxItems&quot;: 3
 }
 </code></pre>
-<h3 id="readme-example-full-search-in-a-regional-catalogue">Example: full search in a regional catalogue</h3>
+<h4 id="readme-example-full-search-in-a-regional-catalogue">Example: full search in a regional catalogue</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;searchTitles&quot;,
   &quot;searchQueries&quot;: [&quot;love&quot;, &quot;revenge&quot;],
@@ -404,55 +211,35 @@
   &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h3 id="readme-example-drama-channel-hot-list">Example: drama channel hot list</h3>
+<h4 id="readme-example-drama-channel-hot-list">Example: drama channel hot list</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;rankings&quot;,
   &quot;rankingType&quot;: &quot;channelDrama&quot;,
   &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h3 id="readme-example-weekly-top-10">Example: weekly top 10</h3>
+<h4 id="readme-example-weekly-top-10">Example: weekly top 10</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;rankings&quot;,
   &quot;rankingType&quot;: &quot;top10&quot;,
   &quot;maxItems&quot;: 10
 }
 </code></pre>
-<h3 id="readme-example-legacy-suggestions">Example: legacy suggestions</h3>
+<h4 id="readme-example-legacy-suggestions">Example: legacy suggestions</h4>
 <pre><code class="language-json">{
   &quot;mode&quot;: &quot;search&quot;,
   &quot;searchQuery&quot;: &quot;love&quot;,
   &quot;maxItems&quot;: 10
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li>Build a catalogue of iQIYI dramas, movies, anime and variety shows with scores, genres and cast.</li>
-<li>Track which titles are on a channel hot list, a global chart or the weekly top 10 over time.</li>
-<li>Enrich a recommendation database with released episodes, cast roles and play links.</li>
-<li>Research regional catalogue differences across nine iQIYI markets.</li>
-<li>Monitor a genre or franchise with scheduled searches and deduplicated results.</li>
-<li>Check a title's licensed regions and premium status before planning a release.</li>
-</ul>
-<h2 id="readme-faq">FAQ</h2>
-<h3 id="readme-is-this-affiliated-with-iqiyi">Is this affiliated with iQIYI?</h3>
-<p>No. This is an independent actor that reads public iQ.com pages and catalogue data. It is not endorsed by or connected to iQIYI.</p>
-<h3 id="readme-do-i-need-an-iqiyi-account-or-subscription">Do I need an iQIYI account or subscription?</h3>
-<p>No. No login, cookie or API key is required.</p>
-<h3 id="readme-why-are-some-fields-missing-from-a-record">Why are some fields missing from a record?</h3>
-<p>iQIYI does not publish every field for every title. Anime and some variety shows often have no cast list, unreleased shows have no episodes yet, and some titles have no description. Missing fields are omitted rather than sent as null or empty values.</p>
-<h3 id="readme-why-are-there-fewer-episodes-than-totalepisodes">Why are there fewer episodes than <code>totalEpisodes</code>?</h3>
-<p><code>totalEpisodes</code> is the planned episode count. The <code>episodes</code> array contains episodes that are currently released and listed by iQIYI. Ongoing shows can have a planned count above the released count, and some unreleased titles publish no episode list at all, so <code>episodes</code> is omitted even though <code>totalEpisodes</code> is present.</p>
-<h3 id="readme-why-is-there-no-play-count">Why is there no play count?</h3>
-<p>The international iq.com catalogue does not expose a cumulative play count. The weekly top-10 ranking does include <code>weeklyViews</code>, and that is the only view metric included.</p>
-<h3 id="readme-which-regions-and-languages-are-supported">Which regions and languages are supported?</h3>
-<p>Search supports the international catalogue plus Vietnam, Thailand, Indonesia, Malaysia, the Philippines, Singapore, South Korea and Japan. Metadata languages are English, Simplified and Traditional Chinese, Thai, Vietnamese, Indonesian and Malay. Other iQIYI languages and the Taiwan region currently return no search results, so they are not offered.</p>
-<h3 id="readme-how-many-search-results-can-one-query-return">How many search results can one query return?</h3>
-<p>It depends on the query. Popular terms can return several hundred unique titles (currently around 400 for broad terms); narrow terms can return only a handful. The actor follows iQIYI's pages until they stop adding new titles and never promises the catalogue's reported total.</p>
-<h3 id="readme-why-are-there-only-four-channel-hot-lists">Why are there only four channel hot lists?</h3>
-<p>The international catalogue publishes hot lists for Drama, Movie, Anime and Variety. Kids and documentary channels redirect to the home page and have no equivalent list. The eight global charts and the weekly top 10 cover the rest of the catalogue.</p>
-<h3 id="readme-do-i-need-to-configure-a-proxy">Do I need to configure a proxy?</h3>
-<p>No. The actor connects directly to iq.com without a proxy; no proxy configuration is needed. Just fill in the input and run it.</p>
-<h3 id="readme-how-current-is-the-data">How current is the data?</h3>
-<p>Every run reads iQIYI live, so scores, rankings, episodes and availability reflect what iq.com shows at run time.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/iqiyi-album-profile-and-channel-ranking-scraper/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>8qFI5HOJyCNleBrtc</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-is-this-affiliated-with-iqiyi"><!--readme-->Is this affiliated with iQIYI?<!--/readme--></h3><!--readme--><p>No. This is an independent actor that reads public iQ.com pages and catalogue data. It is not endorsed by or connected to iQIYI.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-an-iqiyi-account-or-subscription"><!--readme-->Do I need an iQIYI account or subscription?<!--/readme--></h3><!--readme--><p>No. No login, cookie or API key is required.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-some-fields-missing-from-a-record"><!--readme-->Why are some fields missing from a record?<!--/readme--></h3><!--readme--><p>iQIYI does not publish every field for every title. Anime and some variety shows often have no cast list, unreleased shows have no episodes yet, and some titles have no description. Missing fields are omitted rather than sent as null or empty values.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-there-fewer-episodes-than-totalepisodes"><!--readme-->Why are there fewer episodes than totalEpisodes?<!--/readme--></h3><!--readme--><p><code>totalEpisodes</code> is the planned episode count. The <code>episodes</code> array contains episodes that are currently released and listed by iQIYI. Ongoing shows can have a planned count above the released count, and some unreleased titles publish no episode list at all, so <code>episodes</code> is omitted even though <code>totalEpisodes</code> is present.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-there-no-play-count"><!--readme-->Why is there no play count?<!--/readme--></h3><!--readme--><p>The international iq.com catalogue does not expose a cumulative play count. The weekly top-10 ranking does include <code>weeklyViews</code>, and that is the only view metric included.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-which-regions-and-languages-are-supported"><!--readme-->Which regions and languages are supported?<!--/readme--></h3><!--readme--><p>Search supports the international catalogue plus Vietnam, Thailand, Indonesia, Malaysia, the Philippines, Singapore, South Korea and Japan. Metadata languages are English, Simplified and Traditional Chinese, Thai, Vietnamese, Indonesian and Malay. Other iQIYI languages and the Taiwan region currently return no search results, so they are not offered.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-many-search-results-can-one-query-return"><!--readme-->How many search results can one query return?<!--/readme--></h3><!--readme--><p>It depends on the query. Popular terms can return several hundred unique titles (currently around 400 for broad terms); narrow terms can return only a handful. The actor follows iQIYI's pages until they stop adding new titles and never promises the catalogue's reported total.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-there-only-four-channel-hot-lists"><!--readme-->Why are there only four channel hot lists?<!--/readme--></h3><!--readme--><p>The international catalogue publishes hot lists for Drama, Movie, Anime and Variety. Kids and documentary channels redirect to the home page and have no equivalent list. The eight global charts and the weekly top 10 cover the rest of the catalogue.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-to-configure-a-proxy"><!--readme-->Do I need to configure a proxy?<!--/readme--></h3><!--readme--><p>No. The actor connects directly to iq.com without a proxy; no proxy configuration is needed. Just fill in the input and run it.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-current-is-the-data"><!--readme-->How current is the data?<!--/readme--></h3><!--readme--><p>Every run reads iQIYI live, so scores, rankings, episodes and availability reflect what iq.com shows at run time.</p>
+<!--/readme--></div></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/">Amazon Brand Store Page &amp; Merchandising Crawler</a><p>Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p></li><li><a href="/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/">Amazon Wishlist &amp; Registry Scraper</a><p>Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p></li><li><a href="/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/">Bol.com Product Search, Price &amp; Stock Extractor</a><p>Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.</p></li><li><a href="/apify-actor-examples/actors/brazilian-cnpj-bulk-lookup-and-partner-records/">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</a><p>Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.</p></li><li><a href="/apify-actor-examples/actors/dexscreener-token-pair-and-boosted-token-scraper/">DexScreener Token Pair &amp; Boosted Token Scraper</a><p>Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p></li><li><a href="/apify-actor-examples/actors/florida-sunbiz-registry-lookup-by-name-agent/">Florida Sunbiz Registry Lookup by Name, Agent &amp; FEI</a><p>Look up Florida business entities on the Sunbiz registry by entity name, officer, registered agent, FEI/EIN, document number, ZIP, or street address, and get status, addresses, officers, annual filings, and filed-document links for each match.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/developer-tools/">All developer tools Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>8qFI5HOJyCNleBrtc</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

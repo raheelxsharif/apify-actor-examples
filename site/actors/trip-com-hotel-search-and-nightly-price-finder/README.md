@@ -1,117 +1,140 @@
 # Trip.com Hotel Search & Nightly Price Finder
 
-Search Trip.com for hotels in a city and date range, or pull the full listing for one specific hotel by its Trip.com ID. Each result carries the nightly price, star class, guest score, amenities, and a direct booking link so you can compare stays without opening the site.
+Find hotels on Trip.com for a city and stay dates — or pull the complete profile for properties you already know. Every row is a ready-to-use hotel record with its nightly rate, star class, guest score, location, room details and a direct booking link.
 
-## What this actor does
+## Modes
 
-- **Two modes:** `searchHotels` for a city + date search, `hotelDetail` for a single hotel by its Trip.com hotel ID
-- **Date-aware pricing:** pass check-in/check-out dates and get the price quoted for that exact stay; leave them blank and the actor defaults to tomorrow night
-- **Quality filters:** minimum star rating, minimum guest score, and a maximum nightly price, applied before `maxItems` is counted
-- **Location and amenities:** address, neighborhood, coordinates, and a cleaned list of hotel facilities when Trip.com publishes them
-- **Empty fields are omitted** from each record — a hotel with no listed amenities or coordinates simply won't carry those keys
+### Search hotels by city and dates (`searchHotels`)
 
-## Output per hotel
+Give a city and optional stay dates and filters. The actor resolves the city through Trip.com's own search service, reads the server-rendered result pages, and returns hotels with the price quoted for your exact dates.
 
-- `hotelId` — Trip.com's internal hotel ID
-- `name` — hotel name
-- `address` — full street address
-- `neighborhood` — district/area name, when Trip.com lists one
-- `starRating` — official star class (1–5)
-- `rating` — guest score on Trip.com's 0–10 scale
-- `reviewCount` — number of guest reviews behind the score
-- `pricePerNight` — quoted nightly price, excluding taxes/fees
-- `priceWithTax` — nightly price including taxes and fees, when Trip.com supplies it separately
-- `currency` — currency code for the price fields
-- `priceExplanation` — Trip.com's price breakdown label (e.g. "Total incl. taxes & fees: $277")
-- `paymentPolicy` — payment terms text (e.g. pay-at-hotel vs. pay-now), when published
-- `amenities[]` — hotel facility names (Wi-Fi, pool, gym, etc.)
-- `url` — Trip.com hotel detail/booking page
-- `thumbnailUrl` — hotel photo URL
-- `lat`, `lon` — geographic coordinates
-- `checkIn`, `checkOut` — the dates the search used (mode=`searchHotels` only)
-- `city` — the searched city name (mode=`searchHotels` only)
-- `recordType` — always `"hotel"`
-- `scrapedAt` — ISO 8601 timestamp of when the record was collected
+- **Pagination that actually advances:** Trip.com serves about 12 hotels per result query and ignores page-number parameters. The actor slices the result space across star classes and city zones, de-duplicates by hotel ID, and keeps going until your `maxItems` is reached or the source is exhausted.
+- **Date-aware prices:** nightly price before tax, nightly price after tax, and the total for the whole stay are all included.
+- **Filters that change the result set:** star range, guest score, nightly budget, breakfast, free cancellation, pay-at-hotel.
+- **Optional detail enrichment:** turn on `includeDetails` to add the full street address, facilities, description, phone, e-mail and check-in/out times to every search row.
+
+### Hotel details by ID or URL (`hotelDetail`)
+
+Paste one or many Trip.com hotel IDs (or full detail URLs). The actor returns the full property profile — address, facilities, description, policies, photos, contact details, coordinates — and makes a best-effort merge of the current nightly price for your dates when the property appears in the city search.
+
+IDs are taken from `hotelIds`, and the single `hotelId` field is combined with it, so both old and new tasks work.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | Notes |
 |---|---|---|---|
-| `mode` | string | `searchHotels` | `searchHotels` or `hotelDetail` |
-| `hotelId` | string | – | Trip.com hotel ID to fetch (mode=`hotelDetail`) |
-| `cityName` | string | `London` | City to search; best coverage is Europe, Asia, and the Middle East (mode=`searchHotels`) |
-| `checkIn` | string | – | Check-in date, `YYYY-MM-DD`; defaults to tomorrow if blank |
-| `checkOut` | string | – | Check-out date, `YYYY-MM-DD`; defaults to the night after check-in if blank |
-| `minStars` | integer | – | Minimum star rating, 1–5 |
-| `minRating` | number | – | Minimum guest score, 0–10 |
-| `maxPrice` | number | – | Maximum nightly price in USD |
-| `maxItems` | integer | `20` | Maximum hotels to return (1–200) |
-| `proxyConfiguration` | object | `{"useApifyProxy": true}` | Apify Proxy settings used to fetch Trip.com's search results |
+| `mode` | select | `searchHotels` | `searchHotels` or `hotelDetail` |
+| `cityName` | text | `London` | City, or a city + country such as `Paris, France` |
+| `cityId` | integer | – | Exact Trip.com geo code; overrides the city name |
+| `checkIn` / `checkOut` | text | tomorrow / next night | `YYYY-MM-DD` |
+| `adults` | integer | 2 | 1–8 adults per room |
+| `rooms` | integer | 1 | 1–5 rooms |
+| `minStars` / `maxStars` | integer | – | Official star class 1–5 |
+| `minRating` | number | – | Guest score 0–10 |
+| `maxPrice` | number | – | Nightly budget before taxes |
+| `breakfastIncluded` | boolean | false | Only breakfast-included rates |
+| `freeCancellation` | boolean | false | Only free-cancellation rates |
+| `payAtHotel` | boolean | false | Only pay-at-property rates |
+| `sortBy` | select | `recommended` | `priceLow`, `priceHigh`, `rating`, `stars` |
+| `currency` | select | `USD` | 16 major currencies |
+| `includeDetails` | boolean | false | Enrich every search row from its detail page |
+| `maxItems` | integer | 20 | 1–200 |
+| `hotelId` | text | – | One hotel ID or detail URL (detail mode) |
+| `hotelIds` | string list | – | Multiple hotel IDs or URLs (detail mode) |
+| `proxyConfiguration` | proxy | direct | Optional; an Apify Proxy fallback is automatic if Trip.com blocks the datacenter IP |
 
-### Example: search London with a quality and price filter
+Saved tasks that still send older keys — `destination`, `city`, `query`, `searchQuery`, `searchQueries`, `checkin`, `checkout`, `check_in`, `check_out`, `adult`, `roomQuantity`, `sort`, `maxResults` — keep working because those keys are mapped in code, even when the input form fills the new defaults.
+
+## Output
+
+Each dataset row is one hotel.
+
+- `hotelId`, `name`, `hotelType`
+- `address`, `neighborhood`, `positionDesc`, `city`, `province`, `country`
+- `starRating`, `rating`, `ratingText`, `reviewCount`, `subScores`, `locationScore`
+- `pricePerNight` — nightly rate before taxes
+- `priceWithTax` — nightly rate including taxes and fees
+- `priceWithTaxTotal` — full-stay total including taxes and fees
+- `currency`, `priceExplanation`, `paymentPolicy`
+- `freeCancellation`, `breakfastIncluded`
+- `roomName`, `bedType`
+- `amenities[]`, `highlights[]`, `description`
+- `checkInTime`, `checkOutTime`, `phone`, `email`
+- `openYear`, `renovationYear`
+- `url`, `thumbnailUrl`, `imageCount`, `imageUrls[]`
+- `lat`, `lon`
+- `checkIn`, `checkOut`, `recordType`, `scrapedAt`
+
+Empty values are omitted, never returned as `null`.
+
+## Examples
+
+Search London for a two-night stay:
 
 ```json
 {
-    "mode": "searchHotels",
-    "cityName": "London",
-    "checkIn": "2026-06-10",
-    "checkOut": "2026-06-13",
-    "minStars": 4,
-    "minRating": 8.0,
-    "maxPrice": 300,
-    "maxItems": 30
+  "mode": "searchHotels",
+  "cityName": "London",
+  "checkIn": "2026-11-20",
+  "checkOut": "2026-11-22",
+  "maxItems": 50
 }
 ```
 
-### Example: broad search for a destination, no filters
+Four- and five-star hotels under 300 USD with a guest score of at least 8.5:
 
 ```json
 {
-    "mode": "searchHotels",
-    "cityName": "Bangkok",
-    "maxItems": 50
+  "mode": "searchHotels",
+  "cityName": "Tokyo",
+  "checkIn": "2026-11-20",
+  "checkOut": "2026-11-22",
+  "minStars": 4,
+  "minRating": 8.5,
+  "maxPrice": 300,
+  "sortBy": "priceLow",
+  "maxItems": 40
 }
 ```
 
-### Example: fetch one hotel by its Trip.com ID
+Fetch one property, or several at once:
 
 ```json
 {
-    "mode": "hotelDetail",
-    "hotelId": "732036"
+  "mode": "hotelDetail",
+  "hotelIds": ["731904", "https://www.trip.com/hotels/detail/?hotelId=3037865"],
+  "checkIn": "2026-11-20",
+  "checkOut": "2026-11-22"
 }
 ```
 
 ## Use cases
 
-- **Price tracking** — rerun the same city and date range on a schedule to watch nightly rates move
-- **Shortlist building** — filter by `minStars` and `minRating` to narrow a destination down to hotels worth considering
-- **Rate comparison** — pull `hotelDetail` for a known shortlist of properties and compare their current quoted price
-- **Travel content research** — gather amenities, star class, and guest scores for a city to build comparison tables or articles
-- **Budget planning** — cap results with `maxPrice` to see what's available within a travel budget
+- **Price monitoring:** rerun the same city, dates and filters to watch nightly rates move.
+- **Shortlist building:** combine star, score and budget filters to narrow a destination.
+- **Property research:** pull facilities, policies and contact details for a list of known hotels.
+- **Travel content:** compare scores, room types and locations across a city.
+- **Budget planning:** cap the nightly price and see what remains available.
 
 ## FAQ
 
-**Do I need a Trip.com account?**
-No. Hotel search and detail pages are publicly accessible without logging in.
+**Do I need a Trip.com account or cookie?**
+No. City search, hotel search and detail pages are read without logging in.
 
-**What currency are prices in?**
-`currency` reflects whatever Trip.com returns for that listing; when Trip.com doesn't specify one, the actor reports `USD`.
+**Why does a search stop before `maxItems`?**
+Trip.com returns roughly 12 hotels per result query. The actor walks star and zone slices until it reaches your limit or the source runs out of matching properties. Small cities and very narrow filters can exhaust the source sooner; the status message reports the real count.
 
-**What's the difference between `pricePerNight` and `priceWithTax`?**
-`pricePerNight` is the base nightly rate; `priceWithTax` is the same stay including taxes and fees, when Trip.com exposes that figure separately. If Trip.com only shows one number, only `pricePerNight` is populated.
+**Are prices per night or for the whole stay?**
+`pricePerNight` and `priceWithTax` are nightly. `priceWithTaxTotal` is the whole-stay total and matches the breakdown text in `priceExplanation`.
 
-**What happens if I leave check-in/check-out blank?**
-The actor searches for tomorrow night by default, and check-out defaults to the night after check-in if only one date is given.
+**What is the difference between search and detail prices?**
+Search rows always carry the live price for the requested dates. Detail rows try to merge the current price from the same city search. If the property has no availability, or does not appear in the search slices for those dates, the price fields are omitted.
 
-**Why do some cities in the US return no hotels?**
-Trip.com serves North American markets through a different web frontend that doesn't expose hotel listings in the format this actor reads. European, Asian, and Middle Eastern cities are reliably supported.
+**Why are some fields missing on a row?**
+Trip.com does not publish every field for every property — for example, some hotels have no guest reviews, e-mail or neighborhood. Missing fields are omitted rather than filled with placeholders. `includeDetails` fills the largest set of fields.
 
-**Why is `hotelId` needed for the detail mode instead of a URL?**
-Trip.com's hotel detail pages are addressed by numeric ID; you can find it in any hotel's Trip.com URL (`?hotelId=...`) or from a prior `searchHotels` run's output.
-
-**Why might `amenities` or `neighborhood` be missing for a hotel?**
-Trip.com doesn't publish the same level of detail for every property — when a field isn't available on the listing, it's left out of the record rather than returned empty.
+**Why is the address sometimes just a district in a search row?**
+Search result cards expose only the district. Enable `includeDetails`, or use `hotelDetail`, to get the full street address.
 
 **Is this affiliated with Trip.com?**
-No. This is an independent, third-party actor and is not operated by or affiliated with Trip.com / Ctrip.
+No. This is an independent third-party tool and is not operated by or affiliated with Trip.com or Ctrip.

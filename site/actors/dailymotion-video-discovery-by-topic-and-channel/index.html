@@ -1,834 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-JlPLLD2WVn/KV07oDcLT/vsK6LROVPxLxfI1koDrTKE=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Dailymotion Video Discovery by Topic &amp; Channel | Dataspryva</title><meta name="description" content="Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per"><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"><meta property="og:title" content="Dailymotion Video Discovery by Topic &amp; Channel | Dataspryva"><meta property="og:description" content="Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per"><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#webpage","name":"Dailymotion Video Discovery by Topic & Channel","description":"Search Dailymotion by keyword, browse trending or topic videos, or pull a channel's uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#article","headline":"Dailymotion Video Discovery by Topic & Channel","name":"Dailymotion Video Discovery by Topic & Channel","description":"Search Dailymotion by keyword, browse trending or topic videos, or pull a channel's uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#webpage"},"inLanguage":"en","dateModified":"2026-10-18T05:00:38.375Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Dailymotion Video Discovery by Topic & Channel","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Dailymotion Video Discovery by Topic &amp; Channel</span></div><section id="overview"><h1 class="doc-title">Dailymotion Video Discovery by Topic &amp; Channel</h1><p class="lede">Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.</p><p class="summary">Dailymotion Video Discovery by Topic &amp; Channel is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Its build declares a results dataset with 1 view. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/dailymotion-video-discovery-by-topic-and-channel">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/XGXbbohKOjk6aa6HB/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Dailymotion.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords to search (mode=search, mode=searchUsers). Each query is paginated up to Max items. Existing tasks with the old `searchQuery` field keep working.</td></tr><tr><td><code>topic</code></td><td>string</td><td>optional</td><td>Dailymotion category to browse (mode=byTopic).</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>required</td><td>What to fetch from Dailymotion.</td></tr><tr><td><code>searchQueries</code></td><td>array</td><td>optional</td><td>One or more keywords to search (mode=search, mode=searchUsers). Each query is paginated up to Max items. Existing tasks with the old `searchQuery` field keep working.</td></tr><tr><td><code>topic</code></td><td>string</td><td>optional</td><td>Dailymotion category to browse (mode=byTopic).</td></tr><tr><td><code>videoIds</code></td><td>array</td><td>optional</td><td>Specific videos to look up (mode=byVideoIds). Accepts bare IDs (`x4d4447`), dailymotion.com/video/... links, or dai.ly links. Unavailable IDs are skipped.</td></tr><tr><td><code>sortBy</code></td><td>string</td><td>optional</td><td>Result order. Values apply where the Dailymotion API supports them: `relevance` needs mode=search/searchUsers; `popular` is mode=searchUsers only; `old`/`id-asc` are not available in trending mode. Unsupported values fall back to the mode&#x27;s default order and the run note says so. Runs with maxItems above 1,000 always use a recent/old time-ordered sweep.</td></tr><tr><td><code>language</code></td><td>string</td><td>optional</td><td>Only include videos in this language. Leave as All languages for every language.</td></tr><tr><td><code>country</code></td><td>string</td><td>optional</td><td>Only include videos published from this country (mode=search, trending). Leave as All countries for every country.</td></tr><tr><td><code>verifiedOnly</code></td><td>boolean</td><td>optional</td><td>Only include videos from verified Dailymotion channels (mode=search, trending).</td></tr><tr><td><code>liveOnly</code></td><td>boolean</td><td>optional</td><td>Only include live streams instead of on-demand videos.</td></tr><tr><td><code>tag</code></td><td>string</td><td>optional</td><td>Only include videos carrying this tag (mode=search, byTopic, byUser, byPlaylist). Example: `jazz`.</td></tr><tr><td><code>createdAfter</code></td><td>string</td><td>optional</td><td>Only include videos published on or after this date, as `YYYY-MM-DD` (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.</td></tr><tr><td><code>createdBefore</code></td><td>string</td><td>optional</td><td>Only include videos published on or before this date, as `YYYY-MM-DD` (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.</td></tr><tr><td><code>minDuration</code></td><td>integer</td><td>optional</td><td>Only include videos at least this many seconds long.</td></tr><tr><td><code>maxDuration</code></td><td>integer</td><td>optional</td><td>Only include videos at most this many seconds long.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Maximum number of records to return. Up to 1,000 comes from a single query; higher values automatically sweep Dailymotion&#x27;s date windows (search/topic/channel modes, newest-first or oldest-first order). Playlist and channel-search modes stay capped at 1,000 per query.</td></tr><tr><td><code>usernames</code></td><td>array</td><td>optional</td><td>One or more Dailymotion channels to fetch uploads from (mode=byUser). Accepts usernames (`euronews-en`), profile URLs (`https://www.dailymotion.com/user/euronews-en`), or profile IDs. Existing tasks with the old `username` field keep working.</td></tr><tr><td><code>playlists</code></td><td>array</td><td>optional</td><td>One or more playlists to fetch (mode=byPlaylist). Accepts playlist URLs (`https://www.dailymotion.com/playlist/x6pu6c`) or bare playlist IDs. Existing tasks with the old `playlist` field keep working.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Discover Dailymotion videos by keyword, topic, channel, playlist or ID — with language, country, date, duration, verification and live filters.&quot;,
-  &quot;properties&quot;: {
-    &quot;country&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Only include videos published from this country (mode=search, trending). Leave as All countries for every country.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;&quot;,
-        &quot;AD&quot;,
-        &quot;AE&quot;,
-        &quot;AF&quot;,
-        &quot;AG&quot;,
-        &quot;AI&quot;,
-        &quot;AL&quot;,
-        &quot;AM&quot;,
-        &quot;AO&quot;,
-        &quot;AQ&quot;,
-        &quot;AR&quot;,
-        &quot;AS&quot;,
-        &quot;AT&quot;,
-        &quot;AU&quot;,
-        &quot;AW&quot;,
-        &quot;AX&quot;,
-        &quot;AZ&quot;,
-        &quot;BA&quot;,
-        &quot;BB&quot;,
-        &quot;BD&quot;,
-        &quot;BE&quot;,
-        &quot;BF&quot;,
-        &quot;BG&quot;,
-        &quot;BH&quot;,
-        &quot;BI&quot;,
-        &quot;BJ&quot;,
-        &quot;BL&quot;,
-        &quot;BM&quot;,
-        &quot;BN&quot;,
-        &quot;BO&quot;,
-        &quot;BQ&quot;,
-        &quot;BR&quot;,
-        &quot;BS&quot;,
-        &quot;BT&quot;,
-        &quot;BV&quot;,
-        &quot;BW&quot;,
-        &quot;BY&quot;,
-        &quot;BZ&quot;,
-        &quot;CA&quot;,
-        &quot;CC&quot;,
-        &quot;CD&quot;,
-        &quot;CF&quot;,
-        &quot;CG&quot;,
-        &quot;CH&quot;,
-        &quot;CI&quot;,
-        &quot;CK&quot;,
-        &quot;CL&quot;,
-        &quot;CM&quot;,
-        &quot;CN&quot;,
-        &quot;CO&quot;,
-        &quot;CR&quot;,
-        &quot;CU&quot;,
-        &quot;CV&quot;,
-        &quot;CW&quot;,
-        &quot;CX&quot;,
-        &quot;CY&quot;,
-        &quot;CZ&quot;,
-        &quot;DE&quot;,
-        &quot;DJ&quot;,
-        &quot;DK&quot;,
-        &quot;DM&quot;,
-        &quot;DO&quot;,
-        &quot;DZ&quot;,
-        &quot;EC&quot;,
-        &quot;EE&quot;,
-        &quot;EG&quot;,
-        &quot;EH&quot;,
-        &quot;ER&quot;,
-        &quot;ES&quot;,
-        &quot;ET&quot;,
-        &quot;FI&quot;,
-        &quot;FJ&quot;,
-        &quot;FK&quot;,
-        &quot;FM&quot;,
-        &quot;FO&quot;,
-        &quot;FR&quot;,
-        &quot;GA&quot;,
-        &quot;GB&quot;,
-        &quot;GD&quot;,
-        &quot;GE&quot;,
-        &quot;GF&quot;,
-        &quot;GG&quot;,
-        &quot;GH&quot;,
-        &quot;GI&quot;,
-        &quot;GL&quot;,
-        &quot;GM&quot;,
-        &quot;GN&quot;,
-        &quot;GP&quot;,
-        &quot;GQ&quot;,
-        &quot;GR&quot;,
-        &quot;GS&quot;,
-        &quot;GT&quot;,
-        &quot;GU&quot;,
-        &quot;GW&quot;,
-        &quot;GY&quot;,
-        &quot;HK&quot;,
-        &quot;HM&quot;,
-        &quot;HN&quot;,
-        &quot;HR&quot;,
-        &quot;HT&quot;,
-        &quot;HU&quot;,
-        &quot;ID&quot;,
-        &quot;IE&quot;,
-        &quot;IL&quot;,
-        &quot;IM&quot;,
-        &quot;IN&quot;,
-        &quot;IO&quot;,
-        &quot;IQ&quot;,
-        &quot;IR&quot;,
-        &quot;IS&quot;,
-        &quot;IT&quot;,
-        &quot;JE&quot;,
-        &quot;JM&quot;,
-        &quot;JO&quot;,
-        &quot;JP&quot;,
-        &quot;KE&quot;,
-        &quot;KG&quot;,
-        &quot;KH&quot;,
-        &quot;KI&quot;,
-        &quot;KM&quot;,
-        &quot;KN&quot;,
-        &quot;KP&quot;,
-        &quot;KR&quot;,
-        &quot;KW&quot;,
-        &quot;KY&quot;,
-        &quot;KZ&quot;,
-        &quot;LA&quot;,
-        &quot;LB&quot;,
-        &quot;LC&quot;,
-        &quot;LI&quot;,
-        &quot;LK&quot;,
-        &quot;LR&quot;,
-        &quot;LS&quot;,
-        &quot;LT&quot;,
-        &quot;LU&quot;,
-        &quot;LV&quot;,
-        &quot;LY&quot;,
-        &quot;MA&quot;,
-        &quot;MC&quot;,
-        &quot;MD&quot;,
-        &quot;ME&quot;,
-        &quot;MF&quot;,
-        &quot;MG&quot;,
-        &quot;MH&quot;,
-        &quot;MK&quot;,
-        &quot;ML&quot;,
-        &quot;MM&quot;,
-        &quot;MN&quot;,
-        &quot;MO&quot;,
-        &quot;MP&quot;,
-        &quot;MQ&quot;,
-        &quot;MR&quot;,
-        &quot;MS&quot;,
-        &quot;MT&quot;,
-        &quot;MU&quot;,
-        &quot;MV&quot;,
-        &quot;MW&quot;,
-        &quot;MX&quot;,
-        &quot;MY&quot;,
-        &quot;MZ&quot;,
-        &quot;NA&quot;,
-        &quot;NC&quot;,
-        &quot;NE&quot;,
-        &quot;NF&quot;,
-        &quot;NG&quot;,
-        &quot;NI&quot;,
-        &quot;NL&quot;,
-        &quot;NO&quot;,
-        &quot;NP&quot;,
-        &quot;NR&quot;,
-        &quot;NU&quot;,
-        &quot;NZ&quot;,
-        &quot;OM&quot;,
-        &quot;PA&quot;,
-        &quot;PE&quot;,
-        &quot;PF&quot;,
-        &quot;PG&quot;,
-        &quot;PH&quot;,
-        &quot;PK&quot;,
-        &quot;PL&quot;,
-        &quot;PM&quot;,
-        &quot;PN&quot;,
-        &quot;PR&quot;,
-        &quot;PS&quot;,
-        &quot;PT&quot;,
-        &quot;PW&quot;,
-        &quot;PY&quot;,
-        &quot;QA&quot;,
-        &quot;RE&quot;,
-        &quot;RO&quot;,
-        &quot;RS&quot;,
-        &quot;RU&quot;,
-        &quot;RW&quot;,
-        &quot;SA&quot;,
-        &quot;SB&quot;,
-        &quot;SC&quot;,
-        &quot;SD&quot;,
-        &quot;SE&quot;,
-        &quot;SG&quot;,
-        &quot;SH&quot;,
-        &quot;SI&quot;,
-        &quot;SJ&quot;,
-        &quot;SK&quot;,
-        &quot;SL&quot;,
-        &quot;SM&quot;,
-        &quot;SN&quot;,
-        &quot;SO&quot;,
-        &quot;SR&quot;,
-        &quot;SS&quot;,
-        &quot;ST&quot;,
-        &quot;SV&quot;,
-        &quot;SX&quot;,
-        &quot;SY&quot;,
-        &quot;SZ&quot;,
-        &quot;TC&quot;,
-        &quot;TD&quot;,
-        &quot;TF&quot;,
-        &quot;TG&quot;,
-        &quot;TH&quot;,
-        &quot;TJ&quot;,
-        &quot;TK&quot;,
-        &quot;TL&quot;,
-        &quot;TM&quot;,
-        &quot;TN&quot;,
-        &quot;TO&quot;,
-        &quot;TR&quot;,
-        &quot;TT&quot;,
-        &quot;TV&quot;,
-        &quot;TW&quot;,
-        &quot;TZ&quot;,
-        &quot;UA&quot;,
-        &quot;UG&quot;,
-        &quot;UM&quot;,
-        &quot;US&quot;,
-        &quot;UY&quot;,
-        &quot;UZ&quot;,
-        &quot;VA&quot;,
-        &quot;VC&quot;,
-        &quot;VE&quot;,
-        &quot;VG&quot;,
-        &quot;VI&quot;,
-        &quot;VN&quot;,
-        &quot;VU&quot;,
-        &quot;WF&quot;,
-        &quot;WS&quot;,
-        &quot;YE&quot;,
-        &quot;YT&quot;,
-        &quot;ZA&quot;,
-        &quot;ZM&quot;,
-        &quot;ZW&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;All countries&quot;,
-        &quot;Andorra (AD)&quot;,
-        &quot;United Arab Emirates (AE)&quot;,
-        &quot;Afghanistan (AF)&quot;,
-        &quot;Antigua and Barbuda (AG)&quot;,
-        &quot;Anguilla (AI)&quot;,
-        &quot;Albania (AL)&quot;,
-        &quot;Armenia (AM)&quot;,
-        &quot;Angola (AO)&quot;,
-        &quot;Antarctica (AQ)&quot;,
-        &quot;Argentina (AR)&quot;,
-        &quot;American Samoa (AS)&quot;,
-        &quot;Austria (AT)&quot;,
-        &quot;Australia (AU)&quot;,
-        &quot;Aruba (AW)&quot;,
-        &quot;Åland Islands (AX)&quot;,
-        &quot;Azerbaijan (AZ)&quot;,
-        &quot;Bosnia and Herzegovina (BA)&quot;,
-        &quot;Barbados (BB)&quot;,
-        &quot;Bangladesh (BD)&quot;,
-        &quot;Belgium (BE)&quot;,
-        &quot;Burkina Faso (BF)&quot;,
-        &quot;Bulgaria (BG)&quot;,
-        &quot;Bahrain (BH)&quot;,
-        &quot;Burundi (BI)&quot;,
-        &quot;Benin (BJ)&quot;,
-        &quot;Saint Barthélemy (BL)&quot;,
-        &quot;Bermuda (BM)&quot;,
-        &quot;Brunei (BN)&quot;,
-        &quot;Bolivia (BO)&quot;,
-        &quot;Caribbean Netherlands (BQ)&quot;,
-        &quot;Brazil (BR)&quot;,
-        &quot;Bahamas (BS)&quot;,
-        &quot;Bhutan (BT)&quot;,
-        &quot;Bouvet Island (BV)&quot;,
-        &quot;Botswana (BW)&quot;,
-        &quot;Belarus (BY)&quot;,
-        &quot;Belize (BZ)&quot;,
-        &quot;Canada (CA)&quot;,
-        &quot;Cocos (Keeling) Islands (CC)&quot;,
-        &quot;DR Congo (CD)&quot;,
-        &quot;Central African Republic (CF)&quot;,
-        &quot;Congo (CG)&quot;,
-        &quot;Switzerland (CH)&quot;,
-        &quot;Côte d&#x27;Ivoire (CI)&quot;,
-        &quot;Cook Islands (CK)&quot;,
-        &quot;Chile (CL)&quot;,
-        &quot;Cameroon (CM)&quot;,
-        &quot;China (CN)&quot;,
-        &quot;Colombia (CO)&quot;,
-        &quot;Costa Rica (CR)&quot;,
-        &quot;Cuba (CU)&quot;,
-        &quot;Cabo Verde (CV)&quot;,
-        &quot;Curaçao (CW)&quot;,
-        &quot;Christmas Island (CX)&quot;,
-        &quot;Cyprus (CY)&quot;,
-        &quot;Czechia (CZ)&quot;,
-        &quot;Germany (DE)&quot;,
-        &quot;Djibouti (DJ)&quot;,
-        &quot;Denmark (DK)&quot;,
-        &quot;Dominica (DM)&quot;,
-        &quot;Dominican Republic (DO)&quot;,
-        &quot;Algeria (DZ)&quot;,
-        &quot;Ecuador (EC)&quot;,
-        &quot;Estonia (EE)&quot;,
-        &quot;Egypt (EG)&quot;,
-        &quot;Western Sahara (EH)&quot;,
-        &quot;Eritrea (ER)&quot;,
-        &quot;Spain (ES)&quot;,
-        &quot;Ethiopia (ET)&quot;,
-        &quot;Finland (FI)&quot;,
-        &quot;Fiji (FJ)&quot;,
-        &quot;Falkland Islands (FK)&quot;,
-        &quot;Micronesia (FM)&quot;,
-        &quot;Faroe Islands (FO)&quot;,
-        &quot;France (FR)&quot;,
-        &quot;Gabon (GA)&quot;,
-        &quot;United Kingdom (GB)&quot;,
-        &quot;Grenada (GD)&quot;,
-        &quot;Georgia (GE)&quot;,
-        &quot;French Guiana (GF)&quot;,
-        &quot;Guernsey (GG)&quot;,
-        &quot;Ghana (GH)&quot;,
-        &quot;Gibraltar (GI)&quot;,
-        &quot;Greenland (GL)&quot;,
-        &quot;Gambia (GM)&quot;,
-        &quot;Guinea (GN)&quot;,
-        &quot;Guadeloupe (GP)&quot;,
-        &quot;Equatorial Guinea (GQ)&quot;,
-        &quot;Greece (GR)&quot;,
-        &quot;South Georgia (GS)&quot;,
-        &quot;Guatemala (GT)&quot;,
-        &quot;Guam (GU)&quot;,
-        &quot;Guinea-Bissau (GW)&quot;,
-        &quot;Guyana (GY)&quot;,
-        &quot;Hong Kong (HK)&quot;,
-        &quot;Heard &amp; McDonald Islands (HM)&quot;,
-        &quot;Honduras (HN)&quot;,
-        &quot;Croatia (HR)&quot;,
-        &quot;Haiti (HT)&quot;,
-        &quot;Hungary (HU)&quot;,
-        &quot;Indonesia (ID)&quot;,
-        &quot;Ireland (IE)&quot;,
-        &quot;Israel (IL)&quot;,
-        &quot;Isle of Man (IM)&quot;,
-        &quot;India (IN)&quot;,
-        &quot;British Indian Ocean Territory (IO)&quot;,
-        &quot;Iraq (IQ)&quot;,
-        &quot;Iran (IR)&quot;,
-        &quot;Iceland (IS)&quot;,
-        &quot;Italy (IT)&quot;,
-        &quot;Jersey (JE)&quot;,
-        &quot;Jamaica (JM)&quot;,
-        &quot;Jordan (JO)&quot;,
-        &quot;Japan (JP)&quot;,
-        &quot;Kenya (KE)&quot;,
-        &quot;Kyrgyzstan (KG)&quot;,
-        &quot;Cambodia (KH)&quot;,
-        &quot;Kiribati (KI)&quot;,
-        &quot;Comoros (KM)&quot;,
-        &quot;Saint Kitts and Nevis (KN)&quot;,
-        &quot;North Korea (KP)&quot;,
-        &quot;South Korea (KR)&quot;,
-        &quot;Kuwait (KW)&quot;,
-        &quot;Cayman Islands (KY)&quot;,
-        &quot;Kazakhstan (KZ)&quot;,
-        &quot;Laos (LA)&quot;,
-        &quot;Lebanon (LB)&quot;,
-        &quot;Saint Lucia (LC)&quot;,
-        &quot;Liechtenstein (LI)&quot;,
-        &quot;Sri Lanka (LK)&quot;,
-        &quot;Liberia (LR)&quot;,
-        &quot;Lesotho (LS)&quot;,
-        &quot;Lithuania (LT)&quot;,
-        &quot;Luxembourg (LU)&quot;,
-        &quot;Latvia (LV)&quot;,
-        &quot;Libya (LY)&quot;,
-        &quot;Morocco (MA)&quot;,
-        &quot;Monaco (MC)&quot;,
-        &quot;Moldova (MD)&quot;,
-        &quot;Montenegro (ME)&quot;,
-        &quot;Saint Martin (MF)&quot;,
-        &quot;Madagascar (MG)&quot;,
-        &quot;Marshall Islands (MH)&quot;,
-        &quot;North Macedonia (MK)&quot;,
-        &quot;Mali (ML)&quot;,
-        &quot;Myanmar (MM)&quot;,
-        &quot;Mongolia (MN)&quot;,
-        &quot;Macao (MO)&quot;,
-        &quot;Northern Mariana Islands (MP)&quot;,
-        &quot;Martinique (MQ)&quot;,
-        &quot;Mauritania (MR)&quot;,
-        &quot;Montserrat (MS)&quot;,
-        &quot;Malta (MT)&quot;,
-        &quot;Mauritius (MU)&quot;,
-        &quot;Maldives (MV)&quot;,
-        &quot;Malawi (MW)&quot;,
-        &quot;Mexico (MX)&quot;,
-        &quot;Malaysia (MY)&quot;,
-        &quot;Mozambique (MZ)&quot;,
-        &quot;Namibia (NA)&quot;,
-        &quot;New Caledonia (NC)&quot;,
-        &quot;Niger (NE)&quot;,
-        &quot;Norfolk Island (NF)&quot;,
-        &quot;Nigeria (NG)&quot;,
-        &quot;Nicaragua (NI)&quot;,
-        &quot;Netherlands (NL)&quot;,
-        &quot;Norway (NO)&quot;,
-        &quot;Nepal (NP)&quot;,
-        &quot;Nauru (NR)&quot;,
-        &quot;Niue (NU)&quot;,
-        &quot;New Zealand (NZ)&quot;,
-        &quot;Oman (OM)&quot;,
-        &quot;Panama (PA)&quot;,
-        &quot;Peru (PE)&quot;,
-        &quot;French Polynesia (PF)&quot;,
-        &quot;Papua New Guinea (PG)&quot;,
-        &quot;Philippines (PH)&quot;,
-        &quot;Pakistan (PK)&quot;,
-        &quot;Poland (PL)&quot;,
-        &quot;Saint Pierre and Miquelon (PM)&quot;,
-        &quot;Pitcairn Islands (PN)&quot;,
-        &quot;Puerto Rico (PR)&quot;,
-        &quot;Palestine (PS)&quot;,
-        &quot;Portugal (PT)&quot;,
-        &quot;Palau (PW)&quot;,
-        &quot;Paraguay (PY)&quot;,
-        &quot;Qatar (QA)&quot;,
-        &quot;Réunion (RE)&quot;,
-        &quot;Romania (RO)&quot;,
-        &quot;Serbia (RS)&quot;,
-        &quot;Russia (RU)&quot;,
-        &quot;Rwanda (RW)&quot;,
-        &quot;Saudi Arabia (SA)&quot;,
-        &quot;Solomon Islands (SB)&quot;,
-        &quot;Seychelles (SC)&quot;,
-        &quot;Sudan (SD)&quot;,
-        &quot;Sweden (SE)&quot;,
-        &quot;Singapore (SG)&quot;,
-        &quot;Saint Helena (SH)&quot;,
-        &quot;Slovenia (SI)&quot;,
-        &quot;Svalbard &amp; Jan Mayen (SJ)&quot;,
-        &quot;Slovakia (SK)&quot;,
-        &quot;Sierra Leone (SL)&quot;,
-        &quot;San Marino (SM)&quot;,
-        &quot;Senegal (SN)&quot;,
-        &quot;Somalia (SO)&quot;,
-        &quot;Suriname (SR)&quot;,
-        &quot;South Sudan (SS)&quot;,
-        &quot;São Tomé and Príncipe (ST)&quot;,
-        &quot;El Salvador (SV)&quot;,
-        &quot;Sint Maarten (SX)&quot;,
-        &quot;Syria (SY)&quot;,
-        &quot;Eswatini (SZ)&quot;,
-        &quot;Turks and Caicos Islands (TC)&quot;,
-        &quot;Chad (TD)&quot;,
-        &quot;French Southern Territories (TF)&quot;,
-        &quot;Togo (TG)&quot;,
-        &quot;Thailand (TH)&quot;,
-        &quot;Tajikistan (TJ)&quot;,
-        &quot;Tokelau (TK)&quot;,
-        &quot;Timor-Leste (TL)&quot;,
-        &quot;Turkmenistan (TM)&quot;,
-        &quot;Tunisia (TN)&quot;,
-        &quot;Tonga (TO)&quot;,
-        &quot;Türkiye (TR)&quot;,
-        &quot;Trinidad and Tobago (TT)&quot;,
-        &quot;Tuvalu (TV)&quot;,
-        &quot;Taiwan (TW)&quot;,
-        &quot;Tanzania (TZ)&quot;,
-        &quot;Ukraine (UA)&quot;,
-        &quot;Uganda (UG)&quot;,
-        &quot;U.S. Outlying Islands (UM)&quot;,
-        &quot;United States (US)&quot;,
-        &quot;Uruguay (UY)&quot;,
-        &quot;Uzbekistan (UZ)&quot;,
-        &quot;Vatican City (VA)&quot;,
-        &quot;Saint Vincent and the Grenadines (VC)&quot;,
-        &quot;Venezuela (VE)&quot;,
-        &quot;British Virgin Islands (VG)&quot;,
-        &quot;U.S. Virgin Islands (VI)&quot;,
-        &quot;Vietnam (VN)&quot;,
-        &quot;Vanuatu (VU)&quot;,
-        &quot;Wallis and Futuna (WF)&quot;,
-        &quot;Samoa (WS)&quot;,
-        &quot;Yemen (YE)&quot;,
-        &quot;Mayotte (YT)&quot;,
-        &quot;South Africa (ZA)&quot;,
-        &quot;Zambia (ZM)&quot;,
-        &quot;Zimbabwe (ZW)&quot;
-      ],
-      &quot;title&quot;: &quot;Country&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;createdAfter&quot;: {
-      &quot;description&quot;: &quot;Only include videos published on or after this date, as `YYYY-MM-DD` (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Published after&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;createdBefore&quot;: {
-      &quot;description&quot;: &quot;Only include videos published on or before this date, as `YYYY-MM-DD` (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Published before&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;language&quot;: {
-      &quot;default&quot;: &quot;&quot;,
-      &quot;description&quot;: &quot;Only include videos in this language. Leave as All languages for every language.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;&quot;,
-        &quot;en&quot;,
-        &quot;fr&quot;,
-        &quot;es&quot;,
-        &quot;de&quot;,
-        &quot;ar&quot;,
-        &quot;pt&quot;,
-        &quot;it&quot;,
-        &quot;ru&quot;,
-        &quot;zh&quot;,
-        &quot;ja&quot;,
-        &quot;ko&quot;,
-        &quot;hi&quot;,
-        &quot;ur&quot;,
-        &quot;fa&quot;,
-        &quot;id&quot;,
-        &quot;th&quot;,
-        &quot;vi&quot;,
-        &quot;tr&quot;,
-        &quot;nl&quot;,
-        &quot;pl&quot;,
-        &quot;sv&quot;,
-        &quot;no&quot;,
-        &quot;da&quot;,
-        &quot;fi&quot;,
-        &quot;el&quot;,
-        &quot;he&quot;,
-        &quot;ro&quot;,
-        &quot;cs&quot;,
-        &quot;hu&quot;,
-        &quot;uk&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;All languages&quot;,
-        &quot;English&quot;,
-        &quot;French&quot;,
-        &quot;Spanish&quot;,
-        &quot;German&quot;,
-        &quot;Arabic&quot;,
-        &quot;Portuguese&quot;,
-        &quot;Italian&quot;,
-        &quot;Russian&quot;,
-        &quot;Chinese&quot;,
-        &quot;Japanese&quot;,
-        &quot;Korean&quot;,
-        &quot;Hindi&quot;,
-        &quot;Urdu&quot;,
-        &quot;Persian&quot;,
-        &quot;Indonesian&quot;,
-        &quot;Thai&quot;,
-        &quot;Vietnamese&quot;,
-        &quot;Turkish&quot;,
-        &quot;Dutch&quot;,
-        &quot;Polish&quot;,
-        &quot;Swedish&quot;,
-        &quot;Norwegian&quot;,
-        &quot;Danish&quot;,
-        &quot;Finnish&quot;,
-        &quot;Greek&quot;,
-        &quot;Hebrew&quot;,
-        &quot;Romanian&quot;,
-        &quot;Czech&quot;,
-        &quot;Hungarian&quot;,
-        &quot;Ukrainian&quot;
-      ],
-      &quot;title&quot;: &quot;Language&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;liveOnly&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Only include live streams instead of on-demand videos.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Live streams only&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;maxDuration&quot;: {
-      &quot;description&quot;: &quot;Only include videos at most this many seconds long.&quot;,
-      &quot;maximum&quot;: 86400,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Maximum duration (seconds)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 20,
-      &quot;description&quot;: &quot;Maximum number of records to return. Up to 1,000 comes from a single query; higher values automatically sweep Dailymotion&#x27;s date windows (search/topic/channel modes, newest-first or oldest-first order). Playlist and channel-search modes stay capped at 1,000 per query.&quot;,
-      &quot;maximum&quot;: 10000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 3,
-      &quot;title&quot;: &quot;Max items&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;minDuration&quot;: {
-      &quot;description&quot;: &quot;Only include videos at least this many seconds long.&quot;,
-      &quot;maximum&quot;: 86400,
-      &quot;minimum&quot;: 0,
-      &quot;title&quot;: &quot;Minimum duration (seconds)&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to fetch from Dailymotion.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;search&quot;,
-        &quot;trending&quot;,
-        &quot;byTopic&quot;,
-        &quot;byUser&quot;,
-        &quot;byPlaylist&quot;,
-        &quot;byVideoIds&quot;,
-        &quot;searchUsers&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Search videos by keyword&quot;,
-        &quot;Trending videos&quot;,
-        &quot;Browse a topic/category&quot;,
-        &quot;Videos from a channel (username)&quot;,
-        &quot;Videos in a playlist&quot;,
-        &quot;Look up specific videos by ID or URL&quot;,
-        &quot;Search channels/users&quot;
-      ],
-      &quot;prefill&quot;: &quot;search&quot;,
-      &quot;title&quot;: &quot;Mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;playlists&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;One or more playlists to fetch (mode=byPlaylist). Accepts playlist URLs (`https://www.dailymotion.com/playlist/x6pu6c`) or bare playlist IDs. Existing tasks with the old `playlist` field keep working.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Playlist URLs or IDs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;searchQueries&quot;: {
-      &quot;description&quot;: &quot;One or more keywords to search (mode=search, mode=searchUsers). Each query is paginated up to Max items. Existing tasks with the old `searchQuery` field keep working.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [
-        &quot;technology news&quot;
-      ],
-      &quot;title&quot;: &quot;Search queries&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;sortBy&quot;: {
-      &quot;default&quot;: &quot;relevance&quot;,
-      &quot;description&quot;: &quot;Result order. Values apply where the Dailymotion API supports them: `relevance` needs mode=search/searchUsers; `popular` is mode=searchUsers only; `old`/`id-asc` are not available in trending mode. Unsupported values fall back to the mode&#x27;s default order and the run note says so. Runs with maxItems above 1,000 always use a recent/old time-ordered sweep.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;relevance&quot;,
-        &quot;recent&quot;,
-        &quot;trending&quot;,
-        &quot;visited&quot;,
-        &quot;visited-hour&quot;,
-        &quot;visited-today&quot;,
-        &quot;visited-week&quot;,
-        &quot;visited-month&quot;,
-        &quot;random&quot;,
-        &quot;old&quot;,
-        &quot;id-asc&quot;,
-        &quot;popular&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Most relevant&quot;,
-        &quot;Most recent&quot;,
-        &quot;Trending now&quot;,
-        &quot;Most viewed (all time)&quot;,
-        &quot;Most viewed this hour&quot;,
-        &quot;Most viewed today&quot;,
-        &quot;Most viewed this week&quot;,
-        &quot;Most viewed this month&quot;,
-        &quot;Random order&quot;,
-        &quot;Oldest first&quot;,
-        &quot;Oldest first (by ID)&quot;,
-        &quot;Most followed (searchUsers)&quot;
-      ],
-      &quot;prefill&quot;: &quot;relevance&quot;,
-      &quot;title&quot;: &quot;Sort order&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;tag&quot;: {
-      &quot;description&quot;: &quot;Only include videos carrying this tag (mode=search, byTopic, byUser, byPlaylist). Example: `jazz`.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;Tag filter&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;topic&quot;: {
-      &quot;default&quot;: &quot;news&quot;,
-      &quot;description&quot;: &quot;Dailymotion category to browse (mode=byTopic).&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;news&quot;,
-        &quot;sport&quot;,
-        &quot;music&quot;,
-        &quot;tech&quot;,
-        &quot;animals&quot;,
-        &quot;auto&quot;,
-        &quot;people&quot;,
-        &quot;fun&quot;,
-        &quot;creation&quot;,
-        &quot;school&quot;,
-        &quot;videogames&quot;,
-        &quot;kids&quot;,
-        &quot;lifestyle&quot;,
-        &quot;shortfilms&quot;,
-        &quot;travel&quot;,
-        &quot;tv&quot;,
-        &quot;webcam&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;News&quot;,
-        &quot;Sports&quot;,
-        &quot;Music&quot;,
-        &quot;Tech&quot;,
-        &quot;Animals&quot;,
-        &quot;Cars&quot;,
-        &quot;Celeb&quot;,
-        &quot;Comedy &amp; Entertainment&quot;,
-        &quot;Creative&quot;,
-        &quot;Education&quot;,
-        &quot;Gaming&quot;,
-        &quot;Kids&quot;,
-        &quot;Lifestyle &amp; How-to&quot;,
-        &quot;Movies&quot;,
-        &quot;Travel&quot;,
-        &quot;TV&quot;,
-        &quot;Webcam&quot;
-      ],
-      &quot;title&quot;: &quot;Topic / category&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;usernames&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;One or more Dailymotion channels to fetch uploads from (mode=byUser). Accepts usernames (`euronews-en`), profile URLs (`https://www.dailymotion.com/user/euronews-en`), or profile IDs. Existing tasks with the old `username` field keep working.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Channel usernames or URLs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;verifiedOnly&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Only include videos from verified Dailymotion channels (mode=search, trending).&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Verified channels only&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;videoIds&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Specific videos to look up (mode=byVideoIds). Accepts bare IDs (`x4d4447`), dailymotion.com/video/... links, or dai.ly links. Unavailable IDs are skipped.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Video IDs or URLs&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    }
-  },
-  &quot;required&quot;: [
-    &quot;mode&quot;
-  ],
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Dailymotion Scraper Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>videos</code></td><td>string</td><td>optional</td><td>Dataset containing all scraped Dailymotion video records (and channel records for mode=searchUsers).</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Dailymotion videos with views, likes, velocity, duration, thumbnails, tags, geo-blocking and channel/owner details, plus channel records when searching channels.&quot;,
-  &quot;properties&quot;: {
-    &quot;videos&quot;: {
-      &quot;description&quot;: &quot;Dataset containing all scraped Dailymotion video records (and channel records for mode=searchUsers).&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Dailymotion videos and channels&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Dailymotion Video Discovery by Topic &amp; Channel Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;overview&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {}
-      },
-      &quot;title&quot;: &quot;Videos and channels&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;recordType&quot;,
-          &quot;title&quot;,
-          &quot;ownerUsername&quot;,
-          &quot;views&quot;,
-          &quot;likes&quot;,
-          &quot;duration&quot;,
-          &quot;publishedAt&quot;,
-          &quot;videoUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-dailymotion-video-discovery-by-topic-channel">Dailymotion Video Discovery by Topic &amp; Channel</h2>
-<p>Dailymotion's catalog is organized into keyword search, trending feeds, 17 topic categories, channel pages and playlists. This actor reads whichever of those you point it at — plus specific video IDs and a channel/user keyword search — and returns one clean JSON record per video or channel, straight from Dailymotion's public API. No login, no API key, no proxy.</p>
-<h2 id="readme-what-this-actor-does">What this actor does</h2>
-<ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-7Tyvn2UJR2Rkc87UH7xucxc+/mgknIsbTK6V13lXi/c=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Dailymotion Video Discovery by Topic &amp; Channel – docs, price and API | Dataspryva</title><meta name="description" content="Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per video."><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"><meta property="og:title" content="Dailymotion Video Discovery by Topic &amp; Channel – docs, price and API | Dataspryva"><meta property="og:description" content="Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per video."><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-XGXbbohKOjk6aa6HB-OX0kqsnKKv-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#webpage","name":"Dailymotion Video Discovery by Topic & Channel – docs, price and API","description":"Search Dailymotion by keyword, browse trending or topic videos, or pull a channel's uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#article"},"dateModified":"2026-10-18T05:00:38.375Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#article","headline":"Dailymotion Video Discovery by Topic & Channel – docs, price and API","name":"Dailymotion Video Discovery by Topic & Channel – docs, price and API","description":"Search Dailymotion by keyword, browse trending or topic videos, or pull a channel's uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#webpage"},"inLanguage":"en","dateModified":"2026-10-18T05:00:38.375Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-XGXbbohKOjk6aa6HB-OX0kqsnKKv-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Social Media","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/social-media/"},{"@type":"ListItem","position":4,"name":"Dailymotion Video Discovery by Topic & Channel","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#software","name":"Dailymotion Video Discovery by Topic & Channel","description":"Search Dailymotion by keyword, browse trending or topic videos, or pull a channel's uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.","url":"https://apify.com/dataspryva/dailymotion-video-discovery-by-topic-and-channel","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-XGXbbohKOjk6aa6HB-OX0kqsnKKv-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/dailymotion-video-discovery-by-topic-and-channel","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#faq","mainEntity":[{"@type":"Question","name":"Do I need a Dailymotion account or API key — and will this keep working when Dailymotion moves to API v2?","acceptedAnswer":{"@type":"Answer","text":"No account or key is needed: the actor reads Dailymotion's public read API without credentials, cookies or proxy setup. That API is still documented and supported (no sunset announced as of 2026-10). API v2 targets authenticated publisher workflows and requires private API keys, so a credential-free actor cannot use it; if Dailymotion ever announces a sunset for the public read API, this actor will need a rework. Current behaviour is tracked in the project research notes."}},{"@type":"Question","name":"How many records can one run return?","acceptedAnswer":{"@type":"Answer","text":"Up to 10,000 per run. Dailymotion's API itself returns at most 1,000 results per query, so the actor fetches more by sweeping the query's date range in overlapping windows (newest-first or oldest-first) and removing overlaps — the run's status message tells you how many windows were used. byPlaylist and searchUsers modes stay at 1,000 per query, because the playlist and user-search endpoints don't accept date filters. The date filters are applied by Dailymotion in roughly five-minute buckets, so at a day boundary a window can include up to five minutes of neighbouring content; the actor never fabricates or drops records because of it and reports what the source returned."}},{"@type":"Question","name":"Which modes, filters and sort orders does Dailymotion's API actually support?","acceptedAnswer":{"@type":"Answer","text":"Playlist search by keyword is not available — the public API supports keyword search only for videos and channels/users (the actor reads playlists by URL or ID, mode=byPlaylist). The country filter is accepted only together with a keyword search or the trending order; elsewhere it is ignored and the run's status message says so. Likewise, the old/id-asc orders are rejected for the plain trending feed and for keyword searches outside a mode that supports them — the actor falls back to the mode's default order and notes it in the status message."}},{"@type":"Question","name":"Why do some videos have no `tags`, `description`, `firstFrameUrl`, or channel no `ownerCoverUrl`?","acceptedAnswer":{"@type":"Answer","text":"Dailymotion only stores those fields for some uploads, and those artifacts genuinely don't exist for every video or channel — the player metadata returns empty first-frame sets for the same videos, and channels without a cover get a generated gradient on the site. When a field is missing from the source it is left out of the record entirely: records never contain empty placeholders and nothing is faked."}},{"@type":"Question","name":"Why is `comments` always 0?","acceptedAnswer":{"@type":"Answer","text":"Dailymotion removed public comments from its platform; the API reports 0 for every video and the comments endpoint returns an empty list (re-verified 2026-10-17 across 300 videos). The field is kept so existing integrations don't break."}},{"@type":"Question","name":"What do the `viewsLastHour` / `viewsLastDay` / `viewsLastWeek` / `viewsLastMonth` fields mean — and are the numbers accurate?","acceptedAnswer":{"@type":"Answer","text":"They are Dailymotion's own rolling view counters for the 60 minutes / 24 hours / 7 days / 30 days before the request, and the actor reads the video's metrics from the same API the video page uses. They usually nest inside each other, but because Dailymotion updates the total and window counters independently, a window counter can occasionally exceed views by a count or two; the actor reports the API's numbers as-is rather than correcting them."}},{"@type":"Question","name":"Can I download videos or get direct stream URLs?","acceptedAnswer":{"@type":"Answer","text":"No. This actor is for discovery and analytics: it returns metadata, thumbnails and embed links, not media files. Stream/download URLs require authenticated publisher access that Dailymotion doesn't grant to public integrations."}},{"@type":"Question","name":"What topics can I browse?","acceptedAnswer":{"@type":"Answer","text":"All 17 built-in categories: News, Sports, Music, Tech, Animals, Cars, Celeb, Comedy & Entertainment, Creative, Education, Gaming, Kids, Lifestyle & How-to, Movies, Travel, TV and Webcam."}},{"@type":"Question","name":"Are private or unlisted videos included?","acceptedAnswer":{"@type":"Answer","text":"No — only publicly accessible videos are returned. Unavailable IDs passed to byVideoIds are skipped, and the run status reports how many could not be accessed."}},{"@type":"Question","name":"Is this affiliated with Dailymotion?","acceptedAnswer":{"@type":"Answer","text":"No. This actor is an independent tool that reads Dailymotion's public API and is not affiliated with or endorsed by Dailymotion."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/social-media/">Social Media</a></li><li aria-current="page">Dailymotion Video Discovery by Topic &amp; Channel</li></ol></nav><div class="doc"><div class="doc-head"><h1>Dailymotion Video Discovery by Topic &amp; Channel</h1><p class="lead">Search Dailymotion by keyword, browse trending or topic videos, or pull a channel&#x27;s uploads, with language, country, and duration filters, views, likes, tags, and owner details per video.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-10-18">18 October 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>17 fields, 1 required</dd></div><div><dt>Output</dt><dd>8 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/dailymotion-video-discovery-by-topic-and-channel/">Dailymotion</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/dailymotion-video-discovery-by-topic-and-channel">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Dailymotion Video Discovery by Topic &amp; Channel is an Apify Actor published by Dataspryva. It accepts 17 input fields, and <code>mode</code> is required. Each result can carry up to 8 declared fields, including <code>recordType</code>, <code>title</code>, <code>ownerUsername</code>, <code>views</code>, <code>likes</code> and <code>duration</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Dailymotion's catalog is organized into keyword search, trending feeds, 17 topic categories, channel pages and playlists. This actor reads whichever of those you point it at — plus specific video IDs and a channel/user keyword search — and returns one clean JSON record per video or channel, straight from Dailymotion's public API. No login, no API key, no proxy.</p>
+<!--/readme--><h3 id="readme-what-this-actor-does">What this actor does</h3><!--readme--><ul>
 <li><strong>Seven modes:</strong> <code>search</code> videos by keyword, browse <code>trending</code>, walk a <code>byTopic</code> category, pull a <code>byUser</code> channel's uploads, read a <code>byPlaylist</code>, look up <code>byVideoIds</code>, or <code>searchUsers</code> for Dailymotion channels and creators.</li>
 <li><strong>Filters that match how the API really behaves:</strong> language, country (search/trending), publish date range, tag, verified channels only, live streams only, and exact min/max duration.</li>
 <li><strong>More than 1,000 results per query:</strong> setting <code>maxItems</code> above 1,000 makes the actor sweep Dailymotion's date windows automatically (newest-first or oldest-first), deduplicating as it goes — up to 10,000 records per run.</li>
@@ -836,8 +7,15 @@
 <li><strong>Full channel context per video:</strong> owner ID, display name, profile URL, followers, following, total videos and playlists, country, language, join date, avatar, cover and verification.</li>
 <li><strong>Geo-blocking, hashtags and every thumbnail size</strong> are returned when Dailymotion has them; fields the source doesn't carry are simply left out of that record.</li>
 </ul>
-<h2 id="readme-output-per-video">Output per video</h2>
-<div class="table-wrap"><table>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li><strong>Channel monitoring</strong> — track a publisher's new uploads and their first-day view velocity.</li>
+<li><strong>Topic and trend research</strong> — compare the most-viewed videos across categories and languages.</li>
+<li><strong>Competitive benchmarking</strong> — collect follower, catalog and engagement counts for a set of channels.</li>
+<li><strong>Media analysis</strong> — build duration-bucketed datasets of short clips vs long-form content.</li>
+<li><strong>Archival and licensing research</strong> — map playlists, creators and geo-restrictions across a catalog.</li>
+<li><strong>Dashboards and alerting</strong> — feed fresh upload metadata into BI tools on a schedule.</li>
+</ul>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 8 fields in 1 dataset view, and the README documents 11 more. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>recordType</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Always <code>&quot;video&quot;</code>.<!--/readme--></td></tr><tr><th scope="row"><code>title</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>ownerUsername</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>views</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Total views.<!--/readme--></td></tr><tr><th scope="row"><code>likes</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>duration</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Duration in seconds.<!--/readme--></td></tr><tr><th scope="row"><code>publishedAt</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>videoUrl</code></th><td data-label="Label"></td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>videoId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Dailymotion video ID.<!--/readme--></td></tr><tr><th scope="row"><code>comments</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Comment count. Dailymotion no longer shows comments, so this is always 0 — kept for compatibility.<!--/readme--></td></tr><tr><th scope="row"><code>firstFrameUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->720 px first-frame image.<!--/readme--></td></tr><tr><th scope="row"><code>availableFormats</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Available stream qualities, e.g. <code>sd</code>, <code>hq</code>, <code>hd720</code>, <code>hd1080</code>.<!--/readme--></td></tr><tr><th scope="row"><code>mode</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme--><code>vod</code> for on-demand, <code>live</code> for livestreams.<!--/readme--></td></tr><tr><th scope="row"><code>sourceUrl</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->The search/topic/channel URL this record was found through, when the mode used one.<!--/readme--></td></tr><tr><th scope="row"><code>scrapedAt</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->ISO 8601 timestamp of when the record was fetched.<!--/readme--></td></tr><tr><th scope="row"><code>channelId</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Dailymotion user/channel ID.<!--/readme--></td></tr><tr><th scope="row"><code>description</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Channel bio, when present.<!--/readme--></td></tr><tr><th scope="row"><code>url</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Channel profile URL.<!--/readme--></td></tr><tr><th scope="row"><code>createdAt</code></th><td data-label="Label"></td><td data-label="What it holds"><!--readme-->Join date (ISO 8601).<!--/readme--></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's output notes</summary><h3 id="readme-output-per-video">Output per video</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -963,8 +141,7 @@
 </tr>
 </tbody>
 </table></div>
-<h2 id="readme-output-per-channel-mode-searchusers">Output per channel (mode = <code>searchUsers</code>)</h2>
-<div class="table-wrap"><table>
+<!--/readme--><h3 id="readme-output-per-channel-mode-searchusers">Output per channel (mode = searchUsers)</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -1018,8 +195,53 @@
 </tr>
 </tbody>
 </table></div>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></details></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (keyword search). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/dailymotion-video-discovery-by-topic-and-channel/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/dailymotion-video-discovery-by-topic-and-channel&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;searchQueries&quot;: [&quot;electric cars&quot;, &quot;solar power&quot;],
+    &quot;sortBy&quot;: &quot;visited-week&quot;,
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;maxItems&quot;: 100,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/dailymotion-video-discovery-by-topic-and-channel&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;searchQueries&quot;: [
+    &quot;electric cars&quot;,
+    &quot;solar power&quot;
+  ],
+  &quot;sortBy&quot;: &quot;visited-week&quot;,
+  &quot;language&quot;: &quot;en&quot;,
+  &quot;maxItems&quot;: 100
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~dailymotion-video-discovery-by-topic-and-channel/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;search&quot;, &quot;searchQueries&quot;: [&quot;electric cars&quot;, &quot;solar power&quot;], &quot;sortBy&quot;: &quot;visited-week&quot;, &quot;language&quot;: &quot;en&quot;, &quot;maxItems&quot;: 100}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/dailymotion-video-discovery-by-topic-and-channel&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Dailymotion Video Discovery by Topic &amp; Channel uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/dailymotion-video-discovery-by-topic-and-channel">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 17 fields of the published input schema, in the publisher's order. Required fields are marked. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Mode</span></th><td data-label="Type">string <span class="req">required</span></td><td data-label="Description"><!--readme-->What to fetch from Dailymotion.<!--/readme--><span class="field-meta">Default <code>&quot;search&quot;</code>; Allowed search, trending, byTopic, byUser, byPlaylist, byVideoIds, searchUsers</span></td></tr><tr><th scope="row"><code>searchQueries</code><span class="field-title">Search queries</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more keywords to search (mode=search, mode=searchUsers). Each query is paginated up to Max items. Existing tasks with the old <code>searchQuery</code> field keep working.<!--/readme--><span class="field-meta">Example <code>[&quot;technology news&quot;]</code></span></td></tr><tr><th scope="row"><code>topic</code><span class="field-title">Topic / category</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Dailymotion category to browse (mode=byTopic).<!--/readme--><span class="field-meta">Default <code>&quot;news&quot;</code>; Allowed news, sport, music, tech, animals, auto, people, fun and 9 more</span></td></tr><tr><th scope="row"><code>videoIds</code><span class="field-title">Video IDs or URLs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Specific videos to look up (mode=byVideoIds). Accepts bare IDs (<code>x4d4447</code>), dailymotion.com/video/... links, or dai.ly links. Unavailable IDs are skipped.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>sortBy</code><span class="field-title">Sort order</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Result order. Values apply where the Dailymotion API supports them: <code>relevance</code> needs mode=search/searchUsers; <code>popular</code> is mode=searchUsers only; <code>old</code>/<code>id-asc</code> are not available in trending mode. Unsupported values fall back to the mode's default order and the run note says so. Runs with maxItems above 1,000 always use a recent/old time-ordered sweep.<!--/readme--><span class="field-meta">Default <code>&quot;relevance&quot;</code>; Allowed relevance, recent, trending, visited, visited-hour, visited-today, visited-week, visited-month and 4 more</span></td></tr><tr><th scope="row"><code>language</code><span class="field-title">Language</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only include videos in this language. Leave as All languages for every language.<!--/readme--><span class="field-meta">Default <code>&quot;&quot;</code>; Allowed , en, fr, es, de, ar, pt, it and 23 more</span></td></tr><tr><th scope="row"><code>country</code><span class="field-title">Country</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only include videos published from this country (mode=search, trending). Leave as All countries for every country.<!--/readme--><span class="field-meta">Default <code>&quot;&quot;</code>; Allowed , AD, AE, AF, AG, AI, AL, AM and 242 more</span></td></tr><tr><th scope="row"><code>verifiedOnly</code><span class="field-title">Verified channels only</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Only include videos from verified Dailymotion channels (mode=search, trending).<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>liveOnly</code><span class="field-title">Live streams only</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Only include live streams instead of on-demand videos.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>tag</code><span class="field-title">Tag filter</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only include videos carrying this tag (mode=search, byTopic, byUser, byPlaylist). Example: <code>jazz</code>.<!--/readme--></td></tr><tr><th scope="row"><code>createdAfter</code><span class="field-title">Published after</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only include videos published on or after this date, as <code>YYYY-MM-DD</code> (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.<!--/readme--></td></tr><tr><th scope="row"><code>createdBefore</code><span class="field-title">Published before</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Only include videos published on or before this date, as <code>YYYY-MM-DD</code> (mode=search, trending, byTopic, byUser). Long ranges are fetched automatically in overlapping windows. Dailymotion applies date filters in ~5-minute buckets, so a day boundary can include up to five minutes of neighbouring content.<!--/readme--></td></tr><tr><th scope="row"><code>minDuration</code><span class="field-title">Minimum duration (seconds)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Only include videos at least this many seconds long.<!--/readme--><span class="field-meta">Allowed 0 to 86400</span></td></tr><tr><th scope="row"><code>maxDuration</code><span class="field-title">Maximum duration (seconds)</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Only include videos at most this many seconds long.<!--/readme--><span class="field-meta">Allowed 0 to 86400</span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max items</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Maximum number of records to return. Up to 1,000 comes from a single query; higher values automatically sweep Dailymotion's date windows (search/topic/channel modes, newest-first or oldest-first order). Playlist and channel-search modes stay capped at 1,000 per query.<!--/readme--><span class="field-meta">Default <code>20</code>; Example <code>3</code>; Allowed 1 to 10000</span></td></tr><tr><th scope="row"><code>usernames</code><span class="field-title">Channel usernames or URLs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more Dailymotion channels to fetch uploads from (mode=byUser). Accepts usernames (<code>euronews-en</code>), profile URLs (<code>https://www.dailymotion.com/user/euronews-en</code>), or profile IDs. Existing tasks with the old <code>username</code> field keep working.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>playlists</code><span class="field-title">Playlist URLs or IDs</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more playlists to fetch (mode=byPlaylist). Accepts playlist URLs (<code>https://www.dailymotion.com/playlist/x6pu6c</code>) or bare playlist IDs. Existing tasks with the old <code>playlist</code> field keep working.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -1121,7 +343,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="readme-sort-order-values">Sort order values</h3>
+<h4 id="readme-sort-order-values">Sort order values</h4>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1169,7 +391,7 @@
 </tbody>
 </table></div>
 <p>Picking a value a mode can't honor (e.g. <code>relevance</code> in <code>trending</code>) falls back to that mode's default order, and the run's status message tells you it did. Runs with <code>maxItems</code> above 1,000 always use a <code>recent</code> or <code>old</code> time-ordered sweep (the status message says so); <code>byVideoIds</code> keeps your input order.</p>
-<h3 id="readme-example-keyword-search">Example: keyword search</h3>
+<h4 id="readme-example-keyword-search">Example: keyword search</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;search&quot;,
     &quot;searchQueries&quot;: [&quot;electric cars&quot;, &quot;solar power&quot;],
@@ -1178,7 +400,7 @@
     &quot;maxItems&quot;: 100
 }
 </code></pre>
-<h3 id="readme-example-a-large-channel-sweep-more-than-1-000-videos">Example: a large channel sweep (more than 1,000 videos)</h3>
+<h4 id="readme-example-a-large-channel-sweep-more-than-1-000-videos">Example: a large channel sweep (more than 1,000 videos)</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;byUser&quot;,
     &quot;usernames&quot;: [&quot;euronews-en&quot;],
@@ -1187,7 +409,7 @@
 }
 </code></pre>
 <p>The actor walks the channel's history in automatically-sized date windows and removes overlaps, so the dataset contains 8,000 distinct videos (or every video the channel has, whichever comes first).</p>
-<h3 id="readme-example-a-channel-s-uploads-by-profile-url">Example: a channel's uploads, by profile URL</h3>
+<h4 id="readme-example-a-channel-s-uploads-by-profile-url">Example: a channel's uploads, by profile URL</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;byUser&quot;,
     &quot;username&quot;: &quot;https://www.dailymotion.com/user/euronews-en&quot;,
@@ -1195,21 +417,21 @@
     &quot;maxItems&quot;: 200
 }
 </code></pre>
-<h3 id="readme-example-a-playlist">Example: a playlist</h3>
+<h4 id="readme-example-a-playlist">Example: a playlist</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;byPlaylist&quot;,
     &quot;playlist&quot;: &quot;https://www.dailymotion.com/playlist/x6pu6c&quot;,
     &quot;maxItems&quot;: 50
 }
 </code></pre>
-<h3 id="readme-example-specific-videos-by-id">Example: specific videos by ID</h3>
+<h4 id="readme-example-specific-videos-by-id">Example: specific videos by ID</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;byVideoIds&quot;,
     &quot;videoIds&quot;: [&quot;x4d4447&quot;, &quot;https://www.dailymotion.com/video/x3gmshg&quot;],
     &quot;maxItems&quot;: 10
 }
 </code></pre>
-<h3 id="readme-example-channels-and-creators-by-keyword">Example: channels and creators by keyword</h3>
+<h4 id="readme-example-channels-and-creators-by-keyword">Example: channels and creators by keyword</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;searchUsers&quot;,
     &quot;searchQueries&quot;: [&quot;space news&quot;],
@@ -1217,34 +439,14 @@
     &quot;maxItems&quot;: 30
 }
 </code></pre>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Channel monitoring</strong> — track a publisher's new uploads and their first-day view velocity.</li>
-<li><strong>Topic and trend research</strong> — compare the most-viewed videos across categories and languages.</li>
-<li><strong>Competitive benchmarking</strong> — collect follower, catalog and engagement counts for a set of channels.</li>
-<li><strong>Media analysis</strong> — build duration-bucketed datasets of short clips vs long-form content.</li>
-<li><strong>Archival and licensing research</strong> — map playlists, creators and geo-restrictions across a catalog.</li>
-<li><strong>Dashboards and alerting</strong> — feed fresh upload metadata into BI tools on a schedule.</li>
-</ul>
-<h2 id="readme-faq">FAQ</h2>
-<p><strong>Do I need a Dailymotion account or API key — and will this keep working when Dailymotion moves to API v2?</strong>
-No account or key is needed: the actor reads Dailymotion's public read API without credentials, cookies or proxy setup. That API is still documented and supported (no sunset announced as of 2026-10). API v2 targets authenticated publisher workflows and requires private API keys, so a credential-free actor cannot use it; if Dailymotion ever announces a sunset for the public read API, this actor will need a rework. Current behaviour is tracked in the project research notes.</p>
-<p><strong>How many records can one run return?</strong>
-Up to 10,000 per run. Dailymotion's API itself returns at most 1,000 results per query, so the actor fetches more by sweeping the query's date range in overlapping windows (newest-first or oldest-first) and removing overlaps — the run's status message tells you how many windows were used. <code>byPlaylist</code> and <code>searchUsers</code> modes stay at 1,000 per query, because the playlist and user-search endpoints don't accept date filters. The date filters are applied by Dailymotion in roughly five-minute buckets, so at a day boundary a window can include up to five minutes of neighbouring content; the actor never fabricates or drops records because of it and reports what the source returned.</p>
-<p><strong>Which modes, filters and sort orders does Dailymotion's API actually support?</strong>
-Playlist search by keyword is not available — the public API supports keyword search only for videos and channels/users (the actor reads playlists by URL or ID, <code>mode=byPlaylist</code>). The country filter is accepted only together with a keyword search or the trending order; elsewhere it is ignored and the run's status message says so. Likewise, the <code>old</code>/<code>id-asc</code> orders are rejected for the plain trending feed and for keyword searches outside a mode that supports them — the actor falls back to the mode's default order and notes it in the status message.</p>
-<p><strong>Why do some videos have no <code>tags</code>, <code>description</code>, <code>firstFrameUrl</code>, or channel no <code>ownerCoverUrl</code>?</strong>
-Dailymotion only stores those fields for some uploads, and those artifacts genuinely don't exist for every video or channel — the player metadata returns empty first-frame sets for the same videos, and channels without a cover get a generated gradient on the site. When a field is missing from the source it is left out of the record entirely: records never contain empty placeholders and nothing is faked.</p>
-<p><strong>Why is <code>comments</code> always 0?</strong>
-Dailymotion removed public comments from its platform; the API reports 0 for every video and the comments endpoint returns an empty list (re-verified 2026-10-17 across 300 videos). The field is kept so existing integrations don't break.</p>
-<p><strong>What do the <code>viewsLastHour</code> / <code>viewsLastDay</code> / <code>viewsLastWeek</code> / <code>viewsLastMonth</code> fields mean — and are the numbers accurate?</strong>
-They are Dailymotion's own rolling view counters for the 60 minutes / 24 hours / 7 days / 30 days before the request, and the actor reads the video's metrics from the same API the video page uses. They usually nest inside each other, but because Dailymotion updates the total and window counters independently, a window counter can occasionally exceed <code>views</code> by a count or two; the actor reports the API's numbers as-is rather than correcting them.</p>
-<p><strong>Can I download videos or get direct stream URLs?</strong>
-No. This actor is for discovery and analytics: it returns metadata, thumbnails and embed links, not media files. Stream/download URLs require authenticated publisher access that Dailymotion doesn't grant to public integrations.</p>
-<p><strong>What topics can I browse?</strong>
-All 17 built-in categories: News, Sports, Music, Tech, Animals, Cars, Celeb, Comedy &amp; Entertainment, Creative, Education, Gaming, Kids, Lifestyle &amp; How-to, Movies, Travel, TV and Webcam.</p>
-<p><strong>Are private or unlisted videos included?</strong>
-No — only publicly accessible videos are returned. Unavailable IDs passed to <code>byVideoIds</code> are skipped, and the run status reports how many could not be accessed.</p>
-<p><strong>Is this affiliated with Dailymotion?</strong>
-No. This actor is an independent tool that reads Dailymotion's public API and is not affiliated with or endorsed by Dailymotion.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/dailymotion-video-discovery-by-topic-and-channel/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>KvXY5wmZ1cYMdDI41</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-do-i-need-a-dailymotion-account-or-api-key-and-will-this-kee"><!--readme-->Do I need a Dailymotion account or API key — and will this keep working when Dailymotion moves to API v2?<!--/readme--></h3><!--readme--><p>No account or key is needed: the actor reads Dailymotion's public read API without credentials, cookies or proxy setup. That API is still documented and supported (no sunset announced as of 2026-10). API v2 targets authenticated publisher workflows and requires private API keys, so a credential-free actor cannot use it; if Dailymotion ever announces a sunset for the public read API, this actor will need a rework. Current behaviour is tracked in the project research notes.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-how-many-records-can-one-run-return"><!--readme-->How many records can one run return?<!--/readme--></h3><!--readme--><p>Up to 10,000 per run. Dailymotion's API itself returns at most 1,000 results per query, so the actor fetches more by sweeping the query's date range in overlapping windows (newest-first or oldest-first) and removing overlaps — the run's status message tells you how many windows were used. <code>byPlaylist</code> and <code>searchUsers</code> modes stay at 1,000 per query, because the playlist and user-search endpoints don't accept date filters. The date filters are applied by Dailymotion in roughly five-minute buckets, so at a day boundary a window can include up to five minutes of neighbouring content; the actor never fabricates or drops records because of it and reports what the source returned.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-which-modes-filters-and-sort-orders-does-dailymotion-s-api-a"><!--readme-->Which modes, filters and sort orders does Dailymotion's API actually support?<!--/readme--></h3><!--readme--><p>Playlist search by keyword is not available — the public API supports keyword search only for videos and channels/users (the actor reads playlists by URL or ID, <code>mode=byPlaylist</code>). The country filter is accepted only together with a keyword search or the trending order; elsewhere it is ignored and the run's status message says so. Likewise, the <code>old</code>/<code>id-asc</code> orders are rejected for the plain trending feed and for keyword searches outside a mode that supports them — the actor falls back to the mode's default order and notes it in the status message.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-do-some-videos-have-no-tags-description-firstframeurl-or"><!--readme-->Why do some videos have no <code>tags</code>, <code>description</code>, <code>firstFrameUrl</code>, or channel no <code>ownerCoverUrl</code>?<!--/readme--></h3><!--readme--><p>Dailymotion only stores those fields for some uploads, and those artifacts genuinely don't exist for every video or channel — the player metadata returns empty first-frame sets for the same videos, and channels without a cover get a generated gradient on the site. When a field is missing from the source it is left out of the record entirely: records never contain empty placeholders and nothing is faked.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-comments-always-0"><!--readme-->Why is <code>comments</code> always 0?<!--/readme--></h3><!--readme--><p>Dailymotion removed public comments from its platform; the API reports 0 for every video and the comments endpoint returns an empty list (re-verified 2026-10-17 across 300 videos). The field is kept so existing integrations don't break.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-what-do-the-viewslasthour-viewslastday-viewslastweek-viewsla"><!--readme-->What do the <code>viewsLastHour</code> / <code>viewsLastDay</code> / <code>viewsLastWeek</code> / <code>viewsLastMonth</code> fields mean — and are the numbers accurate?<!--/readme--></h3><!--readme--><p>They are Dailymotion's own rolling view counters for the 60 minutes / 24 hours / 7 days / 30 days before the request, and the actor reads the video's metrics from the same API the video page uses. They usually nest inside each other, but because Dailymotion updates the total and window counters independently, a window counter can occasionally exceed <code>views</code> by a count or two; the actor reports the API's numbers as-is rather than correcting them.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-download-videos-or-get-direct-stream-urls"><!--readme-->Can I download videos or get direct stream URLs?<!--/readme--></h3><!--readme--><p>No. This actor is for discovery and analytics: it returns metadata, thumbnails and embed links, not media files. Stream/download URLs require authenticated publisher access that Dailymotion doesn't grant to public integrations.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-what-topics-can-i-browse"><!--readme-->What topics can I browse?<!--/readme--></h3><!--readme--><p>All 17 built-in categories: News, Sports, Music, Tech, Animals, Cars, Celeb, Comedy &amp; Entertainment, Creative, Education, Gaming, Kids, Lifestyle &amp; How-to, Movies, Travel, TV and Webcam.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-are-private-or-unlisted-videos-included"><!--readme-->Are private or unlisted videos included?<!--/readme--></h3><!--readme--><p>No — only publicly accessible videos are returned. Unavailable IDs passed to <code>byVideoIds</code> are skipped, and the run status reports how many could not be accessed.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-is-this-affiliated-with-dailymotion"><!--readme-->Is this affiliated with Dailymotion?<!--/readme--></h3><!--readme--><p>No. This actor is an independent tool that reads Dailymotion's public API and is not affiliated with or endorsed by Dailymotion.</p>
+<!--/readme--></div></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/deviantart-artwork-search-gallery-and-trending/">DeviantArt Artwork Search, Gallery &amp; Trending Feed</a><p>Reads DeviantArt&#x27;s public feeds to find deviations by keyword, browse an artist&#x27;s full gallery, or pull the current trending artwork feed by category.</p></li><li><a href="/apify-actor-examples/actors/goodreads-book-author-and-listopia-list-scraper/">Goodreads Book, Author &amp; Listopia List Scraper</a><p>Look up Goodreads books by URL, search query, or ISBN, or pull every book by an author, in a series, on a Listopia list, shelf, or genre page. Filter by rating, ratings count, publish year, language, genre, or author.</p></li><li><a href="/apify-actor-examples/actors/hacker-news-story-comment-and-karma-scraper/">Hacker News Story, Comment &amp; Karma Scraper</a><p>Pull Hacker News front-page, newest, best, Ask HN, Show HN, or job stories, look up specific items or user profiles, or run a full-text search across HN history. Filter by score, domain, date range, and comment count or author.</p></li><li><a href="/apify-actor-examples/actors/instagram-downloader-api-reels-video-and-photo/">Instagram Downloader API - Reels, Video &amp; Photo</a><p>Download Instagram photos, videos, Reels and carousel posts from post links or usernames, up to 100 of each per run. Public posts and profiles need no login; add your own cookies for age-restricted posts and private accounts you follow. Each file gets a download link, size, resolution and length.</p></li><li><a href="/apify-actor-examples/actors/instagram-profile-scraper-bio-and-posts/">Instagram Profile Scraper - Bio &amp; Posts</a><p>Scrape public Instagram profiles from a list of usernames: bio, followers, following, post count, verified badge and bio links. Add recent posts with captions, hashtags, likes and comments. Export to Excel, CSV or JSON.</p></li><li><a href="/apify-actor-examples/actors/instagram-transcript-scraper-reels-and-video/">Instagram Transcript Scraper - Reels &amp; Video</a><p>Instagram video to text: paste many reel, post or IGTV links and get each transcript with creator, caption and likes. Reads Instagram captions or uses AI speech-to-text in 29 languages, with optional timestamps per phrase. Export to JSON, CSV or Excel for subtitles and research.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/social-media/">All social media Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>KvXY5wmZ1cYMdDI41</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

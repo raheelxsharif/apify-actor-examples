@@ -1,465 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-BcY6i09/8AlFYsKjShGt5KCceGfn8TE6vKTegsjbMZo=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Wayback Machine Snapshot History &amp; Archived Text Extractor | Dataspryva</title><meta name="description" content="Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text."><meta name="robots" content="index,follow"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"><meta property="og:title" content="Wayback Machine Snapshot History &amp; Archived Text Extractor | Dataspryva"><meta property="og:description" content="Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text."><meta property="og:type" content="website"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"><meta property="og:site_name" content="Dataspryva"><meta name="twitter:card" content="summary"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=c351d4541e50"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=414cae2e8952"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#webpage","name":"Wayback Machine Snapshot History & Archived Text Extractor","description":"Pull the Wayback Machine's capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#article"},"breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#article","headline":"Wayback Machine Snapshot History & Archived Text Extractor","name":"Wayback Machine Snapshot History & Archived Text Extractor","description":"Pull the Wayback Machine's capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#webpage"},"inLanguage":"en","dateModified":"2026-11-09T06:43:17.418Z"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Actors","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/"},{"@type":"ListItem","position":3,"name":"Wayback Machine Snapshot History & Archived Text Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"}]}]}</script><script src="/apify-actor-examples/assets/site.js?v=7cabac48dd31" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="29" height="29">Dataspryva</a><nav aria-label="Main navigation"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/guides/">Guides</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></header><main id="main"><div class="doc-layout"><aside class="contents" aria-label="On this page"><strong>Contents</strong><a href="#overview">Overview</a><a href="#published-readme">Published README</a><a href="#input-schema">Input schema</a><a href="#output-schema">Output schema</a><a href="#dataset-schema">Dataset schema</a><a href="#python-quickstart">Python quickstart</a></aside><article class="prose"><div class="breadcrumb"><a href="/apify-actor-examples/actors/">Actors</a><span>/</span><span>Wayback Machine Snapshot History &amp; Archived Text Extractor</span></div><section id="overview"><h1 class="doc-title">Wayback Machine Snapshot History &amp; Archived Text Extractor</h1><p class="lede">Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text.</p><p class="summary">Wayback Machine Snapshot History &amp; Archived Text Extractor is an Apify Actor published by Dataspryva. It accepts 19 input fields, none of them required at the top level. Its build declares a results dataset with 5 views. Runs happen on Apify, where the Store page lists the current price.</p><div class="actions"><a class="button" href="https://apify.com/dataspryva/wayback-machine-snapshot-history-and-archived-text">Open on Apify</a><a class="text-link" href="https://github.com/raheelxsharif/apify-actor-examples/blob/main/docs/actors/mXENdRBun6FUTc2pI/README.md">GitHub source</a></div></section><section class="schema-section" id="input-schema"><h2>Input schema</h2><p>Input fields, types, required flags, descriptions, defaults, and prefills come from the published definition. Prefill examples are distinct from defaults.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to collect. &#x27;search&#x27; returns every matching capture; &#x27;timeline&#x27; returns one row per distinct content version; &#x27;summary&#x27; returns archive coverage per target; &#x27;closest&#x27; returns the nearest capture to a date; &#x27;content&#x27; returns readable text from the archived page.</td></tr><tr><td><code>url</code></td><td>string</td><td>optional</td><td>One URL, host, domain, or Wayback playback URL. Examples: &#x27;apify.com&#x27;, &#x27;https://example.com/blog&#x27;, &#x27;https://web.archive.org/web/20240101000000/https://apify.com/&#x27;. Wildcards like &#x27;example.com/*&#x27; and &#x27;*.example.com&#x27; are detected automatically.</td></tr><tr><td><code>urls</code></td><td>array</td><td>optional</td><td>One or more targets for batch collection. Each target is queried independently and the Max items budget is split across them.</td></tr></tbody></table></div><details><summary>Show all input fields</summary><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>mode</code></td><td>string</td><td>optional</td><td>What to collect. &#x27;search&#x27; returns every matching capture; &#x27;timeline&#x27; returns one row per distinct content version; &#x27;summary&#x27; returns archive coverage per target; &#x27;closest&#x27; returns the nearest capture to a date; &#x27;content&#x27; returns readable text from the archived page.</td></tr><tr><td><code>url</code></td><td>string</td><td>optional</td><td>One URL, host, domain, or Wayback playback URL. Examples: &#x27;apify.com&#x27;, &#x27;https://example.com/blog&#x27;, &#x27;https://web.archive.org/web/20240101000000/https://apify.com/&#x27;. Wildcards like &#x27;example.com/*&#x27; and &#x27;*.example.com&#x27; are detected automatically.</td></tr><tr><td><code>urls</code></td><td>array</td><td>optional</td><td>One or more targets for batch collection. Each target is queried independently and the Max items budget is split across them.</td></tr><tr><td><code>matchType</code></td><td>string</td><td>optional</td><td>How the target is matched against the archive. &#x27;exact&#x27; = that URL only; &#x27;prefix&#x27; = the URL and every path beneath it; &#x27;host&#x27; = every path on the same host; &#x27;domain&#x27; = the host and all subdomains.</td></tr><tr><td><code>dateFrom</code></td><td>string</td><td>optional</td><td>Earliest capture date, inclusive. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp such as 2024-01-31T12:00:00.</td></tr><tr><td><code>dateTo</code></td><td>string</td><td>optional</td><td>Latest capture date, inclusive. Uses the same formats as From date. A date without a time includes the whole day.</td></tr><tr><td><code>statusCodes</code></td><td>array</td><td>optional</td><td>Only keep captures with these HTTP status codes, e.g. [&#x27;200&#x27;,&#x27;301&#x27;]. Leave empty for all statuses. Values may also be comma-separated.</td></tr><tr><td><code>excludeStatusCodes</code></td><td>array</td><td>optional</td><td>Drop captures with these HTTP status codes, e.g. [&#x27;404&#x27;,&#x27;500&#x27;]. Leave empty to exclude nothing.</td></tr><tr><td><code>mimeTypes</code></td><td>array</td><td>optional</td><td>Only keep captures with these MIME types, e.g. [&#x27;text/html&#x27;,&#x27;application/pdf&#x27;]. Leave empty for all MIME types.</td></tr><tr><td><code>excludeMimeTypes</code></td><td>array</td><td>optional</td><td>Drop captures with these MIME types, e.g. [&#x27;image/png&#x27;,&#x27;video/mp4&#x27;]. Leave empty to exclude nothing.</td></tr><tr><td><code>collapseBy</code></td><td>string</td><td>optional</td><td>Deduplicate adjacent captures in &#x27;search&#x27; mode. &#x27;digest&#x27; keeps one record per distinct content fingerprint; &#x27;urlkey&#x27; keeps one capture per URL; &#x27;monthly&#x27;, &#x27;daily&#x27;, and &#x27;hourly&#x27; keep one capture per time bucket; &#x27;none&#x27; returns every raw capture. &#x27;timeline&#x27; and &#x27;summary&#x27; always read raw captures so their counts and durations stay accurate.</td></tr><tr><td><code>sortDirection</code></td><td>string</td><td>optional</td><td>Choose whether the limited result set comes from the oldest or newest captures. Search rows are emitted in chronological order; &#x27;latest&#x27; reverses the final rows so the newest appears first.</td></tr><tr><td><code>targetDate</code></td><td>string</td><td>optional</td><td>Date used by &#x27;closest&#x27; and &#x27;content&#x27; modes, and as the reference when a playback URL does not include a timestamp. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp. Defaults to now when empty.</td></tr><tr><td><code>enrichWithContent</code></td><td>boolean</td><td>optional</td><td>In &#x27;search&#x27; mode, fetch the archived HTML for the first Max content fetches rows and add its readable text and metadata. Off by default because it costs extra requests.</td></tr><tr><td><code>maxContentFetch</code></td><td>integer</td><td>optional</td><td>Cap on archived pages downloaded when &#x27;Add archived text to search rows&#x27; is on. 0 disables enrichment. This setting is ignored by &#x27;content&#x27; mode, which uses Max items instead.</td></tr><tr><td><code>maxContentChars</code></td><td>integer</td><td>optional</td><td>Truncate extracted text at this many characters. The full word count and text hash are still recorded, and contentTruncated is set when clipping happens.</td></tr><tr><td><code>includeHeadings</code></td><td>boolean</td><td>optional</td><td>Add the page&#x27;s H1-H6 headings as structured records when archived text is extracted.</td></tr><tr><td><code>maxItems</code></td><td>integer</td><td>optional</td><td>Hard cap on emitted records. For bulk search the budget is split evenly across targets. In &#x27;summary&#x27; mode it is also the per-target capture scan budget, split between the oldest and newest ends. Up to 100,000 captures are supported through automatic resume-key pagination.</td></tr><tr><td><code>detectChanges</code></td><td>boolean</td><td>optional</td><td>In &#x27;search&#x27; mode, compare each capture with the previous capture of the same URL and add changed, changeType, previousTimestamp, and related fields.</td></tr></tbody></table></div></details><p><a href="input-schema.json">Download the published input schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;description&quot;: &quot;Collect Wayback Machine capture history, closest snapshots, or archived page text for one URL or a bulk list.&quot;,
-  &quot;properties&quot;: {
-    &quot;collapseBy&quot;: {
-      &quot;default&quot;: &quot;digest&quot;,
-      &quot;description&quot;: &quot;Deduplicate adjacent captures in &#x27;search&#x27; mode. &#x27;digest&#x27; keeps one record per distinct content fingerprint; &#x27;urlkey&#x27; keeps one capture per URL; &#x27;monthly&#x27;, &#x27;daily&#x27;, and &#x27;hourly&#x27; keep one capture per time bucket; &#x27;none&#x27; returns every raw capture. &#x27;timeline&#x27; and &#x27;summary&#x27; always read raw captures so their counts and durations stay accurate.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;none&quot;,
-        &quot;digest&quot;,
-        &quot;urlkey&quot;,
-        &quot;monthly&quot;,
-        &quot;daily&quot;,
-        &quot;hourly&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;None (every capture)&quot;,
-        &quot;Content digest (distinct versions)&quot;,
-        &quot;One per URL&quot;,
-        &quot;One per month&quot;,
-        &quot;One per day&quot;,
-        &quot;One per hour&quot;
-      ],
-      &quot;prefill&quot;: &quot;none&quot;,
-      &quot;title&quot;: &quot;Collapse duplicates&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;dateFrom&quot;: {
-      &quot;description&quot;: &quot;Earliest capture date, inclusive. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp such as 2024-01-31T12:00:00.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;sectionCaption&quot;: &quot;Capture filters&quot;,
-      &quot;sectionDescription&quot;: &quot;These filters are applied by the Wayback CDX API before records are returned.&quot;,
-      &quot;title&quot;: &quot;From date&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;dateTo&quot;: {
-      &quot;description&quot;: &quot;Latest capture date, inclusive. Uses the same formats as From date. A date without a time includes the whole day.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;title&quot;: &quot;To date&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;detectChanges&quot;: {
-      &quot;default&quot;: true,
-      &quot;description&quot;: &quot;In &#x27;search&#x27; mode, compare each capture with the previous capture of the same URL and add changed, changeType, previousTimestamp, and related fields.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Annotate content changes&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;enrichWithContent&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;In &#x27;search&#x27; mode, fetch the archived HTML for the first Max content fetches rows and add its readable text and metadata. Off by default because it costs extra requests.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Add archived text to search rows&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;excludeMimeTypes&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Drop captures with these MIME types, e.g. [&#x27;image/png&#x27;,&#x27;video/mp4&#x27;]. Leave empty to exclude nothing.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Exclude MIME types&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;excludeStatusCodes&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Drop captures with these HTTP status codes, e.g. [&#x27;404&#x27;,&#x27;500&#x27;]. Leave empty to exclude nothing.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Exclude HTTP status codes&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;includeHeadings&quot;: {
-      &quot;default&quot;: true,
-      &quot;description&quot;: &quot;Add the page&#x27;s H1-H6 headings as structured records when archived text is extracted.&quot;,
-      &quot;prefill&quot;: false,
-      &quot;title&quot;: &quot;Include headings&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;matchType&quot;: {
-      &quot;default&quot;: &quot;exact&quot;,
-      &quot;description&quot;: &quot;How the target is matched against the archive. &#x27;exact&#x27; = that URL only; &#x27;prefix&#x27; = the URL and every path beneath it; &#x27;host&#x27; = every path on the same host; &#x27;domain&#x27; = the host and all subdomains.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;exact&quot;,
-        &quot;prefix&quot;,
-        &quot;host&quot;,
-        &quot;domain&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Exact URL&quot;,
-        &quot;URL prefix&quot;,
-        &quot;Same host&quot;,
-        &quot;Same domain (includes subdomains)&quot;
-      ],
-      &quot;prefill&quot;: &quot;exact&quot;,
-      &quot;title&quot;: &quot;URL match type&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;maxContentChars&quot;: {
-      &quot;default&quot;: 500000,
-      &quot;description&quot;: &quot;Truncate extracted text at this many characters. The full word count and text hash are still recorded, and contentTruncated is set when clipping happens.&quot;,
-      &quot;maximum&quot;: 2000000,
-      &quot;minimum&quot;: 1000,
-      &quot;prefill&quot;: 500000,
-      &quot;title&quot;: &quot;Max characters per archived page&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxContentFetch&quot;: {
-      &quot;default&quot;: 10,
-      &quot;description&quot;: &quot;Cap on archived pages downloaded when &#x27;Add archived text to search rows&#x27; is on. 0 disables enrichment. This setting is ignored by &#x27;content&#x27; mode, which uses Max items instead.&quot;,
-      &quot;maximum&quot;: 500,
-      &quot;minimum&quot;: 0,
-      &quot;prefill&quot;: 0,
-      &quot;title&quot;: &quot;Max text fetches for search rows&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;maxItems&quot;: {
-      &quot;default&quot;: 500,
-      &quot;description&quot;: &quot;Hard cap on emitted records. For bulk search the budget is split evenly across targets. In &#x27;summary&#x27; mode it is also the per-target capture scan budget, split between the oldest and newest ends. Up to 100,000 captures are supported through automatic resume-key pagination.&quot;,
-      &quot;maximum&quot;: 100000,
-      &quot;minimum&quot;: 1,
-      &quot;prefill&quot;: 1,
-      &quot;sectionCaption&quot;: &quot;Output&quot;,
-      &quot;sectionDescription&quot;: &quot;Control row volume and change annotations.&quot;,
-      &quot;title&quot;: &quot;Max items&quot;,
-      &quot;type&quot;: &quot;integer&quot;
-    },
-    &quot;mimeTypes&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Only keep captures with these MIME types, e.g. [&#x27;text/html&#x27;,&#x27;application/pdf&#x27;]. Leave empty for all MIME types.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Keep MIME types&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;mode&quot;: {
-      &quot;default&quot;: &quot;search&quot;,
-      &quot;description&quot;: &quot;What to collect. &#x27;search&#x27; returns every matching capture; &#x27;timeline&#x27; returns one row per distinct content version; &#x27;summary&#x27; returns archive coverage per target; &#x27;closest&#x27; returns the nearest capture to a date; &#x27;content&#x27; returns readable text from the archived page.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;search&quot;,
-        &quot;timeline&quot;,
-        &quot;summary&quot;,
-        &quot;closest&quot;,
-        &quot;content&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Search capture history&quot;,
-        &quot;Version timeline&quot;,
-        &quot;Archive coverage summary&quot;,
-        &quot;Closest snapshot to a date&quot;,
-        &quot;Archived page text&quot;
-      ],
-      &quot;prefill&quot;: &quot;closest&quot;,
-      &quot;sectionCaption&quot;: &quot;What to collect&quot;,
-      &quot;sectionDescription&quot;: &quot;Pick the result shape first, then set the target and filters below.&quot;,
-      &quot;title&quot;: &quot;Mode&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;sortDirection&quot;: {
-      &quot;default&quot;: &quot;earliest&quot;,
-      &quot;description&quot;: &quot;Choose whether the limited result set comes from the oldest or newest captures. Search rows are emitted in chronological order; &#x27;latest&#x27; reverses the final rows so the newest appears first.&quot;,
-      &quot;editor&quot;: &quot;select&quot;,
-      &quot;enum&quot;: [
-        &quot;earliest&quot;,
-        &quot;latest&quot;
-      ],
-      &quot;enumTitles&quot;: [
-        &quot;Oldest captures first&quot;,
-        &quot;Newest captures first&quot;
-      ],
-      &quot;prefill&quot;: &quot;earliest&quot;,
-      &quot;title&quot;: &quot;Which end of the archive&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;statusCodes&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;Only keep captures with these HTTP status codes, e.g. [&#x27;200&#x27;,&#x27;301&#x27;]. Leave empty for all statuses. Values may also be comma-separated.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;Keep HTTP status codes&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;targetDate&quot;: {
-      &quot;description&quot;: &quot;Date used by &#x27;closest&#x27; and &#x27;content&#x27; modes, and as the reference when a playback URL does not include a timestamp. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp. Defaults to now when empty.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;2024-01-01&quot;,
-      &quot;sectionCaption&quot;: &quot;Closest snapshot and archived text&quot;,
-      &quot;sectionDescription&quot;: &quot;These settings control date matching and text extraction.&quot;,
-      &quot;title&quot;: &quot;Target date&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;url&quot;: {
-      &quot;description&quot;: &quot;One URL, host, domain, or Wayback playback URL. Examples: &#x27;apify.com&#x27;, &#x27;https://example.com/blog&#x27;, &#x27;https://web.archive.org/web/20240101000000/https://apify.com/&#x27;. Wildcards like &#x27;example.com/*&#x27; and &#x27;*.example.com&#x27; are detected automatically.&quot;,
-      &quot;editor&quot;: &quot;textfield&quot;,
-      &quot;prefill&quot;: &quot;apify.com&quot;,
-      &quot;sectionCaption&quot;: &quot;Targets&quot;,
-      &quot;sectionDescription&quot;: &quot;Use the single field or the bulk list; both are merged and deduplicated.&quot;,
-      &quot;title&quot;: &quot;URL or domain (single target)&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    },
-    &quot;urls&quot;: {
-      &quot;default&quot;: [],
-      &quot;description&quot;: &quot;One or more targets for batch collection. Each target is queried independently and the Max items budget is split across them.&quot;,
-      &quot;editor&quot;: &quot;stringList&quot;,
-      &quot;prefill&quot;: [],
-      &quot;title&quot;: &quot;URLs or domains (bulk)&quot;,
-      &quot;type&quot;: &quot;array&quot;
-    }
-  },
-  &quot;schemaVersion&quot;: 1,
-  &quot;title&quot;: &quot;Wayback Machine Snapshot History &amp; Archived Text Input&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}
-</code></pre></details></section><section class="schema-section" id="output-schema"><h2>Output schema</h2><p>Published result links and storage locations. This schema is not an exhaustive contract for every field in a dataset record.</p><div class="table-wrap"><table><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead><tbody><tr><td><code>records</code></td><td>string</td><td>optional</td><td>Dataset containing snapshot, version, summary, closest-snapshot, archived-page, or diagnostic records for the selected mode.</td></tr></tbody></table></div><p><a href="output-schema.json">Download the published output schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorOutputSchemaVersion&quot;: 1,
-  &quot;description&quot;: &quot;Wayback capture history, closest snapshots, archive coverage summaries, version timelines, and readable archived page text.&quot;,
-  &quot;properties&quot;: {
-    &quot;records&quot;: {
-      &quot;description&quot;: &quot;Dataset containing snapshot, version, summary, closest-snapshot, archived-page, or diagnostic records for the selected mode.&quot;,
-      &quot;template&quot;: &quot;{{links.apiDefaultDatasetUrl}}/items&quot;,
-      &quot;title&quot;: &quot;Wayback Machine records&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;Wayback Machine Snapshot History &amp; Archived Text Output&quot;
-}
-</code></pre></details></section><section class="schema-section" id="dataset-schema"><h2>Dataset schema</h2><p>Published dataset views and any declared field definitions. A view can select only a subset of the returned record fields.</p><p><a href="dataset-schema.json">Download the published dataset schema</a></p><details><summary>View complete JSON</summary><pre><code>{
-  &quot;actorSpecification&quot;: 1,
-  &quot;views&quot;: {
-    &quot;archivedText&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {
-          &quot;archiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Archive date&quot;
-          },
-          &quot;archiveUrl&quot;: {
-            &quot;format&quot;: &quot;link&quot;,
-            &quot;label&quot;: &quot;Wayback URL&quot;
-          },
-          &quot;characterCount&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Characters&quot;
-          },
-          &quot;originalUrl&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Original URL&quot;
-          },
-          &quot;title&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Page title&quot;
-          },
-          &quot;wordCount&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Words&quot;
-          }
-        }
-      },
-      &quot;title&quot;: &quot;Archived text&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;originalUrl&quot;,
-          &quot;archiveDate&quot;,
-          &quot;title&quot;,
-          &quot;wordCount&quot;,
-          &quot;characterCount&quot;,
-          &quot;archiveUrl&quot;
-        ]
-      }
-    },
-    &quot;closestSnapshots&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {
-          &quot;archiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Archive date&quot;
-          },
-          &quot;archiveUrl&quot;: {
-            &quot;format&quot;: &quot;link&quot;,
-            &quot;label&quot;: &quot;Wayback URL&quot;
-          },
-          &quot;available&quot;: {
-            &quot;format&quot;: &quot;boolean&quot;,
-            &quot;label&quot;: &quot;Archived&quot;
-          },
-          &quot;originalUrl&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Original URL&quot;
-          },
-          &quot;requestedDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Requested date&quot;
-          },
-          &quot;statusCode&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;HTTP status&quot;
-          }
-        }
-      },
-      &quot;title&quot;: &quot;Closest snapshots&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;originalUrl&quot;,
-          &quot;requestedDate&quot;,
-          &quot;archiveDate&quot;,
-          &quot;available&quot;,
-          &quot;statusCode&quot;,
-          &quot;archiveUrl&quot;
-        ]
-      }
-    },
-    &quot;snapshots&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {
-          &quot;archiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Archive date&quot;
-          },
-          &quot;archiveUrl&quot;: {
-            &quot;format&quot;: &quot;link&quot;,
-            &quot;label&quot;: &quot;Wayback URL&quot;
-          },
-          &quot;captureYear&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Year&quot;
-          },
-          &quot;changeType&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Change&quot;
-          },
-          &quot;contentLength&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Bytes&quot;
-          },
-          &quot;mimeType&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;MIME type&quot;
-          },
-          &quot;originalUrl&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Original URL&quot;
-          },
-          &quot;resultIndex&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Result #&quot;
-          },
-          &quot;statusCode&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;HTTP status&quot;
-          }
-        }
-      },
-      &quot;title&quot;: &quot;Capture history&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;originalUrl&quot;,
-          &quot;archiveDate&quot;,
-          &quot;archiveUrl&quot;,
-          &quot;statusCode&quot;,
-          &quot;mimeType&quot;,
-          &quot;contentLength&quot;,
-          &quot;changeType&quot;,
-          &quot;captureYear&quot;,
-          &quot;resultIndex&quot;
-        ]
-      }
-    },
-    &quot;summaries&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {
-          &quot;captureCount&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Captures&quot;
-          },
-          &quot;firstArchiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;First capture&quot;
-          },
-          &quot;lastArchiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Last capture&quot;
-          },
-          &quot;originalUrl&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Original URL&quot;
-          },
-          &quot;spanDays&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Days covered&quot;
-          },
-          &quot;versionCount&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Versions&quot;
-          }
-        }
-      },
-      &quot;title&quot;: &quot;Archive coverage&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;originalUrl&quot;,
-          &quot;captureCount&quot;,
-          &quot;versionCount&quot;,
-          &quot;firstArchiveDate&quot;,
-          &quot;lastArchiveDate&quot;,
-          &quot;spanDays&quot;
-        ]
-      }
-    },
-    &quot;versions&quot;: {
-      &quot;display&quot;: {
-        &quot;component&quot;: &quot;table&quot;,
-        &quot;properties&quot;: {
-          &quot;archiveUrl&quot;: {
-            &quot;format&quot;: &quot;link&quot;,
-            &quot;label&quot;: &quot;Wayback URL&quot;
-          },
-          &quot;captureCount&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;Captures&quot;
-          },
-          &quot;firstArchiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;First seen&quot;
-          },
-          &quot;lastArchiveDate&quot;: {
-            &quot;format&quot;: &quot;date&quot;,
-            &quot;label&quot;: &quot;Last seen&quot;
-          },
-          &quot;originalUrl&quot;: {
-            &quot;format&quot;: &quot;text&quot;,
-            &quot;label&quot;: &quot;Original URL&quot;
-          },
-          &quot;statusCode&quot;: {
-            &quot;format&quot;: &quot;number&quot;,
-            &quot;label&quot;: &quot;HTTP status&quot;
-          }
-        }
-      },
-      &quot;title&quot;: &quot;Version timeline&quot;,
-      &quot;transformation&quot;: {
-        &quot;fields&quot;: [
-          &quot;originalUrl&quot;,
-          &quot;firstArchiveDate&quot;,
-          &quot;lastArchiveDate&quot;,
-          &quot;captureCount&quot;,
-          &quot;statusCode&quot;,
-          &quot;archiveUrl&quot;
-        ]
-      }
-    }
-  }
-}
-</code></pre></details></section><section class="schema-section" id="key-value-schema"><h2>Key-value schema</h2><p>Published key-value store definitions, when provided by this build.</p><p>This definition is not present in the default published build. See the published README for available documentation.</p></section><section id="published-readme"><h2>Published README</h2><details><summary>Read the full published documentation</summary><h2 id="readme-wayback-machine-snapshot-history-archived-text-extractor">Wayback Machine Snapshot History &amp; Archived Text Extractor</h2>
-<p>Turn the Internet Archive's public Wayback Machine into a structured dataset. Give this actor one URL, a host, an entire domain, or a bulk list, then choose a capture history, a version timeline, an archive-coverage summary, the closest snapshot to a date, or the readable text of the archived page itself.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-oSgE7T+oedtrzMmk4MiSK77dHHyEPMSWWoVrsSihcXc=&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; https: data:; connect-src &#x27;self&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;; object-src &#x27;none&#x27;"><title>Wayback Machine Snapshot History &amp; Archived Text Extractor docs | Dataspryva</title><meta name="description" content="Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text. From $0.99 per 1,000 results on the Free plan."><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"><meta property="og:title" content="Wayback Machine Snapshot History &amp; Archived Text Extractor docs | Dataspryva"><meta property="og:description" content="Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text. From $0.99 per 1,000 results on the Free plan."><meta property="og:type" content="article"><meta property="og:url" content="https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"><meta property="og:site_name" content="Dataspryva"><meta property="og:image" content="https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-mXENdRBun6FUTc2pI-fPURwTkgT2-logo.png"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#0f5b50"><link rel="icon" href="/apify-actor-examples/assets/mark.svg?v=3b3199041705" type="image/svg+xml"><link rel="stylesheet" href="/apify-actor-examples/assets/site.css?v=3fa06d5f6b36"><link rel="stylesheet" href="/apify-actor-examples/assets/brand.css?v=129cb143593d"><link rel="alternate" type="application/rss+xml" title="Dataspryva guides" href="/apify-actor-examples/feed.xml"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization","name":"Dataspryva","url":"https://raheelxsharif.github.io/apify-actor-examples/","sameAs":["https://apify.com/dataspryva","https://github.com/raheelxsharif/apify-actor-examples"]},{"@type":"WebSite","@id":"https://raheelxsharif.github.io/apify-actor-examples/#website","name":"Dataspryva Actor documentation","url":"https://raheelxsharif.github.io/apify-actor-examples/","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en"},{"@type":"WebPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#webpage","name":"Wayback Machine Snapshot History & Archived Text Extractor docs","description":"Pull the Wayback Machine's capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text. From $0.99 per 1,000 results on the Free plan.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/","isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#website"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"inLanguage":"en","mainEntity":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#article"},"dateModified":"2026-11-09T06:43:17.418Z","breadcrumb":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#breadcrumb"}},{"@type":"TechArticle","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#article","headline":"Wayback Machine Snapshot History & Archived Text Extractor docs","name":"Wayback Machine Snapshot History & Archived Text Extractor docs","description":"Pull the Wayback Machine's capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text. From $0.99 per 1,000 results on the Free plan.","url":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/","author":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"mainEntityOfPage":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#webpage"},"inLanguage":"en","dateModified":"2026-11-09T06:43:17.418Z","image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-mXENdRBun6FUTc2pI-fPURwTkgT2-logo.png"},{"@type":"BreadcrumbList","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Dataspryva","item":"https://raheelxsharif.github.io/apify-actor-examples/"},{"@type":"ListItem","position":2,"name":"Topics","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/"},{"@type":"ListItem","position":3,"name":"Developer Tools","item":"https://raheelxsharif.github.io/apify-actor-examples/topics/developer-tools/"},{"@type":"ListItem","position":4,"name":"Wayback Machine Snapshot History & Archived Text Extractor","item":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/"}]},{"@type":"SoftwareApplication","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#software","name":"Wayback Machine Snapshot History & Archived Text Extractor","description":"Pull the Wayback Machine's capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text.","url":"https://apify.com/dataspryva/wayback-machine-snapshot-history-and-archived-text","applicationCategory":"DeveloperApplication","operatingSystem":"Apify platform (web)","publisher":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/#organization"},"image":"https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/zq8lKbpLzTjGDayPC-actor-mXENdRBun6FUTc2pI-fPURwTkgT2-logo.png","offers":{"@type":"Offer","url":"https://apify.com/dataspryva/wayback-machine-snapshot-history-and-archived-text","priceCurrency":"USD","price":"0","priceSpecification":{"@type":"UnitPriceSpecification","price":0.00099,"priceCurrency":"USD","unitText":"result","referenceQuantity":{"@type":"QuantitativeValue","value":1,"unitText":"result"}},"description":"Pay per event: the price per result on Apify's Free plan; a start fee and platform usage are billed separately."}},{"@type":"FAQPage","@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#faq","mainEntity":[{"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"The Internet Archive's public Wayback CDX search API, its availability API, and archived playback pages. No browser UI is scraped."}},{"@type":"Question","name":"Do I need an Internet Archive account or API key?","acceptedAnswer":{"@type":"Answer","text":"No. Every request is anonymous and cookieless."}},{"@type":"Question","name":"Can I search the archive by keyword?","acceptedAnswer":{"@type":"Answer","text":"The CDX API indexes URLs and capture metadata, not full text. Use mode=content to download page text and filter it in your own pipeline."}},{"@type":"Question","name":"Why are some captures marked `warc/revisit`?","acceptedAnswer":{"@type":"Answer","text":"The archive sometimes records a revisit instead of a full copy. Those rows keep the digest and size but may not have an HTTP status code."}},{"@type":"Question","name":"Why is `content` missing from a row?","acceptedAnswer":{"@type":"Answer","text":"The row was beyond the text-fetch budget, the archived resource was not HTML/text, or replay returned an error. contentTruncated is set when text was clipped at maxContentChars."}},{"@type":"Question","name":"Why does `closest` mode omit MIME type and digest?","acceptedAnswer":{"@type":"Answer","text":"The availability endpoint returns the nearest capture URL, timestamp, and status only. Use search mode with a narrow date range when you need full CDX metadata."}},{"@type":"Question","name":"Can I retrieve more than 10,000 captures?","acceptedAnswer":{"@type":"Answer","text":"Yes. The actor pages through the CDX index with resume keys, so maxItems can go up to 100,000. Very broad host/domain queries and collapseBy=urlkey can be slower on the archive side."}},{"@type":"Question","name":"Is archive coverage complete?","acceptedAnswer":{"@type":"Answer","text":"No. The Wayback Machine only stores what its crawlers captured. Popular pages usually have dense history; obscure pages may have none, and a summary row with captureCount=0 is still a valid result."}},{"@type":"Question","name":"Is this affiliated with the Internet Archive?","acceptedAnswer":{"@type":"Answer","text":"No. It is an independent tool that reads the Internet Archive's public Wayback Machine endpoints."}}],"isPartOf":{"@id":"https://raheelxsharif.github.io/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/#webpage"}}]}</script><script src="/apify-actor-examples/assets/site.js?v=7b7086957d37" defer></script></head><body class="theme-editorial"><a href="#main" class="skip-link">Skip to content</a><header class="masthead"><div class="inner"><a href="/apify-actor-examples/" class="brand"><img src="/apify-actor-examples/assets/mark.svg?v=3b3199041705" alt="" width="32" height="32"><span>Dataspryva</span></a><form class="site-search" action="/apify-actor-examples/actors/" role="search" data-search-index="/apify-actor-examples/search.json"><label class="sr-only" for="site-search">Search this site</label><input type="search" role="combobox" id="site-search" name="q" placeholder="Search by site or data" autocomplete="off" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false"><ul id="site-search-results" class="search-results" role="listbox" hidden></ul></form><nav class="primary" aria-label="Main"><a href="/apify-actor-examples/actors/" aria-current="page">Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a></nav></div></header><main id="main"><nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/apify-actor-examples/">Home</a></li><li><a href="/apify-actor-examples/topics/">Topics</a></li><li><a href="/apify-actor-examples/topics/developer-tools/">Developer Tools</a></li><li aria-current="page">Wayback Machine Snapshot History &amp; Archived Text Extractor</li></ol></nav><div class="doc"><div class="doc-head"><h1>Wayback Machine Snapshot History &amp; Archived Text Extractor</h1><p class="lead">Pull the Wayback Machine&#x27;s capture history for any URL, host, or domain with timestamps, status codes, MIME types, and optional archived page text.</p><dl class="facts"><div><dt>Updated</dt><dd><time datetime="2026-11-09">9 November 2026</time></dd></div><div><dt>Free plan</dt><dd>$0.99 per 1,000 results</dd></div><div><dt>Business plan</dt><dd>$0.49 per 1,000 results</dd></div><div><dt>Input</dt><dd>19 fields, none required</dd></div><div><dt>Output</dt><dd>19 declared fields</dd></div><div><dt>Site</dt><dd><a href="/apify-actor-examples/actors/wayback-machine-snapshot-history-and-archived-text/">Wayback Machine</a></dd></div></dl><div class="cta"><a class="button" href="https://apify.com/dataspryva/wayback-machine-snapshot-history-and-archived-text">Open in Apify Store</a><a class="button secondary" href="#run">Copy the API call</a></div></div><div class="doc-body"><nav class="toc" aria-label="On this page"><h2 class="toc-title">On this page</h2><ol><li><a href="#summary">In short</a></li><li><a href="#about">What it does</a></li><li><a href="#output">What you get</a></li><li><a href="#run">Run it</a></li><li><a href="#cost">What it costs</a></li><li><a href="#input">Input reference</a></li><li><a href="#faq">Questions</a></li><li><a href="#notes">Limits and notes</a></li><li><a href="#related">Related Actors</a></li></ol></nav><article class="prose"><p class="summary" id="summary">Wayback Machine Snapshot History &amp; Archived Text Extractor is an Apify Actor published by Dataspryva. It accepts 19 input fields, none of them required at the top level. Each result can carry up to 19 declared fields, including <code>originalUrl</code>, <code>archiveDate</code>, <code>archiveUrl</code>, <code>statusCode</code>, <code>mimeType</code> and <code>contentLength</code>. It costs $0.99 per 1,000 results on Apify's Free plan and $0.49 on the Business plan.</p><section id="about"><h2>What it does</h2><!--readme--><p>Turn the Internet Archive's public Wayback Machine into a structured dataset. Give this actor one URL, a host, an entire domain, or a bulk list, then choose a capture history, a version timeline, an archive-coverage summary, the closest snapshot to a date, or the readable text of the archived page itself.</p>
 <p>No account, API key, cookie, or proxy setup is needed. The actor talks to the same public CDX and availability endpoints that power the Wayback Machine website.</p>
-<h2 id="readme-modes">Modes</h2>
-<div class="table-wrap"><table>
+<!--/readme--><h3 id="readme-modes">Modes</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mode</th>
@@ -495,31 +36,81 @@
 </tr>
 </tbody>
 </table></div>
-<h2 id="readme-bulk-targets-and-pagination">Bulk targets and pagination</h2>
-<ul>
-<li>Put one target in <code>url</code> or many in <code>urls</code>; both are merged and deduplicated.</li>
-<li>The <code>maxItems</code> budget is split evenly across targets so every target gets a fair share.</li>
-<li>Capture history uses automatic resume-key pagination, so a single run can retrieve up to 100,000 captures instead of stopping at the first CDX page.</li>
-<li><code>sortDirection</code> chooses whether the limited result set comes from the oldest or newest end of the archive. Search rows are chronological; <code>latest</code> reverses the final rows so the newest capture appears first.</li>
-<li><code>collapseBy</code> applies to <code>search</code> mode: keep every raw capture, one per distinct content digest, one per URL, or one per month/day/hour. <code>timeline</code> and <code>summary</code> always read raw captures so version durations and coverage counts are not flattened.</li>
-<li><code>summary</code> scans up to <code>maxItems</code> captures per target, split between the oldest and newest ends, so the first and last capture stay accurate even on dense domains. <code>captureCount</code>, <code>versionCount</code>, and the breakdowns describe that scanned window; raise <code>maxItems</code> for a fuller census.</li>
+<!--/readme--><h3 id="readme-use-cases">Use cases</h3><!--readme--><ul>
+<li><strong>Content recovery</strong> — pull the text of pages that no longer exist</li>
+<li><strong>SEO link-rot audits</strong> — list archived 404s, redirects, and deleted pages on a domain</li>
+<li><strong>Competitive history</strong> — compare pricing, messaging, or product pages month by month</li>
+<li><strong>Legal and journalism evidence</strong> — pin the closest capture to a specific date</li>
+<li><strong>Domain due diligence</strong> — measure archive age, density, gaps, and version count before buying an expired domain</li>
+<li><strong>Dataset building</strong> — export archived text and metadata for search, NLP, or research</li>
 </ul>
-<h2 id="readme-output-fields">Output fields</h2>
-<h3 id="readme-capture-rows-search">Capture rows (<code>search</code>)</h3>
+<!--/readme--></section><section id="output"><h2>What you get</h2><p>The Actor saves one record per result to an Apify dataset. Its build declares 19 fields in 5 dataset views. Fields without a value can be left out of a record.</p><div class="table-wrap"><table class="output-table stack"><caption>Output fields</caption><thead><tr><th scope="col">Field</th><th scope="col">Label</th><th scope="col">What it holds</th></tr></thead><tbody><tr><th scope="row"><code>originalUrl</code></th><td data-label="Label">Original URL</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>archiveDate</code></th><td data-label="Label">Archive date</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>archiveUrl</code></th><td data-label="Label">Wayback URL</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>statusCode</code></th><td data-label="Label">HTTP status</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>mimeType</code></th><td data-label="Label">MIME type</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>contentLength</code></th><td data-label="Label">Bytes</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>changeType</code></th><td data-label="Label">Change</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>captureYear</code></th><td data-label="Label">Year</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>resultIndex</code></th><td data-label="Label">Result #</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>title</code></th><td data-label="Label">Page title</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>wordCount</code></th><td data-label="Label">Words</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>characterCount</code></th><td data-label="Label">Characters</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>requestedDate</code></th><td data-label="Label">Requested date</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>available</code></th><td data-label="Label">Archived</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>firstArchiveDate</code></th><td data-label="Label">First seen</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>lastArchiveDate</code></th><td data-label="Label">Last seen</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>captureCount</code></th><td data-label="Label">Captures</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>versionCount</code></th><td data-label="Label">Versions</td><td data-label="What it holds"></td></tr><tr><th scope="row"><code>spanDays</code></th><td data-label="Label">Days covered</td><td data-label="What it holds"></td></tr></tbody></table></div><h3 id="readme-output-fields">Output fields</h3><!--readme--><h4 id="readme-capture-rows-search">Capture rows (<code>search</code>)</h4>
 <p><code>originalUrl</code>, <code>urlKey</code>, <code>timestamp</code>, <code>archiveDate</code>, <code>archiveUrl</code>, <code>rawArchiveUrl</code>, <code>sourceUrl</code>, <code>statusCode</code>, <code>statusText</code>, <code>statusClass</code>, <code>mimeType</code>, <code>contentDigest</code>, <code>contentLength</code>, <code>host</code>, <code>urlPath</code>, <code>fileExtension</code>, <code>captureYear</code>, <code>matchType</code>, <code>isRevisit</code>, <code>recordType</code>, <code>resultIndex</code>, <code>scrapedAt</code>.</p>
 <p>With <code>detectChanges</code> on, each row also gets <code>captureIndex</code>, <code>changed</code>, <code>changeType</code> (<code>initial</code>, <code>content</code>, <code>status</code>, <code>contentAndStatus</code>, <code>unchanged</code>), <code>isInitialCapture</code>, <code>previousTimestamp</code>, <code>previousStatusCode</code>, <code>previousContentDigest</code>, and <code>daysSincePrevious</code>.</p>
 <p>With <code>enrichWithContent</code> on, rows also get the archived-text fields below, up to <code>maxContentFetch</code> rows.</p>
-<h3 id="readme-version-rows-timeline">Version rows (<code>timeline</code>)</h3>
+<h4 id="readme-version-rows-timeline">Version rows (<code>timeline</code>)</h4>
 <p><code>originalUrl</code>, <code>firstTimestamp</code>, <code>lastTimestamp</code>, <code>firstArchiveDate</code>, <code>lastArchiveDate</code>, <code>captureCount</code>, <code>durationDays</code>, <code>archiveUrl</code>, <code>rawArchiveUrl</code>, <code>contentDigest</code>, <code>mimeType</code>, <code>statusCode</code>, <code>statusText</code>, <code>contentLength</code>, <code>sourceUrl</code>, <code>recordType</code>, <code>resultIndex</code>, <code>scrapedAt</code>.</p>
-<h3 id="readme-summary-rows-summary">Summary rows (<code>summary</code>)</h3>
+<h4 id="readme-summary-rows-summary">Summary rows (<code>summary</code>)</h4>
 <p><code>originalUrl</code>, <code>matchType</code>, <code>archived</code>, <code>captureCount</code>, <code>versionCount</code>, <code>firstTimestamp</code>, <code>lastTimestamp</code>, <code>firstArchiveDate</code>, <code>lastArchiveDate</code>, <code>firstArchiveUrl</code>, <code>lastArchiveUrl</code>, <code>spanDays</code>, <code>statusBreakdown</code>, <code>mimeTypeBreakdown</code>, <code>activeYears</code>, <code>yearBreakdown</code>, <code>sourceUrl</code>, <code>recordType</code>, <code>resultIndex</code>, <code>scrapedAt</code>.</p>
-<h3 id="readme-closest-snapshot-rows-closest">Closest-snapshot rows (<code>closest</code>)</h3>
+<h4 id="readme-closest-snapshot-rows-closest">Closest-snapshot rows (<code>closest</code>)</h4>
 <p><code>originalUrl</code>, <code>available</code>, <code>requestedTimestamp</code>, <code>requestedDate</code>, <code>timestamp</code>, <code>archiveDate</code>, <code>archiveUrl</code>, <code>rawArchiveUrl</code>, <code>statusCode</code>, <code>statusClass</code>, <code>statusText</code>, <code>captureDistanceDays</code>, <code>sourceUrl</code>, <code>recordType</code>, <code>resultIndex</code>, <code>scrapedAt</code>.</p>
-<h3 id="readme-archived-page-rows-content">Archived-page rows (<code>content</code>)</h3>
+<h4 id="readme-archived-page-rows-content">Archived-page rows (<code>content</code>)</h4>
 <p><code>originalUrl</code>, <code>timestamp</code>, <code>archiveDate</code>, <code>archiveUrl</code>, <code>rawArchiveUrl</code>, <code>statusCode</code>, <code>mimeType</code>, <code>contentDigest</code>, <code>contentLength</code>, <code>title</code>, <code>description</code>, <code>language</code>, <code>canonicalUrl</code>, <code>metaKeywords</code>, <code>headings</code>, <code>text</code>, <code>wordCount</code>, <code>characterCount</code>, <code>textHash</code>, <code>contentTruncated</code>, <code>fetchContentLength</code>, <code>fetchContentTruncated</code>, <code>contentMimeType</code>, <code>sourceUrl</code>, <code>recordType</code>, <code>resultIndex</code>, <code>scrapedAt</code>.</p>
 <p>Empty values are omitted at every depth, so a field appears only when the archive actually supplied it.</p>
-<h2 id="readme-input">Input</h2>
-<div class="table-wrap"><table>
+<!--/readme--></section><section id="run"><h2>Run it</h2><p>Set <code>APIFY_TOKEN</code> to your <a href="https://console.apify.com/settings/integrations">Apify API token</a>, then run the Actor with the input below (full capture history with changes). Each run is billed to your Apify account. The <a href="/apify-actor-examples/guides/wayback-machine-snapshot-history-and-archived-text/">export tutorial</a> turns the results into a CSV file or an Excel workbook.</p><div class="tabs" data-tabs><div class="tab-list" role="tablist" aria-label="Language"><button type="button" role="tab" id="run-tab-python" aria-controls="run-panel-python" aria-selected="true">Python</button><button type="button" role="tab" id="run-tab-javascript" aria-controls="run-panel-javascript" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" role="tab" id="run-tab-curl" aria-controls="run-panel-curl" aria-selected="false" tabindex="-1">cURL</button><button type="button" role="tab" id="run-tab-mcp" aria-controls="run-panel-mcp" aria-selected="false" tabindex="-1">MCP</button></div><div role="tabpanel" id="run-panel-python" aria-labelledby="run-tab-python" class="tab-panel"><h3 class="tab-title">Python</h3><figure class="code"><pre><code id="run-python" class="language-python"># pip install apify-client
+import os
+from apify_client import ApifyClient
+
+ACTOR = &quot;dataspryva/wayback-machine-snapshot-history-and-archived-text&quot;
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run_input = {
+    &quot;mode&quot;: &quot;search&quot;,
+    &quot;url&quot;: &quot;https://example.com/&quot;,
+    &quot;matchType&quot;: &quot;exact&quot;,
+    &quot;dateFrom&quot;: &quot;2020-01-01&quot;,
+    &quot;dateTo&quot;: &quot;2024-12-31&quot;,
+    &quot;statusCodes&quot;: [&quot;200&quot;],
+    &quot;collapseBy&quot;: &quot;none&quot;,
+    &quot;detectChanges&quot;: True,
+    &quot;maxItems&quot;: 500,
+}
+
+run = client.actor(ACTOR).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><button type="button" class="copy" data-copy="run-python">Copy</button></figure></div><div role="tabpanel" id="run-panel-javascript" aria-labelledby="run-tab-javascript" class="tab-panel"><h3 class="tab-title">JavaScript</h3><figure class="code"><pre><code id="run-javascript" class="language-javascript">// npm install apify-client
+import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const ACTOR = &#x27;dataspryva/wayback-machine-snapshot-history-and-archived-text&#x27;;
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+const input = {
+  &quot;mode&quot;: &quot;search&quot;,
+  &quot;url&quot;: &quot;https://example.com/&quot;,
+  &quot;matchType&quot;: &quot;exact&quot;,
+  &quot;dateFrom&quot;: &quot;2020-01-01&quot;,
+  &quot;dateTo&quot;: &quot;2024-12-31&quot;,
+  &quot;statusCodes&quot;: [
+    &quot;200&quot;
+  ],
+  &quot;collapseBy&quot;: &quot;none&quot;,
+  &quot;detectChanges&quot;: true,
+  &quot;maxItems&quot;: 500
+};
+
+const run = await client.actor(ACTOR).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><button type="button" class="copy" data-copy="run-javascript">Copy</button></figure></div><div role="tabpanel" id="run-panel-curl" aria-labelledby="run-tab-curl" class="tab-panel"><h3 class="tab-title">cURL</h3><figure class="code"><pre><code id="run-curl" class="language-bash">curl -X POST &quot;https://api.apify.com/v2/acts/dataspryva~wayback-machine-snapshot-history-and-archived-text/run-sync-get-dataset-items?format=json&quot; \
+  -H &quot;Authorization: Bearer $APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mode&quot;: &quot;search&quot;, &quot;url&quot;: &quot;https://example.com/&quot;, &quot;matchType&quot;: &quot;exact&quot;, &quot;dateFrom&quot;: &quot;2020-01-01&quot;, &quot;dateTo&quot;: &quot;2024-12-31&quot;, &quot;statusCodes&quot;: [&quot;200&quot;], &quot;collapseBy&quot;: &quot;none&quot;, &quot;detectChanges&quot;: true, &quot;maxItems&quot;: 500}&#x27;
+</code></pre><button type="button" class="copy" data-copy="run-curl">Copy</button></figure></div><div role="tabpanel" id="run-panel-mcp" aria-labelledby="run-tab-mcp" class="tab-panel"><h3 class="tab-title">MCP</h3><figure class="code"><pre><code id="run-mcp" class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;apify&quot;: {
+      &quot;url&quot;: &quot;https://mcp.apify.com?tools=dataspryva/wayback-machine-snapshot-history-and-archived-text&quot;
+    }
+  }
+}</code></pre><button type="button" class="copy" data-copy="run-mcp">Copy</button></figure></div></div></section><section id="cost"><h2>What it costs</h2><p>Wayback Machine Snapshot History &amp; Archived Text Extractor uses pay-per-event pricing: a fee for each result saved to the dataset, plus a start fee per run. Paid Apify plans pay less per result. The start fee is charged once per GB of run memory (at least once); the default run uses 4 GB, so a run starts with 4 start events, as the run totals include. You also pay Apify platform usage (compute and proxy) for the run, which these totals do not include.</p><div class="table-wrap"><table class="price-table stack"><caption>Published prices and run totals by Apify plan</caption><thead><tr><th scope="col">Plan</th><th scope="col">Per result</th><th scope="col">Per 1,000</th><th scope="col">Start fee</th><th scope="col">100 results</th><th scope="col">1,000 results</th><th scope="col">10,000 results</th></tr></thead><tbody><tr><th scope="row">Free plan</th><td data-label="Per result">$0.00099</td><td data-label="Per 1,000">$0.99</td><td data-label="Start fee">$0.10</td><td data-label="100 results">$0.50</td><td data-label="1,000 results">$1.39</td><td data-label="10,000 results">$10.30</td></tr><tr><th scope="row">Starter plan</th><td data-label="Per result">$0.00082</td><td data-label="Per 1,000">$0.82</td><td data-label="Start fee">$0.077</td><td data-label="100 results">$0.39</td><td data-label="1,000 results">$1.13</td><td data-label="10,000 results">$8.51</td></tr><tr><th scope="row">Scale plan</th><td data-label="Per result">$0.00066</td><td data-label="Per 1,000">$0.66</td><td data-label="Start fee">$0.053</td><td data-label="100 results">$0.28</td><td data-label="1,000 results">$0.87</td><td data-label="10,000 results">$6.81</td></tr><tr><th scope="row">Business plan</th><td data-label="Per result">$0.00049</td><td data-label="Per 1,000">$0.49</td><td data-label="Start fee">$0.03</td><td data-label="100 results">$0.17</td><td data-label="1,000 results">$0.61</td><td data-label="10,000 results">$5.02</td></tr></tbody></table></div><p class="fine">Run totals are the Actor's charges at the default memory: start fees plus the per-result price. Check the <a href="https://apify.com/dataspryva/wayback-machine-snapshot-history-and-archived-text">Store page</a> before a large run; prices can change with notice.</p></section><section id="input"><h2>Input reference</h2><p>All 19 fields of the published input schema, in the publisher's order. No field is required at the top level, but the README can describe conditions. Download the <a href="input-schema.json">input schema</a> as JSON.</p><div class="table-wrap"><table class="input-table stack"><caption>Input fields in the published schema</caption><thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody><tr><th scope="row"><code>mode</code><span class="field-title">Mode</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->What to collect. 'search' returns every matching capture; 'timeline' returns one row per distinct content version; 'summary' returns archive coverage per target; 'closest' returns the nearest capture to a date; 'content' returns readable text from the archived page.<!--/readme--><span class="field-meta">Default <code>&quot;search&quot;</code>; Example <code>&quot;closest&quot;</code>; Allowed search, timeline, summary, closest, content</span></td></tr><tr><th scope="row"><code>url</code><span class="field-title">URL or domain (single target)</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->One URL, host, domain, or Wayback playback URL. Examples: 'apify.com', 'https://example.com/blog', 'https://web.archive.org/web/20240101000000/https://apify.com/'. Wildcards like 'example.com/<em>' and '</em>.example.com' are detected automatically.<!--/readme--><span class="field-meta">Example <code>&quot;apify.com&quot;</code></span></td></tr><tr><th scope="row"><code>urls</code><span class="field-title">URLs or domains (bulk)</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->One or more targets for batch collection. Each target is queried independently and the Max items budget is split across them.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>matchType</code><span class="field-title">URL match type</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->How the target is matched against the archive. 'exact' = that URL only; 'prefix' = the URL and every path beneath it; 'host' = every path on the same host; 'domain' = the host and all subdomains.<!--/readme--><span class="field-meta">Default <code>&quot;exact&quot;</code>; Allowed exact, prefix, host, domain</span></td></tr><tr><th scope="row"><code>dateFrom</code><span class="field-title">From date</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Earliest capture date, inclusive. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp such as 2024-01-31T12:00:00.<!--/readme--></td></tr><tr><th scope="row"><code>dateTo</code><span class="field-title">To date</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Latest capture date, inclusive. Uses the same formats as From date. A date without a time includes the whole day.<!--/readme--></td></tr><tr><th scope="row"><code>statusCodes</code><span class="field-title">Keep HTTP status codes</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Only keep captures with these HTTP status codes, e.g. ['200','301']. Leave empty for all statuses. Values may also be comma-separated.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>excludeStatusCodes</code><span class="field-title">Exclude HTTP status codes</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Drop captures with these HTTP status codes, e.g. ['404','500']. Leave empty to exclude nothing.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>mimeTypes</code><span class="field-title">Keep MIME types</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Only keep captures with these MIME types, e.g. ['text/html','application/pdf']. Leave empty for all MIME types.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>excludeMimeTypes</code><span class="field-title">Exclude MIME types</span></th><td data-label="Type">array</td><td data-label="Description"><!--readme-->Drop captures with these MIME types, e.g. ['image/png','video/mp4']. Leave empty to exclude nothing.<!--/readme--><span class="field-meta">Default <code>[]</code></span></td></tr><tr><th scope="row"><code>collapseBy</code><span class="field-title">Collapse duplicates</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Deduplicate adjacent captures in 'search' mode. 'digest' keeps one record per distinct content fingerprint; 'urlkey' keeps one capture per URL; 'monthly', 'daily', and 'hourly' keep one capture per time bucket; 'none' returns every raw capture. 'timeline' and 'summary' always read raw captures so their counts and durations stay accurate.<!--/readme--><span class="field-meta">Default <code>&quot;digest&quot;</code>; Example <code>&quot;none&quot;</code>; Allowed none, digest, urlkey, monthly, daily, hourly</span></td></tr><tr><th scope="row"><code>sortDirection</code><span class="field-title">Which end of the archive</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Choose whether the limited result set comes from the oldest or newest captures. Search rows are emitted in chronological order; 'latest' reverses the final rows so the newest appears first.<!--/readme--><span class="field-meta">Default <code>&quot;earliest&quot;</code>; Allowed earliest, latest</span></td></tr><tr><th scope="row"><code>targetDate</code><span class="field-title">Target date</span></th><td data-label="Type">string</td><td data-label="Description"><!--readme-->Date used by 'closest' and 'content' modes, and as the reference when a playback URL does not include a timestamp. Accepts YYYY, YYYY-MM, YYYY-MM-DD, or a full timestamp. Defaults to now when empty.<!--/readme--><span class="field-meta">Example <code>&quot;2024-01-01&quot;</code></span></td></tr><tr><th scope="row"><code>enrichWithContent</code><span class="field-title">Add archived text to search rows</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->In 'search' mode, fetch the archived HTML for the first Max content fetches rows and add its readable text and metadata. Off by default because it costs extra requests.<!--/readme--><span class="field-meta">Default <code>false</code></span></td></tr><tr><th scope="row"><code>maxContentFetch</code><span class="field-title">Max text fetches for search rows</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Cap on archived pages downloaded when 'Add archived text to search rows' is on. 0 disables enrichment. This setting is ignored by 'content' mode, which uses Max items instead.<!--/readme--><span class="field-meta">Default <code>10</code>; Example <code>0</code>; Allowed 0 to 500</span></td></tr><tr><th scope="row"><code>maxContentChars</code><span class="field-title">Max characters per archived page</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Truncate extracted text at this many characters. The full word count and text hash are still recorded, and contentTruncated is set when clipping happens.<!--/readme--><span class="field-meta">Default <code>500000</code>; Allowed 1000 to 2000000</span></td></tr><tr><th scope="row"><code>includeHeadings</code><span class="field-title">Include headings</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->Add the page's H1-H6 headings as structured records when archived text is extracted.<!--/readme--><span class="field-meta">Default <code>true</code>; Example <code>false</code></span></td></tr><tr><th scope="row"><code>maxItems</code><span class="field-title">Max items</span></th><td data-label="Type">integer</td><td data-label="Description"><!--readme-->Hard cap on emitted records. For bulk search the budget is split evenly across targets. In 'summary' mode it is also the per-target capture scan budget, split between the oldest and newest ends. Up to 100,000 captures are supported through automatic resume-key pagination.<!--/readme--><span class="field-meta">Default <code>500</code>; Example <code>1</code>; Allowed 1 to 100000</span></td></tr><tr><th scope="row"><code>detectChanges</code><span class="field-title">Annotate content changes</span></th><td data-label="Type">boolean</td><td data-label="Description"><!--readme-->In 'search' mode, compare each capture with the previous capture of the same URL and add changed, changeType, previousTimestamp, and related fields.<!--/readme--><span class="field-meta">Default <code>true</code>; Example <code>false</code></span></td></tr></tbody></table></div><details class="publisher-notes"><summary>The publisher's input notes</summary><h3 id="readme-input">Input</h3><!--readme--><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Field</th>
@@ -646,7 +237,7 @@
 </tbody>
 </table></div>
 <p>The daily-test prefill is the cheapest possible run: <code>mode=closest</code>, <code>url=apify.com</code>, <code>targetDate=2024-01-01</code>, <code>maxItems=1</code>. It performs one availability lookup and returns one snapshot record.</p>
-<h3 id="readme-example-full-capture-history-with-changes">Example: full capture history with changes</h3>
+<h4 id="readme-example-full-capture-history-with-changes">Example: full capture history with changes</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;search&quot;,
     &quot;url&quot;: &quot;https://example.com/&quot;,
@@ -659,7 +250,7 @@
     &quot;maxItems&quot;: 500
 }
 </code></pre>
-<h3 id="readme-example-bulk-closest-snapshots">Example: bulk closest snapshots</h3>
+<h4 id="readme-example-bulk-closest-snapshots">Example: bulk closest snapshots</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;closest&quot;,
     &quot;urls&quot;: [&quot;apify.com&quot;, &quot;example.com&quot;, &quot;wikipedia.org&quot;],
@@ -667,7 +258,7 @@
     &quot;maxItems&quot;: 3
 }
 </code></pre>
-<h3 id="readme-example-archived-text-from-a-playback-url">Example: archived text from a playback URL</h3>
+<h4 id="readme-example-archived-text-from-a-playback-url">Example: archived text from a playback URL</h4>
 <pre><code class="language-json">{
     &quot;mode&quot;: &quot;content&quot;,
     &quot;url&quot;: &quot;https://web.archive.org/web/20240101000000/https://apify.com/&quot;,
@@ -675,34 +266,22 @@
     &quot;includeHeadings&quot;: true
 }
 </code></pre>
-<h2 id="readme-legacy-inputs">Legacy inputs</h2>
-<p>Saved tasks and integrations from earlier versions keep working. The actor still accepts <code>url</code> as a single target. Old field names <code>maxResults</code>, <code>includeContent</code>, <code>statusFilter</code>, and <code>mimeFilter</code> are mapped onto <code>maxItems</code>, <code>enrichWithContent</code>, <code>statusCodes</code>, and <code>mimeTypes</code> in code. Collapse aliases <code>timestamp:6</code>, <code>timestamp:8</code>, and <code>timestamp:10</code> are accepted alongside <code>monthly</code>, <code>daily</code>, and <code>hourly</code>.</p>
-<h2 id="readme-use-cases">Use cases</h2>
-<ul>
-<li><strong>Content recovery</strong> — pull the text of pages that no longer exist</li>
-<li><strong>SEO link-rot audits</strong> — list archived 404s, redirects, and deleted pages on a domain</li>
-<li><strong>Competitive history</strong> — compare pricing, messaging, or product pages month by month</li>
-<li><strong>Legal and journalism evidence</strong> — pin the closest capture to a specific date</li>
-<li><strong>Domain due diligence</strong> — measure archive age, density, gaps, and version count before buying an expired domain</li>
-<li><strong>Dataset building</strong> — export archived text and metadata for search, NLP, or research</li>
+<!--/readme--></details></section><section id="faq"><h2>Questions</h2><div class="qa"><h3 id="faq-where-does-the-data-come-from"><!--readme-->Where does the data come from?<!--/readme--></h3><!--readme--><p>The Internet Archive's public Wayback CDX search API, its availability API, and archived playback pages. No browser UI is scraped.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-do-i-need-an-internet-archive-account-or-api-key"><!--readme-->Do I need an Internet Archive account or API key?<!--/readme--></h3><!--readme--><p>No. Every request is anonymous and cookieless.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-search-the-archive-by-keyword"><!--readme-->Can I search the archive by keyword?<!--/readme--></h3><!--readme--><p>The CDX API indexes URLs and capture metadata, not full text. Use <code>mode=content</code> to download page text and filter it in your own pipeline.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-are-some-captures-marked-warc-revisit"><!--readme-->Why are some captures marked <code>warc/revisit</code>?<!--/readme--></h3><!--readme--><p>The archive sometimes records a revisit instead of a full copy. Those rows keep the digest and size but may not have an HTTP status code.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-is-content-missing-from-a-row"><!--readme-->Why is <code>content</code> missing from a row?<!--/readme--></h3><!--readme--><p>The row was beyond the text-fetch budget, the archived resource was not HTML/text, or replay returned an error. <code>contentTruncated</code> is set when text was clipped at <code>maxContentChars</code>.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-why-does-closest-mode-omit-mime-type-and-digest"><!--readme-->Why does <code>closest</code> mode omit MIME type and digest?<!--/readme--></h3><!--readme--><p>The availability endpoint returns the nearest capture URL, timestamp, and status only. Use <code>search</code> mode with a narrow date range when you need full CDX metadata.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-can-i-retrieve-more-than-10-000-captures"><!--readme-->Can I retrieve more than 10,000 captures?<!--/readme--></h3><!--readme--><p>Yes. The actor pages through the CDX index with resume keys, so <code>maxItems</code> can go up to 100,000. Very broad host/domain queries and <code>collapseBy=urlkey</code> can be slower on the archive side.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-is-archive-coverage-complete"><!--readme-->Is archive coverage complete?<!--/readme--></h3><!--readme--><p>No. The Wayback Machine only stores what its crawlers captured. Popular pages usually have dense history; obscure pages may have none, and a summary row with <code>captureCount=0</code> is still a valid result.</p>
+<!--/readme--></div><div class="qa"><h3 id="faq-is-this-affiliated-with-the-internet-archive"><!--readme-->Is this affiliated with the Internet Archive?<!--/readme--></h3><!--readme--><p>No. It is an independent tool that reads the Internet Archive's public Wayback Machine endpoints.</p>
+<!--/readme--></div></section><section id="notes"><h2>Limits and notes</h2><h3 id="readme-bulk-targets-and-pagination">Bulk targets and pagination</h3><!--readme--><ul>
+<li>Put one target in <code>url</code> or many in <code>urls</code>; both are merged and deduplicated.</li>
+<li>The <code>maxItems</code> budget is split evenly across targets so every target gets a fair share.</li>
+<li>Capture history uses automatic resume-key pagination, so a single run can retrieve up to 100,000 captures instead of stopping at the first CDX page.</li>
+<li><code>sortDirection</code> chooses whether the limited result set comes from the oldest or newest end of the archive. Search rows are chronological; <code>latest</code> reverses the final rows so the newest capture appears first.</li>
+<li><code>collapseBy</code> applies to <code>search</code> mode: keep every raw capture, one per distinct content digest, one per URL, or one per month/day/hour. <code>timeline</code> and <code>summary</code> always read raw captures so version durations and coverage counts are not flattened.</li>
+<li><code>summary</code> scans up to <code>maxItems</code> captures per target, split between the oldest and newest ends, so the first and last capture stay accurate even on dense domains. <code>captureCount</code>, <code>versionCount</code>, and the breakdowns describe that scanned window; raise <code>maxItems</code> for a fuller census.</li>
 </ul>
-<h2 id="readme-faq">FAQ</h2>
-<p><strong>Where does the data come from?</strong>
-The Internet Archive's public Wayback CDX search API, its availability API, and archived playback pages. No browser UI is scraped.</p>
-<p><strong>Do I need an Internet Archive account or API key?</strong>
-No. Every request is anonymous and cookieless.</p>
-<p><strong>Can I search the archive by keyword?</strong>
-The CDX API indexes URLs and capture metadata, not full text. Use <code>mode=content</code> to download page text and filter it in your own pipeline.</p>
-<p><strong>Why are some captures marked <code>warc/revisit</code>?</strong>
-The archive sometimes records a revisit instead of a full copy. Those rows keep the digest and size but may not have an HTTP status code.</p>
-<p><strong>Why is <code>content</code> missing from a row?</strong>
-The row was beyond the text-fetch budget, the archived resource was not HTML/text, or replay returned an error. <code>contentTruncated</code> is set when text was clipped at <code>maxContentChars</code>.</p>
-<p><strong>Why does <code>closest</code> mode omit MIME type and digest?</strong>
-The availability endpoint returns the nearest capture URL, timestamp, and status only. Use <code>search</code> mode with a narrow date range when you need full CDX metadata.</p>
-<p><strong>Can I retrieve more than 10,000 captures?</strong>
-Yes. The actor pages through the CDX index with resume keys, so <code>maxItems</code> can go up to 100,000. Very broad host/domain queries and <code>collapseBy=urlkey</code> can be slower on the archive side.</p>
-<p><strong>Is archive coverage complete?</strong>
-No. The Wayback Machine only stores what its crawlers captured. Popular pages usually have dense history; obscure pages may have none, and a summary row with <code>captureCount=0</code> is still a valid result.</p>
-<p><strong>Is this affiliated with the Internet Archive?</strong>
-No. It is an independent tool that reads the Internet Archive's public Wayback Machine endpoints.</p>
-</details></section><section id="python-quickstart"><h2>Python quickstart</h2><p>Use a schema-derived input and the Python standard library to start a run. An Apify account and token are required for execution.</p><p><a href="/apify-actor-examples/guides/wayback-machine-snapshot-history-and-archived-text/">Open the step-by-step Python guide →</a></p></section><p class="source-note">Source build <code>IADcjvMrlQA9u17xO</code>. Documentation is regenerated from the default published build; private drafts are not included.</p></article></div></main><footer class="footer"><strong>Dataspryva</strong><div class="footer-links"><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/sources/">Documentation sources</a><a href="https://apify.com/dataspryva">Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></div></footer></body></html>
+<!--/readme--><h3 id="readme-legacy-inputs">Legacy inputs</h3><!--readme--><p>Saved tasks and integrations from earlier versions keep working. The actor still accepts <code>url</code> as a single target. Old field names <code>maxResults</code>, <code>includeContent</code>, <code>statusFilter</code>, and <code>mimeFilter</code> are mapped onto <code>maxItems</code>, <code>enrichWithContent</code>, <code>statusCodes</code>, and <code>mimeTypes</code> in code. Collapse aliases <code>timestamp:6</code>, <code>timestamp:8</code>, and <code>timestamp:10</code> are accepted alongside <code>monthly</code>, <code>daily</code>, and <code>hourly</code>.</p>
+<!--/readme--></section><section id="related"><h2>Related Actors</h2><ul class="related" role="list"><li><a href="/apify-actor-examples/actors/amazon-brand-store-page-and-merchandising-crawler/">Amazon Brand Store Page &amp; Merchandising Crawler</a><p>Crawl an Amazon Brand Store&#x27;s navigation, creative modules (images, video, CTAs), and every product link found on its pages. Resolves a brand&#x27;s Store URL automatically from a product page or ASIN.</p></li><li><a href="/apify-actor-examples/actors/amazon-wishlist-and-registry-scraper/">Amazon Wishlist &amp; Registry Scraper</a><p>Scrape public/shareable Amazon wishlists, gift lists, baby registries, and wedding registries from URLs you supply. Get list metadata, item ASINs, prices, quantities needed/purchased, priority, and comments.</p></li><li><a href="/apify-actor-examples/actors/bol-com-product-search-price-and-stock-extractor/">Bol.com Product Search, Price &amp; Stock Extractor</a><p>Searches Bol.com by keyword, category, EAN, or promotions page and returns price, rating, stock status, and seller for each product, with no login required.</p></li><li><a href="/apify-actor-examples/actors/brazilian-cnpj-bulk-lookup-and-partner-records/">Brazilian CNPJ Bulk Lookup &amp; Partner Records Scraper</a><p>Look up any number of Brazilian CNPJ numbers and get official Receita Federal data: company name, legal status, CNAE industry codes, address, founding date, capital, tax regime, and the partner (QSA) list for each one.</p></li><li><a href="/apify-actor-examples/actors/dexscreener-token-pair-and-boosted-token-scraper/">DexScreener Token Pair &amp; Boosted Token Scraper</a><p>Look up decentralized exchange trading pairs by token or pair address, search tokens by name or symbol, or pull the latest boosted tokens and token profiles across 20 blockchains. Returns price, liquidity, volume, and transaction counts.</p></li><li><a href="/apify-actor-examples/actors/florida-sunbiz-registry-lookup-by-name-agent/">Florida Sunbiz Registry Lookup by Name, Agent &amp; FEI</a><p>Look up Florida business entities on the Sunbiz registry by entity name, officer, registered agent, FEI/EIN, document number, ZIP, or street address, and get status, addresses, officers, annual filings, and filed-document links for each match.</p></li></ul><p class="more"><a href="/apify-actor-examples/topics/developer-tools/">All developer tools Actors</a></p></section><section id="files"><h2>Source files</h2><p>This page is rebuilt from the default published build <code>IADcjvMrlQA9u17xO</code>. Download what it was built from: <a href="README.md">README</a>, <a href="input-schema.json">input schema</a>, <a href="output-schema.json">output schema</a>, <a href="dataset-schema.json">dataset schema</a>, <a href="key-value-schema.json">key-value store schema</a>.</p></section></article></div></div></main><footer class="footer"><div class="inner"><p><strong>Dataspryva</strong> publishes these Actors on Apify. Every page is compiled from the Actors&#x27; published READMEs, schemas and Store prices.</p><nav aria-label="Footer"><a href="/apify-actor-examples/actors/">All Actors</a><a href="/apify-actor-examples/sites/">Sites</a><a href="/apify-actor-examples/topics/">Topics</a><a href="/apify-actor-examples/guides/">Guides</a><a href="/apify-actor-examples/sources/">How these pages are made</a><a href="https://apify.com/dataspryva">Dataspryva on Apify</a><a href="https://github.com/raheelxsharif/apify-actor-examples">GitHub</a></nav></div></footer></body></html>

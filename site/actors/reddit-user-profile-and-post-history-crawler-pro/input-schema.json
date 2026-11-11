@@ -1,88 +1,209 @@
 {
-  "description": "Scrape Reddit user profiles with full enrichment. Pro adds: split karma (post/comment/awarder/awardee), trophies, moderated subreddits, recent comments, per-post awards/upvote-ratio/media. Plus client-side filters (minPostScore, maxPostAgeDays, excludeNsfw).",
+  "description": "Scrape public Reddit user profiles without login: posts, comments, split karma, account age, badges, bio/avatar, trophies, moderated communities, media, awards and client-side filters.",
   "properties": {
+    "excludeKeywords": {
+      "description": "Drop posts whose title, body, flair or subreddit contains any of these terms.",
+      "editor": "stringList",
+      "example": [
+        "giveaway",
+        "meme"
+      ],
+      "title": "Exclude keywords",
+      "type": "array"
+    },
     "excludeNsfwPosts": {
       "default": false,
-      "description": "Drop posts flagged as NSFW. Defaults to false (keeps all posts).",
+      "description": "Drop posts Reddit marks NSFW or not brand-safe.",
       "title": "Exclude NSFW posts",
+      "type": "boolean"
+    },
+    "excludeStickied": {
+      "default": false,
+      "description": "Drop posts pinned to the top of a community.",
+      "title": "Exclude stickied posts",
       "type": "boolean"
     },
     "includeComments": {
       "default": false,
-      "description": "Also scrape the user's recent comments page (not just submitted posts). Adds a `recent_comments[]` array to each user record.",
+      "description": "Also collect the user's recent comments when section is Posts. Adds `recent_comments[]`.",
+      "sectionCaption": "Enrichment",
       "title": "Include recent comments",
       "type": "boolean"
     },
+    "includeKeywords": {
+      "description": "Keep only posts whose title, body, flair or subreddit contains at least one of these terms (or all of them when Keyword match is All).",
+      "editor": "stringList",
+      "example": [
+        "python",
+        "data"
+      ],
+      "title": "Include keywords",
+      "type": "array"
+    },
     "includeModeratedSubreddits": {
       "default": false,
-      "description": "Pull the list of subreddits the user moderates. Adds `moderated_subreddits[]` to each user record.",
-      "title": "Include moderated subreddits",
+      "description": "Collect the public list of communities the user moderates. Adds `moderated_subreddits[]`.",
+      "title": "Include moderated communities",
       "type": "boolean"
     },
     "includeTrophies": {
       "default": false,
-      "description": "Pull the user's trophy case from `/user/<u>/`. Adds `trophies[]` to each user record.",
+      "description": "Collect trophy names and icons shown on the profile. Adds `trophies[]` and `trophy_count`.",
       "title": "Include trophy case",
       "type": "boolean"
     },
+    "keywordMatch": {
+      "default": "any",
+      "description": "Whether a post must contain any or all include keywords.",
+      "enum": [
+        "any",
+        "all"
+      ],
+      "enumTitles": [
+        "Any keyword",
+        "All keywords"
+      ],
+      "title": "Keyword match",
+      "type": "string"
+    },
+    "maxComments": {
+      "default": 25,
+      "description": "Maximum comments to collect per user in the Comments and Overview sections, or when Include comments is on.",
+      "maximum": 1000,
+      "minimum": 1,
+      "sectionCaption": "Feed",
+      "title": "Max comments per user",
+      "type": "integer"
+    },
     "maxPostAgeDays": {
-      "description": "Drop posts older than this many days. Optional client-side filter applied after scraping.",
+      "description": "Drop posts older than this many days.",
       "maximum": 36500,
       "minimum": 1,
-      "title": "Max post age in days (filter)",
+      "title": "Maximum post age (days)",
+      "type": "integer"
+    },
+    "maxPostComments": {
+      "description": "Drop posts with more comments than this value.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Maximum comments on a post",
       "type": "integer"
     },
     "maxPosts": {
-      "default": 100,
-      "description": "Maximum number of posts to scrape per user profile.",
+      "default": 50,
+      "description": "Maximum posts to collect per user. The actor stops when the profile runs out of pages.",
       "maximum": 1000,
       "minimum": 1,
+      "prefill": 3,
       "title": "Max posts per user",
       "type": "integer"
     },
+    "minPostComments": {
+      "description": "Drop posts with fewer comments than this value.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum comments on a post",
+      "type": "integer"
+    },
     "minPostScore": {
-      "description": "Drop posts with score below this number. Optional client-side filter applied after scraping.",
+      "description": "Drop posts whose score is below this value.",
       "maximum": 10000000,
       "minimum": -10000,
-      "title": "Min post score (filter)",
+      "sectionCaption": "Filters",
+      "title": "Minimum post score",
       "type": "integer"
+    },
+    "postType": {
+      "default": "all",
+      "description": "Keep only one kind of post, or all types.",
+      "enum": [
+        "all",
+        "text",
+        "link",
+        "image",
+        "video",
+        "gallery",
+        "crosspost",
+        "gif",
+        "multi_media",
+        "poll"
+      ],
+      "enumTitles": [
+        "All types",
+        "Text",
+        "Link",
+        "Image",
+        "Video",
+        "Gallery",
+        "Crosspost",
+        "GIF",
+        "Multi-media",
+        "Poll"
+      ],
+      "title": "Post type",
+      "type": "string"
     },
     "section": {
       "default": "submitted",
-      "description": "Which section of the profile to scrape.",
+      "description": "Which part of the profile to collect. Overview includes the mixed posts + comments feed.",
       "enum": [
         "submitted",
         "overview",
+        "comments",
         "gilded"
       ],
       "enumTitles": [
-        "Submitted Posts (Recommended)",
-        "Overview (Posts + Comments)",
-        "Gilded"
+        "Posts (submitted)",
+        "Overview (posts + comments)",
+        "Comments",
+        "Gilded (legacy: Reddit no longer exposes it; treated as Posts)"
       ],
+      "sectionCaption": "Users",
       "title": "Profile section",
       "type": "string"
     },
     "sort": {
       "default": "new",
-      "description": "How to sort posts on the profile.",
+      "description": "Feed order for the chosen section. `top` and `controversial` use the time filter below.",
       "enum": [
-        "hot",
         "new",
+        "hot",
         "top",
         "controversial"
       ],
       "enumTitles": [
-        "Hot",
         "New",
+        "Hot",
         "Top",
         "Controversial"
       ],
-      "title": "Sort posts by",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "timeFilter": {
+      "default": "all",
+      "description": "Time window used when sorting by Top or Controversial. Ignored for New and Hot.",
+      "enum": [
+        "all",
+        "year",
+        "month",
+        "week",
+        "day",
+        "hour"
+      ],
+      "enumTitles": [
+        "All time",
+        "Past year",
+        "Past month",
+        "Past week",
+        "Past day",
+        "Past hour"
+      ],
+      "title": "Time filter",
       "type": "string"
     },
     "usernames": {
-      "description": "Reddit usernames to scrape. Accepts plain usernames (`spez`), `u/spez`, OR full Reddit profile URLs (e.g. `https://www.reddit.com/user/spez`). Auto-extracts username from URLs.",
+      "description": "Reddit usernames to scrape. Accepts plain names (`spez`), `u/spez`, or full profile URLs such as `https://www.reddit.com/user/spez`. URLs are normalised automatically.",
       "editor": "stringList",
       "example": [
         "spez",
@@ -92,13 +213,10 @@
       "prefill": [
         "spez"
       ],
-      "title": "Reddit usernames",
+      "title": "Reddit users",
       "type": "array"
     }
   },
-  "required": [
-    "usernames"
-  ],
   "schemaVersion": 1,
   "title": "Reddit Profile Crawler Pro Input",
   "type": "object"
