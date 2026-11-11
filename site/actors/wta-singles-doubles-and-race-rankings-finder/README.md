@@ -1,99 +1,114 @@
 # WTA Singles, Doubles & Race Rankings Finder
 
-Pull the official WTA world rankings table straight from wtatennis.com — singles, doubles, or the Race to the WTA Finals standings — as one structured record per ranked player, with points, nationality, and a link to her profile page.
+Collect the official WTA rankings, player biographies, match results, and tournament calendar from wtatennis.com as clean structured records. Every run is cookieless and uses WTA's own public JSON feed, so there is no login, API key, or proxy setup.
 
-## What this actor does
+## What you can collect
 
-- **Three ranking tables:** `singles`, `doubles`, or `race` (Race to the WTA Finals)
-- **Name filtering:** narrow the table down to players whose name matches a search term
-- **Player identity fields:** WTA player ID, nationality, age, birth date, and profile photo where published
-- **Ranking context on every row:** which ranking table (`rankingType`) the row came from
-- **Empty fields are omitted** from each record — a player missing a birth date, for example, simply won't have that key
+| Mode | What it returns |
+|---|---|
+| `rankings` | One row per ranked player or doubles team from the singles table, doubles table, Race to the WTA Finals singles table, or Race to the WTA Finals doubles table |
+| `profiles` | One row per player with biography, career prize money, current and highest rankings, career win/loss records by level, and optional weekly ranking history |
+| `matches` | One row per match in a player's career, with tournament, round, opponent, partner, score, ranking, and prize money |
+| `tournaments` | One row per tournament in a date window, with tier, surface, draw sizes, prize money, champions, and optional full match list |
 
-## Output per player
+## Rankings
 
-- `ranking` — position in the selected ranking table
-- `playerId` — WTA's internal player ID
-- `playerName` — player's full name
-- `nationality` — country code (e.g. `POL`, `USA`)
-- `points` — ranking points
-- `age` — player's age, when published
-- `birthDate` — date of birth, when published
-- `imageUrl` — player photo URL, when published
-- `profileUrl` — link to the player's wtatennis.com profile page
-- `rankingType` — the ranking table this row was read from: `singles`, `doubles`, or `race`
-- `recordType` — always `"wta_player"`
-- `scrapedAt` — ISO 8601 timestamp of when the record was collected
+Choose a `rankingType`:
 
-## Input
+- `singles` and `doubles` — the weekly WTA world rankings
+- `raceSingles` and `raceDoubles` — the season-long Race to the WTA Finals standings
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | string | `rankings` | `rankings` or `players`; both read the same ranking table, `players` is intended for use with `searchQuery` |
-| `rankingType` | string | `singles` | `singles`, `doubles`, or `race` |
-| `searchQuery` | string | – | Only return players whose name contains this text (case-insensitive) |
-| `maxItems` | integer | `50` | Maximum player records to return (1–500) |
+Rankings can be filtered by player name and nationality, or read as of a historical Monday with `rankingDate`. The singles table has about 1,550 players, doubles about 1,800, Race singles about 350, and Race doubles about 160 teams.
 
-### Example: top of the singles rankings
+**Output fields:** `ranking`, `movement`, `playerId`, `playerName`, `firstName`, `lastName`, `nationality`, `points`, `tournamentsPlayed`, `birthDate`, `age`, `rankedAt`, `rankingDate`, `imageUrl`, `profileUrl`, `rankingType`, `recordType`, `scrapedAt`.
+
+Doubles Race rows describe a team: `playerIds`, `playerNames`, `nationalities`, `teamName`, and `teamPlayers` sit beside the first player's `playerId`, `playerName`, and `profileUrl`. Fields WTA does not publish for a row are omitted, never blank.
+
+## Player profiles
+
+Pass WTA player IDs or profile URLs in `playerIds`, or use `searchQuery` with a `rankingType` to look players up by name. `includeRankingHistory` adds up to 52 weeks of ranking movement.
+
+**Output fields:** identity (`playerId`, `playerName`, `firstName`, `lastName`, `nationality`, `countryName`, `birthDate`, `age`, `birthCity`, `height`, `playHand`, `backhand`, `residence`, `status`, `profileUrl`, `imageUrl`), rankings (`singlesRank`, `doublesRank`, `singlesHighRank`, `singlesHighRankDate`, `doublesHighRank`, `doublesHighRankDate`), money (`careerPrizeMoneyUsd`, `prizeMoneyYearToDateUsd`), career summaries (`singlesCareer`, `doublesCareer`, `singlesYearToDate`, `doublesYearToDate`), `recordsByLevel`, biography text, and optional `rankingHistory`.
+
+## Match history
+
+Pass player IDs or profile URLs, or use `searchQuery`, and optionally limit to one season with `year`. Match records include `tournamentName`, `tournamentId`, `tournamentLevel`, `tournamentYear`, `tournamentUrl`, `startDate`, `surface`, `city`, `country`, `round`, `result`, `scores`, `opponentId`, `opponentName`, `opponentNationality`, `partnerId`, `partnerName`, `playerRank`, `opponentRank`, `seed`, `points`, `prizeMoneyUsd`, and `matchType`.
+
+## Tournaments
+
+Set `fromDate` and `toDate` (default: last 7 days through the next 14 days), then filter with `level` and `surface`. `All levels` includes ITF events; pick a specific tier to narrow the calendar. Turn on `includeTournamentMatches` to attach each tournament's match list. Records include `tournamentId`, `tournamentName`, `tournamentTitle`, `year`, `level`, `startDate`, `endDate`, `surface`, `inOutdoor`, `city`, `country`, `singlesDrawSize`, `doublesDrawSize`, `prizeMoney`, `prizeMoneyCurrency`, `status`, `tournamentUrl`, `championSingles`, and `championDoubles`.
+
+## Examples
+
+Top 10 of the singles rankings:
+
+```json
+{ "mode": "rankings", "rankingType": "singles", "maxItems": 10 }
+```
+
+Find a player in the doubles rankings:
+
+```json
+{ "mode": "rankings", "rankingType": "doubles", "searchQuery": "Siniakova", "maxItems": 5 }
+```
+
+Historical Race standings:
+
+```json
+{ "mode": "rankings", "rankingType": "raceSingles", "rankingDate": "2025-11-03", "maxItems": 20 }
+```
+
+Player profiles by URL:
 
 ```json
 {
-    "mode": "rankings",
-    "rankingType": "singles",
-    "maxItems": 100
+  "mode": "profiles",
+  "playerIds": ["https://www.wtatennis.com/players/324166/elena-rybakina"],
+  "includeRankingHistory": true
 }
 ```
 
-### Example: find a specific player's current doubles ranking
+One season of match results:
+
+```json
+{ "mode": "matches", "playerIds": ["324166"], "year": 2026, "maxItems": 100 }
+```
+
+Grand Slam calendar with matches:
 
 ```json
 {
-    "mode": "players",
-    "rankingType": "doubles",
-    "searchQuery": "Swiatek"
+  "mode": "tournaments",
+  "fromDate": "2026-01-01",
+  "toDate": "2026-12-31",
+  "level": "Grand Slam",
+  "includeTournamentMatches": true
 }
 ```
 
-### Example: Race to the WTA Finals standings
+## How pagination works
 
-```json
-{
-    "mode": "rankings",
-    "rankingType": "race",
-    "maxItems": 20
-}
-```
-
-## Use cases
-
-- **Tour tracking** — pull the current top-N singles or doubles rankings on a schedule to watch movement week over week
-- **Player dashboards** — look up a specific player's ranking and points by name with `searchQuery`
-- **Race-to-Finals coverage** — follow qualification standings for the year-end championships as the season progresses
-- **Betting and fantasy research** — feed current rankings and points into models that need up-to-date standings
-- **Media and content** — source accurate rankings tables for articles or graphics without manual copy-pasting
+The actor follows WTA's own pagination at 100 records per request and stops at `maxItems`, when the source is exhausted, or after a protective page ceiling. Ranking and tournament totals are small enough that one run can collect every row. Duplicate rows are removed by a natural key before pushing.
 
 ## FAQ
 
-**Where does this data come from?**
-The official WTA rankings as published on wtatennis.com, read from WTA's own rankings data feed.
-
-**What's the actual difference between `mode=rankings` and `mode=players`?**
-Both read the same ranking table; `players` is just the intended mode when you're also setting `searchQuery` to find one player, but `searchQuery` works the same way under either mode.
-
-**Do I need a WTA account or API key?**
-No. WTA's rankings pages are public; no login or key is required.
-
-**What does `rankingType=race` show?**
-The Race to the WTA Finals standings — the season-long points race that determines qualification for the year-end championships, separate from the regular singles/doubles rankings.
-
-**Why might `age`, `birthDate`, or `imageUrl` be missing for a player?**
-WTA doesn't publish every biographical field for every ranked player; fields that aren't available are left out of the record instead of appearing blank.
+**Do I need a WTA account, key, or proxy?**
+No. The actor reads WTA's public JSON feed directly without cookies or credentials.
 
 **How current are the rankings?**
-As current as wtatennis.com's own published rankings, which WTA updates on its regular weekly ranking cycle.
+They match the latest rankings WTA has published, normally updated weekly. Set `rankingDate` to a Monday from 2001 onward for historical standings.
 
-**Can I pull more than one ranking type in a single run?**
-No, one run reads one `rankingType`. Run the actor again with a different `rankingType` to get another table.
+**Why is a field missing on one record?**
+WTA does not publish every biographical, image, or champion field for every player and tournament. Missing values are left out instead of appearing as `null` or an empty string.
+
+**Why do some players have no photo?**
+WTA only publishes headshots for part of the tour. The actor uses WTA's official photo feed and omits `imageUrl` when no photo exists.
+
+**What is the difference between the rankings and the Race?**
+The regular rankings use a rolling 52-week points window. The Race counts only the current season and decides who qualifies for the WTA Finals.
+
+**Can one run mix modes?**
+No. One run returns one record type. Run the actor again with another `mode` for a different dataset.
 
 **Is this affiliated with the WTA?**
-No. This is an independent, third-party actor that reads WTA's publicly published rankings data; it is not operated by the Women's Tennis Association.
+No. This is an independent third-party actor that reads publicly available WTA data. It is not operated by the Women's Tennis Association.

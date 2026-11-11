@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "WTA ranking records with player identity, points, nationality, and profile link.",
+  "description": "WTA ranking rows with points, movement and profile links; player profiles with bio and career stats; match history with scores and opponents; and tournament calendar records with champions.",
   "properties": {
-    "results": {
-      "description": "All scraped records.",
+    "records": {
+      "description": "Dataset containing ranking, player profile, match or tournament records depending on the selected mode.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Results",
+      "title": "WTA records",
       "type": "string"
     }
   },
-  "title": "WTA Singles, Doubles & Race Rankings Finder Output"
+  "title": "WTA Rankings, Player Profiles, Matches & Tournaments Output"
 }

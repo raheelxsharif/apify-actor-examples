@@ -1,60 +1,175 @@
 {
-  "description": "Scrape WTA tennis player rankings and profiles.",
+  "description": "Get official WTA singles, doubles and Race rankings, player profiles, match history, or the tournament calendar from wtatennis.com.",
   "properties": {
+    "fromDate": {
+      "description": "Tournaments mode. Start of the calendar window; leave empty for the last 7 days.",
+      "editor": "datepicker",
+      "title": "From date",
+      "type": "string"
+    },
+    "includeRankingHistory": {
+      "default": false,
+      "description": "Player profiles mode. Add up to 52 weeks of singles, doubles and Race ranking history.",
+      "prefill": false,
+      "title": "Include ranking history",
+      "type": "boolean"
+    },
+    "includeTournamentMatches": {
+      "default": false,
+      "description": "Tournaments mode. Add the match list for every returned tournament.",
+      "prefill": false,
+      "title": "Include tournament matches",
+      "type": "boolean"
+    },
+    "level": {
+      "default": "all",
+      "description": "Tournaments mode. Filter by WTA tournament tier.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "Grand Slam",
+        "WTA 1000",
+        "WTA 500",
+        "WTA 250",
+        "WTA 125",
+        "Finals",
+        "ITF"
+      ],
+      "enumTitles": [
+        "All levels",
+        "Grand Slam",
+        "WTA 1000",
+        "WTA 500",
+        "WTA 250",
+        "WTA 125",
+        "WTA Finals",
+        "ITF"
+      ],
+      "prefill": "all",
+      "title": "Tournament level",
+      "type": "string"
+    },
     "maxItems": {
       "default": 50,
-      "description": "Maximum records to return.",
-      "maximum": 500,
+      "description": "Stop after this many records. Each ranking table has at most about 1,800 players.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum records",
       "type": "integer"
     },
     "mode": {
       "default": "rankings",
-      "description": "Rankings or player search.",
+      "description": "Choose rankings, player profiles, match history, or the tournament calendar.",
       "editor": "select",
       "enum": [
         "rankings",
+        "profiles",
+        "matches",
+        "tournaments",
         "players"
       ],
       "enumTitles": [
-        "Rankings",
-        "Player Search"
+        "Rankings (singles, doubles, Race)",
+        "Player profiles",
+        "Player match history",
+        "Tournaments & calendar",
+        "Player ranking search (legacy)"
       ],
       "prefill": "rankings",
-      "title": "Mode",
+      "sectionCaption": "Choose a dataset",
+      "title": "What to scrape",
+      "type": "string"
+    },
+    "nationality": {
+      "description": "Three-letter country code such as USA, POL, or KAZ.",
+      "editor": "textfield",
+      "title": "Nationality (optional)",
+      "type": "string"
+    },
+    "playerIds": {
+      "description": "Profiles and matches modes. Paste WTA player IDs or profile URLs, one per line or comma-separated.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Player IDs or profile URLs (optional)",
+      "type": "array"
+    },
+    "rankingDate": {
+      "description": "Historical rankings as of a Monday from 2001 onward. Leave empty for the latest published rankings.",
+      "editor": "datepicker",
+      "title": "Ranking date (optional)",
       "type": "string"
     },
     "rankingType": {
       "default": "singles",
-      "description": "Singles or doubles rankings.",
+      "description": "Singles, doubles, Race to the WTA Finals singles, or Race to the WTA Finals doubles. Also used to resolve names in profiles and matches modes.",
       "editor": "select",
       "enum": [
         "singles",
         "doubles",
+        "raceSingles",
+        "raceDoubles",
         "race"
       ],
       "enumTitles": [
         "Singles",
         "Doubles",
-        "Race to WTA Finals"
+        "Race to the WTA Finals - Singles",
+        "Race to the WTA Finals - Doubles",
+        "Race to the WTA Finals (legacy)"
       ],
       "prefill": "singles",
-      "title": "Ranking type",
+      "title": "Ranking table",
       "type": "string"
     },
     "searchQuery": {
-      "description": "Filter by player name.",
+      "description": "Filter rankings by name, or resolve players for profiles and matches modes.",
       "editor": "textfield",
-      "title": "Player name",
+      "title": "Player name (optional)",
       "type": "string"
+    },
+    "surface": {
+      "default": "all",
+      "description": "Tournaments mode. Filter by court surface.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "Hard",
+        "Clay",
+        "Grass",
+        "Carpet"
+      ],
+      "enumTitles": [
+        "All surfaces",
+        "Hard",
+        "Clay",
+        "Grass",
+        "Carpet"
+      ],
+      "prefill": "all",
+      "title": "Surface",
+      "type": "string"
+    },
+    "toDate": {
+      "description": "Tournaments mode. End of the calendar window; leave empty for the next 14 days.",
+      "editor": "datepicker",
+      "title": "To date",
+      "type": "string"
+    },
+    "year": {
+      "description": "Matches mode only. Limit match history to one season, for example 2026.",
+      "maximum": 2100,
+      "minimum": 1970,
+      "title": "Season (optional)",
+      "type": "integer"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "WTA Tennis Rankings Scraper Input",
+  "title": "WTA Rankings, Player Profiles, Matches & Tournaments Input",
   "type": "object"
 }
