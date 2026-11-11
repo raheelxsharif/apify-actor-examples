@@ -15,7 +15,7 @@ Collect property listings from Singapore and Malaysia on PropertyGuru and from T
 
 | Group | Fields |
 |---|---|
-| Identity | `recordType`, `listingId`, `title`, `listingUrl`, `transactionType`, `country`, `sourceDomain`, `sourceUrl`, `sourcePage`, `statusCode`, `listerType`, `accountType` |
+| Identity | `recordType` (`listing` or `project`), `listingId`, `title`, `listingUrl`, `transactionType`, `country`, `sourceDomain`, `sourceUrl`, `sourcePage`, `statusCode`, `listerType`, `accountType` |
 | Price | `price`, `priceText`, `priceType`, `priceMin`, `priceMax`, `currency`, `pricePerSqft`, `pricePerSqm`, `pricePerArea`, `pricePerAreaUnit` |
 | Property | `propertyType`, `propertyTypeCode`, `propertyTypeGroup`, `bedrooms`, `bathrooms`, `floorArea`, `floorAreaUnit`, `floorAreaSqft`, `floorAreaSqm`, `landArea`, `landAreaUnit`, `landAreaSqft`, `landAreaSqm`, `tenure`, `tenureCode`, `completionYear`, `furnishing`, `floorLevel`, `availability`, `isNewProject`, `isVerified`, `isOfficialListing`, `isDeveloperListing` |
 | Project | `projectName`, `projectId`, `projectUrl`, `developer`, `developerUrl`, `developerWhatsapp`, `unitTypes` |
@@ -24,9 +24,14 @@ Collect property listings from Singapore and Malaysia on PropertyGuru and from T
 | Contact | `agentId`, `agentName`, `agentProfileUrl`, `agentLicense`, `agentVerified`, `agentJobTitle`, `agentMobile`, `agentRating`, `agentReviewCount`, `agencyName`, `agencyId` |
 | Media | `imageUrls`, `imageCount`, `thumbnailUrl`, `floorPlanUrls`, `videoUrls`, `virtualTourUrls` |
 | Detail | `headline`, `description`, `amenities`, `facilities`, `highlights` |
+| Provenance | `accessMethod`, `detailAccessMethod`, `dataFreshness`, `archiveTimestamp`, `archiveAgeDays` |
 | Dates | `postedOn`, `postedOnUnix`, `recency`, `scrapedAt` |
 
 Empty fields are omitted from each record instead of being returned as null. `area` is kept as an alias of `floorArea` for compatibility with older datasets.
+
+### How the data is accessed
+
+Every request is cookieless. The actor reads the marketplace's public Next.js data route and public listing/project pages with the same headers a browser sends; no account, cookie, API key or proxy setup is needed. When a new site release changes the Next.js build id, the actor repairs it from the site's own 404 response and retries. If the origin still challenges a request, the actor tries Google Translate's live mirror and then the Wayback Machine. Archived responses are always labelled: `accessMethod` is `nextjsData`, `directHtml`, `translateMirror` or `wayback`, and `dataFreshness` is `live` or `staleArchive`. Wayback snapshots older than 90 days for search pages or 180 days for detail pages are rejected, and the accepted snapshot time is written to `archiveTimestamp` with its age in `archiveAgeDays`.
 
 ## Input
 
@@ -126,7 +131,9 @@ Empty fields are omitted from each record instead of being returned as null. `ar
 - **Agent email is not published.** The actor returns the public agent mobile, licence, profile and rating where the source shows them; it does not invent an email address.
 - **Project pricing is a range or a "from" price.** When the source only gives unit ranges, the record carries `priceMin` and `priceMax` plus the source label rather than a made-up single price.
 - **Short links are not supported.** Paste canonical search, listing or project URLs.
-- **Pasted detail pages can be protected.** If a Thai listing or project page is blocked but the same id still appears in search, the record is rebuilt from search-card data. Detail-only fields such as the description, amenities and coordinates are then omitted, and the run status reports how many records used this fallback.
+- **Pasted detail pages can be protected.** If a listing or project page is blocked and no archive snapshot exists, but the same id still appears in search, the record is rebuilt from search-card data. Detail-only fields such as the description, amenities and coordinates are then omitted, and the run status reports how many records used this fallback.
+- **Archive fallback is a last resort.** When the origin challenges both the data route and the live pages, the actor may read a recent Wayback snapshot. Search snapshots older than 90 days and detail snapshots older than 180 days are rejected. Archived search pages cannot re-run the site's own keyword or filter engine, so only the locally verifiable filters are applied; `dataFreshness=staleArchive` tells you the row did not come from today's live index. If the archive also rate-limits the run, the actor reports zero items rather than inventing data.
+- **Project units follow the source.** Unit names, prices, bedroom/bathroom counts, floor areas and floor-plan URLs are returned when the project page publishes them. Some projects publish only an overview or price range, in which case the unit array is omitted.
 
 ## FAQ
 

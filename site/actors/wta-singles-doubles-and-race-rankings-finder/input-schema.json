@@ -1,0 +1,60 @@
+{
+  "description": "Scrape WTA tennis player rankings and profiles.",
+  "properties": {
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "rankings",
+      "description": "Rankings or player search.",
+      "editor": "select",
+      "enum": [
+        "rankings",
+        "players"
+      ],
+      "enumTitles": [
+        "Rankings",
+        "Player Search"
+      ],
+      "prefill": "rankings",
+      "title": "Mode",
+      "type": "string"
+    },
+    "rankingType": {
+      "default": "singles",
+      "description": "Singles or doubles rankings.",
+      "editor": "select",
+      "enum": [
+        "singles",
+        "doubles",
+        "race"
+      ],
+      "enumTitles": [
+        "Singles",
+        "Doubles",
+        "Race to WTA Finals"
+      ],
+      "prefill": "singles",
+      "title": "Ranking type",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Filter by player name.",
+      "editor": "textfield",
+      "title": "Player name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "WTA Tennis Rankings Scraper Input",
+  "type": "object"
+}
