@@ -1,0 +1,477 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "acv": {
+        "description": "Actual Cash Value (ACV/insured value)",
+        "nullable": true,
+        "type": "number"
+      },
+      "auction_date": {
+        "description": "Auction date and time (ISO 8601 UTC)",
+        "nullable": true,
+        "type": "string"
+      },
+      "bid_status": {
+        "description": "Current bid status",
+        "nullable": true,
+        "type": "string"
+      },
+      "buy_it_now_price": {
+        "description": "Buy It Now price if available",
+        "nullable": true,
+        "type": "number"
+      },
+      "color": {
+        "description": "Exterior color",
+        "nullable": true,
+        "type": "string"
+      },
+      "country": {
+        "description": "Country where the vehicle is located",
+        "nullable": true,
+        "type": "string"
+      },
+      "current_bid": {
+        "description": "Current highest bid amount (USD)",
+        "nullable": true,
+        "type": "number"
+      },
+      "cylinders": {
+        "description": "Number of cylinders",
+        "nullable": true,
+        "type": "integer"
+      },
+      "drive": {
+        "description": "Drive type (FWD, RWD, AWD, ALL WHEEL DRIVE, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "engine": {
+        "description": "Engine description (e.g. 2.0L  4)",
+        "nullable": true,
+        "type": "string"
+      },
+      "estimated_retail_value": {
+        "description": "Estimated retail value",
+        "nullable": true,
+        "type": "number"
+      },
+      "fuel_type": {
+        "description": "Fuel type (GAS, DIESEL, ELECTRIC, HYBRID, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "imageUrl": {
+        "description": "Primary thumbnail image URL",
+        "nullable": true,
+        "type": "string"
+      },
+      "images": {
+        "description": "Full-size image URL(s)",
+        "nullable": true,
+        "type": "array"
+      },
+      "images_high_res": {
+        "description": "High-resolution image URL(s)",
+        "nullable": true,
+        "type": "array"
+      },
+      "item_url": {
+        "description": "Direct URL to the lot on copart.com",
+        "type": "string"
+      },
+      "keys": {
+        "description": "Key availability (YES or NO)",
+        "nullable": true,
+        "type": "string"
+      },
+      "lot_condition": {
+        "description": "Lot condition description (e.g. ENHANCED VEHICLES)",
+        "nullable": true,
+        "type": "string"
+      },
+      "lot_condition_code": {
+        "description": "Lot condition code",
+        "nullable": true,
+        "type": "string"
+      },
+      "lot_number": {
+        "description": "Unique Copart lot identifier",
+        "type": "string"
+      },
+      "make": {
+        "description": "Vehicle make (e.g. BMW, Toyota)",
+        "nullable": true,
+        "type": "string"
+      },
+      "model": {
+        "description": "Vehicle model",
+        "nullable": true,
+        "type": "string"
+      },
+      "odometer": {
+        "description": "Odometer reading",
+        "nullable": true,
+        "type": "integer"
+      },
+      "odometer_reading_type": {
+        "description": "Odometer reading type (ACTUAL, EXEMPT, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "odometer_unit": {
+        "description": "Odometer unit (MI or EXEMPT)",
+        "nullable": true,
+        "type": "string"
+      },
+      "primary_damage": {
+        "description": "Primary damage type (e.g. FRONT END, REAR END, SIDE, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "sale_location": {
+        "description": "Copart yard/sale location name",
+        "nullable": true,
+        "type": "string"
+      },
+      "sale_status": {
+        "description": "Auction sale status (FUTURE, CURRENT, RUN, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "sale_yard_number": {
+        "description": "Copart yard number",
+        "nullable": true,
+        "type": "string"
+      },
+      "scraped_at": {
+        "description": "ISO 8601 timestamp when the record was scraped",
+        "type": "string"
+      },
+      "secondary_damage": {
+        "description": "Secondary damage type",
+        "nullable": true,
+        "type": "string"
+      },
+      "state": {
+        "description": "US state code where the vehicle is located",
+        "nullable": true,
+        "type": "string"
+      },
+      "title_description": {
+        "description": "Full title document description",
+        "nullable": true,
+        "type": "string"
+      },
+      "title_group": {
+        "description": "Title group description (e.g. SALVAGE TITLE, CLEAN TITLE)",
+        "nullable": true,
+        "type": "string"
+      },
+      "title_group_code": {
+        "description": "Title group code (TITLEGROUP_S=Salvage, TITLEGROUP_C=Clean, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "title_state": {
+        "description": "State that issued the title",
+        "nullable": true,
+        "type": "string"
+      },
+      "transmission": {
+        "description": "Transmission type (AUTOMATIC, MANUAL, etc.)",
+        "nullable": true,
+        "type": "string"
+      },
+      "trim": {
+        "description": "Trim level / sub-model",
+        "nullable": true,
+        "type": "string"
+      },
+      "vin": {
+        "description": "Vehicle Identification Number (partially masked in public API)",
+        "nullable": true,
+        "type": "string"
+      },
+      "year": {
+        "description": "Model year",
+        "nullable": true,
+        "type": "integer"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Copart Vehicle Listings",
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "acv": {
+            "format": "number",
+            "label": "ACV ($)"
+          },
+          "auction_date": {
+            "format": "text",
+            "label": "Auction Date"
+          },
+          "bid_status": {
+            "format": "text",
+            "label": "Bid Status"
+          },
+          "buy_it_now_price": {
+            "format": "number",
+            "label": "Buy Now ($)"
+          },
+          "color": {
+            "format": "text",
+            "label": "Color"
+          },
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "current_bid": {
+            "format": "number",
+            "label": "Current Bid ($)"
+          },
+          "cylinders": {
+            "format": "number",
+            "label": "Cylinders"
+          },
+          "drive": {
+            "format": "text",
+            "label": "Drive"
+          },
+          "engine": {
+            "format": "text",
+            "label": "Engine"
+          },
+          "estimated_retail_value": {
+            "format": "number",
+            "label": "Est. Retail ($)"
+          },
+          "fuel_type": {
+            "format": "text",
+            "label": "Fuel"
+          },
+          "imageUrl": {
+            "format": "text",
+            "label": "Thumbnail"
+          },
+          "item_url": {
+            "format": "text",
+            "label": "Lot URL"
+          },
+          "keys": {
+            "format": "text",
+            "label": "Keys"
+          },
+          "lot_condition": {
+            "format": "text",
+            "label": "Condition"
+          },
+          "lot_number": {
+            "format": "text",
+            "label": "Lot #"
+          },
+          "make": {
+            "format": "text",
+            "label": "Make"
+          },
+          "model": {
+            "format": "text",
+            "label": "Model"
+          },
+          "odometer": {
+            "format": "number",
+            "label": "Odometer"
+          },
+          "odometer_reading_type": {
+            "format": "text",
+            "label": "Odo Type"
+          },
+          "odometer_unit": {
+            "format": "text",
+            "label": "Odo Unit"
+          },
+          "primary_damage": {
+            "format": "text",
+            "label": "Primary Damage"
+          },
+          "sale_location": {
+            "format": "text",
+            "label": "Location"
+          },
+          "sale_status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "sale_yard_number": {
+            "format": "text",
+            "label": "Yard #"
+          },
+          "secondary_damage": {
+            "format": "text",
+            "label": "Secondary Damage"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "title_description": {
+            "format": "text",
+            "label": "Title Description"
+          },
+          "title_group": {
+            "format": "text",
+            "label": "Title Group"
+          },
+          "title_group_code": {
+            "format": "text",
+            "label": "Title Code"
+          },
+          "title_state": {
+            "format": "text",
+            "label": "Title State"
+          },
+          "transmission": {
+            "format": "text",
+            "label": "Transmission"
+          },
+          "trim": {
+            "format": "text",
+            "label": "Trim"
+          },
+          "vin": {
+            "format": "text",
+            "label": "VIN"
+          },
+          "year": {
+            "format": "number",
+            "label": "Year"
+          }
+        }
+      },
+      "title": "Detailed Vehicle Info",
+      "transformation": {
+        "fields": [
+          "lot_number",
+          "vin",
+          "year",
+          "make",
+          "model",
+          "trim",
+          "color",
+          "engine",
+          "cylinders",
+          "fuel_type",
+          "transmission",
+          "drive",
+          "keys",
+          "odometer",
+          "odometer_unit",
+          "odometer_reading_type",
+          "primary_damage",
+          "secondary_damage",
+          "title_group_code",
+          "title_group",
+          "title_description",
+          "title_state",
+          "lot_condition",
+          "sale_status",
+          "bid_status",
+          "current_bid",
+          "buy_it_now_price",
+          "acv",
+          "estimated_retail_value",
+          "auction_date",
+          "sale_location",
+          "sale_yard_number",
+          "state",
+          "country",
+          "item_url",
+          "imageUrl"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "auction_date": {
+            "format": "text",
+            "label": "Auction Date"
+          },
+          "current_bid": {
+            "format": "number",
+            "label": "Current Bid ($)"
+          },
+          "item_url": {
+            "format": "text",
+            "label": "Lot URL"
+          },
+          "lot_number": {
+            "format": "text",
+            "label": "Lot #"
+          },
+          "make": {
+            "format": "text",
+            "label": "Make"
+          },
+          "model": {
+            "format": "text",
+            "label": "Model"
+          },
+          "odometer": {
+            "format": "number",
+            "label": "Odometer"
+          },
+          "primary_damage": {
+            "format": "text",
+            "label": "Primary Damage"
+          },
+          "sale_location": {
+            "format": "text",
+            "label": "Location"
+          },
+          "sale_status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "trim": {
+            "format": "text",
+            "label": "Trim"
+          },
+          "year": {
+            "format": "number",
+            "label": "Year"
+          }
+        }
+      },
+      "title": "Vehicles",
+      "transformation": {
+        "fields": [
+          "lot_number",
+          "year",
+          "make",
+          "model",
+          "trim",
+          "primary_damage",
+          "odometer",
+          "current_bid",
+          "sale_status",
+          "auction_date",
+          "sale_location",
+          "state",
+          "item_url"
+        ]
+      }
+    }
+  }
+}

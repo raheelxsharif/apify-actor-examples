@@ -1,0 +1,30 @@
+{
+  "description": "Navigate to copart.com, apply your filters (make, model, damage type, location, year, etc.), then copy the URL from your browser and paste it into startUrl.",
+  "properties": {
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of vehicle records to return. Set to a large number to get all results.",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "startUrl": {
+      "default": "https://www.copart.com/lotSearchResults/?free=true&query=BMW",
+      "description": "A Copart search results URL (e.g. https://www.copart.com/lotSearchResults/?free=true&query=BMW) or a single lot URL (e.g. https://www.copart.com/lot/12345678). Navigate to copart.com, apply your desired filters, and paste the URL here.",
+      "editor": "textfield",
+      "pattern": "^https://www\\.copart\\.com/",
+      "prefill": "https://www.copart.com/lotSearchResults/?free=true&query=BMW",
+      "title": "Start URL",
+      "type": "string"
+    }
+  },
+  "required": [
+    "startUrl"
+  ],
+  "schemaVersion": 1,
+  "title": "Copart Public Search Scraper Input",
+  "type": "object"
+}
