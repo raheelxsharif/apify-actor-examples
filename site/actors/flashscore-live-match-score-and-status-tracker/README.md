@@ -1,0 +1,99 @@
+# FlashScore Live Match Score & Status Tracker
+
+Pull today's matches from FlashScore.com for 14 sports — football, tennis, basketball, hockey, baseball, cricket, and more — as structured records with live score, match status, league, and kickoff time, updated to the second the feed is fetched.
+
+## What this actor does
+
+- **14 sports** selectable via a single `sport` field
+- **Live-only or full-day view** — return only matches currently in progress, or every match scheduled for today (upcoming, live, and finished)
+- **League and country context** on every match, with a direct link to the match page when it can be built
+- **Fast, single-request fetch** per run — no login required
+- **Empty fields are omitted** from each record — a match that hasn't kicked off yet simply won't carry score fields
+
+## Output per match
+
+- `matchId` — FlashScore's match identifier
+- `sport` — the sport slug requested
+- `homeTeam`, `awayTeam` — team names
+- `status` — human-readable match status (e.g. `scheduled`, `live`, `finished`, `half-time`)
+- `statusCode` — FlashScore's underlying numeric status code
+- `homeScore`, `awayScore` — current score, present once the match has started
+- `league` — league or tournament name, e.g. `ENGLAND: Premier League`
+- `country` — country label for the league
+- `leaguePath` — relative league URL path on flashscore.com
+- `startTime` — scheduled kickoff time, ISO 8601
+- `homeTeamShort`, `awayTeamShort` — team abbreviations
+- `url` — full match summary URL, when it can be constructed
+- `scrapedAt` — ISO 8601 timestamp of when the record was collected
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `sport` | string | `football` | One of `football`, `tennis`, `basketball`, `hockey`, `american-football`, `baseball`, `handball`, `rugby-union`, `rugby-league`, `futsal`, `volleyball`, `cricket`, `darts`, `snooker` |
+| `liveOnly` | boolean | `true` | `true` returns only matches currently in progress; `false` returns every match scheduled for today, including finished ones |
+| `maxItems` | integer | `100` | Maximum matches to return (1–1000) |
+
+### Example: live football right now
+
+```json
+{
+    "sport": "football",
+    "liveOnly": true,
+    "maxItems": 50
+}
+```
+
+### Example: today's full tennis schedule, including finished matches
+
+```json
+{
+    "sport": "tennis",
+    "liveOnly": false,
+    "maxItems": 100
+}
+```
+
+### Example: quick basketball check
+
+```json
+{
+    "sport": "basketball",
+    "liveOnly": true,
+    "maxItems": 20
+}
+```
+
+## Use cases
+
+- **Live score widgets** — power a scoreboard or ticker on a sports site or app
+- **Betting and trading signals** — monitor score and status changes across multiple sports in one feed
+- **Fantasy sports** — feed live scores into a scoring engine during game windows
+- **Daily results archiving** — run with `liveOnly=false` once a day to log that day's full schedule and outcomes
+- **Alerting** — trigger notifications when a tracked match's status or score changes
+
+## FAQ
+
+**Where does this data come from?**
+FlashScore's own live match feed — the same data that powers flashscore.com's scoreboards, read directly rather than through the rendered website.
+
+**Do I need an account or API key?**
+No. The feed is read without login or credentials.
+
+**How current are the scores?**
+As current as FlashScore's own feed at the moment the actor runs — live scores reflect the match state at request time.
+
+**What does `liveOnly` actually change?**
+`true` filters to matches currently in progress; `false` returns every match scheduled for the day, including ones that haven't started yet and ones already finished.
+
+**Why did my chosen sport return 0 matches?**
+Not every sport has matches running at every moment — for example `american-football` will be empty outside the NFL season. Zero matches for an off-season or quiet day is expected, not an error.
+
+**Why are `homeScore`/`awayScore` sometimes missing?**
+A match that hasn't kicked off yet has no score to report, so those fields are left out rather than shown as zero.
+
+**Does this include play-by-play events like goals or cards?**
+No. Each record is a match-level summary (teams, score, status, league, timing) — it doesn't include an event-by-event timeline.
+
+**Is this affiliated with FlashScore?**
+No. This is an independent, third-party actor that reads FlashScore's public match feed; it is not operated by or affiliated with FlashScore.

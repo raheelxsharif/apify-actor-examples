@@ -1,0 +1,64 @@
+{
+  "properties": {
+    "liveOnly": {
+      "default": true,
+      "description": "If true, return only matches currently in progress. If false, return all matches for today (scheduled + live + finished).",
+      "title": "Live matches only",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of matches to return.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "sport": {
+      "default": "football",
+      "description": "Which sport to fetch live matches for.",
+      "editor": "select",
+      "enum": [
+        "football",
+        "tennis",
+        "basketball",
+        "hockey",
+        "american-football",
+        "baseball",
+        "handball",
+        "rugby-union",
+        "rugby-league",
+        "futsal",
+        "volleyball",
+        "cricket",
+        "darts",
+        "snooker"
+      ],
+      "enumTitles": [
+        "Football (soccer)",
+        "Tennis",
+        "Basketball",
+        "Hockey",
+        "American Football",
+        "Baseball",
+        "Handball",
+        "Rugby Union",
+        "Rugby League",
+        "Futsal",
+        "Volleyball",
+        "Cricket",
+        "Darts",
+        "Snooker"
+      ],
+      "prefill": "football",
+      "title": "Sport",
+      "type": "string"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "FlashScore Live Sports Scraper Input",
+  "type": "object"
+}

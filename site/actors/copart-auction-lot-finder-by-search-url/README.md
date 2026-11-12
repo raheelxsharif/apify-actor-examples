@@ -1,109 +1,215 @@
 # Copart Auction Lot Finder by Search URL
 
-Turn any Copart.com search results page or single lot page into structured data. Build your search on Copart's own site — by keyword, make, model, damage type, title type, or location — then paste that URL in and get back every matching lot with its vehicle specs, auction bid, title information, and photos.
+Turn Copart's public auction inventory into structured data. Paste a Copart
+search URL you built on copart.com, use the keyword and filter fields, or look
+up individual lots by number. Every record carries the vehicle identity,
+damage, title, bid, sale date, yard location, seller and photo URLs Copart
+publishes to anonymous visitors.
 
 ## What this actor does
 
-- **URL-driven, not a fixed filter set** — any search you can construct on copart.com (make/model, damage type, title type, location, vehicle type, year range, and more) works simply by pasting the resulting URL
-- **Single-lot lookups** — paste a `copart.com/lot/<id>` URL to fetch just that one vehicle's record
-- **Full vehicle and auction detail** — VIN, year/make/model/trim, odometer, damage codes, title group and state, current bid, buy-it-now price, estimated retail value, and sale date/location
-- **Photos included** — standard and high-resolution image URLs for each lot, when Copart has published them
-- **Empty fields are omitted** from each record — a lot missing a buy-it-now price or photos simply won't carry those keys
+- **Search the way Copart searches.** Paste any `/lotSearchResults` URL and its
+  keyword, filters and sort order are preserved — make, model, year, odometer,
+  damage, title type, vehicle type, transmission, fuel, drive, body style, yard,
+  auction name, Buy It Now and newly-added windows.
+- **Build a search from fields instead.** Pick a keyword and any combination of
+  filters, choose a sort order, and page through up to 100 lots per request.
+- **Look up individual lots.** Supply lot numbers or Copart lot URLs and get
+  the full detail record, including the condition-report damage items and the
+  complete photo gallery.
+- **Choose the country site.** United States, United Kingdom and Middle East
+  inventory are supported for keyword searches; a pasted URL selects its own
+  site automatically.
+- **Clean, omit-empty records.** A field Copart does not publish for a lot is
+  left out instead of appearing as `null`, an empty string or a placeholder.
 
 ## Output per lot
 
-- `lot_number` — Copart's unique lot ID
-- `vin` — vehicle identification number, partially masked as shown on Copart's public search (full VINs are only visible to registered Copart members)
-- `year`, `make`, `model`, `trim` — vehicle identity
-- `color` — exterior color
-- `engine`, `cylinders`, `fuel_type`, `transmission`, `drive` — drivetrain specs
-- `keys` — whether keys are available for the lot
-- `odometer`, `odometer_unit`, `odometer_reading_type` — mileage and whether the reading is actual or not actual
-- `primary_damage`, `secondary_damage` — damage classification
-- `title_group_code`, `title_group`, `title_description`, `title_state` — title type, description, and issuing state
-- `lot_condition`, `lot_condition_code` — Copart's condition category (e.g. Runs and Drives, Enhanced Vehicles)
-- `sale_status`, `bid_status` — current auction/bid state
-- `current_bid` — current highest bid in USD
-- `buy_it_now_price` — Buy It Now price in USD, when the lot has one
-- `acv` — Actual Cash Value
-- `estimated_retail_value` — Copart's estimated retail value
-- `auction_date` — scheduled sale date/time, ISO 8601
-- `sale_location`, `sale_yard_number`, `state`, `country` — the Copart yard selling the lot
-- `item_url` — direct link to the lot on copart.com
-- `imageUrl` — primary thumbnail image URL
-- `images[]`, `images_high_res[]` — full-size and high-resolution image URLs; a single-lot lookup (`copart.com/lot/<id>`) returns every photo Copart has for that lot, while a search result returns one derived full-size and one derived high-res URL per lot
-- `scraped_at` — ISO 8601 timestamp of when the record was collected
+- `lot_number`, `vin` (masked by Copart for anonymous visitors), `year`,
+  `make`, `model`, `trim`, `model_group`
+- `body_style`, `color`, `exterior_color`, `interior_color`
+- `engine`, `cylinders`, `fuel_type`, `transmission`, `drive`, `keys`
+- `odometer`, `odometer_unit`, `odometer_reading_type`
+- `primary_damage`, `secondary_damage`, `damage_type_code`,
+  `damage_details[]`, `damage_areas[]`
+- `title_group_code`, `title_group`, `title_description`, `title_state`,
+  `title_type`, `title_tracking_url`
+- `lot_condition`, `lot_condition_code`, `sale_status`, `bid_status`
+- `current_bid`, `buy_it_now_price`, `buy_it_now_available`, `acv`,
+  `estimated_retail_value`, `currency`
+- `auction_date`, `auction_time`, `timezone`, `last_updated`,
+  `last_auction_date`, `sale_type`, `lot_status`, `auction_number`, `lane`,
+  `auction_date_type`
+- `sale_location`, `sale_yard_number`, `location_city`, `location_state`,
+  `location_country`, `state`, `country`, `zip`, `latitude`, `longitude`
+- `seller`, `seller_type`, `features[]`, `feature_codes[]`
+- `lot_sold`, `reserve_met`, `has_bid`, `bid_increment`, `lot_auction_status`,
+  `vehicle_type`, `vehicle_type_code`
+- `item_url`, `imageUrl`, `images[]`, `images_high_res[]`, `images_count`,
+  `image_labels[]`, `scraped_at`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `startUrl` | string | `https://www.copart.com/lotSearchResults/?free=true&query=BMW` | A Copart search-results URL or a single `copart.com/lot/<id>` URL |
-| `maxItems` | integer | `100` | Maximum number of vehicle records to return (1–1,000,000) |
+| `mode` | select | `search` | `search` finds lots; `details` fetches specific lot numbers or lot URLs |
+| `searchUrl` | string | `https://www.copart.com/lotSearchResults?free=true&query=BMW` | A Copart search URL (filters preserved) or a `/lot/<number>` URL |
+| `searchQuery` | string | — | Keyword such as `BMW` or `Toyota Camry`; empty browses all vehicles |
+| `make`, `model` | string | — | Vehicle make and model |
+| `yearFrom`, `yearTo` | integer | — | Model-year range |
+| `odometerFrom`, `odometerTo` | integer | — | Odometer range |
+| `damageType` | select | — | Primary damage type |
+| `titleType` | select | — | Clean, Non Repairable or Salvage |
+| `vehicleType` | select | — | Automobiles, Motorcycles or SUVs |
+| `transmission` | select | — | Automatic, Manual or None |
+| `fuelType` | select | — | Diesel, Electric, Hybrid, Gas and more |
+| `driveType` | select | — | All-wheel, front-wheel or rear-wheel drive |
+| `cylinders` | select | — | Cylinder count |
+| `bodyStyle` | select | — | Copart body style |
+| `location` | string | — | Yard name, for example `NJ - GLASSBORO WEST` |
+| `auctionName` | string | — | Auction host name |
+| `buyItNowOnly` | boolean | `false` | Only lots with a Buy It Now price |
+| `newlyAddedDays` | select | `0` | Any time, last 24 hours or last 7 days |
+| `sort` | select | `sale_date` | Sale date, year, odometer, make, model or auction date |
+| `maxItems` | integer | `100` | Maximum records to return |
+| `includeDetails` | boolean | `false` | Enrich search rows with the full detail page and condition report |
+| `includeImages` | boolean | `true` | Fetch the full photo gallery in details mode |
+| `site` | select | `us` | United States, United Kingdom or Middle East |
+| `lotNumbers` | array | — | Lot numbers or Copart lot URLs for details mode |
 
 ### Example: keyword search
 
 ```json
 {
-    "startUrl": "https://www.copart.com/lotSearchResults/?free=true&query=Tesla",
+    "mode": "search",
+    "searchQuery": "Toyota Camry",
+    "yearFrom": 2018,
+    "yearTo": 2024,
+    "titleType": "S",
     "maxItems": 200
 }
 ```
 
-### Example: single lot lookup
+### Example: filtered search
 
 ```json
 {
-    "startUrl": "https://www.copart.com/lot/99714325",
-    "maxItems": 1
+    "mode": "search",
+    "make": "BMW",
+    "model": "X7",
+    "damageType": "FR",
+    "buyItNowOnly": true,
+    "sort": "odometer_asc",
+    "maxItems": 100
 }
 ```
 
-### Example: a filtered search built on copart.com, pasted in
+### Example: paste a Copart URL
 
 ```json
 {
-    "startUrl": "https://www.copart.com/lotSearchResults/?free=true&query=Toyota+Camry",
-    "maxItems": 500
+    "mode": "search",
+    "searchUrl": "https://www.copart.com/lotSearchResults?free=false&searchCriteria=%7B%22query%22%3A%5B%22*%22%5D%2C%22filter%22%3A%7B%22MAKE%22%3A%5B%22search_lot_make_desc%3A%5C%22BMW%5C%22%22%5D%7D%7D",
+    "maxItems": 300
+}
+```
+
+### Example: lot details and photos
+
+```json
+{
+    "mode": "details",
+    "lotNumbers": ["69903206", "https://www.copart.com/lot/73672065"],
+    "includeImages": true
 }
 ```
 
 ## Use cases
 
-- **Salvage sourcing** — pull every lot matching a make/model and damage type to find repair candidates
-- **Insurance and claims research** — cross-reference VIN prefixes and damage codes against claims data
-- **Pricing analysis** — compare `current_bid`, `acv`, and `estimated_retail_value` across similar lots to gauge market value
-- **Yard monitoring** — track what's currently listed at specific Copart locations
-- **Inventory datasets** — build a structured archive of salvage vehicle listings for analytics
+- **Salvage sourcing** — find repair candidates by make, model, damage and
+  title type, then compare their current bids and Buy It Now prices.
+- **Pricing research** — build a dataset of current bids, ACV and estimated
+  retail values across similar lots and yards.
+- **Yard monitoring** — track what is listed at specific Copart locations.
+- **Inventory archives** — keep a structured snapshot of the auction pipeline
+  for analytics, dashboards or downstream enrichment.
+- **Damage and title analysis** — use the condition-report damage items, title
+  group and title state to segment lots before a sale.
 
 ## FAQ
 
-**How do I build the search I want?**
-Go to copart.com, use its own search bar and filter panel (make, model, damage type, title type, location, vehicle type, year range, and more), then copy the resulting URL from your browser into `startUrl`. Every filter combination Copart's own site supports works this way.
+**How do I build a search?**
+Use Copart's own search bar and filter panel on copart.com, then copy the URL
+from your browser into `searchUrl`. Every filter combination Copart supports on
+that page is preserved. You can also use the filter fields in this actor.
 
-**Why is the VIN only partially shown?**
-Copart masks the last several characters of the VIN on its public search results by design; the full VIN is only visible to registered Copart members.
+**Why is the VIN partially masked?**
+Copart masks part of the VIN on its public pages by design; the full VIN is only
+visible to signed-in members. This actor reports the masked value exactly as
+Copart publishes it.
 
-**Can I scrape just one lot instead of a search?**
-Yes. Paste a single lot URL like `https://www.copart.com/lot/99714325` and the actor returns just that vehicle's record.
+**Can I get the final sold price?**
+No. Copart's public search and lot pages expose current bids and Buy It Now
+prices, but not a reliable final sale price after the auction closes. The actor
+does not guess or fabricate one.
 
-**What's the difference between `acv` and `estimated_retail_value`?**
-`acv` is the Actual Cash Value (the insured/appraised value); `estimated_retail_value` is Copart's own automated retail valuation based on condition and market data.
+**Why do I get fewer unique lots than Copart's result count?**
+Copart's default sort is not unique, so consecutive result pages can overlap.
+The actor removes duplicate lot numbers. The result count is therefore an
+estimate of the total, not a promise of that many unique lots.
 
-**Does this cover vehicle types other than cars?**
-Yes. Copart lists cars, SUVs, trucks, motorcycles, boats, RVs, and heavy equipment — filter by vehicle type on copart.com and paste that URL.
+**What is the difference between `acv` and `estimated_retail_value`?**
+`acv` is the Actual Cash Value used by the insurer; `estimated_retail_value` is
+Copart's automated retail estimate.
 
-**Does this work for Copart's international sites?**
-The actor is built around Copart's US `lotSearchResults` URL pattern; results from other Copart country sites aren't guaranteed to parse correctly.
+**Does this work without cookies, a login or a proxy?**
+Yes. No cookies, account or proxy setup is needed. The actor handles Copart's
+bot protection automatically and uses the cheapest working path. If Copart
+blocks a request, it falls back to a read-only public rendering mirror of the
+same public page.
 
-**Why does a search result only have one photo per lot, but a single-lot lookup has more?**
-A search result's `images`/`images_high_res` carry one full-size and one high-res URL built from the lot's thumbnail. Paste the individual `copart.com/lot/<id>` URL to get the complete photo set Copart has published for that lot.
+**Which countries are supported?**
+The United States, United Kingdom and Middle East Copart sites are supported.
+A pasted URL selects its own site. Make, model, year, odometer, damage, fuel,
+title, yard, Buy It Now and newly-added filters work on all three sites. A few
+filters are regional: SUV classification and front/rear-wheel drive are US-only
+(UK maps all-wheel drive to 4x4), while body style and cylinder count are US/UK
+only (UK sedan/hatchback/estate/coupe/convertible styles are mapped from the US
+names). Unsupported filters are skipped and named in the run status message.
+Other Copart country sites use different public surfaces and are not
+guaranteed.
 
-**Why might `images` or `buy_it_now_price` be missing from a record?**
-Not every lot has photos uploaded yet or a Buy It Now price set — fields with no data are left out of the record instead of appearing empty.
+**Why does a search row have one image but a details record has many?**
+Search results expose a thumbnail, from which one full-size and one high-res
+URL are derived. Details mode calls Copart's photo endpoint and returns the
+complete gallery when it is available.
+
+**Why is a field missing from a record?**
+Copart does not publish every field for every lot. Empty values are omitted
+rather than emitted as `null` or a placeholder. For example, a lot without a
+Buy It Now price simply has no `buy_it_now_price` key.
 
 **How current is the data?**
-Each run reads Copart's live search results at the time it runs, so bid amounts, status, and availability reflect that moment.
+Each run reads Copart's live public data, so bids, sale dates and availability
+reflect the moment of collection.
 
 **Is this affiliated with Copart?**
-No. This is an independent, third-party actor that reads Copart's public search pages; it is not operated by or affiliated with Copart.
+No. This is an independent third-party actor that reads Copart's public pages
+and JSON responses. It is not operated by or affiliated with Copart.
+
+## Notes and limitations
+
+- VINs are partially masked on all anonymous Copart surfaces.
+- Final sold prices and bid history are not available from the public pages.
+- Auction dates and bid amounts change between runs.
+- The default Copart sort is not unique; duplicate lots are removed.
+- Copart does not offer a working relevance sort; sale date is the default.
+- Some filters are regional: SUV and front/rear-wheel drive are US-only; body
+  style and cylinder count are US/UK only.
+- Non-ASCII keywords are rejected because Copart's search ignores them and
+  returns the full inventory instead of a relevant subset.
+- The Middle East site exposes a thumbnail but not the full image gallery.
+- When Copart blocks its photo endpoint, a details record carries the primary
+  image and derived full-size/high-res URLs instead of the complete gallery.
+- Blocked requests may be served through a read-only public rendering mirror
+  (`r.jina.ai`); the mirror returns the same public page Copart serves.

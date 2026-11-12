@@ -1,30 +1,397 @@
 {
-  "description": "Navigate to copart.com, apply your filters (make, model, damage type, location, year, etc.), then copy the URL from your browser and paste it into startUrl.",
+  "description": "Search Copart auction lots by keyword, make, model, damage, title, location and more — or paste a Copart search or lot URL. No login, cookies or proxy setup needed.",
   "properties": {
+    "auctionName": {
+      "description": "Auction host name, for example NJ - GLASSBORO WEST or a specialty sale name.",
+      "editor": "textfield",
+      "title": "Auction name",
+      "type": "string"
+    },
+    "bodyStyle": {
+      "description": "Only lots with this body style. Common US styles are mapped to UK equivalents; body style is US and UK only.",
+      "editor": "select",
+      "enum": [
+        "4DR SPOR",
+        "4DR SPORT UTILITY",
+        "CONVERTI",
+        "CONVERTIBLE",
+        "COUPE",
+        "CRUISER",
+        "ENDURO",
+        "HATCHBAC",
+        "HATCHBACK",
+        "HATCHBACK 2DR",
+        "HATCHBACK 4DR",
+        "RACER",
+        "ROAD",
+        "ROADSTER",
+        "SEDAN",
+        "SEDAN 2 DR.",
+        "SEDAN 4D",
+        "SEDAN 4DR",
+        "SPORT",
+        "SPORT UTILITY VEHICLE",
+        "SPORT UTILITY VEHICLE [SUV]",
+        "STATION",
+        "STATION WAGON",
+        "TOURING",
+        "TRADITIONAL",
+        "WAGON"
+      ],
+      "title": "Body style",
+      "type": "string"
+    },
+    "buyItNowOnly": {
+      "default": false,
+      "description": "Only lots that have a Buy It Now price.",
+      "prefill": false,
+      "title": "Buy It Now only",
+      "type": "boolean"
+    },
+    "cylinders": {
+      "description": "Only lots with this cylinder count. Available on the US and UK sites.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "title": "Cylinders",
+      "type": "string"
+    },
+    "damageType": {
+      "description": "Only lots with this primary damage type.",
+      "editor": "select",
+      "enum": [
+        "BC",
+        "BN",
+        "BE",
+        "BI",
+        "DH",
+        "FD",
+        "FR",
+        "HL",
+        "MC",
+        "MN",
+        "VI",
+        "NW",
+        "PR",
+        "RR",
+        "RJ",
+        "VP",
+        "RO",
+        "SD",
+        "ST",
+        "TP",
+        "UN",
+        "UK",
+        "VN",
+        "WA"
+      ],
+      "enumTitles": [
+        "Biohazard/Chemical",
+        "Burn",
+        "Burn - Engine",
+        "Burn - Interior",
+        "Damage History",
+        "Frame Damage",
+        "Front End",
+        "Hail",
+        "Mechanical",
+        "Minor Dent/Scratches",
+        "Missing/Altered VIN",
+        "Normal Wear",
+        "Partial Repair",
+        "Rear End",
+        "Rejected Repair",
+        "Replaced VIN",
+        "Rollover",
+        "Side",
+        "Stripped",
+        "Top/Roof",
+        "Undercarriage",
+        "Unknown",
+        "Vandalism",
+        "Water/Flood"
+      ],
+      "title": "Primary damage",
+      "type": "string"
+    },
+    "driveType": {
+      "description": "Only lots with this drive train. UK maps all-wheel drive to 4x4; front and rear wheel drive are US-only.",
+      "editor": "select",
+      "enum": [
+        "all_wheel_drive",
+        "front_wheel_drive",
+        "rear_wheel_drive"
+      ],
+      "enumTitles": [
+        "All Wheel Drive",
+        "Front Wheel Drive",
+        "Rear Wheel Drive"
+      ],
+      "title": "Drive train",
+      "type": "string"
+    },
+    "fuelType": {
+      "description": "Only lots with this fuel type. Gas is matched as Petrol on the UK and Middle East sites.",
+      "editor": "select",
+      "enum": [
+        "diesel",
+        "electric",
+        "electric_and_gas_hybrid",
+        "gas",
+        "hybrid_engine"
+      ],
+      "enumTitles": [
+        "Diesel",
+        "Electric",
+        "Electric and Gas Hybrid",
+        "Gas",
+        "Hybrid Engine"
+      ],
+      "title": "Fuel type",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "For search results, fetch each lot's full detail page and condition report. This adds one request per lot.",
+      "prefill": false,
+      "title": "Include full details",
+      "type": "boolean"
+    },
+    "includeImages": {
+      "default": true,
+      "description": "Fetch the full photo gallery for lots in Details mode, or for search results when Include full details is on.",
+      "prefill": true,
+      "title": "Include photo gallery",
+      "type": "boolean"
+    },
+    "location": {
+      "description": "Copart yard name, for example NJ - GLASSBORO WEST.",
+      "editor": "textfield",
+      "title": "Yard",
+      "type": "string"
+    },
+    "lotNumbers": {
+      "description": "Lot numbers or Copart lot URLs to fetch in Details mode. Duplicates are removed.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Lot numbers or lot URLs",
+      "type": "array"
+    },
+    "make": {
+      "description": "Vehicle make as Copart lists it, for example BMW or TOYOTA.",
+      "editor": "textfield",
+      "sectionCaption": "Filters",
+      "sectionDescription": "All filters are optional and combine with the keyword or URL.",
+      "title": "Make",
+      "type": "string"
+    },
     "maxItems": {
       "default": 100,
-      "description": "Maximum number of vehicle records to return. Set to a large number to get all results.",
+      "description": "Maximum number of lot records to return.",
       "editor": "number",
       "maximum": 1000000,
       "minimum": 1,
-      "prefill": 100,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
-    "startUrl": {
-      "default": "https://www.copart.com/lotSearchResults/?free=true&query=BMW",
-      "description": "A Copart search results URL (e.g. https://www.copart.com/lotSearchResults/?free=true&query=BMW) or a single lot URL (e.g. https://www.copart.com/lot/12345678). Navigate to copart.com, apply your desired filters, and paste the URL here.",
-      "editor": "textfield",
-      "pattern": "^https://www\\.copart\\.com/",
-      "prefill": "https://www.copart.com/lotSearchResults/?free=true&query=BMW",
-      "title": "Start URL",
+    "mode": {
+      "default": "search",
+      "description": "Choose Search to find lots, or Details to fetch specific lot numbers or lot URLs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "details"
+      ],
+      "enumTitles": [
+        "Search lots",
+        "Lot details"
+      ],
+      "prefill": "search",
+      "sectionCaption": "Search source",
+      "sectionDescription": "Use a Copart search URL, a keyword, or the filters below. A lot URL automatically switches to Details mode.",
+      "title": "Mode",
       "type": "string"
+    },
+    "model": {
+      "description": "Vehicle model, for example X7 or CAMRY.",
+      "editor": "textfield",
+      "title": "Model",
+      "type": "string"
+    },
+    "newlyAddedDays": {
+      "default": "0",
+      "description": "Only lots added to Copart in the selected window.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "7"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 24 hours",
+        "Last 7 days"
+      ],
+      "prefill": "0",
+      "title": "Newly added",
+      "type": "string"
+    },
+    "odometerFrom": {
+      "description": "Minimum odometer reading.",
+      "editor": "number",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Odometer from",
+      "type": "integer"
+    },
+    "odometerTo": {
+      "description": "Maximum odometer reading.",
+      "editor": "number",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Odometer to",
+      "type": "integer"
+    },
+    "searchQuery": {
+      "description": "Free-text keyword such as BMW, Toyota Camry, or a lot number. Leave empty to browse all vehicles.",
+      "editor": "textfield",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "searchUrl": {
+      "default": "https://www.copart.com/lotSearchResults?free=true&query=BMW",
+      "description": "A Copart search results URL, for example https://www.copart.com/lotSearchResults?free=true&query=BMW. Filters you set on Copart are preserved. A /lot/<number> URL fetches that single lot.",
+      "editor": "textfield",
+      "prefill": "https://www.copart.com/lotSearchResults?free=true&query=BMW",
+      "title": "Copart search URL",
+      "type": "string"
+    },
+    "site": {
+      "default": "us",
+      "description": "Country site used for keyword searches. A pasted URL overrides this setting.",
+      "editor": "select",
+      "enum": [
+        "us",
+        "uk",
+        "mea"
+      ],
+      "enumTitles": [
+        "United States (copart.com)",
+        "United Kingdom (copart.co.uk)",
+        "Middle East (copartmea.com)"
+      ],
+      "prefill": "us",
+      "title": "Copart site",
+      "type": "string"
+    },
+    "sort": {
+      "default": "sale_date",
+      "description": "Order of the search results.",
+      "editor": "select",
+      "enum": [
+        "sale_date",
+        "year_desc",
+        "year_asc",
+        "odometer_asc",
+        "odometer_desc",
+        "make_asc",
+        "model_asc",
+        "auction_date_asc"
+      ],
+      "enumTitles": [
+        "Sale date (soonest first)",
+        "Year (newest first)",
+        "Year (oldest first)",
+        "Odometer (lowest first)",
+        "Odometer (highest first)",
+        "Make (A–Z)",
+        "Model (A–Z)",
+        "Auction date (oldest first)"
+      ],
+      "prefill": "sale_date",
+      "sectionCaption": "Output",
+      "sectionDescription": "Control how many lots are collected and how much detail is added to each record.",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "titleType": {
+      "description": "Only lots with this title group. UK and Middle East sites map each option to their closest local category.",
+      "editor": "select",
+      "enum": [
+        "C",
+        "J",
+        "S"
+      ],
+      "enumTitles": [
+        "Clean Title",
+        "Non Repairable",
+        "Salvage Title"
+      ],
+      "title": "Title type",
+      "type": "string"
+    },
+    "transmission": {
+      "description": "Only lots with this transmission. UK and Middle East sites match automatic and manual labels.",
+      "editor": "select",
+      "enum": [
+        "automatic",
+        "manual",
+        "none"
+      ],
+      "enumTitles": [
+        "Automatic",
+        "Manual",
+        "None"
+      ],
+      "title": "Transmission",
+      "type": "string"
+    },
+    "vehicleType": {
+      "description": "Only automobiles, motorcycles or SUVs. SUV is available on the US site only.",
+      "editor": "select",
+      "enum": [
+        "automobile",
+        "motorcycle",
+        "suv"
+      ],
+      "enumTitles": [
+        "Automobiles",
+        "Motorcycles",
+        "SUVs"
+      ],
+      "title": "Vehicle type",
+      "type": "string"
+    },
+    "yearFrom": {
+      "description": "Earliest model year.",
+      "editor": "number",
+      "maximum": 2100,
+      "minimum": 1900,
+      "title": "Year from",
+      "type": "integer"
+    },
+    "yearTo": {
+      "description": "Latest model year.",
+      "editor": "number",
+      "maximum": 2100,
+      "minimum": 1900,
+      "title": "Year to",
+      "type": "integer"
     }
   },
-  "required": [
-    "startUrl"
-  ],
   "schemaVersion": 1,
-  "title": "Copart Public Search Scraper Input",
+  "title": "Copart Auction Lot Finder Input",
   "type": "object"
 }
