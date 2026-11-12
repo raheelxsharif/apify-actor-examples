@@ -1,10 +1,12 @@
 # Finn.no Marketplace, Vehicles, Property & Jobs Extractor
 
-Scrape **Finn.no** — Norway's largest online classifieds marketplace with millions of listings across items for sale, cars, motorcycles, boats, trucks & trailers, buses, construction machinery, agriculture equipment, caravans, motorhomes, real estate (for sale, for rent, holiday homes, plots, commercial, businesses for sale), and jobs. Choose from 24 modes to target one specific vertical with its own rich filter set (price, year, mileage, location, and more), or fan out across the 5 highest-volume categories in a single run with `searchAll`. HTTP-only — no login, cookies, API key, or proxy required.
+Scrape **Finn.no** — Norway's largest online classifieds marketplace with millions of listings across items for sale, cars, motorcycles, boats, trucks & trailers, buses, construction machinery, agriculture equipment, caravans, motorhomes, real estate (for sale, for rent, holiday homes, plots, commercial, businesses for sale), and jobs. Choose from 24 search modes to target one specific vertical with its own rich filter set (price, year, mileage, location, and more), fan out across the 5 highest-volume categories in a single run with `searchAll`, or fetch complete listing details from any Finn.no ad URL. HTTP-only — no login, cookies, API key, or proxy required.
 
 ## What this actor does
 
-- **24 modes** — items, cars, motorcycles & mopeds, boats, trucks & trailers, buses, construction machinery, agriculture equipment, caravans, motorhomes, 11 real-estate sub-verticals, and jobs, each with its own filters and output fields
+- **24 search modes** — items, cars, motorcycles & mopeds, boats, trucks & trailers, buses, construction machinery, agriculture equipment, caravans, motorhomes, 11 real-estate sub-verticals, and jobs, each with its own filters and output fields
+- **Full listing details** — `searchByUrls` fetches description, address/coordinates, vehicle specifications, property facilities and broker contact, or employer/employment data from any listing URL; `includeDetails` enriches search results with the same data
+- **Coordinates on every listing** — search results include `latitude`/`longitude` when Finn.no publishes a map pin
 - **`searchAll` fan-out** — one run across items, cars, real estate for sale, real estate for rent, and jobs — the 5 highest-volume categories
 - **Deep per-vertical filters** — make/model-adjacent enums, condition/fuel/transmission dropdowns, equipment & amenity checklists, and year/mileage/price/power/area range filters
 - **Sort & scope controls** — relevance, newest/oldest, price, or distance; filter by Norwegian county (fylke) and "published today"
@@ -49,6 +51,18 @@ Scrape **Finn.no** — Norway's largest online classifieds marketplace with mill
 - `propertyType`, `ownerType`, `neighborhood`, `bedrooms`, `areaSizeSqm`, `plotSizeSqm` — property details (real estate, all 11 sub-verticals; `plotSizeSqm` is the primary size field for plot-only sub-verticals)
 - `viewingTimes` — ISO timestamps of upcoming open-house viewings (real estate, when scheduled)
 - `furnished` — furnished status (`Møblert`/`Delvis møblert`/`Umøblert`) (real estate for rent)
+- `description` — full listing description (details pass / `searchByUrls`)
+- `latitude`, `longitude` — map pin coordinates when Finn.no publishes them
+- `address`, `postalCode`, `countryCode` — full address (real estate, jobs, details)
+- `categoryPath` — item category hierarchy (item detail pages)
+- `extras` — item attribute pairs such as brand/model (item detail pages)
+- `specifications` — all vehicle specification label/value pairs (mobility details)
+- `equipment` — vehicle equipment checklist (mobility details)
+- `facilities` — property amenities (real estate details)
+- `brokerName`, `brokerPhone`, `brokerEmail`, `brokerCompany`, `brokerUrl` — estate-agent contact (real estate details)
+- `cadastralIds`, `documentUrls`, `floorPlanUrls` — property registry/document links (real estate details)
+- `furnished`, `animalsAllowed`, `rentalFrom`, `rentalTo`, `listingType` — rental terms and ad type (real estate details)
+- `jobTitle`, `employmentType`, `hiringOrganization`, `hiringOrganizationUrl`, `datePosted`, `validThrough`, `applicationUrl`, `jobIndustry`, `jobOccupations`, `jobSkills` — job details
 - `mode` — which mode produced this record, e.g. `searchItems`, `searchCars`, `searchRealEstate`
 - `scrapedAt` — ISO timestamp of scrape
 
@@ -60,7 +74,9 @@ Only fields with real data are included — empty/unavailable fields are omitted
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | select | `searchItems` | `searchAll`, `searchCars`, `searchMc`, `searchBoats`, `searchRealEstate`, `searchRealEstateRentals`, `searchRealEstateLeisureSale`, `searchRealEstateLeisurePlots`, `searchRealEstateAbroad`, `searchRealEstateNewBuildings`, `searchRealEstatePlots`, `searchRealEstateBusinessSale`, `searchRealEstateBusinessRent`, `searchRealEstateBusinessPlots`, `searchRealEstateCompanyForSale`, `searchTrucks`, `searchBuses`, `searchConstructionMachinery`, `searchAgricultureTractors`, `searchAgricultureCombines`, `searchAgricultureTools`, `searchCaravans`, `searchMotorhomes`, `searchJobs`, `searchItems` |
+| `mode` | select | `searchItems` | `searchAll`, `searchByUrls`, `searchCars`, `searchMc`, `searchBoats`, `searchRealEstate`, `searchRealEstateRentals`, `searchRealEstateLeisureSale`, `searchRealEstateLeisurePlots`, `searchRealEstateAbroad`, `searchRealEstateNewBuildings`, `searchRealEstatePlots`, `searchRealEstateBusinessSale`, `searchRealEstateBusinessRent`, `searchRealEstateBusinessPlots`, `searchRealEstateCompanyForSale`, `searchTrucks`, `searchBuses`, `searchConstructionMachinery`, `searchAgricultureTractors`, `searchAgricultureCombines`, `searchAgricultureTools`, `searchCaravans`, `searchMotorhomes`, `searchJobs`, `searchItems` |
+| `detailUrls` | array (URLs) | `[]` | Full Finn.no listing URLs for `mode=searchByUrls`, e.g. `https://www.finn.no/mobility/item/123456789` or `https://www.finn.no/realestate/homes/ad.html?finnkode=123456789`. Bare numeric ad IDs are accepted too. |
+| `includeDetails` | boolean | `false` | Fetch each search result's detail page and add its description, coordinates/address, vehicle specifications, property facilities/broker contact, or job employer/employment data. Adds one request per listing. |
 | `query` | string | – | Keyword to search. Leave empty to browse all listings in the selected category |
 | `sortBy` | select | `relevance` | `relevance`, `newest`, `oldest`, `priceAsc`, `priceDesc`, `closest` |
 | `location` | select | – (any county) | Norwegian county (fylke) — applies to every mode, including each vertical inside `searchAll` |
@@ -75,7 +91,7 @@ Only fields with real data are included — empty/unavailable fields are omitted
 | `carDealerSegment` | select | – (any seller) | Private / brand dealer / other dealer (`mode=searchCars`) |
 | `carWheelDrive` | select | – (any drivetrain) | Front / rear / four-wheel drive (`mode=searchCars`) |
 | `carColour` | select | – (any colour) | Exterior colour, 16 values (`mode=searchCars`) |
-| `carSalesForm` | select | – (any sales form) | Used/new/leasing/auction/offers-wanted (`mode=searchCars`) |
+| `carSalesForm` | select | – (any sales form) | Used / new / leasing / auction (`mode=searchCars`) |
 | `carRegistrationClass` | select | – (any class) | Vehicle registration/tax class — passenger car, van, light truck, etc. (`mode=searchCars`) |
 | `carWarrantyInsurance` | select | – (any) | Warranty / right-of-exchange / manufacturer-programme offer attached (`mode=searchCars`) |
 | `carDocumentation` | select | – (any) | Which report/history document is attached (`mode=searchCars`) |
@@ -145,7 +161,7 @@ Only fields with real data are included — empty/unavailable fields are omitted
 | `constructionEnginePowerMin` / `constructionEnginePowerMax` | integer | – | Engine power range in hp (`mode=searchConstructionMachinery`) |
 | `agricultureYearMin` / `agricultureYearMax` | integer | – | Model year range (agriculture modes) |
 | `agricultureEnginePowerMin` / `agricultureEnginePowerMax` | integer | – | Engine power range in hp (`mode=searchAgricultureTractors` / `searchAgricultureCombines`) |
-| `caravanSegment` | select | – (any group) | Vehicle group — Caravan / Trailer tent / Other (`mode=searchCaravans`) |
+| `caravanSegment` | select | – (any group) | Vehicle group — Campingvogn / Husvogn / Teltvogn, 3 values (`mode=searchCaravans`) |
 | `motorhomeSegment` | select | – (any type) | Body type — Alcove / A-class / Van conversion / etc., 5 values (`mode=searchMotorhomes`) |
 | `rvCondition` | select | – (either) | New vs. used (`mode=searchCaravans` / `searchMotorhomes`) |
 | `rvLocation` | select | – (any) | Currently in Norway vs. abroad (`mode=searchCaravans` / `searchMotorhomes`) |
@@ -210,6 +226,30 @@ Every mode-specific filter above is simply ignored when the selected `mode` does
 }
 ```
 
+### Example: full details from listing URLs
+
+```json
+{
+  "mode": "searchByUrls",
+  "detailUrls": [
+    "https://www.finn.no/mobility/item/480806080",
+    "https://www.finn.no/realestate/homes/ad.html?finnkode=467490978"
+  ],
+  "maxItems": 2
+}
+```
+
+### Example: search with detail enrichment
+
+```json
+{
+  "mode": "searchCars",
+  "query": "Volvo",
+  "maxItems": 10,
+  "includeDetails": true
+}
+```
+
 ### Example: cross-category daily snapshot
 
 ```json
@@ -267,6 +307,12 @@ A few facets are intentionally left out because Finn.no's underlying value sets 
 
 **Why do vehicle year filters (e.g. `carYearMax`) top out at 2027?**
 Finn.no's vehicle year filter stops working correctly once a bound goes past the site's current live ceiling — instead of narrowing results, it silently returns the unfiltered set. The input schema caps at the current live ceiling to avoid that. Finn extends the ceiling by roughly a year whenever the next model year goes on sale; for a newer model year in the meantime, use `query` (e.g. `query: "2028 modell"`).
+
+**Can I fetch a listing's full description and specifications?**
+Yes. Set `mode=searchByUrls` and pass listing URLs in `detailUrls`, or set `includeDetails=true` on any search to enrich every returned record. Detail pages provide the full description, exact coordinates/address, complete vehicle specification list and equipment, property facilities and broker contact, or job employer/employment data. Addresses and contact details are only included when Finn.no publishes them.
+
+**Why do details sometimes take longer?**
+`searchByUrls` and `includeDetails=true` make one extra request per listing and those requests are paced to stay polite; a 20-listing search therefore takes roughly 20 detail fetches. Search-only runs stay fast because they read the listing data already embedded in the search page.
 
 **Is this affiliated with Finn.no?**
 No, this is a third-party actor that reads Finn.no's public search results. It is not affiliated with or endorsed by Finn.no or Schibsted Media Group.

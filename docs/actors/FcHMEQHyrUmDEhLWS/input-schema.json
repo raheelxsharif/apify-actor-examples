@@ -1,4 +1,5 @@
 {
+  "additionalProperties": true,
   "description": "Search Finn.no — Norway's largest classifieds — for items, cars, motorcycles, boats, real estate (for sale, for rent, holiday homes, plots, commercial, businesses), and jobs.",
   "properties": {
     "agricultureEnginePowerMax": {
@@ -411,7 +412,6 @@
       ],
       "enumTitles": [
         "Any",
-        "Any",
         "Service history",
         "Condition report",
         "Test report"
@@ -550,7 +550,6 @@
       ],
       "enumTitles": [
         "Any",
-        "Any class",
         "Passenger car",
         "Van",
         "Combi van",
@@ -564,13 +563,12 @@
     },
     "carSalesForm": {
       "default": "",
-      "description": "How the vehicle is being sold (used/new/leasing/auction/offers). Only applies when mode is 'Search cars & vehicles'.",
+      "description": "How the vehicle is being sold (used/new/leasing/auction). Only applies when mode is 'Search cars & vehicles'.",
       "editor": "select",
       "enum": [
         "",
         "Bruktbil til salgs",
         "Nybil til salgs",
-        "Bud ønskes",
         "Leasing",
         "Auksjon"
       ],
@@ -578,7 +576,6 @@
         "Any sales form",
         "Used car for sale",
         "New car for sale",
-        "Offers wanted",
         "Leasing",
         "Auction"
       ],
@@ -651,7 +648,6 @@
       ],
       "enumTitles": [
         "Any",
-        "Any",
         "Warranty",
         "Right of exchange",
         "Manufacturer-programme car"
@@ -690,7 +686,6 @@
         "To eller flere hjulsett"
       ],
       "enumTitles": [
-        "Any",
         "Any",
         "One wheel set",
         "Two or more wheel sets"
@@ -753,15 +748,13 @@
         "",
         "Campingvogn",
         "Husvogn",
-        "Teltvogn",
-        "Annet"
+        "Teltvogn"
       ],
       "enumTitles": [
         "Any",
         "Campingvogn",
         "Husvogn",
-        "Teltvogn",
-        "Annet"
+        "Teltvogn"
       ],
       "prefill": "",
       "title": "Vehicle group (caravans)",
@@ -939,6 +932,14 @@
       "title": "Min model year (construction)",
       "type": "integer"
     },
+    "detailUrls": {
+      "default": [],
+      "description": "Full Finn.no listing URLs to fetch, e.g. https://www.finn.no/mobility/item/123456789 or https://www.finn.no/realestate/homes/ad.html?finnkode=123456789. Bare numeric ad IDs are also accepted. For search enrichment instead, set includeDetails.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Listing URLs (mode=searchByUrls)",
+      "type": "array"
+    },
     "forRent": {
       "default": "",
       "description": "Filter items listed for purchase vs. for rent. Only applies when mode is 'Search items for sale'.",
@@ -956,6 +957,13 @@
       "prefill": "",
       "title": "Buy or rent (items for sale)",
       "type": "string"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Fetch each search result's detail page and add its description, address/coordinates, specifications (vehicles), facilities/broker contact (property), or employer/employment data (jobs). One extra request per listing, so it is off by default.",
+      "prefill": false,
+      "title": "Include full listing details",
+      "type": "boolean"
     },
     "itemCondition": {
       "default": "",
@@ -999,7 +1007,6 @@
         "Under en uke"
       ],
       "enumTitles": [
-        "Any",
         "Any",
         "Final deadline",
         "Under 3 days",
@@ -1578,7 +1585,7 @@
       "description": "Maximum number of listings to return.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -1636,15 +1643,13 @@
         "",
         "Bensin",
         "Diesel",
-        "El",
-        "Gass+bensin"
+        "El"
       ],
       "enumTitles": [
         "Any",
         "Bensin",
         "Diesel",
-        "El",
-        "Gass+bensin"
+        "El"
       ],
       "prefill": "",
       "title": "Fuel type (MC)",
@@ -1736,10 +1741,11 @@
     },
     "mode": {
       "default": "searchItems",
-      "description": "What to search on Finn.no.",
+      "description": "What to do on Finn.no: search one category, fan out across the five main categories, or fetch full details for listing URLs.",
       "editor": "select",
       "enum": [
         "searchAll",
+        "searchByUrls",
         "searchCars",
         "searchMc",
         "searchBoats",
@@ -1767,6 +1773,7 @@
       ],
       "enumTitles": [
         "Search all categories",
+        "Fetch listing details (by URL)",
         "Search cars & vehicles",
         "Search motorcycles & mopeds",
         "Search boats",
@@ -2244,7 +2251,6 @@
       ],
       "enumTitles": [
         "Any",
-        "Any",
         "1 or more",
         "2 or more",
         "3 or more",
@@ -2303,7 +2309,6 @@
         "Privat"
       ],
       "enumTitles": [
-        "Any",
         "Any",
         "Broker",
         "Private"

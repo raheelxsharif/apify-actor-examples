@@ -4,73 +4,95 @@
 
 # Century 21 Listings & Property Detail Finder
 
-Scrape homes for sale and for rent from **Century21.com** — one of the largest real estate brokerage networks in the US. Search by city, county, neighborhood or ZIP code with rich filters (price, beds, baths, square footage, lot size, year built), look up a specific property by street address, or fetch full listing details (description, taxes, HOA, schools, appliances) by listing ID. No login, no API key, no proxy required.
+Find homes on **Century21.com** by city, county, neighborhood, ZIP, state, or a pasted URL. The actor reads Century 21's own public listing API from a plain HTTP request — no login, cookie, proxy, or API key from you — and returns clean records for **for-sale, for-rent, pending, coming-soon, sold, expired, inactive, withdrawn, rented, and canceled** listings.
+
+It covers the full listing lifecycle rather than only active inventory: price, beds/baths, living area, lot size, year built, photos, open houses, virtual tours, MLS number, listing office, agent contact details (when the MLS publishes them), taxes, HOA dues, schools, and optional room-by-room property details.
 
 ## What this actor does
 
-- **Three modes:** `search` (by location + filters), `byAddress` (direct property lookup), `byListingId` (fetch by internal listing ID)
-- **For sale or for rent** — toggle with `listingType`
-- **Filters:** property type, listing status, price range, min beds/baths, sqft range, lot size range, year-built range, sort order
-- **Full detail enrichment** — optionally fetch description, taxes, HOA dues, schools, appliances, utilities and every photo for each search result
-- **Empty fields are omitted** — every record only contains fields the source actually returned
+- **Four modes:** `search` by place, `byUrl` from pasted Century 21 search/listing URLs, `byAddress` with exact-address matching, `byListingId` from an ID or listing URL
+- **Every public status:** active, pending, coming soon, sold, expired, inactive, withdrawn, rented, canceled
+- **For sale or for rent** with the site's own rental index
+- **Filters:** property type, status, price, min/max bedrooms, min bathrooms, days on market, sqft, lot size, year built, open houses, new construction, virtual tours, luxury, and sort order
+- **Pagination:** up to 300 listings per request, paged until your `maxItems` or the source runs out; results are deduplicated across pages
+- **Full detail enrichment:** description, taxes, HOA, schools, room descriptions, appliances, utilities, every photo, open-house windows, and agent email/phone/profile when available
+- **Omit-empty output:** a field appears only when Century 21 actually returned a real value
 
 ## Output per listing
 
-- `listingId`, `mlsNumber`, `listingUrl`
-- `listingType` (For Sale / For Rent), `listingStatus`
-- `price`, `pricePerSquareFoot` *(detail mode)*
-- `propertyType`, `propertyTypeLabel`
-- `bedrooms`, `bathrooms`, `fullBathrooms`, `halfBathrooms`
-- `livingAreaSqFt`, `buildingAreaSqFt` *(detail mode)*, `livingAreaUnits`, `lotSize`, `lotSizeUnits`, `yearBuilt` *(detail mode)*
-- `address`, `city`, `state` *(detail mode)*, `stateCode`, `postalCode`, `neighborhood` *(detail mode)*, `subdivision`, `latitude`, `longitude`
-- `elementarySchool`, `middleSchool`, `highSchool` *(detail mode)*
-- `photoUrl`, `photoUrls[]`, `photosCount`, `virtualTourUrl`
-- `mlsShortName`, `mlsDisclaimerText` *(detail mode)*
-- `listingOfficeName`, `agentName`, `agentPhone`, `officePhone` *(phone fields in detail mode)*
-- `description`, `taxAnnualAmount`, `taxYear`, `hoaDuesMonthly` *(detail mode)*
-- `heating`, `cooling`, `hasCentralAir`, `roof`, `flooring`, `foundationDetails`, `constructionMaterials`, `exteriorFeatures` *(detail mode)*
-- `parkingTotal`, `garageSpaces`, `hasGarage` *(detail mode)*
-- `appliances`, `amenities`, `lotFeatures`, `poolFeatures`, `laundryFeatures`, `sewer`, `water` *(detail mode)*
-- `openHouses[]`, `daysOnMarket`, `lastUpdated` *(detail mode)*
-- `recordType: "listing"`, `scrapedAt`
+**Identity and status**
+- `listingId`, `mlsNumber`, `listingUrl`, `mlsShortName`, `listingType` (For Sale / For Rent), `listingStatus`, `statusLabels[]`, `isLuxuryListing`, `isInBrand`, `daysOnMarket`, `lastUpdated`
+
+**Price and size**
+- `price`, `pricePerSquareFoot` *(details)*, `bedrooms`, `bathrooms`, `fullBathrooms`, `halfBathrooms`, `partialBathrooms`, `roomsTotal` *(details)*, `livingAreaSqFt`, `buildingAreaSqFt` *(details)*, `livingAreaUnits`, `lotSize`, `lotSizeUnits`, `yearBuilt` *(details)*
+
+**Location**
+- `address`, `city`, `state`, `stateCode`, `postalCode`, `neighborhood`, `subdivision`, `latitude`, `longitude`, `placeName`, `placeType`, `elementarySchool`, `middleSchool`, `highSchool`
+
+**Media and events**
+- `photoUrl`, `photoUrls[]`, `photosCount`, `virtualTourUrl`, `openHouses[]` (`startTime`, `endTime`)
+
+**People and office**
+- `listingOfficeName`, `listingOfficeAttribution`, `agentName`, `agentEmail`, `agentPhone`, `agentProfileUrl`, `agentId`, `agentLicense`, `agentRating`, `agentOfficeName`, `officePhone`
+
+**Property facts** *(details where marked)*
+- `description`, `taxAnnualAmount`, `taxYear`, `hoaDuesMonthly`, `numberOfUnitsInCommunity`, `heating`, `cooling`, `hasCentralAir`, `roof`, `flooring`, `foundationDetails`, `constructionMaterials`, `exteriorFeatures`, `levels`, `architectureStyle`, `basement`, `hasBasement`, `diningDescription`, `bathroomDescription`, `kitchenDescription`, `bedroomDescription`, `parkingTotal`, `garageSpaces`, `carportSpaces`, `otherParkingSpaces`, `hasGarage`, `appliances`, `amenities`, `lotFeatures`, `poolFeatures`, `laundryFeatures`, `isSmartHome`, `sewer`, `water`, `sourceUrl`
+
+Every record also carries `recordType: "listing"` and `scrapedAt`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `byAddress` / `byListingId` |
-| `location` | string | – | City, county, neighborhood or ZIP (mode=search); required in `search` mode |
-| `addresses` | array | – | Full street addresses (mode=byAddress); deduplicated automatically |
-| `listingIds` | array | – | Listing IDs from a previous run (mode=byListingId); deduplicated automatically |
-| `listingType` | string | – | `forSale` / `forRent`; falls back to `forSale` in code if omitted |
-| `propertyTypes` | array | – | Single family, Multi-family, Co-op, Mobile/Manufactured, Lots/Land, Condominium, Townhouse, Farm. Leave empty for all types |
-| `statuses` | array | – | Active, Pending/Under contract, Coming soon. Leave empty for all statuses |
-| `minPrice` / `maxPrice` | int | – | Price range in USD |
-| `minBedrooms` | select | – | Studio – 5+ |
-| `minBathrooms` | select | – | 1+ – 5+ |
-| `minSqft` / `maxSqft` | select | – | Living area range |
-| `minAcreage` / `maxAcreage` | select | – | Lot size range |
-| `minYearBuilt` / `maxYearBuilt` | select | – | Year-built range |
-| `sortBy` | string | – | `newest` / `priceHighToLow` / `priceLowToHigh`; falls back to `newest` in code if omitted |
-| `includeFullDetails` | bool | `false` | Fetch full property detail (description, taxes, schools, all photos) for every search result — one extra request per listing |
-| `maxItems` | int | `30` | Hard cap (1–1000) |
+| `mode` | string | `search` | `search` / `byUrl` / `byAddress` / `byListingId` |
+| `startUrls` | array | `[]` | Century 21 search or listing URLs (mode=byUrl); query filters in the URL are honoured |
+| `location` | string | – | City, county, neighborhood, ZIP, or state (mode=search); defaults to `Austin, TX` when omitted |
+| `addresses` | array | `[]` | Exact street addresses (mode=byAddress); nearby non-matches are rejected |
+| `listingIds` | array | `[]` | Listing IDs or listing URLs (mode=byListingId) |
+| `listingType` | string | – | `forSale` / `forRent`; falls back to `forSale` in code |
+| `propertyTypes` | array | `[]` | Single family, Multi-family, Co-op, Mobile/Manufactured, Lots/Land, Condominium, Townhouse, Farm; empty = all |
+| `statuses` | array | `[]` | Active, Pending, Coming soon, Expired, Inactive, Withdrawn, Sold, Rented, Canceled; empty = Active + Pending + Coming soon |
+| `hasOpenHouses` | bool | `false` | Only listings with an upcoming open house |
+| `isNewConstruction` | bool | `false` | Only new-construction listings |
+| `isVirtualTourAvailable` | bool | `false` | Only listings with a virtual tour |
+| `luxuryOnly` | bool | `false` | Only Century 21 Fine Homes & Estates luxury listings |
+| `minPrice` / `maxPrice` | integer | – | Price range in USD |
+| `daysOnMarket` | string | – | Listed within 1, 7, 14, 30, 60, or 90 days |
+| `minBedrooms` / `maxBedrooms` | string | – | Studio–5+ bedrooms |
+| `minBathrooms` | string | – | 1+–5+ bathrooms |
+| `minSqft` / `maxSqft` | string | – | Living-area range |
+| `minAcreage` / `maxAcreage` | string | – | Lot-size range |
+| `minYearBuilt` / `maxYearBuilt` | string | – | Year-built range |
+| `sortBy` | string | – | `newest` / `priceHighToLow` / `priceLowToHigh`; falls back to `newest` in code |
+| `includeFullDetails` | bool | `false` | Fetch full detail for every search result (one extra request per listing; search results already include the core fields) |
+| `maxItems` | integer | `30` | Hard cap (1–5000) |
 
-> Note: `location`, `listingType`, and `sortBy` show an example value in the Apify Console's *Start* form (e.g. `Austin, TX`, `forSale`, `newest`), but that example is not stored as the schema default — it is only pre-filled interactively and is not injected when the field is omitted from a programmatic run.
+> Fields without a schema default show an example in the Console start form only. The actor falls back to the documented behaviour in code, so programmatic runs do not need to send every field.
 
-### Example: homes for sale in Austin, TX under $500k
+### Example: sold homes in Austin
 
 ```json
 {
   "mode": "search",
   "location": "Austin, TX",
-  "listingType": "forSale",
-  "maxPrice": 500000,
-  "minBedrooms": "3",
+  "statuses": ["SOLD"],
+  "maxItems": 100
+}
+```
+
+### Example: open houses this weekend, under $600k
+
+```json
+{
+  "mode": "search",
+  "location": "78704",
+  "hasOpenHouses": true,
+  "maxPrice": 600000,
   "maxItems": 50
 }
 ```
 
-### Example: rentals in Miami, FL with full details
+### Example: rentals with full details
 
 ```json
 {
@@ -82,42 +104,77 @@ Scrape homes for sale and for rent from **Century21.com** — one of the largest
 }
 ```
 
-### Example: lookup a specific address
+### Example: paste a search URL and a listing URL
+
+```json
+{
+  "mode": "byUrl",
+  "startUrls": [
+    {"url": "https://www.century21.com/homes/list/city/tx/austin?minPrice=500000&maxPrice=900000"},
+    {"url": "https://www.century21.com/homes/detail/tx/austin/803-herndon-ln/lid-P00800000HKJanssLAMoatfjovxY7QBWpsuLltxP"}
+  ],
+  "maxItems": 50
+}
+```
+
+### Example: exact address lookup
 
 ```json
 {
   "mode": "byAddress",
-  "addresses": ["13521 Sea Biscuit Dr, Del Valle, TX"]
+  "addresses": ["803 Herndon Ln, Austin, TX 78704"]
 }
 ```
 
-### Example: fetch by listing ID
+### Example: listing ID or listing URL
 
 ```json
 {
   "mode": "byListingId",
-  "listingIds": ["P00800000HF6cD2iLtM7DTj91VD8KUzhnfCsy0Wx"]
+  "listingIds": [
+    "P00800000HKJanssLAMoatfjovxY7QBWpsuLltxP",
+    "https://www.century21.com/homes/detail/tx/austin/803-herndon-ln/lid-P00800000HKJanssLAMoatfjovxY7QBWpsuLltxP"
+  ]
 }
 ```
 
 ## Use cases
 
-- **Real estate market research** — track pricing trends by city/neighborhood
-- **Investment analysis** — filter by price, lot size, and year built to find deals
-- **Lead generation** — pull agent/office contact info from active listings
-- **Rental market comparison** — compare rents across neighborhoods
-- **Portfolio monitoring** — periodically re-fetch known listings by ID for price/status changes
+- **Sold comparable research** — pull sold listings by ZIP or neighborhood and compare last list prices, size, and year built
+- **Open-house routing** — find every upcoming open house in a target area and hand the schedule to buyers or agents
+- **Agent lead lists** — export listing agent names, phones, emails, and brokerage offices with the property context attached
+- **Rental market monitoring** — compare rents, deposits, and unit sizes across neighborhoods
+- **Inventory and price tracking** — re-run the same search daily and diff price, status, and new listings
+- **Property underwriting** — filter by lot size, year built, and square footage, then enrich the shortlist with taxes, HOA, and room details
 
 ## FAQ
 
-**Does this need a proxy or login?** No. Century21.com's own listings API is public and returns real MLS-syndicated data with a plain HTTP request — the same endpoint the century21.com website itself calls.
+**Does this need a proxy, login, or API key?** No. Century21.com's own listing API is public and works from a plain HTTP request. The actor uses no proxy and never asks for cookies or credentials.
 
-**How do I find a `listingId` for `byListingId` mode?** Every record from `search` or `byAddress` mode includes a `listingId` field you can reuse.
+**Can it scrape sold or off-market homes?** Yes. Century 21's public index exposes sold, expired, inactive, withdrawn, rented, and canceled statuses alongside active inventory. Select the statuses you want. A property that is not in the public index at all cannot be returned.
 
-**Why does `search` mode return fewer fields than `byAddress`/`byListingId`?** The location-search endpoint returns a lighter summary object (used for map/list views). Set `includeFullDetails: true` to enrich every search result with the full property detail (description, taxes, schools, all photos) — this makes one extra request per listing, so it's slower.
+**How are open houses returned?** When Century 21 publishes open-house windows, each record includes an `openHouses[]` array with ISO `startTime` and `endTime`. The `hasOpenHouses` filter limits results to listings with an upcoming open house.
 
-**What area does this cover?** All US markets that Century 21 syndicates through its MLS/IDX feeds — coverage varies by MLS availability in each area.
+**What happens if I paste an address Century 21 does not list?** The actor rejects it instead of returning a nearby look-alike. Century 21's address suggestions include nearby properties even when the exact house number is missing; this actor requires the house number and street name to match, so a no-match run is empty rather than wrong data.
 
-**Are "For Rent" listings the same fields as "For Sale"?** Mostly yes; some fields specific to home sales (e.g. HOA dues, taxes) are less commonly populated on rental listings depending on what the source MLS provides.
+**Can I paste a Century 21 URL?** Yes. Search URLs (`/homes/list/...`) honour their city/county/ZIP/state/neighborhood path and any filters in the query string. Listing URLs (`.../lid-...`) fetch the full detail record. Both can be mixed in one run.
 
-**How fresh is the data?** Listings are pulled live from Century21.com's current MLS/IDX feed at the time the actor runs — no caching.
+**How do I find a listing ID?** Every record from any mode includes `listingId`. You can also paste the listing's full URL.
+
+**Why does a search result have fewer fields than a detail lookup?** Century 21's search endpoint returns a lighter record. Set `includeFullDetails: true` to fetch the full detail (description, taxes, schools, room details, all photos) for every search result; this adds one request per listing. `byAddress`, `byListingId`, and listing URLs always return full details.
+
+**Why is an agent phone or email missing?** Contact details are published only when the listing's MLS supplies them. Most listings include an agent name and office; email and phone are less common and are omitted rather than fabricated.
+
+**Are sold prices the final sale price?** Century 21's public sold records show the MLS list/close price it publishes for the listing. It is not an independent deed or county-recorder sale price.
+
+**What area does this cover?** Century21.com's US market. Coverage depends on the MLS/IDX feed for each area; Century 21's country-specific sites (Canada, Portugal, Spain, France, etc.) use different systems and are not part of this actor.
+
+**How fresh is the data?** Records are pulled live from Century 21's current public feed on every run. There is no cache.
+
+## Limitations
+
+- US Century21.com only; other Century 21 country domains are not supported.
+- A listing must be present in Century 21's public index. Private/off-market listings are not reachable.
+- Status availability varies by MLS; some feeds omit expired, inactive, or sold records entirely.
+- Detail fields such as taxes, HOA, schools, room descriptions, agent email, and phone are conditional on what the listing MLS publishes. They are omitted when absent.
+- `byAddress` is intentionally strict: it requires an exact house-number and street match, so spelling variants that the suggestion service cannot normalise will return zero records.

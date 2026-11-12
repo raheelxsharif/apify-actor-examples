@@ -1,4 +1,5 @@
 {
+  "additionalProperties": true,
   "description": "Search homes for sale or rent on Century21.com by city/county/neighborhood/ZIP, look up a specific property by address, or fetch full details by listing ID.",
   "properties": {
     "addresses": {
@@ -9,11 +10,54 @@
       "title": "Street addresses (mode=byAddress)",
       "type": "array"
     },
+    "daysOnMarket": {
+      "description": "Only listings added to the market within this many days.",
+      "editor": "select",
+      "enum": [
+        "1",
+        "7",
+        "14",
+        "30",
+        "60",
+        "90"
+      ],
+      "enumTitles": [
+        "1 day",
+        "1 week",
+        "2 weeks",
+        "1 month",
+        "2 months",
+        "3+ months"
+      ],
+      "title": "Listed within (mode=search)",
+      "type": "string"
+    },
+    "hasOpenHouses": {
+      "default": false,
+      "description": "Only listings with an upcoming open house.",
+      "prefill": false,
+      "title": "Has open house (mode=search)",
+      "type": "boolean"
+    },
     "includeFullDetails": {
       "default": false,
       "description": "Fetch the full property detail (description, taxes, HOA, schools, appliances, all photos) for every search result. Slower — makes one extra request per listing.",
       "prefill": false,
       "title": "Include full listing details",
+      "type": "boolean"
+    },
+    "isNewConstruction": {
+      "default": false,
+      "description": "Only new-construction listings.",
+      "prefill": false,
+      "title": "New construction only (mode=search)",
+      "type": "boolean"
+    },
+    "isVirtualTourAvailable": {
+      "default": false,
+      "description": "Only listings with a virtual tour.",
+      "prefill": false,
+      "title": "Has virtual tour (mode=search)",
       "type": "boolean"
     },
     "listingIds": {
@@ -25,7 +69,7 @@
       "type": "array"
     },
     "listingType": {
-      "description": "Search for-sale or for-rent listings.",
+      "description": "Search for-sale or for-rent listings. Rentals use Century 21's rental index.",
       "editor": "select",
       "enum": [
         "forSale",
@@ -45,6 +89,13 @@
       "prefill": "Austin, TX",
       "title": "Location (mode=search)",
       "type": "string"
+    },
+    "luxuryOnly": {
+      "default": false,
+      "description": "Only Century 21 Fine Homes & Estates luxury listings.",
+      "prefill": false,
+      "title": "Luxury listings only (mode=search)",
+      "type": "boolean"
     },
     "maxAcreage": {
       "description": "Only listings with a lot size at or below this many acres.",
@@ -94,12 +145,34 @@
       "title": "Max lot size (acres)",
       "type": "string"
     },
+    "maxBedrooms": {
+      "description": "Only listings with at most this many bedrooms.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "Studio",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5+"
+      ],
+      "title": "Max bedrooms",
+      "type": "string"
+    },
     "maxItems": {
       "default": 30,
       "description": "Hard cap on emitted records.",
-      "maximum": 1000,
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 30,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -385,17 +458,19 @@
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch.",
+      "description": "What to fetch. `search` resolves a place and pages its listings; `byUrl` reads pasted Century 21 search or listing URLs; `byAddress` requires an exact street-address match; `byListingId` accepts IDs or listing URLs.",
       "editor": "select",
       "enum": [
         "search",
+        "byUrl",
         "byAddress",
         "byListingId"
       ],
       "enumTitles": [
-        "Search by location (city, county, neighborhood, ZIP)",
-        "Lookup by street address",
-        "Lookup by listing ID"
+        "Search by location (city, county, neighborhood, ZIP, state)",
+        "Search or fetch from Century 21 URLs",
+        "Lookup by exact street address",
+        "Lookup by listing ID or listing URL"
       ],
       "prefill": "search",
       "title": "Mode",
@@ -449,20 +524,53 @@
       "title": "Sort order (mode=search)",
       "type": "string"
     },
+    "startUrls": {
+      "default": [],
+      "description": "Paste Century 21 search URLs (e.g. https://www.century21.com/homes/list/city/tx/austin) or listing URLs. Search URLs honour their type/state/area path and query filters; listing URLs fetch full details.",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "Century 21 search or listing URL",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "Century 21 URLs (mode=byUrl)",
+      "type": "array"
+    },
     "statuses": {
       "default": [],
-      "description": "Restrict to these listing statuses. Leave empty for all statuses.",
+      "description": "Restrict to these listing statuses. Leave empty for Active + Pending + Coming soon. Sold, Expired and Inactive are also available from Century 21's public index. Applied to rentals too when set.",
       "editor": "select",
       "items": {
         "enum": [
           "ACTIVE",
           "PENDING",
-          "COMING_SOON"
+          "COMING_SOON",
+          "EXPIRED",
+          "INACTIVE",
+          "WITHDRAWN",
+          "SOLD",
+          "RENTED",
+          "CANCELED"
         ],
         "enumTitles": [
           "Active",
           "Pending / Under contract",
-          "Coming soon"
+          "Coming soon",
+          "Expired",
+          "Inactive",
+          "Withdrawn",
+          "Sold",
+          "Rented",
+          "Canceled"
         ],
         "type": "string"
       },

@@ -1,134 +1,221 @@
 # Yelp Business Profile, Hours & Menu Extractor
 
-Yelp business pages carry far more than a star rating — hours, services, photo galleries, owner replies, and sometimes a full menu. This actor pulls all of it from a Yelp search or a direct business URL, alongside customer reviews with per-review dates and reaction counts.
+Yelp business pages are useful for more than star ratings. This actor collects the profile itself — address, phone, website, categories, price level, weekly opening hours — plus the published menu with dish names, descriptions, prices, and sections. Reviews, photo galleries, owner replies, and search metadata are included alongside the profile so one run can feed a directory, a competitive analysis, or a menu-price monitor.
 
-## What this actor does
+## What it collects
 
-- Searches Yelp by keyword and location, or scrapes specific businesses via direct URL
-- Returns business profile data: name, phone, address, categories, price range, cuisine, website, description
-- Extracts customer reviews with text, star rating, per-review date, attached photos, and Useful/Funny/Cool reaction counts
-- Pulls hours of operation, services and amenities, geographic coordinates, photo galleries by category, owner replies, and (for some restaurants) a full menu
-- Empty fields are omitted from records — no empty strings, empty arrays, or null values
+- **Two ways to start.** Search Yelp by keyword and location, or paste business URLs, aliases, or 22-character Yelp business IDs.
+- **Full business profile.** Name, stable business ID, alias, categories, business type, cuisine, address, coordinates, price level, phone, website, claim status, and a short description.
+- **Weekly hours.** Opening hours for each day of the week, including split shifts such as lunch and dinner service.
+- **Menus.** Section names, dish names, descriptions, prices, currencies, and item URLs from the business's public Yelp menu. Menus are optional and appear only when the business has published one.
+- **Photos.** Up to 100 gallery photos per business, with a legacy `photoCategories` grouping for older integrations.
+- **Reviews.** Rating, text, author, date, language, photos, Elite status, reaction counts, and owner replies. The review feed is paged, so you can collect far more than the handful Yelp shows on the first screen.
+- **Search context.** Organic rank, sponsored flag, the query and location that found each business, and the source page.
+- **Honest status rows.** Missing pages, blocks, and data-contract changes become explicit records instead of a silently empty dataset.
+- **No empty placeholders.** Fields Yelp does not provide are omitted at every depth.
 
-## Output per business
+## Data source and access
 
-- `directUrl` — full Yelp URL of the business page
-- `bizId` — Yelp business slug identifier
-- `name`, `description` — business name and description
-- `categories` — business categories (e.g. "Pizza", "Italian")
-- `type` — business type (e.g. "Restaurant", "LocalBusiness")
-- `phone`, `website` — contact details
-- `reviewCount`, `aggregatedRating` — total reviews and average star rating
-- `priceRange` — price level (`$`, `$$`, `$$$`)
-- `cuisine` — cuisine type, for restaurants
-- `images` — business hero image URLs
-- `address` — `streetAddress`, `addressLocality`, `addressRegion`, `postalCode`, `addressCountry`
-- `coordinates` — `latitude`, `longitude`
-- `hours` — one entry per weekday (e.g. `"Mon": "11:00 AM - 10:00 PM"`)
-- `services` — amenities and services (takeout, delivery, parking, and more)
-- `photoCategories` — photo URLs grouped by category (food, inside, outside, menu)
-- `menu` — menu items as `{name, price, description}`, for restaurants with a published menu
-- `claimStatus` — `claimed` or `unclaimed`
-- `ownerReplies` — business responses to reviews as `{reviewDate, reply, replyDate}`
-- `reviews` — customer reviews (see below)
-- `scrapedAt` — when the record was scraped
+The actor reads Yelp's public search pages, public menu pages, and the same unauthenticated GraphQL endpoint the website uses. It needs no Yelp account, login, cookie, or API key. When Yelp blocks a request, the actor retries through Apify Proxy automatically; you do not have to configure a proxy.
 
-### Review fields
+## Output
 
-- `reviewerName` — the reviewer's display name, when shown
-- `date` — review date, anchored to that specific review
-- `rating` — star rating (`1`–`5`)
-- `text` — review text
-- `photos` — URLs of photos attached to the review
-- `isUsefulCount`, `isFunnyCount`, `isCoolCount` — reaction counts on the review
+Each business is one row with `recordType: "business"`. Reviews and menu items are nested arrays.
+
+### Business fields
+
+| Field | Description |
+|---|---|
+| `businessId` / `encId` | Yelp's 22-character business ID |
+| `alias` | Yelp URL slug, for example `prince-street-pizza-new-york-2` |
+| `name` | Business name |
+| `type` | Business type derived from Yelp's root category, e.g. `Restaurant` |
+| `categories` | Category titles |
+| `categoryAliases` | Yelp category aliases |
+| `cuisine` | Cuisine-style categories for restaurants |
+| `address` | Nested address object: `streetAddress`, `addressLocality`, `addressRegion`, `postalCode`, `addressCountry`, `formatted` |
+| `city`, `state`, `zip`, `country` | Flattened address components |
+| `lat`, `lng` | Coordinates |
+| `coordinates` | `{ latitude, longitude }` legacy object |
+| `rating` | Average star rating |
+| `reviewCount` | Review total shown on the profile |
+| `reviewsTotal` | Reviews available in the public feed |
+| `price` / `priceRange` | Price level such as `$` or `$$` |
+| `phone` | Business phone |
+| `website` | Business website |
+| `hours` | Weekly hours keyed by short day name, each value an array of time ranges |
+| `photos` / `images` | Gallery photo URLs |
+| `photoCategories` | `{ "all": [...] }` compatibility grouping |
+| `menu` | Menu items (see below) |
+| `isClosed` | Whether Yelp marks the business as closed |
+| `isClaimed` | Whether the profile is claimed |
+| `claimStatus` | `claimed` or `unclaimed` |
+| `description` | Short Yelp summary |
+| `reviews` | Review objects |
+| `ownerReplies` | Owner replies flattened from reviews: `reviewId`, `reviewDate`, `reply`, `replyDate`, `author` |
+| `url` / `directUrl` | Yelp business page URL |
+| `bizId` | Legacy alias of `alias` |
+| `aggregatedRating` | Legacy rating as text |
+| `searchRank` | Organic position in search mode |
+| `sponsored` | Whether the card first appeared as sponsored |
+| `searchQuery`, `searchLocation`, `searchCategory` | Search context |
+| `sourceUrl` | Page the record came from |
+| `scrapedAt` | ISO timestamp |
+
+### Menu items
+
+Each entry in `menu` contains:
+
+| Field | Description |
+|---|---|
+| `section` | Menu section, e.g. `Pizza`, `Desserts`, `Drinks` |
+| `name` | Dish name |
+| `description` | Dish description when published |
+| `price` | Display price, e.g. `$38.50` |
+| `priceValue` | Numeric price for sorting and comparison |
+| `priceCurrency` | ISO currency code, e.g. `USD` |
+| `url` | Yelp menu-item URL |
+
+### Reviews
+
+Review objects keep both the current field names and the older pro-actor aliases:
+
+`id`/`reviewId`, `rating`, `text`, `author`/`reviewerName`, `authorId`, `authorUrl`, `authorLocation`, `authorReviewCount`, `date`, `dateLocal`, `photos`, `ownerReply`, `elite`, `eliteYear`, `language`, `isFirstReview`, `checkInCount`, `reactions`, `isUsefulCount`, `isFunnyCount`, `isCoolCount`.
+
+### Status rows
+
+A row with `recordType: "status"` explains anything that prevented collection:
+
+- `status`: `not_found`, `blocked`, `api_drift`, `no_results`, or `invalid_input`
+- `message`: plain-language explanation
+- `sourceUrl`, `businessId`, `operation`, and `documentId` when relevant
+- `scrapedAt`
+
+Filter on `recordType` before loading business rows.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `searchTerms` | Array | – | Search queries, e.g. `pizza`, `plumber`, `hair salon`. Combined with each entry in `locations`. |
-| `locations` | Array | – | Locations to search, e.g. `New York, NY`, `Los Angeles, CA`. |
-| `directUrls` | Array | – | Direct Yelp business page URLs to scrape instead of searching. |
-| `searchLimit` | Integer | `10` | Maximum business results to collect per search query (1–100). |
-| `reviewLimit` | Integer | `5` | Maximum reviews to collect per business (0–50). Set to `0` to skip reviews. |
-| `fetchPhotos` | Boolean | `true` | Extract gallery photos grouped by category. |
-| `fetchHours` | Boolean | `true` | Extract hours of operation. |
-| `fetchMenu` | Boolean | `false` | Attempt to extract menu items for restaurants. |
-| `proxy` | Object | `{"useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"]}` | Required. Proxy configuration used to fetch Yelp pages. |
+| `mode` | string | `search` | `search` for keyword discovery, `direct` for specific businesses |
+| `searchQueries` | array | `[]` | Keywords for `mode=search`; each is combined with each location |
+| `locations` | array | `[]` | Cities, neighborhoods, or ZIP codes for `mode=search` |
+| `startUrls` | array | `[]` | Yelp search URLs in `search` mode, or business URLs, aliases, and IDs in `direct` mode |
+| `categories` | array | `[]` | Yelp category names or aliases |
+| `sortBy` | string | `recommended` | `recommended`, `rating`, or `reviewCount` |
+| `price` | array | `[]` | `$`, `$$`, `$$$`, `$$$$` |
+| `minRating` | number | `0` | Drop businesses below this rating |
+| `maxItems` | integer | `50` | Maximum business rows (1–500) |
+| `includeReviews` | boolean | `true` | Turn off to skip the review feed |
+| `maxReviewsPerBusiness` | integer | `20` | Reviews per business (1–1000) |
+| `reviewSort` | string | `DATE_DESC` | Review ordering |
+| `reviewRatings` | array | `["5","4","3","2","1"]` | Star ratings to include |
+| `reviewLanguage` | string | `en` | Review language, or `all` for every language Yelp reports |
+| `includeMenu` | boolean | `true` | Fetch and parse published menus |
+| `includeHours` | boolean | `true` | Include weekly hours |
+| `maxPhotos` | integer | `100` | Gallery photos per business (0–100) |
+| `proxyConfiguration` | object | automatic | Optional route override; no proxy setup is required |
 
-You must provide at least one of `searchTerms` or `directUrls`.
+### Legacy input keys
 
-## Example input
+Saved tasks from the previous version keep working. The actor reads the old keys in code and maps them to the new options; they are not shown in the input form:
 
-### Search for businesses
+| Old key | New option |
+|---|---|
+| `searchTerms` | `searchQueries` |
+| `searchQuery` / `searchSort` | `searchQueries` / `sortBy` |
+| `locations` / `location` | `locations` |
+| `directUrls` / `searchUrls` | `startUrls` |
+| `searchLimit` | `maxItems` |
+| `reviewLimit` | `maxReviewsPerBusiness`; `0` turns reviews off |
+| `searchPrice` / `searchCategory` | `price` / `categories` |
+| `fetchMenu` | `includeMenu` |
+| `fetchHours` | `includeHours` |
+| `fetchPhotos` / `maxPhotos` | `maxPhotos` |
+| `proxy` | `proxyConfiguration` |
+| `runTimeoutSecs` | Ignored; row caps bound each run |
+
+### Example: search with menus and hours
 
 ```json
 {
-    "searchTerms": ["pizza", "sushi"],
-    "locations": ["New York, NY", "San Francisco, CA"],
-    "searchLimit": 5,
-    "reviewLimit": 3,
-    "fetchPhotos": true,
-    "fetchHours": true,
-    "fetchMenu": false,
-    "proxy": {
-        "useApifyProxy": true,
-        "apifyProxyGroups": ["RESIDENTIAL"]
-    }
+  "mode": "search",
+  "searchQueries": ["pizza"],
+  "locations": ["New York, NY"],
+  "minRating": 4,
+  "maxItems": 10,
+  "includeMenu": true,
+  "includeHours": true,
+  "maxReviewsPerBusiness": 10
 }
 ```
 
-### Scrape specific businesses with menus
+### Example: exact businesses with deep reviews
 
 ```json
 {
-    "directUrls": [
-        { "url": "https://www.yelp.com/biz/prince-street-pizza-new-york-2" },
-        { "url": "https://www.yelp.com/biz/joes-pizza-new-york" }
-    ],
-    "reviewLimit": 10,
-    "fetchMenu": true,
-    "proxy": {
-        "useApifyProxy": true,
-        "apifyProxyGroups": ["RESIDENTIAL"]
-    }
+  "mode": "direct",
+  "startUrls": [
+    "https://www.yelp.com/biz/prince-street-pizza-new-york-2",
+    "https://www.yelp.com/biz/joes-pizza-new-york-148"
+  ],
+  "includeMenu": true,
+  "maxReviewsPerBusiness": 100,
+  "reviewSort": "RATING_DESC",
+  "maxPhotos": 100
+}
+```
+
+### Example: profiles and menus only
+
+```json
+{
+  "mode": "search",
+  "searchQueries": ["ramen"],
+  "locations": ["Seattle, WA"],
+  "includeReviews": false,
+  "maxItems": 25
 }
 ```
 
 ## Use cases
 
-- Collecting business contact information — phone, website, and address — for outreach
-- Comparing ratings, price points, and services across similar businesses in a market
-- Evaluating business density, pricing, and customer sentiment by neighborhood
-- Tracking menus, cuisine types, and hours across restaurant competitors
-- Monitoring customer sentiment and owner responses to reviews over time
-- Auditing how businesses rank in Yelp search results for target keywords
+- Build a local-business directory with hours, contact data, and coordinates.
+- Monitor menu prices and dish changes across restaurant competitors.
+- Compare ratings, review volume, and price levels in a market.
+- Export reviews with owner responses for sentiment and service analysis.
+- Enrich CRM or mapping data with stable Yelp business IDs.
+- Track search ranking and sponsored placement for target keywords.
 
 ## FAQ
 
-**Do I need a proxy?**
-Yes. A residential proxy is required because Yelp blocks requests from non-residential IP ranges.
+**Do I need a proxy or a Yelp account?**
+No. The actor uses public pages and an unauthenticated endpoint. It routes through Apify Proxy automatically when Yelp blocks a request, and you can leave `proxyConfiguration` empty.
 
-**How many reviews can I get per business?**
-Up to 50 via `reviewLimit`, though Yelp itself only publicly displays around 30 reviews per business.
+**Why is `menu` missing for some restaurants?**
+Yelp only publishes menus for businesses that added one, mostly US restaurants. The actor checks the public menu page and omits `menu` when there is nothing to parse.
 
-**Why are some businesses missing a menu?**
-Yelp's menu feature is opt-in and mostly limited to US restaurants, so many businesses simply don't have one published — the `menu` field is omitted when that's the case.
+**How many search results can I get?**
+Yelp caps a single search at 240 results, ten per page. `maxItems` can go up to 500 across multiple queries, locations, or direct URLs.
 
-**Why are some fields missing from my output?**
-Fields are omitted whenever Yelp doesn't have that data for a business, rather than being filled with an empty placeholder.
+**How deep can reviews go?**
+Up to 1,000 per business. The feed is requested in pages of 49, so deeper runs use more requests.
 
-**Can I scrape businesses outside the US?**
-Yes. Yelp operates in many countries and international business pages work the same way, though some fields like menu and certain services are more US-centric.
+**Why is `reviewsTotal` lower than `reviewCount`?**
+Yelp's public review feed excludes reviews it does not recommend, so the feed total can be slightly below the profile count.
 
-**What's the difference between `searchTerms`/`locations` and `directUrls`?**
-`searchTerms` combined with `locations` runs a Yelp search and collects up to `searchLimit` results per combination; `directUrls` fetches exact businesses you already have a link for.
+**Are hours and menus live?**
+Yes. Every run reads the current public page and menu. Yelp does not expose historical hours or menu versions.
 
-**Is there a limit on how many businesses one run can scrape?**
-Yes — a single run scrapes at most 100 businesses total, combining results from all search term/location pairs and direct URLs.
+**What happens when Yelp changes its format?**
+The actor writes an `api_drift` status row with the operation and source URL instead of returning an empty dataset. The run status message also reports it.
 
-**Is the data fresh?**
-Yes — every run fetches live data directly from Yelp at the time it runs.
+**Can I search outside the US?**
+Yes. Yelp search and business pages work across its supported markets. Menu coverage is lower outside the US.
 
-**Does this require login or cookies?**
-No. Only publicly available Yelp data is collected, with no account or authentication needed.
+## Limitations
+
+- A single search stops at Yelp's 240-result ceiling. Split by neighborhood or category for more.
+- The public review feed leaves out not-recommended reviews.
+- Menus are published voluntarily; businesses without a menu simply have no `menu` key.
+- Amenity/service lists from the old page layout are not part of Yelp's public GraphQL contract and are not included.

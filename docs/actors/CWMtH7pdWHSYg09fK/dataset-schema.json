@@ -1,6 +1,6 @@
 {
   "actorSpecification": 1,
-  "title": "Yelp Pro Businesses",
+  "title": "Yelp Business Profiles, Hours & Menus",
   "views": {
     "detailed": {
       "display": {
@@ -14,7 +14,11 @@
             "format": "text",
             "label": "Rating"
           },
-          "bizId": {
+          "alias": {
+            "format": "text",
+            "label": "Alias"
+          },
+          "businessId": {
             "format": "text",
             "label": "Business ID"
           },
@@ -42,6 +46,10 @@
             "format": "link",
             "label": "URL"
           },
+          "encId": {
+            "format": "text",
+            "label": "Encoded ID"
+          },
           "hours": {
             "format": "object",
             "label": "Hours"
@@ -66,10 +74,6 @@
             "format": "text",
             "label": "Phone"
           },
-          "photoCategories": {
-            "format": "object",
-            "label": "Photo Categories"
-          },
           "priceRange": {
             "format": "text",
             "label": "Price"
@@ -82,9 +86,17 @@
             "format": "array",
             "label": "Reviews"
           },
-          "services": {
-            "format": "array",
-            "label": "Services"
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "searchRank": {
+            "format": "text",
+            "label": "Search Rank"
+          },
+          "sponsored": {
+            "format": "text",
+            "label": "Sponsored"
           },
           "type": {
             "format": "text",
@@ -100,11 +112,13 @@
       "transformation": {
         "fields": [
           "directUrl",
-          "bizId",
+          "businessId",
+          "encId",
+          "alias",
           "name",
+          "type",
           "description",
           "categories",
-          "type",
           "phone",
           "reviewCount",
           "aggregatedRating",
@@ -115,12 +129,13 @@
           "address",
           "coordinates",
           "hours",
-          "services",
-          "photoCategories",
           "menu",
           "claimStatus",
           "ownerReplies",
-          "reviews"
+          "reviews",
+          "searchRank",
+          "sponsored",
+          "scrapedAt"
         ]
       }
     },
@@ -128,10 +143,6 @@
       "display": {
         "component": "table",
         "properties": {
-          "address": {
-            "format": "object",
-            "label": "Address"
-          },
           "aggregatedRating": {
             "format": "text",
             "label": "Rating"
@@ -139,6 +150,10 @@
           "claimStatus": {
             "format": "text",
             "label": "Claim Status"
+          },
+          "menu": {
+            "format": "array",
+            "label": "Menu Items"
           },
           "name": {
             "format": "text",
@@ -155,6 +170,10 @@
           "reviewCount": {
             "format": "text",
             "label": "Reviews"
+          },
+          "type": {
+            "format": "text",
+            "label": "Type"
           }
         }
       },
@@ -162,12 +181,13 @@
       "transformation": {
         "fields": [
           "name",
+          "type",
           "aggregatedRating",
           "reviewCount",
           "priceRange",
           "phone",
           "claimStatus",
-          "address"
+          "menu"
         ]
       }
     }
