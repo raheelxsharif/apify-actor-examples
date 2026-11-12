@@ -1,0 +1,157 @@
+{
+  "description": "Search bedbathandbeyond.com by keyword or browse a home-goods department.",
+  "properties": {
+    "brandContains": {
+      "default": "",
+      "description": "Keep only products whose detected brand or title contains this text (case-insensitive), e.g. `Superior`, `SAFAVIEH`, `KitchenAid`.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Brand contains",
+      "type": "string"
+    },
+    "category": {
+      "default": "Bedding",
+      "description": "Browse one of the site's home-goods departments. Implemented via the site's own search relevance for the department name (see README — the direct category-browse pages are blocked by the site's bot protection).",
+      "editor": "select",
+      "enum": [
+        "Bedding",
+        "Bath",
+        "Kitchen and Dining",
+        "Furniture",
+        "Home Decor",
+        "Storage and Organization",
+        "Home Improvement",
+        "Appliances",
+        "Baby and Kids Home Goods",
+        "Outdoor",
+        "Rugs",
+        "Housewares",
+        "Holiday",
+        "Art",
+        "Gifts",
+        "Tools"
+      ],
+      "enumTitles": [
+        "Bedding",
+        "Bath",
+        "Kitchen and Dining",
+        "Furniture",
+        "Home Decor",
+        "Storage and Organization",
+        "Home Improvement",
+        "Appliances",
+        "Baby and Kids Home Goods",
+        "Outdoor",
+        "Rugs",
+        "Housewares",
+        "Holiday",
+        "Art",
+        "Gifts",
+        "Tools"
+      ],
+      "prefill": "Bedding",
+      "title": "Department / category (mode=byCategory)",
+      "type": "string"
+    },
+    "fastShippingOnly": {
+      "default": false,
+      "description": "Only emit products eligible for two-day delivery.",
+      "prefill": false,
+      "title": "Two-day shipping only",
+      "type": "boolean"
+    },
+    "keywords": {
+      "default": "",
+      "description": "Free-text search query, e.g. `towel`, `comforter set`, `kitchen island`.",
+      "editor": "textfield",
+      "prefill": "bedding",
+      "title": "Search keywords (mode=search)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop products priced above this amount.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Maximum price (USD)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Drop products priced below this amount.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Minimum price (USD)",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop products with an average rating below this (1-5 stars).",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum customer rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "How to find products.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Browse by department / category"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onSaleOnly": {
+      "default": false,
+      "description": "Only emit products currently marked on sale.",
+      "prefill": false,
+      "title": "On-sale products only",
+      "type": "boolean"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How results are ordered. Applied client-side to the fetched relevance-ranked result window (see README) since the upstream site's own sort control is a client-side-only feature not reproducible via a plain HTTP request.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "onSale",
+        "bestSelling",
+        "priceLowHigh",
+        "priceHighLow",
+        "rating",
+        "newArrivals"
+      ],
+      "enumTitles": [
+        "Best Matched (default)",
+        "On Sale",
+        "Best Selling",
+        "Price: Low to High",
+        "Price: High to Low",
+        "Customer Rating",
+        "New Arrivals"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Bed Bath & Beyond Scraper Input",
+  "type": "object"
+}

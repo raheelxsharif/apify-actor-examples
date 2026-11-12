@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "FlashScore match records with live score, match status, league, and kickoff time.",
+  "description": "Match records with score, status, teams, league and kickoff time, plus league-table rows when mode=standings.",
   "properties": {
     "matches": {
-      "description": "Dataset containing all scraped FlashScore matches.",
+      "description": "Dataset containing match records (recordType=match) and league-table rows (recordType=standing).",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "FlashScore matches",
+      "title": "FlashScore records",
       "type": "string"
     }
   },
-  "title": "FlashScore Live Match Score & Status Tracker Output"
+  "title": "FlashScore Live Scores, Fixtures, Results & Standings Output"
 }

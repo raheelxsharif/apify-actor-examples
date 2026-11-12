@@ -1,24 +1,66 @@
 {
+  "description": "Fetch live matches for a sport, or upcoming fixtures, recent results and league tables for any FlashScore competition URL.",
   "properties": {
+    "dayOffset": {
+      "default": 0,
+      "description": "Days from today for the live/daily feed: 0 is today, -1 yesterday, 1 tomorrow. Range -7 to 7.",
+      "maximum": 7,
+      "minimum": -7,
+      "prefill": 0,
+      "title": "Day offset",
+      "type": "integer"
+    },
+    "leagueUrls": {
+      "default": [],
+      "description": "FlashScore competition URLs for fixtures, results and standings, e.g. https://www.flashscore.com/football/england/premier-league/. Past-season archive URLs work too.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Competition URLs",
+      "type": "array"
+    },
     "liveOnly": {
       "default": true,
-      "description": "If true, return only matches currently in progress. If false, return all matches for today (scheduled + live + finished).",
+      "description": "In live mode, keep only matches currently in progress. Set false to return every match scheduled for that day.",
+      "prefill": false,
       "title": "Live matches only",
       "type": "boolean"
     },
     "maxItems": {
       "default": 100,
-      "description": "Maximum number of matches to return.",
+      "description": "Hard cap on emitted records across the whole run.",
       "editor": "number",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 10,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Max items",
       "type": "integer"
+    },
+    "mode": {
+      "default": "live",
+      "description": "What to fetch: live or daily matches for one sport, or fixtures, results and standings for competition URLs.",
+      "editor": "select",
+      "enum": [
+        "live",
+        "fixtures",
+        "results",
+        "standings"
+      ],
+      "enumTitles": [
+        "Live / daily matches",
+        "Upcoming fixtures by competition",
+        "Recent results by competition",
+        "League standings"
+      ],
+      "prefill": "live",
+      "title": "Mode",
+      "type": "string"
     },
     "sport": {
       "default": "football",
-      "description": "Which sport to fetch live matches for.",
+      "description": "Sport for live/daily matches. Competition modes read the sport from each league URL.",
       "editor": "select",
       "enum": [
         "football",
@@ -55,10 +97,28 @@
       "prefill": "football",
       "title": "Sport",
       "type": "string"
+    },
+    "standingsType": {
+      "default": "overall",
+      "description": "Overall, home-only or away-only table (mode=standings).",
+      "editor": "select",
+      "enum": [
+        "overall",
+        "home",
+        "away"
+      ],
+      "enumTitles": [
+        "Overall",
+        "Home",
+        "Away"
+      ],
+      "prefill": "overall",
+      "title": "Standings table",
+      "type": "string"
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "FlashScore Live Sports Scraper Input",
+  "title": "FlashScore Live Scores, Fixtures, Results & Standings Input",
   "type": "object"
 }
