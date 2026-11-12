@@ -1,0 +1,2554 @@
+{
+  "description": "Search Finn.no — Norway's largest classifieds — for items, cars, motorcycles, boats, real estate (for sale, for rent, holiday homes, plots, commercial, businesses), and jobs.",
+  "properties": {
+    "agricultureEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search agriculture (tractors)' or 'Search agriculture (combine harvesters)'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power in hp (agriculture)",
+      "type": "integer"
+    },
+    "agricultureEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search agriculture (tractors)' or 'Search agriculture (combine harvesters)'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power in hp (agriculture)",
+      "type": "integer"
+    },
+    "agricultureToolsType": {
+      "default": "",
+      "description": "Agriculture machine/implement category. Only applies when mode is 'Search agriculture (machines & implements)'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Andre redskap",
+        "Gressmaskiner",
+        "Innendørs mekanisering",
+        "Jordbearbeiding",
+        "Plen- og parkmaskiner",
+        "Potetmaskiner",
+        "Skog og vedutstyr",
+        "Sprøyteutstyr",
+        "Så og gjødsel",
+        "Tilbehør",
+        "Transportutstyr",
+        "Veiutstyr"
+      ],
+      "enumTitles": [
+        "Any",
+        "Andre redskap",
+        "Gressmaskiner",
+        "Innendørs mekanisering",
+        "Jordbearbeiding",
+        "Plen- og parkmaskiner",
+        "Potetmaskiner",
+        "Skog og vedutstyr",
+        "Sprøyteutstyr",
+        "Så og gjødsel",
+        "Tilbehør",
+        "Transportutstyr",
+        "Veiutstyr"
+      ],
+      "prefill": "",
+      "title": "Category (agriculture tools)",
+      "type": "string"
+    },
+    "agricultureYearMax": {
+      "description": "Maximum model year. Only applies when mode is one of the agriculture modes ('Search agriculture (tractors)', 'Search agriculture (combine harvesters)', or 'Search agriculture (machines & implements)').",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (agriculture)",
+      "type": "integer"
+    },
+    "agricultureYearMin": {
+      "description": "Minimum model year. Only applies when mode is one of the agriculture modes ('Search agriculture (tractors)', 'Search agriculture (combine harvesters)', or 'Search agriculture (machines & implements)').",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (agriculture)",
+      "type": "integer"
+    },
+    "boatClass": {
+      "default": "",
+      "description": "Boat type/class. Only applies when mode is 'Search boats'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bowrider",
+        "Cabincruiser",
+        "Daycruiser",
+        "Flybridge",
+        "Gummibåt/Jolle",
+        "Pilothouse",
+        "RIB",
+        "Seilbåt/Motorseiler",
+        "Skjærgårdsjeep/Landstedsbåt",
+        "Speedbåt",
+        "Trebåt/Snekke",
+        "Vannscooter",
+        "Yacht",
+        "Yrkesbåt/Sjark/Skøyte",
+        "Andre"
+      ],
+      "enumTitles": [
+        "Any",
+        "Bowrider",
+        "Cabincruiser",
+        "Daycruiser",
+        "Flybridge",
+        "Gummibåt/Jolle",
+        "Pilothouse",
+        "RIB",
+        "Seilbåt/Motorseiler",
+        "Skjærgårdsjeep/Landstedsbåt",
+        "Speedbåt",
+        "Trebåt/Snekke",
+        "Vannscooter",
+        "Yacht",
+        "Yrkesbåt/Sjark/Skøyte",
+        "Andre"
+      ],
+      "prefill": "",
+      "title": "Boat type (Boats)",
+      "type": "string"
+    },
+    "boatFuel": {
+      "default": "",
+      "description": "Boat motor fuel type. Only applies when mode is 'Search boats'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bensin",
+        "Diesel",
+        "Gass",
+        "El",
+        "Gass+bensin"
+      ],
+      "enumTitles": [
+        "Any",
+        "Bensin",
+        "Diesel",
+        "Gass",
+        "El",
+        "Gass+bensin"
+      ],
+      "prefill": "",
+      "title": "Fuel type (Boats)",
+      "type": "string"
+    },
+    "boatLengthFtMax": {
+      "description": "Maximum boat length in feet. Only applies when mode is 'Search boats'.",
+      "maximum": 500,
+      "minimum": 0,
+      "title": "Max length in feet (Boats)",
+      "type": "integer"
+    },
+    "boatLengthFtMin": {
+      "description": "Minimum boat length in feet. Only applies when mode is 'Search boats'.",
+      "maximum": 500,
+      "minimum": 0,
+      "title": "Min length in feet (Boats)",
+      "type": "integer"
+    },
+    "boatMaterial": {
+      "default": "",
+      "description": "Boat hull building material. Only applies when mode is 'Search boats'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Plast",
+        "Glassfiber",
+        "Tre",
+        "Aluminium",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Plast",
+        "Glassfiber",
+        "Tre",
+        "Aluminium",
+        "Annet"
+      ],
+      "prefill": "",
+      "title": "Hull material (Boats)",
+      "type": "string"
+    },
+    "boatMaxSpeedMax": {
+      "description": "Maximum top speed in knots. Only applies when mode is 'Search boats'.",
+      "maximum": 200,
+      "minimum": 0,
+      "title": "Max top speed in knots (Boats)",
+      "type": "integer"
+    },
+    "boatMaxSpeedMin": {
+      "description": "Minimum top speed in knots. Only applies when mode is 'Search boats'.",
+      "maximum": 200,
+      "minimum": 0,
+      "title": "Min top speed in knots (Boats)",
+      "type": "integer"
+    },
+    "boatMotorPowerMax": {
+      "description": "Maximum motor power in horsepower. Only applies when mode is 'Search boats'.",
+      "maximum": 5000,
+      "minimum": 0,
+      "title": "Max motor power in hp (Boats)",
+      "type": "integer"
+    },
+    "boatMotorPowerMin": {
+      "description": "Minimum motor power in horsepower. Only applies when mode is 'Search boats'.",
+      "maximum": 5000,
+      "minimum": 0,
+      "title": "Min motor power in hp (Boats)",
+      "type": "integer"
+    },
+    "boatMotorType": {
+      "default": "",
+      "description": "Inboard/outboard/other motor placement. Only applies when mode is 'Search boats'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Innenbords",
+        "Utenbords",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Innenbords",
+        "Utenbords",
+        "Annet"
+      ],
+      "prefill": "",
+      "title": "Motor placement (Boats)",
+      "type": "string"
+    },
+    "boatWidthCmMax": {
+      "description": "Maximum boat beam/width in centimetres. Only applies when mode is 'Search boats'.",
+      "maximum": 1500,
+      "minimum": 0,
+      "title": "Max width in cm (Boats)",
+      "type": "integer"
+    },
+    "boatWidthCmMin": {
+      "description": "Minimum boat beam/width in centimetres. Only applies when mode is 'Search boats'.",
+      "maximum": 1500,
+      "minimum": 0,
+      "title": "Min width in cm (Boats)",
+      "type": "integer"
+    },
+    "boatYearMax": {
+      "description": "Maximum boat model year. Only applies when mode is 'Search boats'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (Boats)",
+      "type": "integer"
+    },
+    "boatYearMin": {
+      "description": "Minimum boat model year. Only applies when mode is 'Search boats'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (Boats)",
+      "type": "integer"
+    },
+    "busEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search buses & minibuses'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power in hp (buses)",
+      "type": "integer"
+    },
+    "busEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search buses & minibuses'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power in hp (buses)",
+      "type": "integer"
+    },
+    "busSegment": {
+      "default": "",
+      "description": "Bus/minibus vehicle group. Only applies when mode is 'Search buses & minibuses'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Buss",
+        "Minibuss",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Buss",
+        "Minibuss",
+        "Annet"
+      ],
+      "prefill": "",
+      "title": "Vehicle group (buses)",
+      "type": "string"
+    },
+    "busYearMax": {
+      "description": "Maximum bus model year. Only applies when mode is 'Search buses & minibuses'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (buses)",
+      "type": "integer"
+    },
+    "busYearMin": {
+      "description": "Minimum bus model year. Only applies when mode is 'Search buses & minibuses'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (buses)",
+      "type": "integer"
+    },
+    "carBodyType": {
+      "default": "",
+      "description": "Vehicle body/karosseri type. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Cabriolet",
+        "Coupe",
+        "Flerbruksbil",
+        "Kasse",
+        "Kombi 3-dørs",
+        "Kombi 5-dørs",
+        "Pickup",
+        "Sedan",
+        "Stasjonsvogn",
+        "SUV/Offroad",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any body type",
+        "Convertible",
+        "Coupe",
+        "MPV/Minivan",
+        "Van",
+        "Hatchback 3-door",
+        "Hatchback 5-door",
+        "Pickup",
+        "Sedan",
+        "Estate/Wagon",
+        "SUV/Offroad",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Body type (cars)",
+      "type": "string"
+    },
+    "carColour": {
+      "default": "",
+      "description": "Vehicle exterior colour. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Beige",
+        "Blå",
+        "Bronse",
+        "Brun",
+        "Grønn",
+        "Grå",
+        "Gul",
+        "Gull",
+        "Hvit",
+        "Lilla",
+        "Oransje",
+        "Rosa",
+        "Rød",
+        "Svart",
+        "Sølv",
+        "Turkis"
+      ],
+      "enumTitles": [
+        "Any colour",
+        "Beige",
+        "Blue",
+        "Bronze",
+        "Brown",
+        "Green",
+        "Grey",
+        "Yellow",
+        "Gold",
+        "White",
+        "Purple",
+        "Orange",
+        "Pink",
+        "Red",
+        "Black",
+        "Silver",
+        "Turquoise"
+      ],
+      "prefill": "",
+      "title": "Exterior colour (cars)",
+      "type": "string"
+    },
+    "carDealerSegment": {
+      "default": "",
+      "description": "Filter by private seller, brand dealer, or other car dealer. Only applies when mode is 'Search cars & vehicles'. Reflected back on the output `dealerSegment` field.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Privat",
+        "Merkeforhandler",
+        "Annet bilutsalg"
+      ],
+      "enumTitles": [
+        "Any seller",
+        "Private",
+        "Brand dealer",
+        "Other car dealer"
+      ],
+      "prefill": "",
+      "title": "Seller segment (cars)",
+      "type": "string"
+    },
+    "carDocumentation": {
+      "default": "",
+      "description": "Filter by which report/history documents are attached to the listing (not the vehicle's physical condition). Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Service",
+        "Tilstandsrapport",
+        "Testrapport"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "Service history",
+        "Condition report",
+        "Test report"
+      ],
+      "prefill": "",
+      "title": "Vehicle documentation (cars)",
+      "type": "string"
+    },
+    "carDrivingRangeMax": {
+      "description": "Maximum WLTP driving range in kilometres (electric vehicles). Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max driving range, km (EVs)",
+      "type": "integer"
+    },
+    "carDrivingRangeMin": {
+      "description": "Minimum WLTP driving range in kilometres (electric vehicles). Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min driving range, km (EVs)",
+      "type": "integer"
+    },
+    "carEnginePowerMax": {
+      "description": "Maximum engine power in horsepower (hk). Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power, hp (cars)",
+      "type": "integer"
+    },
+    "carEnginePowerMin": {
+      "description": "Minimum engine power in horsepower (hk). Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power, hp (cars)",
+      "type": "integer"
+    },
+    "carEquipment": {
+      "default": [],
+      "description": "Filter for cars with specific equipment (multi-select — a car matching ANY selected item is included). Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Apple CarPlay",
+          "Bluetooth",
+          "Cruisekontroll",
+          "Hengerfeste",
+          "Klimaanlegg",
+          "Kupévarmer",
+          "Motorvarmer",
+          "Parkeringsensor bak",
+          "Ryggekamera",
+          "Skinn- og semiskinninteriør",
+          "Soltak/glasstak"
+        ],
+        "enumTitles": [
+          "Apple CarPlay",
+          "Bluetooth",
+          "Cruise control",
+          "Tow hitch",
+          "Air conditioning",
+          "Cabin heater",
+          "Engine heater",
+          "Rear parking sensor",
+          "Reversing camera",
+          "Leather/part-leather interior",
+          "Sunroof/glass roof"
+        ],
+        "type": "string"
+      },
+      "title": "Equipment (cars)",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "carFuel": {
+      "default": "",
+      "description": "Vehicle fuel type. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bensin",
+        "Diesel",
+        "El",
+        "Hybrid bensin",
+        "Hybrid diesel",
+        "Hydrogen",
+        "Gass (CNG)",
+        "Gass+bensin",
+        "Plug-in Bensin",
+        "Plug-in Diesel",
+        "Etanol (FFV, E85)"
+      ],
+      "enumTitles": [
+        "Any fuel",
+        "Petrol",
+        "Diesel",
+        "Electric",
+        "Petrol hybrid",
+        "Diesel hybrid",
+        "Hydrogen",
+        "Gas (CNG)",
+        "Gas+petrol",
+        "Plug-in petrol",
+        "Plug-in diesel",
+        "Ethanol (FFV, E85)"
+      ],
+      "prefill": "",
+      "title": "Fuel type (cars)",
+      "type": "string"
+    },
+    "carMileageMax": {
+      "description": "Maximum odometer reading in kilometres. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Max mileage, km (cars)",
+      "type": "integer"
+    },
+    "carMileageMin": {
+      "description": "Minimum odometer reading in kilometres. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Min mileage, km (cars)",
+      "type": "integer"
+    },
+    "carRegistrationClass": {
+      "default": "",
+      "description": "Vehicle registration/tax class (avgiftsklasse). Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Personbil",
+        "Varebil",
+        "Kombinertbil",
+        "Lett lastebil",
+        "Minibuss",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any class",
+        "Passenger car",
+        "Van",
+        "Combi van",
+        "Light truck",
+        "Minibus",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Registration/tax class (cars)",
+      "type": "string"
+    },
+    "carSalesForm": {
+      "default": "",
+      "description": "How the vehicle is being sold (used/new/leasing/auction/offers). Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bruktbil til salgs",
+        "Nybil til salgs",
+        "Bud ønskes",
+        "Leasing",
+        "Auksjon"
+      ],
+      "enumTitles": [
+        "Any sales form",
+        "Used car for sale",
+        "New car for sale",
+        "Offers wanted",
+        "Leasing",
+        "Auction"
+      ],
+      "prefill": "",
+      "title": "Sales form (cars)",
+      "type": "string"
+    },
+    "carSeatsMax": {
+      "description": "Maximum number of seats. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Max number of seats (cars)",
+      "type": "integer"
+    },
+    "carSeatsMin": {
+      "description": "Minimum number of seats. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Min number of seats (cars)",
+      "type": "integer"
+    },
+    "carSmoothTrade": {
+      "default": false,
+      "description": "Only return listings enrolled in Finn's 'Smidig bilhandel' (smooth car trade) payment/ownership-transfer programme. Only applies when mode is 'Search cars & vehicles'.",
+      "prefill": false,
+      "title": "Smooth car trade only (cars)",
+      "type": "boolean"
+    },
+    "carTrailerWeightMax": {
+      "description": "Maximum allowed trailer weight in kilograms. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Max allowed trailer weight, kg (cars)",
+      "type": "integer"
+    },
+    "carTrailerWeightMin": {
+      "description": "Minimum allowed trailer weight in kilograms. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Min allowed trailer weight, kg (cars)",
+      "type": "integer"
+    },
+    "carTransmission": {
+      "default": "",
+      "description": "Gearbox type. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Automat",
+        "Manuell"
+      ],
+      "enumTitles": [
+        "Any transmission",
+        "Automatic",
+        "Manual"
+      ],
+      "prefill": "",
+      "title": "Transmission (cars)",
+      "type": "string"
+    },
+    "carWarrantyInsurance": {
+      "default": "",
+      "description": "Filter by attached warranty or insurance offer. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Garanti",
+        "Bytterett",
+        "Programbil"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "Warranty",
+        "Right of exchange",
+        "Manufacturer-programme car"
+      ],
+      "prefill": "",
+      "title": "Warranty / insurance (cars)",
+      "type": "string"
+    },
+    "carWheelDrive": {
+      "default": "",
+      "description": "Vehicle drivetrain. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bakhjulsdrift",
+        "Firehjulsdrift",
+        "Forhjulsdrift"
+      ],
+      "enumTitles": [
+        "Any drivetrain",
+        "Rear-wheel drive",
+        "Four-wheel drive",
+        "Front-wheel drive"
+      ],
+      "prefill": "",
+      "title": "Wheel drive (cars)",
+      "type": "string"
+    },
+    "carWheelSets": {
+      "default": "",
+      "description": "Filter by number of wheel sets (summer/winter) included in the sale. Only applies when mode is 'Search cars & vehicles'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Ett hjulsett",
+        "To eller flere hjulsett"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "One wheel set",
+        "Two or more wheel sets"
+      ],
+      "prefill": "",
+      "title": "Wheel sets included (cars)",
+      "type": "string"
+    },
+    "carYearMax": {
+      "description": "Maximum vehicle model year. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (cars)",
+      "type": "integer"
+    },
+    "carYearMin": {
+      "description": "Minimum vehicle model year. Only applies when mode is 'Search cars & vehicles'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (cars)",
+      "type": "integer"
+    },
+    "caravanDealerSegment": {
+      "default": "",
+      "description": "Filter by private seller vs. dealer. Only applies when mode is 'Search caravans' or 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Forhandler",
+        "Privat"
+      ],
+      "enumTitles": [
+        "Any",
+        "Forhandler",
+        "Privat"
+      ],
+      "prefill": "",
+      "title": "Seller segment (caravans/motorhomes)",
+      "type": "string"
+    },
+    "caravanLengthMax": {
+      "description": "Maximum length in centimetres. Only applies when mode is 'Search caravans'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max length in cm (caravans)",
+      "type": "integer"
+    },
+    "caravanLengthMin": {
+      "description": "Minimum length in centimetres. Only applies when mode is 'Search caravans'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min length in cm (caravans)",
+      "type": "integer"
+    },
+    "caravanSegment": {
+      "default": "",
+      "description": "Caravan vehicle group. Only applies when mode is 'Search caravans'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Campingvogn",
+        "Husvogn",
+        "Teltvogn",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Campingvogn",
+        "Husvogn",
+        "Teltvogn",
+        "Annet"
+      ],
+      "prefill": "",
+      "title": "Vehicle group (caravans)",
+      "type": "string"
+    },
+    "caravanWeightMax": {
+      "description": "Maximum total weight in kilograms. Only applies when mode is 'Search caravans'.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Max total weight in kg (caravans)",
+      "type": "integer"
+    },
+    "caravanWeightMin": {
+      "description": "Minimum total weight in kilograms. Only applies when mode is 'Search caravans'.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Min total weight in kg (caravans)",
+      "type": "integer"
+    },
+    "caravanWidthMax": {
+      "description": "Maximum width in centimetres. Only applies when mode is 'Search caravans'.",
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Max width in cm (caravans)",
+      "type": "integer"
+    },
+    "caravanWidthMin": {
+      "description": "Minimum width in centimetres. Only applies when mode is 'Search caravans'.",
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Min width in cm (caravans)",
+      "type": "integer"
+    },
+    "caravanYearMax": {
+      "description": "Maximum caravan model year. Only applies when mode is 'Search caravans'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (caravans)",
+      "type": "integer"
+    },
+    "caravanYearMin": {
+      "description": "Minimum caravan model year. Only applies when mode is 'Search caravans'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (caravans)",
+      "type": "integer"
+    },
+    "category": {
+      "default": "",
+      "description": "Torget top-level category. Only applies when mode is 'Search items for sale' (or the items leg of 'Search all categories').",
+      "editor": "select",
+      "enum": [
+        "",
+        "Antikviteter og kunst",
+        "Dyr og utstyr",
+        "Elektronikk og hvitevarer",
+        "Foreldre og barn",
+        "Fritid, hobby og underholdning",
+        "Hage, oppussing og hus",
+        "Klær, kosmetikk og tilbehør",
+        "Møbler og interiør",
+        "Næringsvirksomhet",
+        "Sport og friluftsliv",
+        "Utstyr til bil, båt og MC"
+      ],
+      "enumTitles": [
+        "Any category",
+        "Antiques & art",
+        "Animals & supplies",
+        "Electronics & appliances",
+        "Parenting & kids",
+        "Leisure, hobby & entertainment",
+        "Garden, renovation & house",
+        "Clothing, cosmetics & accessories",
+        "Furniture & interior",
+        "Business",
+        "Sports & outdoor",
+        "Car, boat & motorcycle equipment"
+      ],
+      "prefill": "",
+      "title": "Category (items for sale)",
+      "type": "string"
+    },
+    "commercialDealerSegment": {
+      "default": "",
+      "description": "Filter by private seller vs. dealer. Only applies when mode is 'Search trucks & trailers', 'Search buses & minibuses', 'Search construction machinery', or one of the agriculture modes.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Forhandler",
+        "Privat"
+      ],
+      "enumTitles": [
+        "Any",
+        "Forhandler",
+        "Privat"
+      ],
+      "prefill": "",
+      "title": "Seller segment (trucks/buses/construction/agriculture)",
+      "type": "string"
+    },
+    "constructionEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search construction machinery'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power in hp (construction)",
+      "type": "integer"
+    },
+    "constructionEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search construction machinery'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power in hp (construction)",
+      "type": "integer"
+    },
+    "constructionSegment": {
+      "default": "",
+      "description": "Construction machinery category. Only applies when mode is 'Search construction machinery'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Andre kjøretøygrupper",
+        "Borutstyr",
+        "Dumper",
+        "Gravemaskin",
+        "Hjullaster",
+        "Industrimaskin",
+        "Knuse -og sikteutstyr",
+        "Kompaktlaster",
+        "Komprimeringsmaskin",
+        "Kran",
+        "Lift",
+        "Minigraver",
+        "Redskapsbærer",
+        "Teleskoptruck",
+        "Tilbehør",
+        "Traktorgraver",
+        "Truck"
+      ],
+      "enumTitles": [
+        "Any",
+        "Andre kjøretøygrupper",
+        "Borutstyr",
+        "Dumper",
+        "Gravemaskin",
+        "Hjullaster",
+        "Industrimaskin",
+        "Knuse -og sikteutstyr",
+        "Kompaktlaster",
+        "Komprimeringsmaskin",
+        "Kran",
+        "Lift",
+        "Minigraver",
+        "Redskapsbærer",
+        "Teleskoptruck",
+        "Tilbehør",
+        "Traktorgraver",
+        "Truck"
+      ],
+      "prefill": "",
+      "title": "Category (construction machinery)",
+      "type": "string"
+    },
+    "constructionYearMax": {
+      "description": "Maximum construction machine model year. Only applies when mode is 'Search construction machinery'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (construction)",
+      "type": "integer"
+    },
+    "constructionYearMin": {
+      "description": "Minimum construction machine model year. Only applies when mode is 'Search construction machinery'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (construction)",
+      "type": "integer"
+    },
+    "forRent": {
+      "default": "",
+      "description": "Filter items listed for purchase vs. for rent. Only applies when mode is 'Search items for sale'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Kjøp",
+        "Leie"
+      ],
+      "enumTitles": [
+        "Buy or rent",
+        "Buy",
+        "Rent"
+      ],
+      "prefill": "",
+      "title": "Buy or rent (items for sale)",
+      "type": "string"
+    },
+    "itemCondition": {
+      "default": "",
+      "description": "Filter by the item's physical condition (tilstand). Only applies when mode is 'Search items for sale' (or the items leg of 'Search all categories'). Note: Finn.no doesn't return this field on individual listings, only as a search filter, so it narrows results but isn't echoed back on the output records (the output `condition` field is a different concept — see README).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Helt ny - Uåpnet/med lapp",
+        "Som ny - Ikke synlig brukt",
+        "Pent brukt - I god stand",
+        "Godt brukt - Synlig brukt",
+        "Må fikses - Noen mangler/ødelagte deler"
+      ],
+      "enumTitles": [
+        "Any condition",
+        "Brand new - sealed/with tag",
+        "Like new - no visible use",
+        "Well kept - good condition",
+        "Well used - visible wear",
+        "Needs fixing - parts missing/broken"
+      ],
+      "prefill": "",
+      "title": "Item condition / tilstand (items for sale)",
+      "type": "string"
+    },
+    "itemFreeShippingOnly": {
+      "default": false,
+      "description": "Only return item listings offering free shipping (Gratis frakt). Only applies when mode is 'Search items for sale'.",
+      "prefill": false,
+      "title": "Free shipping only (items)",
+      "type": "boolean"
+    },
+    "jobApplicationDeadline": {
+      "default": "",
+      "description": "Filter by how soon the application deadline is. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Siste frist",
+        "Under tre døgn",
+        "Under en uke"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "Final deadline",
+        "Under 3 days",
+        "Under 1 week"
+      ],
+      "prefill": "",
+      "title": "Application deadline (jobs)",
+      "type": "string"
+    },
+    "jobDuration": {
+      "default": "",
+      "description": "Employment contract form (permanent/temporary/project/etc.) — distinct from full-time/part-time extent. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Fast",
+        "Engasjement",
+        "Vikariat",
+        "Sommer/Sesong",
+        "Prosjekt",
+        "Bemanningsbyrå",
+        "Selvstendig næringsdrivende",
+        "Lærling",
+        "Trainee"
+      ],
+      "enumTitles": [
+        "Any employment form",
+        "Permanent",
+        "Fixed engagement",
+        "Temporary substitute",
+        "Summer/seasonal",
+        "Project-based",
+        "Staffing agency",
+        "Self-employed",
+        "Apprentice",
+        "Trainee"
+      ],
+      "prefill": "",
+      "title": "Employment form (jobs)",
+      "type": "string"
+    },
+    "jobEducation": {
+      "default": "",
+      "description": "Required education level. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Ingen utdanning",
+        "Fagbrev",
+        "Fagskole",
+        "Videregående (yrkesfaglig)",
+        "Videregående (studieforberedende)",
+        "Høyskole/universitet, lavere nivå",
+        "Høyskole/universitet, høyere nivå",
+        "Doktorgrad"
+      ],
+      "enumTitles": [
+        "Any education level",
+        "No education required",
+        "Trade certificate",
+        "Vocational college",
+        "High school (vocational)",
+        "High school (academic)",
+        "University/college (bachelor)",
+        "University/college (master)",
+        "PhD"
+      ],
+      "prefill": "",
+      "title": "Required education (jobs)",
+      "type": "string"
+    },
+    "jobExtent": {
+      "default": "",
+      "description": "Full-time vs. part-time. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Heltid",
+        "Deltid"
+      ],
+      "enumTitles": [
+        "Any extent",
+        "Full-time",
+        "Part-time"
+      ],
+      "prefill": "",
+      "title": "Employment extent (jobs)",
+      "type": "string"
+    },
+    "jobHomeOffice": {
+      "default": "",
+      "description": "Remote-work arrangement. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "På kontoret",
+        "Delvis hjemmekontor",
+        "Kun hjemmekontor"
+      ],
+      "enumTitles": [
+        "Any arrangement",
+        "At the office",
+        "Partly remote",
+        "Fully remote"
+      ],
+      "prefill": "",
+      "title": "Home office (jobs)",
+      "type": "string"
+    },
+    "jobIndustry": {
+      "default": "",
+      "description": "Employer industry. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Arbeidstaker- og arbeidsgiverorganisasjoner",
+        "Arkitektur, areal og interiør",
+        "Arkiv og bibliotek",
+        "Bank, finans og forsikring",
+        "Barn, skole og undervisning",
+        "Bil, kjøretøy og verksted",
+        "Bil- og bildelproduksjon",
+        "Butikk og varehandel",
+        "Bygg og anlegg",
+        "Drift og vedlikeholdstjenester",
+        "Dyr og dyrehelse",
+        "Eiendom",
+        "Elektronikk",
+        "Event og arrangementer",
+        "Farmasi og legemiddel",
+        "Fiskeri og oppdrett",
+        "Forlag og trykkeri",
+        "Forskning, utdanning og vitenskap",
+        "Forsvar og militær",
+        "Grossisthandel import/eksport",
+        "Helse og omsorg",
+        "Hotell og overnatting",
+        "HR, organisasjonsutvikling og rekruttering",
+        "Håndverkstjenester",
+        "Ideelle organisasjoner",
+        "Idrett og trening",
+        "Industri og produksjon",
+        "Internettbaserte tjenester",
+        "IT",
+        "IT - maskinvare",
+        "IT - programvare",
+        "Jordbruk og skogbruk",
+        "Juridiske tjenester",
+        "Kirke og menighet",
+        "Kjemisk industri",
+        "Konsulent og rådgivning",
+        "Kraft og energi",
+        "Kunst og kultur",
+        "Luftfart",
+        "Maritim og offshore",
+        "Markedsanalyse",
+        "Markedsføring og annonsering",
+        "Matvareproduksjon og -industri",
+        "Medie- og innholdsproduksjon",
+        "Medisinsk utstyr og rekvisita",
+        "Metaller og mineraler",
+        "Miljøtjenester",
+        "Museer, gallerier og kulturminne",
+        "Musikk",
+        "Offentlig administrasjon",
+        "Olje og gass",
+        "Organisasjoner",
+        "Politi og sikkerhet",
+        "PR, informasjon og kommunikasjon",
+        "Reise og turisme",
+        "Renovasjon og renhold",
+        "Restaurant, mat og uteliv",
+        "Shipping",
+        "Storhusholdning og catering",
+        "Tekstil",
+        "Telekommunikasjon",
+        "Transport og logistikk",
+        "Trevareindustri",
+        "Underholdning",
+        "Velvære",
+        "Verksindustri",
+        "VVS",
+        "Økonomi og regnskap",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any industry",
+        "Labor & employer organizations",
+        "Architecture, land use & interior",
+        "Archive & library",
+        "Bank, finance & insurance",
+        "Children, school & education",
+        "Cars, vehicles & workshops",
+        "Automotive & auto-parts manufacturing",
+        "Retail & trade",
+        "Construction",
+        "Operations & maintenance services",
+        "Animals & animal health",
+        "Real estate",
+        "Electronics",
+        "Events",
+        "Pharmaceutical",
+        "Fisheries & aquaculture",
+        "Publishing & printing",
+        "Research, education & science",
+        "Defense & military",
+        "Wholesale import/export",
+        "Health & care",
+        "Hotel & accommodation",
+        "HR, org. development & recruitment",
+        "Craft/trade services",
+        "Non-profit organizations",
+        "Sports & fitness",
+        "Industry & manufacturing",
+        "Internet-based services",
+        "IT",
+        "IT hardware",
+        "IT software",
+        "Agriculture & forestry",
+        "Legal services",
+        "Church & parish",
+        "Chemical industry",
+        "Consulting & advisory",
+        "Power & energy",
+        "Art & culture",
+        "Aviation",
+        "Maritime & offshore",
+        "Market analysis",
+        "Marketing & advertising",
+        "Food production & industry",
+        "Media & content production",
+        "Medical equipment & supplies",
+        "Metals & minerals",
+        "Environmental services",
+        "Museums, galleries & heritage",
+        "Music",
+        "Public administration",
+        "Oil & gas",
+        "Organizations",
+        "Police & security",
+        "PR, information & communication",
+        "Travel & tourism",
+        "Waste management & cleaning",
+        "Restaurant, food & nightlife",
+        "Shipping",
+        "Catering & food service",
+        "Textile",
+        "Telecommunications",
+        "Transport & logistics",
+        "Wood products industry",
+        "Entertainment",
+        "Wellness",
+        "Metalworking industry",
+        "Plumbing & HVAC",
+        "Finance & accounting",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Industry (jobs)",
+      "type": "string"
+    },
+    "jobManagerRole": {
+      "default": "",
+      "description": "Management level of the role. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Leder",
+        "Fagleder",
+        "Direktør"
+      ],
+      "enumTitles": [
+        "Any level",
+        "Manager",
+        "Team/discipline lead",
+        "Director"
+      ],
+      "prefill": "",
+      "title": "Manager category (jobs)",
+      "type": "string"
+    },
+    "jobOccupation": {
+      "default": "",
+      "description": "Top-level occupation category. Only applies when mode is 'Search jobs'. (Finn's 2nd-level sub-occupations, ~214 values, are not exposed — too large a set to keep as a stable enum; the top-level 84 filter correctly on their own.)",
+      "editor": "select",
+      "enum": [
+        "",
+        "Agronom",
+        "Analyse",
+        "Arkitekt og planlegging",
+        "Arkivar og bibliotekar",
+        "Art director",
+        "Barnehage",
+        "Barnevernspedagog",
+        "Biolog",
+        "Brannvern",
+        "Brukerstøtte/support",
+        "Butikkansatt",
+        "Butikksjef",
+        "Design",
+        "Dokumentasjon",
+        "Driftsoperatør/vaktmester",
+        "Forhandling",
+        "Forretningsutvikling og strategi",
+        "Forskning/Stipendiat/Postdoktor",
+        "Foto, lyd og lys",
+        "Franchise",
+        "Frisør",
+        "Geologi/Fysikk/Kjemi",
+        "Helsepersonell",
+        "HMS",
+        "Hotell og overnatting",
+        "HR, personal og rekruttering",
+        "Hudpleie og Massasje",
+        "Håndverker",
+        "Ingeniør",
+        "Innkjøp/forhandling",
+        "IT drift og vedlikehold",
+        "IT utvikling",
+        "Journalist",
+        "Jurist",
+        "Konsulent",
+        "Kontor og administrasjon",
+        "Koordinering",
+        "Kultur og museum",
+        "Kundeservice",
+        "Kurs og opplæring",
+        "Kvalitetssikring",
+        "Ledelse",
+        "Lege",
+        "Logistikk og lager",
+        "Markedsfører",
+        "Maskinfører og -operatør",
+        "Mat og servering",
+        "Megler",
+        "Mekanikk og installasjon",
+        "Menighetsarbeid",
+        "Militært personell",
+        "Omsorg og sosialt arbeid",
+        "Pilot og flypersonell",
+        "Planlegger",
+        "Politi",
+        "PR og informasjon",
+        "Prest",
+        "Produksjon",
+        "Produktledelse",
+        "Prosjektledelse",
+        "Renhold",
+        "Revisjon og kontroll",
+        "Rådgivning",
+        "Saksbehandler",
+        "Salg",
+        "Salgsledelse",
+        "Samfunnsviter",
+        "Sikkerhet",
+        "Sjøfart",
+        "Sosionom",
+        "Sykepleier",
+        "Teknisk personell",
+        "Teknisk service",
+        "Teknisk tegner",
+        "Tekstforfatter",
+        "Tolk/oversetter",
+        "Transport og sjåfør",
+        "Trener / Personlig trener",
+        "Undervisning og pedagogikk",
+        "Utøvende kunst",
+        "Vakt og sikkerhet",
+        "Veterinær og dyrepleier",
+        "Økonomi og regnskap",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any occupation",
+        "Agronomist",
+        "Analysis",
+        "Architecture & planning",
+        "Archivist & librarian",
+        "Art director",
+        "Kindergarten",
+        "Child welfare worker",
+        "Biologist",
+        "Fire safety",
+        "Customer/user support",
+        "Retail/shop employee",
+        "Store manager",
+        "Design",
+        "Documentation",
+        "Operations/caretaker",
+        "Negotiation",
+        "Business development & strategy",
+        "Research/PhD fellow/postdoc",
+        "Photo, sound & lighting",
+        "Franchise",
+        "Hairdresser",
+        "Geology/physics/chemistry",
+        "Healthcare personnel",
+        "HSE (health, safety & environment)",
+        "Hotel & accommodation",
+        "HR, personnel & recruitment",
+        "Skincare & massage",
+        "Craftsman/tradesperson",
+        "Engineer",
+        "Purchasing/negotiation",
+        "IT operations & maintenance",
+        "IT development",
+        "Journalist",
+        "Lawyer",
+        "Consultant",
+        "Office & administration",
+        "Coordination",
+        "Culture & museum",
+        "Customer service",
+        "Courses & training",
+        "Quality assurance",
+        "Management",
+        "Doctor/physician",
+        "Logistics & warehouse",
+        "Marketer",
+        "Machine operator",
+        "Food & catering",
+        "Broker/agent",
+        "Mechanics & installation",
+        "Parish/church work",
+        "Military personnel",
+        "Care & social work",
+        "Pilot & flight crew",
+        "Planner",
+        "Police",
+        "PR & communications",
+        "Priest",
+        "Production",
+        "Product management",
+        "Project management",
+        "Cleaning",
+        "Audit & control",
+        "Advisory/consulting",
+        "Case worker",
+        "Sales",
+        "Sales management",
+        "Social scientist",
+        "Security",
+        "Maritime/shipping",
+        "Social worker",
+        "Nurse",
+        "Technical personnel",
+        "Technical service",
+        "Technical draughtsperson",
+        "Copywriter",
+        "Interpreter/translator",
+        "Transport & driving",
+        "Coach/personal trainer",
+        "Teaching & education",
+        "Performing arts",
+        "Guard & security",
+        "Veterinarian & animal care",
+        "Finance & accounting",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Occupation (jobs)",
+      "type": "string"
+    },
+    "jobSector": {
+      "default": "",
+      "description": "Employer sector. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Privat",
+        "Offentlig",
+        "Organisasjoner",
+        "Samvirke",
+        "Franchise/Selvstendig næringsdrivende"
+      ],
+      "enumTitles": [
+        "Any sector",
+        "Private",
+        "Public",
+        "Organizations",
+        "Cooperative",
+        "Franchise/Self-employed"
+      ],
+      "prefill": "",
+      "title": "Sector (jobs)",
+      "type": "string"
+    },
+    "jobWorkExperience": {
+      "default": "",
+      "description": "Required seniority/experience level. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Ingen erfaring",
+        "Junior",
+        "Erfaren",
+        "Leder"
+      ],
+      "enumTitles": [
+        "Any experience level",
+        "No experience",
+        "Junior",
+        "Experienced",
+        "Management"
+      ],
+      "prefill": "",
+      "title": "Required work experience (jobs)",
+      "type": "string"
+    },
+    "jobWorkingLanguage": {
+      "default": "",
+      "description": "Required working language. Only applies when mode is 'Search jobs'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Norsk",
+        "Engelsk"
+      ],
+      "enumTitles": [
+        "Any language",
+        "Norwegian",
+        "English"
+      ],
+      "prefill": "",
+      "title": "Working language (jobs)",
+      "type": "string"
+    },
+    "location": {
+      "default": "",
+      "description": "Restrict results to a Norwegian county. Applies to every mode (including each vertical inside 'Search all categories').",
+      "editor": "select",
+      "enum": [
+        "",
+        "Agder",
+        "Akershus",
+        "Buskerud",
+        "Finnmark",
+        "Innlandet",
+        "Møre og Romsdal",
+        "Nordland",
+        "Oslo",
+        "Rogaland",
+        "Svalbard",
+        "Telemark",
+        "Troms",
+        "Trøndelag",
+        "Vestfold",
+        "Vestland",
+        "Østfold"
+      ],
+      "enumTitles": [
+        "Any county",
+        "Agder",
+        "Akershus",
+        "Buskerud",
+        "Finnmark",
+        "Innlandet",
+        "Møre og Romsdal",
+        "Nordland",
+        "Oslo",
+        "Rogaland",
+        "Svalbard",
+        "Telemark",
+        "Troms",
+        "Trøndelag",
+        "Vestfold",
+        "Vestland",
+        "Østfold"
+      ],
+      "prefill": "",
+      "title": "County (fylke)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of listings to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mcCondition": {
+      "default": "",
+      "description": "New vs. used motorcycle. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Ny MC",
+        "Brukt MC"
+      ],
+      "enumTitles": [
+        "Any",
+        "Ny MC",
+        "Brukt MC"
+      ],
+      "prefill": "",
+      "title": "New/used (MC)",
+      "type": "string"
+    },
+    "mcEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 500,
+      "minimum": 0,
+      "title": "Max engine power in hp (MC)",
+      "type": "integer"
+    },
+    "mcEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 500,
+      "minimum": 0,
+      "title": "Min engine power in hp (MC)",
+      "type": "integer"
+    },
+    "mcEngineVolumeMax": {
+      "description": "Maximum engine displacement in cubic centimetres. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 3000,
+      "minimum": 0,
+      "title": "Max engine displacement in cc (MC)",
+      "type": "integer"
+    },
+    "mcEngineVolumeMin": {
+      "description": "Minimum engine displacement in cubic centimetres. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 3000,
+      "minimum": 0,
+      "title": "Min engine displacement in cc (MC)",
+      "type": "integer"
+    },
+    "mcFuel": {
+      "default": "",
+      "description": "Motorcycle fuel type. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bensin",
+        "Diesel",
+        "El",
+        "Gass+bensin"
+      ],
+      "enumTitles": [
+        "Any",
+        "Bensin",
+        "Diesel",
+        "El",
+        "Gass+bensin"
+      ],
+      "prefill": "",
+      "title": "Fuel type (MC)",
+      "type": "string"
+    },
+    "mcMileageMax": {
+      "description": "Maximum odometer reading in km. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Max mileage in km (MC)",
+      "type": "integer"
+    },
+    "mcMileageMin": {
+      "description": "Minimum odometer reading in km. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Min mileage in km (MC)",
+      "type": "integer"
+    },
+    "mcType": {
+      "default": "",
+      "description": "Motorcycle/moped/ATV/snowmobile type. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Adventure",
+        "ATV",
+        "Chopper",
+        "Classic/Nakne",
+        "Cross/Enduro/Trial",
+        "Cruiser",
+        "Custom",
+        "Lett MC",
+        "MC Scooter",
+        "Moped",
+        "Offroad/Motard",
+        "Scooter",
+        "Sidevogn",
+        "Snøscooter",
+        "Sport",
+        "Supermoto",
+        "Touring",
+        "Trehjuling",
+        "Trike",
+        "Veteran",
+        "Andre"
+      ],
+      "enumTitles": [
+        "Any",
+        "Adventure",
+        "ATV",
+        "Chopper",
+        "Classic/Nakne",
+        "Cross/Enduro/Trial",
+        "Cruiser",
+        "Custom",
+        "Lett MC",
+        "MC Scooter",
+        "Moped",
+        "Offroad/Motard",
+        "Scooter",
+        "Sidevogn",
+        "Snøscooter",
+        "Sport",
+        "Supermoto",
+        "Touring",
+        "Trehjuling",
+        "Trike",
+        "Veteran",
+        "Andre"
+      ],
+      "prefill": "",
+      "title": "Vehicle type (MC)",
+      "type": "string"
+    },
+    "mcYearMax": {
+      "description": "Maximum motorcycle model year. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (MC)",
+      "type": "integer"
+    },
+    "mcYearMin": {
+      "description": "Minimum motorcycle model year. Only applies when mode is 'Search motorcycles & mopeds'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (MC)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchItems",
+      "description": "What to search on Finn.no.",
+      "editor": "select",
+      "enum": [
+        "searchAll",
+        "searchCars",
+        "searchMc",
+        "searchBoats",
+        "searchRealEstate",
+        "searchRealEstateRentals",
+        "searchRealEstateLeisureSale",
+        "searchRealEstateLeisurePlots",
+        "searchRealEstateAbroad",
+        "searchRealEstateNewBuildings",
+        "searchRealEstatePlots",
+        "searchRealEstateBusinessSale",
+        "searchRealEstateBusinessRent",
+        "searchRealEstateBusinessPlots",
+        "searchRealEstateCompanyForSale",
+        "searchTrucks",
+        "searchBuses",
+        "searchConstructionMachinery",
+        "searchAgricultureTractors",
+        "searchAgricultureCombines",
+        "searchAgricultureTools",
+        "searchCaravans",
+        "searchMotorhomes",
+        "searchJobs",
+        "searchItems"
+      ],
+      "enumTitles": [
+        "Search all categories",
+        "Search cars & vehicles",
+        "Search motorcycles & mopeds",
+        "Search boats",
+        "Search real estate (for sale)",
+        "Search real estate (for rent)",
+        "Search real estate (holiday homes for sale)",
+        "Search real estate (holiday-home plots)",
+        "Search real estate (abroad)",
+        "Search real estate (new-build projects)",
+        "Search real estate (residential plots)",
+        "Search real estate (commercial, for sale)",
+        "Search real estate (commercial, for rent)",
+        "Search real estate (commercial plots)",
+        "Search businesses for sale (going concern)",
+        "Search trucks & trailers",
+        "Search buses & minibuses",
+        "Search construction machinery",
+        "Search agriculture (tractors)",
+        "Search agriculture (combine harvesters)",
+        "Search agriculture (machines & implements)",
+        "Search caravans",
+        "Search motorhomes",
+        "Search jobs",
+        "Search items for sale"
+      ],
+      "prefill": "searchItems",
+      "title": "Mode",
+      "type": "string"
+    },
+    "motorhomeEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power in hp (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power in hp (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeLengthMax": {
+      "description": "Maximum length in centimetres. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max length in cm (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeLengthMin": {
+      "description": "Minimum length in centimetres. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min length in cm (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeMileageMax": {
+      "description": "Maximum mileage in kilometres. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Max mileage in km (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeMileageMin": {
+      "description": "Minimum mileage in kilometres. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2000000,
+      "minimum": 0,
+      "title": "Min mileage in km (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeSeats": {
+      "default": "",
+      "description": "Number of registered seats. Only applies when mode is 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1-3",
+        "4-5",
+        "6-9",
+        "10+"
+      ],
+      "enumTitles": [
+        "Any",
+        "1-3",
+        "4-5",
+        "6-9",
+        "10+"
+      ],
+      "prefill": "",
+      "title": "Registered seats (motorhomes)",
+      "type": "string"
+    },
+    "motorhomeSegment": {
+      "default": "",
+      "description": "Motorhome body type. Only applies when mode is 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Alkove",
+        "Bybobil",
+        "Camper",
+        "Delintegrert",
+        "Integrert"
+      ],
+      "enumTitles": [
+        "Any",
+        "Alkove",
+        "Bybobil",
+        "Camper",
+        "Delintegrert",
+        "Integrert"
+      ],
+      "prefill": "",
+      "title": "Type (motorhomes)",
+      "type": "string"
+    },
+    "motorhomeTransmission": {
+      "default": "",
+      "description": "Gearbox type. Only applies when mode is 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Automat",
+        "Manuell"
+      ],
+      "enumTitles": [
+        "Any",
+        "Automat",
+        "Manuell"
+      ],
+      "prefill": "",
+      "title": "Transmission (motorhomes)",
+      "type": "string"
+    },
+    "motorhomeWeightMax": {
+      "description": "Maximum total weight in kilograms. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 15000,
+      "minimum": 0,
+      "title": "Max total weight in kg (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeWeightMin": {
+      "description": "Minimum total weight in kilograms. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 15000,
+      "minimum": 0,
+      "title": "Min total weight in kg (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeWheelDrive": {
+      "default": "",
+      "description": "Drivetrain layout. Only applies when mode is 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bakhjulsdrift",
+        "Firehjulsdrift",
+        "Forhjulsdrift"
+      ],
+      "enumTitles": [
+        "Any",
+        "Bakhjulsdrift",
+        "Firehjulsdrift",
+        "Forhjulsdrift"
+      ],
+      "prefill": "",
+      "title": "Wheel drive (motorhomes)",
+      "type": "string"
+    },
+    "motorhomeYearMax": {
+      "description": "Maximum motorhome model year. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (motorhomes)",
+      "type": "integer"
+    },
+    "motorhomeYearMin": {
+      "description": "Minimum motorhome model year. Only applies when mode is 'Search motorhomes'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (motorhomes)",
+      "type": "integer"
+    },
+    "priceMax": {
+      "description": "Maximum price in Norwegian Krone.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Max price (NOK)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in Norwegian Krone.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Min price (NOK)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "Boligtype. Applies to both 'Search real estate' (for sale) and 'Search real estate for rent' (or their legs inside 'Search all categories').",
+      "editor": "select",
+      "enum": [
+        "",
+        "Enebolig",
+        "Tomannsbolig",
+        "Leilighet",
+        "Rekkehus",
+        "Garasje/Parkering",
+        "Produksjon/Industri",
+        "Gårdsbruk/Småbruk",
+        "Bygård/Flermannsbolig",
+        "Andre"
+      ],
+      "enumTitles": [
+        "Any property type",
+        "Detached house",
+        "Semi-detached house",
+        "Apartment",
+        "Terraced house",
+        "Garage/Parking",
+        "Production/Industrial",
+        "Farm/Smallholding",
+        "Multi-family building",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Property type (real estate)",
+      "type": "string"
+    },
+    "publishedToday": {
+      "default": false,
+      "description": "Only return listings published today (Nye i dag). Applies to every mode.",
+      "prefill": false,
+      "title": "Published today only",
+      "type": "boolean"
+    },
+    "query": {
+      "default": "",
+      "description": "Keyword to search for (e.g. 'iPhone', 'sofa', 'BMW'). Leave empty to browse all listings in the selected category/mode.",
+      "editor": "textfield",
+      "prefill": "iPhone",
+      "title": "Search query",
+      "type": "string"
+    },
+    "realEstateAnimalsAllowed": {
+      "default": "",
+      "description": "Filter for rentals that explicitly allow pets. Only applies when mode is 'Search real estate for rent'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Dyrehold tillatt"
+      ],
+      "enumTitles": [
+        "Any",
+        "Pets allowed"
+      ],
+      "prefill": "",
+      "title": "Pets allowed (real estate rentals)",
+      "type": "string"
+    },
+    "realEstateAreaSqmMax": {
+      "description": "Maximum internal floor area in square metres. Applies to both real estate sale and rentals modes.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Max size, m² (real estate)",
+      "type": "integer"
+    },
+    "realEstateAreaSqmMin": {
+      "description": "Minimum internal floor area in square metres. Applies to both real estate sale and rentals modes.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min size, m² (real estate)",
+      "type": "integer"
+    },
+    "realEstateCommonCostMax": {
+      "description": "Maximum shared/common monthly cost (fellesutgifter) in NOK. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max common monthly cost, NOK (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateCommonCostMin": {
+      "description": "Minimum shared/common monthly cost (fellesutgifter) in NOK. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Min common monthly cost, NOK (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateConstructionYearMax": {
+      "description": "Maximum year the property was built. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 2035,
+      "minimum": 1800,
+      "title": "Max construction year (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateConstructionYearMin": {
+      "description": "Minimum year the property was built. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 2035,
+      "minimum": 1800,
+      "title": "Min construction year (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateEnergyLabel": {
+      "default": "",
+      "description": "Official energy rating (A best – G worst). Only applies when mode is 'Search real estate' (for sale).",
+      "editor": "select",
+      "enum": [
+        "",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "enumTitles": [
+        "Any energy label",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "prefill": "",
+      "title": "Energy label (real estate)",
+      "type": "string"
+    },
+    "realEstateFacilities": {
+      "default": [],
+      "description": "Filter for properties with specific amenities (multi-select — a property matching ANY selected item is included). Applies to both 'Search real estate for sale' and 'Search real estate for rent'.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Aircondition",
+          "Alarm",
+          "Balkong/Terrasse",
+          "Bredbåndstilknytning",
+          "Fellesvaskeri",
+          "Garasje/P-plass",
+          "Heis",
+          "Ingen gjenboere",
+          "Lademulighet",
+          "Moderne",
+          "Peis/Ildsted",
+          "Strandlinje",
+          "Turterreng",
+          "Utsikt",
+          "Vaktmester-/vektertjeneste"
+        ],
+        "enumTitles": [
+          "Air conditioning",
+          "Alarm",
+          "Balcony/Terrace",
+          "Broadband connection",
+          "Shared laundry",
+          "Garage/parking space",
+          "Elevator",
+          "No facing neighbours",
+          "EV charging",
+          "Modern",
+          "Fireplace",
+          "Beachfront",
+          "Hiking trails nearby",
+          "View",
+          "Caretaker/security service"
+        ],
+        "type": "string"
+      },
+      "title": "Facilities / amenities (real estate)",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "realEstateFloor": {
+      "default": "",
+      "description": "Which floor the unit is on. Applies to both 'Search real estate' (for sale) and 'Search real estate for rent'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1. etasje",
+        "2. etasje",
+        "3. etasje",
+        "4. etasje",
+        "5. etasje",
+        "6. etasje",
+        "Over 6. etasje",
+        "Ikke 1. etasje"
+      ],
+      "enumTitles": [
+        "Any floor",
+        "1st floor",
+        "2nd floor",
+        "3rd floor",
+        "4th floor",
+        "5th floor",
+        "6th floor",
+        "Above 6th floor",
+        "Not 1st floor"
+      ],
+      "prefill": "",
+      "title": "Floor (real estate)",
+      "type": "string"
+    },
+    "realEstateFurnished": {
+      "default": "",
+      "description": "Furnished status. Only applies when mode is 'Search real estate for rent'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Møblert",
+        "Delvis møblert",
+        "Umøblert"
+      ],
+      "enumTitles": [
+        "Any furnishing",
+        "Furnished",
+        "Partly furnished",
+        "Unfurnished"
+      ],
+      "prefill": "",
+      "title": "Furnished (real estate rentals)",
+      "type": "string"
+    },
+    "realEstateIsNewProperty": {
+      "default": "",
+      "description": "Filter new-build vs. resale homes. Only applies when mode is 'Search real estate' (for sale).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Brukt bolig",
+        "Nybygg"
+      ],
+      "enumTitles": [
+        "Either",
+        "Resale (used)",
+        "New build"
+      ],
+      "prefill": "",
+      "title": "New build or resale (real estate)",
+      "type": "string"
+    },
+    "realEstateLifecycle": {
+      "default": "",
+      "description": "Sale status of the listing. Only applies when mode is 'Search real estate' (for sale).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Til salgs",
+        "Solgt siste 3 dager",
+        "Kommer for salg"
+      ],
+      "enumTitles": [
+        "Any status",
+        "For sale",
+        "Sold in last 3 days",
+        "Coming for sale"
+      ],
+      "prefill": "",
+      "title": "Sale status (real estate)",
+      "type": "string"
+    },
+    "realEstateMinBedrooms": {
+      "default": "",
+      "description": "Minimum number of bedrooms. Applies to both 'Search real estate for sale' and 'Search real estate for rent'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1+",
+        "2+",
+        "3+",
+        "4+",
+        "5+"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "1 or more",
+        "2 or more",
+        "3 or more",
+        "4 or more",
+        "5 or more"
+      ],
+      "prefill": "",
+      "title": "Min bedrooms (real estate)",
+      "type": "string"
+    },
+    "realEstateOwnershipType": {
+      "default": "",
+      "description": "Legal ownership form (eierform). Only applies when mode is 'Search real estate' (for sale).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Selveier",
+        "Andel",
+        "Aksje",
+        "Obligasjon",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any ownership type",
+        "Freehold (selveier)",
+        "Co-op share (andel)",
+        "Housing company share (aksje)",
+        "Bond (obligasjon)",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Ownership type (real estate)",
+      "type": "string"
+    },
+    "realEstatePlotSizeSqmMax": {
+      "description": "Maximum plot/land size in square metres. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Max plot size, m² (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstatePlotSizeSqmMin": {
+      "description": "Minimum plot/land size in square metres. Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min plot size, m² (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateSellerType": {
+      "default": "",
+      "description": "Filter by whether the listing is from a private seller or an estate broker. Only applies when mode is 'Search real estate for sale' (the rentals vertical does not expose this facet).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Megler",
+        "Privat"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "Broker",
+        "Private"
+      ],
+      "prefill": "",
+      "title": "Private seller vs. broker (real estate for sale)",
+      "type": "string"
+    },
+    "realEstateTotalPriceMax": {
+      "description": "Maximum total price including any collective debt (totalpris). Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Max total price, NOK (real estate for sale)",
+      "type": "integer"
+    },
+    "realEstateTotalPriceMin": {
+      "description": "Minimum total price including any collective debt (totalpris). Only applies when mode is 'Search real estate for sale'.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Min total price, NOK (real estate for sale)",
+      "type": "integer"
+    },
+    "rvCondition": {
+      "default": "",
+      "description": "New vs. used. Only applies when mode is 'Search caravans' or 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Ny",
+        "Brukt"
+      ],
+      "enumTitles": [
+        "Any",
+        "Ny",
+        "Brukt"
+      ],
+      "prefill": "",
+      "title": "Condition (caravans/motorhomes)",
+      "type": "string"
+    },
+    "rvLocation": {
+      "default": "",
+      "description": "Whether the vehicle is currently located in Norway or abroad. Only applies when mode is 'Search caravans' or 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Norge",
+        "Utlandet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Norge",
+        "Utlandet"
+      ],
+      "prefill": "",
+      "title": "Current location (caravans/motorhomes)",
+      "type": "string"
+    },
+    "rvSleepers": {
+      "default": "",
+      "description": "Number of sleeping berths. Only applies when mode is 'Search caravans' or 'Search motorhomes'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1-2",
+        "3-4",
+        "5-6",
+        "7+"
+      ],
+      "enumTitles": [
+        "Any",
+        "1-2",
+        "3-4",
+        "5-6",
+        "7+"
+      ],
+      "prefill": "",
+      "title": "Sleeper berths (caravans/motorhomes)",
+      "type": "string"
+    },
+    "sellerType": {
+      "default": "",
+      "description": "Filter by private seller vs. dealer/retailer. Only applies when mode is 'Search items for sale'. Note: Finn.no doesn't return a raw seller-type field on item listings, so this narrows results but isn't itself echoed back on item output records.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Privat",
+        "Forhandler"
+      ],
+      "enumTitles": [
+        "Any seller",
+        "Private",
+        "Dealer"
+      ],
+      "prefill": "",
+      "title": "Seller type (items for sale)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order in which listings are returned.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "oldest",
+        "priceAsc",
+        "priceDesc",
+        "closest"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Newest first",
+        "Oldest first",
+        "Price: low to high",
+        "Price: high to low",
+        "Closest (requires location)"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "tradeType": {
+      "default": "",
+      "description": "Filter by Finn's ad/trade type. Only applies when mode is 'Search items for sale'. Unlike itemCondition, this value IS reliably reflected back on the matching output records' `condition` field.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Til salgs",
+        "Gis bort",
+        "Ønskes kjøpt"
+      ],
+      "enumTitles": [
+        "Any ad type",
+        "For sale",
+        "Giving away",
+        "Wanted"
+      ],
+      "prefill": "",
+      "title": "Ad type (items for sale)",
+      "type": "string"
+    },
+    "truckEnginePowerMax": {
+      "description": "Maximum engine power in horsepower. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Max engine power in hp (trucks)",
+      "type": "integer"
+    },
+    "truckEnginePowerMin": {
+      "description": "Minimum engine power in horsepower. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 2000,
+      "minimum": 0,
+      "title": "Min engine power in hp (trucks)",
+      "type": "integer"
+    },
+    "truckSegment": {
+      "default": "",
+      "description": "Truck/trailer vehicle group. Only applies when mode is 'Search trucks & trailers'.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Bergingsbil",
+        "Betongbil",
+        "Bilfrakter",
+        "Brannbil",
+        "Chassis",
+        "Containerbil",
+        "Dyretransport",
+        "Henger",
+        "Kranbil",
+        "Krokløft",
+        "Liftdumper",
+        "Planbil",
+        "Renovasjonsbil",
+        "Skapbil",
+        "Spesialkjøretøy",
+        "Tankbil",
+        "Tippbil",
+        "Trekkvogn",
+        "Tømmerbil",
+        "Veteranbil",
+        "Annet"
+      ],
+      "enumTitles": [
+        "Any",
+        "Bergingsbil",
+        "Betongbil",
+        "Bilfrakter",
+        "Brannbil",
+        "Chassis",
+        "Containerbil",
+        "Dyretransport",
+        "Henger",
+        "Kranbil",
+        "Krokløft",
+        "Liftdumper",
+        "Planbil",
+        "Renovasjonsbil",
+        "Skapbil",
+        "Spesialkjøretøy",
+        "Tankbil",
+        "Tippbil",
+        "Trekkvogn",
+        "Tømmerbil",
+        "Veteranbil",
+        "Annet"
+      ],
+      "prefill": "",
+      "title": "Vehicle group (trucks)",
+      "type": "string"
+    },
+    "truckWeightMax": {
+      "description": "Maximum total vehicle weight in kilograms. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Max total weight in kg (trucks)",
+      "type": "integer"
+    },
+    "truckWeightMin": {
+      "description": "Minimum total vehicle weight in kilograms. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 50000,
+      "minimum": 0,
+      "title": "Min total weight in kg (trucks)",
+      "type": "integer"
+    },
+    "truckYearMax": {
+      "description": "Maximum truck/trailer model year. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Max model year (trucks)",
+      "type": "integer"
+    },
+    "truckYearMin": {
+      "description": "Minimum truck/trailer model year. Only applies when mode is 'Search trucks & trailers'.",
+      "maximum": 2027,
+      "minimum": 1900,
+      "title": "Min model year (trucks)",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Finn.no Scraper Input",
+  "type": "object"
+}
