@@ -1,69 +1,70 @@
 # Crypto Market Sentiment Index Tracker
 
-Scrape the **Crypto Fear & Greed Index** — the market-sentiment gauge that scores the whole crypto market from **0 (Extreme Fear)** to **100 (Extreme Greed)**. Get the live reading, the last N daily values, or any historical date range, each with a numeric score, a sentiment classification, a unix timestamp, and clean ISO dates. Powered by the public `alternative.me` API. **No API key, no login, no proxy.**
+Track the **Crypto Fear & Greed Index** from three independent publishers, cookielessly. Pull the live reading, the last N values, any date range since 2018, or an intraday CFGI view — with a 0–100 score, a canonical sentiment label, unix timestamps, ISO dates and source-native market context. **No API key, no login, no proxy.**
 
-## What this actor does
+## Why this actor
 
-- **Three modes:** `latest`, `historical`, `dateRange`
-- **Live sentiment:** the current index value plus seconds until the next update
-- **Full history:** every daily reading since the index began (2018+)
-- **Date-range slicing:** pull just the readings between two dates
-- **Classification filter:** keep only `Extreme Fear`, `Fear`, `Neutral`, `Greed`, or `Extreme Greed` readings
-- **Clean, typed output:** strings from the API are converted to real numbers and ISO dates
-- **Empty fields are omitted** — every field you see is populated
+Most Fear & Greed actors wrap one feed and return the same five fields. This one gives you a choice of publishers and the data behind the number:
 
-## Output per reading
+- **alternative.me (default)** — the original index, daily history from 2018-02-01.
+- **CoinMarketCap** — CMC's own index, daily since 2023-06-29, with BTC price and volume.
+- **CFGI** — aggregate crypto-market index with daily history from 2022-03-29 plus rolling 4h/1h/15m views, market cap, and a **10-component breakdown** (Price, Momentum, Volatility, Volume, Technical, Social, Dominance, Trends, Whales, Orders).
 
-| Field | Type | Description |
-|---|---|---|
-| `value` | int | Index score, `0`–`100` |
-| `valueClassification` | string | One of `Extreme Fear`, `Fear`, `Neutral`, `Greed`, `Extreme Greed` |
-| `timestamp` | int | Unix time (seconds, UTC) of the reading |
-| `date` | string | `YYYY-MM-DD` (UTC) derived from the timestamp |
-| `datetimeUtc` | string | Full ISO 8601 UTC datetime |
-| `timeUntilUpdate` | int | Seconds until the next update — **latest reading only** |
-| `recordType` | string | Always `fearGreedIndex` |
-| `scrapedAt` | string | ISO 8601 UTC time the record was scraped |
+The default prefill is one request and one reading, so schedules stay cheap.
 
-## Output: error record (mode = `dateRange` only, bad input)
+## Modes
 
-| Field | Type | Description |
-|---|---|---|
-| `recordType` | string | Always `error` |
-| `error` | string | Short error code, e.g. `invalid_date`, `invalid_date_range`, `missing_input` |
-| `message` | string | Human-readable explanation of the problem |
-| `input` | string | The offending input value |
-| `sourceUrl` | string | The `alternative.me` endpoint the actor was about to call |
-| `scrapedAt` | string | ISO 8601 UTC time the record was generated |
+| Mode | What it returns |
+|---|---|
+| `latest` | The current reading only. CFGI also includes the component scores for the selected timeframe. |
+| `historical` | The most recent `limit` readings (daily for alternative.me and CoinMarketCap; the selected timeframe for CFGI). |
+| `dateRange` | Every reading whose date falls inside `startDate`..`endDate` (inclusive). |
+
+CFGI publishes only a rolling intraday window: about 30 days of 4-hour readings, 7 days of hourly and 24 hours of 15-minute readings. Use `timeframe=1d` for history back to 2022-03-29.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `mode` | string | `latest` | `latest` / `historical` / `dateRange` |
-| `limit` | int | `30` | Number of most-recent daily readings (mode=historical), `1`–`5000` |
-| `startDate` | string | – | Inclusive range start, `YYYY-MM-DD` (mode=dateRange) |
-| `endDate` | string | – | Inclusive range end, `YYYY-MM-DD` (mode=dateRange) |
-| `classificationFilter` | string | – | Keep only one sentiment band (mode=historical / dateRange) |
+| `source` | string | `alternativeMe` | `alternativeMe` / `coinmarketcap` / `cfgi` |
+| `timeframe` | string | `1d` | CFGI only: `1d` / `4h` / `1h` / `15m` (intraday history is a short rolling window) |
+| `limit` | integer | `30` | Number of recent readings in historical mode, `1`–`5000` |
+| `startDate` | string | – | Inclusive range start, e.g. `2024-01-01` (mode=dateRange) |
+| `endDate` | string | – | Inclusive range end, e.g. `2024-12-31` (mode=dateRange) |
+| `classificationFilter` | string | – | Keep one band: `Extreme Fear`, `Fear`, `Neutral`, `Greed` or `Extreme Greed` |
 
-### Example: current reading
+Dates accept `YYYY-MM-DD`, `YYYY/MM/DD`, `YYYY.MM.DD`, `YYYYMMDD`, `MM/DD/YYYY` and `DD/MM/YYYY` when unambiguous. Time components are ignored.
+
+Legacy inputs from earlier versions (`dateFrom`/`dateTo`, `maxItems`, `days`, `classification`, `indexSource`, `provider`, `interval`) are mapped in code and remain accepted.
+
+### Examples
+
+Current reading (default):
 
 ```json
-{
-  "mode": "latest"
-}
+{ "mode": "latest" }
 ```
 
-### Example: last 90 daily readings
+Last 90 days from alternative.me:
 
 ```json
-{
-  "mode": "historical",
-  "limit": 90
-}
+{ "mode": "historical", "limit": 90 }
 ```
 
-### Example: only the "Extreme Fear" days in a range
+CoinMarketCap history with BTC context:
+
+```json
+{ "mode": "historical", "source": "coinmarketcap", "limit": 30 }
+```
+
+CFGI with components and a 4-hour view:
+
+```json
+{ "mode": "latest", "source": "cfgi", "timeframe": "4h" }
+```
+
+Only Extreme Fear days in 2024:
 
 ```json
 {
@@ -74,29 +75,84 @@ Scrape the **Crypto Fear & Greed Index** — the market-sentiment gauge that sco
 }
 ```
 
+## Output per reading
+
+| Field | Type | Description |
+|---|---|---|
+| `recordType` | string | `fearGreedIndex` for readings, `error` for typed input/source errors |
+| `source` | string | `alternativeMe`, `coinmarketcap` or `cfgi` |
+| `indexName` | string | Human-readable name of the selected index |
+| `sourceUrl` | string | Endpoint or page the reading came from |
+| `value` | number | Index score, `0`–`100` |
+| `valueClassification` | string | `Extreme Fear`, `Fear`, `Neutral`, `Greed` or `Extreme Greed` |
+| `timestamp` | integer | Unix time (seconds, UTC) |
+| `date` | string | `YYYY-MM-DD` (UTC) |
+| `datetimeUtc` | string | Full ISO 8601 UTC datetime |
+| `timeUntilUpdate` | integer | Seconds until the next alternative.me update — latest reading only |
+| `timeframe` | string | CFGI interval (`1d`, `4h`, `1h`, `15m`) |
+| `marketCapUsd` | number | Crypto market cap in USD (CFGI) |
+| `btcPriceUsd` | number | BTC price in USD (CoinMarketCap) |
+| `btcVolumeUsd` | number | BTC volume in USD (CoinMarketCap) |
+| `components` | array | CFGI current snapshot: `key`, `label`, `score`, `classification`, `weightPercent` |
+| `changeFromPrevious` | number | Change vs the previous reading (daily series) |
+| `change7d` | number | Change vs the reading 7 rows earlier (daily series) |
+| `change30d` | number | Change vs the reading 30 rows earlier (daily series) |
+| `movingAverage7d` | number | Mean of the last 7 readings (daily series) |
+| `movingAverage30d` | number | Mean of the last 30 readings (daily series) |
+| `classificationStreakDays` | integer | Consecutive readings in the same band (daily series) |
+| `scrapedAt` | string | ISO 8601 UTC time the record was generated |
+
+Every empty value is omitted. For example, `timeUntilUpdate` appears only on the alternative.me latest row, `btcPriceUsd` only on CoinMarketCap rows, and `components` only on the CFGI current snapshot.
+
+### Error record
+
+| Field | Type | Description |
+|---|---|---|
+| `recordType` | string | Always `error` |
+| `error` | string | `missing_input`, `invalid_date`, `invalid_date_range` or `source_unavailable` |
+| `message` | string | Human-readable explanation |
+| `input` | string | The offending input, when there is one |
+| `sourceUrl` | string | Endpoint the actor tried to read |
+| `scrapedAt` | string | ISO 8601 UTC time the record was generated |
+
+## Source coverage and methodology
+
+| Source | History starts | Native context | Components |
+|---|---|---|---|
+| alternative.me | 2018-02-01 | countdown to next update | not published |
+| CoinMarketCap | 2023-06-29 | BTC price and volume | not published |
+| CFGI | 2022-03-29 (1d); rolling 4h/1h/15m windows | market cap, 4 timeframes | 10 current component scores |
+
+Each publisher uses its own bands, and the actor preserves the publisher's label:
+
+- alternative.me: `0–25` Extreme Fear, `26–46` Fear, `47–54` Neutral, `55–75` Greed, `76–100` Extreme Greed.
+- CoinMarketCap: `0–19` Extreme Fear, `20–39` Fear, `40–59` Neutral, `60–79` Greed, `80–100` Extreme Greed.
+- CFGI: `0–19` Extreme Fear, `20–39` Fear, `40–59` Neutral, `60–79` Greed, `80–100` Extreme Greed. Fractional component scores use the same half-open bands (e.g. `39.5` is Fear).
+
+CFGI component weights: Price 30%, Momentum 30%, and 5% each for Volatility, Volume, Technical, Social, Dominance, Trends, Whales and Orders.
+
 ## Use cases
 
-- **Trading signals** — feed sentiment into contrarian buy/sell strategies
-- **Dashboards & bots** — display the live index in Telegram/Discord/Slack
-- **Backtesting** — align historical sentiment against price data
-- **Research** — study how fear and greed track market cycles
-- **Alerts** — trigger a notification when the market flips into Extreme Fear or Extreme Greed
-- **Content** — power newsletters and widgets with a fresh daily reading
+- **Trading bots and alerts** — trigger when the reading enters Extreme Fear or Extreme Greed.
+- **Dashboards** — show today's score beside BTC price, volume or market cap.
+- **Backtesting** — align daily sentiment against price history over a date range.
+- **Research** — compare how three publishers label the same market, and inspect the component mix behind CFGI.
+- **Newsletters** — pull a fresh reading and a plain-English label into a scheduled post.
 
 ## FAQ
 
-**What is the Crypto Fear & Greed Index?**  A daily 0–100 score of overall crypto-market sentiment, published by alternative.me. Low values mean investors are fearful (often seen as a buying opportunity); high values mean the market may be greedy and due for a correction.
+**Do I need an API key, cookie or proxy?** No. All three sources are public and the actor reads them directly.
 
-**How are the classifications defined?**  Each score maps to a band: `0–25` Extreme Fear, `26–46` Fear, `47–54` Neutral, `55–75` Greed, `76–100` Extreme Greed.
+**Which source should I use?** alternative.me for the longest history and the most widely quoted number; CoinMarketCap for a second independent index with BTC context; CFGI for intraday readings and component scores.
 
-**How often does it update?**  Once per day. The `latest` reading also includes `timeUntilUpdate`, the number of seconds until the next refresh.
+**Why do the three sources disagree?** They use different inputs, weights and bands. On the same day alternative.me and CoinMarketCap often differ by a few points and can carry different labels. The `source` field tells you which methodology produced each row.
 
-**How far back does the history go?**  To the index's launch in early 2018. `historical` and `dateRange` can reach the entire archive.
+**How far back does history go?** 2018-02-01 for alternative.me, 2023-06-29 for CoinMarketCap and 2022-03-29 for CFGI's daily series. CFGI intraday history is a rolling window (about 30 days for 4h, 7 days for 1h and 24 hours for 15m). A date range before a source's coverage simply returns the rows that exist.
 
-**Do I need an API key or proxy?**  No. The data source is a free public API — this actor uses no authentication, cookies, or proxy.
+**Can I get historical component scores?** CFGI publishes component scores only for the current snapshot; its historical rows carry the composite and market cap. The actor ships what the source exposes rather than inventing historical components.
 
-**What happens with a bad date range?**  If a date is unparseable, or `startDate` is after `endDate`, the actor emits a single typed error record explaining the problem instead of failing silently.
+**Why are some derived fields missing?** `change7d`, `movingAverage30d` and similar fields need enough earlier readings. They are computed for daily series only and omitted when the window is incomplete. Intraday CFGI rows omit day-based analytics.
 
-**Why do some fields not appear?**  The actor omits any empty field. For example, `timeUntilUpdate` only appears on the current reading, never on historical rows.
+**What happens with a bad date or an unavailable source?** The actor writes one typed error record and a status message instead of failing silently.
 
-**Is the index the same as the stock-market Fear & Greed Index?**  No — this is the crypto-specific index from alternative.me, built from volatility, momentum, volume, social media, dominance, and trends across the crypto market.
+**Why does the latest reading ignore `classificationFilter`?** The filter applies to history and date ranges; a single current reading is returned as-is, matching the actor's previous behavior.

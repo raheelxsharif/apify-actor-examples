@@ -1,25 +1,97 @@
 {
-  "description": "Scrape product profiles, reviews, and market categories from Gartner Peer Insights.",
+  "description": "Scrape product profiles, public reviews, market product listings, and the Gartner market directory.",
   "properties": {
+    "includeProductDetails": {
+      "default": false,
+      "description": "When on, market mode fetches each product profile and its reviews instead of writing the fast market listing records.",
+      "prefill": false,
+      "title": "Fetch full product details in market mode",
+      "type": "boolean"
+    },
+    "lastTwelveMonths": {
+      "default": false,
+      "description": "Limit reviews to those published in the last twelve months.",
+      "prefill": false,
+      "title": "Only reviews from the last 12 months",
+      "type": "boolean"
+    },
+    "marketCompanySize": {
+      "default": "all",
+      "description": "Use Gartner's company-size facet when listing products in a market.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "<50M USD",
+        "50M-1B USD",
+        "1B-10B USD",
+        "10B+ USD",
+        "Gov't/PS/Ed"
+      ],
+      "enumTitles": [
+        "All company sizes",
+        "Under 50M USD",
+        "50M-1B USD",
+        "1B-10B USD",
+        "10B+ USD",
+        "Government / public sector / education"
+      ],
+      "prefill": "all",
+      "title": "Filter market products by company size",
+      "type": "string"
+    },
     "marketSeoName": {
-      "description": "Gartner market slug for mode=market (e.g. sales-force-automation-platforms, crm-customer-engagement-center). Find it in the Gartner market page URL.",
+      "default": "",
+      "description": "Gartner market slug or full market URL, e.g. sales-force-automation-platforms or https://www.gartner.com/reviews/market/sales-force-automation-platforms. Used in market mode.",
       "editor": "textfield",
       "prefill": "",
-      "title": "Market SEO name",
+      "title": "Market",
+      "type": "string"
+    },
+    "marketSort": {
+      "default": "ratingsCount_desc",
+      "description": "How products are ordered inside a market listing.",
+      "editor": "select",
+      "enum": [
+        "ratingsCount_desc",
+        "ratingsCount_asc",
+        "averageRating_desc",
+        "averageRating_asc",
+        "name_asc",
+        "name_desc"
+      ],
+      "enumTitles": [
+        "Most ratings first",
+        "Fewest ratings first",
+        "Highest rated first",
+        "Lowest rated first",
+        "Name A-Z",
+        "Name Z-A"
+      ],
+      "prefill": "ratingsCount_desc",
+      "title": "Market product sort order",
       "type": "string"
     },
     "maxItems": {
       "default": 100,
-      "description": "Maximum number of product/review/category records to emit.",
+      "description": "Maximum number of market, product, review, or category records to save.",
       "maximum": 10000,
       "minimum": 1,
-      "prefill": 100,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Max records",
+      "type": "integer"
+    },
+    "maxReviewsPerProduct": {
+      "default": 50,
+      "description": "Maximum public reviews to collect for each product. Set 0 to collect only the product profile. Reviews are paged until this limit or the public review list ends.",
+      "maximum": 1000,
+      "minimum": 0,
+      "prefill": 2,
+      "title": "Max reviews per product",
       "type": "integer"
     },
     "mode": {
       "default": "categories",
-      "description": "What to scrape: product pages with reviews, all products in a market, or all market categories.",
+      "description": "Choose what to collect: product profiles with reviews, a market's product listing, or the full market and category directory.",
       "editor": "select",
       "enum": [
         "products",
@@ -27,9 +99,9 @@
         "categories"
       ],
       "enumTitles": [
-        "Products â€” scrape product profiles and reviews",
-        "Market â€” list all products in a Gartner market",
-        "Categories â€” list all Gartner markets and categories"
+        "Product profiles and reviews",
+        "Products in a market",
+        "Market and category directory"
       ],
       "prefill": "categories",
       "title": "Mode",
@@ -37,25 +109,83 @@
     },
     "productUrls": {
       "default": [],
-      "description": "Gartner Peer Insights product page URLs (e.g. https://www.gartner.com/reviews/product/salesforce-sales-cloud). Used for mode=products.",
+      "description": "Gartner Peer Insights product page URLs or product slugs, e.g. https://www.gartner.com/reviews/product/salesforce-sales-performance-management or salesforce-sales-performance-management. Used in products mode.",
       "editor": "stringList",
-      "prefill": [
-        "https://www.gartner.com/reviews/product/salesforce-sales-cloud"
-      ],
-      "title": "Product URLs",
+      "prefill": [],
+      "title": "Product URLs or slugs",
       "type": "array"
     },
     "proxyConfiguration": {
-      "description": "Apify proxy settings. Residential proxies are recommended for production runs.",
+      "description": "Optional. The actor works without a proxy and switches automatically only if Gartner blocks the request.",
       "editor": "proxy",
       "title": "Proxy configuration",
       "type": "object"
     },
+    "reviewRating": {
+      "default": "all",
+      "description": "Collect only reviews with this star rating, or all ratings.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "5",
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "enumTitles": [
+        "All ratings",
+        "5 stars",
+        "4 stars",
+        "3 stars",
+        "2 stars",
+        "1 star"
+      ],
+      "prefill": "all",
+      "title": "Filter reviews by star rating",
+      "type": "string"
+    },
+    "reviewSort": {
+      "default": "most-helpful",
+      "description": "How Gartner orders public reviews before paging.",
+      "editor": "select",
+      "enum": [
+        "most-helpful",
+        "most-recent",
+        "least-recent"
+      ],
+      "enumTitles": [
+        "Most helpful",
+        "Most recent",
+        "Least recent"
+      ],
+      "prefill": "most-helpful",
+      "title": "Review sort order",
+      "type": "string"
+    },
+    "reviewerType": {
+      "default": "all",
+      "description": "Collect reviews from all reviewers, end users, or vendor partners.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "end-user",
+        "partner"
+      ],
+      "enumTitles": [
+        "All reviewers",
+        "End users",
+        "Partner reviewers"
+      ],
+      "prefill": "all",
+      "title": "Filter reviews by reviewer type",
+      "type": "string"
+    },
     "useFilters": {
       "default": true,
-      "description": "When enabled, fetches each product page with multiple rating and sort filters to maximise the number of unique reviews extracted per product.",
+      "description": "After paging, query each star rating once to surface additional unique public reviews. Has no effect when a specific star rating is selected below.",
       "prefill": true,
-      "title": "Use rating/sort filters to get more reviews",
+      "title": "Add star-rating passes for more reviews",
       "type": "boolean"
     }
   },

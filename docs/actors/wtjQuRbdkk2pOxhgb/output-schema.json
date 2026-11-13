@@ -1,9 +1,9 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Crypto Fear & Greed Index readings from alternative.me — numeric value (0-100), sentiment classification, unix timestamp, and ISO dates.",
+  "description": "Fear & Greed readings from alternative.me, CoinMarketCap or CFGI: 0-100 value, canonical classification, unix timestamp, ISO dates, source context and (for CFGI) the 10 component scores.",
   "properties": {
     "readings": {
-      "description": "Dataset containing all scraped Crypto Fear & Greed Index readings.",
+      "description": "Dataset with one record per reading. Reading fields include value, valueClassification, timestamp, date, datetimeUtc, source, indexName, derived trend statistics, and source-native context such as BTC price/volume (CoinMarketCap) or market cap and component scores (CFGI). Bad date input or an unavailable source produces a typed error record.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
       "title": "Fear & Greed readings",
       "type": "string"

@@ -1,10 +1,11 @@
 {
-  "description": "Fetch the live Crypto Fear & Greed Index, the last N daily readings, or a historical date range from alternative.me.",
+  "description": "Fetch the current Crypto Fear & Greed Index, its history, a date range, or an intraday CFGI view. Choose alternative.me, CoinMarketCap or CFGI. No API key, login or proxy.",
   "properties": {
     "classificationFilter": {
-      "description": "Only keep readings with this sentiment band (mode=historical or dateRange). Leave empty to keep all.",
+      "description": "Keep only readings in one sentiment band (historical and dateRange modes). Leave empty to keep every band.",
       "editor": "select",
       "enum": [
+        "",
         "Extreme Fear",
         "Fear",
         "Neutral",
@@ -12,6 +13,7 @@
         "Extreme Greed"
       ],
       "enumTitles": [
+        "All classifications",
         "Extreme Fear",
         "Fear",
         "Neutral",
@@ -22,15 +24,15 @@
       "type": "string"
     },
     "endDate": {
-      "description": "Inclusive end of the range, format YYYY-MM-DD (mode=dateRange).",
+      "description": "Inclusive end of the range, e.g. 2024-12-31 (mode=dateRange).",
       "editor": "textfield",
-      "example": "2024-01-31",
+      "example": "2024-12-31",
       "title": "End date (date range)",
       "type": "string"
     },
     "limit": {
       "default": 30,
-      "description": "How many of the most recent daily readings to return (mode=historical). One reading per day.",
+      "description": "How many of the most recent readings to return in historical mode. One reading per day for daily sources.",
       "maximum": 5000,
       "minimum": 1,
       "prefill": 30,
@@ -39,7 +41,7 @@
     },
     "mode": {
       "default": "latest",
-      "description": "What to fetch: the current reading, the last N daily readings, or a custom date range.",
+      "description": "What to fetch: the current reading, the last N readings, or a custom date range.",
       "editor": "select",
       "enum": [
         "latest",
@@ -47,19 +49,57 @@
         "dateRange"
       ],
       "enumTitles": [
-        "Latest — current reading only",
-        "Historical — last N daily readings",
+        "Latest — current reading",
+        "Historical — last N readings",
         "Date range — readings between two dates"
       ],
       "prefill": "latest",
       "title": "Mode",
       "type": "string"
     },
+    "source": {
+      "default": "alternativeMe",
+      "description": "Which publisher to read. alternative.me has daily history since 2018; CoinMarketCap since 2023 with BTC price and volume; CFGI has daily history since 2022 plus short rolling 4h/1h/15m windows, a 10-component breakdown and market cap.",
+      "editor": "select",
+      "enum": [
+        "alternativeMe",
+        "coinmarketcap",
+        "cfgi"
+      ],
+      "enumTitles": [
+        "alternative.me — daily history since 2018 (default)",
+        "CoinMarketCap — daily history since 2023 + BTC context",
+        "CFGI — daily or intraday + component scores"
+      ],
+      "prefill": "alternativeMe",
+      "title": "Index source",
+      "type": "string"
+    },
     "startDate": {
-      "description": "Inclusive start of the range, format YYYY-MM-DD (mode=dateRange).",
+      "description": "Inclusive start of the range, e.g. 2024-01-01. Slash dates and US dates are also accepted (mode=dateRange).",
       "editor": "textfield",
       "example": "2024-01-01",
       "title": "Start date (date range)",
+      "type": "string"
+    },
+    "timeframe": {
+      "default": "1d",
+      "description": "Reading interval for the CFGI source only: daily, 4-hour, hourly or 15-minute. CFGI intraday history is a short rolling window; other sources always return daily readings.",
+      "editor": "select",
+      "enum": [
+        "1d",
+        "4h",
+        "1h",
+        "15m"
+      ],
+      "enumTitles": [
+        "Daily (1d)",
+        "4 hours (4h)",
+        "1 hour (1h)",
+        "15 minutes (15m)"
+      ],
+      "prefill": "1d",
+      "title": "CFGI timeframe",
       "type": "string"
     }
   },
