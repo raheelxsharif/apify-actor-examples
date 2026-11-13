@@ -4,9 +4,9 @@
 
 # Reddit User Profile & Post History Crawler Pro
 
-Turn Reddit usernames or profile links into structured user records: split karma, account age, badges, bio and avatar, plus the user's posts or comments with media, awards, upvote ratio, trophies and moderated communities.
+Turn Reddit usernames or profile links into structured user records: split karma, account age, activity totals, badges, bio and avatar, plus the user's posts or comments with media, awards, upvote ratio, trophies and moderated communities.
 
-Runs on public pages without a Reddit account, login cookie, API key, or proxy setup.
+Runs without a Reddit account, login cookie, API key, or proxy setup.
 
 ## Modes
 
@@ -17,7 +17,23 @@ Runs on public pages without a Reddit account, login cookie, API key, or proxy s
 | **Comments** (`comments`) | The user's recent comments only. |
 | **Gilded** (legacy) | Reddit no longer exposes a gilded feed; accepted for saved tasks and treated as Posts with a warning. |
 
-Every mode supports Hot, New, Top and Controversial ordering. Top and Controversial use the `timeFilter` window.
+Every mode supports Hot, New, Top and Controversial. Top and Controversial use the `timeFilter` window.
+
+## Where the data comes from
+
+The actor is source-first and cookieless:
+
+1. **Arctic Shift archive API (primary).** Public, no-key endpoints provide the user aggregate (split karma, archived post/comment totals, first/last activity), the user's posts and comments, and batch ID lookups for crossposts and fallback hydration. Requests retry network timeouts and HTTP 5xx, honour `X-RateLimit-Reset` on HTTP 429, and halve the page size when the API answers HTTP 422 with a query timeout.
+2. **Reddit Atom feed (fallback).** When the archive search is unavailable, the actor reads `/user/<u>/.rss`, `/submitted/.rss` or `/comments/.rss` and keeps the same record shape. Feed rows carry no score or comment count; the actor then hydrates them through the archive ID endpoints when those respond.
+3. **Rendered profile page (best effort).** Only used for profile-only details (bio, avatar, staff/verification badges, exact cake day, trophies, moderated communities) and as the last listing fallback. If Reddit challenges the page, the archive fields still return.
+
+Anonymous Reddit `.json` endpoints return HTTP 403 and are **never** used. No login, cookie input, API key, or user proxy configuration is involved.
+
+## Score freshness
+
+Reddit's archive records a post or comment the moment it appears, then refreshes `score`, `upvote_ratio` and `num_comments` roughly **36 hours later**. Content newer than that can legitimately show an initial score near 0 or 1.
+
+Every archived post and comment carries `score_updated_at`, the UTC timestamp of the snapshot the values came from. The profile record carries `karma_updated_at` for the aggregate karma snapshot. Use those fields to separate a fresh score from an initial-archive value. Atom-feed rows that could not be hydrated omit score fields rather than inventing them.
 
 ## What each record contains
 
@@ -25,10 +41,15 @@ Every mode supports Hot, New, Top and Controversial ordering. Top and Controvers
 
 - `username`, `user_id`, `profile_url`
 - `post_karma`, `comment_karma`, `total_karma`
+- `karma_source` — `live_profile` when the profile page supplied the displayed karma, `archive_scores` when the values are the archive's sum of post/comment scores (they can differ from Reddit's displayed karma)
 - `account_created` (ISO 8601), `account_age_years`
-- `description`, `icon_img`
-- `contributions`
-- `is_admin`, `is_employee`, `is_moderator`, `is_gold`, `verified`, `has_verified_email` — only present when Reddit shows the badge
+- `account_created_estimated` — present when the cake day is inferred from the earliest archived activity instead of the live profile page
+- `archived_post_count`, `archived_comment_count` — totals in the archive, not the profile's fetched count
+- `activity_first_seen`, `activity_last_seen` — first/last archived post or comment
+- `karma_updated_at` — archive snapshot time for karma and totals
+- `description`, `icon_img`, `contributions` — when the live profile page is reachable
+- `is_admin`, `is_employee`, `is_moderator`, `is_gold`, `verified`, `has_verified_email` — only present when the source shows the badge
+- `data_source` — `arctic_shift`, `atom_rss`, `reddit_html`, or a `+` combination
 - `posts[]`, `post_count`
 - `filtered_post_count` — only when posts existed but every one was filtered out
 - `section_empty` — only when the chosen feed genuinely has no content for that user
@@ -43,25 +64,25 @@ Every mode supports Hot, New, Top and Controversial ordering. Top and Controvers
 
 - `post_id`, `post_name`, `title`, `author`, `author_fullname`
 - `subreddit` (bare name, e.g. `aww`), `subreddit_prefixed` (`r/aww`)
-- `score`, `num_comments`, `upvote_ratio`
+- `score`, `num_comments`, `upvote_ratio`, `score_updated_at`
 - `permalink`, `url`, `external_url`, `domain`, `post_type`, `post_hint`
 - `content` (self-text, up to 1,000 characters), `content_html`
 - `thumbnail_url`, `link_flair`
 - `created_utc`, `created_at`, `post_age_seconds`, `title_word_count`
 - `is_self`, `is_gallery`, `is_video`, `is_crosspost`, `is_stickied`, `is_locked`, `is_archived`, `is_nsfw`, `is_spoiler`, `is_original_content`, `is_promoted`
-- `awards[]`, `total_awards_received`, `gilded_count` (when Reddit labels the award as a gild)
-- `media_metadata` — type, thumbnail, gallery images, MP4/HLS video URL
-- `crosspost_parent` — original post id, subreddit and link
+- `awards[]`, `total_awards_received`, `gilded_count`
+- `media_metadata` — type, thumbnail, gallery images, MP4/HLS/DASH video URL, duration and dimensions
+- `crosspost_parent` — original post id, title, author, subreddit, link and engagement
 
 ### Comment fields
 
-- `comment_id`, `comment_name`, `post_id`, `post_title`
-- `author`, `text`, `body_html`
-- `score`, `subreddit`, `subreddit_prefixed`
+- `comment_id`, `comment_name`, `post_id`, `post_title`, `post_permalink`
+- `author`, `author_fullname`, `text`, `body_html`
+- `score`, `score_updated_at`, `subreddit`, `subreddit_prefixed`
 - `permalink`, `created_utc`, `created_at`
-- `is_edited`, `distinguished`
+- `is_edited`, `distinguished`, `controversiality`, `is_op`
 
-A field the profile genuinely lacks is omitted, never emitted as `null`.
+A field the source genuinely lacks is omitted, never emitted as `null`.
 
 ## Input
 
@@ -70,15 +91,16 @@ A field the profile genuinely lacks is omitted, never emitted as `null`.
 | `usernames` | array | – | Usernames, `u/name` handles, or full profile URLs. Legacy `username` is also accepted. |
 | `section` | select | `submitted` | Posts, Overview, Comments, or legacy Gilded. |
 | `sort` | select | `new` | New, Hot, Top, or Controversial. |
-| `timeFilter` | select | `all` | All time, year, month, week, day, or hour. Used by Top/Controversial. |
+| `timeFilter` | select | `all` | All time, year, month, week, day, or hour. Bounds the window ranked for Top/Controversial. |
 | `maxPosts` | integer | `50` | Posts to collect per user (1–1000). |
 | `maxComments` | integer | `25` | Comments to collect per user (1–1000). |
 | `includeComments` | boolean | `false` | Also collect comments when the section is Posts. |
+| `includeProfileDetails` | boolean | `false` | Try the live profile page for bio, avatar, badges and the exact cake day. Implied by the trophy/moderated toggles. |
 | `includeTrophies` | boolean | `false` | Add the trophy case. |
 | `includeModeratedSubreddits` | boolean | `false` | Add the public moderated-community list. |
 | `minPostScore` | integer | – | Drop posts below this score. |
 | `maxPostAgeDays` | integer | – | Drop posts older than this many days. |
-| `excludeNsfwPosts` | boolean | `false` | Drop NSFW / not-brand-safe posts. |
+| `excludeNsfwPosts` | boolean | `false` | Drop NSFW posts. |
 | `minPostComments` | integer | – | Drop posts with fewer comments. |
 | `maxPostComments` | integer | – | Drop posts with more comments. |
 | `postType` | select | `all` | Keep one type: text, link, image, video, gallery, crosspost, GIF, multi-media, or poll. |
@@ -86,6 +108,10 @@ A field the profile genuinely lacks is omitted, never emitted as `null`.
 | `excludeKeywords` | array | – | Drop posts matching any of these terms. |
 | `keywordMatch` | select | `any` | Include keywords may match any or all terms. |
 | `excludeStickied` | boolean | `false` | Drop pinned posts. |
+
+### How sorting works
+
+The archive returns rows in chronological order. `New` keeps that order. `Hot`, `Top` and `Controversial` are ranked client-side over a bounded archive window (up to five times `maxPosts`, capped at 1,000 rows), so the actor never scans a profile's entire history for a single run. `Top` and `Controversial` also apply the `timeFilter` window. All filters run before `maxPosts` is applied.
 
 ### Example: recent posts
 
@@ -134,6 +160,7 @@ A field the profile genuinely lacks is omitted, never emitted as `null`.
   "section": "overview",
   "maxPosts": 50,
   "maxComments": 50,
+  "includeProfileDetails": true,
   "includeTrophies": true,
   "includeModeratedSubreddits": true,
   "excludeNsfwPosts": true
@@ -146,11 +173,11 @@ Each unusable username emits one record with `recordType: "error"` and `type: "r
 
 | `reason` | Meaning |
 |---|---|
-| `user_not_found` | Reddit has no profile with that name. |
+| `user_not_found` | No public profile exists with that name. |
 | `profile_private` | The profile is private. |
 | `profile_suspended` | The account is suspended. |
-| `blocked` | Reddit blocked every anonymous route for this run. |
-| `scrape_failed` | The page raised an unexpected error. |
+| `blocked` | Every anonymous source was unavailable for this run. |
+| `scrape_failed` | The fetch raised an unexpected error. |
 | `no_valid_usernames` | The input contained no usable username. |
 
 ## Use cases
@@ -165,35 +192,58 @@ Each unusable username emits one record with `recordType: "error"` and `type: "r
 
 ### Is this affiliated with Reddit?
 
-No. This is an independent third-party actor that reads publicly available Reddit pages. It is not operated by or affiliated with Reddit.
+No. This is an independent third-party actor that reads publicly available Reddit data. It is not operated by or affiliated with Reddit.
 
 ### Do I need a Reddit account, API key, or proxy?
 
-No. The actor reads public pages anonymously. It handles Reddit's network challenges automatically and needs no credentials or proxy configuration from you.
+No. The primary archive API needs no key. The Atom and rendered-page fallbacks are anonymous. The actor picks a proxy automatically only if a source blocks the request, and needs no proxy configuration from you.
+
+### Why can karma differ from my Reddit profile?
+
+Reddit does not expose account karma without the live profile page. The archive
+stores the sum of archived post/comment scores, which includes removed content
+and can differ from the number Reddit displays. `karma_source` says which one
+you received; enable `includeProfileDetails` for the displayed value.
+
+### Why can a very recent post show a score of 0 or 1?
+
+Archived engagement is refreshed about 36 hours after posting. `score_updated_at` tells you which snapshot the value came from. Re-run the actor later for fresher numbers.
 
 ### Why is `post_count` lower than `maxPosts`?
 
-The profile feed ran out of pages before reaching the limit, or the client-side filters removed posts. `filtered_post_count` appears when filters removed every post.
+The source ran out of rows before the limit, or the client-side filters removed posts. `filtered_post_count` appears when filters removed every post.
 
 ### Why did a user return no comments?
 
-The account may have no public comments, or Reddit's comments feed may be empty for that profile. `section_empty` flags the empty feed.
+The account may have no public comments, or the comments feed may be empty for that profile. `section_empty` flags the empty feed.
+
+### Why are bio, avatar, badges or trophies sometimes missing?
+
+Those fields exist only on the live profile page. Enable `includeProfileDetails` (or the trophy/moderated toggles) to try it. When Reddit challenges the page, the archive still returns karma, counts, activity dates, posts and comments; the page-only fields are omitted rather than fabricated.
+
+### Why is `account_created` marked estimated?
+
+If the live profile page is unavailable, the actor uses the earliest archived post or comment and sets `account_created_estimated: true`. It is a lower-bound activity date, not the exact registration date.
 
 ### Why is `section: "gilded"` treated as Posts?
 
-Reddit's current public profile UI no longer has a gilded-only feed. Saved tasks that send `gilded` keep working as Posts, and the status log explains the substitution.
-
-### Why are awarder/awardee karma fields often missing?
-
-Reddit's current public profile header only shows post, comment and total karma for most accounts. Those fields appear only when the page carries them.
+Reddit's public profile surface no longer has a gilded-only feed. Saved tasks that send `gilded` keep working as Posts, and the status log explains the substitution.
 
 ### Are private or suspended profiles supported?
 
 No. They emit an error record explaining the reason; no personal data is collected from them.
 
+## Limitations
+
+- Archived totals and karma can lag the live site; `karma_updated_at` and `score_updated_at` expose the snapshot.
+- The live profile feed can pin, hide or cache items; archive rows stay chronological, so `New` can differ from the first items the live page shows.
+- Atom fallback returns at most 100 entries per feed; scores appear only when hydration succeeds.
+- Bio, avatar, badges, exact cake day, trophies and moderated communities depend on the live profile page and are best effort.
+- Anonymous Reddit JSON is blocked and is not a supported path.
+
 ## Data source
 
-Public Reddit profile, posts and comments pages. The actor does not use Reddit's OAuth API, does not log in, and does not require cookies.
+Public Reddit data through the Arctic Shift archive API, Reddit's public Atom feeds, and the rendered public profile page where available. The actor does not use Reddit's OAuth API, does not log in, and does not require cookies.
 
 ## Legacy input compatibility
 

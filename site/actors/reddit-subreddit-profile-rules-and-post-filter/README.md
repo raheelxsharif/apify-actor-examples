@@ -1,75 +1,115 @@
 # Reddit Community, Posts & Comments Scraper
 
-Scrape **Reddit communities** without an account: profile details, weekly activity, posting rules, wiki pages, filtered post feeds and capped comment trees. Find communities by keyword, collect a subreddit's recent posts, or follow post URLs into their comment threads. No API key, login or proxy setup.
+Scrape **Reddit communities** without an account: profile details, weekly activity, posting rules, moderators when public, wiki pages, filtered post feeds and capped comment trees. Find communities by name, popularity or age, collect a community's recent posts, follow post URLs into their comment threads, or export every rule and wiki page as its own record. No API key, login or proxy setup.
 
 ## What this actor does
 
-- **Four modes:** `communities` (default), `discover`, `posts` and `comments`
-- **Community intelligence:** name, description, creation date, community type, weekly active users, weekly contributions, rules and wiki pages
+- **Six modes:** `communities` (default), `discover`, `posts`, `comments`, `rules` and `wiki`
+- **Community intelligence:** name, description, creation date, community type, subscriber count, weekly activity, rules, moderators and wiki pages
 - **Filtered feeds:** sort, time window, date range, score/comment/award thresholds, post type, flair/title/body keywords, author allowlist, domain, and exclusion flags
-- **Comment trees:** 20-25 comments per page with "load more" expansion, four alternate sort orders, per-post and depth caps
-- **Keyword discovery:** search Reddit's community directory and optionally scrape posts from everything it finds (discovery records are search snapshots; use communities mode for full profiles)
-- **Empty fields are omitted** — records only contain values Reddit actually returned
+- **Comment trees:** depth-aware comments with five sort orders, per-post and global caps, and optional keyword/score filters
+- **Name discovery:** find communities by name prefix, or browse the most popular and newest communities
+- **Standalone rule and wiki exports:** one record per rule or wiki page for moderation research and documentation pipelines
+- **Empty fields are omitted** — records only contain values the source actually returned
+
+## Data source and freshness
+
+The actor reads the public **Arctic Shift** Reddit archive, which needs no key and serves Reddit-shaped records for communities, rules, wiki pages, posts and comments. Reddit's Atom feeds and the public about/rules/moderators pages are used as a fallback when the archive has no data and the network lets those pages through. Reddit's anonymous `.json` endpoints are never requested because they return 403.
+
+Freshness limits you should know:
+
+- **Scores, upvotes, comment counts and awards lag.** The archive captures a post when it is created and updates engagement later. A post younger than roughly 36 hours can show a score of 1 and zero comments even though the live thread is busy.
+- **Subreddit metadata is refreshed infrequently.** Subscriber counts and community settings can trail the live page by days or weeks. The archive's post/comment counts under `_meta` update more often than the profile row.
+- **Wiki pages and rules are snapshots.** Edits made after the archive's last pass appear only in a later run.
+- **Ranking sorts are computed over a candidate window.** The archive serves date-ordered rows, so Hot, Top, Rising, Controversial and Best are ranked by the actor over the fetched candidates. `timeFilter` limits that window for Top and Controversial. For very large communities, the result is "best of the recent window", not a full all-time ranking.
+- **Discovery is name-prefix based.** The archive's directory supports prefix matching rather than full-text search. Multi-word discovery queries use the first word for the prefix and then filter the returned names.
+- **Fallback feeds are shallow.** Reddit Atom feeds expose only the newest 25-100 entries and carry fewer fields (no reliable score, awards or flags). They keep a run working when the archive is unavailable, but archive runs are the complete ones.
+- **Moderators and weekly activity are best-effort.** Signed-out Reddit normally hides the moderator list, and weekly activity appears only when a reachable community page renders it. Those fields are omitted rather than guessed.
+- **Some archived image URLs can expire.** Community icons, banners and thumbnails are snapshot URLs from the archive; their signed links can stop loading even though the text data is intact.
 
 ## Output: community records (`dataType: "community"`)
 
 One record per community in `communities` and `discover` modes.
 
 - `subreddit`, `subreddit_prefixed`, `subreddit_id`, `url` — identity
-- `description`, `public_description`, `community_icon`, `icon_img` — presentation
-- `created_utc`, `created_at`, `subreddit_type`, `wiki_enabled` — metadata
-- `weekly_active_users`, `weekly_contributions` — Reddit's weekly activity metrics
-- `subscribers`, `active_user_count` and the extended community settings — best-effort: included when Reddit's public metadata endpoint is reachable from the run's network, otherwise omitted
-- `rules[]` — `short_name`, `description`, `description_html`, `priority`
-- `wiki_pages[]` — `name`, `content_md` (Markdown source)
-- `stickies[]` — up to two pinned/highlighted posts using the post fields below (when posts are collected)
+- `title`, `description`, `public_description`, `community_icon`, `icon_img`, `banner_img` — presentation
+- `created_utc`, `created_at`, `subreddit_type`, `wiki_enabled`, `lang` — metadata
+- `subscribers`, `active_user_count`, `weekly_active_users`, `weekly_contributions` — audience size and activity
+- `rules[]` — `short_name`, `description`, `kind`, `violation_reason`, `priority`, `created_utc`
+- `moderators[]` — `name`, `profile_url` when the public list is reachable
+- `wiki_pages[]` — `name`, `path`, `content_md`, `url`
+- `stickies[]` — up to two pinned/highlighted posts using the post fields below
 - `search_term` — the discovery keyword that surfaced the community
 - `crawled_at`, `source` — fetch timestamp and data source
 
 ## Output: post records (`dataType: "post"`)
 
-One record per collected post in `communities`, `discover` and `posts` modes.
+One record per collected post in `communities`, `discover` and `posts` modes, and the parent post in `comments` mode when "Add rendered post HTML" is on.
 
 - `post_id`, `post_name`, `subreddit`, `subreddit_prefixed`, `subreddit_id` — identity
 - `title`, `content`, `content_html`, `content_url`, `url`, `permalink`, `domain`, `post_type`, `media_type` — content
 - `author`, `author_id`, `link_flair`, `author_flair`, `author_flair_*` — author and flair
-- `score`, `ups`, `upvote_ratio`, `num_comments`, `total_awards_received`, `awards[]` — engagement
+- `score`, `ups`, `downs`, `upvote_ratio`, `num_comments`, `total_awards_received`, `awards[]` — engagement
 - `images[]`, `gallery_images[]`, `gallery_count`, `video_url`, `thumbnail_url`, `has_media` — media
 - `is_stickied`, `is_locked`, `is_archived`, `is_pinned`, `is_nsfw`, `is_spoiler`, `is_original_content`, `is_crosspost`, `distinguished`, `removed_by_category` — flags
-- `poll_data`, `crosspost_parent_id`, `language`, `created_utc`, `created_at`, `edited`, `edited_at` — extras
+- `poll_data`, `crosspost_parent_id`, `created_utc`, `created_at`, `edited`, `edited_at` — extras
 - `crawled_at`, `source` — fetch timestamp and data source
+
+Fallback Atom records keep the same names but omit fields the feed does not expose (score, awards, gallery, flags).
 
 ## Output: comment records (`dataType: "comment"`)
 
 One record per comment in `comments` mode, or when "Include comments for collected posts" is on.
 
 - `comment_id`, `comment_name`, `post_id`, `post_title`, `post_url`, `link_id` — identity
-- `author`, `body`, `body_html`, `content_type` — content
-- `score`, `total_awards_received`, `depth`, `position`, `parent_positions`, `parent_id`, `parent_kind` — engagement and tree position
-- `is_op`, `is_stickied`, `is_locked`, `collapsed`, `is_highlighted` — flags
-- `subreddit`, `subreddit_prefixed`, `subreddit_id`, `permalink` — context
+- `author`, `body`, `body_html`, `comment_type` — content
+- `score`, `total_awards_received`, `depth`, `parent_id`, `parent_kind`, `permalink` — engagement and tree position
+- `is_op`, `is_stickied`, `is_locked`, `collapsed`, `collapsed_reason` — flags
+- `subreddit`, `subreddit_prefixed`, `subreddit_id` — context
 - `created_utc`, `created_at`, `edited`, `edited_at` — timing
 - `crawled_at`, `source` — fetch timestamp and data source
+
+Depth 0 is a top-level comment; each reply adds one level.
+
+## Output: rule records (`dataType: "rule"`)
+
+One record per rule in `rules` mode.
+
+- `subreddit`, `subreddit_prefixed` — community
+- `rule_name`, `short_name`, `description`, `kind`, `violation_reason`, `priority` — rule
+- `created_utc`, `created_at`, `url` — timing and source page
+- `crawled_at`, `source`
+
+## Output: wiki records (`dataType: "wiki_page"`)
+
+One record per page in `wiki` mode.
+
+- `subreddit`, `subreddit_prefixed` — community
+- `name`, `path`, `content_md` — page identity and Markdown source
+- `url`, `crawled_at`, `source`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `communities` | `communities`, `discover`, `posts` or `comments` |
-| `subreddits` | array | – | Names, `r/` names or full URLs (prefill: `python`) |
+| `mode` | string | `communities` | `communities`, `discover`, `posts`, `comments`, `rules` or `wiki` |
+| `subreddits` | array | – | Names, `r/` names or full URLs (prefill: `Python`) |
 | `postUrls` | array | – | Post/comment URLs or bare IDs for `comments` mode |
 | `discoverMode` | string | `search` | `search`, `popular` or `new` |
-| `discoverQuery` | string | – | Keyword for community discovery |
+| `discoverQuery` | string | – | Name keyword for community discovery |
 | `discoverSort` | string | `relevance` | `relevance` or `activity` |
 | `maxDiscoverResults` | int | `10` | Discovered communities cap (1-100) |
 | `includeRules` | bool | `true` | Add community rules |
 | `includeWiki` | bool | `false` | Add wiki pages and Markdown |
 | `maxWikiPages` | int | `20` | Wiki pages per community (0-200) |
+| `wikiPages` | array | – | Specific page names or paths |
 | `includeWeeklyStats` | bool | `true` | Weekly active users and contributions |
+| `includeModerators` | bool | `false` | Public moderator list when reachable |
 | `includePosts` | bool | `true` | Collect recent posts |
 | `maxPosts` | int | `25` | Posts per subreddit (1-1,000) |
-| `sort` | string | `hot` | `hot`, `new`, `top`, `rising`, `controversial`, `best` |
+| `sort` | string | `hot` | `hot`, `new`, `top`, `rising`, `controversial`, `best`, `old` |
 | `timeFilter` | string | `day` | `hour`/`day`/`week`/`month`/`year`/`all` |
+| `searchQuery` | string | – | Keyword in post title, body or flair |
 | `includeNSFW` | bool | `false` | Keep NSFW posts |
 | `onlyWithFlair` | bool | `false` | Keep only posts with a flair |
 | `postType` | string | – | `self`/`link`/`image`/`video`/`gallery`/`poll` |
@@ -85,18 +125,21 @@ One record per comment in `comments` mode, or when "Include comments for collect
 | `onlyOriginalContent` | bool | `false` | Keep only OC posts |
 | `minAwards` | int | – | Minimum total awards |
 | `titleContains` | string | – | Title substring (case-insensitive) |
-| `contentContains` | string | – | Body substring (requires post details) |
+| `contentContains` | string | – | Body substring (case-insensitive) |
 | `flairContains` | string | – | Flair substring |
 | `authorFlairContains` | string | – | Author-flair substring |
 | `authors` | array | – | Author allowlist |
 | `domain` | string | – | Link-domain substring |
 | `distinguished` | string | – | `moderator`/`admin`/`special`/`none` |
 | `postedAfter` / `postedBefore` | date | – | Creation-date window (UTC) |
+| `includePostDetails` | bool | `false` | Add rendered post HTML and save the parent post in comments mode |
 | `includeComments` | bool | `false` | Comments for collected posts |
 | `maxCommentsPerPost` | int | `25` | Comments per post (1-10,000) |
 | `commentSort` | string | `confidence` | `confidence`, `top`, `new`, `controversial`, `old` |
 | `maxCommentDepth` | int | `3` | Keep replies up to this depth (0 = top-level only) |
-| `includePostDetails` | bool | `false` | Open post pages for body/media/flags |
+| `commentContains` | string | – | Comment-body substring |
+| `minCommentScore` | int | – | Minimum comment score |
+| `excludeDeletedComments` | bool | `false` | Drop `[deleted]`/`[removed]` comments |
 | `maxItems` | int | `1000` | Hard cap across all record types |
 
 ### Example: community profile with rules and weekly activity
@@ -128,7 +171,7 @@ One record per comment in `comments` mode, or when "Include comments for collect
 }
 ```
 
-### Example: discover communities by keyword
+### Example: discover communities by name
 
 ```json
 {
@@ -157,6 +200,25 @@ One record per comment in `comments` mode, or when "Include comments for collect
 }
 ```
 
+### Example: export every rule and wiki page
+
+```json
+{
+  "mode": "rules",
+  "subreddits": ["python", "learnpython", "programming"],
+  "maxItems": 100
+}
+```
+
+```json
+{
+  "mode": "wiki",
+  "subreddits": ["python"],
+  "wikiPages": ["faq", "config/sidebar"],
+  "maxItems": 50
+}
+```
+
 ## Use cases
 
 - **Community due diligence** — profile a subreddit's rules, activity and culture before posting or advertising
@@ -164,28 +226,30 @@ One record per comment in `comments` mode, or when "Include comments for collect
 - **Moderation research** — compare posting rules and pinned guidance across many communities
 - **Content strategy** — find high-performing post types, flairs and domains in a target community
 - **Audience research** — follow a thread's comment tree to understand sentiment and objections
-- **Community discovery** — search by topic and get profiles for every relevant subreddit
+- **Community discovery** — search by name and get profiles for every relevant subreddit
 
 ## FAQ
 
-**Do I need a Reddit account, API key or proxy?** No. The actor reads Reddit's public pages and needs no credentials. It tries a direct connection first and only falls back to proxy routes if the network is blocked.
+**Do I need a Reddit account, API key or proxy?** No. The actor reads the public Arctic Shift archive and needs no credentials or proxy configuration.
 
-**Why are subscriber counts sometimes missing?** Reddit no longer shows member counts to signed-out visitors on the rendered page. The actor fills `subscribers` only when a public metadata endpoint happens to be reachable from the run's network; otherwise the field is omitted rather than guessed.
+**Why are scores or comment counts lower than on Reddit?** The archive captures posts at creation and updates engagement later. Posts younger than about 36 hours can still show their initial score and zero comments. Run again later for settled numbers.
 
-**Why is the moderator list missing?** The public moderator list is login-gated on Reddit. Signed-out runs cannot see it, so `moderators` is normally omitted.
+**Why is a subscriber count different from the live page?** Community metadata is refreshed infrequently in the archive. Post and comment counts update more often than subscriber counts.
 
-**Why is a subreddit missing from my run?** Private, banned, NSFW-gated or nonexistent communities return nothing. The run log lists the skipped names. Public communities with no matching posts are also reported.
+**Why are moderators missing?** Reddit hides the moderator list from signed-out visitors on most networks. The actor includes it only when the public about page is reachable; otherwise the field is omitted rather than guessed.
 
-**Why do discovery records have no rules or wiki?** Discovery mode returns the community information Reddit shows in search results (name, description, icon, weekly activity). Run communities mode with the discovered names for full rules, wiki and creation details.
+**Why are weekly users missing?** Those numbers appear only when a rendered community page exposes them to a signed-out visitor. When the page is challenge-gated, the actor omits the fields.
 
-**Why does `contentContains` return nothing?** Post bodies are not on feed cards. Turn on "Fetch full post details" so the actor opens each post page before applying the body filter.
+**Why does a subreddit have no rules or wiki?** The community may have disabled its wiki, have no public rules, or be private/quarantined. The run log names every skipped community.
 
-**How many posts can I get?** The feed is walked page by page (24-25 posts per page) until your `maxPosts` or global `maxItems` cap is reached. Reddit may stop serving older pages for very deep walks; split by date window with `postedAfter`/`postedBefore` if you need more history.
+**Why does discovery return names that only start with my keyword?** The archive's directory supports name-prefix matching, not full-text search. Multi-word queries use the first word for the prefix, then filter the returned names.
+
+**How many posts can I get?** The actor pages through the archive by creation date until your `maxPosts` or global `maxItems` cap is reached. Very large date windows are walked in pages; use `postedAfter`/`postedBefore` to split a huge history into smaller runs.
+
+**How are Hot, Top and Rising calculated?** The archive serves date-ordered rows, so the actor ranks the fetched candidate window: Top by score, Best by score and upvote ratio, Hot by engagement weighted by recency, Rising by comments per hour, and Controversial by how evenly split the votes are. `timeFilter` limits the window for Top and Controversial.
 
 **How do comment caps work?** `maxCommentsPerPost` stops a thread after N comments, `maxCommentDepth` drops deeper replies, and `maxItems` caps the whole run. Setting depth to 0 keeps top-level comments only. `postUrls` can also point at a comment permalink.
 
-**Why does comments mode return nothing on Apify cloud?** Reddit currently challenges individual post/comment pages on Apify's residential exits even though community feeds, search and about pages load normally. This is a confirmed cloud hard limit, not an input error or a transient retry issue: the actor stops after two challenged post pages and reports it in the status message. Community, post and discovery modes are unaffected. Comment trees are verified from non-cloud networks.
-
 **Can I export the data?** Yes — JSON, CSV, Excel, XML or HTML, plus REST API and integrations with n8n, Zapier, Make and AI agents via the Apify MCP server.
 
-**Is this affiliated with Reddit?** No. It is a third-party actor that reads publicly visible pages.
+**Is this affiliated with Reddit?** No. It is a third-party actor that reads publicly available Reddit data through a public archive.

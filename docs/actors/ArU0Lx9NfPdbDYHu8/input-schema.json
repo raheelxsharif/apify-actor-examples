@@ -1,10 +1,11 @@
 {
-  "description": "Choose a mode, then list subreddits or post URLs. Community profiles, rules, wiki pages, posts and capped comment trees all work without an API key or login.",
+  "description": "Choose a mode, then list subreddits or post URLs. Community profiles, rules, wiki pages, posts and capped comment trees all work without an API key, login or proxy.",
   "properties": {
     "authorFlairContains": {
       "description": "Keep posts whose author flair text contains this text (case-insensitive).",
       "editor": "textfield",
       "example": "Moderator",
+      "nullable": true,
       "title": "Author flair contains",
       "type": "string"
     },
@@ -14,12 +15,21 @@
       "example": [
         "spez"
       ],
+      "nullable": true,
       "title": "Only these authors",
       "type": "array"
     },
+    "commentContains": {
+      "description": "Keep comments whose body contains this text (case-insensitive). Leave empty to keep all comments.",
+      "editor": "textfield",
+      "example": "thanks",
+      "nullable": true,
+      "title": "Comment text contains",
+      "type": "string"
+    },
     "commentSort": {
       "default": "confidence",
-      "description": "How Reddit orders the comment tree. 'Confidence' is Reddit's default best-first order; the other four are the verified alternate sorts.",
+      "description": "How comments are ordered inside each thread. 'Confidence' and 'Top' put the highest-scored comments first; the other three use the verified alternate orders.",
       "editor": "select",
       "enum": [
         "confidence",
@@ -40,15 +50,16 @@
       "type": "string"
     },
     "contentContains": {
-      "description": "Keep self posts whose body contains this text (case-insensitive). Requires 'Fetch full post details' so post bodies are available; link/image posts are excluded.",
+      "description": "Keep posts whose body contains this text (case-insensitive). Link and image posts have no body and are excluded.",
       "editor": "textfield",
       "example": "tutorial",
+      "nullable": true,
       "title": "Post text contains",
       "type": "string"
     },
     "discoverMode": {
       "default": "search",
-      "description": "How to find extra communities. 'Keyword search' uses the field below. 'Currently popular' and 'Newest' browse Reddit's curated lists (best-effort: those pages expose only a few communities).",
+      "description": "How to find extra communities. 'Name search' matches community names beginning with the keyword. 'Most popular' and 'Newest' browse the community directory.",
       "editor": "select",
       "enum": [
         "search",
@@ -56,8 +67,8 @@
         "new"
       ],
       "enumTitles": [
-        "Keyword search",
-        "Currently popular communities",
+        "Name search (prefix match)",
+        "Most popular communities",
         "Newest communities"
       ],
       "prefill": "search",
@@ -65,23 +76,24 @@
       "type": "string"
     },
     "discoverQuery": {
-      "description": "Search Reddit's community directory for this keyword and add the matching communities to the run. Only used with 'Keyword search'. Leave empty to skip discovery.",
+      "description": "Find communities whose name starts with this keyword and add them to the run. Only used with 'Name search'. Multi-word queries use the first word for the directory prefix match, then filter the results. Leave empty to skip discovery.",
       "editor": "textfield",
       "example": "machine learning",
-      "title": "Discover communities by keyword",
+      "nullable": true,
+      "title": "Discover communities by name",
       "type": "string"
     },
     "discoverSort": {
       "default": "relevance",
-      "description": "How to rank keyword-discovered communities: relevance keeps Reddit's order, activity sorts by weekly active users.",
+      "description": "How to rank discovered communities: name relevance keeps the directory order, activity sorts by subscriber count.",
       "editor": "select",
       "enum": [
         "relevance",
         "activity"
       ],
       "enumTitles": [
-        "Relevance",
-        "Activity (most weekly visitors first)"
+        "Name relevance",
+        "Activity (most subscribers first)"
       ],
       "prefill": "relevance",
       "title": "Discovery ranking",
@@ -102,6 +114,7 @@
         "Special (official) posts only",
         "Regular posts only"
       ],
+      "nullable": true,
       "title": "Official posts only",
       "type": "string"
     },
@@ -109,6 +122,7 @@
       "description": "Keep posts whose link domain contains this text (case-insensitive), e.g. youtube.com or self.python.",
       "editor": "textfield",
       "example": "youtube.com",
+      "nullable": true,
       "title": "Domain contains",
       "type": "string"
     },
@@ -126,6 +140,13 @@
       "title": "Exclude deleted authors",
       "type": "boolean"
     },
+    "excludeDeletedComments": {
+      "default": false,
+      "description": "Drop comments whose body or author shows as [deleted] or [removed].",
+      "prefill": false,
+      "title": "Exclude deleted/removed comments",
+      "type": "boolean"
+    },
     "excludeLocked": {
       "default": false,
       "description": "Drop posts whose comments were locked by a moderator.",
@@ -135,7 +156,7 @@
     },
     "excludeRemoved": {
       "default": false,
-      "description": "Drop posts removed by a moderator or Reddit. Deleted post markers are only visible on post detail pages.",
+      "description": "Drop posts removed by a moderator or Reddit.",
       "prefill": false,
       "title": "Exclude removed/deleted posts",
       "type": "boolean"
@@ -158,6 +179,7 @@
       "description": "Keep posts whose flair text contains this text (case-insensitive). Leave empty to keep all flairs.",
       "editor": "textfield",
       "example": "Discussion",
+      "nullable": true,
       "title": "Flair contains",
       "type": "string"
     },
@@ -169,6 +191,13 @@
       "title": "Include comments for collected posts",
       "type": "boolean"
     },
+    "includeModerators": {
+      "default": false,
+      "description": "Add the community's public moderator list when the about page is reachable without login. Omitted otherwise.",
+      "prefill": false,
+      "title": "Include moderators",
+      "type": "boolean"
+    },
     "includeNSFW": {
       "default": false,
       "description": "Keep posts marked NSFW. NSFW-only communities are gated for signed-out visitors and return nothing regardless of this setting.",
@@ -178,9 +207,9 @@
     },
     "includePostDetails": {
       "default": false,
-      "description": "Open each collected post page to fill body, media and detail-only flags. In comments mode this also saves the parent post record. Slower: one extra page per post.",
+      "description": "Add Reddit's rendered selftext HTML and save the parent post record in comments mode. The archive already provides the post body, so body filters work without this.",
       "prefill": false,
-      "title": "Fetch full post details",
+      "title": "Add rendered post HTML",
       "type": "boolean"
     },
     "includePosts": {
@@ -201,14 +230,14 @@
     },
     "includeWeeklyStats": {
       "default": true,
-      "description": "Include Reddit's weekly active users and weekly contributions from the community header.",
+      "description": "Include weekly active users and weekly contributions when a reachable Reddit page exposes them. Omitted when the signed-out page does not show them.",
       "prefill": false,
       "title": "Include weekly activity",
       "type": "boolean"
     },
     "includeWiki": {
       "default": false,
-      "description": "Fetch the community wiki index and each page's Markdown source. Wiki pages are omitted when the wiki is disabled or empty.",
+      "description": "Fetch the community wiki and each page's Markdown source. Wiki pages are omitted when the wiki is disabled or empty.",
       "prefill": false,
       "title": "Include wiki pages",
       "type": "boolean"
@@ -227,6 +256,7 @@
       "example": 500,
       "maximum": 1000000,
       "minimum": 0,
+      "nullable": true,
       "title": "Maximum number of comments",
       "type": "integer"
     },
@@ -241,7 +271,7 @@
     },
     "maxDiscoverResults": {
       "default": 10,
-      "description": "Maximum number of communities to add from keyword search or browse (1-100).",
+      "description": "Maximum number of communities to add from name search or browse (1-100).",
       "maximum": 100,
       "minimum": 1,
       "prefill": 10,
@@ -250,7 +280,7 @@
     },
     "maxItems": {
       "default": 1000,
-      "description": "Hard cap on all records pushed by the run (communities, posts and comments together). The run stops cleanly when it is reached.",
+      "description": "Hard cap on all records pushed by the run (communities, posts, comments, rules and wiki pages together). The run stops cleanly when it is reached.",
       "maximum": 100000,
       "minimum": 1,
       "prefill": 1,
@@ -272,12 +302,13 @@
       "example": 1000,
       "maximum": 1000000,
       "minimum": -1000000,
+      "nullable": true,
       "title": "Maximum score",
       "type": "integer"
     },
     "maxWikiPages": {
       "default": 20,
-      "description": "Maximum number of wiki pages to fetch per community when 'Include wiki pages' is on (0-200).",
+      "description": "Maximum number of wiki pages to fetch per community (0-200).",
       "maximum": 200,
       "minimum": 0,
       "prefill": 20,
@@ -289,7 +320,17 @@
       "example": 1,
       "maximum": 1000000,
       "minimum": 0,
+      "nullable": true,
       "title": "Minimum awards",
+      "type": "integer"
+    },
+    "minCommentScore": {
+      "description": "Keep comments with a score at or above this value. Leave unset to keep all comment scores.",
+      "example": 1,
+      "maximum": 1000000,
+      "minimum": -1000000,
+      "nullable": true,
+      "title": "Minimum comment score",
       "type": "integer"
     },
     "minComments": {
@@ -297,6 +338,7 @@
       "example": 5,
       "maximum": 1000000,
       "minimum": 0,
+      "nullable": true,
       "title": "Minimum number of comments",
       "type": "integer"
     },
@@ -305,6 +347,7 @@
       "example": 10,
       "maximum": 1000000,
       "minimum": -1000000,
+      "nullable": true,
       "title": "Minimum score",
       "type": "integer"
     },
@@ -313,24 +356,29 @@
       "example": 0.8,
       "maximum": 1,
       "minimum": 0,
+      "nullable": true,
       "title": "Minimum upvote ratio",
       "type": "number"
     },
     "mode": {
       "default": "communities",
-      "description": "Pick the result you want. 'Communities' returns one profile per subreddit (plus optional posts and comments). 'Discover' finds communities by keyword or browse. 'Posts' returns post records only. 'Comments' returns capped comment trees for post URLs or a subreddit's top posts.",
+      "description": "Pick the result you want. 'Communities' returns one profile per subreddit (plus optional posts and comments). 'Discover' finds communities by name, popularity or age. 'Posts' returns post records only. 'Comments' returns capped comment trees for post URLs or a community's posts. 'Rules' and 'Wiki' return one record per rule or wiki page.",
       "editor": "select",
       "enum": [
         "communities",
         "discover",
         "posts",
-        "comments"
+        "comments",
+        "rules",
+        "wiki"
       ],
       "enumTitles": [
         "Community profiles (plus optional posts/comments)",
-        "Discover communities by keyword or browse",
+        "Discover communities by name, popularity or age",
         "Posts from subreddits",
-        "Comments from post URLs or top posts"
+        "Comments from post URLs or top posts",
+        "Posting rules (one record per rule)",
+        "Wiki pages (one record per page)"
       ],
       "prefill": "communities",
       "sectionCaption": "Mode and sources",
@@ -370,6 +418,7 @@
         "Gallery",
         "Poll"
       ],
+      "nullable": true,
       "title": "Only this post type",
       "type": "string"
     },
@@ -379,13 +428,15 @@
       "example": [
         "https://www.reddit.com/r/pics/comments/1x1xbpb/expressing_multiple_emotions_at_one_time/"
       ],
+      "nullable": true,
       "title": "Post URLs (comments mode)",
       "type": "array"
     },
     "postedAfter": {
-      "description": "Keep posts created on or after this date (UTC). When set, the post feed is walked from newest first.",
+      "description": "Keep posts created on or after this date (UTC). When set, the archive walk starts at this date.",
       "editor": "datepicker",
       "example": "2025-01-01",
+      "nullable": true,
       "title": "Created on or after",
       "type": "string"
     },
@@ -393,12 +444,21 @@
       "description": "Keep posts created on or before this date (end of day, UTC).",
       "editor": "datepicker",
       "example": "2025-12-31",
+      "nullable": true,
       "title": "Created on or before",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keep posts whose title, body or flair contains this text (case-insensitive). The actor tries the archive's keyword search first and falls back to filtering the fetched post window.",
+      "editor": "textfield",
+      "example": "web scraping",
+      "nullable": true,
+      "title": "Search posts by keyword",
       "type": "string"
     },
     "sort": {
       "default": "hot",
-      "description": "How to order the post feed.",
+      "description": "How to order the post feed. The archive serves date-ordered rows, so hot, top, rising, controversial and best are ranked over the fetched candidate window.",
       "editor": "select",
       "enum": [
         "hot",
@@ -406,28 +466,31 @@
         "top",
         "rising",
         "controversial",
-        "best"
+        "best",
+        "old"
       ],
       "enumTitles": [
-        "Hot",
-        "New",
-        "Top",
-        "Rising",
+        "Hot (engagement and recency)",
+        "Newest first",
+        "Top by score",
+        "Rising (comments per hour)",
         "Controversial",
-        "Best"
+        "Best (score and upvote ratio)",
+        "Oldest first"
       ],
       "prefill": "hot",
       "title": "Sort posts by",
       "type": "string"
     },
     "subreddits": {
-      "description": "Subreddit names to scrape. Accepts bare names, r/ names or full URLs. Use the name as shown in the subreddit URL (Reddit redirects are challenged on some networks). Not needed when 'postUrls' is set or when discovery finds enough communities.",
+      "description": "Subreddit names to scrape. Accepts bare names, r/ names or full URLs. Not needed when 'postUrls' is set or when discovery finds enough communities.",
       "editor": "stringList",
       "example": [
         "python",
         "r/programming",
         "https://www.reddit.com/r/webdev/"
       ],
+      "nullable": true,
       "prefill": [
         "Python"
       ],
@@ -462,13 +525,22 @@
       "description": "Keep posts whose title contains this text (case-insensitive). Leave empty to keep all titles.",
       "editor": "textfield",
       "example": "launch",
+      "nullable": true,
       "title": "Title contains",
       "type": "string"
+    },
+    "wikiPages": {
+      "description": "Optional wiki page names or paths to fetch instead of every page, e.g. 'faq' or '/r/Python/wiki/faq'. Used by wiki mode and when wiki pages are included.",
+      "editor": "stringList",
+      "example": [
+        "faq",
+        "config/sidebar"
+      ],
+      "nullable": true,
+      "title": "Specific wiki pages",
+      "type": "array"
     }
   },
-  "required": [
-    "mode"
-  ],
   "schemaVersion": 1,
   "title": "Reddit Community Scraper Input",
   "type": "object"

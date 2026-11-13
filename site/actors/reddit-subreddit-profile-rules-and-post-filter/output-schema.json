@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Community profiles (with rules, wiki and weekly activity), filtered posts and capped comment trees from Reddit's public pages. Records are distinguished by the `dataType` field.",
+  "description": "Community profiles (with rules, moderators, wiki and weekly activity), filtered posts, capped comment trees, posting rules and wiki pages. Records are distinguished by the `dataType` field.",
   "properties": {
     "records": {
-      "description": "Dataset with one record per community, one per collected post and one per comment. Records are distinguished by `dataType`: `community`, `post` or `comment`. Empty fields are omitted.",
+      "description": "Dataset with one record per community, post, comment, rule or wiki page. Records are distinguished by `dataType`: `community`, `post`, `comment`, `rule` or `wiki_page`. Empty fields are omitted.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Community, post & comment records",
+      "title": "Community, post, comment, rule & wiki records",
       "type": "string"
     }
   },

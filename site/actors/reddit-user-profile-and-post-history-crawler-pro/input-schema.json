@@ -46,6 +46,12 @@
       "title": "Include moderated communities",
       "type": "boolean"
     },
+    "includeProfileDetails": {
+      "default": false,
+      "description": "Try the live profile page for bio, avatar, staff/verification badges and the exact cake-day date. Best effort: if Reddit challenges the page, the archive profile (karma, counts, activity dates) is still returned. Implied when trophies or moderated communities are enabled.",
+      "title": "Include live profile details",
+      "type": "boolean"
+    },
     "includeTrophies": {
       "default": false,
       "description": "Collect trophy names and icons shown on the profile. Adds `trophies[]` and `trophy_count`.",
@@ -164,7 +170,7 @@
     },
     "sort": {
       "default": "new",
-      "description": "Feed order for the chosen section. `top` and `controversial` use the time filter below.",
+      "description": "Feed order for the chosen section. New returns newest first; Hot, Top and Controversial are ranked over the fetched archive window (Reddit's archive source sorts chronologically). Top and Controversial use the time filter below.",
       "enum": [
         "new",
         "hot",
@@ -182,7 +188,7 @@
     },
     "timeFilter": {
       "default": "all",
-      "description": "Time window used when sorting by Top or Controversial. Ignored for New and Hot.",
+      "description": "Time window applied when sorting by Top or Controversial. Ignored for New and Hot. It bounds the archive rows the actor ranks, not the profile's complete history.",
       "enum": [
         "all",
         "year",

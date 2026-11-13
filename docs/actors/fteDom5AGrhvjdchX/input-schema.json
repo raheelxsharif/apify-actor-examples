@@ -1,0 +1,68 @@
+{
+  "description": "Scrape product profiles, reviews, and market categories from Gartner Peer Insights.",
+  "properties": {
+    "marketSeoName": {
+      "description": "Gartner market slug for mode=market (e.g. sales-force-automation-platforms, crm-customer-engagement-center). Find it in the Gartner market page URL.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Market SEO name",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of product/review/category records to emit.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "categories",
+      "description": "What to scrape: product pages with reviews, all products in a market, or all market categories.",
+      "editor": "select",
+      "enum": [
+        "products",
+        "market",
+        "categories"
+      ],
+      "enumTitles": [
+        "Products â€” scrape product profiles and reviews",
+        "Market â€” list all products in a Gartner market",
+        "Categories â€” list all Gartner markets and categories"
+      ],
+      "prefill": "categories",
+      "title": "Mode",
+      "type": "string"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "Gartner Peer Insights product page URLs (e.g. https://www.gartner.com/reviews/product/salesforce-sales-cloud). Used for mode=products.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.gartner.com/reviews/product/salesforce-sales-cloud"
+      ],
+      "title": "Product URLs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Apify proxy settings. Residential proxies are recommended for production runs.",
+      "editor": "proxy",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "useFilters": {
+      "default": true,
+      "description": "When enabled, fetches each product page with multiple rating and sort filters to maximise the number of unique reviews extracted per product.",
+      "prefill": true,
+      "title": "Use rating/sort filters to get more reviews",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Gartner Peer Insights Scraper Input",
+  "type": "object"
+}
