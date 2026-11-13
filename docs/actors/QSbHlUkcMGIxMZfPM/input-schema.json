@@ -1,5 +1,5 @@
 {
-  "description": "Search bedbathandbeyond.com by keyword or browse a home-goods department.",
+  "description": "Search the bedbathandbeyond.com catalog by keyword or department, look up products, or collect customer reviews.",
   "properties": {
     "brandContains": {
       "default": "",
@@ -11,7 +11,7 @@
     },
     "category": {
       "default": "Bedding",
-      "description": "Browse one of the site's home-goods departments. Implemented via the site's own search relevance for the department name (see README — the direct category-browse pages are blocked by the site's bot protection).",
+      "description": "Browse one of the site's home-goods departments. The department name is used through the catalog's own search relevance; direct category-browse pages are bot-protected (see README).",
       "editor": "select",
       "enum": [
         "Bedding",
@@ -29,7 +29,8 @@
         "Holiday",
         "Art",
         "Gifts",
-        "Tools"
+        "Tools",
+        "Mattresses"
       ],
       "enumTitles": [
         "Bedding",
@@ -47,10 +48,11 @@
         "Holiday",
         "Art",
         "Gifts",
-        "Tools"
+        "Tools",
+        "Mattresses"
       ],
       "prefill": "Bedding",
-      "title": "Department / category (mode=byCategory)",
+      "title": "Department (mode=byCategory)",
       "type": "string"
     },
     "fastShippingOnly": {
@@ -70,29 +72,45 @@
     },
     "maxItems": {
       "default": 30,
-      "description": "Hard cap on emitted records.",
+      "description": "Hard cap on emitted product records (search, department and product modes).",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 30,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Max products",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Drop products priced above this amount.",
+      "description": "Drop products priced above this amount. Sent to the catalog as a server-side price filter.",
       "maximum": 50000,
       "minimum": 0,
       "title": "Maximum price (USD)",
       "type": "integer"
     },
+    "maxRating": {
+      "description": "For products: drop products rated above this. For reviews: drop reviews above this star rating.",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Maximum customer rating",
+      "type": "integer"
+    },
+    "maxReviews": {
+      "default": 50,
+      "description": "Hard cap on emitted review records across all product URLs/IDs in the run.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max reviews (mode=reviews)",
+      "type": "integer"
+    },
     "minPrice": {
-      "description": "Drop products priced below this amount.",
+      "description": "Drop products priced below this amount. Sent to the catalog as a server-side price filter.",
       "maximum": 50000,
       "minimum": 0,
       "title": "Minimum price (USD)",
       "type": "integer"
     },
     "minRating": {
-      "description": "Drop products with an average rating below this (1-5 stars).",
+      "description": "For products: drop products rated below this. For reviews: drop reviews below this star rating.",
       "maximum": 5,
       "minimum": 0,
       "title": "Minimum customer rating",
@@ -100,15 +118,19 @@
     },
     "mode": {
       "default": "search",
-      "description": "How to find products.",
+      "description": "What to collect: keyword search results, a department, product details, or customer reviews.",
       "editor": "select",
       "enum": [
         "search",
-        "byCategory"
+        "byCategory",
+        "product",
+        "reviews"
       ],
       "enumTitles": [
-        "Search by keyword",
-        "Browse by department / category"
+        "Search products by keyword",
+        "Browse a department",
+        "Product details (URLs or IDs)",
+        "Customer reviews (URLs or IDs)"
       ],
       "prefill": "search",
       "title": "Mode",
@@ -121,9 +143,42 @@
       "title": "On-sale products only",
       "type": "boolean"
     },
+    "productUrls": {
+      "default": [],
+      "description": "One or more bedbathandbeyond.com product-page URLs or numeric product IDs, e.g. `https://www.bedbathandbeyond.com/.../5296998/product.html` or `5296998`.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Product URLs or IDs (mode=product or reviews)",
+      "type": "array"
+    },
+    "reviewSort": {
+      "default": "newest",
+      "description": "How customer reviews are ordered.",
+      "editor": "select",
+      "enum": [
+        "newest",
+        "oldest",
+        "highestRating",
+        "lowestRating",
+        "mostHelpful"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Oldest first",
+        "Highest rating",
+        "Lowest rating",
+        "Most helpful"
+      ],
+      "prefill": "newest",
+      "title": "Review sort order (mode=reviews)",
+      "type": "string"
+    },
     "sortBy": {
       "default": "relevance",
-      "description": "How results are ordered. Applied client-side to the fetched relevance-ranked result window (see README) since the upstream site's own sort control is a client-side-only feature not reproducible via a plain HTTP request.",
+      "description": "How products are ordered. Applied client-side to the fetched result window because the site's sort control is not honoured by a plain HTTP request (see README).",
       "editor": "select",
       "enum": [
         "relevance",
@@ -144,8 +199,22 @@
         "New Arrivals"
       ],
       "prefill": "relevance",
-      "title": "Sort order",
+      "title": "Product sort order (modes search / byCategory / product)",
       "type": "string"
+    },
+    "verifiedOnly": {
+      "default": false,
+      "description": "Only emit reviews marked as verified purchases.",
+      "prefill": false,
+      "title": "Verified buyers only (mode=reviews)",
+      "type": "boolean"
+    },
+    "withImagesOnly": {
+      "default": false,
+      "description": "Only emit reviews that include at least one customer photo.",
+      "prefill": false,
+      "title": "Reviews with photos only (mode=reviews)",
+      "type": "boolean"
     }
   },
   "required": [
