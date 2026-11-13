@@ -1,0 +1,101 @@
+{
+  "description": "Search UK companies on Companies House or fetch full company profiles for specific company numbers.",
+  "properties": {
+    "apiKey": {
+      "description": "Free API key from https://developer.company-information.service.gov.uk. Required for all requests. Registration is free.",
+      "editor": "textfield",
+      "title": "Companies House API Key",
+      "type": "string"
+    },
+    "companyNumbers": {
+      "description": "List of UK company registration numbers (e.g. ['01234567', '09876543']). Used in getCompanyDetail mode.",
+      "editor": "stringList",
+      "title": "Company Numbers (getCompanyDetail mode)",
+      "type": "array"
+    },
+    "companyStatus": {
+      "default": "",
+      "description": "Filter results by company status. Leave blank for all statuses.",
+      "editor": "select",
+      "enum": [
+        "",
+        "active",
+        "dissolved",
+        "liquidation",
+        "administration"
+      ],
+      "enumTitles": [
+        "All Statuses",
+        "Active",
+        "Dissolved",
+        "In Liquidation",
+        "In Administration"
+      ],
+      "prefill": "",
+      "title": "Company Status Filter",
+      "type": "string"
+    },
+    "companyType": {
+      "default": "",
+      "description": "Filter results by company type. Leave blank for all types.",
+      "editor": "select",
+      "enum": [
+        "",
+        "ltd",
+        "plc",
+        "llp",
+        "partnership",
+        "sole-trader"
+      ],
+      "enumTitles": [
+        "All Types",
+        "Private Limited Company (Ltd)",
+        "Public Limited Company (PLC)",
+        "Limited Liability Partnership (LLP)",
+        "Partnership",
+        "Sole Trader"
+      ],
+      "prefill": "",
+      "title": "Company Type Filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 10,
+      "description": "Maximum number of company records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchCompanies",
+      "description": "Operation mode: search companies by name or fetch full detail for specific company numbers.",
+      "editor": "select",
+      "enum": [
+        "searchCompanies",
+        "getCompanyDetail"
+      ],
+      "enumTitles": [
+        "Search Companies",
+        "Get Company Detail by Number"
+      ],
+      "prefill": "searchCompanies",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Company name or keywords to search for (e.g. 'technology', 'consulting', 'Amazon').",
+      "editor": "textfield",
+      "prefill": "technology",
+      "title": "Search Query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Companies House Scraper Input",
+  "type": "object"
+}
