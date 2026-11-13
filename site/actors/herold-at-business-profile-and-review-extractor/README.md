@@ -1,0 +1,127 @@
+# Herold.at Business Profile & Review Extractor
+
+Scrape **Herold.at** — Austria's leading business directory ("Gelbe Seiten"). Search any business category (Branche) across Austria's federal states (Bundesländer) and select cities, and get names, addresses, phone numbers, ratings, and opening hours. Search results already include email and website when the business listed one; optionally follow through to each business's full profile page for opening hours per weekday, Facebook page, payment methods, GPS coordinates, offered services, and recent reviews. No login, no cookies, no API key required.
+
+## What this actor does
+
+- **Two modes:** `search` (category + region) and `detail` (direct business profile URLs)
+- **39 curated categories** to pick from, or type any custom Branche
+- **22 curated Austrian regions** — all 9 federal states (Bundesländer), Wien, select Vorarlberg cities, and 9 state-capital/major-city pages (Graz, Linz, Innsbruck, Klagenfurt, Wels, Villach, St. Pölten, Wiener Neustadt, Steyr) — or type any custom location
+- **Full Austrian/German character support** — ä, ö, ü, ß are handled correctly in both input and output
+- **Rich business profiles** — opening hours per weekday, payment methods, GPS coordinates, offered services, recent reviews, email, website, Facebook page, full address
+- **Empty fields are omitted** — you only ever see fields that were actually found for a business
+
+## Output per business
+
+- `businessId` — Herold.at internal listing identifier
+- `name` — business name
+- `category` — the business's listed category
+- `street`, `zipCode`, `city`, `district`, `state`, `country` — full address breakdown
+- `latitude`, `longitude` — GPS coordinates (mode=detail or `fetchDetails=true`)
+- `rating`, `reviewCount` — average star rating (1-5) and number of reviews
+- `reviews` — up to 5 recent reviews, each with `title`, `text`, `author`, `date`, `rating` (mode=detail or `fetchDetails=true`)
+- `isOpenNow` — live open/closed status from the search listing
+- `isVerified` — Herold has confirmed this business's listing details (search results only)
+- `isSponsored` — this result is a paid/promoted placement (search results only)
+- `openingHours` — full weekly schedule keyed by German weekday name (when profile fetched)
+- `paymentMethods` — accepted payment methods, e.g. Mastercard, Barzahlung (mode=detail or `fetchDetails=true`)
+- `services` — offered services/amenities tags, e.g. Gastgarten, Mittagsmenü (mode=detail or `fetchDetails=true`)
+- `phone`, `email`, `website`, `facebookUrl` — `email`/`website` are already present on search results when listed; `facebookUrl` requires the profile page
+- `logoUrl` — business logo image
+- `description` — short summary of the business
+- `searchCategory`, `searchLocation` — the category/region you searched for (mode=search)
+- `sourceUrl` — canonical Herold.at profile URL for the business
+- `recordType: "business"`, `scrapedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` (category + region) or `detail` (fetch by URL) |
+| `category` | string (select) | `installateur` | Pick a common category, or `custom` to use `customCategory` (mode=search) |
+| `customCategory` | string | – | Any free-text category, overrides `category` (mode=search) |
+| `location` | string (select) | `Wien` | Pick an Austrian region/city, or `custom` to use `customLocation` (mode=search) |
+| `customLocation` | string | – | Any free-text region/city, overrides `location` (mode=search) |
+| `fetchDetails` | boolean | `false` | Also visit each business's profile page for richer data (slower) |
+| `businessUrls` | array | – | Herold.at profile URLs to fetch directly (mode=detail) |
+| `maxItems` | int | `50` | Hard cap on returned records (1-1000) |
+
+### Example: search plumbers in Vienna
+
+```json
+{
+  "mode": "search",
+  "category": "installateur",
+  "location": "Wien",
+  "maxItems": 50
+}
+```
+
+### Example: dentists in Salzburg, with full profiles
+
+```json
+{
+  "mode": "search",
+  "category": "zahnarzt",
+  "location": "Salzburg",
+  "fetchDetails": true,
+  "maxItems": 30
+}
+```
+
+### Example: electricians across Kärnten
+
+```json
+{
+  "mode": "search",
+  "category": "elektriker",
+  "location": "Kärnten",
+  "maxItems": 100
+}
+```
+
+### Example: fetch specific business profiles
+
+```json
+{
+  "mode": "detail",
+  "businessUrls": [
+    { "url": "https://www.herold.at/gelbe-seiten/wien/3M7DR/ar-all-round-installationen-gmbh/" }
+  ]
+}
+```
+
+## Regions covered
+
+Herold.at groups most search results at the federal-state (Bundesland) level rather than by individual city — searching "Wien" returns Vienna-only results because Vienna is both a city and a state, but searching "Steiermark" returns results across the whole state (Graz included). The curated `location` list covers all 9 Austrian Bundesländer, a handful of Vorarlberg cities that have their own dedicated Herold.at page (Dornbirn, Feldkirch, Bregenz, Bludenz), and 9 state-capital/major-city-only pages that use a "-Stadt" suffix (Graz-Stadt, Linz-Stadt, Innsbruck-Stadt, Klagenfurt-Stadt, Wels-Stadt, Villach-Stadt, St Pölten-Stadt, Wiener Neustadt-Stadt, Steyr-Stadt) — these return a narrower, city-only subset of the state's results. Use `customLocation` to try any other Austrian town name or postal code — if Herold.at has no dedicated page for it, the actor returns 0 results rather than erroring.
+
+## Use cases
+
+- **Local lead generation** — build a prospect list of Austrian businesses by trade and region for B2B outreach
+- **Market research** — measure business density and average ratings for a category across Austria
+- **Directory aggregation** — feed structured Austrian business data into your own local-search product
+- **Competitor mapping** — see who else operates in a category and region, with ratings and contact info
+- **Franchise & site-selection analysis** — evaluate service-business coverage across Austrian regions
+
+## FAQ
+
+**What data source does this actor use?**
+It reads the publicly available search and business-profile pages on herold.at, Austria's leading Gelbe Seiten directory. No account or API key is needed.
+
+**Is this affiliated with Herold.at?**
+No. This is an independent, third-party actor that reads publicly accessible pages.
+
+**Why do some businesses have no rating, email, or website?**
+Herold.at only shows a rating once a business has received at least one review, and only shows an email/website/Facebook page if the business listed one. Fields with no data are simply omitted from the record rather than shown as empty or null.
+
+**Can I search by city instead of a whole region?**
+Herold.at itself only exposes dedicated search pages for a limited set of cities: Wien, Salzburg, several Vorarlberg towns, and the other state capitals/major cities under a "-Stadt" suffix (e.g. `Graz-Stadt`, `Linz-Stadt`). Other locations within a state, such as smaller Tirol or Oberösterreich towns, are only searchable at the state level. You can still try any city name via `customLocation` — the actor gracefully returns 0 results if Herold has no matching page.
+
+**Can I search by postal code instead of a region name?**
+You can try, via `customLocation`. Herold.at's postal-code pages are matched to a specific locality within that code range, which may not always be the city you expect — a region/Bundesland or a curated city option is more reliable.
+
+**Why is `fetchDetails` off by default?**
+Fetching each business's full profile page requires one extra request per result, which is slower. Turn it on when you need opening hours, email, website, or Facebook page.
+
+**How many businesses are typically available per search?**
+It varies widely by category and region — anywhere from a handful of results to 25+ pages (roughly 30 businesses per page). Set `maxItems` to control how many you actually want returned.
