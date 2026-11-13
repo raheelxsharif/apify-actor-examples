@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "UK company records with registration number, status, registered address, SIC codes, and accounts/confirmation-statement filing dates.",
+  "description": "UK company records with registration status, type, address, SIC codes, accounts and confirmation-statement dates, officers, and filing history.",
   "properties": {
     "companies": {
-      "description": "Dataset containing all scraped Companies House company records.",
+      "description": "Dataset containing company profiles, officers, or filing-history records from Companies House.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "UK Companies",
+      "title": "UK Companies House records",
       "type": "string"
     }
   },

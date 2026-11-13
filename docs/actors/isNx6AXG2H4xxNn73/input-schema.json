@@ -1,35 +1,50 @@
 {
-  "description": "Search UK companies on Companies House or fetch full company profiles for specific company numbers.",
+  "description": "Search the UK Companies House register, fetch company profiles, list officers, or download filing history. No API key or login is required.",
   "properties": {
     "apiKey": {
-      "description": "Free API key from https://developer.company-information.service.gov.uk. Required for all requests. Registration is free.",
+      "description": "Optional free key from developer.company-information.service.gov.uk. It adds structured addresses, jurisdiction, and overdue flags. Without a key the actor uses the public website and still returns companies, officers, and filings.",
       "editor": "textfield",
-      "title": "Companies House API Key",
+      "isSecret": true,
+      "title": "Companies House API Key (optional)",
       "type": "string"
     },
     "companyNumbers": {
-      "description": "List of UK company registration numbers (e.g. ['01234567', '09876543']). Used in getCompanyDetail mode.",
+      "description": "Registration numbers or Companies House profile links, e.g. ['00445790'] or ['https://find-and-update.company-information.service.gov.uk/company/00445790']. Used by the three lookup modes.",
       "editor": "stringList",
-      "title": "Company Numbers (getCompanyDetail mode)",
+      "title": "Company Numbers or Profile URLs",
       "type": "array"
     },
     "companyStatus": {
       "default": "",
-      "description": "Filter results by company status. Leave blank for all statuses.",
+      "description": "Limit search results to one register status. Leave as All statuses to include every status.",
       "editor": "select",
       "enum": [
         "",
         "active",
         "dissolved",
+        "open",
+        "closed",
+        "converted-closed",
+        "removed",
+        "receivership",
         "liquidation",
-        "administration"
+        "administration",
+        "insolvency-proceedings",
+        "voluntary-arrangement"
       ],
       "enumTitles": [
-        "All Statuses",
+        "All statuses",
         "Active",
         "Dissolved",
-        "In Liquidation",
-        "In Administration"
+        "Open",
+        "Closed",
+        "Converted closed",
+        "Removed",
+        "Receivership",
+        "Liquidation",
+        "Administration",
+        "Insolvency proceedings",
+        "Voluntary arrangement"
       ],
       "prefill": "",
       "title": "Company Status Filter",
@@ -37,58 +52,193 @@
     },
     "companyType": {
       "default": "",
-      "description": "Filter results by company type. Leave blank for all types.",
+      "description": "Limit search results to one legal form. Leave as All types to include every form.",
       "editor": "select",
       "enum": [
         "",
         "ltd",
         "plc",
         "llp",
+        "limited-partnership",
+        "private-limited-guarant-nsc",
+        "private-limited-guarant-nsc-limited-exemption",
+        "private-limited-shares-section-30-exemption",
+        "private-unlimited",
+        "private-unlimited-nsc",
+        "assurance-company",
+        "charitable-incorporated-organisation",
+        "scottish-charitable-incorporated-organisation",
+        "converted-or-closed",
+        "eeig",
+        "european-public-limited-liability-company-se",
+        "further-education-or-sixth-form-college-corporation",
+        "industrial-and-provident-society",
+        "icvc",
+        "old-public-company",
+        "oversea-company",
+        "registered-overseas-entity",
+        "protected-cell-company",
+        "registered-society-non-jurisdictional",
+        "royal-charter",
+        "scottish-partnership",
+        "uk-establishment",
+        "unregistered-company",
         "partnership",
         "sole-trader"
       ],
       "enumTitles": [
-        "All Types",
-        "Private Limited Company (Ltd)",
-        "Public Limited Company (PLC)",
-        "Limited Liability Partnership (LLP)",
-        "Partnership",
-        "Sole Trader"
+        "All types",
+        "Private limited company (Ltd)",
+        "Public limited company (PLC)",
+        "Limited liability partnership (LLP)",
+        "Limited partnership",
+        "Private limited by guarantee without share capital",
+        "Private limited by guarantee, 'Limited' exemption",
+        "Private limited, 'Limited' exemption",
+        "Private unlimited company",
+        "Private unlimited company without share capital",
+        "Assurance company",
+        "Charitable incorporated organisation",
+        "Scottish charitable incorporated organisation",
+        "Converted or closed",
+        "European Economic Interest Grouping (EEIG)",
+        "European public limited liability company (SE)",
+        "Further education or sixth form college corporation",
+        "Industrial and Provident society",
+        "Investment company with variable capital",
+        "Old public company",
+        "Overseas company",
+        "Overseas entity",
+        "Protected cell company",
+        "Registered society",
+        "Royal charter company",
+        "Scottish qualifying partnership",
+        "UK establishment company",
+        "Unregistered company",
+        "Partnership (legacy alias)",
+        "Sole trader (legacy alias)"
       ],
       "prefill": "",
       "title": "Company Type Filter",
       "type": "string"
     },
+    "dissolvedFrom": {
+      "description": "Earliest dissolution date (YYYY-MM-DD). Companies House only shows dissolutions since 2010.",
+      "editor": "datepicker",
+      "title": "Dissolved From",
+      "type": "string"
+    },
+    "dissolvedTo": {
+      "description": "Latest dissolution date (YYYY-MM-DD).",
+      "editor": "datepicker",
+      "title": "Dissolved To",
+      "type": "string"
+    },
+    "filingCategory": {
+      "default": "",
+      "description": "In filing-history mode, limit records to one category. Leave as All filings to return everything.",
+      "editor": "select",
+      "enum": [
+        "",
+        "accounts",
+        "capital",
+        "charges",
+        "confirmation-statement",
+        "incorporation",
+        "officers"
+      ],
+      "enumTitles": [
+        "All filings",
+        "Accounts",
+        "Capital",
+        "Charges",
+        "Confirmation statements / Annual returns",
+        "Incorporation",
+        "Officers"
+      ],
+      "prefill": "",
+      "title": "Filing Category",
+      "type": "string"
+    },
+    "incorporatedFrom": {
+      "description": "Earliest incorporation date (YYYY-MM-DD).",
+      "editor": "datepicker",
+      "title": "Incorporated From",
+      "type": "string"
+    },
+    "incorporatedTo": {
+      "description": "Latest incorporation date (YYYY-MM-DD).",
+      "editor": "datepicker",
+      "title": "Incorporated To",
+      "type": "string"
+    },
     "maxItems": {
-      "default": 10,
-      "description": "Maximum number of company records to return.",
-      "maximum": 500,
+      "default": 25,
+      "description": "Maximum number of company, officer, or filing records to return across all supplied company numbers.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 10,
+      "prefill": 3,
       "title": "Max Items",
       "type": "integer"
     },
     "mode": {
       "default": "searchCompanies",
-      "description": "Operation mode: search companies by name or fetch full detail for specific company numbers.",
+      "description": "What to collect: search results, full company profiles, officers, or filing history.",
       "editor": "select",
       "enum": [
         "searchCompanies",
+        "getCompanyProfile",
+        "getCompanyOfficers",
+        "getFilingHistory",
         "getCompanyDetail"
       ],
       "enumTitles": [
-        "Search Companies",
-        "Get Company Detail by Number"
+        "Search companies by name or filter",
+        "Get company profile by number or URL",
+        "Get company officers",
+        "Get company filing history",
+        "Get company profile (legacy name)"
       ],
       "prefill": "searchCompanies",
       "title": "Mode",
       "type": "string"
     },
-    "searchQuery": {
-      "description": "Company name or keywords to search for (e.g. 'technology', 'consulting', 'Amazon').",
+    "officerStatus": {
+      "default": "all",
+      "description": "In officers mode, return all appointments, only current officers, or only resigned officers.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "active",
+        "resigned"
+      ],
+      "enumTitles": [
+        "All appointments",
+        "Current officers only",
+        "Resigned officers only"
+      ],
+      "prefill": "all",
+      "title": "Officer Status",
+      "type": "string"
+    },
+    "registeredOfficeAddress": {
+      "description": "Filter by all or part of a registered office address, e.g. 'Welwyn Garden City' or 'Cardiff'.",
       "editor": "textfield",
-      "prefill": "technology",
-      "title": "Search Query",
+      "title": "Registered Office Location",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Company name or keyword to search for, e.g. 'Tesco', 'consulting', or 'renewable energy'.",
+      "editor": "textfield",
+      "prefill": "tesco",
+      "title": "Company Name or Keywords",
+      "type": "string"
+    },
+    "sicCode": {
+      "description": "Filter by one 5-digit Standard Industrial Classification code, e.g. '62012' for computer programming.",
+      "editor": "textfield",
+      "pattern": "^\\d{4,5}$",
+      "title": "SIC Code",
       "type": "string"
     }
   },

@@ -1,6 +1,44 @@
 {
   "actorSpecification": 1,
   "views": {
+    "filings": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Filings",
+      "transformation": {
+        "fields": [
+          "companyNumber",
+          "companyName",
+          "filingDate",
+          "filingType",
+          "category",
+          "description",
+          "documentUrl"
+        ]
+      }
+    },
+    "officers": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Officers",
+      "transformation": {
+        "fields": [
+          "companyNumber",
+          "companyName",
+          "officerName",
+          "officerRole",
+          "officerStatus",
+          "appointedOn",
+          "resignedOn",
+          "nationality",
+          "occupation"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
