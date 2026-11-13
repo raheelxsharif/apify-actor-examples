@@ -1,0 +1,72 @@
+{
+  "description": "Fetch the live Crypto Fear & Greed Index, the last N daily readings, or a historical date range from alternative.me.",
+  "properties": {
+    "classificationFilter": {
+      "description": "Only keep readings with this sentiment band (mode=historical or dateRange). Leave empty to keep all.",
+      "editor": "select",
+      "enum": [
+        "Extreme Fear",
+        "Fear",
+        "Neutral",
+        "Greed",
+        "Extreme Greed"
+      ],
+      "enumTitles": [
+        "Extreme Fear",
+        "Fear",
+        "Neutral",
+        "Greed",
+        "Extreme Greed"
+      ],
+      "title": "Classification filter",
+      "type": "string"
+    },
+    "endDate": {
+      "description": "Inclusive end of the range, format YYYY-MM-DD (mode=dateRange).",
+      "editor": "textfield",
+      "example": "2024-01-31",
+      "title": "End date (date range)",
+      "type": "string"
+    },
+    "limit": {
+      "default": 30,
+      "description": "How many of the most recent daily readings to return (mode=historical). One reading per day.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Number of readings (historical)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "latest",
+      "description": "What to fetch: the current reading, the last N daily readings, or a custom date range.",
+      "editor": "select",
+      "enum": [
+        "latest",
+        "historical",
+        "dateRange"
+      ],
+      "enumTitles": [
+        "Latest — current reading only",
+        "Historical — last N daily readings",
+        "Date range — readings between two dates"
+      ],
+      "prefill": "latest",
+      "title": "Mode",
+      "type": "string"
+    },
+    "startDate": {
+      "description": "Inclusive start of the range, format YYYY-MM-DD (mode=dateRange).",
+      "editor": "textfield",
+      "example": "2024-01-01",
+      "title": "Start date (date range)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Crypto Fear & Greed Index Scraper Input",
+  "type": "object"
+}
