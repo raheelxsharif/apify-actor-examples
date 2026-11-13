@@ -1,0 +1,111 @@
+{
+  "description": "Search freelancers on Malt by keyword/skill and location, or enrich specific profile URLs. Supports all Malt markets: FR, DE, ES, BE, NL, COM.",
+  "properties": {
+    "location": {
+      "default": "Berlin",
+      "description": "Filter results by city or region, e.g. `Paris`, `Berlin`, `Barcelona`. Leave empty for all locations.",
+      "editor": "textfield",
+      "prefill": "Berlin",
+      "title": "Location (city or region)",
+      "type": "string"
+    },
+    "market": {
+      "default": "de",
+      "description": "Which Malt regional marketplace to scrape.",
+      "editor": "select",
+      "enum": [
+        "com",
+        "fr",
+        "de",
+        "es",
+        "be",
+        "nl"
+      ],
+      "enumTitles": [
+        "malt.com (Global / English)",
+        "malt.fr (France)",
+        "malt.de (Germany)",
+        "malt.es (Spain)",
+        "malt.be (Belgium)",
+        "malt.nl (Netherlands)"
+      ],
+      "prefill": "de",
+      "title": "Market (Malt domain)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of freelancer records to return.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only include freelancers with an average client rating at or above this value (0–5). Leave empty to include all.",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum average rating",
+      "type": "number"
+    },
+    "minReviews": {
+      "description": "Only include freelancers with at least this many client reviews. Leave empty to include all.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum number of reviews",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchFreelancers",
+      "description": "Choose what to scrape: search for freelancers by keyword/location, or enrich specific profile URLs.",
+      "editor": "select",
+      "enum": [
+        "searchFreelancers",
+        "byProfileUrls"
+      ],
+      "enumTitles": [
+        "Search freelancers by keyword + location",
+        "Enrich specific profile URLs"
+      ],
+      "prefill": "searchFreelancers",
+      "title": "Mode",
+      "type": "string"
+    },
+    "profileUrls": {
+      "default": [],
+      "description": "List of Malt freelancer profile URLs to enrich, e.g. `https://www.malt.fr/profile/johndoe`. Used in mode=byProfileUrls.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Profile URLs (mode=byProfileUrls)",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "description": "Malt sits behind Cloudflare Bot Management, which blocks every Apify datacenter/AUTO IP outright (confirmed: 403 on 100% of requests, including via a headless browser). A European **Residential** proxy is required — datacenter proxies will not work. Residential proxy traffic is billed by Apify at $8/GB.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyCountry": "DE",
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "python developer",
+      "description": "Skill or keyword to search for, e.g. `python developer`, `react`, `data analyst`. Used in mode=searchFreelancers.",
+      "editor": "textfield",
+      "prefill": "python developer",
+      "title": "Search query (skill / keyword)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Malt Freelancers Scraper Input",
+  "type": "object"
+}
