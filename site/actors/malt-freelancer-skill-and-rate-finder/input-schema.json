@@ -1,17 +1,224 @@
 {
-  "description": "Search freelancers on Malt by keyword/skill and location, or enrich specific profile URLs. Supports all Malt markets: FR, DE, ES, BE, NL, COM.",
+  "description": "Search Malt freelancers by skill, role, rate, experience and market, or enrich specific profile URLs. No login, cookies or proxy setup required.",
   "properties": {
+    "availability": {
+      "default": "ANY",
+      "description": "Filter by the availability status Malt reports. Most search results are already available; `ANY` disables this filter.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "AVAILABLE",
+        "AVAILABLE_AND_VERIFIED"
+      ],
+      "enumTitles": [
+        "Any status",
+        "Available",
+        "Available and verified"
+      ],
+      "prefill": "ANY",
+      "title": "Availability",
+      "type": "string"
+    },
+    "badge": {
+      "default": "ANY",
+      "description": "Only include freelancers holding this Malt quality badge.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "SUPER_MALTER"
+      ],
+      "enumTitles": [
+        "Any freelancer",
+        "Super Malter"
+      ],
+      "prefill": "ANY",
+      "title": "Quality badge",
+      "type": "string"
+    },
+    "businessSector": {
+      "default": "ANY",
+      "description": "Filter by the client sectors a freelancer has worked in. `ANY` includes every sector.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "it",
+        "software",
+        "e-commerce",
+        "high-tech",
+        "consulting",
+        "banking-insurance",
+        "education",
+        "health",
+        "real-estate",
+        "insurance",
+        "social",
+        "telecom",
+        "press",
+        "public",
+        "games",
+        "iot",
+        "small-retail",
+        "leisure",
+        "sports",
+        "environment"
+      ],
+      "enumTitles": [
+        "Any sector",
+        "Digital services & IT",
+        "Software publishing",
+        "E-commerce",
+        "High-tech companies",
+        "Consulting & audit",
+        "Banking & financial services",
+        "Education & e-learning",
+        "Health & wellbeing",
+        "Real estate",
+        "Insurance",
+        "Social networks",
+        "Telecommunications",
+        "Media & press",
+        "Public sector",
+        "Video games & animation",
+        "Internet of Things",
+        "Retail",
+        "Leisure & entertainment",
+        "Sports",
+        "Environment & sustainability"
+      ],
+      "prefill": "ANY",
+      "title": "Client business sector",
+      "type": "string"
+    },
+    "category": {
+      "default": "",
+      "description": "Malt category key, e.g. `backend_developer`, `frontend_developer`, `data_scientist`. Leave empty to search all categories.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Category key (optional)",
+      "type": "string"
+    },
+    "experienceLevel": {
+      "default": "ANY",
+      "description": "Filter by Malt's experience band. `ANY` includes every level.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "ENTRY",
+        "INTERMEDIATE",
+        "EXPERT",
+        "EXPERT_PLUS"
+      ],
+      "enumTitles": [
+        "Any experience level",
+        "0-2 years (entry)",
+        "3-7 years (intermediate)",
+        "8-15 years (expert)",
+        "16+ years (expert plus)"
+      ],
+      "prefill": "ANY",
+      "title": "Experience level",
+      "type": "string"
+    },
+    "includeProfileDetails": {
+      "default": false,
+      "description": "Also open each freelancer's profile page to add languages, experience band, categories, description, portfolio count and work-history years. Adds one request per profile.",
+      "prefill": false,
+      "title": "Enrich with full profile details",
+      "type": "boolean"
+    },
+    "language": {
+      "default": "ANY",
+      "description": "Only include freelancers who speak this language. `ANY` includes every language.",
+      "editor": "select",
+      "enum": [
+        "ANY",
+        "fr",
+        "en",
+        "de",
+        "es",
+        "it",
+        "nl",
+        "pt",
+        "ar",
+        "ru",
+        "zh",
+        "tr",
+        "pl",
+        "ro",
+        "sv",
+        "da",
+        "fi",
+        "no",
+        "cs",
+        "el",
+        "he",
+        "hi",
+        "ja",
+        "ko",
+        "uk",
+        "ta",
+        "ml",
+        "te",
+        "bn",
+        "ur",
+        "fa",
+        "id",
+        "vi",
+        "th",
+        "sw"
+      ],
+      "enumTitles": [
+        "Any language",
+        "French",
+        "English",
+        "German",
+        "Spanish",
+        "Italian",
+        "Dutch",
+        "Portuguese",
+        "Arabic",
+        "Russian",
+        "Chinese",
+        "Turkish",
+        "Polish",
+        "Romanian",
+        "Swedish",
+        "Danish",
+        "Finnish",
+        "Norwegian",
+        "Czech",
+        "Greek",
+        "Hebrew",
+        "Hindi",
+        "Japanese",
+        "Korean",
+        "Ukrainian",
+        "Tamil",
+        "Malayalam",
+        "Telugu",
+        "Bengali",
+        "Urdu",
+        "Persian",
+        "Indonesian",
+        "Vietnamese",
+        "Thai",
+        "Swahili"
+      ],
+      "prefill": "ANY",
+      "title": "Spoken language",
+      "type": "string"
+    },
     "location": {
-      "default": "Berlin",
-      "description": "Filter results by city or region, e.g. `Paris`, `Berlin`, `Barcelona`. Leave empty for all locations.",
+      "default": "",
+      "description": "Only keep freelancers whose city, region or country matches this text, e.g. `Paris`, `Berlin`, `Spain`. Leave empty for all locations.",
       "editor": "textfield",
       "prefill": "Berlin",
-      "title": "Location (city or region)",
+      "title": "Location (city, region or country)",
       "type": "string"
     },
     "market": {
       "default": "de",
-      "description": "Which Malt regional marketplace to scrape.",
+      "description": "Which Malt marketplace to search. This also sets the profile URL domain and the search API country filter.",
       "editor": "select",
       "enum": [
         "com",
@@ -22,7 +229,7 @@
         "nl"
       ],
       "enumTitles": [
-        "malt.com (Global / English)",
+        "malt.com (global / no country filter)",
         "malt.fr (France)",
         "malt.de (Germany)",
         "malt.es (Spain)",
@@ -30,7 +237,7 @@
         "malt.nl (Netherlands)"
       ],
       "prefill": "de",
-      "title": "Market (Malt domain)",
+      "title": "Market (Malt country)",
       "type": "string"
     },
     "maxItems": {
@@ -38,19 +245,51 @@
       "description": "Maximum number of freelancer records to return.",
       "maximum": 5000,
       "minimum": 1,
-      "prefill": 5,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
+    "maxPages": {
+      "default": 1,
+      "description": "How many search-result pages to request per query. Malt's guest API exposes ~24 profiles per page and may ignore page 2+; repeated draws fill the gap.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max server pages per query",
+      "type": "integer"
+    },
+    "maxRate": {
+      "description": "Only include freelancers whose publicly listed daily rate is at or below this amount, in EUR.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum daily rate (EUR)",
+      "type": "number"
+    },
+    "maxRepetitions": {
+      "default": 3,
+      "description": "Each draw returns a randomised set of up to 24 profiles. More draws surface more unique freelancers. Stops early when draws add nothing new.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max draws per query",
+      "type": "integer"
+    },
+    "minRate": {
+      "description": "Only include freelancers whose publicly listed daily rate is at or above this amount, in EUR.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum daily rate (EUR)",
+      "type": "number"
+    },
     "minRating": {
-      "description": "Only include freelancers with an average client rating at or above this value (0–5). Leave empty to include all.",
+      "description": "Only include freelancers with an average client rating at or above this value (0-5). Leave empty to include all; freelancers without a rating are not excluded.",
       "maximum": 5,
       "minimum": 0,
       "title": "Minimum average rating",
       "type": "number"
     },
     "minReviews": {
-      "description": "Only include freelancers with at least this many client reviews. Leave empty to include all.",
+      "description": "Only include freelancers with at least this many client reviews. Leave empty to include all; freelancers without reviews are not excluded.",
       "maximum": 100000,
       "minimum": 0,
       "title": "Minimum number of reviews",
@@ -58,14 +297,14 @@
     },
     "mode": {
       "default": "searchFreelancers",
-      "description": "Choose what to scrape: search for freelancers by keyword/location, or enrich specific profile URLs.",
+      "description": "Search the Malt directory, or enrich a list of profile URLs you already have.",
       "editor": "select",
       "enum": [
         "searchFreelancers",
         "byProfileUrls"
       ],
       "enumTitles": [
-        "Search freelancers by keyword + location",
+        "Search freelancers by skill, filters and market",
         "Enrich specific profile URLs"
       ],
       "prefill": "searchFreelancers",
@@ -74,31 +313,58 @@
     },
     "profileUrls": {
       "default": [],
-      "description": "List of Malt freelancer profile URLs to enrich, e.g. `https://www.malt.fr/profile/johndoe`. Used in mode=byProfileUrls.",
+      "description": "Malt profile URLs, slugs or profile URLs from any Malt market, e.g. `https://www.malt.fr/profile/johndoe`. Used in mode=byProfileUrls.",
       "editor": "stringList",
       "prefill": [],
       "title": "Profile URLs (mode=byProfileUrls)",
       "type": "array"
     },
-    "proxyConfiguration": {
-      "description": "Malt sits behind Cloudflare Bot Management, which blocks every Apify datacenter/AUTO IP outright (confirmed: 403 on 100% of requests, including via a headless browser). A European **Residential** proxy is required — datacenter proxies will not work. Residential proxy traffic is billed by Apify at $8/GB.",
-      "editor": "proxy",
-      "prefill": {
-        "apifyProxyCountry": "DE",
-        "apifyProxyGroups": [
-          "RESIDENTIAL"
-        ],
-        "useApifyProxy": true
-      },
-      "title": "Proxy configuration",
-      "type": "object"
+    "searchQueries": {
+      "default": [],
+      "description": "Optional list of extra queries searched after `searchQuery`. Each query is searched separately and results are de-duplicated, e.g. [\"react\", \"typescript\", \"node.js\"].",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Additional search queries",
+      "type": "array"
     },
     "searchQuery": {
       "default": "python developer",
-      "description": "Skill or keyword to search for, e.g. `python developer`, `react`, `data analyst`. Used in mode=searchFreelancers.",
+      "description": "Skill, role or keyword to search for, e.g. `react`, `python developer`, `data scientist`. Used in mode=searchFreelancers.",
       "editor": "textfield",
       "prefill": "python developer",
-      "title": "Search query (skill / keyword)",
+      "title": "Search query (skill or role)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order the final dataset. `Relevance` keeps Malt's own ordering.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "dailyRateAsc",
+        "dailyRateDesc",
+        "ratingDesc",
+        "reviewsDesc",
+        "experienceDesc"
+      ],
+      "enumTitles": [
+        "Relevance (Malt order)",
+        "Daily rate: low to high",
+        "Daily rate: high to low",
+        "Rating: high to low",
+        "Reviews: high to low",
+        "Experience: high to low"
+      ],
+      "prefill": "relevance",
+      "title": "Sort results",
+      "type": "string"
+    },
+    "speciality": {
+      "default": "",
+      "description": "Malt speciality key, e.g. `React.js`, `Python`, `SEO`. Leave empty to search all specialities.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Speciality / skill key (optional)",
       "type": "string"
     }
   },
@@ -106,6 +372,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Malt Freelancers Scraper Input",
+  "title": "Malt Freelancer Skill & Rate Finder Input",
   "type": "object"
 }

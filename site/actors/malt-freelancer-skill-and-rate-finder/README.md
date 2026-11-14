@@ -1,114 +1,175 @@
 # Malt Freelancer Skill & Rate Finder
 
-Malt is Europe's largest freelancer marketplace, listing hundreds of thousands of independent professionals across France, Germany, Spain, Belgium, the Netherlands and its global platform. This actor searches Malt by skill or keyword and location, or enriches specific freelancer profile URLs you already have, returning headline, skills, daily rate, rating and more.
+Malt is one of Europe's largest marketplaces for independent consultants, with public profiles spanning France, Germany, Spain, Belgium, the Netherlands and its global English platform. This actor turns that directory into a structured dataset: search by skill, role, daily rate, experience band, client sector and market, or enrich a list of profile URLs you already have.
+
+No Malt account, cookies, API key or proxy setup is required. The actor reads publicly visible search results and profile pages and chooses its own cookieless access path.
 
 ## What this actor does
 
-- Searches freelancers by skill/keyword and city or region across six Malt marketplaces
-- Enriches a list of specific Malt profile URLs instead of searching
-- Filters results by minimum average rating and minimum review count
-- Returns a verified-badge flag, spoken languages, and years of experience when the freelancer has listed them
-- Fields a freelancer hasn't filled in on their profile are left out of the record entirely — no null values
+- Searches Malt's live freelancer directory by skill, role or keyword
+- Filters by day-rate range, experience band, client business sector, quality badge, spoken language and availability
+- Limits results to a city, region or country with a plain-text location filter
+- Enriches search results with full profile details when you enable `includeProfileDetails`
+- Resolves specific Malt profile URLs, slugs or URLs from any Malt market
+- Searches several keywords in one run and de-duplicates overlapping freelancers
+- Returns rates in EUR, plus the original currency when Malt lists a non-EUR rate
+- Omits fields a freelancer has not filled in — no nulls or placeholder values
 
 ## Output per freelancer
 
-- `profileId` — the profile's Malt slug
-- `name` — full name
-- `profileUrl` — direct link to the Malt profile
+Identity and profile:
+- `profileId` — Malt's stable profile identifier
+- `name` — display name (as shown publicly)
 - `headline` — professional title or short description
-- `skills[]` — skills/tags listed on the profile, when available
-- `location` — city or region, when listed
-- `languages[]` — spoken languages, when listed
-- `dailyRateEur` — daily rate in EUR, when publicly shown
-- `avgRating` — average client rating (0–5), when available
-- `reviewCount` — number of client reviews, when available
-- `experienceYears` — years of experience, when listed
-- `verified` — whether the freelancer holds Malt's verified badge
-- `market` — which Malt marketplace the profile came from (`fr`, `de`, `es`, `be`, `nl`, `com`)
-- `profilePhotoUrl` — profile photo, omitted when the freelancer has no custom photo
+- `profileUrl` — direct link to the public Malt profile
+- `profilePhotoUrl` — profile photo, omitted when Malt shows its default avatar
+- `market` — marketplace code (`fr`, `de`, `es`, `be`, `nl`, `com`)
+
+Commercial data:
+- `dailyRateEur` — publicly listed daily rate in EUR
+- `dailyRate` — listed rate when the source currency is not EUR
+- `currency` — currency code
+- `dailyRateFormatted` — Malt's formatted rate string
+- `rateVisibility` — whether the rate is publicly visible
+- `avgRating` — average client rating (0–5)
+- `reviewCount` — number of client recommendations
+- `ratingCount` — number of appraisals that include a rating
+- `missionsCount` — number of completed missions Malt reports
+
+Skills and background:
+- `skills[]` — skill tags listed on the profile
+- `certifiedSkills[]` — skills Malt marks as certified
+- `skillCount` — number of listed skills
+- `experienceLevel` — Malt's experience band (`ENTRY`, `INTERMEDIATE`, `EXPERT`, `EXPERT_PLUS`) when enriched
+- `experienceYears` — years computed from the profile's public work history, when the history is complete enough to agree with Malt's band
+- `categories[]` — Malt category labels, when enriched
+- `description` — public profile description, when enriched
+- `certifications[]` — public certifications, when enriched
+- `portfolioCount` — number of public portfolio items
+
+Location, languages and availability:
+- `location` — city
+- `country`, `countryCode` — country details
+- `locationType` — remote / on-site / everywhere
+- `languages[]` — spoken languages, when enriched
+- `languageCodes[]`, `languageLevels[]` — language codes and levels, when enriched
+- `availabilityStatus`, `availabilityFrequency`, `workAvailability` — availability details
+- `verified` — whether the profile carries a Malt Super Malter badge
+- `badges[]` — all public Malt badges on the profile
+
+Metadata:
+- `searchQuery` — the keyword that surfaced the record (search mode)
 - `recordType: "freelancer"`, `scrapedAt`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `searchFreelancers` | `searchFreelancers` (keyword + location search) or `byProfileUrls` (enrich specific URLs) |
-| `searchQuery` | string | `python developer` | Skill or keyword to search for (mode=searchFreelancers) |
-| `location` | string | `Berlin` | City or region filter; leave empty for all locations |
-| `profileUrls` | array | – | Malt profile URLs to enrich (mode=byProfileUrls) |
-| `market` | string | `de` | Which Malt marketplace to use: `com`, `fr`, `de`, `es`, `be`, `nl` |
-| `minRating` | number | – | Only include freelancers rated at or above this (0–5) |
-| `minReviews` | integer | – | Only include freelancers with at least this many reviews |
-| `maxItems` | integer | `20` | Maximum number of profiles to return (1–5000) |
-| `proxyConfiguration` | object | `{"useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"], "apifyProxyCountry": "DE"}` | Required European residential proxy — Malt blocks non-residential traffic |
+| `mode` | string | `searchFreelancers` | `searchFreelancers` or `byProfileUrls` |
+| `searchQuery` | string | `python developer` | Skill, role or keyword (search mode) |
+| `searchQueries` | array | – | Extra keywords searched after the primary query |
+| `location` | string | – (prefill `Berlin`) | Keep only matching city, region or country; empty = all |
+| `profileUrls` | array | – | Malt profile URLs or slugs (profile mode) |
+| `market` | string | `de` | `com`, `fr`, `de`, `es`, `be` or `nl` |
+| `minRate` / `maxRate` | number | – | Daily-rate bounds in EUR |
+| `experienceLevel` | string | `ANY` | `ANY`, `ENTRY`, `INTERMEDIATE`, `EXPERT`, `EXPERT_PLUS` |
+| `category` | string | – | Malt category key, e.g. `backend_developer` |
+| `speciality` | string | – | Malt speciality key, e.g. `React.js` |
+| `businessSector` | string | `ANY` | Client sector filter |
+| `badge` | string | `ANY` | `ANY` or `SUPER_MALTER` |
+| `language` | string | `ANY` | Spoken language code |
+| `availability` | string | `ANY` | `ANY`, `AVAILABLE`, `AVAILABLE_AND_VERIFIED` |
+| `minRating` | number | – | Minimum average rating (0–5) |
+| `minReviews` | integer | – | Minimum client-review count |
+| `includeProfileDetails` | boolean | `false` | Open each profile page for languages, description, categories and work-history years |
+| `sortBy` | string | `relevance` | `relevance`, `dailyRateAsc`, `dailyRateDesc`, `ratingDesc`, `reviewsDesc`, `experienceDesc` |
+| `maxItems` | integer | `20` | Maximum records to return |
+| `maxPages` | integer | `1` | Server pages requested per keyword |
+| `maxRepetitions` | integer | `3` | Randomised 24-profile draws per keyword |
 
-### Example: Python developers in Paris
+### Example: React freelancers in France, €400–€700 per day
+
+```json
+{
+  "mode": "searchFreelancers",
+  "searchQuery": "react",
+  "market": "fr",
+  "minRate": 400,
+  "maxRate": 700,
+  "experienceLevel": "EXPERT",
+  "maxItems": 50
+}
+```
+
+### Example: well-reviewed Python freelancers in Berlin
 
 ```json
 {
   "mode": "searchFreelancers",
   "searchQuery": "python developer",
-  "location": "Paris",
-  "market": "fr",
-  "maxItems": 50
-}
-```
-
-### Example: well-reviewed React freelancers in Germany
-
-```json
-{
-  "mode": "searchFreelancers",
-  "searchQuery": "react developer",
+  "location": "Berlin",
   "market": "de",
   "minRating": 4.5,
-  "minReviews": 3,
-  "maxItems": 100
+  "minReviews": 2,
+  "maxItems": 30,
+  "includeProfileDetails": true
 }
 ```
 
-### Example: enrich known profile URLs
+### Example: enrich known profiles
 
 ```json
 {
   "mode": "byProfileUrls",
   "profileUrls": [
-    "https://www.malt.fr/profile/johndoe",
-    "https://www.malt.de/profile/jane-smith"
-  ]
+    "https://www.malt.fr/profile/julienvengeon",
+    "https://www.malt.de/profile/felixwerth",
+    "remitoudic"
+  ],
+  "maxItems": 10
 }
 ```
 
-## Use cases
+## How coverage works
 
-- **Talent sourcing** — shortlist freelancers by skill, location and rating before reaching out
-- **Market research** — compare freelancer availability and typical rates for a skill across European markets
-- **Competitor benchmarking** — see who the top-rated freelancers are in your own niche
-- **Lead generation** — build outreach lists from Malt search results
-- **Directory building** — enrich an existing list of Malt profile URLs with current rate, rating and skill data
+Malt's public search endpoint returns a randomised sample of up to 24 profiles per keyword and commonly ignores page 2 for guests. This actor therefore:
+1. Requests the first page for every keyword.
+2. Requests additional server pages when the source honours them.
+3. Repeats each keyword with `maxRepetitions` fresh draws and stops when two or three draws add nothing new.
+4. De-duplicates by Malt profile ID and stops as soon as `maxItems` is reached.
+
+For broader coverage, add more `searchQueries`, raise `maxRepetitions`, or use a narrower keyword with a rate or experience filter.
+
+## Backward compatibility
+
+Saved tasks using the previous input keys keep working: `searchQuery`, `profileUrls`, `market`, `location`, `minRating`, `minReviews`, `maxItems` and `maxResults`. Legacy aliases such as `searchTerms`, `queries`, `keywords`, `urls`, `startUrls`, `minDayRate`, `maxDayRate`, `exp`, `speciality`, `businessSector`, `lang`, `onlySupermalter`, `scrapeProfileDetails` and `sort` are mapped in code. `proxyConfiguration` is accepted but optional: the actor reaches Malt without any user proxy.
+
+## Limitations
+
+- Malt's guest search returns a randomised sample, not a stable full result set. Counts above roughly 24–50 per keyword depend on repeated draws.
+- `location` is a text match over the public city/region/country fields; it is not Malt's internal geo-ID filter.
+- Rates are shown in EUR from Malt's French host; a non-EUR rate is returned separately in `dailyRate`.
+- Profile enrichment adds one request per freelancer and is off by default.
+- A profile URL that Malt blocks even after the access retries is skipped rather than returned as an identity-only row.
+- Search results are filtered by the selected market's country; `com` applies no country filter.
+- Data reflects what Malt displays publicly at scrape time.
 
 ## FAQ
 
-**Which Malt markets are covered?**
-All six: `malt.com` (global/English), `malt.fr` (France), `malt.de` (Germany), `malt.es` (Spain), `malt.be` (Belgium), and `malt.nl` (Netherlands).
+**Do I need a Malt account?**
+No. The actor reads only publicly visible data and never asks for cookies or login credentials.
 
-**Does this require a Malt account or login?**
-No. Only publicly visible profile information is collected; no account or cookies are needed.
+**Do I need to configure a proxy?**
+No. The actor chooses its own access path automatically.
 
-**How many profiles come back from one search?**
-Typically around two dozen per search query, since that's what one page of Malt's search results surfaces. For broader coverage, run multiple searches with different keywords, locations, or markets.
+**Why do I get about 24 profiles from one keyword?**
+That is the size of Malt's public guest search sample. Increase `maxRepetitions` or add more keywords for more unique profiles.
 
-**What does the `verified` field mean?**
-Malt awards a verified badge to freelancers who meet its quality and activity thresholds (sometimes called "Supermalter" in some markets). The field reflects whether that badge is present on the profile.
+**Are freelancers without ratings excluded by `minRating`?**
+No. `minRating` and `minReviews` only exclude freelancers whose public rating or review count is present and below the threshold.
 
-**Will filtering by rating exclude freelancers with no reviews yet?**
-No — `minRating` and `minReviews` only exclude freelancers who have a rating/review count below your threshold. Freelancers with no rating data at all are not excluded by these filters.
-
-**Can I search by a Malt category URL instead of a keyword?**
-Not directly — enter the skill or role as plain text in `searchQuery`; Malt's own search matches it against skills and headlines.
-
-**Why is a residential proxy required?**
-Malt blocks traffic that doesn't come from a normal residential connection, so a European residential proxy is applied by default and is required for the actor to reach the site reliably.
+**Can I paste a Malt search URL?**
+No. Use `searchQuery` with the skill or role, plus `market`, `location` and the filters above.
 
 **Is this affiliated with Malt?**
-No. This is an independent, third-party actor that reads Malt's publicly visible profile and search pages; it is not affiliated with or endorsed by Malt.
+No. This is an independent, third-party actor that reads publicly visible Malt pages. It is not affiliated with or endorsed by Malt.

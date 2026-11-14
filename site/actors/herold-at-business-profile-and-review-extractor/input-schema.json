@@ -1,14 +1,14 @@
 {
-  "description": "Search Austria's Herold.at business directory (Gelbe Seiten) by category and region, or fetch full business profiles by URL.",
+  "description": "Search Austria's Herold.at directory by keyword or category and region, or paste Herold.at search/profile URLs. Collect full business profiles, contacts, opening hours, ratings and every published review without cookies.",
   "properties": {
     "businessUrls": {
       "default": [],
-      "description": "Direct Herold.at business profile URLs to fetch, e.g. https://www.herold.at/gelbe-seiten/wien/&lt;id&gt;/&lt;slug&gt;/. Use the 'sourceUrl' field from search results.",
+      "description": "Direct Herold.at business profile links, e.g. https://www.herold.at/gelbe-seiten/wien/3M7DR/ar-all-round-installationen-gmbh/. Use the sourceUrl field from search results. Used in urls, detail and reviews modes.",
       "editor": "requestListSources",
       "items": {
         "properties": {
           "url": {
-            "description": "Herold.at business profile URL.",
+            "description": "Herold.at URL",
             "title": "URL",
             "type": "string"
           }
@@ -16,208 +16,167 @@
         "type": "object"
       },
       "prefill": [],
-      "title": "Business profile URLs (mode=detail)",
+      "title": "Business profile URLs",
       "type": "array"
     },
-    "category": {
-      "default": "installateur",
-      "description": "Business category to search for. Pick a common category from the list, or choose 'Custom category' and type your own in the field below (mode=search).",
-      "editor": "select",
-      "enum": [
-        "custom",
-        "installateur",
-        "elektriker",
-        "restaurant",
-        "friseur",
-        "zahnarzt",
-        "rechtsanwalt",
-        "hotel",
-        "dachdecker",
-        "steuerberater",
-        "immobilien",
-        "haarentfernung",
-        "gartencenter",
-        "fahrschule",
-        "garage-parkgarage",
-        "tierarzt",
-        "apotheke",
-        "optiker",
-        "massage",
-        "fensterreinigung",
-        "notar",
-        "versicherungsmakler",
-        "physiotherapie",
-        "bestattungsunternehmen",
-        "maler-anstreicher-u-lackierer",
-        "catering",
-        "campingplatz",
-        "edv-dienstleistung",
-        "facility-management",
-        "buchhaltung",
-        "unternehmensberatung",
-        "bank-sparkasse",
-        "spedition",
-        "tischlerei",
-        "schlosserei",
-        "glaserei",
-        "augenarzt",
-        "hautarzt",
-        "kinderarzt",
-        "frauenarzt"
-      ],
-      "enumTitles": [
-        "Custom category (type below)",
-        "Installateur (Plumber)",
-        "Elektriker (Electrician)",
-        "Restaurant",
-        "Friseur (Hairdresser)",
-        "Zahnarzt (Dentist)",
-        "Rechtsanwalt (Lawyer)",
-        "Hotel",
-        "Dachdecker (Roofer)",
-        "Steuerberater (Tax advisor)",
-        "Immobilien (Real estate)",
-        "Haarentfernung (Hair removal)",
-        "Gartencenter (Garden centre)",
-        "Fahrschule (Driving school)",
-        "Garage / Parkgarage (Parking garage)",
-        "Tierarzt (Veterinarian)",
-        "Apotheke (Pharmacy)",
-        "Optiker (Optician)",
-        "Massage",
-        "Fensterreinigung (Window cleaning)",
-        "Notar (Notary)",
-        "Versicherungsmakler (Insurance broker)",
-        "Physiotherapie (Physiotherapy)",
-        "Bestattungsunternehmen (Funeral home)",
-        "Maler, Anstreicher u. Lackierer (Painter)",
-        "Catering",
-        "Campingplatz (Campsite)",
-        "EDV-Dienstleistung (IT services)",
-        "Facility Management",
-        "Buchhaltung (Accounting)",
-        "Unternehmensberatung (Business consulting)",
-        "Bank / Sparkasse (Bank)",
-        "Spedition (Freight forwarding)",
-        "Tischlerei (Carpentry)",
-        "Schlosserei (Locksmith)",
-        "Glaserei (Glazier)",
-        "Augenarzt (Ophthalmologist)",
-        "Hautarzt (Dermatologist)",
-        "Kinderarzt (Pediatrician)",
-        "Frauenarzt (Gynecologist)"
-      ],
-      "prefill": "installateur",
-      "title": "Category (Branche)",
-      "type": "string"
-    },
-    "customCategory": {
-      "description": "Free-text Branche/category not in the curated list above, e.g. 'Tischlerei' or 'Kfz-Werkstatt' (mode=search). Takes priority over 'Category' when set. Best-effort URL match -- if Herold has no page for the exact term, 0 results are returned (no error).",
-      "editor": "textfield",
-      "title": "Custom category (overrides selection above)",
-      "type": "string"
-    },
-    "customLocation": {
-      "description": "Free-text Austrian region, city, or postal code not in the curated list above (mode=search). Takes priority over 'Region / city' when set. Best-effort URL match -- if Herold has no dedicated page for the exact term, 0 results are returned (no error).",
-      "editor": "textfield",
-      "title": "Custom location (overrides selection above)",
-      "type": "string"
-    },
-    "fetchDetails": {
+    "includeDetails": {
       "default": false,
-      "description": "For each search result, also visit its business profile page to collect opening hours per weekday, email, website, Facebook page, and full address details. Slower (mode=search).",
+      "description": "In search and urls modes, also open every business profile for full address, coordinates, weekday hours, all phone numbers, social links, services, company register data and reviews. Adds one request per business.",
       "prefill": false,
-      "title": "Fetch full business profiles",
+      "title": "Open each business profile",
       "type": "boolean"
     },
-    "location": {
-      "default": "Wien",
-      "description": "Austrian federal state (Bundesland) or a city with its own Herold.at page, e.g. 'Wien', 'Salzburg', 'Graz-Stadt'. Herold.at groups most results at the state level, but state capitals and select cities (suffixed '-Stadt') have their own dedicated, narrower listing page (mode=search).",
-      "editor": "select",
-      "enum": [
-        "custom",
-        "Wien",
-        "Niederösterreich",
-        "Oberösterreich",
-        "Steiermark",
-        "Tirol",
-        "Kärnten",
-        "Salzburg",
-        "Vorarlberg",
-        "Burgenland",
-        "Dornbirn",
-        "Feldkirch",
-        "Bregenz",
-        "Bludenz",
-        "Graz-Stadt",
-        "Linz-Stadt",
-        "Innsbruck-Stadt",
-        "Klagenfurt-Stadt",
-        "Wels-Stadt",
-        "Villach-Stadt",
-        "St Pölten-Stadt",
-        "Wiener Neustadt-Stadt",
-        "Steyr-Stadt"
+    "includeReviews": {
+      "default": true,
+      "description": "Attach recent reviews to business records when a profile is opened. Use reviews mode to export every review as an individual row.",
+      "prefill": true,
+      "title": "Include customer reviews",
+      "type": "boolean"
+    },
+    "locations": {
+      "default": [
+        "Wien"
       ],
-      "enumTitles": [
-        "Custom location (type below)",
-        "Wien (Vienna)",
-        "Niederösterreich (Lower Austria)",
-        "Oberösterreich (Upper Austria)",
-        "Steiermark (Styria)",
-        "Tirol (Tyrol)",
-        "Kärnten (Carinthia)",
-        "Salzburg (state & city)",
-        "Vorarlberg",
-        "Burgenland",
-        "Dornbirn (Vorarlberg)",
-        "Feldkirch (Vorarlberg)",
-        "Bregenz (Vorarlberg)",
-        "Bludenz (Vorarlberg)",
-        "Graz (city only)",
-        "Linz (city only)",
-        "Innsbruck (city only)",
-        "Klagenfurt (city only)",
-        "Wels (city only)",
-        "Villach (city only)",
-        "St. Pölten (city only)",
-        "Wiener Neustadt (city only)",
-        "Steyr (city only)"
+      "description": "Austrian federal state, city, district or 4-digit postal code, e.g. Wien, Salzburg, Graz-Stadt, Kärnten, 1160. Leave empty for nationwide results. Used in search mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "Wien"
       ],
-      "prefill": "Wien",
-      "title": "Region / city (Bundesland or Ort)",
-      "type": "string"
+      "title": "Locations",
+      "type": "array"
     },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on the number of business records to return.",
-      "maximum": 1000,
+      "description": "Hard cap on dataset rows. In reviews mode each row is one review; in other modes each row is one business.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Max records",
       "type": "integer"
+    },
+    "maxPages": {
+      "default": 0,
+      "description": "Stop after this many result pages for each keyword/location pair or pasted search URL. 0 means follow Herold's pagination to the end or until maxItems is reached.",
+      "maximum": 500,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Max result pages per search",
+      "type": "integer"
+    },
+    "maxReviews": {
+      "default": 5,
+      "description": "How many reviews to attach to each business record, or how many to export per business in reviews mode. 0 means all published reviews.",
+      "maximum": 5000,
+      "minimum": 0,
+      "prefill": 5,
+      "title": "Max reviews per business",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Keep only businesses rated at least this many stars. 0 disables the filter. Businesses without a rating are excluded when this is above 0.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Minimum rating",
+      "type": "number"
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch: search a category + region/city, or fetch full business profiles from direct Herold.at URLs.",
+      "description": "Search by keyword/category, paste search or profile URLs, fetch full business profiles, or export every review as its own row.",
       "editor": "select",
       "enum": [
         "search",
-        "detail"
+        "urls",
+        "detail",
+        "reviews"
       ],
       "enumTitles": [
-        "Search by category & region",
-        "Fetch business profiles by URL"
+        "Search by keyword or category",
+        "Paste Herold.at URLs",
+        "Full business profiles",
+        "Customer reviews as rows"
       ],
       "prefill": "search",
-      "title": "Mode",
+      "title": "What to scrape",
       "type": "string"
+    },
+    "onlyVerified": {
+      "default": false,
+      "description": "Keep only businesses whose Herold listing carries the Verifiziert badge.",
+      "prefill": false,
+      "title": "Only verified listings",
+      "type": "boolean"
+    },
+    "openedNow": {
+      "default": false,
+      "description": "Use Herold's live opening-hours filter so only businesses currently open are returned. Also filters pasted URLs and profile records locally.",
+      "prefill": false,
+      "title": "Only businesses open right now",
+      "type": "boolean"
+    },
+    "requireEmail": {
+      "default": false,
+      "description": "Keep only listings that publish an email address.",
+      "prefill": false,
+      "title": "Only businesses with an email",
+      "type": "boolean"
+    },
+    "requirePhone": {
+      "default": false,
+      "description": "Keep only listings that publish a phone number.",
+      "prefill": false,
+      "title": "Only businesses with a phone number",
+      "type": "boolean"
+    },
+    "requireWebsite": {
+      "default": false,
+      "description": "Keep only listings that publish their own website.",
+      "prefill": false,
+      "title": "Only businesses with a website",
+      "type": "boolean"
+    },
+    "searchTerms": {
+      "default": [
+        "installateur"
+      ],
+      "description": "Business type, trade, product or keyword, e.g. Installateur, Zahnarzt, Restaurant, Photovoltaik. Each term is searched in every location; leave locations empty to search all of Austria. Used in search mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "installateur"
+      ],
+      "title": "Keywords or categories",
+      "type": "array"
+    },
+    "searchUrls": {
+      "default": [],
+      "description": "Paste Herold.at result pages, keyword search URLs, A-Z directory pages or business profile links. Result pages paginate automatically. Used in urls mode.",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "Herold.at URL",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "Herold.at search or profile URLs",
+      "type": "array"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Herold.at Scraper Input",
+  "title": "Herold.at Business Directory & Reviews Input",
   "type": "object"
 }

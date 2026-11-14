@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Austrian business listings from Herold.at — names, addresses, phone numbers, ratings, opening hours, websites.",
+  "description": "Austrian business listings and customer review rows from Herold.at — contacts, locations, coordinates, weekday opening hours, ratings, rating breakdowns, services, company details and full review history.",
   "properties": {
     "businesses": {
-      "description": "Dataset containing all scraped Herold.at business listings.",
+      "description": "Dataset containing business records (recordType=business) and, in reviews mode, one record per customer review (recordType=review).",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Herold.at businesses",
+      "title": "Herold.at businesses and reviews",
       "type": "string"
     }
   },
-  "title": "Herold.at Business Profile & Review Extractor Output"
+  "title": "Herold.at Business Directory & Reviews Output"
 }

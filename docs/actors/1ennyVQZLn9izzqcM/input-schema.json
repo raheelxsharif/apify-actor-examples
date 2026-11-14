@@ -1,86 +1,227 @@
 {
-  "description": "Search PSA grading population reports for sports cards and collectibles.",
+  "description": "Search PSA population reports, fetch a full set census, or look up specific spec numbers.",
   "properties": {
+    "category": {
+      "default": "all",
+      "description": "Limit search results and label records with the collectible category. Choose All to search every category.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "baseball-cards",
+        "basketball-cards",
+        "football-cards",
+        "hockey-cards",
+        "soccer-cards",
+        "tcg-cards",
+        "non-sport-cards",
+        "golf-cards",
+        "boxing-wrestling-cards-mma",
+        "minor-league-cards",
+        "misc-cards",
+        "multi-sport-cards",
+        "packs",
+        "tickets",
+        "pins",
+        "baseball-coins",
+        "basketball-coins",
+        "football-coins",
+        "hockey-coins",
+        "multi-sport-coins",
+        "non-sport-coins"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Baseball Cards",
+        "Basketball Cards",
+        "Football Cards",
+        "Hockey Cards",
+        "Soccer Cards",
+        "TCG Cards",
+        "Non-Sport Cards",
+        "Golf Cards",
+        "Boxing / Wrestling Cards / MMA",
+        "Minor League Cards",
+        "Misc Cards",
+        "Multi-Sport Cards",
+        "Packs",
+        "Tickets",
+        "Pins",
+        "Baseball Coins",
+        "Basketball Coins",
+        "Football Coins",
+        "Hockey Coins",
+        "Multi-Sport Coins",
+        "Non-Sport Coins"
+      ],
+      "prefill": "all",
+      "sectionCaption": "Filters",
+      "title": "Collectible category",
+      "type": "string"
+    },
+    "headingIds": {
+      "default": [],
+      "description": "Numeric PSA set IDs from a population URL's last path segment. Use when you already store set IDs.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Set heading IDs",
+      "type": "array"
+    },
+    "includeSetTotal": {
+      "default": false,
+      "description": "Emit one extra row with the set-wide grade census (mode=setPopulation).",
+      "prefill": false,
+      "title": "Include set total",
+      "type": "boolean"
+    },
+    "isPsaDna": {
+      "default": false,
+      "description": "Use the PSA/DNA certified population line instead of the standard card population.",
+      "prefill": false,
+      "title": "PSA/DNA certified tab",
+      "type": "boolean"
+    },
+    "maxEnrichSets": {
+      "default": 10,
+      "description": "Maximum matching sets to fetch when keyword results need population counts (mode=searchCards).",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum sets to enrich",
+      "type": "integer"
+    },
+    "maxGrade10": {
+      "description": "Keep cards with at most this many PSA 10 copies.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Maximum PSA 10 population",
+      "type": "integer"
+    },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of cards to return.",
+      "description": "Stop after this many records.",
+      "editor": "number",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "sectionCaption": "Limits and pacing",
+      "title": "Maximum records",
+      "type": "integer"
+    },
+    "maxSearchPages": {
+      "default": 5,
+      "description": "Maximum keyword-search pages to walk when matching sets need population enrichment.",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Maximum search pages",
+      "type": "integer"
+    },
+    "maxSetPages": {
+      "default": 20,
+      "description": "Maximum 500-card pages to walk per set when resolving spec numbers.",
       "maximum": 200,
       "minimum": 1,
       "prefill": 20,
-      "title": "Max items",
+      "title": "Maximum set pages for spec lookup",
+      "type": "integer"
+    },
+    "maxTotal": {
+      "description": "Keep cards with at most this many graded copies.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Maximum total graded",
+      "type": "integer"
+    },
+    "minGrade10": {
+      "description": "Keep cards with at least this many PSA 10 copies.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum PSA 10 population",
+      "type": "integer"
+    },
+    "minTotal": {
+      "description": "Keep cards with at least this many graded copies.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum total graded",
       "type": "integer"
     },
     "mode": {
       "default": "searchCards",
-      "description": "What to fetch from PSA pop report.",
+      "description": "Search cards by keyword, fetch a full set population report, or look up specific spec numbers.",
       "editor": "select",
       "enum": [
         "searchCards",
+        "setPopulation",
         "cardPopulation",
-        "recentGrades",
-        "searchBySet"
+        "searchBySet",
+        "recentGrades"
       ],
       "enumTitles": [
         "Search cards by keyword",
-        "Card population by spec number",
-        "Recently graded cards",
-        "Cards by set ID"
+        "Full set population report",
+        "Specific spec numbers",
+        "Full set population report (legacy name)",
+        "Recently graded (no longer available)"
       ],
       "prefill": "searchCards",
-      "title": "Mode",
+      "sectionCaption": "Mode and lookup",
+      "title": "What to look up",
       "type": "string"
     },
     "query": {
       "default": "1952 Topps Mickey Mantle",
-      "description": "Card search query (mode=searchCards). E.g. '1952 Topps Mickey Mantle'.",
+      "description": "Player, card, set or year to search, for example \"1952 Topps Mickey Mantle\" or \"Charizard\".",
       "editor": "textfield",
       "prefill": "1952 Topps Mickey Mantle",
       "title": "Search query",
       "type": "string"
     },
-    "setId": {
-      "description": "PSA set ID to retrieve cards from.",
-      "maximum": 9999999,
-      "minimum": 1,
-      "title": "Set ID (mode=searchBySet)",
-      "type": "integer"
+    "requestDelaySecs": {
+      "default": 0.8,
+      "description": "Pause between PSA requests to stay inside its rate limits.",
+      "maximum": 5,
+      "minimum": 0,
+      "prefill": 0.8,
+      "title": "Delay between requests (seconds)",
+      "type": "number"
+    },
+    "setUrls": {
+      "default": [],
+      "description": "PSA population set links, for example https://www.psacard.com/pop/baseball-cards/1952/topps/49722. Used by setPopulation and as the set context for cardPopulation.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "sectionCaption": "Set and card lookup",
+      "title": "Population set URLs",
+      "type": "array"
     },
     "specNumbers": {
       "default": [],
-      "description": "PSA spec numbers to get population data for.",
+      "description": "PSA spec IDs to pick out of the supplied set (mode=cardPopulation). Also accepts comma-separated values.",
       "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
       "prefill": [],
-      "title": "Spec numbers (mode=cardPopulation)",
+      "title": "Spec numbers",
       "type": "array"
     },
-    "sport": {
-      "description": "Filter by sport or card category.",
-      "editor": "select",
-      "enum": [
-        "baseball",
-        "basketball",
-        "football",
-        "hockey",
-        "soccer",
-        "pokemon",
-        "non-sports",
-        "golf",
-        "tennis",
-        "boxing"
-      ],
-      "enumTitles": [
-        "Baseball",
-        "Basketball",
-        "Football",
-        "Hockey",
-        "Soccer",
-        "Pokemon",
-        "Non-Sports",
-        "Golf",
-        "Tennis",
-        "Boxing"
-      ],
-      "title": "Sport / category",
+    "subjectContains": {
+      "description": "Keep only cards whose player, character or subject contains this text.",
+      "editor": "textfield",
+      "title": "Subject contains",
+      "type": "string"
+    },
+    "varietyContains": {
+      "description": "Keep only cards whose variety, parallel or pedigree contains this text.",
+      "editor": "textfield",
+      "title": "Variety contains",
       "type": "string"
     }
   },
@@ -88,6 +229,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "PSA Card Population Scraper Input",
+  "title": "PSA Card Population Lookup Input",
   "type": "object"
 }

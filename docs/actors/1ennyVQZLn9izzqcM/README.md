@@ -4,111 +4,94 @@
 
 # PSA Card Grade Population Lookup
 
-PSA's population report is the reference database for how many of a given trading card have been certified at each grade. This actor looks it up by keyword search, by PSA spec number, by browsing a full set, or by pulling recently graded cards — returning the card's identity alongside its grade 1–10 population counts.
+PSA's population report tells you how many copies of a card exist at each grade. This actor turns that report into clean records: search a player or set, pull a whole set's census, or pick out specific spec numbers. Every row carries the card identity, the grade 1–10 ladder, half grades, qualifiers, total graded and gem rate.
 
-## What this actor does
+No PSA account, API key or cookie is needed.
 
-- Searches PSA's population database by free-text keyword
-- Fetches population data directly for one or more known PSA spec numbers
-- Lists every card in a given PSA set by set ID
-- Pulls recently graded cards
-- Filters by sport/category across 10 options including baseball, basketball, Pokemon and non-sports
-- Fields PSA doesn't publish for a card are left out of the record rather than sent as `null`
+## Modes
 
-## Output per card
+| Mode | What it does | Main inputs |
+|---|---|---|
+| `searchCards` | Searches PSA's population report by keyword. Exact matches come back with full grade counts; other matching sets are enriched with their matching cards. | `query`, `category`, filters |
+| `setPopulation` | Returns every card in a set, with pagination and an optional set-wide total row. | `setUrls` or `headingIds`, `includeSetTotal`, filters |
+| `cardPopulation` | Finds specific spec numbers inside a set. | `specNumbers` plus a set URL or heading ID |
 
-- `specNumber` — PSA's spec number uniquely identifying this card variety
-- `cardNumber` — the card's number within its set
-- `cardName` — card title/description
-- `year` — card year
-- `setName` — the set the card belongs to
-- `sport` — sport or category (e.g. baseball, Pokemon, non-sports)
-- `brand` — publisher/brand
-- `variety` — card variety or variation, when the card has one
-- `subject` — the featured player or subject
-- `grade1Count` through `grade10Count` — population at each PSA grade
-- `totalGraded` — total number of copies graded across all grades
-- `imageUrl` — card image, when available
-- `popUrl` — link to this card's PSA population report page
-- `recordType: "card"`, `scrapedAt`
+## Examples
 
-## Input
-
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | string | `searchCards` | `searchCards` / `cardPopulation` / `recentGrades` / `searchBySet` |
-| `query` | string | `1952 Topps Mickey Mantle` | Search keyword (mode=searchCards) |
-| `specNumbers` | array | – | PSA spec numbers to fetch population for (mode=cardPopulation) |
-| `setId` | integer | – | PSA set ID to list cards from (mode=searchBySet) |
-| `sport` | string | – (any) | `baseball` / `basketball` / `football` / `hockey` / `soccer` / `pokemon` / `non-sports` / `golf` / `tennis` / `boxing` |
-| `maxItems` | integer | `20` | Maximum number of cards to return (1–200) |
-
-### Example: search by card name
+Search for a card:
 
 ```json
 {
   "mode": "searchCards",
   "query": "1952 Topps Mickey Mantle",
-  "maxItems": 20
+  "maxItems": 5
 }
 ```
 
-### Example: population for known spec numbers
+Pull a set census with the set total:
+
+```json
+{
+  "mode": "setPopulation",
+  "setUrls": ["https://www.psacard.com/pop/baseball-cards/1933/goudey/39868"],
+  "includeSetTotal": true,
+  "maxItems": 500
+}
+```
+
+Find a specific spec number:
 
 ```json
 {
   "mode": "cardPopulation",
-  "specNumbers": ["84233", "12345"]
+  "setUrls": ["https://www.psacard.com/pop/baseball-cards/1952/topps/49722"],
+  "specNumbers": ["178927"]
 }
 ```
 
-### Example: browse a full set
+## Output
 
-```json
-{
-  "mode": "searchBySet",
-  "setId": 123456,
-  "maxItems": 100
-}
-```
+Each card record includes:
 
-### Example: recently graded Pokemon cards
+- `specId` and `specNumber` — PSA's spec identifier
+- `subject`, `cardName`, `description`, `cardNumber`, `variety`
+- `setName`, `setYear`, `setCategory`, `headingId`, `categoryId`
+- `grade1Count` through `grade10Count`
+- `grade1_5Count` through `grade9_5Count`
+- `grade1QualifiedCount` through `grade10QualifiedCount`
+- `authenticCount`
+- `gradeTotal`, `halfGradeTotal`, `qualifiedTotal`, `popTotal`
+- `totalGraded` and `gemRate` (PSA 10 share of all graded copies)
+- `pop` — the complete nested ladder
+- `popUrl`, `recordType`, `scrapedAt`
 
-```json
-{
-  "mode": "recentGrades",
-  "sport": "pokemon",
-  "maxItems": 50
-}
-```
+Set-total rows use `recordType: "setTotal"`. If a lookup cannot be completed, the actor emits an `error` row with a reason instead of a blank record.
 
-## Use cases
+## Filters
 
-- **Collectors** — check how rare a specific grade is for a card before buying or selling
-- **Grading strategy** — compare population across grades to decide whether resubmitting a card for a higher grade is worthwhile
-- **Marketplace pricing** — combine population counts with sale data to gauge scarcity-driven value
-- **Set tracking** — pull every card in a set to see which ones are hardest to find in top grades
-- **Market monitoring** — watch recently graded cards in a category to spot fresh submissions
+- `category` — one of 21 collectible categories, or All
+- `subjectContains` / `varietyContains` — case-insensitive text filters
+- `minTotal` / `maxTotal` — total graded bounds
+- `minGrade10` / `maxGrade10` — PSA 10 population bounds
+- `isPsaDna` — use the PSA/DNA certified population line
+- `includeSetTotal` — add a set-wide census row in `setPopulation`
 
-## FAQ
+## Limits and pacing
 
-**Does this require a PSA account?**
-No. It reads PSA's public population report pages; no login is required.
+- `maxItems` caps the dataset (1–5000).
+- `maxSearchPages` caps keyword-search pages.
+- `maxEnrichSets` caps how many matching sets are fetched in `searchCards`.
+- `maxSetPages` caps 500-card pages walked for spec-number lookup.
+- `requestDelaySecs` defaults to 0.8 seconds to stay inside PSA's request limits.
 
-**What is a PSA spec number?**
-A spec number is PSA's unique identifier for a specific card variety (set, year, card number and variation combined), distinct from the generic card number printed on the card itself.
+## Notes
 
-**What does the population count actually mean?**
-It's the running total of how many submitted copies of that card PSA has certified at each grade level, from 1 up to the top grade of 10, as of PSA's current data.
+- The population pages themselves ask for a Collectors login, so the actor reads PSA's public population JSON used by the report table.
+- PSA rate-limits bursts. Lower `maxItems` or raise `requestDelaySecs` if a run reports repeated retries.
+- `recentGrades` was removed because PSA does not expose a public recently-graded feed. Older saved tasks using that value receive a clear status message.
+- A bare `headingId` returns correct population counts but cannot supply the set name/year; use `setUrls` when you need set metadata.
+- Output is omit-empty: fields the source does not publish are left out, never sent as `null` or an empty string.
 
-**Which sports and categories can I filter by?**
-Baseball, basketball, football, hockey, soccer, Pokemon, non-sports, golf, tennis, and boxing.
+## Data source
 
-**Why are some grade fields missing from a card's record?**
-A grade count field only appears when PSA reports at least one card graded at that level; a grade with zero submissions isn't included.
-
-**How current is the population data?**
-Each run reads PSA's live population report, so counts reflect PSA's most recently published data at the time of the run.
-
-**Is this affiliated with PSA (Professional Sports Authenticator)?**
-No. This is an independent, third-party actor that reads PSA's publicly accessible population report; it is not affiliated with or endorsed by PSA or Collectors Universe.
+Population data comes from PSA's public population-report JSON endpoints at `psacard.com`. This actor is unofficial and is not affiliated with PSA or Collectors.
