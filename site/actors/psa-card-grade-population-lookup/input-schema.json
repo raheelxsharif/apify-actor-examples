@@ -1,0 +1,93 @@
+{
+  "description": "Search PSA grading population reports for sports cards and collectibles.",
+  "properties": {
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of cards to return.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchCards",
+      "description": "What to fetch from PSA pop report.",
+      "editor": "select",
+      "enum": [
+        "searchCards",
+        "cardPopulation",
+        "recentGrades",
+        "searchBySet"
+      ],
+      "enumTitles": [
+        "Search cards by keyword",
+        "Card population by spec number",
+        "Recently graded cards",
+        "Cards by set ID"
+      ],
+      "prefill": "searchCards",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "default": "1952 Topps Mickey Mantle",
+      "description": "Card search query (mode=searchCards). E.g. '1952 Topps Mickey Mantle'.",
+      "editor": "textfield",
+      "prefill": "1952 Topps Mickey Mantle",
+      "title": "Search query",
+      "type": "string"
+    },
+    "setId": {
+      "description": "PSA set ID to retrieve cards from.",
+      "maximum": 9999999,
+      "minimum": 1,
+      "title": "Set ID (mode=searchBySet)",
+      "type": "integer"
+    },
+    "specNumbers": {
+      "default": [],
+      "description": "PSA spec numbers to get population data for.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Spec numbers (mode=cardPopulation)",
+      "type": "array"
+    },
+    "sport": {
+      "description": "Filter by sport or card category.",
+      "editor": "select",
+      "enum": [
+        "baseball",
+        "basketball",
+        "football",
+        "hockey",
+        "soccer",
+        "pokemon",
+        "non-sports",
+        "golf",
+        "tennis",
+        "boxing"
+      ],
+      "enumTitles": [
+        "Baseball",
+        "Basketball",
+        "Football",
+        "Hockey",
+        "Soccer",
+        "Pokemon",
+        "Non-Sports",
+        "Golf",
+        "Tennis",
+        "Boxing"
+      ],
+      "title": "Sport / category",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "PSA Card Population Scraper Input",
+  "type": "object"
+}
