@@ -1,0 +1,291 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "age_years": {
+        "description": "Age in years (derived)",
+        "nullable": true,
+        "type": "number"
+      },
+      "app_downloads_per_month": {
+        "description": "Monthly app downloads (apps only)",
+        "nullable": true,
+        "type": "integer"
+      },
+      "average_profit": {
+        "description": "Average monthly profit in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "average_revenue": {
+        "description": "Average monthly revenue in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "bid_count": {
+        "description": "Number of bids (auction)",
+        "nullable": true,
+        "type": "integer"
+      },
+      "buy_it_now_price": {
+        "description": "Buy-it-now price in USD (auctions)",
+        "nullable": true,
+        "type": "integer"
+      },
+      "confidential": {
+        "description": "Listing is confidential",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "ends_at": {
+        "description": "Listing end time (ISO datetime)",
+        "nullable": true,
+        "type": "string"
+      },
+      "established_at": {
+        "description": "When property was established (ISO datetime)",
+        "nullable": true,
+        "type": "string"
+      },
+      "external_url": {
+        "description": "External URL to the property",
+        "nullable": true,
+        "type": "string"
+      },
+      "has_verified_revenue": {
+        "description": "Revenue is Flippa-verified",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "has_verified_traffic": {
+        "description": "Traffic is Flippa-verified",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "hostname": {
+        "description": "Primary hostname of the property",
+        "nullable": true,
+        "type": "string"
+      },
+      "id": {
+        "description": "Flippa listing ID",
+        "type": "string"
+      },
+      "image_url": {
+        "description": "Listing thumbnail image URL",
+        "nullable": true,
+        "type": "string"
+      },
+      "industry": {
+        "description": "Industry / niche",
+        "nullable": true,
+        "type": "string"
+      },
+      "page_views_per_month": {
+        "description": "Monthly page views",
+        "nullable": true,
+        "type": "integer"
+      },
+      "price": {
+        "description": "Current / display price in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "profit_multiple": {
+        "description": "Price divided by annualized profit",
+        "nullable": true,
+        "type": "number"
+      },
+      "profit_per_month": {
+        "description": "Monthly profit in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "property_name": {
+        "description": "Property / brand name",
+        "nullable": true,
+        "type": "string"
+      },
+      "property_type": {
+        "description": "Type: website, ecommerce_store, saas, ios_app, android_app, domain, etc.",
+        "nullable": true,
+        "type": "string"
+      },
+      "reserve_met": {
+        "description": "Whether reserve has been met",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "revenue_multiple": {
+        "description": "Price divided by annualized revenue",
+        "nullable": true,
+        "type": "number"
+      },
+      "revenue_per_month": {
+        "description": "Monthly revenue in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "revenue_sources": {
+        "description": "Revenue source tags",
+        "nullable": true,
+        "type": "array"
+      },
+      "sale_method": {
+        "description": "auction or classified",
+        "nullable": true,
+        "type": "string"
+      },
+      "scraped_at": {
+        "description": "UTC timestamp when this record was scraped",
+        "type": "string"
+      },
+      "seller_location": {
+        "description": "Country of the seller",
+        "nullable": true,
+        "type": "string"
+      },
+      "starts_at": {
+        "description": "Listing start time (ISO datetime)",
+        "nullable": true,
+        "type": "string"
+      },
+      "status": {
+        "description": "Listing status",
+        "nullable": true,
+        "type": "string"
+      },
+      "summary": {
+        "description": "Short description from seller",
+        "nullable": true,
+        "type": "string"
+      },
+      "super_seller": {
+        "description": "Seller holds Flippa Super Seller status",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "title": {
+        "description": "Listing title",
+        "type": "string"
+      },
+      "turnkey_listing": {
+        "description": "Listing is tagged as turnkey",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "uniques_per_month": {
+        "description": "Monthly unique visitors",
+        "nullable": true,
+        "type": "integer"
+      },
+      "url": {
+        "description": "Full Flippa listing URL",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Flippa Listings",
+  "views": {
+    "financials": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "has_verified_revenue": {
+            "format": "boolean",
+            "label": "Verified Rev"
+          },
+          "has_verified_traffic": {
+            "format": "boolean",
+            "label": "Verified Traffic"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price"
+          },
+          "profit_multiple": {
+            "format": "number",
+            "label": "Profit Multiple"
+          },
+          "profit_per_month": {
+            "format": "number",
+            "label": "Profit/mo"
+          },
+          "revenue_multiple": {
+            "format": "number",
+            "label": "Rev Multiple"
+          },
+          "revenue_per_month": {
+            "format": "number",
+            "label": "Rev/mo"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "Listing"
+          }
+        }
+      },
+      "title": "Financials",
+      "transformation": {
+        "fields": [
+          "title",
+          "price",
+          "revenue_per_month",
+          "profit_per_month",
+          "revenue_multiple",
+          "profit_multiple",
+          "has_verified_revenue",
+          "has_verified_traffic",
+          "url"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "price": {
+            "format": "number",
+            "label": "Price (USD)"
+          },
+          "profit_per_month": {
+            "format": "number",
+            "label": "Monthly Profit"
+          },
+          "property_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "revenue_per_month": {
+            "format": "number",
+            "label": "Monthly Revenue"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "Listing"
+          }
+        }
+      },
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "title",
+          "property_type",
+          "price",
+          "revenue_per_month",
+          "profit_per_month",
+          "url"
+        ]
+      }
+    }
+  }
+}

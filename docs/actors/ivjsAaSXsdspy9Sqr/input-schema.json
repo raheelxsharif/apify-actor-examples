@@ -1,0 +1,167 @@
+{
+  "properties": {
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to return. Flippa's API caps results at 10,000 per search.",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "priceMax": {
+      "description": "Maximum asking price.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Price (USD)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum asking price.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Price (USD)",
+      "type": "integer"
+    },
+    "profitMin": {
+      "description": "Include only listings with at least this monthly profit.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Monthly Profit (USD)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "description": "Listing category. Used only when Search URL is empty. Leave blank to include all types.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "website",
+          "ecommerce_store",
+          "saas",
+          "ios_app",
+          "android_app",
+          "domain",
+          "newsletter",
+          "digital_product",
+          "content",
+          "service"
+        ],
+        "enumTitles": [
+          "Website",
+          "Ecommerce Store",
+          "SaaS",
+          "iOS App",
+          "Android App",
+          "Domain",
+          "Newsletter",
+          "Digital Product",
+          "Content",
+          "Service"
+        ],
+        "type": "string"
+      },
+      "title": "Property Type",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "revenueMin": {
+      "description": "Include only listings with at least this monthly revenue.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Monthly Revenue (USD)",
+      "type": "integer"
+    },
+    "saleMethod": {
+      "description": "Auction or classified (fixed price).",
+      "editor": "select",
+      "enum": [
+        "auction",
+        "classified"
+      ],
+      "enumTitles": [
+        "Auction",
+        "Classified (Fixed Price)"
+      ],
+      "nullable": true,
+      "title": "Sale Method",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keyword search (e.g. 'shopify', 'saas', 'blog').",
+      "editor": "textfield",
+      "nullable": true,
+      "title": "Search Query",
+      "type": "string"
+    },
+    "searchUrl": {
+      "description": "A Flippa search URL to scrape. Paste any URL from https://flippa.com/search — the scraper maps its filters directly to the Flippa API. If empty, the structured filter fields below are used instead.",
+      "editor": "textfield",
+      "prefill": "https://flippa.com/search?filter%5Bproperty_type%5D%5B%5D=ecommerce_store&filter%5Bstatus%5D=open",
+      "title": "Flippa Search URL",
+      "type": "string"
+    },
+    "sort": {
+      "default": "-created_at",
+      "description": "How results are ordered.",
+      "editor": "select",
+      "enum": [
+        "-created_at",
+        "created_at",
+        "-price",
+        "price",
+        "-revenue_per_month",
+        "-profit_per_month",
+        "most_relevant"
+      ],
+      "enumTitles": [
+        "Newest First",
+        "Oldest First",
+        "Highest Price",
+        "Lowest Price",
+        "Highest Revenue",
+        "Highest Profit",
+        "Most Relevant"
+      ],
+      "title": "Sort Order",
+      "type": "string"
+    },
+    "status": {
+      "default": "open",
+      "description": "Listing status. Sold listings are not exposed by Flippa's public API.",
+      "editor": "select",
+      "enum": [
+        "open",
+        "under_offer",
+        "closed"
+      ],
+      "enumTitles": [
+        "Open",
+        "Under Offer",
+        "Closed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "verifiedRevenue": {
+      "default": false,
+      "description": "Include only listings with Flippa-verified revenue.",
+      "title": "Verified Revenue Only",
+      "type": "boolean"
+    },
+    "verifiedTraffic": {
+      "default": false,
+      "description": "Include only listings with Flippa-verified traffic.",
+      "title": "Verified Traffic Only",
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Flippa Scraper Input",
+  "type": "object"
+}
