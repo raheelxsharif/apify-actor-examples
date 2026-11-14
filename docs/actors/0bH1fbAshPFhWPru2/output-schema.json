@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Product or supplier records from TradeIndia keyword search, including price, minimum order, supplier name, city and contact fields.",
+  "description": "TradeIndia product and company records. Product records carry title, price, MOQ, specifications, category, images and supplier contact; supplier records carry business type, city, GST, owner, address, employees, turnover, products and profile links.",
   "properties": {
     "results": {
-      "description": "Dataset containing all scraped TradeIndia products and suppliers.",
+      "description": "Dataset containing product records (recordType=product) and supplier/company records (recordType=supplier).",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "TradeIndia results",
+      "title": "TradeIndia products & suppliers",
       "type": "string"
     }
   },
-  "title": "TradeIndia B2B Product & Supplier Search Scraper Output"
+  "title": "TradeIndia B2B Product & Supplier Scraper Output"
 }

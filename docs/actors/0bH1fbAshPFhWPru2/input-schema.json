@@ -1,51 +1,155 @@
 {
-  "description": "Search TradeIndia for products or suppliers by keyword. Optionally filter by city.",
+  "description": "Search TradeIndia products or suppliers by keyword, or fetch products and supplier profiles by URL/ID. All data is public and cookieless.",
   "properties": {
-    "city": {
-      "description": "Filter results to a specific Indian city (e.g. 'Mumbai', 'Delhi', 'Chennai').",
-      "editor": "textfield",
-      "title": "Filter by city",
-      "type": "string"
+    "businessTypes": {
+      "default": [],
+      "description": "Keep only listings whose supplier matches at least one selected type. Leave empty for all types. Applied after fetching because TradeIndia ignores these flags on keyword search.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "manufacturer",
+          "supplier",
+          "exporter",
+          "trader",
+          "wholesalerDistributor"
+        ],
+        "enumTitles": [
+          "Manufacturer",
+          "Supplier",
+          "Exporter",
+          "Trader",
+          "Wholesaler / Distributor"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "sectionCaption": "Filters",
+      "sectionDescription": "Optional filters for the two search modes.",
+      "title": "Business type filter",
+      "type": "array",
+      "uniqueItems": true
     },
-    "keyword": {
-      "default": "rubber gaskets",
-      "description": "Product or supplier keyword (e.g. 'rubber gaskets', 'cotton fabric').",
-      "editor": "textfield",
-      "prefill": "rubber gaskets",
-      "title": "Search keyword",
-      "type": "string"
+    "buyerFeedbackOnly": {
+      "default": false,
+      "description": "Keep listings whose supplier has a buyer-feedback rating.",
+      "prefill": false,
+      "title": "Only suppliers with buyer feedback",
+      "type": "boolean"
+    },
+    "cities": {
+      "default": [],
+      "description": "Optional Indian city names (e.g. Mumbai, Delhi, Chennai). Leave empty for all of India. The city filter is applied by TradeIndia itself.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Filter by city",
+      "type": "array"
+    },
+    "includeContact": {
+      "default": true,
+      "description": "Details modes and enriched searches: add the publicly listed phone/email of the supplier when TradeIndia publishes it.",
+      "prefill": true,
+      "title": "Include published phone and email",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Search modes: fetch each product/supplier page for full specifications and company details. Slower and more requests; off by default.",
+      "prefill": false,
+      "title": "Enrich search results with detail pages",
+      "type": "boolean"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of records to return.",
-      "maximum": 500,
+      "description": "Maximum number of product or supplier records to emit.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max items",
+      "prefill": 3,
+      "sectionCaption": "Limits",
+      "sectionDescription": "Stop conditions; the actor also stops when TradeIndia runs out of results.",
+      "title": "Max records",
+      "type": "integer"
+    },
+    "maxProductsPerSupplier": {
+      "default": 12,
+      "description": "supplierDetails: how many of the supplier's products to list on the company record.",
+      "maximum": 120,
+      "minimum": 1,
+      "prefill": 12,
+      "title": "Max products per supplier (details)",
       "type": "integer"
     },
     "mode": {
       "default": "searchProducts",
-      "description": "What to search for on TradeIndia.",
+      "description": "Search listings by keyword, or look up product/supplier pages by URL or numeric ID.",
       "editor": "select",
       "enum": [
         "searchProducts",
-        "searchSuppliers"
+        "searchSuppliers",
+        "productDetails",
+        "supplierDetails"
       ],
       "enumTitles": [
-        "Search Products",
-        "Search Suppliers"
+        "Search products",
+        "Search suppliers / companies",
+        "Product details by URL or ID",
+        "Supplier details by URL or ID"
       ],
       "prefill": "searchProducts",
-      "title": "Mode",
+      "sectionCaption": "Mode",
+      "sectionDescription": "Search modes read keyword result pages; details modes read the product or company page you paste below.",
+      "title": "What to collect",
       "type": "string"
+    },
+    "searchQueries": {
+      "default": [
+        "rubber gaskets"
+      ],
+      "description": "One or more product or supplier keywords, e.g. \"rubber gaskets\", \"cotton fabric\", \"LED lights\" (search modes).",
+      "editor": "stringList",
+      "prefill": [
+        "rubber gaskets"
+      ],
+      "sectionCaption": "Search inputs",
+      "sectionDescription": "Used by the two search modes. Every query is combined with every city.",
+      "title": "Search queries",
+      "type": "array"
+    },
+    "shopOnline": {
+      "default": false,
+      "description": "Keep products ready for immediate online purchase (Ti Shopping).",
+      "prefill": false,
+      "title": "Only online-purchasable products",
+      "type": "boolean"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "TradeIndia product URLs (…/products/…-c123456.html), company profile URLs (…/company-name-357545/), or bare numeric IDs. Used by the two details modes.",
+      "editor": "stringList",
+      "prefill": [],
+      "sectionCaption": "Detail lookups",
+      "sectionDescription": "Paste links or IDs for productDetails / supplierDetails.",
+      "title": "Product or supplier URLs / IDs",
+      "type": "array"
+    },
+    "trustStamp": {
+      "default": false,
+      "description": "Keep products or companies holding TradeIndia's trust stamp.",
+      "prefill": false,
+      "title": "Only Ti Trusted suppliers",
+      "type": "boolean"
+    },
+    "withPrice": {
+      "default": false,
+      "description": "Drop listings that do not publish a price.",
+      "prefill": false,
+      "title": "Only listings with a price",
+      "type": "boolean"
     }
   },
   "required": [
-    "mode",
-    "keyword"
+    "mode"
   ],
   "schemaVersion": 1,
-  "title": "TradeIndia Scraper Input",
+  "title": "TradeIndia B2B Product & Supplier Scraper Input",
   "type": "object"
 }
