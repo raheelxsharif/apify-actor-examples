@@ -3,12 +3,17 @@
   "fields": {
     "properties": {
       "age_years": {
-        "description": "Age in years (derived)",
+        "description": "Business age in years",
         "nullable": true,
         "type": "number"
       },
       "app_downloads_per_month": {
-        "description": "Monthly app downloads (apps only)",
+        "description": "Monthly app downloads",
+        "nullable": true,
+        "type": "integer"
+      },
+      "auction_ends_in_days": {
+        "description": "Days left on an open auction, as shown by Flippa",
         "nullable": true,
         "type": "integer"
       },
@@ -22,43 +27,81 @@
         "nullable": true,
         "type": "integer"
       },
+      "badges": {
+        "description": "Public badges shown on the listing",
+        "items": {
+          "type": "string"
+        },
+        "nullable": true,
+        "type": "array"
+      },
       "bid_count": {
-        "description": "Number of bids (auction)",
+        "description": "Number of bids on an auction",
         "nullable": true,
         "type": "integer"
       },
       "buy_it_now_price": {
-        "description": "Buy-it-now price in USD (auctions)",
+        "description": "Buy-it-now price in USD",
+        "nullable": true,
+        "type": "integer"
+      },
+      "category": {
+        "description": "Flippa category label, e.g. Ecommerce Store",
+        "nullable": true,
+        "type": "string"
+      },
+      "comments_count": {
+        "description": "Public comment count",
         "nullable": true,
         "type": "integer"
       },
       "confidential": {
-        "description": "Listing is confidential",
+        "description": "Listing is marked confidential",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "currency": {
+        "description": "Currency of the numeric price fields (USD)",
+        "nullable": true,
+        "type": "string"
+      },
+      "data_verified": {
+        "description": "Flippa shows a Data Verified badge",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "description": {
+        "description": "Full public description from the listing detail page",
+        "nullable": true,
+        "type": "string"
+      },
+      "editors_choice": {
+        "description": "Listing has Flippa's Editor's Choice badge",
         "nullable": true,
         "type": "boolean"
       },
       "ends_at": {
-        "description": "Listing end time (ISO datetime)",
+        "description": "Listing end time",
         "nullable": true,
         "type": "string"
       },
       "established_at": {
-        "description": "When property was established (ISO datetime)",
+        "description": "When the property was established",
         "nullable": true,
         "type": "string"
       },
       "external_url": {
-        "description": "External URL to the property",
+        "description": "External URL of the property",
         "nullable": true,
         "type": "string"
       },
       "has_verified_revenue": {
-        "description": "Revenue is Flippa-verified",
+        "description": "Revenue is verified by Flippa",
         "nullable": true,
         "type": "boolean"
       },
       "has_verified_traffic": {
-        "description": "Traffic is Flippa-verified",
+        "description": "Traffic is verified by Flippa",
         "nullable": true,
         "type": "boolean"
       },
@@ -72,7 +115,7 @@
         "type": "string"
       },
       "image_url": {
-        "description": "Listing thumbnail image URL",
+        "description": "Listing image URL",
         "nullable": true,
         "type": "string"
       },
@@ -81,18 +124,38 @@
         "nullable": true,
         "type": "string"
       },
+      "managed_by_flippa": {
+        "description": "Listing is managed by Flippa",
+        "nullable": true,
+        "type": "boolean"
+      },
       "page_views_per_month": {
         "description": "Monthly page views",
         "nullable": true,
         "type": "integer"
       },
       "price": {
-        "description": "Current / display price in USD",
+        "description": "Asking price, starting bid or current price in USD",
         "nullable": true,
         "type": "integer"
       },
+      "price_on_request": {
+        "description": "True when Flippa hides the price behind a contact request",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "price_type": {
+        "description": "asking_price, starting_bid, highest_bid or sold_price",
+        "nullable": true,
+        "type": "string"
+      },
+      "profit_margin": {
+        "description": "Monthly profit margin in percent",
+        "nullable": true,
+        "type": "number"
+      },
       "profit_multiple": {
-        "description": "Price divided by annualized profit",
+        "description": "Price divided by annual profit",
         "nullable": true,
         "type": "number"
       },
@@ -102,22 +165,22 @@
         "type": "integer"
       },
       "property_name": {
-        "description": "Property / brand name",
+        "description": "Property or brand name",
         "nullable": true,
         "type": "string"
       },
       "property_type": {
-        "description": "Type: website, ecommerce_store, saas, ios_app, android_app, domain, etc.",
+        "description": "Normalized asset type, e.g. ecommerce_store, saas, ios_app",
         "nullable": true,
         "type": "string"
       },
       "reserve_met": {
-        "description": "Whether reserve has been met",
+        "description": "Whether the auction reserve has been met",
         "nullable": true,
         "type": "boolean"
       },
       "revenue_multiple": {
-        "description": "Price divided by annualized revenue",
+        "description": "Price divided by annual revenue",
         "nullable": true,
         "type": "number"
       },
@@ -128,6 +191,9 @@
       },
       "revenue_sources": {
         "description": "Revenue source tags",
+        "items": {
+          "type": "string"
+        },
         "nullable": true,
         "type": "array"
       },
@@ -141,22 +207,32 @@
         "type": "string"
       },
       "seller_location": {
-        "description": "Country of the seller",
+        "description": "Business or seller location",
         "nullable": true,
         "type": "string"
       },
+      "seller_name": {
+        "description": "Broker or seller name, when public",
+        "nullable": true,
+        "type": "string"
+      },
+      "sponsored": {
+        "description": "Listing is sponsored",
+        "nullable": true,
+        "type": "boolean"
+      },
       "starts_at": {
-        "description": "Listing start time (ISO datetime)",
+        "description": "Listing start time",
         "nullable": true,
         "type": "string"
       },
       "status": {
-        "description": "Listing status",
+        "description": "open, won, closed or under_offer",
         "nullable": true,
         "type": "string"
       },
       "summary": {
-        "description": "Short description from seller",
+        "description": "Short seller description",
         "nullable": true,
         "type": "string"
       },
@@ -166,11 +242,11 @@
         "type": "boolean"
       },
       "title": {
-        "description": "Listing title",
+        "description": "Listing headline",
         "type": "string"
       },
       "turnkey_listing": {
-        "description": "Listing is tagged as turnkey",
+        "description": "Listing is tagged turnkey",
         "nullable": true,
         "type": "boolean"
       },
@@ -182,12 +258,84 @@
       "url": {
         "description": "Full Flippa listing URL",
         "type": "string"
+      },
+      "verified_listing": {
+        "description": "Listing carries Flippa's Verified Listing badge",
+        "nullable": true,
+        "type": "boolean"
+      },
+      "views_count": {
+        "description": "Public view count",
+        "nullable": true,
+        "type": "integer"
+      },
+      "watchers_count": {
+        "description": "Public watcher count",
+        "nullable": true,
+        "type": "integer"
       }
     },
     "type": "object"
   },
   "title": "Flippa Listings",
   "views": {
+    "auctions": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "auction_ends_in_days": {
+            "format": "number",
+            "label": "Days Left"
+          },
+          "bid_count": {
+            "format": "number",
+            "label": "Bids"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price (USD)"
+          },
+          "price_type": {
+            "format": "text",
+            "label": "Price Type"
+          },
+          "reserve_met": {
+            "format": "boolean",
+            "label": "Reserve Met"
+          },
+          "sale_method": {
+            "format": "text",
+            "label": "Method"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "Listing"
+          }
+        }
+      },
+      "title": "Auctions",
+      "transformation": {
+        "fields": [
+          "title",
+          "sale_method",
+          "price",
+          "price_type",
+          "bid_count",
+          "reserve_met",
+          "auction_ends_in_days",
+          "status",
+          "url"
+        ]
+      }
+    },
     "financials": {
       "display": {
         "component": "table",
@@ -202,7 +350,15 @@
           },
           "price": {
             "format": "number",
-            "label": "Price"
+            "label": "Price (USD)"
+          },
+          "price_type": {
+            "format": "text",
+            "label": "Price Type"
+          },
+          "profit_margin": {
+            "format": "number",
+            "label": "Margin %"
           },
           "profit_multiple": {
             "format": "number",
@@ -210,7 +366,7 @@
           },
           "profit_per_month": {
             "format": "number",
-            "label": "Profit/mo"
+            "label": "Profit / mo"
           },
           "revenue_multiple": {
             "format": "number",
@@ -218,7 +374,7 @@
           },
           "revenue_per_month": {
             "format": "number",
-            "label": "Rev/mo"
+            "label": "Revenue / mo"
           },
           "title": {
             "format": "text",
@@ -235,8 +391,10 @@
         "fields": [
           "title",
           "price",
+          "price_type",
           "revenue_per_month",
           "profit_per_month",
+          "profit_margin",
           "revenue_multiple",
           "profit_multiple",
           "has_verified_revenue",
@@ -249,13 +407,21 @@
       "display": {
         "component": "table",
         "properties": {
+          "age_years": {
+            "format": "number",
+            "label": "Age (years)"
+          },
+          "industry": {
+            "format": "text",
+            "label": "Industry"
+          },
           "price": {
             "format": "number",
             "label": "Price (USD)"
           },
           "profit_per_month": {
             "format": "number",
-            "label": "Monthly Profit"
+            "label": "Profit / mo"
           },
           "property_type": {
             "format": "text",
@@ -263,7 +429,11 @@
           },
           "revenue_per_month": {
             "format": "number",
-            "label": "Monthly Revenue"
+            "label": "Revenue / mo"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
           },
           "title": {
             "format": "text",
@@ -280,9 +450,12 @@
         "fields": [
           "title",
           "property_type",
+          "status",
           "price",
           "revenue_per_month",
           "profit_per_month",
+          "age_years",
+          "industry",
           "url"
         ]
       }

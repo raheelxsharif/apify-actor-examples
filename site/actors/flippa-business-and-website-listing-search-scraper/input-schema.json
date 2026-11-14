@@ -1,17 +1,185 @@
 {
   "properties": {
+    "ageMax": {
+      "description": "Only businesses at most this old.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Age (years)",
+      "type": "number"
+    },
+    "ageMin": {
+      "description": "Only businesses at least this old.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Age (years)",
+      "type": "number"
+    },
+    "categories": {
+      "description": "Flippa listing categories to include. Leave empty for all categories.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "ecommerce",
+          "content",
+          "saas",
+          "youtube-channels",
+          "amazon-kdp",
+          "amazon-fba",
+          "ios-apps",
+          "android-apps",
+          "digital-agencies",
+          "services",
+          "ai-apps-and-tools",
+          "marketplaces",
+          "social-media-accounts",
+          "newsletters",
+          "plugins-and-extensions",
+          "crypto-and-blockchain",
+          "projects-and-concepts",
+          "domain",
+          "other"
+        ],
+        "enumTitles": [
+          "Ecommerce",
+          "Content",
+          "SaaS",
+          "YouTube Channels",
+          "Amazon KDP",
+          "Amazon FBA",
+          "iOS Apps",
+          "Android Apps",
+          "Digital Agencies",
+          "Services",
+          "AI Apps & Tools",
+          "Marketplaces",
+          "Social Media Accounts",
+          "Newsletters",
+          "Plugins & Extensions",
+          "Crypto & Blockchain",
+          "Projects & Concepts",
+          "Domains",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "title": "Categories",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "downloadsMax": {
+      "description": "Only app listings reporting at most this many monthly downloads.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Monthly App Downloads",
+      "type": "integer"
+    },
+    "downloadsMin": {
+      "description": "Only app listings reporting at least this many monthly downloads.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Monthly App Downloads",
+      "type": "integer"
+    },
+    "keyword": {
+      "description": "Free-text keyword search, for example 'shopify', 'saas' or 'newsletter'.",
+      "editor": "textfield",
+      "nullable": true,
+      "title": "Keyword",
+      "type": "string"
+    },
+    "listingUrls": {
+      "description": "Required in listingDetails mode. Paste Flippa listing URLs or numeric listing IDs (one per line).",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "nullable": true,
+      "title": "Listing URLs or IDs",
+      "type": "array"
+    },
+    "managedBy": {
+      "description": "Who manages the listing. Leave empty for all sellers.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "owner",
+          "flippa_broker",
+          "partner_broker"
+        ],
+        "enumTitles": [
+          "Owner",
+          "Flippa Broker",
+          "Partner Broker"
+        ],
+        "type": "string"
+      },
+      "title": "Managed By",
+      "type": "array",
+      "uniqueItems": true
+    },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of listings to return. Flippa's API caps results at 10,000 per search.",
+      "description": "Maximum number of listings to return. Flippa exposes at most 10,000 search results per query.",
       "editor": "number",
       "maximum": 10000,
       "minimum": 1,
-      "prefill": 5,
+      "prefill": 3,
       "title": "Max Items",
       "type": "integer"
     },
+    "mode": {
+      "default": "search",
+      "description": "Search the Flippa marketplace, or fetch the full detail page for specific listings.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "listingDetails"
+      ],
+      "enumTitles": [
+        "Search listings",
+        "Fetch listing details"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "multipleMax": {
+      "description": "Price divided by annual profit, expressed as a multiple (2.5 = 2.5x).",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Profit Multiple",
+      "type": "number"
+    },
+    "multipleMin": {
+      "description": "Price divided by annual profit, expressed as a multiple (2.5 = 2.5x).",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Profit Multiple",
+      "type": "number"
+    },
+    "pageViewsMax": {
+      "description": "Only listings reporting at most this many monthly page views.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Monthly Page Views",
+      "type": "integer"
+    },
+    "pageViewsMin": {
+      "description": "Only listings reporting at least this many monthly page views.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Monthly Page Views",
+      "type": "integer"
+    },
     "priceMax": {
-      "description": "Maximum asking price.",
+      "description": "Maximum asking price, starting bid or current price in USD.",
       "editor": "number",
       "minimum": 0,
       "nullable": true,
@@ -19,149 +187,210 @@
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum asking price.",
+      "description": "Minimum asking price, starting bid or current price in USD.",
       "editor": "number",
       "minimum": 0,
       "nullable": true,
       "title": "Minimum Price (USD)",
       "type": "integer"
     },
+    "profitMax": {
+      "description": "Only listings reporting at most this much monthly profit.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Monthly Profit (USD)",
+      "type": "integer"
+    },
     "profitMin": {
-      "description": "Include only listings with at least this monthly profit.",
+      "description": "Only listings reporting at least this much monthly profit.",
       "editor": "number",
       "minimum": 0,
       "nullable": true,
       "title": "Minimum Monthly Profit (USD)",
       "type": "integer"
     },
-    "propertyType": {
-      "description": "Listing category. Used only when Search URL is empty. Leave blank to include all types.",
-      "editor": "select",
-      "items": {
-        "enum": [
-          "website",
-          "ecommerce_store",
-          "saas",
-          "ios_app",
-          "android_app",
-          "domain",
-          "newsletter",
-          "digital_product",
-          "content",
-          "service"
-        ],
-        "enumTitles": [
-          "Website",
-          "Ecommerce Store",
-          "SaaS",
-          "iOS App",
-          "Android App",
-          "Domain",
-          "Newsletter",
-          "Digital Product",
-          "Content",
-          "Service"
-        ],
-        "type": "string"
-      },
-      "title": "Property Type",
-      "type": "array",
-      "uniqueItems": true
+    "revenueMax": {
+      "description": "Only listings reporting at most this much monthly revenue.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Monthly Revenue (USD)",
+      "type": "integer"
     },
     "revenueMin": {
-      "description": "Include only listings with at least this monthly revenue.",
+      "description": "Only listings reporting at least this much monthly revenue.",
       "editor": "number",
       "minimum": 0,
       "nullable": true,
       "title": "Minimum Monthly Revenue (USD)",
       "type": "integer"
     },
-    "saleMethod": {
-      "description": "Auction or classified (fixed price).",
-      "editor": "select",
-      "enum": [
-        "auction",
-        "classified"
-      ],
-      "enumTitles": [
-        "Auction",
-        "Classified (Fixed Price)"
-      ],
+    "revenueMultipleMax": {
+      "description": "Price divided by annual revenue, expressed as a multiple (2.5 = 2.5x).",
+      "editor": "number",
+      "minimum": 0,
       "nullable": true,
-      "title": "Sale Method",
-      "type": "string"
+      "title": "Maximum Revenue Multiple",
+      "type": "number"
     },
-    "searchQuery": {
-      "description": "Keyword search (e.g. 'shopify', 'saas', 'blog').",
-      "editor": "textfield",
+    "revenueMultipleMin": {
+      "description": "Price divided by annual revenue, expressed as a multiple (2.5 = 2.5x).",
+      "editor": "number",
+      "minimum": 0,
       "nullable": true,
-      "title": "Search Query",
-      "type": "string"
+      "title": "Minimum Revenue Multiple",
+      "type": "number"
+    },
+    "saleMethods": {
+      "description": "Auction or classified (fixed asking price). Leave empty for both.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "auction",
+          "classified"
+        ],
+        "enumTitles": [
+          "Auction",
+          "Classified (fixed price)"
+        ],
+        "type": "string"
+      },
+      "title": "Sale Method",
+      "type": "array",
+      "uniqueItems": true
     },
     "searchUrl": {
-      "description": "A Flippa search URL to scrape. Paste any URL from https://flippa.com/search — the scraper maps its filters directly to the Flippa API. If empty, the structured filter fields below are used instead.",
+      "description": "Optional. Paste any Flippa search or category URL to reuse its filters. Leave empty to use the structured filters below. Ignored in listingDetails mode.",
       "editor": "textfield",
-      "prefill": "https://flippa.com/search?filter%5Bproperty_type%5D%5B%5D=ecommerce_store&filter%5Bstatus%5D=open",
+      "nullable": true,
       "title": "Flippa Search URL",
       "type": "string"
     },
-    "sort": {
-      "default": "-created_at",
-      "description": "How results are ordered.",
+    "sortBy": {
+      "default": "most_relevant",
+      "description": "How Flippa orders the results.",
       "editor": "select",
       "enum": [
-        "-created_at",
-        "created_at",
-        "-price",
-        "price",
-        "-revenue_per_month",
-        "-profit_per_month",
-        "most_relevant"
+        "most_relevant",
+        "most_active",
+        "lowest_price",
+        "highest_price",
+        "most_recent",
+        "ending_soonest",
+        "most_profitable"
       ],
       "enumTitles": [
-        "Newest First",
-        "Oldest First",
-        "Highest Price",
+        "Most Relevant",
+        "Most Active",
         "Lowest Price",
-        "Highest Revenue",
-        "Highest Profit",
-        "Most Relevant"
+        "Highest Price",
+        "Most Recent",
+        "Ending Soonest",
+        "Most Profitable"
       ],
       "title": "Sort Order",
       "type": "string"
     },
-    "status": {
-      "default": "open",
-      "description": "Listing status. Sold listings are not exposed by Flippa's public API.",
+    "statuses": {
+      "default": [
+        "open"
+      ],
+      "description": "Open listings, sold (won) listings, or both.",
       "editor": "select",
-      "enum": [
-        "open",
-        "under_offer",
-        "closed"
+      "items": {
+        "enum": [
+          "open",
+          "won"
+        ],
+        "enumTitles": [
+          "Open",
+          "Sold / Won"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "open"
       ],
-      "enumTitles": [
-        "Open",
-        "Under Offer",
-        "Closed"
-      ],
-      "title": "Status",
-      "type": "string"
+      "title": "Listing Status",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "uniquesMax": {
+      "description": "Only listings reporting at most this many monthly unique visitors.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Maximum Monthly Unique Visitors",
+      "type": "integer"
+    },
+    "uniquesMin": {
+      "description": "Only listings reporting at least this many monthly unique visitors.",
+      "editor": "number",
+      "minimum": 0,
+      "nullable": true,
+      "title": "Minimum Monthly Unique Visitors",
+      "type": "integer"
     },
     "verifiedRevenue": {
       "default": false,
-      "description": "Include only listings with Flippa-verified revenue.",
+      "description": "Only listings with Flippa-verified revenue.",
       "title": "Verified Revenue Only",
       "type": "boolean"
     },
     "verifiedTraffic": {
       "default": false,
-      "description": "Include only listings with Flippa-verified traffic.",
+      "description": "Only listings with Flippa-verified traffic.",
       "title": "Verified Traffic Only",
       "type": "boolean"
+    },
+    "verticals": {
+      "description": "Industry (vertical) filters. Leave empty for all industries.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "automotive",
+          "business",
+          "design-and-style",
+          "education",
+          "electronics",
+          "entertainment",
+          "lifestyle",
+          "food-and-drink",
+          "general-knowledge",
+          "health-and-beauty",
+          "hobbies-and-games",
+          "home-and-garden",
+          "internet",
+          "sports-and-outdoor",
+          "travel"
+        ],
+        "enumTitles": [
+          "Automotive",
+          "Business",
+          "Design & Style",
+          "Education",
+          "Electronics",
+          "Entertainment",
+          "Lifestyle",
+          "Food & Drink",
+          "General Knowledge",
+          "Health & Beauty",
+          "Hobbies & Games",
+          "Home & Garden",
+          "Internet",
+          "Sports & Outdoor",
+          "Travel"
+        ],
+        "type": "string"
+      },
+      "title": "Industries",
+      "type": "array",
+      "uniqueItems": true
     }
   },
   "required": [],
   "schemaVersion": 1,
-  "title": "Flippa Scraper Input",
+  "title": "Flippa Business & Website Listings",
   "type": "object"
 }

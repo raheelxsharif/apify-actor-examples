@@ -1,119 +1,158 @@
 # Flippa Business & Website Listing Search Scraper
 
-Flippa is the largest marketplace for buying and selling websites, ecommerce stores, SaaS products, mobile apps, domains and other online businesses. This actor queries Flippa's search catalog — either by pasting a Flippa search URL or by setting structured filters — and returns every matching listing as a clean record with financials, traffic, verification and seller data.
+Flippa is a marketplace for buying and selling websites, ecommerce stores, SaaS products, apps, domains, newsletters and other online businesses. This actor reads Flippa's public search results and listing pages — with no account, login or cookie — and returns one structured record per listing.
 
-## What this actor does
+## Two ways to collect data
 
-- Searches Flippa listings by pasting any `flippa.com/search` URL, or by setting structured filter fields (property type, status, price, revenue, profit, verification, keyword)
-- Covers every Flippa property type: websites, ecommerce stores, SaaS, iOS/Android apps, domains, newsletters, digital products, content sites and services
-- Returns financial metrics (price, revenue, profit, multiples), traffic metrics, and Flippa's own revenue/traffic verification flags for each listing
-- Sorts results by newest, price, revenue or profit, and paginates automatically up to the requested item count
-- Empty fields are omitted from records — a field only appears when Flippa actually published that data for the listing
+| Mode | What it does | Inputs |
+|---|---|---|
+| `search` (default) | Pages through Flippa search results and returns one record per listing card. | Structured filters or a pasted `flippa.com/search` URL. |
+| `listingDetails` | Fetches the full public detail page for exact listings and adds description, margin, auction status, seller and verification data. | One or more Flippa listing URLs or numeric listing IDs. |
 
-## Output per listing
+Both modes deduplicate by Flippa listing ID, stop at `maxItems`, and omit fields Flippa does not publish for a listing.
 
-- `id` — Flippa listing ID
-- `title` — listing title
-- `url` — full Flippa listing URL
-- `property_name` — property/brand name
-- `property_type` — asset type as returned by Flippa (e.g. `ecommerce_store`, `shopify`, `beehiiv`)
-- `industry` — industry/niche
-- `hostname` — primary hostname of the property
-- `external_url` — the property's own external URL
-- `summary` — seller's short description
-- `price` — current/display price in USD
-- `buy_it_now_price` — buy-it-now price, for auctions
-- `sale_method` — `auction` or `classified`
-- `status` — listing status
-- `bid_count` — number of bids, for auctions
-- `reserve_met` — whether an auction's reserve price has been met
-- `revenue_per_month`, `profit_per_month` — latest monthly revenue/profit in USD
-- `average_revenue`, `average_profit` — average monthly revenue/profit
-- `revenue_multiple`, `profit_multiple` — price divided by annualized revenue/profit
-- `page_views_per_month`, `uniques_per_month` — monthly traffic metrics
-- `app_downloads_per_month` — monthly app downloads, for app listings
-- `has_verified_revenue`, `has_verified_traffic` — Flippa verification flags
-- `established_at`, `age_years` — when the property was established and its age
-- `starts_at`, `ends_at` — listing start/end time
-- `seller_location` — seller's country
-- `super_seller` — `true` when the seller holds Flippa's Super Seller status
-- `turnkey_listing` — `true` when tagged as a turnkey business
-- `confidential` — `true` when the listing is marked confidential
-- `revenue_sources` — revenue source tags
-- `image_url` — listing thumbnail URL
-- `scraped_at` — UTC timestamp when the record was collected
+## Search filters
 
-## Input
+Every filter below is applied by Flippa's own search endpoint, so the returned rows honour it. Results are paginated automatically at up to 100 rows per page.
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `searchUrl` | string | – | A full `flippa.com/search` URL; its filters are mapped directly to Flippa's search. Leave empty to use the structured filter fields below instead |
-| `maxItems` | integer | `50` | Maximum listings to return (1–10,000) |
-| `propertyType` | array | – | Listing categories to include (used only when `searchUrl` is empty): `website`, `ecommerce_store`, `saas`, `ios_app`, `android_app`, `domain`, `newsletter`, `digital_product`, `content`, `service`. Leave blank for all types |
-| `status` | string | `open` | `open`, `under_offer`, or `closed` |
-| `saleMethod` | string | – | `auction` or `classified` |
-| `priceMin` / `priceMax` | integer | – | Asking price range in USD |
-| `revenueMin` | integer | – | Minimum monthly revenue in USD |
-| `profitMin` | integer | – | Minimum monthly profit in USD |
-| `verifiedRevenue` | boolean | `false` | Only include listings with Flippa-verified revenue |
-| `verifiedTraffic` | boolean | `false` | Only include listings with Flippa-verified traffic |
-| `searchQuery` | string | – | Keyword search, e.g. `shopify`, `saas`, `blog` |
-| `sort` | string | `-created_at` | `-created_at`, `created_at`, `-price`, `price`, `-revenue_per_month`, `-profit_per_month`, or `most_relevant` |
+| Input | Values / notes |
+|---|---|
+| `categories` | Ecommerce, Content, SaaS, YouTube Channels, Amazon KDP, Amazon FBA, iOS Apps, Android Apps, Digital Agencies, Services, AI Apps & Tools, Marketplaces, Social Media Accounts, Newsletters, Plugins & Extensions, Crypto & Blockchain, Projects & Concepts, Domains, Other |
+| `statuses` | `open` or `won` (sold). Defaults to `open`. |
+| `saleMethods` | `auction`, `classified` (fixed asking price) |
+| `managedBy` | `owner`, `flippa_broker`, `partner_broker` |
+| `verticals` | Automotive, Business, Design & Style, Education, Electronics, Entertainment, Lifestyle, Food & Drink, General Knowledge, Health & Beauty, Hobbies & Games, Home & Garden, Internet, Sports & Outdoor, Travel |
+| `keyword` | Free-text search, e.g. `shopify`, `saas`, `newsletter` |
+| `sortBy` | Most Relevant, Most Active, Lowest Price, Highest Price, Most Recent, Ending Soonest, Most Profitable |
+| `priceMin` / `priceMax` | USD price range |
+| `revenueMin` / `revenueMax` | USD monthly revenue range |
+| `profitMin` / `profitMax` | USD monthly profit range |
+| `ageMin` / `ageMax` | Business age in years |
+| `multipleMin` / `multipleMax` | Profit multiple range, e.g. `2.5` means 2.5× annual profit |
+| `revenueMultipleMin` / `revenueMultipleMax` | Revenue multiple range, e.g. `2.5` means 2.5× annual revenue |
+| `uniquesMin` / `uniquesMax` | Monthly unique visitors |
+| `pageViewsMin` / `pageViewsMax` | Monthly page views |
+| `downloadsMin` / `downloadsMax` | Monthly app downloads |
+| `verifiedRevenue` / `verifiedTraffic` | Keep only Flippa-verified listings |
+| `searchUrl` | Paste any Flippa search or category URL; its filters are reused. |
 
-### Example: open ecommerce stores from a pasted URL
+Saved tasks that still send the older keys `propertyType`, `status`, `saleMethod`, `searchQuery`, `sort`, `startUrl` and `maxResults` keep working: the actor maps them in code to the equivalent new filters, even when the input form has filled the newer field with its default value.
+
+## Output
+
+Each record is a flat JSON object. Fields appear only when Flippa publishes that value, so no `null`, empty string or empty list is ever written.
+
+**Identity and classification:** `id`, `title`, `url`, `property_name`, `property_type`, `category`, `industry`, `summary`, `description`, `hostname`, `external_url`.
+
+**Price and sale state:** `price`, `price_type` (`asking_price`, `starting_bid`, `highest_bid`, `sold_price`), `price_on_request`, `currency`, `buy_it_now_price`, `sale_method`, `status`, `bid_count`, `reserve_met`, `auction_ends_in_days`.
+
+**Financials:** `revenue_per_month`, `profit_per_month`, `profit_margin`, `average_revenue`, `average_profit`, `revenue_multiple`, `profit_multiple`.
+
+**Traffic and verification:** `page_views_per_month`, `uniques_per_month`, `app_downloads_per_month`, `has_verified_revenue`, `has_verified_traffic`, `data_verified`, `verified_listing`.
+
+**Seller and metadata:** `age_years`, `established_at`, `starts_at`, `ends_at`, `seller_location`, `seller_name`, `super_seller`, `turnkey_listing`, `confidential`, `editors_choice`, `sponsored`, `managed_by_flippa`, `badges`, `revenue_sources`, `comments_count`, `views_count`, `watchers_count`, `image_url`, `scraped_at`.
+
+## Examples
+
+Open ecommerce stores:
 
 ```json
 {
-  "searchUrl": "https://flippa.com/search?filter%5Bproperty_type%5D%5B%5D=ecommerce_store&filter%5Bstatus%5D=open",
-  "maxItems": 100
+  "mode": "search",
+  "categories": ["ecommerce"],
+  "statuses": ["open"],
+  "maxItems": 25
 }
 ```
 
-### Example: verified SaaS businesses over $10k revenue
+Verified SaaS listings above $10k monthly revenue, most profitable first:
 
 ```json
 {
-  "propertyType": ["saas"],
+  "mode": "search",
+  "categories": ["saas"],
   "revenueMin": 10000,
   "verifiedRevenue": true,
-  "sort": "-profit_per_month",
+  "sortBy": "most_profitable",
   "maxItems": 50
 }
 ```
 
-### Example: keyword search across all types
+Recently sold businesses:
 
 ```json
 {
-  "searchQuery": "shopify",
-  "priceMin": 5000,
-  "priceMax": 100000,
-  "maxItems": 75
+  "mode": "search",
+  "statuses": ["won"],
+  "maxItems": 25
 }
 ```
 
-## Use cases
+Full details for exact listings (URLs or numeric IDs):
 
-- **Deal sourcing** — scan open listings filtered by profit multiple and verified revenue to find under-priced acquisition targets
-- **Niche monitoring** — track the newsletter, content or digital-product categories for new deal flow
-- **SaaS acquisition research** — filter SaaS listings by monthly revenue and age to build a shortlist
-- **App portfolio scouting** — scan iOS and Android app listings with verified download counts
-- **Market benchmarking** — compare price-to-revenue and price-to-profit multiples across industries and property types
+```json
+{
+  "mode": "listingDetails",
+  "listingUrls": [
+    "https://flippa.com/11674627-profitable-canadian-rooftop-tent-brand",
+    "12061800"
+  ],
+  "maxItems": 2
+}
+```
+
+## Pagination and limits
+
+- Search pages hold up to 100 rows. The actor follows pages until `maxItems` is reached, Flippa stops returning rows, or the 10,000-result search window is exhausted.
+- Flippa reports some broad categories as "10,000+" matches. Narrow by price, revenue, age, industry or sale method to stay inside the window.
+- `listingDetails` accepts up to 1,000 URLs or IDs per run.
 
 ## FAQ
 
-**Do I need a Flippa account or API key?** No — this actor reads Flippa's public search catalog; no login or credentials are required.
+**Do I need a Flippa account, API key, cookie or proxy?** No. The actor reads public search and detail pages directly.
 
-**Can I get sold listings?** No. Flippa's public catalog does not expose sold listings, so only `open`, `under_offer` and `closed` (unsold, ended) listings are available — and in practice `under_offer`/`closed` currently return no records at all, only `open` does.
+**Why is `price_type` sometimes `starting_bid` instead of `asking_price`?** Flippa shows auctions with a starting bid and classified listings with an asking price. The field tells you which price is in `price`.
 
-**How many listings can one run return?** Up to `maxItems`, capped at 10,000. For very broad categories, narrow with price or revenue filters to stay under that cap.
+**Why are some fields missing?** Flippa hides financials for confidential listings, hides traffic until sign-up for some sellers, and does not publish every metric for every listing. Missing means "not public", never "zero".
 
-**Why does `price` sometimes exceed the `priceMax` I set?** The price filter is applied against the listing's asking/buy-it-now price at query time. For auctions, the current bid shown in `price` can rise above that as bidding progresses, while `buy_it_now_price` keeps the original asking price. Filter on `saleMethod: "classified"` if you need the returned price to always stay inside your range.
+**Can I get sold listings?** Yes — set `statuses` to `["won"]`. Sold listings may show "Contact Flippa for Price" instead of a public price; those rows set `price_on_request` and omit `price`.
 
-**Why does `property_type` not exactly match the category I filtered by?** Flippa filters on a high-level category (e.g. `newsletter`) but the record's `property_type` reports the more specific platform Flippa detected (e.g. `beehiiv`). The filter still worked correctly — group by the filter you passed rather than the returned value if you need the broad category.
+**Why does the card price differ slightly from the detail page?** Search cards use Flippa's rounded USD display (for example `$102K`); detail pages return the exact public value. Use `listingDetails` when exact numbers matter.
 
-**Are `digital_product` and `content` property types useful?** They're valid filter values, but at any given time Flippa may have zero active listings in those categories; the actor returns an empty dataset rather than an error when that happens.
+**Is this affiliated with Flippa?** No. This is an independent third-party actor that reads publicly available Flippa listings.
 
-**How fresh is the data?** Every run queries Flippa live, so results reflect the marketplace at the moment the actor runs.
+## Input reference
 
-**Is this affiliated with Flippa?** No. This is an independent, third-party actor that reads Flippa's public listing data; it is not operated by or affiliated with Flippa.com.
+| Input | Type | Default |
+|---|---|---|
+| `mode` | select | `search` |
+| `searchUrl` | string | – |
+| `listingUrls` | string list | – |
+| `maxItems` | integer | `50` |
+| `categories` | multi-select | – |
+| `statuses` | multi-select | `["open"]` |
+| `saleMethods` | multi-select | – |
+| `managedBy` | multi-select | – |
+| `verticals` | multi-select | – |
+| `keyword` | string | – |
+| `sortBy` | select | `most_relevant` |
+| `priceMin` | integer | – |
+| `priceMax` | integer | – |
+| `revenueMin` | integer | – |
+| `revenueMax` | integer | – |
+| `profitMin` | integer | – |
+| `profitMax` | integer | – |
+| `ageMin` | number | – |
+| `ageMax` | number | – |
+| `multipleMin` | number | – |
+| `multipleMax` | number | – |
+| `revenueMultipleMin` | number | – |
+| `revenueMultipleMax` | number | – |
+| `uniquesMin` | integer | – |
+| `uniquesMax` | integer | – |
+| `pageViewsMin` | integer | – |
+| `pageViewsMax` | integer | – |
+| `downloadsMin` | integer | – |
+| `downloadsMax` | integer | – |
+| `verifiedRevenue` | boolean | `false` |
+| `verifiedTraffic` | boolean | `false` |
