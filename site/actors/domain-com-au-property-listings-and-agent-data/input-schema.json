@@ -1,42 +1,296 @@
 {
+  "description": "Collect Domain.com.au sale, rent and sold listings, listing details, agent profiles and agency profiles. No cookies, logins or API keys are required.",
   "properties": {
+    "agencyUrls": {
+      "default": [],
+      "description": "Domain agency profile URLs, for example https://www.domain.com.au/real-estate-agencies/raywhiteoakleigh-12122/",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Agency profile URLs (mode=agencies)",
+      "type": "array"
+    },
+    "agentUrls": {
+      "default": [],
+      "description": "Domain agent profile URLs, for example https://www.domain.com.au/real-estate-agent/david-hua-1895120",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Agent profile URLs (mode=agents)",
+      "type": "array"
+    },
+    "bathrooms": {
+      "default": "any",
+      "description": "Optional minimum bathroom count.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "enumTitles": [
+        "Any",
+        "1+",
+        "2+",
+        "3+",
+        "4+"
+      ],
+      "prefill": "any",
+      "title": "Minimum bathrooms",
+      "type": "string"
+    },
+    "bedrooms": {
+      "default": "any",
+      "description": "Optional minimum bedroom count.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "Any",
+        "1+",
+        "2+",
+        "3+",
+        "4+",
+        "5+"
+      ],
+      "prefill": "any",
+      "title": "Minimum bedrooms",
+      "type": "string"
+    },
+    "carspaces": {
+      "default": "any",
+      "description": "Optional minimum car-space count.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "enumTitles": [
+        "Any",
+        "1+",
+        "2+",
+        "3+",
+        "4+"
+      ],
+      "prefill": "any",
+      "title": "Minimum car spaces",
+      "type": "string"
+    },
+    "excludeUnderOffer": {
+      "default": false,
+      "description": "Hide listings marked under offer or under contract.",
+      "prefill": false,
+      "title": "Exclude under-offer listings",
+      "type": "boolean"
+    },
+    "includeProjectListings": {
+      "default": false,
+      "description": "Include individual off-the-plan / new-development units that Domain shows in project cards. Off by default so results contain standard listings.",
+      "prefill": false,
+      "title": "Include off-the-plan units",
+      "type": "boolean"
+    },
+    "includeSurroundingSuburbs": {
+      "default": true,
+      "description": "When searching a suburb, include nearby suburbs as Domain does by default. Turn off to keep results inside the exact location.",
+      "prefill": true,
+      "title": "Include surrounding suburbs",
+      "type": "boolean"
+    },
+    "keywords": {
+      "description": "Optional free-text keywords matched inside listing descriptions (for example 'pool' or 'waterfront').",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Keywords",
+      "type": "string"
+    },
+    "listingType": {
+      "default": "sale",
+      "description": "Sale, rent or recently sold listings.",
+      "editor": "select",
+      "enum": [
+        "sale",
+        "rent",
+        "sold"
+      ],
+      "enumTitles": [
+        "For sale",
+        "For rent",
+        "Sold listings"
+      ],
+      "prefill": "sale",
+      "title": "Listing type (mode=search)",
+      "type": "string"
+    },
+    "locations": {
+      "default": [
+        "sydney-region-nsw"
+      ],
+      "description": "Suburbs, postcodes, regions or Domain location slugs. Examples: 'Bondi Beach NSW 2026', 'bondi-beach-nsw-2026', 'sydney-region-nsw', '2000'.",
+      "editor": "stringList",
+      "prefill": [
+        "sydney-region-nsw"
+      ],
+      "title": "Locations (mode=search)",
+      "type": "array"
+    },
     "maxItems": {
-      "default": 3,
-      "description": "Maximum property listings to collect per run.",
+      "default": 20,
+      "description": "Maximum number of records to collect per run.",
       "editor": "number",
       "maximum": 500,
       "minimum": 1,
       "prefill": 3,
-      "title": "Max Items",
+      "title": "Max records",
       "type": "integer"
+    },
+    "maxPages": {
+      "default": 10,
+      "description": "Maximum search-result pages to visit per URL. Domain caps region searches at 50 pages (about 1,000 listings), so split by suburb for deeper coverage.",
+      "editor": "number",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max result pages per search URL",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Optional maximum price in whole Australian dollars. For rentals this is the weekly rent.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Maximum price (AUD)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Optional minimum price in whole Australian dollars. For rentals this is the weekly rent.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum price (AUD)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to collect. 'search' builds a Domain search from locations + filters. 'urls' accepts any Domain search, listing, agent or agency URL. 'agents' and 'agencies' take profile URLs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "urls",
+        "agents",
+        "agencies"
+      ],
+      "enumTitles": [
+        "Search by location and filters",
+        "Any Domain URLs",
+        "Agent profile URLs",
+        "Agency profile URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "propertyTypes": {
+      "default": [],
+      "description": "Optional property-type filter. Leave empty for all types.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "house",
+          "townhouse",
+          "apartment-unit-flat",
+          "villa",
+          "duplex",
+          "terrace",
+          "studio",
+          "land",
+          "acreage",
+          "rural",
+          "retirement",
+          "block-of-units",
+          "new-apartments",
+          "new-house-and-land",
+          "new-townhouse"
+        ],
+        "enumTitles": [
+          "House",
+          "Townhouse",
+          "Apartment / unit / flat",
+          "Villa",
+          "Duplex",
+          "Terrace",
+          "Studio",
+          "Land",
+          "Acreage",
+          "Rural",
+          "Retirement",
+          "Block of units",
+          "New apartments",
+          "New house and land",
+          "New townhouse"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Property types",
+      "type": "array",
+      "uniqueItems": true
     },
     "proxyConfiguration": {
       "default": {
         "useApifyProxy": false
       },
-      "description": "Optional Apify proxy. Domain.com.au is reachable from datacenter IPs without proxy; only enable if you see rate-limits.",
+      "description": "Optional Apify proxy override. Leave off: the actor automatically uses the right Apify proxy for Domain's anti-bot layer.",
       "editor": "proxy",
       "prefill": {
         "useApifyProxy": false
       },
-      "title": "Proxy Configuration",
+      "title": "Proxy configuration",
       "type": "object"
     },
+    "scrapeDetails": {
+      "default": false,
+      "description": "Open each search result's detail page for agent phone/email, description, floor plans, schools, inspection and auction details. Adds one request per listing.",
+      "prefill": false,
+      "title": "Fetch listing detail pages",
+      "type": "boolean"
+    },
     "searchUrls": {
-      "default": [
-        "https://www.domain.com.au/sale/sydney-region-nsw/"
-      ],
-      "description": "Domain.com.au search / listing URLs. Examples: https://www.domain.com.au/sale/sydney-region-nsw/, https://www.domain.com.au/sale/melbourne-region-vic/, https://www.domain.com.au/rent/brisbane-region-qld/, https://www.domain.com.au/sale/sydney-nsw-2000/.",
+      "default": [],
+      "description": "Domain.com.au search URLs, listing URLs, agent profile URLs or agency profile URLs. Search URLs support all of Domain's own filter query parameters.",
       "editor": "stringList",
-      "prefill": [
-        "https://www.domain.com.au/sale/sydney-region-nsw/"
-      ],
-      "title": "Search URLs",
+      "prefill": [],
+      "title": "Domain URLs (legacy / mode=urls)",
       "type": "array"
+    },
+    "sort": {
+      "default": "default",
+      "description": "Result ordering. 'default' keeps Domain's featured order.",
+      "editor": "select",
+      "enum": [
+        "default",
+        "price-asc",
+        "price-desc"
+      ],
+      "enumTitles": [
+        "Featured (Domain default)",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "prefill": "default",
+      "title": "Sort order (mode=search)",
+      "type": "string"
     }
   },
   "required": [
-    "searchUrls"
+    "mode"
   ],
   "schemaVersion": 1,
   "title": "Domain.com.au Scraper Input",

@@ -1,114 +1,145 @@
 # Domain.com.au Property Listings & Agent Data Extractor
 
-Domain.com.au is one of Australia's two major property portals, listing homes for sale, for rent and recently sold across every state. Point this actor at a Domain search URL (a suburb, region or `/sale/`, `/rent/`, `/sold-listings/` path) or at an individual property's own URL, and it returns each listing as a flat, structured record — no browsing through result pages or opening listings one by one.
+Domain.com.au is one of Australia's two main property portals. This actor turns its public pages into structured JSON: search results for sale, rent and sold listings, individual property detail pages, agent profiles and agency profiles — all without cookies, logins or API keys.
 
-## What this actor does
+## Modes
 
-- Walks Domain.com.au search result pages (sale, rent or sold) and paginates automatically until it has collected `maxItems` listings
-- Also accepts a direct Domain property URL, which is scraped as a single listing with extra detail-page fields (agents, floor plans, school catchments, price guide, auction/sale details)
-- Parses structured and contact fields such as agents, agency branding, inspection times and virtual tours when the listing publishes them
-- Infers the listing type (`sale`, `rent`, `sold`) from the search URL path
-- Empty fields are omitted from records — a field only appears when Domain actually published that data for the listing
+| Mode | What it collects | Main fields |
+|---|---|---|
+| `search` | Builds a Domain search from one or more locations plus filters | Listing cards, with detail enrichment when `scrapeDetails` is on |
+| `urls` | Accepts any Domain search URL, listing URL, agent URL or agency URL and routes each one automatically | Mixed record types |
+| `agents` | Agent profile pages | Contact details, job title, agency, stats, socials, bio |
+| `agencies` | Agency profile pages | Contact details, branding, stats, reviews, team roster, recent listings |
 
-## Output per listing
+Search mode understands Domain's own filter set: listing type, property types, minimum bedrooms/bathrooms/car spaces, price range, exclude under-offer, surrounding suburbs, sort order and free-text keywords. Every filter is translated into the same query parameters the Domain website uses, so results match what you see on the site.
 
-Core fields present for both search-page and direct-URL listings:
+## What a listing record contains
 
-- `type` — always `domain_listing`
-- `id` — Domain's internal listing ID
-- `url` — canonical Domain.com.au listing URL
-- `title` — short address line, e.g. `107/104 Fairway Drive, Norwest`
-- `price` — numeric price, when Domain exposes an exact figure
-- `priceLabel` — price as displayed, e.g. `$1,000,000`, `Auction`, `Contact agent`
-- `propertyType` — `House`, `ApartmentUnitFlat`, `Townhouse`, `Land`, etc.
-- `bedrooms`, `bathrooms`, `carspaces` — integer counts
-- `address`, `suburb`, `state`, `postcode`
+**From a search page**
+
+- `type` (`domain_listing`), `id`, `url`, `listingType` (`sale`, `rent`, `sold`)
+- `title`, `address`, `street`, `suburb`, `state`, `postcode`
 - `latitude`, `longitude`
-- `images` — array of photo URLs
-- `inspections` — array of open-home inspection times (open/close)
-- `agent` — `{name, photo}` of the primary listing agent
-- `agencyName`, `agencyColor`, `agencyLogo` — agency branding
-- `features` — amenity/feature tags (e.g. "Air Conditioning")
-- `tags` (or `tag` for a single badge) — marketing badge(s) such as "New home" or "Just listed"
-- `projectName` — development name, for off-the-plan listings
-- `listingType` — `sale`, `rent` or `sold`, inferred from the source URL
-- `scrapedAt` — UTC timestamp when the record was collected
+- `price`, `priceLabel`, `pricePeriod` (`week` for rentals), `priceGuide` (`{from, to}` for ranges)
+- `propertyType`, `bedrooms`, `bathrooms`, `carspaces`, `landArea`, `landUnit`
+- `images`, `inspections`, `auctionDate`
+- `agent` (`{name, photo}`), `agencyName`, `agencyColor`, `agencyLogo`, `agentNames`
+- `features`, `tag` / `tags`, `projectName`
+- `scrapedAt`
 
-Additional fields that only appear when a listing is scraped from its own direct URL (not from a search page):
+**Added when the listing detail page is fetched** (`scrapeDetails: true` or a direct listing URL)
 
-- `agents` — full agent list, each with `name`, `photo`, `phone`, `mobile`, `email`, `profileUrl`
-- `agentPhone`, `agencyPhone`, `agencyProfileUrl`, `agencyWebsite`, `agencyBanner`
+- `headline`, `description`, `descriptionHtml`, `highlights`
+- `agents[]` with phone, mobile, email, photo and profile URL, plus `agentPhone`
+- `agencyPhone`, `agencyWebsite`, `agencyProfileUrl`, `agencyBanner`, `agencyAddress`
 - `floorplans`, `videos`, `virtualTourUrl`, `matterportInterior`, `matterportExterior`
-- `projectUrl` — link to the off-the-plan project page, for project listings
-- `landArea`, `buildingArea`, `energyEfficiencyRating`
-- `headline`, `tagline`, `descriptionHtml`
-- `listedAt`, `createdOn`, `modifiedOn`
-- `salesMethod`, `listingStatus`, `soldAt`, `soldSaleMethod`
-- `auctionDate`, `auctionLocation`
-- `priceGuide` — `{from, to}` estimated price range, when Domain publishes one
-- `structuredFeatures` — list of `{name, category}` property features
-- `schoolCatchment` — nearby zoned schools, each with `name`, `educationLevel`, `type`, `gender`, `year`
-- `propertyReference` — Domain's internal property identifier
+- `landArea`, `buildingArea`, `energyEfficiencyRating`, `propertyReference`
+- `listedAt`, `createdOn`, `modifiedOn`, `availableFrom`, `bond`
+- `salesMethod`, `listingStatus`, `soldAt`, `soldSaleMethod`, `auctionDate`, `auctionLocation`
+- `structuredFeatures[]`, `schoolCatchment[]` (government and independent schools with distance)
+- `suburbMedianPrice`, `suburbMedianRent`, `suburbDaysOnMarket`, `suburbAuctionClearance`, `suburbSoldThisYear`, `suburbProfileUrl`
 
-If a run produces no listings at all (wrong region slug, or no matches), the actor emits a single `domain_blocked` record instead: `type: "domain_blocked"`, `reason` (explanation text), `requestedUrls` (the `searchUrls` you passed in), and `scrapedAt` — so the run still completes with output.
+## What an agent record contains
+
+`type` (`domain_agent`), `id`, `url`, `name`, `firstName`, `jobTitle`, `phone`, `mobile`, `photo`, `profileText`, `profileTier`, `agencyId`, `agencyName`, `agencyUrl`, `agencyAddress`, `agencyLogo`, `agencyColor`, social links, `stats` (`forSale`, `forRent`, `sold`, `auctioned`, `leased`, `averageSoldPrice`, `averageDaysOnMarket`), `rating`, `reviewCount`, `activeSuburbs` and `scrapedAt`. Email is included when Domain publishes it on the public page.
+
+## What an agency record contains
+
+`type` (`domain_agency`), `id`, `name`, `url`, `website`, `phone`, `mobile`, `email`, `address`, `logo`, `heroImage`, `color`, `profileTier`, `description`, social links, `stats` (`forSale`, `soldTotal`, `forRent`, `leased`, `sold`, `auctioned`, `averageSoldPrice`, `averageDaysOnMarket`, `totalSaleAmount`), `rating`, `reviewCount`, `reviews[]`, `contacts[]` (the team roster with per-agent stats), `activeSuburbs[]` and `recentListings[]` (up to 24 across sale, rent, sold and leased).
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `searchUrls` | array | `["https://www.domain.com.au/sale/sydney-region-nsw/"]` | Domain.com.au search URLs (`/sale/...`, `/rent/...`, `/sold-listings/...`) or direct listing URLs |
-| `maxItems` | integer | `3` | Maximum property listings to collect per run (1–500) |
-| `proxyConfiguration` | object | `{"useApifyProxy": false}` | Optional Apify proxy; Domain.com.au is reachable without one, so this is disabled by default |
+| `mode` | select | `search` | `search`, `urls`, `agents` or `agencies` |
+| `locations` | array | `["sydney-region-nsw"]` | Suburbs, postcodes, regions or Domain slugs for search mode (`Bondi Beach NSW 2026`, `bondi-beach-nsw-2026`, `sydney-region-nsw`) |
+| `listingType` | select | `sale` | `sale`, `rent` or `sold` |
+| `propertyTypes` | multi-select | `[]` | House, townhouse, apartment/unit, villa, duplex, terrace, studio, land, acreage, rural, retirement, block of units and new-home types |
+| `bedrooms`, `bathrooms`, `carspaces` | select | `any` | Minimum counts (`any`, `1+`, `2+`, …) |
+| `minPrice`, `maxPrice` | integer | unset | Whole AUD; weekly rent for rentals |
+| `excludeUnderOffer` | boolean | `false` | Hide under-offer / under-contract listings |
+| `includeSurroundingSuburbs` | boolean | `true` | Match Domain's default surrounding-suburb expansion |
+| `sort` | select | `default` | Featured, price low-to-high or price high-to-low |
+| `keywords` | string | unset | Free-text words matched in listing descriptions |
+| `includeProjectListings` | boolean | `false` | Include off-the-plan units that Domain shows in project cards |
+| `scrapeDetails` | boolean | `false` | Fetch each search result's detail page |
+| `searchUrls` | array | `[]` | Any Domain URLs; also the legacy input key. When set, it takes precedence over the search-mode fields so saved tasks keep working |
+| `agentUrls`, `agencyUrls` | array | `[]` | Profile URLs for the agent and agency modes |
+| `maxItems` | integer | `20` (`3` in prefill) | Records to collect (1–500) |
+| `maxPages` | integer | `10` (`1` in prefill) | Search pages per URL (1–50) |
+| `proxyConfiguration` | object | off | Optional Apify proxy override; leave off by default |
 
-### Example: sale listings in a region
+### Search for houses in Bondi
 
 ```json
 {
-  "searchUrls": ["https://www.domain.com.au/sale/sydney-region-nsw/"],
+  "mode": "search",
+  "locations": ["bondi-beach-nsw-2026"],
+  "listingType": "sale",
+  "propertyTypes": ["house"],
+  "bedrooms": "3",
+  "minPrice": 1000000,
+  "maxPrice": 4000000,
+  "excludeUnderOffer": true,
+  "sort": "price-asc",
   "maxItems": 50
 }
 ```
 
-### Example: rentals in a specific suburb
+### Collect sold comps and their detail pages
 
 ```json
 {
-  "searchUrls": ["https://www.domain.com.au/rent/melbourne-region-vic/"],
-  "maxItems": 100
+  "mode": "urls",
+  "searchUrls": ["https://www.domain.com.au/sold-listings/bondi-beach-nsw-2026/"],
+  "scrapeDetails": true,
+  "maxItems": 25
 }
 ```
 
-### Example: enrich a single property page
+### Collect agent and agency profiles
 
 ```json
 {
-  "searchUrls": [
-    "https://www.domain.com.au/107-104-fairway-drive-norwest-nsw-2153-2020305174"
-  ],
-  "maxItems": 1
+  "mode": "agents",
+  "agentUrls": ["https://www.domain.com.au/real-estate-agent/david-hua-1895120"]
 }
 ```
 
-## Use cases
+```json
+{
+  "mode": "agencies",
+  "agencyUrls": ["https://www.domain.com.au/real-estate-agencies/raywhiteoakleigh-12122/"]
+}
+```
 
-- **Comparable sales (comps)** — pull `/sold-listings/` pages for a suburb to see recent sale prices against bedroom/bathroom counts
-- **Rental market monitoring** — track asking rents across a region's `/rent/` listings over time
-- **Agent lead generation** — collect agent and agency contact details from listings in a target suburb
-- **Buyer alerts** — re-scrape a saved search URL on a schedule to catch newly listed properties
-- **Listing enrichment** — pass a single property URL to pull the deeper detail-page fields (floor plans, school catchments, price guide) for a shortlist of properties
+## Pagination and limits
+
+- Domain returns roughly 20–30 result cards per page and caps a region search at 50 pages (about 1,000 listings). `maxPages` defaults to 10; for deeper coverage split the search into suburbs, property types or price buckets.
+- `maxItems` stops the run as soon as enough unique records have been collected. IDs are de-duplicated across pages and URLs.
+- Region pages often contain project advertisements plus one or two standard results. Off-the-plan child units are hidden unless `includeProjectListings` is on.
+
+## Anti-bot and proxy
+
+Domain sits behind Akamai bot management. Direct requests, datacenter proxies and residential proxies were all rejected with HTTP 403 during testing, while Apify's UNBLOCKER proxy solves the challenge and returns the normal page. The actor uses the right Apify proxy automatically, so you do not need to configure one. `proxyConfiguration` exists only for users who want to force a specific Apify proxy group; it is off by default.
 
 ## FAQ
 
-**Do I need a proxy?** No. Domain.com.au pages load fine from standard datacenter IPs, so the `proxyConfiguration` input is off by default.
+**Do I need cookies or a login?** No. Every mode reads public pages.
 
-**What's the difference between a search URL and a direct listing URL?** A search URL (e.g. ending in `/sale/sydney-region-nsw/`) returns many listings up to `maxItems`. A direct listing URL returns exactly that one property, but with extra detail-page fields like agents, floor plans and school catchments that search-result cards don't carry.
+**Can I scrape rentals and sold listings?** Yes — pick `rent` or `sold`, or paste a `/rent/` or `/sold-listings/` URL.
 
-**Can I scrape sold listings, not just active ones?** Yes — any URL under `/sold-listings/` works the same way as `/sale/` or `/rent/` URLs, and `listingType` will be set to `sold`.
+**Why is `price` missing on some listings?** Domain labels many listings `Auction`, `Contact Agent`, `Expressions of Interest` or `Price Withheld`. `priceLabel` keeps that text; `price` is only emitted when a real amount exists.
 
-**Why do some listings have no `price`?** Many Australian listings are marketed as "Auction" or "Contact agent" rather than a fixed price. In that case `priceLabel` carries the display text and `price` is omitted.
+**Why is an agent email missing?** Domain only publishes emails for some profiles. When it does, the actor decodes and returns it; otherwise the field is omitted.
 
-**Why is `schoolCatchment` or `floorplans` missing from a listing?** Those fields only come from the richer detail page and only when Domain actually publishes that data for the property; scraping from a search URL alone won't populate them.
+**What happens when a search has no results?** The run still succeeds and emits one `domain_blocked` record with a `reason` and the URLs you supplied, so downstream pipelines always receive output.
 
-**What happens if my search URL has no matches?** The actor still finishes successfully and pushes a single `domain_blocked` record explaining that nothing was found, so your downstream pipeline always sees output.
+**Is this affiliated with Domain.com.au?** No. This is an independent third-party actor that reads public Domain.com.au pages.
 
-**Is this affiliated with Domain.com.au?** No. This is an independent, third-party actor that reads Domain.com.au's public listing pages; it is not operated by or affiliated with Domain Group.
+## Limitations
+
+- Domain shows at most 50 result pages per search URL (about 1,000 listings). Use narrower searches (suburb, type, price band, sold date ordering) to go deeper.
+- Project advertisements can occupy a large share of a broad region page; keep `includeProjectListings` off for standard listings or search a suburb instead.
+- Sold prices are withheld for some listings; the record then keeps the `Price Withheld` label and omits the number.
+- Detail-only fields (agents' emails, floor plans, schools, descriptions) require `scrapeDetails` or a direct listing URL and one extra request per listing.
