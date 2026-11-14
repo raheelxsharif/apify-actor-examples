@@ -1,0 +1,51 @@
+{
+  "description": "Search TradeIndia for products or suppliers by keyword. Optionally filter by city.",
+  "properties": {
+    "city": {
+      "description": "Filter results to a specific Indian city (e.g. 'Mumbai', 'Delhi', 'Chennai').",
+      "editor": "textfield",
+      "title": "Filter by city",
+      "type": "string"
+    },
+    "keyword": {
+      "default": "rubber gaskets",
+      "description": "Product or supplier keyword (e.g. 'rubber gaskets', 'cotton fabric').",
+      "editor": "textfield",
+      "prefill": "rubber gaskets",
+      "title": "Search keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of records to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchProducts",
+      "description": "What to search for on TradeIndia.",
+      "editor": "select",
+      "enum": [
+        "searchProducts",
+        "searchSuppliers"
+      ],
+      "enumTitles": [
+        "Search Products",
+        "Search Suppliers"
+      ],
+      "prefill": "searchProducts",
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode",
+    "keyword"
+  ],
+  "schemaVersion": 1,
+  "title": "TradeIndia Scraper Input",
+  "type": "object"
+}
