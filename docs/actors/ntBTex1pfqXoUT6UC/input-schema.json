@@ -1,0 +1,42 @@
+{
+  "description": "Fetch citations, references, or the citation count for a scholarly DOI from the OpenCitations index.",
+  "properties": {
+    "doi": {
+      "description": "The DOI to look up. Accepts a bare DOI (e.g. \"10.1186/1756-8722-6-59\"), a \"doi:\" prefix, or a full \"https://doi.org/…\" URL.",
+      "editor": "textfield",
+      "prefill": "10.1186/1756-8722-6-59",
+      "title": "DOI",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of citation/reference records to return (ignored for citation count, which is always a single record).",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "getCitations",
+      "description": "What to fetch for the given DOI: incoming citations, outgoing references, or the total citation count.",
+      "editor": "select",
+      "enum": [
+        "getCitations",
+        "getReferences",
+        "getCitationCount"
+      ],
+      "enumTitles": [
+        "Get citations (papers citing this DOI)",
+        "Get references (papers this DOI cites)",
+        "Get citation count (how many cite this DOI)"
+      ],
+      "prefill": "getCitations",
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "OpenCitations Scraper Input",
+  "type": "object"
+}

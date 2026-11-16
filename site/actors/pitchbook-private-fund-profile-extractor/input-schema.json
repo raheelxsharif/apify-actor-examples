@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "maxItems": {
+      "default": 3,
+      "description": "Maximum number of fund records to return. Ignored when profileUrls are provided (all URLs are always processed).",
+      "editor": "number",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "profileUrls": {
+      "description": "Direct PitchBook fund profile URLs or bare IDs (e.g. https://pitchbook.com/profiles/fund/11295-73F or 11295-73F). When provided, searchQuery is ignored.",
+      "editor": "stringList",
+      "title": "Profile URLs",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "description": "Apify proxy configuration. Residential proxy is required for reliable scraping — PitchBook's Cloudflare protection blocks repeated requests from the same IP.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "venture capital",
+      "description": "Text search for funds (e.g. 'venture capital' or 'buyout europe'). Used when no profileUrls are provided.",
+      "editor": "textfield",
+      "prefill": "venture capital",
+      "title": "Search Query",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "PitchBook Fund Data Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,210 @@
+{
+  "actorSpecification": 1,
+  "title": "PitchBook Funds",
+  "views": {
+    "detailed": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "description": {
+            "format": "text",
+            "label": "Description"
+          },
+          "error": {
+            "format": "text",
+            "label": "Error"
+          },
+          "fundCategory": {
+            "format": "text",
+            "label": "Category"
+          },
+          "fundDomiciles": {
+            "format": "text",
+            "label": "Domiciles"
+          },
+          "fundFamily": {
+            "format": "text",
+            "label": "Fund Family"
+          },
+          "fundManager": {
+            "format": "text",
+            "label": "Manager"
+          },
+          "fundManagerUrl": {
+            "format": "link",
+            "label": "Manager URL"
+          },
+          "fundManagerWebsite": {
+            "format": "link",
+            "label": "Manager Website"
+          },
+          "fundSize": {
+            "format": "text",
+            "label": "Size"
+          },
+          "fundStatus": {
+            "format": "text",
+            "label": "Status"
+          },
+          "fundStrategy": {
+            "format": "text",
+            "label": "Strategy"
+          },
+          "inputUrl": {
+            "format": "text",
+            "label": "Input URL"
+          },
+          "logoUrl": {
+            "format": "link",
+            "label": "Logo"
+          },
+          "name": {
+            "format": "text",
+            "label": "Fund Name"
+          },
+          "nativeCurrency": {
+            "format": "text",
+            "label": "Currency"
+          },
+          "postalCode": {
+            "format": "text",
+            "label": "Postal Code"
+          },
+          "profileUrl": {
+            "format": "link",
+            "label": "PitchBook URL"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "socialLinks": {
+            "format": "text",
+            "label": "Social Links"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "streetAddress": {
+            "format": "text",
+            "label": "Street"
+          },
+          "totalInvestments": {
+            "format": "number",
+            "label": "Investments"
+          },
+          "totalLimitedPartners": {
+            "format": "number",
+            "label": "LPs"
+          },
+          "vintageYear": {
+            "format": "number",
+            "label": "Vintage Year"
+          }
+        }
+      },
+      "title": "Detailed View",
+      "transformation": {
+        "fields": [
+          "name",
+          "profileUrl",
+          "description",
+          "fundStrategy",
+          "fundStatus",
+          "fundSize",
+          "vintageYear",
+          "fundCategory",
+          "fundFamily",
+          "fundManager",
+          "fundManagerUrl",
+          "fundManagerWebsite",
+          "fundDomiciles",
+          "nativeCurrency",
+          "totalInvestments",
+          "totalLimitedPartners",
+          "city",
+          "state",
+          "country",
+          "streetAddress",
+          "postalCode",
+          "logoUrl",
+          "socialLinks",
+          "scrapedAt",
+          "inputUrl",
+          "error"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "country": {
+            "format": "text",
+            "label": "Country"
+          },
+          "fundManager": {
+            "format": "text",
+            "label": "Manager"
+          },
+          "fundSize": {
+            "format": "text",
+            "label": "Size"
+          },
+          "fundStatus": {
+            "format": "text",
+            "label": "Status"
+          },
+          "fundStrategy": {
+            "format": "text",
+            "label": "Strategy"
+          },
+          "name": {
+            "format": "text",
+            "label": "Fund Name"
+          },
+          "profileUrl": {
+            "format": "link",
+            "label": "PitchBook URL"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "vintageYear": {
+            "format": "number",
+            "label": "Vintage"
+          }
+        }
+      },
+      "title": "Fund Overview",
+      "transformation": {
+        "fields": [
+          "name",
+          "fundStrategy",
+          "fundStatus",
+          "fundSize",
+          "vintageYear",
+          "fundManager",
+          "city",
+          "country",
+          "profileUrl",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

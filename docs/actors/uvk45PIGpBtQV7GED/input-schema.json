@@ -1,0 +1,151 @@
+{
+  "description": "Scrape Patreon campaigns, recent posts, search across creators, browse the Explore directory by category, or fetch a single post by URL. Pass creator vanity slugs, post URLs, search keywords, or pick an Explore category.",
+  "properties": {
+    "autoEscalateOnBlock": {
+      "default": true,
+      "description": "If true (default), the actor automatically engages Apify Proxy when it hits HTTP 403 / anti-bot blocks from a raw datacenter IP. Set false to disable (request fails fast).",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Auto-escalate to Apify proxy on block",
+      "type": "boolean"
+    },
+    "category": {
+      "description": "Patreon's Explore directory category. Leave empty to browse the top-level `/explore/` page.",
+      "editor": "select",
+      "enum": [
+        "",
+        "podcasts",
+        "video-film",
+        "music",
+        "visual-arts",
+        "comedy",
+        "games",
+        "writing",
+        "drawing-painting",
+        "comics-graphic-novels",
+        "tabletop-games",
+        "science",
+        "education",
+        "crafts-diy",
+        "lifestyle"
+      ],
+      "enumTitles": [
+        "(top-level Explore — all categories)",
+        "Podcasts",
+        "Video & Film",
+        "Music",
+        "Visual Arts",
+        "Comedy",
+        "Games",
+        "Writing",
+        "Drawing & Painting",
+        "Comics & Graphic Novels",
+        "Tabletop Games",
+        "Science",
+        "Education",
+        "Crafts & DIY",
+        "Lifestyle"
+      ],
+      "title": "Explore category (mode=explore)",
+      "type": "string"
+    },
+    "creators": {
+      "default": [
+        "PhilosophyTube"
+      ],
+      "description": "Creator slugs (e.g. `PhilosophyTube`) or full URLs (`https://www.patreon.com/c/PhilosophyTube`).",
+      "editor": "stringList",
+      "prefill": [
+        "PhilosophyTube"
+      ],
+      "title": "Creator vanity slugs or URLs (mode=creator / posts)",
+      "type": "array"
+    },
+    "excludeNsfw": {
+      "default": false,
+      "description": "Drop creators marked as NSFW.",
+      "prefill": false,
+      "title": "Exclude NSFW",
+      "type": "boolean"
+    },
+    "includePosts": {
+      "default": true,
+      "description": "When `mode=creator`, also fetch the creator's recent posts.",
+      "prefill": true,
+      "title": "Include posts (mode=creator)",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on total emitted records (creators + posts combined).",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPostsPerCreator": {
+      "default": 20,
+      "description": "Hard cap on posts emitted per creator.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max posts per creator",
+      "type": "integer"
+    },
+    "minPatronCount": {
+      "description": "Drop creators with fewer than this many patrons.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min patron count",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "creator",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "creator",
+        "posts",
+        "search",
+        "explore",
+        "postByUrl"
+      ],
+      "enumTitles": [
+        "Campaign — creator metadata + tiers (and optionally recent posts)",
+        "Posts only — recent public posts for a creator",
+        "Search — find creators by keyword across Patreon",
+        "Explore — browse Patreon's Explore directory by category",
+        "Post by URL — fetch single post detail by post URL"
+      ],
+      "prefill": "creator",
+      "title": "Mode",
+      "type": "string"
+    },
+    "postUrls": {
+      "description": "Patreon post URLs to fetch individually, e.g. `https://www.patreon.com/posts/12345` or `https://www.patreon.com/posts/title-slug-12345`.",
+      "editor": "stringList",
+      "title": "Post URLs (mode=postByUrl)",
+      "type": "array"
+    },
+    "proxyGroups": {
+      "default": [],
+      "description": "Apify proxy groups to use when auto-escalating after a block. Empty = datacenter (default), then residential fallback.",
+      "editor": "stringList",
+      "title": "Apify proxy groups (used on auto-escalation)",
+      "type": "array"
+    },
+    "searchQuery": {
+      "description": "Keyword to search across all Patreon creators.",
+      "editor": "textfield",
+      "title": "Search query (mode=search)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Patreon Scraper Input",
+  "type": "object"
+}

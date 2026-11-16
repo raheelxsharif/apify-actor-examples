@@ -1,0 +1,103 @@
+{
+  "description": "Search rooms to rent on SpareRoom.co.uk by city, budget, and availability.",
+  "properties": {
+    "city": {
+      "default": "London",
+      "description": "City or area to search in (e.g. London, Manchester, Birmingham, Edinburgh).",
+      "editor": "textfield",
+      "prefill": "London",
+      "title": "City / area",
+      "type": "string"
+    },
+    "maxBudget": {
+      "default": 1500,
+      "description": "Maximum monthly rent in GBP.",
+      "maximum": 10000,
+      "minimum": 100,
+      "prefill": 1500,
+      "title": "Max monthly budget (GBP)",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of listings to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "milesFromCenter": {
+      "default": 3,
+      "description": "Search radius in miles from city center.",
+      "maximum": 50,
+      "minimum": 0,
+      "prefill": 3,
+      "title": "Miles from center",
+      "type": "integer"
+    },
+    "minBudget": {
+      "description": "Minimum monthly rent in GBP.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Min monthly budget (GBP)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchRooms",
+      "description": "What to scrape.",
+      "editor": "select",
+      "enum": [
+        "searchRooms",
+        "searchByCity",
+        "searchByBudget",
+        "roomDetails"
+      ],
+      "enumTitles": [
+        "Search rooms by city",
+        "Search by city name (flexible query)",
+        "Search rooms within a budget",
+        "Room details by URL"
+      ],
+      "prefill": "searchRooms",
+      "title": "Mode",
+      "type": "string"
+    },
+    "roomType": {
+      "default": "any",
+      "description": "Type of room to search for.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "double",
+        "single",
+        "ensuite",
+        "studio"
+      ],
+      "enumTitles": [
+        "Any",
+        "Double room",
+        "Single room",
+        "En-suite",
+        "Studio"
+      ],
+      "prefill": "any",
+      "title": "Room type",
+      "type": "string"
+    },
+    "roomUrls": {
+      "default": [],
+      "description": "List of SpareRoom listing URLs for detail scraping.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Room URLs (mode=roomDetails)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "SpareRoom Scraper Input",
+  "type": "object"
+}
