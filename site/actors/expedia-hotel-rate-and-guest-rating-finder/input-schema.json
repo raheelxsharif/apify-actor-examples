@@ -114,6 +114,14 @@
       "title": "Include property details",
       "type": "boolean"
     },
+    "includeReviews": {
+      "default": false,
+      "description": "Add recent guest reviews with reviewer name, score, date, trip type, text, and the property's response. Adds a summary request plus review-page requests per hotel.",
+      "prefill": false,
+      "sectionCaption": "Reviews",
+      "title": "Include guest reviews",
+      "type": "boolean"
+    },
     "includeRoomRates": {
       "default": false,
       "description": "Add room types, live nightly rates, payment policy, and cancellation policy for each hotel. This makes one extra request per hotel.",
@@ -137,6 +145,15 @@
       "minimum": 0,
       "title": "Maximum nightly price",
       "type": "number"
+    },
+    "maxReviews": {
+      "default": 10,
+      "description": "How many guest reviews to collect for each hotel when Include guest reviews is on (1-50).",
+      "maximum": 50,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Maximum reviews per hotel",
+      "type": "integer"
     },
     "minGuestRating": {
       "default": "any",
@@ -228,6 +245,26 @@
       ],
       "prefill": "any",
       "title": "Property type",
+      "type": "string"
+    },
+    "reviewSort": {
+      "default": "mostRelevant",
+      "description": "Order of guest reviews when Include guest reviews is on.",
+      "editor": "select",
+      "enum": [
+        "mostRelevant",
+        "mostRecent",
+        "highestRated",
+        "lowestRated"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Most recent",
+        "Highest rating",
+        "Lowest rating"
+      ],
+      "prefill": "mostRelevant",
+      "title": "Review order",
       "type": "string"
     },
     "rooms": {

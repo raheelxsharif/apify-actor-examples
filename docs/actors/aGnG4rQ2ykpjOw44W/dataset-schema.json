@@ -77,12 +77,28 @@
         },
         "type": "array"
       },
+      "dataIsLive": {
+        "description": "False when the record could only be reconstructed from an archived page",
+        "type": "boolean"
+      },
+      "dataSource": {
+        "description": "Provider of the record: expedia-public-api for live data, wayback for archived property details",
+        "type": "string"
+      },
       "description": {
         "description": "Short card tagline when Expedia shows one",
         "type": "string"
       },
       "destination": {
         "description": "Destination text used for the search, or the property destination",
+        "type": "string"
+      },
+      "detailsArchivedAt": {
+        "description": "Wayback snapshot timestamp used for archived property details",
+        "type": "string"
+      },
+      "detailsSource": {
+        "description": "Where property details came from: wayback when the live property page was unavailable",
         "type": "string"
       },
       "faqs": {
@@ -210,6 +226,94 @@
       "reviewCount": {
         "description": "Legacy review count display string",
         "type": "string"
+      },
+      "reviewSummary": {
+        "description": "Aggregate review summary and category scores (includeReviews=true)",
+        "properties": {
+          "categories": {
+            "description": "Category scores such as Cleanliness or Staff & service",
+            "items": {
+              "properties": {
+                "key": {
+                  "description": "Normalized category key",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Category display name",
+                  "type": "string"
+                },
+                "score": {
+                  "description": "Category score on the 10-point scale",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "overallRating": {
+            "description": "Overall guest score on the 10-point scale",
+            "type": "number"
+          },
+          "ratingText": {
+            "description": "Overall label such as Excellent",
+            "type": "string"
+          },
+          "totalReviews": {
+            "description": "Total verified reviews shown by Expedia",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "reviews": {
+        "description": "Optional guest reviews (includeReviews=true), newest or best-first per reviewSort",
+        "items": {
+          "properties": {
+            "author": {
+              "description": "Reviewer display name",
+              "type": "string"
+            },
+            "date": {
+              "description": "Review date shown by Expedia",
+              "type": "string"
+            },
+            "managementResponse": {
+              "description": "Property management response when present",
+              "type": "string"
+            },
+            "rating": {
+              "description": "Review score on Expedia's 10-point scale",
+              "type": "number"
+            },
+            "ratingText": {
+              "description": "Review score label such as Excellent",
+              "type": "string"
+            },
+            "reviewId": {
+              "description": "Expedia review identifier",
+              "type": "string"
+            },
+            "sentiment": {
+              "description": "Review sentiment summary when Expedia shows one",
+              "type": "string"
+            },
+            "text": {
+              "description": "Review body",
+              "type": "string"
+            },
+            "title": {
+              "description": "Review title when shown",
+              "type": "string"
+            },
+            "travelerType": {
+              "description": "Trip type shown by Expedia, for example Traveled with partner",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
       },
       "roomRates": {
         "description": "Room types and rate plans with prices and policies",
@@ -357,7 +461,10 @@
           "searchUrl",
           "searchPosition",
           "isSponsored",
-          "scrapedAt"
+          "scrapedAt",
+          "dataSource",
+          "reviewSummary",
+          "reviews"
         ]
       }
     },
@@ -414,7 +521,10 @@
           "priceTotal",
           "priceCurrency",
           "neighborhood",
-          "url"
+          "url",
+          "dataSource",
+          "reviewSummary",
+          "reviews"
         ]
       }
     }

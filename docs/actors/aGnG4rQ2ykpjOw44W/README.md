@@ -4,7 +4,7 @@
 
 # Expedia Hotel Rate & Guest Rating Finder
 
-Search Expedia hotels by destination or paste hotel and search links, and get live nightly and total rates, exact star class, guest ratings, review counts, address and coordinates, amenities, photos, and optional room-by-room rates with cancellation policies. Results come back as clean JSON or CSV — no API key, login, or proxy setup required.
+Search Expedia hotels by destination or paste hotel and search links, and get live nightly and total rates, exact star class, guest ratings, review counts, address and coordinates, amenities, photos, optional guest reviews with category scores, and optional room-by-room rates with cancellation policies. Results come back as clean JSON or CSV — no API key, login, cookies, or proxy setup required.
 
 ## What this actor does
 
@@ -12,6 +12,7 @@ Search Expedia hotels by destination or paste hotel and search links, and get li
 - **Live rates:** nightly price, total stay price with taxes and fees, original strike-through price, and currency.
 - **Quality signals:** guest rating and review count from the search card, plus exact star class (including half-stars) from the property page.
 - **Property detail:** address, latitude/longitude, amenity highlights, policies, check-in/check-out times, description, photo gallery, and FAQs.
+- **Optional guest reviews:** recent review text, reviewer name, score, date, trip type, property response, plus category scores such as cleanliness and staff service.
 - **Optional room data:** room types, individual rate plans, payment timing, refundability, and cancellation policy text.
 - **Filters:** sort order, star class, guest rating, nightly price, property type, amenities, free cancellation, availability, and property name.
 - Every field is omitted when Expedia does not provide it — the dataset never contains `null`, empty strings, or sentinel rows.
@@ -41,6 +42,8 @@ Search Expedia hotels by destination or paste hotel and search links, and get li
 - `badges` — labels such as `VIP Access`
 - `freeCancellation` — whether a refundable rate exists
 - `cancellationPolicy` — policy text for the cheapest or first rate
+- `reviews` — optional guest reviews, each with `reviewId`, `author`, `rating`, `ratingText`, `title`, `text`, `date`, `travelerType`, `sentiment`, `managementResponse`
+- `reviewSummary` — optional aggregate with `overallRating`, `ratingText`, `totalReviews`, and category `scores`
 - `roomRates` — room types and rate plans, each with `roomName`, `ratePlanId`, `pricePerNight`, `priceTotal`, `priceCurrency`, `paymentPolicy`, `cancellationPolicy`, `refundable`, `available`, `roomsLeft`
 - `checkInTime`, `checkOutTime` — property policy times
 - `propertyDescription` — overview or editorial description
@@ -48,6 +51,8 @@ Search Expedia hotels by destination or paste hotel and search links, and get li
 - `policies`, `importantInfo` — policy and fee text
 - `faqs` — property questions and answers
 - `description` — short card tagline when Expedia shows one
+- `dataSource` — `expedia-public-api` for live data, `wayback` when only archived property details were available
+- `detailsSource`, `detailsArchivedAt` — set when property details came from a Wayback snapshot
 - `destination`, `resolvedDestination`, `regionId` — search destination and Expedia resolution
 - `checkIn`, `checkOut`, `adults`, `rooms`, `childrenAges` — search parameters used
 - `searchUrl`, `searchPosition`, `isSponsored`, `scrapedAt`
@@ -78,6 +83,9 @@ Search Expedia hotels by destination or paste hotel and search links, and get li
 | `propertyName` | string | – | Filter by hotel name, for example Marriott. |
 | `includePropertyDetails` | boolean | `true` | Add exact stars, address, coordinates, amenity highlights, policies, and gallery. |
 | `includeRoomRates` | boolean | `false` | Add room types, rate plans, payment, and cancellation policies. |
+| `includeReviews` | boolean | `false` | Add recent guest reviews and category scores. Adds a summary request plus review-page requests per hotel. |
+| `maxReviews` | integer | `10` | Reviews per hotel when `includeReviews` is on, 1–50. |
+| `reviewSort` | string | `mostRelevant` | `mostRelevant`, `mostRecent`, `highestRated`, or `lowestRated`. |
 
 ### Example: weekend rates in New York
 
@@ -170,19 +178,25 @@ Both are returned. `pricePerNight` is the nightly amount; `priceTotal` is the st
 `guestRating` is Expedia's own score out of 10. `ratingText` is the label Expedia shows, such as Wonderful or Excellent.
 
 **Can I get review text with this actor?**
-No. This actor returns the guest rating and review count shown on the property, not individual review text. That keeps runs fast and focused on rates and ratings.
+Yes. Turn on `includeReviews` to add recent reviews, category scores, and the property's responses. Leave it off for the cheapest rate-and-rating runs.
 
 **Are all Expedia regional sites supported?**
-No. This actor reads expedia.com and returns USD prices. Regional Expedia domains and other currencies are not part of this version.
+No. This actor reads the US site through Expedia's public `api.expedia.com` host and returns USD prices. Regional Expedia domains and other currencies are not part of this version.
 
 **What happens if Expedia blocks the run?**
-The actor retries with fresh sessions and fails with a clear status instead of returning an empty dataset or placeholder rows.
+The actor uses Expedia's public server-rendered pages and GraphQL endpoint, so it needs no cookies or browser. If a property page is temporarily unavailable, it tries a Wayback snapshot and labels the record with `detailsSource: "wayback"` and `detailsArchivedAt`; rates are never taken from archives.
+
+**How do I know whether a record is live?**
+`dataSource` is `expedia-public-api` for live search, rate, and review data. It is `wayback` only when a hotel could be reconstructed from an archived property page, and then `dataIsLive` is `false`.
 
 **Is this affiliated with Expedia?**
 No. This is an independent third-party actor that reads publicly visible Expedia hotel data.
 
 ## Limitations
 
-- Review text, regional Expedia sites/currencies, and hotel brand colors are not part of this actor.
+- Regional Expedia sites and non-USD currencies are not part of this actor.
+- Hotel brand colors are not exposed by any Expedia surface this actor reads.
 - App share links are accepted when they resolve to a hotel, but public app links often expire; hotel pages, search links, and IDs are the reliable inputs.
-- `maxItems` is capped at 1,000. Expedia returns 500 per request and may show fewer real hotels than its matched count because of ads and placeholders.
+- `maxItems` is capped at 1,000. Expedia returns up to 500 per request and may show fewer real hotels than its matched count because of ads and placeholders.
+- Wayback is a detail fallback only: archived pages never supply prices, and every archived record is labelled.
+- Star buckets are approximate at the filter level. Exact star class is returned when `includePropertyDetails` is on and the property page is available.
