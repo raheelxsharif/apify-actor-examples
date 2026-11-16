@@ -4,107 +4,126 @@
 
 # PitchBook Private Fund Profile Extractor
 
-PitchBook's fund profile pages publish fund size, vintage year, strategy, status and manager details publicly, even though the full platform sits behind a paid subscription. This actor reads those public profile pages directly by URL, by keyword search, or in bulk across PitchBook's fund sitemap, without needing a PitchBook login.
+PitchBook publishes a free preview of every fund profile: who manages it, when it was raised, its strategy, status, reported size, where it is domiciled, a handful of portfolio deals and a handful of limited partners. This actor reads those public pages without a login, so you can turn a list of funds, a keyword or the public fund index into a structured dataset.
 
-## What this actor does
+## Three ways to collect funds
 
-- Fetches specific fund profiles when you supply their URLs or IDs directly.
-- Searches PitchBook by keyword (e.g. "buyout europe") and returns fund profiles up to your item limit; if PitchBook's own search has no fund hits for that keyword, the actor fills the rest of the limit with other fund profiles so the run still returns real data.
-- Collects funds in bulk straight from PitchBook's public fund sitemap when no URLs or search query are given.
-- Extracts fund size, vintage year, strategy, status, manager, domicile and limited-partner/investment counts from each profile.
-- Fields a fund profile doesn't publish (for example no listed social links) are left out of that record.
+| Mode | How to trigger it | What happens |
+| --- | --- | --- |
+| **Direct** | Add one or more `profileUrls` (full links or bare IDs such as `11295-73F`). | Every listed fund is fetched and returned. `maxItems` does not limit this mode. |
+| **Keyword** | Leave `profileUrls` empty and enter a `searchQuery`. | PitchBook's public best match is tried first; then public fund profiles are scanned until `maxItems` matches are found. |
+| **Sitemap** | Leave both `profileUrls` and `searchQuery` empty. | Fund profile URLs are streamed from PitchBook's public fund sitemap, filtered, and returned up to `maxItems`. |
 
-## Output per fund
+Optional filters work in all three modes: fund type, status, category, country/region, vintage range, fund-size range and a free-text filter. Filtering happens on the already-fetched public record, so no extra requests are made.
 
-| Field | Description |
+## What you get per fund
+
+| Field | Meaning |
 | --- | --- |
 | `name` | Fund name. |
 | `profileUrl` | Canonical PitchBook fund profile URL. |
-| `description` | Fund description text. |
-| `logoUrl` | Fund manager's logo image URL. |
-| `socialLinks` | Manager's public social profiles (Twitter/X, LinkedIn, Facebook). |
-| `fundStrategy` | Investment strategy (e.g. Buyout, Venture Capital). |
-| `fundStatus` | Fund lifecycle status (e.g. Active, Liquidated). |
-| `fundSize` | Total committed capital, as published (e.g. "$6.11B"). |
+| `description` | Public fund summary. |
+| `fundStrategy` | Published strategy, for example Buyout or Venture Capital. |
+| `fundStatus` | Lifecycle state, for example Liquidated or Open. |
+| `fundSize` | Reported fund size exactly as published, for example `$6.11B`. |
+| `fundSizeMillions` | The same size converted to millions of the fund's native currency. |
 | `vintageYear` | Year the fund was raised. |
-| `fundCategory` | Asset class (e.g. Private Equity, Venture Capital). |
-| `fundFamily` | Fund family name, when the fund belongs to a numbered series. |
-| `fundManager` | Managing firm's name. |
-| `fundManagerUrl` | PitchBook profile URL of the managing firm. |
-| `fundManagerWebsite` | Managing firm's external website. |
-| `fundDomiciles` | Legal domicile jurisdiction(s) of the fund. |
-| `nativeCurrency` | Fund's reporting currency. |
-| `totalInvestments` | Number of portfolio investments attributed to the fund. |
-| `totalLimitedPartners` | Number of limited partners listed for the fund. |
-| `streetAddress` / `postalCode` / `city` / `state` / `country` | Manager's address, as published. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+| `fundCategory` | Asset class, for example Private Equity or Venture Capital. |
+| `fundFamily` | Fund family or series name, when published. |
+| `fundManager` | Managing firm. |
+| `fundManagerUrl` | PitchBook investor-profile URL for the manager. |
+| `fundManagerWebsite` | Manager's external website. |
+| `fundDomiciles` | Legal domicile jurisdiction(s). |
+| `nativeCurrency` | Reporting currency. |
+| `totalInvestments` | Total number of investments shown in the section heading. |
+| `totalLimitedPartners` | Total number of limited partners shown in the section heading. |
+| `investments` | Public preview rows: company name, company URL, deal date, deal type, industry and company stage. Most funds publish five rows. |
+| `limitedPartners` | Public preview rows: LP name, LP URL, type, status, commitment date and commitment type. Most funds publish five rows. |
+| `streetAddress`, `postalCode`, `city`, `state`, `country` | Manager address, as published. |
+| `logoUrl` | Manager logo image URL. |
+| `socialLinks` | Manager social profiles, when published. |
+| `scrapedAt` | ISO timestamp for the capture. |
 
-If a profile can't be fetched or parsed, the record instead contains `inputUrl`, `error`, and `scrapedAt`, so failed lookups are still visible in the dataset rather than silently dropped. If an entire run returns zero fund records (for example every attempt was blocked), the dataset instead gets a single diagnostic record describing the run (`mode`, `errorCount`, a status `message` and `scrapedAt`) instead of being left empty.
+Fields the profile does not publish are left out of that record. A failed lookup produces a record with `type`, `inputUrl`, `error` and `scrapedAt`, so failures remain visible. If every fetch in a run is blocked, a single `pitchbook_fund_blocked` diagnostic record is written instead of an empty dataset.
 
-## Input
+## Inputs
 
-| Field | Type | Default | Description |
+| Input | Type | Default | Notes |
 | --- | --- | --- | --- |
-| `profileUrls` | Array of strings | – | Direct PitchBook fund profile URLs or bare IDs (e.g. `11295-73F`). When set, `searchQuery` is ignored and every URL listed is processed regardless of `maxItems`. |
-| `searchQuery` | String | `venture capital` | Keyword search used when `profileUrls` is empty. |
-| `maxItems` | Integer | 3 | Maximum number of fund records to return. Ignored when `profileUrls` is set. |
-| `proxyConfiguration` | Object | Apify Proxy, RESIDENTIAL group | Proxy used to fetch PitchBook pages. A residential proxy is needed because PitchBook blocks repeated requests from the same address. |
+| `profileUrls` | String list | – | Fund links or bare IDs. Takes priority over the other source fields. |
+| `searchQuery` | String | – | Fund name, manager or strategy keyword. |
+| `maxItems` | Integer | 3 | Output cap for keyword and sitemap modes. |
+| `fundTypes` | Multi-select | – | Keep only these published strategies. |
+| `fundStatuses` | Multi-select | – | Keep only these lifecycle states. |
+| `fundCategories` | Multi-select | – | Keep only these asset classes. |
+| `countries` | String list | – | Country or region names, matched against country and domicile. |
+| `minVintage` / `maxVintage` | Integer | – | Vintage-year bounds. |
+| `minFundSize` / `maxFundSize` | Number | – | Size bounds in millions of native currency. |
+| `searchText` | String | – | All words must appear in the fund's public text fields. |
 
-### Example: fetch specific fund profiles
+### Examples
 
-```json
-{
-  "profileUrls": [
-    "https://pitchbook.com/profiles/fund/11295-73F",
-    "11042-89F"
-  ]
-}
-```
-
-### Example: search by strategy and region
+Fetch two known funds:
 
 ```json
 {
-  "searchQuery": "growth equity asia",
-  "maxItems": 50
+  "profileUrls": ["11295-73F", "https://pitchbook.com/profiles/fund/10909-00F"]
 }
 ```
 
-### Example: bulk collection from the fund sitemap
+Find liquidated buyout funds:
 
 ```json
 {
-  "maxItems": 500
+  "searchQuery": "buyout europe",
+  "maxItems": 20,
+  "fundStatuses": ["Liquidated"],
+  "minVintage": 1995,
+  "maxVintage": 2010
 }
 ```
+
+Sample recent venture funds from the public index:
+
+```json
+{
+  "maxItems": 50,
+  "fundTypes": ["Venture - General", "Venture Capital - Early Stage"],
+  "minVintage": 2018
+}
+```
+
+## How the public data is reached
+
+Profile pages are served to anonymous visitors with browser-grade TLS. The actor starts with a direct request; if PitchBook blocks that route it moves to Apify Proxy's datacenter pool and only then to residential addresses. You do not need to configure a proxy, and no PitchBook account or cookie is required.
 
 ## Use cases
 
-- **LP due diligence teams** compiling fund size, vintage year and strategy for a shortlist of managers.
-- **Deal sourcing teams** building sourcing lists of active funds within a strategy or geography.
-- **CRM enrichment** keeping manager contact and website details current without clicking through profiles manually.
-- **Market mapping** surveying how many funds a manager has raised across a fund family.
-- **Competitive research** comparing fund sizes and vintages across managers in the same strategy.
+- **LP and fund-of-funds research** — compare fund sizes and vintages across a manager's series.
+- **Deal sourcing** — build lists of active funds in a strategy, region or vintage range.
+- **CRM enrichment** — add manager website, address and domicile to existing fund records.
+- **Portfolio mapping** — collect the public investment preview for a set of funds.
+- **Market scans** — sample the public fund index and filter it down to a target profile.
 
 ## FAQ
 
-**Do I need a PitchBook account?**
-No. This actor only reads pages PitchBook already publishes to visitors without a login.
+**Do I need a PitchBook subscription?**
+No. The actor reads only the free profile preview pages that PitchBook serves to anonymous visitors.
 
-**Why does the proxy need to be residential?**
-PitchBook limits how many requests it accepts from the same address; a residential proxy is set as the default so profile fetches keep working across a run.
+**Why are IRR, DPI, RVPI and TVPI missing?**
+PitchBook renders those performance figures as locked placeholders on public profiles. They are not readable without a subscription, so the actor does not invent them.
 
-**What data isn't available through this actor?**
-Anything PitchBook reserves for paying subscribers — fund IRR/DPI/RVPI/TVPI performance figures, dry powder, individual deal sizes, LP commitment amounts, and full contact phone numbers — isn't published on the public profile page, so it isn't in the output.
+**Why do investment and LP lists have five rows?**
+PitchBook publishes a five-row preview for most funds. The `totalInvestments` and `totalLimitedPartners` fields give the full counts, while the arrays contain the public preview rows.
 
-**How many funds exist in the bulk sitemap?**
-PitchBook's public fund sitemap lists well over 100,000 fund profiles; set `maxItems` to control how many a single run collects.
+**How complete is keyword search?**
+PitchBook's public endpoint returns one best match per query. To find more than one fund, the actor also scans public fund profiles for the same keywords. Direct URLs are the most precise option; the sitemap mode is best for broad sampling.
 
-**Can I search by strategy or geography instead of a fund name?**
-`searchQuery` is passed to PitchBook's own fund search, which only indexes a subset of queries; for keywords it doesn't match, the actor fills your remaining `maxItems` with other fund profiles rather than returning nothing. For guaranteed coverage of a specific fund, use `profileUrls` instead.
+**Can I get more than 100,000 funds in one run?**
+The public fund sitemap lists more than 150,000 profiles. Raise `maxItems` to collect more, but expect a longer run and larger dataset.
 
-**How do I tell a fund profile URL apart from an investor profile URL?**
-Fund profile IDs end in a capital `F` (e.g. `11295-73F`); investor profile IDs don't have that suffix.
+**How do I tell a fund link from an investor link?**
+Fund profile IDs end in `F` (for example `11295-73F`). Investor IDs do not have that suffix.
 
 **Is this affiliated with PitchBook?**
 No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by PitchBook Data, Inc.

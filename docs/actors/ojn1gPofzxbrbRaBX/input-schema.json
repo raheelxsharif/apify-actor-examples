@@ -1,71 +1,258 @@
 {
-  "description": "Search rooms to rent on SpareRoom.co.uk by city, budget, and availability.",
+  "description": "Search public SpareRoom.co.uk room listings by location, rent, radius and filters, or fetch full details for specific listing URLs.",
   "properties": {
+    "billsIncluded": {
+      "default": false,
+      "description": "Only include adverts that state bills are included in the rent.",
+      "prefill": false,
+      "title": "Bills included only",
+      "type": "boolean"
+    },
     "city": {
       "default": "London",
-      "description": "City or area to search in (e.g. London, Manchester, Birmingham, Edinburgh).",
+      "description": "UK city, town, neighbourhood or postcode (for example London, Manchester, Camden, SW2). A SpareRoom /flatshare/... URL is also accepted. Used in search mode.",
       "editor": "textfield",
       "prefill": "London",
-      "title": "City / area",
+      "sectionCaption": "Search",
+      "title": "City or area",
+      "type": "string"
+    },
+    "disabledAccess": {
+      "default": false,
+      "description": "Only include properties with disabled access.",
+      "prefill": false,
+      "title": "Disabled access only",
+      "type": "boolean"
+    },
+    "freeToContact": {
+      "default": false,
+      "description": "Only include adverts that are free to contact.",
+      "prefill": false,
+      "title": "Free to contact only",
+      "type": "boolean"
+    },
+    "furnished": {
+      "default": "any",
+      "description": "Filter by furnished or unfurnished adverts.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "furnished",
+        "unfurnished"
+      ],
+      "enumTitles": [
+        "Any furnishing",
+        "Furnished",
+        "Unfurnished"
+      ],
+      "prefill": "any",
+      "title": "Furnishing",
+      "type": "string"
+    },
+    "keyword": {
+      "description": "Only include adverts whose text matches this keyword, for example tube, ensuite, garden.",
+      "editor": "textfield",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "maxBeds": {
+      "description": "Only include properties with at most this many bedrooms (6 means 6+ on SpareRoom).",
+      "editor": "select",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "enumTitles": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6+",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "title": "Maximum bedrooms in property",
       "type": "string"
     },
     "maxBudget": {
       "default": 1500,
-      "description": "Maximum monthly rent in GBP.",
+      "description": "Only include rooms advertised at or below this monthly rent. Weekly adverts are matched by SpareRoom's own monthly conversion.",
       "maximum": 10000,
-      "minimum": 100,
+      "minimum": 0,
       "prefill": 1500,
-      "title": "Max monthly budget (GBP)",
+      "title": "Maximum rent (GBP per month)",
       "type": "integer"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of listings to return.",
-      "maximum": 500,
+      "description": "Stop after this many listings. SpareRoom itself exposes at most 1,000 results per search.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum listings",
       "type": "integer"
     },
     "milesFromCenter": {
       "default": 3,
-      "description": "Search radius in miles from city center.",
+      "description": "Search radius around the chosen location. SpareRoom's own selector uses 0-5, 10, 15, 20, 30 and 40 miles.",
       "maximum": 50,
       "minimum": 0,
       "prefill": 3,
-      "title": "Miles from center",
+      "title": "Search radius (miles)",
       "type": "integer"
     },
+    "minBeds": {
+      "description": "Only include properties with at least this many bedrooms.",
+      "editor": "select",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "enumTitles": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "title": "Minimum bedrooms in property",
+      "type": "string"
+    },
     "minBudget": {
-      "description": "Minimum monthly rent in GBP.",
+      "description": "Only include rooms advertised at or above this monthly rent.",
       "maximum": 10000,
       "minimum": 0,
-      "title": "Min monthly budget (GBP)",
+      "title": "Minimum rent (GBP per month)",
       "type": "integer"
     },
     "mode": {
-      "default": "searchRooms",
-      "description": "What to scrape.",
+      "default": "search",
+      "description": "Search current room listings, or fetch full details for a list of SpareRoom listing URLs.",
       "editor": "select",
       "enum": [
+        "search",
+        "details",
         "searchRooms",
         "searchByCity",
         "searchByBudget",
         "roomDetails"
       ],
       "enumTitles": [
-        "Search rooms by city",
-        "Search by city name (flexible query)",
-        "Search rooms within a budget",
-        "Room details by URL"
+        "Search rooms by location and filters",
+        "Fetch details for specific listing URLs",
+        "Legacy alias: search rooms",
+        "Legacy alias: search by city",
+        "Legacy alias: search by budget",
+        "Legacy alias: room details by URL"
       ],
-      "prefill": "searchRooms",
+      "prefill": "search",
+      "sectionCaption": "Mode",
       "title": "Mode",
+      "type": "string"
+    },
+    "moveInDate": {
+      "description": "Ask SpareRoom for rooms available on or before this date. Leave blank for any date.",
+      "editor": "textfield",
+      "title": "Move-in date (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "noDeposit": {
+      "default": false,
+      "description": "Only include adverts marked as no or low deposit.",
+      "prefill": false,
+      "title": "No / low deposit only",
+      "type": "boolean"
+    },
+    "parking": {
+      "default": false,
+      "description": "Only include properties with parking available.",
+      "prefill": false,
+      "title": "Parking only",
+      "type": "boolean"
+    },
+    "petsAllowed": {
+      "default": false,
+      "description": "Only include adverts where pets are considered.",
+      "prefill": false,
+      "title": "Pets considered only",
+      "type": "boolean"
+    },
+    "photosOnly": {
+      "default": false,
+      "description": "Only include adverts with at least one photo.",
+      "prefill": false,
+      "title": "Photo adverts only",
+      "type": "boolean"
+    },
+    "postedBy": {
+      "default": "any",
+      "description": "Filter by who placed the advert.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "privateLandlords",
+        "flatmates",
+        "liveIn",
+        "noLiveIn"
+      ],
+      "enumTitles": [
+        "Anyone",
+        "Private landlords only (no agents)",
+        "Flatmates only",
+        "Live-in landlords only",
+        "No live-in landlords"
+      ],
+      "prefill": "any",
+      "title": "Posted by",
+      "type": "string"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Choose rooms in existing shared houses, studio/1-bed flats, or whole properties suitable for sharing.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "roomsInShares",
+        "studios",
+        "wholeProperties"
+      ],
+      "enumTitles": [
+        "Any property type",
+        "Rooms in existing shares",
+        "Studio / 1-bed flats",
+        "Whole properties suitable for sharing"
+      ],
+      "prefill": "any",
+      "title": "Property type",
       "type": "string"
     },
     "roomType": {
       "default": "any",
-      "description": "Type of room to search for.",
+      "description": "Narrow results to double rooms, single rooms, en-suite rooms or studio/1-bed properties.",
       "editor": "select",
       "enum": [
         "any",
@@ -75,11 +262,11 @@
         "studio"
       ],
       "enumTitles": [
-        "Any",
+        "Any room type",
         "Double room",
         "Single room",
-        "En-suite",
-        "Studio"
+        "En-suite room",
+        "Studio or 1-bed property"
       ],
       "prefill": "any",
       "title": "Room type",
@@ -87,17 +274,54 @@
     },
     "roomUrls": {
       "default": [],
-      "description": "List of SpareRoom listing URLs for detail scraping.",
+      "description": "One or more public SpareRoom listing URLs for details mode. Both /flatshare/<area>/<id> and flatshare_detail.pl?flatshare_id=<id> links are accepted.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Room URLs (mode=roomDetails)",
+      "sectionCaption": "Listing details",
+      "title": "SpareRoom listing URLs",
       "type": "array"
+    },
+    "sharedLivingRoom": {
+      "default": false,
+      "description": "Only include properties with a shared living room.",
+      "prefill": false,
+      "title": "Shared living room only",
+      "type": "boolean"
+    },
+    "shortLet": {
+      "default": false,
+      "description": "Only include adverts that consider short-term lets.",
+      "prefill": false,
+      "title": "Short lets only",
+      "type": "boolean"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "How SpareRoom should order results before collection.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "lastUpdated",
+        "priceLow",
+        "priceHigh"
+      ],
+      "enumTitles": [
+        "SpareRoom default",
+        "Newest adverts",
+        "Recently updated",
+        "Price: lowest first",
+        "Price: highest first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "SpareRoom Scraper Input",
+  "title": "SpareRoom UK Flatshare Search & Listing Details Input",
   "type": "object"
 }

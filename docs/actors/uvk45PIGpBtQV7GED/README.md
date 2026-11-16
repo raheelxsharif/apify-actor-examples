@@ -4,16 +4,21 @@
 
 # Patreon Creator Economics & Membership Tier Scraper
 
-Patreon creator pages publish patron counts, membership tier pricing and recent public posts for anyone to see, even without a Patreon account. This actor reads that data for one or more creators, searches across creators by keyword, browses Patreon's Explore directory by category, or fetches a specific public post directly by URL.
+Patreon creator pages publish campaign details, patron and paid-member counts, membership tier pricing and recent public posts for anyone to see. This actor collects that public data for creators you name, for keyword search results, for an Explore topic, or for individual post URLs.
+
+It is built for creator-economy research: audience size, tier ladders, public pledge totals, a clearly-labelled revenue estimate when the creator hides earnings, and the public post stream behind each campaign.
 
 ## What this actor does
 
-- Fetches a creator's campaign metadata, membership tiers with pricing, and patron/paid-member counts.
-- Optionally pulls that creator's recent public posts alongside the campaign record.
-- Searches across all of Patreon by keyword, or browses the Explore directory by category.
-- Fetches a single public post's detail directly from its URL.
-- Filters out creators below a minimum patron count, or marked NSFW, before they're emitted.
-- Fields a creator or post doesn't publish (for example a hidden patron count) are left out of that record.
+- Fetches a campaign's profile, patron and paid-member counts, creation count and membership tiers.
+- Exposes the public monthly pledge total (`pledgeSum`) when a creator has made earnings public.
+- Adds a transparent monthly/annual revenue estimate for creators who hide earnings, with the estimation method recorded in each row.
+- Optionally pulls a creator's recent public posts alongside the campaign record.
+- Searches Patreon by keyword, or browses the Explore feed by topic.
+- Optionally enriches search and Explore rows with full campaign economics and tiers.
+- Fetches individual public posts by URL.
+- Drops creators below a minimum patron count or marked NSFW when those filters are set.
+- Omits any field the creator or post does not publish; no nulls or placeholders are written.
 
 ## Output per creator
 
@@ -23,28 +28,44 @@ Patreon creator pages publish patron counts, membership tier pricing and recent 
 | `vanity` | Vanity slug (`PhilosophyTube`) |
 | `url` | Public Patreon URL |
 | `name` | Campaign name |
+| `creatorName` | Creator's display name |
 | `summary` | Plain-text campaign description |
 | `oneLiner` | Short tagline |
 | `creationName` | What the creator makes (e.g. "Creating Philosophy Videos") |
-| `currency` | Currency code (USD / EUR / GBP / …) |
-| `patronCount` | Total patron count (free + paid) |
-| `paidMemberCount` | Paid-member count |
-| `creationCount` | Total post count |
-| `payPerName` | "month" / "video" / "creation" |
-| `isMonthly` | `true` if billing is monthly |
+| `currency` | Payout currency code (USD / EUR / GBP / …) |
+| `patronCount` | Total patrons (free + paid), when public |
+| `paidMemberCount` | Paying patrons, when public |
+| `creationCount` | Total posts published |
+| `createdAt` | Campaign creation timestamp |
+| `publishedAt` | Campaign launch timestamp |
+| `payPerName` | Billing unit: `month` / `video` / `creation` |
+| `isMonthly` | `false` for per-creation/per-video billing (only emitted when `false`) |
 | `isNsfw` | `true` for adult content |
 | `offersFreeMembership` | Whether a free tier exists |
 | `offersPaidMembership` | Whether paid tiers exist |
-| `publishedAt` | ISO 8601 launch date |
+| `showEarnings` | `true` when the page asks to show earnings |
+| `earningsVisibility` | Patreon's earnings visibility value (`public` / `private`) |
+| `pledgeSumCents` | Public monthly pledge total, in cents |
+| `pledgeSum` | Public monthly pledge total, in currency units |
+| `pledgeSumCurrency` | Currency of `pledgeSum` |
+| `estimatedMonthlyRevenue` | Monthly revenue estimate in `revenueCurrency` |
+| `estimatedAnnualRevenue` | Annualised version of the monthly estimate |
+| `revenueEstimateMethod` | `publicPledgeSum`, `paidMembersAtLowestTier` or `patronsAtLowestTier` |
+| `revenueCurrency` | Currency used by the estimate |
+| `tierCount` | Number of paid tiers |
+| `minTierPrice` / `maxTierPrice` | Cheapest and most expensive paid tier |
+| `tierCurrency` | Currency shared by the tier ladder |
+| `memberCountPreference` | Patreon's member-count display preference |
+| `mainVideoUrl` | Campaign intro video, when set |
 | `avatarPhotoUrl` | Avatar image URL |
 | `coverPhotoUrl` | Banner image URL |
 | `pledgeUrl` | Direct checkout URL |
-| `creator` | `{fullName, vanity, url}` for the underlying user |
-| `tiers` | Array of paid tiers (sorted by price ascending) |
-| `socialLinks` | `{appName: profileUrl}` for connected social accounts the creator has linked |
+| `creator` | `{fullName, vanity, url, imageUrl, thumbUrl, createdAt}` |
+| `tiers` | Paid tiers, sorted by price ascending |
+| `socialLinks` | `{platform: profileUrl}` from the creator's connected accounts |
 | `scrapedAt` | ISO 8601 UTC timestamp |
 
-`mode=search` and `mode=explore` return a lighter creator record instead (`recordType: "searchResult"` / `"exploreCard"`) — only `id`, `name`, `vanity`, `url`, `creationName`, `oneLiner`, `summary`, `patronCount`, `avatarPhotoUrl`, `coverPhotoUrl`, `isNsfw` and (explore only) `category`; `tiers`, `creator`, `socialLinks`, `currency`, `paidMemberCount`, `creationCount`, `publishedAt` and `pledgeUrl` aren't part of those thinner listing payloads.
+`mode=search` and `mode=explore` return lighter rows by default (`recordType: "searchResult"` / `"exploreCard"`). Set `includeCreatorDetails` to enrich each row into a full `creator` record with economics and tiers.
 
 Each tier in `tiers`:
 
@@ -52,43 +73,53 @@ Each tier in `tiers`:
 | --- | --- |
 | `id` | Tier (reward) ID |
 | `title` | Tier title |
-| `description` | Tier description (plain text) |
+| `description` | Tier description, plain text |
 | `amountCents` | Price in cents |
-| `amountUsd` / `amountDollars` | Price as a decimal USD/local-currency value (same value, two keys) |
+| `amountUsd` / `amountDollars` | Price as a decimal local-currency value (kept for compatibility; not converted) |
 | `currency` | Currency code |
-| `patronCount` | Patrons on this tier |
-| `requiresShipping` | `true` if physical fulfilment required |
+| `patronCount` | Patrons on this tier, when Patreon publishes it |
+| `postCount` | Posts shared with this tier |
+| `requiresShipping` | `true` when the tier ships a physical reward |
+| `remaining` | Remaining slots, when limited |
+| `userLimit` | Slot limit, when set |
+| `createdAt` / `publishedAt` | Tier timestamps |
 | `imageUrl` | Tier illustration URL |
+| `url` | Tier checkout URL |
 
 ## Output per post
 
 | Field | Description |
 | --- | --- |
 | `id` | Post ID |
-| `vanity` | Creator vanity (added by us) |
+| `vanity` | Creator vanity (added by the actor) |
 | `title` | Post title |
+| `createdAt` / `editedAt` | Post timestamps |
 | `publishedAt` | ISO 8601 publish timestamp |
 | `url` | Public post URL |
 | `postType` | `video_external_file`, `image_file`, `text_only`, `audio_file`, `link`, … |
 | `isPaid` | `true` if patron-only |
-| `isPublic` | `true` if visible to anonymous users |
+| `isPublic` | `true` if visible to anonymous visitors |
+| `minCentsPledgedToView` | Minimum pledge needed to view a gated post |
 | `patronCount` | Number of patrons who can see the post |
-| `commentCount` | Comment count |
-| `likeCount` | Like count |
-| `teaserText` | Plain-text teaser (when paid post has a public teaser) |
+| `commentCount` / `likeCount` | Public engagement counts |
+| `teaserText` | Plain-text teaser (when a paid post has one) |
 | `content` | Plain-text body (when public) |
-| `body` | Same plain-text body, truncated to 5000 characters |
+| `body` | Same plain-text body, capped at 5,000 characters |
 | `thumbnailUrl` | Thumbnail image URL |
+| `imageUrl` | Post image URL, when present |
+| `embedUrl` | Embedded video/link URL |
+| `videoPreviewUrl` | Video preview URL |
+| `postFileUrl` | Attached media URL |
 
 ## Output per failed input
 
-When a creator slug can't be resolved to a campaign, the actor emits a typed record instead of skipping silently:
+When a creator slug cannot be resolved to a campaign, the actor emits a typed record instead of dropping it silently:
 
 | Field | Description |
 | --- | --- |
 | `recordType` | `"error"` |
 | `vanity` | The input slug that failed |
-| `reason` | `fan_profile_not_creator` (slug belongs to a patron, not a creator) or `redirect_failed_no_campaign` (no campaign could be found) |
+| `reason` | `fan_profile_not_creator` or `redirect_failed_no_campaign` |
 | `scrapedAt` | ISO 8601 UTC timestamp |
 
 Empty fields are dropped from every record at every depth.
@@ -97,18 +128,21 @@ Empty fields are dropped from every record at every depth.
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `mode` | Enum | `creator` | `creator` (campaign + tiers + posts) / `posts` (posts only) / `search` (creators by keyword) / `explore` (browse by category) / `postByUrl` (single post by URL) |
+| `mode` | Enum | `creator` | `creator` (campaign + tiers + posts) / `posts` (posts only) / `search` (creators by keyword) / `explore` (browse a topic) / `postByUrl` (single post by URL) |
 | `creators` | Array | `["PhilosophyTube"]` | Vanity slugs or full URLs (mode=creator/posts) |
 | `searchQuery` | String | — | Keyword for `mode=search` |
-| `category` | Enum | — | Patreon Explore category — `podcasts`, `video-film`, `music`, `visual-arts`, `comedy`, `games`, `writing`, `drawing-painting`, `comics-graphic-novels`, `tabletop-games`, `science`, `education`, `crafts-diy`, `lifestyle` |
+| `category` | Enum | — | Patreon Explore topic (see the Console dropdown); leave empty for the top-level Explore feed |
 | `postUrls` | Array | — | Patreon post URLs (`https://www.patreon.com/posts/<id>`) for `mode=postByUrl` |
-| `includePosts` | Boolean | `true` | When `mode=creator`, also fetch posts |
+| `includePosts` | Boolean | `true` | When `mode=creator`, also fetch recent posts |
 | `maxPostsPerCreator` | Integer | `20` | Hard cap per-creator post emission (1-200) |
 | `minPatronCount` | Integer | — | Drop creators with fewer patrons |
 | `excludeNsfw` | Boolean | `false` | Drop NSFW creators |
 | `maxItems` | Integer | `50` | Hard cap on total emitted records (1-5000) |
-| `autoEscalateOnBlock` | Boolean | `true` | When enabled, the actor automatically uses Apify Proxy if a request is blocked, instead of failing that request. |
-| `proxyGroups` | Array | — | Apify proxy groups to use when a block triggers `autoEscalateOnBlock`. Leave empty for the default group. |
+| `includeCreatorDetails` | Boolean | `false` | For `mode=search` / `mode=explore`, fetch each creator's full campaign economics and tiers |
+| `autoEscalateOnBlock` | Boolean | `true` | Automatically use Apify Proxy when Patreon blocks a request |
+| `proxyGroups` | Array | — | Optional Apify proxy groups for that fallback; leave empty for the default group |
+
+Legacy saved-task keys are still honoured in code: `creatorUrls` / `campaigns` map to `creators`, `query` / `searchQueries` map to `searchQuery`, and `postUrl` maps to `postUrls`.
 
 ### Example input — single creator + posts
 
@@ -153,12 +187,23 @@ Empty fields are dropped from every record at every depth.
 }
 ```
 
-### Example input — explore by category
+### Example input — search with full economics
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "tabletop podcast",
+  "includeCreatorDetails": true,
+  "maxItems": 10
+}
+```
+
+### Example input — explore by topic
 
 ```json
 {
   "mode": "explore",
-  "category": "podcasts",
+  "category": "podcasts_and_shows",
   "maxItems": 50
 }
 ```
@@ -180,65 +225,81 @@ Empty fields are dropped from every record at every depth.
 ```json
 {
   "recordType": "creator",
-  "id": "114875",
-  "vanity": "PhilosophyTube",
-  "url": "https://www.patreon.com/PhilosophyTube",
-  "name": "Philosophy Tube",
-  "creationName": "Creating Philosophy Videos",
-  "oneLiner": "Giving away a philosophy degree one video at a time.",
-  "summary": "When the British government tripled university tuition in 2010 …",
+  "id": "2963533",
+  "vanity": "TrueAnonPod",
+  "url": "https://www.patreon.com/TrueAnonPod",
+  "name": "TrueAnon Podcast",
+  "creatorName": "TrueAnon Podcast",
+  "creationName": "The ONLY Anti-Pedophile Podcast fighting the Sicko Elite",
   "currency": "USD",
-  "patronCount": 15382,
-  "paidMemberCount": 5233,
-  "creationCount": 756,
+  "patronCount": 77825,
+  "paidMemberCount": 43697,
+  "creationCount": 852,
   "payPerName": "month",
-  "offersFreeMembership": true,
-  "offersPaidMembership": true,
-  "publishedAt": "2014-09-21T17:34:46.000+00:00",
+  "earningsVisibility": "public",
+  "pledgeSumCents": 19337338,
+  "pledgeSum": 193373.38,
+  "pledgeSumCurrency": "USD",
+  "estimatedMonthlyRevenue": 193373.38,
+  "estimatedAnnualRevenue": 2320480.56,
+  "revenueEstimateMethod": "publicPledgeSum",
+  "revenueCurrency": "USD",
+  "tierCount": 4,
+  "minTierPrice": 1.0,
+  "maxTierPrice": 50.0,
+  "tierCurrency": "USD",
   "creator": {
-    "fullName": "Philosophy Tube",
-    "vanity": "PhilosophyTube",
-    "url": "https://www.patreon.com/PhilosophyTube"
+    "fullName": "TrueAnon Podcast",
+    "vanity": "TrueAnonPod",
+    "url": "https://www.patreon.com/TrueAnonPod"
   },
   "tiers": [
-    { "id": "...", "title": "Patron", "amountCents": 200, "amountUsd": 2.00, "currency": "USD" },
-    { "id": "...", "title": "Producer", "amountCents": 500, "amountUsd": 5.00 }
+    { "id": "...", "title": "Friend of the Show", "amountCents": 100, "amountUsd": 1.0, "currency": "USD" },
+    { "id": "...", "title": "Premium", "amountCents": 500, "amountUsd": 5.0, "currency": "USD" }
   ],
-  "scrapedAt": "2026-05-06T05:42:18Z"
+  "socialLinks": {
+    "twitter": "https://twitter.com/TrueAnonPod",
+    "instagram": "https://www.instagram.com/trueanonpod"
+  },
+  "scrapedAt": "2026-11-16T04:43:00Z"
 }
 ```
 
 ## Use cases
 
-- **Creator-economy analytics** — Track patron growth and tier pricing across a portfolio of creators.
-- **Brand-deal targeting** — Identify creators with N+ patrons in a niche for sponsorship outreach.
-- **Competitive research** — Compare your creator's pricing/post-cadence with peers.
-- **Investor due-diligence** — Patron counts are a public approximation of MRR; compare across creators.
-- **Content audits** — Pull every public post from a Patreon creator for analysis or archival.
+- **Creator-economy analytics** — Track audience size, tier ladders and public pledge totals across a creator portfolio.
+- **Brand-deal targeting** — Find creators with a given audience size in a niche.
+- **Competitive pricing research** — Compare tier ladders and post cadence.
+- **Market sizing** — Compare public pledge totals and conservative revenue floors across categories.
+- **Content audits** — Pull the public post stream from a creator for analysis or archival.
 
 ## FAQ
 
 **Do I need a Patreon account?**
-No. Every endpoint this actor uses is part of Patreon's public-facing site (the campaign page that any visitor can see) and the public posts JSON API.
+No. The actor reads the same public campaign pages, Explore feed and posts endpoint that an anonymous visitor sees.
+
+**When is `pledgeSum` present?**
+Only when the creator makes earnings public. `earningsVisibility` tells you which case applies. When earnings are private, `estimatedMonthlyRevenue` is a floor based on paid members × the cheapest paid tier; `revenueEstimateMethod` records how it was calculated.
 
 **Why does `paidMemberCount` differ from `patronCount`?**
-`patronCount` includes free-tier members. `paidMemberCount` is paying patrons only — usually a much smaller number for creators that offer a free tier.
+`patronCount` includes free-tier members. `paidMemberCount` is paying patrons only, so creators with a free tier usually have a much larger `patronCount`.
 
 **Are full post bodies included?**
-Only for posts marked `is_public=true`. Patron-only posts return a public teaser (when set) but the full body is locked. Each post's `isPaid` / `isPublic` flags tell you which type you have.
+Only for posts marked `is_public=true`. Patron-only posts expose their public metadata and teaser, while `isPaid` / `isPublic` tell you which kind of row you have.
 
 **How many posts can I scrape per creator?**
-Up to 200 per run via `maxPostsPerCreator`. The Patreon posts API paginates 20 at a time — large pulls take ~1 second per page.
+Up to 200 per run via `maxPostsPerCreator`. The posts endpoint paginates 20 at a time.
 
 **How current is the data?**
-Live — every run hits Patreon at request time. Schedule the actor for hourly / daily refreshes to track patron-growth curves.
+Live — every run hits Patreon at request time. Schedule the actor to track growth over time.
 
 **Do I need to set up a proxy?**
-No, proxy use is optional. `autoEscalateOnBlock` is on by default so the actor only reaches for Apify Proxy if a request gets blocked; most runs never need it.
+No. The actor uses Apify Proxy automatically only if Patreon blocks a request; most runs never need it.
 
 ## Limitations
 
 - Patron-only post bodies are not accessible without a logged-in account.
-- Some creators hide `patronCount` (set `member_count_preference` to TIER_BREAKDOWN); those records will still emit but with the count omitted.
-- Earnings figures are never surfaced, even for creators who publish them on their page.
-- Comments are not included in this version (each post would need a follow-up fetch); we surface `commentCount` for sentiment-trend approximation.
+- Some creators hide patron counts; those records keep the other public fields and omit the hidden counts.
+- Revenue estimates for private-earnings creators are lower bounds, not reported figures. The method field makes this explicit.
+- Explore and search rows are light by default because Patreon's listing payloads expose only card metadata; enable `includeCreatorDetails` to fill economics and tiers.
+- Comments themselves are not collected; `commentCount` is included for engagement analysis.

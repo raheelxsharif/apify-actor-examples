@@ -1,42 +1,81 @@
 {
-  "description": "Fetch citations, references, or the citation count for a scholarly DOI from the OpenCitations index.",
+  "description": "Pull incoming citations, outgoing references, counts, a single citation edge, a full citation graph, or bibliographic metadata for one or more scholarly identifiers from the open OpenCitations APIs.",
   "properties": {
-    "doi": {
-      "description": "The DOI to look up. Accepts a bare DOI (e.g. \"10.1186/1756-8722-6-59\"), a \"doi:\" prefix, or a full \"https://doi.org/…\" URL.",
-      "editor": "textfield",
-      "prefill": "10.1186/1756-8722-6-59",
-      "title": "DOI",
-      "type": "string"
+    "identifiers": {
+      "default": [],
+      "description": "One or more DOIs, DOI URLs, PMIDs, OMIDs, ISSNs or ISBNs. DOI URLs and bare IDs are normalised automatically. Use `oci` instead for the single-citation mode.",
+      "editor": "stringList",
+      "prefill": [
+        "10.1186/1756-8722-6-59"
+      ],
+      "title": "Identifiers",
+      "type": "array"
+    },
+    "includeWorkMetadata": {
+      "default": false,
+      "description": "Add citingTitle, citingAuthors, citingPubDate, citingVenue and the cited equivalents to citation/reference/graph rows using OpenCitations Meta. Off by default because it adds metadata requests.",
+      "prefill": false,
+      "title": "Include work metadata on edges",
+      "type": "boolean"
     },
     "maxItems": {
-      "default": 50,
-      "description": "Maximum number of citation/reference records to return (ignored for citation count, which is always a single record).",
-      "maximum": 1000,
+      "default": 100,
+      "description": "Maximum records to return. Edge modes page through results until this cap; count and metadata modes process at most this many identifiers.",
+      "maximum": 100000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Max items",
       "type": "integer"
     },
     "mode": {
       "default": "getCitations",
-      "description": "What to fetch for the given DOI: incoming citations, outgoing references, or the total citation count.",
+      "description": "What to retrieve. Edge modes page through the OpenCitations Index; count and metadata modes return one record per identifier.",
       "editor": "select",
       "enum": [
         "getCitations",
         "getReferences",
-        "getCitationCount"
+        "getGraph",
+        "getCitationCount",
+        "getReferenceCount",
+        "getCounts",
+        "getVenueCitationCount",
+        "getMetadata",
+        "getCitation"
       ],
       "enumTitles": [
-        "Get citations (papers citing this DOI)",
-        "Get references (papers this DOI cites)",
-        "Get citation count (how many cite this DOI)"
+        "Citations — works that cite the identifier",
+        "References — works the identifier cites",
+        "Graph — citations and references together",
+        "Citation count — how many works cite it",
+        "Reference count — how many works it cites",
+        "Both counts — citation and reference counts",
+        "Venue citation count — citations to a journal ISSN",
+        "Metadata — title, authors, venue, publisher",
+        "Single citation edge — look up one OCI"
       ],
       "prefill": "getCitations",
       "title": "Mode",
       "type": "string"
+    },
+    "oci": {
+      "default": "",
+      "description": "Open Citation Identifier for mode=getCitation, with or without the `oci:` prefix (e.g. `06101801781-06180334099`).",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "OCI (single citation mode)",
+      "type": "string"
+    },
+    "startPage": {
+      "default": 1,
+      "description": "Page to start from for citation/reference/graph modes. Each page holds up to 1,000 edges. Use it to resume large graphs or fetch a specific slice.",
+      "maximum": 100000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Start page",
+      "type": "integer"
     }
   },
   "schemaVersion": 1,
-  "title": "OpenCitations Scraper Input",
+  "title": "OpenCitations DOI Citation Graph Input",
   "type": "object"
 }

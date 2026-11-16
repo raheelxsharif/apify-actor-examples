@@ -1,19 +1,110 @@
 {
   "actorSpecification": 1,
+  "title": "OpenCitations citation graph records",
   "views": {
+    "citations": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Citation edges",
+      "transformation": {
+        "fields": [
+          "queryIdentifier",
+          "oci",
+          "citingDoi",
+          "citedDoi",
+          "citingTitle",
+          "citedTitle",
+          "creation",
+          "timespan",
+          "journalSc",
+          "authorSc",
+          "citingUrl",
+          "citedUrl",
+          "sourceUrl"
+        ]
+      }
+    },
+    "counts": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Counts",
+      "transformation": {
+        "fields": [
+          "identifier",
+          "doi",
+          "issn",
+          "citationCount",
+          "referenceCount",
+          "venueCitationCount",
+          "recordType",
+          "sourceUrl"
+        ]
+      }
+    },
+    "errors": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Errors",
+      "transformation": {
+        "fields": [
+          "recordType",
+          "error",
+          "message",
+          "input",
+          "mode",
+          "sourceUrl"
+        ]
+      }
+    },
+    "metadata": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Bibliographic metadata",
+      "transformation": {
+        "fields": [
+          "identifier",
+          "doi",
+          "title",
+          "authors",
+          "pubDate",
+          "publicationYear",
+          "venueName",
+          "publisherName",
+          "publicationType",
+          "doiUrl",
+          "sourceUrl"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
         "properties": {}
       },
-      "title": "Citations",
+      "title": "All records",
       "transformation": {
         "fields": [
+          "recordType",
+          "queryIdentifier",
           "oci",
           "citingDoi",
           "citedDoi",
+          "identifier",
+          "title",
+          "citationCount",
+          "referenceCount",
+          "venueCitationCount",
           "creation",
-          "timespan"
+          "pubDate",
+          "sourceUrl"
         ]
       }
     }

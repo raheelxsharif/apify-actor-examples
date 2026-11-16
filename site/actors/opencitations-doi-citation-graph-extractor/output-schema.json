@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Citation or reference edges for a DOI from the OpenCitations index, with cross-walked identifiers, creation date, timespan and self-citation flags.",
+  "description": "OpenCitations citation edges, references, counts, single OCI edges and bibliographic metadata, with cross-walked DOI, OMID, PMID and OpenAlex identifiers, DOI/PubMed links and optional per-edge title/author enrichment.",
   "properties": {
-    "citations": {
-      "description": "Dataset containing all scraped citation, reference, or citation-count records.",
+    "records": {
+      "description": "Dataset containing citation edges, references, counts, metadata and typed error records. Use the dataset views to split by record type.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Citation records",
+      "title": "Citation graph records",
       "type": "string"
     }
   },

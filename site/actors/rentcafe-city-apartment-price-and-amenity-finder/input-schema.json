@@ -1,141 +1,253 @@
 {
-  "description": "Scrape RentCafe.com apartment listings for a city, with an optional bedroom/price/amenity filter and client-side rating/price/pet-friendly refinement.",
+  "description": "Search RentCafe.com apartment communities for a US city or one/more RentCafe search URLs, with RentCafe's own server-side bedroom, bathroom, price, rating, pet-policy, amenity, property-type, move-in and sort filters. Returns community prices, amenities, contact and address details.",
   "properties": {
-    "filter": {
+    "amenity": {
       "default": "",
-      "description": "RentCafe supports one filter segment per search page. Pick the axis that matters most; use Min/Max price and Pet-friendly only below for extra client-side refinement on top of it.",
+      "description": "One apartment amenity that every returned community must offer, using RentCafe's own amenity filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11",
+        "c12",
+        "c16",
+        "c17",
+        "c18",
+        "c19",
+        "c21",
+        "c23",
+        "c24",
+        "c25",
+        "c34"
+      ],
+      "enumTitles": [
+        "Any",
+        "Air Conditioner",
+        "Dishwasher",
+        "Extra Storage",
+        "Fireplace",
+        "Furnished",
+        "Gas Range",
+        "Hardwood Floors",
+        "Large Closets",
+        "Patio/Balcony",
+        "Washer/Dryer",
+        "W/D Hookup",
+        "Wheelchair Access",
+        "Controlled Access",
+        "Covered Parking",
+        "Garage",
+        "High Speed Internet",
+        "Laundry Facilities",
+        "Short Term Lease",
+        "Pool",
+        "Fitness Center",
+        "Public Transportation"
+      ],
+      "title": "Amenity",
+      "type": "string"
+    },
+    "bathrooms": {
+      "default": "",
+      "description": "Minimum bathroom count.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "2",
+        "3plus"
+      ],
+      "enumTitles": [
+        "Any",
+        "1 bathroom",
+        "2 bathrooms",
+        "3+ bathrooms"
+      ],
+      "title": "Bathrooms",
+      "type": "string"
+    },
+    "beds": {
+      "default": "",
+      "description": "RentCafe's own bedroom filter. `Studio` matches studios; `4+` matches four or more bedrooms.",
       "editor": "select",
       "enum": [
         "",
         "studio",
-        "1-bedroom",
-        "2-bedroom",
-        "3-bedroom",
-        "4-bedroom",
-        "cheap",
-        "luxury",
-        "furnished",
-        "short-term",
-        "pet-friendly",
-        "air-conditioning",
-        "balcony",
-        "controlled-access",
-        "dishwasher",
-        "fireplace",
-        "fitness-center",
-        "garage",
-        "hardwood-floors",
-        "playground",
-        "pool",
-        "public-transportation",
-        "recent-build",
-        "rent-specials",
-        "tennis-court",
-        "under-500",
-        "under-600",
-        "under-700",
-        "under-800",
-        "under-900",
-        "under-1000",
-        "under-1100",
-        "under-1200",
-        "under-1300",
-        "under-1400",
-        "under-1500",
-        "under-2000"
+        "1",
+        "2",
+        "3",
+        "4plus"
       ],
       "enumTitles": [
-        "None (all listings)",
+        "Any",
         "Studio",
         "1 bedroom",
-        "2 bedroom",
-        "3 bedroom",
-        "4 bedroom",
-        "Cheap",
-        "Luxury",
-        "Furnished",
-        "Short-term",
-        "Pet friendly",
-        "Air conditioning",
-        "Balcony",
-        "Controlled access",
-        "Dishwasher",
-        "Fireplace",
-        "Fitness center",
-        "Garage",
-        "Hardwood floors",
-        "Playground",
-        "Pool",
-        "Public transportation",
-        "Recent build",
-        "Rent specials",
-        "Tennis court",
-        "Under $500",
-        "Under $600",
-        "Under $700",
-        "Under $800",
-        "Under $900",
-        "Under $1,000",
-        "Under $1,100",
-        "Under $1,200",
-        "Under $1,300",
-        "Under $1,400",
-        "Under $1,500",
-        "Under $2,000"
+        "2 bedrooms",
+        "3 bedrooms",
+        "4+ bedrooms"
       ],
-      "prefill": "",
-      "title": "Listing filter",
+      "sectionCaption": "Filters (RentCafe server-side)",
+      "title": "Bedrooms",
       "type": "string"
     },
     "location": {
-      "description": "City as it appears on RentCafe, e.g. `austin-tx`, `Austin, TX`, or `new-york-city-ny`. Spaces/commas are auto-converted to the RentCafe URL slug.",
+      "description": "A US city as it appears on RentCafe, e.g. `austin-tx`, `Austin, TX`, or `new-york-city-ny`; spaces and commas are converted to the RentCafe URL slug. A full RentCafe city search URL is also accepted. Required in `City search` mode.",
       "editor": "textfield",
       "prefill": "austin-tx",
-      "title": "Location",
+      "title": "City",
       "type": "string"
     },
     "maxItems": {
       "default": 25,
-      "description": "Hard cap on emitted records. Note: RentCafe itself only surfaces up to roughly 500 listings per location/filter combination (even for the largest cities); very large values are safe to set but a single location will rarely return more than ~500.",
+      "description": "Hard cap on emitted communities. RentCafe's public city search paginates its own community results, usually 25 per page; the status message reports when the source ceiling is reached.",
       "maximum": 2000,
       "minimum": 1,
       "prefill": 25,
+      "sectionCaption": "Output",
       "title": "Max items",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Drop listings whose highest advertised starting price is above this.",
+      "description": "Only include communities with a unit at or below this monthly rent. Uses RentCafe's own price filter, and the record is re-checked after parsing.",
       "maximum": 100000,
       "minimum": 0,
-      "title": "Max price ($/month)",
+      "title": "Maximum rent ($/month)",
       "type": "integer"
     },
     "minPrice": {
-      "description": "Drop listings whose lowest advertised starting price is below this.",
+      "description": "Only include communities with a unit at or above this monthly rent. Uses RentCafe's own price filter, and the record is re-checked after parsing.",
       "maximum": 100000,
       "minimum": 0,
-      "title": "Min price ($/month)",
+      "title": "Minimum rent ($/month)",
       "type": "integer"
     },
     "minRating": {
-      "description": "Drop listings whose review rating is below this (client-side; RentCafe has no rating filter of its own).",
+      "description": "Drop communities rated below this. Whole numbers from 3 to 5 are also sent to RentCafe's rating filter; other values are applied to the returned records.",
       "maximum": 5,
       "minimum": 0,
-      "title": "Min rating (0-5)",
+      "title": "Minimum rating (0-5)",
       "type": "integer"
     },
-    "petFriendlyOnly": {
+    "mode": {
+      "default": "city",
+      "description": "`City search` builds a RentCafe search from a city and the filters below. `Search URLs` scrapes one or more existing RentCafe city search URLs and applies any filters you set on top of each URL.",
+      "editor": "select",
+      "enum": [
+        "city",
+        "urls"
+      ],
+      "enumTitles": [
+        "City search",
+        "Search URLs"
+      ],
+      "prefill": "city",
+      "sectionCaption": "Search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "moveInDate": {
+      "description": "Optional move-in date in `YYYY-MM-DD` format; RentCafe returns communities with availability around that date.",
+      "editor": "textfield",
+      "title": "Move-in date",
+      "type": "string"
+    },
+    "petPolicy": {
+      "default": "",
+      "description": "RentCafe pet-policy filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "pet-friendly",
+        "cats",
+        "dogs",
+        "no-pets"
+      ],
+      "enumTitles": [
+        "Any",
+        "Pet friendly",
+        "Cats allowed",
+        "Dogs allowed",
+        "No pets allowed"
+      ],
+      "title": "Pet policy",
+      "type": "string"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "RentCafe property-type filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "apartment",
+        "condo",
+        "home",
+        "townhouse",
+        "student",
+        "affordable"
+      ],
+      "enumTitles": [
+        "Any",
+        "Apartment",
+        "Condo",
+        "Home",
+        "Townhouse",
+        "Student",
+        "Affordable"
+      ],
+      "title": "Property type",
+      "type": "string"
+    },
+    "rentSpecialsOnly": {
       "default": false,
-      "description": "Only emit listings whose amenity summary mentions \"Pet friendly\".",
+      "description": "Only include communities currently advertising a rent special.",
       "prefill": false,
-      "title": "Pet friendly only",
+      "title": "Rent specials only",
       "type": "boolean"
+    },
+    "searchUrls": {
+      "description": "One or more RentCafe city search URLs, e.g. `https://www.rentcafe.com/apartments-for-rent/austin-tx/pet-friendly/`. Required in `Search URLs` mode. Each URL's own path filter and supported query parameters are honoured; filters below override matching URL parameters.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "RentCafe search URLs",
+      "type": "array"
+    },
+    "sort": {
+      "default": "",
+      "description": "Result order applied by RentCafe.",
+      "editor": "select",
+      "enum": [
+        "",
+        "price-low",
+        "price-high",
+        "rating-high",
+        "newest",
+        "virtual-tour"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Price: low to high",
+        "Price: high to low",
+        "Rating: high to low",
+        "Newest",
+        "3D tour"
+      ],
+      "title": "Sort order",
+      "type": "string"
     }
   },
-  "required": [
-    "location"
-  ],
+  "required": [],
   "schemaVersion": 1,
-  "title": "RentCafe Scraper Input",
+  "title": "RentCafe City Apartment Search",
   "type": "object"
 }

@@ -1,49 +1,173 @@
 {
   "properties": {
+    "countries": {
+      "description": "Keep funds whose country or domicile contains any of these names, for example United States, Europe or Germany.",
+      "editor": "stringList",
+      "title": "Countries or regions",
+      "type": "array"
+    },
+    "fundCategories": {
+      "description": "Keep only funds in one of these asset classes.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Co-Investment - General",
+          "Debt",
+          "Fund of Funds - General",
+          "Other",
+          "Private Equity",
+          "Real Assets",
+          "Secondaries - General",
+          "Venture Capital"
+        ],
+        "type": "string"
+      },
+      "title": "Fund categories",
+      "type": "array"
+    },
+    "fundStatuses": {
+      "description": "Keep only funds in one of these lifecycle states, for example Liquidated or Open.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Cancelled",
+          "Closed",
+          "Evergreen",
+          "Fully Invested",
+          "Liquidated",
+          "Open",
+          "Open (First Close)",
+          "Open (Interim Close)",
+          "Open (Second Close)",
+          "Open (Third Close)",
+          "Upcoming"
+        ],
+        "type": "string"
+      },
+      "title": "Fund statuses",
+      "type": "array"
+    },
+    "fundTypes": {
+      "description": "Keep only funds whose published strategy matches one of these types. Leave empty for all types.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "Agriculture",
+          "Angel Fund",
+          "Bridge Financing",
+          "Buyout",
+          "Co-Investment",
+          "Collateralized Loan Obligation (CLO)",
+          "Credit Special Situations",
+          "Debt - General",
+          "Direct Lending",
+          "Distressed Debt",
+          "Diversified Private Equity",
+          "Fund of Funds",
+          "Growth/Expansion",
+          "Hedge Fund",
+          "Infrastructure - General",
+          "Infrastructure Core",
+          "Infrastructure Core Plus",
+          "Infrastructure Debt",
+          "Infrastructure Greenfield",
+          "Infrastructure Opportunistic",
+          "Infrastructure Value Added",
+          "Metals & Mining",
+          "Mezzanine",
+          "Oil/Gas",
+          "Other",
+          "Project Finance",
+          "Real Assets & Natural Resources - General",
+          "Real Estate - General",
+          "Real Estate Core",
+          "Real Estate Core Plus",
+          "Real Estate Debt",
+          "Real Estate Distressed",
+          "Real Estate Opportunistic",
+          "Real Estate Value Added",
+          "Restructuring/Turnaround",
+          "Secondaries",
+          "Timber",
+          "Venture - General",
+          "Venture Capital - Early Stage",
+          "Venture Capital - Later Stage",
+          "Venture Debt"
+        ],
+        "type": "string"
+      },
+      "sectionCaption": "Optional filters",
+      "sectionDescription": "Filters apply to direct, search and sitemap runs. Leave blank to keep every fund.",
+      "title": "Fund types",
+      "type": "array"
+    },
+    "maxFundSize": {
+      "description": "Maximum published fund size in millions of the fund's native currency. Leave empty for no upper bound.",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Maximum fund size",
+      "type": "number"
+    },
     "maxItems": {
       "default": 3,
-      "description": "Maximum number of fund records to return. Ignored when profileUrls are provided (all URLs are always processed).",
+      "description": "Upper limit on fund records returned. Direct-URL runs process every listed URL; search and sitemap runs stop once this many funds match.",
       "editor": "number",
       "maximum": 100000,
       "minimum": 1,
       "prefill": 3,
-      "title": "Max Items",
+      "title": "Maximum funds",
+      "type": "integer"
+    },
+    "maxVintage": {
+      "description": "Maximum vintage year. Leave empty for no upper bound.",
+      "editor": "number",
+      "maximum": 2100,
+      "minimum": 1800,
+      "title": "Latest vintage year",
+      "type": "integer"
+    },
+    "minFundSize": {
+      "description": "Minimum published fund size in millions of the fund's native currency (6.11B becomes 6110). Leave empty for no lower bound.",
+      "editor": "number",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Minimum fund size",
+      "type": "number"
+    },
+    "minVintage": {
+      "description": "Minimum vintage year. Leave empty for no lower bound.",
+      "editor": "number",
+      "maximum": 2100,
+      "minimum": 1800,
+      "title": "Earliest vintage year",
       "type": "integer"
     },
     "profileUrls": {
-      "description": "Direct PitchBook fund profile URLs or bare IDs (e.g. https://pitchbook.com/profiles/fund/11295-73F or 11295-73F). When provided, searchQuery is ignored.",
+      "description": "PitchBook fund profile links or bare IDs (for example https://pitchbook.com/profiles/fund/11295-73F or 11295-73F). When supplied, every listed fund is processed and the other source fields are ignored.",
       "editor": "stringList",
-      "title": "Profile URLs",
+      "prefill": [
+        "11295-73F"
+      ],
+      "sectionCaption": "Fund sources",
+      "sectionDescription": "Choose one source: a list of profiles, a keyword, or the full public sitemap.",
+      "title": "Fund profile URLs or IDs",
       "type": "array"
     },
-    "proxyConfiguration": {
-      "default": {
-        "apifyProxyGroups": [
-          "RESIDENTIAL"
-        ],
-        "useApifyProxy": true
-      },
-      "description": "Apify proxy configuration. Residential proxy is required for reliable scraping — PitchBook's Cloudflare protection blocks repeated requests from the same IP.",
-      "editor": "proxy",
-      "prefill": {
-        "apifyProxyGroups": [
-          "RESIDENTIAL"
-        ],
-        "useApifyProxy": true
-      },
-      "title": "Proxy Configuration",
-      "type": "object"
-    },
     "searchQuery": {
-      "default": "venture capital",
-      "description": "Text search for funds (e.g. 'venture capital' or 'buyout europe'). Used when no profileUrls are provided.",
+      "description": "Fund name, manager or strategy keyword, for example 'Sequoia Capital Fund XV', 'growth equity' or 'buyout europe'. PitchBook's public best match is tried first, then public profiles are scanned for more matches. Used only when no profile URLs are supplied.",
       "editor": "textfield",
-      "prefill": "venture capital",
-      "title": "Search Query",
+      "title": "Keyword search",
+      "type": "string"
+    },
+    "searchText": {
+      "description": "Keep funds whose name, manager, description, strategy, category or location contains all of these words.",
+      "editor": "textfield",
+      "title": "Text filter",
       "type": "string"
     }
   },
   "schemaVersion": 1,
-  "title": "PitchBook Fund Data Scraper Input",
+  "title": "PitchBook Fund Profile Input",
   "type": "object"
 }

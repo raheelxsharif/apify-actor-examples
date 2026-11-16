@@ -4,107 +4,172 @@
 
 # OpenCitations DOI Citation Graph Extractor
 
-OpenCitations publishes the largest fully open citation graph of scholarly works, linking papers to everything that cites them and everything they cite. Give this actor a single DOI and it returns the citation graph around that paper — incoming citations, outgoing references, or just a citation count — as structured records with cross-walked identifiers for every connected work.
+OpenCitations publishes a fully open citation graph of scholarly works. Give this actor one or more DOIs — or PMIDs, OMIDs, ISSNs, ISBNs — and it returns the graph around them: the papers that cite each work, the papers each work cites, both directions in one run, citation and reference totals, single citation edges, and full bibliographic metadata. Everything comes from OpenCitations' public Index and Meta APIs, so no key, login, cookie or proxy is needed.
 
-## What this actor does
+## Modes
 
-- Fetches every work that cites a given DOI (incoming citations)
-- Fetches every work a given DOI cites in its own reference list (outgoing references)
-- Fetches the total number of works citing a given DOI as a single count record
-- Cross-walks each citing/cited work to its DOI, OpenCitations Meta ID (OMID), PubMed ID and OpenAlex ID when OpenCitations has them on file
-- Empty fields are omitted from records — a field only appears when OpenCitations has that identifier or flag for the edge
+| Mode | What it returns |
+|---|---|
+| `getCitations` | One row per work that cites each identifier (incoming citations) |
+| `getReferences` | One row per work each identifier cites (outgoing references) |
+| `getGraph` | Citations and references together, split evenly by `maxItems` |
+| `getCitationCount` | Incoming citation total for each identifier |
+| `getReferenceCount` | Outgoing reference total for each identifier |
+| `getCounts` | Citation and reference totals in one record (plus venue count for an ISSN) |
+| `getVenueCitationCount` | All incoming citations to a journal identified by ISSN |
+| `getMetadata` | Title, authors, venue, publisher, volume, issue, pages, type and dates |
+| `getCitation` | A single citation edge looked up by its OCI |
 
-## Output per citation or reference record
+## Inputs
 
-- `oci` — Open Citation Identifier, a unique ID for this citation edge
-- `citing`, `cited` — raw identifier token strings for the citing and cited works
-- `citingDoi`, `citedDoi` — DOI of the citing and cited work
-- `citingOmid`, `citedOmid` — OpenCitations Meta ID of each work
-- `citingPmid`, `citedPmid` — PubMed ID of each work, when known
-- `citingOpenalex`, `citedOpenalex` — OpenAlex ID of each work, when known
-- `creation` — date the citing work was published
-- `timespan` — ISO-8601 duration between the cited work's and citing work's publication dates
-- `journalSc` — `true` when the citation is a journal self-citation (same venue)
-- `authorSc` — `true` when the citation is an author self-citation (shared author)
-- `journalScTuple` — `{journalSc, authorSc}` combined self-citation flags
-- `sourceUrl` — OpenCitations API URL the record came from
-- `recordType` — `citation` or `reference`
-- `scrapedAt` — ISO timestamp of the scrape
-
-## Output for a citation-count lookup (mode = `getCitationCount`)
-
-- `doi` — the DOI that was looked up
-- `citationCount` — number of works citing that DOI
-- `sourceUrl` — OpenCitations API URL
-- `recordType` — always `citationCount`
-- `scrapedAt` — ISO timestamp of the scrape
-
-## Output: no-data / error record (`recordType: "error"`)
-
-Pushed instead of a normal record when the DOI is invalid, or the lookup finds nothing.
-
-- `error` — short code, e.g. `invalid_doi`, `not_found`
-- `message` — human-readable explanation
-- `input` — the DOI value that caused it
-- `sourceUrl` — the OpenCitations API URL that was called
-- `scrapedAt`
-
-## Input
-
-| Field | Type | Default | Description |
+| Field | Type | Default | Notes |
 |---|---|---|---|
-| `mode` | string | `getCitations` | `getCitations` (papers citing the DOI), `getReferences` (papers the DOI cites), or `getCitationCount` (total citing count) |
-| `doi` | string | – | The DOI to look up — bare, `doi:`-prefixed, or a full `https://doi.org/…` URL |
-| `maxItems` | integer | `50` | Maximum citation/reference records to return (1–1000); ignored for `getCitationCount`, which always returns one record |
+| `mode` | select | `getCitations` | One of the modes above |
+| `identifiers` | string list | `[]` | DOIs, DOI URLs, `doi:` values, PMIDs, OMIDs, ISSNs or ISBNs; one per line |
+| `oci` | string | empty | Only for `getCitation`, e.g. `06101801781-06180334099` |
+| `maxItems` | integer | `100` (prefill `3`) | Row cap for edge modes; identifier cap for count and metadata modes |
+| `startPage` | integer | `1` | Resume or slice a large edge result set; each page holds up to 1,000 edges |
+| `includeWorkMetadata` | boolean | `false` | Add `citingTitle`, `citingAuthors`, `citingPubDate`, `citingVenue` and the cited equivalents to edge rows |
 
-### Example: who cites this paper
+Saved tasks that still send the old `doi` key keep working: the actor maps it onto `identifiers` in code. The old `mode`, `maxItems` and output fields are unchanged.
+
+### Examples
+
+Who cites a paper:
 
 ```json
 {
   "mode": "getCitations",
-  "doi": "10.1186/1756-8722-6-59",
+  "identifiers": ["10.1186/1756-8722-6-59"],
   "maxItems": 100
 }
 ```
 
-### Example: what this paper cites
+Both directions for two papers:
 
 ```json
 {
-  "mode": "getReferences",
-  "doi": "10.1038/leu.2016.153"
+  "mode": "getGraph",
+  "identifiers": [
+    "https://doi.org/10.1038/leu.2016.153",
+    "10.7717/peerj-cs.421"
+  ],
+  "maxItems": 200
 }
 ```
 
-### Example: just the citation count
+Counts and metadata:
 
 ```json
 {
-  "mode": "getCitationCount",
-  "doi": "10.1186/1756-8722-6-59"
+  "mode": "getCounts",
+  "identifiers": ["10.1186/1756-8722-6-59", "issn:0138-9130"]
 }
 ```
 
-## Use cases
+```json
+{
+  "mode": "getMetadata",
+  "identifiers": ["pmid:23958373", "10.7717/peerj-cs.421"]
+}
+```
 
-- **Literature mapping** — build out the citation network around a seminal paper, one DOI at a time
-- **Impact analysis** — track how many works cite a paper and how quickly citations accumulated using `timespan`
-- **Reference-list harvesting** — pull a paper's full reference list as structured rows instead of reading a bibliography
-- **Self-citation audits** — flag journal and author self-citations at scale using `journalSc`/`authorSc`
-- **Identifier reconciliation** — cross-walk a DOI-only dataset to OMID, PMID and OpenAlex identifiers
+A single edge by OCI:
+
+```json
+{
+  "mode": "getCitation",
+  "oci": "06101801781-06180334099"
+}
+```
+
+## Output
+
+Records are flat and omit-empty: a field appears only when OpenCitations has a real value for it.
+
+### Citation and reference edge
+
+- `oci` — Open Citation Identifier for the edge
+- `queryIdentifier` — the identifier you asked for
+- `resolvedIdentifier` — the DOI/PMID/OMID used after resolving an OpenAlex or PMCID input
+- `citing`, `cited` — raw identifier token strings
+- `citingDoi`, `citedDoi` — DOI of each side
+- `citingOmid`, `citedOmid` — OpenCitations Meta ID of each side
+- `citingPmid`, `citedPmid` — PubMed ID of each side, when known
+- `citingOpenalex`, `citedOpenalex` — OpenAlex ID of each side, when known
+- `citingUrl`, `citedUrl` — DOI resolver links
+- `citingPubmedUrl`, `citedPubmedUrl` — PubMed links, when a PMID is known
+- `creation` — publication date of the citing work
+- `timespan` — ISO-8601 duration between the cited and citing publication dates
+- `journalSc`, `authorSc` — journal / author self-citation flags
+- `journalScTuple` — the two flags together
+- `citingTitle`, `citingAuthors`, `citingPubDate`, `citingVenue` — only with `includeWorkMetadata`
+- `citedTitle`, `citedAuthors`, `citedPubDate`, `citedVenue` — only with `includeWorkMetadata`
+- `sourceUrl` — exact OpenCitations page URL
+- `recordType` — `citation` or `reference`
+- `scrapedAt` — ISO timestamp
+
+### Counts
+
+- `identifier`, plus `doi` / `issn` / `pmid` / `omid` as applicable
+- `citationCount` — incoming citations
+- `referenceCount` — outgoing references (`getCounts`, `getReferenceCount`)
+- `venueCitationCount` — citations to an ISSN (`getCounts` when the identifier is an ISSN, `getVenueCitationCount`)
+- `sourceUrl` — API URL used
+- `recordType` — `citationCount`, `referenceCount`, `venueCitationCount` or `counts`
+- `scrapedAt`
+
+### Metadata
+
+- `identifier`, `doi`, `omid`, `pmid`, `pmcid`, `openalexId`, `issn`, `issns`, `isbn`
+- `title`, `author`, `authors` (name + ORCID/OMID when known)
+- `pubDate`, `publicationYear`
+- `volume`, `issue`, `page`, `publicationType`
+- `venue`, `venueName`, `venueIssn`, `venueOmid`, `venueOpenalex`
+- `publisher`, `publisherName`, `publisherCrossref`, `publisherOmid`
+- `editor`, `editors`
+- `doiUrl`, `sourceUrl`
+- `recordType` — `metadata`
+- `scrapedAt`
+
+### Error row
+
+Pushed instead of a normal record for an invalid identifier, an unresolved identifier, an empty lookup, or an API failure.
+
+- `error` — short code such as `invalid_identifier`, `invalid_oci`, `missing_identifier`, `unresolved_identifier`, `not_found` or `fetch_failed`
+- `message` — plain-language explanation
+- `input` — the value that caused it
+- `mode` — the mode being run
+- `sourceUrl`
+- `recordType` — `error`
+- `scrapedAt`
+
+## Pagination and large graphs
+
+Citation and reference modes use OpenCitations' server-side `page` / `page_size` parameters. The actor keeps requesting pages until `maxItems` is reached or the source runs out, deduplicates edges by OCI, and never treats the natural end of results as a failure. `startPage` lets you resume a very large graph in slices; `maxItems` is the total row budget across all identifiers in the run.
+
+## Data source and scope
+
+- Citations, references, counts and OCIs: OpenCitations Index API v2 (`api.opencitations.net/index/v2`).
+- Titles, authors, venues, publishers and dates: OpenCitations Meta API v1 (`api.opencitations.net/meta/v1`).
+- OpenCitations rate-limits anonymous API use to 180 requests per minute per IP. The actor paces its page requests; extremely large graphs can take a while.
+- The Index contains citation links, not full texts or abstracts.
+- OpenAccess/PMCID and OpenAlex identifiers are accepted directly by `getMetadata`; in edge and count modes the actor resolves them to a DOI/OMID/PMID through Meta first.
+- Metadata is only as complete as the OpenCitations record: missing authors, venues or pages are omitted rather than guessed.
+- This is an independent third-party actor. It is not operated by or affiliated with OpenCitations.
 
 ## FAQ
 
-**Do I need an API key or account?** No. OpenCitations' index API is fully open; no login, key, cookies or proxy are needed.
+**Do I need an API key?** No. The OpenCitations APIs used here are open and cookieless.
 
-**What DOI formats does the `doi` field accept?** A bare DOI (`10.1186/1756-8722-6-59`), a `doi:`-prefixed value, or a full `https://doi.org/...` URL — all are normalized automatically.
+**Can I look up several papers in one run?** Yes — put one identifier per line in `identifiers`. `maxItems` is shared across all of them, and each row carries `queryIdentifier` so you can group the output.
 
-**What's an OCI?** An Open Citation Identifier — a globally unique, persistent ID OpenCitations assigns to a single citation edge (the link from one work to another).
+**What identifier formats are accepted?** Bare DOIs, `doi:` values, `https://doi.org/…` URLs, PMIDs, `omid:br/…`, `issn:…`, `isbn:…` and, when OpenCitations has them, `openalex:W…` and `pmcid:PMC…` for metadata. Bare 8-digit values are treated as PMIDs; use `issn:`/`isbn:` prefixes when that is what you have.
 
-**Why does a DOI return no results?** Either OpenCitations hasn't indexed that DOI yet, or the work genuinely has no recorded citations or references in the index. In that case the actor still finishes successfully with a single `recordType: "error"` record (`error: "not_found"`) instead of an empty dataset.
+**Why is a citation row missing a PMID or OpenAlex ID?** OpenCitations only stores the identifiers it has cross-walked for that work. Missing identifiers are omitted.
 
-**Why are `citingPmid` or `citedOpenalex` sometimes missing?** OpenCitations only stores the identifiers it has successfully cross-walked for a given work. If a work's PubMed ID or OpenAlex ID isn't on file, that field is left out of the record.
+**Why does `getGraph` return fewer citations than `getCitations` with the same `maxItems`?** `getGraph` splits the row budget between directions, so both halves appear in one dataset. Run `getCitations` or `getReferences` for a full single-direction budget.
 
-**How fresh is the data?** Every run queries the OpenCitations index live, so results reflect whatever OpenCitations has indexed at that moment.
+**Can I get more than 100,000 rows?** `maxItems` is capped at 100,000 per run. Use `startPage` to continue a larger result set in another run.
 
-**Is this affiliated with OpenCitations?** No. This is an independent, third-party actor built on the public OpenCitations index API; it is not operated by OpenCitations itself.
+**How fresh is the data?** Every run queries OpenCitations live, so results reflect the current index.
