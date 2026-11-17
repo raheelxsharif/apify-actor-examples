@@ -2,10 +2,41 @@
   "actorSpecification": 1,
   "title": "RockAuto parts",
   "views": {
+    "fitment": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "fitment": {
+            "format": "text",
+            "label": "Applications"
+          },
+          "manufacturer": {
+            "format": "text",
+            "label": "Brand"
+          },
+          "partNumber": {
+            "format": "text",
+            "label": "Part #"
+          }
+        }
+      },
+      "title": "Fitment applications",
+      "transformation": {
+        "fields": [
+          "manufacturer",
+          "partNumber",
+          "fitment"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
         "properties": {
+          "availability": {
+            "format": "text",
+            "label": "Availability"
+          },
           "category": {
             "format": "text",
             "label": "Category"
@@ -14,6 +45,18 @@
             "format": "number",
             "label": "Core"
           },
+          "description": {
+            "format": "text",
+            "label": "Description"
+          },
+          "fitmentNotes": {
+            "format": "text",
+            "label": "Fitment notes"
+          },
+          "grade": {
+            "format": "text",
+            "label": "Grade"
+          },
           "manufacturer": {
             "format": "text",
             "label": "Brand"
@@ -21,10 +64,6 @@
           "moreInfoUrl": {
             "format": "link",
             "label": "Info URL"
-          },
-          "packSize": {
-            "format": "number",
-            "label": "Pack"
           },
           "partNumber": {
             "format": "text",
@@ -45,11 +84,14 @@
         "fields": [
           "manufacturer",
           "partNumber",
+          "description",
           "category",
           "priceUSD",
           "coreChargeUSD",
           "totalUSD",
-          "packSize",
+          "grade",
+          "availability",
+          "fitmentNotes",
           "moreInfoUrl"
         ]
       }

@@ -1,16 +1,16 @@
 {
-  "description": "Search pros by service category and location, browse by category, or fetch individual pro profiles.",
+  "description": "Search Thumbtack pros by category and city, paginate across locations and sort orders, or fetch specific profile URLs with background-check, hiring and reputation signals.",
   "properties": {
     "backgroundCheckedOnly": {
       "default": false,
-      "description": "Only emit pros who have passed a background check.",
+      "description": "Keep only pros whose public profile shows a passed background check. Profiles are fetched only for candidates that need checking.",
       "prefill": false,
       "title": "Background-checked only",
       "type": "boolean"
     },
     "category": {
       "default": "house-cleaning",
-      "description": "Service category slug (mode=search or mode=byCategory).",
+      "description": "Thumbtack service category used by search and byCategory modes.",
       "editor": "select",
       "enum": [
         "house-cleaning",
@@ -32,7 +32,14 @@
         "junk-removal",
         "computer-repair",
         "massage-therapist",
-        "catering"
+        "catering",
+        "roofing",
+        "landscaping",
+        "flooring",
+        "pressure-washing",
+        "appliance-repair",
+        "architects",
+        "decks"
       ],
       "enumTitles": [
         "House Cleaning",
@@ -54,7 +61,14 @@
         "Junk Removal",
         "Computer Repair",
         "Massage Therapist",
-        "Catering"
+        "Catering",
+        "Roofing",
+        "Landscaping",
+        "Flooring",
+        "Pressure Washing",
+        "Appliance Repair",
+        "Architects",
+        "Decks"
       ],
       "prefill": "house-cleaning",
       "title": "Service category",
@@ -62,64 +76,134 @@
     },
     "city": {
       "default": "san-francisco",
-      "description": "City name for location filtering (mode=search). E.g. `san-francisco`, `new-york`, `chicago`.",
+      "description": "City slug or `City, ST` for the primary search location, e.g. `san-francisco`, `new-york`, or `Austin, TX`.",
       "editor": "textfield",
       "prefill": "san-francisco",
       "title": "City",
       "type": "string"
     },
+    "includeProfileDetails": {
+      "default": false,
+      "description": "Open each matched pro's profile for background check, years in business, employees, services, credentials, hours, payment methods and reviews. Adds one browser request per record.",
+      "prefill": false,
+      "title": "Include profile details",
+      "type": "boolean"
+    },
+    "instantBookOnly": {
+      "default": false,
+      "description": "Keep only pros whose card advertises instant booking.",
+      "prefill": false,
+      "title": "Instant book only",
+      "type": "boolean"
+    },
+    "locations": {
+      "default": [],
+      "description": "Optional list of extra `City, ST` locations. Each becomes its own search page and results are deduplicated, so this is how you paginate past a single city's preview.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Additional locations",
+      "type": "array"
+    },
     "maxItems": {
       "default": 5,
-      "description": "Hard cap on emitted records.",
+      "description": "Hard cap on emitted pro records.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 5,
+      "prefill": 2,
+      "sectionCaption": "Output",
       "title": "Max items",
       "type": "integer"
     },
+    "minHires": {
+      "description": "Keep only pros hired at least this many times through Thumbtack.",
+      "maximum": 999999,
+      "minimum": 0,
+      "title": "Minimum hires",
+      "type": "integer"
+    },
     "minRating": {
-      "description": "Only emit pros with rating >= this value.",
+      "description": "Keep only pros rated at or above this value (0-5).",
       "maximum": 5,
       "minimum": 0,
       "title": "Minimum rating",
       "type": "number"
     },
     "minReviews": {
-      "description": "Only emit pros with at least this many reviews.",
-      "maximum": 99999,
+      "description": "Keep only pros with at least this many customer reviews.",
+      "maximum": 999999,
       "minimum": 0,
-      "title": "Minimum review count",
+      "title": "Minimum reviews",
       "type": "integer"
     },
     "mode": {
       "default": "search",
-      "description": "What to scrape.",
+      "description": "Choose how to find pros: a category + location search, a nationwide category sweep, direct profile URLs, or front-door category URLs.",
       "editor": "select",
       "enum": [
         "search",
+        "byCategory",
         "byProfile",
-        "byCategory"
+        "byUrl"
       ],
       "enumTitles": [
-        "Search pros by category + location",
-        "Single pro profile by URL",
-        "Browse pros by category (no location filter)"
+        "Search by category + location",
+        "Browse a category across major US cities",
+        "Fetch specific pro profile URLs",
+        "Fetch specific category page URLs"
       ],
       "prefill": "search",
+      "sectionCaption": "Search setup",
       "title": "Mode",
       "type": "string"
     },
+    "paginate": {
+      "default": true,
+      "description": "When a page returns fewer pros than requested, continue through the remaining sort orders and nearby major cities with deduplication.",
+      "prefill": true,
+      "title": "Paginate until max items",
+      "type": "boolean"
+    },
     "profileUrls": {
       "default": [],
-      "description": "List of Thumbtack pro profile URLs. E.g. `https://www.thumbtack.com/profile/jane-doe-cleaning/service/123456/`",
+      "description": "Thumbtack pro profile URLs for mode=byProfile, e.g. `https://www.thumbtack.com/ca/san-francisco/house-cleaning/example/service/123456`.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Pro profile URLs (mode=byProfile)",
+      "sectionCaption": "Direct URLs",
+      "title": "Pro profile URLs",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "recommended",
+      "description": "Server-side order applied to each category page before filters run.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "highest_rated",
+        "most_hires",
+        "fastest_response"
+      ],
+      "enumTitles": [
+        "Recommended",
+        "Highest rated",
+        "Most hires",
+        "Fastest response"
+      ],
+      "prefill": "recommended",
+      "sectionCaption": "Filters and pagination",
+      "title": "Sort results by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Thumbtack front-door category URLs for mode=byUrl, e.g. `https://www.thumbtack.com/tx/austin/plumbers`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Category page URLs",
       "type": "array"
     },
     "state": {
       "default": "CA",
-      "description": "US state abbreviation (mode=search).",
+      "description": "Two-letter state code for the primary search location (mode=search).",
       "editor": "select",
       "enum": [
         "AL",
@@ -130,6 +214,7 @@
         "CO",
         "CT",
         "DE",
+        "DC",
         "FL",
         "GA",
         "HI",
@@ -182,6 +267,7 @@
         "Colorado",
         "Connecticut",
         "Delaware",
+        "District of Columbia",
         "Florida",
         "Georgia",
         "Hawaii",
@@ -226,12 +312,12 @@
         "Wyoming"
       ],
       "prefill": "CA",
-      "title": "US State (2-letter code)",
+      "title": "US state",
       "type": "string"
     },
     "topProOnly": {
       "default": false,
-      "description": "Only emit pros who have earned the Thumbtack Top Pro badge.",
+      "description": "Keep only pros carrying the Top Pro badge.",
       "prefill": false,
       "title": "Top Pro only",
       "type": "boolean"
@@ -241,6 +327,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Thumbtack Local Services Scraper Input",
+  "title": "Thumbtack Pro Vetting & Hire Signal Scraper Input",
   "type": "object"
 }

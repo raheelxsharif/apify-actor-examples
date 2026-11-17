@@ -1,58 +1,115 @@
 {
-  "description": "Search SEC EDGAR filings by keyword/form type, browse IPO registrations, or fetch filings and financial facts for a specific company.",
+  "description": "Search SEC EDGAR filings by keyword/form/date, browse IPO registrations, or fetch filings and XBRL financial facts for a company. No cookies or API key required.",
   "properties": {
     "cikOrTicker": {
-      "description": "Stock ticker (e.g. AAPL, MSFT, GOOGL) or SEC CIK number (e.g. 0000320193). Required for getCompanyFilings and getCompanyFacts modes.",
+      "description": "Stock ticker (AAPL, MSFT, GOOGL) or SEC CIK (0000320193). Required for getCompanyFilings and getCompanyFacts; optional company filter for searchFilings and browseIPOs.",
       "editor": "textfield",
-      "title": "Company CIK or ticker (getCompanyFilings / getCompanyFacts)",
+      "title": "Company CIK or ticker",
       "type": "string"
     },
     "dateEnd": {
-      "description": "Only include filings filed on or before this date.",
+      "description": "Only include filings filed on or before this date. Applies to searchFilings, browseIPOs and getCompanyFilings.",
       "editor": "textfield",
       "title": "Date to (YYYY-MM-DD)",
       "type": "string"
     },
     "dateStart": {
-      "description": "Only include filings filed on or after this date.",
+      "description": "Only include filings filed on or after this date. Applies to searchFilings, browseIPOs and getCompanyFilings.",
       "editor": "textfield",
       "title": "Date from (YYYY-MM-DD)",
       "type": "string"
     },
-    "formType": {
+    "factTaxonomy": {
       "default": "all",
-      "description": "SEC form type to filter by (mode=searchFilings). Ignored for browseIPOs (always S-1).",
+      "description": "For getCompanyFacts, choose which XBRL taxonomy to return.",
       "editor": "select",
       "enum": [
+        "all",
+        "us-gaap",
+        "dei"
+      ],
+      "enumTitles": [
+        "All taxonomies",
+        "US GAAP (financial statements)",
+        "DEI (entity/cover-page data)"
+      ],
+      "prefill": "all",
+      "title": "XBRL taxonomy",
+      "type": "string"
+    },
+    "formType": {
+      "default": "all",
+      "description": "SEC form type filter for searchFilings and getCompanyFilings. browseIPOs always uses S-1 (plus S-1/A when Include amendments is on).",
+      "editor": "select",
+      "enum": [
+        "all",
         "S-1",
+        "S-1/A",
+        "S-3",
+        "S-4",
+        "F-1",
+        "F-1/A",
         "10-K",
         "10-Q",
         "8-K",
-        "C",
-        "D",
+        "20-F",
+        "40-F",
+        "6-K",
+        "424B4",
+        "424B3",
+        "DEF 14A",
         "proxy statement",
-        "all"
+        "13F-HR",
+        "SC 13D",
+        "SC 13G",
+        "4",
+        "144",
+        "C",
+        "D"
       ],
       "enumTitles": [
-        "S-1 (IPO Registration)",
-        "10-K (Annual Report)",
-        "10-Q (Quarterly Report)",
-        "8-K (Current Report / Material Event)",
+        "All types",
+        "S-1 (IPO registration)",
+        "S-1/A (IPO amendment)",
+        "S-3 (Shelf registration)",
+        "S-4 (Merger/business combination)",
+        "F-1 (Foreign private issuer IPO)",
+        "F-1/A (Foreign IPO amendment)",
+        "10-K (Annual report)",
+        "10-Q (Quarterly report)",
+        "8-K (Current report / material event)",
+        "20-F (Foreign annual report)",
+        "40-F (Canadian annual report)",
+        "6-K (Foreign interim report)",
+        "424B4 (Prospectus / IPO pricing)",
+        "424B3 (Prospectus supplement)",
+        "DEF 14A (Proxy statement)",
+        "Proxy statement (DEF 14A)",
+        "13F-HR (Institutional holdings)",
+        "SC 13D (Beneficial ownership >5%)",
+        "SC 13G (Passive ownership >5%)",
+        "Form 4 (Insider transaction)",
+        "Form 144 (Restricted stock notice)",
         "C (Regulation Crowdfunding)",
-        "D (Exempt Offering / Private Placement)",
-        "Proxy Statement (DEF 14A)",
-        "All Types"
+        "D (Exempt offering / private placement)"
       ],
       "prefill": "S-1",
       "title": "Form type",
       "type": "string"
     },
+    "includeAmendments": {
+      "default": false,
+      "description": "For browseIPOs, also include S-1/A amendment filings alongside new S-1 registrations.",
+      "prefill": false,
+      "title": "Include amendments",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 25,
-      "description": "Maximum number of records to return.",
-      "maximum": 200,
+      "description": "Maximum number of records to return. SEC full-text search caps at 10,000 results.",
+      "maximum": 10000,
       "minimum": 1,
-      "prefill": 25,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -67,7 +124,7 @@
         "browseIPOs"
       ],
       "enumTitles": [
-        "Search filings (keyword + form type filter)",
+        "Search filings (keyword + form type + date + optional company)",
         "Get company filings (by ticker or CIK)",
         "Get company financial facts (XBRL data)",
         "Browse recent IPO registrations (S-1 filings)"
@@ -77,7 +134,7 @@
       "type": "string"
     },
     "query": {
-      "description": "Full-text search query (mode=searchFilings or browseIPOs). Examples: \"artificial intelligence\", \"going concern\", \"material weakness\".",
+      "description": "Full-text search query for mode=searchFilings. Supports phrases in quotes. Examples: \"artificial intelligence\", \"going concern\", \"material weakness\", \"IPO\".",
       "editor": "textfield",
       "title": "Search query",
       "type": "string"
@@ -87,6 +144,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "SEC EDGAR Filings Scraper Input",
+  "title": "SEC EDGAR IPO & XBRL Financial Facts Scraper Input",
   "type": "object"
 }

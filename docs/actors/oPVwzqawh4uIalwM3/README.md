@@ -4,59 +4,71 @@
 
 # Thumbtack Pro Vetting & Hire Signal Scraper
 
-Thumbtack lists local service professionals across categories like cleaning, lawn care, plumbing and personal training, each carrying hire counts, review history and trust badges. This actor searches that directory by category and city, browses a category nationwide, or fetches specific pro profiles directly by URL.
+Build a shortlist of Thumbtack service pros from public search pages and profile pages. Every record carries reputation and hiring signals: star rating, review volume, hires booked through Thumbtack, response speed, Top Pro status, background-check status, years in business and services offered.
 
-## What this actor does
+## What it does
 
-- Searches pros by service category within a chosen US state and city.
-- Browses a service category across major US cities when you don't want to pin down one location.
-- Fetches one or more specific pro profiles directly from their Thumbtack URLs.
-- Filters results by minimum rating, minimum review count, Top Pro badge, or background-check status.
-- Fields a pro's profile doesn't publish (for example no stated years in business) are left out of that record.
+- **Search by category and location** — one city, or several `City, ST` locations supplied in the same run.
+- **Browse a category nationwide** — sweeps major US cities and deduplicates pros seen in more than one market.
+- **Fetch specific profile URLs** — paste Thumbtack profile links for deep vetting records.
+- **Fetch category page URLs** — paste front-door links such as `https://www.thumbtack.com/tx/austin/plumbers`.
+- **Paginate and filter** — four server-side sort orders, optional continuation across sort orders and nearby cities, and filters for rating, reviews, hires, Top Pro, instant booking and background-check status.
 
-## Output per pro
+## Output fields
 
 | Field | Description |
 | --- | --- |
-| `proId` | Thumbtack's internal pro identifier. |
-| `name` | Pro's display name. |
-| `businessName` | Business name, when different from the pro's own name. |
-| `serviceCategory` | Service category the pro is listed under. |
-| `serviceDescription` | Pro's own service description or intro text. |
-| `rating` | Average star rating (0–5). |
-| `reviewCount` | Total number of reviews. |
-| `hireCount` | Number of times the pro has been hired through Thumbtack. |
-| `yearsInBusiness` | Years the business has been operating, when stated. |
-| `numEmployees` | Employee count bracket (e.g. "1–5"). |
-| `city` / `state` / `zip` | Location the pro operates in. |
-| `responseTime` | Typical response time (e.g. "within an hour"). |
-| `isVerified` | Whether Thumbtack has verified the pro. |
-| `isBackgroundChecked` | Whether the pro has passed a background check. |
-| `topPro` | Whether the pro holds the Top Pro badge. |
-| `startingPrice` | Starting price for the service, when the pro lists one. |
-| `reviewQualifier` | A qualitative review label (e.g. "Excellent"), when shown. |
-| `reviewText` | A featured review excerpt, when shown. |
-| `profileUrl` | Link to the pro's Thumbtack profile. |
-| `avatarUrl` | Pro's profile photo URL. |
-| `siteName` | Always `"Thumbtack"`, for datasets that merge records from multiple sources. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+| `proId` | Thumbtack service identifier. |
+| `name` / `businessName` | Display and business name. |
+| `serviceCategory` | Category the pro was found under. |
+| `serviceDescription` | Profile introduction, when published. |
+| `rating` / `reviewCount` | Average star rating and number of reviews. |
+| `reviewQualifier` | Thumbtack's qualitative rating label. |
+| `hireCount` | Number of hires booked through Thumbtack. |
+| `responseTime` / `responseTimeHours` | Display text and numeric average response time. |
+| `topPro` / `topProYears` | Top Pro status and the years awarded. |
+| `isBackgroundChecked` | Whether the public profile shows a passed background check. |
+| `isVerified` | Whether the profile shows a business verification credential. |
+| `yearsInBusiness` / `numEmployees` | Business age and employee count. |
+| `instantBookable` / `availabilityText` | Instant-booking signal from the card. |
+| `priceText` / `startingPrice` / `priceUnit` | Published price, when the pro shows one. |
+| `urgencySignals` | Thumbtack demand/value signals. |
+| `services` / `specialties` | Flat service list and grouped specialties. |
+| `credentials` | Background check and business verification entries. |
+| `businessHours` / `paymentMethods` / `socialLinks` | Profile details, when published. |
+| `ratingHistogram` / `reviews` | Star distribution and up to five highlighted reviews. |
+| `mediaImages` / `numPhotos` | Sample project photos and total count. |
+| `reviewText` / `reviewerName` | Featured review excerpt and author. |
+| `city` / `state` / `serviceArea` | Location context. |
+| `profileUrl` / `avatarUrl` | Public profile and image links. |
+| `businessFacts` | Raw trust and activity facts shown by Thumbtack. |
+| `scrapedAt` | ISO timestamp. |
+
+Fields a pro does not publish are omitted, never filled with placeholders.
 
 ## Input
 
 | Field | Type | Default | Description |
 | --- | --- | --- | --- |
-| `mode` | String (select) | `search` | `search` (category + state + city), `byProfile` (specific profile URLs), or `byCategory` (nationwide browse, no location). |
-| `category` | String (select) | `house-cleaning` | Service category to search or browse. |
-| `state` | String (select) | `CA` | Two-letter US state code (mode=search). |
-| `city` | String | `san-francisco` | City slug for location filtering, as it appears in Thumbtack URLs (mode=search). |
-| `profileUrls` | Array of strings | `[]` | Thumbtack pro profile URLs to fetch directly (mode=byProfile). |
-| `minRating` | Number | – | Only keep pros rated at or above this value (0.0–5.0). |
-| `minReviews` | Integer | – | Only keep pros with at least this many reviews. |
-| `topProOnly` | Boolean | `false` | Only keep pros who hold the Top Pro badge. |
-| `backgroundCheckedOnly` | Boolean | `false` | Only keep pros who have passed a background check. |
-| `maxItems` | Integer | 5 | Hard cap on the number of records emitted. |
+| `mode` | Select | `search` | `search`, `byCategory`, `byProfile` or `byUrl`. |
+| `category` | Select | `house-cleaning` | Service category for search and byCategory modes. |
+| `state` | Select | `CA` | Two-letter state code for the primary location. |
+| `city` | String | `san-francisco` | City slug or `City, ST`. |
+| `locations` | Array | `[]` | Extra `City, ST` locations for pagination and market coverage. |
+| `profileUrls` | Array | `[]` | Profile URLs for byProfile mode. |
+| `startUrls` | Array | `[]` | Category URLs for byUrl mode. |
+| `sortBy` | Select | `recommended` | `recommended`, `highest_rated`, `most_hires` or `fastest_response`. |
+| `minRating` | Number | — | Minimum average rating. |
+| `minReviews` | Integer | — | Minimum review count. |
+| `minHires` | Integer | — | Minimum Thumbtack hire count. |
+| `topProOnly` | Boolean | `false` | Keep Top Pro badge holders only. |
+| `backgroundCheckedOnly` | Boolean | `false` | Keep background-checked pros only; profiles are opened for candidates. |
+| `instantBookOnly` | Boolean | `false` | Keep instant-bookable pros only. |
+| `includeProfileDetails` | Boolean | `false` | Open every matched profile for deep vetting fields. |
+| `paginate` | Boolean | `true` | Continue through sort orders and nearby cities until `maxItems`. |
+| `maxItems` | Integer | `5` | Hard cap on records. |
 
-### Example: top-rated plumbers in New York
+### Example: top plumbers in New York with deep details
 
 ```json
 {
@@ -64,62 +76,49 @@ Thumbtack lists local service professionals across categories like cleaning, law
   "category": "plumber",
   "state": "NY",
   "city": "new-york",
+  "sortBy": "most_hires",
   "minRating": 4.5,
-  "minReviews": 10,
-  "topProOnly": true,
-  "maxItems": 25
+  "minHires": 10,
+  "includeProfileDetails": true,
+  "maxItems": 20
 }
 ```
 
-### Example: browse house cleaners nationwide
+### Example: background-checked cleaners across three cities
+
+```json
+{
+  "mode": "search",
+  "category": "house-cleaning",
+  "locations": ["Austin, TX", "Dallas, TX", "Houston, TX"],
+  "backgroundCheckedOnly": true,
+  "maxItems": 30
+}
+```
+
+### Example: nationwide roofers
 
 ```json
 {
   "mode": "byCategory",
-  "category": "house-cleaning",
-  "backgroundCheckedOnly": true,
+  "category": "roofing",
+  "sortBy": "highest_rated",
   "maxItems": 50
 }
 ```
 
-### Example: look up specific pro profiles
+## Pagination and location coverage
 
-```json
-{
-  "mode": "byProfile",
-  "profileUrls": [
-    "https://www.thumbtack.com/profile/janes-cleaning/service/123456/"
-  ]
-}
-```
+Thumbtack's public category page previews roughly 4-10 pros per city. With `paginate` enabled, the actor continues through the other three sort orders, then through nearby major cities, deduplicating on `proId`. Supply `locations` for deterministic coverage; use `byCategory` for a nationwide sweep.
 
-## Use cases
+## Notes and limits
 
-- **Homeowners** shortlisting background-checked, highly-rated pros in their city before reaching out.
-- **Lead-generation teams** compiling pro contact-ready profiles by category and location.
-- **Competitive research** for service businesses comparing their own rating and hire count against local peers.
-- **Franchise and marketplace operators** benchmarking category coverage and pricing across cities.
-- **Market researchers** tracking Top Pro and background-check adoption rates by service category.
+- Every value comes from public Thumbtack pages, with no login, cookies or API key.
+- Contact details (phone, email, street address) are not published on these pages and are not scraped.
+- Deep fields such as background check and years in business require `includeProfileDetails` or a byProfile run and appear only when the pro publishes them.
+- Reviews are capped at the five highlighted reviews Thumbtack shows publicly.
+- A single city/category page is a preview, not the full directory; use locations, sort orders or byCategory to widen coverage.
 
-## FAQ
+## Data source
 
-**Does this need a Thumbtack account?**
-No. It reads the same public pro listing and profile pages shown to any visitor on thumbtack.com.
-
-**What's the difference between `search` and `byCategory`?**
-`search` looks at one state/city you specify. `byCategory` instead checks the same category across a set of major US cities, which is useful when you want broad coverage rather than one location.
-
-**What city values are accepted?**
-Any US city slug the way Thumbtack uses it in its own URLs, e.g. `san-francisco`, `new-york`, `los-angeles`.
-
-**Why might `startingPrice` or `yearsInBusiness` be missing from a pro?**
-Not every pro lists a starting price or years in business on their profile; when that data isn't published, the field is left out rather than filled with a guess.
-
-**Can I target multiple categories in one run?**
-Each run searches one `category`. Run the actor again with a different category, or schedule several runs, to cover more than one.
-
-**How current is the data?**
-Every run reads Thumbtack's live listing and profile pages at request time.
-
-**Is this affiliated with Thumbtack?**
-No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by Thumbtack.
+Thumbtack's public front-door category pages and public pro profile pages.

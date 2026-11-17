@@ -1,133 +1,111 @@
-# RateMDs Patient Review & Practice Finder
+# RateMDs Doctor, Practice & Patient Review Finder
 
-RateMDs collects patient ratings and reviews for millions of physicians across the US and Canada, alongside practice contact details. This actor searches that directory by keyword or specialty, or fetches full profiles for doctors you already know, pulling ratings, practice information and recent patient reviews.
+RateMDs publishes patient ratings, reviews and practice details for doctors and clinics across the US and Canada. This actor searches that directory by name, keyword, specialty, city or state, browses practices, or fetches profiles you already know — without cookies, logins or API keys.
 
-## What this actor does
+## Modes
 
-- Searches doctors by name, keyword or medical condition, optionally narrowed to a city.
-- Browses every doctor listed under a medical specialty, with the same optional location filter.
-- Fetches a single doctor's full profile directly from its slug or URL.
-- Fetches a batch of doctor profile URLs in one run.
-- Optionally pulls each doctor's most recent patient reviews alongside their profile.
-- Fields a profile doesn't publish (for example no listed website or photo) are left out of that record.
+| Mode | What it returns |
+| --- | --- |
+| `search` | Doctors matching a name/keyword, optionally narrowed by specialty, city, state, country and profile filters. |
+| `bySpecialty` | Every doctor listed under a medical specialty, optionally narrowed by location. |
+| `doctorProfile` | One full doctor profile from a slug or URL, including reviews. |
+| `byUrl` | A batch of doctor profile URLs in one run. |
+| `practiceSearch` | Practices (clinics) in a city/state, with optional per-practice details. |
+| `practiceProfile` | One or more practice profiles from clinic URLs, including doctors and reviews. |
 
-## Output per doctor (mode = `search` or `bySpecialty`)
+## Output per doctor
 
 | Field | Description |
 | --- | --- |
-| `doctorId` | RateMDs' internal doctor ID. |
-| `name` | Doctor's full name. |
-| `slug` | RateMDs URL slug for the doctor. |
-| `url` | Full profile URL on ratemds.com. |
-| `specialty` | Medical specialty. |
-| `verified` | Whether RateMDs marks the profile as verified. |
-| `rating` | Average star rating (1.0–5.0). |
-| `reviewCount` | Total number of patient reviews. |
-| `photoUrl` | Doctor's profile photo URL. |
-| `address` / `city` / `state` / `country` / `postalCode` | Practice location. |
-| `phone` | Clinic phone number. |
-| `website` | Doctor or clinic website. |
-| `clinicName` | Name of the practice. |
-| `acceptsNewPatients` | Whether the doctor is currently accepting new patients. |
-| `acceptsVirtualVisits` | Whether telemedicine/virtual visits are offered. |
-| `sampleReview` | A sample patient review shown on the search result card. |
-| `recentReviews` | List of recent reviews, each with `id`, `date`, `rating`, `text`, `authorLabel` and `appointmentType` — only present when `includeReviews` is enabled. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+| `recordType` | `doctor` or `practice`. |
+| `doctorId` | RateMDs internal doctor ID. |
+| `name` / `slug` / `url` | Doctor name, URL slug and absolute profile URL. |
+| `specialty` / `specialtySlug` | Human-readable and slug form of the specialty. |
+| `gender` | `M` or `F` when RateMDs publishes it. |
+| `verified` | Whether RateMDs marks the profile verified. |
+| `rating` / `reviewCount` | Average star rating (1.0–5.0) and total review count. |
+| `ratingBreakdown` | `staff`, `punctuality`, `helpfulness`, `knowledge` sub-ratings when available. |
+| `photoUrl` | Absolute profile photo URL. |
+| `address` / `suite` / `city` / `state` / `country` / `postalCode` | Primary practice location. |
+| `latitude` / `longitude` | Practice coordinates when published. |
+| `phone` / `website` | Practice contact details. |
+| `clinicName` / `clinicId` / `clinicUrl` | Primary practice name, ID and RateMDs page. |
+| `acceptsNewPatients` / `acceptsVirtualVisits` / `onlineScheduling` | Availability flags. |
+| `sampleReview` | A sample review shown on the listing card. |
+| `bio` / `languages` / `expertises` / `education` | Profile-only details when published. |
+| `recentReviews` | Recent RateMDs patient reviews (`id`, `date`, `rating`, `text`, `authorLabel`, `appointmentType`, sub-ratings, `helpfulVotes`). |
+| `partnerReviews` | Recent "Our Partners" reviews (same shape, `source: "partner"`). |
+| `ratemdsReviewCount` / `partnerReviewCount` | Per-source review totals. |
+| `scrapedAt` | ISO timestamp of capture. |
 
-## Output per doctor (mode = `doctorProfile` or `byUrl`)
+## Output per practice
 
-Fetched directly from the doctor's own profile page rather than a search result card, so this mode returns a different field set — no `state`, `clinicName`, `acceptsNewPatients`, `acceptsVirtualVisits`, `verified`, `photoUrl` or `sampleReview`:
+`recordType`, `practiceId`, `practiceName`, `slug`, `practiceUrl`, `rank`, `locationLabel`, `address`, `suite`, `city`, `state`, `country`, `postalCode`, `phone`, `website`, `latitude`, `longitude`, `rating`, `reviewCount`, `ratingBreakdown` (`cleanliness`, `facilities`, `services`, `value`), `doctors` (id, name, URL, specialty, rating), `doctorCount`, `recentReviews`, `scrapedAt`.
 
-| Field | Description |
-| --- | --- |
-| `doctorId` | RateMDs' internal doctor ID. |
-| `name` | Doctor's full name. |
-| `slug` | RateMDs URL slug for the doctor. |
-| `url` | Full profile URL on ratemds.com. |
-| `specialty` | Medical specialty. |
-| `rating` | Average star rating (1.0–5.0). |
-| `reviewCount` | Total number of patient reviews. |
-| `address` / `city` / `country` / `postalCode` | Practice location. |
-| `phone` | Clinic phone number. |
-| `website` | Doctor or clinic website. |
-| `recentReviews` | List of recent reviews, each with `id`, `date`, `rating`, `text`, `authorLabel` and `appointmentType`. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+Fields a profile does not publish are omitted — never filled with `null`, `0` or a placeholder.
 
 ## Input
 
 | Field | Type | Default | Description |
 | --- | --- | --- | --- |
-| `mode` | String (select) | `search` | `search`, `bySpecialty`, `doctorProfile`, or `byUrl`. |
-| `searchQuery` | String | `cardiologist` | Doctor name, keyword, or medical condition to search for (mode=search). |
-| `location` | String | `New York` | City (or city/state) to narrow results, used with `search` and `bySpecialty`. |
-| `specialty` | String (select) | `cardiologist` | Medical specialty to browse (mode=bySpecialty). |
-| `doctorSlug` | String | – | A doctor's RateMDs slug or full profile URL (mode=doctorProfile). |
-| `profileUrls` | Array of strings | `[]` | List of doctor profile URLs to fetch (mode=byUrl). |
-| `includeReviews` | Boolean | `false` | For `search`/`bySpecialty`, also fetch each doctor's most recent reviews (one extra request per doctor). `doctorProfile`/`byUrl` already fetch the full profile page, so recent reviews are included there regardless of this setting. |
-| `maxItems` | Integer | 20 | Maximum number of doctor records to emit. |
+| `mode` | Select | `search` | See the mode table. |
+| `searchQuery` | Text | `cardiologist` | Doctor name, keyword or condition. |
+| `specialty` | Select (66 options) | Any | Specialty browse/filter. |
+| `location` | Text | – | Legacy free-text location (`New York`, `Toronto, ON`). |
+| `state` / `city` | Text | – | Structured location (e.g. `ny`, `new-york`). |
+| `country` | Select | Any | `us`, `ca`, `au`, `in`, `za`, `uk`. |
+| `gender` | Select | `any` | `F`, `M`. |
+| `verified` | Boolean | `false` | Verified profiles only. |
+| `acceptingNewPatients` | Boolean | `false` | Accepting new patients only. |
+| `acceptingVirtualVisits` | Boolean | `false` | Virtual visits only. |
+| `onlineScheduling` | Boolean | `false` | Online booking only. |
+| `openNow` | Boolean | `false` | Practices open now. |
+| `doctorSlug` | Text | – | Doctor slug or URL (`doctorProfile`). |
+| `profileUrls` | String list | `[]` | Doctor URLs (`byUrl`). |
+| `practiceUrls` | String list | `[]` | Clinic URLs (`practiceProfile`). |
+| `includeReviews` | Boolean | `false` | Fetch reviews (adds requests). |
+| `includePartnerReviews` | Boolean | `false` | Fetch "Our Partners" review pages. |
+| `includePracticeDetails` | Boolean | `false` | Fetch each practice page in `practiceSearch`. |
+| `maxReviewPages` | Integer | `1` | Review pages per profile (10 reviews/page). |
+| `maxPages` | Integer | `1000` | Listing pages per run. |
+| `maxItems` | Integer | `20` | Records to emit. |
 
-### Example: search for dermatologists in a city
-
-```json
-{
-  "mode": "search",
-  "searchQuery": "dermatologist",
-  "location": "Los Angeles",
-  "maxItems": 50
-}
-```
-
-### Example: browse a specialty with reviews included
-
-```json
-{
-  "mode": "bySpecialty",
-  "specialty": "pediatrician",
-  "location": "Chicago",
-  "includeReviews": true,
-  "maxItems": 30
-}
-```
-
-### Example: look up known doctor profiles
+### Examples
 
 ```json
-{
-  "mode": "byUrl",
-  "profileUrls": [
-    "https://www.ratemds.com/doctor-ratings/dr-jane-doe-boston-ma-us/",
-    "https://www.ratemds.com/doctor-ratings/dr-bob-lee-chicago-il-us/"
-  ]
-}
+{"mode": "search", "searchQuery": "Dr. Jane Doe", "state": "ny", "includeReviews": true, "maxItems": 5}
 ```
 
-## Use cases
+```json
+{"mode": "bySpecialty", "specialty": "dermatologist", "state": "ca", "city": "los-angeles", "maxItems": 50}
+```
 
-- **Lead generation teams** finding doctors who accept new patients in a target city and specialty.
-- **Healthcare marketing agencies** benchmarking a client's rating and review volume against local competitors.
-- **Reputation monitoring** tracking recent patient feedback for a group of physicians over time.
-- **Directory and listing sites** keeping practice contact details current.
-- **Health researchers** studying patient-satisfaction patterns across specialties or regions.
+```json
+{"mode": "practiceSearch", "state": "sc", "city": "north-charleston", "includePracticeDetails": true, "maxItems": 10}
+```
+
+```json
+{"mode": "doctorProfile", "doctorSlug": "45808/Dr-Paul-Natterson-Santa+Monica-CA.html", "includeReviews": true, "maxReviewPages": 3}
+```
+
+## Pagination and limits
+
+Doctor listings normally hold 10 results per page and RateMDs caps a single query at 1,000 pages (about 10,000 doctors). When a query is larger than that, split it by state, city, specialty or one of the profile filters. Practice listings hold 10 practices per page; `locations_count` on the page gives the true total. The actor stops at `maxItems`, when the source runs out, or when `maxPages` is reached — it never stops on a wall-clock timer.
+
+## How it works
+
+RateMDs serves server-rendered pages with structured `window.DATA` payloads. The actor reads those payloads directly instead of brittle CSS selectors. When RateMDs returns its JavaScript proof-of-work challenge (HTTP 202), the actor solves it locally, stores the bypass cookie and retries. Requests are paced and use Apify Proxy sessions when the site rate-limits or blocks the direct connection; no proxy or cookie setup is required from you.
 
 ## FAQ
 
-**Does this need a RateMDs account or login?**
-No. It reads the same public profile and search pages shown to any visitor on ratemds.com.
+**Do I need a RateMDs account?** No. The actor reads the public pages shown to any visitor.
 
-**Why does `includeReviews` only return a handful of reviews per doctor?**
-Each profile page displays its most recent page of reviews (roughly the first ten); this actor returns what's shown there rather than the doctor's entire review history.
+**Why are some fields missing?** RateMDs does not publish a website, phone, photo or sub-rating for every profile; those fields are omitted for that record.
 
-**What locations can I search?**
-Any city name or city/state combination, e.g. "New York", "Toronto", or "Los Angeles, CA" — the value is passed straight through to RateMDs' own location matching.
+**How many reviews can I get?** The profile page embeds the most recent page; `includeReviews` plus `maxReviewPages` walks the public review endpoint for more. `includePartnerReviews` adds partner reviews where present.
 
-**Why is a field like `website` or `photoUrl` sometimes missing?**
-Not every doctor's profile includes a website, phone number, or photo; when RateMDs doesn't publish one, the field is left out rather than filled with a placeholder.
+**Can I paste a full profile URL?** Yes. Both doctor and clinic URLs are accepted in the profile modes.
 
-**What's the difference between `doctorProfile` and `byUrl`?**
-`doctorProfile` fetches exactly one doctor from a slug or URL; `byUrl` does the same for a whole list of profile URLs in a single run.
+**Why do I see fewer rows than the site count?** A single query is capped by RateMDs at 1,000 pages. Partition by location/specialty/filter to reach the rest.
 
-**How many doctors can I retrieve in one run?**
-Up to `maxItems`, capped at 5000; for larger datasets, run multiple jobs with different specialty or location filters.
-
-**Is this affiliated with RateMDs?**
-No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by RateMDs.
+**Is this affiliated with RateMDs?** No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by RateMDs.

@@ -1,115 +1,301 @@
 {
-  "description": "Search federal job postings on USAJobs.gov by keyword, location, agency, grade level, and schedule.",
+  "description": "Search live USAJOBS federal postings by keyword, location, agency, pay grade, schedule, clearance and hiring path, or read the full details of specific job links. No API key or login is required.",
   "properties": {
-    "apiKey": {
-      "description": "Required USAJobs API key from https://developer.usajobs.gov/. Free to register â€” sign up and get your key from the developer portal. The API does not allow unauthenticated access.",
+    "agency": {
+      "description": "Agency or department name, acronym or code, for example \"NASA\", \"Department of the Navy\" or \"NV27\". Comma-separate several values.",
       "editor": "textfield",
-      "title": "USAJobs API Key",
+      "title": "Agency / Organization",
       "type": "string"
     },
-    "datePostedDays": {
-      "default": 30,
-      "description": "Only return jobs posted within this many days.",
-      "maximum": 365,
-      "minimum": 1,
-      "prefill": 30,
-      "title": "Posted Within (days)",
-      "type": "integer"
+    "department": {
+      "description": "Parent federal department name, acronym or code, for example \"Department of Defense\", \"DOD\" or \"DD\". Comma-separate several values.",
+      "editor": "textfield",
+      "title": "Department",
+      "type": "string"
     },
     "gradeMax": {
-      "description": "Maximum GS pay grade (1â€“15).",
+      "description": "Highest GS-equivalent grade to include (1-15).",
       "maximum": 15,
       "minimum": 1,
-      "title": "Grade Max (GS Pay Grade)",
+      "title": "Maximum Pay Grade",
       "type": "integer"
     },
     "gradeMin": {
-      "description": "Minimum GS pay grade (1â€“15).",
+      "description": "Lowest GS-equivalent grade to include (1-15).",
       "maximum": 15,
       "minimum": 1,
-      "title": "Grade Min (GS Pay Grade)",
+      "title": "Minimum Pay Grade",
       "type": "integer"
     },
+    "hiringPath": {
+      "default": "",
+      "description": "Filter by the audience the posting is open to.",
+      "editor": "select",
+      "enum": [
+        "",
+        "public",
+        "fed-competitive",
+        "fed-excepted",
+        "fed-internal-search",
+        "fed-transition",
+        "land",
+        "vet",
+        "mspouse",
+        "nguard",
+        "student",
+        "graduates",
+        "ses",
+        "disability",
+        "overseas",
+        "native",
+        "peace",
+        "special-authorities"
+      ],
+      "enumTitles": [
+        "Any hiring path",
+        "Open to the public",
+        "Competitive service",
+        "Excepted service",
+        "Internal to an agency",
+        "Career transition (CTAP, ICTAP, RPL)",
+        "Land and base management",
+        "Veterans",
+        "Military spouses",
+        "National Guard and reserves",
+        "Students",
+        "Recent graduates",
+        "Senior Executive Service",
+        "Individuals with disabilities",
+        "Family of overseas employees",
+        "Native Americans",
+        "Peace Corps & AmeriCorps Vista",
+        "Special authorities"
+      ],
+      "title": "Who May Apply",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Fetch each posting's full announcement for duties, qualifications, education, salary range, remote/telework status and clearance. Turn off for a faster, lighter run.",
+      "prefill": false,
+      "title": "Include Full Job Details",
+      "type": "boolean"
+    },
+    "jobCategoryCode": {
+      "description": "Four-digit federal occupational series codes, comma-separated (for example \"2210\" for IT or \"0343\" for management analysis).",
+      "editor": "textfield",
+      "title": "Occupational Series Codes",
+      "type": "string"
+    },
+    "jobType": {
+      "default": "",
+      "description": "Filter by appointment or job type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "15317",
+        "15318",
+        "15319",
+        "15320",
+        "15321",
+        "15322",
+        "15323",
+        "15326",
+        "15327",
+        "15328",
+        "15522"
+      ],
+      "enumTitles": [
+        "Any appointment type",
+        "Permanent",
+        "Temporary",
+        "Term",
+        "Detail",
+        "Temporary promotion",
+        "Seasonal",
+        "Summer",
+        "Recent graduates",
+        "Multiple",
+        "Internships",
+        "Intermittent"
+      ],
+      "title": "Appointment Type",
+      "type": "string"
+    },
+    "jobUrls": {
+      "description": "In Job Details mode, paste USAJOBS job links (https://www.usajobs.gov/job/123456789) or bare control numbers.",
+      "editor": "stringList",
+      "title": "Job Links or IDs (Job Details mode)",
+      "type": "array"
+    },
     "keyword": {
-      "description": "Job title or keyword to search (e.g. 'software engineer', 'data analyst').",
+      "description": "Job title, skill or keyword to search for (for example \"software engineer\" or \"data analyst\").",
       "editor": "textfield",
       "prefill": "software engineer",
       "title": "Keyword",
       "type": "string"
     },
     "locationName": {
-      "description": "City or state to filter by (e.g. 'Washington, DC', 'New York, NY').",
+      "description": "City, state or country to search in, for example \"Washington, DC\" or \"Germany\".",
       "editor": "textfield",
       "title": "Location",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of job records to return.",
+      "description": "Maximum number of postings to return.",
       "maximum": 5000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 2,
       "title": "Max Items",
+      "type": "integer"
+    },
+    "minSalary": {
+      "description": "Only return postings whose advertised starting salary is at least this amount.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Minimum Salary (USD)",
       "type": "integer"
     },
     "mode": {
       "default": "searchJobs",
-      "description": "What to fetch.",
+      "description": "Search federal vacancies, or read full details for job links you already have.",
       "editor": "select",
       "enum": [
-        "searchJobs"
+        "searchJobs",
+        "jobDetails"
       ],
       "enumTitles": [
-        "Search federal job postings"
+        "Search federal job postings",
+        "Get details for specific job links"
       ],
       "prefill": "searchJobs",
       "title": "Mode",
       "type": "string"
     },
-    "organization": {
-      "description": "Federal agency code or name (e.g. 'NASA', 'DEPT OF DEFENSE').",
-      "editor": "textfield",
-      "title": "Agency / Organization",
-      "type": "string"
+    "relocationAssistance": {
+      "default": false,
+      "description": "Only return postings that reimburse relocation expenses.",
+      "title": "Relocation Assistance Only",
+      "type": "boolean"
     },
-    "positionSchedule": {
+    "schedule": {
       "default": "",
-      "description": "Filter by work schedule type.",
+      "description": "Filter by the posting's work schedule.",
       "editor": "select",
       "enum": [
         "",
         "1",
         "2",
+        "3",
         "4",
+        "5",
         "6"
       ],
       "enumTitles": [
-        "Any",
-        "Full-Time",
-        "Part-Time",
+        "Any schedule",
+        "Full-time",
+        "Part-time",
+        "Shift work",
         "Intermittent",
-        "Multiple Schedules"
+        "Job sharing",
+        "Multiple schedules"
       ],
-      "title": "Position Schedule",
+      "title": "Work Schedule",
       "type": "string"
     },
-    "whoMayApply": {
+    "securityClearance": {
       "default": "",
-      "description": "Applicant eligibility filter.",
+      "description": "Filter by the clearance level a posting requires.",
       "editor": "select",
       "enum": [
         "",
-        "public",
-        "all",
-        "status"
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "7",
+        "8"
       ],
       "enumTitles": [
-        "Any",
-        "Open to Public",
-        "All Federal Employees",
-        "Status Candidates"
+        "Any clearance",
+        "Not Required",
+        "Confidential",
+        "Secret",
+        "Top secret",
+        "Sensitive Compartmented Information",
+        "Q Access Authorization",
+        "L Access Authorization",
+        "Other"
       ],
-      "title": "Who May Apply",
+      "title": "Security Clearance",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "",
+      "description": "Order of returned postings.",
+      "editor": "select",
+      "enum": [
+        "",
+        "recentlyPosted",
+        "closingSoon",
+        "highestSalary",
+        "lowestSalary"
+      ],
+      "enumTitles": [
+        "Relevance (default)",
+        "Recently posted",
+        "Closing soon",
+        "Highest salary",
+        "Lowest salary"
+      ],
+      "title": "Sort Results",
+      "type": "string"
+    },
+    "travelPercentage": {
+      "default": "",
+      "description": "Filter by how much travel the posting requires.",
+      "editor": "select",
+      "enum": [
+        "",
+        "0",
+        "1",
+        "2",
+        "5",
+        "7",
+        "8"
+      ],
+      "enumTitles": [
+        "Any travel",
+        "Not required",
+        "Occasional travel",
+        "25% or less",
+        "50% or less",
+        "75% or less",
+        "76% or greater"
+      ],
+      "title": "Travel Required",
+      "type": "string"
+    },
+    "workSite": {
+      "default": "",
+      "description": "Filter for remote jobs, exclude remote jobs, or find telework-eligible jobs.",
+      "editor": "select",
+      "enum": [
+        "",
+        "remote",
+        "excludeRemote",
+        "telework"
+      ],
+      "enumTitles": [
+        "Any work site",
+        "Remote jobs only",
+        "Exclude remote jobs",
+        "Offers telework"
+      ],
+      "title": "Work Site",
       "type": "string"
     }
   },
@@ -117,6 +303,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "USAJobs Scraper Input",
+  "title": "USAJOBS Federal Vacancy & Pay Grade Finder Input",
   "type": "object"
 }

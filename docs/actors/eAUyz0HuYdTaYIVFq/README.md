@@ -4,118 +4,144 @@
 
 # RockAuto Catalog Price & Fitment Lookup
 
-RockAuto runs one of the largest free public auto-parts catalogs in the US, with pricing from many competing brands for the same part. This actor runs your search terms against that catalog and returns every matching listing with its manufacturer, part number, price and fitment notes, without needing a login.
+RockAuto lists thousands of aftermarket parts from competing brands, but the catalog is built around a year → make → model → engine → part-type walk and a 50-result keyword box. This actor reads those public pages without a RockAuto account and returns one clean row per part: brand, part number, description, price, core charge, quality grade, availability, fitment notes and links.
 
-## What this actor does
+## Lookup modes
 
-- Runs one or more search terms (part numbers, brand names, or category keywords) against the RockAuto catalog.
-- Narrows results to vehicle-specific parts when you supply a make, model, year and/or engine.
-- Filters results by manufacturer, category, or price range after they're fetched.
-- Deduplicates results across all your queries by manufacturer and part number, so no part appears twice.
-- Optionally fetches each part's own detail page for extra specs, fitment notes and product images.
-- Fields RockAuto doesn't show for a listing (such as a core charge when none applies) are left out of that record.
+| Mode | What it does | Best for |
+| --- | --- | --- |
+| `search` | Runs one or more keyword or part-number searches on RockAuto's part search. | Quick price checks, brand sweeps, known part numbers. |
+| `catalog` | Resolves a vehicle (year, make, model, engine) plus a part term to the exact catalog page and reads every listing on it. | Full fitment-aware price lists — catalog pages are not limited to 50 rows. |
+| `partNumber` | Looks up a part number's interchange equivalents and returns every brand RockAuto lists with live prices. | Cross-referencing an OEM or aftermarket number. |
+| `urls` | Scrapes pasted part-search, catalog, category, engine or more-info URLs. Category and engine URLs are expanded into their part-type pages. | Reproducible runs from links you already have. |
 
-## Output per part
+## What you get per part
 
 | Field | Description |
 | --- | --- |
-| `manufacturer` | Brand/manufacturer name (e.g. BREMBO, BOSCH, MOTORCRAFT). |
-| `partNumber` | Manufacturer's part number. |
-| `category` | RockAuto's category label for the part (e.g. Brake Pad, Oil Filter). |
-| `priceUSD` | Listing price in USD. |
-| `coreChargeUSD` | Refundable core charge, when one applies. |
+| `manufacturer` | Brand shown on the listing (e.g. BOSCH, DURAGO, MOTORCRAFT). |
+| `partNumber` | Manufacturer part number. |
+| `description` | Short listing description (e.g. `Semi-Metallic`, `Ceramic`). |
+| `category` | RockAuto category or part type (e.g. `Brake Pad`, `Oil Filter`). |
+| `partGroup` | Catalog group the part belongs to (e.g. `Brake & Wheel Hub`). |
+| `partType` | Catalog part-type label (e.g. `Alternator / Generator`). |
+| `priceUSD` | Current listing price in US dollars. |
+| `coreChargeUSD` | Refundable core charge, when the listing shows one. |
 | `totalUSD` | Price plus core charge. |
-| `packSize` | Units included in the listing (e.g. `4` for a pack of 4 pads); `1` when not otherwise specified. |
-| `moreInfoUrl` | Link to the part's own RockAuto detail page. |
-| `notes` | Fitment, position, or OEM cross-reference notes shown on the listing. |
-| `details` | When `enrichWithPartDetails` is enabled: a `specs` key/value map, up to 10 `images` URLs, and extra `notes` text parsed from the part's detail page. |
-| `inputQuery` | The search term that surfaced this part. |
-| `scrapedAt` | ISO timestamp of when the record was captured. |
+| `packSize` | Units in the listing (`4` for a four-pack); `1` when RockAuto doesn't state a pack. |
+| `grade` | RockAuto quality group: Economy, Daily Driver, Premium, Heavy Duty and similar. |
+| `availability` | `In Stock` or `Out of Stock` when RockAuto states it. |
+| `fitmentNotes` | The position / trim / option note printed under the part. |
+| `notes` | Same fitment note, kept for compatibility with existing integrations. |
+| `markets` | Markets the part fits (`US`, `CA`, `MX`). |
+| `imageUrl` | Product image shown on the listing. |
+| `priceOptions` | Quantity-break prices when RockAuto shows them. |
+| `moreInfoUrl` | Link to the part's RockAuto detail page. |
+| `vehicle` | For catalog runs: `make`, `year`, `model`, `engine`, `carCode`. |
+| `details` | With `enrichWithPartDetails`: `specs`, `features`, `images`, `warranty`, `oemNumbers`, `alternateNumbers`. |
+| `fitment` | With `includeFitment`: list of `make`, `model`, `yearRange`, `yearStart`, `yearEnd`. |
+| `sourceUrl` | The page the row was read from. |
+| `inputQuery` | The query, part number or URL that produced the row. |
+| `scrapedAt` | ISO-8601 capture timestamp. |
+
+Fields RockAuto doesn't show for a listing are omitted, never emitted as `null` or an empty string.
 
 ## Input
 
 | Field | Type | Default | Description |
 | --- | --- | --- | --- |
-| `queries` | Array of strings | – | Search terms — part numbers, brand names, or category keywords. Each term runs as its own search. |
-| `manufacturerFilter` | String | – | Only keep records whose manufacturer matches this text (case-insensitive). |
-| `categoryFilter` | String | – | Only keep records whose category matches this text (case-insensitive). |
-| `minPrice` | Number | – | Drop records priced below this amount (USD). Records with no parsed price are kept. |
-| `maxPrice` | Number | – | Drop records priced above this amount (USD). Records with no parsed price are kept. |
-| `maxResults` | Integer | 50 | Hard cap on parts emitted across all queries, after dedup and filtering. |
-| `enrichWithPartDetails` | Boolean | `false` | Also fetch each part's detail page for extra specs, notes, and images. |
-| `vehicleMake` | String | – | Narrow each query to a specific vehicle make (e.g. "Toyota"). |
-| `vehicleModel` | String | – | Narrow to a specific model (e.g. "Camry"). |
-| `vehicleYear` | Integer | – | Narrow to a specific model year (e.g. 2020). |
-| `vehicleEngine` | String | – | Narrow to a specific engine (e.g. "2.5L L4"). |
-| `startUrls` | Array of strings | `[]` | Full RockAuto part-search URLs; the `partnum` value from each URL becomes a search term. |
-| `customProxyUrls` | Array | – | Optional list of your own proxy URLs to use for requests, formatted as `http://user:pass@host:port`. |
+| `mode` | Select | – | `search`, `catalog`, `partNumber` or `urls`; inferred from the other fields when omitted. |
+| `queries` | String list | – | Search terms or the part term to open in catalog mode. |
+| `partNumbers` | String list | – | Part numbers for `partNumber` mode. |
+| `vehicleMake` | String | – | Catalog mode make. |
+| `vehicleModel` | String | – | Catalog mode model. |
+| `vehicleYear` | Integer | – | Catalog mode year. |
+| `vehicleEngine` | String | – | Catalog mode engine; the first match is used when omitted. |
+| `manufacturerFilter` | String | – | Keep only matching brands (also applied at RockAuto in search mode). |
+| `categoryFilter` | String | – | Keep only matching category, part type, part group or description. |
+| `gradeFilter` | Select | Any | Keep only one quality grade. |
+| `minPrice` / `maxPrice` | Number | – | Price window in USD. Records without a price are kept. |
+| `inStockOnly` | Boolean | `false` | Drop listings RockAuto marks out of stock. |
+| `maxResults` | Integer | 50 | Hard cap after deduplication and filtering (1–500). |
+| `enrichWithPartDetails` | Boolean | `false` | Add specs, warranty, OEM numbers, features and images from the detail page. |
+| `includeFitment` | Boolean | `false` | Add the buyer's-guide fitment table for each emitted part. |
+| `startUrls` | String list | – | RockAuto part-search, catalog, category, engine or more-info URLs. |
+| `customProxyUrls` | String list | – | Optional premium proxy URLs tried before the built-in fallback. |
 
-### Example: compare brake pad brands within a price range
+## Examples
+
+### Compare brake-pad brands under $80
 
 ```json
 {
-  "queries": ["brake pads", "oil filter"],
+  "mode": "search",
+  "queries": ["brake pads"],
   "manufacturerFilter": "BOSCH",
-  "minPrice": 5,
-  "maxPrice": 100,
+  "maxPrice": 80,
   "maxResults": 100
 }
 ```
 
-### Example: vehicle-specific search with full detail
+### Every brake pad listed for a 2020 Toyota Camry 2.5L
 
 ```json
 {
-  "queries": ["brake pads"],
+  "mode": "catalog",
   "vehicleMake": "Toyota",
   "vehicleModel": "Camry",
   "vehicleYear": 2020,
   "vehicleEngine": "2.5L L4",
-  "enrichWithPartDetails": true
+  "queries": ["brake pad"],
+  "maxResults": 200
 }
 ```
 
-### Example: resolve pasted catalog URLs
+### Interchange lookup with fitment
 
 ```json
 {
-  "queries": [],
-  "startUrls": [
-    "https://www.rockauto.com/en/partsearch/?partnum=brake+pads"
-  ]
+  "mode": "partNumber",
+  "partNumbers": ["PH2808"],
+  "includeFitment": true
 }
 ```
 
-## Use cases
+### Expand a category URL
 
-- **Price comparison** pulling every listing for a part category and comparing prices across brands.
-- **Repair shop sourcing** finding the lowest-priced option for a specific vehicle's brake pads, filters, or sensors.
-- **Brand audits** collecting every part a specific manufacturer sells in a category.
-- **Part-number lookup** resolving a batch of known part numbers to their current RockAuto price.
-- **Fitment research** using the detail enrichment option to confirm a part's exact vehicle fitment before purchase.
+```json
+{
+  "mode": "urls",
+  "startUrls": [
+    "https://www.rockauto.com/en/catalog/toyota,2020,camry,2.5l+l4,3445372,brake+%26+wheel+hub"
+  ],
+  "maxResults": 100
+}
+```
+
+## How it runs
+
+- No RockAuto login, cookies or API key.
+- Direct HTTP first; when RockAuto serves its security-code page, the request is retried through Apify residential proxy with a fresh session. The actor chooses this automatically.
+- Search results are deduplicated by manufacturer + part number across all inputs.
+- Keyword search returns RockAuto's own 50-row page. Use `catalog` mode (or split by manufacturer/part type) when you need every listing for a vehicle.
+- `enrichWithPartDetails` and `includeFitment` each add one request per emitted part; leave them off for the cheapest daily runs.
 
 ## FAQ
 
 **Does this need a RockAuto account?**
-No. It reads the same public catalog pages shown to any visitor on rockauto.com.
+No. It reads the same public catalog and part pages shown to any visitor.
 
-**Why might a vehicle-specific search return results for a less specific query than I entered?**
-If the exact combination of make, model, year and engine turns up nothing, the actor automatically tries a less specific version of the same search (dropping the engine, then year, then model, then make) until one returns results. The `inputQuery` field on each record shows which version actually matched.
-
-**How many results come back per search term?**
-Up to RockAuto's own per-page limit of around 50. For a larger set, split a broad search into several narrower ones (e.g. by vehicle make) rather than relying on one broad term.
+**Why does a keyword search stop at 50 rows?**
+That is RockAuto's limit for its part-search page. Catalog pages are not capped the same way, so `catalog` mode is the right choice for a complete vehicle part list.
 
 **Why is `priceUSD` sometimes missing?**
-A small number of listings, often discontinued or special-order parts, don't display a price on RockAuto; the field is left out rather than shown as zero.
+A few discontinued or special-order listings show no price; the field is omitted instead of being reported as zero.
 
-**What happens if nothing matches my search?**
-The run still completes and returns one informational record describing what was searched, so your dataset is never silently empty without explanation.
+**Are prices USD?**
+Yes — the actor reads RockAuto's US catalog, which prices in US dollars.
 
-**Can I get the part's full detail page, not just the search listing?**
-Yes, set `enrichWithPartDetails` to `true` to add a `details` block with specs, extra fitment notes, and product images for each part.
-
-**Are prices in USD?**
-Yes, this actor reads RockAuto's US catalog, which prices everything in USD.
+**What happens if nothing matches?**
+The run completes and writes one diagnostic record describing what was attempted, so an empty dataset never happens silently.
 
 **Is this affiliated with RockAuto?**
 No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by RockAuto.
