@@ -1,0 +1,58 @@
+{
+  "actorSpecification": 1,
+  "title": "RockAuto parts",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "category": {
+            "format": "text",
+            "label": "Category"
+          },
+          "coreChargeUSD": {
+            "format": "number",
+            "label": "Core"
+          },
+          "manufacturer": {
+            "format": "text",
+            "label": "Brand"
+          },
+          "moreInfoUrl": {
+            "format": "link",
+            "label": "Info URL"
+          },
+          "packSize": {
+            "format": "number",
+            "label": "Pack"
+          },
+          "partNumber": {
+            "format": "text",
+            "label": "Part #"
+          },
+          "priceUSD": {
+            "format": "number",
+            "label": "Price"
+          },
+          "totalUSD": {
+            "format": "number",
+            "label": "Total"
+          }
+        }
+      },
+      "title": "Parts overview",
+      "transformation": {
+        "fields": [
+          "manufacturer",
+          "partNumber",
+          "category",
+          "priceUSD",
+          "coreChargeUSD",
+          "totalUSD",
+          "packSize",
+          "moreInfoUrl"
+        ]
+      }
+    }
+  }
+}

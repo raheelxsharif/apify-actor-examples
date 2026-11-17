@@ -1,0 +1,122 @@
+{
+  "description": "Search federal job postings on USAJobs.gov by keyword, location, agency, grade level, and schedule.",
+  "properties": {
+    "apiKey": {
+      "description": "Required USAJobs API key from https://developer.usajobs.gov/. Free to register â€” sign up and get your key from the developer portal. The API does not allow unauthenticated access.",
+      "editor": "textfield",
+      "title": "USAJobs API Key",
+      "type": "string"
+    },
+    "datePostedDays": {
+      "default": 30,
+      "description": "Only return jobs posted within this many days.",
+      "maximum": 365,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Posted Within (days)",
+      "type": "integer"
+    },
+    "gradeMax": {
+      "description": "Maximum GS pay grade (1â€“15).",
+      "maximum": 15,
+      "minimum": 1,
+      "title": "Grade Max (GS Pay Grade)",
+      "type": "integer"
+    },
+    "gradeMin": {
+      "description": "Minimum GS pay grade (1â€“15).",
+      "maximum": 15,
+      "minimum": 1,
+      "title": "Grade Min (GS Pay Grade)",
+      "type": "integer"
+    },
+    "keyword": {
+      "description": "Job title or keyword to search (e.g. 'software engineer', 'data analyst').",
+      "editor": "textfield",
+      "prefill": "software engineer",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "locationName": {
+      "description": "City or state to filter by (e.g. 'Washington, DC', 'New York, NY').",
+      "editor": "textfield",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of job records to return.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchJobs",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchJobs"
+      ],
+      "enumTitles": [
+        "Search federal job postings"
+      ],
+      "prefill": "searchJobs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "organization": {
+      "description": "Federal agency code or name (e.g. 'NASA', 'DEPT OF DEFENSE').",
+      "editor": "textfield",
+      "title": "Agency / Organization",
+      "type": "string"
+    },
+    "positionSchedule": {
+      "default": "",
+      "description": "Filter by work schedule type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "2",
+        "4",
+        "6"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-Time",
+        "Part-Time",
+        "Intermittent",
+        "Multiple Schedules"
+      ],
+      "title": "Position Schedule",
+      "type": "string"
+    },
+    "whoMayApply": {
+      "default": "",
+      "description": "Applicant eligibility filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "public",
+        "all",
+        "status"
+      ],
+      "enumTitles": [
+        "Any",
+        "Open to Public",
+        "All Federal Employees",
+        "Status Candidates"
+      ],
+      "title": "Who May Apply",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "USAJobs Scraper Input",
+  "type": "object"
+}

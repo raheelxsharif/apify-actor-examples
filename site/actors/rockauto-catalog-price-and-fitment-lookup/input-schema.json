@@ -1,0 +1,99 @@
+{
+  "description": "Search RockAuto.com auto-parts catalogue by keyword or part number. Each query returns up to 50 listings (RockAuto's per-page cap).",
+  "properties": {
+    "categoryFilter": {
+      "description": "Optional: only emit records whose category matches this substring (case-insensitive). E.g. `Brake Pad`, `Oil Filter`.",
+      "editor": "textfield",
+      "title": "Category filter",
+      "type": "string"
+    },
+    "customProxyUrls": {
+      "description": "Premium / alternative residential-proxy URLs (e.g. from BrightData, Oxylabs, SmartProxy). Format: `http://user:pass@host:port`. The actor rotates through these BEFORE falling back to Apify's residential pool. Useful when RockAuto's WAF has flagged Apify's shared residential IPs for high-traffic keywords like `headlight` or `alternator`.",
+      "editor": "json",
+      "isSecret": true,
+      "title": "Custom proxy URLs (optional, advanced)",
+      "type": "array"
+    },
+    "enrichWithPartDetails": {
+      "default": false,
+      "description": "When true, fetch the part's RockAuto detail page (moreinfo URL) for each result and add a `details` block (extra specs, fitment notes, image URLs). Adds ~1 extra HTTP request per part — slower but richer.",
+      "title": "Enrich with part-detail data",
+      "type": "boolean"
+    },
+    "manufacturerFilter": {
+      "description": "Optional: only emit records whose manufacturer matches this substring (case-insensitive). E.g. `BOSCH`.",
+      "editor": "textfield",
+      "title": "Manufacturer filter",
+      "type": "string"
+    },
+    "maxPrice": {
+      "description": "Optional: drop records with price above this amount. Records without a parsed price are kept.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Max price (USD)",
+      "type": "number"
+    },
+    "maxResults": {
+      "default": 50,
+      "description": "Hard cap on parts emitted across all queries (after dedup + filtering).",
+      "maximum": 500,
+      "minimum": 1,
+      "title": "Max results",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Optional: drop records with price below this amount. Records without a parsed price are kept.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min price (USD)",
+      "type": "number"
+    },
+    "queries": {
+      "description": "One or more search terms. Each runs as a separate RockAuto search; results are merged and deduped by part number across queries. Use part numbers, brand names, or category keywords (e.g. `BREMBO P28004`, `oil filter`, `brake pads`).",
+      "editor": "stringList",
+      "prefill": [
+        "brake pads"
+      ],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Paste full RockAuto partsearch URLs (e.g. `https://www.rockauto.com/en/partsearch/?partnum=brake+pads`). Each URL's `partnum` becomes a query.",
+      "editor": "stringList",
+      "title": "Start URLs (optional)",
+      "type": "array"
+    },
+    "vehicleEngine": {
+      "description": "Vehicle-mode: engine spec (e.g. `2.5L L4`, `5.7L V8 Hemi`).",
+      "editor": "textfield",
+      "title": "Vehicle engine (optional)",
+      "type": "string"
+    },
+    "vehicleMake": {
+      "description": "Vehicle-mode: filter `queries` to a specific make (e.g. `Toyota`, `Ford`, `Honda`). Used to narrow keyword search to vehicle-specific parts.",
+      "editor": "textfield",
+      "title": "Vehicle make (optional)",
+      "type": "string"
+    },
+    "vehicleModel": {
+      "description": "Vehicle-mode: filter to a specific model (e.g. `Camry`, `F-150`, `Civic`).",
+      "editor": "textfield",
+      "title": "Vehicle model (optional)",
+      "type": "string"
+    },
+    "vehicleYear": {
+      "description": "Vehicle-mode: model year (e.g. `2020`).",
+      "maximum": 2030,
+      "minimum": 1900,
+      "title": "Vehicle year (optional)",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "queries"
+  ],
+  "schemaVersion": 1,
+  "title": "RockAuto Parts Scraper Input",
+  "type": "object"
+}

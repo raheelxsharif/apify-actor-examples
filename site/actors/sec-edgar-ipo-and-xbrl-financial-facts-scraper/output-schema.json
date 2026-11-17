@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "SEC EDGAR filing records (company, form type, filing date, document link) or XBRL financial-fact records (concept, value, period) depending on the selected mode.",
+  "properties": {
+    "filings": {
+      "description": "Dataset containing all scraped SEC EDGAR records.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "SEC EDGAR records",
+      "type": "string"
+    }
+  },
+  "title": "SEC EDGAR IPO & XBRL Financial Facts Scraper Output"
+}

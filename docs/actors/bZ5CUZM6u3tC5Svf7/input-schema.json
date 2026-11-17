@@ -1,0 +1,92 @@
+{
+  "description": "Search SEC EDGAR filings by keyword/form type, browse IPO registrations, or fetch filings and financial facts for a specific company.",
+  "properties": {
+    "cikOrTicker": {
+      "description": "Stock ticker (e.g. AAPL, MSFT, GOOGL) or SEC CIK number (e.g. 0000320193). Required for getCompanyFilings and getCompanyFacts modes.",
+      "editor": "textfield",
+      "title": "Company CIK or ticker (getCompanyFilings / getCompanyFacts)",
+      "type": "string"
+    },
+    "dateEnd": {
+      "description": "Only include filings filed on or before this date.",
+      "editor": "textfield",
+      "title": "Date to (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "dateStart": {
+      "description": "Only include filings filed on or after this date.",
+      "editor": "textfield",
+      "title": "Date from (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "formType": {
+      "default": "all",
+      "description": "SEC form type to filter by (mode=searchFilings). Ignored for browseIPOs (always S-1).",
+      "editor": "select",
+      "enum": [
+        "S-1",
+        "10-K",
+        "10-Q",
+        "8-K",
+        "C",
+        "D",
+        "proxy statement",
+        "all"
+      ],
+      "enumTitles": [
+        "S-1 (IPO Registration)",
+        "10-K (Annual Report)",
+        "10-Q (Quarterly Report)",
+        "8-K (Current Report / Material Event)",
+        "C (Regulation Crowdfunding)",
+        "D (Exempt Offering / Private Placement)",
+        "Proxy Statement (DEF 14A)",
+        "All Types"
+      ],
+      "prefill": "S-1",
+      "title": "Form type",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Maximum number of records to return.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 25,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchFilings",
+      "description": "What to fetch from SEC EDGAR.",
+      "editor": "select",
+      "enum": [
+        "searchFilings",
+        "getCompanyFilings",
+        "getCompanyFacts",
+        "browseIPOs"
+      ],
+      "enumTitles": [
+        "Search filings (keyword + form type filter)",
+        "Get company filings (by ticker or CIK)",
+        "Get company financial facts (XBRL data)",
+        "Browse recent IPO registrations (S-1 filings)"
+      ],
+      "prefill": "browseIPOs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "description": "Full-text search query (mode=searchFilings or browseIPOs). Examples: \"artificial intelligence\", \"going concern\", \"material weakness\".",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "SEC EDGAR Filings Scraper Input",
+  "type": "object"
+}

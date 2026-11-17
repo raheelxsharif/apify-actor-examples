@@ -1,0 +1,129 @@
+{
+  "description": "Search RateMDs by name/keyword, specialty, or scrape specific doctor profiles.",
+  "properties": {
+    "doctorSlug": {
+      "description": "The doctor slug or full URL from RateMDs (mode=doctorProfile). Example: 'dr-john-smith-new-york-ny-us' or full URL.",
+      "editor": "textfield",
+      "title": "Doctor slug / URL",
+      "type": "string"
+    },
+    "includeReviews": {
+      "default": false,
+      "description": "Fetch the most recent reviews from each doctor's profile page. Adds one extra HTTP request per doctor.",
+      "prefill": false,
+      "title": "Include recent reviews",
+      "type": "boolean"
+    },
+    "location": {
+      "default": "New York",
+      "description": "City name or city-state to filter results (e.g. 'New York', 'Los Angeles', 'Toronto'). Works with mode=search and mode=bySpecialty.",
+      "editor": "textfield",
+      "prefill": "New York",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of doctor records to emit.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from RateMDs.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "bySpecialty",
+        "doctorProfile",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search doctors (by name / keyword / location)",
+        "Browse by specialty (+ optional location)",
+        "Scrape a single doctor profile",
+        "Scrape list of doctor profile URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "profileUrls": {
+      "default": [],
+      "description": "List of RateMDs doctor profile URLs to scrape. E.g. 'https://www.ratemds.com/doctor-ratings/dr-john-smith-new-york-ny-us/'.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Doctor profile URLs (mode=byUrl)",
+      "type": "array"
+    },
+    "searchQuery": {
+      "default": "cardiologist",
+      "description": "Doctor name, keyword, or medical condition to search for (mode=search).",
+      "editor": "textfield",
+      "prefill": "cardiologist",
+      "title": "Search query",
+      "type": "string"
+    },
+    "specialty": {
+      "default": "cardiologist",
+      "description": "Medical specialty to browse (mode=bySpecialty).",
+      "editor": "select",
+      "enum": [
+        "family-doctor",
+        "dentist",
+        "dermatologist",
+        "gynecologist",
+        "cardiologist",
+        "orthopedic-surgeon",
+        "psychiatrist",
+        "pediatrician",
+        "neurologist",
+        "ophthalmologist",
+        "urologist",
+        "oncologist",
+        "internist",
+        "endocrinologist",
+        "gastroenterologist",
+        "pulmonologist",
+        "rheumatologist",
+        "allergist",
+        "nephrologist",
+        "plastic-surgeon"
+      ],
+      "enumTitles": [
+        "Family Doctor",
+        "Dentist",
+        "Dermatologist",
+        "Gynecologist",
+        "Cardiologist",
+        "Orthopedic Surgeon",
+        "Psychiatrist",
+        "Pediatrician",
+        "Neurologist",
+        "Ophthalmologist",
+        "Urologist",
+        "Oncologist",
+        "Internist",
+        "Endocrinologist",
+        "Gastroenterologist",
+        "Pulmonologist",
+        "Rheumatologist",
+        "Allergist",
+        "Nephrologist",
+        "Plastic Surgeon"
+      ],
+      "prefill": "cardiologist",
+      "title": "Specialty",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "RateMDs Doctor Scraper Input",
+  "type": "object"
+}

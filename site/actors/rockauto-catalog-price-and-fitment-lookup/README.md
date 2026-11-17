@@ -1,0 +1,117 @@
+# RockAuto Catalog Price & Fitment Lookup
+
+RockAuto runs one of the largest free public auto-parts catalogs in the US, with pricing from many competing brands for the same part. This actor runs your search terms against that catalog and returns every matching listing with its manufacturer, part number, price and fitment notes, without needing a login.
+
+## What this actor does
+
+- Runs one or more search terms (part numbers, brand names, or category keywords) against the RockAuto catalog.
+- Narrows results to vehicle-specific parts when you supply a make, model, year and/or engine.
+- Filters results by manufacturer, category, or price range after they're fetched.
+- Deduplicates results across all your queries by manufacturer and part number, so no part appears twice.
+- Optionally fetches each part's own detail page for extra specs, fitment notes and product images.
+- Fields RockAuto doesn't show for a listing (such as a core charge when none applies) are left out of that record.
+
+## Output per part
+
+| Field | Description |
+| --- | --- |
+| `manufacturer` | Brand/manufacturer name (e.g. BREMBO, BOSCH, MOTORCRAFT). |
+| `partNumber` | Manufacturer's part number. |
+| `category` | RockAuto's category label for the part (e.g. Brake Pad, Oil Filter). |
+| `priceUSD` | Listing price in USD. |
+| `coreChargeUSD` | Refundable core charge, when one applies. |
+| `totalUSD` | Price plus core charge. |
+| `packSize` | Units included in the listing (e.g. `4` for a pack of 4 pads); `1` when not otherwise specified. |
+| `moreInfoUrl` | Link to the part's own RockAuto detail page. |
+| `notes` | Fitment, position, or OEM cross-reference notes shown on the listing. |
+| `details` | When `enrichWithPartDetails` is enabled: a `specs` key/value map, up to 10 `images` URLs, and extra `notes` text parsed from the part's detail page. |
+| `inputQuery` | The search term that surfaced this part. |
+| `scrapedAt` | ISO timestamp of when the record was captured. |
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `queries` | Array of strings | – | Search terms — part numbers, brand names, or category keywords. Each term runs as its own search. |
+| `manufacturerFilter` | String | – | Only keep records whose manufacturer matches this text (case-insensitive). |
+| `categoryFilter` | String | – | Only keep records whose category matches this text (case-insensitive). |
+| `minPrice` | Number | – | Drop records priced below this amount (USD). Records with no parsed price are kept. |
+| `maxPrice` | Number | – | Drop records priced above this amount (USD). Records with no parsed price are kept. |
+| `maxResults` | Integer | 50 | Hard cap on parts emitted across all queries, after dedup and filtering. |
+| `enrichWithPartDetails` | Boolean | `false` | Also fetch each part's detail page for extra specs, notes, and images. |
+| `vehicleMake` | String | – | Narrow each query to a specific vehicle make (e.g. "Toyota"). |
+| `vehicleModel` | String | – | Narrow to a specific model (e.g. "Camry"). |
+| `vehicleYear` | Integer | – | Narrow to a specific model year (e.g. 2020). |
+| `vehicleEngine` | String | – | Narrow to a specific engine (e.g. "2.5L L4"). |
+| `startUrls` | Array of strings | `[]` | Full RockAuto part-search URLs; the `partnum` value from each URL becomes a search term. |
+| `customProxyUrls` | Array | – | Optional list of your own proxy URLs to use for requests, formatted as `http://user:pass@host:port`. |
+
+### Example: compare brake pad brands within a price range
+
+```json
+{
+  "queries": ["brake pads", "oil filter"],
+  "manufacturerFilter": "BOSCH",
+  "minPrice": 5,
+  "maxPrice": 100,
+  "maxResults": 100
+}
+```
+
+### Example: vehicle-specific search with full detail
+
+```json
+{
+  "queries": ["brake pads"],
+  "vehicleMake": "Toyota",
+  "vehicleModel": "Camry",
+  "vehicleYear": 2020,
+  "vehicleEngine": "2.5L L4",
+  "enrichWithPartDetails": true
+}
+```
+
+### Example: resolve pasted catalog URLs
+
+```json
+{
+  "queries": [],
+  "startUrls": [
+    "https://www.rockauto.com/en/partsearch/?partnum=brake+pads"
+  ]
+}
+```
+
+## Use cases
+
+- **Price comparison** pulling every listing for a part category and comparing prices across brands.
+- **Repair shop sourcing** finding the lowest-priced option for a specific vehicle's brake pads, filters, or sensors.
+- **Brand audits** collecting every part a specific manufacturer sells in a category.
+- **Part-number lookup** resolving a batch of known part numbers to their current RockAuto price.
+- **Fitment research** using the detail enrichment option to confirm a part's exact vehicle fitment before purchase.
+
+## FAQ
+
+**Does this need a RockAuto account?**
+No. It reads the same public catalog pages shown to any visitor on rockauto.com.
+
+**Why might a vehicle-specific search return results for a less specific query than I entered?**
+If the exact combination of make, model, year and engine turns up nothing, the actor automatically tries a less specific version of the same search (dropping the engine, then year, then model, then make) until one returns results. The `inputQuery` field on each record shows which version actually matched.
+
+**How many results come back per search term?**
+Up to RockAuto's own per-page limit of around 50. For a larger set, split a broad search into several narrower ones (e.g. by vehicle make) rather than relying on one broad term.
+
+**Why is `priceUSD` sometimes missing?**
+A small number of listings, often discontinued or special-order parts, don't display a price on RockAuto; the field is left out rather than shown as zero.
+
+**What happens if nothing matches my search?**
+The run still completes and returns one informational record describing what was searched, so your dataset is never silently empty without explanation.
+
+**Can I get the part's full detail page, not just the search listing?**
+Yes, set `enrichWithPartDetails` to `true` to add a `details` block with specs, extra fitment notes, and product images for each part.
+
+**Are prices in USD?**
+Yes, this actor reads RockAuto's US catalog, which prices everything in USD.
+
+**Is this affiliated with RockAuto?**
+No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by RockAuto.

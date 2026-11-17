@@ -1,0 +1,106 @@
+# USAJOBS Federal Vacancy & Pay Grade Finder
+
+USAJOBS is the US government's official job board, listing openings across every federal agency with GS pay grade, schedule and eligibility details baked into each posting. This actor searches that board by keyword, location, agency, pay grade and schedule, returning salary range, qualifications and application deadlines for every matching vacancy.
+
+## What this actor does
+
+- Searches federal job postings by keyword, location, and agency.
+- Filters by GS pay grade range, work schedule (full-time, part-time, intermittent), and who may apply (public, federal employees, status candidates).
+- Limits results to jobs posted within a chosen number of days.
+- Returns salary range, qualification summary, security clearance status and remote eligibility for each posting.
+- Fields a posting doesn't specify (for example no listed end date) are left out of that record.
+
+## Output per job
+
+| Field | Description |
+| --- | --- |
+| `positionId` | USAJOBS's unique position identifier. |
+| `positionTitle` | Job title. |
+| `positionUri` / `sourceUrl` | Direct link to the job posting (both fields carry the same URL). |
+| `organizationName` / `departmentName` | Hiring agency and its parent federal department. |
+| `locationName` | Primary duty-station location. |
+| `positionLocalities` | Every duty-station location listed for the posting. |
+| `positionStartDate` / `positionEndDate` | Anticipated start date and, for term positions, the end date. |
+| `applicationCloseDate` | Application deadline. |
+| `salaryMin` / `salaryMax` | Annual salary range. |
+| `positionSchedule` | Work schedule (e.g. Full-Time, Part-Time, Intermittent). |
+| `whoMayApply` | Who is eligible to apply for the position. |
+| `qualificationSummary` | Summary of required qualifications. |
+| `jobSummary` | Job description summary. |
+| `securityClearanceRequired` | Whether a security clearance beyond "None" is required. |
+| `remoteIndicator` | Whether the position is remote-eligible. |
+| `scrapedAt` | ISO timestamp of when the record was captured. |
+
+## Input
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | String (select) | `searchJobs` | Always `searchJobs`. |
+| `keyword` | String | – | Job title or keyword to search for. |
+| `locationName` | String | – | City or state to filter by, e.g. "Washington, DC". |
+| `organization` | String | – | Federal agency code or name, e.g. "NASA". |
+| `positionSchedule` | String (select) | – | Full-Time, Part-Time, Intermittent, Multiple Schedules, or Any. |
+| `whoMayApply` | String (select) | – | Open to Public, All Federal Employees, Status Candidates, or Any. |
+| `gradeMin` | Integer | – | Minimum GS pay grade (1–15). |
+| `gradeMax` | Integer | – | Maximum GS pay grade (1–15). |
+| `datePostedDays` | Integer | 30 | Only return jobs posted within this many days. |
+| `apiKey` | String | – | A free USAJOBS API key from developer.usajobs.gov. The search cannot return data without one. |
+| `maxItems` | Integer | 50 | Maximum number of job records to return. |
+
+### Example: data analyst roles open to the public in DC
+
+```json
+{
+  "mode": "searchJobs",
+  "keyword": "data analyst",
+  "locationName": "Washington, DC",
+  "whoMayApply": "public",
+  "apiKey": "YOUR_USAJOBS_API_KEY",
+  "maxItems": 50
+}
+```
+
+### Example: mid-grade full-time roles at a specific agency
+
+```json
+{
+  "mode": "searchJobs",
+  "organization": "NASA",
+  "positionSchedule": "1",
+  "gradeMin": 9,
+  "gradeMax": 12,
+  "apiKey": "YOUR_USAJOBS_API_KEY",
+  "maxItems": 100
+}
+```
+
+## Use cases
+
+- **Federal job seekers** tracking new postings in their pay-grade range and location.
+- **Career coaches and transition programs** building curated federal-job digests for veterans or career changers.
+- **Recruitment and HR analytics teams** monitoring hiring volume and schedule types across agencies.
+- **Workforce researchers** studying federal pay-grade distribution and remote-eligibility trends.
+- **Policy analysts** tracking which agencies are actively hiring under a given eligibility category.
+
+## FAQ
+
+**Do I need a USAJOBS API key?**
+Yes. USAJOBS requires a free API key to return search results; register at developer.usajobs.gov and pass it as `apiKey`. Without it, the run reports that a key is required and returns no jobs.
+
+**How many jobs can I retrieve per run?**
+Up to `maxItems`, capped at 5,000. Combine filters like `organization` or pay grade to narrow large searches.
+
+**Can I search by GS pay grade?**
+Yes, set `gradeMin` and/or `gradeMax` (1–15) to filter by federal pay grade.
+
+**What does "Who May Apply" mean?**
+It's the eligibility USAJOBS attaches to the posting: Open to Public means anyone can apply, while Status Candidates means only current or former federal employees with career status can.
+
+**Why is a field like `positionEndDate` sometimes missing?**
+That field only applies to term or temporary positions; permanent postings don't have one, so it's left out rather than shown as blank.
+
+**How fresh are the listings?**
+Every run searches USAJOBS's live postings at request time; use `datePostedDays` to focus on recently posted jobs.
+
+**Is this affiliated with USAJOBS or the US government?**
+No. This is an independent tool and is not affiliated with, endorsed by, or sponsored by USAJOBS or the US Office of Personnel Management.
