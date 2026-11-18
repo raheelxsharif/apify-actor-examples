@@ -1,0 +1,64 @@
+{
+  "description": "Search for recipes.",
+  "properties": {
+    "cuisine": {
+      "description": "Filter by cuisine type (e.g. Italian, Chinese).",
+      "editor": "textfield",
+      "title": "Cuisine Filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of recipes to return",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Minimum recipe rating.",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Min Rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Scraping mode: search or detail URLs",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Fetch from direct URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "description": "Recipe search keyword.",
+      "editor": "textfield",
+      "prefill": "roast chicken",
+      "title": "Search Query",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "List of starting URLs to scrape",
+      "editor": "requestListSources",
+      "prefill": [],
+      "title": "Start URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Recipe Scraper Input",
+  "type": "object"
+}

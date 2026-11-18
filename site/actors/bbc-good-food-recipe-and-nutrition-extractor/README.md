@@ -1,0 +1,95 @@
+# BBC Good Food Recipe & Nutrition Extractor
+
+Collect full recipe details from BBC Good Food without manually opening each page. Point the actor at a search term, one of BBC Good Food's own recipe categories, or a list of recipe URLs, and it returns the ingredients, method, timings, and rating published on each page.
+
+## What this actor does
+
+- **Three entry points:** keyword search, browse a built-in recipe category, or fetch an exact list of recipe URLs
+- **Category browsing:** walks category listing pages such as chicken, pasta, vegetarian, vegan, quick & healthy, baking, and desserts
+- **Cuisine and rating filters** applied after fetching, so you can narrow a category or search down further
+- **Full recipe body:** ingredient list, numbered method, prep/cook/total time, servings, and calories where published
+- **Empty fields are omitted** — a recipe with no published calorie count simply has no `calories` field
+
+## Output per recipe
+
+- `title` — recipe name
+- `description` — recipe summary
+- `author` — recipe author or BBC Good Food team credit
+- `prepTime`, `cookTime`, `totalTime` — ISO 8601 duration strings (e.g. `PT15M`) exactly as BBC Good Food publishes them
+- `servings` — recipe yield
+- `ingredients` — list of ingredient lines
+- `ingredientCount` — number of ingredient lines
+- `instructions` — list of method steps in order
+- `stepCount` — number of method steps
+- `calories` — calories per serving, when a nutrition panel is published
+- `rating` — average community rating
+- `ratingCount` — number of ratings behind that average
+- `categories` — recipe category tags
+- `cuisine` — cuisine type
+- `keywords` — up to 10 keyword/tag terms
+- `imageUrl` — recipe photo URL
+- `datePublished` — original publish date
+- `sourceUrl` — the BBC Good Food recipe page the record came from
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` (keyword), `byCategory` (browse a listing), or `byUrl` (direct recipe links) |
+| `query` | string | – | Keyword used when `mode` is `search`; browses BBC Good Food's main recipes page when left empty |
+| `category` | string | – | `chicken-recipes` / `pasta-recipes` / `vegetarian-recipes` / `vegan-recipes` / `quick-healthy` / `baking` / `desserts`, used when `mode` is `byCategory` |
+| `cuisine` | string | – | Keep only recipes whose cuisine or category text contains this value |
+| `minRating` | number | – | Keep only recipes rated at or above this value (1.0–5.0) |
+| `startUrls` | array | `[]` | Recipe URLs to fetch directly when `mode` is `byUrl` |
+| `maxItems` | integer | `20` | Maximum number of recipes to return (1–500) |
+
+### Example: search by keyword
+
+```json
+{ "mode": "search", "query": "pasta carbonara", "maxItems": 20 }
+```
+
+### Example: browse a category with a rating floor
+
+```json
+{ "mode": "byCategory", "category": "vegetarian-recipes", "minRating": 4, "maxItems": 50 }
+```
+
+### Example: fetch specific recipe pages
+
+```json
+{ "mode": "byUrl", "startUrls": ["https://www.bbcgoodfood.com/recipes/spaghetti-carbonara"] }
+```
+
+## Use cases
+
+- **Recipe aggregation** — build a themed collection (e.g. all vegan desserts) in one run
+- **Content research** — gather ingredient lists and timings for editorial comparisons
+- **Nutrition analysis** — pull calorie data across a category for a diet or meal-planning tool
+- **App seeding** — populate a cooking app database with structured method steps instead of raw page text
+
+## FAQ
+
+**Is this affiliated with BBC Good Food?**
+No. This is an independent, third-party actor that reads BBC Good Food's publicly available recipe pages and is not affiliated with or endorsed by BBC Good Food or the BBC.
+
+**What categories can I browse?**
+The seven built into the `category` input: chicken, pasta, vegetarian, vegan, quick & healthy, baking, and desserts. Other BBC Good Food categories aren't wired into `byCategory` yet.
+
+**Why are `prepTime`, `cookTime`, and `totalTime` written like `PT20M`?**
+That's the ISO 8601 duration format BBC Good Food itself publishes on the recipe page; the actor passes it through unchanged rather than guessing a display format.
+
+**Why is `calories` missing on some recipes?**
+Not every BBC Good Food recipe publishes a nutrition panel. When one isn't present, `calories` is left off the record instead of being sent as a blank value.
+
+**How do the cuisine and rating filters interact with `byCategory`?**
+They apply on top of the category browse, so you can, for example, browse `desserts` and still only keep recipes rated 4.5 or higher.
+
+**Does `mode: "byUrl"` skip the filters?**
+No — `cuisine` and `minRating` still apply to fetched URLs, so a filtered-out recipe from `startUrls` won't appear in the output either.
+
+**How many recipes can I collect in one run?**
+Up to `maxItems`, capped at 500 per run. The actor keeps paging through search or category listings until it reaches that cap or runs out of recipes.
+
+**Do I need an account or API key?**
+No. BBC Good Food's recipe pages are public, and the actor doesn't require any login or key.

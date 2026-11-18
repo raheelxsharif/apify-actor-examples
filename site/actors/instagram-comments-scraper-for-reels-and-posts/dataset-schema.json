@@ -1,0 +1,179 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "authorId": {
+        "description": "Instagram's id of the author",
+        "type": "string"
+      },
+      "authorIsVerified": {
+        "description": "True when the author has the verified badge",
+        "type": "boolean"
+      },
+      "authorProfilePic": {
+        "description": "Link to the author's profile picture",
+        "type": "string"
+      },
+      "authorUsername": {
+        "description": "Username of the author",
+        "type": "string"
+      },
+      "commentId": {
+        "description": "Instagram's id of the comment",
+        "type": "string"
+      },
+      "commentType": {
+        "description": "text, gif, image, video, reel, photo_share, album_share, sticker or media",
+        "type": "string"
+      },
+      "commentUrl": {
+        "description": "Direct link to the comment",
+        "type": "string"
+      },
+      "hashtags": {
+        "description": "Hashtags used in the comment",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "isEdited": {
+        "description": "True when the comment was edited",
+        "type": "boolean"
+      },
+      "isGif": {
+        "description": "True when the comment is a GIF",
+        "type": "boolean"
+      },
+      "isReply": {
+        "description": "True for a reply, false for a comment on the post",
+        "type": "boolean"
+      },
+      "likesCount": {
+        "description": "Likes of the comment",
+        "type": "integer"
+      },
+      "mediaUrl": {
+        "description": "Link to the picture, GIF or video of a media comment, when Instagram shows one",
+        "type": "string"
+      },
+      "mentions": {
+        "description": "Usernames mentioned in the comment",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "parentCommentAuthor": {
+        "description": "For a reply, the username of the author of the comment it answers",
+        "type": "string"
+      },
+      "parentCommentId": {
+        "description": "For a reply, the id of the comment it answers; empty for a comment on the post",
+        "type": "string"
+      },
+      "postShortcode": {
+        "description": "Shortcode of the post",
+        "type": "string"
+      },
+      "postUrl": {
+        "description": "Link to the post the comment belongs to, or to the post that gave no comments",
+        "type": "string"
+      },
+      "replyCount": {
+        "description": "Replies under the comment, when Instagram tells",
+        "type": "integer"
+      },
+      "scrapedAt": {
+        "description": "When the comment was read (ISO 8601, UTC)",
+        "type": "string"
+      },
+      "status": {
+        "description": "success for a comment or reply. Otherwise the reason a post gave no comments: post_not_found, post_age_restricted, post_is_private, blocked, error, invalid_url, comments_disabled or no_comments. The log explains each one",
+        "type": "string"
+      },
+      "text": {
+        "description": "The comment text; a placeholder such as [GIF] or [Image] for a comment that is only a picture",
+        "type": "string"
+      },
+      "timestamp": {
+        "description": "When the comment was written (ISO 8601, UTC)",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram Comments",
+  "views": {
+    "overview": {
+      "description": "Overview of scraped Instagram comments",
+      "display": {
+        "component": "table",
+        "properties": {
+          "columns": [
+            {
+              "field": "status",
+              "format": "text",
+              "label": "Status"
+            },
+            {
+              "field": "authorUsername",
+              "format": "text",
+              "label": "Username"
+            },
+            {
+              "field": "text",
+              "format": "text",
+              "label": "Comment"
+            },
+            {
+              "field": "commentType",
+              "format": "text",
+              "label": "Comment Type"
+            },
+            {
+              "field": "likesCount",
+              "format": "number",
+              "label": "Likes"
+            },
+            {
+              "field": "replyCount",
+              "format": "number",
+              "label": "Replies"
+            },
+            {
+              "field": "timestamp",
+              "format": "date",
+              "label": "Posted"
+            },
+            {
+              "field": "isReply",
+              "format": "boolean",
+              "label": "Is Reply"
+            }
+          ]
+        }
+      },
+      "title": "Instagram Comments Overview",
+      "transformation": {
+        "fields": [
+          "status",
+          "postUrl",
+          "postShortcode",
+          "commentId",
+          "text",
+          "commentType",
+          "mediaUrl",
+          "authorUsername",
+          "authorId",
+          "timestamp",
+          "likesCount",
+          "replyCount",
+          "isReply",
+          "parentCommentId",
+          "authorIsVerified"
+        ]
+      }
+    }
+  }
+}

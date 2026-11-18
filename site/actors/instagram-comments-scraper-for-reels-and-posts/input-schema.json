@@ -1,0 +1,55 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Optional. Your own Instagram cookies as JSON. They are needed to read replies, and for posts that a visitor who is not signed in cannot open (a private account you follow, an age check). Leave empty to read the comments of public posts. Format: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "includeReplies": {
+      "default": true,
+      "description": "Also read the replies under each comment. Instagram lists replies only to a signed-in visitor, so this needs the cookies below; without them the comments are read and the log says that no replies are read.",
+      "title": "Include Replies",
+      "type": "boolean"
+    },
+    "maxCommentsPerPost": {
+      "default": 100,
+      "description": "Maximum number of comments to read per post (1-100,000). Replies are read in addition to this number. Reading 100,000 comments takes about an hour.",
+      "example": 100,
+      "maximum": 100000,
+      "minimum": 1,
+      "title": "Max Comments Per Post",
+      "type": "integer"
+    },
+    "maxRepliesPerComment": {
+      "default": 20,
+      "description": "Maximum number of replies to read per comment thread (1-1,000), when Include Replies is on. For example, 5 means at most 5 replies per comment.",
+      "example": 0,
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Max Replies Per Comment",
+      "type": "integer"
+    },
+    "postUrls": {
+      "description": "Instagram post, reel or IGTV URLs to scrape comments from. Accepts /p/, /reel/, /reels/, /tv/, and canonical username/p/shortcode formats. Duplicates are silently de-duplicated. A bare shortcode also works.",
+      "editor": "stringList",
+      "example": [
+        "https://www.instagram.com/p/ABC123xyz/",
+        "https://www.instagram.com/reel/DEF456uvw/"
+      ],
+      "maxItems": 10000,
+      "prefill": [
+        "https://www.instagram.com/p/DRaAMuaiTZR/"
+      ],
+      "title": "Instagram Post URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "postUrls"
+  ],
+  "schemaVersion": 1,
+  "title": "Instagram Comment Scraper Input",
+  "type": "object"
+}

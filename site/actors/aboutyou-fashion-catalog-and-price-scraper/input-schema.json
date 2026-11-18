@@ -1,0 +1,117 @@
+{
+  "description": "Scrape the About You fashion marketplace via its public API.",
+  "properties": {
+    "brand": {
+      "description": "Only emit products whose brand name contains this text.",
+      "editor": "textfield",
+      "title": "Brand filter",
+      "type": "string"
+    },
+    "category": {
+      "default": "frauen",
+      "description": "Top-level market category to browse.",
+      "editor": "select",
+      "enum": [
+        "frauen",
+        "maenner",
+        "kinder"
+      ],
+      "enumTitles": [
+        "Women",
+        "Men",
+        "Kids"
+      ],
+      "prefill": "frauen",
+      "title": "Category (mode=browseByCategory)",
+      "type": "string"
+    },
+    "excludeSoldOut": {
+      "default": false,
+      "description": "Only emit products that are not sold out.",
+      "prefill": false,
+      "title": "Exclude sold-out",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "browseByCategory",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search products (keyword)",
+        "Browse a top-level category",
+        "Fetch products by URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Only emit products with a price at or below this value.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Max price (EUR)",
+      "type": "number"
+    },
+    "priceMin": {
+      "description": "Only emit products with a price at or above this value.",
+      "maximum": 10000,
+      "minimum": 0,
+      "title": "Min price (EUR)",
+      "type": "number"
+    },
+    "searchQuery": {
+      "default": "jeans",
+      "description": "Free-text product search (mode=search).",
+      "editor": "textfield",
+      "prefill": "jeans",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sort": {
+      "default": "relevance",
+      "description": "Order of emitted records (applied after fetch).",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "price_asc",
+        "price_desc"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "prefill": "relevance",
+      "title": "Sort",
+      "type": "string"
+    },
+    "urls": {
+      "default": [],
+      "description": "Full product URLs, e.g. `https://www.aboutyou.com/p/32270001`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "About You Scraper Input",
+  "type": "object"
+}

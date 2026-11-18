@@ -1,0 +1,198 @@
+{
+  "description": "Search Washington State Department of Labor & Industries (L&I) 'Verify a Contractor, Tradesperson or Business' registry by name, license/registration number, UBI, or workers' comp account ID.",
+  "properties": {
+    "accountId": {
+      "description": "L&I workers' compensation account ID, formatted like `123,456-01`.",
+      "editor": "textfield",
+      "title": "Workers' comp account ID (mode=byAccountId)",
+      "type": "string"
+    },
+    "city": {
+      "default": "",
+      "description": "Only emit results located in this Washington city (case-insensitive exact match, e.g. `Seattle`). Applied server-side alongside `mode`. Leave blank for all cities.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Filter by city",
+      "type": "string"
+    },
+    "fetchDetails": {
+      "default": true,
+      "description": "Enrich each result with the full detail record: address, bonds, insurance, business owners, violations, associated licenses, and DOSH inspections. Adds one extra request per record, so it is capped by Max items.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Fetch full license details",
+      "type": "boolean"
+    },
+    "licenseCategory": {
+      "default": "",
+      "description": "Only emit records whose contractor/trade type matches this category. Leave unset for all categories.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Construction Contractor",
+        "Electrical Contractor",
+        "Electrical Administrator",
+        "Electrical Trainee",
+        "Electrician",
+        "Master Electrician",
+        "Modified Trainee",
+        "Asbestos Contractor",
+        "Asbestos Supervisor",
+        "Asbestos Worker",
+        "Plumbing Contractor",
+        "Medical Gas",
+        "Plumber",
+        "Plumber Trainee",
+        "Modified Plumber Trainee",
+        "Elevator Primary Contact",
+        "Elevator Contractor",
+        "Elevator Mechanic",
+        "Elevator Mechanic Temporary",
+        "Manufactured Home Installer"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Construction Contractor",
+        "Electrical Contractor",
+        "Electrical Administrator",
+        "Electrical Trainee",
+        "Electrician",
+        "Master Electrician",
+        "Modified Trainee (Electrical)",
+        "Asbestos Contractor",
+        "Asbestos Supervisor",
+        "Asbestos Worker",
+        "Plumbing Contractor",
+        "Medical Gas",
+        "Plumber",
+        "Plumber Trainee",
+        "Modified Plumber Trainee",
+        "Elevator Primary Contact",
+        "Elevator Contractor",
+        "Elevator Mechanic",
+        "Elevator Mechanic Temporary",
+        "Manufactured Home Installer"
+      ],
+      "prefill": "",
+      "title": "Filter by license category",
+      "type": "string"
+    },
+    "licenseId": {
+      "description": "The contractor license, electrician/plumber certificate, or registration number (e.g. `ABCAR**824BB`, asterisks included where L&I's own record has them). Partial prefixes are supported.",
+      "editor": "textfield",
+      "prefill": "ABCAR**824BB",
+      "title": "License / registration / certificate number (mode=byLicenseId)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 10,
+      "description": "Hard cap on emitted license records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byName",
+      "description": "How to search the L&I registry.",
+      "editor": "select",
+      "enum": [
+        "byName",
+        "byLicenseId",
+        "byUbi",
+        "byAccountId"
+      ],
+      "enumTitles": [
+        "Search by name (business or individual)",
+        "Search by license / registration / certificate number",
+        "Search by UBI (Unified Business Identifier) number",
+        "Search by workers' comp account ID"
+      ],
+      "prefill": "byName",
+      "title": "Mode",
+      "type": "string"
+    },
+    "name": {
+      "default": "smith",
+      "description": "Business name or last name of an individual (e.g. `smith`, `abc construction`). Partial matches are supported, minimum 2 characters.",
+      "editor": "textfield",
+      "prefill": "smith",
+      "title": "Name (mode=byName)",
+      "type": "string"
+    },
+    "sortOrder": {
+      "default": "desc",
+      "description": "Sort direction for search results, as ranked by L&I's own relevance ranking.",
+      "editor": "select",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "enumTitles": [
+        "Descending (most relevant first)",
+        "Ascending"
+      ],
+      "prefill": "desc",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "statusFilter": {
+      "default": "",
+      "description": "Only emit records with this status. Leave unset for all statuses.",
+      "editor": "select",
+      "enum": [
+        "",
+        "active",
+        "inactive",
+        "expired",
+        "suspended",
+        "out of business",
+        "re-licensed",
+        "archived"
+      ],
+      "enumTitles": [
+        "All statuses",
+        "Active",
+        "Inactive",
+        "Expired",
+        "Suspended",
+        "Out of Business",
+        "Re-Licensed",
+        "Archived"
+      ],
+      "prefill": "",
+      "title": "Filter by license status",
+      "type": "string"
+    },
+    "ubi": {
+      "description": "Washington Unified Business Identifier — exactly 9 digits (e.g. `604164913`).",
+      "editor": "textfield",
+      "prefill": "604164913",
+      "title": "UBI number (mode=byUbi)",
+      "type": "string"
+    },
+    "violationsOnly": {
+      "default": false,
+      "description": "Only emit records that have a safety violation and/or contractor violation flagged (`hasSafetyViolation` or `hasContractorViolation`). Useful for compliance monitoring and vendor due diligence.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Only show licenses with violations",
+      "type": "boolean"
+    },
+    "zipCode": {
+      "default": "",
+      "description": "Only emit results in this 5-digit Washington zip code (e.g. `98121`). Applied server-side alongside `mode`. Ignored if `city` is also set. Leave blank for all zip codes.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Filter by zip code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Washington L&I Contractor License Scraper Input",
+  "type": "object"
+}
