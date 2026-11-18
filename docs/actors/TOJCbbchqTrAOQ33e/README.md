@@ -4,55 +4,51 @@
 
 # AboutYou Fashion Catalog & Price Scraper
 
-Pull product data from AboutYou (aboutyou.com), the multi-brand European fashion marketplace, without touching a login screen. Run a keyword search, browse one of the three market sections, or hand it exact product URLs, and get back names, brands, colors, materials, price range, sale status, and images for every match.
+Pull live AboutYou (aboutyou.de) fashion products without a login, cookie or API key. Search by keyword, browse the Women/Men/Kids catalog or any deeper category, or paste exact product links. Every record carries the brand, category path, colors, sizes, current and previous prices, sale status and product images.
 
 ## What this actor does
 
-- **Three ways to fetch:** keyword search, browse a top-level market (Women / Men / Kids), or fetch exact product URLs
-- **Price intelligence:** reports the lowest and highest variant price (EUR) per product, plus the pre-sale price and sale flag when a product is discounted
-- **Product attributes:** brand, category, product type, color, material, pattern, and description text, each only when AboutYou's catalog actually has that attribute set
-- **Post-fetch filters:** price floor/ceiling, exclude sold-out items, and a brand-name substring match
-- **Client-side sort:** order results by relevance or by price
-- **Empty fields are omitted** — a field only appears on a record when AboutYou's catalog had a value for it
+- **Three fetch modes:** keyword search, category browse, or exact product URLs/IDs
+- **Server-side filters:** price floor/ceiling, sale-only, new-arrivals-only, minimum discount and category, so filtering happens before rows are counted
+- **Client-side refinements:** brand and color substring filters, sold-out exclusion
+- **Pagination:** walks AboutYou's result pages until `maxItems` is reached or the catalog is exhausted, with duplicate protection
+- **Sort orders:** relevance, price ascending/descending, newest arrivals and biggest discount
+- **Price intelligence:** lowest/highest variant price in EUR, previous price and discount percentage when reduced
+- **Omit-empty output:** a field appears only when AboutYou actually provides a value
 
 ## Output per product
 
-- `productId` — AboutYou's numeric product ID
-- `masterKey`, `referenceKey` — internal catalog identifiers for the product and its style group
-- `name` — product name
-- `brand` — brand name
-- `category` — catalog category label
-- `productType` — product type label (e.g. jeans, sneakers)
-- `color` — primary color label
-- `material` — material/fabric label
-- `pattern` — pattern label (e.g. striped, plain)
-- `description` — product description text
-- `priceMin`, `priceMax` — lowest and highest current price across the product's variants, in EUR
-- `currency` — price currency (EUR)
-- `wasPriceMin` — lowest pre-sale price across variants, present only when a variant is discounted
-- `onSale` — `true` when the current lowest price is below the pre-sale price
-- `isNew` — whether AboutYou flags the product as newly listed
-- `isSoldOut` — whether AboutYou flags the product as out of stock
-- `imageUrls` — up to 10 product image URLs
-- `image` — the first image URL, duplicated for convenience
-- `sourceUrl` — the product's page on aboutyou.com
-- `recordType` — always `product`
-- `scrapedAt` — when the record was fetched
+- `productId`, `masterKey`, `referenceKey` — product and style identifiers
+- `name`, `brand`, `brandId`, `productType` — product identity
+- `category`, `categoryId`, `categoryPath`, `gender` — catalog placement
+- `color`, `material`, `pattern`, `description` — attributes
+- `priceMin`, `priceMax`, `currency` — current variant price range
+- `wasPriceMin`, `onSale`, `discountPercent` — markdown details
+- `isNew`, `isSoldOut` — AboutYou product flags
+- `sizes` — variant size labels
+- `variantCount` — number of variants returned
+- `imageUrls`, `image` — up to 10 image URLs and the first image
+- `sourceUrl` — product page on aboutyou.de
+- `recordType`, `scrapedAt` — record metadata
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (keyword), `browseByCategory` (market section), or `byUrl` (specific products) |
-| `searchQuery` | string | `jeans` | Free-text keyword search, used when `mode` is `search` |
-| `category` | string | `frauen` | `frauen` (Women), `maenner` (Men), or `kinder` (Kids), used when `mode` is `browseByCategory` |
-| `urls` | array | `[]` | Full AboutYou product URLs to fetch directly, used when `mode` is `byUrl` |
-| `priceMin` | number | – | Drop products priced below this EUR amount |
-| `priceMax` | number | – | Drop products priced above this EUR amount |
-| `excludeSoldOut` | boolean | `false` | Drop products flagged as sold out |
-| `brand` | string | – | Keep only products whose brand name contains this text |
-| `sort` | string | `relevance` | `relevance`, `price_asc`, or `price_desc` |
-| `maxItems` | integer | `100` | Hard cap on emitted product records (1–1000) |
+| `mode` | string | `search` | `search`, `browseByCategory` or `byUrl` |
+| `searchQuery` | string | `jeans` | Keyword for search mode |
+| `category` | string | `frauen` | Top-level section: `frauen`, `maenner`, `kinder` |
+| `categoryId` | string | – | Deeper category ID or category URL; overrides `category` |
+| `urls` | array | `[]` | Product links or numeric IDs for byUrl mode |
+| `priceMin`, `priceMax` | number | – | EUR price band |
+| `excludeSoldOut` | boolean | `false` | Drop sold-out products |
+| `brand` | string | – | Brand-name substring filter |
+| `color` | string | – | Color-label substring filter |
+| `saleOnly` | boolean | `false` | Reduced products only |
+| `newOnly` | boolean | `false` | New arrivals only |
+| `minDiscount` | integer | – | Minimum discount percentage |
+| `sort` | string | `relevance` | `relevance`, `price_asc`, `price_desc`, `newest`, `discount` |
+| `maxItems` | integer | `100` | Stop after this many matching products (1–10,000) |
 
 ### Example: keyword search with a price band
 
@@ -62,62 +58,68 @@ Pull product data from AboutYou (aboutyou.com), the multi-brand European fashion
   "searchQuery": "sneakers",
   "priceMin": 30,
   "priceMax": 120,
-  "excludeSoldOut": true,
-  "sort": "price_asc"
+  "saleOnly": true,
+  "sort": "price_asc",
+  "maxItems": 50
 }
 ```
 
-### Example: browse the Women's section
+### Example: browse the Women's jeans category
 
 ```json
 {
   "mode": "browseByCategory",
-  "category": "frauen",
+  "categoryId": "20258",
+  "excludeSoldOut": true,
+  "sort": "newest",
   "maxItems": 200
 }
 ```
 
-### Example: fetch specific product URLs
+### Example: look up exact products
 
 ```json
 {
   "mode": "byUrl",
-  "urls": ["https://www.aboutyou.com/p/32270001"]
+  "urls": [
+    "https://www.aboutyou.de/p/hispanitas/crossbody-bag-32270001",
+    "32270001"
+  ]
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — track EUR price ranges and sale markdowns for specific brands or products over time
-- **Catalog building** — populate a fashion database with names, colors, materials, and images
-- **Assortment research** — see how a brand or product type is represented across AboutYou's Women/Men/Kids sections
-- **Competitive benchmarking** — compare price positioning against a brand's AboutYou listings
+- **Price monitoring:** track EUR price ranges, discounts and sold-out state for a brand or category
+- **Catalog building:** populate a fashion database with names, colors, sizes and images
+- **Assortment research:** compare what brands and product types are live in a market section
+- **Competitive benchmarking:** compare price positioning across AboutYou listings
 
 ## FAQ
 
-**Do I need a login, API key, or proxy?**
-No. AboutYou's catalog is fetched through its own public product data without authentication.
+**Do I need a login, cookie or proxy?**
+No. The actor reads AboutYou's public storefront catalog anonymously and needs no proxy setup.
 
-**Why is everything priced in EUR?**
-The catalog used here is AboutYou's German (aboutyou.de) backend, which prices in EUR regardless of which market category you browse.
+**Which shop and currency does it use?**
+The German AboutYou catalog in EUR. Prices come from the live variant data.
 
-**Why does a product show `priceMin` and `priceMax` instead of one price?**
-Each product can have multiple variants (typically different sizes), and those variants aren't always priced identically. `priceMin`/`priceMax` give the range across all of a product's variants.
+**Why is a price a range?**
+A product has several size variants, and their prices can differ. `priceMin` and `priceMax` show the spread.
 
-**What does `wasPriceMin` mean, and why is it sometimes missing?**
-It's the pre-discount price of the cheapest variant, and it's only included when at least one variant is currently marked down. If nothing is on sale, `wasPriceMin` and `onSale` are both left off the record.
+**Why is `wasPriceMin` sometimes missing?**
+It appears only when at least one variant has a previous (pre-sale) price. `discountPercent` is omitted for full-price products.
 
-**Why are some fields like `material` or `pattern` missing from a product?**
-AboutYou doesn't set every attribute for every product. If a field has no value in the source catalog, the actor leaves it out of the record instead of sending an empty value.
+**Why are some attributes missing?**
+AboutYou does not set every attribute on every product. Those fields are omitted rather than sent as null or empty values.
 
-**What's the difference between `search` and `browseByCategory`?**
-`search` matches a free-text query against AboutYou's catalog, the same as typing into the site's search box. `browseByCategory` instead walks a full market section (Women, Men, or Kids) without a keyword.
+**How many products can I get?**
+Up to the `maxItems` you set, capped at 10,000. Results are paginated; the actor stops when the catalog is exhausted or the cap is reached.
 
-**Can I combine the price and brand filters with any mode?**
-Yes. `priceMin`, `priceMax`, `excludeSoldOut`, and `brand` are applied after fetching, so they work the same way across `search`, `browseByCategory`, and `byUrl`.
+**Does it return sold-out products?**
+Yes by default, because AboutYou marks them explicitly. Set `excludeSoldOut` to drop them.
 
-**How current is the data?**
-Each run queries AboutYou's live catalog directly, so prices, stock, and sale status reflect what's live on the site at run time.
+**What are the known limits?**
+The actor reads the German shop in EUR. Keyword search is full-text, so use category browse for an exact catalog slice. A very large price-sorted run can contain a rare out-of-order row when the live catalog changes between pages; IDs are deduplicated. Brand-new products may not have a public product page yet, so their `sourceUrl` can open the brand shop.
 
 **Is this affiliated with AboutYou?**
-No. This is an independent, third-party actor that reads AboutYou's public catalog data and is not affiliated with or endorsed by AboutYou.
+No. This is an independent third-party actor that reads public catalog data and is not endorsed by AboutYou.

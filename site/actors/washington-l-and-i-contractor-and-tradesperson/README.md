@@ -6,8 +6,11 @@ Scrape **Washington State Department of Labor & Industries (L&I)** contractor, e
 
 - **Four search modes:** by name, by license/registration/certificate number, by UBI number, by workers' comp account ID
 - **20 license categories covered:** general/specialty construction contractors, electrical (contractor, administrator, electrician, master electrician, trainee), plumbing (contractor, plumber, plumber trainee, medical gas), asbestos (contractor, supervisor, worker), elevator (contractor, mechanic, primary contact), and manufactured home installers
-- **Optional detail enrichment:** attach full business detail — surety bonds, liability insurance, business owners/officers, associated licenses, safety and license violations, DOSH inspections
-- **Filters:** license category, license status (active/inactive), city, zip code, and violations-only
+- **Pagination:** fetches 100 results per request and keeps paging until `maxItems` or the result set is exhausted (up to 500 emitted records per run)
+- **Filters:** license category, license status, city, zip code, and violations-only — category, active status, city and zip are applied by L&I server-side as well as re-checked client-side
+- **Sort:** L&I relevance or business name, ascending or descending
+- **Optional detail enrichment:** attach full business detail — surety bonds, liability insurance, business owners/officers, associated licenses, workers'-comp accounts, safety and license violations, DOSH inspections
+- **Backward compatible:** input keys from older saved tasks (`query`, `maxResults`, `includeDetails`, …) are mapped in code, so existing tasks keep running
 - **Empty fields are omitted** — every record only contains data L&I actually returned for that license
 
 ## Data source
@@ -22,8 +25,8 @@ This actor reads Washington State L&I's own public "Verify a Contractor, Tradesp
 - `contractorType` / `licenseType` — e.g. `Electrician`, `Asbestos Worker`, `General/Specialty Contractor`
 - `contractorGroup` — top-level category (e.g. `Electrical`, `Plumber`, `Asbestos`)
 - `asbestosGroup` — asbestos-program sub-classification, when the license is asbestos-related
-- `status` — `Active`, `Inactive`, `Expired`, `Suspended`, `Out of Business`, `Re-Licensed`, or `Archived`
-- `statusDescription` — the raw L&I status text (e.g. `EXPIRED`, `ACTIVE`, `SUSPENDED`) — detail mode only
+- `status` — `Active`, `Inactive`, `Expired`, `Suspended`, `Out of Business`, `Re-Licensed`, `Superseded`, or `Retest`
+- `statusDescription` — the raw L&I status text (e.g. `EXPIRED`, `ACTIVE`, `SUPERCEDED`) — detail mode only
 - `employerDisplayStatus` — L&I's workers'-comp employer-account display status, when on file
 - `city`, `state`, `zipCode`, `county`, `address1`, `address2`, `phoneNumber` — detail mode only for address/phone
 - `businessType` — e.g. `Limited Liability Company`, `Individual`, `Corporation`
@@ -44,9 +47,12 @@ This actor reads Washington State L&I's own public "Verify a Contractor, Tradesp
 - `lapses[]` — license lapse/reinstatement history
 - `courses[]`, `affidavits[]`, `codes[]` — continuing education and compliance records, when on file
 - `doshInspections[]` — Washington DOSH workplace safety inspection history, when on file
+- `workersCompAccounts[]` — workers'-comp account(s) on file: `accountId`, `legalName`, `dbaName`, `isCurrent`, `balanceCode`, `balanceMessage`, `estimatedWorkers`, `representative`, and `riskClasses[]` (class code, description, rate, effective date)
+- `hasActiveWorkersCompAccount` — `true` when at least one linked workers'-comp account is current
+- `governingPersons[]` — business governing persons on file
 - `employerBusinessDetails` — workers'-comp employer business record (legal name, business ID, address), when on file
 - `contractorTrackingUrl`, `contractorRegistrationUrl` — related L&I portal links
-- `sourceUrl` — canonical L&I Verify detail page URL for the license
+- `sourceUrl` — canonical L&I Verify detail page URL for the license (includes the UBI for business licenses so L&I shows the full workers'-comp record)
 - `recordType: "license"`, `scrapedAt`
 
 ## Input
@@ -57,14 +63,15 @@ This actor reads Washington State L&I's own public "Verify a Contractor, Tradesp
 | `name` | string | `smith` | Business name or individual last name (mode=byName); min 2 characters |
 | `licenseId` | string | – | License/registration/certificate number, exact or prefix (mode=byLicenseId) |
 | `ubi` | string | – | 9-digit Washington UBI number (mode=byUbi) |
-| `accountId` | string | – | Workers' comp account ID, e.g. `123,456-01` (mode=byAccountId) |
-| `city` | string | – | Restrict results to a single Washington city (case-insensitive, applied server-side by L&I) |
-| `zipCode` | string | – | Restrict results to a single 5-digit Washington zip code (applied server-side by L&I; ignored if `city` is also set) |
-| `licenseCategory` | string | – | Restrict results to one of 20 license categories |
-| `statusFilter` | string | – | `active` / `inactive` / `expired` / `suspended` / `out of business` / `re-licensed` / `archived` |
+| `accountId` | string | – | Workers' comp account ID, e.g. `88160900` (mode=byAccountId); formatted values like `881,609-00` are normalized |
+| `city` | string | – | Restrict results to a single Washington city (case-insensitive, applied server-side by L&I and re-checked client-side) |
+| `zipCode` | string | – | Restrict results to a single 5-digit Washington zip code (applied server-side by L&I and re-checked client-side; ignored if `city` is also set) |
+| `licenseCategory` | string | – | Restrict results to one of 20 license categories (applied server-side by L&I) |
+| `statusFilter` | string | – | `active` / `inactive` / `expired` / `suspended` / `out of business` / `re-licensed` / `superseded` / `retest` |
 | `violationsOnly` | boolean | `false` | Only emit records with a safety and/or contractor violation flagged |
-| `sortOrder` | string | `desc` | `desc` / `asc` — L&I's own relevance ranking |
-| `fetchDetails` | boolean | `true` | Enrich each result with the full detail record (bonds, insurance, owners, violations, etc.) |
+| `sortBy` | string | `relevance` | `relevance` (L&I best match) / `name` (business name) |
+| `sortOrder` | string | `desc` | `desc` / `asc`, applied to `sortBy` |
+| `fetchDetails` | boolean | `true` | Enrich each result with the full detail record (bonds, insurance, owners, violations, workers'-comp accounts, etc.) |
 | `maxItems` | integer | `10` | Hard cap on emitted license records (1–500) |
 
 ### Example: search by business name with detail enrichment
@@ -83,7 +90,7 @@ This actor reads Washington State L&I's own public "Verify a Contractor, Tradesp
 ```json
 {
   "mode": "byLicenseId",
-  "licenseId": "ABCAR824BB",
+  "licenseId": "ABCAR**824BB",
   "fetchDetails": true
 }
 ```
@@ -140,7 +147,21 @@ This actor reads Washington State L&I's own public "Verify a Contractor, Tradesp
 - **Insurance & surety underwriting** — cross-check bond and insurance coverage on file with L&I
 - **Legal & background research** — pull violation, debarment, and lapse history tied to a business or UBI
 
+## Limitations
+
+- **500 records per run** (`maxItems` ceiling). L&I's search API returns at most 100 rows per page and has no cursor/export endpoint, so very broad queries are split by licence category, location or name prefix.
+- **Scan ceiling:** to satisfy client-side filters (non-active statuses, violations-only), the actor scans up to 5,000 search matches per run. If a filter matches only records beyond that point, the run reports `scanned N of M matches` in its status message instead of pretending it saw everything.
+- **Server-side filter scope:** category, active status, city and zip code are applied by L&I; other statuses and `violationsOnly` are checked over the scanned rows.
+- **Violation-only search rows** (a violation with no licence number) are not part of this licence dataset; they carry no licence record to enrich. Search by the business name or UBI to reach the related licence instead.
+- **Detail enrichment is one request per record.** For large runs without bonds/insurance/workers'-comp data, set `fetchDetails` to `false`.
+
 ## FAQ
+
+**Do my existing saved tasks keep working?**
+Yes. Older input keys such as `query`/`searchQuery`, `maxResults`, `includeDetails`, `licenseNumber`, `ubiNumber`, `accountNumber` and `category` are mapped to the current fields in code. The legacy `statusFilter: "archived"` value is still honoured too.
+
+**How many results can one run return?**
+Up to 500 (`maxItems`). The actor pages 100 rows at a time and stops at `maxItems`, when L&I has no more matches, or at the 5,000-row scan ceiling. The run's status message states how many matches were scanned.
 
 **What is the data source?**
 This actor uses Washington State Department of Labor & Industries' own public "Verify a Contractor, Tradesperson or Business" lookup tool at `secure.lni.wa.gov/verify`. It is a genuine public REST API with no authentication requirement — the same data the L&I website itself displays.

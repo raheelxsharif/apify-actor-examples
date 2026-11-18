@@ -4,96 +4,118 @@
 
 # BBC Good Food Recipe & Nutrition Extractor
 
-Collect full recipe details from BBC Good Food without manually opening each page. Point the actor at a search term, one of BBC Good Food's own recipe categories, or a list of recipe URLs, and it returns the ingredients, method, timings, and rating published on each page.
+Turn BBC Good Food pages into structured recipe rows: ingredients, method steps, timings, yield, per-serving UK nutrition, dietary tags, difficulty, rating, and the canonical source URL. The actor reads public pages without cookies, logins, or an API key, so a fresh Apify account can run it immediately.
 
-## What this actor does
+## Ways to collect recipes
 
-- **Three entry points:** keyword search, browse a built-in recipe category, or fetch an exact list of recipe URLs
-- **Category browsing:** walks category listing pages such as chicken, pasta, vegetarian, vegan, quick & healthy, baking, and desserts
-- **Cuisine and rating filters** applied after fetching, so you can narrow a category or search down further
-- **Full recipe body:** ingredient list, numbered method, prep/cook/total time, servings, and calories where published
-- **Empty fields are omitted** — a recipe with no published calorie count simply has no `calories` field
+| Mode | What it does |
+|---|---|
+| **Search recipes** | Uses BBC Good Food's own search endpoint. Add cuisine, diet, meal type, difficulty, rating, time, calorie, and serving filters. |
+| **Browse all recipes** | Walks the complete recipe index with the same filters; ideal when you do not have a keyword. |
+| **Browse a collection** | Takes a collection slug (for example `pasta-recipes`, `vegan-recipes`, `baking-recipes`) or a full collection URL. |
+| **Recipe URLs** | Fetches an exact list of recipe pages, including `/premium/` links. |
+| **Walk the recipe sitemap** | Starts with the newest BBC Good Food recipe sitemaps and works forward, for fresh-content monitoring. |
 
-## Output per recipe
+Search and all-recipes modes page through results until `maxItems` is reached or the source runs out. Collection and URL modes deduplicate by recipe URL. Every mode applies the same filters to the fetched recipe pages, so a record only appears when it genuinely matches.
 
-- `title` — recipe name
-- `description` — recipe summary
-- `author` — recipe author or BBC Good Food team credit
-- `prepTime`, `cookTime`, `totalTime` — ISO 8601 duration strings (e.g. `PT15M`) exactly as BBC Good Food publishes them
-- `servings` — recipe yield
-- `ingredients` — list of ingredient lines
-- `ingredientCount` — number of ingredient lines
-- `instructions` — list of method steps in order
-- `stepCount` — number of method steps
-- `calories` — calories per serving, when a nutrition panel is published
-- `rating` — average community rating
-- `ratingCount` — number of ratings behind that average
-- `categories` — recipe category tags
-- `cuisine` — cuisine type
-- `keywords` — up to 10 keyword/tag terms
-- `imageUrl` — recipe photo URL
-- `datePublished` — original publish date
-- `sourceUrl` — the BBC Good Food recipe page the record came from
+## Input highlights
 
-## Input
+- `mode` — pick one of the five collection routes above.
+- `query` — keyword for search mode.
+- `category` — collection slug or URL for collection mode.
+- `cuisine` — one value or a comma-separated list such as `italian,mediterranean`.
+- `diets` — multi-select: vegetarian, vegan, healthy, nut-free, egg-free, dairy-free, gluten-free, low-sugar, low-calorie, low-fat, high-fibre, high-protein.
+- `mealTypes` — multi-select: dinner, lunch, breakfast, dessert, supper, and more.
+- `difficulty` — easy, more effort, or a challenge.
+- `minRating`, `maxTotalTimeMinutes`, `maxCalories`, `minServings` — numeric bounds.
+- `sortBy` — most relevant, latest added, most popular, or quickest.
+- `startUrls` — recipe links for URL mode (Apify request-list entries).
+- `maxItems` — 1–1000 records.
+
+### Input reference
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (keyword), `byCategory` (browse a listing), or `byUrl` (direct recipe links) |
-| `query` | string | – | Keyword used when `mode` is `search`; browses BBC Good Food's main recipes page when left empty |
-| `category` | string | – | `chicken-recipes` / `pasta-recipes` / `vegetarian-recipes` / `vegan-recipes` / `quick-healthy` / `baking` / `desserts`, used when `mode` is `byCategory` |
-| `cuisine` | string | – | Keep only recipes whose cuisine or category text contains this value |
-| `minRating` | number | – | Keep only recipes rated at or above this value (1.0–5.0) |
-| `startUrls` | array | `[]` | Recipe URLs to fetch directly when `mode` is `byUrl` |
-| `maxItems` | integer | `20` | Maximum number of recipes to return (1–500) |
+| `mode` | select | `search` | Search, all recipes, collection, recipe URLs, or sitemap |
+| `query` | text | – | Keyword for search mode |
+| `category` | text | `pasta-recipes` | Collection slug or URL for collection mode |
+| `cuisine` | text | – | Cuisine or comma-separated cuisines |
+| `diets` | multi-select | empty | Dietary tags, all selected tags must match |
+| `difficulty` | select | Any difficulty | Easy, more effort, or a challenge |
+| `mealTypes` | multi-select | empty | Meal type tags, at least one must match |
+| `minRating` | number | – | Minimum community rating (1-5) |
+| `maxTotalTimeMinutes` | integer | – | Maximum published total time |
+| `maxCalories` | integer | – | Maximum calories per serving |
+| `minServings` | integer | – | Minimum published yield |
+| `sortBy` | select | `relevant` | Relevant, latest, popular, or quickest |
+| `startUrls` | request list | empty | Recipe links for URL mode |
+| `maxItems` | integer | `20` | Records to return (1-1000) |
 
-### Example: search by keyword
-
-```json
-{ "mode": "search", "query": "pasta carbonara", "maxItems": 20 }
-```
-
-### Example: browse a category with a rating floor
-
-```json
-{ "mode": "byCategory", "category": "vegetarian-recipes", "minRating": 4, "maxItems": 50 }
-```
-
-### Example: fetch specific recipe pages
+### Examples
 
 ```json
-{ "mode": "byUrl", "startUrls": ["https://www.bbcgoodfood.com/recipes/spaghetti-carbonara"] }
+{"mode": "search", "query": "chicken curry", "maxItems": 40}
 ```
 
-## Use cases
+```json
+{"mode": "search", "query": "pasta", "diets": ["vegan", "vegetarian"], "maxTotalTimeMinutes": 30, "sortBy": "rating", "maxItems": 50}
+```
 
-- **Recipe aggregation** — build a themed collection (e.g. all vegan desserts) in one run
-- **Content research** — gather ingredient lists and timings for editorial comparisons
-- **Nutrition analysis** — pull calorie data across a category for a diet or meal-planning tool
-- **App seeding** — populate a cooking app database with structured method steps instead of raw page text
+```json
+{"mode": "byCategory", "category": "dessert-recipes", "minRating": 4.5, "maxItems": 30}
+```
+
+```json
+{"mode": "byUrl", "startUrls": [{"url": "https://www.bbcgoodfood.com/recipes/creamy-pesto-kale-pasta"}], "maxItems": 1}
+```
+
+### Existing tasks keep working
+
+The original fields are still accepted: `query`, `category`, `cuisine`, `minRating`, `startUrls`, `maxItems`, and `mode`. Legacy collection names are mapped automatically (`quick-healthy` → quick recipes, `desserts` → dessert-recipes, `baking` → baking-recipes). Old output fields keep their names and types; the revamp adds fields beside them.
+
+## Output per recipe
+
+Core: `title`, `description`, `sourceUrl`, `recipeId`, `slug`, `author`, `authorUrl`, `authors`, `prepTime`, `cookTime`, `totalTime`, `prepTimeMinutes`, `cookTimeMinutes`, `totalTimeMinutes`, `servings`, `servingsCount`.
+
+Ingredients and method: `ingredients`, `ingredientCount`, `ingredientGroups` (quantity, name, note, metric/imperial units, glossary link), `instructions`, `stepCount`.
+
+Nutrition: `calories`, `caloriesKcal`, and a `nutrition` object with `calories`, `fat`, `saturatedFat`, `carbohydrates`, `sugars`, `fibre`, `protein`, `salt`, low-salt/low-sugar flags, and the per-serving caption.
+
+Classification: `categories`, `cuisine`, `cuisines`, `diets`, `difficulty`, `mealTypes`, `occasions`, `nutritionTags`, `keywords`, `tags`, `publication`, `publications`, `isPremium`.
+
+Media and provenance: `imageUrl`, `imageAlt`, `datePublished`, `dateModified`, `discoveredVia`, `source`, `recordType`, `scrapedAt`.
+
+Fields the source does not publish are omitted; you will never see `null`, `""`, or empty arrays in a row.
 
 ## FAQ
 
+**Do I need cookies, a login, or an API key?**
+No. The actor uses BBC Good Food's public pages and its own public search endpoint. No account, cookie, or proxy configuration is required.
+
+**Why do some recipes lack `cuisine` or `prepTime`?**
+Those fields are conditional on the page. BBC Good Food does not publish a cuisine or a preparation time for every recipe, so the field is left out rather than invented.
+
+**How are nutrition values expressed?**
+The `nutrition` object keeps BBC Good Food's per-serving units (`450 kcal`, `20 g`, `0.8 g`). `caloriesKcal` is the numeric calorie value for calculations.
+
+**What does `ingredients` contain when a recipe groups ingredients?**
+`ingredients` is the flat list. `ingredientGroups` preserves the source's headings ("For the filling") and each item's quantity, name, note, and metric/imperial units.
+
+**Why did a collection return fewer rows than `maxItems`?**
+Some BBC Good Food collections are hand-curated and contain fewer recipes than the cap. The actor stops when the collection is exhausted; use search or all-recipes mode for a broader sweep.
+
+**What happens if BBC Good Food briefly redirects to a regional site?**
+The actor retries the request with a fresh URL before giving up, then skips that card and continues. The run status message reports skipped or filtered cards.
+
+**How many recipes can one run return?**
+Up to `maxItems` (1–1000). Search reports a source ceiling around 10,000 matches; all-recipes and sitemap modes page until the cap or the source ends.
+
 **Is this affiliated with BBC Good Food?**
-No. This is an independent, third-party actor that reads BBC Good Food's publicly available recipe pages and is not affiliated with or endorsed by BBC Good Food or the BBC.
+No. It is an independent third-party tool that reads publicly available pages and is not endorsed by BBC Good Food or the BBC.
 
-**What categories can I browse?**
-The seven built into the `category` input: chicken, pasta, vegetarian, vegan, quick & healthy, baking, and desserts. Other BBC Good Food categories aren't wired into `byCategory` yet.
+## Notes and limits
 
-**Why are `prepTime`, `cookTime`, and `totalTime` written like `PT20M`?**
-That's the ISO 8601 duration format BBC Good Food itself publishes on the recipe page; the actor passes it through unchanged rather than guessing a display format.
-
-**Why is `calories` missing on some recipes?**
-Not every BBC Good Food recipe publishes a nutrition panel. When one isn't present, `calories` is left off the record instead of being sent as a blank value.
-
-**How do the cuisine and rating filters interact with `byCategory`?**
-They apply on top of the category browse, so you can, for example, browse `desserts` and still only keep recipes rated 4.5 or higher.
-
-**Does `mode: "byUrl"` skip the filters?**
-No — `cuisine` and `minRating` still apply to fetched URLs, so a filtered-out recipe from `startUrls` won't appear in the output either.
-
-**How many recipes can I collect in one run?**
-Up to `maxItems`, capped at 500 per run. The actor keeps paging through search or category listings until it reaches that cap or runs out of recipes.
-
-**Do I need an account or API key?**
-No. BBC Good Food's recipe pages are public, and the actor doesn't require any login or key.
+- Search results are capped by the source at roughly 10,000 matches; narrow the query or use sitemap mode for a deeper sweep.
+- Some hand-curated collections expose fewer than 100 cards and do not paginate.
+- Premium recipe pages are fetched when linked; if BBC Good Food does not publish recipe data for a premium page, the card is skipped.
+- UK nutrition panels are per serving. Values are passed through in the source's units and are not converted.

@@ -30,6 +30,8 @@ Turn a BBC Food search or a list of recipe links into structured recipe data. Th
 - `imageUrl` — recipe photo URL
 - `datePublished` — original publish date
 - `sourceUrl` — the BBC Food recipe page the record came from
+- `recordType` — always `recipe`, so mixed datasets stay easy to filter
+- `scrapedAt` — UTC timestamp of when the record was collected
 
 ## Input
 
@@ -86,6 +88,9 @@ Yes — set `mode` to `byUrl` and list the exact recipe URLs in `startUrls`; the
 
 **How many recipes can one run return?**
 Up to `maxItems`, capped at 500. In search mode, the actor keeps paging through BBC Food's search results until it reaches that cap or runs out of matches.
+
+**How does pagination work?**
+Search mode walks BBC Food's result pages in order, de-duplicates recipe links, and stops when `maxItems` is reached or two consecutive pages add nothing new. You do not need to supply page numbers.
 
 **Is this affiliated with the BBC?**
 No. This is an independent, third-party actor that reads BBC Food's publicly available recipe pages and is not affiliated with or endorsed by the BBC.

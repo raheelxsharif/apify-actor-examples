@@ -2,8 +2,9 @@
   "description": "Search Washington State Department of Labor & Industries (L&I) 'Verify a Contractor, Tradesperson or Business' registry by name, license/registration number, UBI, or workers' comp account ID.",
   "properties": {
     "accountId": {
-      "description": "L&I workers' compensation account ID, formatted like `123,456-01`.",
+      "description": "L&I workers' compensation account ID, e.g. `88160900` (digits only). Formatted legacy values such as `881,609-00` are accepted and normalized.",
       "editor": "textfield",
+      "prefill": "88160900",
       "title": "Workers' comp account ID (mode=byAccountId)",
       "type": "string"
     },
@@ -86,7 +87,7 @@
     },
     "maxItems": {
       "default": 10,
-      "description": "Hard cap on emitted license records.",
+      "description": "Hard cap on emitted license records (1-500). Results are fetched 100 at a time.",
       "maximum": 500,
       "minimum": 1,
       "prefill": 10,
@@ -121,25 +122,41 @@
       "title": "Name (mode=byName)",
       "type": "string"
     },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order of results: L&I's own relevance ranking, or business name.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "name"
+      ],
+      "enumTitles": [
+        "Best match (L&I relevance)",
+        "Business name"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    },
     "sortOrder": {
       "default": "desc",
-      "description": "Sort direction for search results, as ranked by L&I's own relevance ranking.",
+      "description": "Ascending or descending, applied to the selected Sort by field.",
       "editor": "select",
       "enum": [
         "desc",
         "asc"
       ],
       "enumTitles": [
-        "Descending (most relevant first)",
-        "Ascending"
+        "Descending (Z-A / highest relevance first)",
+        "Ascending (A-Z)"
       ],
       "prefill": "desc",
-      "title": "Sort order",
+      "title": "Sort direction",
       "type": "string"
     },
     "statusFilter": {
       "default": "",
-      "description": "Only emit records with this status. Leave unset for all statuses.",
+      "description": "Only emit records with this top-level license status. Leave unset for all statuses.",
       "editor": "select",
       "enum": [
         "",
@@ -149,7 +166,8 @@
         "suspended",
         "out of business",
         "re-licensed",
-        "archived"
+        "superseded",
+        "retest"
       ],
       "enumTitles": [
         "All statuses",
@@ -159,7 +177,8 @@
         "Suspended",
         "Out of Business",
         "Re-Licensed",
-        "Archived"
+        "Superseded",
+        "Retest"
       ],
       "prefill": "",
       "title": "Filter by license status",

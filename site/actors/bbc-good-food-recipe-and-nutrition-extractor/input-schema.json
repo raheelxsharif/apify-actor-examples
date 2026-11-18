@@ -1,87 +1,222 @@
 {
-  "description": "Scrape recipes from bbcgoodfood.com.",
+  "description": "Scrape BBC Good Food recipes, ingredients, method steps, and UK nutrition panels without cookies or an API key.",
   "properties": {
     "category": {
-      "default": "",
-      "description": "Recipe category to browse",
-      "editor": "select",
-      "enum": [
-        "",
-        "chicken-recipes",
-        "pasta-recipes",
-        "vegetarian-recipes",
-        "vegan-recipes",
-        "quick-healthy",
-        "baking",
-        "desserts"
-      ],
-      "enumTitles": [
-        "Any",
-        "Chicken",
-        "Pasta",
-        "Vegetarian",
-        "Vegan",
-        "Quick",
-        "Baking",
-        "Desserts"
-      ],
+      "default": "pasta-recipes",
+      "description": "Collection for mode=byCategory. Use a slug like 'pasta-recipes', 'vegan-recipes', 'baking-recipes', 'dessert-recipes', or paste a full https://www.bbcgoodfood.com/recipes/collection/... URL. Leave empty to browse all recipes.",
+      "editor": "textfield",
       "prefill": "",
-      "title": "Category",
+      "title": "Collection Slug or URL",
       "type": "string"
     },
     "cuisine": {
-      "description": "Cuisine type filter",
+      "description": "Optional cuisine filter; comma-separate several values, e.g. 'italian,mediterranean'. Common values: italian, british, indian, asian, chinese, french, mexican, thai, mediterranean, american, spanish, greek, middle-eastern, japanese, caribbean, moroccan, turkish, vietnamese.",
       "editor": "textfield",
-      "title": "Cuisine Filter",
+      "title": "Cuisine",
       "type": "string"
+    },
+    "diets": {
+      "default": [],
+      "description": "Keep recipes carrying every selected dietary tag. Empty array = no diet filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "vegetarian",
+          "vegan",
+          "healthy",
+          "nut-free",
+          "egg-free",
+          "dairy-free",
+          "gluten-free",
+          "low-sugar",
+          "low-calorie",
+          "low-fat",
+          "high-fibre",
+          "high-protein"
+        ],
+        "enumTitles": [
+          "Vegetarian",
+          "Vegan",
+          "Healthy",
+          "Nut-free",
+          "Egg-free",
+          "Dairy-free",
+          "Gluten-free",
+          "Low sugar",
+          "Low calorie",
+          "Low fat",
+          "High fibre",
+          "High protein"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Dietary Filters",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "difficulty": {
+      "default": "",
+      "description": "Keep only recipes at this skill level.",
+      "editor": "select",
+      "enum": [
+        "",
+        "easy",
+        "more-effort",
+        "a-challenge"
+      ],
+      "enumTitles": [
+        "Any difficulty",
+        "Easy",
+        "More effort",
+        "A challenge"
+      ],
+      "prefill": "",
+      "title": "Difficulty",
+      "type": "string"
+    },
+    "maxCalories": {
+      "description": "Keep recipes at or below this calories-per-serving value.",
+      "maximum": 5000,
+      "minimum": 1,
+      "title": "Max Calories (kcal)",
+      "type": "integer"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of recipes to return",
-      "maximum": 500,
+      "description": "Maximum number of recipe records to return.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Max Recipes",
       "type": "integer"
     },
+    "maxTotalTimeMinutes": {
+      "description": "Keep recipes whose published total time is at most this many minutes.",
+      "maximum": 1440,
+      "minimum": 1,
+      "title": "Max Total Time (minutes)",
+      "type": "integer"
+    },
+    "mealTypes": {
+      "default": [],
+      "description": "Keep recipes matching at least one selected meal type. Empty array = no meal filter.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "afternoon-tea",
+          "breakfast",
+          "brunch",
+          "buffet",
+          "condiment",
+          "dessert",
+          "dinner",
+          "lunch",
+          "main-course",
+          "pasta",
+          "side-dish",
+          "snack",
+          "soup",
+          "starter",
+          "supper",
+          "treat",
+          "vegetable"
+        ],
+        "enumTitles": [
+          "Afternoon tea",
+          "Breakfast",
+          "Brunch",
+          "Buffet",
+          "Condiment",
+          "Dessert",
+          "Dinner",
+          "Lunch",
+          "Main course",
+          "Pasta",
+          "Side dish",
+          "Snack",
+          "Soup",
+          "Starter",
+          "Supper",
+          "Treat",
+          "Vegetable"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Meal Types",
+      "type": "array",
+      "uniqueItems": true
+    },
     "minRating": {
-      "description": "Minimum rating filter",
+      "description": "Keep recipes rated at or above this community rating (1.0-5.0).",
       "maximum": 5,
       "minimum": 1,
-      "title": "Min Rating",
+      "title": "Minimum Rating",
       "type": "number"
+    },
+    "minServings": {
+      "description": "Keep recipes whose published yield is at least this many servings.",
+      "maximum": 50,
+      "minimum": 1,
+      "title": "Minimum Servings",
+      "type": "integer"
     },
     "mode": {
       "default": "search",
-      "description": "Scraping mode: search or browse by category",
+      "description": "How to find recipes. Search uses BBC Good Food's own search. Browse all walks the full index with the same filters. Collection takes a slug or collection URL. Recipe URLs fetches exact pages. Sitemap walks newest sitemap files first.",
       "editor": "select",
       "enum": [
         "search",
+        "allRecipes",
         "byCategory",
-        "byUrl"
+        "byUrl",
+        "bySitemap"
       ],
       "enumTitles": [
-        "Search",
-        "Browse category",
-        "Direct URLs"
+        "Search recipes",
+        "Browse all recipes",
+        "Browse a collection",
+        "Recipe URLs",
+        "Walk the recipe sitemap"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
     },
     "query": {
-      "description": "Search query for recipes",
+      "description": "Keyword for mode=search (e.g. 'chicken curry', 'vegan cake'). Leave empty to browse every recipe.",
       "editor": "textfield",
       "prefill": "pasta",
       "title": "Search Query",
       "type": "string"
     },
+    "sortBy": {
+      "default": "relevant",
+      "description": "Result order for search and all-recipes modes; collection and URL modes sort the collected rows.",
+      "editor": "select",
+      "enum": [
+        "relevant",
+        "published",
+        "rating",
+        "quickest"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Latest added",
+        "Most popular",
+        "Quickest"
+      ],
+      "prefill": "relevant",
+      "title": "Sort By",
+      "type": "string"
+    },
     "startUrls": {
       "default": [],
-      "description": "List of starting URLs to scrape",
+      "description": "Recipe pages for mode=byUrl. Accepts https://www.bbcgoodfood.com/recipes/... and /premium/... links.",
       "editor": "requestListSources",
       "prefill": [],
-      "title": "Start URLs",
+      "title": "Recipe URLs",
       "type": "array"
     }
   },

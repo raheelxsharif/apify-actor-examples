@@ -1,31 +1,31 @@
 {
-  "description": "Search for recipes.",
+  "description": "Search BBC Food for recipes or fetch a list of recipe URLs. No login or API key needed.",
   "properties": {
     "cuisine": {
-      "description": "Filter by cuisine type (e.g. Italian, Chinese).",
+      "description": "Keep only recipes whose cuisine or category text contains this value (e.g. Italian, British, Dessert).",
       "editor": "textfield",
       "title": "Cuisine Filter",
       "type": "string"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of recipes to return",
+      "description": "Maximum number of recipes to return.",
       "maximum": 500,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 3,
       "title": "Max Items",
       "type": "integer"
     },
     "minRating": {
-      "description": "Minimum recipe rating.",
+      "description": "Keep only recipes rated at or above this value. Recipes without a rating are kept.",
       "maximum": 5,
       "minimum": 1,
-      "title": "Min Rating",
+      "title": "Minimum Rating",
       "type": "number"
     },
     "mode": {
       "default": "search",
-      "description": "Scraping mode: search or detail URLs",
+      "description": "Search BBC Food by keyword, or fetch specific recipe pages from Start URLs.",
       "editor": "select",
       "enum": [
         "search",
@@ -36,11 +36,12 @@
         "Fetch from direct URLs"
       ],
       "prefill": "search",
+      "sectionCaption": "Recipes",
       "title": "Mode",
       "type": "string"
     },
     "query": {
-      "description": "Recipe search keyword.",
+      "description": "Keyword used in search mode. Leave empty to use BBC Food's popular recipes.",
       "editor": "textfield",
       "prefill": "roast chicken",
       "title": "Search Query",
@@ -48,9 +49,20 @@
     },
     "startUrls": {
       "default": [],
-      "description": "List of starting URLs to scrape",
+      "description": "BBC Food recipe pages to fetch when mode is 'Fetch from direct URLs'.",
       "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "Full URL of a BBC Food recipe page.",
+            "title": "Recipe URL",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "prefill": [],
+      "sectionCaption": "Direct recipe URLs",
       "title": "Start URLs",
       "type": "array"
     }
@@ -59,6 +71,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Recipe Scraper Input",
+  "title": "BBC Food Recipe Scraper input",
   "type": "object"
 }
