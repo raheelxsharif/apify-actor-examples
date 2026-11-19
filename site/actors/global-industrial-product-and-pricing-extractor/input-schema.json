@@ -8,7 +8,7 @@
       "type": "string"
     },
     "categoryPath": {
-      "description": "Any category URL or path, e.g. `/c/tools/power_tools`, `/c/tools/abrasives/sanding_discs`, `https://www.globalindustrial.com/t/hvac`. Takes precedence over `categoryPreset`. (mode=byCategory)",
+      "description": "Any category URL or path, e.g. `/c/tools/power_tools`, `/c/tools/abrasives/sanding_discs`, `https://www.globalindustrial.com/t/hvac`. Takes precedence over `categoryPreset`. Category and department pages publish a curated grid of about 18 products; use `mode=search` for deeper result sets.",
       "editor": "textfield",
       "title": "Category path",
       "type": "string"
@@ -157,7 +157,7 @@
       "type": "number"
     },
     "minRating": {
-      "description": "Only products with at least this average rating.",
+      "description": "Only products with at least this average rating. Products without a rating are dropped when this is set.",
       "maximum": 5,
       "minimum": 1,
       "title": "Minimum rating",

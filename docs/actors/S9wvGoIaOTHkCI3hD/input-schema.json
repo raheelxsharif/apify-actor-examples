@@ -1,6 +1,23 @@
 {
-  "description": "Search the CMS NPI Registry for US healthcare providers by name, state, specialty, or organization.",
+  "description": "Search the CMS NPI Registry for US healthcare providers by name, state, specialty, or organization, or look up one or many NPI numbers.",
   "properties": {
+    "addressPurpose": {
+      "default": "",
+      "description": "Choose whether city/state/ZIP filters apply to the practice (LOCATION) or mailing address. Leave blank to match either.",
+      "editor": "select",
+      "enum": [
+        "",
+        "LOCATION",
+        "MAILING"
+      ],
+      "enumTitles": [
+        "Practice or mailing address",
+        "Practice address (LOCATION)",
+        "Mailing address (MAILING)"
+      ],
+      "title": "Address to match location filters against",
+      "type": "string"
+    },
     "city": {
       "description": "Filter results to providers in this city.",
       "editor": "textfield",
@@ -9,7 +26,7 @@
     },
     "enumerationType": {
       "default": "",
-      "description": "Filter by provider type. NPI-1 = individual providers, NPI-2 = organizations. Leave blank for all. Applies to mode=searchProviders.",
+      "description": "Filter by provider type. NPI-1 = individual providers, NPI-2 = organizations. Leave blank for all.",
       "editor": "select",
       "enum": [
         "",
@@ -24,15 +41,22 @@
       "title": "Enumeration type (NPI type)",
       "type": "string"
     },
+    "exhaustiveSearch": {
+      "default": false,
+      "description": "The registry returns at most 1,200 records per search. Turn this on to split a broad query by state and provider type, merge the slices and remove duplicates. Slower and may use many requests; leave off for normal searches.",
+      "prefill": false,
+      "title": "Get results past the registry's 1,200 cap",
+      "type": "boolean"
+    },
     "firstName": {
-      "description": "Provider first name (modes: searchProviders, searchBySpecialty).",
+      "description": "Provider first name. Supports a trailing wildcard, e.g. Rob* (modes: searchProviders, searchBySpecialty).",
       "editor": "textfield",
       "prefill": "John",
       "title": "First name",
       "type": "string"
     },
     "lastName": {
-      "description": "Provider last name (modes: searchProviders, searchBySpecialty).",
+      "description": "Provider last name. Supports a trailing wildcard, e.g. Smit* (modes: searchProviders, searchBySpecialty).",
       "editor": "textfield",
       "prefill": "Smith",
       "title": "Last name",
@@ -40,8 +64,8 @@
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of provider records to return.",
-      "maximum": 2000,
+      "description": "Maximum number of provider records to return. Without exhaustiveSearch the registry caps a single search at 1,200.",
+      "maximum": 10000,
       "minimum": 1,
       "prefill": 50,
       "title": "Max items",
@@ -58,8 +82,8 @@
         "searchByOrganization"
       ],
       "enumTitles": [
-        "Search providers by name / state",
-        "Lookup specific provider by NPI number",
+        "Search providers by name / place",
+        "Look up one or more NPI numbers",
         "Search by specialty / taxonomy",
         "Search for organizations"
       ],
@@ -68,13 +92,24 @@
       "type": "string"
     },
     "npiNumber": {
-      "description": "10-digit National Provider Identifier.",
+      "description": "A 10-digit National Provider Identifier. Comma-separated values are accepted for a small batch.",
       "editor": "textfield",
       "title": "NPI number (mode=lookupByNPI)",
       "type": "string"
     },
+    "npiNumbers": {
+      "default": [],
+      "description": "One or more 10-digit NPIs to resolve in a single run (up to 200). Combined with npiNumber when both are supplied.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "NPI numbers for bulk lookup (mode=lookupByNPI)",
+      "type": "array"
+    },
     "organizationName": {
-      "description": "Organization or group name (mode=searchByOrganization).",
+      "description": "Organization or group name (mode=searchByOrganization). Supports a trailing wildcard, e.g. Mayo*.",
       "editor": "textfield",
       "title": "Organization name",
       "type": "string"
@@ -86,13 +121,13 @@
       "type": "string"
     },
     "specialtyDescription": {
-      "description": "Free-text taxonomy or specialty description to filter by, e.g. 'Internal Medicine', 'Family Practice', 'Cardiology'.",
+      "description": "Taxonomy or specialty text, e.g. 'Internal Medicine', 'Family Practice', 'Cardiology'. Partial matches and a trailing wildcard (*) are supported.",
       "editor": "textfield",
       "title": "Specialty description",
       "type": "string"
     },
     "state": {
-      "description": "US state abbreviation to filter providers.",
+      "description": "US state or territory abbreviation to filter providers.",
       "editor": "select",
       "enum": [
         "",
@@ -135,6 +170,7 @@
         "OK",
         "OR",
         "PA",
+        "PR",
         "RI",
         "SC",
         "SD",
@@ -146,7 +182,11 @@
         "WA",
         "WI",
         "WV",
-        "WY"
+        "WY",
+        "AS",
+        "GU",
+        "MP",
+        "VI"
       ],
       "enumTitles": [
         "Any state",
@@ -189,6 +229,7 @@
         "OK - Oklahoma",
         "OR - Oregon",
         "PA - Pennsylvania",
+        "PR - Puerto Rico",
         "RI - Rhode Island",
         "SC - South Carolina",
         "SD - South Dakota",
@@ -200,11 +241,22 @@
         "WA - Washington",
         "WI - Wisconsin",
         "WV - West Virginia",
-        "WY - Wyoming"
+        "WY - Wyoming",
+        "AS - American Samoa",
+        "GU - Guam",
+        "MP - Northern Mariana Islands",
+        "VI - US Virgin Islands"
       ],
       "prefill": "CA",
       "title": "State",
       "type": "string"
+    },
+    "useFirstNameAlias": {
+      "default": false,
+      "description": "When on, a first-name search also matches the provider's registered nickname or former first name (for example Bob for Robert).",
+      "prefill": false,
+      "title": "Also match nickname aliases",
+      "type": "boolean"
     }
   },
   "required": [

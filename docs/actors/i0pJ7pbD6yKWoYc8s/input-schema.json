@@ -1,27 +1,30 @@
 {
-  "description": "Daily US fuel prices from the AAA Fuel Gauge (gasprices.aaa.com). National, state, and metro/county granularity.",
+  "description": "Daily US fuel prices from the public AAA Fuel Gauge (gasprices.aaa.com). Choose the national average, all state averages, or metro/county averages, then filter and page through the results.",
   "properties": {
     "fuelTypes": {
       "default": [
         "regular",
         "midGrade",
         "premium",
-        "diesel"
+        "diesel",
+        "e85"
       ],
-      "description": "Which fuel grades to include in each record. Empty = all four (regular, midGrade, premium, diesel).",
+      "description": "Which grades to keep in each record. E85 is published only for the national average, so a state/metro record has no E85 field.",
       "editor": "select",
       "items": {
         "enum": [
           "regular",
           "midGrade",
           "premium",
-          "diesel"
+          "diesel",
+          "e85"
         ],
         "enumTitles": [
           "Regular",
           "Mid-grade",
           "Premium",
-          "Diesel"
+          "Diesel",
+          "E85 (national only)"
         ],
         "type": "string"
       },
@@ -29,59 +32,62 @@
         "regular",
         "midGrade",
         "premium",
-        "diesel"
+        "diesel",
+        "e85"
       ],
-      "title": "Fuel types",
+      "title": "Fuel grades in each record",
       "type": "array"
     },
     "includeChangeMetrics": {
       "default": true,
-      "description": "When true and history is fetched, also emit `changeFromYesterday`, `changeFromWeekAgo`, `changeFromMonthAgo`, `changeFromYearAgo` (in cents).",
+      "description": "When history is available, add changeFromYesterday, changeFromWeekAgo, changeFromMonthAgo, and changeFromYearAgo in cents for the primary fuel.",
       "prefill": true,
-      "title": "Include derived change metrics",
+      "title": "Include derived change fields",
       "type": "boolean"
     },
     "includeHistory": {
       "default": true,
-      "description": "When true (state/metro modes), include yesterday/week-ago/month-ago/year-ago averages. Default true.",
-      "prefill": true,
+      "description": "Add yesterday, week-ago, month-ago, and year-ago averages. In state mode this reads each selected state's page, so it takes one politely spaced request per state; in metro and national modes the history is already on the fetched page.",
+      "prefill": false,
+      "sectionCaption": "Output & pagination",
+      "sectionDescription": "Control ordering, record history, and how many records a run returns.",
       "title": "Include price history",
       "type": "boolean"
     },
     "maxItems": {
       "default": 500,
-      "description": "Hard cap on emitted records.",
+      "description": "The page size: the maximum number of records this run returns. Use startIndex to read the next page.",
       "maximum": 5000,
       "minimum": 1,
       "prefill": 500,
-      "title": "Max items",
+      "title": "Records per page",
       "type": "integer"
     },
     "maxPrice": {
-      "description": "Drop records whose primary fuel (regular by default) is above this price.",
+      "description": "Drop records whose primary fuel is more expensive than this. Records without that grade are kept, because the source has no price to compare.",
       "maximum": 20,
       "minimum": 0,
-      "title": "Max price (USD/gal)",
+      "title": "Maximum price (USD per gallon)",
       "type": "number"
     },
     "metroNameFilter": {
       "default": [],
-      "description": "Only emit metro records whose name contains one of these substrings (case-insensitive). e.g. ['New York','Los Angeles'].",
+      "description": "Case-insensitive substrings, e.g. New York or Los Angeles. Only used in metro mode; leave empty for every metro.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Metro name filter (mode=metro only)",
+      "title": "Metro name contains",
       "type": "array"
     },
     "minPrice": {
-      "description": "Drop records whose primary fuel (regular by default) is below this price.",
+      "description": "Drop records whose primary fuel is cheaper than this. Records without that grade are kept, because the source has no price to compare.",
       "maximum": 20,
       "minimum": 0,
-      "title": "Min price (USD/gal)",
+      "title": "Minimum price (USD per gallon)",
       "type": "number"
     },
     "mode": {
       "default": "state",
-      "description": "What to scrape. `national` = single record (US average). `state` = 51 records (50 states + DC) with current/yesterday/week/month/year-ago prices. `metro` = metro/county-level prices for the requested states.",
+      "description": "National average = one US record. State averages = 50 states + DC. Metro/county averages = every metro area AAA lists on the pages of the states you choose.",
       "editor": "select",
       "enum": [
         "national",
@@ -90,57 +96,72 @@
       ],
       "enumTitles": [
         "National average (1 record)",
-        "State averages (50 + DC)",
-        "Metro/county averages (per-state)"
+        "State averages (50 states + DC)",
+        "Metro/county averages (per state)"
       ],
       "prefill": "state",
-      "title": "Mode",
+      "sectionCaption": "What to scrape",
+      "sectionDescription": "One run can return the national figure, the state table, or metro rows for selected states.",
+      "title": "What to scrape",
       "type": "string"
     },
     "primaryFuelType": {
       "default": "regular",
-      "description": "Which fuel grade is used by `minPrice` / `maxPrice` / `sortBy` filters. Default: regular.",
+      "description": "The grade that minPrice, maxPrice, sortBy, and the derived change fields use. E85 is available on the national average only.",
       "editor": "select",
       "enum": [
         "regular",
         "midGrade",
         "premium",
-        "diesel"
+        "diesel",
+        "e85"
       ],
       "enumTitles": [
         "Regular",
         "Mid-grade",
         "Premium",
-        "Diesel"
+        "Diesel",
+        "E85 (national only)"
       ],
       "prefill": "regular",
-      "title": "Primary fuel type for filters/sort",
+      "title": "Fuel grade used by price filters and sorting",
       "type": "string"
     },
     "sortBy": {
       "default": "state_asc",
-      "description": "How to order emitted records. Cheapest-first / most-expensive-first / alphabetical by state.",
+      "description": "How the matching records are ordered before pagination. Price sorts put records without the primary fuel at the end.",
       "editor": "select",
       "enum": [
+        "state_asc",
         "price_asc",
-        "price_desc",
-        "state_asc"
+        "price_desc"
       ],
       "enumTitles": [
-        "Price ascending (cheapest first)",
-        "Price descending (most expensive first)",
-        "State alphabetical"
+        "State name, A-Z",
+        "Primary fuel price, cheapest first",
+        "Primary fuel price, most expensive first"
       ],
       "prefill": "state_asc",
-      "title": "Sort by",
+      "title": "Sort records by",
       "type": "string"
+    },
+    "startIndex": {
+      "default": 0,
+      "description": "How many matching records to skip before this page. 0 starts at the beginning; combine with maxItems to page through a large result set.",
+      "maximum": 5000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Pagination start index",
+      "type": "integer"
     },
     "states": {
       "default": [],
-      "description": "Two-letter state codes (e.g. `NY`, `CA`, `TX`). Empty = all 50 states + DC. For `mode=metro`, this controls which state pages get scraped.",
+      "description": "Two-letter codes (NY, CA, TX) or state names (New York). Leave empty for all 50 states + DC. In metro mode this decides which state pages are read.",
       "editor": "stringList",
       "prefill": [],
-      "title": "States allowlist",
+      "sectionCaption": "Filters",
+      "sectionDescription": "All filters are optional. Leave a filter empty to keep every record.",
+      "title": "States",
       "type": "array"
     }
   },
@@ -148,6 +169,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Fuel Prices Scraper Input",
+  "title": "US Gas Price Tracker Input",
   "type": "object"
 }

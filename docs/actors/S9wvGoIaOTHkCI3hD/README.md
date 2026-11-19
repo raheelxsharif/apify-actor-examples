@@ -4,123 +4,161 @@
 
 # National Provider Identifier Lookup & Search Tool
 
-Look up US healthcare providers and organizations the way medical billing, credentialing, and verification teams already do — by their 10-digit National Provider Identifier (NPI), or by name, location, and specialty. This actor reads the federal public registry that assigns NPIs to every individual provider and healthcare organization in the United States.
+Resolve a US healthcare provider from a 10-digit NPI, or build a provider list from a name, specialty, organization, city, state or ZIP code. The actor reads the federal NPI Registry live — the same public source medical billing, credentialing and directory teams query — and returns one clean row per provider with no login, cookie or API key.
 
 ## What this actor does
 
-- **Four search modes:** search individual providers, resolve one exact NPI number, search by specialty/taxonomy, or search organizations
-- **Location narrowing:** filter by state, city, and ZIP code on any search mode
-- **Full contact detail:** practice and mailing addresses, phone number, and credential/specialty data per provider
-- **Both entity types:** individual providers (NPI-1) and organizations (NPI-2), filterable via `enumerationType`
-- **Empty fields are omitted** — a provider record only includes the fields that registry actually has on file for them
+- **Four modes:** search individual and organizational providers, resolve exact NPI numbers (single or bulk), search by specialty/taxonomy, or search organizations by name.
+- **Location filters:** state or territory, city, ZIP code, plus a choice of whether those filters match the practice or the mailing address.
+- **Provider-type filter:** individuals (`NPI-1`), organizations (`NPI-2`), or both.
+- **Nickname matching:** optionally match registered first-name aliases and former names.
+- **Registry-cap aware:** reports honestly when a search reaches the registry's 1,200-record limit, and can split a broad query by state and provider type to go beyond it.
+- **Full record mapping:** identity, credentials, specialties with license numbers, every taxonomy, practice and mailing contact details, authorized officials, former names, other identifiers and electronic endpoints.
 
 ## Output per provider
 
-- `npi` — the 10-digit National Provider Identifier
+- `npi` — 10-digit National Provider Identifier
 - `entityType` — `individual` or `organization`
-- `firstName`, `lastName` — individual provider's name
+- `firstName`, `middleName`, `lastName`, `namePrefix`, `nameSuffix` — individual name parts
 - `organizationName` — organization name
-- `credential` — professional credential (e.g. `MD`, `DO`, `NP`)
-- `gender` — `M` or `F`, for individual providers
-- `primarySpecialty` — the provider's primary taxonomy/specialty
-- `specialties` — every taxonomy/specialty on file for the provider
-- `practiceAddress`, `practiceCity`, `practiceState`, `practiceZip` — practice location
-- `practicePhone` — practice phone number
-- `mailingAddress`, `mailingCity`, `mailingState` — mailing address, when it differs from practice
-- `enumerationDate` — the date the NPI was first issued
-- `certificationDate` — date of the most recent certification or update
+- `credential` — professional credential, e.g. `MD`, `RN, NNP`
+- `gender` — `M` or `F` for individuals
+- `soleProprietor`, `organizationalSubpart` — registry flags when present
+- `contactName`, `contactTitle`, `contactPhone` — the individual provider, or the organization's authorized official
+- `authorizedOfficialName`, `authorizedOfficialTitle`, `authorizedOfficialPhone` — organization official
+- `primarySpecialty` — primary taxonomy description
+- `specialties` — every taxonomy description on file
+- `taxonomies` — objects with `code`, `description`, `primary`, `state`, `license`, `taxonomyGroup`
+- `primaryTaxonomyCode`, `primaryLicense`, `primaryLicenseState` — the primary license at a glance
+- `practiceAddress`, `practiceCity`, `practiceState`, `practiceZip`, `practiceCountry`, `practicePhone`, `practiceFax`
+- `mailingAddress`, `mailingCity`, `mailingState`, `mailingZip`, `mailingCountry`, `mailingPhone`, `mailingFax`
+- `additionalPracticeLocations` — extra practice sites with address, phone and fax
+- `otherNames` — former and other registered names
+- `identifiers` — other issuer identifiers (Medicare, Medicaid, etc.) when the registry lists them
+- `endpoints` — electronic Direct/HIE addresses, their type, use and affiliation
+- `enumerationDate` — date the NPI was issued
+- `certificationDate` — most recent certification date
+- `lastUpdated` — most recent registry update
 - `status` — `A` (active) or `D` (deactivated)
-- `url` — the provider's public registry profile page
+- `url` — public registry profile page
 - `scrapedAt` — when the record was fetched
+
+Fields the registry does not have for a provider are omitted, never sent as `null`, an empty string or a placeholder.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `searchProviders` | `searchProviders`, `lookupByNPI`, `searchBySpecialty`, or `searchByOrganization` |
-| `firstName` | string | – | Provider first name (modes `searchProviders`, `searchBySpecialty`) |
-| `lastName` | string | – | Provider last name (modes `searchProviders`, `searchBySpecialty`) |
-| `organizationName` | string | – | Organization or group name (mode `searchByOrganization`) |
-| `npiNumber` | string | – | Exact 10-digit NPI to resolve (mode `lookupByNPI`) |
-| `specialtyDescription` | string | – | Free-text specialty/taxonomy to filter by, e.g. `Cardiology` |
-| `state` | string | – | Two-letter US state code to filter providers by |
-| `city` | string | – | City name to filter providers by |
-| `postalCode` | string | – | 5-digit US ZIP code to filter providers by |
-| `enumerationType` | string | – | `NPI-1` (individuals), `NPI-2` (organizations), or leave blank for both (mode `searchProviders`) |
-| `maxItems` | integer | `50` | Maximum number of provider records to return (1–2000) |
+| `mode` | string | `searchProviders` | `searchProviders`, `lookupByNPI`, `searchBySpecialty` or `searchByOrganization` |
+| `firstName` | string | – | Provider first name; trailing `*` wildcard allowed |
+| `lastName` | string | – | Provider last name; trailing `*` wildcard allowed |
+| `useFirstNameAlias` | boolean | `false` | Also match registered nickname/former first names |
+| `organizationName` | string | – | Organization name (mode `searchByOrganization`); trailing `*` allowed |
+| `npiNumber` | string | – | One 10-digit NPI (comma-separated values also accepted) |
+| `npiNumbers` | array | `[]` | Up to 200 NPIs for a bulk lookup in one run |
+| `specialtyDescription` | string | – | Taxonomy/specialty text; partial matches and trailing `*` allowed |
+| `state` | string | – | Two-letter US state or territory code |
+| `city` | string | – | City name |
+| `postalCode` | string | – | 5-digit US ZIP code |
+| `addressPurpose` | string | `""` | `""`, `LOCATION` (practice) or `MAILING` — which address the location filters match |
+| `enumerationType` | string | `""` | `""`, `NPI-1` (individuals) or `NPI-2` (organizations) |
+| `exhaustiveSearch` | boolean | `false` | Split a broad query by state and provider type to return more than 1,200 rows |
+| `maxItems` | integer | `50` | Maximum records to return (1–10,000) |
 
-### Example: search individual providers by name and state
+The daily prefill uses `mode=searchProviders`, `firstName=John`, `lastName=Smith`, `state=CA` and `maxItems=50`.
+
+### Example: search providers by name and state
 
 ```json
 {
   "mode": "searchProviders",
-  "firstName": "John",
-  "lastName": "Smith",
-  "state": "CA",
-  "maxItems": 50
+  "firstName": "Maria",
+  "lastName": "Garcia",
+  "state": "TX",
+  "maxItems": 100
 }
 ```
 
-### Example: resolve an exact NPI number
+### Example: bulk NPI verification
 
 ```json
 {
   "mode": "lookupByNPI",
-  "npiNumber": "1234567890"
+  "npiNumbers": ["1245319599", "1538568928", "1104130236"],
+  "maxItems": 10
 }
 ```
 
-### Example: search by specialty within a state
+### Example: specialty search with a mailing-address filter
 
 ```json
 {
   "mode": "searchBySpecialty",
   "specialtyDescription": "Cardiology",
   "state": "NY",
-  "maxItems": 100
+  "addressPurpose": "MAILING",
+  "maxItems": 200
 }
 ```
 
-### Example: search for an organization by name
+### Example: organization search beyond the cap
 
 ```json
 {
   "mode": "searchByOrganization",
-  "organizationName": "Mayo Clinic",
-  "state": "MN"
+  "organizationName": "Mayo*",
+  "exhaustiveSearch": true,
+  "maxItems": 500
 }
 ```
 
+## The 1,200-record registry limit
+
+The public registry returns at most 1,200 records for any single search and silently repeats the last page beyond that point. Without `exhaustiveSearch`, this actor detects that repeat, stops cleanly and reports `Partial: N providers…` in the run status so a short result is never mistaken for a complete one.
+
+With `exhaustiveSearch` enabled, a broad query is split by state/territory and provider type, the slices are merged and duplicate NPIs are removed. Very large specialty slices in big states can still reach the per-search cap; the run status names how many slices were capped. Narrowing by city, ZIP or a more specific specialty closes that gap.
+
+## Backward compatibility
+
+Existing tasks keep working. The original input field names, modes, output fields and the production prefill are unchanged. Older saved payloads that still send registry-style keys such as `npi`, `number`, `npis`, `zip`, `taxonomy`, `specialty`, `enumeration_type`, `limit` or `maxResults` are mapped in code onto the current fields.
+
 ## Use cases
 
-- **Healthcare lead generation** — build lists of providers or organizations by state and specialty
-- **Provider directory maintenance** — refresh practice addresses and contact details against the registry
-- **NPI verification** — confirm a provider's NPI, status, and credentials before onboarding or billing
-- **Specialty market mapping** — see how many providers of a given specialty practice in a state or city
-- **Research and analytics** — study provider distribution across geography and specialty
+- **Credentialing and verification** — confirm an NPI, active status, credential, taxonomy and license before onboarding.
+- **Healthcare lead lists** — build provider or organization lists by specialty and geography.
+- **Directory maintenance** — refresh practice addresses, phones and fax numbers against the registry.
+- **Market mapping** — measure provider supply by specialty, state or city.
+- **Bulk NPI cleanup** — resolve a list of NPIs and see which ones are missing.
 
 ## FAQ
 
 **Is this affiliated with CMS or the federal government?**
-No. This is an independent, third-party actor that reads the publicly available NPI registry data; it is not affiliated with or endorsed by the Centers for Medicare & Medicaid Services.
+No. This is an independent tool that reads the publicly available NPI Registry; it is not affiliated with or endorsed by the Centers for Medicare & Medicaid Services.
+
+**Do I need a login, cookie or API key?**
+No. The registry is a free public database and this actor calls it directly with plain HTTP.
 
 **What is an NPI number?**
-A National Provider Identifier is a unique 10-digit number assigned to every individual healthcare provider and healthcare organization in the US, required for HIPAA-covered transactions like insurance claims.
+A National Provider Identifier is the unique 10-digit number assigned to individual healthcare providers and healthcare organizations in the United States for HIPAA-covered transactions.
 
-**Do I need a login or API key?**
-No. The registry this actor reads is a free public database with no authentication required.
+**Why does a search stop at 1,200 rows?**
+That is the registry's per-search limit. Enable `exhaustiveSearch` to split the query into smaller slices, or narrow the query with a state, city, ZIP or more specific specialty.
 
-**Can I search for hospitals and clinics instead of individuals?**
-Yes — use `mode: "searchByOrganization"` with `organizationName` to search group practices, hospitals, pharmacies, and other organizations.
+**How many NPIs can I verify in one run?**
+Up to 200 in `npiNumbers`. Missing NPIs are listed in the run status message and are not emitted as fake rows.
 
-**Why are some fields missing on a provider record?**
-Not every provider's registration includes every field — older records in particular may lack a credential, phone number, or mailing address. The actor leaves those fields out rather than sending an empty value.
+**Why are some fields missing on a record?**
+NPPES data is provider-submitted. A provider may not have a credential, fax, mailing address, second taxonomy or endpoint. The actor omits a field when the registry has no value for it.
 
-**Can I filter by ZIP code or city instead of state?**
-Yes. `city` and `postalCode` work alongside `state` on every mode except `lookupByNPI`, which resolves a single exact record.
-
-**What's the difference between `primarySpecialty` and `specialties`?**
-`primarySpecialty` is the provider's main taxonomy classification. `specialties` lists every taxonomy/specialty on file for that provider, which can include more than one.
+**What is the difference between `primarySpecialty` and `specialties`?**
+`primarySpecialty` is the provider's primary taxonomy. `specialties` contains every taxonomy description on file, and `taxonomies` adds each taxonomy's code, license, license state and primary flag.
 
 **How current is the data?**
-The registry is updated regularly with new registrations and address changes, and each run reads it live, so results reflect what's published at run time.
+The registry is read live on every run, so results reflect what CMS publishes at run time. `lastUpdated` shows the registry's own last-change date for each provider.
+
+**Can I filter by practice address instead of mailing address?**
+Yes. Set `addressPurpose` to `LOCATION` or `MAILING` to make `city`, `state` and `postalCode` match that address type; leave it blank to match either.
+
+## Data source
+
+CMS National Plan and Provider Enumeration System (NPPES), public NPI Registry API version 2.1: `https://npiregistry.cms.hhs.gov/api/`. No browser, proxy or credentials are used.

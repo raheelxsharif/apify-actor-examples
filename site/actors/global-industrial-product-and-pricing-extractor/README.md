@@ -14,11 +14,12 @@ Pull product and pricing data from Global Industrial (globalindustrial.com), a l
 ## Output per product (recordType = `product`)
 
 - `itemKey` — Global Industrial's numeric item ID
-- `title` — product name
+- `title`, `standardDescription` — product name and the supplier's standard description
 - `productUrl` — product page URL
-- `brand`, `sku`, `legacyNumber`, `manufacturerPartNumber`, `unspscCode` — catalog identifiers
+- `brand`, `sku`, `legacyNumber`, `manufacturerPartNumber`, `unspscCode`, `productGroup` — catalog identifiers
 - `price` — current listing price
-- `priceOriginal`, `priceCatalog`, `priceMsr`, `priceOverstock`, `priceSale`, `priceClearance`, `minSalePrice`, `savings` — other published price points, when applicable
+- `priceCurrency` — always `USD`
+- `priceOriginal`, `priceCatalog`, `priceMsr`, `priceOverstock`, `priceSale`, `priceClearance`, `priceMap`, `minSalePrice`, `savings` — other published price points, when applicable
 - `priceType` — how the current price is classified
 - `autoReOrderDiscount` — auto-reorder discount percentage, when offered
 - `priceBreaks` — quantity-tier pricing (`qtyStart`, `qtyEnd`, `price`, `priceOriginal`, `priceType`)
@@ -26,8 +27,9 @@ Pull product and pricing data from Global Industrial (globalindustrial.com), a l
 - `avgRating`, `numReviews` — customer rating summary
 - `imageUrl`, `imageUrlLarge`, `productImages` — product images at different sizes
 - `categoryKey`, `categoryUrl`, `categoryPath`, `breadcrumbs` — the product's category placement
-- Flags (present only when true): `isBestSeller`, `isPremium`, `isNewArrival`, `isPrivateLabel`, `isHazardous`, `isNonReturnable`, `isNonCancellable`, `isCallForPrice`, `isMapPrice`, `isCustomizable`, `isFreightFixed`, `isNoAirShip`, `isLtl`, `isReorder`, `isPromotional`
-- `dimensions`, `qty`, `attributes` — physical dimensions, pack quantity, and spec attributes
+- Flags (present only when true): `isBestSeller`, `isPremium`, `isNewArrival`, `isPrivateLabel`, `isHazardous`, `isNonReturnable`, `isNonCancellable`, `isCallForPrice`, `isMapPrice`, `isCustomizable`, `isFreightFixed`, `isNoAirShip`, `isLtl`, `isReorder`, `isPromotional`, `isVehiclePart`, `isWebOrderOutOfStock`
+- `dimensions`, `qty`, `attributes` — physical dimensions (inches), pack quantity, and spec attributes
+- `documents` — brochures and manuals linked from a product page (`url`, `title`, `type`)
 - `description` — product description text
 - `itemLaunchDate`, `timeStamp` — catalog dates
 - `sourceUrl`, `scrapedAt`
@@ -60,7 +62,7 @@ Pull product and pricing data from Global Industrial (globalindustrial.com), a l
 | `startUrls` | array | – | Product, category, or search URLs to fetch directly (mode=`byUrls`) |
 | `minPrice` | number | – | Drop products priced below this amount (USD) |
 | `maxPrice` | number | – | Drop products priced above this amount (USD) |
-| `minRating` | integer | – | Keep only products rated at or above this value (1–5) |
+| `minRating` | integer | – | Keep only products rated at or above this value (1–5); products without a rating are dropped when this is set |
 | `brand` | string | – | Keep only products whose brand contains this text |
 | `containsKeyword` | string | – | Keep only products whose title contains this text |
 | `inStockOnly` | boolean | `false` | Keep only products marked `InStock` |
@@ -133,20 +135,26 @@ Global Industrial's site only serves visitors from US IP addresses; requests fro
 **Do I need a login or API key?**
 No. All data comes from Global Industrial's publicly viewable catalog pages.
 
-**Why might a category return fewer products than its `totalItems` count?**
-Some category pages only render part of their catalog on the page the actor reads; a few landing-page-style categories render no products directly and instead point to subcategories. When this happens, the actor still returns the category and subcategory records it can see.
+**Why does category browsing return about 18 products instead of the whole category?**
+Department and category pages publish a curated server-rendered product grid (typically around 18 bestsellers/featured items). They do not expose paginated category results through URL parameters; `cp`, `prindex`, `pgkey`, `startIndex` and `page` all return the same grid. The actor emits that grid plus the category metadata, and its status message says so. Use `mode=search` with a specific keyword to pull deeper result sets from the same catalog.
 
 **Why do some keyword searches return zero products?**
 A search that matches a brand name exactly (e.g. `dewalt`) can redirect to a brand landing page whose product grid isn't present in the page the actor reads. Adding a second word to the query (e.g. `dewalt drill`) keeps the search on a normal results page.
 
 **Why does `byProductIds` sometimes return an error record instead of a product?**
-Not every item key is present in the lookup path the actor uses. If a key doesn't resolve, the actor emits a typed `error` record instead of silently skipping it. Passing the full product page URL instead of the bare key resolves reliably.
+A bare item key is resolved through Global Industrial's own `/p/<key>` redirect, which lands on the canonical product page when the key exists. A key that does not exist (or a request blocked by the site's US-only edge on every retry) produces a typed `error` record instead of being silently skipped. Full product page URLs always take the direct path.
 
 **Are prices current?**
 Yes. Each run reads the live catalog pages, so prices, availability, and sale/clearance status reflect what's published at run time.
 
-**Why are some products missing an image?**
-If Global Industrial's catalog entry for a product has no image reference, the image fields are left off the record rather than filled with a placeholder.
+**Why are some products missing an image or rating?**
+If Global Industrial's catalog entry has no image reference, the image fields are left off the record. Ratings and review counts are only present on some listings, so `avgRating`, `numReviews` and `minRating` behave conditionally; no rating is ever fabricated.
 
 **What's the difference between `categoryPreset` and `categoryPath`?**
 `categoryPreset` is a curated list of common departments and categories you can pick from a dropdown. `categoryPath` accepts any category URL or path directly, including ones not in the preset list, and takes precedence when both are set.
+
+**Can I reuse inputs from older Global Industrial tasks?**
+Yes. Legacy keys such as `query`/`keyword`/`searchTerm`, `category`, `ids`/`itemKeys`, `urls`, `limit`/`maxResults`, `sort`, `inStock`, `rating`, `keywordInTitle` and `includeChildren` are mapped in code, so saved tasks keep working even though those keys are no longer shown in the input form.
+
+**Does the actor need cookies or an API key?**
+No. Every field comes from Global Industrial's public, cookie-free pages. Only the US egress proxy is required because the site's CDN rejects non-US IPs.
