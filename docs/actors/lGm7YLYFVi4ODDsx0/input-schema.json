@@ -1,0 +1,126 @@
+{
+  "properties": {
+    "departmentNames": {
+      "default": [],
+      "description": "Exact GitLab department names for byDepartment mode or as an additional filter. Known values: AMER - Commercial, Alliances and Channel, Architecture Engineering, Customer Experience, Customer Success, Data Engineering, DevOps Engineering, EMEA - Commercial, EMEA - Enterprise, Enablement, Enterprise Applications, Platforms, Platforms Engineering, Practice Management, Sales Development, Sec Engineering, Talent Acquisition, Technical Writing.",
+      "editor": "stringList",
+      "prefill": [
+        "Architecture Engineering"
+      ],
+      "title": "Department Names",
+      "type": "array"
+    },
+    "fetchFullDescription": {
+      "default": true,
+      "description": "When enabled, fetches detail pages to include description text, departments, offices, and section headings.",
+      "prefill": true,
+      "title": "Fetch Full Description",
+      "type": "boolean"
+    },
+    "jobIds": {
+      "description": "Exact Greenhouse job IDs for byJobIds mode.",
+      "editor": "stringList",
+      "title": "Job IDs",
+      "type": "array"
+    },
+    "jobUrls": {
+      "description": "Exact Greenhouse job URLs for byJobUrls mode.",
+      "editor": "stringList",
+      "title": "Job URLs",
+      "type": "array"
+    },
+    "locationContains": {
+      "description": "Optional case-insensitive location substring filter, for example Italy, Remote, EMEA, or US.",
+      "editor": "textfield",
+      "title": "Location Contains",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 5,
+      "description": "Maximum records to emit.",
+      "editor": "number",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchJobs",
+      "description": "Choose how to collect GitLab data.",
+      "editor": "select",
+      "enum": [
+        "searchJobs",
+        "allJobs",
+        "byDepartment",
+        "byJobIds",
+        "byJobUrls",
+        "companyProfile"
+      ],
+      "enumTitles": [
+        "Search jobs",
+        "All jobs",
+        "By department",
+        "By job IDs",
+        "By job URLs",
+        "Company profile"
+      ],
+      "prefill": "searchJobs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "publishedFrom": {
+      "description": "Optional ISO date/time lower bound for firstPublishedAt.",
+      "editor": "textfield",
+      "title": "Published From",
+      "type": "string"
+    },
+    "quotaCoverageTypes": {
+      "default": [],
+      "description": "Exact quota coverage values from GitLab's Greenhouse metadata. Known values: Account Executive, N/A, Overlay, Overlay Quota Rep (OQR).",
+      "editor": "stringList",
+      "title": "Quota Coverage Types",
+      "type": "array"
+    },
+    "searchQuery": {
+      "description": "Keyword used by searchJobs mode. Matches job title, company, location, and requisition ID.",
+      "editor": "textfield",
+      "prefill": "engineer",
+      "title": "Search Query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "firstPublishedDesc",
+      "description": "Sort order for job list modes.",
+      "editor": "select",
+      "enum": [
+        "firstPublishedDesc",
+        "firstPublishedAsc",
+        "updatedDesc",
+        "updatedAsc",
+        "titleAsc",
+        "titleDesc"
+      ],
+      "enumTitles": [
+        "Newest published first",
+        "Oldest published first",
+        "Recently updated first",
+        "Oldest updated first",
+        "Title A-Z",
+        "Title Z-A"
+      ],
+      "prefill": "firstPublishedDesc",
+      "title": "Sort By",
+      "type": "string"
+    },
+    "updatedFrom": {
+      "description": "Optional ISO date/time lower bound for updatedAt.",
+      "editor": "textfield",
+      "title": "Updated From",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "GitLab Jobs & Companies Scraper Input",
+  "type": "object"
+}

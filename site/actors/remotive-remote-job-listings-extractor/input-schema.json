@@ -1,0 +1,116 @@
+{
+  "description": "Browse or search remote job listings from Remotive's public API.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Filter jobs by category.",
+      "editor": "select",
+      "enum": [
+        "",
+        "software-dev",
+        "customer-service",
+        "design",
+        "marketing",
+        "sales",
+        "product",
+        "business",
+        "data",
+        "devops-sysadmin",
+        "finance-legal",
+        "human-resources",
+        "qa",
+        "writing",
+        "all-others"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Software Development",
+        "Customer Service",
+        "Design",
+        "Marketing",
+        "Sales",
+        "Product",
+        "Business",
+        "Data",
+        "DevOps / Sysadmin",
+        "Finance / Legal",
+        "Human Resources",
+        "QA",
+        "Writing",
+        "All others"
+      ],
+      "prefill": "",
+      "title": "Category",
+      "type": "string"
+    },
+    "jobType": {
+      "default": "",
+      "description": "Filter by employment type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Freelance",
+        "Internship",
+        "Temporary"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Freelance",
+        "Internship",
+        "Temporary"
+      ],
+      "prefill": "",
+      "title": "Job type",
+      "type": "string"
+    },
+    "location": {
+      "description": "Filter by candidate-required location (e.g. 'USA', 'Europe', 'Worldwide', 'Brazil').",
+      "editor": "textfield",
+      "title": "Location filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of job records to return.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "browse",
+      "description": "What to fetch: browse all remote jobs or search with filters.",
+      "editor": "select",
+      "enum": [
+        "browse",
+        "search"
+      ],
+      "enumTitles": [
+        "Browse — all available remote positions",
+        "Search — filter by keyword, category, location, job type"
+      ],
+      "prefill": "browse",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "description": "Free-text keyword to search in job title, tags, and description (mode=search).",
+      "editor": "textfield",
+      "title": "Search keyword",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Remote Jobs Scraper Input",
+  "type": "object"
+}

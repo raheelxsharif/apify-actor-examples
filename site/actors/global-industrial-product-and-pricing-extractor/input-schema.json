@@ -1,0 +1,263 @@
+{
+  "description": "Search globalindustrial.com by keyword, browse by category, or fetch products by ID / URL. US-located egress (Apify AUTO proxy, country US) is prefilled because the site's CloudFront origin geo-blocks non-US IPs.",
+  "properties": {
+    "brand": {
+      "description": "Only products whose brand contains this text, e.g. `3M`, `Metro`, `Vestil`.",
+      "editor": "textfield",
+      "title": "Brand filter",
+      "type": "string"
+    },
+    "categoryPath": {
+      "description": "Any category URL or path, e.g. `/c/tools/power_tools`, `/c/tools/abrasives/sanding_discs`, `https://www.globalindustrial.com/t/hvac`. Takes precedence over `categoryPreset`. (mode=byCategory)",
+      "editor": "textfield",
+      "title": "Category path",
+      "type": "string"
+    },
+    "categoryPreset": {
+      "description": "Popular department / category shortcuts. Overridden by `categoryPath` if both are set. (mode=byCategory)",
+      "editor": "select",
+      "enum": [
+        "Building Supplies",
+        "Carts & Trucks",
+        "Fasteners & Hardware",
+        "Foodservice & Retail",
+        "Furniture & Decor",
+        "HVAC & Fans",
+        "Janitorial & Facility Maintenance",
+        "Lighting & Electrical",
+        "Machining",
+        "Material Handling",
+        "Medical & Laboratory",
+        "Motors & Power Transmission",
+        "Office & School Supplies",
+        "Packaging & Shipping",
+        "Plumbing & Pumps",
+        "Raw Materials",
+        "Safety & Security",
+        "Storage & Shelving",
+        "Tools & Instruments",
+        "Vehicle Maintenance",
+        "Workbenches & Shop Desks",
+        "Abrasives",
+        "Air Compressors & Accessories",
+        "Air Tools & Accessories",
+        "Hand Tools",
+        "Hose & Cord Reels",
+        "Measurement & Layout Tools",
+        "Outdoor Tools & Power Equipment",
+        "Pneumatic Hoses & Connectors",
+        "Power Tools",
+        "Scales",
+        "Sockets & Bits",
+        "Testing & Inspection Instruments",
+        "Tool Storage",
+        "Welding",
+        "Dollies",
+        "Forklifts & Attachments",
+        "Pallet Trucks & Jacks",
+        "Electrical Boxes",
+        "Batteries & Chargers",
+        "HVAC Controls",
+        "Wire Shelving",
+        "Food Storage",
+        "Foam & Foam Strips",
+        "Adhesives, Sealants & Tape"
+      ],
+      "enumTitles": [
+        "Building Supplies (department)",
+        "Carts & Trucks (department)",
+        "Fasteners & Hardware (department)",
+        "Foodservice & Retail (department)",
+        "Furniture & Decor (department)",
+        "HVAC & Fans (department)",
+        "Janitorial & Facility Maintenance (department)",
+        "Lighting & Electrical (department)",
+        "Machining (department)",
+        "Material Handling (department)",
+        "Medical & Laboratory (department)",
+        "Motors & Power Transmission (department)",
+        "Office & School Supplies (department)",
+        "Packaging & Shipping (department)",
+        "Plumbing & Pumps (department)",
+        "Raw Materials (department)",
+        "Safety & Security (department)",
+        "Storage & Shelving (department)",
+        "Tools & Instruments (department)",
+        "Vehicle Maintenance (department)",
+        "Workbenches & Shop Desks (department)",
+        "Abrasives",
+        "Air Compressors & Accessories",
+        "Air Tools & Accessories",
+        "Hand Tools",
+        "Hose & Cord Reels",
+        "Measurement & Layout Tools",
+        "Outdoor Tools & Power Equipment",
+        "Pneumatic Hoses & Connectors",
+        "Power Tools",
+        "Scales",
+        "Sockets & Bits",
+        "Testing & Inspection Instruments",
+        "Tool Storage",
+        "Welding",
+        "Dollies",
+        "Forklifts & Attachments",
+        "Pallet Trucks & Jacks",
+        "Electrical Boxes",
+        "Batteries & Chargers",
+        "HVAC Controls",
+        "Wire Shelving",
+        "Food Storage",
+        "Foam & Foam Strips",
+        "Adhesives, Sealants & Tape"
+      ],
+      "title": "Category preset",
+      "type": "string"
+    },
+    "containsKeyword": {
+      "description": "Only products whose title contains this text (case-insensitive).",
+      "editor": "textfield",
+      "title": "Keyword in title",
+      "type": "string"
+    },
+    "inStockOnly": {
+      "default": false,
+      "description": "Only products whose availability status is InStock.",
+      "prefill": false,
+      "title": "In-stock only",
+      "type": "boolean"
+    },
+    "includeSubcategories": {
+      "default": false,
+      "description": "Emit a `category` record with the subcategory tree when browsing a category. (mode=byCategory, byUrls)",
+      "prefill": false,
+      "title": "Include subcategories",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on product records emitted per run (1–1000).",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop products more expensive than this (uses the listing price).",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Maximum price (USD)",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Drop products cheaper than this (uses the listing price).",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum price (USD)",
+      "type": "number"
+    },
+    "minRating": {
+      "description": "Only products with at least this average rating.",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Minimum rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory",
+        "byProductIds",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse a category / department",
+        "Lookup products by item key (ID)",
+        "Fetch by product / category / search URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "productIds": {
+      "description": "Global Industrial item keys (numeric IDs), e.g. `33082504`. A `https://www.globalindustrial.com/p/<slug>-<key>` URL also works — the trailing key is extracted. (mode=byProductIds)",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Product item keys",
+      "type": "array"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyCountry": "US",
+        "useApifyProxy": true
+      },
+      "description": "The site only serves US IPs (CloudFront geo-restriction). Apify AUTO proxy with country `US` is prefilled and free on every plan.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyCountry": "US",
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "adjustable workbench",
+      "description": "Free-text keyword, e.g. `workbench`, `pallet jack`, `3m respirator`. (mode=search)",
+      "editor": "textfield",
+      "prefill": "milk",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Search result ordering. (mode=search)",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "price_low",
+        "price_high",
+        "best_selling"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Price: low to high",
+        "Price: high to low",
+        "Best selling"
+      ],
+      "prefill": "relevance",
+      "title": "Sort results",
+      "type": "string"
+    },
+    "startUrls": {
+      "description": "Product (`/p/...`), category (`/c/...`, `/t/...`) or search (`/searchResult?q=...`) URLs. (mode=byUrls)",
+      "editor": "requestListSources",
+      "items": {
+        "properties": {
+          "url": {
+            "description": "Full URL, e.g. https://www.globalindustrial.com/p/variable-speed-control-switch-with-6-ft-plug",
+            "title": "URL",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      },
+      "title": "URLs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Global Industrial Scraper Input",
+  "type": "object"
+}
