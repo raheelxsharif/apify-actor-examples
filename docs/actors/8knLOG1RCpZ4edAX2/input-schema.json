@@ -1,0 +1,166 @@
+{
+  "description": "Search products, get new arrivals, or browse sale items on Zalando.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Zalando category slug (e.g. shoes, clothing, accessories, bags, sportswear).",
+      "editor": "select",
+      "enum": [
+        "",
+        "shoes",
+        "clothing",
+        "accessories",
+        "bags",
+        "sportswear",
+        "beauty"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Shoes",
+        "Clothing",
+        "Accessories",
+        "Bags",
+        "Sportswear",
+        "Beauty"
+      ],
+      "prefill": "",
+      "title": "Category",
+      "type": "string"
+    },
+    "country": {
+      "default": "de",
+      "description": "Zalando market to scrape.",
+      "editor": "select",
+      "enum": [
+        "de",
+        "gb",
+        "fr",
+        "nl",
+        "it",
+        "es",
+        "pl",
+        "be",
+        "at",
+        "ch",
+        "se",
+        "dk",
+        "fi",
+        "no"
+      ],
+      "enumTitles": [
+        "Germany (de)",
+        "United Kingdom (gb)",
+        "France (fr)",
+        "Netherlands (nl)",
+        "Italy (it)",
+        "Spain (es)",
+        "Poland (pl)",
+        "Belgium (be)",
+        "Austria (at)",
+        "Switzerland (ch)",
+        "Sweden (se)",
+        "Denmark (dk)",
+        "Finland (fi)",
+        "Norway (no)"
+      ],
+      "prefill": "de",
+      "title": "Country / Market",
+      "type": "string"
+    },
+    "gender": {
+      "default": "",
+      "description": "Filter by gender/target audience.",
+      "editor": "select",
+      "enum": [
+        "",
+        "men",
+        "women",
+        "kids",
+        "unisex"
+      ],
+      "enumTitles": [
+        "All",
+        "Men",
+        "Women",
+        "Kids",
+        "Unisex"
+      ],
+      "prefill": "",
+      "title": "Gender filter",
+      "type": "string"
+    },
+    "keyword": {
+      "default": "running shoes",
+      "description": "Product search keyword (mode=search).",
+      "editor": "textfield",
+      "prefill": "running shoes",
+      "title": "Search keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of products to return.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch from Zalando.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "productDetails",
+        "newArrivals",
+        "saleItems"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Fetch product details by URL or SKU",
+        "Browse new arrivals",
+        "Browse sale items with discounts"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "productUrls": {
+      "default": [],
+      "description": "List of Zalando product URLs or SKUs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs or SKUs (mode=productDetails)",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "popularity",
+      "description": "How to sort results.",
+      "editor": "select",
+      "enum": [
+        "popularity",
+        "activationDate",
+        "priceDes",
+        "priceAsc",
+        "sale"
+      ],
+      "enumTitles": [
+        "Popularity",
+        "New arrivals",
+        "Price: High to Low",
+        "Price: Low to High",
+        "Sale / biggest discount"
+      ],
+      "prefill": "popularity",
+      "title": "Sort by",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Zalando Scraper Input",
+  "type": "object"
+}
