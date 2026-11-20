@@ -9,6 +9,14 @@
       "title": "Category (mode=byCategory)",
       "type": "string"
     },
+    "cities": {
+      "default": [],
+      "description": "Restrict results to several Slovak cities/towns in one run (e.g. [\"Bratislava\", \"Košice\"]). Leave empty to use `city`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Cities / towns (multi-city)",
+      "type": "array"
+    },
     "city": {
       "description": "Restrict results to a Slovak city or town, matching zlatestranky.sk's own city-scoped URLs. Works with any mode. Leave empty for nationwide results. Any valid Slovak town name is accepted; common examples: `Bratislava`, `Košice`, `Prešov`, `Žilina`, `Banská Bystrica`, `Nitra`, `Trnava`, `Trenčín`, `Martin`, `Poprad`, `Prievidza`, `Zvolen`, `Považská Bystrica`, `Michalovce`, `Spišská Nová Ves`, `Komárno`, `Levice`, `Humenné`, `Bardejov`, `Liptovský Mikuláš`, `Ružomberok`, `Piešťany`, `Topoľčany`, `Lučenec`, `Čadca`, `Dunajská Streda`, `Rimavská Sobota`, `Vranov nad Topľou`, `Šaľa`, `Pezinok`, `Nové Zámky`, `Trebišov`.",
       "editor": "textfield",
@@ -74,6 +82,14 @@
       "editor": "proxy",
       "title": "Proxy configuration",
       "type": "object"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Run several keyword searches in one run (e.g. [\"reštaurácia\", \"kaderníctvo\"]). Results are de-duplicated and share the `maxItems` cap. Leave empty to use `searchQuery`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search queries (multi-query, mode=search)",
+      "type": "array"
     },
     "searchQuery": {
       "default": "reštaurácia",

@@ -7,6 +7,13 @@
       "title": "Contains keyword",
       "type": "string"
     },
+    "enrichDetails": {
+      "default": false,
+      "description": "Fetch each emitted job's page once to add the salary range, applicant location restrictions, valid-through date, employment type, industry, benefits, and work hours. Many listings publish salary only on the job page. Adds one HTTP request per emitted job.",
+      "prefill": false,
+      "title": "Enrich each job from its page",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 50,
       "description": "Hard cap on emitted records. Remote OK's feed returns ~100 latest jobs per tag; combining tags or no filter rarely exceeds 600.",

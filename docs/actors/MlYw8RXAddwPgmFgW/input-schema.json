@@ -1,107 +1,156 @@
 {
-  "description": "Fetch job postings from SmartRecruiters by company ID or search globally by keyword.",
+  "description": "Search live SmartRecruiters job postings by keyword, read every open role from one or more companies, or look up specific posting URLs. No login, cookies, or API key required.",
   "properties": {
     "city": {
-      "description": "Filter by city name (e.g. 'London', 'New York'). Leave blank for all cities.",
+      "description": "Exact city name, e.g. London or New York. Leave blank for all cities.",
       "editor": "textfield",
-      "title": "City filter",
+      "title": "City",
       "type": "string"
     },
     "companyIds": {
-      "description": "One or more SmartRecruiters company identifiers (e.g. 'GOOG', 'Microsoft'). Required for mode=getJobs.",
+      "description": "SmartRecruiters company identifiers, taken from the company's job-board URL (e.g. AveryDennison from jobs.smartrecruiters.com/AveryDennison/...). Required for mode=getJobs.",
       "editor": "stringList",
       "prefill": [
         "AveryDennison"
       ],
-      "title": "Company IDs (mode=getJobs)",
+      "title": "Company identifiers",
       "type": "array"
     },
     "country": {
-      "description": "Filter by ISO 3166 2-letter country code (e.g. 'us', 'gb', 'de', 'fr'). Leave blank for all countries.",
+      "description": "ISO 3166-1 alpha-2 country code, e.g. us, gb, de, fr. Leave blank for all countries.",
       "editor": "textfield",
-      "title": "Country filter",
+      "title": "Country code",
       "type": "string"
     },
     "experienceLevel": {
       "default": "",
-      "description": "Filter by required experience level.",
+      "description": "Filter by the experience level the company assigned to the posting.",
       "editor": "select",
       "enum": [
         "",
-        "no_experience",
+        "entry_level",
+        "associate",
+        "mid_senior_level",
+        "director",
+        "executive",
+        "internship",
+        "not_applicable",
         "junior",
         "mid",
         "senior",
         "lead",
-        "executive"
+        "no_experience"
       ],
       "enumTitles": [
         "Any experience level",
-        "No experience required",
-        "Junior",
-        "Mid-level",
-        "Senior",
-        "Lead",
-        "Executive"
+        "Entry level",
+        "Associate",
+        "Mid-Senior level",
+        "Director",
+        "Executive",
+        "Internship",
+        "Not applicable",
+        "Junior (legacy alias for Entry level)",
+        "Mid (legacy alias for Associate)",
+        "Senior (legacy alias for Mid-Senior level)",
+        "Lead (legacy alias for Director)",
+        "No experience (legacy alias for Entry level)"
       ],
       "prefill": "",
       "title": "Experience level",
       "type": "string"
+    },
+    "includeJobDetails": {
+      "default": false,
+      "description": "Fetch each posting's detail page for full description HTML, qualifications, apply URL, and referral URL. Adds one request per job.",
+      "prefill": false,
+      "title": "Include full job descriptions",
+      "type": "boolean"
+    },
+    "jobUrls": {
+      "description": "Posting links such as https://jobs.smartrecruiters.com/AveryDennison/744000162663099-role-name, API links, or Company/PostingID pairs. Required for mode=getJobDetails.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Job posting URLs or IDs",
+      "type": "array"
     },
     "maxItems": {
       "default": 100,
       "description": "Maximum number of job postings to return (1–10000).",
       "maximum": 10000,
       "minimum": 1,
-      "prefill": 5,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum jobs",
       "type": "integer"
     },
     "mode": {
       "default": "searchJobs",
-      "description": "Choose how to fetch jobs. 'getJobs' fetches all postings for specific companies; 'searchJobs' searches globally across all SmartRecruiters companies.",
+      "description": "Choose what to collect. 'searchJobs' searches the public SmartRecruiters job index; 'getJobs' reads complete boards for specific companies; 'getJobDetails' looks up individual posting URLs or IDs.",
       "editor": "select",
       "enum": [
+        "searchJobs",
         "getJobs",
-        "searchJobs"
+        "getJobDetails"
       ],
       "enumTitles": [
-        "Get jobs by company ID(s)",
-        "Search jobs globally by keyword"
+        "Search all companies by keyword",
+        "Get every open role at specific companies",
+        "Look up specific job postings"
       ],
-      "prefill": "searchJobs",
+      "prefill": "getJobs",
       "title": "Mode",
       "type": "string"
     },
+    "postedWithinDays": {
+      "description": "Only return roles released in the last N days (1–365). Leave blank for any posting date.",
+      "maximum": 365,
+      "minimum": 1,
+      "title": "Posted within (days)",
+      "type": "integer"
+    },
     "query": {
-      "description": "Keyword query for global job search (e.g. 'software engineer', 'product manager').",
+      "description": "Words to look for in job titles and descriptions, e.g. 'software engineer' or 'registered nurse'. Used by searchJobs and optionally to narrow getJobs.",
       "editor": "textfield",
       "prefill": "software engineer",
-      "title": "Search query (mode=searchJobs)",
+      "title": "Keyword search",
+      "type": "string"
+    },
+    "region": {
+      "description": "Region, state, or province name as SmartRecruiters stores it, e.g. California or Bavaria. Leave blank for all regions.",
+      "editor": "textfield",
+      "title": "Region or state",
       "type": "string"
     },
     "typeOfEmployment": {
       "default": "",
-      "description": "Filter by employment type.",
+      "description": "Filter by the employment type the company assigned to the posting.",
       "editor": "select",
       "enum": [
         "",
         "permanent",
         "temporary",
+        "part-time",
         "contract",
+        "intern",
+        "casual",
+        "other",
         "part_time",
         "internship"
       ],
       "enumTitles": [
-        "Any type",
-        "Permanent",
+        "Any employment type",
+        "Permanent / full-time",
         "Temporary",
-        "Contract",
         "Part-time",
-        "Internship"
+        "Contract",
+        "Internship",
+        "Casual",
+        "Other",
+        "Part-time (legacy alias)",
+        "Internship (legacy alias)"
       ],
       "prefill": "",
-      "title": "Type of employment",
+      "title": "Employment type",
       "type": "string"
     }
   },
@@ -109,6 +158,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "SmartRecruiters Jobs Scraper Input",
+  "title": "SmartRecruiters Open Roles Search & Lookup Tool",
   "type": "object"
 }

@@ -19,6 +19,7 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 - **Salary filtering** — `minSalary`, `maxSalary`, and `salaryOnly` (drop jobs without a published range)
 - **Recency filtering** — `postedSinceDays` for "last N days"
 - **Keyword filter** — extra `containsKeyword` substring over title/company/description/tags
+- **Optional job-page enrichment** — set `enrichDetails: true` to add the salary range, applicant location restrictions, valid-through date, employment type, industry, benefits, and work hours from each job's page (many listings publish salary only there)
 - **HTML descriptions cleaned** — entities decoded, tags stripped, whitespace collapsed
 - **Empty fields are omitted** from every record
 
@@ -36,8 +37,16 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 - `url` — canonical Remote OK job page URL
 - `applyUrl` — direct apply URL (when different from canonical URL)
 - `companyLogo` — company logo URL (when published)
+- `companyUrl` — Remote OK company profile URL (enrichment / `byUrls`)
 - `postedAt` — ISO-8601 UTC posting timestamp
 - `verified` — `true` if Remote OK has marked the listing verified
+- `validThrough` — ISO-8601 UTC date the listing stops accepting applications (enrichment / `byUrls`)
+- `employmentType` — `FULL_TIME`, `CONTRACTOR`, ... (enrichment / `byUrls`)
+- `industry` — industry label from the job page (enrichment / `byUrls`)
+- `benefits` — benefit labels such as `distributed_team` or `401k` (enrichment / `byUrls`)
+- `workHours` — work-hours label from the job page (enrichment / `byUrls`)
+- `directApply` — `true` when the job page marks direct applications (enrichment / `byUrls`)
+- `locationRestrictions` — countries/regions the applicant must live in (enrichment / `byUrls`)
 - `recordType: "job"`, `scrapedAt` — added by the actor
 
 ## Input
@@ -55,6 +64,7 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 | `postedSinceDays` | int | – | Only emit jobs posted in the last N days |
 | `salaryOnly` | bool | `false` | Drop jobs that do not publish a salary |
 | `containsKeyword` | string | – | Additional substring filter |
+| `enrichDetails` | bool | `false` | Fetch each emitted job's page once to fill salary, location restrictions, valid-through, employment type, industry, benefits, and work hours |
 | `maxItems` | int | `50` | Hard cap on emitted records (1–1000) |
 
 ### Example: senior remote Python jobs worldwide
@@ -92,6 +102,17 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 }
 ```
 
+### Example: full records with job-page details
+
+```json
+{
+  "mode": "byTag",
+  "tag": "design",
+  "enrichDetails": true,
+  "maxItems": 30
+}
+```
+
 ### Example: any of multiple tags
 
 ```json
@@ -118,11 +139,11 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 
 **Do I need login or API key?**  No. Remote OK's job listings are public, so the actor runs without any authentication.
 
-**How many jobs does the feed return?**  About 100 latest jobs at the global level, and varying counts per tag (typically 50–150 depending on the tag's popularity).
+**How many jobs does the feed return?**  About 100 latest jobs at the global level, and up to about 100 per tag (popular tags fill that cap; niche tags return fewer). Remote OK's API has no page/cursor parameter, so the way to go past ~100 is to combine several tags with `byTags`; the actor merges the feeds and deduplicates by job ID.
 
 **What regions does region filtering support?**  `worldwide`, `americas`, `europe`, `asia`, `africa`, `oceania`, and `usOnly`. Remote OK encodes worldwide jobs via the `digital nomad` tag and the rest are inferred from each job's `location` string.
 
-**Why is the salary range often missing?**  Most Remote OK postings don't publish salary. Roughly 10–15% include a range. Set `salaryOnly: true` if you only want priced postings.
+**Why is the salary range often missing?**  The public feed publishes salary for only part of the board. Many more listings carry a `baseSalary` on their own job page, so set `enrichDetails: true` to fill those (one extra HTTP request per emitted job). Set `salaryOnly: true` if you only want priced postings — combine it with enrichment to apply it to page salaries too.
 
 **Can I get more than 100 jobs in a single run?**  Yes — combine `byTags` with multiple tags. The actor fetches each tag's feed and merges them, deduplicated by job ID. You can reach 500+ unique jobs across half a dozen tags.
 
@@ -132,6 +153,17 @@ Turn RemoteOK's job board into structured data filtered the way you actually sea
 
 **How fresh is the data?**  Real-time — Remote OK publishes new postings as they're approved, and each run reflects whatever is live at that moment. Set `postedSinceDays: 1` to capture only the most recent.
 
-**Why does `byUrls` mode sometimes return fewer records than I passed in?**  A job that has aged off Remote OK's current listings (typically after 1–2 weeks) can no longer be resolved by URL, since the actor only reads currently live postings.
+**Why does `byUrls` mode sometimes return fewer records than I passed in?**  Live job pages embed a `JobPosting` record even when the listing is no longer in the latest feed, and the actor reads it. Once Remote OK expires a listing, the page still returns HTTP 200 but drops that structured data, so expired URLs cannot be resolved. This is a source limit, not an actor error.
 
 **Is this affiliated with Remote OK?**  No. This is an independent, third-party actor that reads Remote OK's publicly available job listings and is not affiliated with or endorsed by Remote OK.
+
+## Limitations
+
+- **~100 jobs per feed slice.** Remote OK serves one fixed page per tag and ignores `page`/`offset` parameters. Use `byTags` to union several tags; results are deduplicated by job ID.
+- **Region is inferred, not a server-side filter.** Remote OK's API ignores location/region parameters, so `region` filters on each listing's location text plus its `digital nomad` tag. Enable `enrichDetails` to also use the page's applicant-location restrictions, which fills location for more listings.
+- **Expired job URLs.** A job page loses its structured data after the listing expires; `byUrls` cannot recover it.
+- **No login, cookies, or proxy needed.** The actor reads the public JSON feed and public job pages with a plain HTTP client.
+
+## Data source
+
+Remote OK's public JSON feed (`https://remoteok.com/api`, optionally `?tags=<tag>`) plus each listing's public job page (`https://remoteok.com/remote-jobs/<slug>`). Both are cookieless and require no account, API key, or proxy.

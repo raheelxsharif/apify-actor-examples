@@ -3,7 +3,7 @@
   "properties": {
     "businessUrls": {
       "default": [],
-      "description": "Direct 1188.lv business page URLs to fetch, e.g. https://www.1188.lv/katalogs/restorans-2686/some-business-123456. Use the 'sourceUrl' field from search/category results.",
+      "description": "1188.lv URLs to fetch: business pages (e.g. https://www.1188.lv/katalogs/restorans-2686/some-business-123456 from the 'sourceUrl' output field), plus pasted search or category URLs, which are crawled with pagination. Profiles and listing pages can be mixed in one run.",
       "editor": "requestListSources",
       "items": {
         "properties": {
@@ -801,24 +801,29 @@
       "title": "Category",
       "type": "string"
     },
-    "city": {
-      "description": "Only return businesses whose address contains this city/town name, e.g. 'Rīga', 'Jūrmala', 'Liepāja', 'Daugavpils' (applies to any mode). Leave empty for all of Latvia. Matched case-insensitively against the parsed address.",
-      "editor": "textfield",
-      "title": "City filter",
-      "type": "string"
-    },
     "customCategory": {
       "description": "Free-text category in 'slug-id' form, e.g. 'restorans-2686' (mode=byCategory). Find the slug-id by browsing https://www.1188.lv/katalogs and copying the URL segment after /katalogs/. Takes priority over 'Category' when set.",
       "editor": "textfield",
       "title": "Custom category (overrides selection above)",
       "type": "string"
     },
+    "locations": {
+      "default": [],
+      "description": "Only return businesses in these Latvian cities or towns, e.g. 'Rīga', 'Jūrmala', 'Liepāja', 'Daugavpils' (applies to any mode). Each name is resolved to 1188.lv's own location filter; unmatched names fall back to matching the parsed address. Leave empty for all of Latvia.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Cities / towns",
+      "type": "array"
+    },
     "maxItems": {
       "default": 20,
       "description": "Hard cap on the number of business records to return.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -833,29 +838,34 @@
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch: keyword search across all categories, browse a single category, or fetch business profiles from direct 1188.lv URLs.",
+      "description": "What to fetch: keyword search across all categories, browse a single category, fetch business profiles from direct 1188.lv URLs, or look up companies by their Latvian registration number.",
       "editor": "select",
       "enum": [
         "search",
         "byCategory",
-        "byUrls"
+        "byUrls",
+        "byRegistrationNumber"
       ],
       "enumTitles": [
         "Search by keyword",
         "Browse by category",
-        "Fetch businesses by URL"
+        "Fetch businesses by URL",
+        "Look up by registration number"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
     },
-    "query": {
-      "default": "restorāns",
-      "description": "Keyword to search for, e.g. a business name, product, or service ('restorāns', 'zobārsts', 'auto serviss'). Used when mode=search. Matches business names, descriptions and categories across the whole catalog.",
-      "editor": "textfield",
-      "prefill": "restorāns",
-      "title": "Search keyword",
-      "type": "string"
+    "registrationNumbers": {
+      "default": [],
+      "description": "Latvian company registration numbers to look up, e.g. '40003710810'. Returns only businesses whose published registry number matches exactly. One company can have several directory listings.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Registration numbers (mode=byRegistrationNumber)",
+      "type": "array"
     },
     "requireEmail": {
       "default": false,
@@ -870,6 +880,21 @@
       "prefill": false,
       "title": "Require website",
       "type": "boolean"
+    },
+    "searchQueries": {
+      "default": [
+        "restorāns"
+      ],
+      "description": "One or more keywords to search for, e.g. a business name, product, or service ('restorāns', 'zobārsts', 'auto serviss'). Used when mode=search. Matches business names, descriptions and categories across the whole catalog. Results are deduplicated across all keywords.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "restorāns"
+      ],
+      "title": "Search keywords",
+      "type": "array"
     }
   },
   "required": [

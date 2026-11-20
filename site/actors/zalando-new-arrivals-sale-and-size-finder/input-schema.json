@@ -1,9 +1,17 @@
 {
-  "description": "Search products, get new arrivals, or browse sale items on Zalando.",
+  "description": "Search Zalando, browse new arrivals or sale items, or fetch product details by URL or SKU across 14 European markets.",
   "properties": {
+    "brand": {
+      "default": "",
+      "description": "Optional brand filter, for example Nike or adidas Originals.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Brand",
+      "type": "string"
+    },
     "category": {
       "default": "",
-      "description": "Zalando category slug (e.g. shoes, clothing, accessories, bags, sportswear).",
+      "description": "Restrict browsing to one Zalando category.",
       "editor": "select",
       "enum": [
         "",
@@ -29,7 +37,7 @@
     },
     "country": {
       "default": "de",
-      "description": "Zalando market to scrape.",
+      "description": "Zalando market to scrape. Prices are returned in the market currency.",
       "editor": "select",
       "enum": [
         "de",
@@ -69,7 +77,7 @@
     },
     "gender": {
       "default": "",
-      "description": "Filter by gender/target audience.",
+      "description": "Filter by target audience. Unisex returns only items Zalando marks as unisex.",
       "editor": "select",
       "enum": [
         "",
@@ -106,6 +114,18 @@
       "title": "Max items",
       "type": "integer"
     },
+    "maxPrice": {
+      "description": "Optional maximum current price in the selected market's currency.",
+      "minimum": 0,
+      "title": "Maximum price",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Optional minimum current price in the selected market's currency.",
+      "minimum": 0,
+      "title": "Minimum price",
+      "type": "number"
+    },
     "mode": {
       "default": "search",
       "description": "What to fetch from Zalando.",
@@ -128,15 +148,23 @@
     },
     "productUrls": {
       "default": [],
-      "description": "List of Zalando product URLs or SKUs.",
+      "description": "Product page URLs or Zalando SKUs (for example NI111A1SV-A14). Used in mode=productDetails.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Product URLs or SKUs (mode=productDetails)",
+      "title": "Product URLs or SKUs",
       "type": "array"
+    },
+    "size": {
+      "default": "",
+      "description": "Optional size filter, for example 42 or M.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Size",
+      "type": "string"
     },
     "sortBy": {
       "default": "popularity",
-      "description": "How to sort results.",
+      "description": "Result order for search mode. New arrivals and sale modes use their own order.",
       "editor": "select",
       "enum": [
         "popularity",

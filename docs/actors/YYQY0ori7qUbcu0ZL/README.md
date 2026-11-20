@@ -8,31 +8,35 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 
 ## What this actor does
 
-- **Three modes:** `search` (site-wide keyword search), `byCategory` (browse one of 384 real 1188.lv categories), and `byUrls` (fetch specific businesses by direct URL)
+- **Four modes:** `search` (site-wide keyword search, one or many keywords), `byCategory` (browse one of 384 real 1188.lv categories), `byUrls` (fetch business pages or crawl pasted search/category URLs), and `byRegistrationNumber` (look up companies by Latvian registry number)
 - **All 384 categories** available as a dropdown, or type any custom `slug-id` value
-- **City filter** — restrict results to any Latvian city or town by matching the parsed address
+- **City filter** — restrict results to one or many Latvian cities/towns; each name is resolved to 1188.lv's own location ID for server-side filtering, with a parsed-address fallback
 - **Filter by** minimum star rating (1-5), "has website", "has email"
+- **Registry lookup** — `byRegistrationNumber` returns every directory listing for a Latvian company registration number, with legal name, status, legal form, legal address and registration date
+- **One extra request per result** — every listing is enriched with its detail page for contact details, hours, photos and registry data
 - **Rich business profiles** — every listing is enriched with its full detail page: phone number(s), email(s), website, GPS coordinates, seasonal opening hours, social media links, photo gallery, product/service keyword tags, and full legal registration details
 - **Full Latvian character support** — ā, č, ē, ģ, ī, ķ, ļ, ņ, š, ū, ž are handled correctly in both input and output
 - **Empty fields are omitted** — you only ever see fields that were actually found for a business
 
 ## Output per business
 
-- `businessId` — 1188.lv internal business ID (`search`/`byCategory` modes; not set in `byUrls` mode)
+- `businessId` — 1188.lv internal business ID (`search`/`byCategory`/`byRegistrationNumber` modes; not set for direct profile URLs)
 - `name` — business name
-- `category` — the business's own category/industry label(s) as published on its detail page (e.g. "Restorāns"), available in every mode including `byUrls`
+- `category` — the business's category/industry label(s) as published on its detail page (e.g. "Restorāns"), available in every mode including `byUrls`; `categories[]` carries the same values as a list
 - `description` — business description snippet
 - `rating` (1-5), `reviewCount` — from the business's own detail-page rating block (most current/accurate)
 - `fullAddress` — the complete address as published; `street`, `city`, `zipCode` — best-effort parsed parts
 - `latitude`, `longitude` — precise GPS coordinates
-- `phone` — primary phone number, `allPhones[]` — every phone number listed (businesses often list several)
+- `phone` — primary phone number, `allPhones[]` — every phone number listed (businesses often list several), `phoneDetails[]` — each number with its published label (e.g. "Mobilais tālrunis")
 - `email` — primary email address, `allEmails[]` — every email listed (1188.lv's own contact address is always excluded)
 - `website` — business website (1188.lv's own UTM tracking parameters stripped)
 - `openingHours[]` — structured opening hours (`{day, hours, season}` per slot; `season` is set only for businesses that publish separate winter/summer hours)
 - `socialLinks` — business's own social media profiles, keyed by platform (e.g. `facebook`, `instagram`, `tripadvisor`)
-- `photos[]` — photo gallery image URLs published on the business's profile
+- `photos[]` — photo gallery image URLs published on the business's profile; `photoCount` — number of photos shown on the listing card
+- `creditHistory` — the free CrediWeb credit-history status when the profile publishes one (e.g. "Nav reģistrēti negatīvi negadījumi"); numeric Crefo scores and full payment history are paid products and are not included
 - `keywords[]` — product/service keyword tags the business is listed under
 - `serviceArea` — the geographic area a business explicitly states it serves (delivery/service businesses), when published
+- `legalName` — the company's legal name in the Latvian register (may differ from its directory name)
 - `registrationNumber`, `registrationDate`, `registerName` — Latvian business registry number, registration date, and register name (e.g. "Komercreģistrs"), when published
 - `registrationStatus` — the business's current registry status (e.g. "Reģistrēts"), when published
 - `legalForm` — legal form of the business (e.g. "Sabiedrība ar ierobežotu atbildību"), when published
@@ -45,12 +49,13 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `search` | `search` (keyword), `byCategory` (browse), or `byUrls` (fetch by URL) |
-| `query` | string | `restorāns` | Keyword to search for (mode=search) |
+| `mode` | string (select) | `search` | `search` (keyword), `byCategory` (browse), `byUrls` (profiles or pasted listing URLs), or `byRegistrationNumber` (registry lookup) |
+| `searchQueries` | array | `["restorāns"]` | One or many keywords to search for (mode=search) |
 | `category` | string (select) | `restorans-2686` | Pick from all 384 real 1188.lv categories, or `custom` to use `customCategory` (mode=byCategory) |
 | `customCategory` | string | – | Any `slug-id` value, overrides `category` (mode=byCategory) |
-| `city` | string | – | Only return businesses whose address contains this city/town (any mode) |
-| `businessUrls` | array | – | 1188.lv business page URLs to fetch directly (mode=byUrls) |
+| `locations` | array | – | One or many Latvian cities/towns to filter by (any mode) |
+| `registrationNumbers` | array | – | Latvian company registration numbers to look up exactly (mode=byRegistrationNumber) |
+| `businessUrls` | array | – | Business profile URLs and/or pasted search/category URLs to crawl (mode=byUrls) |
 | `minRating` | integer | `0` (no minimum) | Only return businesses rated at least 1-5 stars |
 | `requireWebsite` | boolean | `false` | Only return businesses with a listed website |
 | `requireEmail` | boolean | `false` | Only return businesses with a listed email address |
@@ -61,7 +66,7 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 ```json
 {
   "mode": "search",
-  "query": "restorāns",
+  "searchQueries": ["restorāns", "zobārsts"],
   "maxItems": 20
 }
 ```
@@ -72,7 +77,7 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 {
   "mode": "byCategory",
   "category": "zobarstnieciba-6610",
-  "city": "Rīga",
+  "locations": ["Rīga"],
   "minRating": 4,
   "maxItems": 30
 }
@@ -101,6 +106,18 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 }
 ```
 
+### Example: look up a company by registration number
+
+```json
+{
+  "mode": "byRegistrationNumber",
+  "registrationNumbers": ["40003710810"],
+  "maxItems": 10
+}
+```
+
+Saved tasks that still send the old singular `query` / `city` keys keep working: those keys are mapped onto `searchQueries` / `locations` in code even though they are no longer shown in the input form.
+
 ## Use cases
 
 - **Local lead generation** — build a prospect list of Latvian businesses by category and city for B2B outreach
@@ -111,9 +128,11 @@ Pull structured business data from 1188.lv, Latvia's leading directory. Search a
 
 ## Limitations
 
-- **`city` is a client-side address filter, not a server-side one.** 1188.lv's own location filter (`vzd_code`) only lists cities that already have results within the specific category/search being browsed, so there's no single stable city list valid across all categories. Instead, `city` matches the parsed address text (diacritic- and case-insensitive), which works uniformly everywhere but depends on the city name appearing in the address as published.
+- **City filtering resolves names through 1188.lv's own location autocomplete.** Most cities/towns resolve to a `vzd_code` and are filtered server-side. A name the autocomplete does not recognise falls back to matching the parsed address text (diacritic- and case-insensitive), so it still works but depends on the city name appearing in the address as published.
+- **`byRegistrationNumber` is a registry-number keyword search plus an exact match.** 1188.lv has no dedicated registry-number endpoint, so the actor searches the number and keeps only profiles whose published `registrationNumber` matches exactly. One company can own several directory listings, and all of them are returned.
 - **No authoritative total-result count.** 1188.lv's server-rendered listing pages don't expose a total-hit count, so pagination stops on the site's own natural signal (two consecutive empty pages) rather than a known total.
-- **One extra request per result.** Every listing result is automatically enriched with its detail page (phone/email/website/hours only exist there, not on listing cards), so `byCategory`/`search` modes are roughly twice as slow per record as a listing-only scrape — this is by design, to guarantee complete records.
+- **One extra request per result.** Every listing result is automatically enriched with its detail page (phone/email/website/hours/registry only exist there, not on listing cards), so `byCategory`/`search`/`byRegistrationNumber` modes are roughly twice as slow per record as a listing-only scrape — this is by design, to guarantee complete records.
+- **Credit scores and payment history are paid products.** The actor returns the free `creditHistory` status line when a profile publishes one, but not the numeric Crefo score, annual reports or purchased extracts.
 
 ## FAQ
 

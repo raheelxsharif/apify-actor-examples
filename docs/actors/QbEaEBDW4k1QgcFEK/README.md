@@ -44,8 +44,10 @@ Look up Slovak businesses the way locals do on [Zlaté stránky](https://www.zla
 |---|---|---|---|
 | `mode` | string | `search` | `search` / `byCategory` / `byUrl` |
 | `searchQuery` | string | `reštaurácia` | Free-text keyword (mode=search) |
+| `searchQueries` | array | – | Run several keyword searches in one run (mode=search); results de-duplicated, shared `maxItems` cap |
 | `category` | string | `reštaurácie` | Any Zlaté stránky trade/category term (mode=byCategory); 53 curated examples listed in the field description |
 | `city` | string | – | Restrict results to a Slovak city/town; works with any mode |
+| `cities` | array | – | Restrict results to several Slovak cities/towns in one run |
 | `urls` | array | – | Zlaté stránky detail-page URLs (mode=byUrl) |
 | `keyword` | string | – | Keep only results whose name/description/categories/services contain this text |
 | `minRating` | number | – | Drop businesses rated below this (0-5) |
@@ -74,6 +76,17 @@ Look up Slovak businesses the way locals do on [Zlaté stránky](https://www.zla
   "category": "kaderníctvo",
   "fetchDetails": true,
   "maxItems": 100
+}
+```
+
+### Example: several keywords across several cities in one run
+
+```json
+{
+  "mode": "search",
+  "searchQueries": ["reštaurácia", "kaderníctvo"],
+  "cities": ["Bratislava", "Košice"],
+  "maxItems": 40
 }
 ```
 
@@ -113,5 +126,7 @@ Look up Slovak businesses the way locals do on [Zlaté stránky](https://www.zla
 **Can I get individual customer reviews, not just the star rating?** Yes — with `fetchDetails: true` (search/byCategory) or `mode: byUrl`, each record includes a `reviews[]` array of individual reviews as posted on the business's own Zlaté stránky detail page, each with `author` (the reviewer's name, or Zlaté stránky's own "Anonym" label for unnamed reviewers), `rating` (0-5), and `text` when the reviewer wrote one (many reviews are star-only).
 
 **How fresh is the data?** Zlaté stránky listings are maintained by business owners and the platform's own data team; most information (hours, ratings, reviews) reflects the live site at scrape time.
+
+**Do old input keys still work?** Yes. Saved tasks that send pre-revamp-style keys (`query` / `q` / `searchTerm` for `searchQuery`, `searchTerms` / `queries` for `searchQueries`, `locations` / `cityKeywords` for `cities`, `maxResults` / `limit` for `maxItems`, `startUrls` for `urls`, `proxyConfig` for `proxyConfiguration`) are mapped onto the current fields in code, so they keep running even though only the current keys are shown in the form.
 
 **Is this actor affiliated with Zlaté stránky?** No. This is an independent, third-party actor that reads Zlaté stránky's publicly available pages. It is not affiliated with, endorsed by, or sponsored by Zlaté stránky or its operator.

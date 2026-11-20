@@ -4,100 +4,126 @@
 
 # Zalando New Arrivals, Sale & Size Finder
 
-Zalando is one of Europe's largest fashion platforms, selling clothing, shoes and accessories across 14 country-specific markets. This actor searches Zalando by keyword, or browses new arrivals or sale items, and returns price, discount, brand, color and available sizes for each product.
+Zalando is one of Europe's largest fashion platforms, with separate storefronts for 14 countries. This actor reads those public storefronts without an account, cookies or a proxy setup and returns products with price, discount, available sizes, color, brand and a direct product link.
 
 ## What this actor does
 
-- **Three working modes:** `search` (keyword search), `newArrivals` (sorted by activation date), `saleItems` (sorted by biggest discount)
-- **14 European markets** — Germany, UK, France, Netherlands, Italy, Spain, Poland, Belgium, Austria, Switzerland, Sweden, Denmark, Finland, Norway
-- **Gender filter** — men / women / kids / unisex
-- **Sort control** — popularity, new arrivals, price ascending/descending, or biggest discount
-- **Empty fields are omitted** — a field only appears when Zalando published that value for the product
+- **Search by keyword** — query a catalog or one category, with gender, brand, size and price filters.
+- **New arrivals** — browse a catalog in Zalando's newest-first order.
+- **Sale items** — browse discounted products only, ordered by the storefront's deal ranking.
+- **Product details by URL or SKU** — pass product page links or Zalando SKUs and get the current price and size run for those exact items.
+- **Pagination** — every mode follows the storefront's next-page control until `maxItems` is reached or the result set ends; duplicates are removed by SKU.
+- **14 markets** — Germany, UK, France, Netherlands, Italy, Spain, Poland, Belgium, Austria, Switzerland, Sweden, Denmark, Finland and Norway.
 
 ## Output per product
 
-- `sku`, `productId` — Zalando's own product identifier (the same value, under two keys)
+- `sku`, `productId` — Zalando's product identifier (the same value under both names)
 - `name` — product name
 - `brand` — brand name
-- `price` — current price
-- `originalPrice` — pre-discount price, when the item is discounted
-- `discountPercent` — calculated discount percentage, when `originalPrice` is present
-- `sizes[]` — available size labels
-- `color` — color name
-- `gender` — target group (men/women/kids), when Zalando's data includes it
-- `category` — product category name
-- `rating` — average customer rating, when published
+- `price`, `priceCurrency` — current price and the market currency
+- `originalPrice` — pre-discount price when the item is reduced
+- `discountPercent` — calculated discount percentage
+- `sizes[]` — currently listed sizes for the product
+- `color` — color name shown by Zalando
+- `gender` — target audience (`men`, `women`, `kids` or `unisex`) when published
+- `category` — category label when the product page provides one
+- `rating` — average rating when published
+- `inStock` — `true` when at least one listed size is in stock
 - `imageUrl` — product image
 - `productUrl` — direct link to the product on Zalando
 - `scrapedAt` — UTC timestamp of when the record was captured
+
+Empty fields are omitted, so a record never contains `null` or an empty string.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `newArrivals` / `saleItems` — see note below on `productDetails` |
-| `keyword` | string | `running shoes` | Search keyword (mode=`search`) |
-| `productUrls` | array | – | Reserved for a future direct-URL/SKU lookup; not used by the current modes |
-| `country` | string | `de` | Zalando market to read: `de`/`gb`/`fr`/`nl`/`it`/`es`/`pl`/`be`/`at`/`ch`/`se`/`dk`/`fi`/`no` |
+| `mode` | string | `search` | `search` / `newArrivals` / `saleItems` / `productDetails` |
+| `keyword` | string | `running shoes` | Search keyword for `search` |
+| `productUrls` | array | – | Product URLs or SKUs for `productDetails` |
+| `country` | string | `de` | `de` / `gb` / `fr` / `nl` / `it` / `es` / `pl` / `be` / `at` / `ch` / `se` / `dk` / `fi` / `no` |
 | `gender` | string | *(all)* | `men` / `women` / `kids` / `unisex` |
-| `category` | string | *(all)* | Category hint (`shoes`, `clothing`, `accessories`, `bags`, `sportswear`, `beauty`); not currently applied as a result filter |
+| `category` | string | *(all)* | `shoes` / `clothing` / `accessories` / `bags` / `sportswear` / `beauty` |
+| `brand` | string | – | Brand filter, for example `Nike` or `adidas Originals` |
+| `size` | string | – | Size filter, for example `42` or `M` |
+| `minPrice` | number | – | Minimum current price in the market currency |
+| `maxPrice` | number | – | Maximum current price in the market currency |
 | `sortBy` | string | `popularity` | `popularity` / `activationDate` / `priceDes` / `priceAsc` / `sale` |
-| `maxItems` | integer | `20` | Maximum number of products to return (1–500) |
+| `maxItems` | integer | `20` | Maximum products to return (1–500) |
 
-> **Note on `mode=productDetails`:** this option is present in the mode list but currently runs the same keyword search as `mode=search` rather than looking up `productUrls` directly. Use `search` with a specific keyword, or increase `maxItems` on a category/brand-specific keyword, to reach a particular product.
-
-### Example: keyword search in Germany
+### Keyword search in Germany
 
 ```json
 {
   "mode": "search",
   "keyword": "running shoes",
   "country": "de",
-  "maxItems": 30
+  "gender": "women",
+  "maxItems": 50
 }
 ```
 
-### Example: new arrivals for women in France
+### New arrivals for women in France
 
 ```json
 {
   "mode": "newArrivals",
   "country": "fr",
   "gender": "women",
-  "maxItems": 50
+  "category": "clothing",
+  "maxItems": 40
 }
 ```
 
-### Example: biggest discounts for men's shoes
+### Men's sale shoes in the UK, size 9
 
 ```json
 {
   "mode": "saleItems",
-  "keyword": "sneakers",
-  "gender": "men",
   "country": "gb",
-  "maxItems": 50
+  "gender": "men",
+  "category": "shoes",
+  "size": "9",
+  "maxItems": 60
+}
+```
+
+### Exact products by URL or SKU
+
+```json
+{
+  "mode": "productDetails",
+  "country": "de",
+  "productUrls": [
+    "https://en.zalando.de/nike-sportswear-v5-rnr-trainers-sailsailnight-maroonmtlc-summit-wht-ni111a1sv-a14.html",
+    "NI111A1UT-A11"
+  ]
 }
 ```
 
 ## Use cases
 
-- **Price monitoring** — track a keyword's price spread and discount depth over time in one market
-- **New-arrival tracking** — watch what's freshly listed in a category or for a gender segment
-- **Cross-market comparison** — run the same keyword across several `country` values to compare pricing
-- **Sale-season research** — pull `saleItems` sorted by biggest discount during promotional periods
-- **Size-availability checks** — confirm which sizes are currently listed for a product line
+- **Price monitoring** — track a keyword or product across days and markets.
+- **New-arrival tracking** — watch fresh listings in a category or gender segment.
+- **Sale research** — pull discounted products ordered by Zalando's deal ranking.
+- **Size availability** — see which sizes are listed for a product before planning a purchase.
+- **Cross-market comparison** — run the same query in several `country` values and compare currencies and prices.
+
+## How it reads Zalando
+
+The actor requests the public storefront pages that a logged-out browser sees. Product cards and their size runs arrive in the page's hydration data, so the actor does not need a browser, login or cookie. Product-detail lookups use the same public catalog endpoint and the product's public GraphQL card. Requests are paced and retried on rate limits and temporary server errors.
 
 ## FAQ
 
-**Which countries are supported?** 14 European Zalando markets: Germany, UK, France, Netherlands, Italy, Spain, Poland, Belgium, Austria, Switzerland, Sweden, Denmark, Finland, and Norway.
+**Do I need cookies, an account or a proxy?** No. The actor reads public storefront data and needs no credentials. It also does not require a proxy configuration.
 
-**Why is `category` listed as an input but doesn't seem to filter results?** It's accepted by the input form but isn't currently wired into a result filter — results reflect your `keyword`, `gender`, `country`, and `sortBy` only. Use a category-specific keyword (e.g. `running shoes` instead of just browsing a category) for similar narrowing.
+**Why do I sometimes get fewer items than `maxItems`?** A narrow filter can exhaust the result set before the limit is reached. In that case the actor returns everything Zalando has and stops instead of repeating results.
 
-**Why do I sometimes get fewer than `maxItems` results?** Zalando paginates in fixed-size batches; a run stops once a page returns fewer items than requested, which can happen before `maxItems` is reached for narrow keywords or small markets.
+**Why is `originalPrice` missing?** It is only present when the item is reduced. Full-price products carry only `price`.
 
-**Why is `originalPrice` sometimes missing?** It's only included when the item is actually discounted; full-price items only carry `price`.
+**Why is `gender` sometimes `unisex`?** Zalando labels some products for all shoppers. Those are returned as `unisex` and also match the men and women filters.
 
-**Do I need an account or cookies?** No. All data comes from Zalando's public catalog pages for the selected market.
+**Does the actor include every size or only available sizes?** `sizes` lists the sizes Zalando currently exposes for the product. `inStock` is `true` when at least one of those sizes has stock.
 
-**Is this affiliated with Zalando?** No, this is an independent third-party actor that reads Zalando's public catalog. It is not affiliated with, endorsed by, or sponsored by Zalando SE.
+**Is this affiliated with Zalando?** No. This is an independent third-party actor that reads Zalando's public catalog. It is not affiliated with, endorsed by or sponsored by Zalando SE.
