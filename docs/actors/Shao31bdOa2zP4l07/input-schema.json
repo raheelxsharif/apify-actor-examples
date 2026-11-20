@@ -1,0 +1,136 @@
+{
+  "description": "Search Remote OK or fetch jobs by tag, region, or direct URL. Public JSON API — no login, no proxy required.",
+  "properties": {
+    "containsKeyword": {
+      "description": "Extra substring filter applied to the job title, company name, and description (case-insensitive).",
+      "editor": "textfield",
+      "title": "Contains keyword",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records. Remote OK's feed returns ~100 latest jobs per tag; combining tags or no filter rarely exceeds 600.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxSalary": {
+      "description": "Drop jobs whose published min salary is above this value.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max salary (USD)",
+      "type": "integer"
+    },
+    "minSalary": {
+      "description": "Drop jobs whose published max salary is below this value. Jobs without a published salary are dropped only when this filter is set.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Min salary (USD)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byTag",
+        "byTags",
+        "byUrls",
+        "latest"
+      ],
+      "enumTitles": [
+        "Search jobs (keyword filter on latest feed)",
+        "Filter by one tag",
+        "Filter by multiple tags (any of)",
+        "Fetch by direct job URLs",
+        "Latest jobs (no filter)"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "postedSinceDays": {
+      "description": "Only emit jobs posted within the last N days. Leave blank for no time filter.",
+      "maximum": 365,
+      "minimum": 1,
+      "title": "Posted within last N days",
+      "type": "integer"
+    },
+    "region": {
+      "default": "any",
+      "description": "Filter jobs by region. Remote OK encodes worldwide jobs with a `digital nomad` tag and otherwise hints region via the `location` field. `any` returns all jobs. Note: many Remote OK jobs have empty or US/India locations, so filtering by a specific region (e.g. `europe`) excludes jobs whose location text isn't recognized as that region — including many engineering roles with empty location text. For broader results, combine with `containsKeyword` or leave `region` empty.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "worldwide",
+        "americas",
+        "europe",
+        "asia",
+        "africa",
+        "oceania",
+        "usOnly"
+      ],
+      "enumTitles": [
+        "Any region",
+        "Worldwide / Digital nomad",
+        "Americas",
+        "Europe",
+        "Asia",
+        "Africa",
+        "Oceania",
+        "United States only"
+      ],
+      "prefill": "any",
+      "title": "Region",
+      "type": "string"
+    },
+    "salaryOnly": {
+      "default": false,
+      "description": "Drop jobs that do not publish a salary range.",
+      "prefill": false,
+      "title": "Only jobs with published salary",
+      "type": "boolean"
+    },
+    "searchQuery": {
+      "default": "engineer",
+      "description": "Free-text query matched against job title, company name, description, and tags (mode=search). Case-insensitive substring match.",
+      "editor": "textfield",
+      "prefill": "engineer",
+      "title": "Search query",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Direct Remote OK job URLs, e.g. `https://remoteok.com/remote-jobs/remote-senior-backend-engineer-acme-12345`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (mode=byUrls)",
+      "type": "array"
+    },
+    "tag": {
+      "default": "python",
+      "description": "Single Remote OK tag. Use lowercase, hyphen-separated values (e.g. `python`, `rust`, `nextjs`, `typescript`, `vue3`, `gatsby`, `terraform`, `data-science`, `customer-support`). Any of the 240+ tags from https://remoteok.com/sitemap-tags-1.xml is accepted. Common examples: ai, amazon, android, angular, api, aws, backend, blockchain, ceo, cloud, css, customer-support, data-science, design, designer, developer, devops, django, docker, engineer, engineering, finance, fintech, frontend, full-stack, full-time, gatsby, golang, graphql, growth, html, infosec, ios, java, javascript, junior, kubernetes, laravel, linux, manager, marketing, mobile, mongodb, nextjs, node, nodejs, nosql, php, postgres, product, python, qa, rails, react, redis, ruby, rust, saas, sales, scala, security, senior, seo, serverless, shopify, software, support, swift, technical, terraform, typescript, ui, ux, vue, vue3, web, web3, wordpress.",
+      "editor": "textfield",
+      "prefill": "python",
+      "title": "Tag (mode=byTag)",
+      "type": "string"
+    },
+    "tags": {
+      "default": [],
+      "description": "List of Remote OK tags. The actor fetches each tag separately and merges results (jobs matching ANY of the tags). Use lowercase, hyphen-separated values like `python`, `data-science`, `customer-support`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Tags (mode=byTags)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Remote OK Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,101 @@
+{
+  "description": "Search Zlaté stránky (zlatestranky.sk) by keyword, browse curated business categories, or fetch business detail pages directly by URL.",
+  "properties": {
+    "category": {
+      "default": "reštaurácie",
+      "description": "A Zlaté stránky category/trade search term. Type any term you find while browsing the site's category index at zlatestranky.sk/rubriky-az/, or copy one of the 51 curated examples below into the field.\n\nCurated examples:\n`reštaurácie` (Restaurants), `advokáti` (Lawyers), `lekári` (Doctors), `lekárne` (Pharmacies), `realitné kancelárie` (Real estate agencies), `kaderníctvo` (Hairdressers), `elektroinštalácie` (Electrical installations), `automobily - servisy` (Car repair shops), `nábytok` (Furniture), `cestovné kancelárie a agentúry` (Travel agencies), `upratovacie služby` (Cleaning services), `gastronomické služby` (Catering services), `ubytovne` (Hostels/lodging), `automobily - náhradné dielce` (Car parts), `maliari interiérov` (Interior painters), `geodézia` (Surveying), `architekti` (Architects), `e-shopy` (Online shops), `inštalatéri` (Plumbers), `taxislužba` (Taxi service), `ekonomické poradenstvo` (Economic consulting), `inžinierska činnosť` (Engineering services), `veterinári` (Veterinarians), `autobazáre` (Used car dealers), `zabezpečovacie zariadenia a systémy` (Security systems), `automobily - príslušenstvo a doplnky` (Car accessories), `automobily - požičovne` (Car rentals), `autobusová doprava` (Bus transport), `kamenárstvo` (Stonemasonry), `banky` (Banks), `elektrikári` (Electricians), `ubytovanie v súkromí` (Private accommodation), `interiéry` (Interior design), `jazykové školy` (Language schools), `darčekové predmety` (Gift shops), `informačné systémy` (IT/information systems), `papiernictvá` (Stationery stores), `internet - pripojenie` (Internet providers), `deratizácia` (Pest control), `manikúra` (Manicure), `pedikúra` (Pedicure), `kanalizácia` (Sewerage services), `zariadenia pre seniorov` (Senior care facilities), `audítori` (Auditors), `elektrické spotrebiče` (Electrical appliances), `kancelárie - prenájom` (Office rental), `herne a kasína` (Gaming halls & casinos), `daňové poradenstvo` (Tax consulting), `gastronómia` (Gastronomy), `jedálne` (Canteens), `hasiči` (Fire safety services), `bicykle` (Bicycles), `kúpaliská, plavárne` (Swimming pools)",
+      "editor": "textfield",
+      "prefill": "reštaurácie",
+      "title": "Category (mode=byCategory)",
+      "type": "string"
+    },
+    "city": {
+      "description": "Restrict results to a Slovak city or town, matching zlatestranky.sk's own city-scoped URLs. Works with any mode. Leave empty for nationwide results. Any valid Slovak town name is accepted; common examples: `Bratislava`, `Košice`, `Prešov`, `Žilina`, `Banská Bystrica`, `Nitra`, `Trnava`, `Trenčín`, `Martin`, `Poprad`, `Prievidza`, `Zvolen`, `Považská Bystrica`, `Michalovce`, `Spišská Nová Ves`, `Komárno`, `Levice`, `Humenné`, `Bardejov`, `Liptovský Mikuláš`, `Ružomberok`, `Piešťany`, `Topoľčany`, `Lučenec`, `Čadca`, `Dunajská Streda`, `Rimavská Sobota`, `Vranov nad Topľou`, `Šaľa`, `Pezinok`, `Nové Zámky`, `Trebišov`.",
+      "editor": "textfield",
+      "title": "City / town",
+      "type": "string"
+    },
+    "fetchDetails": {
+      "default": false,
+      "description": "For search/byCategory modes: visit each business's detail page to also collect review count, full per-day opening hours, services offered, accepted payment methods, related keywords, and gallery photos. Slower (1 extra request per business).",
+      "prefill": false,
+      "title": "Fetch full detail page per business",
+      "type": "boolean"
+    },
+    "keyword": {
+      "description": "Only keep results whose name, description, categories, or services contain this text (case- and diacritics-insensitive).",
+      "editor": "textfield",
+      "title": "Keyword filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop businesses with a review rating below this value.",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating (0-5)",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Browse by category",
+        "Fetch business detail pages by URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "openNowOnly": {
+      "default": false,
+      "description": "Only emit businesses currently marked as open on zlatestranky.sk.",
+      "prefill": false,
+      "title": "Open now only",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "description": "Optional proxy settings. Leave empty to use no proxy — zlatestranky.sk is publicly accessible without one. The actor automatically escalates to the free AUTO datacenter proxy group if it hits a 403/429.",
+      "editor": "proxy",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "reštaurácia",
+      "description": "Free-text keyword, e.g. business name, trade, or service (\"reštaurácia\", \"kaderníctvo\", \"advokáti\").",
+      "editor": "textfield",
+      "prefill": "reštaurácia",
+      "title": "Search query (mode=search)",
+      "type": "string"
+    },
+    "urls": {
+      "default": [],
+      "description": "Full zlatestranky.sk detail-page URLs, e.g. `https://www.zlatestranky.sk/firmy/Bratislava/H681768/Luigi+No.+1,+s.r.o./`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Business detail URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Zlaté stránky Business Directory Scraper Input",
+  "type": "object"
+}

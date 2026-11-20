@@ -1,0 +1,113 @@
+# Zlaté stránky Slovak Business & Review Finder
+
+Look up Slovak businesses the way locals do on [Zlaté stránky](https://www.zlatestranky.sk) (zlatestranky.sk) — the country's "Golden Pages" directory. Search any keyword, browse one of 53 curated trade categories, or fetch specific business pages directly, and pull contact details, hours, rating, and individual customer reviews.
+
+## What this actor does
+
+- **Three modes:** `search` (free-text keyword, nationwide or city-scoped), `byCategory` (browse one of 53 curated trade/service categories), `byUrl` (fetch specific business detail pages)
+- **Rich business data:** name, categories, full address (street/city/postal code), GPS coordinates, phone, email, website, rating, opening status, and more
+- **Optional deep enrichment:** turn on `fetchDetails` to additionally pull review count, full per-day opening hours, services offered, accepted payment methods, related keywords, a full photo gallery, and the business's Facebook page URL from each business's detail page
+- **Filters:** city/town filter, minimum rating, "open now" only, free-text keyword filter
+- **Empty fields are omitted** — every record only contains data actually found for that business
+- **Full Slovak UTF-8 diacritics support** — city names, addresses, and descriptions are preserved exactly (Žilina, Piešťany, Ružomberok, etc.)
+
+## Output per business
+
+- `businessId`, `sourceUrl` — unique ID and canonical Zlaté stránky detail-page URL
+- `name`
+- `categories[]` — trade/service tags (e.g. `Reštaurácie`, `Kaderníctvo`)
+- `street`, `postalCode`, `city`, `fullAddress`
+- `latitude`, `longitude`
+- `phone`, `phoneSecondary` *(detail only)*, `email`, `website`
+- `facebookUrl` — the business's own Facebook page, when linked from its detail page *(detail only)*
+- `icoId` — Slovak company registration number (IČO), when the business has one on file
+- `rating` (0-5), `reviewCount` *(detail only)*
+- `reviews[]` — individual customer reviews `{author, rating, text}` (text present only when the reviewer wrote one; most reviews are star-only) *(detail only)*
+- `openNow` (boolean), `openingHoursSummary` (text snippet), `openingHours[]` — per-day breakdown `{day, dayEn, hours}` *(detail only)*
+- `services[]` — specific products/services offered *(detail only)*
+- `paymentMethods[]` — accepted payment methods, e.g. cash/card *(detail only)*
+- `keywords[]` — related search terms the business is tagged with *(detail only)*
+- `description`
+- `photoUrl`
+- `galleryImages[]` — additional photo URLs from the business's detail-page gallery *(detail only)*
+- `recordType: "business"`, `scrapedAt`
+
+*(detail only)* fields are only populated when `fetchDetails: true` is set (search/byCategory modes) or when using `mode: byUrl`.
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string | `search` | `search` / `byCategory` / `byUrl` |
+| `searchQuery` | string | `reštaurácia` | Free-text keyword (mode=search) |
+| `category` | string | `reštaurácie` | Any Zlaté stránky trade/category term (mode=byCategory); 53 curated examples listed in the field description |
+| `city` | string | – | Restrict results to a Slovak city/town; works with any mode |
+| `urls` | array | – | Zlaté stránky detail-page URLs (mode=byUrl) |
+| `keyword` | string | – | Keep only results whose name/description/categories/services contain this text |
+| `minRating` | number | – | Drop businesses rated below this (0-5) |
+| `openNowOnly` | boolean | `false` | Only businesses currently marked open |
+| `fetchDetails` | boolean | `false` | Visit each business's detail page for review count, full hours, services, payment methods, keywords, gallery photos, and Facebook page URL (1 extra request per business) |
+| `maxItems` | integer | `30` | Hard cap (1-500) |
+| `proxyConfiguration` | object | – | Optional; zlatestranky.sk works without a proxy, the actor auto-escalates to the free AUTO group on 403/429 |
+
+### Example: search with city + rating filter
+
+```json
+{
+  "mode": "search",
+  "searchQuery": "reštaurácia",
+  "city": "Košice",
+  "minRating": 4,
+  "maxItems": 50
+}
+```
+
+### Example: browse a category nationwide, with full detail enrichment
+
+```json
+{
+  "mode": "byCategory",
+  "category": "kaderníctvo",
+  "fetchDetails": true,
+  "maxItems": 100
+}
+```
+
+### Example: fetch specific business pages
+
+```json
+{
+  "mode": "byUrl",
+  "urls": [
+    "https://www.zlatestranky.sk/firmy/Bratislava/H681768/Luigi+No.+1,+s.r.o./"
+  ]
+}
+```
+
+## Use cases
+
+- **Lead generation** — build prospect lists of Slovak businesses by trade and city
+- **Market research** — analyze business density, ratings, and coverage by city or category
+- **Directory aggregation** — mirror or cross-reference Slovak business listings
+- **Local SEO audits** — check a business's own directory data (address, hours, phone) for accuracy
+- **Competitive analysis** — compare ratings and review counts across competitors in a category
+
+## FAQ
+
+**Do I need a Zlaté stránky account?** No. Search, category browsing, and business detail pages are all publicly accessible without an account.
+
+**Does the `city` filter guarantee I only get businesses in that city?** It combines two mechanisms: the `city` value is folded directly into zlatestranky.sk's own city-scoped URL (e.g. `/firmy/Košice/q_reštaurácia/1/`), and a diacritics-insensitive client-side check is applied afterward as a safety net against any stray out-of-city result the source itself may mix in.
+
+**Why is `rating` already on a 0-5 scale?** Zlaté stránky's own star-rating markup is natively 0-5 (half-star increments), so no conversion is needed — unlike some directories that report ratings as a 0-100 percentage internally.
+
+**What's IČO?** The Slovak company identification number (Identifikačné číslo organizácie), roughly equivalent to a US EIN or UK company number. Populated whenever the business has one on file, in both `search`/`byCategory` and detail-enriched records.
+
+**Can I browse categories beyond the curated examples?** Yes — type any Zlaté stránky trade/category term into the `category` field (anything you find while browsing `zlatestranky.sk/rubriky-az/`). The field description lists 53 curated, high-traffic examples for convenience.
+
+**Why does a `website` URL sometimes fail a plain `curl -I` check?** The `website` field links to each business's own external site, not to Zlaté stránky. Some small-business sites block simple bot HEAD requests (common shared-hosting/WAF behavior) while working fine in any real browser or a full GET request. `sourceUrl` (the Zlaté stránky detail page) and `photoUrl`/`galleryImages` (Zlaté stránky's own CDN) are always directly verifiable.
+
+**Can I get individual customer reviews, not just the star rating?** Yes — with `fetchDetails: true` (search/byCategory) or `mode: byUrl`, each record includes a `reviews[]` array of individual reviews as posted on the business's own Zlaté stránky detail page, each with `author` (the reviewer's name, or Zlaté stránky's own "Anonym" label for unnamed reviewers), `rating` (0-5), and `text` when the reviewer wrote one (many reviews are star-only).
+
+**How fresh is the data?** Zlaté stránky listings are maintained by business owners and the platform's own data team; most information (hours, ratings, reviews) reflects the live site at scrape time.
+
+**Is this actor affiliated with Zlaté stránky?** No. This is an independent, third-party actor that reads Zlaté stránky's publicly available pages. It is not affiliated with, endorsed by, or sponsored by Zlaté stránky or its operator.

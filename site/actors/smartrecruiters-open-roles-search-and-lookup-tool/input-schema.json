@@ -1,0 +1,114 @@
+{
+  "description": "Fetch job postings from SmartRecruiters by company ID or search globally by keyword.",
+  "properties": {
+    "city": {
+      "description": "Filter by city name (e.g. 'London', 'New York'). Leave blank for all cities.",
+      "editor": "textfield",
+      "title": "City filter",
+      "type": "string"
+    },
+    "companyIds": {
+      "description": "One or more SmartRecruiters company identifiers (e.g. 'GOOG', 'Microsoft'). Required for mode=getJobs.",
+      "editor": "stringList",
+      "prefill": [
+        "AveryDennison"
+      ],
+      "title": "Company IDs (mode=getJobs)",
+      "type": "array"
+    },
+    "country": {
+      "description": "Filter by ISO 3166 2-letter country code (e.g. 'us', 'gb', 'de', 'fr'). Leave blank for all countries.",
+      "editor": "textfield",
+      "title": "Country filter",
+      "type": "string"
+    },
+    "experienceLevel": {
+      "default": "",
+      "description": "Filter by required experience level.",
+      "editor": "select",
+      "enum": [
+        "",
+        "no_experience",
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "executive"
+      ],
+      "enumTitles": [
+        "Any experience level",
+        "No experience required",
+        "Junior",
+        "Mid-level",
+        "Senior",
+        "Lead",
+        "Executive"
+      ],
+      "prefill": "",
+      "title": "Experience level",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of job postings to return (1–10000).",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchJobs",
+      "description": "Choose how to fetch jobs. 'getJobs' fetches all postings for specific companies; 'searchJobs' searches globally across all SmartRecruiters companies.",
+      "editor": "select",
+      "enum": [
+        "getJobs",
+        "searchJobs"
+      ],
+      "enumTitles": [
+        "Get jobs by company ID(s)",
+        "Search jobs globally by keyword"
+      ],
+      "prefill": "searchJobs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "description": "Keyword query for global job search (e.g. 'software engineer', 'product manager').",
+      "editor": "textfield",
+      "prefill": "software engineer",
+      "title": "Search query (mode=searchJobs)",
+      "type": "string"
+    },
+    "typeOfEmployment": {
+      "default": "",
+      "description": "Filter by employment type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "permanent",
+        "temporary",
+        "contract",
+        "part_time",
+        "internship"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Permanent",
+        "Temporary",
+        "Contract",
+        "Part-time",
+        "Internship"
+      ],
+      "prefill": "",
+      "title": "Type of employment",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "SmartRecruiters Jobs Scraper Input",
+  "type": "object"
+}
