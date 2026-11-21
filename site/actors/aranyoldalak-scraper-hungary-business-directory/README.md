@@ -1,0 +1,159 @@
+# AranyOldalak Scraper - Hungary Business Directory
+
+Scrape **aranyoldalak.hu** (Arany Oldalak / "Golden Pages") — Hungary's leading online business directory. Search any business category in any Hungarian city or county and get business names, addresses, phone numbers, emails, websites, opening hours, and GPS coordinates. Optionally follow through to each business's full profile page for a richer description, related category tags, fax number, extra phone numbers/websites, a price-range badge, payment methods, spoken languages, and a photo gallery. No login, no cookies, no API key required.
+
+## What this actor does
+
+- **Two modes:** `search` (category + city/county) and `detail` (direct business profile URLs)
+- **70+ curated business categories** to pick from, or type any custom category in Hungarian
+- **All 19 Hungarian counties (megye) + Budapest + 18 major cities** available as one-click location filters, in addition to free-text city/town search
+- **Sort by** relevance, A-Z, or Z-A
+- **Rich business profiles** — structured opening hours (per day of the week), business description, related category/location tags, precise GPS coordinates, logo, photo gallery, fax number, extra phone numbers/websites when a business lists more than one, price-range badge, accepted payment methods, and spoken languages (when the business provides them)
+- **Full Hungarian character support** — á, é, í, ó, ö, ő, ú, ü, ű are handled correctly in both input and output
+- **Empty fields are omitted** — you only ever see fields that were actually found for a business
+
+## Output per business
+
+- `name` — business name
+- `category` — primary listed category (mode=detail, from the page's own breadcrumb)
+- `categories[]` — related category + location tags the business is listed under (mode=detail)
+- `description` — business "about" text (mode=detail) or short listing description (mode=search)
+- `street`, `postalCode`, `city`
+- `latitude`, `longitude` — GPS coordinates
+- `phone`, `email`, `website`
+- `additionalPhones[]` — extra phone numbers beyond the primary `phone`, when a business lists more than one (mode=detail)
+- `fax` — fax number, when listed separately from the phone number(s) (mode=detail)
+- `additionalWebsites[]` — extra website/booking/menu links beyond the primary `website`, when a business lists more than one (mode=detail)
+- `priceRange` — price-tier badge (e.g. `$$`), when the business has one set (mode=detail, mostly hospitality listings)
+- `paymentMethods[]` — accepted payment methods, when the business lists them (mode=detail)
+- `languagesSpoken[]` — languages the business serves customers in, when listed (mode=detail)
+- `images[]` — photo gallery image URLs (mode=detail)
+- `logoUrl` — business logo image (mode=detail)
+- `openingHours[]` — structured opening hours (`{day, hours}` per day of the week; mode=detail or `fetchDetails: true`)
+- `searchCategory`, `searchLocation` — the search parameters used (mode=search)
+- `sourceUrl` — canonical aranyoldalak.hu profile URL for the business
+- `businessId` — aranyoldalak.hu's internal listing ID (mode=search)
+- `recordType: "business"`, `scrapedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `mode` | string (select) | `search` | `search` (category + city/county) or `detail` (fetch by URL) |
+| `category` | string (select) | `étterem` | Pick a common category, or `custom` to use `customCategory` (mode=search) |
+| `customCategory` | string | – | Any free-text Hungarian business category, overrides `category` (mode=search) |
+| `location` | string (select) | `Budapest` | Hungarian city or county to search in, or leave as "No location filter" for all of Hungary |
+| `customLocation` | string | – | Any free-text Hungarian city/town, overrides `location` (mode=search) |
+| `sortBy` | string (select) | `relevance` | `relevance` (site's own order) / `az` / `za` / `name` — the latter three all re-sort the fetched batch client-side |
+| `fetchDetails` | boolean | `false` | Also visit each business's profile page for opening hours, description, tags, and logo (slower) |
+| `businessUrls` | array | – | aranyoldalak.hu profile URLs to fetch directly (mode=detail) |
+| `maxItems` | int | `20` | Hard cap on returned records (1-1000) |
+
+### Example: search restaurants in Budapest
+
+```json
+{
+  "mode": "search",
+  "category": "étterem",
+  "location": "Budapest",
+  "maxItems": 20
+}
+```
+
+### Example: accountants in Nógrád county, with full profiles
+
+```json
+{
+  "mode": "search",
+  "category": "könyvelő",
+  "location": "Nógrád megye",
+  "fetchDetails": true,
+  "maxItems": 30
+}
+```
+
+### Example: car mechanics nationwide, A-Z
+
+```json
+{
+  "mode": "search",
+  "category": "autószerelő",
+  "location": "",
+  "sortBy": "az",
+  "maxItems": 100
+}
+```
+
+### Example: custom category and city not in the curated lists
+
+```json
+{
+  "mode": "search",
+  "category": "custom",
+  "customCategory": "kulcsmásolás",
+  "location": "custom",
+  "customLocation": "Siófok",
+  "maxItems": 20
+}
+```
+
+### Example: fetch specific business profiles
+
+```json
+{
+  "mode": "detail",
+  "businessUrls": [
+    { "url": "https://aranyoldalak.hu/merleg-kft6.htm" }
+  ]
+}
+```
+
+## Use cases
+
+- **Local lead generation** — build a prospect list of Hungarian businesses by trade and city/county for B2B outreach
+- **Market research** — measure business density for a category across Hungarian regions
+- **Directory aggregation** — feed structured Hungarian business data into your own local-search product
+- **Competitor mapping** — see who else operates in a category and area, with contact info
+- **Franchise & site-selection analysis** — evaluate service-business coverage across counties and cities
+
+## Limitations
+
+- **Category/location matching is server-resolved, not URL-guessed.** aranyoldalak.hu's canonical pages live at slugged URLs (e.g. `/koenyvelo/nograd-megye/`) that sometimes carry numeric disambiguation suffixes not predictable from the category/location name alone. This actor always goes through aranyoldalak.hu's own free-text search (the same box a visitor uses), which resolves `category`/`location` to the correct canonical page server-side — the same reliable path a real user gets, with no slug-guessing. For best matching, use proper Hungarian diacritics in custom category/location text (e.g. `könyvelő`, not `konyvelo`) — the site's own search matching relies on them.
+- **No star ratings.** aranyoldalak.hu does not publish a review/rating system on business listings, so no `rating`/`reviewCount` fields are produced.
+- **Some categories may return listings from a broader area than requested.** aranyoldalak.hu occasionally cross-lists a business under a nearby county/city's category page (an upstream site behavior, not a client-side filtering gap in this actor).
+- **`sortBy: "az"/"za"/"name"` all re-sort client-side.** aranyoldalak.hu's own sort parameter doesn't change its result order, so all three non-default sort options instead reorder the specific batch this run fetched (useful together with `fetchDetails`), rather than the site's entire matching result set.
+
+## FAQ
+
+**What data source does this actor use?**
+It reads the publicly available search and business-profile pages on aranyoldalak.hu, Hungary's leading business directory. No account or API key is needed.
+
+**Is this affiliated with aranyoldalak.hu?**
+No. This is an independent, third-party actor that reads publicly accessible pages.
+
+**Why do some businesses have no phone, email, or website?**
+aranyoldalak.hu only shows contact details a business itself provided when registering its listing. Fields with no data are simply omitted from the record rather than shown as empty or null.
+
+**Can I search a whole county instead of a single city?**
+Yes — set `location` to any of the 19 Hungarian counties (megye), e.g. `"Nógrád megye"`, or type any county name into `customLocation`.
+
+**Can I search all of Hungary at once?**
+Yes — set `location` to `""` (the default "No location filter" option) for a nationwide search.
+
+**How accurate are the GPS coordinates?**
+`latitude`/`longitude` come directly from the business's own aranyoldalak.hu listing, which sources them from the address the business registered.
+
+**Why is `fetchDetails` off by default?**
+Fetching each business's full profile page requires one extra request per result, which is slower. Turn it on when you need opening hours, a full description, related category tags, or the logo image.
+
+**Does this actor need a proxy or login?**
+No — aranyoldalak.hu's search and profile pages are served without any login wall, so this actor runs entirely on Apify's free plan with no credentials. It automatically uses Apify's free AUTO proxy group to keep requests reliable, at no extra cost to you.
+
+**What does `categories[]` mean on a detail-mode record?**
+aranyoldalak.hu lists each business under several related category+location tag pages (e.g. "Könyvelés - Hatvan", "Adóbevallás - Hatvan"). `categories[]` (only populated with `fetchDetails: true` or in `mode=detail`) reflects every tag the business's own profile page links to.
+
+**Why do only some businesses have `priceRange`, `paymentMethods`, or `languagesSpoken`?**
+These come from optional fields a business fills in on its own aranyoldalak.hu listing — mainly restaurants, cafés, and hotels. They're simply omitted when a business hasn't set them.
+
+**Why do only some businesses have `fax`, `additionalPhones`, or `additionalWebsites`?**
+Most businesses list a single phone number and website. These extra fields appear only when a business's own listing provides more than one contact number (e.g. Main/Alt/Mobile lines) or more than one link (e.g. a separate booking/reservation or menu page).

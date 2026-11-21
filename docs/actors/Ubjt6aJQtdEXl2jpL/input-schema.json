@@ -1,0 +1,266 @@
+{
+  "description": "Search Bandcamp, fetch albums/tracks/artists/labels by URL, or browse by tag/genre or the discover feed.",
+  "properties": {
+    "albumSlug": {
+      "description": "Album slug — the part after `/album/` in the URL.",
+      "editor": "textfield",
+      "title": "Album slug (mode=byAlbum)",
+      "type": "string"
+    },
+    "artistSubdomain": {
+      "description": "Artist subdomain on bandcamp.com (the part before `.bandcamp.com`). Combine with `albumSlug` or `trackSlug` to build a URL.",
+      "editor": "textfield",
+      "sectionCaption": "Slug inputs (mode=byArtist / byAlbum / byTrack / byTag)",
+      "sectionDescription": "Slug-based inputs the actor uses to build a Bandcamp URL when you don't pass a full URL.",
+      "title": "Artist subdomain (mode=byArtist/byAlbum/byTrack)",
+      "type": "string"
+    },
+    "artistUrl": {
+      "description": "Full URL of the artist's bandcamp.com homepage.",
+      "editor": "textfield",
+      "title": "Artist URL (mode=byArtist)",
+      "type": "string"
+    },
+    "autoEscalateOnBlock": {
+      "default": true,
+      "description": "If direct fetches return 403/429, retry through Apify proxy automatically.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Auto-escalate to proxy on block",
+      "type": "boolean"
+    },
+    "genre": {
+      "description": "One of the curated Bandcamp top-level genres. Used by mode=byGenre and mode=discover.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "electronic",
+        "rock",
+        "metal",
+        "alternative",
+        "hip-hop-rap",
+        "experimental",
+        "punk",
+        "folk",
+        "pop",
+        "ambient",
+        "soundtrack",
+        "world",
+        "jazz",
+        "acoustic",
+        "funk",
+        "r-and-b-soul",
+        "devotional",
+        "classical",
+        "reggae",
+        "podcasts",
+        "country",
+        "spoken-word",
+        "comedy",
+        "blues",
+        "kids",
+        "audiobooks",
+        "latin"
+      ],
+      "enumTitles": [
+        "All genres",
+        "Electronic",
+        "Rock",
+        "Metal",
+        "Alternative",
+        "Hip-Hop / Rap",
+        "Experimental",
+        "Punk",
+        "Folk",
+        "Pop",
+        "Ambient",
+        "Soundtrack",
+        "World",
+        "Jazz",
+        "Acoustic",
+        "Funk",
+        "R&B / Soul",
+        "Devotional",
+        "Classical",
+        "Reggae",
+        "Podcasts",
+        "Country",
+        "Spoken Word",
+        "Comedy",
+        "Blues",
+        "Kids",
+        "Audiobooks",
+        "Latin"
+      ],
+      "title": "Genre (mode=byGenre / discover)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "sectionCaption": "Output cap",
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop records with a listed price above this value. Records without pricing data pass.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Maximum price (USD)",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Drop records with a listed price below this value. Records without pricing data pass.",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 0,
+      "sectionCaption": "Result filters",
+      "sectionDescription": "Drop records that don't match these criteria. Records without pricing data pass through min/max price.",
+      "title": "Minimum price (USD)",
+      "type": "number"
+    },
+    "mode": {
+      "default": "byUrl",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "byUrl",
+        "searchAlbum",
+        "searchTrack",
+        "searchArtist",
+        "searchBand",
+        "searchLabel",
+        "byArtist",
+        "byAlbum",
+        "byTrack",
+        "byTag",
+        "byGenre",
+        "discover"
+      ],
+      "enumTitles": [
+        "By URL (auto-route bandcamp.com URLs)",
+        "Search albums",
+        "Search tracks",
+        "Search artists",
+        "Search bands (alias of searchArtist)",
+        "Search labels",
+        "By artist (full catalog)",
+        "By album",
+        "By track",
+        "By tag",
+        "By genre (alias of byTag)",
+        "Discover feed"
+      ],
+      "prefill": "byUrl",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onlyFree": {
+      "default": false,
+      "description": "Only emit records that are name-your-price-zero or explicitly free.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Only free items",
+      "type": "boolean"
+    },
+    "onlyWithAudio": {
+      "default": false,
+      "description": "Only emit records that have a streamable audio URL or featured track.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Audio stream required",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyGroups": [],
+        "useApifyProxy": true
+      },
+      "description": "Optional Apify proxy configuration override.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [],
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "query": {
+      "default": "ambient",
+      "description": "Free-text query for the search modes.",
+      "editor": "textfield",
+      "prefill": "ambient",
+      "title": "Search query (mode=search*)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "top",
+      "description": "Sort order for the discover feed.",
+      "editor": "select",
+      "enum": [
+        "top",
+        "new",
+        "rec"
+      ],
+      "enumTitles": [
+        "Top (popular)",
+        "New releases",
+        "Recommended"
+      ],
+      "prefill": "top",
+      "title": "Sort (mode=discover)",
+      "type": "string"
+    },
+    "tag": {
+      "description": "Bandcamp tag slug, e.g. `electronic`, `lo-fi`, `synthwave`.",
+      "editor": "textfield",
+      "title": "Tag (mode=byTag)",
+      "type": "string"
+    },
+    "trackSlug": {
+      "description": "Track slug — the part after `/track/` in the URL.",
+      "editor": "textfield",
+      "title": "Track slug (mode=byTrack)",
+      "type": "string"
+    },
+    "url": {
+      "default": "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
+      "description": "A bandcamp.com URL — album, track, artist subdomain, or tag page. Used by mode=byUrl/byAlbum/byTrack/byArtist.",
+      "editor": "textfield",
+      "prefill": "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
+      "sectionCaption": "URL & search inputs",
+      "sectionDescription": "URLs (single or batch) plus the keyword used by the search* modes.",
+      "title": "URL",
+      "type": "string"
+    },
+    "urls": {
+      "default": [],
+      "description": "Multiple bandcamp.com URLs. Album/track/artist/tag URLs are auto-routed.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "URLs (mode=byUrl, batch)",
+      "type": "array"
+    },
+    "useProxy": {
+      "default": false,
+      "description": "Route requests through Apify proxy. Bandcamp is normally accessible without a proxy.",
+      "editor": "checkbox",
+      "prefill": false,
+      "sectionCaption": "Proxy & escalation",
+      "sectionDescription": "Optional Apify proxy. Auto-escalation transparently retries through proxy on 403/429.",
+      "title": "Use Apify proxy",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Bandcamp Scraper Input",
+  "type": "object"
+}
