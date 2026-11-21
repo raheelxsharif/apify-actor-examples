@@ -8,10 +8,12 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 
 ## What this actor does
 
-- **Two modes:** `search` (keyword) and `category` (browse Daraz's real navigation categories)
-- **Four storefronts:** Pakistan, Bangladesh, Sri Lanka, Nepal — pick per run
+- **Three modes:** `search` (one keyword or a bulk list), `category` (browse Daraz's real navigation categories), and `urls` (crawl category, catalog, or search URLs you paste)
+- **Four storefronts:** Pakistan, Bangladesh, Sri Lanka, Nepal — pick per run, or let URL hosts choose their own
 - **Filters:** min/max price, minimum star rating, sort order (popularity / price low-high / price high-low), brand, shipped-from region, free-shipping only, in-stock only
-- **Rich product data:** price, discount %, rating, review count, units sold, seller, shipping origin, and product images
+- **Rich product data:** price, discount %, rating, review count, units sold, seller, shipping origin, SKU, promo badges, and product images
+- **Optional detail enrichment:** full description, category path, complete image gallery, and availability from each product page
+- **Deduplicated and paginated:** merged keyword/URL runs never emit the same product twice; every keyword/URL gets a fair share of `maxItems`, with unused budget carried forward to later sources; pagination stops at `maxItems`, Daraz's `noMorePages` flag, or ten repeated pages
 - **Empty fields are omitted**
 
 ## Output per product
@@ -23,24 +25,28 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 - `currency` — ISO code for the storefront (`PKR` / `BDT` / `LKR` / `NPR`)
 - `rating`, `reviewCount` — only present when the product has reviews
 - `itemsSoldText`, `itemsSold` — units sold, as shown and parsed to a number
-- `brand`, `brandId`
+- `brand`, `brandId`, `sku`, `skuId`
 - `sellerName`, `sellerId`
 - `shippedFrom` — origin province/region as shown on the listing
 - `imageUrl` — primary product image
 - `productUrl` — canonical product page link
 - `inStock`, `isSponsored`, `freeShipping`
+- `badges`, `badgeText` — normalized promo labels (free shipping, coins, voucher, mall, campaign, flash sale) and their display text
 - `categoryIds` — Daraz's internal category IDs for the product
-- `countrySite` — which storefront the record came from (`pk` / `bd` / `lk` / `np`)
+- `countrySite`, `countryName` — which storefront the record came from (`pk` / `bd` / `lk` / `np`)
+- `description`, `categoryPath`, `imageUrls`, `availability` — only with `includeDetails`
 - `recordType: "product"`, `scrapedAt`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (keyword) or `category` (browse) |
+| `mode` | string | `search` | `search` (keyword), `category` (browse), or `urls` (paste URLs) |
 | `countrySite` | string | `pk` | `pk` / `bd` / `lk` / `np` — which Daraz storefront |
-| `searchQuery` | string | `mobile phone` | Free-text keyword (mode=search; also narrows results within `mode=category`) |
+| `searchQuery` | string | `mobile phone` | Free-text keyword (mode=search; also narrows results within `mode=category` — clear it to browse a whole category) |
+| `searchQueries` | array | – | Bulk keyword list for mode=search; merged, deduplicated, and capped by `maxItems` |
 | `category` | string | `phones-tablets` | Category to browse (mode=category) — see the dropdown for the full list |
+| `startUrls` | array | – | Daraz category/catalog/search URLs; URL filters are preserved. Used by mode=urls and alongside keyword/category crawls |
 | `brand` | string | – | Only keep products whose brand exactly matches this name (case-insensitive), e.g. `Samsung` |
 | `shippedFrom` | string | – | Only keep products shipped from this region (case-insensitive exact match), e.g. `Punjab`, `Dhaka` |
 | `freeShippingOnly` | boolean | `false` | Only keep products with a free-shipping badge |
@@ -49,7 +55,8 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 | `maxPrice` | int | – | Drop products priced above this amount (local currency) |
 | `minRating` | string | `0` | `0` (any) to `5` (5 stars only) |
 | `sortBy` | string | `popularity` | `popularity` / `priceasc` / `pricedesc` |
-| `maxItems` | int | `50` | Hard cap on emitted records (1–2000) |
+| `includeDetails` | boolean | `false` | Add description, category path, gallery, and availability from each product page |
+| `maxItems` | int | `50` | Hard cap on emitted records across all keywords and URLs (1–2000); when several sources run, each gets a fair share and unused budget carries forward |
 | `proxyConfiguration` | object | `{"useApifyProxy": true}` | Apify proxy config (AUTO datacenter group is sufficient) |
 
 ### Example: keyword search with price range
@@ -103,6 +110,43 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 }
 ```
 
+### Example: bulk keywords in one run
+
+```json
+{
+  "mode": "search",
+  "countrySite": "pk",
+  "searchQueries": ["wireless earbuds", "bluetooth speaker", "power bank"],
+  "minRating": "4",
+  "maxItems": 90
+}
+```
+
+### Example: crawl pasted category and search URLs
+
+```json
+{
+  "mode": "urls",
+  "startUrls": [
+    "https://www.daraz.pk/smartphones/",
+    "https://www.daraz.com.bd/catalog/?q=airpods&sort=priceasc"
+  ],
+  "maxItems": 80
+}
+```
+
+### Example: keyword search with full product detail
+
+```json
+{
+  "mode": "search",
+  "countrySite": "np",
+  "searchQuery": "gas stove",
+  "includeDetails": true,
+  "maxItems": 10
+}
+```
+
 ## Use cases
 
 - **Price monitoring** — track pricing and discounts on specific products or categories across South Asian markets
@@ -119,6 +163,14 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 - `minRating` filters to Daraz's own rating buckets. Because most listings for a given search cluster at 4+ stars, low thresholds (1–3) and "any rating" often return very similar result sets — this reflects Daraz's actual rating distribution, not a bug.
 - Category names and slugs reflect Daraz's real, currently-live navigation taxonomy as of the last verification pass; Daraz occasionally renames or merges categories.
 - `brand` and `shippedFrom` are exact-match (case-insensitive) text filters rather than dropdowns — Daraz's brand and shipping-region lists differ per category/storefront and aren't a fixed, query-independent set, so they can't be enumerated reliably.
+- `startUrls` accepts category, catalog, and search pages only. Product-detail pages and non-Daraz domains are ignored; trial loads of unknown or retired category slugs are skipped without failing the run.
+- `includeDetails` opens one product page per emitted record. If a detail page is briefly rate-limited, that record still ships with its listing fields and the detail-only fields are simply absent.
+- Daraz reports the same headline `totalResults` for some listing endpoints and can return short pages before the real end of results; pagination therefore follows the site's exhaustion signal and `maxItems`, never a short-page guess.
+- Daraz serves at most 4,080 products for one search/category page (`102` pages of `40`), and its category endpoint occasionally re-serves an earlier page instead of advancing. To get deeper coverage, partition one query into several narrower runs (categories, price bands, keywords, or storefronts); this actor stops safely after ten repeated pages instead of looping.
+- `includeDetails` reads the product page's cookieless Product JSON-LD: description, category path, image gallery, SKU/MPN, and availability. Daraz's product JSON-LD does not carry the live charged price (only the struck-through list price), so `price`, `originalPrice`, and `discountPercentage` always come from the listing payload.
+- Customer review text, seller-profile metrics, and variant-level SKU pricing live on separate Daraz surfaces and are not part of this actor; `rating`, `reviewCount`, and `itemsSold` are the listing-level signals Daraz publishes.
+- Product-detail URLs are not accepted as crawl sources; `startUrls` takes category, catalog, and search pages, and `includeDetails` enriches the resulting listing records.
+- Daraz rate-limits a single IP after roughly 20–30 rapid listing requests. This actor rotates Apify proxy sessions every ten requests and, if the block persists, saves everything already scraped and says so in the run status instead of failing silently.
 
 ## FAQ
 
@@ -133,6 +185,10 @@ Search **Daraz** — South Asia's largest online marketplace, covering Pakistan 
 **Why do some products have no `rating` or `reviewCount`?**  Those fields are omitted when a product has no reviews yet — Daraz doesn't show a rating for unreviewed listings.
 
 **Why is `originalPrice` sometimes missing?**  It's only included when the product is actively discounted. Full-price listings only have `price`.
+
+**How many products can one run return?**  Up to `maxItems` (2,000) across all keywords and URLs, as long as Daraz serves them. Daraz caps a single query/category at 4,080 products; for deeper coverage, split the query into narrower runs by category, price band, or keyword.
+
+**Does `includeDetails` fill every product?**  It fills every product whose detail page answers normally. If a detail page is briefly rate-limited or unavailable, that row still ships with its listing fields and the detail-only fields are simply omitted.
 
 **How fresh is the data?**  Real-time — every run queries Daraz's live listing endpoint directly.
 

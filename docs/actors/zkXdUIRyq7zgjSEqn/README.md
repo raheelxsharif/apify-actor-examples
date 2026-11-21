@@ -9,6 +9,7 @@ Search the Better Business Bureau directory for the United States and Canada and
 ## What this actor does
 
 - Searches BBB by keyword (a trade like "plumber" or a company name) across the US or Canadian directory, optionally narrowed to one or more cities or postal codes
+- Also accepts pasted BBB search and business-profile URLs: a search URL keeps its own keyword, location, country, accreditation, sort and state parameters, and a profile URL returns that business fully detailed
 - Opens each matching business's BBB profile to collect accreditation dates, contacts, hours, licences, social links, products/services and review/complaint counts
 - Filters results by minimum BBB letter grade, BBB-accredited-only, or a state/province code
 - Sorts results by relevance, rating, distance, or business name
@@ -39,7 +40,8 @@ Search the Better Business Bureau directory for the United States and Canada and
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `keywords` | String | `plumber` | Business category or company name to search for (required) |
+| `keywords` | String | `plumber` | Business category or company name to search for (required unless `startUrls` is set) |
+| `startUrls` | Array | – | BBB search or business-profile URLs. Search URLs keep their filters and are paginated; profile URLs return one fully detailed business each. Takes precedence over the keyword search fields |
 | `locations` | Array | – | Cities or postal codes (e.g. `Chicago, IL`, `10001`, `Toronto, ON`), each searched separately; duplicate businesses are merged. Empty searches the whole country |
 | `countries` | String (select) | `US` | `US` or `CA` BBB directory |
 | `maxRecordsGlobal` | Integer | `3` | Maximum businesses for the whole run (1-5,000) |
@@ -86,6 +88,18 @@ Search the Better Business Bureau directory for the United States and Canada and
 }
 ```
 
+### Example: scrape a saved BBB search and specific profiles
+
+```json
+{
+  "startUrls": [
+    "https://www.bbb.org/search?find_text=roofer&find_loc=Austin%2C+TX&find_country=USA&filter_accredited=1&sort=Rating",
+    "https://www.bbb.org/us/tx/austin/profile/roofing-contractors/example-roofing-0654-90000000"
+  ],
+  "maxRecordsGlobal": 40
+}
+```
+
 ## Use cases
 
 - Lead generation for local service trades with phones, emails, websites and named contacts
@@ -111,11 +125,23 @@ BBB caps a single search at 225 businesses. Add more entries to `locations`, or 
 **Can I search Canada?**
 Yes — set `countries` to `CA` and use Canadian cities or postal codes such as `Toronto, ON`.
 
+**Can I start from a BBB URL instead?**
+Yes — paste BBB search or business-profile URLs into `startUrls`. A search URL keeps its keyword, location, country, accreditation, sort and state parameters, and every result page is followed; a profile URL returns that business with all profile details. When `startUrls` is set, the keyword search fields are ignored.
+
+**Which search-URL filters are kept?**
+Keyword, location, country, accreditation, sort and state. BBB category and rating facets are not forwarded, so a category-filtered URL returns its keyword/location results across categories.
+
+**Why is a pasted search URL limited to 225 businesses?**
+BBB itself caps one search at 15 result pages of 15 businesses. Split a large search into narrower locations, categories or state filters to collect more.
+
 **Why is `includeDetails` worth turning off?**
 With it off, you still get name, rating, accreditation, categories, phone, address, coordinates and the BBB profile link, from the search listing alone, which is noticeably faster for large runs.
 
 **Why are `emails` or `website` missing for some businesses?**
 Those fields only appear when the business published them on its own BBB profile; BBB does not require either.
+
+**Does the actor return every review and complaint?**
+It returns BBB's review and complaint counts plus the three latest review snippets, and links the full `reviewsUrl` and `complaintsUrl` for each business. BBB's full review and complaint pages sit behind the same bot protection as profile pages, so their bodies are not scraped.
 
 **Does this need a BBB account or a proxy?**
 No — it reads BBB's public directory and profile pages directly, and falls back to a proxy automatically only if a direct request is blocked.

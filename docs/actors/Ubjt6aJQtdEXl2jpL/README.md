@@ -10,7 +10,7 @@ Pull structured release data straight from Bandcamp — the pay-what-you-want ho
 
 - Fetches a single Bandcamp page by URL, or a batch of mixed album/track/artist/tag URLs in one run, auto-routing each to the right parser
 - Searches Bandcamp's own index for albums, tracks, artists/bands, or labels by keyword
-- Pulls an artist's full discography from their Bandcamp homepage
+- Lists an artist's or label's full discography from its `/music` page — one record per release, with an optional full-detail pass per release
 - Browses a tag or top-level genre hub, or the front-page discover feed sorted by top/new/recommended
 - Filters results by minimum/maximum price or to only free/name-your-price items before they're returned
 - Omits any field that has no value for a given record rather than returning it empty or null
@@ -20,42 +20,51 @@ Pull structured release data straight from Bandcamp — the pay-what-you-want ho
 Every record carries `recordType` (`album`, `track`, `artist`, or `label`), a canonical `url`, `scrapedAt`, and `siteName`. What else is present depends on what was fetched:
 
 **Albums**
-- `title`, `description`, `credits`
+- `title`, `description`, `credits`, `releaseType`
 - `artistName`, `artistUrl`, `artistImageUrl`, `labelName`, `labelUrl`
 - `coverUrl`, `coverUrlOriginal` — cover artwork
 - `numTracks`, `tracks[]` — each with `title`, `trackNumber`, `duration`, `durationSeconds`, `trackId`, `streamUrl`, `lyrics`
 - `releaseDate`, `originalReleaseDate`
 - `tags[]` — up to 30 Bandcamp tags
 - `price`, `minimumPrice`, `currency`, `isFree`
+- `upc`, `formats[]` — physical/digital editions with `formatName`, `title`, `price`, `currency`, `upc`, `sku`, `available`
 - `hasAudio`, `isPreorder`
 - `albumId`, `artId`, `featuredTrackId`, `bandId`
 
 **Tracks**
 - `title`, `description`, `artistName`, `artistUrl`, `artistImageUrl`, `labelName`, `labelUrl`
+- `albumTitle`, `albumUrl`, `albumId`, `trackNumber`
 - `coverUrl`, `coverUrlOriginal`, `duration`, `durationSeconds`, `streamUrl`, `lyrics`
-- `releaseDate`, `tags[]`, `price`, `currency`, `trackId`, `bandId`
+- `releaseDate`, `tags[]`, `price`, `currency`, `trackId`, `isrc`, `credits`, `licenseName`, `bandId`
 
-**Artists / bands**
-- `name`, `description`, `url`, `imageUrl`, `bandId`
-- `discography[]` — each with `title`, `artist`, `type`, `url`, `coverUrl`, `releaseDate`
+**Artists / labels**
+- `name`, `description`, `location`, `url`, `imageUrl`, `bandId`
+- `isLabel`, `currency`, `links[]` — the artist's own linked sites
+- `discography[]` — each with `title`, `artist`, `type`, `url`, `coverUrl`, `releaseDate`, `albumId` / `trackId`, `bandId`
 - `discographyCount`
+
+**Discography mode (`byDiscography`)**
+- One `album` or `track` record per release: `title`, `artistName`, `url`, `coverUrl`, `releaseDate`, `albumId` / `trackId`, `bandId`
+- With `enrichDiscography: true`, each record is replaced by the full album/track record above (tracklist, price, tags, audio stream, and so on)
 
 **Search, tag, genre & discover results**
 - `title` or `name`, `artistName`, `artistUrl`, `coverUrl`, `imageUrl`
 - `albumId` / `trackId` / `bandId`
 - `tags[]` — search results only
 - `genre`, `location`, `releaseDate`, `artistImageUrl`, `featuredTrack` — present on discover/tag/genre results, with `title`, `trackId`, `durationSeconds`, `streamUrl`
+- Tag results from the search fallback also include the `tags[]` that matched the requested tag
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `byUrl` | What to fetch: `byUrl`, `searchAlbum`, `searchTrack`, `searchArtist`, `searchBand`, `searchLabel`, `byArtist`, `byAlbum`, `byTrack`, `byTag`, `byGenre`, `discover` |
-| `url` | string | `https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven` | A single bandcamp.com URL (used by `byUrl`/`byAlbum`/`byTrack`/`byArtist`) |
+| `mode` | string (select) | `byUrl` | What to fetch: `byUrl`, `searchAlbum`, `searchTrack`, `searchArtist`, `searchBand`, `searchLabel`, `byArtist`, `byDiscography`, `byAlbum`, `byTrack`, `byTag`, `byGenre`, `discover` |
+| `url` | string | `https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven` | A single bandcamp.com URL (used by `byUrl`/`byAlbum`/`byTrack`/`byArtist`/`byDiscography`) |
 | `urls` | array | `[]` | Multiple bandcamp.com URLs for a batch `byUrl` run |
 | `query` | string | `ambient` | Keyword for the search modes |
 | `artistSubdomain` | string | – | Artist subdomain (the part before `.bandcamp.com`), combined with `albumSlug`/`trackSlug` |
-| `artistUrl` | string | – | Full artist homepage URL (`mode=byArtist`) |
+| `artistUrl` | string | – | Full artist or label homepage URL (`mode=byArtist`/`byDiscography`) |
+| `enrichDiscography` | boolean | `false` | Open each release's album/track page for full details (`mode=byDiscography`); off reads the fast `/music` grid only |
 | `albumSlug` | string | – | Album slug, the part after `/album/` (`mode=byAlbum`) |
 | `trackSlug` | string | – | Track slug, the part after `/track/` (`mode=byTrack`) |
 | `tag` | string | – | Tag slug, e.g. `electronic`, `lo-fi` (`mode=byTag`) |
@@ -76,6 +85,17 @@ Every record carries `recordType` (`album`, `track`, `artist`, or `label`), a ca
 {
   "mode": "byUrl",
   "url": "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven"
+}
+```
+
+### Example: list an artist's full discography
+
+```json
+{
+  "mode": "byDiscography",
+  "artistUrl": "https://godspeedyoublackemperor.bandcamp.com/",
+  "enrichDiscography": true,
+  "maxItems": 50
 }
 ```
 
@@ -132,7 +152,10 @@ No. Track records include `streamUrl`, a link to the short preview stream Bandca
 No — fan profiles sit behind a Bandcamp login and aren't covered by any mode here.
 
 **What's the difference between `byTag` and `byGenre`?**
-`byGenre` reads the same tag hub pages as `byTag`, just scoped to Bandcamp's curated list of top-level genres instead of any arbitrary tag.
+`byGenre` is `byTag` scoped to Bandcamp's curated top-level genre list. Canonical genres read Bandcamp's discover feed; any other tag uses Bandcamp's search index and keeps only releases whose own tags match, so the first page is capped at the search index's top 50 albums and top 50 tracks.
+
+**How complete is a discography?**
+`byDiscography` reads the releases Bandcamp lists on the artist's or label's `/music` page. `enrichDiscography` then opens each release page, so the record has the same depth as `byAlbum`/`byTrack`.
 
 **Why do `price` or `minimumPrice` sometimes not appear?**
 Many Bandcamp releases are name-your-price. If no price floor is set at all, neither field is produced; `isFree` is set instead when the item is genuinely free.
@@ -144,7 +167,7 @@ Those come straight from what the artist entered on Bandcamp. If a track has no 
 Album, track, and artist pages reflect whatever is live on Bandcamp at the moment of the request; the discover feed and search index are Bandcamp's own near-real-time results.
 
 **Will `minPrice`/`maxPrice` filter out free releases?**
-No — records with no listed price, and free releases, always pass the price filters regardless of the thresholds you set.
+Free releases are treated as price 0, so a positive `minPrice` drops them. Records with no pricing data at all (search/artist listings) pass the price filters unchanged.
 
 **Is this affiliated with Bandcamp?**
 No. This is an independent tool that reads Bandcamp's publicly accessible pages and search results.

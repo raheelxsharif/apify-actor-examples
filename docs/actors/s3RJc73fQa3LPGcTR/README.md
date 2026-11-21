@@ -4,99 +4,114 @@
 
 # CV-Library UK Vacancy Finder by Industry & Location
 
-Pull live UK vacancies from CV-Library.co.uk, searching by job title and city or browsing whole industry sectors, and get back job title, company, salary, location, type and a direct apply link for each opening.
+Collect live UK vacancies from CV-Library.co.uk without cookies, an account or an API key. Search by job title and location, browse a whole industry sector, or paste CV-Library search and job URLs, then receive one clean record per vacancy with parsed GBP pay, employment type, remote signal, company and a direct job link.
 
 ## What this actor does
 
-- Searches CV-Library by keyword and UK location, or browses an entire industry sector without a keyword
-- Narrows results to a specific employment type: permanent, contract, temporary, part-time or full-time
-- Pages through CV-Library's results automatically up to the number of jobs you ask for
-- Leaves any field CV-Library didn't publish for a listing out of the record rather than sending it empty
+- **Keyword search** — run a job title, skill or phrase against a UK town, city, county or postcode, or leave the location blank for UK-wide results
+- **Industry browse** — walk an entire sector such as IT, healthcare, engineering or logistics, optionally narrowed to one location
+- **URL mode** — paste CV-Library search, industry or individual job URLs you already use
+- **Client-side filters** — keep one employment type, remote or work-from-home roles, jobs posted within a chosen window, and a minimum/maximum annual salary
+- **Detail enrichment** — open each job page for the full description and structured pay data, or switch it off for a faster listing-only run
+- **Deterministic sorting** — relevance, newest first, salary high-to-low or salary low-to-high
+- **Omit-empty output** — a value CV-Library does not publish is left out, never written as `null` or a placeholder
 
 ## Output per job
 
-- `jobId` — CV-Library's unique listing ID
-- `jobTitle` — the role title
-- `companyName` — hiring company, when CV-Library discloses it
-- `location` — city or region as listed
-- `salary` — salary range or rate, when stated
-- `jobType` — employment type (Permanent, Contract, Temporary, etc.)
-- `postedDate` — date the listing went live
-- `jobUrl` — direct link to the job on CV-Library
-- `recordType` — always `"job"`
-- `scrapedAt` — when this actor fetched the record
+- `jobId`, `jobTitle`, `jobUrl`, `applyUrl` — the vacancy identity and links
+- `companyName`, `companyUrl`, `companyLogoUrl` — employer details when the listing exposes them
+- `location`, `locationCity`, `locationRegion`, `locationPostcode`, `locationDistanceMiles` — parsed UK location
+- `salary`, `salaryMin`, `salaryMax`, `salaryCurrency`, `salaryPeriod` — the advertised pay exactly as written plus parsed values
+- `salaryAnnualMin`, `salaryAnnualMax` — hourly, daily, weekly and monthly pay annualised for comparison
+- `jobType`, `employmentTypes`, `isRemote`, `postedDate`, `validThrough` — working pattern and dates
+- `descriptionSnippet`, `description` — listing text and, with detail enrichment on, the full description
+- `industry`, `recordType`, `sourceMode`, `sourceQuery`, `sourceIndustry`, `sourceLocation`, `searchUrl`, `pageNumber`, `scrapedAt` — provenance for every row
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `searchJobs` | `searchJobs` (keyword + location) or `searchByIndustry` (browse a sector) |
+| `mode` | select | `searchJobs` | `searchJobs`, `searchByIndustry` or `searchByUrl` |
 | `query` | string | `software developer` | Job title or keyword for `searchJobs` |
-| `location` | string | `London` | UK city or region for `searchJobs`; leave blank to search the whole country. Not used by `searchByIndustry` |
-| `industry` | string (select) | – | Sector to browse for `searchByIndustry` — e.g. `it`, `healthcare`, `construction`, `legal` |
-| `jobType` | string (select) | `` (Any) | `full-time`, `part-time`, `contract`, `temporary`, or `permanent` |
-| `maxItems` | integer | `50` | Hard cap on returned job records (1-500) |
+| `location` | string | `London` | UK location; blank means UK-wide. Also narrows `searchByIndustry` |
+| `industry` | select | `it` | Sector for `searchByIndustry` (35 sectors) |
+| `startUrls` | array | `[]` | CV-Library search, industry or job URLs for `searchByUrl` |
+| `jobType` | select | Any | `permanent`, `contract`, `temporary`, `part-time`, `full-time`, `apprenticeship` |
+| `remoteOnly` | boolean | `false` | Use the remote search path and keep work-from-home listings |
+| `postedWithinDays` | select | `0` (Any time) | Any time, 24 hours, 3, 7, 14 or 30 days |
+| `salaryMin` | integer | – | Annual GBP floor; hourly, daily and weekly pay is annualised first |
+| `salaryMax` | integer | – | Annual GBP ceiling |
+| `sortBy` | select | `relevance` | Relevance, newest, salary high-to-low or salary low-to-high |
+| `includeDetails` | boolean | `true` | Fetch each job page for the full description and structured pay |
+| `maxItems` | integer | `50` | Hard cap on saved records (1–1000) |
+| `maxPages` | integer | `50` | Safety cap on result pages per search (1–100) |
 
-### Example: permanent developer roles in London
-
-```json
-{
-  "mode": "searchJobs",
-  "query": "software developer",
-  "location": "London",
-  "jobType": "permanent",
-  "maxItems": 50
-}
-```
-
-### Example: contract Python roles, anywhere in the UK
+### Example: permanent Python roles in Manchester
 
 ```json
 {
   "mode": "searchJobs",
   "query": "Python developer",
-  "jobType": "contract",
+  "location": "Manchester",
+  "jobType": "permanent",
+  "postedWithinDays": "7",
+  "includeDetails": true,
   "maxItems": 100
 }
 ```
 
-### Example: browse the healthcare sector
+### Example: browse healthcare vacancies across the UK
 
 ```json
 {
   "mode": "searchByIndustry",
   "industry": "healthcare",
+  "location": "",
   "maxItems": 50
+}
+```
+
+### Example: scrape a saved CV-Library search
+
+```json
+{
+  "mode": "searchByUrl",
+  "startUrls": ["https://www.cv-library.co.uk/software-developer-jobs-in-london"],
+  "maxItems": 20
 }
 ```
 
 ## Use cases
 
-- Building a live feed of UK vacancies for a job board or alert service
-- Tracking salary ranges advertised for a given role across different UK cities
-- Measuring hiring volume in a sector over time for market or workforce research
-- Watching a competitor's job postings for hiring-activity signals
-- Sourcing candidates by pulling a fresh list of open roles in a target industry
+- Feed a live UK vacancy stream into a job board, alert service or CRM
+- Benchmark advertised pay for one role across cities and sectors
+- Measure hiring volume in an industry week by week
+- Watch a competitor's open roles for hiring signals
+- Build a fresh candidate-sourcing list by sector and region
+
+## Data source and reliability
+
+CV-Library is a Next.js site behind Cloudflare. The actor reads only publicly visible, robots-permitted search, industry and job pages, using path-based URLs (`/{keyword}-jobs-in-{location}`) rather than query-string searches. When Cloudflare blocks the datacenter request outright, the actor reads the same public pages through a free reader mirror and parses the rendered HTML; no cookies, login or user-supplied proxy are involved. Pay ranges and dates are parsed from the page and never invented.
 
 ## FAQ
 
-**What is CV-Library?**
-CV-Library is a UK job board that lists vacancies across most industries and regions, searchable by keyword or browsable by sector.
+**Do I need an API key or cookies?**
+No. Every mode works without credentials, and the daily-test prefill uses no tokens or proxy configuration.
 
-**Can I search without an industry or a keyword?**
-You need one or the other: set `mode` to `searchJobs` with a `query`, or to `searchByIndustry` with an `industry` to browse a whole sector.
+**Which locations are supported?**
+Anything CV-Library recognises: a town, city, county, region or postcode such as `London`, `Greater Manchester` or `M1`. An unrecognised location can widen the result set upstream, so check the returned `location` values if a search looks unexpectedly broad.
 
-**Can I get jobs from the whole UK instead of one city?**
-Yes — leave `location` empty on `searchJobs` to search nationwide.
+**Why are some records missing `companyName` or `salary`?**
+Employers may hide the company name or omit pay. This actor leaves those fields out rather than writing a placeholder.
 
-**Why do some jobs have no `companyName` or `salary`?**
-Those details are optional when an employer posts a listing on CV-Library; if a listing doesn't include them, this actor leaves the field out rather than returning an empty value.
+**How does salary filtering work for contract roles?**
+The page value is parsed first, then annualised: hourly × 2080, daily × 220, weekly × 52 and monthly × 12. When either salary bound is set, listings with no parseable pay are excluded.
 
-**What employment types can I filter by?**
-Permanent, Contract, Temporary, Part-Time, and Full-Time — or leave `jobType` blank to get every type.
+**What is the page and record ceiling?**
+CV-Library shows about 20 jobs per page. `maxPages` is a safety cap, not a promise of deeper coverage; raise it or split a broad search by location and sector to reach more rows.
 
-**How current are the listings?**
-Each record carries the `postedDate` from CV-Library plus a `scrapedAt` timestamp for the moment this actor read it; CV-Library itself adds new listings continuously.
+**How current are results?**
+`postedDate` comes from CV-Library's own listing and `scrapedAt` records when this actor read it. CV-Library updates continuously.
 
 **Is this affiliated with CV-Library?**
-No. This is an independent actor that reads CV-Library's publicly available search and listing pages.
+No. This is an independent actor that reads CV-Library's public pages.

@@ -16,9 +16,9 @@
       "type": "string"
     },
     "artistUrl": {
-      "description": "Full URL of the artist's bandcamp.com homepage.",
+      "description": "Full URL of an artist or label homepage. byArtist reads the profile; byDiscography lists every release on its /music page.",
       "editor": "textfield",
-      "title": "Artist URL (mode=byArtist)",
+      "title": "Artist or label URL (mode=byArtist/byDiscography)",
       "type": "string"
     },
     "autoEscalateOnBlock": {
@@ -27,6 +27,14 @@
       "editor": "checkbox",
       "prefill": true,
       "title": "Auto-escalate to proxy on block",
+      "type": "boolean"
+    },
+    "enrichDiscography": {
+      "default": false,
+      "description": "For every release in the discography, also open its album/track page to fill tracklists, pricing, tags, and audio links. Slower (one request per release); off uses the fast /music grid.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Fetch full release details (mode=byDiscography)",
       "type": "boolean"
     },
     "genre": {
@@ -126,7 +134,7 @@
     },
     "mode": {
       "default": "byUrl",
-      "description": "What to fetch.",
+      "description": "What to fetch. Search, fetch by URL, list an artist/label full discography, browse a tag/genre, or read the discover feed.",
       "editor": "select",
       "enum": [
         "byUrl",
@@ -136,6 +144,7 @@
         "searchBand",
         "searchLabel",
         "byArtist",
+        "byDiscography",
         "byAlbum",
         "byTrack",
         "byTag",
@@ -150,6 +159,7 @@
         "Search bands (alias of searchArtist)",
         "Search labels",
         "By artist (full catalog)",
+        "By discography (one record per release)",
         "By album",
         "By track",
         "By tag",
@@ -230,7 +240,7 @@
     },
     "url": {
       "default": "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
-      "description": "A bandcamp.com URL — album, track, artist subdomain, or tag page. Used by mode=byUrl/byAlbum/byTrack/byArtist.",
+      "description": "A bandcamp.com URL — album, track, artist subdomain, tag page, search URL, or the discover front page. Used by mode=byUrl/byAlbum/byTrack/byArtist/byDiscography.",
       "editor": "textfield",
       "prefill": "https://godspeedyoublackemperor.bandcamp.com/album/lift-your-skinny-fists-like-antennas-to-heaven",
       "sectionCaption": "URL & search inputs",

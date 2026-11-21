@@ -83,12 +83,19 @@
       "title": "In stock only",
       "type": "boolean"
     },
+    "includeDetails": {
+      "default": false,
+      "description": "Open each product page to add its full description, category path, all image URLs, and stock availability. Adds one extra request per emitted product; listing fields are still returned when a detail page cannot be read.",
+      "prefill": false,
+      "title": "Include product details",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on the number of products emitted.",
+      "description": "Hard cap on the number of products emitted across all keywords and URLs in the run.",
       "maximum": 2000,
       "minimum": 1,
-      "prefill": 50,
+      "prefill": 3,
       "title": "Max items",
       "type": "integer"
     },
@@ -132,15 +139,17 @@
     },
     "mode": {
       "default": "search",
-      "description": "What to fetch: search by keyword, or browse a category listing.",
+      "description": "What to fetch: search keywords, browse a category, or crawl one or more Daraz category/search URLs.",
       "editor": "select",
       "enum": [
         "search",
-        "category"
+        "category",
+        "urls"
       ],
       "enumTitles": [
         "Search products by keyword",
-        "Browse by category"
+        "Browse by category",
+        "Crawl category or search URLs"
       ],
       "prefill": "search",
       "title": "Mode",
@@ -157,6 +166,15 @@
       },
       "title": "Proxy configuration",
       "type": "object"
+    },
+    "searchQueries": {
+      "description": "Optional list of keywords for mode=search. Each keyword is crawled independently; results merge into one dataset with duplicates removed and the total capped by `maxItems`. When empty, `searchQuery` is used.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Search queries (bulk)",
+      "type": "array"
     },
     "searchQuery": {
       "default": "mobile phone",
@@ -189,6 +207,15 @@
       "prefill": "popularity",
       "title": "Sort order",
       "type": "string"
+    },
+    "startUrls": {
+      "description": "Daraz category pages (e.g. `https://www.daraz.pk/smartphones/`), catalog/search pages (e.g. `https://www.daraz.pk/catalog/?q=airpods`), or both. Filters present in a URL (price, rating, sort, keyword) are preserved. Product-detail pages and other domains are ignored. Used by mode=urls, and optionally alongside a keyword or category crawl.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Category or search URLs",
+      "type": "array"
     }
   },
   "required": [

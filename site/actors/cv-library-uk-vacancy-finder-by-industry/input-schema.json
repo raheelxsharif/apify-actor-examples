@@ -1,8 +1,18 @@
 {
-  "description": "Search CV-Library.co.uk for UK job listings by keyword, location, job type, and industry.",
+  "description": "Search CV-Library.co.uk by keyword and UK location, browse an industry sector, or paste CV-Library search and job URLs. No cookies, account or API key are needed.",
   "properties": {
+    "includeDetails": {
+      "default": true,
+      "description": "Open each job page for the full description and structured pay fields. Turn off for a faster listing-only run.",
+      "editor": "checkbox",
+      "prefill": true,
+      "sectionCaption": "Output",
+      "title": "Fetch full job details",
+      "type": "boolean"
+    },
     "industry": {
-      "description": "Industry category to browse.",
+      "default": "it",
+      "description": "Sector to browse for mode=searchByIndustry. The location field still narrows it when set.",
       "editor": "select",
       "enum": [
         "it",
@@ -19,12 +29,32 @@
         "hospitality",
         "admin",
         "manufacturing",
-        "retail"
+        "retail",
+        "customer-service",
+        "social-care",
+        "accounting",
+        "design",
+        "media",
+        "science",
+        "pharmaceutical",
+        "energy",
+        "automotive",
+        "property",
+        "recruitment",
+        "training",
+        "public-sector",
+        "charity",
+        "leisure",
+        "travel",
+        "call-centre",
+        "secretarial",
+        "graduate",
+        "apprenticeships"
       ],
       "enumTitles": [
         "IT & Technology",
         "Engineering",
-        "Finance & Accounting",
+        "Finance",
         "Healthcare & Nursing",
         "Sales",
         "Marketing",
@@ -36,80 +66,198 @@
         "Hospitality & Catering",
         "Admin & Secretarial",
         "Manufacturing",
-        "Retail"
+        "Retail",
+        "Customer Service",
+        "Social Care",
+        "Accounting",
+        "Design",
+        "Media & Creative",
+        "Science",
+        "Pharmaceutical",
+        "Energy",
+        "Automotive",
+        "Property",
+        "Recruitment",
+        "Training",
+        "Public Sector",
+        "Charity & Voluntary",
+        "Leisure & Tourism",
+        "Travel",
+        "Call Centre",
+        "Secretarial",
+        "Graduate",
+        "Apprenticeships"
       ],
-      "title": "Industry (mode=searchByIndustry)",
+      "prefill": "it",
+      "title": "Industry sector",
       "type": "string"
     },
     "jobType": {
       "default": "",
-      "description": "Filter by employment type.",
+      "description": "Keep only one employment type. CV-Library does not allow filter query strings for anonymous clients, so the actor filters matches itself.",
       "editor": "select",
       "enum": [
         "",
-        "full-time",
-        "part-time",
+        "permanent",
         "contract",
         "temporary",
-        "permanent"
+        "part-time",
+        "full-time",
+        "apprenticeship"
       ],
       "enumTitles": [
-        "Any",
-        "Full-Time",
-        "Part-Time",
+        "Any job type",
+        "Permanent",
         "Contract",
         "Temporary",
-        "Permanent"
+        "Part-time",
+        "Full-time",
+        "Apprenticeship"
       ],
-      "title": "Job type filter",
+      "prefill": "",
+      "sectionCaption": "Filters",
+      "title": "Job type",
       "type": "string"
     },
     "location": {
       "default": "London",
-      "description": "UK city or region, e.g. 'London', 'Manchester', 'Birmingham'. Leave blank for UK-wide.",
+      "description": "Town, city, county or postcode, for example 'London', 'Manchester' or 'M1'. Leave blank for UK-wide results.",
       "editor": "textfield",
       "prefill": "London",
-      "title": "Location",
+      "title": "UK location",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on emitted records.",
-      "maximum": 500,
+      "description": "Hard cap on saved job records.",
+      "editor": "number",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max items",
+      "prefill": 3,
+      "title": "Maximum jobs",
+      "type": "integer"
+    },
+    "maxPages": {
+      "default": 50,
+      "description": "Safety cap on result pages fetched per search. Raise it to reach deeper results; 20 jobs are shown per page.",
+      "editor": "number",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Maximum result pages",
       "type": "integer"
     },
     "mode": {
       "default": "searchJobs",
-      "description": "What to fetch.",
+      "description": "Search by keyword and location, browse one industry sector, or scrape specific CV-Library URLs.",
       "editor": "select",
       "enum": [
         "searchJobs",
-        "searchByIndustry"
+        "searchByIndustry",
+        "searchByUrl"
       ],
       "enumTitles": [
         "Search jobs by keyword",
-        "Search jobs by industry"
+        "Browse an industry sector",
+        "Scrape specific URLs"
       ],
       "prefill": "searchJobs",
-      "title": "Mode",
+      "sectionCaption": "What to scrape",
+      "title": "What to scrape",
+      "type": "string"
+    },
+    "postedWithinDays": {
+      "default": "0",
+      "description": "Keep jobs posted in this many days. 0 means any date.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "3",
+        "7",
+        "14",
+        "30"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 24 hours",
+        "Last 3 days",
+        "Last 7 days",
+        "Last 14 days",
+        "Last 30 days"
+      ],
+      "prefill": "0",
+      "title": "Posted within",
       "type": "string"
     },
     "query": {
       "default": "software developer",
-      "description": "Job title or keyword (mode=searchJobs). E.g. 'software developer', 'nurse', 'accountant'.",
+      "description": "Job title, skill or phrase for mode=searchJobs, for example 'software developer' or 'registered nurse'.",
       "editor": "textfield",
       "prefill": "software developer",
-      "title": "Search query / keyword",
+      "title": "Search keywords",
       "type": "string"
+    },
+    "remoteOnly": {
+      "default": false,
+      "description": "Use CV-Library's remote search path and keep only remote or work-from-home listings.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Remote jobs only",
+      "type": "boolean"
+    },
+    "salaryMax": {
+      "description": "Annual salary ceiling in pounds. Applied to the annualised range.",
+      "editor": "number",
+      "maximum": 500000,
+      "minimum": 0,
+      "title": "Maximum salary (GBP)",
+      "type": "integer"
+    },
+    "salaryMin": {
+      "description": "Annual salary floor in pounds. Hourly, daily and weekly pay is annualised before comparison. Listings without a parseable salary are excluded when either salary bound is set.",
+      "editor": "number",
+      "maximum": 500000,
+      "minimum": 0,
+      "title": "Minimum salary (GBP)",
+      "type": "integer"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Sort the jobs collected for this run before they are saved.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "newest",
+        "salaryHigh",
+        "salaryLow"
+      ],
+      "enumTitles": [
+        "Relevance (site order)",
+        "Newest first",
+        "Salary high to low",
+        "Salary low to high"
+      ],
+      "prefill": "relevance",
+      "title": "Sort results",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "For mode=searchByUrl: paste CV-Library search, industry or job URLs, for example 'https://www.cv-library.co.uk/software-developer-jobs-in-london'.",
+      "editor": "requestListSources",
+      "items": {
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "CV-Library URLs",
+      "type": "array"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "CV-Library UK Jobs Scraper Input",
+  "title": "CV-Library UK Vacancy Finder by Industry & Location Input",
   "type": "object"
 }

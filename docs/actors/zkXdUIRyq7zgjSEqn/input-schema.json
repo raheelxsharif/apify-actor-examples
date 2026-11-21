@@ -40,7 +40,7 @@
     },
     "keywords": {
       "default": "plumber",
-      "description": "What to search for on BBB: a business category (plumber, electrician, roofing, auto repair) or a company name.",
+      "description": "What to search for on BBB: a business category (plumber, electrician, roofing, auto repair) or a company name. Required unless startUrls is set.",
       "editor": "textfield",
       "prefill": "plumber",
       "title": "Keywords",
@@ -141,6 +141,15 @@
       "title": "Sort by",
       "type": "string"
     },
+    "startUrls": {
+      "description": "BBB search or business-profile URLs to scrape instead of a keyword search. Search URLs keep the keyword, location, country, accreditation, sort and state parameters they contain, and every result page is followed. Profile URLs return one fully detailed business each. When this is set, Keywords, Locations, Country, Sort and State are ignored.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Start URLs (optional)",
+      "type": "array"
+    },
     "stateFilter": {
       "description": "Optional two-letter state or province code (e.g. IL, ON) to keep results from one state when a search area spans several.",
       "editor": "textfield",
@@ -148,9 +157,6 @@
       "type": "string"
     }
   },
-  "required": [
-    "keywords"
-  ],
   "schemaVersion": 1,
   "title": "Better Business Bureau (BBB) Scraper",
   "type": "object"

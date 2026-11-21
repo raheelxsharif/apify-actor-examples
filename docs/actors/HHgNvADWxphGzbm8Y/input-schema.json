@@ -311,7 +311,7 @@
     },
     "sortBy": {
       "default": "relevance",
-      "description": "How to order search results (mode=search). 'az'/'za' request aranyoldalak.hu's own alphabetical sort server-side; 'name' re-sorts the fetched batch client-side A-Z (useful if you also want fetchDetails-enriched names).",
+      "description": "How to order search results (mode=search). aranyoldalak.hu ignores its own sort parameter, so 'az'/'za'/'name' all re-sort the specific batch this run fetches client-side (useful together with fetchDetails).",
       "editor": "select",
       "enum": [
         "relevance",
@@ -321,8 +321,8 @@
       ],
       "enumTitles": [
         "Relevance (aranyoldalak.hu's own order)",
-        "A-Z (server-side)",
-        "Z-A (server-side)",
+        "A-Z (client-side)",
+        "Z-A (client-side)",
         "Name A-Z (client-side, applied to fetched batch)"
       ],
       "prefill": "relevance",

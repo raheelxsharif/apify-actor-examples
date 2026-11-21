@@ -12,7 +12,7 @@ Scrape **aranyoldalak.hu** (Arany Oldalak / "Golden Pages") — Hungary's leadin
 - **70+ curated business categories** to pick from, or type any custom category in Hungarian
 - **All 19 Hungarian counties (megye) + Budapest + 18 major cities** available as one-click location filters, in addition to free-text city/town search
 - **Sort by** relevance, A-Z, or Z-A
-- **Rich business profiles** — structured opening hours (per day of the week), business description, related category/location tags, precise GPS coordinates, logo, photo gallery, fax number, extra phone numbers/websites when a business lists more than one, price-range badge, accepted payment methods, and spoken languages (when the business provides them)
+- **Rich business profiles** — structured opening hours (per day of the week), business description, related category/location tags, precise GPS coordinates, logo, photo gallery, fax number, extra phone numbers/websites when a business lists more than one, price-range badge, accepted payment methods, brands, and spoken languages (when the business provides them)
 - **Full Hungarian character support** — á, é, í, ó, ö, ő, ú, ü, ű are handled correctly in both input and output
 - **Empty fields are omitted** — you only ever see fields that were actually found for a business
 
@@ -29,8 +29,9 @@ Scrape **aranyoldalak.hu** (Arany Oldalak / "Golden Pages") — Hungary's leadin
 - `fax` — fax number, when listed separately from the phone number(s) (mode=detail)
 - `additionalWebsites[]` — extra website/booking/menu links beyond the primary `website`, when a business lists more than one (mode=detail)
 - `priceRange` — price-tier badge (e.g. `$$`), when the business has one set (mode=detail, mostly hospitality listings)
-- `paymentMethods[]` — accepted payment methods, when the business lists them (mode=detail)
-- `languagesSpoken[]` — languages the business serves customers in, when listed (mode=detail)
+- `paymentMethods[]` — accepted payment methods, when the business lists them (mode=detail, or the search card when shown there)
+- `languagesSpoken[]` — languages the business serves customers in, when listed (mode=detail, or the search card when shown there)
+- `brands[]` — brands the business carries or is affiliated with, when listed (mode=detail, or the search card when shown there)
 - `images[]` — photo gallery image URLs (mode=detail)
 - `logoUrl` — business logo image (mode=detail)
 - `openingHours[]` — structured opening hours (`{day, hours}` per day of the week; mode=detail or `fetchDetails: true`)
@@ -125,6 +126,8 @@ Scrape **aranyoldalak.hu** (Arany Oldalak / "Golden Pages") — Hungary's leadin
 - **Category/location matching is server-resolved, not URL-guessed.** aranyoldalak.hu's canonical pages live at slugged URLs (e.g. `/koenyvelo/nograd-megye/`) that sometimes carry numeric disambiguation suffixes not predictable from the category/location name alone. This actor always goes through aranyoldalak.hu's own free-text search (the same box a visitor uses), which resolves `category`/`location` to the correct canonical page server-side — the same reliable path a real user gets, with no slug-guessing. For best matching, use proper Hungarian diacritics in custom category/location text (e.g. `könyvelő`, not `konyvelo`) — the site's own search matching relies on them.
 - **No star ratings.** aranyoldalak.hu does not publish a review/rating system on business listings, so no `rating`/`reviewCount` fields are produced.
 - **Some categories may return listings from a broader area than requested.** aranyoldalak.hu occasionally cross-lists a business under a nearby county/city's category page (an upstream site behavior, not a client-side filtering gap in this actor).
+- **aranyoldalak.hu URLs are geo-restricted to Hungarian IPs.** `sourceUrl`, `images[]`, and `logoUrl` point at the source's own pages/CDN, which answer only Hungarian addresses. Open them from a Hungarian connection (or via an Apify proxy pinned to Hungary); the scraped data itself is unaffected.
+- **Search-result cards mask the street address.** aranyoldalak.hu shows only postal code, city, and coordinates on search-result cards; the full street address is on the business profile. Set `fetchDetails: true` (or use `mode: "detail"`) to get `street`.
 - **`sortBy: "az"/"za"/"name"` all re-sort client-side.** aranyoldalak.hu's own sort parameter doesn't change its result order, so all three non-default sort options instead reorder the specific batch this run fetched (useful together with `fetchDetails`), rather than the site's entire matching result set.
 
 ## FAQ
@@ -151,13 +154,16 @@ Yes — set `location` to `""` (the default "No location filter" option) for a n
 Fetching each business's full profile page requires one extra request per result, which is slower. Turn it on when you need opening hours, a full description, related category tags, or the logo image.
 
 **Does this actor need a proxy or login?**
-No — aranyoldalak.hu's search and profile pages are served without any login wall, so this actor runs entirely on Apify's free plan with no credentials. It automatically uses Apify's free AUTO proxy group to keep requests reliable, at no extra cost to you.
+No — aranyoldalak.hu's search and profile pages are served without any login wall, so no account, cookie, or credential is needed. The actor automatically picks the proxy route each request needs, so you never have to configure one.
 
 **What does `categories[]` mean on a detail-mode record?**
 aranyoldalak.hu lists each business under several related category+location tag pages (e.g. "Könyvelés - Hatvan", "Adóbevallás - Hatvan"). `categories[]` (only populated with `fetchDetails: true` or in `mode=detail`) reflects every tag the business's own profile page links to.
 
-**Why do only some businesses have `priceRange`, `paymentMethods`, or `languagesSpoken`?**
-These come from optional fields a business fills in on its own aranyoldalak.hu listing — mainly restaurants, cafés, and hotels. They're simply omitted when a business hasn't set them.
+**Why do only some businesses have `priceRange`, `paymentMethods`, `brands`, or `languagesSpoken`?**
+These come from optional fields a business fills in on its own aranyoldalak.hu listing — mainly restaurants, cafés, hotels, and chain venues. They're simply omitted when a business hasn't set them.
+
+**Why is the `street` missing an NTAK number some listings show?**
+aranyoldalak.hu appends the venue's NTAK (Hungarian tourism registration) ID to the street address on hospitality listings. It is a registration number, not part of the address, so the actor strips it and returns the clean street.
 
 **Why do only some businesses have `fax`, `additionalPhones`, or `additionalWebsites`?**
 Most businesses list a single phone number and website. These extra fields appear only when a business's own listing provides more than one contact number (e.g. Main/Alt/Mobile lines) or more than one link (e.g. a separate booking/reservation or menu page).
