@@ -1,0 +1,115 @@
+{
+  "description": "Search CV-Library.co.uk for UK job listings by keyword, location, job type, and industry.",
+  "properties": {
+    "industry": {
+      "description": "Industry category to browse.",
+      "editor": "select",
+      "enum": [
+        "it",
+        "engineering",
+        "finance",
+        "healthcare",
+        "sales",
+        "marketing",
+        "hr",
+        "legal",
+        "construction",
+        "education",
+        "logistics",
+        "hospitality",
+        "admin",
+        "manufacturing",
+        "retail"
+      ],
+      "enumTitles": [
+        "IT & Technology",
+        "Engineering",
+        "Finance & Accounting",
+        "Healthcare & Nursing",
+        "Sales",
+        "Marketing",
+        "HR & Recruitment",
+        "Legal",
+        "Construction",
+        "Education & Teaching",
+        "Logistics & Transport",
+        "Hospitality & Catering",
+        "Admin & Secretarial",
+        "Manufacturing",
+        "Retail"
+      ],
+      "title": "Industry (mode=searchByIndustry)",
+      "type": "string"
+    },
+    "jobType": {
+      "default": "",
+      "description": "Filter by employment type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "full-time",
+        "part-time",
+        "contract",
+        "temporary",
+        "permanent"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-Time",
+        "Part-Time",
+        "Contract",
+        "Temporary",
+        "Permanent"
+      ],
+      "title": "Job type filter",
+      "type": "string"
+    },
+    "location": {
+      "default": "London",
+      "description": "UK city or region, e.g. 'London', 'Manchester', 'Birmingham'. Leave blank for UK-wide.",
+      "editor": "textfield",
+      "prefill": "London",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchJobs",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchJobs",
+        "searchByIndustry"
+      ],
+      "enumTitles": [
+        "Search jobs by keyword",
+        "Search jobs by industry"
+      ],
+      "prefill": "searchJobs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "default": "software developer",
+      "description": "Job title or keyword (mode=searchJobs). E.g. 'software developer', 'nurse', 'accountant'.",
+      "editor": "textfield",
+      "prefill": "software developer",
+      "title": "Search query / keyword",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "CV-Library UK Jobs Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,123 @@
+# BBB Business Ratings, Accreditation & Complaints Finder
+
+Search the Better Business Bureau directory for the United States and Canada and turn any category or company name into structured business records: BBB letter grade, accreditation status, contacts, licences, hours, reviews and complaint counts, straight from bbb.org.
+
+## What this actor does
+
+- Searches BBB by keyword (a trade like "plumber" or a company name) across the US or Canadian directory, optionally narrowed to one or more cities or postal codes
+- Opens each matching business's BBB profile to collect accreditation dates, contacts, hours, licences, social links, products/services and review/complaint counts
+- Filters results by minimum BBB letter grade, BBB-accredited-only, or a state/province code
+- Sorts results by relevance, rating, distance, or business name
+- Can return one record per business, or one record per branch/franchise location when a business is listed at multiple addresses
+- Omits any field BBB doesn't publish for a business instead of returning it empty
+
+## Output per business
+
+- `type` — always `bbb_business`
+- `name`, `url` — BBB profile page
+- `id` / `bbbId` — combined bureau-business identifier, `businessId`, `bureauId`
+- `primaryCategory`, `categories[]`
+- `rating` — BBB letter grade (`A+` through `F`), `notRatedReason` when unrated
+- `accreditationStatus`, `bbbMember`, `dateAccredited`
+- `phone`, `phones[]`, `additionalPhones[]`, `website`, `additionalWebsites[]`, `emails[]`
+- `address` (`street`, `city`, `state`, `zipCode`, `country`), `latitude`, `longitude`
+- `contactName`, `contactTitle`, `principalContacts[]`
+- `fileOpenedDate`, `businessStarted`, `businessIncorporatedDate`, `yearsInBusiness`, `businessType`
+- `hoursOfOperation`, `numberOfEmployees`, `description`, `productsAndServices`, `paymentMethods`
+- `licenses` / `licensedBy`
+- `logo`, `bbbBureau`, `socialLinks` (object keyed by platform, e.g. `facebook`/`instagram`), `alternateNames[]`
+- `reviewCount`, `averageReviewRating`, `latestReviews[]`, `reviewsUrl`
+- `complaintCount`, `complaintsClosedLast3Years`, `complaintsClosedLast12Months`, `complaintsUrl`, `ratingReasons[]`
+- `serviceAreaSummary`, `serviceAreaDescription`, `requestQuoteUrl`, `localReportUrl`, `listingId` (branch mode), `hasMultipleLocations`, `outOfBusiness`, `isCharity`, `charitySeal` (when `isCharity` is true)
+- `searchKeywords`, `searchLocation`, `scrapedAt`
+
+## Input
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `keywords` | String | `plumber` | Business category or company name to search for (required) |
+| `locations` | Array | – | Cities or postal codes (e.g. `Chicago, IL`, `10001`, `Toronto, ON`), each searched separately; duplicate businesses are merged. Empty searches the whole country |
+| `countries` | String (select) | `US` | `US` or `CA` BBB directory |
+| `maxRecordsGlobal` | Integer | `3` | Maximum businesses for the whole run (1-5,000) |
+| `maxRecordsPerLocation` | Integer | `50` | Maximum per location (0 = no per-location cap; BBB shows up to 225 per search) |
+| `includeDetails` | Boolean | `true` | Open each business's BBB profile for contacts, dates, hours, licences, social links, reviews and complaints |
+| `includeBranchLocations` | Boolean | `false` | One record per listed location instead of one per business |
+| `minRating` | String (select) | `any` | Minimum BBB grade (`A+` down to `F`); businesses without a rating are excluded when set |
+| `accreditedOnly` | Boolean | `false` | Only return BBB Accredited Businesses |
+| `sortBy` | String (select) | `relevance` | `relevance`, `rating`, `distance`, `aToZ`, or `zToA` |
+| `stateFilter` | String | – | Two-letter state/province code to keep results from one state when a search spans several |
+| `proxyConfiguration` | Object | – | Optional proxy configuration; BBB is fetched directly first |
+
+### Example: accredited plumbers in Chicago, A or better
+
+```json
+{
+  "keywords": "plumber",
+  "locations": ["Chicago, IL"],
+  "maxRecordsGlobal": 100,
+  "minRating": "A",
+  "accreditedOnly": true
+}
+```
+
+### Example: roofers across several Canadian cities, listing data only
+
+```json
+{
+  "keywords": "roofing",
+  "countries": "CA",
+  "locations": ["Toronto, ON", "Ottawa, ON", "Vancouver, BC"],
+  "maxRecordsGlobal": 300,
+  "maxRecordsPerLocation": 100,
+  "includeDetails": false
+}
+```
+
+### Example: look up one company by name
+
+```json
+{
+  "keywords": "Roto-Rooter",
+  "maxRecordsGlobal": 20
+}
+```
+
+## Use cases
+
+- Lead generation for local service trades with phones, emails, websites and named contacts
+- Vendor and contractor vetting using BBB rating, accreditation, licences and years in business
+- Reputation monitoring of rating, review count and complaint trends for a watchlist of businesses
+- Market sizing — counting and comparing businesses by category, city or rating tier
+- Enriching an existing company list with BBB accreditation and complaint history
+
+## FAQ
+
+**What does the BBB rating mean?**
+BBB grades businesses from A+ down to F based on complaint history, time in business, transparency and licensing. Some businesses carry no grade; for those `rating` is omitted and `notRatedReason` may explain why.
+
+**What does accreditation mean?**
+Accredited Businesses have agreed to meet BBB's standards. `accreditationStatus` reports `Accredited` or `Not Accredited`, and `dateAccredited` gives the start date when accredited.
+
+**Why did I get fewer businesses than BBB's listed result count?**
+BBB can list one business multiple times — once per branch, franchise, or service address. By default this actor merges those into a single record per business. Turn on `includeBranchLocations` to get one record per listed location instead, each with its own address and `localReportUrl`.
+
+**How many results can one search return?**
+BBB caps a single search at 225 businesses. Add more entries to `locations`, or narrow with `stateFilter`, to collect more across a run, up to the 5,000 cap on `maxRecordsGlobal`.
+
+**Can I search Canada?**
+Yes — set `countries` to `CA` and use Canadian cities or postal codes such as `Toronto, ON`.
+
+**Why is `includeDetails` worth turning off?**
+With it off, you still get name, rating, accreditation, categories, phone, address, coordinates and the BBB profile link, from the search listing alone, which is noticeably faster for large runs.
+
+**Why are `emails` or `website` missing for some businesses?**
+Those fields only appear when the business published them on its own BBB profile; BBB does not require either.
+
+**Does this need a BBB account or a proxy?**
+No — it reads BBB's public directory and profile pages directly, and falls back to a proxy automatically only if a direct request is blocked.
+
+**Why might a run finish with an empty dataset?**
+Either the keyword has no matches in the chosen location, or the rating/accreditation/state filters excluded everything that was found.
+
+**Is this affiliated with the Better Business Bureau?**
+No. This is an independent tool that reads bbb.org's publicly accessible pages; you're responsible for using the data in line with BBB's own terms.

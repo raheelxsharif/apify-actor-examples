@@ -1,0 +1,121 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "contacts": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "additionalPhones": {
+            "label": "Other phones"
+          },
+          "address": {
+            "label": "Address"
+          },
+          "contactName": {
+            "label": "Contact"
+          },
+          "contactTitle": {
+            "label": "Title"
+          },
+          "emails": {
+            "label": "Emails"
+          },
+          "name": {
+            "label": "Business"
+          },
+          "phone": {
+            "label": "Phone"
+          },
+          "socialLinks": {
+            "label": "Social"
+          },
+          "url": {
+            "format": "link",
+            "label": "BBB profile"
+          },
+          "website": {
+            "format": "link",
+            "label": "Website"
+          }
+        }
+      },
+      "title": "Contacts",
+      "transformation": {
+        "fields": [
+          "name",
+          "contactName",
+          "contactTitle",
+          "phone",
+          "additionalPhones",
+          "emails",
+          "website",
+          "socialLinks",
+          "address",
+          "url"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "accreditationStatus": {
+            "label": "Accreditation"
+          },
+          "address": {
+            "label": "Address"
+          },
+          "complaintCount": {
+            "label": "Complaints"
+          },
+          "emails": {
+            "label": "Emails"
+          },
+          "name": {
+            "label": "Business"
+          },
+          "phone": {
+            "label": "Phone"
+          },
+          "primaryCategory": {
+            "label": "Category"
+          },
+          "rating": {
+            "label": "BBB rating"
+          },
+          "reviewCount": {
+            "label": "Reviews"
+          },
+          "url": {
+            "format": "link",
+            "label": "BBB profile"
+          },
+          "website": {
+            "format": "link",
+            "label": "Website"
+          },
+          "yearsInBusiness": {
+            "label": "Years in business"
+          }
+        }
+      },
+      "title": "Businesses",
+      "transformation": {
+        "fields": [
+          "name",
+          "rating",
+          "accreditationStatus",
+          "primaryCategory",
+          "phone",
+          "emails",
+          "website",
+          "address",
+          "yearsInBusiness",
+          "reviewCount",
+          "complaintCount",
+          "url"
+        ]
+      }
+    }
+  }
+}

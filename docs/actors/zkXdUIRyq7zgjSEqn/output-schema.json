@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "One record per BBB business with rating, accreditation, contacts, address, licences, hours, and review and complaint counts. Empty fields are omitted.",
+  "properties": {
+    "businesses": {
+      "description": "All BBB business records.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Businesses",
+      "type": "string"
+    },
+    "contacts": {
+      "description": "Contact person, phones, emails, website and social links per business.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=contacts",
+      "title": "Contacts view",
+      "type": "string"
+    }
+  },
+  "title": "BBB Business Ratings, Accreditation & Complaints Finder Output"
+}

@@ -1,0 +1,157 @@
+{
+  "description": "Search the BBB business directory (US and Canada) by keyword and location, with rating, accreditation, sort and detail options.",
+  "properties": {
+    "accreditedOnly": {
+      "default": false,
+      "description": "Only return BBB Accredited Businesses.",
+      "prefill": false,
+      "title": "BBB Accredited businesses only",
+      "type": "boolean"
+    },
+    "countries": {
+      "default": "US",
+      "description": "BBB directory to search.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "CA"
+      ],
+      "enumTitles": [
+        "United States",
+        "Canada"
+      ],
+      "prefill": "US",
+      "title": "Country",
+      "type": "string"
+    },
+    "includeBranchLocations": {
+      "default": false,
+      "description": "BBB lists some businesses once per location (branches, franchises, service addresses). Off: one record per business. On: one record per listed location, each with its own address, phone and coordinates.",
+      "prefill": false,
+      "title": "Include branch locations",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": true,
+      "description": "Also open each business's BBB profile for website, emails, contacts, dates, hours, licences, social links, reviews and complaints. Turn off for faster runs with search-listing data only.",
+      "prefill": true,
+      "title": "Include profile details",
+      "type": "boolean"
+    },
+    "keywords": {
+      "default": "plumber",
+      "description": "What to search for on BBB: a business category (plumber, electrician, roofing, auto repair) or a company name.",
+      "editor": "textfield",
+      "prefill": "plumber",
+      "title": "Keywords",
+      "type": "string"
+    },
+    "locations": {
+      "description": "Optional cities or postal codes, e.g. 'Chicago, IL', '10001', 'Toronto, ON'. Each is searched separately; businesses found twice are returned once. Leave empty for a country-wide search.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "Locations",
+      "type": "array"
+    },
+    "maxRecordsGlobal": {
+      "default": 3,
+      "description": "Maximum number of businesses for the whole run, across all locations.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max businesses (total)",
+      "type": "integer"
+    },
+    "maxRecordsPerLocation": {
+      "default": 50,
+      "description": "Maximum per location (0 = no per-location limit). BBB shows up to 225 businesses per search, so use several locations for more.",
+      "maximum": 5000,
+      "minimum": 0,
+      "title": "Max businesses per location",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": "any",
+      "description": "Only businesses rated at least this grade (businesses without a rating are excluded when set).",
+      "editor": "select",
+      "enum": [
+        "any",
+        "A+",
+        "A",
+        "A-",
+        "B+",
+        "B",
+        "B-",
+        "C+",
+        "C",
+        "C-",
+        "D+",
+        "D",
+        "D-",
+        "F"
+      ],
+      "enumTitles": [
+        "Any",
+        "A+",
+        "A or better",
+        "A- or better",
+        "B+ or better",
+        "B or better",
+        "B- or better",
+        "C+ or better",
+        "C or better",
+        "C- or better",
+        "D+ or better",
+        "D or better",
+        "D- or better",
+        "F or better (any rated)"
+      ],
+      "prefill": "any",
+      "title": "Minimum BBB rating",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "description": "Optional. BBB is fetched directly first; Apify proxies are used automatically only if needed. Choose your own proxy to use it as the fallback, or 'No proxy' to stay direct.",
+      "editor": "proxy",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Proxy settings.",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Order of BBB search results.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "rating",
+        "distance",
+        "aToZ",
+        "zToA"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Rating",
+        "Distance",
+        "Name A-Z",
+        "Name Z-A"
+      ],
+      "title": "Sort by",
+      "type": "string"
+    },
+    "stateFilter": {
+      "description": "Optional two-letter state or province code (e.g. IL, ON) to keep results from one state when a search area spans several.",
+      "editor": "textfield",
+      "title": "State / province filter",
+      "type": "string"
+    }
+  },
+  "required": [
+    "keywords"
+  ],
+  "schemaVersion": 1,
+  "title": "Better Business Bureau (BBB) Scraper",
+  "type": "object"
+}

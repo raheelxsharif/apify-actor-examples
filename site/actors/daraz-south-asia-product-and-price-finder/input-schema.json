@@ -1,0 +1,201 @@
+{
+  "description": "Search Daraz by keyword, or browse a real Daraz category. Filter by price range, rating, and sort order across the Pakistan, Bangladesh, Sri Lanka, and Nepal storefronts.",
+  "properties": {
+    "brand": {
+      "description": "Only keep products whose brand exactly matches this name (case-insensitive), e.g. `Dell`, `Samsung`, `Nike`. Matched against the brand Daraz shows on the listing — leave empty to include all brands. Narrower than a dropdown because Daraz doesn't expose a fixed, query-independent brand list.",
+      "editor": "textfield",
+      "title": "Brand",
+      "type": "string"
+    },
+    "category": {
+      "default": "phones-tablets",
+      "description": "Daraz category to browse (mode=category).",
+      "editor": "select",
+      "enum": [
+        "phones-tablets",
+        "computing",
+        "camera",
+        "home-appliances",
+        "fashion",
+        "shoes-clothing",
+        "jewellery-watches-eyewear",
+        "beauty-health",
+        "mother-baby",
+        "furniture-decor",
+        "home-improvement-tools",
+        "grocers-shop",
+        "sports-travel",
+        "motors-vehicles",
+        "books-games-music"
+      ],
+      "enumTitles": [
+        "Mobiles & Tablets",
+        "Computers & Laptops",
+        "Cameras",
+        "Home Appliances",
+        "Fashion",
+        "Shoes & Clothing",
+        "Watches, Sunglasses & Jewellery",
+        "Health & Beauty",
+        "Mother & Baby",
+        "Furniture & Decor",
+        "Tools, DIY & Outdoor",
+        "Groceries",
+        "Sports & Outdoors",
+        "Motors & Vehicles",
+        "Media, Music & Books"
+      ],
+      "prefill": "phones-tablets",
+      "title": "Category",
+      "type": "string"
+    },
+    "countrySite": {
+      "default": "pk",
+      "description": "Which Daraz storefront to scrape.",
+      "editor": "select",
+      "enum": [
+        "pk",
+        "bd",
+        "lk",
+        "np"
+      ],
+      "enumTitles": [
+        "Pakistan — daraz.pk",
+        "Bangladesh — daraz.com.bd",
+        "Sri Lanka — daraz.lk",
+        "Nepal — daraz.com.np"
+      ],
+      "prefill": "pk",
+      "title": "Country site",
+      "type": "string"
+    },
+    "freeShippingOnly": {
+      "default": false,
+      "description": "Only keep products that show a free-shipping / free-delivery badge.",
+      "prefill": false,
+      "title": "Free shipping only",
+      "type": "boolean"
+    },
+    "inStockOnly": {
+      "default": false,
+      "description": "Only keep products Daraz currently reports as in stock.",
+      "prefill": false,
+      "title": "In stock only",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on the number of products emitted.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop products priced above this amount (in the storefront's local currency).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Max price",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Drop products priced below this amount (in the storefront's local currency).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Min price",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": "0",
+      "description": "Only include products with at least this star rating.",
+      "editor": "select",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "Any rating",
+        "1 star & up",
+        "2 stars & up",
+        "3 stars & up",
+        "4 stars & up",
+        "5 stars only"
+      ],
+      "prefill": "0",
+      "title": "Minimum rating",
+      "type": "string"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch: search by keyword, or browse a category listing.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "category"
+      ],
+      "enumTitles": [
+        "Search products by keyword",
+        "Browse by category"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Daraz's product-listing API accepts plain datacenter traffic, so the free AUTO group is sufficient. Left on by default for IP diversity across large runs.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "mobile phone",
+      "description": "Free-text keyword (mode=search). Also used to narrow results within a category when mode=category.",
+      "editor": "textfield",
+      "prefill": "mobile phone",
+      "title": "Search query",
+      "type": "string"
+    },
+    "shippedFrom": {
+      "description": "Only keep products shipped from this region (case-insensitive exact match), e.g. `Punjab`, `Sindh`, `Local`, `Overseas` (Pakistan); `Dhaka`, `Chattogram` (Bangladesh); `Western`, `Southern` (Sri Lanka); `Bagmati Province` (Nepal). Matches Daraz's own \"Shipped From\" filter — leave empty to include all regions.",
+      "editor": "textfield",
+      "title": "Shipped from",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "popularity",
+      "description": "Result ordering, matching Daraz's own sort options.",
+      "editor": "select",
+      "enum": [
+        "popularity",
+        "priceasc",
+        "pricedesc"
+      ],
+      "enumTitles": [
+        "Popularity (best match)",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "prefill": "popularity",
+      "title": "Sort order",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode",
+    "countrySite"
+  ],
+  "schemaVersion": 1,
+  "title": "Daraz Scraper Input",
+  "type": "object"
+}
