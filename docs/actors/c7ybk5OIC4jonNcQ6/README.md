@@ -41,7 +41,7 @@ Search the [U.S. Small Business Administration's public Small Business Search di
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `mode` | string | `search` | `search` / `byState` / `byNaicsCode` / `byCertification` |
-| `searchTerm` | string | `bakery` | Business name, UEI, CAGE code, or keyword |
+| `searchTerm` | string | – (prefill `bakery`) | Business name, UEI, CAGE code, or keyword |
 | `states` | array | – | US states/territories to restrict to (mode=byState) |
 | `zipCodes` | array | – | 5-digit ZIP codes to restrict to |
 | `naicsSector` | string | – | Top-level NAICS industry sector (mode=byNaicsCode) |
@@ -60,7 +60,7 @@ Search the [U.S. Small Business Administration's public Small Business Search di
 | `lastUpdated` | string | `anytime` | Only businesses updated within `past-3-months` / `past-6-months` / `past-year` |
 | `stateFilter` / `naicsPrefixFilter` / `minYearEstablished` / `certificationFilter` | string / string / int / string | – | Extra client-side post-filters |
 | `requireWebsite` | bool | `false` | Only keep records that have a public website URL |
-| `maxItems` | int | `25` | Hard cap on emitted records (1-500) |
+| `maxItems` | int | `25` | Hard cap on emitted records (1-5000) |
 
 > Location filters (`states`, `zipCodes`, `msaCodes`, `countyFips`, `congressionalDistricts`) are combined with OR logic — a business matching *any* of them is included.
 
@@ -156,3 +156,7 @@ Search the [U.S. Small Business Administration's public Small Business Search di
 **How do I find an MSA code, county FIPS code, or congressional district?** MSA (metro area) codes and county FIPS codes are standard 5-digit US Census Bureau identifiers — look them up on Census.gov, or via the SBA's own Advanced Search "Metropolitan statistical area" / "Congressional district and county code list" reference tools. Congressional districts use the format `State-##` (e.g. `Texas-21`); at-large single-district states use `-00` and DC/Puerto Rico/Guam/US Virgin Islands/American Samoa/Northern Mariana Islands use `-98`.
 
 **Can I filter by employee count or annual revenue?** No — while the upstream search tool's data model includes these fields, they are not enforced as filters server-side (confirmed by testing) and the live search UI has no controls for them either, so this actor does not expose them to avoid a filter that silently does nothing.
+
+**How many results can one run return?** Up to `maxItems` (maximum 5,000). The SBA endpoint returns the complete match set in a single response, so the actor streams it and stops as soon as `maxItems` records are collected — there is no server-side page cursor to resume. For lists larger than 5,000, partition the query (for example by state, NAICS sector, or certification) and run each slice separately; results are de-duplicated by SBA entity ID within a run.
+
+**Can I search the entire directory with no filters?** No. The directory contains millions of profiles, so the actor requires at least one narrowing criterion (keyword, location, NAICS, certification, keyword tag, recency, bonding minimum, or active-SAM flag) and tells you which ones are accepted instead of attempting a full-table scan.

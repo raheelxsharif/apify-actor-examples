@@ -3,7 +3,7 @@
   "properties": {
     "auctionIds": {
       "default": [],
-      "description": "Scope lot search to one auction (mode=lots, first ID used), or look up full auction details (mode=auctionDetails, all IDs used). Find IDs in HiBid auction URLs, e.g. `hibid.com/auction/755763/...` → `755763`.",
+      "description": "Scope lot search to one or more auctions (mode=lots: all IDs searched in turn), or look up full auction details (mode=auctionDetails: all IDs used). Find IDs in HiBid auction URLs, e.g. `hibid.com/auction/755763/...` → `755763`.",
       "editor": "stringList",
       "prefill": [],
       "title": "Auction IDs (mode=lots/auctionDetails)",
@@ -87,19 +87,26 @@
       "title": "Category",
       "type": "string"
     },
+    "includeBidHistory": {
+      "default": false,
+      "description": "Add the public bid ledger (`bidHistory`: bid amount + count per level) to every lot in mode=lots. Costs one extra request per lot; mode=lotDetails and mode=bidHistory always include it.",
+      "prefill": false,
+      "title": "Include public bid history",
+      "type": "boolean"
+    },
     "includeEnded": {
       "default": false,
-      "description": "Include closed/ended auctions and lots instead of only currently open ones (mode=lots/auctions).",
+      "description": "Include closed/ended auctions and lots instead of only currently open ones (mode=lots/auctions). The archive search is capped by HiBid at 1,000 rows; narrow it with a category, state, or keyword to page further.",
       "prefill": false,
       "title": "Include ended (archived)",
       "type": "boolean"
     },
     "lotIds": {
       "default": [],
-      "description": "Look up specific lots by ID (mode=lotDetails). Find IDs in HiBid lot URLs, e.g. `hibid.com/lot/307654532/...` → `307654532`.",
+      "description": "Look up specific lots by ID (mode=lotDetails) or fetch their public bid history (mode=bidHistory). Find IDs in HiBid lot URLs, e.g. `hibid.com/lot/307654532/...` → `307654532`.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Lot IDs (mode=lotDetails)",
+      "title": "Lot IDs (mode=lotDetails/bidHistory)",
       "type": "array"
     },
     "maxItems": {
@@ -129,14 +136,16 @@
         "auctions",
         "lotDetails",
         "auctionDetails",
-        "auctioneers"
+        "auctioneers",
+        "bidHistory"
       ],
       "enumTitles": [
         "Search / browse lots (individual items)",
         "Search / browse auctions (events)",
-        "Lookup specific lots by ID",
+        "Lookup specific lots by ID (with bid history)",
         "Lookup specific auctions by ID",
-        "Search auctioneers / auction houses"
+        "Search auctioneers / auction houses",
+        "Public bid history for specific lots"
       ],
       "prefill": "lots",
       "title": "Mode",

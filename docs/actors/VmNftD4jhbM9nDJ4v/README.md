@@ -4,16 +4,19 @@
 
 # HiBid Auction Lots, Bids & Auctioneer Directory
 
-Search [HiBid.com](https://hibid.com) — the leading live and timed online auction aggregator for grassroots farm, equipment, estate, and antiques auctions across the US and Canada. Thousands of independent auctioneers list lots on HiBid every day; this actor lets you search or browse those lots and auctions by keyword, category, state/province, status, and more — no login required.
+Search [HiBid.com](https://hibid.com) — the leading live and timed online auction aggregator for grassroots farm, equipment, estate, and antiques auctions across the US and Canada. Thousands of independent auctioneers list lots on HiBid every day; this actor lets you search or browse those lots and auctions by keyword, category, state/province, status, and more, pull each lot's public bid ledger, and build an auctioneer directory with contact details — no login required.
 
 ## What this actor does
 
-- **Five modes:** search/browse lots, search/browse auctions, look up specific lots or auctions by ID, and search auctioneers (auction houses)
+- **Six modes:** search/browse lots, search/browse auctions, look up specific lots or auctions by ID, fetch public bid history for specific lots, and search auctioneers (auction houses)
+- **Bids up close:** current bid, bid count, high bid, the next-bid ladder, and the public bid ledger (amount + count per level) for detail and bid-history requests
+- **Auction-house directory with contact details:** phone, email, fax, and website for every auctioneer result, plus contact fields on each lot and auction
 - **Real HiBid taxonomy:** all 17 top-level categories (Antiques & Collectibles, Cars & Vehicles, Construction & Farm, Real Estate, etc.)
 - **Location filters:** any US state/territory or Canadian province, plus optional ZIP + radius search
 - **Status filters:** hot, top, closing soon, featured, open, closed
 - **Auction-type filters:** online-only, biddable, absentee, webcast, listing-only
 - **19 sort orders** for lot results — ending soonest, most bids, highest bid, newly added, and more
+- **Auction terms included:** buyer premium and rate, terms and conditions, notices, shipping/pickup, payment, preview and checkout info, accepted payment methods, and bid increments
 - **No login, no cookies, no paid proxy required** — HiBid's browse/search catalog is fully public; only placing a bid requires an account
 - Empty fields are omitted from every record
 
@@ -26,18 +29,24 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 | `lotId`, `lotNumber` | Lot identifiers |
 | `title`, `description` | Item title and full description |
 | `category`, `topCategory`, `categoryPath` | Leaf category, top-level category, full breadcrumb |
-| `currentBid`, `startingBid`, `bidCount` | Bidding status |
+| `currentBid`, `startingBid`, `highBid`, `bidCount` | Bidding status |
 | `buyNowPrice` | Buy-it-now price, if offered |
-| `status` | `OPEN`, `CLOSED`, `LIVE`, `SOLD`, etc. |
-| `timeLeft`, `timeLeftSeconds` | Time remaining until close |
-| `reserveSatisfied` | Whether the reserve price has been met |
+| `bidLadder[]` | The next bid amounts HiBid accepts for this lot |
+| `bidHistory[]`, `bidHistoryCount` | Public bid ledger (`amount` + `count` per level), when requested |
+| `status`, `timeLeft`, `timeLeftSeconds`, `timeLeftTitle` | Lot status and countdown |
+| `reserveSatisfied`, `biddingExtended`, `isSealed` | Bid rules |
+| `isArchived`, `isClosed`, `isLive`, `isNotYetLive`, `simulcastStatus` | Catalog/auction state |
+| `productStatus`, `productUrl`, `quantitySold`, `priceRealizedMessage` | Product listing state |
+| `bidMax`, `bidMaxTotal`, `softCloseMinutes`, `softCloseSeconds` | Bid ceiling and soft-close rules |
 | `quantity`, `pictureCount` | Item quantity and photo count |
 | `shippingOffered` | Whether the auctioneer offers shipping |
-| `imageUrl`, `thumbnailUrl`, `images[]` | Photo URLs |
+| `imageUrl`, `thumbnailUrl`, `images[]`, `videoUrls[]` | Photo and video URLs |
 | `auctionId`, `auctionTitle` | Parent auction |
-| `auctioneerName`, `auctioneerId` | Auction house |
+| `buyerPremium`, `buyerPremiumRate`, `bidType` | Parent auction terms |
+| `auctioneerName`, `auctioneerId`, `auctioneerPhone`, `auctioneerEmail`, `auctioneerWebsite` | Auction house |
 | `eventCity`, `eventState`, `eventZip`, `currency` | Location & currency |
 | `distanceMiles` | Distance from the given ZIP, if a radius search was used |
+| `saleOrder`, `ringNumber`, `itemId` | Catalog position |
 | `sourceUrl` | Canonical `hibid.com/lot/...` page |
 | `recordType: "lot"`, `scrapedAt` | |
 
@@ -49,11 +58,17 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 | `auctioneerName`, `auctioneerId` | Auction house |
 | `eventAddress`, `eventCity`, `eventState`, `eventZip` | Location |
 | `eventDateBegin`, `eventDateEnd`, `bidOpenDateTime`, `bidCloseDateTime` | Schedule |
-| `lotCount`, `openLotCount`, `matchingLotCount` | Lot counts |
-| `bidType`, `auctionStatus` | Bidding format and live status |
-| `buyerPremium`, `currency` | Terms |
-| `shippingOffered`, `shippingType`, `isWebcast`, `isBiddable` | Format flags |
-| `imageUrl`, `thumbnailUrl` | Featured photo |
+| `lotCount`, `openLotCount`, `matchingLotCount`, `timeToOpen` | Lot counts and timing |
+| `bidType`, `auctionStatus`, `regType` | Bidding format and live status |
+| `buyerPremium`, `buyerPremiumRate`, `currency` | Buyer premium terms |
+| `termsAndConditions`, `auctionNotice`, `biddingNotice` | Full terms and notices |
+| `shippingAndPickupInfo`, `paymentInfo`, `previewDateInfo`, `checkoutDateInfo`, `eventDateInfo` | Logistics |
+| `acceptsAmex`, `acceptsVisa`, `acceptsMastercard`, `acceptsDiscover` | Accepted payment methods |
+| `bidIncrements[]` | Minimum increment per amount band |
+| `shippingOffered`, `shippingType`, `isWebcast`, `isBiddable`, `altBiddingAvailable`, `catalogAvailable`, `liveCatalogAvailable`, `previewAvailable`, `registrationRequired`, `usesLotNumber`, `usesSaleOrder` | Format flags |
+| `altBiddingUrl`, `altBiddingUrlCaption` | Alternate bidding page |
+| `auctioneerPhone`, `auctioneerEmail`, `auctioneerWebsite` | Auction house contact |
+| `imageUrl`, `thumbnailUrl`, `videoUrls[]` | Featured photo and videos |
 | `distanceMiles` | Distance from the given ZIP, if a radius search was used |
 | `sourceUrl` | Canonical `hibid.com/auction/...` page |
 | `recordType: "auction"`, `scrapedAt` | |
@@ -64,27 +79,33 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 |---|---|
 | `auctioneerId`, `name` | Auction house identifier and name |
 | `address`, `city`, `state`, `postalCode`, `country` | Location |
-| `sourceUrl` | Canonical `hibid.com/auctioneer/...` page |
+| `phone`, `email`, `fax`, `website` | Public contact details |
+| `sourceUrl` | Canonical `hibid.com/company/...` profile page |
 | `recordType: "auctioneer"`, `scrapedAt` | |
+
+### Bid history (`mode=bidHistory`)
+
+One record per requested lot: `lotId`, `bidCount`, `bidLevels`, `highestBid`, `lowestBid`, `bidHistory[]` (`amount` + `count` per level), `sourceUrl`, `recordType: "bidHistory"`, `scrapedAt`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | select | `lots` | `lots` / `auctions` / `lotDetails` / `auctionDetails` / `auctioneers` |
+| `mode` | select | `lots` | `lots` / `auctions` / `lotDetails` / `auctionDetails` / `auctioneers` / `bidHistory` |
 | `searchText` | string | `tractor` | Keyword search (mode=lots/auctions) |
 | `category` | select | Any | One of the 17 HiBid top-level categories (mode=lots/auctions) |
 | `state` | select | Any | US state/territory or Canadian province (mode=lots/auctions/auctioneers) |
 | `status` | select | `ALL` | `ALL` / `HOT` / `TOP` / `CLOSING` / `FEATURED` / `OPEN` / `CLOSED` |
 | `auctionType` | select | `ALL` | `ALL` / `ONLINE` / `BIDDABLE` / `ABSENTEE` / `WEBCAST` / `LISTING` |
 | `sortOrder` | select | `LOT_NUMBER` | Sort order for lot results (mode=lots only) |
-| `auctionIds` | array | – | Scope lot search to one auction (mode=lots), or look up auctions (mode=auctionDetails) |
-| `lotIds` | array | – | Look up specific lots by ID (mode=lotDetails) |
+| `auctionIds` | array | – | Scope lot search to one or more auctions (mode=lots), or look up auctions (mode=auctionDetails) |
+| `lotIds` | array | – | Look up specific lots by ID (mode=lotDetails) or fetch bid history (mode=bidHistory) |
 | `auctioneerName` | string | – | Filter auctioneers by name (mode=auctioneers) |
 | `zipCode` | string | – | Center point for a distance search |
 | `milesRadius` | integer | `50` | Radius in miles (used with `zipCode`) |
 | `shippingOfferedOnly` | boolean | `false` | Only include lots/auctions offering shipping |
-| `includeEnded` | boolean | `false` | Include closed/ended auctions and lots |
+| `includeEnded` | boolean | `false` | Include closed/ended auctions and lots (archive capped at 1,000 rows) |
+| `includeBidHistory` | boolean | `false` | Add the public bid ledger to every lot in mode=lots (one extra request per lot) |
 | `maxItems` | integer | `50` | Hard cap on emitted records (1–2000) |
 | `proxyConfiguration` | proxy | AUTO | Optional; HiBid's catalog works without any proxy |
 
@@ -123,6 +144,15 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 }
 ```
 
+### Example: fetch the public bid history for specific lots
+
+```json
+{
+  "mode": "bidHistory",
+  "lotIds": ["330520707", "331958785"]
+}
+```
+
 ## Use cases
 
 - **Auction aggregation** — build a cross-auctioneer feed of open farm/equipment/estate lots
@@ -150,6 +180,8 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 
 **How fresh is the data?** Live — every request hits HiBid's own search API directly, so results reflect current bids and listings at the moment the actor runs.
 
+**What is the difference between `bidLadder` and `bidHistory`?** `bidLadder` is the list of next bid amounts HiBid will accept for a lot (shown even before the lot is live). `bidHistory` is the public ledger of bids that were actually placed — one entry per amount with how many bids landed at that amount. Bidder identities are not public on HiBid, so the ledger intentionally has no bidder names.
+
 **Why did an unfiltered `status=CLOSED` + `includeEnded=true` search return no results?** HiBid's closed/ended archive spans over a million lots. A search with no `category`, `state`, or `searchText` to narrow it can occasionally time out on HiBid's own server. Add a category, state, or keyword to scope the query — narrowed archive searches (e.g. `searchText` + `status=CLOSED`) work reliably.
 
 ## Data Source / Limitations
@@ -157,4 +189,7 @@ Search [HiBid.com](https://hibid.com) — the leading live and timed online auct
 - All data comes directly from HiBid's public browse/search API — no login, cookies, or paid proxy are required to view auctions, lots, or auctioneer listings.
 - Placing a bid requires a HiBid account; this actor only reads public listing data and never bids.
 - Very broad, unfiltered queries against the closed/ended archive (`includeEnded: true` with no category/state/keyword) can occasionally time out upstream given the archive's size — narrow with `category`, `state`, or `searchText` for reliable results.
+- HiBid caps any single archive search at 1,000 rows. To collect more closed lots, partition the query by category, state, or keyword.
+- HiBid does not publish per-auctioneer profile pages under `/auctioneer/...`; the actor links to the live `/company/...` profile HiBid itself uses.
+- Public bid history is aggregated by amount. HiBid does not expose bidder identities or per-bid timestamps without an account.
 - Category tagging reflects each auctioneer's own listing choices and is not independently verified by HiBid or this actor.

@@ -9,7 +9,7 @@ Search Rightmove, the UK's largest property portal, for homes for sale or to ren
 ## What this actor does
 
 - Searches properties for sale or to rent in any UK city, town, or region
-- Fetches listings from a specific Rightmove search or property page URL instead of running a new search
+- Fetches listings from a specific Rightmove search URL, or full details from an individual `rightmove.co.uk/properties/…` page
 - Filters by price range, bedroom count, property type, search radius, and new-homes-only
 - Sorts results by recency, price, or relevance, matching Rightmove's own sort options
 - Leaves out any field a listing doesn't provide rather than returning it empty
@@ -17,7 +17,7 @@ Search Rightmove, the UK's largest property portal, for homes for sale or to ren
 ## Output per property
 
 - `listingId`, `url` — Rightmove's property ID and listing page
-- `title`, `address` — summary text and display address
+- `title`, `description`, `address` — summary text, full property description when the listing page provides it, and display address
 - `price`, `priceText`, `currency`, `priceFrequency` — numeric price, formatted string, currency, and rental period when applicable
 - `bedrooms`, `bathrooms`, `propertyType`, `tenure`, `displaySize`
 - `latitude`, `longitude`
@@ -26,7 +26,7 @@ Search Rightmove, the UK's largest property portal, for homes for sale or to ren
 - `keyFeatures[]`, `tags[]` — bullet-point features and listing tags
 - `listedDate`, `lastUpdatedDate`, `updateReason`, `addedOrReduced`
 - `transactionType` — `buy` or `rent`
-- `isPremiumListing`, `isFeaturedProperty`, `isAuction`, `isDevelopment`, `isEnhancedListing` — present only when Rightmove flags the listing that way
+- `isPremiumListing`, `isFeaturedProperty`, `isAuction`, `isDevelopment`, `isEnhancedListing`, `isCommercial` — present only when Rightmove flags the listing that way
 - `countryCode`, `scrapedAt`
 
 ## Input
@@ -34,7 +34,7 @@ Search Rightmove, the UK's largest property portal, for homes for sale or to ren
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `mode` | string (select) | `forSale` | `forSale`, `toRent`, or `byUrl` |
-| `location` | string | `London` | UK city, town, or region to search (modes `forSale`/`toRent`) |
+| `location` | string | `London` | UK city, town, region, outcode or postcode to search (modes `forSale`/`toRent`) |
 | `startUrls` | array | `[]` | Rightmove search or listing page URLs (mode `byUrl`) |
 | `propertyType` | string (select) | `` (Any) | `detached`, `semi-detached`, `terraced`, `flat`, `bungalow`, `land`, or `park home` |
 | `minPrice` | integer | – | Minimum price in GBP |
@@ -102,16 +102,16 @@ Search Rightmove, the UK's largest property portal, for homes for sale or to ren
 ## FAQ
 
 **Which locations can I search?**
-Any UK city, town, or region Rightmove recognizes by name — e.g. `London`, `Manchester`, `Edinburgh`, `Cardiff`, `Oxford`, `Yorkshire`.
+Any UK city, town, region, outcode or postcode Rightmove recognizes — e.g. `London`, `Manchester`, `Edinburgh`, `Cardiff`, `Oxford`, `Yorkshire`, `SW1A`, `M4 7FD`. If Rightmove cannot match the name, the run returns no records instead of quietly using a different area.
 
 **How many properties can one run return?**
-Set `maxItems` to the number you need; the actor pages through Rightmove's own results until it reaches that count or runs out of matches.
+Set `maxItems` to the number you need; the actor pages through Rightmove's own results until it reaches that count or runs out of matches. Rightmove itself exposes roughly the first 1,000 matches for a single search — narrow the radius, price range or property type to collect more from a large area.
 
 **Does this include new-build developments?**
 Yes — turn on `newHomesOnly` to restrict to new builds, or leave it off to include every property type.
 
 **Can I search by postcode instead of a city name?**
-Use `mode=byUrl` with a Rightmove search URL built around your postcode as the location.
+Yes — put the postcode or outcode in `location` (e.g. `SW1A 1AA` or `M4`), or use `mode=byUrl` with a Rightmove search URL built around it.
 
 **What does `priceFrequency` mean?**
 It's the rental period (e.g. monthly) shown next to the price on rental listings; sale listings don't have one.
@@ -121,6 +121,9 @@ Those come straight from what the listing agent published on Rightmove; if a lis
 
 **What's the difference between `includeSSTC` on and off?**
 Off (the default) excludes properties already marked Sold Subject To Contract or Let Agreed, so results reflect only still-available listings; turning it on includes those too.
+
+**What happens if Rightmove temporarily blocks the request?**
+The actor retries with a fresh anonymous browser session and pacing, then reports the block honestly in the run status instead of returning empty rows as if there were no matches.
 
 **Is this affiliated with Rightmove?**
 No. This is an independent actor that reads Rightmove's publicly accessible search and listing pages.

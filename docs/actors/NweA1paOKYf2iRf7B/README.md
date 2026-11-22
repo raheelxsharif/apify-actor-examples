@@ -4,14 +4,15 @@
 
 # Idealist Social-Impact Jobs & Volunteering Search
 
-Search **Idealist.org** — the world's largest directory of volunteer opportunities, nonprofit jobs, internships, events, and mission-driven organizations. Search by keyword, cause area, location, organization type, and remote/on-site/hybrid, or look up specific listings by ID or URL. No login, no API key, no cookies.
+Search **Idealist.org** — the world's largest directory of volunteer opportunities, nonprofit jobs, internships, events, and mission-driven organizations. Search by keyword, cause area, skill, location, remote scope, salary, recency, and audience, or look up specific listings by ID or URL. No login, no API key, no cookies.
 
 ## What this actor does
 
 - **Two modes:** `search` (keyword + filters across all listing types) and `byIds` (exact lookup by listing ID or URL)
 - **5 listing types in one actor:** volunteer opportunities, nonprofit jobs, internships, events, and organizations
-- **Rich filters:** cause area, skill/role focus, organization type, work location (on-site/remote/hybrid), country, U.S. state, "can be done in a day", experience level, job type, education required, sort by best match or newest
+- **Rich filters:** cause area, skill/role focus, organization type, work location (on-site/remote/hybrid), remote scope, country, U.S. state, "can be done in a day", audience/welcome groups, experience level, job type, education required, salary-only jobs, recency, and sort by best match or newest
 - **Full listing detail:** description, cause areas, skills, salary (jobs), event dates, organization mission and stats
+- **Optional detail enrichment:** adds application deadline, direct-apply flag, street address, postal code, event venue, and applicant-location fields from each listing page
 - **Empty fields are omitted** — every record only contains fields Idealist actually returned
 
 ## Output per listing
@@ -23,16 +24,18 @@ Search **Idealist.org** — the world's largest directory of volunteer opportuni
 - `isAnonymous` — `true` if the poster chose to hide their identity (volunteer opportunities, jobs, internships)
 - `organizationId`, `organizationName`, `organizationType`, `organizationUrl`
 - `city`, `state`, `stateName`, `country`, `countryName`
-- `locationType` (On-site / Remote / Hybrid), `isRemote`, `remoteZone`
+- `locationType` (On-site / Remote / Hybrid), `isRemote`, `remoteZone`, `remoteCountry`, `remoteCountryName`, `remoteState`
 - `latitude`, `longitude`
 - `causeAreas[]` — cause/issue areas (e.g. Education, Environment & Sustainability)
-- `categories[]` — skills / focus keywords
+- `skills[]` — skills / role focus (e.g. Fundraising, Program Management)
+- `categories[]` — human-readable categories from Idealist's keywords
 - `postedAt` — ISO 8601 timestamp
 - Volunteer-opportunity fields: `canBeDoneInADay`, `welcomesGroups`, `welcomesFamilies`, `trainingProvided`, `stipendProvided`, `academicCreditAvailable`, `housingAvailable`, `welcomes[]`
 - Job fields: `isFullTime`, `jobTypes[]`, `professionalLevel`, `educationRequired`, `salaryMinimum`, `salaryMaximum`, `salaryPeriod`, `salaryCurrency`
 - Internship fields: `payment`
 - Event fields: `eventStartDate`, `eventEndDate`, `eventStartTime`, `eventEndTime`, `eventTimezone`, `eventStartsLocal`, `eventEndsLocal`
-- Organization fields: `isHiring`, `isSeekingVolunteers`, `hasUpcomingEvents`
+- Organization fields: `isHiring`, `isSeekingVolunteers`, `hasUpcomingEvents`, `hasPublishedListings`
+- Detail-enrichment fields (when `enrichDetails` is on): `applicationDeadline`, `directApply`, `streetAddress`, `postalCode`, `eventLocationName`, `eventAttendanceMode`, `applicantLocation`, `areaServed`
 - `imageUrl`, `logoUrl`
 - `sourceUrl` — canonical Idealist listing/organization URL
 - `recordType: "listing"`, `scrapedAt`
@@ -43,20 +46,26 @@ Search **Idealist.org** — the world's largest directory of volunteer opportuni
 |---|---|---|---|
 | `mode` | string | `search` | `search` / `byIds` |
 | `searchQuery` | string | `education` | Free-text keyword, skill, or interest (mode=search) |
+| `searchQueries` | array | – | One or more keywords; each runs as a separate search and results are deduplicated (mode=search) |
 | `listingType` | string | `VOLOP` | Volunteer Opportunity / Nonprofit Job / Internship / Event / Organization / Any (mode=search) |
 | `orgType` | string | – | Nonprofit / Government / Corporation / Consultant / Community Group / Recruiter (mode=search) |
 | `locationType` | string | – | On-site / Remote / Hybrid (mode=search) |
+| `remoteScope` | string | – | For remote listings: Worldwide / Country-wide / State-wide / City-wide (mode=search) |
 | `areaOfFocus` | string | – | Cause area, e.g. Education, Environment & Sustainability (mode=search) |
 | `skill` | string | – | Skill / role focus, e.g. Fundraising, Program Management, Social Media (mode=search) |
+| `welcomes` | array | – | Audience filters for volunteer opportunities: Age 55+, Teens, Groups, Private corporate groups, International volunteers, Families (mode=search) |
 | `country` | string | – | Restrict to a specific country (mode=search) |
 | `usState` | string | – | Restrict to a specific U.S. state (mode=search) |
 | `canBeDoneInADay` | boolean | `false` | Only volunteer opportunities completable in a single day (mode=search) |
+| `onlyWithSalary` | boolean | `false` | Only nonprofit jobs that publish a salary range (mode=search) |
 | `professionalLevel` | string | – | Experience level: Entry Level / Professional / Managerial / Director / Executive (mode=search, jobs) |
 | `jobType` | string | – | Full-time / Part-time / Temporary / Contract (mode=search, jobs) |
 | `education` | string | – | Minimum education required, e.g. High School, Four-Year Degree, J.D. (mode=search, jobs) |
 | `sortBy` | string | `relevance` | `relevance` (best match) / `newest` |
+| `postedWithinDays` | integer | – | Only listings published in the last N days (1–365) |
 | `listingIds` | array | – | Listing IDs or full listing URLs (mode=byIds) |
 | `maxItems` | int | `30` | Hard cap on emitted records (1–1000) |
+| `enrichDetails` | boolean | `false` | Fetch each listing page and add deadline, direct-apply, address, and venue fields (one extra request per record) |
 
 ### Example: education volunteer opportunities
 
@@ -143,7 +152,19 @@ No — this is an independent, third-party actor that reads Idealist's publicly 
 Only fields the source organization actually filled in are included — a listing without a specified salary simply omits the salary fields rather than showing an empty value. Field sets also differ by `listingType` (e.g. only jobs have `salaryMinimum`).
 
 **How many results can I get per search?**
-Idealist's listing search returns at most 1000 results for any single query/filter combination — this is a limit of the underlying search index, not of this actor. Narrow your `searchQuery` or filters (cause area, location, organization type) to reach more specific results within that limit.
+Idealist's listing search returns at most 1000 results for any single query/filter combination — this is a limit of the underlying search index, not of this actor. Narrow your `searchQuery` or filters (cause area, location, organization type, recency) to reach more specific results within that limit.
+
+**Can I run several keywords in one run?**
+Yes — use `searchQueries` with a list of keywords. Each query is searched separately and duplicates are removed, so a list of queries can collect more than the 1,000-result per-query cap. When `searchQueries` is set it takes precedence over `searchQuery`.
+
+**What does `enrichDetails` add?**
+It opens each emitted listing's public page and reads its structured data, adding only fields that are not in the search index: application deadline, direct-apply flag, street address, postal code, event venue, event attendance mode, applicant location, and organization area served. It is off by default because it adds one request per record.
+
+**Can I search remote roles by scope?**
+Yes — set `locationType=Remote` and optionally `remoteScope` to Worldwide, Country-wide, State-wide, or City-wide.
+
+**Do old saved-task inputs keep working?**
+Legacy keys such as `query`, `type`, `ids`, `cause`, `state`, and `employmentType` are mapped onto the current schema inside the actor when the current field is not set. They are intentionally not shown in the input form. Apify may pre-fill current defaults (for example `maxItems`), and those take precedence; use the current field names in new tasks.
 
 **How fresh is the data?**
 Every run queries Idealist live — there is no caching. Sort by `newest` to see the most recently posted listings first.

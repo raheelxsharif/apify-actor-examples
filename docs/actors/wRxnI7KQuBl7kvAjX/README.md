@@ -4,55 +4,57 @@
 
 # DesignRush Agency Directory & Profile Extractor
 
-Pull digital agency listings and full profile pages from DesignRush, the B2B marketplace that ranks agencies by service category. Browse any of 15 service categories for a batch of agencies, or fetch specific agency profile pages for deeper contact and company details.
+Turn DesignRush's agency rankings into structured datasets: browse a service category with location, budget, industry and sort filters across as many pages as you need, or read individual agency profiles for deeper company, review and contact detail.
 
 ## What this actor does
 
-- Browses any of DesignRush's 15 service-category directories (digital marketing, web design, SEO, branding, and more) for a list of ranked agencies
-- Fetches individual agency profile pages by URL for a fuller record, including address and contact details
-- Captures ratings, review counts, services, and portfolio signals exactly as DesignRush displays them
-- Works without any account, login, or API key
-- Leaves out any field DesignRush doesn't show for a given agency rather than returning it empty
-
-## Output per agency — category browsing (`mode=byCategory`)
-
-- `agencyName`, `agencySlug`, `agencyId` — DesignRush's internal listing ID
-- `profileUrl`, `websiteUrl` — DesignRush profile page and the agency's own site
-- `tagline`, `description`
-- `services[]` — service tags shown on the listing
-- `location` — city and state/region as displayed
-- `employeeCount`, `hourlyRate`, `minBudget`, `portfolioCount`
-- `rating`, `reviewCount`, `featuredReviewHeadline`
-- `logoUrl`
-- `category` — the service category slug this record was found under
-- `recordType` — always `agency`, `scrapedAt`, `sourceUrl`
-
-## Output per agency — profile pages (`mode=byUrl`)
-
-- `agencyName`, `agencySlug`, `profileUrl`, `websiteUrl`, `logoUrl`
-- `phone`, `email` — contact details published on the profile
-- `location`, `city`, `region`, `country`, `streetAddress`, `postalCode` — parsed from the agency's address
-- `priceRange`, `rating`, `reviewCount`, `description`
-- `services[]`, `industries[]`, `clients[]` — lists DesignRush publishes on the profile, when present
-- `recordType` — always `agency`, `scrapedAt`, `sourceUrl`
+- Reads any of 27 DesignRush service categories, from digital marketing and SEO to branding, web development, video and IT services
+- Filters the directory by location path, minimum project budget, industry and sort order, and follows pagination up to your chosen page limit
+- Reads specific agency profile pages by URL or slug, including contact details, address, pricing, team, portfolio, press, awards and client list
+- Captures both DesignRush ratings and Google ratings when the site displays them
+- Works without an account, login, cookie or API key
+- Omits fields the source does not show for a specific agency instead of returning empty values
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `byCategory` | `byCategory` (browse a service category) or `byUrl` (fetch specific profile pages) |
-| `category` | string (select) | `digital-marketing` | Service category slug to browse — 15 options, e.g. `seo`, `branding`, `it-services` (mode=byCategory) |
-| `agencyUrls` | array | `[]` | Full DesignRush agency profile URLs, e.g. `https://www.designrush.com/agency/profile/smartsites` (mode=byUrl) |
-| `startUrls` | array | `[]` | Alternative to `agencyUrls` — accepts an Apify-style URL list or plain strings (mode=byUrl) |
-| `maxItems` | integer | `50` | Hard cap on the number of agencies returned (1-500) |
+| `mode` | select | `byCategory` | `byCategory` browses a service category; `byUrl` reads specific agency profiles |
+| `category` | select | `digital-marketing` | Service category to browse. 27 current categories plus legacy saved values (`seo`, `branding`, `mobile-app-development`, `pr-firms`, `advertising`) |
+| `location` | text | empty | Optional location path: `us`, `uk`, a state such as `new-york` or `california`, or a state/city pair such as `new-york/new-york-city`. Empty means worldwide |
+| `budget` | select | `any` | Minimum project budget filter: `$1,000 - $10,000`, `$10,000 - $25,000`, `$25,000 - $50,000`, `$50,000 & Up` |
+| `industry` | select | `any` | Industry filter with 45 options, including finance, healthcare-related categories, eCommerce, SaaS/IT and Industrial |
+| `sortBy` | select | `sponsored` | DesignRush order, organic ranking, top rated, most reviewed, hourly rate high-to-low or low-to-high |
+| `startPage` | integer | `1` | Directory page to start from (1-432) |
+| `maxPages` | integer | `20` | Maximum pages to read (1-432). The actor also stops at the last page or when `maxItems` is reached |
+| `maxItems` | integer | `50` | Hard cap on returned agency records (1-5000) |
+| `agencyUrls` | string list | `[]` | Profile URLs or slugs for `byUrl`, e.g. `https://www.designrush.com/agency/profile/smartsites` |
+| `startUrls` | request list | `[]` | Alternative profile URL input for saved tasks; accepts request-list objects or plain URLs |
 
-### Example: top SEO agencies
+### Example: US SEO agencies with a mid-range budget, top rated first
 
 ```json
 {
   "mode": "byCategory",
-  "category": "seo",
-  "maxItems": 50
+  "category": "search-engine-optimization",
+  "location": "us",
+  "budget": "10000-25000",
+  "industry": "finance",
+  "sortBy": "topRated",
+  "maxItems": 250,
+  "maxPages": 10
+}
+```
+
+### Example: branding agencies in New York City
+
+```json
+{
+  "mode": "byCategory",
+  "category": "logo-branding",
+  "location": "new-york/new-york-city",
+  "maxItems": 100,
+  "maxPages": 5
 }
 ```
 
@@ -62,51 +64,81 @@ Pull digital agency listings and full profile pages from DesignRush, the B2B mar
 {
   "mode": "byUrl",
   "agencyUrls": [
-    "https://www.designrush.com/agency/profile/smartsites"
+    "https://www.designrush.com/agency/profile/smartsites",
+    "https://www.designrush.com/agency/profile/webfx"
   ]
 }
 ```
 
-### Example: branding agencies, smaller batch
+### Example: continue a large category from page 50
 
 ```json
 {
   "mode": "byCategory",
-  "category": "branding",
-  "maxItems": 20
+  "category": "digital-marketing",
+  "startPage": 50,
+  "maxItems": 500,
+  "maxPages": 10
 }
 ```
 
+## Output
+
+Every record has `recordType`, `scrapedAt` and `sourceUrl`. Directory records also carry `category`, `categorySlug` and `categoryName`; profile records carry the richer profile fields.
+
+### Directory records (`byCategory`)
+
+- `agencyName`, `agencyId`, `agencySlug`, `profileUrl`, `websiteUrl`, `logoUrl`
+- `tagline`, `description`, `services[]`
+- `location`, `employeeCount`, `hourlyRate`, `minBudget`, `portfolioCount`
+- `rating`, `reviewCount`, `googleRating`, `googleReviewCount`
+- `badges[]`, `verified`, `isSponsored`, `listingPosition`, `page`
+- `clients[]` and up to five `reviews[]` when DesignRush shows them
+- `featuredReviewHeadline`, `featuredReviewAuthor`, `featuredReviewText`, `featuredReviewRating`
+
+### Profile records (`byUrl`)
+
+- Identity and contact: `agencyName`, `agencySlug`, `profileUrl`, `websiteUrl`, `logoUrl`, `phone`, `email`
+- Address: `streetAddress`, `city`, `region`, `postalCode`, `country`, `location`
+- Company: `yearFounded`, `employeeCount`, `minBudget`, `hourlyRate`, `description`
+- Ratings: `rating`, `reviewCount`, `googleRating`, `googleReviewCount`
+- Tags: `services[]`, `expertise[]`, `expertiseGroups`, `industries[]`, `clientTypes[]`, `badges[]`, `verified`
+- Proof: `clients[]`, `portfolioItems[]`, `teamBios[]`, `pressMentions[]`, `awards[]`, `socialLinks`
+- Feedback: up to ten `reviews[]` with author, role, company, rating, date, title and text
+
+## Pagination and coverage
+
+DesignRush renders 48-50 agencies per directory page. Set `maxItems` to the number of records you need and `maxPages` high enough to reach it; the actor stops automatically at the source's last page. Sponsored placements can repeat between pages, so records are de-duplicated by DesignRush agency ID before they are pushed. For very large categories, split the work with `startPage` and keep `location`, `budget`, `industry` and `sortBy` identical between slices.
+
+The largest category (digital marketing) currently exposes 432 pages. A single run can read up to 432 pages and 5,000 records.
+
 ## Use cases
 
-- Shortlisting vendors for an RFP by pulling ranked agencies in a service category
-- Competitive intelligence on pricing tiers, team sizes, and client counts
-- Lead generation lists for B2B software or services sold to agencies
-- Benchmarking an agency's own public profile against category peers
-- Building a searchable internal directory of vetted service providers
+- Build a shortlist of agencies in a category, city and budget range for an RFP
+- Track competitor pricing, team size, ratings and review counts over time
+- Enrich a CRM with agency contact details, websites, social profiles and client names
+- Research which services and industries agencies emphasize on their profiles
+- Monitor new agencies and ranking changes by reading the first pages on a schedule
 
 ## FAQ
 
-**Do I need a DesignRush account or API key?**
-No — both modes read DesignRush's publicly available pages.
+**Do I need a DesignRush account, cookie or API key?**
+No. The actor reads publicly available directory and profile pages. No user credentials are required.
 
-**What's the difference between the two modes?**
-`byCategory` returns a batch of agencies ranked under one service category, with listing-level fields like rating and hourly rate. `byUrl` fetches one or more specific agency profile pages instead, which can include contact and address details not shown on the category listing.
+**How do I target a city or country?**
+Use the `location` path shown in the DesignRush directory URL. `us` and `uk` are country paths; US states use their own slugs; cities are nested under a state, for example `california/los-angeles`. A full DesignRush directory URL is also accepted.
 
-**How many agencies can I get from one category?**
-`byCategory` reads a single category listing page per run, so the number of agencies available is whatever DesignRush renders on that page (typically a few dozen); `maxItems` only caps how many of those are returned, it doesn't paginate further into the category.
+**Why did I get fewer records than `maxItems`?**
+The category may have fewer pages with your filters, or you may have reached the end of the directory. The actor does not invent rows to fill the cap.
 
-**Can I combine several categories in one run?**
-Run `byCategory` once per category, or switch to `byUrl` with profile links gathered from multiple categories.
+**Why are some records missing ratings, reviews, clients or awards?**
+Those blocks only exist when the agency has published them. Missing fields are omitted, never filled with fabricated values.
 
-**Why do some agencies have no `phone` or `email`?**
-Those only appear on `byUrl` profile fetches, and only when the agency itself published them on its DesignRush profile.
+**Can I mix several categories in one run?**
+Run one task per category, or create several tasks with the same settings. Each record carries its category so results can be combined.
 
-**Is the `hourlyRate` or `minBudget` guaranteed to be current?**
-These are self-reported figures DesignRush displays on the listing at the time of the request; they reflect whatever the agency has set most recently.
-
-**Can I filter by city or location?**
-DesignRush's own location filtering lives in the category page's URL. Use `byUrl` with a location-filtered DesignRush URL to target a specific area.
+**Does the actor need a proxy setup?**
+No. It automatically uses the access path the site requires; you do not configure anything.
 
 **Is this affiliated with DesignRush?**
-No. This is an independent actor that reads DesignRush's publicly accessible directory and profile pages.
+No. This is an independent data extractor for publicly accessible pages.

@@ -111,7 +111,7 @@
     "maxItems": {
       "default": 25,
       "description": "Hard cap on emitted business records.",
-      "maximum": 500,
+      "maximum": 5000,
       "minimum": 1,
       "prefill": 25,
       "title": "Max items",
@@ -292,7 +292,6 @@
       "type": "boolean"
     },
     "searchTerm": {
-      "default": "bakery",
       "description": "Business name, UEI, CAGE code, or keyword (matches capabilities narrative and tags too). Note: SBA's own search does raw substring matching across a large free-text narrative field, not word-boundary matching — a common term (e.g. \"bakery\") can surface loosely-related businesses whose name or narrative merely contains a similar-looking substring (e.g. a firm with \"Baker\" in its name). This is an upstream search-relevance characteristic, not something this actor filters — for precise results, combine with `states`/`naicsCodes`/`certifications`.",
       "editor": "textfield",
       "prefill": "bakery",
