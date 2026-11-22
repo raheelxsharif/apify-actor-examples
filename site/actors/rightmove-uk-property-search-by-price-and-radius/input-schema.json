@@ -1,0 +1,184 @@
+{
+  "description": "Search Rightmove for properties for sale or to rent, or fetch any Rightmove listing page by URL.",
+  "properties": {
+    "includeSSTC": {
+      "default": false,
+      "description": "Include properties that are Sold Subject To Contract (SSTC) or Let Agreed.",
+      "prefill": false,
+      "title": "Include Sold STC / Let Agreed",
+      "type": "boolean"
+    },
+    "location": {
+      "default": "London",
+      "description": "City, town, or region name (e.g. `London`, `Manchester`, `Leeds`). Used in modes `forSale` and `toRent`.",
+      "editor": "textfield",
+      "prefill": "London",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxBedrooms": {
+      "description": "Maximum number of bedrooms. Leave blank for no maximum.",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Max bedrooms",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of property records to return.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum property price in GBP. Leave blank for no maximum.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Max price (GBP)",
+      "type": "integer"
+    },
+    "minBedrooms": {
+      "default": 0,
+      "description": "Minimum number of bedrooms.",
+      "maximum": 20,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Min bedrooms",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Minimum property price in GBP. Leave blank for no minimum.",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Min price (GBP)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "forSale",
+      "description": "Scraping mode: search properties for sale, to rent, or fetch a specific listing page URL.",
+      "editor": "select",
+      "enum": [
+        "forSale",
+        "toRent",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "For Sale — search properties for sale",
+        "To Rent — search rental properties",
+        "By URL — fetch a Rightmove listing or search page URL"
+      ],
+      "prefill": "forSale",
+      "title": "Mode",
+      "type": "string"
+    },
+    "newHomesOnly": {
+      "default": false,
+      "description": "Only return new-build / new-home properties.",
+      "prefill": false,
+      "title": "New homes only",
+      "type": "boolean"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "Restrict results to a specific property type. Leave blank for all types.",
+      "editor": "select",
+      "enum": [
+        "",
+        "detached",
+        "semi-detached",
+        "terraced",
+        "flat",
+        "bungalow",
+        "land",
+        "park home"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Detached",
+        "Semi-detached",
+        "Terraced",
+        "Flat / apartment",
+        "Bungalow",
+        "Land",
+        "Park home"
+      ],
+      "prefill": "",
+      "title": "Property type filter",
+      "type": "string"
+    },
+    "radius": {
+      "default": "0.0",
+      "description": "Search radius around the location in miles.",
+      "editor": "select",
+      "enum": [
+        "0.0",
+        "0.25",
+        "0.5",
+        "1.0",
+        "2.0",
+        "3.0",
+        "5.0",
+        "10.0",
+        "15.0",
+        "20.0",
+        "30.0",
+        "40.0"
+      ],
+      "enumTitles": [
+        "This area only",
+        "0.25 miles",
+        "0.5 miles",
+        "1 mile",
+        "2 miles",
+        "3 miles",
+        "5 miles",
+        "10 miles",
+        "15 miles",
+        "20 miles",
+        "30 miles",
+        "40 miles"
+      ],
+      "prefill": "0.0",
+      "title": "Search radius (miles)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "2",
+      "description": "Sort order for results.",
+      "editor": "select",
+      "enum": [
+        "2",
+        "1",
+        "6",
+        "10",
+        "4"
+      ],
+      "enumTitles": [
+        "Most recent",
+        "Highest price",
+        "Lowest price",
+        "Most relevant",
+        "Oldest listing"
+      ],
+      "prefill": "2",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "One or more Rightmove search or listing page URLs. Used in mode `byUrl`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Rightmove Property Scraper Input",
+  "type": "object"
+}
