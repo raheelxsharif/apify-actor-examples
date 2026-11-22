@@ -1,0 +1,94 @@
+{
+  "description": "Scrape DesignRush agency directory for verified digital agency profiles.",
+  "properties": {
+    "agencyUrls": {
+      "default": [],
+      "description": "Full DesignRush agency profile URLs, e.g. https://www.designrush.com/agency/profile/smartsites",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Agency profile URLs (mode=byUrl)",
+      "type": "array"
+    },
+    "category": {
+      "default": "digital-marketing",
+      "description": "Agency service category slug (mode=byCategory).",
+      "editor": "select",
+      "enum": [
+        "digital-marketing",
+        "website-design-development",
+        "software-development",
+        "seo",
+        "mobile-app-development",
+        "branding",
+        "video-production",
+        "ecommerce",
+        "social-media-marketing",
+        "pr-firms",
+        "content-marketing",
+        "ui-ux-design",
+        "email-marketing",
+        "advertising",
+        "it-services"
+      ],
+      "enumTitles": [
+        "Digital Marketing",
+        "Web Design & Development",
+        "Software Development",
+        "SEO",
+        "Mobile App Development",
+        "Branding",
+        "Video Production",
+        "eCommerce",
+        "Social Media Marketing",
+        "PR Firms",
+        "Content Marketing",
+        "UI/UX Design",
+        "Email Marketing",
+        "Advertising",
+        "IT Services"
+      ],
+      "prefill": "digital-marketing",
+      "title": "Service category",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byCategory",
+      "description": "What data to fetch.",
+      "editor": "select",
+      "enum": [
+        "byCategory",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Browse agencies by service category",
+        "Scrape specific agency profiles by URL"
+      ],
+      "prefill": "byCategory",
+      "title": "Mode",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Alternative input for mode=byUrl. Accepts Apify-style URL list (array of {url}) or plain strings. Use either this or agencyUrls.",
+      "editor": "requestListSources",
+      "prefill": [],
+      "title": "Start URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "DesignRush Scraper Input",
+  "type": "object"
+}
