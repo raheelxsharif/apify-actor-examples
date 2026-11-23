@@ -1,0 +1,100 @@
+{
+  "description": "Search companies or get reviews from ProductReview.com.au.",
+  "properties": {
+    "category": {
+      "description": "Browse companies in a specific category.",
+      "editor": "select",
+      "enum": [
+        "insurance",
+        "finance",
+        "shops",
+        "health",
+        "home-services",
+        "automotive",
+        "telco",
+        "travel",
+        "education",
+        "food-beverages",
+        "electronics",
+        "fashion-beauty",
+        "real-estate",
+        "sports-leisure",
+        "pets",
+        "professional-services"
+      ],
+      "enumTitles": [
+        "Insurance",
+        "Finance",
+        "Shops & Retail",
+        "Health",
+        "Home Services",
+        "Automotive",
+        "Telco & Internet",
+        "Travel",
+        "Education",
+        "Food & Beverages",
+        "Electronics",
+        "Fashion & Beauty",
+        "Real Estate",
+        "Sports & Leisure",
+        "Pets",
+        "Professional Services"
+      ],
+      "title": "Category (mode=searchCompanies)",
+      "type": "string"
+    },
+    "companySlugs": {
+      "description": "List of company slug strings from ProductReview.com.au, e.g. 'amazon', 'nrma-car-insurance'. Accepts full URLs too.",
+      "editor": "stringList",
+      "title": "Company slugs (mode=getReviews)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Maximum number of records to return (1â€“10000).",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 100,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minRating": {
+      "default": 1,
+      "description": "Only return reviews with at least this star rating (1â€“5).",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Minimum rating (mode=getReviews)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchCompanies",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchCompanies",
+        "getReviews"
+      ],
+      "enumTitles": [
+        "Search companies/products by keyword",
+        "Get reviews for specific companies"
+      ],
+      "prefill": "searchCompanies",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "description": "Keyword to search for companies or product categories.",
+      "editor": "textfield",
+      "prefill": "insurance",
+      "title": "Search query (mode=searchCompanies)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Consumer Affairs Scraper Input",
+  "type": "object"
+}

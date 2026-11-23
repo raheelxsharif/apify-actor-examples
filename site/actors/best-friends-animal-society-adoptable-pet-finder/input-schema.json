@@ -1,0 +1,193 @@
+{
+  "description": "Browse adoptable pets by location, search by name, or fetch individual pet profiles from bestfriends.org.",
+  "properties": {
+    "age": {
+      "default": "",
+      "description": "Only emit pets in this age group.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Baby",
+        "Young",
+        "Adult",
+        "Senior"
+      ],
+      "enumTitles": [
+        "All",
+        "Baby",
+        "Young",
+        "Adult",
+        "Senior"
+      ],
+      "prefill": "",
+      "title": "Age",
+      "type": "string"
+    },
+    "animalIds": {
+      "default": [],
+      "description": "Best Friends animal IDs from pet profile URLs, e.g. `214192932`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Animal IDs (mode=byIds)",
+      "type": "array"
+    },
+    "enrichDetails": {
+      "default": true,
+      "description": "Fetch each pet's profile page for species, description, photos, birthdate, adoption link. When off, records contain card-level data only.",
+      "prefill": true,
+      "title": "Fetch full profile details",
+      "type": "boolean"
+    },
+    "location": {
+      "default": "salt-lake-city",
+      "description": "Best Friends adoption center (mode=byLocation, mode=byIds).",
+      "editor": "select",
+      "enum": [
+        "salt-lake-city",
+        "los-angeles",
+        "new-york-city",
+        "houston",
+        "northwest-arkansas"
+      ],
+      "enumTitles": [
+        "Salt Lake City, UT",
+        "Los Angeles, CA",
+        "New York City, NY",
+        "Houston, TX",
+        "Northwest Arkansas"
+      ],
+      "prefill": "salt-lake-city",
+      "title": "Location",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byLocation",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "byLocation",
+        "search",
+        "byIds",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Browse adoptable pets by location",
+        "Search pets by name",
+        "Lookup pets by animal ID",
+        "Fetch pet profiles from URLs"
+      ],
+      "prefill": "byLocation",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "",
+      "description": "Pet name or partial name (mode=search; also narrows mode=byLocation). Case-insensitive, e.g. `amaranth`. Leave empty for all pets.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sex": {
+      "default": "",
+      "description": "Only emit pets of this sex.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Female",
+        "Male"
+      ],
+      "enumTitles": [
+        "All",
+        "Female",
+        "Male"
+      ],
+      "prefill": "",
+      "title": "Sex",
+      "type": "string"
+    },
+    "size": {
+      "default": "",
+      "description": "Only emit pets of this size (mode=byLocation, mode=search).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      "enumTitles": [
+        "All",
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      "prefill": "",
+      "title": "Size",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "title",
+      "description": "Order of the listing (mode=byLocation, mode=search).",
+      "editor": "select",
+      "enum": [
+        "title",
+        "newest",
+        "longestStay",
+        "featured"
+      ],
+      "enumTitles": [
+        "List A-Z",
+        "Newest arrivals",
+        "Longest stay",
+        "Featured"
+      ],
+      "prefill": "title",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "species": {
+      "default": "",
+      "description": "Only emit this species.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Dog",
+        "Cat"
+      ],
+      "enumTitles": [
+        "All",
+        "Dog",
+        "Cat"
+      ],
+      "prefill": "",
+      "title": "Species",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Full pet profile URLs, e.g. `https://bestfriends.org/salt-lake-city/adopt/214192932/alfalfa`.",
+      "editor": "requestListSources",
+      "prefill": [],
+      "title": "Animal profile URLs (mode=byUrls)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Best Friends Animal Society Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,138 @@
+{
+  "description": "Scrape cryptocurrency data from CoinGecko's free public API. Supports market listings, coin search, detailed coin data, trending coins, and category listings. No API key required.",
+  "properties": {
+    "category": {
+      "description": "Filter markets results to a specific category slug (e.g. decentralized-finance-defi, layer-1, stablecoins). Leave empty for all categories.",
+      "editor": "textfield",
+      "title": "Category filter (markets mode)",
+      "type": "string"
+    },
+    "coinIds": {
+      "default": [],
+      "description": "CoinGecko coin IDs to fetch detailed data for (e.g. bitcoin, ethereum, solana). Find IDs at coingecko.com.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Coin IDs (mode=byId)",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of records to return.",
+      "maximum": 250,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxMarketCap": {
+      "description": "Filter out coins with market cap above this value (markets mode).",
+      "minimum": 0,
+      "title": "Max market cap (USD)",
+      "type": "number"
+    },
+    "maxRank": {
+      "description": "Filter out coins with market cap rank above this value (markets mode).",
+      "minimum": 1,
+      "title": "Max market cap rank",
+      "type": "integer"
+    },
+    "minMarketCap": {
+      "description": "Filter out coins with market cap below this value (markets mode).",
+      "minimum": 0,
+      "title": "Min market cap (USD)",
+      "type": "number"
+    },
+    "minRank": {
+      "description": "Filter out coins with market cap rank below this value (markets mode).",
+      "minimum": 1,
+      "title": "Min market cap rank",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "markets",
+      "description": "What data to fetch from CoinGecko.",
+      "editor": "select",
+      "enum": [
+        "markets",
+        "search",
+        "byId",
+        "trending",
+        "categories"
+      ],
+      "enumTitles": [
+        "Markets — list coins by market cap / volume / rank",
+        "Search — find coins by name or symbol",
+        "By ID — detailed data for specific coin(s)",
+        "Trending — current trending coins (last 24h)",
+        "Categories — list all coin categories"
+      ],
+      "prefill": "markets",
+      "title": "Mode",
+      "type": "string"
+    },
+    "order": {
+      "default": "market_cap_desc",
+      "description": "How to sort coins in markets mode.",
+      "editor": "select",
+      "enum": [
+        "market_cap_desc",
+        "market_cap_asc",
+        "volume_desc",
+        "volume_asc",
+        "id_asc",
+        "id_desc"
+      ],
+      "enumTitles": [
+        "Market cap — descending",
+        "Market cap — ascending",
+        "Volume — descending",
+        "Volume — ascending",
+        "Coin ID — A to Z",
+        "Coin ID — Z to A"
+      ],
+      "prefill": "market_cap_desc",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Coin name or symbol to search for (mode=search). Example: bitcoin, sol, doge.",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    },
+    "vsCurrency": {
+      "default": "usd",
+      "description": "Currency used for all price fields (markets and byId modes).",
+      "editor": "select",
+      "enum": [
+        "usd",
+        "eur",
+        "gbp",
+        "jpy",
+        "cny",
+        "krw",
+        "btc",
+        "eth"
+      ],
+      "enumTitles": [
+        "USD — US Dollar",
+        "EUR — Euro",
+        "GBP — British Pound",
+        "JPY — Japanese Yen",
+        "CNY — Chinese Yuan",
+        "KRW — South Korean Won",
+        "BTC — Bitcoin",
+        "ETH — Ethereum"
+      ],
+      "prefill": "usd",
+      "title": "Quote currency",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "CoinGecko Scraper Input",
+  "type": "object"
+}

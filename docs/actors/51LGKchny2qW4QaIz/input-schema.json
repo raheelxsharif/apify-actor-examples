@@ -1,0 +1,368 @@
+{
+  "description": "Search job listings or fetch company profiles from bumeran.com.ar, Argentina's largest job board.",
+  "properties": {
+    "area": {
+      "default": "",
+      "description": "Filter to a specific job category / area.",
+      "editor": "select",
+      "enum": [
+        "",
+        "comercial-ventas-y-negocios",
+        "administracion-contabilidad-y-finanzas",
+        "produccion-y-manufactura",
+        "abastecimiento-y-logistica",
+        "oficios-y-otros",
+        "atencion-al-cliente-call-center-y-telemarketing",
+        "tecnologia-sistemas-y-telecomunicaciones",
+        "salud-medicina-y-farmacia",
+        "gastronomia-y-turismo",
+        "ingenierias",
+        "recursos-humanos-y-capacitacion",
+        "marketing-y-publicidad",
+        "ingenieria-civil-y-construccion",
+        "legales",
+        "secretarias-y-recepcion",
+        "departamento-tecnico",
+        "diseno",
+        "gerencia-y-direccion-general",
+        "aduana-y-comercio-exterior",
+        "educacion-docencia-e-investigacion",
+        "seguros",
+        "mineria-petroleo-y-gas",
+        "comunicacion-relaciones-institucionales-y-publicas",
+        "enfermeria",
+        "sociologia-trabajo-social",
+        "naviero-maritimo-portuario"
+      ],
+      "enumTitles": [
+        "(none — all categories)",
+        "Comercial, Ventas y Negocios",
+        "Administracion, Contabilidad y Finanzas",
+        "Produccion y Manufactura",
+        "Abastecimiento y Logistica",
+        "Oficios y Otros",
+        "Atencion al Cliente, Call Center y Telemarketing",
+        "Tecnologia, Sistemas y Telecomunicaciones",
+        "Salud, Medicina y Farmacia",
+        "Gastronomia y Turismo",
+        "Ingenierias",
+        "Recursos Humanos y Capacitacion",
+        "Marketing y Publicidad",
+        "Ingenieria Civil y Construccion",
+        "Legales",
+        "Secretarias y Recepcion",
+        "Departamento Tecnico",
+        "Diseno",
+        "Gerencia y Direccion General",
+        "Aduana y Comercio Exterior",
+        "Educacion, Docencia e Investigacion",
+        "Seguros",
+        "Mineria, Petroleo y Gas",
+        "Comunicacion, Relaciones Institucionales y Publicas",
+        "Enfermeria",
+        "Sociologia / Trabajo Social",
+        "Naviero, Maritimo, Portuario"
+      ],
+      "prefill": "",
+      "title": "Job category (area)",
+      "type": "string"
+    },
+    "companyIds": {
+      "default": [],
+      "description": "Bumeran numeric company IDs, e.g. `319880` (Randstad Argentina).",
+      "editor": "stringList",
+      "prefill": [
+        "319880"
+      ],
+      "title": "Company IDs (mode=byCompanyIds)",
+      "type": "array"
+    },
+    "diasFechaPublicacion": {
+      "default": "",
+      "description": "Only listings published within this time window.",
+      "editor": "select",
+      "enum": [
+        "",
+        "publicacion-hoy",
+        "publicacion-menor-a-2-dias",
+        "publicacion-menor-a-3-dias",
+        "publicacion-menor-a-4-dias",
+        "publicacion-menor-a-5-dias",
+        "publicacion-menor-a-6-dias",
+        "publicacion-menor-a-7-dias",
+        "publicacion-menor-a-15-dias",
+        "publicacion-menor-a-1-mes"
+      ],
+      "enumTitles": [
+        "(none — any time)",
+        "Today",
+        "Last 2 days",
+        "Last 3 days",
+        "Last 4 days",
+        "Last 5 days",
+        "Last 6 days",
+        "Last week",
+        "Last 15 days",
+        "Last month"
+      ],
+      "prefill": "",
+      "title": "Posted within",
+      "type": "string"
+    },
+    "disabilityFriendlyOnly": {
+      "default": false,
+      "description": "Only emit listings explicitly marked accessible to people with disabilities (`apto discapacitados`).",
+      "prefill": false,
+      "title": "Disability-friendly only",
+      "type": "boolean"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "modalidadTrabajo": {
+      "default": "",
+      "description": "Filter by on-site / hybrid / remote.",
+      "editor": "select",
+      "enum": [
+        "",
+        "presencial",
+        "hibrido",
+        "remoto"
+      ],
+      "enumTitles": [
+        "(none — all modes)",
+        "On-site (Presencial)",
+        "Hybrid (Hibrido)",
+        "Remote (Remoto)"
+      ],
+      "prefill": "",
+      "title": "Work mode",
+      "type": "string"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCompanyIds"
+      ],
+      "enumTitles": [
+        "Search job listings",
+        "Lookup company profiles by ID"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "nivelLaboral": {
+      "default": "",
+      "description": "Filter by seniority / career level.",
+      "editor": "select",
+      "enum": [
+        "",
+        "semi-sr",
+        "junior",
+        "senior-semi-senior",
+        "senior",
+        "jefe-supervisor-responsable",
+        "otro",
+        "gerencia-alta-gerencia-direccion",
+        "sin-experiencia",
+        "trainee-pasante"
+      ],
+      "enumTitles": [
+        "(none — all levels)",
+        "Semi Sr",
+        "Junior",
+        "Senior / Semi-Senior",
+        "Senior",
+        "Jefe / Supervisor / Responsable",
+        "Otro",
+        "Gerencia / Alta Gerencia / Direccion",
+        "Sin Experiencia",
+        "Trainee / Pasante"
+      ],
+      "prefill": "",
+      "title": "Seniority level",
+      "type": "string"
+    },
+    "provincia": {
+      "default": "",
+      "description": "Filter to a specific Argentine province.",
+      "editor": "select",
+      "enum": [
+        "",
+        "argentina|buenos-aires",
+        "argentina|santa-fe",
+        "argentina|cordoba",
+        "argentina|neuquen",
+        "argentina|mendoza",
+        "argentina|salta",
+        "argentina|entre-rios",
+        "argentina|chubut",
+        "argentina|tucuman",
+        "argentina|san-juan",
+        "argentina|rio-negro",
+        "argentina|corrientes",
+        "argentina|chaco",
+        "argentina|san-luis",
+        "argentina|tierra-del-fuego",
+        "argentina|la-pampa",
+        "argentina|santa-cruz",
+        "argentina|misiones",
+        "argentina|catamarca",
+        "argentina|jujuy",
+        "argentina|santiago-del-estero",
+        "argentina|la-rioja",
+        "argentina|formosa"
+      ],
+      "enumTitles": [
+        "(none — all provinces)",
+        "Buenos Aires",
+        "Santa Fe",
+        "Cordoba",
+        "Neuquen",
+        "Mendoza",
+        "Salta",
+        "Entre Rios",
+        "Chubut",
+        "Tucuman",
+        "San Juan",
+        "Rio Negro",
+        "Corrientes",
+        "Chaco",
+        "San Luis",
+        "Tierra del Fuego",
+        "La Pampa",
+        "Santa Cruz",
+        "Misiones",
+        "Catamarca",
+        "Jujuy",
+        "Santiago del Estero",
+        "La Rioja",
+        "Formosa"
+      ],
+      "prefill": "",
+      "title": "Province",
+      "type": "string"
+    },
+    "quickApplyOnly": {
+      "default": false,
+      "description": "Only emit listings that support Bumeran's one-click quick apply.",
+      "prefill": false,
+      "title": "Quick-apply only",
+      "type": "boolean"
+    },
+    "searchQuery": {
+      "default": "",
+      "description": "Free-text keyword search (mode=search), e.g. `programador`, `contador`, `vendedor`. Leave empty to browse all listings unfiltered.",
+      "editor": "textfield",
+      "prefill": "programador",
+      "title": "Search query",
+      "type": "string"
+    },
+    "segmentacionCollar": {
+      "default": "",
+      "description": "Filter by Bumeran's white/grey/blue-collar job classification.",
+      "editor": "select",
+      "enum": [
+        "",
+        "white",
+        "grey",
+        "blue",
+        "indefinido"
+      ],
+      "enumTitles": [
+        "(none — all)",
+        "White Collar",
+        "Grey Collar",
+        "Blue Collar",
+        "Indefinido"
+      ],
+      "prefill": "",
+      "title": "Collar segmentation",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "RELEVANTES",
+      "description": "Result ordering.",
+      "editor": "select",
+      "enum": [
+        "RELEVANTES",
+        "RECIENTES"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Most recent"
+      ],
+      "prefill": "RELEVANTES",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "tipoContratacion": {
+      "default": "",
+      "description": "Filter by contract type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "indeterminado",
+        "temporal",
+        "autonomo",
+        "pasantia"
+      ],
+      "enumTitles": [
+        "(none — all contract types)",
+        "Indefinite (Indeterminado)",
+        "Temporary (Temporal)",
+        "Freelance (Autonomo)",
+        "Internship (Pasantia)"
+      ],
+      "prefill": "",
+      "title": "Contract type",
+      "type": "string"
+    },
+    "tipoTrabajo": {
+      "default": "",
+      "description": "Filter by employment/schedule type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "full-time",
+        "part-time",
+        "por-horas",
+        "pasantia",
+        "temporario",
+        "por-contrato",
+        "fines-de-semana",
+        "nocturno"
+      ],
+      "enumTitles": [
+        "(none — all types)",
+        "Full-time",
+        "Part-time",
+        "Per hour",
+        "Internship",
+        "Temporary",
+        "Contract",
+        "Weekends",
+        "Night shift"
+      ],
+      "prefill": "",
+      "title": "Employment type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Bumeran Jobs Scraper Input",
+  "type": "object"
+}
