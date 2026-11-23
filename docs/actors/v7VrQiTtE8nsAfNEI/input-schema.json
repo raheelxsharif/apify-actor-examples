@@ -25,36 +25,110 @@
     },
     "animalIds": {
       "default": [],
-      "description": "Best Friends animal IDs from pet profile URLs, e.g. `214192932`.",
+      "description": "Best Friends animal IDs from pet profile URLs, e.g. `214192932`. Looked up through the live adoptable sitemap, so Sanctuary IDs work too.",
       "editor": "stringList",
       "prefill": [],
       "title": "Animal IDs (mode=byIds)",
       "type": "array"
     },
+    "color": {
+      "default": "",
+      "description": "Only emit pets with this coat color (mode=byLocation, mode=search). Labels match the website's own color filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Black",
+        "Black and White",
+        "Black with Brown, Red, Golden, Orange or Chestnut",
+        "Black with Tan, Yellow or Fawn",
+        "Black with White",
+        "Blue/Silver/Salt & Pepper",
+        "Brindle",
+        "Brindle with White",
+        "Brown",
+        "Brown (Mostly)",
+        "Brown/Chocolate with Black",
+        "Brown/Chocolate with Tan",
+        "Brown/Chocolate with White",
+        "Calico or Dilute Calico",
+        "Chocolate (Mostly)",
+        "Cream",
+        "Gray",
+        "Gray and White",
+        "Gray/Silver/Salt & Pepper with White",
+        "Orange",
+        "Orange and White",
+        "Spotted Tabby/Leopard Spotted",
+        "Tan",
+        "Tan/Yellow/Fawn with Black",
+        "Tan/Yellow/Fawn with White",
+        "Tortoiseshell",
+        "White (Mostly)",
+        "White with Tan, Yellow or Fawn",
+        "Yellow"
+      ],
+      "enumTitles": [
+        "All colors",
+        "Black",
+        "Black and White",
+        "Black with Brown, Red, Golden, Orange or Chestnut",
+        "Black with Tan, Yellow or Fawn",
+        "Black with White",
+        "Blue/Silver/Salt & Pepper",
+        "Brindle",
+        "Brindle with White",
+        "Brown",
+        "Brown (Mostly)",
+        "Brown/Chocolate with Black",
+        "Brown/Chocolate with Tan",
+        "Brown/Chocolate with White",
+        "Calico or Dilute Calico",
+        "Chocolate (Mostly)",
+        "Cream",
+        "Gray",
+        "Gray and White",
+        "Gray/Silver/Salt & Pepper with White",
+        "Orange",
+        "Orange and White",
+        "Spotted Tabby/Leopard Spotted",
+        "Tan",
+        "Tan/Yellow/Fawn with Black",
+        "Tan/Yellow/Fawn with White",
+        "Tortoiseshell",
+        "White (Mostly)",
+        "White with Tan, Yellow or Fawn",
+        "Yellow"
+      ],
+      "prefill": "",
+      "title": "Color",
+      "type": "string"
+    },
     "enrichDetails": {
       "default": true,
-      "description": "Fetch each pet's profile page for species, description, photos, birthdate, adoption link. When off, records contain card-level data only.",
+      "description": "Fetch each pet's profile page for species, description, photos, birthdate and adoption link. When off, records contain card-level data only.",
       "prefill": true,
       "title": "Fetch full profile details",
       "type": "boolean"
     },
     "location": {
       "default": "salt-lake-city",
-      "description": "Best Friends adoption center (mode=byLocation, mode=byIds).",
+      "description": "Adoption center or the Kanab Sanctuary (mode=byLocation, mode=byIds). Non-dog/cat species are listed at the Sanctuary.",
       "editor": "select",
       "enum": [
         "salt-lake-city",
         "los-angeles",
         "new-york-city",
         "houston",
-        "northwest-arkansas"
+        "northwest-arkansas",
+        "sanctuary"
       ],
       "enumTitles": [
         "Salt Lake City, UT",
         "Los Angeles, CA",
         "New York City, NY",
         "Houston, TX",
-        "Northwest Arkansas"
+        "Northwest Arkansas",
+        "Kanab Sanctuary, UT"
       ],
       "prefill": "salt-lake-city",
       "title": "Location",
@@ -62,8 +136,8 @@
     },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on emitted records.",
-      "maximum": 1000,
+      "description": "Hard cap on emitted records. The whole site currently lists about 1,600 pets, so 5,000 can capture everything.",
+      "maximum": 5000,
       "minimum": 1,
       "prefill": 20,
       "title": "Max items",
@@ -89,12 +163,46 @@
       "title": "Mode",
       "type": "string"
     },
+    "placement": {
+      "default": "",
+      "description": "Where the pet is cared for (mode=byLocation, mode=search).",
+      "editor": "select",
+      "enum": [
+        "",
+        "At Adoption Center",
+        "Offsite"
+      ],
+      "enumTitles": [
+        "Any placement",
+        "At Adoption Center",
+        "Offsite / foster"
+      ],
+      "prefill": "",
+      "title": "Placement",
+      "type": "string"
+    },
+    "primaryBreed": {
+      "default": "",
+      "description": "Exact breed label from the website's filter, e.g. `Husky` or `Domestic Shorthair` (mode=byLocation, mode=search). Leave empty for all breeds.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Primary breed / looks like",
+      "type": "string"
+    },
     "searchQuery": {
       "default": "",
       "description": "Pet name or partial name (mode=search; also narrows mode=byLocation). Case-insensitive, e.g. `amaranth`. Leave empty for all pets.",
       "editor": "textfield",
       "prefill": "",
       "title": "Search query",
+      "type": "string"
+    },
+    "secondaryBreed": {
+      "default": "",
+      "description": "Exact secondary-breed label from the website's filter, e.g. `Mix` or `Boxer` (mode=byLocation, mode=search). Leave empty for any.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Secondary breed",
       "type": "string"
     },
     "sex": {
@@ -159,17 +267,29 @@
     },
     "species": {
       "default": "",
-      "description": "Only emit this species.",
+      "description": "Only emit this species. Dog and Cat work at every location; Rabbit, Bird, Pig, Horse, Barnyard and Other are Kanab Sanctuary categories.",
       "editor": "select",
       "enum": [
         "",
         "Dog",
-        "Cat"
+        "Cat",
+        "Rabbit",
+        "Bird",
+        "Pig",
+        "Horse",
+        "Barnyard",
+        "Other"
       ],
       "enumTitles": [
-        "All",
+        "All species",
         "Dog",
-        "Cat"
+        "Cat",
+        "Rabbit",
+        "Bird",
+        "Pig",
+        "Horse",
+        "Barnyard",
+        "Other"
       ],
       "prefill": "",
       "title": "Species",
@@ -177,7 +297,7 @@
     },
     "startUrls": {
       "default": [],
-      "description": "Full pet profile URLs, e.g. `https://bestfriends.org/salt-lake-city/adopt/214192932/alfalfa`.",
+      "description": "Full pet profile URLs, e.g. `https://bestfriends.org/salt-lake-city/adopt/214192932/alfalfa` or `https://bestfriends.org/sanctuary/adopt/8484237/queen-bee`.",
       "editor": "requestListSources",
       "prefill": [],
       "title": "Animal profile URLs (mode=byUrls)",

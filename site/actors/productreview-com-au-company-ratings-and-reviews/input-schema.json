@@ -1,100 +1,208 @@
 {
-  "description": "Search companies or get reviews from ProductReview.com.au.",
+  "description": "Search Australian companies on ProductReview.com.au and collect their ratings and customer reviews.",
   "properties": {
     "category": {
-      "description": "Browse companies in a specific category.",
+      "default": "",
+      "description": "Optional category shortcut for mode=searchCompanies. It is combined with the query, or used alone when the query is empty.",
       "editor": "select",
       "enum": [
+        "",
         "insurance",
+        "car-insurance",
+        "home-and-contents-insurance",
+        "health-insurance",
+        "life-insurance",
+        "travel-insurance",
+        "pet-insurance",
+        "business-insurance",
         "finance",
+        "financial-services",
+        "credit-cards",
+        "buy-now-pay-later-services",
+        "services",
         "shops",
-        "health",
-        "home-services",
-        "automotive",
-        "telco",
-        "travel",
-        "education",
-        "food-beverages",
-        "electronics",
-        "fashion-beauty",
-        "real-estate",
-        "sports-leisure",
-        "pets",
-        "professional-services"
+        "general-merchandise-shops",
+        "products",
+        "sport-recreation",
+        "personal-care-hygiene",
+        "automotive-accessories",
+        "kitchen-bathroom-hardware",
+        "pets-products",
+        "garden-power-tools"
       ],
       "enumTitles": [
+        "— No category filter —",
         "Insurance",
+        "Car Insurance",
+        "Home & Contents Insurance",
+        "Health Insurance",
+        "Life Insurance",
+        "Travel Insurance",
+        "Pet Insurance",
+        "Business Insurance",
         "Finance",
-        "Shops & Retail",
-        "Health",
-        "Home Services",
-        "Automotive",
-        "Telco & Internet",
-        "Travel",
-        "Education",
-        "Food & Beverages",
-        "Electronics",
-        "Fashion & Beauty",
-        "Real Estate",
-        "Sports & Leisure",
-        "Pets",
-        "Professional Services"
+        "Financial Services",
+        "Credit Cards",
+        "Buy Now, Pay Later Services",
+        "Services",
+        "Shops",
+        "General Merchandise Shops",
+        "Products",
+        "Sport & Recreation",
+        "Personal Care & Hygiene",
+        "Automotive Accessories",
+        "Kitchen & Bathroom Hardware",
+        "Pet Products",
+        "Garden & Power Tools"
       ],
-      "title": "Category (mode=searchCompanies)",
+      "prefill": "",
+      "title": "Category",
       "type": "string"
     },
     "companySlugs": {
-      "description": "List of company slug strings from ProductReview.com.au, e.g. 'amazon', 'nrma-car-insurance'. Accepts full URLs too.",
+      "default": [],
+      "description": "Companies to collect reviews for (mode=getReviews). Accepts ProductReview.com.au listing URLs or slugs, e.g. 'amazon' or 'https://www.productreview.com.au/listings/nrma-car-insurance'.",
       "editor": "stringList",
-      "title": "Company slugs (mode=getReviews)",
+      "title": "Company slugs or URLs",
       "type": "array"
+    },
+    "dateFrom": {
+      "description": "Earliest review publication date (YYYY-MM-DD) in mode=getReviews.",
+      "editor": "datepicker",
+      "title": "Reviews published from",
+      "type": "string"
+    },
+    "dateTo": {
+      "description": "Latest review publication date (YYYY-MM-DD) in mode=getReviews.",
+      "editor": "datepicker",
+      "title": "Reviews published until",
+      "type": "string"
     },
     "maxItems": {
       "default": 100,
-      "description": "Maximum number of records to return (1â€“10000).",
+      "description": "Maximum number of company or review records to return (1-10,000).",
       "maximum": 10000,
       "minimum": 1,
-      "prefill": 100,
-      "title": "Max items",
+      "prefill": 5,
+      "title": "Maximum records",
+      "type": "integer"
+    },
+    "maxRating": {
+      "default": 5,
+      "description": "Only include reviews with at most this many stars (1-5).",
+      "maximum": 5,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Maximum star rating",
       "type": "integer"
     },
     "minRating": {
       "default": 1,
-      "description": "Only return reviews with at least this star rating (1â€“5).",
+      "description": "Only include reviews with at least this many stars (1-5).",
       "maximum": 5,
       "minimum": 1,
       "prefill": 1,
-      "title": "Minimum rating (mode=getReviews)",
+      "title": "Minimum star rating",
       "type": "integer"
     },
     "mode": {
       "default": "searchCompanies",
-      "description": "What to fetch.",
+      "description": "Search for companies, or collect the reviews of specific companies.",
       "editor": "select",
       "enum": [
         "searchCompanies",
-        "getReviews"
+        "getReviews",
+        "search",
+        "reviews"
       ],
       "enumTitles": [
-        "Search companies/products by keyword",
-        "Get reviews for specific companies"
+        "Search companies by keyword or category",
+        "Get reviews for specific companies",
+        "Search companies (legacy alias)",
+        "Get reviews (legacy alias)"
       ],
       "prefill": "searchCompanies",
       "title": "Mode",
       "type": "string"
     },
     "query": {
-      "description": "Keyword to search for companies or product categories.",
+      "description": "Keyword to search for, such as 'travel insurance' or 'online electronics'. Used in mode=searchCompanies.",
       "editor": "textfield",
       "prefill": "insurance",
-      "title": "Search query (mode=searchCompanies)",
+      "title": "Search query",
       "type": "string"
+    },
+    "reviewKeyword": {
+      "description": "Only include reviews whose text matches this keyword in mode=getReviews.",
+      "editor": "textfield",
+      "title": "Review keyword",
+      "type": "string"
+    },
+    "reviewSort": {
+      "default": "overview",
+      "description": "Order of reviews in mode=getReviews.",
+      "editor": "select",
+      "enum": [
+        "overview",
+        "newest",
+        "ratingHighest",
+        "ratingLowest",
+        "mostLiked"
+      ],
+      "enumTitles": [
+        "Smart overview",
+        "Newest first",
+        "Highest rating first",
+        "Lowest rating first",
+        "Most liked first"
+      ],
+      "prefill": "overview",
+      "title": "Review sort order",
+      "type": "string"
+    },
+    "searchSort": {
+      "default": "relevance",
+      "description": "Order of company results in mode=searchCompanies.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "rating",
+        "numberOfReviews",
+        "popularity",
+        "lowestPrice",
+        "highestPrice"
+      ],
+      "enumTitles": [
+        "Most relevant",
+        "Highest rated",
+        "Most reviewed",
+        "Most popular",
+        "Lowest price",
+        "Highest price"
+      ],
+      "prefill": "relevance",
+      "title": "Company sort order",
+      "type": "string"
+    },
+    "verifiedOnly": {
+      "default": false,
+      "description": "Only include reviews from verified reviewers in mode=getReviews.",
+      "prefill": false,
+      "title": "Verified reviews only",
+      "type": "boolean"
+    },
+    "withAttachmentsOnly": {
+      "default": false,
+      "description": "Only include reviews that have at least one attached photo in mode=getReviews.",
+      "prefill": false,
+      "title": "Reviews with photos only",
+      "type": "boolean"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Consumer Affairs Scraper Input",
+  "title": "ProductReview.com.au Company Ratings & Reviews Input",
   "type": "object"
 }

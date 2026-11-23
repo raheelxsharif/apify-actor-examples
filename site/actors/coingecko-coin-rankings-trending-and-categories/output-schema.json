@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Cryptocurrency data from CoinGecko — real-time prices, market caps, 24h price changes, supply metrics, all-time highs/lows, trending coins, and category listings.",
+  "description": "Cryptocurrency records from CoinGecko. Rankings, search and coin-profile runs emit coin records with live prices, market cap, rank, volume, supply, all-time highs/lows and period changes. Trending runs emit trending_coin, trending_nft, trending_category and trending_rwa records. Category runs emit coin_category records with market cap, volume, 24h change and the top three coins.",
   "properties": {
-    "coins": {
-      "description": "Dataset containing all scraped records (coins, trending coins, or categories depending on mode).",
+    "records": {
+      "description": "Dataset containing every emitted record. The recordType field identifies coin, trending_coin, trending_nft, trending_category, trending_rwa or coin_category.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "CoinGecko data",
+      "title": "CoinGecko records",
       "type": "string"
     }
   },
-  "title": "CoinGecko Coin Rankings, Trending & Categories Output"
+  "title": "CoinGecko Rankings, Trending & Categories Output"
 }

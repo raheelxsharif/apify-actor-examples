@@ -116,6 +116,13 @@
       "title": "Disability-friendly only",
       "type": "boolean"
     },
+    "includeJobDetails": {
+      "default": false,
+      "description": "Fetch each listing's detail record for seniority, contract type, expiry date, requirements, salary (when published) and HTML description. Off by default to keep runs fast; adds one request per emitted job.",
+      "prefill": false,
+      "title": "Include full job details",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 50,
       "description": "Hard cap on emitted records.",
@@ -260,13 +267,15 @@
       "title": "Quick-apply only",
       "type": "boolean"
     },
-    "searchQuery": {
-      "default": "",
-      "description": "Free-text keyword search (mode=search), e.g. `programador`, `contador`, `vendedor`. Leave empty to browse all listings unfiltered.",
-      "editor": "textfield",
-      "prefill": "programador",
-      "title": "Search query",
-      "type": "string"
+    "searchQueries": {
+      "default": [],
+      "description": "One or more free-text keyword searches (mode=search), e.g. `programador`, `contador`, `vendedor`. Results are merged and de-duplicated. Leave empty to browse all listings unfiltered.",
+      "editor": "stringList",
+      "prefill": [
+        "programador"
+      ],
+      "title": "Search queries",
+      "type": "array"
     },
     "segmentacionCollar": {
       "default": "",

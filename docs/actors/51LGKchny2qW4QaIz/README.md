@@ -9,9 +9,11 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 ## What this actor does
 
 - **Two modes:** `search` (job listings) and `byCompanyIds` (company profiles)
+- **Multi-query search:** one or many keywords in a single run; results are merged and de-duplicated
 - **10 combinable filters:** keyword, province (23), job category (26), work mode (on-site/hybrid/remote), employment type (8 types), seniority level (9 levels), contract type (4 types), collar segmentation (white/grey/blue), posted-within freshness window (9 windows), disability-friendly only
 - **Sort by relevance or recency**
 - **Quick-apply filter** — surface only one-click-apply listings
+- **Optional detail enrichment:** seniority, contract type, expiry date, requirements, salary when published, and HTML description, one request per job
 - **Empty fields are omitted** — every field in the output is real, populated data
 
 ## Output fields
@@ -28,10 +30,17 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 - `listingType`, `publicationPlan`, `gptwUrl` (Great Place to Work certification, when present)
 - `sourceUrl`, `recordType: "job"`, `scrapedAt`
 
+With `includeJobDetails: true`, each job also gets (when the source has it):
+
+- `seniority`, `contractType`, `expiresAt`
+- `descriptionHtml` (formatted description; plain `description` is always present)
+- `salaryMin`, `salaryMax`, `salaryPeriod`, `salaryType` (only for listings that publish pay)
+- `experienceMonths`, `educationLevel`, `educationStatus`, `ageMin`, `ageMax`
+
 ### `company` records (`mode=byCompanyIds`)
 
 - `companyId`, `companyName`, `description`
-- `industry`, `country`, `province`, `city`
+- `industry`, `country`, `province`, `city`, `companySize` (employee range, e.g. `"Entre 51 y 200"`)
 - `logoUrl`, `websiteUrl`, `videoUrl`, `coverImageUrl`, `gptwUrl`
 - `inclusiveEmployer`, `verified`, `isProAccount`, `activelyHiring`
 - `sourceUrl`, `recordType: "company"`, `scrapedAt`
@@ -41,7 +50,7 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `mode` | string | `search` | `search` / `byCompanyIds` |
-| `searchQuery` | string | – | Free-text keyword search |
+| `searchQueries` | array | `[]` | One or more free-text keyword searches (merged, de-duplicated; empty = browse all) |
 | `provincia` | string | – | Argentine province |
 | `area` | string | – | Job category |
 | `modalidadTrabajo` | string | – | `presencial` / `hibrido` / `remoto` |
@@ -53,6 +62,7 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 | `disabilityFriendlyOnly` | bool | `false` | Only listings marked accessible to people with disabilities |
 | `sortBy` | string | `RELEVANTES` | `RELEVANTES` / `RECIENTES` |
 | `quickApplyOnly` | bool | `false` | Only quick-apply listings |
+| `includeJobDetails` | bool | `false` | Fetch per-job detail fields (seniority, contract, salary, requirements, HTML description) |
 | `companyIds` | array | – | Company IDs (mode=byCompanyIds) |
 | `maxItems` | int | `50` | Hard cap (1–1000) |
 
@@ -61,9 +71,10 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 ```json
 {
   "mode": "search",
-  "searchQuery": "desarrollador",
+  "searchQueries": ["desarrollador"],
   "modalidadTrabajo": "remoto",
   "nivelLaboral": "senior",
+  "includeJobDetails": true,
   "maxItems": 50
 }
 ```
@@ -110,4 +121,19 @@ Search job listings on [Bumeran](https://www.bumeran.com.ar) — Argentina's lar
 
 **Can I combine multiple filters?** Yes — all filters are ANDed together (e.g. province + category + work mode + employment type simultaneously).
 
+**Can I search several keywords in one run?** Yes — put them all in `searchQueries`. Results are merged by job ID and capped by `maxItems`. Each keyword keeps its own pagination, so a small `maxItems` is filled from the first keyword before the next one starts.
+
+**Why are `seniority`, `contractType` or salary fields missing?** They are part of the optional detail record: set `includeJobDetails: true`. Even then, each field is omitted when Bumeran does not publish it for that listing — most employers do not disclose pay, and some postings carry no seniority/contract value.
+
+**Will my old saved input keep working?** Yes — the pre-revamp `searchQuery` key is mapped to `searchQueries`. Other old keys (`query`, `keyword`, `province`, `workMode`, …) are also accepted in code, but Apify injects schema defaults into every input, so for numeric/boolean controls use the current `maxItems` / `includeJobDetails` names.
+
 **How fresh is the data?** Real-time — every run queries Bumeran's live search index directly.
+
+## Limitations
+
+- **Argentina only** (`bumeran.com.ar`). Bumeran's other LATAM portals are different sites with different IDs.
+- **Company lookup is by numeric ID**, not by name. Every non-confidential job record includes `companyId`, which can be fed straight into `mode=byCompanyIds`.
+- **Confidential postings** have no `companyId`, `companyName` (Bumeran's placeholder is "Confidencial"), logo or rating — the employer is anonymous by design.
+- **Salary is sparse**: it is only emitted for listings where the employer chose to publish a range.
+- **Expired/removed detail records** (404 on the detail API) still emit the base search record; only the optional enrichment fields are absent.
+- **Detail mode adds one request per job**, so large `maxItems` runs take longer. Leave it off for maximum throughput.

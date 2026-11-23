@@ -4,124 +4,160 @@
 
 # CoinGecko Coin Rankings, Trending & Categories
 
-Pull live cryptocurrency data from CoinGecko: ranked market listings, coin search, rich per-coin detail, the current 24-hour trending list, and the full category directory, priced in any of eight currencies.
+Collect live cryptocurrency data from CoinGecko without an API key, account or cookie: ranked market listings, coin search results, complete coin profiles, the current trending board, and the full category directory. Prices can be quoted in any of 63 currencies, from USD and EUR to BTC, gold (XAU) and satoshis.
 
 ## What this actor does
 
-- Lists coins ranked by market cap, volume, or ID, with optional price and rank range filters
-- Searches coins by name or symbol
-- Fetches rich detail for specific coins by CoinGecko ID, including description, categories, and website/repo links
-- Returns CoinGecko's current trending coins, and the full list of coin categories with their market cap and volume
-- Prices everything in USD, EUR, GBP, JPY, CNY, KRW, BTC, or ETH
-- Omits any field CoinGecko has no data for on a given coin, rather than returning it empty
+- **Rankings (`mode=markets`)** — pages through CoinGecko's market list in 250-coin batches, ordered by market cap, 24h volume or coin ID. Filter by rank, market cap, 24h volume or category, and start on any page for deep pulls.
+- **Search (`mode=search`)** — finds coins by name or ticker and returns their CoinGecko ID, market-cap rank and links.
+- **Coin profiles (`mode=byId`)** — fetches full detail for specific coins by ID or by pasting a coingecko.com coin URL.
+- **Trending (`mode=trending`)** — returns the current trending coins, NFTs, categories and real-world assets (RWAs) in one run.
+- **Categories (`mode=categories`)** — lists every CoinGecko category with market cap, 24h volume, 24h change, description and its top three coins, sorted by market cap, name or 24h change.
+
+Every record is omit-empty: a field the source has no value for is left out instead of being returned as `null`, `""`, `[]` or `{}`.
 
 ## Output per record
 
-**Market listings (`mode=markets`, `recordType: "coin"`)**
-- `coinId`, `symbol`, `name`, `imageUrl`
-- `currentPrice`, `marketCap`, `marketCapRank`, `fullyDilutedValuation`, `totalVolume`
-- `priceHigh24h`, `priceLow24h`, `priceChange24h`, `priceChangePercent24h`, `marketCapChangePercent24h`
-- `circulatingSupply`, `totalSupply`, `maxSupply`
-- `ath`, `athDate`, `atl`, `atlDate`
-- `lastUpdated`, `sourceUrl`, `scrapedAt`
+The `recordType` field identifies each family.
 
-**Coin detail (`mode=byId`, `recordType: "coin"`)**
-- `coinId`, `symbol`, `name`, `imageUrl`, `description`, `categories[]`, `homepageUrl`, `reposUrl[]`
-- `currentPrice`, `marketCap`, `marketCapRank`, `totalVolume`
-- `priceChangePercent24h`, `priceChangePercent7d`, `priceChangePercent30d`
-- `circulatingSupply`, `totalSupply`, `maxSupply`, `ath`, `atl`
-- `lastUpdated`, `sourceUrl`, `scrapedAt`
+**Coin (`recordType: "coin"`, from rankings, search or profiles)**
+- Identity: `coinId`, `symbol`, `name`, `imageUrl`, `vsCurrency`, `sourceUrl`
+- Price: `currentPrice`, `priceHigh24h`, `priceLow24h`, `priceChange24h`
+- Market: `marketCap`, `marketCapRank`, `fullyDilutedValuation`, `totalVolume`, `marketCapChange24h`, `marketCapChangePercent24h`
+- Period changes: `priceChangePercent24h`, `priceChangePercent1h`, `priceChangePercent7d`, `priceChangePercent14d`, `priceChangePercent30d`, `priceChangePercent60d`, `priceChangePercent200d`, `priceChangePercent1y`
+- Supply: `circulatingSupply`, `totalSupply`, `maxSupply`
+- Extremes: `ath`, `athDate`, `athChangePercent`, `atl`, `atlDate`, `atlChangePercent`
+- Profile-only: `description`, `categories`, `homepageUrl`, `reposUrl`, `genesisDate`, `totalValueLocked`, `sentimentVotesUpPercentage`, `sentimentVotesDownPercentage`, `watchlistPortfolioUsers`
+- Optional: `sparklineIn7d` (168 hourly prices, when `includeSparkline` is on)
+- Meta: `lastUpdated`, `scrapedAt`
 
-**Trending coins (`mode=trending`, `recordType: "trending_coin"`)**
-- `coinId`, `name`, `symbol`, `marketCapRank`, `score`, `priceInBtc`, `imageUrl`, `sourceUrl`, `scrapedAt`
+**Trending coin (`recordType: "trending_coin"`)** — `coinId`, `name`, `symbol`, `trendingRank`, `marketCapRank`, `score`, `currentPrice`, `priceCurrency`, `priceChangePercent24h`, `priceInBtc`, `marketCap`, `totalVolume`, `imageUrl`, `sparklineUrl`, `sourceUrl`
 
-**Categories (`mode=categories`, `recordType: "coin_category"`)**
-- `categoryId`, `name`, `marketCap`, `marketCapChange24h`, `volume24h`, `description`, `updatedAt`, `sourceUrl`, `scrapedAt`
+**Trending NFT (`recordType: "trending_nft"`)** — `nftId`, `name`, `symbol`, `trendingRank`, `nftContractId`, `nativeCurrencySymbol`, `floorPriceNative`, `floorPrice`, `floorPrice24hChangePercent`, `floorPriceUsd24hChangePercent`, `volume24h`, `averageSalePrice24h`, `imageUrl`, `sparklineUrl`, `sourceUrl`
+
+**Trending category (`recordType: "trending_category"`)** — `categoryId`, `name`, `trendingRank`, `coinsCount`, `marketCap`, `volume24h`, `marketCapChangePercent1h`, `marketCapChangePercent24h`, `top3CoinImages`, `sourceUrl`
+
+**Trending RWA (`recordType: "trending_rwa"`)** — `rwaId`, `name`, `symbol`, `trendingRank`, `marketCapRank`, `benchmarkPrice`, `spotPrice`, `priceChangePercent24h`, `imageUrl`, `sourceUrl`
+
+**Category (`recordType: "coin_category"`)** — `categoryId`, `name`, `marketCap`, `marketCapChange24h`, `marketCapChangePercent24h`, `volume24h`, `top3Coins`, `top3CoinsIds`, `description`, `updatedAt`, `sourceUrl`
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `markets` | `markets`, `search`, `byId`, `trending`, or `categories` |
-| `searchQuery` | string | – | Coin name or symbol to search for (mode=search) |
-| `coinIds` | array | `[]` | CoinGecko coin IDs to fetch detail for, e.g. `bitcoin`, `ethereum` (mode=byId) |
-| `vsCurrency` | string (select) | `usd` | Quote currency: `usd`, `eur`, `gbp`, `jpy`, `cny`, `krw`, `btc`, or `eth` |
-| `order` | string (select) | `market_cap_desc` | Sort order for markets mode |
-| `category` | string | – | Category slug to filter markets results to, e.g. `decentralized-finance-defi` |
-| `maxItems` | integer | `50` | Maximum number of records to return (1-250) |
-| `minMarketCap` | number | – | Drop coins with market cap below this value, in USD (mode=markets) |
-| `maxMarketCap` | number | – | Drop coins with market cap above this value, in USD (mode=markets) |
-| `minRank` | integer | – | Drop coins with market cap rank below this value (mode=markets) |
-| `maxRank` | integer | – | Drop coins with market cap rank above this value (mode=markets) |
+| `mode` | select | `markets` | `markets`, `search`, `byId`, `trending` or `categories` |
+| `searchQuery` | string | – | Coin name or ticker for search mode (the form is prefilled with `bitcoin`) |
+| `coinIds` | array | `[]` | CoinGecko IDs or full coin URLs for profiles, or to restrict rankings |
+| `vsCurrency` | select | `usd` | Quote currency; all 63 public-API currencies are listed |
+| `order` | select | `market_cap_desc` | Ranking order: market cap, 24h volume or coin ID |
+| `category` | string | – | Category slug filter for rankings, e.g. `layer-1` |
+| `startPage` | integer | `1` | First 250-coin page to read in ranking mode |
+| `maxItems` | integer | `50` | Maximum records (1–10,000); the daily form prefills `3` |
+| `includeSparkline` | boolean | `false` | Add `sparklineIn7d` to ranking records |
+| `minMarketCap` | number | – | Drop coins below this market cap |
+| `maxMarketCap` | number | – | Drop coins above this market cap |
+| `minRank` | integer | – | Drop coins ranked above this number |
+| `maxRank` | integer | – | Drop coins ranked below this number |
+| `minVolume24h` | number | – | Drop coins below this 24h volume |
+| `maxVolume24h` | number | – | Drop coins above this 24h volume |
+| `categoryOrder` | select | `market_cap_desc` | Category sort: market cap, name or 24h change |
 
-### Example: top 50 coins by market cap
+## Examples
+
+Top 50 coins by market cap:
 
 ```json
-{
-  "mode": "markets",
-  "vsCurrency": "usd",
-  "maxItems": 50
-}
+{ "mode": "markets", "maxItems": 50 }
 ```
 
-### Example: DeFi coins ranked by volume
+DeFi coins ranked by 24h volume, in euros, skipping the top 100:
 
 ```json
 {
   "mode": "markets",
   "category": "decentralized-finance-defi",
   "order": "volume_desc",
-  "maxItems": 30
+  "vsCurrency": "eur",
+  "minRank": 101,
+  "maxItems": 100
 }
 ```
 
-### Example: detailed profile for specific coins
+Deep ranking pull (page 9, i.e. ranks 2,001–2,250) with a volume floor:
+
+```json
+{ "mode": "markets", "startPage": 9, "maxItems": 250, "minVolume24h": 1000000 }
+```
+
+Coin profiles by ID or pasted URL:
 
 ```json
 {
   "mode": "byId",
-  "coinIds": ["bitcoin", "ethereum", "solana"]
+  "coinIds": [
+    "bitcoin",
+    "https://www.coingecko.com/en/coins/ethereum",
+    "solana"
+  ],
+  "vsCurrency": "gbp"
 }
 ```
 
-### Example: today's trending coins
+Trending coins, NFTs, categories and RWAs:
 
 ```json
-{
-  "mode": "trending"
-}
+{ "mode": "trending" }
 ```
 
-## Use cases
+Categories sorted by 24h market-cap change:
 
-- Powering a portfolio tracker or trading dashboard with live prices and 24h change
-- Screening coins by market cap or rank range before deeper research
-- Watching the trending list to catch coins gaining attention early
-- Building a reference table of category slugs for further market-cap filtering
-- Pulling a coin's description, homepage, and repo links for due-diligence research
+```json
+{ "mode": "categories", "categoryOrder": "market_cap_change_24h_desc", "maxItems": 100 }
+```
+
+## Pagination and rate limits
+
+CoinGecko serves at most 250 coins per ranking request. Set `maxItems` above 250 and the actor requests the next 250-coin page automatically, stopping at `maxItems` or the end of the list. `startPage` resumes from any 250-coin page, which lets you split a large pull across runs and stay under the public rate limit.
+
+The free public API allows roughly 5–15 requests per minute per IP. The actor pauses between pages and honours CoinGecko's `Retry-After` header when the limit is reached, so a deep pull can take several minutes. All data is public and cookieless; no proxy setup is needed.
+
+## Legacy compatibility
+
+Older task keys are still accepted: `coinId`, `ids`, `query`, `limit`, `page`, `sort`, `orderBy`, `currency`, `quoteCurrency`, `vs_currency`, `categoryId`, `min24hVolume`, `sparkline` and `catOrder` are mapped onto the current fields in code. Older `mode=coins` and `mode=rankings` values are also mapped in code, but the Apify input form validates `mode` against the five current values, so use `byId` and `markets` there. The published input and output field names are unchanged; new fields are added beside them.
+
+
+## Data source
+
+CoinGecko's free public API (`api.coingecko.com/api/v3`) supplies every record. The actor is independent and not affiliated with or endorsed by CoinGecko.
+
+## Limitations
+
+- **Public-API rate limit.** CoinGecko throttles anonymous traffic to roughly 5–15 requests per minute. Deep ranking pulls therefore take time, and a run can wait on the limiter; use `startPage` to resume.
+- **10,000-record cap.** The actor accepts up to 10,000 records per run. CoinGecko tracks more coins; raise the limit only if your plan's run time and rate limit allow it.
+- **No historical data.** This actor returns current snapshots. Charts, OHLC candles and historical prices are not included.
+- **No exchange or global-market modes.** Exchange tables and global market-cap totals are outside this actor's rankings/trending/categories scope.
+- **Trending is a fixed board.** CoinGecko returns about 15 trending coins, 7 NFTs, 6 categories and 7 RWAs per request; `maxItems` cannot create more.
+- **Missing supply is normal.** Coins with no hard cap genuinely lack `maxSupply`; the field is omitted rather than fabricated.
 
 ## FAQ
 
-**Do I need a CoinGecko account or API key?**
-No — every mode reads CoinGecko's free, publicly accessible data.
-
-**How fresh are the prices?**
-CoinGecko refreshes market data every few minutes for actively traded coins; `lastUpdated` reflects CoinGecko's own timestamp for that coin.
+**Do I need a CoinGecko API key?**
+No. Every mode uses the free public API and returns data with no key, account or cookie.
 
 **How do I find a coin's CoinGecko ID?**
-Search for the coin on coingecko.com and copy the ID from its page URL, e.g. `bitcoin`, `ethereum`, `shiba-inu` — the same ID goes into `coinIds` for `byId` mode.
+Run `mode=search` with its name or ticker, or copy the slug from its coingecko.com URL (for example `bitcoin`). `mode=byId` also accepts the full URL.
 
 **How do I find a category slug?**
-Run `mode=categories` first to list every available category and its slug, then use that slug in the `category` filter for `markets` mode.
+Run `mode=categories` and use a `categoryId` value in the `category` filter for rankings.
 
-**Why is `maxSupply` sometimes missing?**
-Coins with no hard supply cap simply don't have a maximum, so the field is left out rather than returned as null.
+**Why did my ranking run stop before `maxItems`?**
+The source ran out of matching coins, the filters excluded the rest, or CoinGecko's rate limit delayed a page. Narrow the filters or start from an earlier page.
 
-**What's the difference between `markets` and `byId`?**
-`markets` returns a ranked batch of coins with core pricing fields. `byId` fetches one or more specific coins in more depth, adding the description, category list, website/repo links, and 7-day/30-day change.
+**Why are some fields missing on a coin?**
+CoinGecko itself has no value for them (for example a coin with no maximum supply). The actor omits such fields instead of returning placeholders.
 
-**Can I combine market cap and rank filters?**
-Yes — `minMarketCap`/`maxMarketCap` and `minRank`/`maxRank` can all be set together in `markets` mode; a coin must satisfy every filter you set.
+**Can I mix market-cap, rank and volume filters?**
+Yes. A coin must satisfy every filter you set.
 
 **Is this affiliated with CoinGecko?**
-No. This is an independent actor that reads CoinGecko's publicly available data; it is not affiliated with or endorsed by CoinGecko.
+No. It is an independent tool that reads CoinGecko's publicly available data.

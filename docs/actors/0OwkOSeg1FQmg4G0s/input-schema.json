@@ -1,42 +1,183 @@
 {
-  "description": "Scrape apps from the Xero App Store. Search by keyword, filter by category or industry.",
+  "description": "Browse the Xero App Store by keyword, function category, industry or region. Optionally enrich each app with its public detail-page information.",
   "properties": {
+    "appSlugs": {
+      "description": "Specific apps to fetch in 'Look up specific apps' mode. Paste app slugs (e.g. 'brightpay') or full Xero App Store URLs, one per item.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "title": "App slugs or URLs",
+      "type": "array"
+    },
     "category": {
-      "description": "Function/category to browse (used in 'byCategory' mode). Accepts partial/alias names (e.g. 'Accounting', 'eCommerce', 'Reporting', 'Practice management') or exact names. Valid exact values: Accountant tools, Banking, Bills and expenses, Carbon accounting, Convert data to Xero, CRM and marketing, Debtor management, Development partners, Documents, Ecommerce, Inventory, Invoicing and jobs, Loans financing and credit, Other, Payments, Payroll HR, Point of sale, Practice manager, Reporting and forecasting, Tax and compliance, Time tracking, Workflow builders.",
-      "editor": "textfield",
-      "prefill": "Payroll HR",
-      "title": "Category (Function)",
+      "description": "Filter by a Xero App Store function category. Used by 'Browse a function category' and can be combined with a keyword search. Older partial names and aliases are still accepted.",
+      "editor": "select",
+      "enum": [
+        "Accountant tools",
+        "Banking",
+        "Bills and expenses",
+        "CRM and marketing",
+        "Carbon accounting",
+        "Convert data to Xero",
+        "Debtor management",
+        "Development partners",
+        "Documents",
+        "Ecommerce",
+        "Inventory",
+        "Invoicing and jobs",
+        "Loans, financing and credit",
+        "Other",
+        "Payments",
+        "Payroll HR",
+        "Point of sale",
+        "Practice manager",
+        "Reporting and forecasting",
+        "Tax and compliance",
+        "Time tracking",
+        "Workflow builders"
+      ],
+      "enumTitles": [
+        "Accountant tools",
+        "Banking",
+        "Bills and expenses",
+        "CRM and marketing",
+        "Carbon accounting",
+        "Convert data to Xero",
+        "Debtor management",
+        "Development partners",
+        "Documents",
+        "Ecommerce",
+        "Inventory",
+        "Invoicing and jobs",
+        "Loans, financing and credit",
+        "Other",
+        "Payments",
+        "Payroll HR",
+        "Point of sale",
+        "Practice manager",
+        "Reporting and forecasting",
+        "Tax and compliance",
+        "Time tracking",
+        "Workflow builders"
+      ],
+      "title": "Function category",
+      "type": "string"
+    },
+    "featuredOnly": {
+      "default": false,
+      "description": "Keep only apps Xero marks as featured.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Featured apps only",
+      "type": "boolean"
+    },
+    "freeTrialOnly": {
+      "default": false,
+      "description": "Keep only apps that offer a free trial. This filter is applied after each result page is fetched.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Free-trial apps only",
+      "type": "boolean"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Also read each app's public detail page for its long description, website, support contact, screenshots, video, languages, integrations, use cases and recent reviews. This adds one request per app.",
+      "editor": "checkbox",
+      "prefill": false,
+      "title": "Include app detail-page information",
+      "type": "boolean"
+    },
+    "industry": {
+      "description": "Filter by the industry an app serves. Used by 'Browse an industry' and can be combined with a keyword search.",
+      "editor": "select",
+      "enum": [
+        "Accounting",
+        "Agriculture",
+        "Automotive",
+        "Construction and trades",
+        "Education",
+        "Franchise",
+        "Health",
+        "Hospitality",
+        "Manufacturing",
+        "Not for profit",
+        "Professional services",
+        "Property and realty",
+        "Retail",
+        "Tourism"
+      ],
+      "enumTitles": [
+        "Accounting",
+        "Agriculture",
+        "Automotive",
+        "Construction and trades",
+        "Education",
+        "Franchise",
+        "Health",
+        "Hospitality",
+        "Manufacturing",
+        "Not for profit",
+        "Professional services",
+        "Property and realty",
+        "Retail",
+        "Tourism"
+      ],
+      "title": "Industry",
       "type": "string"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of apps to scrape.",
+      "description": "Maximum number of records to return. The Xero directory currently holds roughly 1,200 app listings.",
       "editor": "number",
-      "maximum": 500,
+      "maximum": 2000,
       "minimum": 1,
-      "prefill": 20,
-      "title": "Max Items",
+      "prefill": 3,
+      "sectionCaption": "Output",
+      "sectionDescription": "Control how much data to return and whether to read each app's detail page.",
+      "title": "Maximum records",
       "type": "integer"
+    },
+    "minRating": {
+      "default": 0,
+      "description": "Keep only apps whose average rating is at least this value (0-5). Apps without a rating are excluded when this is above 0. This filter is applied after each result page is fetched.",
+      "editor": "number",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Minimum rating",
+      "type": "number"
     },
     "mode": {
       "default": "search",
-      "description": "Select scraping mode: search by keyword or browse by category.",
+      "description": "Choose what to scrape: search the directory, browse a function category or industry, list everything, fetch the category taxonomy, look up specific app slugs, or list Development partners.",
       "editor": "select",
       "enum": [
         "search",
-        "byCategory"
+        "byCategory",
+        "byIndustry",
+        "all",
+        "bySlug",
+        "categories",
+        "developerPartners"
       ],
       "enumTitles": [
-        "Search by keyword",
-        "Browse by category"
+        "Search apps by keyword",
+        "Browse a function category",
+        "Browse an industry",
+        "Browse the whole directory",
+        "Look up specific apps by slug or URL",
+        "List categories and industries",
+        "List Development partners"
       ],
       "prefill": "search",
+      "sectionCaption": "What to scrape",
+      "sectionDescription": "Every mode reads the public Xero App Store without a login, cookie or API key.",
       "title": "Mode",
       "type": "string"
     },
     "region": {
       "default": "global",
-      "description": "Filter by region/country code.",
+      "description": "Limit results to apps available in one country, or keep Global to search every region.",
       "editor": "select",
       "enum": [
         "global",
@@ -54,7 +195,7 @@
         "ID"
       ],
       "enumTitles": [
-        "Global",
+        "Global (all regions)",
         "Australia",
         "United Kingdom",
         "New Zealand",
@@ -69,18 +210,40 @@
         "Indonesia"
       ],
       "prefill": "global",
+      "sectionCaption": "Filters",
+      "sectionDescription": "Filters apply to keyword, category, industry and whole-directory modes.",
       "title": "Region",
       "type": "string"
     },
     "searchQuery": {
-      "description": "Keyword to search for (used in 'search' mode). E.g. 'payroll', 'invoicing', 'inventory'.",
+      "description": "Keyword to search for in search mode, e.g. 'payroll', 'invoicing' or 'inventory'. You can also paste a Xero App Store app URL. Leave blank to search for 'payroll'.",
       "editor": "textfield",
       "prefill": "payroll",
-      "title": "Search Query",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Sort results by search relevance, app name, or featured apps first.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "nameAsc",
+        "nameDesc",
+        "featuredFirst"
+      ],
+      "enumTitles": [
+        "Search relevance",
+        "App name A-Z",
+        "App name Z-A",
+        "Featured apps first"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
       "type": "string"
     }
   },
   "schemaVersion": 1,
-  "title": "Xero App Store Scraper",
+  "title": "Xero App Store Directory",
   "type": "object"
 }

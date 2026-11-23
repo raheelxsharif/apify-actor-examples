@@ -4,103 +4,155 @@
 
 # ProductReview.com.au Company Ratings & Reviews Search
 
-Pull company ratings and individual customer reviews from ProductReview.com.au, Australia's largest consumer review platform. Search or browse companies by category, then collect every review for the ones you care about, with star ratings, review text, and author details.
+Collect Australian company scorecards and the customer reviews behind them from ProductReview.com.au. Use one run to search a market, compare ratings, and export the individual reviews that explain those scores.
 
-## What this actor does
+## What you can do
 
-- Searches for companies and products by keyword, or by a category name such as insurance, automotive, or health
-- Fetches every review for one or more specific companies, identified by their ProductReview.com.au slug or URL
-- Filters reviews down to a minimum star rating
-- Pages through a company's reviews automatically up to the number of records you ask for
-- Leaves out any field a company or review doesn't have, such as a missing review title, instead of returning it empty
+- **Find companies by keyword or category.** Search for "travel insurance", "online electronics", or browse a category such as Insurance, Finance, or Shops.
+- **Pull every review for a company.** Pass one or many ProductReview.com.au listing URLs or slugs and page through its review history.
+- **Narrow reviews to what matters.** Filter by star range, reviewer verification, attached photos, a keyword, or a publication-date window.
+- **Choose the order.** Sort companies by relevance, rating, review count, popularity, or price; sort reviews by newest, rating, or most liked.
+- **Compare like with like.** Company rows include the full 1-5 star distribution, review volume, last-year review volume, category path, website, and logo.
 
-## Output per company (`mode=searchCompanies`)
+## Output
 
-- `companySlug`, `companyName`, `companyWebsite`
-- `overallRating`, `reviewCount`
-- `category`, `parentCategory`
-- `logoUrl`, `imageUrl`
-- `sourceUrl`, `recordType` (always `company`), `scrapedAt`
+Each dataset row is either a company or a review, identified by `recordType`.
 
-## Output per review (`mode=getReviews`)
+### Company rows (`mode=searchCompanies`)
 
-- `companySlug`
-- `rating`
-- `title` — review headline, when the reviewer gave one
-- `body` — full review text
-- `authorName`, `date`
-- `reviewImages[]` — attached photos, when present
-- `sourceUrl`, `recordType` (always `review`), `scrapedAt`
+| Field | Meaning |
+|---|---|
+| `companyId`, `companySlug`, `companyName` | Stable company identity |
+| `overallRating`, `reviewCount` | Average stars and total reviews |
+| `ratingBreakdown` | Counts for `star1` through `star5` |
+| `reviewCountLastYear`, `questionCount` | Recent activity and Q&A volume |
+| `category`, `parentCategory`, `categoryPath` | Where the company sits in the catalogue |
+| `companyWebsite`, `logoUrl`, `imageUrl` | Public website and artwork |
+| `shortDescription`, `brandName` | Profile summary and brand |
+| `isVerified`, `isDiscontinued` | Brand-managed and discontinued flags |
+| `sourceUrl`, `recordType`, `scrapedAt` | Provenance and timestamp |
 
-## Input
+### Review rows (`mode=getReviews`)
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | string (select) | `searchCompanies` | `searchCompanies` or `getReviews` |
-| `query` | string | – | Keyword to search for companies or products (mode=searchCompanies) |
-| `category` | string (select) | – | Category name to search for, e.g. `automotive`, `health`, `travel` (mode=searchCompanies) |
-| `companySlugs` | array | – | Company slugs or full URLs to fetch reviews for, e.g. `amazon`, `nrma-car-insurance` (mode=getReviews) |
-| `minRating` | integer | `1` | Only return reviews with at least this star rating (1-5) |
-| `maxItems` | integer | `100` | Maximum number of records to return (1-10,000) |
+| Field | Meaning |
+|---|---|
+| `reviewId`, `reviewUrl` | Review identity and public page |
+| `companySlug`, `companyName` | Company the review belongs to |
+| `rating`, `title`, `body` | Stars, headline (when supplied), and full text |
+| `authorName`, `date` | Reviewer display name and publication date |
+| `verifiedPurchase`, `isVerifiedReview` | Verification signals |
+| `helpfulCount`, `notHelpfulCount` | Community votes |
+| `reviewImages` | Attached photo URLs |
+| `wasSolicitedByBrand`, `hasFollowUp`, `commentCount` | Review context |
+| `sourceUrl`, `recordType`, `scrapedAt` | Provenance and timestamp |
 
-### Example: search for companies by keyword
+Fields the source does not provide for a row are omitted rather than returned empty.
 
-```json
-{
-  "mode": "searchCompanies",
-  "query": "insurance",
-  "maxItems": 20
-}
-```
+## Input examples
 
-### Example: search by category
+### Search a market
 
 ```json
 {
   "mode": "searchCompanies",
-  "category": "automotive",
+  "query": "travel insurance",
+  "searchSort": "numberOfReviews",
   "maxItems": 50
 }
 ```
 
-### Example: get reviews for specific companies
+### Browse a category
+
+```json
+{
+  "mode": "searchCompanies",
+  "category": "insurance",
+  "maxItems": 30
+}
+```
+
+### Export reviews for several companies
 
 ```json
 {
   "mode": "getReviews",
-  "companySlugs": ["amazon", "nrma-car-insurance"],
-  "minRating": 1,
+  "companySlugs": [
+    "amazon",
+    "https://www.productreview.com.au/listings/nrma-car-insurance"
+  ],
+  "minRating": 4,
+  "reviewSort": "newest",
+  "maxItems": 500
+}
+```
+
+### Verified reviews with photos from the last year
+
+```json
+{
+  "mode": "getReviews",
+  "companySlugs": ["kogan"],
+  "verifiedOnly": true,
+  "withAttachmentsOnly": true,
+  "dateFrom": "2025-01-01",
   "maxItems": 100
 }
 ```
 
+## Input reference
+
+| Field | Type | Default | Notes |
+|---|---|---|---|
+| `mode` | select | `searchCompanies` | `searchCompanies` or `getReviews` |
+| `query` | text | – | Keyword for company search |
+| `category` | select | – | Restricts company search to that catalogue category |
+| `companySlugs` | array | – | Listing slugs or URLs for `getReviews` |
+| `minRating` / `maxRating` | integer | `1` / `5` | Star range, inclusive |
+| `reviewSort` | select | `overview` | `overview`, `newest`, `ratingHighest`, `ratingLowest`, `mostLiked` |
+| `searchSort` | select | `relevance` | `relevance`, `rating`, `numberOfReviews`, `popularity`, `lowestPrice`, `highestPrice` |
+| `verifiedOnly` | boolean | `false` | Verified reviewers only |
+| `withAttachmentsOnly` | boolean | `false` | Reviews with photos only |
+| `reviewKeyword` | text | – | Match words inside review text |
+| `dateFrom` / `dateTo` | date | – | Publication-date window |
+| `maxItems` | integer | `100` | 1–10,000 rows |
+
+Existing saved tasks that use the earlier `mode: "search"` or `mode: "reviews"` values, `searchQuery`, `companySlug`, `productUrl`, or `minStars` keep working; the old keys are translated automatically.
+
 ## Use cases
 
-- Comparing overall ratings across competing companies in a category before a purchase decision
-- Monitoring new reviews for your own company or a competitor's
-- Building a dataset of customer sentiment for a specific industry in the Australian market
-- Filtering out low-rated reviews to focus on a company's strongest feedback, or vice versa
-- Feeding review text into sentiment analysis or complaint-trend research
+- Benchmarking insurers, telcos, retailers, or energy providers before renewing a contract
+- Watching new reviews for your company and its competitors on a schedule
+- Building a sentiment or complaint-topic dataset for the Australian market
+- Finding reviewers who mention delivery, pricing, support, or a specific product issue
+- Exporting the star distribution behind a headline rating for a market map
 
 ## FAQ
 
-**What is ProductReview.com.au?**
-It's Australia's largest consumer review platform, covering reviews across tens of thousands of businesses, products, and services.
+**Do I need an account, cookies, or a proxy?**
+No. The actor reads public review pages and works out of the box. It selects its own network path automatically.
 
-**Do I need an account or API key?**
-No — this actor reads ProductReview.com.au's publicly available pages directly.
+**How deep can I go?**
+Set `maxItems` up to 10,000. The actor pages through as much of a company's review history as the source exposes.
 
-**How many reviews can I get per company?**
-Set `maxItems` to the number you want; the actor pages through a company's reviews until it reaches that count or runs out of reviews.
+**Why does a row lack a title or a photo?**
+ProductReview reviews can be rating-only, and not every reviewer uploads media. Missing fields are omitted, never filled with placeholders.
 
-**Does this cover companies outside Australia?**
-The platform is focused on the Australian market, so most listed companies are Australian businesses or have a significant Australian customer base.
+**Can I query multiple companies in one run?**
+Yes. Add several slugs or full listing URLs to `companySlugs`; results are deduplicated across companies.
 
-**How current is the data?**
-Every run reads the live pages directly, and reviews come back sorted most-recent first.
+**Are reviews from every country included?**
+ProductReview.com.au is an Australian platform. Listings and reviews reflect the Australian market.
 
-**What's the difference between `query` and `category`?**
-Both run the same keyword search — `query` takes any free-text term, while `category` offers a fixed list of common category names to search for instead of typing one yourself.
+**Can I monitor only recent reviews?**
+Combine `dateFrom` with `reviewSort: "newest"` and a schedule. The date window is applied to the review publication date.
 
-**Is this affiliated with ProductReview.com.au?**
-No. This is an independent actor that reads ProductReview.com.au's publicly accessible pages.
+**What does `category` add to a keyword search?**
+It restricts results to companies filed under that catalogue category, and combines with the keyword when both are set. Category landing pages expose their top listings, while keyword search can reach further into the catalogue.
+
+## Notes and limits
+
+- Review history is bounded by what the public listing exposes for that company.
+- A category browse starts from the category's public top listings; use a keyword for the deepest coverage of a large category.
+- Broad searches expose a limited number of results per sort order; the actor combines several sort orders and removes duplicates to reach further when you ask for more records.
+- A company can be listed under several catalogue paths; `categoryPath` reflects the path attached to that listing.
+- The actor is independent and not affiliated with ProductReview.com.au.

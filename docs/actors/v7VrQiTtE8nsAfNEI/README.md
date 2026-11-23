@@ -4,28 +4,29 @@
 
 # Best Friends Animal Society Adoptable Pet Finder
 
-Find adoptable dogs and cats from Best Friends Animal Society, one of the largest animal-welfare organizations in the United States. Browse any of its five adoption centers, search by pet name, or look up specific pets by ID or profile URL, and get back full profiles with breed, age, photos, and an adoption link.
+Find adoptable pets from Best Friends Animal Society, one of the largest animal-welfare organizations in the United States. Browse its five adoption centers or the Kanab Sanctuary, search by pet name, filter by breed, color, age, size or placement, or look up specific pets by ID or profile URL. Every record carries breed, age, photos, a profile link and an adoption link.
 
 ## What this actor does
 
-- Browses adoptable pets at any of five Best Friends adoption centers, or looks them up by animal ID or profile URL
-- Searches pets by name across all locations
-- Filters results by species, age group, sex, and size
+- Browses adoptable dogs, cats, rabbits, birds, pigs, horses, barnyard animals and other species at five adoption centers or the Kanab Sanctuary
+- Searches pets by name across every center and the Sanctuary
+- Filters by species, age group, sex, size, coat color, primary breed, secondary breed and placement
 - Sorts listings A-Z, by newest arrival, longest stay, or featured status
-- Optionally fetches each pet's full profile for breed, birthdate, description, and a photo gallery
+- Resolves animal IDs through Best Friends' live adoptable sitemap, including Sanctuary IDs
+- Optionally fetches each pet's full profile for species, breed, birthdate, description, photo gallery and adoption link
 - Omits any field a pet's listing doesn't have, rather than returning it empty
 
 ## Output per animal
 
 - `animalId` — Best Friends' numeric animal ID
 - `name`
-- `species` — Dog, Cat, or another species, only available when profile details are fetched
+- `species` — Dog, Cat, Rabbit, Bird, Pig, Horse or another species, only available when profile details are fetched
 - `primaryBreed`, `secondaryBreed`
 - `age` — Baby, Young, Adult, or Senior
 - `birthDate` — estimated birthdate, when published
 - `sex`, `color`, `size`
-- `location` — adoption center slug, e.g. `salt-lake-city`
-- `status` — e.g. "In foster"
+- `location` — adoption center slug or `sanctuary`
+- `status` — e.g. "In foster" or "I'm at the sanctuary — come meet me."
 - `description` — full adoption bio, when profile details are fetched
 - `imageUrl`, `imageUrls[]` — profile photo and gallery, up to 10 images
 - `adoptUrl` — the shelter's adoption inquiry link
@@ -40,17 +41,21 @@ A pet ID or URL that can't be resolved produces a record with `recordType: "erro
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `mode` | string (select) | `byLocation` | `byLocation`, `search`, `byIds`, or `byUrls` |
-| `location` | string (select) | `salt-lake-city` | Adoption center: Salt Lake City, Los Angeles, New York City, Houston, or Northwest Arkansas (mode=byLocation/byIds) |
+| `location` | string (select) | `salt-lake-city` | Adoption center or `sanctuary` (mode=byLocation/byIds). Non-dog/cat species live at the Sanctuary |
 | `searchQuery` | string | `` | Pet name or partial name (mode=search; also narrows mode=byLocation) |
-| `animalIds` | array | `[]` | Numeric animal IDs taken from profile URLs (mode=byIds) |
+| `animalIds` | array | `[]` | Numeric animal IDs from profile URLs (mode=byIds), resolved through the live sitemap |
 | `startUrls` | array | `[]` | Full pet profile URLs (mode=byUrls) |
-| `species` | string (select) | All | `Dog` or `Cat` |
+| `species` | string (select) | All | `Dog`, `Cat`, `Rabbit`, `Bird`, `Pig`, `Horse`, `Barnyard`, or `Other` |
 | `age` | string (select) | All | `Baby`, `Young`, `Adult`, or `Senior` |
 | `sex` | string (select) | All | `Female` or `Male` |
 | `size` | string (select) | All | `Small`, `Medium`, `Large`, or `X-Large` |
+| `color` | string (select) | All | Website color label, e.g. `Black`, `Cream`, `Tortoiseshell` |
+| `primaryBreed` | string | – | Exact website breed label, e.g. `Husky` or `Domestic Shorthair` |
+| `secondaryBreed` | string | – | Exact secondary-breed label, e.g. `Mix` or `Boxer` |
+| `placement` | string (select) | Any | `At Adoption Center` or `Offsite` |
 | `sortBy` | string (select) | `title` | `title` (A-Z), `newest`, `longestStay`, or `featured` (mode=byLocation/search) |
 | `enrichDetails` | boolean | `true` | Fetch each pet's full profile for species, description, photos, birthdate, and adoption link |
-| `maxItems` | integer | `50` | Hard cap on returned records (1-1000) |
+| `maxItems` | integer | `50` | Hard cap on returned records (1-5000) |
 
 ### Example: senior dogs in Los Angeles, longest stay first
 
@@ -62,6 +67,19 @@ A pet ID or URL that can't be resolved produces a record with `recordType: "erro
   "age": "Senior",
   "sortBy": "longestStay",
   "maxItems": 20
+}
+```
+
+### Example: black domestic shorthair cats at the Sanctuary
+
+```json
+{
+  "mode": "byLocation",
+  "location": "sanctuary",
+  "species": "Cat",
+  "color": "Black",
+  "primaryBreed": "Domestic Shorthair",
+  "maxItems": 30
 }
 ```
 
@@ -81,8 +99,7 @@ A pet ID or URL that can't be resolved produces a record with `recordType: "erro
 ```json
 {
   "mode": "byIds",
-  "location": "salt-lake-city",
-  "animalIds": ["214192932", "214157435"]
+  "animalIds": [214192932, 8484237, 214157435]
 }
 ```
 
@@ -93,35 +110,44 @@ A pet ID or URL that can't be resolved produces a record with `recordType: "erro
   "mode": "byUrls",
   "startUrls": [
     { "url": "https://bestfriends.org/salt-lake-city/adopt/214157435/amaranth" },
-    { "url": "https://bestfriends.org/houston/adopt/213734892/scampi" }
+    { "url": "https://bestfriends.org/sanctuary/adopt/8484237/queen-bee" }
   ]
 }
 ```
 
 ## Use cases
 
-- Rescue partners checking Best Friends centers for transfer or foster opportunities
-- Pet-adoption sites syndicating live listings from a trusted shelter network
-- Researchers studying breed, age, or length-of-stay patterns across multiple shelter locations
+- Rescue partners checking Best Friends centers or the Sanctuary for transfer or foster opportunities
+- Pet-adoption sites syndicating live listings, including rabbits, birds and farm animals
+- Researchers studying breed, color, age, or length-of-stay patterns across locations
 - Advocacy groups building a daily snapshot of available pets per center
 - Content teams pulling names, photos, and bios for adoption-promotion posts
 
 ## FAQ
 
 **Which locations are covered?**
-Five Best Friends adoption centers: Salt Lake City, Los Angeles, New York City, Houston, and Northwest Arkansas. Pets from the Best Friends Sanctuary in Kanab, Utah can still be fetched by `animalIds` or `startUrls`, since the sanctuary doesn't have its own filterable listing page.
+Five Best Friends adoption centers (Salt Lake City, Los Angeles, New York City, Houston, Northwest Arkansas) and the Kanab Sanctuary in Utah. The Sanctuary is where rabbits, birds, pigs, horses, barnyard animals and other species are listed.
+
+**Why do non-dog/cat species return nothing at a center?**
+Best Friends lists those species only at the Kanab Sanctuary. The actor tells you to switch `location` to `sanctuary` instead of silently returning unrelated pets.
+
+**How do the color and breed filters work?**
+They use the same exposed filters as the Best Friends listing pages. Breed values are matched against the live filter labels for the selected location, so `Husky` or `Domestic Shorthair` work without knowing the site's internal IDs. If nothing matches, the run returns zero pet records and says so in its status message.
 
 **How fresh is the data?**
-Every run reads the current listing and profile pages directly, so results reflect what's live on the site at the time you run it.
+Every run reads the current listing and profile pages directly, so results reflect what's live on the site at the time you run it. The sitemap used for ID lookups is regenerated by Best Friends whenever its inventory changes.
 
 **Why is `species` missing when I turn off profile details?**
-Listing cards don't show the species; it's only available on the full profile page, so turning on `enrichDetails` is required to get it.
+Listing cards don't show the species; it's only available on the full profile page, so turning on `enrichDetails` is required to get it. The listing's own species filter still works without enrichment.
 
 **Why do some pets have no `size` or `birthDate`?**
 Best Friends only publishes those details for some pets. When a profile doesn't include a field, it's left out of the record rather than shown as empty.
 
 **Do the filters match the website's own filters?**
-Yes — `species`, `age`, `sex`, and `size` map directly to the filters on the Best Friends listing pages, and `sortBy` matches its sort options.
+Yes — species, age, sex, size, color, primary breed, secondary breed and placement map directly to the Best Friends listing filters, and `sortBy` matches its sort options.
+
+**Can I use older input field names?**
+Yes. Saved tasks with `query`/`search`, `ids`, `urls`, `gender`, `maxResults`, `limit` or `enrich` keep working, and numeric animal IDs are accepted as well as strings.
 
 **What happens if I pass an invalid animal ID or URL?**
 That entry produces an error record with the failed ID/URL and a short reason instead of silently being skipped.
@@ -131,3 +157,9 @@ No — this actor reads Best Friends' publicly available adoption pages directly
 
 **Is this affiliated with Best Friends Animal Society?**
 No. This is an independent actor that reads their publicly available website; it is not endorsed by or affiliated with Best Friends Animal Society.
+
+## Limitations
+
+- Profile pages publish breed, age, sex, color, size, description and photos. They do not publish weight, house-training, or good-with-kids/dogs/cats compatibility, so those fields are not invented.
+- Birthdates are estimates when Best Friends labels them as estimated.
+- `maxItems` caps a run at 5,000 records; the whole site currently lists about 1,600 pets, so a single maxed-out run can capture every location. For faster targeted runs, filter by location or species.

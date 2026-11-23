@@ -1,13 +1,13 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Company profiles and consumer reviews from ProductReview.com.au — ratings, review text, author, date, and company details.",
+  "description": "Company scorecards and individual customer reviews from ProductReview.com.au, with ratings, review text, author names, dates, and media.",
   "properties": {
-    "reviews": {
-      "description": "Dataset containing all scraped company profiles and/or individual reviews.",
+    "results": {
+      "description": "Dataset containing company records (mode=searchCompanies) and/or review records (mode=getReviews). Each row has a recordType of 'company' or 'review'.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Reviews & Companies",
+      "title": "Companies & Reviews",
       "type": "string"
     }
   },
-  "title": "ProductReview.com.au Company Ratings & Reviews Search Output"
+  "title": "ProductReview.com.au Company Ratings & Reviews Output"
 }
