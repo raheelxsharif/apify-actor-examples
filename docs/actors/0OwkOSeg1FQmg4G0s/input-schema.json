@@ -1,0 +1,86 @@
+{
+  "description": "Scrape apps from the Xero App Store. Search by keyword, filter by category or industry.",
+  "properties": {
+    "category": {
+      "description": "Function/category to browse (used in 'byCategory' mode). Accepts partial/alias names (e.g. 'Accounting', 'eCommerce', 'Reporting', 'Practice management') or exact names. Valid exact values: Accountant tools, Banking, Bills and expenses, Carbon accounting, Convert data to Xero, CRM and marketing, Debtor management, Development partners, Documents, Ecommerce, Inventory, Invoicing and jobs, Loans financing and credit, Other, Payments, Payroll HR, Point of sale, Practice manager, Reporting and forecasting, Tax and compliance, Time tracking, Workflow builders.",
+      "editor": "textfield",
+      "prefill": "Payroll HR",
+      "title": "Category (Function)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of apps to scrape.",
+      "editor": "number",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Select scraping mode: search by keyword or browse by category.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Browse by category"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "region": {
+      "default": "global",
+      "description": "Filter by region/country code.",
+      "editor": "select",
+      "enum": [
+        "global",
+        "AU",
+        "GB",
+        "NZ",
+        "US",
+        "CA",
+        "SG",
+        "ZA",
+        "IE",
+        "HK",
+        "MY",
+        "PH",
+        "ID"
+      ],
+      "enumTitles": [
+        "Global",
+        "Australia",
+        "United Kingdom",
+        "New Zealand",
+        "United States",
+        "Canada",
+        "Singapore",
+        "South Africa",
+        "Ireland",
+        "Hong Kong",
+        "Malaysia",
+        "Philippines",
+        "Indonesia"
+      ],
+      "prefill": "global",
+      "title": "Region",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keyword to search for (used in 'search' mode). E.g. 'payroll', 'invoicing', 'inventory'.",
+      "editor": "textfield",
+      "prefill": "payroll",
+      "title": "Search Query",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "Xero App Store Scraper",
+  "type": "object"
+}
