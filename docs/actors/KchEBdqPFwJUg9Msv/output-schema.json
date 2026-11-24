@@ -1,13 +1,14 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Daft.ie property listings with price, bedrooms, bathrooms, property type, address, county, and BER rating.",
+  "description": "Daft.ie property records with price, rent period, bedrooms, bathrooms, BER rating, floor area, Eircode, GPS coordinates, photo galleries, seller details and listing URLs.",
   "properties": {
     "listings": {
-      "description": "Dataset containing all scraped property listings from Daft.ie.",
+      "description": "Dataset containing every scraped Daft.ie property listing.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Property Listings",
+      "title": "Property listings",
       "type": "string"
     }
   },
-  "title": "Daft.ie Irish Property Search by County & Price Output"
+  "title": "Daft.ie Irish Property Search by County & Price Output",
+  "type": "object"
 }

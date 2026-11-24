@@ -4,45 +4,47 @@
 
 # FincaRaiz Colombia Property Search by City & Price
 
-Search FincaRaiz.com.co, Colombia's largest real estate portal, for apartments, houses, offices, warehouses, and land for sale or rent across any Colombian city. Filter by property type, price, bedrooms, bathrooms, and area, and get back structured listings with price, stratum, location, and photos.
+Search FincaRaiz.com.co, Colombia's largest real estate portal, for apartments, houses, offices, warehouses, farms and land for sale or rent in any Colombian city. Filter by property type, price, bedrooms, bathrooms, area and socioeconomic stratum, then export structured listings with prices in COP and USD, coordinates, photos, amenities and agency contact details.
 
 ## What this actor does
 
-- Searches properties for sale (Venta) or for rent (Arriendo) across all Colombian cities
-- Filters by property type (apartment, house, office, warehouse, land, and more), city, price range, bedroom/bathroom count, and property area
-- Returns price in COP alongside a USD estimate, plus the Colombian socioeconomic stratum and GPS coordinates
-- Includes amenities, agent/agency contact info, and the full photo gallery for each listing
-- Omits any field a listing doesn't publish, such as terrain area on an apartment, rather than returning it empty
+- Searches FincaRaiz listings for sale (Venta) or rent (Arriendo) in Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Pereira and every other Colombian municipality
+- Resolves a city name to FincaRaiz's own location index, so results are filtered at the source rather than guessed from titles
+- Applies price, bedroom, bathroom, area and stratum filters on FincaRaiz's search service and returns up to 1,000 listings per run, following the site's pagination
+- Reads the public search response directly — no account, cookies or API key is needed
+- Adds useful derived values such as price per square metre and absolute listing and image URLs
 
 ## Output per property
 
-- `listingId`, `code`, `title`, `description`
-- `operationType` — "Venta" (sale) or "Arriendo" (rent), `propertyType`
-- `price`, `currency`, `currencyCode`, `priceUsd`, `priceWithAdmin`, `administrationFee`
-- `city`, `neighborhood`, `address`, `latitude`, `longitude`, `stratum`
+- `listingId`, `code`, `code2`, `title`, `description`
+- `operationType`, `operationTypeId`, `propertyType`, `propertyTypeId`
+- `price`, `currency`, `currencyCode`, `priceUsd`, `priceWithAdmin`, `pricePerSqm`, `administrationFee`
+- `city`, `state`, `country`, `locality`, `zone`, `neighborhood`, `address`
+- `latitude`, `longitude`, `stratum`
 - `bedrooms`, `bathrooms`, `garages`, `hasGarage`
-- `areaSqm`, `terrainSqm`, `terraceSqm`, `floor`, `floorsCount`, `numFloors`
-- `constructionState`, `antiquity`, `isProject`, `acceptsBarter`, `hasVideo`, `hasTour3d`
-- `amenities[]`, `agent`
+- `areaSqm`, `builtAreaSqm`, `privateAreaSqm`, `terrainSqm`, `terraceSqm`, `floor`, `floorsCount`, `numFloors`
+- `constructionState`, `antiquity`, `isProject`, `isFeatured`, `acceptsBarter`, `hasVideo`, `hasTour3d`
+- `amenities[]`, `agent` (`id`, `name`, `type`, `phone`, `whatsapp`, `logo`, `agencyUrl`)
 - `images[]`, `thumbnail`
-- `listingUrl`, `sourceUrl`
-- `listedAt`, `updatedAt`, `mode` — search mode that produced this record, `recordType` (always `property`), `scrapedAt`
+- `listingUrl`, `sourceUrl`, `listedAt`, `updatedAt`
+- `mode`, `recordType` (always `property`), `scrapedAt`
+
+Fields a listing does not publish are omitted rather than returned as `null` or an empty string. For example, an apartment without a private garden has no `terrainSqm`.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string (select) | `searchForSale` | `searchForSale` (Venta) or `searchForRent` (Arriendo) |
-| `propertyType` | string (select) | `` (All) | e.g. `Apartamento`, `Casa`, `Oficina`, `Bodega`, `Lote`, `Finca` |
-| `city` | string | `` (All) | City name, partial match, e.g. `Bogotá`, `Medellín`, `Cali` |
-| `priceMin` | integer | – | Minimum price in COP |
-| `priceMax` | integer | – | Maximum price in COP |
-| `bedroomsMin` | integer | – | Minimum number of bedrooms |
-| `bedroomsMax` | integer | – | Maximum number of bedrooms |
-| `bathroomsMin` | integer | – | Minimum number of bathrooms |
-| `areaMin` | integer | – | Minimum property area in m² |
-| `areaMax` | integer | – | Maximum property area in m² |
-| `maxItems` | integer | `50` | Maximum listings to return (1-1000) |
+| `mode` | select | `searchForSale` | `searchForSale` (Venta) or `searchForRent` (Arriendo) |
+| `propertyType` | select | All Types | `Apartamento`, `Casa`, `Oficina`, `Local`, `Bodega`, `Lote`, `Finca`, `Casa Campestre`, `Apartaestudio`, `Habitación`, `Parqueadero`, `Edificio`, `Cabaña`, `Casa Lote`, `Consultorio` |
+| `city` | text | All Colombia | City or municipality, for example `Bogotá` or `Medellín` |
+| `priceMin` / `priceMax` | integer | – | Asking price range in COP |
+| `bedroomsMin` / `bedroomsMax` | integer | – | Bedroom range; `0` includes studios |
+| `bathroomsMin` / `bathroomsMax` | integer | – | Bathroom range |
+| `areaMin` / `areaMax` | integer | – | Property area range in m² |
+| `stratum` | select | Any | Colombian socioeconomic stratum 1–6 |
+| `sortOrder` | select | `popularity` | `popularity`, `newest`, `priceAsc`, `priceDesc`, `areaAsc`, `areaDesc` |
+| `maxItems` | integer | `50` | Listings to return, 1–1,000 |
 
 ### Example: apartments for rent in Bogotá
 
@@ -67,49 +69,68 @@ Search FincaRaiz.com.co, Colombia's largest real estate portal, for apartments, 
 }
 ```
 
-### Example: 2-3 bedroom apartments for sale in Cali
+### Example: stratum 5–6 apartments with two or more bedrooms
 
 ```json
 {
   "mode": "searchForSale",
   "propertyType": "Apartamento",
-  "city": "Cali",
+  "city": "Bogotá",
   "bedroomsMin": 2,
-  "bedroomsMax": 3,
+  "stratum": "5",
+  "sortOrder": "priceDesc",
   "maxItems": 50
+}
+```
+
+### Example: newest offices across Colombia
+
+```json
+{
+  "mode": "searchForSale",
+  "propertyType": "Oficina",
+  "sortOrder": "newest",
+  "maxItems": 25
 }
 ```
 
 ## Use cases
 
 - Comparing asking prices for a property type and budget across Colombian cities
-- Tracking newly listed apartments or houses in a specific neighborhood
+- Tracking new apartments or houses in a specific city or neighborhood
 - Researching rental rates and stratum distribution for investment decisions
-- Building a lead list of commercial spaces or warehouses available nationwide
+- Building a lead list of commercial spaces, offices or warehouses
 - Monitoring how a listing's price or status changes between `listedAt` and `updatedAt`
 
 ## FAQ
 
 **Which cities are covered?**
-All Colombian cities and municipalities listed on FincaRaiz, including Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, and Pereira.
+Every Colombian city, municipality and neighborhood in FincaRaiz's location index, including Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Pereira and Chía.
 
 **What does `stratum` mean?**
-It's the Colombian socioeconomic classification (1 to 6) assigned to a property's neighborhood, used widely in Colombia to gauge an area's relative cost of living.
+It is Colombia's socioeconomic classification (1 to 6) for a property's area, widely used to compare relative cost of living.
 
-**Can I filter by a specific neighborhood?**
-Not as a direct input — filter by `city`, then use each record's `neighborhood` field to narrow down results yourself.
+**Can I search a neighborhood instead of a city?**
+Yes. Type the neighborhood or locality name in `city`; FincaRaiz's location index resolves it when it exists. If the name cannot be resolved, the actor searches by keyword and still verifies the city field.
 
 **What currencies appear in the output?**
-Most listings are priced in COP; `currencyCode` tells you which currency the listing itself uses, and `priceUsd` gives a USD estimate for comparison.
+Most listings are priced in COP. `currencyCode` identifies the listing's own currency and `priceUsd` gives FincaRaiz's USD estimate for comparison.
 
 **How fresh is the data?**
-Every run reads FincaRaiz's live listings directly; `updatedAt` reflects when the property owner or agency last updated that specific listing.
+Each run reads live FincaRaiz listings. `updatedAt` reflects when the owner or agency last updated that listing.
 
 **Why do some listings have no `amenities` or `agent` details?**
-Those are only included when the listing itself publishes them; not every property has agency contact info or a listed amenities set.
+Those fields are only present when the listing itself publishes them.
 
-**Do I need an account or API key?**
-No — this actor reads FincaRaiz's publicly available listing data directly.
+**Do I need an account, cookies or an API key?**
+No. The actor reads FincaRaiz's public search data without credentials. If FincaRaiz temporarily blocks the actor's network, the actor retries through Apify Proxy automatically.
 
 **Is this affiliated with FincaRaiz?**
-No. This is an independent actor that reads FincaRaiz.com.co's publicly accessible pages; it is not affiliated with or endorsed by FincaRaiz or InfoCasas Group.
+No. This is an independent actor that reads FincaRaiz.com.co's publicly accessible pages and search service; it is not affiliated with or endorsed by FincaRaiz or InfoCasas Group.
+
+## Limitations
+
+- `maxItems` is capped at 1,000 per run. Split a larger job by city, property type or price range and combine the datasets.
+- Bedroom and bathroom minimums are applied by FincaRaiz; maximums are verified by the actor after fetching, so a run can read a few extra listings to fill the requested total.
+- Listings whose price is hidden by the advertiser are returned without a price rather than with a guessed value.
+- Sorting is performed by FincaRaiz. A small number of entries can appear out of raw-price order because the source orders on its own normalized price snapshot; the actor preserves the site's order.

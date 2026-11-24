@@ -1,23 +1,37 @@
 {
-  "description": "Search Daft.ie Ireland for properties for sale, rent, or to share.",
+  "description": "Search Daft.ie by county, price, bedrooms, bathrooms and recency, or paste Daft.ie search and listing URLs. Every record is one property.",
   "properties": {
-    "bedroomsMax": {
-      "description": "Maximum number of bedrooms (optional).",
-      "maximum": 20,
+    "bathroomsMax": {
+      "description": "Only return properties with at most this many bathrooms. Leave empty for no maximum.",
+      "maximum": 50,
       "minimum": 0,
-      "title": "Max Bedrooms",
+      "title": "Maximum bathrooms",
+      "type": "integer"
+    },
+    "bathroomsMin": {
+      "description": "Only return properties with at least this many bathrooms. Leave empty for no minimum.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Minimum bathrooms",
+      "type": "integer"
+    },
+    "bedroomsMax": {
+      "description": "Only return properties with at most this many bedrooms. Leave empty for no maximum.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Maximum bedrooms",
       "type": "integer"
     },
     "bedroomsMin": {
-      "description": "Minimum number of bedrooms (optional).",
-      "maximum": 20,
+      "description": "Only return properties with at least this many bedrooms. Leave empty for no minimum.",
+      "maximum": 50,
       "minimum": 0,
-      "title": "Min Bedrooms",
+      "title": "Minimum bedrooms",
       "type": "integer"
     },
     "county": {
       "default": "Dublin",
-      "description": "Irish county to filter listings (e.g. Dublin, Cork, Galway).",
+      "description": "Irish county or city to search. Choose All Ireland for a nationwide search.",
       "editor": "select",
       "enum": [
         "Dublin",
@@ -45,14 +59,26 @@
         "Westmeath",
         "Longford",
         "Laois",
-        "Carlow"
+        "Carlow",
+        "Antrim",
+        "Armagh",
+        "Derry",
+        "Down",
+        "Fermanagh",
+        "Tyrone",
+        "Dublin City",
+        "Cork City",
+        "Galway City",
+        "Limerick City",
+        "Waterford City",
+        "All Ireland"
       ],
       "enumTitles": [
-        "Dublin",
-        "Cork",
-        "Galway",
-        "Limerick",
-        "Waterford",
+        "Dublin (county)",
+        "Cork (county)",
+        "Galway (county)",
+        "Limerick (county)",
+        "Waterford (county)",
         "Kilkenny",
         "Wexford",
         "Wicklow",
@@ -73,84 +99,200 @@
         "Westmeath",
         "Longford",
         "Laois",
-        "Carlow"
+        "Carlow",
+        "Antrim",
+        "Armagh",
+        "Derry",
+        "Down",
+        "Fermanagh",
+        "Tyrone",
+        "Dublin City",
+        "Cork City",
+        "Galway City",
+        "Limerick City",
+        "Waterford City",
+        "All Ireland (nationwide)"
       ],
       "prefill": "Dublin",
-      "title": "County",
+      "title": "County or city",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "Visit each property page to add the full description, feature list, Eircode, publish and update dates, view count and exact address. Slower and uses more requests.",
+      "prefill": false,
+      "title": "Include full listing details",
+      "type": "boolean"
+    },
+    "location": {
+      "description": "Optional Daft.ie location slug for a town, suburb or Dublin postal district, for example dublin-2-dublin, blackrock-cork or maynooth-kildare. Overrides County or city when set.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Advanced location slug",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Maximum number of listings to return.",
-      "maximum": 1000,
+      "description": "Maximum number of property records to save.",
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max Items",
+      "prefill": 3,
+      "title": "Maximum listings",
       "type": "integer"
     },
     "mode": {
       "default": "searchForSale",
-      "description": "What to search for.",
+      "description": "Which Daft.ie market to search: homes for sale, rentals, house shares, new homes, student accommodation, or commercial property.",
       "editor": "select",
       "enum": [
         "searchForSale",
         "searchForRent",
-        "searchToShare"
+        "searchToShare",
+        "searchNewHomes",
+        "searchStudentRent",
+        "searchCommercialSale",
+        "searchCommercialRent"
       ],
       "enumTitles": [
-        "Search properties for sale",
-        "Search properties for rent",
-        "Search rooms / house shares"
+        "Homes for sale",
+        "Homes to rent",
+        "House shares and rooms",
+        "New homes for sale",
+        "Student accommodation",
+        "Commercial property for sale",
+        "Commercial property to rent"
       ],
       "prefill": "searchForSale",
-      "title": "Mode",
+      "title": "Search mode",
       "type": "string"
     },
     "priceMax": {
-      "description": "Maximum price in Euros (optional).",
+      "description": "Highest price in euros. For rent and sharing searches this is the monthly rent. Leave empty for no maximum.",
       "maximum": 100000000,
       "minimum": 0,
-      "title": "Max Price (EUR)",
+      "title": "Maximum price (EUR)",
       "type": "integer"
     },
     "priceMin": {
-      "description": "Minimum price in Euros (optional).",
+      "description": "Lowest price in euros. For rent and sharing searches this is the monthly rent. Leave empty for no minimum.",
       "maximum": 100000000,
       "minimum": 0,
-      "title": "Min Price (EUR)",
+      "title": "Minimum price (EUR)",
       "type": "integer"
     },
     "propertyType": {
       "default": "",
-      "description": "Filter by property type.",
+      "description": "Optional property type. Residential types work in residential modes; commercial types work in commercial modes. Leave on All types for every type.",
       "editor": "select",
       "enum": [
         "",
         "houses",
+        "detached-houses",
+        "semi-detached-houses",
+        "terraced-houses",
+        "end-of-terrace-houses",
+        "townhouses",
         "apartments",
         "studio-apartments",
-        "bungalows",
         "duplexes",
-        "sites"
+        "bungalows",
+        "sites",
+        "flats",
+        "office-spaces",
+        "retail-units",
+        "industrial-units",
+        "restaurants-bars-hotels",
+        "commercial-sites",
+        "agricultural-land",
+        "development-land",
+        "industrial-sites",
+        "investment-properties"
       ],
       "enumTitles": [
         "All types",
         "Houses",
+        "Detached houses",
+        "Semi-detached houses",
+        "Terraced houses",
+        "End-of-terrace houses",
+        "Townhouses",
         "Apartments",
-        "Studio Apartments",
-        "Bungalows",
+        "Studio apartments",
         "Duplexes",
-        "Sites / Land"
+        "Bungalows",
+        "Sites and land",
+        "Flats",
+        "Office spaces",
+        "Retail units",
+        "Industrial units",
+        "Restaurants, bars and hotels",
+        "Commercial sites",
+        "Agricultural land",
+        "Development land",
+        "Industrial sites",
+        "Investment properties"
       ],
       "prefill": "",
-      "title": "Property Type",
+      "title": "Property type",
       "type": "string"
+    },
+    "publishedSince": {
+      "default": "",
+      "description": "Only return listings first published within this window.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1d",
+        "3d",
+        "7d",
+        "14d",
+        "30d"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 24 hours",
+        "Last 3 days",
+        "Last 7 days",
+        "Last 14 days",
+        "Last 30 days"
+      ],
+      "prefill": "",
+      "title": "Added in last",
+      "type": "string"
+    },
+    "sort": {
+      "default": "bestMatch",
+      "description": "How Daft.ie should order the search results.",
+      "editor": "select",
+      "enum": [
+        "bestMatch",
+        "publishDateDesc",
+        "priceAsc",
+        "priceDesc"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Most recent",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "prefill": "bestMatch",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Optional Daft.ie search URLs or individual property URLs. Search URLs keep the filters set on Daft.ie and are paginated automatically. When supplied, start URLs override the mode, county and filter fields above.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Daft.ie search or listing URLs",
+      "type": "array"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Daft.ie Scraper Input",
+  "title": "Daft.ie Property Search Input",
   "type": "object"
 }

@@ -4,106 +4,173 @@
 
 # Daft.ie Irish Property Search by County & Price
 
-Search Daft.ie, Ireland's largest property portal, for homes for sale, to rent, or house shares. Filter by county, property type, price range, and bedroom count, and get back structured listings with price, BER rating, address, and photos.
+Find homes, rentals and rooms on Daft.ie by county, city, price, bedrooms and bathrooms, and get one clean row per property. Records include the advertised price and rent period, BER energy rating, floor area, Eircode, map coordinates, photo gallery, estate-agent contact and the live listing URL.
 
-## What this actor does
+## What you can collect
 
-- Searches properties for sale, for rent, or house shares (rooms to share) in one of Ireland's 26 counties
-- Filters by property type, price range, and minimum/maximum bedroom count
-- Returns each listing's price, bedrooms, bathrooms, floor area, BER energy rating, and address
-- Caps the number of listings returned per run, up to 1,000
-- Omits any field a listing doesn't publish, such as floor area or BER rating, rather than returning it empty
+- Sale, rent, house-share, new-home, student and commercial sections.
+- All 32 Irish counties, the five main cities, a custom Daft.ie area slug, or nationwide.
+- Price range, bedroom range and bathroom range.
+- Newest-first, price-low-to-high and price-high-to-low sorting.
+- Listings added in the last day, 3 days, week, fortnight or month.
+- Automatic pagination up to the number of listings you request.
+- Optional detail pass for the full description, feature list, exact address, Eircode, publish/update dates and view count.
 
-## Output per listing
-
-- `listingId`, `title`, `seoFriendlyPath`
-- `price`, `currency` — always `EUR`; monthly for rentals
-- `bedrooms`, `bathrooms`
-- `propertyType` — e.g. Semi-D, Detached, Apartment
-- `address`, `county`, `area`
-- `floorArea` — in square meters, when published
-- `berRating` — Building Energy Rating, when published
-- `imageUrl`, `propertyUrl`
-- `description` — property description snippet
-- `mode` — which search mode produced this record
-- `scrapedAt`
+No account, cookie, API key or proxy setup is needed. Access is handled automatically.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | What it does |
 |---|---|---|---|
-| `mode` | string (select) | `searchForSale` | `searchForSale`, `searchForRent`, or `searchToShare` (required) |
-| `county` | string (select) | `Dublin` | Irish county to search |
-| `propertyType` | string (select) | `` (All) | `houses`, `apartments`, `studio-apartments`, `bungalows`, `duplexes`, or `sites` |
-| `priceMin` | integer | – | Minimum price in EUR |
-| `priceMax` | integer | – | Maximum price in EUR |
-| `bedroomsMin` | integer | – | Minimum number of bedrooms |
-| `bedroomsMax` | integer | – | Maximum number of bedrooms |
-| `maxItems` | integer | `50` | Maximum listings to return (1-1000) |
+| `mode` | string | `searchForSale` | Section to search: homes for sale, rentals, shares, new homes, student accommodation, commercial sale or commercial rent |
+| `county` | string | `Dublin` | County, city or All Ireland |
+| `location` | string | – | Advanced Daft.ie area slug such as `dublin-2-dublin`, `blackrock-cork` or `maynooth-kildare`; overrides the county |
+| `propertyType` | string | `All types` (empty) | Property style or commercial type |
+| `priceMin` | integer | – | Lowest sale price, or monthly rent for rental sections |
+| `priceMax` | integer | – | Highest sale price, or monthly rent for rental sections |
+| `bedroomsMin` | integer | – | Minimum bedrooms |
+| `bedroomsMax` | integer | – | Maximum bedrooms |
+| `bathroomsMin` | integer | – | Minimum bathrooms |
+| `bathroomsMax` | integer | – | Maximum bathrooms |
+| `sort` | string | `bestMatch` | Best match, most recent, price low to high, or price high to low |
+| `publishedSince` | string | `Any time` (empty) | Only listings added within the selected window |
+| `startUrls` | array | – | Daft.ie search URLs or property URLs; search URLs keep every filter set on the site and are paginated automatically |
+| `maxItems` | integer | 50 | Maximum property records to save |
+| `includeDetails` | boolean | false | Visit each property page for description, features, Eircode and dates; slower |
 
-### Example: houses for sale in Dublin, under €500k
+### Example: three-bed houses in Dublin under €600,000
 
 ```json
 {
   "mode": "searchForSale",
   "county": "Dublin",
   "propertyType": "houses",
-  "priceMax": 500000,
+  "priceMax": 600000,
   "bedroomsMin": 3,
+  "sort": "publishDateDesc",
   "maxItems": 100
 }
 ```
 
-### Example: rentals in Cork
+### Example: monthly rentals in Cork City
 
 ```json
 {
   "mode": "searchForRent",
-  "county": "Cork",
+  "county": "Cork City",
+  "priceMin": 1200,
+  "priceMax": 2500,
+  "bedroomsMin": 1,
   "maxItems": 50
 }
 ```
 
-### Example: house shares in Galway
+### Example: rooms to share in Galway
 
 ```json
 {
   "mode": "searchToShare",
   "county": "Galway",
+  "priceMax": 1200,
   "maxItems": 30
 }
 ```
 
+### Example: keep the filters from a Daft.ie search URL
+
+```json
+{
+  "startUrls": [
+    "https://www.daft.ie/property-for-sale/dublin-city?numBeds_from=2&numBaths_from=2&ber_from=A3"
+  ],
+  "maxItems": 40,
+  "includeDetails": true
+}
+```
+
+When `startUrls` is supplied it overrides `mode`, `county`, `location`, `propertyType` and the numeric filters. That is the simplest way to use a Daft.ie filter this actor does not model directly.
+
+## Output
+
+Every dataset item is one property. Only fields that Daft.ie publishes for that listing are included; nothing is invented and empty values are omitted.
+
+### Identity and listing
+
+`listingId`, `daftShortcode`, `title`, `propertyUrl`, `seoFriendlyPath`, `recordType`, `mode`, `searchLocation`, `sourceUrl`, `pageNumber`, `scrapedAt`
+
+### Price and terms
+
+`price`, `priceRaw`, `priceMin`, `priceMax`, `pricePeriod`, `currency`, `pricePerSqM`, `stampDutyValue`, `sellingType`, `saleType`, `category`
+
+`price` is the advertised number. `pricePeriod` is `month`, `week` or `year` on rental and sharing records; it is absent on sales. A price on application keeps `priceRaw` but has no numeric `price`.
+
+### Property details
+
+`propertyType`, `sections`, `bedrooms`, `bedroomsMax`, `bedroomsRaw`, `bathrooms`, `bathroomsRaw`, `floorArea`, `floorAreaUnit`, `propertySize`, `berRating`, `berCode`, `berEpi`, `dateOfConstruction`, `state`, `label`, `featuredLevel`, `sticker`, `premierPartner`, `isInRepublicOfIreland`
+
+Bedroom ranges such as "1 & 2 bed" keep the lowest value in `bedrooms` and the highest in `bedroomsMax`.
+
+### Location
+
+`address`, `area`, `county`, `eircode`, `latitude`, `longitude`, `searchLocation`
+
+Coordinates are latitude/longitude in decimal degrees. Eircode and the exact address are most complete when `includeDetails` is on.
+
+### Seller and media
+
+`sellerName`, `sellerPhone`, `sellerBranch`, `sellerLicenceNumber`, `sellerType`, `sellerAddress`, `facilities`, `imageUrl`, `imageUrls`, `imageCount`, `hasVideo`, `hasVirtualTour`, `hasBrochure`
+
+### Detail-only fields
+
+`description`, `descriptionFull`, `features`, `firstPublishDate`, `lastUpdateDate`, `listingViews`
+
+`description` is a short snippet capped at 500 characters; `descriptionFull` holds the complete text when it is longer.
+
 ## Use cases
 
-- Tracking asking prices and rents across Irish counties over time
-- Comparing property types and bedroom counts within a budget before viewing
-- Building a lead list of newly listed properties for a specific area
-- Monitoring BER ratings and floor areas for energy-efficiency research
-- Finding available house shares in a target city or county
+- Track asking prices and rents in one county or across Ireland.
+- Compare property types and bedroom counts within a budget.
+- Build a viewing shortlist with agent phone numbers and BER ratings.
+- Monitor new listings with the recency filter and newest-first sorting.
+- Map listings with GPS coordinates and Eircodes.
+- Feed a CRM, spreadsheet or dashboard with one row per property.
 
 ## FAQ
 
-**Which counties are supported?**
-All 26 Irish counties, including Dublin, Cork, Galway, Limerick, Kerry, Mayo, Donegal, and the rest.
+**Which areas are covered?**
+All 32 Irish counties, Dublin, Cork, Galway, Limerick and Waterford cities, and any Daft.ie area slug through `location` or `startUrls`. Choose All Ireland for a nationwide search.
 
-**What is BER rating?**
-It's Ireland's Building Energy Rating certificate, ranging from A1 (most efficient) to G (least efficient). It's only included when the listing publishes one.
+**Can I get listings from Northern Ireland?**
+Yes. Antrim, Armagh, Derry, Down, Fermanagh and Tyrone are in the county list. Prices in pounds are returned with `currency` set to `GBP`.
 
-**Can I search for house shares instead of full properties?**
-Yes — set `mode` to `searchToShare` to search rooms and house shares instead of whole properties.
+**Why is a rental price weekly?**
+Some student and house-share listings advertise a weekly rent. `price` is the advertised number and `pricePeriod` tells you whether it is weekly, monthly or yearly.
 
-**Do I need a login or API key?**
-No — this actor reads Daft.ie's publicly available listing data directly.
+**What does BER mean?**
+It is Ireland's Building Energy Rating, from A1 (most efficient) to G. The actor returns the letter rating and, when Daft.ie publishes them, the BER code and energy performance indicator.
 
-**What currency are prices in?**
-Always euros (EUR). Rental prices shown are monthly.
+**Do I need a Daft.ie account or API key?**
+No. The actor reads public listing data and needs no login or key.
 
-**Why do some listings have no `floorArea` or `description`?**
-Those come from what the agent or landlord entered when publishing the listing; when a listing doesn't include them, the fields are left out instead of returned empty.
+**Do I need to configure a proxy?**
+No. The actor handles access to Daft.ie automatically.
 
-**Can I combine a price range with a bedroom range?**
-Yes — `priceMin`/`priceMax` and `bedroomsMin`/`bedroomsMax` can all be set together; a listing must satisfy every filter you set.
+**Why are some fields missing on some records?**
+Daft.ie only publishes certain values for certain listing types. For example, commercial listings may have no bedroom count, and a price-on-application listing has no numeric price. Missing values are omitted rather than filled with placeholders.
 
-**Is this affiliated with Daft.ie?**
-No. This is an independent actor that reads Daft.ie's publicly accessible listing data.
+**When should I turn on `includeDetails`?**
+Turn it on when you need the full description, feature list, exact address, Eircode, first-published date or view count. It visits one extra page per property, so it is slower than the default list-only mode.
+
+**Can I apply a filter that is not in the input form?**
+Yes. Set the filters on Daft.ie, copy the search URL, and put it in `startUrls`. Every filter in the URL is preserved while the actor paginates.
+
+**How many listings can I request?**
+Up to 5,000 per run. The actor stops at your `maxItems` value or when Daft.ie runs out of matching listings.
+
+## Limitations
+
+- Daft.ie can change its page structure; the actor supports both the standard embedded data block and the newer streamed page format, but a major redesign may need an update.
+- County and area are inferred from the listing title when detail enrichment is off; turning on `includeDetails` gives the exact address region.
+- A price on application has no numeric price. Use `priceRaw` to show it as published.
+- Very broad nationwide searches may be limited by Daft.ie's own pagination depth. Narrow the search by county, price or recency for deeper coverage.
+- This actor is independent and is not affiliated with Daft.ie.

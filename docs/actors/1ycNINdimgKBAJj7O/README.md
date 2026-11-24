@@ -4,112 +4,157 @@
 
 # AppSumo Lifetime Deal Pricing & Review Extractor
 
-AppSumo lists lifetime software deals with tiered pricing, discounts, features and customer reviews. This actor turns a list of deal URLs, search terms, categories or curated collections into full structured deal records.
+AppSumo is a marketplace for one-time-payment software deals. This actor turns AppSumo deal pages, catalogue searches, category slices and curated collections into structured records with tiered pricing, discounts, features, FAQs, lifecycle dates and customer reviews — no login, cookies or API key required.
 
-## What this actor does
+## What it collects
 
-- Fetches full deal detail for specific AppSumo product URLs
-- Discovers deals by running one or more search queries against the AppSumo catalog
-- Browses a top-level AppSumo category (Software, Courses & Learning, Templates, Creative Resources)
-- Browses a curated AppSumo collection (New deals, Ending soon, Free deals)
-- Combines any of the above in a single run, deduplicated by canonical deal URL
-- Empty fields are omitted from records
+- **Deal detail** from a product URL, product path, bare slug or numeric deal ID
+- **Catalogue search** across one or more keywords, with paging and sorting
+- **Category browsing** by group, category and subcategory
+- **Deal-type browsing** for software, courses and learning, templates and creative resources
+- **Curated collections** such as new, ending soon, free, AI stack and Black Friday
+- **Archive mode** for all-time or expired deals
+- **Optional review history** through AppSumo's public review pages, with a per-deal cap
+
+Sources can be combined in one run. Deals are deduplicated by canonical URL.
 
 ## Output per deal
 
-- `sourceUrl`, `canonicalUrl` — the URL fetched and the deal's canonical URL
-- `dealId`, `slug`, `title` — deal identifiers and name
-- `availability`, `dealStatus` — current deal status
-- `isActive`, `hasStarted`, `hasEnded`, `isRedeemable`, `isEndingSoon` — deal lifecycle flags
-- `refundDays` — refund window in days
-- `codesRemaining` — redemption codes left, when AppSumo publishes a count
-- `price`, `originalPrice`, `discountPercent` — default plan pricing and computed discount
-- `plans` — list of pricing tiers: `{tier, planType, price, originalPrice, terms}`
-- `planTerms` — terms shown for the default plan
-- `features` — list of feature bullet points
-- `categoryGroup`, `category`, `subcategory`, `productTag` — AppSumo taxonomy
-- `partner`, `productUrl` — the vendor/partner and their product site
-- `tagline`, `valueProp`, `description` — marketing copy from the deal page
-- `featuredImageUrl`, `mediaUrl` — deal imagery
-- `clickthroughUrl` — outbound link to redeem/purchase
-- `reviewsSummary` — AppSumo's written review summary
-- `reviewCount`, `ratingValue` — aggregate review count and average rating
-- `topReviews` — up to 5 reviews: `{title, rating, submittedAt, comment, authorName}`
-- `questionCount` — number of public Q&A entries
-- `topQuestions` — up to 5 questions: `{submittedAt, comment, authorName}`
-- `recordType` — always `deal`
-- `scrapedAt` — timestamp of extraction
+Identifiers and links
+- `sourceUrl`, `canonicalUrl`, `dealId`, `slug`, `title`
+- `productUrl`, `clickthroughUrl`, `productLogoUrl`, `featuredImageUrl`, `mediaUrl`, `images`
+- `youtubeId`, `partner`
+
+Pricing and plans
+- `price`, `originalPrice`, `discountPercent`
+- `plans` — each tier with `tier`, `planType`, `price`, `originalPrice`, `discountPercent`, `terms`, `features`, `interval`
+- `planTerms`, `planTypes`, `refundDays`
+- `isFree`, `isMarketplace`, `listingType`, `codesRemaining`, `percentClaimed`, `currentPurchases`
+
+Lifecycle
+- `availability`, `dealStatus`
+- `dealStartDate`, `dealEndDate`, `timerReason`
+- `isActive`, `hasStarted`, `hasEnded`, `isRedeemable`, `isEndingSoon`, `isComingSoon`, `isEarlyAccess`
+
+Content
+- `tagline`, `valueProp`, `tldr`, `description`
+- `features`, `highlights`, `faqs`
+- `categoryGroup`, `categoryGroupName`, `category`, `categoryName`, `subcategory`, `subcategoryName`, `productTag`, `productTags`
+- `dealType`, `productType`, `os`, `integrations`, `bestFor`, `alternativeTo`
+
+Reviews and questions
+- `reviewsSummary`, `reviewCount`, `ratingValue`, `ratingBreakdown`, `wouldRecommendCount`
+- `topReviews`, `topQuestions`, `questionCount`
+- `reviews` — optional paginated reviews with rating, title, text, author, purchase verification, votes and URL
+
+Metadata
+- `recordType` (`deal`) and `scrapedAt`
+
+Empty fields are omitted at every depth; no nulls or placeholder values are emitted.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | Purpose |
 |---|---|---|---|
-| `dealUrls` | array | `["https://appsumo.com/products/tidycal/"]` | Direct AppSumo deal URLs to fetch |
-| `searchQueries` | array | `[]` | Search terms to run against the AppSumo catalog |
-| `categorySlug` | string | – (none) | Top-level category to browse |
-| `collection` | string | – (none) | Curated collection to browse: `new`, `ending-soon` or `free` |
-| `sortBy` | string | `recommended` | Sort order for search/category/collection browsing |
-| `searchPages` | integer | `1` | Result pages to scan per query, category or collection (1–20) |
-| `maxItems` | integer | `25` | Hard cap on emitted deals (1–500) |
-| `useProxy` | boolean | `false` | Route requests through Apify proxy |
-| `autoEscalateOnBlock` | boolean | `true` | Automatically retry with a fresh session if AppSumo blocks a request |
-| `proxyConfiguration` | object | residential, used only when `useProxy` is `true` | Apify proxy configuration |
+| `dealUrls` | array | – | Product URLs, paths, slugs or numeric IDs; the Console prefill uses TidyCal |
+| `searchQueries` | array | empty | Keywords for catalogue search |
+| `collection` | select | none | Curated collection to browse |
+| `group` | select | any | Category group filter |
+| `category` | text | empty | Category slug filter |
+| `subcategory` | text | empty | Subcategory slug filter |
+| `dealType` | select | any | Software, courses, templates or creative resources |
+| `dealStatus` | select | current | Current, all-time archive or expired |
+| `sortBy` | select | recommended | Rating, price, ending soon, newest or most reviewed |
+| `searchPages` | integer | 1 | Result pages per query, filter or collection |
+| `maxItems` | integer | 25 | Hard cap on emitted deals |
+| `scrapeDetails` | boolean | true | Fetch full deal pages |
+| `scrapeReviews` | boolean | false | Fetch individual reviews |
+| `maxReviewsPerDeal` | integer | 10 | Review cap per deal |
+| `reviewSort` | select | newest | Review ordering |
+| `useProxy` | boolean | false | Route through Apify proxy |
 
-### Example: fetch specific deals
+Saved tasks that use older keys keep working: `categorySlug` is treated as `dealType`, `sort` as `sortBy`, `status` as `dealStatus`, `query`/`searchQuery` as `searchQueries`, `startUrls` as `dealUrls`, `maxReviews` above zero enables reviews, and the former proxy/escalation keys are still read.
+
+### Examples
+
+Fetch specific deals:
 
 ```json
 {
   "dealUrls": [
     "https://appsumo.com/products/tidycal/",
-    "https://appsumo.com/products/pitchground/"
-  ]
+    "pitchground"
+  ],
+  "scrapeDetails": true
 }
 ```
 
-### Example: search for a deal category
+Search and filter the catalogue:
 
 ```json
 {
-  "dealUrls": [],
-  "searchQueries": ["crm", "seo"],
+  "searchQueries": ["crm", "email marketing"],
+  "group": "marketing",
+  "sortBy": "rating",
   "searchPages": 2,
   "maxItems": 50
 }
 ```
 
-### Example: browse a collection
+Browse ending-soon deals with reviews:
 
 ```json
 {
-  "dealUrls": [],
   "collection": "ending-soon",
   "sortBy": "ending-soon",
-  "maxItems": 30
+  "maxItems": 30,
+  "scrapeDetails": true,
+  "scrapeReviews": true,
+  "maxReviewsPerDeal": 20,
+  "reviewSort": "helpful"
+}
+```
+
+Archive an expired category:
+
+```json
+{
+  "dealStatus": "all",
+  "category": "calendar-scheduling",
+  "maxItems": 100
 }
 ```
 
 ## Use cases
 
-- **Lifetime-deal monitoring** — track which deals are active, ending soon or sold out
-- **Pricing and discount tracking** — watch tier pricing and discount percentage over time
-- **SaaS market research** — survey what's launching in a given category
-- **Deal-hunter alerts** — scan new or ending-soon collections for opportunities
-- **Review and sentiment tracking** — pull `topReviews` and `ratingValue` for a product
+- Track new and ending lifetime deals with start/end dates and timer reasons
+- Monitor price, discount and plan-tier changes over time
+- Compare SaaS tools by category, integrations and alternatives
+- Export the full deal archive, including expired deals
+- Analyse customer sentiment with review text, rating breakdowns and votes
+
+## How it works
+
+The actor reads AppSumo's public catalogue and deal pages, which embed complete structured data server-side. Reviews come from AppSumo's public review endpoint. It does not use an account, a login or a private API.
+
+Catalogue filters are sent to AppSumo where the site supports them; the actor also verifies each result against the requested group, category, subcategory, deal type and status. Rating, ending-soon and price sorts use AppSumo's ordering. Newest and most-reviewed sorts are applied after fetching the requested pages, so they are deterministic within the requested slice.
 
 ## FAQ
 
-**Is this affiliated with AppSumo?** No. This is an independent deal extraction tool and is not affiliated with or endorsed by AppSumo.
+**Do I need an AppSumo account?** No. The actor only reads public pages.
 
-**Do I need an account to use this?** No. All deal, search, category and collection pages are publicly accessible without login.
+**Why did a search or filter run also return TidyCal?** Older builds used TidyCal as the default `dealUrls` value, so API runs that omitted the field received it. This build leaves `dealUrls` empty by default; direct URLs are only fetched when you send them.
 
-**Can I combine search, category and collection in one run?** Yes — any combination of `dealUrls`, `searchQueries`, `categorySlug` and `collection` can be set together; results are deduplicated by canonical URL.
+**Can I scrape deals that have ended?** Yes. Set `dealStatus` to `all` or `expired`.
 
-**Why do some deals have fewer fields than others?** Deals that are sold out or no longer active often publish a thinner product page, so fields like `plans` or `topReviews` may be absent.
+**Why are some fields missing?** AppSumo does not publish every field for every deal. Fields such as an end date, timer reason, claimed percentage, plans or reviews are omitted when the source has no value.
 
-**Why is `reviewCount` sometimes missing even though a deal has reviews?** AppSumo's publicly embedded review summary is the only review-count source this actor reads; if that block is absent from a deal page, the count is omitted rather than guessed.
+**How many reviews can I get?** Up to `maxReviewsPerDeal` per deal, and every review page is reachable. Raise the cap to collect the full history.
 
-**What does `discountPercent` represent?** It's calculated from the default plan's current price versus its original price, rounded to two decimals; it's omitted when there's no listed discount.
+**Are upcoming deals included?** AppSumo does not expose a coming-soon catalogue publicly. `dealStatus: current` returns live deals; ended deals need `all` or `expired`.
 
-**When should I enable `useProxy`?** Leave it off for normal use; enable it if you're running a high-volume job and want every request routed through Apify proxy from the start rather than only on a block.
+**Why is a sort not exactly global?** Rating, ending-soon and price are sorted by AppSumo itself. Newest and most-reviewed are sorted within the pages you ask the actor to scan; increase `searchPages` to widen that slice.
 
-**How many deals can one run return?** Up to `maxItems`, capped at 500 per run, across all combined sources.
+**Do I need a proxy?** No. Direct requests work. If AppSumo ever blocks a request, the actor retries through Apify's automatic proxy.
+
+**Is this affiliated with AppSumo?** No. This is an independent extraction tool.

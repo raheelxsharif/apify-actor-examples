@@ -4,18 +4,71 @@
     "overview": {
       "display": {
         "component": "table",
-        "properties": {}
+        "properties": {
+          "address": {
+            "format": "text",
+            "label": "Address"
+          },
+          "bathrooms": {
+            "format": "number",
+            "label": "Baths"
+          },
+          "bedrooms": {
+            "format": "number",
+            "label": "Beds"
+          },
+          "berRating": {
+            "format": "text",
+            "label": "BER"
+          },
+          "county": {
+            "format": "text",
+            "label": "County"
+          },
+          "eircode": {
+            "format": "text",
+            "label": "Eircode"
+          },
+          "price": {
+            "format": "number",
+            "label": "Price"
+          },
+          "pricePeriod": {
+            "format": "text",
+            "label": "Price period"
+          },
+          "propertyType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "propertyUrl": {
+            "format": "link",
+            "label": "Listing URL"
+          },
+          "sellerName": {
+            "format": "text",
+            "label": "Agent"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          }
+        }
       },
-      "title": "Properties",
+      "title": "Property listings",
       "transformation": {
         "fields": [
           "title",
           "price",
+          "pricePeriod",
           "bedrooms",
           "bathrooms",
           "propertyType",
+          "berRating",
           "address",
           "county",
+          "eircode",
+          "sellerName",
           "propertyUrl"
         ]
       }

@@ -4,104 +4,144 @@
 
 # Beehiiv Directory, Profile & Post Extractor
 
-Beehiiv is a newsletter platform with its own public directory of creator newsletters. This actor browses that directory by keyword or category, fetches a specific newsletter's profile, or pulls its recent posts — covering both beehiiv.com subdomains and newsletters running on their own custom domain.
+Map the Beehiiv newsletter ecosystem from one run: browse a live index of Beehiiv publications, pull a publication's profile, export its post archive, or fetch a single post with its public article text.
 
-## What this actor does
+Everything works without a Beehiiv account, cookies or an API key. The actor reads public pages and public indexes only; it never unlocks a paywall.
 
-- Browses Beehiiv's public newsletter directory, with keyword search, category filter and sort order
-- Fetches a newsletter's profile by URL or bare subdomain (name, description, category, logo, post count)
-- Fetches a newsletter's recent posts by URL or subdomain, with title, excerpt, author and publish date
-- Accepts multiple newsletters in a single run for either profile or post lookup
-- Empty fields are omitted from records
+## Modes
 
-## Output per newsletter
+| Mode | What it returns | Typical input |
+|---|---|---|
+| `discover` | One row per newsletter from a live Beehiiv newsletter index: name, creator, description, topics, subscriber range, cadence, sponsorship and verification signals | keyword, category, frequency, sort order |
+| `getNewsletter` | One profile row per newsletter: display name, description, logo, tags, language, socials, subscriber count when published, post count when exposed | newsletter URL or bare subdomain |
+| `searchPosts` | One row per post found in the newsletter archive: title, URL, publish date, excerpt, cover image, and optional public article text | newsletter URL(s), post keyword, date range |
+| `getPost` | One row per direct post URL, with JSON-LD metadata and optional public body text | URLs containing `/p/`, `/news/` or `/articles/` |
 
-- `name` — newsletter name
-- `subdomain` — Beehiiv subdomain, e.g. `milkroad`
-- `url` — canonical newsletter URL
-- `description` — newsletter description or tagline
-- `category` — content category (discover mode only)
-- `avatarUrl` — newsletter logo/avatar image
-- `postCount` — total published posts, when exposed on the newsletter's page
-- `recordType` — always `newsletter`
-- `scrapedAt` — timestamp of extraction
+## Output fields
 
-## Output per post
+### Newsletter rows (`recordType: "newsletter"`)
 
-- `title` — post title
-- `url` — direct link to the post
-- `publishedAt` — publication date
-- `excerpt` — preview text or subtitle
-- `author` — author name
-- `newsletterName`, `newsletterUrl` — the parent newsletter
-- `recordType` — always `post`
-- `scrapedAt` — timestamp of extraction
+- `name` — publication display name
+- `url` — canonical publication homepage
+- `subdomain` — Beehiiv subdomain when the site is hosted on `*.beehiiv.com`
+- `configuredDomain` — domain configured in Beehiiv, when exposed
+- `description` — tagline or description
+- `category` — first topic/tag
+- `topics` — every topic from the directory listing
+- `tags` — author tags exposed on the publication page
+- `creator` — creator name (directory mode)
+- `avatarUrl` — logo image
+- `language` — publication language code
+- `subscriberRange` — directory audience bucket such as `50K–100K`
+- `subscriberCount` / `subscriberCountText` — exact or advertised audience when published
+- `frequency`, `publishingDay` — cadence when the directory knows it
+- `acceptsSponsors`, `sponsorPriceFrom` — sponsorship signals
+- `verified`, `featured`, `activeStatus`, `lastVerified`, `lastIssueDate` — directory freshness signals
+- `premium`, `private` — access flags when set
+- `socials` — Twitter/X, LinkedIn, Instagram, YouTube, Facebook, TikTok, Threads, Bluesky, Discord
+- `postCount` — only when the page exposes a real count
+- `directoryUrl` — where the listing was found
+- `recordType`, `scrapedAt`
+
+### Post rows (`recordType: "post"`)
+
+- `title`, `url`, `publishedAt`, `updatedAt`
+- `excerpt` — subtitle or preview text
+- `author` — post or publication author
+- `newsletterName`, `newsletterUrl` — parent publication
+- `imageUrl` — cover image
+- `postId`, `slug` — identifiers from the page
+- `isPaywalled` — set when the post is explicitly gated
+- `contentText` — public article text (20,000 characters max) when `includeContent` is on
+- `recordType`, `scrapedAt`
+
+Empty values are omitted at every depth — never `null`, `""`, `[]` or a placeholder.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `discover` | `discover`, `getNewsletter` or `searchPosts` |
-| `startUrls` | array | `[]` | Newsletter URLs, e.g. `https://milkroad.beehiiv.com` (modes=getNewsletter, searchPosts) |
-| `subdomains` | array | `[]` | Beehiiv subdomains without `.beehiiv.com`, e.g. `["milkroad", "tldr"]` (modes=getNewsletter, searchPosts) |
-| `searchQuery` | string | – | Keyword to search the directory (mode=discover) |
-| `category` | string | – (all) | Filter directory results by topic category |
-| `sortBy` | string | `popular` | `popular`, `newest` or `trending` (mode=discover) |
-| `maxItems` | integer | `20` | Maximum total records to collect (1–5000) |
-| `maxPostsPerNewsletter` | integer | `10` | Maximum posts per newsletter (mode=searchPosts, 1–100) |
+| `mode` | string | `discover` | `discover`, `getNewsletter`, `searchPosts` or `getPost` |
+| `startUrls` | array | `[]` | Newsletter homepages or direct post URLs |
+| `subdomains` | array | `[]` | Bare Beehiiv subdomains such as `aibreakfast` |
+| `searchQuery` | string | – | Directory keyword (mode=discover) |
+| `category` | string | – | Directory topic: AI, SaaS, Marketing, Startups, Tech News and 12 more (mode=discover) |
+| `frequency` | string | – | `daily`, `weekly` or `2-3x-week` when the listing publishes a cadence (mode=discover) |
+| `sortBy` | string | `popular` | `popular`, `newest`, `featured`, `trending` or `alpha` (mode=discover) |
+| `postSearchQuery` | string | – | Keep posts whose title/excerpt matches a keyword (mode=searchPosts) |
+| `dateFrom` | string | – | Inclusive lower publish date, `YYYY-MM-DD` (mode=searchPosts) |
+| `dateTo` | string | – | Inclusive upper publish date, `YYYY-MM-DD` (mode=searchPosts) |
+| `maxItems` | integer | `20` | Maximum records saved (1–1000) |
+| `maxPostsPerNewsletter` | integer | `10` | Post cap per newsletter, 1–1000 (mode=searchPosts) |
+| `includeContent` | boolean | `false` | Add public article text (slower; paywalled bodies are skipped) |
 
-### Example: browse the directory by category
+Saved tasks that still send `urls`, `publicationUrls`, `query`, `topics`, `maxPosts` or `postsPerNewsletter` keep working: those legacy keys are mapped in code.
+
+### Example: browse AI newsletters
 
 ```json
 {
   "mode": "discover",
-  "category": "Technology",
-  "sortBy": "trending",
-  "maxItems": 30
+  "category": "AI",
+  "sortBy": "popular",
+  "maxItems": 25
 }
 ```
 
-### Example: fetch a newsletter profile
+### Example: profile two newsletters
 
 ```json
 {
   "mode": "getNewsletter",
-  "subdomains": ["milkroad", "tldr"]
+  "subdomains": ["aibreakfast", "superhuman"]
 }
 ```
 
-### Example: fetch recent posts
+### Example: recent posts with a keyword filter
 
 ```json
 {
   "mode": "searchPosts",
-  "startUrls": ["https://tldr.beehiiv.com"],
-  "maxPostsPerNewsletter": 20
+  "startUrls": ["https://aibreakfast.beehiiv.com"],
+  "postSearchQuery": "agents",
+  "maxPostsPerNewsletter": 25,
+  "includeContent": true
 }
 ```
 
-## Use cases
+### Example: one post
 
-- **Newsletter discovery** — find creator newsletters in a given topic for partnership or subscription research
-- **Sponsorship and media-kit research** — pull a newsletter's post cadence and content focus before pitching
-- **Competitive newsletter tracking** — monitor a competing newsletter's publishing frequency and recent topics
-- **Content aggregation** — build a feed of recent posts across several newsletters you follow
-- **Directory snapshots** — capture Beehiiv's trending or newest newsletters over time
+```json
+{
+  "mode": "getPost",
+  "startUrls": ["https://aibreakfast.beehiiv.com/p/jensen-reinstated-as-nvidia-ceo"]
+}
+```
+
+## What it is used for
+
+- **Newsletter prospecting** — shortlist publications by topic, audience bucket and sponsorship availability
+- **Media-kit research** — collect a publication's description, cadence and social profiles before outreach
+- **Content monitoring** — export new issues on a schedule and diff titles or excerpts over time
+- **Newsletter analytics** — build datasets for topic modeling, publishing cadence or sponsorship analysis
+- **Archive migration** — export an author's public back catalogue with dates, authors and optional text
 
 ## FAQ
 
-**Is this affiliated with Beehiiv?** No. This is an independent extraction tool and is not affiliated with or endorsed by Beehiiv.
+**Does this need a Beehiiv API key?** No. It reads public pages and a public newsletter index. No account, cookie or proxy setup is required.
 
-**Do I need an account or API key?** No. The directory, newsletter profile pages and post listings are all publicly accessible without login.
+**Where does the directory come from?** Beehiiv retired its public reader-facing directory page, so `discover` reads the largest public index of Beehiiv newsletters (SaaS Newsletters). Profiles and posts always come from the Beehiiv publication itself.
 
-**What newsletter categories can I filter by?** Technology, Business, Finance, Marketing, Health, Sports, Entertainment, Politics, Science, Food, Travel, Lifestyle, Education, Entrepreneurship, Investing, News and Other.
+**Why does the directory have 81 newsletters?** That is the current size of the public Beehiiv index. The actor reports the honest count instead of inventing rows. Use `getNewsletter` or `searchPosts` with any Beehiiv URL for publications outside it.
 
-**Does this work for newsletters on a custom domain, not just `*.beehiiv.com`?** Yes — provide the full custom-domain URL in `startUrls`; `subdomains` only works for the standard `*.beehiiv.com` format.
+**Can it scrape custom domains?** Yes. Pass the full URL, e.g. `https://www.therundown.ai`, in `startUrls`.
 
-**Can I get the full text of a post?** No. Only the title, excerpt, author, URL and publish date are extracted, not the full article body.
+**Why do some Beehiiv subdomains work through a mirror?** Beehiiv fronts many sites with Cloudflare. When a direct request is challenged, the actor automatically reads the same public page through a free translation mirror. No paid proxy is required.
 
-**Why do some newsletters have no `description`, `category` or `postCount`?** Those fields depend on what the newsletter's own page exposes; not every newsletter publishes all of them, and missing fields are omitted rather than filled with placeholders.
+**Are subscriber counts exact?** Only when the publication or index states one. Otherwise `subscriberRange` is an audience bucket, and it is omitted when unknown.
 
-**Are subscriber counts included?** No. Beehiiv does not publicly expose subscriber counts without login, so this field is never included.
+**Can it unlock premium posts?** No. Public metadata and free article text only. Gated posts are marked `isPaywalled` when the page says so.
 
-**What's the difference between `getNewsletter` and `searchPosts`?** `getNewsletter` returns one profile record per newsletter; `searchPosts` returns multiple post records per newsletter, up to `maxPostsPerNewsletter` each.
+**How many posts can I get?** The archive is paginated and the actor keeps going until `maxPostsPerNewsletter` or `maxItems` is reached. The cap is `maxPostsPerNewsletter` (1–1000), so raise it for deep backfills.
+
+**What is the smallest run?** The prefill browses the directory for 5 newsletters with no extra requests. It finishes in seconds and always returns output.

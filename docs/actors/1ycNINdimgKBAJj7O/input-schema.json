@@ -1,16 +1,66 @@
 {
-  "description": "Scrape AppSumo deal pages directly, search the AppSumo catalog, browse curated collections, or browse a category.",
+  "description": "Fetch specific AppSumo deals, search the catalogue, browse categories or collections, or filter the lifetime-deal archive.",
   "properties": {
-    "autoEscalateOnBlock": {
-      "default": true,
-      "description": "If AppSumo starts returning blocks/timeouts, automatically retry with rotating sessions.",
-      "prefill": true,
-      "title": "Auto-escalate on block",
-      "type": "boolean"
-    },
-    "categorySlug": {
+    "category": {
       "default": "",
-      "description": "(Optional) Top-level AppSumo category to browse. Leave empty to skip category browse.",
+      "description": "Optional AppSumo category slug, for example email-sms-marketing or calendar-scheduling. Used for catalogue browsing and combined with search queries.",
+      "editor": "textfield",
+      "title": "Category",
+      "type": "string"
+    },
+    "collection": {
+      "default": "",
+      "description": "Browse a curated AppSumo collection. Leave empty to skip collection browsing.",
+      "editor": "select",
+      "enum": [
+        "",
+        "new",
+        "ending-soon",
+        "free",
+        "ai-stack",
+        "customer-favorites",
+        "appsumo-originals",
+        "plus-exclusives",
+        "crm-sales",
+        "seo-software",
+        "black-friday"
+      ],
+      "enumTitles": [
+        "(none)",
+        "New deals",
+        "Ending soon",
+        "Free deals",
+        "AI stack",
+        "Customer favourites",
+        "AppSumo Originals",
+        "Plus exclusives",
+        "CRM & sales",
+        "SEO software",
+        "Black Friday"
+      ],
+      "title": "Collection",
+      "type": "string"
+    },
+    "dealStatus": {
+      "default": "current",
+      "description": "Current live deals, the full all-time archive, or expired deals only.",
+      "editor": "select",
+      "enum": [
+        "current",
+        "all",
+        "expired"
+      ],
+      "enumTitles": [
+        "Current deals",
+        "All deals (archive)",
+        "Expired deals"
+      ],
+      "title": "Deal status",
+      "type": "string"
+    },
+    "dealType": {
+      "default": "",
+      "description": "Filter by the type of deal AppSumo lists.",
       "editor": "select",
       "enum": [
         "",
@@ -20,85 +70,115 @@
         "creative-resources"
       ],
       "enumTitles": [
-        "(none)",
+        "(any)",
         "Software",
         "Courses & Learning",
         "Templates",
         "Creative Resources"
       ],
-      "title": "Category",
-      "type": "string"
-    },
-    "collection": {
-      "default": "",
-      "description": "(Optional) Curated AppSumo collection to browse.",
-      "editor": "select",
-      "enum": [
-        "",
-        "new",
-        "ending-soon",
-        "free"
-      ],
-      "enumTitles": [
-        "(none)",
-        "New deals",
-        "Ending soon",
-        "Free deals"
-      ],
-      "title": "Collection",
+      "title": "Deal type",
       "type": "string"
     },
     "dealUrls": {
-      "default": [
-        "https://appsumo.com/products/tidycal/"
-      ],
-      "description": "Direct AppSumo deal URLs, e.g. https://appsumo.com/products/tidycal/.",
+      "default": [],
+      "description": "Optional AppSumo product URLs, product paths or bare slugs, for example https://appsumo.com/products/tidycal/, /products/tidycal/ or tidycal. Numeric deal IDs are also accepted. The Console form prefills one TidyCal URL; API runs only fetch deals you send here.",
       "editor": "stringList",
       "prefill": [
         "https://appsumo.com/products/tidycal/"
       ],
-      "title": "Deal URLs",
+      "title": "Deal URLs or IDs",
       "type": "array"
+    },
+    "group": {
+      "default": "",
+      "description": "Filter the catalogue by AppSumo category group.",
+      "editor": "select",
+      "enum": [
+        "",
+        "marketing",
+        "sales-leads",
+        "media-design",
+        "operations",
+        "build-code",
+        "customer-engagement"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Marketing",
+        "Sales & Leads",
+        "Media & Design",
+        "Operations",
+        "Build & Code",
+        "Customer Engagement"
+      ],
+      "title": "Category group",
+      "type": "string"
     },
     "maxItems": {
       "default": 25,
       "description": "Hard cap on emitted AppSumo deals.",
-      "maximum": 500,
+      "maximum": 5000,
       "minimum": 1,
-      "prefill": 25,
-      "title": "Max items",
+      "prefill": 1,
+      "title": "Max deals",
       "type": "integer"
     },
-    "proxyConfiguration": {
-      "default": {
-        "apifyProxyGroups": [
-          "RESIDENTIAL"
-        ],
-        "useApifyProxy": true
-      },
-      "description": "Proxy configuration used when `useProxy` is true.",
-      "editor": "proxy",
-      "prefill": {
-        "apifyProxyGroups": [
-          "RESIDENTIAL"
-        ],
-        "useApifyProxy": true
-      },
-      "title": "Proxy configuration",
-      "type": "object"
+    "maxReviewsPerDeal": {
+      "default": 10,
+      "description": "Review cap per deal when reviews are enabled. Every review of a deal is reachable.",
+      "maximum": 1000,
+      "minimum": 0,
+      "prefill": 10,
+      "title": "Max reviews per deal",
+      "type": "integer"
+    },
+    "reviewSort": {
+      "default": "newest",
+      "description": "Order of fetched reviews.",
+      "editor": "select",
+      "enum": [
+        "newest",
+        "oldest",
+        "helpful",
+        "rating-desc",
+        "rating-asc"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Oldest first",
+        "Most helpful",
+        "Highest rating",
+        "Lowest rating"
+      ],
+      "title": "Review order",
+      "type": "string"
+    },
+    "scrapeDetails": {
+      "default": true,
+      "description": "Fetch each deal page for plans, features, FAQs, taxonomy and lifecycle data. Turn off for faster card-only browsing.",
+      "prefill": true,
+      "title": "Fetch full deal details",
+      "type": "boolean"
+    },
+    "scrapeReviews": {
+      "default": false,
+      "description": "Add individual customer reviews from the public AppSumo reviews API.",
+      "prefill": false,
+      "title": "Fetch reviews",
+      "type": "boolean"
     },
     "searchPages": {
       "default": 1,
-      "description": "How many AppSumo result pages to scan for each search query, category, or collection.",
-      "maximum": 20,
+      "description": "How many result pages to scan for each search query, catalogue filter or collection.",
+      "maximum": 50,
       "minimum": 1,
       "prefill": 1,
-      "title": "Search pages per query",
+      "title": "Pages per query or filter",
       "type": "integer"
     },
     "searchQueries": {
       "default": [],
-      "description": "Search terms to run against the AppSumo catalog, e.g. `calendar`, `crm`, `seo`.",
+      "description": "Keywords to search in the AppSumo catalogue, for example calendar, crm or seo. Each query is scanned for searchPages pages.",
       "editor": "stringList",
       "prefill": [],
       "title": "Search queries",
@@ -106,13 +186,14 @@
     },
     "sortBy": {
       "default": "recommended",
-      "description": "Sort order applied to AppSumo search/category/collection browse.",
+      "description": "Order of the emitted deals. Rating, ending-soon and price orders use AppSumo's own sorting; newest and most-reviewed are sorted deterministically after fetching the requested pages.",
       "editor": "select",
       "enum": [
         "recommended",
         "newest",
         "ending-soon",
         "rating",
+        "most-reviewed",
         "price-asc",
         "price-desc"
       ],
@@ -121,21 +202,29 @@
         "Newest",
         "Ending soon",
         "Highest rated",
+        "Most reviewed",
         "Price: low to high",
         "Price: high to low"
       ],
       "title": "Sort order",
       "type": "string"
     },
+    "subcategory": {
+      "default": "",
+      "description": "Optional AppSumo subcategory slug, for example scheduling-bookings or seo.",
+      "editor": "textfield",
+      "title": "Subcategory",
+      "type": "string"
+    },
     "useProxy": {
       "default": false,
-      "description": "Route requests through Apify proxy. AppSumo serves datacenter IPs reliably so proxy is off by default.",
+      "description": "Route requests through Apify proxy. AppSumo serves direct requests reliably, so this is off by default; the actor also retries through the automatic Apify proxy if a block is detected.",
       "prefill": false,
       "title": "Use Apify proxy",
       "type": "boolean"
     }
   },
   "schemaVersion": 1,
-  "title": "AppSumo Scraper Input",
+  "title": "AppSumo Lifetime Deal Input",
   "type": "object"
 }
