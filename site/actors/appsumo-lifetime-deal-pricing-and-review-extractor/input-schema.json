@@ -1,0 +1,141 @@
+{
+  "description": "Scrape AppSumo deal pages directly, search the AppSumo catalog, browse curated collections, or browse a category.",
+  "properties": {
+    "autoEscalateOnBlock": {
+      "default": true,
+      "description": "If AppSumo starts returning blocks/timeouts, automatically retry with rotating sessions.",
+      "prefill": true,
+      "title": "Auto-escalate on block",
+      "type": "boolean"
+    },
+    "categorySlug": {
+      "default": "",
+      "description": "(Optional) Top-level AppSumo category to browse. Leave empty to skip category browse.",
+      "editor": "select",
+      "enum": [
+        "",
+        "software",
+        "courses-learning",
+        "templates",
+        "creative-resources"
+      ],
+      "enumTitles": [
+        "(none)",
+        "Software",
+        "Courses & Learning",
+        "Templates",
+        "Creative Resources"
+      ],
+      "title": "Category",
+      "type": "string"
+    },
+    "collection": {
+      "default": "",
+      "description": "(Optional) Curated AppSumo collection to browse.",
+      "editor": "select",
+      "enum": [
+        "",
+        "new",
+        "ending-soon",
+        "free"
+      ],
+      "enumTitles": [
+        "(none)",
+        "New deals",
+        "Ending soon",
+        "Free deals"
+      ],
+      "title": "Collection",
+      "type": "string"
+    },
+    "dealUrls": {
+      "default": [
+        "https://appsumo.com/products/tidycal/"
+      ],
+      "description": "Direct AppSumo deal URLs, e.g. https://appsumo.com/products/tidycal/.",
+      "editor": "stringList",
+      "prefill": [
+        "https://appsumo.com/products/tidycal/"
+      ],
+      "title": "Deal URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted AppSumo deals.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 25,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "description": "Proxy configuration used when `useProxy` is true.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchPages": {
+      "default": 1,
+      "description": "How many AppSumo result pages to scan for each search query, category, or collection.",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Search pages per query",
+      "type": "integer"
+    },
+    "searchQueries": {
+      "default": [],
+      "description": "Search terms to run against the AppSumo catalog, e.g. `calendar`, `crm`, `seo`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search queries",
+      "type": "array"
+    },
+    "sortBy": {
+      "default": "recommended",
+      "description": "Sort order applied to AppSumo search/category/collection browse.",
+      "editor": "select",
+      "enum": [
+        "recommended",
+        "newest",
+        "ending-soon",
+        "rating",
+        "price-asc",
+        "price-desc"
+      ],
+      "enumTitles": [
+        "Recommended",
+        "Newest",
+        "Ending soon",
+        "Highest rated",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "title": "Sort order",
+      "type": "string"
+    },
+    "useProxy": {
+      "default": false,
+      "description": "Route requests through Apify proxy. AppSumo serves datacenter IPs reliably so proxy is off by default.",
+      "prefill": false,
+      "title": "Use Apify proxy",
+      "type": "boolean"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "AppSumo Scraper Input",
+  "type": "object"
+}

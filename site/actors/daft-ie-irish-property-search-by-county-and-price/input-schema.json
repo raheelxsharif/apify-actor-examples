@@ -1,0 +1,156 @@
+{
+  "description": "Search Daft.ie Ireland for properties for sale, rent, or to share.",
+  "properties": {
+    "bedroomsMax": {
+      "description": "Maximum number of bedrooms (optional).",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Max Bedrooms",
+      "type": "integer"
+    },
+    "bedroomsMin": {
+      "description": "Minimum number of bedrooms (optional).",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Min Bedrooms",
+      "type": "integer"
+    },
+    "county": {
+      "default": "Dublin",
+      "description": "Irish county to filter listings (e.g. Dublin, Cork, Galway).",
+      "editor": "select",
+      "enum": [
+        "Dublin",
+        "Cork",
+        "Galway",
+        "Limerick",
+        "Waterford",
+        "Kilkenny",
+        "Wexford",
+        "Wicklow",
+        "Meath",
+        "Kildare",
+        "Louth",
+        "Tipperary",
+        "Clare",
+        "Kerry",
+        "Mayo",
+        "Sligo",
+        "Donegal",
+        "Cavan",
+        "Monaghan",
+        "Leitrim",
+        "Roscommon",
+        "Offaly",
+        "Westmeath",
+        "Longford",
+        "Laois",
+        "Carlow"
+      ],
+      "enumTitles": [
+        "Dublin",
+        "Cork",
+        "Galway",
+        "Limerick",
+        "Waterford",
+        "Kilkenny",
+        "Wexford",
+        "Wicklow",
+        "Meath",
+        "Kildare",
+        "Louth",
+        "Tipperary",
+        "Clare",
+        "Kerry",
+        "Mayo",
+        "Sligo",
+        "Donegal",
+        "Cavan",
+        "Monaghan",
+        "Leitrim",
+        "Roscommon",
+        "Offaly",
+        "Westmeath",
+        "Longford",
+        "Laois",
+        "Carlow"
+      ],
+      "prefill": "Dublin",
+      "title": "County",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchForSale",
+      "description": "What to search for.",
+      "editor": "select",
+      "enum": [
+        "searchForSale",
+        "searchForRent",
+        "searchToShare"
+      ],
+      "enumTitles": [
+        "Search properties for sale",
+        "Search properties for rent",
+        "Search rooms / house shares"
+      ],
+      "prefill": "searchForSale",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum price in Euros (optional).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Max Price (EUR)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum price in Euros (optional).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Min Price (EUR)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "Filter by property type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "houses",
+        "apartments",
+        "studio-apartments",
+        "bungalows",
+        "duplexes",
+        "sites"
+      ],
+      "enumTitles": [
+        "All types",
+        "Houses",
+        "Apartments",
+        "Studio Apartments",
+        "Bungalows",
+        "Duplexes",
+        "Sites / Land"
+      ],
+      "prefill": "",
+      "title": "Property Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Daft.ie Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,73 @@
+{
+  "actorSpecification": 1,
+  "title": "CruiseMapper cruises",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "currency": {
+            "format": "text",
+            "label": "Cur"
+          },
+          "daysUntilDeparture": {
+            "format": "number",
+            "label": "Days away"
+          },
+          "departureDate": {
+            "format": "date",
+            "label": "Date"
+          },
+          "departureDateText": {
+            "format": "text",
+            "label": "Date (text)"
+          },
+          "duration": {
+            "format": "number",
+            "label": "Nights"
+          },
+          "priceFrom": {
+            "format": "number",
+            "label": "Price"
+          },
+          "routeType": {
+            "format": "text",
+            "label": "Route"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped at"
+          },
+          "shipName": {
+            "format": "text",
+            "label": "Ship"
+          },
+          "shipUrl": {
+            "format": "link",
+            "label": "Ship URL"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          }
+        }
+      },
+      "title": "Cruise overview",
+      "transformation": {
+        "fields": [
+          "departureDate",
+          "departureDateText",
+          "daysUntilDeparture",
+          "shipName",
+          "duration",
+          "routeType",
+          "title",
+          "priceFrom",
+          "currency",
+          "shipUrl",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

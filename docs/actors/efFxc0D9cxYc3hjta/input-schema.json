@@ -1,0 +1,180 @@
+{
+  "description": "Search CruiseMapper.com for cruises matching your filters. All filters are optional; combine any subset.",
+  "properties": {
+    "cruiseLength": {
+      "default": "any",
+      "description": "Trip duration in nights.",
+      "enum": [
+        "any",
+        "1-2",
+        "3-5",
+        "6-10",
+        "11-14",
+        "15+"
+      ],
+      "enumTitles": [
+        "Any length",
+        "1-2 nights",
+        "3-5 nights",
+        "6-10 nights",
+        "11-14 nights",
+        "15+ nights"
+      ],
+      "prefill": "any",
+      "title": "Cruise length",
+      "type": "string"
+    },
+    "cruiseLine": {
+      "description": "Filter by cruise line (e.g. `Royal Caribbean`, `Carnival`).",
+      "editor": "textfield",
+      "title": "Cruise line",
+      "type": "string"
+    },
+    "cruiseType": {
+      "default": "any",
+      "description": "Cruise theme / category (e.g. transatlantic, christmas, food-wine).",
+      "enum": [
+        "any",
+        "easter",
+        "christmas",
+        "new-year",
+        "chinese-new-year",
+        "halloween",
+        "thanksgiving",
+        "independence-day",
+        "food-wine",
+        "music",
+        "sport",
+        "party",
+        "northern-lights",
+        "uk-school-breaks",
+        "world",
+        "nowhere",
+        "mini",
+        "christmas-new-year",
+        "transatlantic",
+        "transpacific",
+        "suez-canal",
+        "panama-canal",
+        "reposition-spring",
+        "reposition-summer",
+        "reposition-autumn",
+        "reposition-winter"
+      ],
+      "prefill": "any",
+      "title": "Cruise type",
+      "type": "string"
+    },
+    "departureFrom": {
+      "description": "Earliest cruise departure date (`YYYY-MM-DD`). Cruises before this date are dropped. Optional.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Earliest departure date",
+      "type": "string"
+    },
+    "departurePort": {
+      "description": "Filter by embarkation port (e.g. `Miami`, `Barcelona`).",
+      "editor": "textfield",
+      "title": "Departure port",
+      "type": "string"
+    },
+    "destination": {
+      "default": "any",
+      "description": "Cruise destination region (matches CruiseMapper's port-region taxonomy).",
+      "enum": [
+        "any",
+        "alaska",
+        "amazon-river",
+        "arctic-antarctica",
+        "asia",
+        "asia-rivers",
+        "australia-new-zealand-pacific",
+        "bahamas-caribbean-bermuda",
+        "baltic-norwegian-fjords-russia",
+        "canada-usa-rivers",
+        "east-coast-usa-canada",
+        "europe-rivers",
+        "africa-indian-ocean",
+        "france-rivers",
+        "galapagos-islands",
+        "hawaii-mexico-panama",
+        "iceland-greenland-faroe",
+        "ireland-uk-british-isles",
+        "mediterranean-black-sea",
+        "nile-river",
+        "russia-rivers",
+        "south-america",
+        "west-coast-usa-canada",
+        "western-europe-azores-canary"
+      ],
+      "prefill": "any",
+      "title": "Destination region",
+      "type": "string"
+    },
+    "endDate": {
+      "description": "Latest cruise departure date (`YYYY-MM-DD`). Cruises after this date are dropped (filtered after fetch). Optional.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Latest departure date (client-side filter)",
+      "type": "string"
+    },
+    "enrichWithShipData": {
+      "default": false,
+      "description": "When true, fetch the ship-detail page for each unique ship and add a `shipDetails` block (year built, builder, gross tonnage, passenger capacity, length, decks, cabins, etc.). Adds ~1 extra HTTP request per unique ship.",
+      "prefill": false,
+      "title": "Enrich with ship-detail data",
+      "type": "boolean"
+    },
+    "maxPrice": {
+      "default": 10000,
+      "description": "Drop cruises whose starting price exceeds this amount (USD). Default = 10000.",
+      "maximum": 100000,
+      "minimum": 100,
+      "prefill": 100000,
+      "title": "Max starting price (USD)",
+      "type": "integer"
+    },
+    "maxResults": {
+      "default": 50,
+      "description": "Hard cap on cruises emitted across all pages.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Max results",
+      "type": "integer"
+    },
+    "minPrice": {
+      "default": 0,
+      "description": "Drop cruises whose starting price is below this amount (USD). Unpriced sailings are dropped when this is above 0. Default = 0.",
+      "maximum": 100000,
+      "minimum": 0,
+      "prefill": 0,
+      "title": "Min starting price (USD)",
+      "type": "integer"
+    },
+    "portOfCall": {
+      "description": "Filter by intermediate port-of-call (e.g. `Cozumel`).",
+      "editor": "textfield",
+      "title": "Port of call",
+      "type": "string"
+    },
+    "shipName": {
+      "description": "Filter by ship name (substring match, e.g. `Symphony of the Seas`).",
+      "editor": "textfield",
+      "title": "Ship name",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Paste full CruiseMapper search URLs (e.g. `https://www.cruisemapper.com/cruise-search?finder=cruise&portRegion=22&duration=3`). Each URL's query params become a search; results are merged and deduped with the main filter inputs.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Start URLs (optional)",
+      "type": "array"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "CruiseMapper Cruises Scraper Input",
+  "type": "object"
+}

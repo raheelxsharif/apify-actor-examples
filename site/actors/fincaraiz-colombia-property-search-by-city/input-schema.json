@@ -1,0 +1,132 @@
+{
+  "description": "Search Colombian property listings from FincaRaiz.com.co — Colombia's largest real estate portal.",
+  "properties": {
+    "areaMax": {
+      "description": "Maximum property area in square meters. Leave blank for no maximum.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Maximum Area (m²)",
+      "type": "integer"
+    },
+    "areaMin": {
+      "description": "Minimum property area in square meters. Leave blank for no minimum.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Minimum Area (m²)",
+      "type": "integer"
+    },
+    "bathroomsMin": {
+      "description": "Minimum number of bathrooms. Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum Bathrooms",
+      "type": "integer"
+    },
+    "bedroomsMax": {
+      "description": "Maximum number of bedrooms. Leave blank for no maximum.",
+      "editor": "number",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Maximum Bedrooms",
+      "type": "integer"
+    },
+    "bedroomsMin": {
+      "description": "Minimum number of bedrooms. Leave blank for no minimum.",
+      "editor": "number",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum Bedrooms",
+      "type": "integer"
+    },
+    "city": {
+      "default": "",
+      "description": "Filter results by city name (partial match, case-insensitive). E.g. 'Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena', 'Bucaramanga', 'Pereira'.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "City Filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of property listings to return (1–1000).",
+      "editor": "number",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchForSale",
+      "description": "Type of operation to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchForSale",
+        "searchForRent"
+      ],
+      "enumTitles": [
+        "Properties for Sale (Venta)",
+        "Properties for Rent (Arriendo)"
+      ],
+      "prefill": "searchForSale",
+      "title": "Mode",
+      "type": "string"
+    },
+    "priceMax": {
+      "description": "Maximum listing price in Colombian Pesos (COP). Leave blank for no maximum.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Maximum Price (COP)",
+      "type": "integer"
+    },
+    "priceMin": {
+      "description": "Minimum listing price in Colombian Pesos (COP). Leave blank for no minimum.",
+      "editor": "number",
+      "minimum": 0,
+      "title": "Minimum Price (COP)",
+      "type": "integer"
+    },
+    "propertyType": {
+      "default": "",
+      "description": "Filter by property type. Leave blank for all types.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Apartamento",
+        "Casa",
+        "Oficina",
+        "Local",
+        "Bodega",
+        "Apartaestudio",
+        "Finca",
+        "Lote",
+        "Casa Campestre",
+        "Parqueadero",
+        "Habitación",
+        "Edificio"
+      ],
+      "enumTitles": [
+        "All Types",
+        "Apartamento (Apartment)",
+        "Casa (House)",
+        "Oficina (Office)",
+        "Local (Commercial Unit)",
+        "Bodega (Warehouse)",
+        "Apartaestudio (Studio Apartment)",
+        "Finca (Farm/Ranch)",
+        "Lote (Land Plot)",
+        "Casa Campestre (Country House)",
+        "Parqueadero (Parking Space)",
+        "Habitación (Room)",
+        "Edificio (Building)"
+      ],
+      "prefill": "",
+      "title": "Property Type",
+      "type": "string"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "FincaRaiz Colombia Scraper Input",
+  "type": "object"
+}

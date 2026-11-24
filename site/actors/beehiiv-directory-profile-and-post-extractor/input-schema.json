@@ -1,0 +1,135 @@
+{
+  "description": "Discover newsletters from Beehiiv's public directory, fetch newsletter profiles, or extract recent posts.",
+  "properties": {
+    "category": {
+      "default": "",
+      "description": "Filter newsletters by topic category.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Technology",
+        "Business",
+        "Finance",
+        "Marketing",
+        "Health",
+        "Sports",
+        "Entertainment",
+        "Politics",
+        "Science",
+        "Food",
+        "Travel",
+        "Lifestyle",
+        "Education",
+        "Entrepreneurship",
+        "Investing",
+        "News",
+        "Other"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Technology",
+        "Business",
+        "Finance",
+        "Marketing",
+        "Health",
+        "Sports",
+        "Entertainment",
+        "Politics",
+        "Science",
+        "Food",
+        "Travel",
+        "Lifestyle",
+        "Education",
+        "Entrepreneurship",
+        "Investing",
+        "News",
+        "Other"
+      ],
+      "prefill": "",
+      "title": "Category (mode=discover)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum total records to collect (newsletters or posts).",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPostsPerNewsletter": {
+      "default": 10,
+      "description": "Maximum number of posts to collect from each newsletter.",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max posts per newsletter (mode=searchPosts)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "discover",
+      "description": "What to scrape from Beehiiv.",
+      "editor": "select",
+      "enum": [
+        "discover",
+        "getNewsletter",
+        "searchPosts"
+      ],
+      "enumTitles": [
+        "Discover newsletters (browse directory)",
+        "Get newsletter profile by URL or subdomain",
+        "Get recent posts from a newsletter"
+      ],
+      "prefill": "discover",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Keyword to search for in the Beehiiv newsletter directory.",
+      "editor": "textfield",
+      "title": "Search query (mode=discover)",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "popular",
+      "description": "How to sort discovered newsletters.",
+      "editor": "select",
+      "enum": [
+        "popular",
+        "newest",
+        "trending"
+      ],
+      "enumTitles": [
+        "Most popular",
+        "Newest",
+        "Trending"
+      ],
+      "prefill": "popular",
+      "title": "Sort by (mode=discover)",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "Full URLs of Beehiiv newsletters to scrape, e.g. https://milkroad.beehiiv.com or https://tldrnewsletter.com.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Newsletter URLs (mode=getNewsletter or searchPosts)",
+      "type": "array"
+    },
+    "subdomains": {
+      "default": [],
+      "description": "Beehiiv newsletter subdomains without .beehiiv.com, e.g. [\"milkroad\", \"tldr\"]. Will be resolved to https://subdomain.beehiiv.com.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Beehiiv subdomains (mode=getNewsletter or searchPosts)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Beehiiv Newsletter Discovery Scraper Input",
+  "type": "object"
+}
