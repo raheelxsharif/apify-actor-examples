@@ -1,0 +1,283 @@
+{
+  "description": "Browse Compass.com homes for sale or for rent by city/neighborhood/ZIP, or fetch full details for specific listing URLs.",
+  "properties": {
+    "agentUrls": {
+      "default": [],
+      "description": "Compass.com agent profile URLs, e.g. `https://www.compass.com/agents/shannon-reeve/`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Agent profile URLs (mode=agentProfile)",
+      "type": "array"
+    },
+    "amenities": {
+      "default": [],
+      "description": "Only show listings with ALL selected amenities/features. Supported for both for-sale and for-rent.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "pool",
+          "garage",
+          "doorman",
+          "elevator",
+          "waterfront",
+          "washerDryer",
+          "privateOutdoorSpace",
+          "basement",
+          "airConditioning"
+        ],
+        "enumTitles": [
+          "Pool",
+          "Garage",
+          "Doorman",
+          "Elevator",
+          "Waterfront",
+          "Washer/dryer in unit",
+          "Private outdoor space",
+          "Basement",
+          "Air conditioning"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Must-have amenities",
+      "type": "array"
+    },
+    "comingSoonOnly": {
+      "default": false,
+      "description": "Only show listings marked \"Coming Soon\" (not yet officially on market).",
+      "prefill": false,
+      "title": "Coming soon only",
+      "type": "boolean"
+    },
+    "listingCategory": {
+      "default": "forSale",
+      "description": "Browse homes for sale, or homes for rent.",
+      "editor": "select",
+      "enum": [
+        "forSale",
+        "forRent"
+      ],
+      "enumTitles": [
+        "For sale",
+        "For rent"
+      ],
+      "prefill": "forSale",
+      "title": "For sale or for rent",
+      "type": "string"
+    },
+    "listingType": {
+      "default": "any",
+      "description": "Restrict results to how the listing is being sold: through the MLS, as a Compass Platform Exclusive (not on the MLS), or For Sale By Owner.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "platformExclusives",
+        "mlsListings",
+        "forSaleByOwner"
+      ],
+      "enumTitles": [
+        "Any listing type",
+        "Compass Platform Exclusives (not on MLS)",
+        "MLS listings",
+        "For Sale By Owner"
+      ],
+      "prefill": "any",
+      "title": "Listing type",
+      "type": "string"
+    },
+    "listingUrls": {
+      "default": [],
+      "description": "Compass.com listing detail URLs, e.g. `https://www.compass.com/homedetails/14916-Copper-Ridge-Ln-Austin-TX-78734/1FAMQS_pid/`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Listing URLs (mode=listingDetail)",
+      "type": "array"
+    },
+    "location": {
+      "default": "Austin, TX",
+      "description": "City, neighborhood, or ZIP to browse. Accepts a plain name like `Austin, TX` / `Miami Beach, FL`, or a Compass URL slug like `austin-tx` / `austin-tx-78734`. A ZIP code alone (e.g. `78734`) is not enough - append it to a city slug (`austin-tx-78734`) or just use `City, ST`.",
+      "editor": "textfield",
+      "prefill": "Austin, TX",
+      "title": "Location (mode=search)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 60,
+      "description": "Hard cap on emitted records.",
+      "maximum": 5000,
+      "minimum": 1,
+      "prefill": 60,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop listings priced above this amount (sale price or monthly rent).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Maximum price ($)",
+      "type": "integer"
+    },
+    "maxSqft": {
+      "description": "Drop listings larger than this many square feet.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Maximum square feet",
+      "type": "integer"
+    },
+    "minBaths": {
+      "description": "Drop listings with fewer bathrooms than this (e.g. 1.5).",
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Minimum bathrooms",
+      "type": "number"
+    },
+    "minBeds": {
+      "default": "any",
+      "description": "Only show listings with at least this many bedrooms.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "enumTitles": [
+        "Any",
+        "1+",
+        "2+",
+        "3+",
+        "4+",
+        "5+",
+        "6+"
+      ],
+      "prefill": "any",
+      "title": "Minimum bedrooms",
+      "type": "string"
+    },
+    "minPrice": {
+      "description": "Drop listings priced below this amount (sale price or monthly rent).",
+      "maximum": 100000000,
+      "minimum": 0,
+      "title": "Minimum price ($)",
+      "type": "integer"
+    },
+    "minSqft": {
+      "description": "Drop listings smaller than this many square feet.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Minimum square feet",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "Browse listings for a location, fetch full details for specific listing URLs, or fetch agent profiles (bio + active/sold listings).",
+      "editor": "select",
+      "enum": [
+        "search",
+        "listingDetail",
+        "agentProfile"
+      ],
+      "enumTitles": [
+        "Search listings by location",
+        "Get full details for listing URLs",
+        "Get agent profiles (bio, active & sold listings)"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "newConstructionOnly": {
+      "default": false,
+      "description": "Only show newly built/new-construction listings. Supported for both for-sale and for-rent.",
+      "prefill": false,
+      "title": "New construction only",
+      "type": "boolean"
+    },
+    "newListingOnly": {
+      "default": false,
+      "description": "Only show listings freshly marked \"New\" by Compass. Supported for both for-sale and for-rent.",
+      "prefill": false,
+      "title": "New listings only",
+      "type": "boolean"
+    },
+    "noFeeOnly": {
+      "default": false,
+      "description": "Only show rentals with no broker/landlord fee (\"No Fee\" badge — common in NYC rental markets). Only supported when \"For sale or for rent\" is set to For rent.",
+      "prefill": false,
+      "title": "No fee only",
+      "type": "boolean"
+    },
+    "openHouseOnly": {
+      "default": false,
+      "description": "Only show listings with a scheduled open house.",
+      "prefill": false,
+      "title": "Open houses only",
+      "type": "boolean"
+    },
+    "pendingOnly": {
+      "default": false,
+      "description": "Only show listings that are under contract or pending (not yet sold/closed). Supported for both for-sale and for-rent. Mutually exclusive with \"Sold only\".",
+      "prefill": false,
+      "title": "Pending / under contract only",
+      "type": "boolean"
+    },
+    "petFriendlyOnly": {
+      "default": false,
+      "description": "Only show rentals that allow pets. Only supported when \"For sale or for rent\" is set to For rent — Compass doesn't expose a pet-friendly filter for home sales.",
+      "prefill": false,
+      "title": "Pet friendly only",
+      "type": "boolean"
+    },
+    "propertyType": {
+      "default": "any",
+      "description": "Restrict results to a property type.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "singleFamily",
+        "condos",
+        "townhomes",
+        "multiFamily",
+        "land",
+        "luxury",
+        "coop"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Single-family homes",
+        "Condos",
+        "Townhomes",
+        "Multi-family",
+        "Land",
+        "Luxury",
+        "Co-op"
+      ],
+      "prefill": "any",
+      "title": "Property type",
+      "type": "string"
+    },
+    "soldOnly": {
+      "default": false,
+      "description": "Only show recently sold/closed listings (comps). Only supported when \"For sale or for rent\" is set to For sale — Compass doesn't expose a reliable sold filter for rentals.",
+      "prefill": false,
+      "title": "Sold only",
+      "type": "boolean"
+    },
+    "virtualTourOnly": {
+      "default": false,
+      "description": "Only show listings that have a virtual tour. Supported for both for-sale and for-rent.",
+      "prefill": false,
+      "title": "Virtual tour only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Compass Real Estate Scraper Input",
+  "type": "object"
+}

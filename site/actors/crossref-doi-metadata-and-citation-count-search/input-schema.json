@@ -1,0 +1,182 @@
+{
+  "description": "Search Crossref's DOI registry, or look up specific DOIs.",
+  "properties": {
+    "dois": {
+      "default": [],
+      "description": "Crossref DOIs to fetch directly. Accepts bare (`10.1145/...`) or full URL form.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "DOIs (mode=byDois)",
+      "type": "array"
+    },
+    "fromPubDate": {
+      "description": "Drop works published before this date.",
+      "editor": "textfield",
+      "title": "Published after (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "funderDoi": {
+      "description": "Crossref Funder Registry DOI. Examples: `10.13039/100000001` (NSF), `10.13039/100000002` (NIH), `10.13039/100000104` (NASA), `10.13039/501100000780` (European Commission). Lookup at https://search.crossref.org/funding.",
+      "editor": "textfield",
+      "title": "Funder DOI (mode=byFunder)",
+      "type": "string"
+    },
+    "includeReferences": {
+      "default": false,
+      "description": "Include the cited references list (can be large for review articles).",
+      "prefill": false,
+      "title": "Include references",
+      "type": "boolean"
+    },
+    "journalIssn": {
+      "description": "ISSN of a journal (e.g. `1532-4435` for JMLR, `0036-8075` for Science).",
+      "editor": "textfield",
+      "title": "Journal ISSN (mode=byJournalIssn)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "memberId": {
+      "description": "Numeric Crossref member ID (a publisher). Example: `78` (Springer), `301` (IEEE), `7164` (Cambridge UP).",
+      "editor": "textfield",
+      "title": "Member ID (mode=byMember)",
+      "type": "string"
+    },
+    "minCitationCount": {
+      "description": "Drop works cited fewer times than this.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Min citation count",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchWorks",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchWorks",
+        "byDois",
+        "byMember",
+        "byJournalIssn",
+        "byFunder"
+      ],
+      "enumTitles": [
+        "Search works",
+        "Lookup by DOI",
+        "All works of a publisher (member ID)",
+        "All works of a journal (ISSN)",
+        "All works funded by a funder (DOI)"
+      ],
+      "prefill": "searchWorks",
+      "title": "Mode",
+      "type": "string"
+    },
+    "queryAuthor": {
+      "description": "Constrain results to a specific author.",
+      "editor": "textfield",
+      "title": "Query author",
+      "type": "string"
+    },
+    "queryTitle": {
+      "description": "Constrain results to titles containing this phrase.",
+      "editor": "textfield",
+      "title": "Query title contains",
+      "type": "string"
+    },
+    "searchQuery": {
+      "default": "large language models",
+      "description": "Free-text query (mode=searchWorks).",
+      "editor": "textfield",
+      "prefill": "large language models",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Crossref sort order.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "published",
+        "is-referenced-by-count",
+        "deposited",
+        "indexed",
+        "issued"
+      ],
+      "enumTitles": [
+        "Relevance (default)",
+        "Published date",
+        "Citation count",
+        "Deposit date",
+        "Index date",
+        "Issued date"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "sortOrder": {
+      "default": "desc",
+      "description": "Ascending or descending order for the chosen sort field.",
+      "editor": "select",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "prefill": "desc",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "untilPubDate": {
+      "description": "Drop works published after this date.",
+      "editor": "textfield",
+      "title": "Published before (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "userAgentEmail": {
+      "default": "apify-actor@noreply.apify.com",
+      "description": "Crossref's polite pool requires a contact email in User-Agent for higher rate limits.",
+      "editor": "textfield",
+      "prefill": "apify-actor@noreply.apify.com",
+      "title": "User-Agent contact email",
+      "type": "string"
+    },
+    "workType": {
+      "default": "any",
+      "description": "Crossref work type filter.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "journal-article",
+        "book",
+        "book-chapter",
+        "proceedings-article",
+        "report",
+        "dataset",
+        "dissertation",
+        "preprint",
+        "posted-content",
+        "monograph",
+        "edited-book",
+        "reference-entry",
+        "standard"
+      ],
+      "prefill": "any",
+      "title": "Work type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Crossref Scraper Input",
+  "type": "object"
+}

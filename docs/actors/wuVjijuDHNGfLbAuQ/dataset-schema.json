@@ -1,0 +1,79 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "title": "BizQuest Business-for-Sale Listing & Financials Extractor Output",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "askingPrice": {
+            "format": "number",
+            "label": "Price ($)"
+          },
+          "cashFlow": {
+            "format": "number",
+            "label": "Cash Flow"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "grossRevenue": {
+            "format": "number",
+            "label": "Revenue"
+          },
+          "listingId": {
+            "format": "text",
+            "label": "ID"
+          },
+          "listingType": {
+            "format": "text",
+            "label": "Type"
+          },
+          "location": {
+            "format": "text",
+            "label": "Location"
+          },
+          "priceLabel": {
+            "format": "text",
+            "label": "Price"
+          },
+          "scrapedAt": {
+            "format": "text",
+            "label": "Scraped At"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "link",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Listings Overview",
+      "transformation": {
+        "fields": [
+          "listingId",
+          "title",
+          "priceLabel",
+          "askingPrice",
+          "cashFlow",
+          "grossRevenue",
+          "location",
+          "city",
+          "state",
+          "listingType",
+          "url",
+          "scrapedAt"
+        ]
+      }
+    }
+  }
+}

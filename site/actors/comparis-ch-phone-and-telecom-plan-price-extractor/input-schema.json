@@ -1,0 +1,92 @@
+{
+  "description": "Compare Swiss smartphone prices or internet/telecom plans on Comparis.ch.",
+  "properties": {
+    "keyword": {
+      "default": "iPhone 15",
+      "description": "Phone model to search for.",
+      "editor": "textfield",
+      "prefill": "iPhone 15",
+      "title": "Search keyword (mode=phoneComparison)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of products/plans to return.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 20,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "phoneComparison",
+      "description": "What to scrape.",
+      "editor": "select",
+      "enum": [
+        "phoneComparison",
+        "internetPlans"
+      ],
+      "enumTitles": [
+        "Smartphone price comparison",
+        "Internet & telecom plans"
+      ],
+      "prefill": "phoneComparison",
+      "title": "Mode",
+      "type": "string"
+    },
+    "planType": {
+      "default": "mobile",
+      "description": "Type of telecom plan to search for.",
+      "editor": "select",
+      "enum": [
+        "mobile",
+        "home-internet",
+        "bundle"
+      ],
+      "enumTitles": [
+        "Mobile plans",
+        "Home internet plans",
+        "Bundle plans (mobile + internet)"
+      ],
+      "prefill": "mobile",
+      "title": "Plan type (mode=internetPlans)",
+      "type": "string"
+    },
+    "provider": {
+      "default": "",
+      "description": "Filter internet plans by provider (optional). Leave empty for all providers.",
+      "editor": "select",
+      "enum": [
+        "",
+        "swisscom",
+        "sunrise",
+        "salt",
+        "upc",
+        "m-budget",
+        "yallo",
+        "wingo",
+        "quickline"
+      ],
+      "enumTitles": [
+        "All providers",
+        "Swisscom",
+        "Sunrise",
+        "Salt",
+        "UPC",
+        "M-Budget Mobile",
+        "Yallo",
+        "Wingo",
+        "Quickline"
+      ],
+      "prefill": "",
+      "title": "Provider filter (mode=internetPlans)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Comparis Scraper Input",
+  "type": "object"
+}

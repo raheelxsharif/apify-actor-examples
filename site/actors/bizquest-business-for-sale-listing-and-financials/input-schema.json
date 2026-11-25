@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "fetchDetails": {
+      "default": false,
+      "description": "EXPERIMENTAL — attempts to fetch each listing's detail page for additional fields (description, broker info, photos, financials). BizQuest's Akamai bot protection currently blocks most detail-page fetches even from residential proxies; when a fetch fails the record is emitted with card-level data only. Doubles HTTP request count. Default: false.",
+      "editor": "checkbox",
+      "title": "Fetch Listing Details (experimental)",
+      "type": "boolean"
+    },
+    "keyword": {
+      "description": "Optional keyword filter (e.g. 'pizza'). NOTE: BizQuest's own search often ignores the ?q= parameter on the default browse URL — results may be the same regardless. For reliable keyword search, use a BizQuest industry URL in Start URLs (e.g. '/restaurants-for-sale/') which filters by category.",
+      "editor": "textfield",
+      "title": "Keyword (optional, limited)",
+      "type": "string"
+    },
+    "location": {
+      "description": "Optional US state filter — full name ('California') or 2-letter abbreviation ('CA'). For city/county filters, paste the URL from BizQuest directly into Start URLs.",
+      "editor": "textfield",
+      "title": "Location (optional)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Maximum number of listings to return (1–10,000).",
+      "editor": "number",
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Max Items",
+      "type": "integer"
+    },
+    "proxyConfiguration": {
+      "description": "Proxy configuration. BizQuest uses Akamai bot protection. Residential proxy is strongly recommended — detail pages often fail from datacenter IPs.",
+      "editor": "proxy",
+      "prefill": {
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "useApifyProxy": true
+      },
+      "title": "Proxy Configuration",
+      "type": "object"
+    },
+    "startUrls": {
+      "description": "BizQuest search result URLs (e.g. https://www.bizquest.com/businesses-for-sale-in-california-ca/) or individual listing URLs. Apply filters on BizQuest.com first, then paste the URL here.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.bizquest.com/businesses-for-sale/"
+      ],
+      "title": "Start URLs",
+      "type": "array"
+    }
+  },
+  "schemaVersion": 1,
+  "title": "BizQuest Scraper Input",
+  "type": "object"
+}

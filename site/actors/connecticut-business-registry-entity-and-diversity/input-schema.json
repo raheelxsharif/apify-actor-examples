@@ -1,0 +1,221 @@
+{
+  "description": "Search Connecticut's official business registry (published by the Connecticut Secretary of State on the state's open-data portal) by entity name, exact Business ID (account number), business city, or NAICS industry code. Optionally filter by entity status, entity type, and domestic/foreign citizenship.",
+  "properties": {
+    "businessCity": {
+      "description": "Exact business (mailing) address city to browse entities in, e.g. `Hartford`.",
+      "editor": "textfield",
+      "title": "Business city (mode=byCity)",
+      "type": "string"
+    },
+    "citizenship": {
+      "default": "",
+      "description": "Optionally restrict results to entities formed in Connecticut (Domestic) or elsewhere (Foreign).",
+      "editor": "select",
+      "enum": [
+        "",
+        "Domestic",
+        "Foreign"
+      ],
+      "enumTitles": [
+        "Any",
+        "Domestic (formed in CT)",
+        "Foreign (formed elsewhere)"
+      ],
+      "prefill": "",
+      "title": "Domestic / foreign filter",
+      "type": "string"
+    },
+    "entityId": {
+      "description": "Exact Connecticut Business ID (account number), e.g. `0818011`.",
+      "editor": "textfield",
+      "title": "Business ID / account number (mode=byAccountNumber)",
+      "type": "string"
+    },
+    "entityName": {
+      "default": "WALMART",
+      "description": "Business entity name to search for (substring match), e.g. `WALMART`.",
+      "editor": "textfield",
+      "prefill": "WALMART",
+      "title": "Entity name (mode=byEntityName)",
+      "type": "string"
+    },
+    "entityStatus": {
+      "default": "",
+      "description": "Optionally restrict results to a single entity status.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Active",
+        "Active - Pending Domestication",
+        "Cancelled",
+        "Consolidation",
+        "Converted",
+        "Converted Out",
+        "Dissolved",
+        "Domesticated",
+        "Expired",
+        "Expired Reservation",
+        "Forfeited",
+        "Merged",
+        "Pending Conversion",
+        "Pending Filing",
+        "Pending Merger",
+        "Pending Withdrawal",
+        "Recorded",
+        "Redomesticated",
+        "Registered",
+        "Rejected",
+        "Removed",
+        "Renunciated",
+        "Reserved",
+        "Reserved Cancel",
+        "Revoked",
+        "Withdrawn"
+      ],
+      "enumTitles": [
+        "Any status",
+        "Active",
+        "Active - Pending Domestication",
+        "Cancelled",
+        "Consolidation",
+        "Converted",
+        "Converted Out",
+        "Dissolved",
+        "Domesticated",
+        "Expired",
+        "Expired Reservation",
+        "Forfeited",
+        "Merged",
+        "Pending Conversion",
+        "Pending Filing",
+        "Pending Merger",
+        "Pending Withdrawal",
+        "Recorded",
+        "Redomesticated",
+        "Registered",
+        "Rejected",
+        "Removed",
+        "Renunciated",
+        "Reserved",
+        "Reserved Cancel",
+        "Revoked",
+        "Withdrawn"
+      ],
+      "prefill": "",
+      "title": "Entity status filter",
+      "type": "string"
+    },
+    "entityType": {
+      "default": "",
+      "description": "Optionally restrict results to a single entity (business) type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "LLC",
+        "Stock",
+        "Non-Stock",
+        "Limited Partnership",
+        "LLP",
+        "Statutory Trust",
+        "General Partnerships",
+        "B Corp",
+        "Bank Stock",
+        "Bank Non-Stock",
+        "Credit Union Stock",
+        "Credit Union Non-Stock",
+        "Insurance Stock",
+        "Insurance Non-Stock",
+        "Cooperative Association",
+        "Cemetery",
+        "Religious",
+        "Special Chartered",
+        "Stock Specially Chartered",
+        "Non-Stock Specially Chartered",
+        "Unauthorized",
+        "Unknown"
+      ],
+      "enumTitles": [
+        "Any type",
+        "LLC",
+        "Stock Corporation",
+        "Non-Stock Corporation",
+        "Limited Partnership",
+        "Limited Liability Partnership",
+        "Statutory Trust",
+        "General Partnership",
+        "Benefit Corporation",
+        "Bank (Stock)",
+        "Bank (Non-Stock)",
+        "Credit Union (Stock)",
+        "Credit Union (Non-Stock)",
+        "Insurance (Stock)",
+        "Insurance (Non-Stock)",
+        "Cooperative Association",
+        "Cemetery",
+        "Religious",
+        "Special Chartered",
+        "Stock Specially Chartered",
+        "Non-Stock Specially Chartered",
+        "Unauthorized",
+        "Unknown"
+      ],
+      "prefill": "",
+      "title": "Entity type filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 25,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "byEntityName",
+      "description": "Which search axis to use.",
+      "editor": "select",
+      "enum": [
+        "byEntityName",
+        "byAccountNumber",
+        "byCity",
+        "byNaicsCode"
+      ],
+      "enumTitles": [
+        "By entity name",
+        "By exact Business ID (account number)",
+        "By business city",
+        "By NAICS industry code"
+      ],
+      "prefill": "byEntityName",
+      "title": "Search mode",
+      "type": "string"
+    },
+    "naicsCode": {
+      "description": "North American Industry Classification System code to search for, e.g. `541810`.",
+      "editor": "textfield",
+      "title": "NAICS code (mode=byNaicsCode)",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": true
+      },
+      "description": "Uses Apify's free datacenter (AUTO) proxy group to get a fresh IP if a request is temporarily blocked. Residential proxy is never used by this actor.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    }
+  },
+  "required": [
+    "mode",
+    "proxyConfiguration"
+  ],
+  "schemaVersion": 1,
+  "title": "Connecticut Secretary of State Business Search Scraper Input",
+  "type": "object"
+}
