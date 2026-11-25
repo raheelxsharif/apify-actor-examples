@@ -1,27 +1,241 @@
 {
   "actorSpecification": 1,
   "fields": {},
-  "title": "BizQuest Business-for-Sale Listing & Financials Extractor Output",
+  "title": "BizQuest Listings Output",
   "views": {
-    "overview": {
+    "contact": {
       "display": {
         "component": "table",
         "properties": {
-          "askingPrice": {
-            "format": "number",
-            "label": "Price ($)"
+          "brokerCompany": {
+            "format": "text",
+            "label": "Brokerage"
           },
-          "cashFlow": {
-            "format": "number",
-            "label": "Cash Flow"
+          "brokerName": {
+            "format": "text",
+            "label": "Broker"
+          },
+          "brokerPhone": {
+            "format": "text",
+            "label": "Phone"
+          },
+          "brokerProfileUrl": {
+            "format": "text",
+            "label": "Broker Profile"
           },
           "city": {
             "format": "text",
             "label": "City"
           },
+          "listingId": {
+            "format": "text",
+            "label": "ID"
+          },
+          "state": {
+            "format": "text",
+            "label": "State"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "url": {
+            "format": "text",
+            "label": "URL"
+          }
+        }
+      },
+      "title": "Broker Contacts",
+      "transformation": {
+        "fields": [
+          "listingId",
+          "title",
+          "brokerName",
+          "brokerCompany",
+          "brokerPhone",
+          "brokerProfileUrl",
+          "city",
+          "state",
+          "url"
+        ]
+      }
+    },
+    "details": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "competition": {
+            "format": "text",
+            "label": "Competition"
+          },
+          "description": {
+            "format": "text",
+            "label": "Description"
+          },
+          "facilities": {
+            "format": "text",
+            "label": "Facilities"
+          },
+          "financingOptions": {
+            "format": "text",
+            "label": "Financing"
+          },
+          "growth": {
+            "format": "text",
+            "label": "Growth Opportunities"
+          },
+          "leaseTerms": {
+            "format": "text",
+            "label": "Lease Terms"
+          },
+          "listingId": {
+            "format": "text",
+            "label": "ID"
+          },
+          "photos": {
+            "format": "text",
+            "label": "Photos"
+          },
+          "reasonForSelling": {
+            "format": "text",
+            "label": "Reason for Selling"
+          },
+          "shortDescription": {
+            "format": "text",
+            "label": "Teaser"
+          },
+          "support": {
+            "format": "text",
+            "label": "Support"
+          },
+          "thumbnail": {
+            "format": "text",
+            "label": "Photo"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          }
+        }
+      },
+      "title": "Listing Details",
+      "transformation": {
+        "fields": [
+          "listingId",
+          "title",
+          "description",
+          "shortDescription",
+          "reasonForSelling",
+          "facilities",
+          "support",
+          "financingOptions",
+          "competition",
+          "growth",
+          "leaseTerms",
+          "photos",
+          "thumbnail"
+        ]
+      }
+    },
+    "financials": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "askingPrice": {
+            "format": "text",
+            "label": "Asking Price ($)"
+          },
+          "buildingSqft": {
+            "format": "text",
+            "label": "Building Sq Ft"
+          },
+          "cashFlow": {
+            "format": "text",
+            "label": "Cash Flow ($)"
+          },
+          "ebitda": {
+            "format": "text",
+            "label": "EBITDA ($)"
+          },
+          "employees": {
+            "format": "text",
+            "label": "Employees"
+          },
+          "ffeValue": {
+            "format": "text",
+            "label": "FF&E ($)"
+          },
           "grossRevenue": {
-            "format": "number",
-            "label": "Revenue"
+            "format": "text",
+            "label": "Gross Revenue ($)"
+          },
+          "inventoryValue": {
+            "format": "text",
+            "label": "Inventory ($)"
+          },
+          "listingId": {
+            "format": "text",
+            "label": "ID"
+          },
+          "realEstateValue": {
+            "format": "text",
+            "label": "Real Estate ($)"
+          },
+          "title": {
+            "format": "text",
+            "label": "Title"
+          },
+          "yearEstablished": {
+            "format": "text",
+            "label": "Established"
+          }
+        }
+      },
+      "title": "Financials",
+      "transformation": {
+        "fields": [
+          "listingId",
+          "title",
+          "askingPrice",
+          "cashFlow",
+          "ebitda",
+          "grossRevenue",
+          "inventoryValue",
+          "ffeValue",
+          "realEstateValue",
+          "buildingSqft",
+          "yearEstablished",
+          "employees"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "askingPrice": {
+            "format": "text",
+            "label": "Asking Price ($)"
+          },
+          "cashFlow": {
+            "format": "text",
+            "label": "Cash Flow ($)"
+          },
+          "city": {
+            "format": "text",
+            "label": "City"
+          },
+          "ebitda": {
+            "format": "text",
+            "label": "EBITDA ($)"
+          },
+          "grossRevenue": {
+            "format": "text",
+            "label": "Gross Revenue ($)"
+          },
+          "industry": {
+            "format": "text",
+            "label": "Industry"
           },
           "listingId": {
             "format": "text",
@@ -29,15 +243,11 @@
           },
           "listingType": {
             "format": "text",
-            "label": "Type"
+            "label": "Listing Type"
           },
           "location": {
             "format": "text",
             "label": "Location"
-          },
-          "priceLabel": {
-            "format": "text",
-            "label": "Price"
           },
           "scrapedAt": {
             "format": "text",
@@ -52,7 +262,7 @@
             "label": "Title"
           },
           "url": {
-            "format": "link",
+            "format": "text",
             "label": "URL"
           }
         }
@@ -62,14 +272,15 @@
         "fields": [
           "listingId",
           "title",
-          "priceLabel",
           "askingPrice",
           "cashFlow",
+          "ebitda",
           "grossRevenue",
+          "industry",
+          "listingType",
           "location",
           "city",
           "state",
-          "listingType",
           "url",
           "scrapedAt"
         ]

@@ -1,6 +1,45 @@
 {
   "actorSpecification": 1,
   "views": {
+    "agents": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Agent profiles",
+      "transformation": {
+        "fields": [
+          "agentName",
+          "title",
+          "phone",
+          "email",
+          "market",
+          "activeListingsCount",
+          "closedDealsCount",
+          "sourceUrl"
+        ]
+      }
+    },
+    "listingDetails": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Listing details",
+      "transformation": {
+        "fields": [
+          "address",
+          "city",
+          "state",
+          "price",
+          "mlsNumber",
+          "yearBuilt",
+          "agentName",
+          "listingCategory",
+          "sourceUrl"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",
@@ -17,6 +56,23 @@
           "bathrooms",
           "squareFeet",
           "propertyType",
+          "status",
+          "sourceUrl"
+        ]
+      }
+    },
+    "soldComps": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Sold comps",
+      "transformation": {
+        "fields": [
+          "address",
+          "city",
+          "state",
+          "price",
           "status",
           "sourceUrl"
         ]

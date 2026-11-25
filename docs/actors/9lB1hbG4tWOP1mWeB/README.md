@@ -4,63 +4,138 @@
 
 # Crossref DOI Metadata & Citation Count Search
 
-Crossref is the DOI registration agency used by tens of thousands of publishers, making it the closest thing to a canonical index of scholarly works. This actor searches that index by keyword, fetches specific DOIs directly, or pulls every work tied to a publisher, journal ISSN or funder — with full bibliographic metadata, authors and citation counts.
+Crossref is the DOI registration agency used by tens of thousands of publishers, which makes it the closest thing to a canonical open index of scholarly works. This actor reads that index without an API key: search by keyword or citation-style query, resolve a list of DOIs, or enumerate the output of a publisher, journal, funder, ORCID, award or DOI prefix. Every record carries the DOI, authors, citation and reference counts, funding, licenses, full-text links and the rest of Crossref's deposited metadata.
 
 ## What this actor does
 
-- Searches scholarly works by free-text keyword, with optional author and title constraints
-- Fetches specific works directly from a list of DOIs, in bare, URL or `doi:`-prefixed form
-- Pulls every work from one publisher (by Crossref member ID)
-- Pulls every work from one journal (by ISSN)
-- Pulls every work tied to one funder (by Crossref Funder Registry DOI)
-- Empty fields are omitted from records
+- Searches works by free text, author, title, journal/book title, citation-style bibliographic query, publisher name, funder name or affiliation
+- Resolves a list of DOIs in bare, URL or `doi:`-prefixed form
+- Enumerates every work tied to a Crossref member (publisher), journal ISSN, funder DOI, ORCID, award number/funder or DOI prefix
+- Filters by publication, online, print, accepted, posted, created, deposit, update and index dates
+- Filters by work type, citation count, reference count and metadata presence: abstract, full text, references, ORCID, license, funder, award, relationship, update policy, ROR ID, update status
+- Matches exact metadata: ISBN, ROR ID, alternative ID, container title, clinical trial number, license URL/version, relation type/object, update type and archive partner
+- Pages with Crossref cursors up to 50,000 works; date-sorted queries use offset pagination and stop at Crossref's 10,000 offset ceiling
+- Retries 429/5xx responses with exponential backoff and `Retry-After` support
+- Omits empty fields from every record; no nulls or placeholders
+
+## Modes
+
+| Mode | What it fetches | Main input |
+|---|---|---|
+| `searchWorks` | Relevance search across works | `searchQuery`, `queryAuthor`, `queryTitle`, `queryBibliographic`, `queryContainerTitle`, `queryPublisher`, `queryFunderName`, `queryAffiliation` |
+| `byDois` | Exact lookup for a DOI list | `dois` |
+| `byMember` | All works owned by a Crossref member | `memberId` |
+| `byJournalIssn` | All works in a journal | `journalIssn` |
+| `byFunder` | All works funded by a Funder Registry DOI | `funderDoi` |
+| `byOrcid` | All works by a contributor ORCID | `orcid` |
+| `byAward` | All works tied to an award | `awardNumber` and/or `awardFunder` |
+| `byPrefix` | All works under a DOI prefix | `prefix` |
 
 ## Output per work
 
-- `doi`, `doiUrl`, `title`, `subtitle`, `type`
-- `publisher`, `containerTitle` (journal/book), `shortContainerTitle`
+- `doi`, `doiUrl`, `title`, `subtitle`, `shortTitle`, `originalTitle`, `type`, `subtype`
+- `publisher`, `publisherLocation`, `memberId`, `prefix`, `source`, `containerTitle`, `shortContainerTitle`
 - `issn[]`, `isbn[]`
 - `publishedDate`, `publishedYear`, `publishedPrintDate`, `publishedOnlineDate`
-- `createdAt`, `depositedAt`, `indexedAt` — Crossref-internal lifecycle dates
-- `isReferencedByCount` — how many works cite this one (Crossref's count)
-- `referencesCount` — number of references in this work
-- `authors` — list of `{name, family, given, orcid, sequence, affiliations}`
-- `primaryAuthor` — first author's name
-- `editors` — list of editors, when present
-- `subjects` — Crossref's subject taxonomy for the work
-- `abstract` — when deposited by the publisher (often JATS XML markup)
+- `createdAt`, `depositedAt`, `indexedAt` — Crossref lifecycle dates
+- `isReferencedByCount` — how many Crossref works cite this one (a lower bound on true citations)
+- `referencesCount` — how many references the publisher deposited
+- `authors` — `{name, family, given, suffix, orcid, authenticatedOrcid, sequence, affiliations, rorIds}`
+- `primaryAuthor` — first author's display name
+- `editors` — editor blocks when present
+- `subjects` — Crossref's subject taxonomy
+- `abstract` — the deposited abstract, often JATS XML
+- `abstractText` — the abstract with JATS/HTML tags removed, when it differs
 - `url`, `primaryUrl` — landing-page URLs
 - `page`, `volume`, `issue`, `language`
-- `funders` — list of `{name, doi, doiAssertedBy, awards}` for funding bodies credited on the work
-- `licenses` — list of `{url, contentVersion, delayInDays}`
-- `references` — list of cited references (only when `includeReferences` is `true`)
-- `score` — search relevance score (search mode only)
+- `funders` — `{name, doi, doiAssertedBy, awards}`
+- `licenses` — `{url, contentVersion, delayInDays, startDate}`
+- `fullTextLinks` — `{url, contentType, contentVersion, intendedApplication}`
+- `relations` — `{type, id, idType, assertedBy}` for preprints, retractions, corrections and other relationships
+- `updates`, `updatedBy` — correction/retraction links in both directions
+- `updatePolicy` — the publisher's update-policy URL
+- `assertions`, `event`, `contentDomains`, `crossmarkRestricted`, `alternativeIds`, `degrees`
+- `references` — cited-reference blocks, only when `includeReferences` is `true`
+- `score` — relevance score in search mode
 - `recordType` — always `work`
-- `scrapedAt` — timestamp of extraction
+- `scrapedAt` — extraction timestamp
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `searchWorks` | `searchWorks`, `byDois`, `byMember`, `byJournalIssn` or `byFunder` |
-| `searchQuery` | string | `large language models` | Free-text search (mode=searchWorks) |
-| `queryAuthor` | string | – | Constrain results to an author |
-| `queryTitle` | string | – | Constrain results to titles containing this phrase |
-| `dois` | array | `[]` | DOIs to fetch directly (mode=byDois) |
-| `memberId` | string | – | Numeric Crossref member/publisher ID (mode=byMember) |
-| `journalIssn` | string | – | Journal ISSN, e.g. `1532-4435` (mode=byJournalIssn) |
-| `funderDoi` | string | – | Crossref Funder Registry DOI, e.g. `10.13039/100000001` (mode=byFunder) |
-| `fromPubDate` | string | – | Drop works published before this date, `YYYY-MM-DD` |
-| `untilPubDate` | string | – | Drop works published after this date, `YYYY-MM-DD` |
-| `workType` | string | `any` | Crossref work type, e.g. `journal-article`, `book`, `preprint` |
-| `minCitationCount` | integer | – | Drop works cited fewer times than this |
-| `sortBy` | string | `relevance` | `relevance`, `published`, `is-referenced-by-count`, `deposited`, `indexed` or `issued` |
-| `sortOrder` | string | `desc` | `asc` or `desc` |
-| `includeReferences` | boolean | `false` | Include each work's cited references list |
-| `userAgentEmail` | string | `apify-actor@noreply.apify.com` | Contact email Crossref uses to grant higher-throughput access |
-| `maxItems` | integer | `50` | Hard cap on emitted records (1–10000) |
+| `mode` | string | `searchWorks` | `searchWorks`, `byDois`, `byMember`, `byJournalIssn`, `byFunder`, `byOrcid`, `byAward` or `byPrefix` |
+| `searchQuery` | string | `large language models` | Free-text relevance query (`searchWorks`) |
+| `queryAuthor` | string | – | Author-name query (`searchWorks`) |
+| `queryTitle` | string | – | Title-words query (`searchWorks`) |
+| `queryContainerTitle` | string | – | Journal, book or proceedings title query (`searchWorks`) |
+| `queryBibliographic` | string | – | Citation-style bibliographic query (`searchWorks`) |
+| `queryPublisher` | string | – | Publisher-name query (`searchWorks`) |
+| `queryFunderName` | string | – | Funder-name query (`searchWorks`) |
+| `queryAffiliation` | string | – | Affiliation-name query (`searchWorks`) |
+| `dois` | array | `[]` | DOI list for `byDois` |
+| `memberId` | string | – | Crossref member/publisher ID |
+| `journalIssn` | string | – | Journal ISSN, e.g. `0028-0836` |
+| `funderDoi` | string | – | Funder Registry DOI |
+| `orcid` | string | – | Contributor ORCID |
+| `awardNumber` | string | – | Award or grant number |
+| `awardFunder` | string | – | Funder DOI that issued the award |
+| `prefix` | string | – | DOI prefix, e.g. `10.1145` |
+| `isbn` | string | – | ISBN exact filter |
+| `rorId` | string | – | ROR ID exact filter |
+| `alternativeId` | string | – | Alternative ID exact filter |
+| `exactContainerTitle` | string | – | Exact journal/book title filter |
+| `clinicalTrialNumber` | string | – | Clinical trial number filter |
+| `licenseUrl` | string | – | Exact license URL filter |
+| `licenseVersion` | enum | – | `vor`, `am`, `tdm` or `stm-asf` |
+| `relationType` | string | – | Relationship type filter |
+| `relationObject` | string | – | Related identifier filter |
+| `relationObjectType` | enum | – | `doi`, `issn`, `isbn`, `orcid`, `pmid`, `pmcid`, `arxiv` or `url` |
+| `updateType` | string | – | Correction, retraction or other update type |
+| `archive` | string | – | Archive partner filter |
+| `fromPubDate` | string | – | Published on or after (`YYYY`, `YYYY-MM`, `YYYY-MM-DD`) |
+| `untilPubDate` | string | – | Published on or before |
+| `fromOnlinePubDate` | string | – | Online publication lower bound |
+| `untilOnlinePubDate` | string | – | Online publication upper bound |
+| `fromPrintPubDate` | string | – | Print publication lower bound |
+| `untilPrintPubDate` | string | – | Print publication upper bound |
+| `fromCreatedDate` | string | – | First-deposited lower bound (date or timestamp) |
+| `untilCreatedDate` | string | – | First-deposited upper bound |
+| `fromDepositDate` | string | – | Deposit/update lower bound |
+| `untilDepositDate` | string | – | Deposit/update upper bound |
+| `fromIndexDate` | string | – | Reindex lower bound |
+| `untilIndexDate` | string | – | Reindex upper bound |
+| `fromUpdateDate` | string | – | Metadata-update lower bound |
+| `untilUpdateDate` | string | – | Metadata-update upper bound |
+| `fromAcceptedDate` | string | – | Acceptance lower bound |
+| `untilAcceptedDate` | string | – | Acceptance upper bound |
+| `fromPostedDate` | string | – | Posted-content lower bound |
+| `untilPostedDate` | string | – | Posted-content upper bound |
+| `workType` | enum | `any` | Crossref work type (journal article, book, dataset, preprint and more) |
+| `minCitationCount` | integer | – | Minimum cited-by count |
+| `minReferencesCount` | integer | – | Minimum deposited reference count |
+| `hasAbstract` | boolean | `false` | Keep works with an abstract |
+| `hasFullText` | boolean | `false` | Keep works with full-text links |
+| `hasReferences` | boolean | `false` | Keep works with references |
+| `hasOrcid` | boolean | `false` | Keep works with a contributor ORCID |
+| `hasLicense` | boolean | `false` | Keep works with a license |
+| `hasFunder` | boolean | `false` | Keep works with funder metadata |
+| `hasAward` | boolean | `false` | Keep works with award numbers |
+| `hasRelation` | boolean | `false` | Keep works with a relationship |
+| `hasUpdatePolicy` | boolean | `false` | Keep works with an update policy |
+| `hasRorId` | boolean | `false` | Keep works with a ROR ID |
+| `hasAffiliationRorId` | boolean | `false` | Keep works with an affiliation ROR ID |
+| `isUpdate` | boolean | `false` | Keep correction/retraction records |
+| `hasUpdate` | boolean | `false` | Keep works that have an update |
+| `sortBy` | enum | `relevance` | `relevance`, `score`, `published`, `published-online`, `published-print`, `issued`, `created`, `deposited`, `updated`, `indexed`, `is-referenced-by-count` or `references-count` |
+| `sortOrder` | enum | `desc` | `desc` or `asc` |
+| `includeReferences` | boolean | `false` | Include cited-reference blocks |
+| `userAgentEmail` | string | `apify-actor@noreply.apify.com` | Contact email for Crossref's polite pool |
+| `maxItems` | integer | `50` | Hard cap on emitted records (1–50,000) |
 
-### Example: top-cited LLM works since 2024
+## Examples
+
+Top-cited LLM papers since 2024:
 
 ```json
 {
@@ -73,21 +148,21 @@ Crossref is the DOI registration agency used by tens of thousands of publishers,
 }
 ```
 
-### Example: lookup by DOI list
+Resolve a DOI list:
 
 ```json
 {
   "mode": "byDois",
   "dois": [
     "10.1145/3442188.3445922",
-    "https://doi.org/10.48550/arxiv.2310.06825",
-    "doi:10.1126/science.abc1234"
+    "https://doi.org/10.1038/nature14539",
+    "doi:10.1103/PhysRevLett.116.061102"
   ],
   "includeReferences": true
 }
 ```
 
-### Example: all journal articles by Springer (member 297) in 2024
+Springer journal articles from 2024:
 
 ```json
 {
@@ -100,53 +175,68 @@ Crossref is the DOI registration agency used by tens of thousands of publishers,
 }
 ```
 
-### Example: only datasets in your area
+Open-access works with a license and full text:
 
 ```json
 {
   "mode": "searchWorks",
   "searchQuery": "climate temperature anomaly",
-  "workType": "dataset",
-  "sortBy": "published",
+  "hasLicense": true,
+  "hasFullText": true,
+  "fromPubDate": "2020-01-01",
   "maxItems": 200
 }
 ```
 
-### Example: works funded by a specific funder
+Every work funded by the US NSF in 2023:
 
 ```json
 {
   "mode": "byFunder",
   "funderDoi": "10.13039/100000001",
   "fromPubDate": "2023-01-01",
+  "untilPubDate": "2023-12-31",
   "maxItems": 200
 }
 ```
 
 ## Use cases
 
-- **Citation enrichment** — feed any DOI list and get back citation counts, references, journal info
-- **Literature reviews** — bulk-export every work matching a query, filter by date / type / publisher
-- **Publisher monitoring** — track all output of a specific Crossref member ID
-- **Reference resolution** — `includeReferences: true` resolves the bibliography of any reviewed paper
-- **Bibliometrics** — author productivity, ORCID-based identification, citation networks
+- **Citation enrichment** — feed a DOI list and get cited-by counts, references, journal and funder metadata
+- **Literature reviews** — export every work matching a query, date range, type or metadata-presence filter
+- **Publisher and journal monitoring** — track output by member ID, ISSN or DOI prefix
+- **Funding analysis** — enumerate works by funder, award number or award funder
+- **Bibliometrics and networks** — author productivity, ORCID/ROR identification, citation counts, relationship and update links
+- **RAG and research tooling** — clean JSON records with abstracts, references and canonical DOI URLs
 
 ## FAQ
 
-**Is this affiliated with Crossref?** No. This is an independent metadata extraction tool and is not affiliated with or endorsed by Crossref.
+**Does this actor need an API key, cookies or a proxy?** No API key is needed, no cookies are used and no proxy setup is required. Crossref's REST API is public. The actor sends a contact email in its User-Agent for the polite pool, and you can put your own email in `userAgentEmail`.
 
-**What is Crossref?** The not-for-profit DOI registration agency used by tens of thousands of publishers (Springer, Elsevier, Wiley, ACM, Nature and many more) to deposit metadata for scholarly works.
+**What is Crossref?** A not-for-profit DOI registration agency. Publishers deposit metadata for journal articles, books, datasets, preprints, grants and more, and Crossref exposes it through a public REST API.
 
-**What DOI formats are accepted in `dois`?** Bare DOIs (`10.1145/3442188.3445922`), full URLs (`https://doi.org/10.1145/3442188.3445922`) or the `doi:` prefix form (`doi:10.1145/...`).
+**What DOI formats are accepted in `dois`?** Bare DOIs, full `https://doi.org/...` URLs, `dx.doi.org` URLs and the `doi:` prefix form.
 
-**What does `isReferencedByCount` actually count?** How many other Crossref-registered works cite this one, based on references those citing works have themselves deposited at Crossref. It's a lower bound on true citation count, since not every citing work deposits its reference list.
+**What does `isReferencedByCount` count?** Other Crossref records that cite this work, based on reference lists those citing works deposited. It is a lower bound: a citing work that did not deposit its reference list is not counted.
 
-**Why are abstracts often missing?** Most publishers simply don't deposit an abstract with Crossref; when one is present it's usually in JATS-XML markup rather than plain text.
+**Can I get the list of works that cite a paper?** Crossref exposes the citation count and reference lists, but not a reverse "cited-by" result list through this API. Use the count and the `references` field of citing works instead.
 
-**What's a Crossref "member"?** A publisher account registered with Crossref. Each has a numeric member ID you can look up at `api.crossref.org/members`, then pass to `mode=byMember` to pull their full output.
+**Why are abstracts often missing?** Several publishers do not deposit abstracts. When an abstract is present it is often JATS XML; `abstract` keeps the deposited form and `abstractText` gives a tag-stripped version.
 
-**Can I resolve a work's references to full records?** References come back as DOI or unstructured-citation strings, not full work records; feed the DOIs from a work's `references` list into a `byDois` run to resolve them.
+**Why do date-sorted runs stop at 10,000?** Crossref does not allow cursors with publication-date sorts. The actor switches to offset pagination for those sorts, and Crossref caps offsets at 10,000. Use a cursor-safe sort such as `created` or `is-referenced-by-count` for larger exports, or narrow the date range.
 
-**Is there a cap on how many results a search can return?** No fixed 10,000-result ceiling — the actor pages through results until it reaches `maxItems` or the result set is exhausted.
+**What is the largest export?** The cap is 50,000 records. Cursor-safe sorts can reach it; date sorts stop at 10,000 because of Crossref's offset limit.
 
-**Why provide `userAgentEmail`?** Crossref grants more consistent throughput to requests that identify a contact email; the default value works, but using your own email is recommended for heavier usage.
+**Are all fields always present?** No. Crossref records are deposited by publishers and are not uniform. Empty fields are omitted from each record rather than written as null.
+
+**Is this affiliated with Crossref?** No. This is an independent metadata extraction tool, not affiliated with or endorsed by Crossref.
+
+## Limitations
+
+- Citation counts are Crossref's cited-by counts, not a universal citation index.
+- Reverse citation lists are not available from the public Crossref API.
+- Publication-date sorts are limited to 10,000 records by Crossref's offset cap.
+- ORCID, ROR, award and license filters only match metadata publishers actually deposited.
+- Abstract quality and availability vary by publisher.
+- Some publishers deposit incorrect publication dates; the actor returns Crossref metadata as deposited rather than correcting it.
+- Crossref rate limits are handled with retries; very large exports can take several minutes.

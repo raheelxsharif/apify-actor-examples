@@ -1,6 +1,41 @@
 {
   "actorSpecification": 1,
   "views": {
+    "bibliography": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Bibliography",
+      "transformation": {
+        "fields": [
+          "primaryAuthor",
+          "title",
+          "containerTitle",
+          "volume",
+          "issue",
+          "page",
+          "publishedDate"
+        ]
+      }
+    },
+    "citationMetrics": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Citation metrics",
+      "transformation": {
+        "fields": [
+          "doi",
+          "title",
+          "publishedDate",
+          "isReferencedByCount",
+          "referencesCount",
+          "containerTitle"
+        ]
+      }
+    },
     "overview": {
       "display": {
         "component": "table",

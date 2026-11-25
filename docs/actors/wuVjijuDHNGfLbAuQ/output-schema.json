@@ -1,14 +1,14 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Every record the Actor extracts, in its default dataset.",
+  "description": "Every extracted business listing, including financials, broker contacts and detail fields when enabled, in the run's default dataset.",
   "properties": {
     "results": {
-      "description": "All records from the run, in the default dataset.",
+      "description": "All business-for-sale listings from the run, in the default dataset.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Results",
+      "title": "Listings",
       "type": "string"
     }
   },
-  "title": "BizQuest Business-for-Sale Listing & Financials Extractor Output",
+  "title": "BizQuest Listings Output",
   "type": "object"
 }

@@ -1,124 +1,449 @@
 {
-  "description": "Search Crossref's DOI registry, or look up specific DOIs.",
+  "description": "Search Crossref's DOI registry, look up specific DOIs, or pull every work tied to a publisher, journal, funder, ORCID, award or DOI prefix. Add date, type and metadata-presence filters and page through up to 50,000 works.",
   "properties": {
+    "alternativeId": {
+      "description": "Member-specific or third-party identifier stored as an alternative ID.",
+      "editor": "textfield",
+      "title": "Alternative ID",
+      "type": "string"
+    },
+    "archive": {
+      "description": "Archive partner named in the record, e.g. `CLOCKSS`, `Portico` or `LOCKSS`.",
+      "editor": "textfield",
+      "title": "Archive partner",
+      "type": "string"
+    },
+    "awardFunder": {
+      "description": "Funder Registry DOI that issued the award.",
+      "editor": "textfield",
+      "title": "Award funder DOI",
+      "type": "string"
+    },
+    "awardNumber": {
+      "description": "Award number as deposited in funding metadata.",
+      "editor": "textfield",
+      "title": "Award or grant number",
+      "type": "string"
+    },
+    "clinicalTrialNumber": {
+      "description": "Clinical trial registration number present in the record, e.g. `NCT01234567`.",
+      "editor": "textfield",
+      "title": "Clinical trial number",
+      "type": "string"
+    },
     "dois": {
       "default": [],
-      "description": "Crossref DOIs to fetch directly. Accepts bare (`10.1145/...`) or full URL form.",
+      "description": "Crossref DOIs to fetch directly. Accepts bare `10.1145/...` or full `https://doi.org/...` form.",
       "editor": "stringList",
-      "prefill": [],
+      "sectionCaption": "Identifier and registry lookups",
+      "sectionDescription": "Use one lookup mode at a time. The lookup fields below also work as exact-match filters in keyword search.",
       "title": "DOIs (mode=byDois)",
       "type": "array"
     },
-    "fromPubDate": {
-      "description": "Drop works published before this date.",
+    "exactContainerTitle": {
+      "description": "Journal, book or proceedings title that must match exactly, e.g. `Nature`.",
       "editor": "textfield",
-      "title": "Published after (YYYY-MM-DD)",
+      "title": "Exact container title",
+      "type": "string"
+    },
+    "fromAcceptedDate": {
+      "description": "ISO date bound for the acceptance date.",
+      "editor": "textfield",
+      "title": "Accepted on or after",
+      "type": "string"
+    },
+    "fromCreatedDate": {
+      "description": "ISO date or timestamp, e.g. `2024-01-01` or `2024-01-01T12:00:00`.",
+      "editor": "textfield",
+      "title": "First deposited on or after",
+      "type": "string"
+    },
+    "fromDepositDate": {
+      "description": "ISO date or timestamp for the latest deposit or update.",
+      "editor": "textfield",
+      "title": "Deposited or updated on or after",
+      "type": "string"
+    },
+    "fromIndexDate": {
+      "description": "ISO date or timestamp for Crossref index updates.",
+      "editor": "textfield",
+      "title": "Reindexed on or after",
+      "type": "string"
+    },
+    "fromOnlinePubDate": {
+      "description": "ISO date bound for the online publication date.",
+      "editor": "textfield",
+      "title": "Online publication on or after",
+      "type": "string"
+    },
+    "fromPostedDate": {
+      "description": "ISO date bound for posted-content records, e.g. preprints.",
+      "editor": "textfield",
+      "title": "Posted on or after",
+      "type": "string"
+    },
+    "fromPrintPubDate": {
+      "description": "ISO date bound for the print publication date.",
+      "editor": "textfield",
+      "title": "Print publication on or after",
+      "type": "string"
+    },
+    "fromPubDate": {
+      "description": "ISO date bound: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`.",
+      "editor": "textfield",
+      "sectionCaption": "Publication and metadata dates",
+      "sectionDescription": "Inclusive date bounds. Leave a field empty to leave that side of the range open.",
+      "title": "Published on or after",
+      "type": "string"
+    },
+    "fromUpdateDate": {
+      "description": "ISO date or timestamp for deposits or redeposits.",
+      "editor": "textfield",
+      "title": "Metadata updated on or after",
       "type": "string"
     },
     "funderDoi": {
-      "description": "Crossref Funder Registry DOI. Examples: `10.13039/100000001` (NSF), `10.13039/100000002` (NIH), `10.13039/100000104` (NASA), `10.13039/501100000780` (European Commission). Lookup at https://search.crossref.org/funding.",
+      "description": "Crossref Funder Registry DOI. Examples: `10.13039/100000001` (NSF), `10.13039/100000002` (NIH), `10.13039/501100000780` (European Commission).",
       "editor": "textfield",
-      "title": "Funder DOI (mode=byFunder)",
+      "title": "Funder DOI",
       "type": "string"
+    },
+    "hasAbstract": {
+      "default": false,
+      "description": "Keep records that include an abstract.",
+      "prefill": false,
+      "title": "Only works with an abstract",
+      "type": "boolean"
+    },
+    "hasAffiliationRorId": {
+      "default": false,
+      "description": "Keep records where a contributor affiliation has a ROR ID.",
+      "prefill": false,
+      "title": "Only works with an affiliation ROR ID",
+      "type": "boolean"
+    },
+    "hasAward": {
+      "default": false,
+      "description": "Keep records with at least one award or grant number.",
+      "prefill": false,
+      "title": "Only works with award numbers",
+      "type": "boolean"
+    },
+    "hasFullText": {
+      "default": false,
+      "description": "Keep records that include at least one full-text link.",
+      "prefill": false,
+      "title": "Only works with full-text links",
+      "type": "boolean"
+    },
+    "hasFunder": {
+      "default": false,
+      "description": "Keep records that include funder metadata.",
+      "prefill": false,
+      "title": "Only works with funders",
+      "type": "boolean"
+    },
+    "hasLicense": {
+      "default": false,
+      "description": "Keep records that include at least one license.",
+      "prefill": false,
+      "title": "Only works with a license",
+      "type": "boolean"
+    },
+    "hasOrcid": {
+      "default": false,
+      "description": "Keep records where at least one contributor has an ORCID.",
+      "prefill": false,
+      "title": "Only works with an ORCID",
+      "type": "boolean"
+    },
+    "hasReferences": {
+      "default": false,
+      "description": "Keep records that include a deposited reference list.",
+      "prefill": false,
+      "title": "Only works with references",
+      "type": "boolean"
+    },
+    "hasRelation": {
+      "default": false,
+      "description": "Keep records with at least one relationship to another item.",
+      "prefill": false,
+      "title": "Only works with relationships",
+      "type": "boolean"
+    },
+    "hasRorId": {
+      "default": false,
+      "description": "Keep records with a ROR ID in affiliation or funding metadata.",
+      "prefill": false,
+      "title": "Only works with a ROR ID",
+      "type": "boolean"
+    },
+    "hasUpdate": {
+      "default": false,
+      "description": "Keep records that have a correction, retraction or other update.",
+      "prefill": false,
+      "title": "Only works updated by another work",
+      "type": "boolean"
+    },
+    "hasUpdatePolicy": {
+      "default": false,
+      "description": "Keep records that link to an update policy.",
+      "prefill": false,
+      "title": "Only works with an update policy",
+      "type": "boolean"
     },
     "includeReferences": {
       "default": false,
-      "description": "Include the cited references list (can be large for review articles).",
+      "description": "Include each work's cited-reference list. This can make records much larger.",
       "prefill": false,
-      "title": "Include references",
+      "title": "Include cited references",
       "type": "boolean"
     },
-    "journalIssn": {
-      "description": "ISSN of a journal (e.g. `1532-4435` for JMLR, `0036-8075` for Science).",
+    "isUpdate": {
+      "default": false,
+      "description": "Keep corrections, retractions and other update records.",
+      "prefill": false,
+      "title": "Only works that update another work",
+      "type": "boolean"
+    },
+    "isbn": {
+      "description": "ISBN of a book or book chapter.",
       "editor": "textfield",
-      "title": "Journal ISSN (mode=byJournalIssn)",
+      "sectionCaption": "Exact-match filters",
+      "sectionDescription": "Exact metadata filters. These combine with the keyword and lookup fields above.",
+      "title": "ISBN",
+      "type": "string"
+    },
+    "journalIssn": {
+      "description": "ISSN of a journal, e.g. `0028-0836` (Nature) or `0036-8075` (Science).",
+      "editor": "textfield",
+      "title": "Journal ISSN",
+      "type": "string"
+    },
+    "licenseUrl": {
+      "description": "Exact license URL, e.g. `https://creativecommons.org/licenses/by/4.0/`.",
+      "editor": "textfield",
+      "title": "License URL",
+      "type": "string"
+    },
+    "licenseVersion": {
+      "description": "License version filter.",
+      "editor": "select",
+      "enum": [
+        "vor",
+        "am",
+        "tdm",
+        "stm-asf"
+      ],
+      "enumTitles": [
+        "Version of record (VOR)",
+        "Accepted manuscript (AM)",
+        "Text and data mining (TDM)",
+        "STM article sharing framework"
+      ],
+      "title": "License version",
       "type": "string"
     },
     "maxItems": {
       "default": 50,
-      "description": "Hard cap on emitted records.",
-      "maximum": 10000,
+      "description": "Hard cap on emitted records. Date sorts stop at Crossref's 10,000 offset limit; relevance and other cursor-safe sorts can reach the full cap.",
+      "maximum": 50000,
       "minimum": 1,
-      "prefill": 50,
-      "title": "Max items",
+      "prefill": 2,
+      "title": "Maximum works",
       "type": "integer"
     },
     "memberId": {
-      "description": "Numeric Crossref member ID (a publisher). Example: `78` (Springer), `301` (IEEE), `7164` (Cambridge UP).",
+      "description": "Numeric Crossref member ID. Examples: `78` (Springer), `301` (IEEE), `297` (Elsevier).",
       "editor": "textfield",
-      "title": "Member ID (mode=byMember)",
+      "title": "Publisher member ID",
       "type": "string"
     },
     "minCitationCount": {
-      "description": "Drop works cited fewer times than this.",
+      "description": "Drop works cited fewer times than this. Uses Crossref's cited-by count.",
+      "maximum": 1000000000,
+      "minimum": 0,
+      "title": "Minimum citation count",
+      "type": "integer"
+    },
+    "minReferencesCount": {
+      "description": "Drop works with fewer deposited references than this.",
       "maximum": 1000000,
       "minimum": 0,
-      "title": "Min citation count",
+      "title": "Minimum reference count",
       "type": "integer"
     },
     "mode": {
       "default": "searchWorks",
-      "description": "What to fetch.",
+      "description": "What to fetch. Search by keyword, resolve a DOI list, or enumerate works by publisher, journal, funder, ORCID, award or DOI prefix.",
       "editor": "select",
       "enum": [
         "searchWorks",
         "byDois",
         "byMember",
         "byJournalIssn",
-        "byFunder"
+        "byFunder",
+        "byOrcid",
+        "byAward",
+        "byPrefix"
       ],
       "enumTitles": [
-        "Search works",
-        "Lookup by DOI",
+        "Search works by keyword",
+        "Look up a list of DOIs",
         "All works of a publisher (member ID)",
         "All works of a journal (ISSN)",
-        "All works funded by a funder (DOI)"
+        "All works funded by a funder (DOI)",
+        "All works by an ORCID",
+        "All works tied to an award or grant",
+        "All works under a DOI prefix"
       ],
       "prefill": "searchWorks",
       "title": "Mode",
       "type": "string"
     },
-    "queryAuthor": {
-      "description": "Constrain results to a specific author.",
+    "orcid": {
+      "description": "Contributor ORCID, bare or as a full `https://orcid.org/...` URL.",
       "editor": "textfield",
-      "title": "Query author",
+      "title": "ORCID",
+      "type": "string"
+    },
+    "prefix": {
+      "description": "DOI owner prefix, e.g. `10.1145` for ACM or `10.1038` for Nature Portfolio.",
+      "editor": "textfield",
+      "title": "DOI prefix",
+      "type": "string"
+    },
+    "queryAffiliation": {
+      "description": "Query author affiliation names, e.g. `University of Washington` (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Affiliation query",
+      "type": "string"
+    },
+    "queryAuthor": {
+      "description": "Boost or constrain relevance-search results toward an author name (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Author name query",
+      "type": "string"
+    },
+    "queryBibliographic": {
+      "description": "Search as if matching a citation: title, authors, journal, volume and year together (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Bibliographic query",
+      "type": "string"
+    },
+    "queryContainerTitle": {
+      "description": "Query the journal, book or proceedings title in relevance search (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Journal or book query",
+      "type": "string"
+    },
+    "queryFunderName": {
+      "description": "Query the funding body name as deposited in the record (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Funder name query",
+      "type": "string"
+    },
+    "queryPublisher": {
+      "description": "Query the publisher name in relevance search (mode=searchWorks).",
+      "editor": "textfield",
+      "title": "Publisher name query",
       "type": "string"
     },
     "queryTitle": {
-      "description": "Constrain results to titles containing this phrase.",
+      "description": "Boost or constrain relevance-search results toward titles containing these words (mode=searchWorks).",
       "editor": "textfield",
-      "title": "Query title contains",
+      "title": "Title words query",
+      "type": "string"
+    },
+    "relationObject": {
+      "description": "Identifier of the related item, e.g. a DOI.",
+      "editor": "textfield",
+      "title": "Related identifier",
+      "type": "string"
+    },
+    "relationObjectType": {
+      "description": "Type of the related identifier, e.g. `doi` or `issn`.",
+      "editor": "select",
+      "enum": [
+        "doi",
+        "issn",
+        "isbn",
+        "orcid",
+        "pmid",
+        "pmcid",
+        "arxiv",
+        "url"
+      ],
+      "enumTitles": [
+        "DOI",
+        "ISSN",
+        "ISBN",
+        "ORCID",
+        "PubMed ID",
+        "PubMed Central ID",
+        "arXiv ID",
+        "URL"
+      ],
+      "title": "Related identifier type",
+      "type": "string"
+    },
+    "relationType": {
+      "description": "Relationship type, e.g. `is-preprint-of`, `has-preprint`, `is-retraction-of`, `is-referenced-by`.",
+      "editor": "textfield",
+      "title": "Relation type",
+      "type": "string"
+    },
+    "rorId": {
+      "description": "Research Organization Registry ID present in contributor affiliation or funding metadata, e.g. `https://ror.org/00hj8s172`.",
+      "editor": "textfield",
+      "title": "ROR ID",
       "type": "string"
     },
     "searchQuery": {
       "default": "large language models",
-      "description": "Free-text query (mode=searchWorks).",
+      "description": "Free-text query across titles, authors, abstracts and other metadata (mode=searchWorks).",
       "editor": "textfield",
       "prefill": "large language models",
+      "sectionCaption": "Keyword search",
+      "sectionDescription": "Optional query terms for relevance search. Combine them with the filters below to narrow the result set.",
       "title": "Search query",
       "type": "string"
     },
     "sortBy": {
       "default": "relevance",
-      "description": "Crossref sort order.",
+      "description": "Field used to order results. Date sorts use offset pagination, which Crossref caps at 10,000 results.",
       "editor": "select",
       "enum": [
         "relevance",
+        "score",
         "published",
-        "is-referenced-by-count",
+        "published-online",
+        "published-print",
+        "issued",
+        "created",
         "deposited",
+        "updated",
         "indexed",
-        "issued"
+        "is-referenced-by-count",
+        "references-count"
       ],
       "enumTitles": [
-        "Relevance (default)",
-        "Published date",
-        "Citation count",
-        "Deposit date",
+        "Relevance",
+        "Relevance score",
+        "Publication date",
+        "Online publication date",
+        "Print publication date",
+        "Issued date",
+        "First deposited",
+        "Last deposited",
+        "Last updated",
         "Index date",
-        "Issued date"
+        "Citation count",
+        "Reference count"
       ],
       "prefill": "relevance",
+      "sectionCaption": "Sorting and output",
+      "sectionDescription": "Control ordering, record size and the hard item cap.",
       "title": "Sort by",
       "type": "string"
     },
@@ -127,48 +452,164 @@
       "description": "Ascending or descending order for the chosen sort field.",
       "editor": "select",
       "enum": [
-        "asc",
-        "desc"
+        "desc",
+        "asc"
+      ],
+      "enumTitles": [
+        "Descending (newest or highest first)",
+        "Ascending (oldest or lowest first)"
       ],
       "prefill": "desc",
       "title": "Sort order",
       "type": "string"
     },
-    "untilPubDate": {
-      "description": "Drop works published after this date.",
+    "untilAcceptedDate": {
+      "description": "ISO date bound for the acceptance date.",
       "editor": "textfield",
-      "title": "Published before (YYYY-MM-DD)",
+      "title": "Accepted on or before",
+      "type": "string"
+    },
+    "untilCreatedDate": {
+      "description": "ISO date or timestamp.",
+      "editor": "textfield",
+      "title": "First deposited on or before",
+      "type": "string"
+    },
+    "untilDepositDate": {
+      "description": "ISO date or timestamp for the latest deposit or update.",
+      "editor": "textfield",
+      "title": "Deposited or updated on or before",
+      "type": "string"
+    },
+    "untilIndexDate": {
+      "description": "ISO date or timestamp for Crossref index updates.",
+      "editor": "textfield",
+      "title": "Reindexed on or before",
+      "type": "string"
+    },
+    "untilOnlinePubDate": {
+      "description": "ISO date bound for the online publication date.",
+      "editor": "textfield",
+      "title": "Online publication on or before",
+      "type": "string"
+    },
+    "untilPostedDate": {
+      "description": "ISO date bound for posted-content records, e.g. preprints.",
+      "editor": "textfield",
+      "title": "Posted on or before",
+      "type": "string"
+    },
+    "untilPrintPubDate": {
+      "description": "ISO date bound for the print publication date.",
+      "editor": "textfield",
+      "title": "Print publication on or before",
+      "type": "string"
+    },
+    "untilPubDate": {
+      "description": "ISO date bound: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`.",
+      "editor": "textfield",
+      "title": "Published on or before",
+      "type": "string"
+    },
+    "untilUpdateDate": {
+      "description": "ISO date or timestamp for deposits or redeposits.",
+      "editor": "textfield",
+      "title": "Metadata updated on or before",
+      "type": "string"
+    },
+    "updateType": {
+      "description": "Post-publication update type, e.g. `correction`, `retraction`, `erratum`, `expression_of_concern`.",
+      "editor": "textfield",
+      "title": "Update type",
       "type": "string"
     },
     "userAgentEmail": {
       "default": "apify-actor@noreply.apify.com",
-      "description": "Crossref's polite pool requires a contact email in User-Agent for higher rate limits.",
+      "description": "Email placed in the User-Agent for Crossref's polite pool. A default is used when empty.",
       "editor": "textfield",
       "prefill": "apify-actor@noreply.apify.com",
-      "title": "User-Agent contact email",
+      "title": "Contact email",
       "type": "string"
     },
     "workType": {
       "default": "any",
-      "description": "Crossref work type filter.",
+      "description": "Crossref work type. `any` leaves the type open.",
       "editor": "select",
       "enum": [
         "any",
         "journal-article",
         "book",
         "book-chapter",
-        "proceedings-article",
-        "report",
-        "dataset",
-        "dissertation",
-        "preprint",
-        "posted-content",
-        "monograph",
+        "book-section",
+        "book-part",
+        "book-series",
+        "book-set",
+        "book-track",
         "edited-book",
+        "monograph",
+        "reference-book",
         "reference-entry",
-        "standard"
+        "proceedings",
+        "proceedings-article",
+        "proceedings-series",
+        "report",
+        "report-component",
+        "report-series",
+        "dataset",
+        "database",
+        "dissertation",
+        "grant",
+        "peer-review",
+        "posted-content",
+        "standard",
+        "journal",
+        "journal-volume",
+        "journal-issue",
+        "journal-section",
+        "magazine-article",
+        "newspaper-article",
+        "component",
+        "other"
+      ],
+      "enumTitles": [
+        "Any type",
+        "Journal article",
+        "Book",
+        "Book chapter",
+        "Book section",
+        "Book part",
+        "Book series",
+        "Book set",
+        "Book track",
+        "Edited book",
+        "Monograph",
+        "Reference book",
+        "Reference entry",
+        "Proceedings",
+        "Proceedings article",
+        "Proceedings series",
+        "Report",
+        "Report component",
+        "Report series",
+        "Dataset",
+        "Database",
+        "Dissertation",
+        "Grant",
+        "Peer review",
+        "Posted content",
+        "Standard",
+        "Journal",
+        "Journal volume",
+        "Journal issue",
+        "Journal section",
+        "Magazine article",
+        "Newspaper article",
+        "Component",
+        "Other"
       ],
       "prefill": "any",
+      "sectionCaption": "Content filters",
+      "sectionDescription": "Filter by type, citation or reference counts, and whether a metadata field is present.",
       "title": "Work type",
       "type": "string"
     }

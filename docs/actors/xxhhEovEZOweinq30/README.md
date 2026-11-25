@@ -4,105 +4,124 @@
 
 # Comparis.ch Phone & Telecom Plan Price Extractor
 
-Comparis.ch is Switzerland's largest comparison platform, including a dedicated section for smartphone deals and mobile/internet plans from Swiss telecom providers. This actor turns a phone search or a telecom-plan browse into structured pricing records.
+Comparis.ch is Switzerland's largest comparison platform. Its telecom section lists current mobile subscriptions, prepaid and data-only offers, and home internet, TV and landline packages from Swiss providers. This actor turns those public comparison pages into clean, filterable pricing records.
 
-## What this actor does
+## What it collects
 
-- Searches smartphone deals by model keyword, across providers and contract options
-- Browses mobile, home-internet or bundle plans, optionally filtered to one provider
-- Covers all major Swiss telecom providers: Swisscom, Sunrise, Salt, UPC, M-Budget Mobile, Yallo, Wingo and Quickline
-- Captures both one-time device price and recurring monthly fee for contract-based phone deals
-- Empty fields are omitted from records
+- **Mobile plans** — regular subscriptions, prepaid, data-only, flat-rate, 5G, EU-roaming, no-minimum-contract, youth and kids offers, up to 298 current offers
+- **Home plans** — internet, internet + TV, internet + landline, internet + TV + landline, fibre, TV-only and landline-only offers, up to 548 current offers
+- CHF monthly and first-year pricing, current discounts and promotion labels
+- Provider name, Comparis rating and logo, plus the physical Swiss network (Swisscom, Sunrise or Salt) for mobile plans
+- Mobile data, speed, calls, SMS and EU-roaming allowances; eSIM and roaming-package flags
+- Contract length, notice period and activation or hardware costs
+- Home download/upload speed, connection technology, TV channel and replay details, landline call tariffs
+- Filters, sorting and page-based pagination over the complete result list
 
-## Output per phone deal (mode=phoneComparison)
-
-- `productName` — phone model name
-- `brand` — manufacturer, e.g. Apple, Samsung
-- `price` — one-time device price in CHF
-- `monthlyFee` — recurring monthly subscription fee for contract deals
-- `provider` — telecom provider offering the deal
-- `storage` — storage capacity, e.g. `128GB`
-- `color` — color variant
-- `imageUrl` — phone image
-- `productUrl` — link to the Comparis comparison page
-- `searchKeyword` — the keyword used to find this phone
-- `recordType` — always `phone`
-- `scrapedAt` — timestamp of extraction
-
-## Output per plan (mode=internetPlans)
-
-- `productName` — plan name
-- `provider` — telecom provider
-- `monthlyFee` — monthly fee in CHF
-- `dataGb` — included data volume
-- `contractMonths` — contract duration in months
-- `productUrl` — link to the Comparis plan page
-- `planType` — `mobile`, `home-internet` or `bundle`
-- `providerFilter` — the `provider` value used to filter this run, when set
-- `recordType` — always `plan`
-- `scrapedAt` — timestamp of extraction
+Every record is omit-empty: fields the source does not provide for an offer are left out rather than written as `null`.
 
 ## Input
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | string | `phoneComparison` | `phoneComparison` or `internetPlans` |
-| `keyword` | string | `iPhone 15` | Phone model to search for (mode=phoneComparison) |
-| `provider` | string | – (all) | Filter plans by provider (mode=internetPlans) |
-| `planType` | string | `mobile` | `mobile`, `home-internet` or `bundle` (mode=internetPlans) |
-| `maxItems` | integer | `20` | Maximum products/plans to return (1–200) |
+| Field | Default | What it does |
+|---|---|---|
+| `mode` | `mobilePlans` | `mobilePlans` or `homeInternetPlans` |
+| `mobileCategory` | `all` | Mobile family: `all`, `subscriptions`, `prepaid`, `dataOnly`, `flatrate`, `fiveG`, `roamingEurope`, `noMinimumDuration`, `youth`, `kids` |
+| `homeProductSet` | `all` | Home family: `all`, `anyInternet`, `internetOnly`, `withTv`, `withLandline`, `allThree`, `tvOnly`, `landlineOnly`, `fibre` |
+| `keyword` | – | Words that must all appear in the plan name, provider, network, promotion or product names |
+| `mobileProvider` / `homeProvider` | `all` | Restrict to one provider |
+| `networkProvider` | `all` | Mobile network: `all`, `Swisscom`, `Sunrise`, `Salt` |
+| `connectionType` | `all` | Home connection: `all`, `fibre`, `copper`, `cable` |
+| `only5G`, `eSimOnly`, `unlimitedDataCH`, `unlimitedCallsCH`, `roamingEurope` | `false` | Mobile feature filters |
+| `minDataGb` | `0` | Minimum Swiss mobile data in GB; unlimited plans always pass |
+| `minDownloadSpeedMbps` | `0` | Minimum home download speed |
+| `noMinimumContract`, `onlyDiscountedOffers` | `false` | Shared offer filters |
+| `maxMonthlyPrice` | `0` | Cap on the current monthly price (discounted when available); 0 = no cap |
+| `maxContractMonths` | `0` | Cap on the minimum contract length; 0 = no cap |
+| `mobileSort` / `homeSort` | `priceAsc` | `priceAsc`, `priceDesc`, `dataDesc`/`speedDesc`, `provider`, `name` |
+| `page` | `1` | 1-based page of the sorted results |
+| `maxItems` | `20` | Maximum records written by this run and the page size, 1–1000 |
 
-### Example: compare a phone model
+The daily prefill uses `mode=mobilePlans`, `mobileCategory=subscriptions`, `maxItems=3` — one page fetch and three records.
+
+### Examples
+
+Cheapest 25 mobile plans with 10 GB or more data:
 
 ```json
 {
-  "mode": "phoneComparison",
-  "keyword": "iPhone 15",
-  "maxItems": 30
+  "mode": "mobilePlans",
+  "mobileCategory": "all",
+  "minDataGb": 10,
+  "mobileSort": "priceAsc",
+  "maxItems": 25
 }
 ```
 
-### Example: compare mobile plans from one provider
+Any internet plan over fibre at 1 Gbit/s or faster:
 
 ```json
 {
-  "mode": "internetPlans",
-  "planType": "mobile",
-  "provider": "sunrise",
+  "mode": "homeInternetPlans",
+  "homeProductSet": "fibre",
+  "minDownloadSpeedMbps": 1000,
+  "homeSort": "speedDesc",
   "maxItems": 20
 }
 ```
 
-### Example: compare all home internet plans
+Page through every home offer 50 at a time:
 
 ```json
 {
-  "mode": "internetPlans",
-  "planType": "home-internet",
-  "maxItems": 50
+  "mode": "homeInternetPlans",
+  "homeProductSet": "all",
+  "maxItems": 50,
+  "page": 2
 }
 ```
 
-## Use cases
+### Legacy inputs
 
-- **Best-deal shopping** — find the cheapest way to get a specific phone model across providers
-- **Swiss telecom market research** — compare pricing across all major providers at once
-- **Price tracking** — re-run periodically to monitor how device or plan prices move
-- **Consumer advice content** — power a "cheapest plan" or "cheapest phone" comparison tool
-- **Competitive benchmarking** — see how one provider's plans stack up against the rest
+Saved tasks that still send the old fields keep working: `mode: "phoneComparison"` is treated as `mobilePlans`, `mode: "internetPlans"` as `homeInternetPlans`, `planType: "mobile"` selects mobile plans, `planType: "home-internet"` selects any internet home plan, `planType: "bundle"` selects internet + TV + landline, and the old `provider` slug is matched to the provider list. These keys are mapped in code; they are not shown in the input form.
+
+## Output
+
+Each row is one plan. Common fields:
+
+- `recordType` — always `plan` (legacy-compatible)
+- `planFamily` — `mobile` or `home-internet`
+- `planType` — `mobile`, `home-internet`, `bundle`, `tv` or `landline`
+- `planCategory` — the Comparis category that supplied the row
+- `productName`, `provider`, `providerId`, `providerRating`, `providerLogoUrl`, `imageUrl`
+- `monthlyFee` — current monthly price (discounted when available); `priceMonthly` and `priceMonthlyDiscounted` keep both variants
+- `priceFirstYear`, `priceFirstYearDiscounted`, `monthlyDiscount`, `savingsPercent`, `activationFee`, `currency`
+- `contractMonths`, `terminationMonths`, `promotions`, `promotionInfo`, `productUrl`
+
+Mobile rows add `networkName`, `supports5G`, `technologyType`, `subscriptionType`, `eSimSupported`, `roamingPackagesAvailable`, `dataGb`, `dataLimitMb`, `dataUnlimited`, `dataSpeedMbps`, `minutesIncludedCh`, `smsIncludedCh` and EU-roaming allowances.
+
+Home rows add `internetProductName`, `tvProductName`, `landlineProductName`, `hasInternet`, `hasTv`, `hasLandline`, `downloadSpeedMbps`, `uploadSpeedMbps`, `connectionTypes`, `connectionTypeIds`, `tvChannels`, `tvHdChannels`, `tvReplay`, `parallelStreams`, landline tariffs and per-component prices.
+
+Every row carries `position`, `page`, `totalResults`, `totalPages` and `scrapedAt` for paging and incremental integrations.
+
+## Pagination
+
+Sorting is applied to the full filtered list, then `page` and `maxItems` slice it. `maxItems` is both the run cap and the page size, so increase `page` (1, 2, 3 …) to walk the list without gaps. A page shorter than `maxItems` means the source list is exhausted; `totalPages` and `totalResults` tell you when to stop.
+
+## Data source and limits
+
+- Public German-language Comparis.ch comparison pages; no login, cookies or API key.
+- Comparis.ch retired its device-only smartphone price comparison. This actor covers telecom plans; legacy device fields (`brand`, `storage`, `color`, `price` for handsets) are no longer populated.
+- Upstream currently lists at most 298 mobile offers across all mobile categories and 548 home offers. `totalResults` reports the real matching count; the actor does not invent rows beyond the source.
+- Filters run on the complete server-rendered offer list, so every filter combination returns consistent, deduplicated rows.
+- Comparis.ch protects its pages with an anti-bot layer. The actor uses browser-grade TLS impersonation and automatically falls back to Apify Proxy when a direct request is challenged. No proxy setup is needed from you.
 
 ## FAQ
 
-**Is this affiliated with Comparis.ch?** No. This is an independent price comparison tool and is not affiliated with or endorsed by Comparis.
+**Do I need a Comparis account?** No. The comparison pages are public.
 
-**Are prices in Swiss Francs?** Yes, all prices and fees are in CHF, matching what Comparis.ch displays.
+**Are prices in Swiss francs?** Yes, all monetary fields are CHF.
 
-**Do I need an account?** No. Comparis.ch's comparison pages are publicly accessible without login.
+**Why is a plan missing from a filtered run?** Filters are applied to the current public list; if the provider removed or changed an offer, it disappears. A short page is expected at the end of the list.
 
-**What's the difference between `price` and `monthlyFee` on a phone record?** `price` is the one-time device cost; `monthlyFee` is the recurring subscription cost for deals bundled with a contract. A phone sold outright has only `price`; a contract deal may have both or only `monthlyFee`.
+**Can I mix mobile and home plans in one run?** No — run one mode at a time. Each mode has its own filters and pagination.
 
-**Does this cover markets outside Switzerland?** No. Comparis.ch is specifically a Swiss comparison platform, so all results are for the Swiss market.
-
-**Can I filter plans by provider and plan type at the same time?** Yes — set both `provider` and `planType` to narrow results to one provider's plans of one type.
-
-**How many results can one run return?** Up to `maxItems`, capped at 200 per run.
+**How current is the data?** Every run reads the live comparison pages, including current promotions and discounted monthly prices.

@@ -25,6 +25,13 @@
       "title": "Domestic / foreign filter",
       "type": "string"
     },
+    "diversityOwnedOnly": {
+      "default": false,
+      "description": "Return only entities the state records as woman-, veteran-, minority-, disability- or LGBTQI-owned.",
+      "prefill": false,
+      "title": "Diversity-owned only",
+      "type": "boolean"
+    },
     "entityId": {
       "description": "Exact Connecticut Business ID (account number), e.g. `0818011`.",
       "editor": "textfield",
@@ -163,6 +170,46 @@
       "title": "Entity type filter",
       "type": "string"
     },
+    "formationDateFrom": {
+      "description": "Only entities whose registration/formation date is on or after this date (YYYY-MM-DD). Leave empty for no lower bound; useful for new-business lead lists.",
+      "editor": "datepicker",
+      "title": "Formation date from",
+      "type": "string"
+    },
+    "formationDateTo": {
+      "description": "Only entities whose registration/formation date is on or before this date (YYYY-MM-DD). Leave empty for no upper bound.",
+      "editor": "datepicker",
+      "title": "Formation date to",
+      "type": "string"
+    },
+    "includeAgents": {
+      "default": true,
+      "description": "Attach the registered-agent records (name, type, phone, email, addresses) the state publishes for each entity.",
+      "prefill": true,
+      "title": "Include registered agents",
+      "type": "boolean"
+    },
+    "includeFilings": {
+      "default": false,
+      "description": "Attach the full filing-history records for each entity. Adds one extra request per 40 entities.",
+      "prefill": false,
+      "title": "Include filing history",
+      "type": "boolean"
+    },
+    "includeNameHistory": {
+      "default": false,
+      "description": "Attach the name-change history (old name, new name, change date) for each entity where the state publishes it.",
+      "prefill": false,
+      "title": "Include name-change history",
+      "type": "boolean"
+    },
+    "includePrincipals": {
+      "default": true,
+      "description": "Attach the principal/officer/director records the state publishes for each entity.",
+      "prefill": true,
+      "title": "Include principals (officers/directors)",
+      "type": "boolean"
+    },
     "maxItems": {
       "default": 25,
       "description": "Hard cap on emitted records.",
@@ -212,8 +259,7 @@
     }
   },
   "required": [
-    "mode",
-    "proxyConfiguration"
+    "mode"
   ],
   "schemaVersion": 1,
   "title": "Connecticut Secretary of State Business Search Scraper Input",

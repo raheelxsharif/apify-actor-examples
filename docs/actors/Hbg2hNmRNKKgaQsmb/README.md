@@ -103,8 +103,12 @@ Compass is one of the largest residential real estate brokerages in the US, with
 | `amenities` | array (select) | – | Only listings with ALL selected amenities: `pool`, `garage`, `doorman`, `elevator`, `waterfront`, `washerDryer`, `privateOutdoorSpace`, `basement`, `airConditioning` — supported for both `forSale` and `forRent` |
 | `listingType` | select | `any` | Restrict how the listing is being sold: `any` / `platformExclusives` (Compass-only, not on the MLS) / `mlsListings` / `forSaleByOwner` |
 | `listingUrls` | array | – | Compass listing detail URLs (mode=`listingDetail`) |
-| `agentUrls` | array | – | Compass agent profile URLs (mode=`agentProfile`), e.g. `https://www.compass.com/agents/shannon-reeve/` |
+| `agentUrls` | array | – | Compass agent profile URLs (mode=`agentProfile`), e.g. `https://www.compass.com/agents/david-aceves/` |
 | `maxItems` | int | `60` | Hard cap on emitted records (1–5000) — see note below on `search` mode's real per-query ceiling |
+
+> **Saved tasks keep working.** Pre-revamp input keys are mapped in code, not shown in the form: `query`/`searchQuery`/`city` → `location`, `maxResults`/`limit` → `maxItems`, `minBedrooms`/`beds` → `minBeds`, `priceMin`/`priceMax` → `minPrice`/`maxPrice`, `startUrls`/`urls` → `listingUrls`, `soldComps` → `soldOnly`, `transactionType: sale|rental` → `listingCategory`, plus legacy `mode`, property-type and boolean aliases. A Compass search URL pasted into `location` is reduced to its market slug automatically.
+
+> **Dataset views:** the run summary links four views — `Listings` (default), `Listing details`, `Agent profiles`, and `Sold comps` — so you can jump straight to the relevant record shape when a dataset mixes modes.
 
 > **Note (search mode):** Compass's own SEO search-results pagination stops serving new listings past page 20 (20 × 60 = **1,200 listings per query**), even when `totalItems` reports a much larger figure for the market. This is a real limit of Compass's site, not an actor bug — the actor detects the exhaustion (no new unique listing IDs across consecutive pages) and stops cleanly with zero duplicates. To cover a market with more than ~1,200 active listings, narrow the query with `propertyType`, `minBeds`, `minPrice`/`maxPrice`, or a more specific `location` (neighborhood/ZIP instead of city) and run multiple queries.
 
@@ -161,7 +165,7 @@ Compass is one of the largest residential real estate brokerages in the US, with
 {
   "mode": "agentProfile",
   "agentUrls": [
-    "https://www.compass.com/agents/shannon-reeve/"
+    "https://www.compass.com/agents/david-aceves/"
   ]
 }
 ```

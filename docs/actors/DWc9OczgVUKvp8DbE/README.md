@@ -4,12 +4,13 @@
 
 # Connecticut Business Registry Entity & Diversity-Flag Lookup
 
-Connecticut's Secretary of the State publishes the full business entity registry as open data. This actor searches it by entity name, exact Business ID, business city or NAICS industry code, returning entity type, status, formation date, addresses on file, NAICS classification and supplier-diversity ownership flags.
+Connecticut's Secretary of the State publishes its full business registry as open data. This actor searches it by entity name, exact Business ID, business city, NAICS industry code or formation-date range, then joins the state's separate principal, registered-agent, filing-history and name-change datasets. Every field comes from official Connecticut open data — no login, cookie, API key or browser session.
 
 ## Data source and known gaps
 
-- **No named registered agent.** Unlike most other states, Connecticut's registry model does not carry a named registered-agent field — only a "Keeper of Records" address (exposed here as `recordsAddress`). There is no separate agent name to return.
-- **Sentinel dates are filtered.** A small number of malformed filings carry a placeholder registration date in the source data; this actor treats that as "no date on file" rather than emitting a nonsensical date.
+- **Four official source tables are joined.** The business master, principals, agents and filing/name-change history are separate datasets on `data.ct.gov`, all published by the Connecticut Secretary of the State and refreshed daily. They are joined on the state's internal record id in batched requests.
+- **Some brand-new or rejected filings have no principal row yet.** The state's principals dataset is populated after processing; the entity record still returns with its agent and filing data when those exist.
+- **Name-change history is historical.** The state's name-change extract covers older records; when a record has no name change on file, `nameHistory` is omitted rather than guessed.
 - **Not affiliated with the State of Connecticut.** This is an independent third-party tool built on the Secretary of the State's own public open data.
 
 ## What this actor does
@@ -18,47 +19,57 @@ Connecticut's Secretary of the State publishes the full business entity registry
   - `byEntityName` — business entity name (substring match)
   - `byAccountNumber` — exact Connecticut Business ID (account number)
   - `byCity` — business (mailing) address city (exact match)
-  - `byNaicsCode` — NAICS industry classification code
+  - `byNaicsCode` — full NAICS code or 2–5 digit industry prefix
 - **Entity status filter** — 26 status values (`Active`, `Dissolved`, `Revoked`, `Forfeited`, etc.)
 - **Entity type filter** — 22 business type values (LLC, Stock, Non-Stock, Limited Partnership, LLP, Statutory Trust, etc.)
 - **Domestic/foreign filter** — restrict to entities formed in Connecticut vs. elsewhere
+- **Formation-date range** — `formationDateFrom` / `formationDateTo` for new-business lead lists
+- **Diversity-owned only** — one toggle for woman-, veteran-, minority-, disability- or LGBTQI-owned certification
+- **Principals (officers/directors)** — name, designation, type, business and residence addresses
+- **Registered agents** — agent name, type, phone, email, business, mailing and residence addresses
+- **Filing history** — filing number, category, type, dates, organizer, volume/page, forfeiture date
+- **Name-change history** — old name, new name, change date, when the state publishes it
+- **Formation-jurisdiction detail** — formation place/country, organization-meeting date, foreign name and date began transacting in Connecticut
 - **Diversity-ownership flags** — woman-owned, veteran-owned, minority-owned, disability-owned, LGBTQI-owned, when on file
-- **Administrative dissolution/forfeiture reason** — the reason on file for dissolved/forfeited entities
 - **Geocoded coordinates** — latitude/longitude of the mailing address, when available
-- **Formation-jurisdiction detail** — formation country, organization-meeting date, and (for foreign entities) the name registered in the home jurisdiction plus the date the entity began transacting business in Connecticut
-- **Total authorized shares** — for stock corporations, when on file
-- **Automatic pagination** up to `maxItems`
-- **Empty fields are omitted**
+- **Automatic stable pagination** up to `maxItems`, ordered by the registry's record id
+- **Empty fields are omitted** at every depth
 
 ## What's NOT included (and why)
 
-- **Registered agent name** — Connecticut's registry model carries only a Keeper-of-Records address, not a named agent; see "Data Source & Usage Notes" above.
-- **Individual officer/director names** — not present in the open-data extract.
-- **Filing history / document list** — not present in the open-data extract.
+- **Individual officer compensation or biographical detail** — not present in the state's open-data extracts.
+- **Filing documents themselves** — the filing-history table lists filings, not the scanned PDFs.
+- **Name changes for the newest records** — the state's name-change history is a historical extract; see above.
 
 ## Output per entity
+
+Master fields:
 
 - `entityName`
 - `entityId` — Connecticut Business ID (account number)
 - `recordId` — internal registry record ID
 - `entityType` — e.g. `LLC`, `Stock`, `Non-Stock`
 - `status`, `subStatus` — e.g. `Active`, `Annual report due`
-- `administrativeDissolutionReason` — reason on file when an entity was administratively dissolved/forfeited (e.g. "Failure to appoint or maintain an agent for service"), when on file
+- `administrativeDissolutionReason` — reason on file when an entity was administratively dissolved/forfeited, when on file
 - `citizenship` — `Domestic` or `Foreign`
-- `jurisdictionOfFormation` — formation state/territory
-- `formationCountry` — country of formation (almost always US, but includes Canada, UK, India, Cayman Islands, etc. for true foreign entities), when on file
+- `jurisdictionOfFormation`, `formationPlace`, `formationCountry`
 - `formationDate`, `organizationMeetingDate`, `beganTransactingInCtDate`, `annualReportDueDate`, `dissolutionDate` — `YYYY-MM-DD`, when on file
-- `nameInFormationJurisdiction` — the entity's registered name in its home jurisdiction, when it differs from `entityName` (foreign entities), when on file
-- `mailingAddress` — the entity's mailing address on file
-- `recordsAddress` — the Keeper-of-Records ("Business Address") on file
-- `formationJurisdictionAddress` — the entity's registered address in its home (formation) state/country, for foreign entities, when on file
-- `latitude`, `longitude` — geocoded coordinates of the mailing address on file, when available
+- `nameInFormationJurisdiction` — the entity's registered name in its home jurisdiction, when on file
+- `mailingAddress`, `recordsAddress` (Keeper of Records), `officeAddress` (office in jurisdiction), `formationJurisdictionAddress`
+- `latitude`, `longitude` — when available
 - `naicsCode`, `naicsDescription`, `naicsSubCode` — when on file
-- `businessEmail`, `surveyEmail` — email addresses on file (business email and a separate survey-provided email)
+- `businessEmail`, `surveyEmail`
 - `totalAuthorizedShares` — for stock corporations, when a positive value is on file
 - `womanOwned`, `veteranOwned`, `minorityOwned`, `disabilityOwned`, `lgbtqiOwned` — boolean, when on file
-- `sourceUrl` — link to this entity's record on Connecticut's open-data API
+- `sourceUrl` — link to the entity on Connecticut's open-data API
 - `recordType: "entity"`, `scrapedAt`
+
+Related records (attached when present):
+
+- `principals[]` — `name`, `firstName`, `middleName`, `lastName`, `suffix`, `designation`, `principalType`, `businessAddress`, `residenceAddress`
+- `agents[]` — `name`, `firstName`, `middleName`, `lastName`, `suffix`, `agentType`, `phone`, `email`, `businessAddress`, `mailingAddress`, `residenceAddress`
+- `filings[]` — `filingNumber`, `filingDate`, `effectiveDate`, `filingCategory`, `filingType`, `reportYear`, `organizerName`, `organizerTitle`, `organizerType`, `incorporatorName`, `volume`, `volumeType`, `pages`, `startPage`, `dateForfeited`, `physicalFiling`
+- `nameHistory[]` — `oldName`, `newName`, `changeDate`
 
 ## Input
 
@@ -68,12 +79,19 @@ Connecticut's Secretary of the State publishes the full business entity registry
 | `entityName` | string | `WALMART` | mode=byEntityName |
 | `entityId` | string | – | mode=byAccountNumber |
 | `businessCity` | string | – | mode=byCity |
-| `naicsCode` | string | – | mode=byNaicsCode |
+| `naicsCode` | string | – | mode=byNaicsCode (full code or industry prefix) |
 | `entityStatus` | string | any | Optional status filter |
 | `entityType` | string | any | Optional entity type filter |
 | `citizenship` | string | any | Optional domestic/foreign filter |
-| `proxyConfiguration` | object | AUTO proxy | Apify proxy config; always datacenter (AUTO), never residential |
-| `maxItems` | int | `25` | Hard cap (1–1000) |
+| `formationDateFrom` | date | – | Registration date on/after |
+| `formationDateTo` | date | – | Registration date on/before |
+| `diversityOwnedOnly` | boolean | `false` | Only diversity-certified entities |
+| `includePrincipals` | boolean | `true` | Attach principals/officers |
+| `includeAgents` | boolean | `true` | Attach registered agents |
+| `includeFilings` | boolean | `false` | Attach full filing history |
+| `includeNameHistory` | boolean | `false` | Attach name-change history |
+| `proxyConfiguration` | object | AUTO | Optional; datacenter only, never residential |
+| `maxItems` | int | `25` | Hard cap on entities (1–1000) |
 
 ### Example: search by entity name
 
@@ -85,12 +103,15 @@ Connecticut's Secretary of the State publishes the full business entity registry
 }
 ```
 
-### Example: lookup by exact Business ID
+### Example: lookup by exact Business ID with officer and agent data
 
 ```json
 {
   "mode": "byAccountNumber",
-  "entityId": "0818011"
+  "entityId": "0818011",
+  "includePrincipals": true,
+  "includeAgents": true,
+  "includeFilings": true
 }
 ```
 
@@ -106,33 +127,45 @@ Connecticut's Secretary of the State publishes the full business entity registry
 }
 ```
 
-### Example: search by NAICS industry code
+### Example: new diversity-certified businesses
 
 ```json
 {
   "mode": "byNaicsCode",
-  "naicsCode": "522320",
-  "maxItems": 25
+  "naicsCode": "5418",
+  "formationDateFrom": "2025-01-01",
+  "formationDateTo": "2025-12-31",
+  "diversityOwnedOnly": true,
+  "maxItems": 100
 }
 ```
 
+### Legacy saved tasks
+
+Older tasks using `searchQuery`, `query`, `businessName`, `accountNumber`, `city`, `naics`, `status`, `businessType`, `maxResults`, `limit`, or old mode names (`search`, `id`, `city`, `naics`) keep working: the actor maps them in code, and explicit new-style values always take precedence.
+
 ## Use cases
 
-- **Due diligence** — confirm a counterparty's Connecticut formation date, entity type, and status before contracting
-- **Compliance & KYC** — cross-check a business's legal entity name and Business ID
-- **Industry research** — pull every active entity under a NAICS code
-- **Supplier diversity sourcing** — filter for woman-owned, veteran-owned, or minority-owned businesses
+- **Due diligence** — confirm a counterparty's Connecticut formation date, entity type, status, officers and registered agent before contracting
+- **Compliance & KYC** — cross-check a business's legal entity name, Business ID, principals and filing history
+- **Supplier diversity sourcing** — filter for woman-owned, veteran-owned, minority-owned, disability-owned or LGBTQI-owned businesses
+- **New-business lead lists** — filter by formation-date range and industry
+- **Industry research** — pull every active entity under a NAICS code or sector prefix
 - **Local market research** — pull every active entity in a given city
-- **Company name availability checks** — see what similarly-named entities already exist before choosing a new name
+- **Company name availability checks** — see what similarly-named entities already exist
 
 ## FAQ
 
-**What's the data source?** The Connecticut Secretary of State's own business registry, published on the state's official open-data portal at `data.ct.gov`. This actor is an independent third-party tool and is not affiliated with the State of Connecticut.
+**What's the data source?** The Connecticut Secretary of the State's own business registry, published on the state's official open-data portal at `data.ct.gov`. This actor is an independent third-party tool and is not affiliated with the State of Connecticut.
 
 **Is this data official / legally binding?** No. For an official Certificate of Legal Existence or certified copies, use the state's paid ordering channels via `service.ct.gov/business`. This actor returns the same free, public informational data the state republishes as open data.
 
-**Why did my run return 0 results?** Either the query genuinely has no match, or a status/type/citizenship filter is narrower than expected. Try a broader query or remove a filter.
+**Why did my run return 0 results?** Either the query genuinely has no match, or a status/type/citizenship/date/diversity filter is narrower than expected. Try a broader query or remove a filter.
 
-**How fresh is the data?** The open-data extract is refreshed regularly by the Connecticut Secretary of State (typically daily); it may lag the live interactive site by up to a day.
+**How fresh is the data?** The open-data extracts are refreshed regularly by the Connecticut Secretary of the State (typically daily); they may lag the live interactive site by up to a day.
 
-**Why is there no registered agent name in the output?** Connecticut's own registry model tracks only a Keeper-of-Records address for service of process, not a named agent — this differs from most other states. See `recordsAddress`.
+**Why is `principals` missing on some entities?** The state publishes principal rows after a filing is processed. Brand-new or rejected filings may not have one yet; the entity record still returns with its agent and filings when those exist.
+
+**Why is `nameHistory` missing?** The state's name-change extract is historical and does not cover every recent record. It is omitted when the state has no name change on file.
+
+**Can I get more than 1,000 entities?** Split the query by city, NAICS code, status or formation-date window and combine the datasets; each run caps at 1,000 entities by design.

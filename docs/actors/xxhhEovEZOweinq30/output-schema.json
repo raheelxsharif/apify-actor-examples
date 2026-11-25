@@ -1,11 +1,17 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Swiss smartphone deal and telecom plan records from Comparis.ch with pricing, provider and plan details.",
+  "description": "Swiss mobile and home telecom plans from Comparis.ch with CHF pricing, provider and network details, allowances, contract terms and connection data.",
   "properties": {
+    "input": {
+      "description": "The exact input used for this run.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/INPUT",
+      "title": "Run input",
+      "type": "string"
+    },
     "products": {
-      "description": "Dataset containing all scraped Comparis products.",
+      "description": "Dataset containing every mobile or home plan collected in this run.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Comparis products",
+      "title": "Comparis telecom plans",
       "type": "string"
     }
   },
