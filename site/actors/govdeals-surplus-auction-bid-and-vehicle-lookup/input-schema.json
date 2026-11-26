@@ -1,0 +1,294 @@
+{
+  "description": "Search, browse, and filter GovDeals.com government & municipal surplus auction listings.",
+  "properties": {
+    "auctionStatus": {
+      "default": "open",
+      "description": "Only currently open (live) listings, or only closed/sold listings.",
+      "editor": "select",
+      "enum": [
+        "open",
+        "closed"
+      ],
+      "enumTitles": [
+        "Open (live)",
+        "Closed (sold)"
+      ],
+      "prefill": "open",
+      "title": "Auction status filter",
+      "type": "string"
+    },
+    "auctionType": {
+      "default": "",
+      "description": "Restrict results to a specific sale format.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1",
+        "3",
+        "4",
+        "5"
+      ],
+      "enumTitles": [
+        "Any auction type",
+        "Sealed Bid",
+        "Online Auction",
+        "Buy Now",
+        "Make Offer"
+      ],
+      "prefill": "",
+      "title": "Auction type filter",
+      "type": "string"
+    },
+    "category": {
+      "description": "Browse GovDeals' top-level category taxonomy.",
+      "editor": "select",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "enumTitles": [
+        "Consumer Goods",
+        "Consumer Electronics",
+        "Energy Equipment",
+        "Construction, Mining and Farming",
+        "Industrial, Commercial Equipment",
+        "Transportation",
+        "BioPharma",
+        "Scrap and Recycling",
+        "Real Estate, Buildings, Structures",
+        "Educational Equipment",
+        "Public and Personal Safety",
+        "Metalworking Equipment",
+        "Food, Beverage and Packaging",
+        "Electronics Manufacturing Equipment"
+      ],
+      "title": "Category (mode=byCategory)",
+      "type": "string"
+    },
+    "maxCurrentBid": {
+      "description": "Drop listings with a current bid higher than this.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Max current bid (USD)",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 2000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "minCurrentBid": {
+      "description": "Drop listings with a current bid lower than this.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Min current bid (USD)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byCategory",
+        "byState"
+      ],
+      "enumTitles": [
+        "Search by keyword",
+        "Browse by category",
+        "Browse by state"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "proxyConfiguration": {
+      "default": {
+        "useApifyProxy": false
+      },
+      "description": "Optional. GovDeals' edge (Akamai) may rate-limit sustained high-volume traffic; enabling the free AUTO proxy group adds resilience. Not required for normal use.",
+      "editor": "proxy",
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchText": {
+      "default": "truck",
+      "description": "Free-text keyword search (required for mode=search; optional extra filter for other modes).",
+      "editor": "textfield",
+      "prefill": "truck",
+      "title": "Search keyword",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "bestfit",
+      "description": "How to order results.",
+      "editor": "select",
+      "enum": [
+        "bestfit",
+        "endingSoonest",
+        "endingLatest",
+        "priceLowToHigh",
+        "priceHighToLow",
+        "locationAZ"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Ending soonest",
+        "Ending latest",
+        "Price: low to high",
+        "Price: high to low",
+        "Location A-Z"
+      ],
+      "prefill": "bestfit",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "state": {
+      "description": "Browse listings located in a specific US state.",
+      "editor": "select",
+      "enum": [
+        "AL",
+        "AK",
+        "AZ",
+        "AR",
+        "CA",
+        "CO",
+        "CT",
+        "DE",
+        "DC",
+        "FL",
+        "GA",
+        "HI",
+        "ID",
+        "IL",
+        "IN",
+        "IA",
+        "KS",
+        "KY",
+        "LA",
+        "ME",
+        "MD",
+        "MA",
+        "MI",
+        "MN",
+        "MS",
+        "MO",
+        "MT",
+        "NE",
+        "NV",
+        "NH",
+        "NJ",
+        "NM",
+        "NY",
+        "NC",
+        "ND",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VT",
+        "VA",
+        "WA",
+        "WV",
+        "WI",
+        "WY"
+      ],
+      "enumTitles": [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "District of Columbia",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming"
+      ],
+      "title": "State (mode=byState)",
+      "type": "string"
+    },
+    "vehicleMake": {
+      "description": "Structured make/brand filter (e.g. `Ford`, `Caterpillar`, `Peterbilt`) — matches GovDeals' own vehicle-search field, more precise than a keyword search.",
+      "editor": "textfield",
+      "title": "Vehicle/equipment make",
+      "type": "string"
+    },
+    "vehicleModelYear": {
+      "description": "Restrict to a specific model year.",
+      "maximum": 2100,
+      "minimum": 1900,
+      "title": "Vehicle/equipment model year",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "GovDeals Scraper Input",
+  "type": "object"
+}

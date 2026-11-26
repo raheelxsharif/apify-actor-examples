@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "cookies": {
+      "description": "Instagram authentication cookies in JSON format. If not provided, a managed Instagram session is used for the search. Format: [{\"name\":\"sessionid\",\"value\":\"...\",\"domain\":\".instagram.com\"}, ...]. See README for extraction instructions.",
+      "editor": "textarea",
+      "isSecret": true,
+      "title": "Instagram Cookies (Optional)",
+      "type": "string"
+    },
+    "keywords": {
+      "description": "List of keywords to search. Works for both single-word (e.g. \"photography\") and multi-word (e.g. \"sunset photography\") queries.",
+      "editor": "stringList",
+      "example": [
+        "football",
+        "architecture",
+        "food photography"
+      ],
+      "prefill": [
+        "messi"
+      ],
+      "title": "Keywords",
+      "type": "array"
+    },
+    "maxPosts": {
+      "default": 100,
+      "description": "Maximum number of post URLs to collect per keyword.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max Posts Per Keyword",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "keywords"
+  ],
+  "schemaVersion": 1,
+  "title": "Instagram Search Scraper - Keywords & Hashtags",
+  "type": "object"
+}

@@ -1,0 +1,201 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "properties": {
+      "accessibility_caption": {
+        "description": "Alt text Instagram describes the post with",
+        "type": "string"
+      },
+      "author_meta": {
+        "description": "Author details: id, username, full_name, is_verified, profile_pic_url and profile_url",
+        "type": "object"
+      },
+      "caption": {
+        "description": "Caption text",
+        "type": "string"
+      },
+      "caption_is_edited": {
+        "description": "Whether the caption was edited after posting",
+        "type": "boolean"
+      },
+      "collaborators": {
+        "description": "Usernames of the invited collaborators on the post",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "comment_count": {
+        "description": "Number of comments",
+        "type": "integer"
+      },
+      "comments_disabled": {
+        "description": "Whether comments are turned off",
+        "type": "boolean"
+      },
+      "hashtags": {
+        "description": "Hashtags used in the caption",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "input_keyword": {
+        "description": "The keyword or hashtag that produced the post, or the keyword that gave no posts",
+        "type": "string"
+      },
+      "like_count": {
+        "description": "Number of likes, or null when the owner hides them",
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "likes_hidden": {
+        "description": "Whether the owner hides the like count",
+        "type": "boolean"
+      },
+      "location": {
+        "description": "Tagged place: name, id, lat and lng, or null",
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "media_count": {
+        "description": "Number of photos and videos in the post",
+        "type": "integer"
+      },
+      "media_items": {
+        "description": "Each photo or video: index, type, url, width, height, id, shortcode, accessibility_caption and, for videos, duration and has_audio",
+        "items": {
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "media_type": {
+        "description": "Photo, Video, Reel or Carousel",
+        "type": "string"
+      },
+      "mentions": {
+        "description": "Usernames mentioned in the caption",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "music": {
+        "description": "Reel audio: artist, title, audio_id, audio_url, cover_url and is_trending, or null",
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "post_id": {
+        "description": "Instagram's numeric id of the post",
+        "type": "string"
+      },
+      "post_url": {
+        "description": "Link to the post on Instagram (absent on the record of a keyword that gave no posts)",
+        "type": "string"
+      },
+      "pub_date": {
+        "description": "When the post was published (ISO 8601)",
+        "type": "string"
+      },
+      "scraped_at": {
+        "description": "When the post was scraped (ISO 8601)",
+        "type": "string"
+      },
+      "shortcode": {
+        "description": "The short code in the post link",
+        "type": "string"
+      },
+      "status": {
+        "description": "success for a collected post. Otherwise the reason there is none. A post: post_not_found, post_age_restricted, post_is_private, blocked, error or invalid_url. A keyword that gave no posts (its record holds only input_keyword and status): no_results, cookies_unusable, blocked or error. The log explains each one",
+        "type": "string"
+      },
+      "tagged_users": {
+        "description": "Usernames of the people tagged in the post",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "thumbnail_url": {
+        "description": "Link to the cover image",
+        "type": "string"
+      },
+      "username": {
+        "description": "Username of the account that posted",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "title": "Instagram keyword search results",
+  "views": {
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {
+          "caption": {
+            "format": "text",
+            "label": "Caption"
+          },
+          "comment_count": {
+            "format": "number",
+            "label": "Comments"
+          },
+          "input_keyword": {
+            "format": "text",
+            "label": "Keyword"
+          },
+          "like_count": {
+            "format": "number",
+            "label": "Likes"
+          },
+          "media_type": {
+            "format": "text",
+            "label": "Type"
+          },
+          "post_url": {
+            "format": "link",
+            "label": "Post URL"
+          },
+          "pub_date": {
+            "format": "text",
+            "label": "Posted At"
+          },
+          "status": {
+            "format": "text",
+            "label": "Status"
+          },
+          "thumbnail_url": {
+            "format": "link",
+            "label": "Thumbnail"
+          },
+          "username": {
+            "format": "text",
+            "label": "Username"
+          }
+        }
+      },
+      "title": "Results overview",
+      "transformation": {
+        "fields": [
+          "input_keyword",
+          "post_url",
+          "username",
+          "media_type",
+          "pub_date",
+          "caption",
+          "like_count",
+          "comment_count",
+          "thumbnail_url",
+          "status"
+        ]
+      }
+    }
+  }
+}

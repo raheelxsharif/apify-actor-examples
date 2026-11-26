@@ -1,0 +1,71 @@
+{
+  "description": "Search notable persons from WikiData knowledge base.",
+  "properties": {
+    "deceasedOnly": {
+      "default": true,
+      "description": "If true, only return persons with a known death date.",
+      "prefill": true,
+      "title": "Deceased persons only",
+      "type": "boolean"
+    },
+    "entityId": {
+      "description": "WikiData Q entity ID for mode=byId (e.g. Q937 for Albert Einstein).",
+      "editor": "textfield",
+      "title": "WikiData Entity ID",
+      "type": "string"
+    },
+    "firstName": {
+      "default": "John",
+      "description": "First name to search for.",
+      "editor": "textfield",
+      "prefill": "John",
+      "title": "First name",
+      "type": "string"
+    },
+    "lastName": {
+      "default": "Smith",
+      "description": "Last name to search for.",
+      "editor": "textfield",
+      "prefill": "Smith",
+      "title": "Last name",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 10,
+      "description": "Maximum number of persons to return.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 10,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "How to search for persons.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byId"
+      ],
+      "enumTitles": [
+        "Search persons by name",
+        "Fetch person by WikiData entity ID"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Full name to search for (overrides firstName/lastName if provided).",
+      "editor": "textfield",
+      "title": "Search query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "WikiData Notable Persons Scraper Input",
+  "type": "object"
+}
