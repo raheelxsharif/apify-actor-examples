@@ -1,43 +1,86 @@
 {
-  "description": "Search FINRA BrokerCheck for brokers or investment firms.",
+  "description": "Search FINRA BrokerCheck brokers and firms, or fetch full profiles and disclosures by CRD.",
   "properties": {
+    "crdNumbers": {
+      "default": [],
+      "description": "CRD numbers or BrokerCheck profile URLs to fetch (modes=brokerProfiles, firmProfiles). Up to 1,000 entries; duplicates are removed.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "CRDs or profile URLs",
+      "type": "array"
+    },
     "disclosuresOnly": {
       "default": false,
-      "description": "Only return brokers with at least one disclosure.",
+      "description": "Only emit brokers or firms with at least one broker-dealer or investment-adviser disclosure flag on file.",
       "prefill": false,
-      "title": "Disclosures only (mode=disclosureSearch)",
+      "title": "Disclosures only",
+      "type": "boolean"
+    },
+    "enrichDetails": {
+      "default": true,
+      "description": "Fetch each record's full BrokerCheck profile (disclosures, exams, registrations, employment history). Adds one request per record.",
+      "prefill": false,
+      "sectionCaption": "Enrichment",
+      "sectionDescription": "Controls how much detail is added to every record.",
+      "title": "Fetch full profile details",
       "type": "boolean"
     },
     "firmName": {
-      "description": "Firm or company name to search for (mode=firmSearch).",
+      "description": "Firm name (full or partial), CRD number or BrokerCheck firm URL (mode=firmSearch).",
       "editor": "textfield",
-      "title": "Firm name to search",
+      "title": "Firm name or CRD",
       "type": "string"
+    },
+    "firmNameOrCrd": {
+      "description": "Optional firm name or CRD. Constrains broker searches to people currently employed at that firm; leave `name` empty to scan the firm's representatives (modes=searchBrokers, searchByState, disclosureSearch).",
+      "editor": "textfield",
+      "title": "Employer firm filter",
+      "type": "string"
+    },
+    "includeDisclosures": {
+      "default": true,
+      "description": "Include individual disclosure events with dates, allegations and sanctions when full profile details are fetched.",
+      "prefill": true,
+      "title": "Include disclosure events",
+      "type": "boolean"
+    },
+    "includePrevious": {
+      "default": true,
+      "description": "Include previous employment history in broker search results and profile records.",
+      "prefill": true,
+      "title": "Include previous employers",
+      "type": "boolean"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of records to return.",
+      "description": "Maximum number of records to emit.",
       "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 3,
+      "sectionCaption": "Output",
+      "sectionDescription": "Run size limit.",
       "title": "Max items",
       "type": "integer"
     },
     "mode": {
       "default": "searchBrokers",
-      "description": "What to search on FINRA BrokerCheck.",
+      "description": "What to search or fetch on FINRA BrokerCheck.",
       "editor": "select",
       "enum": [
         "searchBrokers",
         "firmSearch",
         "searchByState",
-        "disclosureSearch"
+        "disclosureSearch",
+        "brokerProfiles",
+        "firmProfiles"
       ],
       "enumTitles": [
-        "Search individual brokers by name",
-        "Search investment firms by name",
-        "Search brokers in a specific state",
-        "Search brokers with disclosures only"
+        "Search brokers by name or CRD",
+        "Search firms by name or CRD",
+        "Browse brokers registered in a US state",
+        "Find brokers with disclosures on file",
+        "Broker profiles by CRD or profile URL",
+        "Firm profiles by CRD or profile URL"
       ],
       "prefill": "searchBrokers",
       "title": "Mode",
@@ -45,14 +88,15 @@
     },
     "name": {
       "default": "John Smith",
-      "description": "Full name or partial name to search for (mode=searchBrokers or firmSearch).",
+      "description": "Broker name (full or partial), CRD number or BrokerCheck individual URL. Used by searchBrokers, searchByState and disclosureSearch; also accepted as a firmSearch fallback.",
       "editor": "textfield",
       "prefill": "John Smith",
-      "title": "Name to search",
+      "title": "Broker name or CRD",
       "type": "string"
     },
     "state": {
-      "description": "2-letter US state code to filter brokers by location.",
+      "default": "",
+      "description": "US state filter. Required for searchByState; optional for broker and firm searches. FINRA matches records with a registration or employment location in this state, so it can be broader than the current office state.",
       "editor": "select",
       "enum": [
         "",
@@ -162,7 +206,32 @@
         "Wyoming",
         "District of Columbia"
       ],
-      "title": "State (mode=searchByState)",
+      "prefill": "",
+      "sectionCaption": "Filters",
+      "sectionDescription": "Optional filters for broker and firm searches.",
+      "title": "Registered state",
+      "type": "string"
+    },
+    "status": {
+      "default": "all",
+      "description": "Actively registered, previously registered, barred (brokers) or expelled (firms).",
+      "editor": "select",
+      "enum": [
+        "all",
+        "active",
+        "previouslyRegistered",
+        "barred",
+        "expelled"
+      ],
+      "enumTitles": [
+        "Any status",
+        "Actively registered",
+        "Previously registered",
+        "Barred (brokers)",
+        "Expelled (firms)"
+      ],
+      "prefill": "all",
+      "title": "Registration status",
       "type": "string"
     }
   },
@@ -170,6 +239,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "FINRA BrokerCheck Scraper Input",
+  "title": "FINRA BrokerCheck Broker & Firm Disclosure Lookup Input",
   "type": "object"
 }

@@ -1,13 +1,26 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Broker and firm records from FINRA BrokerCheck with registration status, employment history and disclosure flags.",
+  "description": "FINRA BrokerCheck broker and firm records with registration status, employment history, exams, registered states and disclosure events.",
   "properties": {
     "brokers": {
+      "description": "Broker view: name, CRD, registration scope, disclosures, exams and current employer.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=brokers",
+      "title": "Broker view",
+      "type": "string"
+    },
+    "firms": {
+      "description": "Firm view: name, CRD, SEC numbers, status, disclosures and branch count.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=firms",
+      "title": "Firm view",
+      "type": "string"
+    },
+    "records": {
       "description": "Dataset containing all scraped FINRA BrokerCheck broker and firm records.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "FINRA BrokerCheck records",
+      "title": "BrokerCheck records",
       "type": "string"
     }
   },
-  "title": "FINRA BrokerCheck Broker & Firm Disclosure Lookup Output"
+  "title": "FINRA BrokerCheck Broker & Firm Disclosure Lookup Output",
+  "type": "object"
 }

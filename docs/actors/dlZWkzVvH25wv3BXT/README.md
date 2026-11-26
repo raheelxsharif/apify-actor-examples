@@ -4,29 +4,32 @@
 
 # GovDeals Surplus Auction Bid & Vehicle Lookup
 
-GovDeals is where US cities, counties, states, school districts and federal agencies sell surplus vehicles, heavy equipment, electronics and other property by public auction. This actor searches listings by keyword, browses the site's own category taxonomy, or browses by US state, with bid, pricing and location detail on every result.
+GovDeals is where US cities, counties, states, school districts and federal agencies sell surplus vehicles, heavy equipment, electronics and other property by public auction. This actor searches live and closed listings by keyword, browses the site's own category taxonomy, state/province or seller account, and returns bid, pricing, timing and location detail for every result.
 
 ## What this actor does
 
 - Searches listings by free-text keyword
-- Browses listings within one of GovDeals' top-level categories
-- Browses listings located in a specific US state
-- Filters results by auction type, open/closed status, current-bid range, and vehicle make/model year
-- Empty fields are omitted from every record
+- Browses all 15 GovDeals top-level categories, including Computers and IT Equipment
+- Browses listings in any US state, DC, or Canadian province/territory
+- Browses a seller's listings by GovDeals seller account ID
+- Filters by auction type, open/closed status, closing window, current-bid range, seller type, country and vehicle make/model year
+- Finds listings near a ZIP/postal code within a mile radius
+- Follows pagination until `maxItems`, the source total, or the end of results
+- Omits empty fields from every record
 
 ## Output per listing
 
 - `assetId`, `accountId`, `auctionId`, `eventId`, `displayEventId` — GovDeals identifiers
 - `title`, `description`, `lotNumber`
-- `makeBrand`, `model`, `modelYear` — for vehicles/equipment where applicable
+- `makeBrand`, `model`, `modelYear` — for vehicles and branded equipment
 - `categoryId`, `categoryName`
-- `auctionTypeId`, `auctionTypeName` — Sealed Bid / Online Auction / Buy Now / Make Offer
-- `currentBid`, `currencyCode`, `buyNowPrice`, `bidIncrement`
-- `sellerName` — the selling government agency or municipality
-- `locationCity`, `locationState`, `locationStateName`, `locationZip`, `country`
+- `auctionTypeId`, `auctionTypeName` — Online Auction / Buy Now / Make Offer / Sealed Bid
+- `currentBid`, `currencyCode`, `buyNowPrice`, `bidIncrement`, `startingBid`, `bidCount`
+- `sellerName` — the selling government agency, company or nonprofit
+- `locationCity`, `locationState`, `locationStateName`, `locationZip`, `locationAddress1`, `locationAddress2`, `country`, `latitude`, `longitude`
 - `auctionStartDate`, `auctionEndDate`, `auctionStartDateDisplay`, `auctionEndDateDisplay`, `timeRemaining`
 - `auctionStatus` — `open` or `closed`
-- `isReserveNotMet`, `hasReservePrice`, `isNewAsset`
+- `isReserveNotMet`, `hasReservePrice`, `isReserveReduced`, `willNextBidMeetReserve`, `isNewAsset`
 - `imageUrl` — full-size listing photo
 - `sourceUrl` — canonical GovDeals listing URL
 - `recordType: "asset"`, `scrapedAt`
@@ -35,17 +38,23 @@ GovDeals is where US cities, counties, states, school districts and federal agen
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `byCategory` / `byState` |
-| `searchText` | string | `truck` | Keyword search (required for mode=search) |
+| `mode` | string | `search` | `search` / `byCategory` / `byState` / `bySeller` |
+| `searchText` | string | `truck` | Keyword search (required for mode=search unless a vehicle filter is set) |
 | `category` | string | – | Top-level category (required for mode=byCategory) |
-| `state` | string | – | US state (required for mode=byState) |
-| `auctionType` | string | – | Restrict to Sealed Bid / Online Auction / Buy Now / Make Offer |
+| `state` | string | – | US state, DC or Canadian province (required for mode=byState) |
+| `country` | string | any | `USA` or `CAN` |
+| `sellerType` | string | any | `government` / `commercial` / `nonprofit` |
+| `sellerAccountIds` | string | – | Comma-separated seller account IDs (required for mode=bySeller) |
+| `auctionType` | string | any | Online Auction / Buy Now / Make Offer / Sealed Bid |
 | `auctionStatus` | string | `open` | `open` (live) or `closed` (sold) |
-| `sortBy` | string | `bestfit` | Sort order |
+| `endingWithinDays` | int | – | Only listings closing within N days (open auctions) |
+| `sortBy` | string | `bestfit` | Best match / ending soonest / ending latest / price / location |
 | `minCurrentBid` | int | – | Drop listings with a lower current bid |
 | `maxCurrentBid` | int | – | Drop listings with a higher current bid |
 | `vehicleMake` | string | – | Structured make/brand filter (e.g. `Ford`, `Caterpillar`) |
-| `vehicleModelYear` | int | – | Restrict to a specific model year |
+| `vehicleModelYear` | int | – | Restrict to one model year |
+| `searchZip` | string | – | ZIP or postal code for a proximity search |
+| `searchRadiusMiles` | int | – | Radius around `searchZip` |
 | `maxItems` | int | `50` | Hard cap on emitted records (1–2000) |
 | `proxyConfiguration` | object | off | Optional Apify proxy (AUTO group); adds resilience under sustained volume |
 
@@ -60,7 +69,7 @@ GovDeals is where US cities, counties, states, school districts and federal agen
 }
 ```
 
-## Example: browse by category
+## Example: browse a category
 
 ```json
 {
@@ -71,7 +80,7 @@ GovDeals is where US cities, counties, states, school districts and federal agen
 }
 ```
 
-## Example: browse by state, closed auctions only
+## Example: closed auctions in a state
 
 ```json
 {
@@ -82,56 +91,74 @@ GovDeals is where US cities, counties, states, school districts and federal agen
 }
 ```
 
-## Example: price-filtered keyword search
+## Example: one seller's listings
+
+```json
+{
+  "mode": "bySeller",
+  "sellerAccountIds": "26928",
+  "auctionStatus": "open",
+  "maxItems": 50
+}
+```
+
+## Example: vehicles by make and model year
 
 ```json
 {
   "mode": "search",
-  "searchText": "excavator",
-  "minCurrentBid": 5000,
-  "maxCurrentBid": 50000,
-  "auctionType": "3"
+  "vehicleMake": "Ford",
+  "vehicleModelYear": 2017,
+  "maxItems": 50
 }
 ```
 
-## Example: specific vehicle make and model year
+## Example: listings closing soon near a ZIP
 
 ```json
 {
-  "mode": "byCategory",
-  "category": "6",
-  "vehicleMake": "Ford",
-  "vehicleModelYear": 2017
+  "mode": "search",
+  "searchText": "truck",
+  "endingWithinDays": 7,
+  "searchZip": "30301",
+  "searchRadiusMiles": 100,
+  "maxItems": 25
 }
 ```
 
 ## Use cases
 
-- **Fleet & equipment buyers** — monitor surplus vehicles and heavy equipment across every US state
+- **Fleet & equipment buyers** — monitor surplus vehicles and heavy equipment across every US state and Canadian province
 - **Resellers and liquidators** — track closing auctions by category to plan bidding
-- **Market research** — analyze government surplus pricing trends by category or region
-- **Procurement teams** — discover current-bid pricing benchmarks for used equipment
-- **Auction aggregators** — feed live GovDeals listings into a broader marketplace search
+- **Market research** — analyze government surplus pricing trends by category, region, seller or auction type
+- **Procurement teams** — discover current-bid and closing-price benchmarks for used equipment
+- **Auction aggregators** — feed live and sold GovDeals listings into a broader marketplace search
 
 ## FAQ
 
 **What is GovDeals?**
-GovDeals is an online marketplace where US government agencies, municipalities, school districts, and public utilities sell surplus and confiscated property — vehicles, heavy equipment, electronics, real estate, and more — via public auction.
+GovDeals is an online marketplace where US and Canadian government agencies, municipalities, school districts and public utilities sell surplus and confiscated property — vehicles, heavy equipment, electronics, real estate and more — via public auction.
 
 **Is this affiliated with GovDeals?**
-No. This is an independent, third-party actor that reads GovDeals' own public listing data, the same way a visitor's browser does.
+No. This is an independent, third-party actor that reads GovDeals' own public listing data, the same way a visitor's browser does. No account, cookies or API key from you is required.
+
+**Does this work for Canadian listings?**
+Yes — use any Canadian province in `state`, or set `country` to `CAN`. Currency follows the listing (`USD` or `CAD`).
 
 **Why do some listings have no `currentBid`?**
 A listing with no bids yet has no current bid value, so the field is omitted rather than showing `0` or `null`.
 
 **What does `auctionStatus: closed` mean?**
-The auction's bidding window has ended (or GovDeals has marked it sold). Closed listings can still be useful for price-history research.
+The bidding window has ended (or GovDeals marked the asset sold). Closed listings are useful for price-history research.
 
 **Why are `makeBrand`/`model`/`modelYear` sometimes missing?**
 Those fields only apply to vehicles and branded equipment; general merchandise listings omit them.
 
-**Does this cover every category and state?**
-Yes — the `category` and `state` enums mirror GovDeals' own top-level taxonomy and full US state list.
+**Why is there no `bidCount` on every record?**
+GovDeals exposes a bid count only for listings that have received bids; the field is omitted when the source has none.
+
+**Why can't I paste an asset URL?**
+GovDeals' asset detail page is a browser app whose detail endpoint requires a logged-in Akamai session. This actor deliberately stays cookieless, so it uses the public search API; use keyword, seller or location filters to locate a lot.
 
 **How current is the data?**
 Every run queries GovDeals' live listings API directly, so results reflect the current bid and status at run time.

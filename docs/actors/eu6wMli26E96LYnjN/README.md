@@ -4,96 +4,119 @@
 
 # Wikidata Notable Person Birth, Death & Occupation Lookup
 
-Wikidata catalogs millions of notable people with structured biographical facts — birth and death dates, nationality, occupation and a link to their Wikipedia article. This actor searches that catalog by name or fetches a specific person directly by their Wikidata entity ID, making it well suited for genealogy, biography and historical-figure research.
+Wikidata holds structured facts about millions of notable people: birth and death dates, places, citizenship, gender, occupations and links to Wikipedia. This actor turns those facts into clean, readable records for genealogy, biography research, historical datasets and fact-checking. It uses the public Wikidata APIs and needs no account, API key, cookie or proxy.
 
-## What this actor does
+## Three ways to find people
 
-- Searches notable people by full name, or by separate first/last name fields
-- Fetches one specific person directly when you already know their Wikidata entity ID (e.g. `Q937` for Albert Einstein)
-- Optionally restricts results to people with a known death date, for genealogy-style lookups
-- Resolves each person's English Wikipedia article link when one exists
-- Empty fields are omitted from records
+| Mode | What it does | Best for |
+|---|---|---|
+| `search` | Full-text name search, optionally narrowed by occupation, nationality, gender and years | "Find this person and their dates" |
+| `browse` | Filter-only discovery with pagination | "Give me 200 deceased physicists born 1850-1900" |
+| `byId` | Fetch one or more QIDs or Wikidata URLs directly | Enriching a list you already have |
+
+`search` and `browse` both accept the filters below and paginate until `maxItems` is reached or Wikidata runs out of matching people.
 
 ## Output per person
 
-- `entityId` — Wikidata entity ID, e.g. `Q937`
-- `name` — person's name
-- `description` — short Wikidata description, e.g. `theoretical physicist`
-- `birthDate`, `deathDate` — dates in `YYYY-MM-DD` form, when recorded
-- `birthPlaceId` — Wikidata entity ID of the birth place
-- `nationalityIds` — list of Wikidata entity IDs for the person's country/countries of citizenship
-- `occupationIds` — list of Wikidata entity IDs for the person's occupation(s)
-- `wikipediaTitle`, `wikipediaUrl` — English Wikipedia article title and link, when one exists
-- `wikidataUrl` — link to the person's Wikidata entity page
-- `recordType` — always `person`
-- `scrapedAt` — timestamp of extraction
+| Field | Meaning |
+|---|---|
+| `entityId` | Wikidata QID, e.g. `Q937` |
+| `name` | Person's label in the chosen language (English fallback) |
+| `description` | Short Wikidata description |
+| `birthDate`, `deathDate` | ISO-style date, trimmed to the recorded precision (`1879-03-14`, `1867-11`, `1879`, or `-0470` for BCE) |
+| `birthYear`, `deathYear` | Numeric years, negative for BCE |
+| `birthPlaceId`, `birthPlaceLabel` | Place of birth QID and readable label |
+| `deathPlaceId`, `deathPlaceLabel` | Place of death QID and readable label |
+| `nationalityIds`, `nationalityLabels` | Citizenship QIDs and labels |
+| `occupationIds`, `occupationLabels` | Occupation QIDs and labels |
+| `genderIds`, `genderLabels` | Gender QIDs and labels |
+| `instanceOfIds`, `instanceOfLabels` | Wikidata type QIDs and labels |
+| `wikipediaTitle`, `wikipediaUrl`, `wikipediaLanguage` | Wikipedia article in the chosen language, falling back to English |
+| `wikidataUrl` | Link to the person's Wikidata page |
+| `recordType` | `person`, or `entity` when a `byId` lookup is not a human |
+| `scrapedAt` | Extraction timestamp |
+
+Fields Wikidata does not have are omitted, never returned as `null` or an empty list.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (by name) or `byId` (by Wikidata entity ID) |
-| `searchQuery` | string | – | Full name to search for; overrides `firstName`/`lastName` when set |
-| `firstName` | string | `John` | First name to search for (mode=search) |
-| `lastName` | string | `Smith` | Last name to search for (mode=search) |
-| `entityId` | string | – | Wikidata entity ID to fetch directly, e.g. `Q937` (mode=byId) |
-| `deceasedOnly` | boolean | `true` | Only return people with a known death date |
-| `maxItems` | integer | `10` | Maximum number of people to return (1–200) |
+| `mode` | select | `search` | `search`, `browse` or `byId` |
+| `searchQuery` | text | – | Full name, overrides first/last name |
+| `firstName` | text | `John` | First name |
+| `lastName` | text | `Smith` | Last name |
+| `entityId` | text | – | QIDs or Wikidata URLs, comma/space separated (`byId`) |
+| `occupation` | text | – | Occupation QID or name, e.g. `Q169470` or `physicist` |
+| `nationality` | text | – | Citizenship QID or name, e.g. `Q183` or `Germany` |
+| `gender` | select | `any` | `any`, `female`, `male` |
+| `deceasedOnly` | boolean | `true` | Require a recorded death date |
+| `birthYearMin`, `birthYearMax` | integer | – | Birth-year range |
+| `deathYearMin`, `deathYearMax` | integer | – | Death-year range |
+| `language` | select | `en` | Label language (20 options, English fallback) |
+| `maxItems` | integer | `10` | 1–1,000 records |
 
-### Example: search by first and last name
+Filters combine with AND. In `search` mode a name is required (the defaults supply one); in `browse` mode leave the name empty and use filters only.
+
+## Examples
+
+Search a person by name:
+
+```json
+{ "mode": "search", "searchQuery": "Marie Curie", "deceasedOnly": true, "maxItems": 5 }
+```
+
+Browse deceased physicists born between 1870 and 1885:
 
 ```json
 {
-  "mode": "search",
-  "firstName": "John",
-  "lastName": "Smith",
+  "mode": "browse",
+  "occupation": "physicist",
   "deceasedOnly": true,
-  "maxItems": 10
+  "birthYearMin": 1870,
+  "birthYearMax": 1885,
+  "maxItems": 100
 }
 ```
 
-### Example: search by full name, including the living
-
-```json
-{
-  "mode": "search",
-  "searchQuery": "Marie Curie",
-  "deceasedOnly": false,
-  "maxItems": 5
-}
-```
-
-### Example: fetch a specific person by entity ID
+Fetch a list of QIDs and URLs in German:
 
 ```json
 {
   "mode": "byId",
-  "entityId": "Q937"
+  "entityId": "Q937, Q7186, https://www.wikidata.org/wiki/Q913",
+  "language": "de"
 }
 ```
 
-## Use cases
+Existing tasks keep working: the old `firstName`/`lastName`, `searchQuery`, `entityId` and `deceasedOnly` inputs map onto the same fields in code, with no visible change to saved inputs or output field names.
 
-- **Genealogy research** — look up ancestors or historical figures by name and get birth/death dates
-- **Biography enrichment** — attach structured birth/death/occupation facts to a list of names
-- **Historical figure datasets** — build a dataset of notable people in a given field or era
-- **Fact-checking** — verify a public figure's dates and nationality against Wikidata's record
-- **Content research** — source quick biographical facts and a Wikipedia link for articles or scripts
+## Data source and behaviour
+
+Data comes from Wikidata's public Action API (`wbsearchentities`, `wbgetentities`, CirrusSearch `haswbstatement` filters) and the Wikidata Query Service (SPARQL) for filter browsing. All endpoints are cookieless and keyless. Entity, occupation, nationality and place labels are resolved in batches, so records are readable without a second run. Requests retry on 429/5xx; if the SPARQL service is unavailable, `browse` falls back to filtered search and applies year and death filters locally.
+
+Wikidata content is CC0. This actor is independent and not affiliated with or endorsed by Wikidata or the Wikimedia Foundation.
+
+## Limits worth knowing
+
+- **1,000 records per run.** For larger sets, split by occupation, nationality, birth year or death year and combine the datasets.
+- **Search scans up to 1,000 candidates per run.** Very common names combined with many filters can hit that ceiling before `maxItems`; add a filter or use `browse`, which filters on the server.
+- **Dates follow Wikidata precision.** Year-only and month-only dates are trimmed accordingly. Century or decade-level statements are skipped rather than guessed.
+- **Wikipedia links fall back to English.** The actor uses the selected language's Wikipedia when the article exists there, otherwise `enwiki`.
+- **Coverage varies.** Obscure people often lack a place, citizenship or Wikipedia article; those fields are omitted.
 
 ## FAQ
 
-**Is this affiliated with Wikidata or Find A Grave?** No. This is an independent lookup tool built on Wikidata's public data and is not affiliated with or endorsed by either.
+**Do I need a Wikidata account or API key?** No. Every request uses public endpoints.
 
-**Do I need an API key?** No. Wikidata's public interfaces are used with no authentication required.
+**Why are occupations returned as both IDs and labels?** IDs are stable for joins; labels are there for humans and reports. Keep whichever fits your pipeline.
 
-**Why are `birthPlaceId`, `nationalityIds` and `occupationIds` codes instead of names?** They're Wikidata entity IDs (e.g. `Q30` for the United States), matching how Wikidata itself stores these facts; resolving a specific ID to its label can be done with a follow-up `byId` lookup on that ID.
+**How do I find a person's QID?** Run `search` with their name; each record includes `entityId` and `wikidataUrl`. You can then reuse the QID in `byId`.
 
-**What does `deceasedOnly` actually filter?** When enabled, it drops search results that have no recorded death date on Wikidata (or no detectable death-year signal), which is useful for narrowing results to historical rather than living figures.
+**Can I request people from a specific country?** Yes, set `nationality` to the country's name or QID and use `browse` for server-side filtering.
 
-**Why do some people have no `description` or dates?** Wikidata entries vary widely in completeness; lesser-documented people may only have a name and a Wikidata ID.
+**What happens for ancient people?** BCE dates are returned as negative years, e.g. Socrates has `birthDate` `-0470` and `birthYear` `-470`.
 
-**Does this include non-English names or sources?** Entity labels and descriptions fall back to another available language when no English one is set, but `wikipediaUrl` only resolves the English Wikipedia article.
+**Are living people included?** Set `deceasedOnly` to `false`.
 
-**How fresh is the data?** Each run queries Wikidata live, so results reflect whatever the community has most recently edited.
-
-**How do I find a person's Wikidata entity ID in advance?** Search for them on wikidata.org — the ID (e.g. `Q937`) appears in the page URL and in the page's title bar.
+**Why does a search with a very common name return fewer rows than requested?** The search page window is bounded; narrow it with occupation, nationality or years, or switch to `browse`.

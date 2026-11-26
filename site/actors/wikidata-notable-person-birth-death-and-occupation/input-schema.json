@@ -1,30 +1,129 @@
 {
-  "description": "Search notable persons from WikiData knowledge base.",
+  "description": "Find notable people on Wikidata by name or by occupation, nationality, gender and birth/death year filters. No login or API key required.",
   "properties": {
+    "birthYearMax": {
+      "description": "Latest birth year to include. Leave empty for no upper bound.",
+      "maximum": 2100,
+      "minimum": -3000,
+      "title": "Birth year to",
+      "type": "integer"
+    },
+    "birthYearMin": {
+      "description": "Earliest birth year to include. Leave empty for no lower bound.",
+      "maximum": 2100,
+      "minimum": -3000,
+      "title": "Birth year from",
+      "type": "integer"
+    },
+    "deathYearMax": {
+      "description": "Latest death year to include. Leave empty for no upper bound.",
+      "maximum": 2100,
+      "minimum": -3000,
+      "title": "Death year to",
+      "type": "integer"
+    },
+    "deathYearMin": {
+      "description": "Earliest death year to include. Leave empty for no lower bound.",
+      "maximum": 2100,
+      "minimum": -3000,
+      "title": "Death year from",
+      "type": "integer"
+    },
     "deceasedOnly": {
       "default": true,
-      "description": "If true, only return persons with a known death date.",
+      "description": "Only return people with a recorded date of death.",
       "prefill": true,
-      "title": "Deceased persons only",
+      "title": "Deceased only",
       "type": "boolean"
     },
     "entityId": {
-      "description": "WikiData Q entity ID for mode=byId (e.g. Q937 for Albert Einstein).",
+      "description": "One or more Wikidata QIDs or entity URLs for Look up IDs mode, separated by commas or spaces, for example Q937, Q7186.",
       "editor": "textfield",
-      "title": "WikiData Entity ID",
+      "title": "Wikidata IDs",
       "type": "string"
     },
     "firstName": {
       "default": "John",
-      "description": "First name to search for.",
+      "description": "First name used when Full name is empty.",
       "editor": "textfield",
       "prefill": "John",
       "title": "First name",
       "type": "string"
     },
+    "gender": {
+      "default": "any",
+      "description": "Restrict results to a recorded gender.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "female",
+        "male"
+      ],
+      "enumTitles": [
+        "Any gender",
+        "Female",
+        "Male"
+      ],
+      "title": "Gender",
+      "type": "string"
+    },
+    "language": {
+      "default": "en",
+      "description": "Language for names, descriptions and resolved labels. Falls back to English when missing.",
+      "editor": "select",
+      "enum": [
+        "en",
+        "de",
+        "fr",
+        "es",
+        "it",
+        "pt",
+        "nl",
+        "pl",
+        "ru",
+        "uk",
+        "ja",
+        "zh",
+        "ar",
+        "fa",
+        "tr",
+        "sv",
+        "da",
+        "no",
+        "fi",
+        "cs"
+      ],
+      "enumTitles": [
+        "English",
+        "German",
+        "French",
+        "Spanish",
+        "Italian",
+        "Portuguese",
+        "Dutch",
+        "Polish",
+        "Russian",
+        "Ukrainian",
+        "Japanese",
+        "Chinese",
+        "Arabic",
+        "Persian",
+        "Turkish",
+        "Swedish",
+        "Danish",
+        "Norwegian",
+        "Finnish",
+        "Czech"
+      ],
+      "prefill": "en",
+      "sectionCaption": "Output",
+      "sectionDescription": "Choose how many records to return and how their labels are written.",
+      "title": "Label language",
+      "type": "string"
+    },
     "lastName": {
       "default": "Smith",
-      "description": "Last name to search for.",
+      "description": "Last name used when Full name is empty.",
       "editor": "textfield",
       "prefill": "Smith",
       "title": "Last name",
@@ -32,33 +131,51 @@
     },
     "maxItems": {
       "default": 10,
-      "description": "Maximum number of persons to return.",
-      "maximum": 200,
+      "description": "Maximum number of people to return (1-1000).",
+      "maximum": 1000,
       "minimum": 1,
       "prefill": 10,
-      "title": "Max items",
+      "title": "Maximum records",
       "type": "integer"
     },
     "mode": {
       "default": "search",
-      "description": "How to search for persons.",
+      "description": "Search a person by name, browse all people matching filters, or fetch specific Wikidata entity IDs.",
       "editor": "select",
       "enum": [
         "search",
+        "browse",
         "byId"
       ],
       "enumTitles": [
-        "Search persons by name",
-        "Fetch person by WikiData entity ID"
+        "Search by name",
+        "Browse by filters",
+        "Look up Wikidata IDs"
       ],
       "prefill": "search",
+      "sectionCaption": "Search",
+      "sectionDescription": "Choose how to find people, then fill the field for that mode.",
       "title": "Mode",
       "type": "string"
     },
-    "searchQuery": {
-      "description": "Full name to search for (overrides firstName/lastName if provided).",
+    "nationality": {
+      "description": "Country of citizenship QID or name, for example Q183 or Germany.",
       "editor": "textfield",
-      "title": "Search query",
+      "title": "Nationality",
+      "type": "string"
+    },
+    "occupation": {
+      "description": "Occupation QID or name, for example Q169470 or physicist.",
+      "editor": "textfield",
+      "sectionCaption": "Filters",
+      "sectionDescription": "Optional filters. They apply to Search and Browse modes and are combined with AND.",
+      "title": "Occupation",
+      "type": "string"
+    },
+    "searchQuery": {
+      "description": "Full name to search for (overrides first and last name), for example \"Marie Curie\". Leave empty when using Browse or Look up IDs.",
+      "editor": "textfield",
+      "title": "Full name",
       "type": "string"
     }
   },
@@ -66,6 +183,6 @@
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "WikiData Notable Persons Scraper Input",
+  "title": "Wikidata Notable People Input",
   "type": "object"
 }

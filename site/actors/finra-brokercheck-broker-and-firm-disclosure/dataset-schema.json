@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "views": {
-    "overview": {
+    "brokers": {
       "display": {
         "component": "table",
         "properties": {}
@@ -10,7 +10,52 @@
       "transformation": {
         "fields": [
           "fullName",
+          "individualId",
           "firmName",
+          "firmState",
+          "scope",
+          "iaScope",
+          "hasDisclosures",
+          "disclosureCount",
+          "examCount",
+          "industryStartDate",
+          "profileUrl"
+        ]
+      }
+    },
+    "firms": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Firms",
+      "transformation": {
+        "fields": [
+          "firmName",
+          "firmId",
+          "bdSecNumber",
+          "firmStatus",
+          "firmState",
+          "scope",
+          "iaScope",
+          "hasDisclosures",
+          "disclosureCount",
+          "branchesCount",
+          "profileUrl"
+        ]
+      }
+    },
+    "overview": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Broker & firm records",
+      "transformation": {
+        "fields": [
+          "fullName",
+          "firmName",
+          "recordType",
           "scope",
           "disclosureCount",
           "currentEmploymentCount",

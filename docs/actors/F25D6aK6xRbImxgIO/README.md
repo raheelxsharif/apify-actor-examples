@@ -4,125 +4,133 @@
 
 # FINRA BrokerCheck Broker & Firm Disclosure Lookup
 
-FINRA BrokerCheck is the official US database for verifying securities brokers and investment firms. This actor searches it by broker name, firm name or state, and surfaces registration status, current employers and whether a disclosure is on file.
+FINRA BrokerCheck is the public registry of US securities brokers and broker-dealer / investment-adviser firms. This actor searches that registry, resolves exact CRDs, and returns regulatory profiles: registration scope, current and previous employers, exams, state and SRO registrations, firm owners, and disclosure events.
 
-## What this actor does
+Every request is cookieless and credential-free. FINRA's public BrokerCheck API is queried directly, so there is no browser, proxy or login step.
 
-- Searches individual brokers by name and returns their public regulatory profile
-- Searches investment firms by name
-- Filters broker search results to a specific US state
-- Filters broker search results to only those with a reported disclosure on file
-- Empty fields are omitted from records
+## Modes
 
-## Output per broker
+| Mode | What it does |
+|---|---|
+| `searchBrokers` | Search individuals by name, CRD or BrokerCheck URL; optional state and status filters |
+| `firmSearch` | Search firms by name, CRD or BrokerCheck URL; optional state and status filters |
+| `searchByState` | Browse brokers registered in a US state; a name narrows the search, otherwise A-Z/0-9 scanning is used |
+| `disclosureSearch` | Return only brokers with a disclosure flag on file; a name narrows the search |
+| `brokerProfiles` | Fetch exact broker profiles from a list of CRDs or profile URLs |
+| `firmProfiles` | Fetch exact firm profiles from a list of CRDs or profile URLs |
 
-- `individualId` — FINRA individual source ID
-- `firstName`, `middleName`, `lastName`, `fullName` — broker's name
-- `otherNames` — aliases or other known names on file
-- `scope` — broker-dealer registration status, e.g. `Active`, `Inactive`
-- `iaScope` — investment adviser registration status
-- `hasDisclosures` — whether the broker has any reported disclosure
-- `approvedRegistrationCount` — number of approved FINRA registrations
-- `employmentsCount` — total employment history count
-- `industryStartDate` — date the broker entered the industry
-- `currentEmployments` — list of current employer(s) with firm ID, name, city, state and zip
-- `currentEmploymentCount` — number of current employment records
-- `firmName`, `firmState` — primary current employer and its state
-- `profileUrl`, `sourceUrl` — link to the broker's public BrokerCheck profile
-- `recordType` — always `broker`
-- `scrapedAt` — timestamp of extraction
-
-## Output per firm
-
-- `firmId` — FINRA firm source ID
-- `firmName`, `iaFirmName` — firm name and investment-adviser firm name
-- `bdSecNumber`, `bdFullSecNumber`, `iaSecNumber` — SEC registration numbers
-- `otherNames` — other known firm names
-- `scope`, `iaScope` — broker-dealer and investment-adviser registration status
-- `hasDisclosures`, `iaHasDisclosures` — whether the firm has a reported broker-dealer or investment-adviser disclosure
-- `approvedRegistrationCount` — number of approved registrations
-- `branchesCount` — number of branch offices
-- `address` — firm address: street, city, state, zip
-- `firmState`, `firmCity` — firm headquarters location
-- `profileUrl`, `sourceUrl` — link to the firm's public BrokerCheck profile
-- `recordType` — always `firm`
-- `scrapedAt` — timestamp of extraction
+Search results are paginated 100 at a time until `maxItems` or the source total is reached. Duplicate CRDs are removed across pages and scan queries. Scans stop after 50 pages (5,000 records) per query. `enrichDetails` adds one profile request per record for the full dataset; leave it off for fast list building.
 
 ## Input
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | string | `searchBrokers` | `searchBrokers`, `firmSearch`, `searchByState` or `disclosureSearch` |
-| `name` | string | `John Smith` | Broker name to search (modes=searchBrokers, searchByState, disclosureSearch; also used as a fallback for firmSearch) |
-| `firmName` | string | – | Firm name to search (mode=firmSearch) |
-| `state` | string | – (any) | Two-letter US state code to filter brokers by location (mode=searchByState) |
-| `disclosuresOnly` | boolean | `false` | Only return brokers with at least one disclosure (mode=disclosureSearch) |
-| `maxItems` | integer | `20` | Maximum number of records to return (1–1000) |
+| Field | Default | Description |
+|---|---|---|
+| `mode` | `searchBrokers` | One of the six modes above |
+| `name` | `John Smith` | Broker name, CRD or individual profile URL |
+| `firmName` | – | Firm name, CRD or firm profile URL (firmSearch) |
+| `firmNameOrCrd` | – | Constrain broker searches to one employer; leave `name` empty to scan that firm's reps |
+| `crdNumbers` | `[]` | CRDs or profile URLs for the profile modes |
+| `state` | any | US state filter (required for searchByState) |
+| `status` | `all` | `active`, `previouslyRegistered`, `barred` (brokers) or `expelled` (firms) |
+| `disclosuresOnly` | `false` | Keep only records with a disclosure flag |
+| `includePrevious` | `true` | Include previous employment history |
+| `enrichDetails` | `true` | Fetch each record's full BrokerCheck profile |
+| `includeDisclosures` | `true` | Emit disclosure events when details are fetched |
+| `maxItems` | `20` | Hard cap on emitted records (1–1000) |
 
-### Example: search brokers by name
+Legacy saved-task keys (`query`, `searchQuery`, `searchType`, `maxResults`, `stateCode`, `disclosureOnly`, `crd`, `profileUrls`, `fetchDetails` and similar) are still accepted: they are mapped onto the fields above inside the actor and are not shown in the input form.
 
-```json
-{
-  "mode": "searchBrokers",
-  "name": "John Smith",
-  "maxItems": 20
-}
-```
+### Examples
 
-### Example: search firms by name
-
-```json
-{
-  "mode": "firmSearch",
-  "firmName": "Goldman Sachs",
-  "maxItems": 10
-}
-```
-
-### Example: brokers in one state
+Search brokers by name:
 
 ```json
-{
-  "mode": "searchByState",
-  "name": "Smith",
-  "state": "CA",
-  "maxItems": 50
-}
+{ "mode": "searchBrokers", "name": "John Smith", "maxItems": 20 }
 ```
 
-### Example: brokers with disclosures on file
+Find brokers with disclosures in California:
 
 ```json
 {
   "mode": "disclosureSearch",
   "name": "Smith",
+  "state": "CA",
   "disclosuresOnly": true,
-  "maxItems": 20
+  "maxItems": 50
 }
 ```
 
+Fetch exact profiles by CRD or URL:
+
+```json
+{
+  "mode": "brokerProfiles",
+  "crdNumbers": ["6808119", "https://brokercheck.finra.org/individual/summary/810315"],
+  "maxItems": 2
+}
+```
+
+Search firms:
+
+```json
+{ "mode": "firmSearch", "firmName": "Vanguard", "state": "CA", "maxItems": 10 }
+```
+
+## Output
+
+Broker records include:
+
+- `individualId` (CRD), `firstName`, `middleName`, `lastName`, `nameSuffix`, `fullName`, `otherNames`
+- `scope` and `iaScope` — broker-dealer and investment-adviser registration scope
+- `hasDisclosures`, `hasIADisclosures`, `hasAnyDisclosures`, `permanentBar`
+- `disclosures` — dated events with type, resolution, allegations, sanctions, broker comment and extra detail fields
+- `disclosureCount`, `approvedRegistrationCount`, `employmentsCount`, `examCount`
+- `currentEmployments`, `currentIAEmployments`, `previousEmployments`, `previousIAEmployments` — firm IDs, names, dates, locations and branch offices
+- `exams` — category, name, date and scope (Series 7, 63, 65, 66, SIE and others)
+- `registeredStates`, `registeredSROs`, `registrationCounts`
+- `industryStartDate`, `industryDays`, `brokerDetails`
+- `profileUrl`, `sourceUrl` and, where FINRA publishes one, `detailedReportUrl` (PDF)
+- `recordType` = `broker`, `scrapedAt`
+
+Firm records include:
+
+- `firmId` (CRD), `firmName`, `iaFirmName`, `otherNames`, `bdSecNumber`, `bdFullSecNumber`, `iaSecNumber`, `iaFullSecNumber`
+- `scope`, `iaScope`, `firmStatus`, `firmStatusDate`, `firmType`, `regulator`, `formedDate`, `formedState`, `districtName`
+- `hasDisclosures`, `iaHasDisclosures`, `hasAnyDisclosures`
+- `disclosures` — disclosure types with counts, plus `disclosureCount`
+- `address`, `iaAddress`, `firmState`, `firmCity`, `iaFirmState`, `iaFirmCity`
+- `approvedRegistrationCount`, `branchesCount`, `registrationCounts`, `businessTypeCount`, `registeredStates`
+- `directOwners` — legal name, position, scope and CRD
+- `profileUrl`, `sourceUrl`, `detailedReportUrl` (PDF) where available
+- `recordType` = `firm`, `scrapedAt`
+
+Fields with no data on file are omitted at every depth. Empty strings, empty lists, empty objects and nulls are never emitted.
+
 ## Use cases
 
-- **Investor due diligence** — verify a broker's registration status before trusting their advice
-- **Background checks** — screen a financial advisor or firm for reported disclosures
-- **Compliance monitoring** — track registration and employment changes for brokers you work with
-- **Firm research** — look up SEC numbers, branch counts and registration status for an investment firm
-- **Regional broker surveys** — pull every broker record tied to a given state
+- **Hiring and onboarding diligence** — confirm a broker's CRD, registration scope and current employer before an offer
+- **Investor checks** — review a financial professional's disclosure events, allegations and sanctions
+- **Compliance monitoring** — track registration status, barred or expelled flags and employer changes
+- **Firm research** — look up SEC numbers, status dates, branch counts, direct owners and disclosure totals
+- **List building** — pull brokers registered in a state or brokers with disclosures, then enrich only the records you need
+
+## Data source and limitations
+
+- Source: FINRA BrokerCheck public API (`api.brokercheck.finra.org`) and public PDF reports (`files.brokercheck.finra.org`). No affiliation with FINRA.
+- The search endpoint caps a page at 100 records. Deep pagination and letter-based scans stop after 50 pages (5,000 records) per query; narrow the name, state, firm or status to reach more.
+- FINRA's search API has no server-side disclosure filter. `disclosuresOnly` and `disclosureSearch` scan result pages client-side, so rare names take longer.
+- Firm disclosure output lists event types and counts; FINRA exposes individual narrative disclosures for people, while firm narratives are only in the linked PDF report.
+- FINRA's state filter matches records with a registration or employment location in that state. It can include people whose current office is elsewhere, so treat it as "has a connection to this state" rather than "currently works here".
+- `detailedReportUrl` is only emitted for records that have a BrokerCheck report published; some investment-adviser-only records do not.
 
 ## FAQ
 
-**Is this affiliated with FINRA?** No. This is an independent lookup tool and is not affiliated with or endorsed by FINRA.
+**Do I need a FINRA account, API key or cookies?** No. All modes work anonymously.
 
-**Do I need FINRA credentials?** No. BrokerCheck's public broker and firm data is accessible without authentication.
+**Why are some profile fields missing?** FINRA does not publish every field for every record. Omitted fields mean no value is on file, never an empty placeholder.
 
-**What isn't included in the output?** Detailed disclosure documents, exam scores and private contact information aren't exposed through the public data this actor reads.
+**How current is the data?** BrokerCheck is refreshed by FINRA as firms file registration updates; each record carries a `scrapedAt` timestamp.
 
-**What does `hasDisclosures` tell me, and where do I read the details?** It flags whether at least one disclosure exists on the broker or firm's record; for the full disclosure narrative, visit the `profileUrl` for that broker or firm directly.
+**Can I fetch a firm's entire representative roster?** Set `firmNameOrCrd` to the firm name or CRD and leave `name` empty: the actor scans its current representatives. Add a state or status filter for large firms; very large rosters are bounded by the 5,000-record scan cap per query.
 
-**Can I get a broker's full employment history?** The output includes current employments and a total employment count; full historical employment detail is only on the broker's BrokerCheck profile page itself.
-
-**How current is the data?** FINRA updates BrokerCheck's underlying records regularly, so results reflect close-to-current registration and disclosure status.
-
-**What's the difference between `scope` and `iaScope`?** `scope` reflects broker-dealer registration status; `iaScope` reflects investment-adviser registration status — a person or firm can be registered under one, both, or neither.
-
-**Why do firm searches sometimes return fewer fields than expected?** Not every firm field (e.g. `iaFirmName`, branch counts) is populated for every firm; fields with no data on file are omitted rather than shown empty.
+**What is the difference between `hasDisclosures` and `iaHasDisclosures`?** The first reflects broker-dealer disclosure flags, the second investment-adviser flags. `hasAnyDisclosures` combines them.

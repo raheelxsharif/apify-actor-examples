@@ -1,106 +1,312 @@
 {
-  "description": "Search Geizhals products, compare prices, or browse hardware categories on geizhals.at and sister sites.",
+  "description": "Search Geizhals, browse a hardware category, look up product ids/URLs, or list current price drops. Prices are EUR, cookieless, no proxy needed.",
   "properties": {
     "category": {
-      "default": "nb",
-      "description": "Geizhals category to browse.",
+      "default": "gra16_512",
+      "description": "Hardware category used by categoryBrowse mode.",
       "editor": "select",
       "enum": [
+        "gra16_512",
+        "cpuamdam4",
+        "mainboards",
+        "ramddr3",
+        "hdssd",
+        "hde7s",
+        "monlcd19wide",
+        "kb",
+        "mouse",
+        "sphd",
+        "cam",
+        "gehps",
+        "gehatx",
+        "cpucooler",
         "nb",
+        "nbtabl",
+        "sysdiv",
+        "prl",
+        "pri",
+        "dr3d",
+        "sm_usb",
         "cpu",
         "gra",
         "ram",
         "hd",
         "monitor",
         "keyboard",
-        "mouse",
         "printer",
         "usb"
       ],
       "enumTitles": [
-        "Notebooks / Laptops",
-        "Processors (CPU)",
-        "Graphics Cards (GPU)",
-        "RAM / Memory",
-        "Hard Drives & SSDs",
+        "Graphics Cards (PCIe)",
+        "Processors (CPUs)",
+        "Mainboards",
+        "Memory (RAM)",
+        "Solid State Drives (SSD)",
+        "Hard Drives (HDD)",
         "Monitors",
         "Keyboards",
         "Mice",
-        "Printers",
-        "USB Devices"
+        "Headphones & Headsets",
+        "Webcams & Conference Systems",
+        "Power Supplies",
+        "PC Cases",
+        "CPU Coolers",
+        "Notebooks",
+        "Tablets",
+        "Prebuilt PCs",
+        "Laser Printers",
+        "Inkjet Printers",
+        "3D Printers",
+        "USB Flash Drives",
+        "Processors (legacy code)",
+        "Graphics Cards (legacy code)",
+        "Memory (legacy code)",
+        "SSD/HDD (legacy code)",
+        "Monitors (legacy code)",
+        "Keyboards (legacy code)",
+        "Printers (legacy code)",
+        "USB Flash Drives (legacy code)"
       ],
-      "prefill": "nb",
-      "title": "Category (mode=categoryBrowse)",
+      "prefill": "gra16_512",
+      "title": "Category to browse",
       "type": "string"
     },
-    "country": {
-      "default": "at",
-      "description": "Geizhals country site to use.",
+    "dealSort": {
+      "default": "percent",
+      "description": "Ordering for deals mode.",
       "editor": "select",
       "enum": [
-        "at",
-        "de",
-        "pl",
-        "uk"
+        "percent",
+        "price",
+        "latest",
+        "popularity",
+        "top"
       ],
       "enumTitles": [
-        "Austria (geizhals.at)",
-        "Germany (geizhals.de)",
-        "Poland (geizhals.pl)",
-        "United Kingdom (skinflint.co.uk)"
+        "Biggest discount",
+        "Lowest price",
+        "Latest drops",
+        "Most popular",
+        "Top deals first"
       ],
-      "prefill": "at",
-      "title": "Country site",
+      "prefill": "percent",
+      "title": "Deals sort order",
       "type": "string"
     },
+    "includePriceHistory": {
+      "default": false,
+      "description": "Add a price-history summary and change series to productDetails records (one extra request per product).",
+      "prefill": false,
+      "title": "Include price history",
+      "type": "boolean"
+    },
+    "includeSpecifications": {
+      "default": true,
+      "description": "Add the product specification table to each record when the source provides it.",
+      "prefill": true,
+      "title": "Include specifications",
+      "type": "boolean"
+    },
     "keyword": {
-      "default": "monitor",
-      "description": "Keyword to search for (mode=search or categoryBrowse).",
+      "default": "rtx 4070",
+      "description": "Free-text product search (search mode) or a filter inside the chosen category (categoryBrowse mode). Not used by productDetails or deals.",
       "editor": "textfield",
-      "prefill": "monitor",
+      "prefill": "rtx 4070",
       "title": "Search keyword",
+      "type": "string"
+    },
+    "manufacturer": {
+      "description": "Optional brand filter for search and categoryBrowse (e.g. ASUS, MSI, Samsung). A numeric Geizhals manufacturer id also works in search mode.",
+      "editor": "textfield",
+      "title": "Manufacturer / brand",
+      "type": "string"
+    },
+    "market": {
+      "default": "de",
+      "description": "Country site and pricing market. Austria and Germany are fully supported.",
+      "editor": "select",
+      "enum": [
+        "de",
+        "at"
+      ],
+      "enumTitles": [
+        "Germany (geizhals.de)",
+        "Austria (geizhals.at)"
+      ],
+      "prefill": "de",
+      "title": "Market",
       "type": "string"
     },
     "maxItems": {
       "default": 20,
-      "description": "Maximum number of products to return.",
-      "maximum": 500,
+      "description": "Maximum records to return.",
+      "maximum": 1000,
       "minimum": 1,
-      "prefill": 20,
+      "prefill": 10,
       "title": "Max items",
       "type": "integer"
     },
+    "maxOffers": {
+      "default": 5,
+      "description": "How many shop offers to include per product in productDetails mode (cheapest first).",
+      "maximum": 20,
+      "minimum": 1,
+      "prefill": 5,
+      "title": "Offers per product",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Optional highest acceptable price. Used by search, categoryBrowse and deals.",
+      "minimum": 0,
+      "title": "Maximum price (EUR)",
+      "type": "number"
+    },
+    "minDiscountPercent": {
+      "description": "Deals mode: keep only price drops of at least this percentage.",
+      "maximum": 99,
+      "minimum": 0,
+      "title": "Minimum discount (%)",
+      "type": "number"
+    },
+    "minPrice": {
+      "description": "Optional lowest acceptable price. Used by search and categoryBrowse.",
+      "minimum": 0,
+      "title": "Minimum price (EUR)",
+      "type": "number"
+    },
     "mode": {
       "default": "search",
-      "description": "What to scrape.",
+      "description": "What to scrape: keyword search, category browse, product lookup, or current deals.",
       "editor": "select",
       "enum": [
         "search",
-        "productPrices",
-        "categoryBrowse"
+        "categoryBrowse",
+        "productDetails",
+        "deals",
+        "productPrices"
       ],
       "enumTitles": [
         "Search products by keyword",
-        "Get price comparison for product URLs",
-        "Browse products by category"
+        "Browse a hardware category",
+        "Look up product ids or URLs",
+        "Current price drops",
+        "Look up product ids or URLs (legacy alias)"
       ],
       "prefill": "search",
       "title": "Mode",
       "type": "string"
     },
-    "productUrls": {
+    "priceHistoryDays": {
+      "default": "31",
+      "description": "Days of price history for productDetails when includePriceHistory is on.",
+      "editor": "select",
+      "enum": [
+        "31",
+        "91",
+        "183",
+        "365"
+      ],
+      "enumTitles": [
+        "31 days",
+        "91 days",
+        "183 days",
+        "365 days"
+      ],
+      "prefill": "31",
+      "title": "Price history window",
+      "type": "string"
+    },
+    "productIds": {
       "default": [],
-      "description": "List of Geizhals product comparison page URLs.",
+      "description": "Geizhals product ids (e.g. 3103639) or product page URLs (e.g. https://geizhals.de/...-a3103639.html). Used by productDetails mode.",
       "editor": "stringList",
       "prefill": [],
-      "title": "Product URLs (mode=productPrices)",
+      "title": "Product ids or URLs",
       "type": "array"
+    },
+    "searchCategory": {
+      "default": "all",
+      "description": "Restrict keyword search to one hardware category, or search the whole catalogue.",
+      "editor": "select",
+      "enum": [
+        "all",
+        "gra16_512",
+        "cpuamdam4",
+        "mainboards",
+        "ramddr3",
+        "hdssd",
+        "hde7s",
+        "monlcd19wide",
+        "kb",
+        "mouse",
+        "sphd",
+        "cam",
+        "gehps",
+        "gehatx",
+        "cpucooler",
+        "nb",
+        "nbtabl",
+        "sysdiv",
+        "prl",
+        "pri",
+        "dr3d",
+        "sm_usb"
+      ],
+      "enumTitles": [
+        "All categories",
+        "Graphics Cards (PCIe)",
+        "Processors (CPUs)",
+        "Mainboards",
+        "Memory (RAM)",
+        "Solid State Drives (SSD)",
+        "Hard Drives (HDD)",
+        "Monitors",
+        "Keyboards",
+        "Mice",
+        "Headphones & Headsets",
+        "Webcams & Conference Systems",
+        "Power Supplies",
+        "PC Cases",
+        "CPU Coolers",
+        "Notebooks",
+        "Tablets",
+        "Prebuilt PCs",
+        "Laser Printers",
+        "Inkjet Printers",
+        "3D Printers",
+        "USB Flash Drives"
+      ],
+      "prefill": "all",
+      "title": "Search category",
+      "type": "string"
+    },
+    "sort": {
+      "default": "relevance",
+      "description": "Search and categoryBrowse sorting. Newest and best rated apply to categoryBrowse; search falls back to relevance.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "priceAsc",
+        "priceDesc",
+        "newest",
+        "bestRated"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Price: low to high",
+        "Price: high to low",
+        "Newest listings",
+        "Best rated"
+      ],
+      "prefill": "relevance",
+      "title": "Sort order",
+      "type": "string"
     }
   },
   "required": [
     "mode"
   ],
   "schemaVersion": 1,
-  "title": "Geizhals Scraper Input",
+  "title": "Geizhals DACH Hardware Price Comparison Input",
   "type": "object"
 }
