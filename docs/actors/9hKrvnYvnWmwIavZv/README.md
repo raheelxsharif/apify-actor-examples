@@ -20,16 +20,18 @@ Pull real estate listings from [lamudi.com.ph](https://www.lamudi.com.ph/) — t
 
 - `listingId`, `title`, `propertyUrl`, `sourceUrl`
 - `description`
-- `transactionType` — `buy` or `rent`
-- `price`, `currency`, `priceUnit` (rent listings only, e.g. `month`), `availability`
+- `transactionType` — `buy` or `rent` (from the listing URL or its "For Sale"/"For Rent" title)
+- `propertyType` — `condo`, `house`, `apartment`, `land`, `commercial`, `foreclosures` or `short-term` when the listing title states it
+- `price`, `currency`, `priceUnit` (rent listings only, e.g. `month`), `pricePerSqm` (price ÷ floor area), `availability`
 - `bedrooms`, `bathrooms`, `floorSizeSqm`
 - `region`, `city`, `streetAddress`, `country`
 - `neighborhood` — barangay/district name (present on detail-page fetches only, `mode=byUrls` with an exact listing URL)
 - `latitude`, `longitude`
 - `imageUrl` — cover photo
-- `imageUrls[]` — full photo gallery (present on detail-page fetches, `mode=byUrls` with an exact listing URL)
-- `amenities[]` — building/unit amenities (present on detail-page fetches)
-- `agencyName`, `agencyUrl`, `agencyVerification` (e.g. `Fully verified`), `agencyPhone` — publisher identity/contact, present on detail-page fetches only (`mode=byUrls` with an exact listing URL)
+- `imageUrls[]` — full photo gallery (read from the detail page's JSON-LD image array and gallery HTML, `mode=byUrls` with an exact listing URL)
+- `amenities[]` — building/unit amenities (present on detail-page fetches; search cards usually omit them)
+- `agencyName`, `agencyUrl`, `agencyVerification` (e.g. `Fully verified`), `agencyPhone` — public publisher identity/contact, present on detail-page fetches
+- `datePosted`, `dateModified` — ISO dates from the detail page when published
 - `recordType: "listing"`, `scrapedAt`
 
 ## Input
@@ -86,6 +88,10 @@ Pull real estate listings from [lamudi.com.ph](https://www.lamudi.com.ph/) — t
 }
 ```
 
+## Compatibility
+
+Saved tasks that use older key names still work: `urls`, `startUrls`, `maxResults`, `priceMin`/`priceMax`, `bedrooms`, `bathrooms`, `type`, `transaction`, `province`, `city`, `sort` and `query` are mapped onto the current fields in code. They are intentionally not shown in the input form; the schema only lists fields the actor currently uses.
+
 ## Use cases
 
 - **PropTech aggregators** — feed Philippine listing data into a cross-portal property search app
@@ -97,7 +103,7 @@ Pull real estate listings from [lamudi.com.ph](https://www.lamudi.com.ph/) — t
 
 ## FAQ
 
-**Do I need a proxy or login?** No. The actor reads lamudi.com.ph's public listing pages directly — no cookies, no API key, no residential proxy.
+**Do I need a proxy or login?** No. The actor reads lamudi.com.ph's public listing pages directly — no cookies, no API key, no residential proxy. It sends normal browser navigation headers and automatically retries through Apify Proxy if Lamudi's WAF challenges or rate-limits an IP.
 
 **How current is the data?** Every run fetches live data at request time; nothing is cached. Sold/rented or removed listings simply won't appear.
 
@@ -107,11 +113,19 @@ Pull real estate listings from [lamudi.com.ph](https://www.lamudi.com.ph/) — t
 
 **Can I see who's listing the property?** `mode=byUrls` with an exact listing URL also returns the publisher/agency name, its Lamudi profile URL, and its verification badge (e.g. `Fully verified`).
 
-**Can I get every photo, not just the cover image?** Yes — `mode=byUrls` with an exact listing URL returns `imageUrls[]`, the full photo gallery from the listing page (in addition to `imageUrl`, the single cover photo also available on search results).
+**Can I get every photo, not just the cover image?** Yes — `mode=byUrls` with an exact listing URL returns `imageUrls[]`, the full photo gallery from the detail page's JSON-LD and gallery markup (in addition to `imageUrl`, the single cover photo also available on search results).
+
+**Do price filters run on Lamudi's server?** Lamudi currently ignores `price_min`/`price_max` on category pages, so min/max price and the other ranges are applied client-side while the actor paginates. Bedroom/bathroom equality and floor-area filters are also sent server-side when possible. Results are always filtered to the range you request.
+
+**Why is a region empty?** Some provinces have no active listings for the selected property type and transaction. That is a genuine zero-result page, not a crash.
 
 ## Limitations
 
 - Coverage is the Philippines site (`lamudi.com.ph`) only; Lamudi's Indonesia and Mexico sites use different platforms and are not covered by this actor.
 - `region`/`location` map to Lamudi's own URL taxonomy; an unrecognized city/area slug simply returns 0 results (no crash).
+- Lamudi serves 30 listings per page and exposes no result total in the HTML. The actor paginates until `maxItems` is reached or the catalogue ends; the option cap is 1,000 rows.
+- Search-result cards omit some detail-only data: amenities are usually absent, and bedrooms/bathrooms/floor area are present on roughly 6/10–9/10 of cards. Use `mode=byUrls` for complete detail pages.
+- A "new listings only" monitoring mode (offered by some competitors) is not implemented; run the actor on a schedule and diff `listingId` yourself.
+- Philippine portal (`lamudi.com.ph`) only; Lamudi Mexico/Indonesia use a different platform and are not covered.
 - Personal agent contact details (phone/email) are not part of the public listing data and are not included; only the publicly displayed agency/publisher name, profile URL and verification badge are.
 - `propertyUrl`/`sourceUrl` open normally in a real browser, but lamudi.com.ph's CloudFront WAF returns 401/403 to bare `curl` or non-browser HTTP clients without a full browser TLS/JS fingerprint — this is expected and does not indicate a broken link.

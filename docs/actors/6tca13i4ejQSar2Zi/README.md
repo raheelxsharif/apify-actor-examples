@@ -4,118 +4,134 @@
 
 # KKday Tours, Tickets & Activity Catalog Scraper
 
-Pull catalog data from **KKday**, one of Asia's largest marketplaces for tours, tickets, and activities, with products across 90+ countries. Search products, browse by city or category, or pull product details from a URL, with price ranges, ratings, image galleries, destinations, and sale status. No login required.
+Collect KKday's tours, tickets and activities without cookies, logins or a browser. Search by
+keyword, browse a city or category, or paste product and list URLs. Every record carries current
+prices, discounts, ratings, booking counts, badges, destinations, categories, images and a
+canonical product URL; product-URL runs also return the full description, address, coordinates,
+refund policy, how-to-use text and FAQs.
 
-## What this actor does
+## Modes
 
-- **Four modes:** `search`, `browseByCity`, `browseByCategory`, `byUrl`
-- **Search & browse:** free-text search, 36 curated city enums, 12 category enums, 5 sort options
-- **Filters:** min rating, min/max price, on-sale only
-- **Rich product data:** price ranges and official price, ratings and review counts, image galleries, destinations, display tags (instant confirmation, free cancellation), sale status
-- **Full detail records** (mode `byUrl`): description, offer count, structured pricing
-- **Pagination:** walks all result pages up to `maxItems`
-- **Empty fields are omitted**
-
-## Output per product
-
-- `productId`, `productMid`, `title`, `introduction`, `description` (byUrl)
-- `minPrice`, `maxPrice`, `officialPrice`, `discountPercent`, `currency`, `offerCount` (byUrl)
-- `averageRating`, `ratingCount`
-- `imageUrls[]`, `displayTags[]`
-- `category`, `subCategories[]`, `destinations[]`, `destinationCodes[]`
-- `saleStatus`, `isMarketplace`
-- `sourceUrl`, `recordType: "product"`, `scrapedAt`
+| Mode | What it does |
+|---|---|
+| `search` | Free-text keyword or destination search |
+| `browseByCity` | Browse a curated city (36 destinations) |
+| `browseByCategory` | Browse any of KKday's 93 categories, worldwide or narrowed by a city |
+| `byUrl` | Enrich product detail URLs, or run KKday search/city/category list URLs |
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `browseByCity` / `browseByCategory` / `byUrl` |
-| `searchQuery` | string | `paris` | Free-text query (mode=search) |
-| `city` | string | – | City to browse, mode=browseByCity (36 curated cities) |
-| `category` | string | – | Category to browse (mode=browseByCategory) |
-| `sortBy` | string | `relevance` | Relevance / popularity / rating / price asc / price desc |
-| `minRating` | int | – | Min average rating (1–5) |
-| `minPrice` | int | – | Min product price (1–100000) |
-| `maxPrice` | int | – | Max product price (1–100000) |
-| `onSaleOnly` | boolean | `false` | Only products currently on sale |
-| `startUrls` | array | – | Product URLs (mode=byUrl) |
-| `maxItems` | int | `50` | Hard cap (1–1000) |
-| `proxyConfiguration` | object | off | Optional Apify proxy; used automatically only on HTTP 403/429 |
+| `mode` | select | `search` | `search` / `browseByCity` / `browseByCategory` / `byUrl` |
+| `searchQuery` | text | `paris` | Keyword or destination for `search` |
+| `city` | select | – | City for `browseByCity` (also optional in `browseByCategory`) |
+| `category` | select | – | KKday category ID; required for `browseByCategory`, optional filter elsewhere |
+| `sortBy` | select | `relevance` | KKday relevance, most booked, top rated, price low→high |
+| `serviceGuarantee` | select | – | Instant confirmation / easy refund / instant voucher / guaranteed departure / available during period |
+| `guidedLanguage` | select | – | English, Chinese (Traditional), French, Japanese, German, Spanish, Italian, Portuguese, Korean, Russian |
+| `trustedPartnerOnly` | boolean | `false` | Only certified Trusted Partners |
+| `minRating` | integer 1–5 | – | Minimum average rating; unrated products are kept |
+| `minPrice` | integer | – | Minimum lowest price (site currency) |
+| `maxPrice` | integer | – | Maximum lowest price (site currency) |
+| `onSaleOnly` | boolean | `false` | Only products with an active discount |
+| `startUrls` | array | – | Product URLs and/or KKday list/search/category URLs for `byUrl` |
+| `maxItems` | integer 1–1000 | `50` | Hard cap on emitted records |
+| `proxyConfiguration` | object | off | Optional; used only after KKday blocks a direct request |
 
-### Example: search products
+The daily prefill is `search` / `paris` / `maxItems=3`.
+
+## Output
+
+List records: `productId`, `productMid`, `title`, `introduction`, `averageRating`, `ratingCount`,
+`bookedCountText`, `bookedCount`, `currency`, `minPrice`, `maxPrice`, `officialPrice`,
+`discountRate`, `discountPercent`, `onSale`, `saleStatus`, `earliestSaleDate`,
+`isTourismProduct`, `isMarketplace`, `displayTags`, `badges`, `imageUrls`, `category`,
+`categoryName`, `subCategories`, `subCategoryNames`, `destinations`, `destinationCodes`,
+`sourceUrl`, `recordType`, `scrapedAt`.
+
+Product-URL records additionally include: `description`, `highlights`, `imageAlts`, `orderCount`,
+`wishlistCount`, `saleStartDate`, `saleEndDate`, `firstCreatedDate`, `productType`,
+`locationName`, `address`, `latitude`, `longitude`, `refundPolicy`, `howToUse`, `faqs`.
+Fields the source does not provide are omitted — never `null` or sentinel values.
+
+## Example — search
 
 ```json
 {
   "mode": "search",
   "searchQuery": "tokyo disneyland",
+  "sortBy": "rating",
+  "minRating": 4,
   "maxItems": 20
 }
 ```
 
-### Example: browse by city
-
-```json
-{
-  "mode": "browseByCity",
-  "city": "seoul",
-  "sortBy": "rating",
-  "minRating": 4
-}
-```
-
-### Example: browse by category
+## Example — category + service guarantee
 
 ```json
 {
   "mode": "browseByCategory",
-  "category": "theme-park",
-  "onSaleOnly": true
+  "category": "CATEGORY_001",
+  "serviceGuarantee": "instant-confirmation",
+  "maxItems": 30
 }
 ```
 
-### Example: fetch product by URL
+## Example — product and list URLs
 
 ```json
 {
   "mode": "byUrl",
   "startUrls": [
-    "https://www.kkday.com/en-us/product/120855-paris-museum-pass-france-europe"
-  ]
+    "https://www.kkday.com/en-us/product/120855-paris-museum-pass-france-europe",
+    "https://www.kkday.com/en-us/product/productlist/paris?product_categories=CATEGORY_004&sort=sdesc"
+  ],
+  "maxItems": 10
 }
 ```
 
 ## Data source
 
-- **Source:** Public kkday.com pages.
-- **Auth:** No login required.
-
-## Use cases
-
-- **Activity pricing intelligence** — track ticket and tour prices across destinations and categories
-- **Marketplace analytics** — monitor product supply, ratings, and sale activity per city
-- **Travel content** — enrich destination guides with real, bookable activity inventory
-- **Competitive monitoring** — watch KKday's catalog for new products and promotions
-- **Travel apps** — feed structured tour/ticket data into planning and comparison tools
+Public `kkday.com` product data: the site's own cookieless product-list JSON and product-detail
+JSON endpoints are read first, with the product-by-id JSON and server-rendered pages kept as
+fallbacks. No account, cookie or browser is required. It is not affiliated with KKday.
 
 ## FAQ
 
-**What is the data source?** The public KKday website (kkday.com) and its server-rendered product pages. This actor is not affiliated with KKday.
+**Does it need cookies or a login?** No. Product-list and detail pages are public.
 
-**What currency are prices in?** KKday serves its English site in USD by default; the `currency` field is included on every priced record.
+**What currency are prices in?** The English site prices in USD; `currency` is emitted on every
+priced record.
 
-**Why do some products have no price?** Products without published pricing omit the price fields — empty fields are always omitted.
+**Why did a run return no discount fields?** Many products are full price. `onSaleOnly` keeps
+only discounted products.
 
-**How fresh is the data?** Live — every run scrapes current search and product pages.
+**How does pagination work?** KKday serves 10 products per page; the actor walks the public
+product-list JSON pages until `maxItems`, the source's last page, or an empty page, falling back
+to the rendered list page if that JSON is unavailable.
 
-**Does this actor need cookies or login?** No.
+**Can I paste a KKday search or category URL?** Yes, in `byUrl` for `search` and
+`browseByCategory`; product URLs are enriched with detail fields.
 
-**Why is the proxy optional?** The actor fetches directly first and only retries through the configured proxy when the site returns 403/429.
+**Why is the proxy optional?** Direct requests work from normal hosts. If KKday returns 403/429
+or a challenge page, the actor automatically retries through a fresh Apify Proxy session; the
+public JSON endpoints stay reachable when the HTML shell is challenged. No proxy setup is needed.
 
-**What is `saleStatus`?** An integer from the site's payload (1 = on sale). Filter with `onSaleOnly` to keep only on-sale products.
+**What is `bookedCount`?** A numeric approximation of KKday's `30K+` style booking label; the
+original text is kept in `bookedCountText`.
 
 ## Limitations
 
-- Results are hard-capped at **1000 records per run** (`maxItems`).
-- Products without published pricing omit the price fields — empty fields are always omitted.
-- The actor fetches directly first and only retries through the configured proxy when the site returns 403/429.
+- `maxItems` is capped at **1,000 records per run**.
+- KKday has no price-descending sort; the four supported orders are listed above.
+- The `minPrice`/`maxPrice` filters are applied after each page is fetched, so a heavily filtered
+  run may read more pages than it emits.
+- Prices on `/en-us` are USD; other currencies need the matching KKday locale.
+- Product URLs use KKday's canonical product-mid number; the actor emits those canonical URLs.
+- If KKday's full detail JSON is temporarily challenged, a product-URL run emits the matching
+  catalog record for that product; detail-only fields are omitted rather than fabricated.
+- Video clips are only present in the page payload as filenames, with no public cookieless URL.
+- Per-package price tiers are not exposed in the server-rendered payload; `minPrice`, `maxPrice`
+  and `offerCount` come from KKday's aggregate offer.
+- Reviews are not part of this catalog actor.

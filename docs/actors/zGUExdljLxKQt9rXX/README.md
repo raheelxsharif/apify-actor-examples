@@ -4,61 +4,88 @@
 
 # HousingAnywhere Rental Listing & Price Scraper
 
-Pull mid- to long-term rental listings from [HousingAnywhere](https://housinganywhere.com) — rooms, studios and apartments across 400+ cities worldwide. Search any city with rich filters (property type, price, furniture, gender, bills included, cancellation policy, and more), or fetch full details for specific listing URLs. No login, no cookies, no paid proxy required.
+Collect mid- to long-term rental listings from [HousingAnywhere](https://housinganywhere.com) — private rooms, shared rooms, studios, apartments, houses and student residences across 400+ cities. Search a city or paste HousingAnywhere search links, filter by price, property type, bedrooms, bills, deposit, contract type, availability and more, and optionally enrich every row with the full detail page. No login, cookies or paid proxy needed.
 
-## What this actor does
+## Modes
 
-- **Two modes:** `search` (by city) and `listingDetails` (by direct listing URL)
-- **Global coverage** — any city HousingAnywhere lists (Europe, US, and more); just type a city name
-- **Rich filters** — property type, bedroom count, tenant type, furniture, gender, bills included, registration possible, cancellation policy, recently added, price range, move-in/move-out dates, sort order
-- **Optional deep enrichment** — turn on `includeDetails` to pull full descriptions, facilities, tenant preferences and photo galleries for every search result
-- **Empty fields are omitted** — every record only contains data that was actually found
+| Mode | What it does |
+|---|---|
+| `search` | Resolves a city name (or uses your `searchUrls`) and walks the result pages. Emits one row per rental. |
+| `listingDetails` | Fetches the listing URLs you provide. A `/room/...` URL emits one row; a `/s/...` residence URL emits one row per available unit type. |
 
-## Output per listing
+## What you get
 
-**Search mode** (list view):
-- `listingId`, `listingKind` (`room` or `property`)
-- `title`, `sourceUrl`, `imageUrl`
-- `priceFrom`, `priceTo`, `priceCurrency` (or `priceCurrencySymbol` when the symbol isn't one of the common ones recognized), `pricePeriod`, `billsIncluded`, `priceText`
-- `rating`, `reviewCount`
-- `availabilityText`, `isAvailableNow`, `availableFrom`
-- `facilitiesSummary`
-- `placesText` plus, depending on how HousingAnywhere labels the card, either `spaceForPersons` (occupancy, e.g. `"For 1 person"` → `1`) or `bedroomCount` (e.g. `"2 Bedrooms"` → `2`)
-- `sizeText`, `propertySizeM2` — only shown on cards HousingAnywhere tags with a floor area
-- `advertiserVerified` — `true` when the card carries a "Tenant-verified" badge
-- `city`, `country`, `searchLocation`
-- `recordType: "listing"`, `scrapedAt`
+Every row is flat, typed and omit-empty — empty fields are left out rather than sent as `null`.
 
-**With `includeDetails: true` or `listingDetails` mode**, additionally:
-- `description`, `advertiserName`, `propertyKind`
-- `propertySizeM2`, `bedroomCount`, `spaceForPersons`, `furnished`
-- `addressStreet`, `facilitiesText`
-- `tenantAge`, `tenantGenderPreference`, `tenantType`, `couplesAllowed`
-- `cancellationPolicyText`, `contractTypeText`, `registrationInfo`
-- `images[]` (full photo gallery)
+**Identity and source**
+- `listingId`, `unitTypeId`, `listingKind` (`room` / `property`), `listingRecordType`
+- `title`, `titleSource` (`composed` or `page`), `sourceUrl`, `propertyId`, `propertyAlias`
+- `propertyType`, `propertyTypeLabel`, `recordType`, `scrapedAt`
+
+**Price and costs**
+- `priceFrom`, `priceTo`, `priceText`, `priceCurrency`, `pricePeriod`
+- `basePrice`, `basePriceEUR`, `priceType`, `monthlyPrices`
+- `billsIncluded`, `depositPolicy`, `depositRequired`, `previousPrice`, `priceReducedUntil`
+- With details: `costBreakdown`, `securityDeposit`, `monthlyExtras`, `moveInCost`, `moveOutCost`, `refundableDeposit`
+
+`priceFrom` / `priceTo` are the monthly range advertised on the result card (or the monthly range stored on the listing). `basePrice` is the source's unadjusted base rent. Sorting follows the site's own index, which orders by the card's starting monthly price; `basePrice` is included so you can re-sort by base rent if needed.
+
+**Location and space**
+- `street`, `city`, `country`, `countryCode`, `latitude`, `longitude`
+- With details: `zip`, `neighborhood`, `addressStreet`
+- `propertySizeM2`, `sizeText`, `bedroomSizeM2`, `bedroomCount`, `bathroomCount`
+- `furnished`, `freePlaces`, `currentOccupancy`, `housemates`
+
+**Stay and policies**
+- `availableFrom`, `isAvailableNow`, `availabilityText`
+- `minimumStayMonths`, `maximumStayMonths`, `rentalPeriodType`
+- `cancellationPolicy`, `contractType`
+- With details: `bookablePeriods`, `unavailablePeriods`, `couplesAllowed`, `tenantAge`, `tenantGenderPreference`, `tenantType`, `registrationInfo`
+
+**Amenities and media**
+- `amenities`, `facilitiesSummary`, `facilitiesText`, `facilities`, `propertyFacilities`
+- `images`, `imageUrl`, `imageCount`, `photoCount`, `floorPlanCount`, `videoCount`, `photo360Count`, `has3DTour`
+
+**Advertiser and demand signals**
+- `advertiserId`, `advertiserName`, `landlordType`, `rating`, `reviewCount`
+- `advertiserAllRating`, `advertiserAllReviewCount`, `advertiserMoveInRating`, `advertiserMoveInReviewCount`
+- `successfulMoveInsCount`, `advertiserVerified`, `isExcellentAdvertiser`
+- With details: `advertiserType`, `advertiserDescription`, `advertiserLocation`, `advertiserLanguages`, `advertiserResponseRate`, `advertiserResponseTimeMinutes`, `advertiserTrusted`, `advertiserAvatarUrl`
+- `favoritesCount`, `isNew`, `zeroRisk`, `isPartner`, `isMultiUnit`
+
+**Search context**
+- `searchLocation`, `searchUrl`, `searchTotal`
+
+`rating` and `reviewCount` describe the advertiser's all-time tenant reviews (the number shown on the listing card). Move-in-specific scores are provided separately.
 
 ## Input
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `mode` | string | `search` | `search` / `listingDetails` |
-| `location` | string | `Berlin, Germany` | City to search (mode=search) — e.g. `Berlin`, `Amsterdam`, `New York` |
-| `listingUrls` | array | – | Listing URLs to fetch (mode=listingDetails) |
-| `propertyTypes` | array | – | `private-rooms` / `shared-rooms` / `apartment-for-rent` / `studio-for-rent` |
-| `bedroomCounts` | array | – | `1` / `2` / `3` / `3+` (apartments) |
-| `suitableFor` | array | – | `students` / `working-professionals` / `couples` |
-| `furniture` | string | – | `furnished` / `unfurnished` |
-| `gender` | string | – | `male` / `female` |
-| `billsIncluded` | string | – | `included` / `excluded` |
-| `registrationPossible` | string | – | `possible` / `not-possible` |
-| `cancellationPolicy` | string | – | `strict` / `flexible-30d` |
-| `recentlyAdded` | string | – | `1-day` / `3-days` / `7-days` / `14-days` |
-| `minPrice` / `maxPrice` | int | – | Monthly rent range, in the searched city's local currency |
-| `minRating` | number | – | Drop listings below this advertiser rating (0–5) |
-| `moveInDate` / `moveOutDate` | string | – | `YYYY-MM-DD` |
-| `sortBy` | string | `bestMatch` | `bestMatch` / `mostRecent` / `lowToHigh` / `highToLow` / `advertiserRating` |
-| `includeDetails` | boolean | `false` | Fetch each result's full detail page too (slower) |
-| `maxItems` | int | `30` | Hard cap (1–500) |
+| `mode` | string | `search` | `search` or `listingDetails` |
+| `location` | string | `Berlin, Germany` | City to search, e.g. `Berlin`, `Amsterdam`, `New York`. A HousingAnywhere search URL is also accepted. |
+| `searchUrls` | array | `[]` | Advanced: one or more `/s/...` search URLs, including localized paths and filters copied from the site. Use this for several cities or custom filters. |
+| `listingUrls` | array | `[]` | `/room/...` listing URLs or `/s/...` residence URLs for `listingDetails`. |
+| `propertyTypes` | array | `[]` | `private-rooms`, `shared-rooms`, `apartment-for-rent`, `studio-for-rent` |
+| `bedroomCounts` | array | `[]` | `1`, `2`, `3`, `4+` (legacy `3+` is mapped to `4+`) |
+| `suitableFor` | array | `[]` | `students`, `working-professionals`, `couples` |
+| `furniture` | string | `""` | `furnished` / `unfurnished` |
+| `gender` | string | `""` | `female` / `male` |
+| `billsIncluded` | string | `""` | `included` / `excluded` |
+| `registrationPossible` | string | `""` | `possible` / `not-possible` |
+| `cancellationPolicy` | string | `""` | `strict` / `30d-movein-flexible` (legacy `flexible-30d` is accepted) |
+| `depositPolicy` | string | `""` | `no_deposit` / `classical_deposit` |
+| `contractType` | string | `""` | `daily` / `fortnightly` / `monthly` |
+| `recentlyAdded` | string | `""` | `1-day` / `3-days` / `7-days` / `14-days` |
+| `availableNow` | boolean | `false` | Keep only listings available today or earlier. |
+| `minPrice` | integer | – | Minimum monthly rent in the city's local currency. |
+| `maxPrice` | integer | – | Maximum monthly rent in the city's local currency. |
+| `minRating` | number | – | Drop listings whose advertiser all-time rating is below this value (0–5). Listings without a rating are kept. |
+| `moveInDate` | string | – | Earliest move-in date, `YYYY-MM-DD`. |
+| `moveOutDate` | string | – | Latest move-out date, `YYYY-MM-DD`. |
+| `sortBy` | string | `bestMatch` | `bestMatch`, `mostRecent`, `lowToHigh`, `highToLow`, `advertiserRating` |
+| `includeDetails` | boolean | `false` | Fetch each search result's detail page for description, costs, amenities, policies, advertiser profile and full photo gallery. Adds one request per listing. |
+| `maxItems` | integer | `30` | Hard cap on emitted records (1–10000). The city's own total may be lower. |
 
 ### Example: furnished studios in Amsterdam, cheapest first
 
@@ -87,35 +114,66 @@ Pull mid- to long-term rental listings from [HousingAnywhere](https://housingany
 }
 ```
 
+### Example: several cities with filters copied from the site
+
+```json
+{
+  "mode": "search",
+  "searchUrls": [
+    "https://housinganywhere.com/s/Berlin--Germany/private-rooms?priceMax=80000",
+    "https://housinganywhere.com/s/Amsterdam--Netherlands/studio-for-rent"
+  ],
+  "maxItems": 200
+}
+```
+
 ### Example: fetch details for specific listings
 
 ```json
 {
   "mode": "listingDetails",
   "listingUrls": [
-    "https://housinganywhere.com/room/ut899723/de/Berlin/osnabr-cker-stra-e"
+    "https://housinganywhere.com/room/ut899723/de/Berlin/osnabr-cker-stra-e",
+    "https://housinganywhere.com/s/Lisbon--Portugal/student-accommodation/micampus-areeiro-2463197"
   ]
 }
 ```
 
 ## Use cases
 
-- **Relocation & study-abroad services** — surface current listings for clients moving to a new city
-- **Rent price benchmarking** — track monthly rent ranges by city, property type and furnishing
-- **Market research** — monitor supply and availability windows across HousingAnywhere's city network
-- **Real-estate aggregators** — feed structured listing data into a comparison site
-- **Lead generation** — find recently-added listings matching a specific tenant profile
+- Relocation and study-abroad services surfacing current rooms and studios for incoming clients
+- Rent benchmarking by city, property type, furnishing and size
+- Market research on supply, availability windows, deposits and move-in costs
+- Rental aggregators feeding structured, geocoded listings into comparison products
+- Lead generation for recently listed, bills-included or student-friendly rentals
 
 ## FAQ
 
-**Which cities are supported?** Any city HousingAnywhere lists — the actor resolves your free-text `location` (e.g. `"Berlin"`) to the matching city automatically. If a city isn't recognized, the run finishes with a clear status message and 0 records instead of failing.
+**Which cities are supported?** Any city HousingAnywhere lists. The actor resolves a free-text location to the matching city; if nothing matches it finishes with a clear status message instead of failing.
 
-**What currency are prices in?** Whatever the searched city's local currency is (EUR for most of Europe, USD for US cities, etc.) — see `priceCurrency` on each record.
+**What currency are prices in?** The searched city's local currency. `priceCurrency` is the ISO code and `priceFrom` / `priceTo` are the advertised monthly range. `basePriceEUR` gives the source's EUR base figure.
 
-**Why do some listings show a price range (`priceFrom` ≠ `priceTo`)?** Some properties list several available rooms at different prices; the card shows the range and the actor captures both bounds.
+**Why can `priceFrom` differ from `basePrice`?** The card shows the monthly range that applies across the available units and stay lengths; `basePrice` is the unadjusted base rent stored on the listing. Both are kept because different use cases need different figures.
 
-**What's the difference between `listingKind: "room"` and `"property"`?** `room` is a single rentable unit page (`/room/...`); `property` is a multi-unit building/residence with several rooms available (`/s/.../<slug>-<id>`) — both link to a real bookable listing.
+**Are bills included?** `billsIncluded` reflects the listing's utilities code. With `includeDetails`, `costBreakdown` and `monthlyExtras` show the individual cost lines.
 
-**Does `includeDetails` slow things down?** Yes — it adds one extra page fetch per listing. Use it when you need descriptions/photos/tenant preferences; leave it off for fast price/availability scans.
+**What does `listingKind: "property"` mean?** A residence or multi-unit property. `listingDetails` on a `/s/...` residence URL emits one row per available unit type and repeats the shared property fields on each row.
 
-**Is a login or proxy required?** No. All data comes from HousingAnywhere's public, server-rendered pages.
+**Why do some fields disappear on some rows?** HousingAnywhere does not publish every field for every listing (for example floor area, advertiser rating or registration possibility). The actor omits an unavailable field instead of inventing a value.
+
+**Does `includeDetails` slow things down?** Yes — it adds one page fetch per listing and the site rate-limits aggressive access. The actor paces detail requests and retries on `429` / `5xx`; for large runs, keep `maxItems` moderate or leave details off and fetch only what you need.
+
+**Is a login or proxy required?** No. Everything comes from HousingAnywhere's public pages over plain HTTP.
+
+**Can I run the same city and get only new listings?** This actor is stateless, so it does not diff against previous runs. Filter with `recentlyAdded` (up to 14 days) or sort by `mostRecent` and compare datasets yourself.
+
+**Legacy inputs still work?** Saved tasks that use `city`, `query`, `searchQuery`, `maxResults`, `maxListings`, `listingUrl`, `startUrls`, `propertyType`, `include_details`, old mode aliases, `flexible-30d` or a `3+` bedroom bucket are mapped in code.
+
+## Limitations
+
+- The source's own city inventory is the ceiling. Pagination uses 1,000-row pages and stops at `maxItems` or the city total; a city with more than 10,000 live listings would be capped by the input maximum.
+- Search cards do not expose review text, private contact details, bookings or the full availability calendar. Those are not scraped.
+- Some rows lack floor area, ratings, registration status or maximum stay because HousingAnywhere does not publish them. They are omitted, not guessed.
+- Facility and house-rule filters beyond the inputs above are applied by HousingAnywhere's client-side index, not by the public search URL, so they are not exposed as actor inputs.
+- Detail pages can return `429` under rapid parallel access. The actor fetches details sequentially with a short delay and retries; very large `includeDetails` runs take longer by design.
+- Titles are composed from the published property type, street and city; for detail pages the page heading is used instead (`titleSource` tells you which).

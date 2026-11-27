@@ -4,124 +4,141 @@
 
 # Jobicy Remote Job Board Extractor
 
-Pull current postings from [Jobicy](https://jobicy.com), a curated remote-only job board updated daily. Search by keyword or browse an entire industry category, and get back job title, company, salary range, job description, and a direct apply link for every role. No account or proxy required.
+Collect live remote-job postings from [Jobicy](https://jobicy.com) with a single actor. Query the public feed by keyword, region, or industry; narrow results with employment-type, seniority, company, salary, and date filters; or paste job IDs, slugs, and URLs to retrieve or status-check specific listings. Everything runs through Jobicy's public JSON API, so no cookie, login, API key, or proxy setup is needed.
 
-## What this actor does
+## What you can do
 
-- **Two modes:** `searchJobs` (keyword search) and `browseByIndustry` (industry category)
-- **Filters:** job type, location/region, and seniority level
-- **Salary data:** formatted range string plus raw min/max/currency/period fields
-- **Clean text:** HTML tags stripped from excerpts and descriptions
-- **Empty fields are omitted** — every record field contains real data
+- **Search jobs** — `searchJobs` pages the entire seven-day Jobicy feed, not just the first page. A keyword is matched against job content; two to fifty characters works best.
+- **Browse by industry** — `browseByIndustry` uses the same full feed traversal and requires an `industry` value.
+- **Look up known jobs** — `getJobs` accepts numeric IDs, slugs, or Jobicy URLs and scans the feed until it finds them.
+- **Check whether jobs are still open** — `getJobStatus` queries Jobicy's batch status endpoint for up to 100 IDs per request.
+- **Export filter taxonomies** — `getFilterOptions` saves the current location and industry lists so you can build valid filter values.
 
-## Output per job
+All modes write into one dataset. Each row has a `recordType` of `job`, `jobStatus`, or `taxonomy`, plus a `scrapedAt` timestamp.
 
-| Field | Description |
+## Output fields
+
+| Field | Meaning |
 |---|---|
-| `jobId` | Unique Jobicy job ID |
-| `jobTitle` | Job title |
-| `companyName` | Hiring company name |
-| `companyLogoUrl` | Company logo image URL |
-| `industry` | Primary industry category |
-| `allIndustries` | All industry categories (when more than one) |
-| `jobType` | Employment type (Full-Time, Contract, etc.) |
-| `jobGeo` | Geographic requirement (Worldwide, USA, Europe, etc.) |
-| `jobLevel` | Seniority level (Junior, Senior, Lead, etc.) |
-| `jobExcerpt` | Short plain-text job summary |
-| `jobDescription` | Full plain-text job description |
-| `salaryRange` | Formatted salary range (e.g. `USD 80000–120000 /year`) |
-| `salaryMin` | Minimum salary (raw number) |
-| `salaryMax` | Maximum salary (raw number) |
-| `salaryCurrency` | Salary currency code (USD, EUR, GBP, etc.) |
-| `salaryPeriod` | Salary period (year, month, hour) |
-| `pubDate` | Publication date |
-| `jobUrl` | Direct link to the job listing on Jobicy |
-| `jobSlug` | URL-friendly job slug |
-| `recordType` | Always `"job"` |
-| `scrapedAt` | UTC timestamp of when the record was scraped |
+| `jobId`, `jobSlug` | Stable Jobicy identifiers |
+| `jobTitle`, `companyName` | Role and hiring company |
+| `companyLogoUrl` | Company logo URL supplied by Jobicy |
+| `industry`, `allIndustries`, `industrySlugs` | Primary industry, full industry list, and normalised slugs |
+| `jobType`, `jobTypes` | Primary employment type and the full type list |
+| `jobGeo`, `jobGeos` | Display location and its component regions |
+| `jobLevel`, `jobLevels` | Seniority label and its component levels |
+| `jobExcerpt`, `jobDescription` | Plain-text summary and full description |
+| `descriptionHtml` | Original HTML description when requested |
+| `companySlug`, `companyUrl` | Jobicy company page when the description links to one |
+| `salaryRange`, `salaryMin`, `salaryMax`, `salaryCurrency`, `salaryPeriod` | Formatted and structured pay data |
+| `pubDate`, `jobUrl`, `applyUrl`, `sourceUrl` | Publication date and listing URLs |
+| `jobStatus`, `checkedAt` | For status-check records |
+| `taxonomyType`, `taxonomyId`, `name`, `slug` | For taxonomy records |
+| `recordType`, `scrapedAt` | Row kind and collection time |
 
-## Input
+Empty values are omitted at every depth. Fields such as salary, company page, or HTML description are conditional because the source does not provide them for every listing.
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `mode` | select | `searchJobs` | `searchJobs` — search by keyword; `browseByIndustry` — list jobs in a category |
-| `query` | string | `python` | Single keyword or job title (required for `searchJobs`) |
-| `industry` | select | – | Industry slug (required for `browseByIndustry`) |
-| `jobType` | select | Any | Filter by employment type |
-| `location` | string | – | Country or region filter, e.g. `USA`, `Europe`, `Worldwide` |
-| `level` | select | Any | Seniority level filter |
-| `maxItems` | integer | `50` | Hard cap on emitted records (1–500) |
+## Inputs
 
-### Industry options
+### What to collect
 
-`software-engineering`, `data-science-analytics`, `devops-sysadmin`, `product-management`, `design-ux`, `marketing`, `sales`, `customer-support`, `finance`, `hr`
+- `mode` — `searchJobs` (default), `browseByIndustry`, `getJobs`, `getJobStatus`, or `getFilterOptions`.
 
-### Example: search for Python jobs
+### Search filters
+
+- `query` — keyword or phrase; sent to Jobicy's `tag` search when it is 2–50 characters and applied locally otherwise.
+- `geo` — server-side region filter with the full Jobicy location taxonomy; `anywhere`, `usa`, `europe`, `emea`, `apac`, and 50+ country values are available. Legacy `worldwide` and `india` values still work.
+- `industry` — server-side industry filter with all 22 categories.
+- `jobTypes` — keep any of `Full-Time`, `Part-Time`, `Contract`, `Temporary`, `Internship`, or `Freelance`.
+- `levels` — keep any of `Entry-Level`, `Junior`, `Midweight`, `Senior`, `Lead`, `Manager`, `Director`, or `Executive`.
+- `companies` — case-insensitive exact company names.
+- `location` — after-fetch substring filter on the displayed location, for example `USA` or `Germany`.
+- `minSalary`, `maxSalary` — numeric salary bounds.
+- `salaryCurrency`, `salaryPeriod` — compare salaries only in one currency (`USD`, `EUR`, `GBP`, and other currencies Jobicy publishes) or one period (`yearly`, `monthly`, `hourly`).
+- `includeNoSalary` — keep listings without disclosed pay when a salary filter is active.
+- `postedSince`, `postedUntil` — ISO dates or timestamps limiting the publication date.
+
+### Output options
+
+- `includeDescription` — include the full plain-text description.
+- `includeDescriptionHtml` — also keep the original HTML when descriptions are enabled.
+
+### Lookup and status
+
+- `jobIds` — IDs, slugs, or Jobicy URLs for `getJobs`; numeric IDs or ID-prefixed slugs/URLs for `getJobStatus`.
+- `taxonomyType` — `both`, `locations`, or `industries` for `getFilterOptions`.
+
+### Limits
+
+- `maxItems` — maximum records to save. The default is 50 and the prefill is the smallest useful run (3). Jobicy's feed typically contains roughly 1,400 jobs in its seven-day window.
+
+### Defaults
+
+| Field | Default |
+|---|---|
+| `mode` | `searchJobs` |
+| `query` | – |
+| `geo` | – |
+| `industry` | – |
+| `jobTypes` | – |
+| `levels` | – |
+| `companies` | – |
+| `location` | – |
+| `minSalary` | – |
+| `maxSalary` | – |
+| `salaryCurrency` | – |
+| `salaryPeriod` | – |
+| `includeNoSalary` | `true` |
+| `postedSince` | – |
+| `postedUntil` | – |
+| `includeDescription` | `true` |
+| `includeDescriptionHtml` | `false` |
+| `jobIds` | – |
+| `taxonomyType` | `both` |
+| `maxItems` | `50` |
+
+## Examples
+
+Search Python jobs with full pagination:
 
 ```json
 {
   "mode": "searchJobs",
   "query": "python",
-  "jobType": "Full-Time",
-  "level": "Senior",
-  "maxItems": 50
+  "maxItems": 200
 }
 ```
 
-### Example: browse software engineering jobs
+Browse USA engineering roles:
 
 ```json
 {
   "mode": "browseByIndustry",
-  "industry": "software-engineering",
-  "location": "USA",
+  "industry": "engineering",
+  "geo": "usa",
+  "jobTypes": ["Full-Time"],
   "maxItems": 100
 }
 ```
 
-### Example: data science jobs anywhere
+Look up saved jobs and check their status:
 
 ```json
 {
-  "mode": "browseByIndustry",
-  "industry": "data-science-analytics",
-  "maxItems": 50
+  "mode": "getJobStatus",
+  "jobIds": ["164320", "https://jobicy.com/jobs/164468-account-manager-northland"]
 }
 ```
 
-## Use cases
+## Good to know
 
-- **Job aggregators** — pull fresh remote listings into your own job board
-- **Market research** — track salary ranges and hiring trends by role or industry
-- **Talent analytics** — analyse demand for specific skills across remote companies
-- **Career tools** — power job recommendation engines with structured remote job data
-- **Job alerts** — monitor Jobicy daily for new roles matching your criteria
-
-## FAQ
-
-**What is Jobicy?**
-Jobicy is a curated remote job board featuring verified remote-first opportunities from companies worldwide, updated continuously.
-
-**Do I need an API key or account?**
-No. Jobicy provides a free public JSON API that this actor uses directly. No credentials required.
-
-**How many jobs are available?**
-Jobicy typically has 1,000+ active listings. Each API request returns up to 50 jobs per call.
-
-**How fresh is the data?**
-Jobicy's API reflects current active listings. The actor adds a `scrapedAt` timestamp for each run.
-
-**What does `jobGeo` mean?**
-It is the geographic requirement for the role, for example `Worldwide` (truly remote, any country), `USA Only`, `Europe`, etc.
-
-**Can I filter by location?**
-Yes — set the `location` input to any substring that appears in `jobGeo`, e.g. `USA`, `UK`, `Europe`. The filter is case-insensitive and does partial matching.
-
-**What job types are available?**
-Full-Time, Part-Time, Contract, Freelance, and Internship. Leave blank to return all types.
-
-**What seniority levels are available?**
-Junior, Mid-Level, Senior, Lead, and Manager. Leave blank or select "Any" for all levels.
-
-**Are salary fields always populated?**
-No — salary data is optional on Jobicy. When present, the actor returns structured `salaryRange`, `salaryMin`, `salaryMax`, `salaryCurrency`, and `salaryPeriod` fields. When absent, those fields are omitted entirely.
+- **Feed window.** Jobicy exposes the last seven days of listings. Older jobs can be checked with `getJobStatus`, but their full details are no longer in the public feed.
+- **Pagination.** The actor follows Jobicy's cursor to the end of the feed. A run stops at `maxItems` or when the source reports no more pages.
+- **Rate limit.** Jobicy allows about one request per second per IP; the actor paces requests and retries HTTP 429 responses.
+- **Salary coverage.** Salary is disclosed for roughly half of listings, so salary fields are intentionally conditional.
+- **Location matching.** Jobicy's geography is an eligibility model, not a strict workplace address. One listing can list several eligible countries; the actor keeps the source label and splits multi-country values.
+- **Logo hotlinking.** Jobicy's logo URLs are served behind Cloudflare (HTTP 403) to non-browser clients. The URL is kept for compatibility, but it may not render outside a browser.
+- **Malaysia.** Malaysia appears in the taxonomy, but the live `geo=malaysia` filter is rejected by Jobicy. The actor searches `apac` and applies a Malaysia location filter instead.
+- **Employment types and levels.** Historical values such as `Temporary`, `Freelance`, `Lead`, `Manager`, and `Executive` remain selectable even when the current feed has no matching rows.
+- **Descriptions.** Plain text is produced by stripping markup and decoding entities. Use `includeDescriptionHtml` when you need the original markup.
+- **No credentials.** There is nothing to obtain from Jobicy and no proxy to configure. The public JSON endpoint returns the same data to any Apify user.

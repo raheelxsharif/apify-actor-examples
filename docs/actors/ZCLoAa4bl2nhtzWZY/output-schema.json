@@ -1,11 +1,23 @@
 {
   "actorOutputSchemaVersion": 1,
-  "description": "Remote job postings from Jobicy — job title, company, location, salary range, job type, description, and direct apply URL.",
+  "description": "Remote job records with company, location, salary, employment type, seniority, and description data; plus job-status records and filter taxonomies when those modes are used.",
   "properties": {
-    "jobs": {
-      "description": "Dataset containing all scraped Jobicy remote job listings.",
+    "jobStatuses": {
+      "description": "Status checks for requested job IDs (recordType=jobStatus) in the same dataset.",
       "template": "{{links.apiDefaultDatasetUrl}}/items",
-      "title": "Remote jobs",
+      "title": "Job status records",
+      "type": "string"
+    },
+    "jobs": {
+      "description": "Dataset containing job records (recordType=job), job-status records (recordType=jobStatus), and taxonomy records (recordType=taxonomy).",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Remote job records",
+      "type": "string"
+    },
+    "taxonomies": {
+      "description": "Jobicy locations and industries (recordType=taxonomy) in the same dataset.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Filter taxonomies",
       "type": "string"
     }
   },

@@ -1,6 +1,13 @@
 {
   "description": "Search mid/long-term rental listings on HousingAnywhere by city, or fetch full details for specific listing URLs.",
   "properties": {
+    "availableNow": {
+      "default": false,
+      "description": "Keep only listings whose move-in date is today or already open.",
+      "prefill": false,
+      "title": "Available now only",
+      "type": "boolean"
+    },
     "bedroomCounts": {
       "default": [],
       "description": "Filter apartments by number of bedrooms.",
@@ -10,13 +17,15 @@
           "1",
           "2",
           "3",
+          "4+",
           "3+"
         ],
         "enumTitles": [
           "1 bedroom",
           "2 bedrooms",
           "3 bedrooms",
-          "4+ bedrooms"
+          "4+ bedrooms",
+          "4+ bedrooms (legacy alias)"
         ],
         "type": "string"
       },
@@ -48,14 +57,52 @@
       "enum": [
         "",
         "strict",
+        "30d-movein-flexible",
         "flexible-30d"
       ],
       "enumTitles": [
         "(any)",
         "Strict",
-        "Flexible (30 days)"
+        "Flexible (30-day move-in window)",
+        "Flexible (30 days, legacy alias)"
       ],
       "title": "Cancellation policy",
+      "type": "string"
+    },
+    "contractType": {
+      "default": "",
+      "description": "Filter by how rent is calculated (daily, fortnightly or monthly).",
+      "editor": "select",
+      "enum": [
+        "",
+        "daily",
+        "fortnightly",
+        "monthly"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Daily",
+        "Fortnightly",
+        "Monthly"
+      ],
+      "title": "Contract type",
+      "type": "string"
+    },
+    "depositPolicy": {
+      "default": "",
+      "description": "Filter by the deposit policy advertised on the listing.",
+      "editor": "select",
+      "enum": [
+        "",
+        "no_deposit",
+        "classical_deposit"
+      ],
+      "enumTitles": [
+        "(any)",
+        "No deposit",
+        "Classical deposit"
+      ],
+      "title": "Deposit policy",
       "type": "string"
     },
     "furniture": {
@@ -117,8 +164,8 @@
     },
     "maxItems": {
       "default": 30,
-      "description": "Hard cap on emitted records.",
-      "maximum": 500,
+      "description": "Hard cap on emitted records (1–10000). The source's own city total is the real ceiling.",
+      "maximum": 10000,
       "minimum": 1,
       "prefill": 30,
       "title": "Max items",
@@ -233,6 +280,14 @@
       ],
       "title": "Address registration",
       "type": "string"
+    },
+    "searchUrls": {
+      "default": [],
+      "description": "HousingAnywhere search page URLs, e.g. `https://housinganywhere.com/s/Berlin--Germany/private-rooms?priceMax=80000`. Use this to run several cities or to reuse filters configured on the site. Explicit filters below are also applied.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Search URLs (advanced)",
+      "type": "array"
     },
     "sortBy": {
       "default": "bestMatch",
