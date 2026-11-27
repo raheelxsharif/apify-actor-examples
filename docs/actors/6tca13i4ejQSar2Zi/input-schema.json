@@ -1,0 +1,233 @@
+{
+  "description": "Search KKday products, browse by city/category, or fetch product details by URL.",
+  "properties": {
+    "category": {
+      "description": "Category to browse (mode=browseByCategory).",
+      "editor": "select",
+      "enum": [
+        "attractions",
+        "museum",
+        "theme-park",
+        "food",
+        "sightseeing-tour",
+        "day-trip",
+        "cruise",
+        "water-activity",
+        "sports",
+        "transportation",
+        "wifi-sim",
+        "spa"
+      ],
+      "enumTitles": [
+        "Attractions",
+        "Museum",
+        "Theme Park",
+        "Food & Dining",
+        "Sightseeing Tour",
+        "Day Trip",
+        "Cruise",
+        "Water Activity",
+        "Sports & Outdoor",
+        "Transportation",
+        "eSIM / WiFi / SIM",
+        "Spa & Wellness"
+      ],
+      "prefill": "attractions",
+      "title": "Category",
+      "type": "string"
+    },
+    "city": {
+      "description": "City to browse (mode=browseByCity).",
+      "editor": "select",
+      "enum": [
+        "paris",
+        "london",
+        "rome",
+        "barcelona",
+        "madrid",
+        "tokyo",
+        "osaka",
+        "kyoto",
+        "hokkaido",
+        "seoul",
+        "busan",
+        "taipei",
+        "taichung",
+        "kaohsiung",
+        "hong-kong",
+        "macau",
+        "shanghai",
+        "beijing",
+        "bangkok",
+        "phuket",
+        "chiang-mai",
+        "pattaya",
+        "singapore",
+        "kuala-lumpur",
+        "bali",
+        "jakarta",
+        "hanoi",
+        "ho-chi-minh-city",
+        "manila",
+        "sydney",
+        "melbourne",
+        "new-york",
+        "los-angeles",
+        "las-vegas",
+        "dubai",
+        "istanbul"
+      ],
+      "enumTitles": [
+        "Paris",
+        "London",
+        "Rome",
+        "Barcelona",
+        "Madrid",
+        "Tokyo",
+        "Osaka",
+        "Kyoto",
+        "Hokkaido",
+        "Seoul",
+        "Busan",
+        "Taipei",
+        "Taichung",
+        "Kaohsiung",
+        "Hong Kong",
+        "Macau",
+        "Shanghai",
+        "Beijing",
+        "Bangkok",
+        "Phuket",
+        "Chiang Mai",
+        "Pattaya",
+        "Singapore",
+        "Kuala Lumpur",
+        "Bali",
+        "Jakarta",
+        "Hanoi",
+        "Ho Chi Minh City",
+        "Manila",
+        "Sydney",
+        "Melbourne",
+        "New York",
+        "Los Angeles",
+        "Las Vegas",
+        "Dubai",
+        "Istanbul"
+      ],
+      "prefill": "tokyo",
+      "title": "City",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Only emit products whose min price is <= this value.",
+      "maximum": 100000,
+      "minimum": 1,
+      "title": "Max price",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Only emit products whose min price is >= this value.",
+      "maximum": 100000,
+      "minimum": 1,
+      "title": "Min price",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Only emit products with an average rating >= this value (1-5).",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Min rating",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "browseByCity",
+        "browseByCategory",
+        "byUrl"
+      ],
+      "enumTitles": [
+        "Search products",
+        "Browse products by city",
+        "Browse products by category",
+        "Fetch products by URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "onSaleOnly": {
+      "default": false,
+      "description": "Only emit products currently on sale.",
+      "prefill": false,
+      "title": "On sale only",
+      "type": "boolean"
+    },
+    "proxyConfiguration": {
+      "description": "Optional Apify proxy. The actor fetches directly first; only on HTTP 403/429 does it retry through the proxy.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": false
+      },
+      "title": "Proxy configuration",
+      "type": "object"
+    },
+    "searchQuery": {
+      "default": "paris",
+      "description": "Free-text query (mode=search), e.g. `paris`, `tokyo sky tree`, `eiffel tower`.",
+      "editor": "textfield",
+      "prefill": "paris",
+      "title": "Search query",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "relevance",
+      "description": "Result ordering.",
+      "editor": "select",
+      "enum": [
+        "relevance",
+        "popularity",
+        "rating",
+        "price-asc",
+        "price-desc"
+      ],
+      "enumTitles": [
+        "Relevance",
+        "Popularity",
+        "Rating",
+        "Price (low to high)",
+        "Price (high to low)"
+      ],
+      "prefill": "relevance",
+      "title": "Sort by",
+      "type": "string"
+    },
+    "startUrls": {
+      "default": [],
+      "description": "KKday product URLs, e.g. `https://www.kkday.com/en-us/product/120855-paris-museum-pass-france-europe`.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Product URLs (mode=byUrl)",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "KKday Scraper Input",
+  "type": "object"
+}

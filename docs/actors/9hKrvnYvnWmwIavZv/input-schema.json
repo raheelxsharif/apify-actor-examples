@@ -1,0 +1,288 @@
+{
+  "description": "Scrape real estate listings from lamudi.com.ph — condos, houses, apartments, land and commercial property for sale or rent across the Philippines. Search by region/property type/price/bedrooms, or fetch exact listing URLs.",
+  "properties": {
+    "keyword": {
+      "description": "Optional free-text keyword to match against each listing's title, description, and address (e.g. a building or subdivision name). Applied client-side across the region/type results — Lamudi has no server-side keyword search on category pages, so pages are scanned until enough matches are found or the catalog is exhausted.",
+      "editor": "textfield",
+      "title": "Keyword",
+      "type": "string"
+    },
+    "location": {
+      "description": "Optional city or area slug appended after the region, e.g. `quezon-city` or `quezon-city/loyola-heights-1`. Find exact slugs by browsing lamudi.com.ph.",
+      "editor": "textfield",
+      "title": "City / area (optional, refines region)",
+      "type": "string"
+    },
+    "maxBathrooms": {
+      "description": "Drop listings with more bathrooms than this.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Max bathrooms",
+      "type": "integer"
+    },
+    "maxBedrooms": {
+      "description": "Drop listings with more bedrooms than this.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Max bedrooms",
+      "type": "integer"
+    },
+    "maxFloorSize": {
+      "description": "Drop listings with a larger floor area than this, in square meters.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max floor size (sqm)",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on emitted records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Drop listings priced above this.",
+      "maximum": 10000000000,
+      "minimum": 0,
+      "title": "Max price (local currency)",
+      "type": "integer"
+    },
+    "minBathrooms": {
+      "description": "Drop listings with fewer bathrooms than this.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Min bathrooms",
+      "type": "integer"
+    },
+    "minBedrooms": {
+      "description": "Drop listings with fewer bedrooms than this.",
+      "maximum": 50,
+      "minimum": 0,
+      "title": "Min bedrooms",
+      "type": "integer"
+    },
+    "minFloorSize": {
+      "description": "Drop listings with a smaller floor area than this, in square meters.",
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Min floor size (sqm)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Drop listings priced below this.",
+      "maximum": 10000000000,
+      "minimum": 0,
+      "title": "Min price (local currency)",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "byUrls"
+      ],
+      "enumTitles": [
+        "Search listings",
+        "Lookup by listing/search URL"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "propertyType": {
+      "default": "condo",
+      "description": "Type of property to search.",
+      "editor": "select",
+      "enum": [
+        "condo",
+        "house",
+        "apartment",
+        "land",
+        "commercial",
+        "foreclosures",
+        "short-term"
+      ],
+      "enumTitles": [
+        "Condominium",
+        "House",
+        "Apartment",
+        "Land / Lot",
+        "Commercial",
+        "Foreclosures (for sale only)",
+        "Short-term rental (for rent only)"
+      ],
+      "prefill": "condo",
+      "title": "Property type",
+      "type": "string"
+    },
+    "propertyUrls": {
+      "default": [],
+      "description": "Exact lamudi.com.ph property URLs or search-result page URLs to fetch directly.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Listing or search URLs (mode=byUrls)",
+      "type": "array"
+    },
+    "region": {
+      "default": "metro-manila",
+      "description": "Restrict to one region or province. Leave blank for nationwide results.",
+      "editor": "select",
+      "enum": [
+        "",
+        "metro-manila",
+        "cebu",
+        "cavite",
+        "laguna",
+        "rizal",
+        "bulacan",
+        "pampanga",
+        "batangas",
+        "davao-del-sur",
+        "iloilo",
+        "negros-occidental",
+        "pangasinan",
+        "bataan",
+        "zambales",
+        "tarlac",
+        "nueva-ecija",
+        "quezon",
+        "camarines-sur",
+        "albay",
+        "leyte",
+        "bohol",
+        "palawan",
+        "benguet",
+        "la-union",
+        "ilocos-norte",
+        "ilocos-sur",
+        "isabela",
+        "cagayan",
+        "misamis-oriental",
+        "south-cotabato",
+        "sarangani",
+        "cotabato",
+        "agusan-del-norte",
+        "agusan-del-sur",
+        "surigao-del-norte",
+        "davao-del-norte",
+        "davao-oriental",
+        "aklan",
+        "capiz",
+        "guimaras",
+        "negros-oriental",
+        "occidental-mindoro",
+        "oriental-mindoro",
+        "romblon",
+        "siquijor",
+        "sorsogon",
+        "camarines-norte",
+        "zamboanga-del-norte",
+        "zamboanga-del-sur"
+      ],
+      "enumTitles": [
+        "All regions (nationwide)",
+        "Metro Manila",
+        "Cebu",
+        "Cavite",
+        "Laguna",
+        "Rizal",
+        "Bulacan",
+        "Pampanga",
+        "Batangas",
+        "Davao del Sur",
+        "Iloilo",
+        "Negros Occidental",
+        "Pangasinan",
+        "Bataan",
+        "Zambales",
+        "Tarlac",
+        "Nueva Ecija",
+        "Quezon",
+        "Camarines Sur",
+        "Albay",
+        "Leyte",
+        "Bohol",
+        "Palawan",
+        "Benguet",
+        "La Union",
+        "Ilocos Norte",
+        "Ilocos Sur",
+        "Isabela",
+        "Cagayan",
+        "Misamis Oriental",
+        "South Cotabato",
+        "Sarangani",
+        "Cotabato",
+        "Agusan del Norte",
+        "Agusan del Sur",
+        "Surigao del Norte",
+        "Davao del Norte",
+        "Davao Oriental",
+        "Aklan",
+        "Capiz",
+        "Guimaras",
+        "Negros Oriental",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Romblon",
+        "Siquijor",
+        "Sorsogon",
+        "Camarines Norte",
+        "Zamboanga del Norte",
+        "Zamboanga del Sur"
+      ],
+      "prefill": "metro-manila",
+      "title": "Region / province",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "popularity",
+      "description": "Order in which listings are returned. Only applies to mode=search.",
+      "editor": "select",
+      "enum": [
+        "popularity",
+        "newest",
+        "price-low",
+        "price-high"
+      ],
+      "enumTitles": [
+        "Popular (default)",
+        "Newest first",
+        "Price: low to high",
+        "Price: high to low"
+      ],
+      "prefill": "popularity",
+      "title": "Sort order (mode=search)",
+      "type": "string"
+    },
+    "transactionType": {
+      "default": "buy",
+      "description": "Whether to fetch listings for sale or for rent.",
+      "editor": "select",
+      "enum": [
+        "buy",
+        "rent"
+      ],
+      "enumTitles": [
+        "For Sale",
+        "For Rent"
+      ],
+      "prefill": "buy",
+      "title": "For sale or for rent",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode",
+    "transactionType",
+    "propertyType"
+  ],
+  "schemaVersion": 1,
+  "title": "Lamudi Real Estate Scraper Input",
+  "type": "object"
+}

@@ -1,0 +1,287 @@
+{
+  "description": "Search mid/long-term rental listings on HousingAnywhere by city, or fetch full details for specific listing URLs.",
+  "properties": {
+    "bedroomCounts": {
+      "default": [],
+      "description": "Filter apartments by number of bedrooms.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "1",
+          "2",
+          "3",
+          "3+"
+        ],
+        "enumTitles": [
+          "1 bedroom",
+          "2 bedrooms",
+          "3 bedrooms",
+          "4+ bedrooms"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Bedroom count (apartments)",
+      "type": "array"
+    },
+    "billsIncluded": {
+      "default": "",
+      "description": "Filter by whether utility bills are included in the rent.",
+      "editor": "select",
+      "enum": [
+        "",
+        "included",
+        "excluded"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Bills included",
+        "Bills excluded"
+      ],
+      "title": "Utilities / bills",
+      "type": "string"
+    },
+    "cancellationPolicy": {
+      "default": "",
+      "description": "Filter by the booking cancellation policy.",
+      "editor": "select",
+      "enum": [
+        "",
+        "strict",
+        "flexible-30d"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Strict",
+        "Flexible (30 days)"
+      ],
+      "title": "Cancellation policy",
+      "type": "string"
+    },
+    "furniture": {
+      "default": "",
+      "description": "Filter by furnishing status.",
+      "editor": "select",
+      "enum": [
+        "",
+        "furnished",
+        "unfurnished"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Furnished",
+        "Unfurnished"
+      ],
+      "title": "Furniture",
+      "type": "string"
+    },
+    "gender": {
+      "default": "",
+      "description": "Filter listings restricted to a specific gender.",
+      "editor": "select",
+      "enum": [
+        "",
+        "male",
+        "female"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Male only",
+        "Female only"
+      ],
+      "title": "Gender preference",
+      "type": "string"
+    },
+    "includeDetails": {
+      "default": false,
+      "description": "For each search result, also fetch its detail page (description, facilities, tenant preferences, images). Slower — one extra request per listing.",
+      "prefill": false,
+      "title": "Include full listing details",
+      "type": "boolean"
+    },
+    "listingUrls": {
+      "default": [],
+      "description": "Full HousingAnywhere listing URLs (`/room/...` or `/s/.../<property-slug>-<id>`).",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Listing URLs (mode=listingDetails)",
+      "type": "array"
+    },
+    "location": {
+      "default": "Berlin, Germany",
+      "description": "City to search, e.g. `Berlin`, `Berlin, Germany`, `Amsterdam`, `New York`. Resolved automatically to the matching HousingAnywhere city.",
+      "editor": "textfield",
+      "prefill": "Berlin, Germany",
+      "title": "City / location (mode=search)",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 30,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "maxPrice": {
+      "description": "Maximum monthly rent, in the searched city's local currency.",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Max price (per month, local currency)",
+      "type": "integer"
+    },
+    "minPrice": {
+      "description": "Minimum monthly rent, in the searched city's local currency (e.g. EUR for Berlin, USD for New York).",
+      "maximum": 100000,
+      "minimum": 0,
+      "title": "Min price (per month, local currency)",
+      "type": "integer"
+    },
+    "minRating": {
+      "description": "Drop listings whose advertiser rating is below this value (0-5). Listings without a rating yet are kept.",
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Min advertiser rating",
+      "type": "number"
+    },
+    "mode": {
+      "default": "search",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "listingDetails"
+      ],
+      "enumTitles": [
+        "Search listings by city",
+        "Fetch full details for listing URLs"
+      ],
+      "prefill": "search",
+      "title": "Mode",
+      "type": "string"
+    },
+    "moveInDate": {
+      "description": "Earliest move-in date, format YYYY-MM-DD.",
+      "editor": "textfield",
+      "title": "Move-in date",
+      "type": "string"
+    },
+    "moveOutDate": {
+      "description": "Latest move-out date, format YYYY-MM-DD.",
+      "editor": "textfield",
+      "title": "Move-out date",
+      "type": "string"
+    },
+    "propertyTypes": {
+      "default": [],
+      "description": "Filter to specific property types. Leave empty for all types.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "private-rooms",
+          "shared-rooms",
+          "apartment-for-rent",
+          "studio-for-rent"
+        ],
+        "enumTitles": [
+          "Private room",
+          "Shared room",
+          "Apartment",
+          "Studio"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Property types",
+      "type": "array"
+    },
+    "recentlyAdded": {
+      "default": "",
+      "description": "Only show listings added within this time window.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1-day",
+        "3-days",
+        "7-days",
+        "14-days"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Last 24 hours",
+        "Last 3 days",
+        "Last 7 days",
+        "Last 14 days"
+      ],
+      "title": "Recently added",
+      "type": "string"
+    },
+    "registrationPossible": {
+      "default": "",
+      "description": "Filter by whether municipal address registration is possible at this address.",
+      "editor": "select",
+      "enum": [
+        "",
+        "possible",
+        "not-possible"
+      ],
+      "enumTitles": [
+        "(any)",
+        "Registration possible",
+        "Registration not possible"
+      ],
+      "title": "Address registration",
+      "type": "string"
+    },
+    "sortBy": {
+      "default": "bestMatch",
+      "description": "Result ordering.",
+      "editor": "select",
+      "enum": [
+        "bestMatch",
+        "mostRecent",
+        "lowToHigh",
+        "highToLow",
+        "advertiserRating"
+      ],
+      "enumTitles": [
+        "Best match",
+        "Most recent",
+        "Price: low to high",
+        "Price: high to low",
+        "Advertiser rating"
+      ],
+      "prefill": "bestMatch",
+      "title": "Sort order",
+      "type": "string"
+    },
+    "suitableFor": {
+      "default": [],
+      "description": "Filter by intended tenant type.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "students",
+          "working-professionals",
+          "couples"
+        ],
+        "enumTitles": [
+          "Students",
+          "Working professionals",
+          "Couples allowed"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Suitable for",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "HousingAnywhere Scraper Input",
+  "type": "object"
+}

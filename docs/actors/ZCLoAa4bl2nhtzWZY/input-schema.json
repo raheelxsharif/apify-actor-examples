@@ -1,0 +1,128 @@
+{
+  "description": "Search Jobicy.com for remote job listings by keyword, industry, type, location, and level.",
+  "properties": {
+    "industry": {
+      "description": "Industry category to browse.",
+      "editor": "select",
+      "enum": [
+        "software-engineering",
+        "data-science-analytics",
+        "devops-sysadmin",
+        "product-management",
+        "design-ux",
+        "marketing",
+        "sales",
+        "customer-support",
+        "finance",
+        "hr"
+      ],
+      "enumTitles": [
+        "Software Engineering",
+        "Data Science & Analytics",
+        "DevOps / SysAdmin",
+        "Product Management",
+        "Design / UX",
+        "Marketing",
+        "Sales",
+        "Customer Support",
+        "Finance",
+        "HR"
+      ],
+      "title": "Industry (mode=browseByIndustry)",
+      "type": "string"
+    },
+    "jobType": {
+      "default": "",
+      "description": "Filter by employment type.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Full-Time",
+        "Part-Time",
+        "Contract",
+        "Freelance",
+        "Internship"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-Time",
+        "Part-Time",
+        "Contract",
+        "Freelance",
+        "Internship"
+      ],
+      "title": "Job type filter",
+      "type": "string"
+    },
+    "level": {
+      "default": "",
+      "description": "Seniority level filter.",
+      "editor": "select",
+      "enum": [
+        "",
+        "Any",
+        "Junior",
+        "Mid-Level",
+        "Senior",
+        "Lead",
+        "Manager"
+      ],
+      "enumTitles": [
+        "Any",
+        "Any",
+        "Junior",
+        "Mid-Level",
+        "Senior",
+        "Lead",
+        "Manager"
+      ],
+      "title": "Experience level filter",
+      "type": "string"
+    },
+    "location": {
+      "description": "Country or region, e.g. 'USA', 'UK', 'Worldwide'.",
+      "editor": "textfield",
+      "title": "Location / country filter",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 50,
+      "description": "Hard cap on emitted records.",
+      "maximum": 500,
+      "minimum": 1,
+      "prefill": 50,
+      "title": "Max items",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "searchJobs",
+      "description": "What to fetch.",
+      "editor": "select",
+      "enum": [
+        "searchJobs",
+        "browseByIndustry"
+      ],
+      "enumTitles": [
+        "Search jobs by keyword",
+        "Browse jobs by industry"
+      ],
+      "prefill": "searchJobs",
+      "title": "Mode",
+      "type": "string"
+    },
+    "query": {
+      "default": "python",
+      "description": "Single keyword to search (mode=searchJobs). Use one word for best results, e.g. 'python', 'react', 'marketing'. Multi-word phrases are not supported by the Jobicy API.",
+      "editor": "textfield",
+      "prefill": "python",
+      "title": "Search query / keyword",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Jobicy Remote Jobs Scraper Input",
+  "type": "object"
+}
