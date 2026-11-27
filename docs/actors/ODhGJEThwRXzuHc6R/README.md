@@ -4,120 +4,133 @@
 
 # Lawyer Legion Attorney Profile Extractor
 
-[Lawyer Legion](https://lawyers.lawyerlegion.com/) lists US attorneys who carry a board specialty certification or an extra bar admission, organized by state and practice area. This actor pulls their public directory cards and, on request, the full profile page behind each one — contact details, office location, bar admissions, education, and more.
+Lawyer Legion is a US attorney directory built around board-certified specialists and attorneys with extra bar admissions, organized by state, city, county and practice area. This actor turns those public pages into clean attorney records: contact and office details from the directory card, plus the full profile page on request — biography, bar licenses, education, work history, certifications, badges, media and reviews.
 
 ## What this actor does
 
-- **Search by state + practice area** — pick any of the 50 states plus DC and any of 87 practice-area categories and walk every result page
-- **Direct profile lookup** — pass exact attorney profile URLs instead of searching
-- **Optional deep enrichment** — toggle `enrichProfiles` to additionally open each attorney's own page for biography, bar admissions, education, certifications, federal court admissions, associations and awards
-- **Geocoded office locations** — latitude/longitude alongside the street address when the directory card publishes it
-- **Empty fields are omitted** — a field only appears on a record when real data was found for it
-
-## Output per attorney
-
-Fields available from the directory listing card (present in `search` mode; also carried through when `enrichProfiles` is on):
-
-- `name` — full attorney name
-- `profileUrl` — the attorney's Lawyer Legion page
-- `stateSlug` — state slug parsed from the profile URL (e.g. `florida`) — `search` mode only, not present in `byUrls` mode
-- `lawyerId` — numeric Lawyer Legion attorney ID — `search` mode only, not present in `byUrls` mode
-- `firm` — law firm name
-- `street`, `city`, `state`, `zip` — office address (state as abbreviation, e.g. `FL`)
-- `latitude`, `longitude` — office geo-coordinates
-- `phone` — primary office phone
-- `photoUrl` — headshot photo URL
-- `recordType` — always `"attorney"`
-- `scrapedAt` — ISO 8601 timestamp of the run
-
-Added only when `enrichProfiles: true`, or always in `byUrls` mode (fetched from the attorney's own profile page):
-
-- `description` — attorney biography
-- `practiceAreas` — the areas of law the attorney lists on their profile
-- `yearsLicensed` — years the attorney has held a license
-- `firmWebsite` — law firm website URL
-- `barAdmissions` — state bar admission(s) with status
-- `education` — law school(s) and degree(s)
-- `certifications` — board specialty certifications
-- `federalAdmissions` — federal courts the attorney is admitted to practice in
-- `associations` — professional association memberships
-- `awards` — awards and honors listed on the profile
+- **Browse the directory** — choose one or more states, a practice area, and optionally a city or county. Pagination is automatic.
+- **Search by name, firm or location** — first/middle/last name, firm name, practice area, city/state/ZIP and a radius in miles.
+- **Scrape URLs you already have** — paste attorney profile URLs and/or Lawyer Legion directory URLs (state, city, county, practice-area or search-result pages).
+- **Optional full profile enrichment** — one extra request per attorney adds biography, résumé sections, bar licenses, education, work experience, certifications, badges, photos, videos, social profiles and the review summary.
+- **Optional review texts** — fetch each reviewed attorney's reviews page for every published review.
+- **Omit-empty output** — a field appears only when the source actually publishes it.
 
 ## Input
 
-| Field | Type | Default | Description |
+| Field | Type | Default | What it does |
 |---|---|---|---|
-| `mode` | string | `search` | `search` (state + practice area) or `byUrls` (direct profile URLs) |
-| `state` | string | `florida` | US state slug, required for `search` mode |
-| `practiceArea` | string | `personal-injury` | Practice-area slug, used for `search` mode |
-| `profileUrls` | array | – | Direct attorney profile URLs, required for `byUrls` mode |
-| `enrichProfiles` | boolean | `false` | Also fetch each attorney's full profile page for biography, admissions, education, etc. |
-| `maxItems` | integer | `50` | Hard cap on attorney records returned (1–10000) |
+| `mode` | select | `search` | `search` (directory browse), `keywordSearch` (name/firm/location) or `byUrls` |
+| `state` | select | `florida` | Primary US state (50 states + DC) |
+| `states` | string list | – | Extra state slugs to include in the same run |
+| `practiceArea` | select | `personal-injury` | Directory category or board-certification specialty; `any` with a city/county |
+| `city` | text | – | City name or slug, e.g. `Miami` |
+| `county` | text | – | County slug from the directory URL, e.g. `los-angeles-county` |
+| `firstName`, `middleName`, `lastName` | text | – | Attorney name filters for `keywordSearch` |
+| `firmName` | text | – | Firm-name filter for `keywordSearch` |
+| `location` | text | – | City, state or ZIP for `keywordSearch`, e.g. `Miami, FL` or `33101` |
+| `radiusMiles` | integer | `25` | Radius around a city/ZIP keyword search (1–500) |
+| `startUrls` | string list | – | Profile and/or directory URLs for `byUrls` |
+| `enrichProfiles` | boolean | `false` | Open each attorney's profile page |
+| `includeReviews` | boolean | `false` | Fetch full review texts (implies profile data is available) |
+| `partitionByCity` | boolean | `true` | When a state+practice listing stops at the 250-record cap, also crawl its city/county pages for more unique attorneys |
+| `maxItems` | integer | `50` | Record cap; `0` means up to 10,000 |
 
-### Example: search mode, standard fields only
+### Examples
+
+Browse a state and practice area:
 
 ```json
-{
-  "mode": "search",
-  "state": "florida",
-  "practiceArea": "personal-injury",
-  "maxItems": 50
-}
+{"mode": "search", "state": "texas", "practiceArea": "personal-injury", "maxItems": 100}
 ```
 
-### Example: search mode with full profile enrichment
+Browse a city across every practice area:
+
+```json
+{"mode": "search", "state": "florida", "city": "Miami", "practiceArea": "any", "maxItems": 50}
+```
+
+Search by name and location with full profiles and reviews:
 
 ```json
 {
-  "mode": "search",
-  "state": "new-york",
-  "practiceArea": "criminal-defense",
+  "mode": "keywordSearch",
+  "lastName": "Smith",
+  "practiceArea": "personal-injury",
+  "location": "Miami, FL",
+  "radiusMiles": 50,
   "enrichProfiles": true,
+  "includeReviews": true,
   "maxItems": 20
 }
 ```
 
-### Example: direct profile URLs
+Scrape URLs directly:
 
 ```json
 {
   "mode": "byUrls",
-  "profileUrls": [
-    "https://lawyers.lawyerlegion.com/florida/christian-dietrich-searcy-27004317"
-  ]
+  "startUrls": [
+    "https://lawyers.lawyerlegion.com/florida/sergiu-gherman-27325468",
+    "https://lawyers.lawyerlegion.com/california/los-angeles-county/personal-injury"
+  ],
+  "maxItems": 30
 }
 ```
 
-## Use cases
+## Output per attorney
 
-- **Legal recruiting** — build a sourcing list of certified specialists in a given state and practice area
-- **Referral networks** — find attorneys to refer clients to outside your own firm's coverage area
-- **Competitive research** — see which firms show up most in a specific state/practice-area combination
-- **Legal marketing** — identify board-certified attorneys as co-marketing or content partners
-- **Academic/market research** — study the distribution of specialty certifications across states
+Identity and provenance:
+
+- `name`, `profileUrl`, `lawyerId`, `stateSlug`, `recordType`, `scrapedAt`
+- `sourceUrl`, `sourcePageNumber` — the listing page the record came from
+
+Contact and office:
+
+- `firm`, `firmWebsite`, `firmProfileUrl`, `phone`, `fax`, `contactUrl`
+- `street`, `city`, `state` (abbreviation), `zip`, `latitude`, `longitude`
+- `photoUrl`, `photos` (larger gallery images)
+
+Profile and résumé (with `enrichProfiles`, and always in `byUrls` profile mode):
+
+- `tagline`, `description` (biography)
+- `practiceAreas`, `practiceAreaPercentages`
+- `yearsLicensed`, `lastValidated`
+- `barAdmissions`, `barLicenses` (state, status, year)
+- `education`, `educationDetails` (school, degree, year)
+- `workExperience` (firm, title, start year, end year or current)
+- `certifications`, `certificationDetails` (certification, organization, year)
+- `associations`, `associationDetails`, `federalAdmissions`
+- `awards`, `commercialRecognitions`, `speakingEngagements`
+- `badges`, `socialProfiles`, `videos`
+
+Reviews (profile summary whenever available; full texts with `includeReviews`):
+
+- `ratingAverage`, `reviewCount`
+- `reviews` — title, rating, date, author, author type, text
+
+## Data source and approach
+
+The actor reads `lawyers.lawyerlegion.com` with browser-impersonating HTTP requests. No login, cookie, API key or proxy setup is needed. The site publishes state/city/county/practice-area pages and search-result pages as server-rendered HTML; the actor parses the card data, follows pagination, and optionally opens each attorney's public profile page.
+
+## Limits and workarounds
+
+- **250-record listing cap.** A single state/city/county/practice-area slice stops at 250 records on the site. With `partitionByCity` on, the actor automatically walks that state's city and county pages to collect more unique attorneys. A single city or county can still stop at 250; split by practice area or use keyword search for those.
+- **Keyword search cap.** A keyword query also stops at 250 matches. Narrow it with a state/city, a firm name, or a practice area.
+- **No whole-state, all-practice listing.** Lawyer Legion's state page only links to practice areas; it does not list every attorney in the state. Use a practice area, a city/county, or keyword search.
+- **Board-certification specialties are state-specific.** Specialty values such as Florida Bar certifications only return attorneys in that state. General practice values work nationwide.
+- **Conditional fields.** Photos, videos, badges, reviews, fax numbers and some résumé sections are not published for every attorney. The actor omits them rather than returning blanks.
+- **No email or spoken languages.** Lawyer Legion does not publish an email address (only a contact form) or a languages list. The actor does not invent them.
 
 ## FAQ
 
-**What is Lawyer Legion?**
-A free US attorney directory that focuses on lawyers with a board specialty certification or additional bar admissions, organized by state and practice area.
+**Do I need a Lawyer Legion account?** No. All pages used here are public.
 
-**Do I need a login, API key, or proxy?**
-No. The directory and profile pages are public; the actor reads them directly with no account or proxy.
+**Can I get more than 250 attorneys for one state and practice area?** Yes, usually — keep `partitionByCity` on and the actor will add the state's city and county pages, deduplicating by profile URL. If a single city still hits 250, split the run by practice area.
 
-**Why does my record have no `practiceAreas`?**
-That field comes from the attorney's own profile page, not the directory card, so it's only populated when `enrichProfiles` is on or you're using `byUrls` mode.
+**What is the difference between `search` and `keywordSearch`?** `search` walks directory pages. `keywordSearch` uses the site's attorney search form, which accepts names, a firm name, a practice area and a location.
 
-**What's the difference between `search` and `byUrls` mode?**
-`search` walks a state + practice-area directory page and paginates automatically; `byUrls` fetches the full profile page for the exact URLs you supply (equivalent to `search` with `enrichProfiles` on, for just those attorneys).
+**Why is `practiceAreas` missing on some records?** It is filled from the card snippet or the profile's practice-area section when the source publishes it; some listings show neither.
 
-**Can I pull every attorney in a state regardless of practice area?**
-You still need to pick one `practiceArea` per run — Lawyer Legion's directory is organized that way — but you can run the actor once per practice area to cover a state fully.
+**Are reviews always included?** The profile's rating average and review count come with `enrichProfiles`. Full review texts need `includeReviews`.
 
-**Why do some attorneys have no `latitude`/`longitude` or `photoUrl`?**
-Those come straight from the directory card; Lawyer Legion doesn't publish them for every listing, and the actor omits the field rather than returning a blank value.
-
-**How current is the data?**
-Every run reads the live directory and profile pages at request time — there's no cached snapshot.
-
-**Is this affiliated with Lawyer Legion?**
-No. This is an independent tool that reads Lawyer Legion's public pages and is not affiliated with or endorsed by Lawyer Legion.
+**Is this affiliated with Lawyer Legion?** No. This is an independent tool that reads publicly available pages.
