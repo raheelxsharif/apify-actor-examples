@@ -1,0 +1,403 @@
+{
+  "description": "Find public decision makers and employees, plus public work-email evidence, without logins, cookies or paid data providers.",
+  "properties": {
+    "cities": {
+      "description": "Cities to keep.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Cities",
+      "type": "array"
+    },
+    "companyDomains": {
+      "description": "Domains to scan, for example hubspot.com or monzo.com. Required in companyLeads unless companyNames is set.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "hubspot.com"
+      ],
+      "title": "Company domains",
+      "type": "array"
+    },
+    "companyNames": {
+      "description": "Company names to resolve to a public website and scan for people.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Company names",
+      "type": "array"
+    },
+    "companySizes": {
+      "description": "Employee-count bands to keep.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "1-10",
+          "11-50",
+          "51-200",
+          "201-500",
+          "501-1000",
+          "1001-5000",
+          "5001-10000",
+          "10001+"
+        ],
+        "enumTitles": [
+          "1-10",
+          "11-50",
+          "51-200",
+          "201-500",
+          "501-1,000",
+          "1,001-5,000",
+          "5,001-10,000",
+          "10,001+"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Company size bands",
+      "type": "array"
+    },
+    "countries": {
+      "description": "Country names or ISO codes to keep.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Countries",
+      "type": "array"
+    },
+    "dataSources": {
+      "description": "Public sources to use. All are cookieless.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "website",
+          "wikidata",
+          "sec",
+          "companiesHouse",
+          "github",
+          "linkedinSearch",
+          "linkedinProfiles"
+        ],
+        "enumTitles": [
+          "Company websites",
+          "Wikidata",
+          "SEC EDGAR",
+          "UK Companies House",
+          "GitHub",
+          "LinkedIn via search snippets",
+          "LinkedIn guest profiles"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "website",
+        "wikidata",
+        "linkedinProfiles"
+      ],
+      "title": "Data sources",
+      "type": "array"
+    },
+    "departments": {
+      "description": "Departments or functions to keep.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "executive",
+          "sales",
+          "marketing",
+          "engineering",
+          "product",
+          "design",
+          "finance",
+          "hr",
+          "legal",
+          "operations",
+          "support",
+          "data",
+          "security",
+          "research",
+          "other"
+        ],
+        "enumTitles": [
+          "Executive",
+          "Sales",
+          "Marketing",
+          "Engineering",
+          "Product",
+          "Design",
+          "Finance",
+          "HR / People",
+          "Legal",
+          "Operations",
+          "Support",
+          "Data",
+          "Security",
+          "Research",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Departments",
+      "type": "array"
+    },
+    "emails": {
+      "description": "Email addresses to resolve to a company, public profile and email status in emailLookup mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Work emails",
+      "type": "array"
+    },
+    "excludeCompanyDomains": {
+      "description": "Drop leads from these domains.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Exclude company domains",
+      "type": "array"
+    },
+    "excludeJobTitles": {
+      "description": "Drop leads whose title or headline contains any of these phrases.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Exclude job titles",
+      "type": "array"
+    },
+    "includeCompanySummary": {
+      "default": true,
+      "description": "Write per-company and per-search counts, patterns and caveats to the run summary key-value record.",
+      "prefill": true,
+      "title": "Include company summary",
+      "type": "boolean"
+    },
+    "includePersonalEmails": {
+      "default": false,
+      "description": "Add personal free-mail addresses published next to a person's name.",
+      "prefill": false,
+      "title": "Include personal emails",
+      "type": "boolean"
+    },
+    "includePhones": {
+      "default": false,
+      "description": "Add phone numbers published next to a person's name.",
+      "prefill": false,
+      "title": "Include public phone numbers",
+      "type": "boolean"
+    },
+    "industries": {
+      "description": "Industry terms for search mode. When no company is given, Wikidata is used to shortlist matching companies.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Industries",
+      "type": "array"
+    },
+    "jobTitles": {
+      "description": "Titles to match, for example CEO, Head of Sales, Software Engineer. Synonyms such as revenue for sales are also matched.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Job titles",
+      "type": "array"
+    },
+    "keywords": {
+      "description": "Extra phrases that must appear in the title, headline, bio or company fields.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Keywords",
+      "type": "array"
+    },
+    "locations": {
+      "description": "Any location text such as London, United Kingdom or New York, NY.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Free-text locations",
+      "type": "array"
+    },
+    "maxLeads": {
+      "default": 25,
+      "description": "Maximum number of lead records to return.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Max leads",
+      "type": "integer"
+    },
+    "maxPagesPerCompany": {
+      "default": 8,
+      "description": "Maximum public pages to read per company website.",
+      "maximum": 30,
+      "minimum": 1,
+      "prefill": 4,
+      "title": "Max pages per company",
+      "type": "integer"
+    },
+    "maxPerCompany": {
+      "default": 10,
+      "description": "Maximum number of leads from one company.",
+      "maximum": 200,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Max leads per company",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "companyLeads",
+      "description": "Choose how to find leads.",
+      "editor": "select",
+      "enum": [
+        "search",
+        "companyLeads",
+        "personLookup",
+        "profileLookup",
+        "emailLookup",
+        "fromUrl"
+      ],
+      "enumTitles": [
+        "Search by filters",
+        "Company domains or names to leads",
+        "Name + company lookup",
+        "LinkedIn profile URLs",
+        "Work email lookup",
+        "Apollo or Sales Navigator URL"
+      ],
+      "prefill": "companyLeads",
+      "title": "Mode",
+      "type": "string"
+    },
+    "names": {
+      "description": "Names to look up in personLookup mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "People names",
+      "type": "array"
+    },
+    "pastCompanies": {
+      "description": "Keep people whose public profile lists one of these past employers.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Past companies",
+      "type": "array"
+    },
+    "profileUrls": {
+      "description": "Public linkedin.com/in/ URLs to resolve in profileLookup mode.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "LinkedIn profile URLs",
+      "type": "array"
+    },
+    "regions": {
+      "description": "States, provinces or regions to keep.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Regions or states",
+      "type": "array"
+    },
+    "requireEmail": {
+      "default": false,
+      "description": "Drop leads without a valid, catch-all or published work email.",
+      "prefill": false,
+      "title": "Only leads with an email",
+      "type": "boolean"
+    },
+    "searchQuery": {
+      "description": "Convenience free-text keyword added to keywords, for example fintech payments.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Search query",
+      "type": "string"
+    },
+    "seniorities": {
+      "description": "Normalized seniority levels to keep.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "owner",
+          "founder",
+          "c_level",
+          "vp",
+          "director",
+          "head",
+          "manager",
+          "senior",
+          "entry",
+          "board",
+          "other"
+        ],
+        "enumTitles": [
+          "Owner",
+          "Founder",
+          "C-Level",
+          "VP",
+          "Director",
+          "Head",
+          "Manager",
+          "Senior",
+          "Entry / Junior",
+          "Board",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Seniority",
+      "type": "array"
+    },
+    "sourceUrl": {
+      "description": "An Apollo people-search URL or a LinkedIn Sales Navigator lead-search URL whose filters are parsed and run on public sources.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Apollo or Sales Navigator URL",
+      "type": "string"
+    },
+    "verifyEmails": {
+      "default": true,
+      "description": "Try MX and SMTP verification for generated email candidates. Published addresses are always treated as evidence.",
+      "prefill": false,
+      "title": "Verify pattern candidates",
+      "type": "boolean"
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "B2B Leads Finder Input",
+  "type": "object"
+}

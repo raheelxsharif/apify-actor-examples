@@ -1,0 +1,251 @@
+{
+  "description": "Monitor companies, scan the market feed, or look up people. All sources are public and cookieless.",
+  "properties": {
+    "companies": {
+      "default": [],
+      "description": "Company names, domains, tickers, SEC CIKs or UK company numbers. Examples: `apple.com`, `Monzo Bank Limited`, `AAPL`, `0000320193`, `09446231`.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Companies (companyMonitor)",
+      "type": "array"
+    },
+    "country": {
+      "default": "any",
+      "description": "Filter moves by company country. SEC sources are US; Companies House is GB; press and leadership pages use the site's country when it can be inferred.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "US",
+        "GB"
+      ],
+      "enumTitles": [
+        "Any country",
+        "United States",
+        "United Kingdom"
+      ],
+      "prefill": "any",
+      "sectionCaption": "Filters",
+      "title": "Country",
+      "type": "string"
+    },
+    "dateFrom": {
+      "description": "Start date (inclusive) in YYYY-MM-DD format. Leave empty to use the lookback window.",
+      "editor": "textfield",
+      "sectionCaption": "Date range",
+      "title": "Date from",
+      "type": "string"
+    },
+    "dateTo": {
+      "description": "End date (inclusive) in YYYY-MM-DD format. Leave empty for today.",
+      "editor": "textfield",
+      "title": "Date to",
+      "type": "string"
+    },
+    "includeCompanyProfile": {
+      "default": true,
+      "description": "Fetch company metadata (ticker, SIC industry, address) from SEC submissions. Adds one request per unique company.",
+      "prefill": false,
+      "title": "Include company profile fields",
+      "type": "boolean"
+    },
+    "includeInitialLeadershipTeam": {
+      "default": false,
+      "description": "When a leadership page is seen for the first time, emit its current team as appointments. Off by default so the first run only stores the baseline.",
+      "prefill": false,
+      "title": "Emit first leadership snapshot",
+      "type": "boolean"
+    },
+    "industry": {
+      "default": "any",
+      "description": "Filter by broad industry sector derived from the company's SEC SIC code.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "technology",
+        "financials",
+        "healthcare",
+        "energy",
+        "industrials",
+        "consumer",
+        "realEstate",
+        "materials",
+        "utilities",
+        "telecom"
+      ],
+      "enumTitles": [
+        "Any industry",
+        "Technology",
+        "Financials",
+        "Healthcare",
+        "Energy",
+        "Industrials",
+        "Consumer",
+        "Real estate",
+        "Materials",
+        "Utilities",
+        "Telecom"
+      ],
+      "prefill": "any",
+      "title": "Industry",
+      "type": "string"
+    },
+    "leadershipPages": {
+      "default": [],
+      "description": "Optional leadership/team page URLs for companyMonitor. Leave empty to auto-discover common paths on each company domain.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Leadership page URLs",
+      "type": "array"
+    },
+    "lookbackDays": {
+      "default": 7,
+      "description": "Used when Date from is empty: how many days back to scan.",
+      "maximum": 3650,
+      "minimum": 1,
+      "prefill": 3,
+      "title": "Lookback days",
+      "type": "integer"
+    },
+    "maxItems": {
+      "default": 100,
+      "description": "Stop after this many de-duplicated moves.",
+      "maximum": 10000,
+      "minimum": 1,
+      "prefill": 2,
+      "sectionCaption": "Output",
+      "title": "Max moves",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "marketFeed",
+      "description": "Monitor companies: moves for the companies you list. Market feed: all moves in a date range. People: reported moves for specific names.",
+      "editor": "select",
+      "enum": [
+        "companyMonitor",
+        "marketFeed",
+        "people"
+      ],
+      "enumTitles": [
+        "Monitor companies",
+        "Market feed",
+        "Look up people"
+      ],
+      "prefill": "marketFeed",
+      "sectionCaption": "Mode and targets",
+      "title": "Mode",
+      "type": "string"
+    },
+    "moveType": {
+      "default": "any",
+      "description": "Filter by the type of leadership move.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "appointment",
+        "departure",
+        "promotion",
+        "retirement",
+        "interim"
+      ],
+      "enumTitles": [
+        "Any move type",
+        "Appointment",
+        "Departure",
+        "Promotion",
+        "Retirement",
+        "Interim"
+      ],
+      "prefill": "any",
+      "title": "Move type",
+      "type": "string"
+    },
+    "newsroomUrls": {
+      "default": [],
+      "description": "Optional company newsroom, press-release or RSS URLs. Leave empty to search Google News by company name.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "Newsroom / press release URLs",
+      "type": "array"
+    },
+    "people": {
+      "default": [],
+      "description": "Person names to look up in SEC filings, Companies House officer records and press releases.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "title": "People (people mode)",
+      "type": "array"
+    },
+    "roleLevel": {
+      "default": "any",
+      "description": "Filter by seniority inferred from the new or previous title.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "board",
+        "cLevel",
+        "vp",
+        "director"
+      ],
+      "enumTitles": [
+        "Any role level",
+        "Board",
+        "C-level",
+        "Vice president",
+        "Director / head"
+      ],
+      "prefill": "any",
+      "title": "Role level",
+      "type": "string"
+    },
+    "sources": {
+      "default": [
+        "sec8k",
+        "secForm3"
+      ],
+      "description": "Which public sources to query. SEC sources work in all modes; Companies House and leadership pages work in companyMonitor (Companies House also in people mode); press releases work in all modes.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "sec8k",
+          "secForm3",
+          "secForm4",
+          "companiesHouse",
+          "pressReleases",
+          "leadershipPages"
+        ],
+        "enumTitles": [
+          "SEC 8-K Item 5.02",
+          "SEC Form 3",
+          "SEC Form 4",
+          "UK Companies House",
+          "Press releases",
+          "Leadership pages"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "secForm3"
+      ],
+      "sectionCaption": "Sources",
+      "title": "Sources",
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [],
+  "schemaVersion": 1,
+  "title": "Executive Moves Tracker Input",
+  "type": "object"
+}

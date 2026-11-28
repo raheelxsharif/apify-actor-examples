@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "description": "Public decision makers and employees with company context, normalized seniority and department, source trails and verified or candidate work-email evidence.",
+  "properties": {
+    "leads": {
+      "description": "Dataset containing one record per public person, plus email-pattern candidates and source evidence.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "B2B leads",
+      "type": "string"
+    },
+    "summary": {
+      "description": "Per-company counts, inferred email patterns, sources used and limitations.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/RUN_SUMMARY",
+      "title": "Run summary",
+      "type": "string"
+    }
+  },
+  "title": "B2B Decision Makers & Work Email Finder Output"
+}

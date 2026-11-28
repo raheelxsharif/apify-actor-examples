@@ -1,0 +1,341 @@
+{
+  "description": "Enrich companies, search by ICP filters, find lookalikes, or list new registrations using cookieless public sources.",
+  "properties": {
+    "city": {
+      "default": "",
+      "description": "City to match against the HQ address.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "City",
+      "type": "string"
+    },
+    "companyNames": {
+      "default": [],
+      "description": "Company names resolved through Wikipedia/Wikidata and GLEIF. (mode=enrich)",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Company names",
+      "type": "array"
+    },
+    "companyType": {
+      "default": "any",
+      "description": "Public, private or any.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "public",
+        "private"
+      ],
+      "enumTitles": [
+        "Any",
+        "Public only",
+        "Private only"
+      ],
+      "prefill": "any",
+      "title": "Company type",
+      "type": "string"
+    },
+    "companyUrls": {
+      "default": [],
+      "description": "LinkedIn company, Crunchbase, ZoomInfo or Wikipedia URLs. (mode=enrich)",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Company profile URLs",
+      "type": "array"
+    },
+    "country": {
+      "default": "",
+      "description": "Country name or ISO code, e.g. France, FR, United Kingdom, US. Drives national-registry selection.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Country",
+      "type": "string"
+    },
+    "domains": {
+      "default": [],
+      "description": "Domains to enrich, e.g. stripe.com or siemens.com. (mode=enrich)",
+      "editor": "stringList",
+      "prefill": [
+        "stripe.com"
+      ],
+      "title": "Company domains",
+      "type": "array"
+    },
+    "emails": {
+      "default": [],
+      "description": "Work emails whose company domain should be enriched. Free mailbox providers are skipped. (mode=enrich)",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Work emails",
+      "type": "array"
+    },
+    "employeeMax": {
+      "description": "Maximum employee count or band. 0 means no maximum.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Employees (max)",
+      "type": "integer"
+    },
+    "employeeMin": {
+      "description": "Minimum employee count or band.",
+      "maximum": 10000000,
+      "minimum": 0,
+      "title": "Employees (min)",
+      "type": "integer"
+    },
+    "foundedYearMax": {
+      "description": "Latest founding year. 0 means no maximum.",
+      "maximum": 2100,
+      "minimum": 1000,
+      "title": "Founded year (max)",
+      "type": "integer"
+    },
+    "foundedYearMin": {
+      "description": "Earliest founding year.",
+      "maximum": 2100,
+      "minimum": 1000,
+      "title": "Founded year (min)",
+      "type": "integer"
+    },
+    "fundingWithinDays": {
+      "default": 365,
+      "description": "Lookback window for raisedFundingRecently.",
+      "maximum": 3650,
+      "minimum": 1,
+      "prefill": 365,
+      "title": "Funding window (days)",
+      "type": "integer"
+    },
+    "hiringNow": {
+      "default": false,
+      "description": "Keep companies with at least one open role detected on their careers page/ATS.",
+      "prefill": false,
+      "title": "Hiring now only",
+      "type": "boolean"
+    },
+    "includeDns": {
+      "default": true,
+      "description": "MX email provider, SPF/TXT marketing tools, domain creation date and registrar.",
+      "prefill": true,
+      "title": "Enrich from DNS/RDAP",
+      "type": "boolean"
+    },
+    "includeFunding": {
+      "default": false,
+      "description": "Sum amounts sold across matched Form D filings and return round details.",
+      "prefill": false,
+      "title": "Enrich with SEC Form D funding",
+      "type": "boolean"
+    },
+    "includeHiring": {
+      "default": true,
+      "description": "Detect Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Recruitee, Personio and other ATSs and count open roles.",
+      "prefill": false,
+      "title": "Detect ATS and open jobs",
+      "type": "boolean"
+    },
+    "includeLinkedIn": {
+      "default": true,
+      "description": "Read the public company page: industry, size, HQ, specialties, followers and similar pages.",
+      "prefill": false,
+      "title": "Enrich from LinkedIn public page",
+      "type": "boolean"
+    },
+    "includeNews": {
+      "default": false,
+      "description": "Recent Google News RSS items mentioning the company.",
+      "prefill": false,
+      "title": "Add recent news",
+      "type": "boolean"
+    },
+    "includeOwnership": {
+      "default": false,
+      "description": "Fetch direct and ultimate parent LEI records from GLEIF.",
+      "prefill": false,
+      "sectionCaption": "Limits",
+      "title": "Resolve GLEIF parents",
+      "type": "boolean"
+    },
+    "includeRegistry": {
+      "default": true,
+      "description": "GLEIF LEI plus France/UK/Norway registry detail where available.",
+      "prefill": true,
+      "title": "Enrich from public registries",
+      "type": "boolean"
+    },
+    "includeSec": {
+      "default": true,
+      "description": "CIK, SIC, filings, reported revenue and employees for SEC registrants.",
+      "prefill": true,
+      "title": "Enrich from SEC EDGAR",
+      "type": "boolean"
+    },
+    "includeTech": {
+      "default": true,
+      "description": "Detect CMS, analytics, CRM and marketing tools from page source.",
+      "prefill": true,
+      "title": "Detect technology fingerprints",
+      "type": "boolean"
+    },
+    "includeWebsite": {
+      "default": true,
+      "description": "Parse schema.org, meta tags, contact/about pages, social links, diagnostics and ATS links.",
+      "prefill": true,
+      "sectionCaption": "Enrichment sources",
+      "title": "Enrich from company website",
+      "type": "boolean"
+    },
+    "includeWikidata": {
+      "default": true,
+      "description": "Founding date, employees, revenue, parent, subsidiaries, CEO, ticker and official website.",
+      "prefill": true,
+      "title": "Enrich from Wikidata/Wikipedia",
+      "type": "boolean"
+    },
+    "industryKeywords": {
+      "default": [],
+      "description": "Industry words, e.g. software, fintech, logistics.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "Industry keywords",
+      "type": "array"
+    },
+    "legalForm": {
+      "default": "",
+      "description": "Legal form text, e.g. GmbH, SARL, Ltd, LLC.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Legal form",
+      "type": "string"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Hard cap on emitted company records.",
+      "maximum": 1000,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Max companies",
+      "type": "integer"
+    },
+    "minSimilarity": {
+      "default": 50,
+      "description": "Lookalike score threshold (0-100): industry 40, size 20, country 15, tech 10, founded 5, keywords 10. (mode=lookalike)",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 50,
+      "sectionCaption": "ICP filters",
+      "title": "Minimum similarity score",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "enrich",
+      "description": "What to return.",
+      "editor": "select",
+      "enum": [
+        "enrich",
+        "icpSearch",
+        "lookalike",
+        "newCompanies"
+      ],
+      "enumTitles": [
+        "Enrich companies (domains, emails, names, profile URLs)",
+        "ICP company search (filters + counts)",
+        "Lookalike companies from seed domains",
+        "New company registrations"
+      ],
+      "prefill": "enrich",
+      "sectionCaption": "Mode and targets",
+      "title": "Mode",
+      "type": "string"
+    },
+    "naicsCodes": {
+      "default": [],
+      "description": "NAICS codes or prefixes (e.g. 5415, 52). Mapped to registry queries and SIC filters.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "NAICS codes",
+      "type": "array"
+    },
+    "raisedFundingRecently": {
+      "default": false,
+      "description": "Keep companies with a recent SEC Form D filing.",
+      "prefill": false,
+      "title": "Raised funding recently",
+      "type": "boolean"
+    },
+    "region": {
+      "default": "",
+      "description": "Region, state or province to match against the HQ address.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Region / state",
+      "type": "string"
+    },
+    "registeredWithinDays": {
+      "default": 30,
+      "description": "New-registration lookback window. (mode=newCompanies)",
+      "maximum": 3650,
+      "minimum": 1,
+      "prefill": 30,
+      "title": "Registered within days",
+      "type": "integer"
+    },
+    "registry": {
+      "default": "auto",
+      "description": "Registry used by ICP search and new-registration mode. auto picks FR/NO/UK/US sources where available, otherwise GLEIF.",
+      "editor": "select",
+      "enum": [
+        "auto",
+        "gleif",
+        "fr",
+        "no",
+        "uk",
+        "sec"
+      ],
+      "enumTitles": [
+        "Auto",
+        "GLEIF (global LEI)",
+        "France (recherche-entreprises)",
+        "Norway (Brønnøysund)",
+        "UK (Companies House)",
+        "US (SEC EDGAR)"
+      ],
+      "prefill": "auto",
+      "title": "Registry source",
+      "type": "string"
+    },
+    "seedDomains": {
+      "default": [],
+      "description": "Companies to find lookalikes for, e.g. stripe.com. (mode=lookalike)",
+      "editor": "stringList",
+      "prefill": [
+        "stripe.com"
+      ],
+      "sectionCaption": "Lookalike seeds",
+      "title": "Seed domains",
+      "type": "array"
+    },
+    "sicCodes": {
+      "default": [],
+      "description": "US/UK SIC codes used by SEC and Companies House searches.",
+      "editor": "stringList",
+      "prefill": [],
+      "title": "SIC codes",
+      "type": "array"
+    },
+    "technology": {
+      "default": "",
+      "description": "Keep companies whose website fingerprints include this technology, e.g. Shopify.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Uses technology",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Company Intelligence Finder Input",
+  "type": "object"
+}

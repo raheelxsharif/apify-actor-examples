@@ -1,0 +1,451 @@
+{
+  "description": "Choose how to identify people, then collect their public phone numbers and personal or work emails from public records and published pages. Every contact is returned with its source, match evidence and confidence score.",
+  "properties": {
+    "contactTypes": {
+      "default": [
+        "mobile",
+        "anyPhone",
+        "personalEmail",
+        "workEmail"
+      ],
+      "description": "Only these contact types are returned. anyPhone includes mobiles, landlines, VoIP and toll-free numbers.",
+      "editor": "select",
+      "items": {
+        "enum": [
+          "mobile",
+          "anyPhone",
+          "personalEmail",
+          "workEmail"
+        ],
+        "enumTitles": [
+          "Mobile numbers",
+          "Any phone number",
+          "Personal emails",
+          "Work emails"
+        ],
+        "type": "string"
+      },
+      "prefill": [
+        "mobile",
+        "anyPhone",
+        "personalEmail",
+        "workEmail"
+      ],
+      "sectionCaption": "Contact filters",
+      "sectionDescription": "Control which contacts are kept and how confident a match must be.",
+      "title": "Wanted contact types",
+      "type": "array"
+    },
+    "countries": {
+      "default": [
+        "US"
+      ],
+      "description": "ISO country codes to search. US public-record people search and the NPI registry run for US people; other countries use profile, website and registry data.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "US"
+      ],
+      "title": "Countries",
+      "type": "array"
+    },
+    "crawlDepth": {
+      "default": 1,
+      "description": "1 reads the home and contact pages; 2 also follows contact links found on those pages. Only public pages on the same site are read.",
+      "editor": "number",
+      "maximum": 2,
+      "minimum": 1,
+      "prefill": 1,
+      "title": "Website crawl depth",
+      "type": "integer"
+    },
+    "emails": {
+      "default": [],
+      "description": "Work or personal email addresses. Each address is matched to a public Gravatar profile and public commit history, then to public records when a name is resolved.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "torvalds@linux-foundation.org"
+      ],
+      "title": "Email addresses",
+      "type": "array"
+    },
+    "facebookProfiles": {
+      "default": [],
+      "description": "Public Facebook profile URLs. Only information visible without a login is used.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.facebook.com/zuck"
+      ],
+      "title": "Facebook profile URLs",
+      "type": "array"
+    },
+    "includeNotFound": {
+      "default": true,
+      "description": "Include a row with the sources checked and a reason when no public contact passes the filters.",
+      "editor": "checkbox",
+      "prefill": true,
+      "title": "Report people with nothing found",
+      "type": "boolean"
+    },
+    "leads": {
+      "default": [],
+      "description": "Rows copied from another actor or a CSV. Columns are mapped automatically by common names such as name, email, company, website, city, state, linkedinUrl, facebookUrl, githubUsername and xHandle.",
+      "editor": "json",
+      "items": {
+        "type": "object"
+      },
+      "prefill": [],
+      "title": "Lead rows",
+      "type": "array"
+    },
+    "leadsDatasetId": {
+      "default": "",
+      "description": "Optional Apify dataset ID to read lead rows from. It is combined with the rows above.",
+      "editor": "textfield",
+      "prefill": "",
+      "title": "Lead dataset ID",
+      "type": "string"
+    },
+    "leadsFieldMapping": {
+      "default": {},
+      "description": "Optional override when a dataset uses different column names. Example: {\"fullName\": \"contact_name\", \"email\": \"work_email\"}.",
+      "editor": "json",
+      "prefill": {},
+      "properties": {
+        "city": {
+          "description": "Column name that contains the city value.",
+          "editor": "textfield",
+          "title": "City",
+          "type": "string"
+        },
+        "company": {
+          "description": "Column name that contains the company value.",
+          "editor": "textfield",
+          "title": "Company",
+          "type": "string"
+        },
+        "companyDomain": {
+          "description": "Column name that contains the companyDomain value.",
+          "editor": "textfield",
+          "title": "Company Domain",
+          "type": "string"
+        },
+        "country": {
+          "description": "Column name that contains the country value.",
+          "editor": "textfield",
+          "title": "Country",
+          "type": "string"
+        },
+        "email": {
+          "description": "Column name that contains the email value.",
+          "editor": "textfield",
+          "title": "Email",
+          "type": "string"
+        },
+        "facebookUrl": {
+          "description": "Column name that contains the facebookUrl value.",
+          "editor": "textfield",
+          "title": "Facebook Url",
+          "type": "string"
+        },
+        "fullName": {
+          "description": "Column name that contains the fullName value.",
+          "editor": "textfield",
+          "title": "Full Name",
+          "type": "string"
+        },
+        "githubUsername": {
+          "description": "Column name that contains the githubUsername value.",
+          "editor": "textfield",
+          "title": "Github Username",
+          "type": "string"
+        },
+        "linkedinUrl": {
+          "description": "Column name that contains the linkedinUrl value.",
+          "editor": "textfield",
+          "title": "Linkedin Url",
+          "type": "string"
+        },
+        "phone": {
+          "description": "Column name that contains the phone value.",
+          "editor": "textfield",
+          "title": "Phone",
+          "type": "string"
+        },
+        "state": {
+          "description": "Column name that contains the state value.",
+          "editor": "textfield",
+          "title": "State",
+          "type": "string"
+        },
+        "title": {
+          "description": "Column name that contains the title value.",
+          "editor": "textfield",
+          "title": "Title",
+          "type": "string"
+        },
+        "xHandle": {
+          "description": "Column name that contains the xHandle value.",
+          "editor": "textfield",
+          "title": "X Handle",
+          "type": "string"
+        }
+      },
+      "title": "Lead column mapping",
+      "type": "object"
+    },
+    "linkedinProfiles": {
+      "default": [],
+      "description": "Public LinkedIn profile URLs. The actor reads the public profile page without a login.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "https://www.linkedin.com/in/williamhgates"
+      ],
+      "title": "LinkedIn profile URLs",
+      "type": "array"
+    },
+    "maxItems": {
+      "default": 20,
+      "description": "Maximum number of output rows.",
+      "editor": "number",
+      "maximum": 100,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "Maximum records",
+      "type": "integer"
+    },
+    "maxMatchesPerPerson": {
+      "default": 3,
+      "description": "How many public-record candidates to open when scoring a people-search match. Only the best unambiguous match is used.",
+      "editor": "number",
+      "maximum": 10,
+      "minimum": 1,
+      "prefill": 2,
+      "title": "People-search candidates per person",
+      "type": "integer"
+    },
+    "minMatchConfidence": {
+      "default": 40,
+      "description": "Contacts below this score (0-100) are dropped. Higher values reduce wrong-person matches.",
+      "editor": "number",
+      "maximum": 100,
+      "minimum": 0,
+      "prefill": 40,
+      "title": "Minimum match confidence",
+      "type": "integer"
+    },
+    "mode": {
+      "default": "person",
+      "description": "How the people in this run are identified. Pick the mode that matches the field you fill in.",
+      "editor": "select",
+      "enum": [
+        "person",
+        "email",
+        "linkedinProfile",
+        "facebookProfile",
+        "socialHandle",
+        "leads"
+      ],
+      "enumTitles": [
+        "Name and location or company",
+        "Email address",
+        "LinkedIn profile URLs",
+        "Facebook profile URLs",
+        "Social handles",
+        "Lead dataset or rows"
+      ],
+      "prefill": "person",
+      "sectionCaption": "Who to find",
+      "sectionDescription": "Fill the field that matches the selected mode. The other mode fields can stay empty.",
+      "title": "Input mode",
+      "type": "string"
+    },
+    "onlyWithEmail": {
+      "default": false,
+      "description": "Drop people for whom no personal or work email passes the filters.",
+      "editor": "checkbox",
+      "prefill": false,
+      "sectionCaption": "Output",
+      "sectionDescription": "Control record count and whether empty results are reported.",
+      "title": "Only people with an email",
+      "type": "boolean"
+    },
+    "people": {
+      "default": [],
+      "description": "One row per person. Full name is required; city and state or a company domain help disambiguate common names. Optional profile URLs and social handles enrich the identity graph.",
+      "editor": "json",
+      "items": {
+        "properties": {
+          "city": {
+            "description": "Current city, for example Austin.",
+            "editor": "textfield",
+            "title": "City",
+            "type": "string"
+          },
+          "company": {
+            "description": "Employer name, used as an identity hint.",
+            "editor": "textfield",
+            "title": "Company",
+            "type": "string"
+          },
+          "companyDomain": {
+            "description": "Company website, for example acme.com. Used to crawl public team and contact pages.",
+            "editor": "textfield",
+            "title": "Company domain",
+            "type": "string"
+          },
+          "country": {
+            "description": "ISO country code, for example US or GB.",
+            "editor": "textfield",
+            "title": "Country",
+            "type": "string"
+          },
+          "facebookUrl": {
+            "description": "Public Facebook profile URL, if known.",
+            "editor": "textfield",
+            "title": "Facebook profile URL",
+            "type": "string"
+          },
+          "fullName": {
+            "description": "First and last name, for example Jane Doe.",
+            "editor": "textfield",
+            "title": "Full name",
+            "type": "string"
+          },
+          "githubUsername": {
+            "description": "Public GitHub username, if known.",
+            "editor": "textfield",
+            "title": "GitHub username",
+            "type": "string"
+          },
+          "linkedinUrl": {
+            "description": "Public LinkedIn profile URL, if known.",
+            "editor": "textfield",
+            "title": "LinkedIn profile URL",
+            "type": "string"
+          },
+          "state": {
+            "description": "US state code or name, for example TX or Texas.",
+            "editor": "textfield",
+            "title": "State or region",
+            "type": "string"
+          },
+          "title": {
+            "description": "Current job title, used as an identity hint.",
+            "editor": "textfield",
+            "title": "Job title",
+            "type": "string"
+          },
+          "xHandle": {
+            "description": "Public X (Twitter) handle without the @, if known.",
+            "editor": "textfield",
+            "title": "X handle",
+            "type": "string"
+          }
+        },
+        "required": [
+          "fullName"
+        ],
+        "type": "object"
+      },
+      "prefill": [
+        {
+          "city": "San Antonio",
+          "country": "US",
+          "fullName": "John Marvin Smith",
+          "state": "TX"
+        }
+      ],
+      "title": "People",
+      "type": "array"
+    },
+    "socialHandles": {
+      "default": [],
+      "description": "A known handle per person. Handles are resolved directly, not guessed.",
+      "editor": "json",
+      "items": {
+        "properties": {
+          "handle": {
+            "description": "Handle without @, or the full public profile URL.",
+            "editor": "textfield",
+            "title": "Handle or URL",
+            "type": "string"
+          },
+          "platform": {
+            "description": "Public platform for the handle.",
+            "editor": "select",
+            "enum": [
+              "github",
+              "x",
+              "facebook",
+              "threads",
+              "linkedin"
+            ],
+            "enumTitles": [
+              "GitHub",
+              "X (Twitter)",
+              "Facebook",
+              "Threads",
+              "LinkedIn"
+            ],
+            "title": "Platform",
+            "type": "string"
+          }
+        },
+        "required": [
+          "platform",
+          "handle"
+        ],
+        "type": "object"
+      },
+      "prefill": [
+        {
+          "handle": "sindresorhus",
+          "platform": "github"
+        }
+      ],
+      "title": "Social handles",
+      "type": "array"
+    },
+    "suppressionList": {
+      "default": [],
+      "description": "Emails, phone numbers or full names that must never be returned, for opt-outs. Use @domain.com to suppress every email at a domain.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      },
+      "prefill": [],
+      "sectionCaption": "Suppression",
+      "sectionDescription": "Suppressed values are removed before output; a fully suppressed person is reported without their details.",
+      "title": "Suppression list",
+      "type": "array"
+    },
+    "websiteCrawl": {
+      "default": true,
+      "description": "Read public contact, about and team pages on the person's own site and the company domain for emails and phones.",
+      "editor": "checkbox",
+      "prefill": true,
+      "sectionCaption": "Source coverage",
+      "sectionDescription": "Choose how far to follow public website links.",
+      "title": "Crawl personal and company websites",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "schemaVersion": 1,
+  "title": "Contact Finder input",
+  "type": "object"
+}

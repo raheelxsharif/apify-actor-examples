@@ -1,0 +1,44 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "investors": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Investor profiles",
+      "transformation": {
+        "fields": [
+          "investorName",
+          "investorType",
+          "hqLocation",
+          "portfolioCount",
+          "dealCount",
+          "lastDealDate"
+        ]
+      }
+    },
+    "rounds": {
+      "display": {
+        "component": "table",
+        "properties": {}
+      },
+      "title": "Funding rounds",
+      "transformation": {
+        "fields": [
+          "companyName",
+          "roundType",
+          "amount",
+          "currency",
+          "announcedDate",
+          "filedDate",
+          "country",
+          "state",
+          "industry",
+          "leadInvestors",
+          "sourceName"
+        ]
+      }
+    }
+  }
+}
